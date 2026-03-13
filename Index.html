@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jackson Habimana | Chemistry</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Space+Mono:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0e1a;--surface:#111827;--card:#161d2e;--accent:#00d4aa;--accent2:#7c3aed;--gold:#f59e0b;--red:#ef4444;--green:#22c55e;--blue:#3b82f6;--text:#e2e8f0;--muted:#94a3b8;--border:rgba(0,212,170,0.15);}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Lato',sans-serif;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 80% 60% at 20% 10%,rgba(0,212,170,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 50% at 80% 80%,rgba(124,58,237,0.06) 0%,transparent 60%);pointer-events:none;z-index:0;}
+.molecules{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+.molecule{position:absolute;opacity:0.05;animation:floatMol linear infinite;}
+@keyframes floatMol{0%{transform:translateY(110vh) rotate(0deg);}100%{transform:translateY(-10vh) rotate(360deg);}}
+
+/* LOGIN */
+#loginScreen{position:fixed;inset:0;z-index:1000;background:var(--bg);display:flex;align-items:center;justify-content:center;}
+.login-box{background:var(--card);border:1px solid var(--border);border-radius:1.5rem;padding:3rem;width:90%;max-width:420px;text-align:center;animation:fadeUp 0.5s ease;}
+.login-logo{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:var(--accent);margin-bottom:0.3rem;}
+.login-logo span{color:var(--gold);}
+.login-sub{color:var(--muted);font-size:0.82rem;margin-bottom:2rem;font-family:'Space Mono',monospace;}
+.login-tabs{display:flex;gap:0.5rem;margin-bottom:1.5rem;background:var(--surface);border-radius:0.5rem;padding:0.3rem;}
+.ltab{flex:1;padding:0.5rem;border:none;background:none;color:var(--muted);font-family:'Space Mono',monospace;font-size:0.7rem;text-transform:uppercase;cursor:pointer;border-radius:0.35rem;transition:all 0.2s;}
+.ltab.active{background:var(--accent);color:#0a0e1a;font-weight:700;}
+.lfg{margin-bottom:1rem;text-align:left;}
+.lfg label{display:block;font-family:'Space Mono',monospace;font-size:0.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:0.4rem;}
+.lfg input{width:100%;padding:0.7rem 1rem;background:var(--surface);border:1px solid var(--border);border-radius:0.5rem;color:var(--text);font-family:'Lato',sans-serif;font-size:0.9rem;outline:none;transition:border-color 0.2s;}
+.lfg input:focus{border-color:var(--accent);}
+.login-err{color:var(--red);font-size:0.78rem;margin-top:0.5rem;display:none;font-family:'Space Mono',monospace;}
+.login-hint{background:rgba(0,212,170,0.08);border:1px solid var(--border);border-radius:0.5rem;padding:0.8rem;margin-top:1rem;font-size:0.75rem;color:var(--muted);text-align:left;}
+.login-hint b{color:var(--accent);}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0.8rem 1.5rem;display:flex;justify-content:space-between;align-items:center;backdrop-filter:blur(20px);background:rgba(10,14,26,0.92);border-bottom:1px solid var(--border);}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:var(--accent);cursor:pointer;white-space:nowrap;}
+.nav-logo span{color:var(--gold);}
+.nav-links{display:flex;gap:0.1rem;list-style:none;flex-wrap:wrap;}
+.nav-links button{background:none;border:none;color:var(--muted);font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.06em;text-transform:uppercase;padding:0.35rem 0.6rem;border-radius:0.3rem;cursor:pointer;transition:all 0.2s;}
+.nav-links button:hover,.nav-links button.active{color:var(--accent);background:rgba(0,212,170,0.08);}
+.nav-user{display:flex;align-items:center;gap:0.6rem;margin-left:0.5rem;}
+.nav-avatar{width:30px;height:30px;border-radius:50%;background:rgba(0,212,170,0.15);border:1px solid var(--accent);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:0.75rem;font-weight:700;color:var(--accent);cursor:pointer;}
+.nav-role{font-family:'Space Mono',monospace;font-size:0.6rem;color:var(--muted);}
+
+/* PAGES */
+.page{display:none;min-height:100vh;padding-top:65px;position:relative;z-index:1;}
+.page.active{display:block;}
+.page-inner{max-width:1100px;margin:0 auto;padding:2.5rem 2rem;}
+.sec-label{font-family:'Space Mono',monospace;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:0.5rem;}
+.sec-title{font-family:'Playfair Display',serif;font-size:clamp(1.7rem,3.5vw,2.4rem);font-weight:700;margin-bottom:0.7rem;line-height:1.1;}
+.sec-line{width:50px;height:3px;background:linear-gradient(90deg,var(--accent),transparent);margin-bottom:2rem;}
+.btn{padding:0.65rem 1.4rem;border-radius:0.45rem;font-family:'Space Mono',monospace;font-size:0.68rem;letter-spacing:0.07em;text-transform:uppercase;cursor:pointer;border:none;transition:all 0.3s;display:inline-flex;align-items:center;gap:0.4rem;}
+.btn-primary{background:var(--accent);color:#0a0e1a;font-weight:700;}
+.btn-primary:hover{background:#00f0c0;transform:translateY(-2px);box-shadow:0 8px 25px rgba(0,212,170,0.3);}
+.btn-outline{background:transparent;color:var(--text);border:1px solid rgba(255,255,255,0.2);}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px);}
+.btn-gold{background:var(--gold);color:#0a0e1a;font-weight:700;}
+.btn-gold:hover{background:#fbbf24;transform:translateY(-2px);}
+.btn-red{background:var(--red);color:#fff;font-weight:700;}
+.btn-sm{padding:0.32rem 0.75rem;font-size:0.6rem;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+@keyframes slideIn{from{opacity:0;transform:translateX(-8px);}to{opacity:1;transform:translateX(0);}}
+
+/* HOME */
+.hero{padding:4rem 2.5rem 3rem;max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr auto;gap:3rem;align-items:center;}
+.hero-tag{display:inline-flex;align-items:center;gap:0.5rem;font-family:'Space Mono',monospace;font-size:0.67rem;letter-spacing:0.13em;text-transform:uppercase;color:var(--accent);border:1px solid var(--border);padding:0.32rem 0.85rem;border-radius:2rem;margin-bottom:1.2rem;}
+.hero-tag::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.4;transform:scale(0.8);}}
+h1{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,5.5vw,4.5rem);font-weight:900;line-height:1.05;letter-spacing:-0.03em;}
+h1 .na{color:var(--accent);}
+.hero-sub{font-size:0.97rem;color:var(--muted);line-height:1.7;margin:1rem 0 1.8rem;max-width:500px;}
+.hero-cta{display:flex;gap:0.7rem;flex-wrap:wrap;}
+.el-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.55rem;}
+.el-card{width:75px;height:75px;border:1px solid var(--border);background:var(--card);border-radius:0.45rem;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;transition:all 0.3s;}
+.el-card:hover{border-color:var(--accent);transform:scale(1.06);}
+.el-card.hi{border-color:var(--gold);}
+.el-card.hi .sym{color:var(--gold);}
+.el-card .num{font-family:'Space Mono',monospace;font-size:0.48rem;color:var(--muted);position:absolute;top:4px;left:5px;}
+.el-card .sym{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:var(--accent);}
+.el-card .ename{font-size:0.45rem;color:var(--muted);text-transform:uppercase;}
+.el-card .mass{font-family:'Space Mono',monospace;font-size:0.44rem;color:var(--muted);position:absolute;bottom:4px;}
+
+/* DASHBOARD */
+.dash-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin-bottom:2rem;}
+.dash-card{background:var(--card);border:1px solid var(--border);border-radius:0.9rem;padding:1.3rem;transition:all 0.3s;}
+.dash-card:hover{border-color:rgba(0,212,170,0.3);transform:translateY(-2px);}
+.dash-icon{font-size:1.8rem;margin-bottom:0.6rem;}
+.dash-val{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:var(--accent);}
+.dash-label{font-size:0.78rem;color:var(--muted);margin-top:0.2rem;}
+.dash-sections{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;}
+.dash-section{background:var(--card);border:1px solid var(--border);border-radius:0.9rem;padding:1.3rem;}
+.ds-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;margin-bottom:1rem;}
+.activity-item{display:flex;align-items:center;gap:0.7rem;padding:0.55rem 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:0.8rem;}
+.activity-item:last-child{border-bottom:none;}
+.ai-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);flex-shrink:0;}
+.ai-dot.gold{background:var(--gold);}
+.ai-dot.purple{background:var(--accent2);}
+.ai-time{font-family:'Space Mono',monospace;font-size:0.6rem;color:var(--muted);margin-left:auto;}
+.quick-links{display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;}
+.ql-btn{background:var(--surface);border:1px solid var(--border);border-radius:0.5rem;padding:0.7rem;text-align:center;cursor:pointer;transition:all 0.2s;font-size:0.78rem;}
+.ql-btn:hover{border-color:var(--accent);color:var(--accent);}
+
+/* CONTENTS */
+.contents-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1rem;}
+.cc{background:var(--card);border:1px solid var(--border);border-radius:0.85rem;padding:1.3rem;transition:all 0.3s;cursor:pointer;position:relative;overflow:hidden;}
+.cc::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));transform:scaleX(0);transform-origin:left;transition:transform 0.3s;}
+.cc:hover::after{transform:scaleX(1);}
+.cc:hover{border-color:rgba(0,212,170,0.3);transform:translateY(-3px);box-shadow:0 15px 35px rgba(0,0,0,0.3);}
+.cc-icon{font-size:1.6rem;margin-bottom:0.65rem;display:block;}
+.cc-title{font-family:'Playfair Display',serif;font-size:0.97rem;font-weight:700;margin-bottom:0.3rem;}
+.cc-desc{font-size:0.77rem;color:var(--muted);line-height:1.5;}
+.cc-meta{margin-top:0.8rem;display:flex;gap:0.35rem;flex-wrap:wrap;}
+.cc-tag{font-family:'Space Mono',monospace;font-size:0.57rem;padding:0.17rem 0.42rem;border-radius:0.2rem;background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.18);color:var(--accent);}
+
+/* VIDEOS */
+.video-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.2rem;}
+.vc{background:var(--card);border:1px solid var(--border);border-radius:0.85rem;overflow:hidden;transition:all 0.3s;}
+.vc:hover{transform:translateY(-4px);box-shadow:0 20px 40px rgba(0,0,0,0.4);border-color:rgba(0,212,170,0.3);}
+.yt-frame{width:100%;height:170px;border:none;}
+.vinfo{padding:1rem;}
+.vtitle{font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;margin-bottom:0.3rem;}
+.vsub{font-size:0.77rem;color:var(--muted);}
+.vmeta{display:flex;gap:1rem;margin-top:0.6rem;font-family:'Space Mono',monospace;font-size:0.58rem;color:var(--muted);}
+
+/* QUIZ */
+.quiz-wrapper{max-width:700px;margin:0 auto;}
+.qhdr{background:var(--card);border:1px solid var(--border);border-radius:0.85rem;padding:1.2rem 1.6rem;margin-bottom:1.2rem;display:flex;justify-content:space-between;align-items:center;}
+.qpbar{height:5px;background:var(--surface);border-radius:3px;overflow:hidden;margin-top:0.6rem;}
+.qpfill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:3px;transition:width 0.4s ease;}
+.qcard{background:var(--card);border:1px solid var(--border);border-radius:0.85rem;padding:1.6rem;margin-bottom:0.85rem;}
+.qnum{font-family:'Space Mono',monospace;font-size:0.63rem;color:var(--accent);letter-spacing:0.1em;margin-bottom:0.6rem;}
+.qtext{font-family:'Playfair Display',serif;font-size:1.07rem;line-height:1.5;margin-bottom:1.2rem;}
+.qopts{display:flex;flex-direction:column;gap:0.5rem;}
+.qopt{background:var(--surface);border:1px solid var(--border);border-radius:0.5rem;padding:0.7rem 1rem;cursor:pointer;transition:all 0.2s;font-size:0.85rem;text-align:left;}
+.qopt:hover{border-color:var(--accent);background:rgba(0,212,170,0.05);}
+.qopt.correct{border-color:var(--green);background:rgba(34,197,94,0.1);color:var(--green);}
+.qopt.wrong{border-color:var(--red);background:rgba(239,68,68,0.1);color:var(--red);}
+.qnav{display:flex;gap:0.8rem;margin-top:1.2rem;justify-content:space-between;align-items:center;}
+.score-card{background:var(--card);border:1px solid var(--border);border-radius:1rem;padding:2.5rem;text-align:center;margin-top:1.3rem;display:none;}
+.score-num{font-family:'Playfair Display',serif;font-size:3.2rem;font-weight:900;color:var(--accent);}
+.topic-sel{display:flex;gap:0.4rem;flex-wrap:wrap;margin-bottom:1.3rem;}
+.tbtn{background:var(--surface);border:1px solid var(--border);border-radius:2rem;padding:0.38rem 0.85rem;font-family:'Space Mono',monospace;font-size:0.63rem;cursor:pointer;transition:all 0.2s;color:var(--muted);}
+.tbtn:hover,.tbtn.active{background:rgba(0,212,170,0.1);border-color:var(--accent);color:var(--accent);}
+
+/* EXAMS */
+.exams-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;margin-bottom:1.3rem;}
+.exam-card{background:var(--card);border:1px solid var(--border);border-radius:0.85rem;padding:1.3rem;transition:all 0.3s;}
+.exam-card:hover{transform:translateY(-3px);box-shadow:0 15px 30px rgba(0,0,0,0.3);border-color:rgba(0,212,170,0.3);}
+.ehdr{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.8rem;}
+.ebadge{font-family:'Space Mono',monospace;font-size:0.56rem;padding:0.2rem 0.5rem;border-radius:0.2rem;text-transform:uppercase;letter-spacing:0.07em;white-space:nowrap;}
+.ebadge.past{background:rgba(245,158,11,0.15);color:var(--gold);border:1px solid rgba(245,158,11,0.3);}
+.ebadge.mock{background:rgba(0,212,170,0.1);color:var(--accent);border:1px solid rgba(0,212,170,0.2);}
+.ebadge.upcoming{background:rgba(124,58,237,0.15);color:#a78bfa;border:1px solid rgba(124,58,237,0.3);}
+.etitle{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;margin-bottom:0.3rem;}
+.einfo{font-size:0.76rem;color:var(--muted);line-height:1.55;}
+.eftr{display:flex;justify-content:space-between;align-items:center;margin-top:1rem;padding-top:0.85rem;border-top:1px solid var(--border);}
+.estat{font-family:'Space Mono',monospace;font-size:0.6rem;color:var(--muted);}
+.eacts{display:flex;gap:0.35rem;}
+
+/* PERIODIC TABLE */
+.pt-wrap{overflow-x:auto;padding:0.5rem 0;}
+.pt-grid{display:grid;grid-template-columns:repeat(18,46px);grid-template-rows:repeat(10,46px);gap:2px;min-width:870px;}
+.ptc{width:46px;height:46px;border-radius:3px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:all 0.2s;position:relative;border:1px solid transparent;}
+.ptc:hover{transform:scale(1.15);z-index:10;box-shadow:0 5px 20px rgba(0,0,0,0.5);}
+.ptc .pn{font-family:'Space Mono',monospace;font-size:0.4rem;position:absolute;top:2px;left:3px;color:rgba(255,255,255,0.45);}
+.ptc .ps{font-family:'Playfair Display',serif;font-size:0.9rem;font-weight:700;}
+.ptc .pm{font-size:0.3rem;opacity:0.65;}
+.pt-alkali{background:rgba(239,68,68,0.2);border-color:rgba(239,68,68,0.3);color:#fca5a5;}
+.pt-alkaline{background:rgba(245,158,11,0.2);border-color:rgba(245,158,11,0.3);color:#fcd34d;}
+.pt-transition{background:rgba(0,212,170,0.15);border-color:rgba(0,212,170,0.2);color:#6ee7d4;}
+.pt-post{background:rgba(99,102,241,0.2);border-color:rgba(99,102,241,0.3);color:#a5b4fc;}
+.pt-metalloid{background:rgba(16,185,129,0.2);border-color:rgba(16,185,129,0.3);color:#6ee7b7;}
+.pt-nonmetal{background:rgba(251,191,36,0.2);border-color:rgba(251,191,36,0.3);color:#fde68a;}
+.pt-halogen{background:rgba(236,72,153,0.2);border-color:rgba(236,72,153,0.3);color:#f9a8d4;}
+.pt-noble{background:rgba(124,58,237,0.2);border-color:rgba(124,58,237,0.3);color:#c4b5fd;}
+.pt-actinide{background:rgba(234,179,8,0.15);border-color:rgba(234,179,8,0.2);color:#fef08a;}
+.pt-legend{display:flex;flex-wrap:wrap;gap:0.45rem;margin-bottom:1.2rem;}
+.pt-li{display:flex;align-items:center;gap:0.32rem;font-size:0.66rem;color:var(--muted);}
+.pt-ld{width:10px;height:10px;border-radius:2px;}
+.pt-detail{background:var(--card);border:1px solid var(--border);border-radius:0.85rem;padding:1.3rem;margin-top:1.2rem;display:none;}
+.pt-detail.show{display:block;animation:fadeUp 0.3s ease;}
+.pt-dg{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:0.8rem;}
+.pt-di{background:var(--surface);border-radius:0.45rem;padding:0.7rem;}
+.pt-dl{font-family:'Space Mono',monospace;font-size:0.56rem;color:var(--muted);margin-bottom:0.22rem;text-transform:uppercase;}
+.pt-dv{font-size:0.87rem;font-weight:600;}
+
+/* LINKS */
+.links-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem;}
+.link-card{background:var(--card);border:1px solid var(--border);border-radius:0.85rem;padding:1.3rem;transition:all 0.3s;cursor:pointer;text-decoration:none;display:block;}
+.link-card:hover{border-color:rgba(0,212,170,0.3);transform:translateY(-3px);box-shadow:0 15px 30px rgba(0,0,0,0.3);}
+.lc-icon{font-size:1.6rem;margin-bottom:0.6rem;}
+.lc-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;margin-bottom:0.3rem;color:var(--text);}
+.lc-desc{font-size:0.77rem;color:var(--muted);line-height:1.5;}
+.lc-url{font-family:'Space Mono',monospace;font-size:0.6rem;color:var(--accent);margin-top:0.6rem;display:block;}
+.link-cat{font-family:'Space Mono',monospace;font-size:0.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.8rem;margin-top:1.5rem;}
+
+/* UPLOAD */
+.upload-area{border:2px dashed var(--border);border-radius:0.85rem;padding:2.8rem 2rem;text-align:center;transition:all 0.3s;cursor:pointer;background:var(--card);margin-bottom:1.2rem;}
+.upload-area:hover,.upload-area.dragover{border-color:var(--accent);background:rgba(0,212,170,0.03);}
+.upload-icon{font-size:2.2rem;margin-bottom:0.65rem;display:block;}
+.upload-title{font-family:'Playfair Display',serif;font-size:1.15rem;margin-bottom:0.3rem;}
+.upload-sub{color:var(--muted);font-size:0.78rem;margin-bottom:1rem;}
+.file-types{display:flex;justify-content:center;gap:0.32rem;flex-wrap:wrap;}
+.ftag{font-family:'Space Mono',monospace;font-size:0.57rem;padding:0.17rem 0.42rem;border-radius:0.2rem;background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.18);color:var(--accent);}
+.files-list{display:flex;flex-direction:column;gap:0.6rem;}
+.file-item{background:var(--card);border:1px solid var(--border);border-radius:0.6rem;padding:0.8rem 1rem;display:flex;align-items:center;gap:0.8rem;animation:slideIn 0.3s ease both;}
+.fib{width:34px;height:34px;border-radius:0.38rem;background:rgba(0,212,170,0.1);display:flex;align-items:center;justify-content:center;font-size:0.95rem;flex-shrink:0;}
+.fi{flex:1;}
+.fn{font-size:0.82rem;font-weight:600;margin-bottom:0.1rem;}
+.fm{font-family:'Space Mono',monospace;font-size:0.57rem;color:var(--muted);}
+.fdel{background:none;border:none;color:var(--muted);cursor:pointer;font-size:0.9rem;padding:0.25rem;border-radius:0.28rem;transition:all 0.2s;}
+.fdel:hover{color:var(--red);background:rgba(239,68,68,0.1);}
+
+/* CONTACT */
+.contact-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:2.2rem;align-items:start;}
+.citem{background:var(--card);border:1px solid var(--border);border-radius:0.75rem;padding:1rem 1.2rem;display:flex;align-items:center;gap:0.8rem;margin-bottom:0.7rem;}
+.cicon{font-size:1.3rem;width:35px;text-align:center;}
+.clabel{font-family:'Space Mono',monospace;font-size:0.58rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;}
+.cval{font-size:0.85rem;font-weight:600;margin-top:0.12rem;}
+.cform{background:var(--card);border:1px solid var(--border);border-radius:0.85rem;padding:1.6rem;}
+.fg{margin-bottom:1rem;}
+.fg label{display:block;font-family:'Space Mono',monospace;font-size:0.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:0.4rem;}
+.fg input,.fg textarea,.fg select{width:100%;padding:0.62rem 0.88rem;background:var(--surface);border:1px solid var(--border);border-radius:0.43rem;color:var(--text);font-family:'Lato',sans-serif;font-size:0.85rem;outline:none;transition:border-color 0.2s;}
+.fg input:focus,.fg textarea:focus,.fg select:focus{border-color:var(--accent);}
+.fg textarea{resize:vertical;min-height:100px;}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:0.85rem;}
+.smsg{background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.3);border-radius:0.43rem;padding:0.85rem;color:var(--green);font-size:0.82rem;margin-top:0.85rem;display:none;}
+
+/* ABOUT */
+.about-grid{display:grid;grid-template-columns:250px 1fr;gap:2.2rem;align-items:start;}
+.acard{background:var(--card);border:1px solid var(--border);border-radius:1rem;padding:1.6rem;text-align:center;}
+.avatar{width:80px;height:80px;border-radius:50%;border:3px solid var(--accent);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:var(--accent);background:rgba(0,212,170,0.08);margin:0 auto 1rem;box-shadow:0 0 25px rgba(0,212,170,0.15);}
+.aname{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;}
+.arole{font-family:'Space Mono',monospace;font-size:0.6rem;color:var(--accent);letter-spacing:0.1em;text-transform:uppercase;margin-top:0.22rem;}
+.astats{display:grid;grid-template-columns:repeat(3,1fr);gap:0.65rem;margin-top:1.2rem;padding-top:1.2rem;border-top:1px solid var(--border);}
+.sval{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:var(--accent);}
+.slabel{font-size:0.6rem;color:var(--muted);margin-top:0.1rem;}
+.atext p{color:var(--muted);line-height:1.8;margin-bottom:0.85rem;font-size:0.88rem;}
+.atext p strong{color:var(--text);}
+.skills-list{display:flex;flex-wrap:wrap;gap:0.38rem;margin-top:0.85rem;}
+.skill-tag{font-family:'Space Mono',monospace;font-size:0.6rem;padding:0.26rem 0.62rem;border-radius:0.26rem;border:1px solid var(--border);color:var(--muted);transition:all 0.2s;cursor:default;}
+.skill-tag:hover{border-color:var(--accent);color:var(--accent);}
+
+/* CHAT */
+.chat-bubble{position:fixed;bottom:1.5rem;right:1.5rem;z-index:200;width:52px;height:52px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:1.4rem;cursor:pointer;box-shadow:0 4px 20px rgba(0,212,170,0.4);transition:all 0.3s;}
+.chat-bubble:hover{transform:scale(1.1);}
+.chat-badge{position:absolute;top:-3px;right:-3px;width:18px;height:18px;border-radius:50%;background:var(--red);font-size:0.6rem;display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;color:#fff;border:2px solid var(--bg);}
+.chat-window{position:fixed;bottom:5rem;right:1.5rem;z-index:200;width:320px;height:420px;background:var(--card);border:1px solid var(--border);border-radius:1rem;display:none;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,0.5);animation:fadeUp 0.3s ease;}
+.chat-window.open{display:flex;}
+.chat-header{padding:1rem 1.2rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
+.ch-title{font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;}
+.ch-status{font-family:'Space Mono',monospace;font-size:0.58rem;color:var(--green);display:flex;align-items:center;gap:0.3rem;}
+.ch-status::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--green);}
+.chat-close{background:none;border:none;color:var(--muted);cursor:pointer;font-size:1rem;}
+.chat-messages{flex:1;overflow-y:auto;padding:1rem;display:flex;flex-direction:column;gap:0.7rem;}
+.chat-messages::-webkit-scrollbar{width:4px;}
+.chat-messages::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
+.msg{max-width:80%;padding:0.6rem 0.9rem;border-radius:0.7rem;font-size:0.8rem;line-height:1.4;}
+.msg.received{background:var(--surface);border:1px solid var(--border);align-self:flex-start;border-radius:0 0.7rem 0.7rem 0.7rem;}
+.msg.sent{background:var(--accent);color:#0a0e1a;align-self:flex-end;border-radius:0.7rem 0.7rem 0 0.7rem;}
+.msg-time{font-family:'Space Mono',monospace;font-size:0.52rem;opacity:0.6;margin-top:0.2rem;}
+.chat-input-area{padding:0.8rem;border-top:1px solid var(--border);display:flex;gap:0.5rem;}
+.chat-input{flex:1;background:var(--surface);border:1px solid var(--border);border-radius:0.5rem;padding:0.55rem 0.8rem;color:var(--text);font-family:'Lato',sans-serif;font-size:0.82rem;outline:none;}
+.chat-input:focus{border-color:var(--accent);}
+.chat-send{background:var(--accent);border:none;border-radius:0.5rem;padding:0.55rem 0.8rem;color:#0a0e1a;cursor:pointer;font-size:0.9rem;transition:all 0.2s;}
+.chat-send:hover{background:#00f0c0;}
+
+footer{position:relative;z-index:1;padding:1.8rem 2.5rem;text-align:center;border-top:1px solid var(--border);margin-top:2rem;}
+footer .fname{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--accent);margin-bottom:0.25rem;}
+footer p{font-size:0.68rem;color:var(--muted);font-family:'Space Mono',monospace;}
+
+@media(max-width:850px){
+  .hero{grid-template-columns:1fr;padding:2.2rem 1.2rem;}
+  .el-grid{display:none;}
+  .about-grid,.contact-grid{grid-template-columns:1fr;}
+  .frow{grid-template-columns:1fr;}
+  nav{padding:0.6rem 0.9rem;}
+  .nav-links button{font-size:0.55rem;padding:0.28rem 0.45rem;}
+  .page-inner{padding:1.8rem 1rem;}
+  .dash-sections{grid-template-columns:1fr;}
+  .chat-window{width:calc(100vw - 2rem);right:1rem;}
+}
+</style>
+</head>
+<body>
+<div class="molecules" id="molecules"></div>
+
+<!-- LOGIN SCREEN -->
+<div id="loginScreen">
+  <div class="login-box">
+    <div class="login-logo">Jackson<span>.</span>Habimana</div>
+    <div class="login-sub">// Chemistry Education Portal</div>
+    <div class="login-tabs">
+      <button class="ltab active" onclick="switchLoginTab('student')">Student</button>
+      <button class="ltab" onclick="switchLoginTab('teacher')">Teacher</button>
+    </div>
+    <div id="loginForm">
+      <div class="lfg"><label>Your Name</label><input type="text" id="loginName" placeholder="Enter your full name"></div>
+      <div class="lfg" id="passGroup" style="display:none"><label>Password</label><input type="password" id="loginPass" placeholder="Enter password"></div>
+      <div class="lfg" id="classGroup"><label>Class / Level</label>
+        <select id="loginClass" style="width:100%;padding:0.7rem 1rem;background:var(--surface);border:1px solid var(--border);border-radius:0.5rem;color:var(--text);font-family:'Lato',sans-serif;font-size:0.9rem;outline:none;">
+          <option>Senior 1</option><option>Senior 2</option><option>Senior 3</option>
+          <option>Senior 4</option><option>Senior 5</option><option>Senior 6</option>
+          <option>University</option><option>Self Study</option>
+        </select>
+      </div>
+      <div class="login-err" id="loginErr">❌ Incorrect password. Try again.</div>
+      <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:0.5rem" onclick="doLogin()">Enter Website →</button>
+    </div>
+    <div class="login-hint">
+      <b>Teacher login:</b> Password is <b>chemistry2026</b><br>
+      <b>Students:</b> Just enter your name — no password needed!
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo" onclick="showPage('home')">Jackson<span>.</span>Habimana</div>
+  <ul class="nav-links">
+    <li><button onclick="showPage('home')" id="nav-home" class="active">Home</button></li>
+    <li><button onclick="showPage('dashboard')" id="nav-dashboard">Dashboard</button></li>
+    <li><button onclick="showPage('contents')" id="nav-contents">Contents</button></li>
+    <li><button onclick="showPage('videos')" id="nav-videos">Videos</button></li>
+    <li><button onclick="showPage('quiz')" id="nav-quiz">Quiz</button></li>
+    <li><button onclick="showPage('exams')" id="nav-exams">Exams</button></li>
+    <li><button onclick="showPage('periodic')" id="nav-periodic">Table</button></li>
+    <li><button onclick="showPage('links')" id="nav-links">Links</button></li>
+    <li><button onclick="showPage('upload')" id="nav-upload">Upload</button></li>
+    <li><button onclick="showPage('contact')" id="nav-contact">Contact</button></li>
+    <li><button onclick="showPage('about')" id="nav-about">About</button></li>
+  </ul>
+  <div class="nav-user">
+    <div class="nav-role" id="navRole">Guest</div>
+    <div class="nav-avatar" id="navAvatar" onclick="doLogout()">?</div>
+  </div>
+</nav>
+
+<!-- HOME -->
+<div class="page active" id="page-home">
+  <div class="hero">
+    <div>
+      <div class="hero-tag">Chemistry Education Portal</div>
+      <h1>Jackson <span class="na">Habimana</span></h1>
+      <p class="hero-sub">Exploring the molecular world — from atomic structure to organic reactions. A personal space to share chemistry knowledge, lessons, exams and resources.</p>
+      <div class="hero-cta">
+        <button class="btn btn-primary" onclick="showPage('dashboard')">📊 Dashboard</button>
+        <button class="btn btn-outline" onclick="showPage('quiz')">🧪 Take a Quiz</button>
+        <button class="btn btn-gold" onclick="showPage('videos')">🎬 Watch Lessons</button>
+      </div>
+    </div>
+    <div class="el-grid">
+      <div class="el-card"><span class="num">1</span><span class="sym">H</span><span class="ename">Hydrogen</span><span class="mass">1.008</span></div>
+      <div class="el-card hi"><span class="num">6</span><span class="sym">C</span><span class="ename">Carbon</span><span class="mass">12.01</span></div>
+      <div class="el-card"><span class="num">7</span><span class="sym">N</span><span class="ename">Nitrogen</span><span class="mass">14.01</span></div>
+      <div class="el-card"><span class="num">8</span><span class="sym">O</span><span class="ename">Oxygen</span><span class="mass">15.99</span></div>
+      <div class="el-card hi"><span class="num">79</span><span class="sym">Au</span><span class="ename">Gold</span><span class="mass">196.9</span></div>
+      <div class="el-card"><span class="num">11</span><span class="sym">Na</span><span class="ename">Sodium</span><span class="mass">22.99</span></div>
+      <div class="el-card"><span class="num">17</span><span class="sym">Cl</span><span class="ename">Chlorine</span><span class="mass">35.45</span></div>
+      <div class="el-card"><span class="num">26</span><span class="sym">Fe</span><span class="ename">Iron</span><span class="mass">55.85</span></div>
+      <div class="el-card hi"><span class="num">92</span><span class="sym">U</span><span class="ename">Uranium</span><span class="mass">238.0</span></div>
+    </div>
+  </div>
+  <footer><div class="fname">Jackson Habimana</div><p>jacksonhabimana.github.io · Chemistry Education · © 2026</p></footer>
+</div>
+
+<!-- DASHBOARD -->
+<div class="page" id="page-dashboard">
+  <div class="page-inner">
+    <div class="sec-label">// Overview</div>
+    <h2 class="sec-title">Dashboard</h2>
+    <div class="sec-line"></div>
+    <div class="dash-grid">
+      <div class="dash-card"><div class="dash-icon">📚</div><div class="dash-val">16</div><div class="dash-label">Topics Available</div></div>
+      <div class="dash-card"><div class="dash-icon">🎬</div><div class="dash-val">6</div><div class="dash-label">Video Lessons</div></div>
+      <div class="dash-card"><div class="dash-icon">🧪</div><div class="dash-val">40+</div><div class="dash-label">Quiz Questions</div></div>
+      <div class="dash-card"><div class="dash-icon">📝</div><div class="dash-val">8</div><div class="dash-label">Exam Papers</div></div>
+      <div class="dash-card"><div class="dash-icon">⚗️</div><div class="dash-val">34</div><div class="dash-label">Elements (Interactive)</div></div>
+      <div class="dash-card"><div class="dash-icon">🔗</div><div class="dash-val">12</div><div class="dash-label">Resource Links</div></div>
+    </div>
+    <div class="dash-sections">
+      <div class="dash-section">
+        <div class="ds-title">📋 Recent Activity</div>
+        <div class="activity-item"><div class="ai-dot"></div><span>Quiz completed — Atomic Structure</span><span class="ai-time">2 min ago</span></div>
+        <div class="activity-item"><div class="ai-dot gold"></div><span>New exam paper uploaded</span><span class="ai-time">1 hr ago</span></div>
+        <div class="activity-item"><div class="ai-dot purple"></div><span>Video lesson watched — Organic Chemistry</span><span class="ai-time">3 hrs ago</span></div>
+        <div class="activity-item"><div class="ai-dot"></div><span>Periodic table — Gold (Au) viewed</span><span class="ai-time">Today</span></div>
+        <div class="activity-item"><div class="ai-dot gold"></div><span>Contact message received</span><span class="ai-time">Yesterday</span></div>
+      </div>
+      <div class="dash-section">
+        <div class="ds-title">⚡ Quick Access</div>
+        <div class="quick-links">
+          <div class="ql-btn" onclick="showPage('quiz')">🧪 Start Quiz</div>
+          <div class="ql-btn" onclick="showPage('videos')">🎬 Watch Video</div>
+          <div class="ql-btn" onclick="showPage('exams')">📝 View Exams</div>
+          <div class="ql-btn" onclick="showPage('periodic')">⚗️ Periodic Table</div>
+          <div class="ql-btn" onclick="showPage('upload')">📂 Upload File</div>
+          <div class="ql-btn" onclick="showPage('links')">🔗 Resources</div>
+          <div class="ql-btn" onclick="showPage('contact')">✉️ Contact</div>
+          <div class="ql-btn" onclick="showPage('contents')">📚 Contents</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTENTS -->
+<div class="page" id="page-contents">
+  <div class="page-inner">
+    <div class="sec-label">// Full Curriculum</div>
+    <h2 class="sec-title">Course Contents</h2>
+    <div class="sec-line"></div>
+    <div class="contents-grid">
+      <div class="cc"><span class="cc-icon">⚛️</span><div class="cc-title">1. Atomic Structure</div><p class="cc-desc">Protons, neutrons, electrons, electron configuration, quantum numbers, periodic trends.</p><div class="cc-meta"><span class="cc-tag">12 lessons</span><span class="cc-tag">Beginner</span></div></div>
+      <div class="cc"><span class="cc-icon">🔗</span><div class="cc-title">2. Chemical Bonding</div><p class="cc-desc">Ionic, covalent and metallic bonds, VSEPR theory, molecular geometry and polarity.</p><div class="cc-meta"><span class="cc-tag">8 lessons</span><span class="cc-tag">Intermediate</span></div></div>
+      <div class="cc"><span class="cc-icon">⚖️</span><div class="cc-title">3. Stoichiometry</div><p class="cc-desc">Mole concept, limiting reagents, percent yield, empirical formulas, balancing equations.</p><div class="cc-meta"><span class="cc-tag">10 lessons</span><span class="cc-tag">Intermediate</span></div></div>
+      <div class="cc"><span class="cc-icon">⚗️</span><div class="cc-title">4. Organic Chemistry</div><p class="cc-desc">Hydrocarbons, functional groups, reaction mechanisms, isomers, IUPAC nomenclature.</p><div class="cc-meta"><span class="cc-tag">15 lessons</span><span class="cc-tag">Advanced</span></div></div>
+      <div class="cc"><span class="cc-icon">🌡️</span><div class="cc-title">5. Thermochemistry</div><p class="cc-desc">Enthalpy, entropy, Gibbs free energy, Hess's law and calorimetry.</p><div class="cc-meta"><span class="cc-tag">6 lessons</span><span class="cc-tag">Intermediate</span></div></div>
+      <div class="cc"><span class="cc-icon">🔋</span><div class="cc-title">6. Electrochemistry</div><p class="cc-desc">Redox reactions, galvanic cells, electrolysis, the Nernst equation.</p><div class="cc-meta"><span class="cc-tag">9 lessons</span><span class="cc-tag">Advanced</span></div></div>
+      <div class="cc"><span class="cc-icon">💧</span><div class="cc-title">7. Acids &amp; Bases</div><p class="cc-desc">pH, pOH, buffer solutions, titration, Brønsted-Lowry and Lewis theories.</p><div class="cc-meta"><span class="cc-tag">11 lessons</span><span class="cc-tag">Intermediate</span></div></div>
+      <div class="cc"><span class="cc-icon">🔄</span><div class="cc-title">8. Chemical Equilibrium</div><p class="cc-desc">Le Chatelier's principle, Kc, Kp, Ksp expressions and calculations.</p><div class="cc-meta"><span class="cc-tag">7 lessons</span><span class="cc-tag">Advanced</span></div></div>
+      <div class="cc"><span class="cc-icon">💨</span><div class="cc-title">9. Gas Laws</div><p class="cc-desc">Boyle's, Charles's, Avogadro's laws, ideal gas law, kinetic molecular theory.</p><div class="cc-meta"><span class="cc-tag">6 lessons</span><span class="cc-tag">Beginner</span></div></div>
+      <div class="cc"><span class="cc-icon">🧫</span><div class="cc-title">10. Nuclear Chemistry</div><p class="cc-desc">Radioactivity, half-life, fission, fusion and nuclear equations.</p><div class="cc-meta"><span class="cc-tag">5 lessons</span><span class="cc-tag">Advanced</span></div></div>
+      <div class="cc"><span class="cc-icon">🔬</span><div class="cc-title">11. Lab Techniques</div><p class="cc-desc">Titration, chromatography, distillation, spectroscopy and safety.</p><div class="cc-meta"><span class="cc-tag">8 lessons</span><span class="cc-tag">Practical</span></div></div>
+      <div class="cc"><span class="cc-icon">🧬</span><div class="cc-title">12. Biochemistry</div><p class="cc-desc">Amino acids, proteins, carbohydrates, lipids, DNA structure and enzymes.</p><div class="cc-meta"><span class="cc-tag">10 lessons</span><span class="cc-tag">Advanced</span></div></div>
+      <div class="cc"><span class="cc-icon">🌊</span><div class="cc-title">13. Solutions &amp; Solubility</div><p class="cc-desc">Concentration, molarity, colligative properties, solubility rules and dissolution.</p><div class="cc-meta"><span class="cc-tag">7 lessons</span><span class="cc-tag">Intermediate</span></div></div>
+      <div class="cc"><span class="cc-icon">⚡</span><div class="cc-title">14. Reaction Kinetics</div><p class="cc-desc">Reaction rates, rate laws, activation energy, catalysts and the Arrhenius equation.</p><div class="cc-meta"><span class="cc-tag">8 lessons</span><span class="cc-tag">Advanced</span></div></div>
+      <div class="cc"><span class="cc-icon">🌈</span><div class="cc-title">15. Spectroscopy</div><p class="cc-desc">UV-Vis, IR, NMR and mass spectrometry — identifying compounds from spectra.</p><div class="cc-meta"><span class="cc-tag">6 lessons</span><span class="cc-tag">Advanced</span></div></div>
+      <div class="cc"><span class="cc-icon">🏭</span><div class="cc-title">16. Industrial Chemistry</div><p class="cc-desc">Haber process, Contact process, petroleum refining and green chemistry principles.</p><div class="cc-meta"><span class="cc-tag">5 lessons</span><span class="cc-tag">Applied</span></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- VIDEOS -->
+<div class="page" id="page-videos">
+  <div class="page-inner">
+    <div class="sec-label">// Lessons</div>
+    <h2 class="sec-title">Video Lessons</h2>
+    <div class="sec-line"></div>
+    <div class="video-grid">
+      <div class="vc"><iframe class="yt-frame" src="https://www.youtube.com/embed/thnDxFdkzZs" title="Atomic Theory" allowfullscreen></iframe><div class="vinfo"><div class="vtitle">The History of Atomic Chemistry</div><div class="vsub">How our understanding of atoms developed over centuries.</div><div class="vmeta"><span>📚 Unit 1</span><span>🎬 Crash Course</span></div></div></div>
+      <div class="vc"><iframe class="yt-frame" src="https://www.youtube.com/embed/0RRVV4Diomg" title="Periodic Table" allowfullscreen></iframe><div class="vinfo"><div class="vtitle">The Periodic Table: Crash Course</div><div class="vsub">Understanding groups, periods and element properties.</div><div class="vmeta"><span>📚 Unit 1</span><span>🎬 Crash Course</span></div></div></div>
+      <div class="vc"><iframe class="yt-frame" src="https://www.youtube.com/embed/QqjcCvzWwww" title="Chemical Bonding" allowfullscreen></iframe><div class="vinfo"><div class="vtitle">Chemical Bonding Explained</div><div class="vsub">Ionic, covalent and metallic bonds with clear examples.</div><div class="vmeta"><span>📚 Unit 2</span><span>🎬 Tyler DeWitt</span></div></div></div>
+      <div class="vc"><iframe class="yt-frame" src="https://www.youtube.com/embed/UL1jmJaUkaQ" title="Stoichiometry" allowfullscreen></iframe><div class="vinfo"><div class="vtitle">Stoichiometry &amp; Mole Concept</div><div class="vsub">Step-by-step molar mass, limiting reagent and yield calculations.</div><div class="vmeta"><span>📚 Unit 3</span><span>🎬 Khan Academy</span></div></div></div>
+      <div class="vc"><iframe class="yt-frame" src="https://www.youtube.com/embed/bSMx0NS0XfY" title="Organic Chemistry" allowfullscreen></iframe><div class="vinfo"><div class="vtitle">Organic Chemistry Introduction</div><div class="vsub">Functional groups, naming and reactions made simple.</div><div class="vmeta"><span>📚 Unit 4</span><span>🎬 Tyler DeWitt</span></div></div></div>
+      <div class="vc"><iframe class="yt-frame" src="https://www.youtube.com/embed/zDDzIHFVqGk" title="Acids and Bases" allowfullscreen></iframe><div class="vinfo"><div class="vtitle">Acids, Bases &amp; pH</div><div class="vsub">pH scale, strong vs weak acids, buffers and titrations.</div><div class="vmeta"><span>📚 Unit 7</span><span>🎬 Crash Course</span></div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div class="page" id="page-quiz">
+  <div class="page-inner">
+    <div class="sec-label">// Practice</div>
+    <h2 class="sec-title">Chemistry Quiz</h2>
+    <div class="sec-line"></div>
+    <div class="quiz-wrapper">
+      <div style="margin-bottom:1.2rem">
+        <div style="font-family:'Space Mono',monospace;font-size:0.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.65rem">Select Topic:</div>
+        <div class="topic-sel">
+          <button class="tbtn active" onclick="setTopic('all',this)">All Topics</button>
+          <button class="tbtn" onclick="setTopic('atomic',this)">Atomic</button>
+          <button class="tbtn" onclick="setTopic('bonding',this)">Bonding</button>
+          <button class="tbtn" onclick="setTopic('organic',this)">Organic</button>
+          <button class="tbtn" onclick="setTopic('stoich',this)">Stoichiometry</button>
+          <button class="tbtn" onclick="setTopic('acids',this)">Acids &amp; Bases</button>
+          <button class="tbtn" onclick="setTopic('thermo',this)">Thermochemistry</button>
+          <button class="tbtn" onclick="setTopic('kinetics',this)">Kinetics</button>
+        </div>
+      </div>
+      <div class="qhdr">
+        <div>
+          <div style="font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700" id="quiz-status">Question 1 of 5</div>
+          <div class="qpbar"><div class="qpfill" id="quiz-fill" style="width:20%"></div></div>
+        </div>
+        <div style="font-family:'Space Mono',monospace;font-size:0.8rem;color:var(--accent)" id="quiz-score-display">Score: 0</div>
+      </div>
+      <div id="quiz-area"></div>
+      <div class="score-card" id="score-card">
+        <div style="font-size:1.7rem;margin-bottom:0.7rem">🏆</div>
+        <div class="score-num" id="final-score">0/5</div>
+        <div style="color:var(--muted);font-size:0.82rem;margin-top:0.35rem">Quiz Complete!</div>
+        <div style="color:var(--muted);font-size:0.8rem;margin-top:0.35rem" id="score-msg"></div>
+        <button class="btn btn-primary" style="margin-top:1.2rem" onclick="startQuiz()">Try Again ↺</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EXAMS -->
+<div class="page" id="page-exams">
+  <div class="page-inner">
+    <div class="sec-label">// Assessment</div>
+    <h2 class="sec-title">Tests &amp; Exams</h2>
+    <div class="sec-line"></div>
+    <div class="exams-grid">
+      <div class="exam-card"><div class="ehdr"><div><div class="etitle">Mid-Term Exam 2026</div><div class="einfo">Units 1–6 · 60 marks · 2 hours<br>Atomic structure, bonding, stoichiometry</div></div><span class="ebadge mock">Mock</span></div><div class="eftr"><div class="estat">📅 March 2026</div><div class="eacts"><button class="btn btn-primary btn-sm" onclick="alert('Downloading...')">📄 Download</button></div></div></div>
+      <div class="exam-card"><div class="ehdr"><div><div class="etitle">End of Year Final 2026</div><div class="einfo">All units · 100 marks · 3 hours<br>Complete syllabus with essay questions</div></div><span class="ebadge upcoming">Upcoming</span></div><div class="eftr"><div class="estat">📅 June 2026</div><div class="eacts"><button class="btn btn-outline btn-sm" onclick="alert('Coming soon!')">📝 Revision</button></div></div></div>
+      <div class="exam-card"><div class="ehdr"><div><div class="etitle">2025 Past Paper — Paper 1</div><div class="einfo">MCQ · 40 marks · 45 mins<br>All chemistry topics, national exam</div></div><span class="ebadge past">Past Paper</span></div><div class="eftr"><div class="estat">📅 Nov 2025</div><div class="eacts"><button class="btn btn-primary btn-sm" onclick="alert('Downloading...')">📄 Download</button><button class="btn btn-outline btn-sm" onclick="alert('Mark scheme')">✓ Answers</button></div></div></div>
+      <div class="exam-card"><div class="ehdr"><div><div class="etitle">2025 Past Paper — Paper 2</div><div class="einfo">Structured · 60 marks · 1.5 hrs<br>Calculations and extended answers</div></div><span class="ebadge past">Past Paper</span></div><div class="eftr"><div class="estat">📅 Nov 2025</div><div class="eacts"><button class="btn btn-primary btn-sm" onclick="alert('Downloading...')">📄 Download</button><button class="btn btn-outline btn-sm" onclick="alert('Mark scheme')">✓ Answers</button></div></div></div>
+      <div class="exam-card"><div class="ehdr"><div><div class="etitle">2024 Past Paper — Paper 1</div><div class="einfo">MCQ · 40 marks · 45 mins<br>2024 national chemistry exam</div></div><span class="ebadge past">Past Paper</span></div><div class="eftr"><div class="estat">📅 Nov 2024</div><div class="eacts"><button class="btn btn-primary btn-sm" onclick="alert('Downloading...')">📄 Download</button><button class="btn btn-outline btn-sm" onclick="alert('Mark scheme')">✓ Answers</button></div></div></div>
+      <div class="exam-card"><div class="ehdr"><div><div class="etitle">2024 Past Paper — Paper 2</div><div class="einfo">Structured · 60 marks · 1.5 hrs<br>Organic, electrochemistry, equilibrium</div></div><span class="ebadge past">Past Paper</span></div><div class="eftr"><div class="estat">📅 Nov 2024</div><div class="eacts"><button class="btn btn-primary btn-sm" onclick="alert('Downloading...')">📄 Download</button><button class="btn btn-outline btn-sm" onclick="alert('Mark scheme')">✓ Answers</button></div></div></div>
+      <div class="exam-card"><div class="ehdr"><div><div class="etitle">Unit Test — Atomic Structure</div><div class="einfo">30 marks · 45 mins<br>Electron config, periodic trends</div></div><span class="ebadge mock">Test</span></div><div class="eftr"><div class="estat">📅 Jan 2026</div><div class="eacts"><button class="btn btn-primary btn-sm" onclick="alert('Downloading...')">📄 Download</button></div></div></div>
+      <div class="exam-card"><div class="ehdr"><div><div class="etitle">Unit Test — Organic Chemistry</div><div class="einfo">50 marks · 1.5 hours<br>Reactions, mechanisms, functional groups</div></div><span class="ebadge mock">Test</span></div><div class="eftr"><div class="estat">📅 Feb 2026</div><div class="eacts"><button class="btn btn-primary btn-sm" onclick="alert('Downloading...')">📄 Download</button></div></div></div>
+    </div>
+    <div style="background:var(--card);border:2px dashed var(--border);border-radius:0.85rem;padding:1.6rem;text-align:center;cursor:pointer;transition:all 0.3s" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'" onclick="showPage('upload')">
+      <div style="font-size:1.7rem;margin-bottom:0.4rem">📤</div>
+      <div style="font-family:'Playfair Display',serif;font-size:0.97rem;font-weight:700;margin-bottom:0.22rem">Upload an Exam Paper</div>
+      <div style="color:var(--muted);font-size:0.75rem">Add past papers, mock tests or answer sheets</div>
+    </div>
+  </div>
+</div>
+
+<!-- PERIODIC TABLE -->
+<div class="page" id="page-periodic">
+  <div class="page-inner">
+    <div class="sec-label">// Reference</div>
+    <h2 class="sec-title">Interactive Periodic Table</h2>
+    <div class="sec-line"></div>
+    <div class="pt-legend">
+      <div class="pt-li"><div class="pt-ld" style="background:rgba(239,68,68,0.5)"></div>Alkali</div>
+      <div class="pt-li"><div class="pt-ld" style="background:rgba(245,158,11,0.5)"></div>Alkaline Earth</div>
+      <div class="pt-li"><div class="pt-ld" style="background:rgba(0,212,170,0.4)"></div>Transition</div>
+      <div class="pt-li"><div class="pt-ld" style="background:rgba(99,102,241,0.5)"></div>Post-Transition</div>
+      <div class="pt-li"><div class="pt-ld" style="background:rgba(16,185,129,0.5)"></div>Metalloids</div>
+      <div class="pt-li"><div class="pt-ld" style="background:rgba(251,191,36,0.5)"></div>Nonmetals</div>
+      <div class="pt-li"><div class="pt-ld" style="background:rgba(236,72,153,0.5)"></div>Halogens</div>
+      <div class="pt-li"><div class="pt-ld" style="background:rgba(124,58,237,0.5)"></div>Noble Gases</div>
+      <div class="pt-li"><div class="pt-ld" style="background:rgba(234,179,8,0.4)"></div>Actinides</div>
+    </div>
+    <div class="pt-wrap"><div class="pt-grid" id="ptGrid"></div></div>
+    <div class="pt-detail" id="ptDetail"><div id="ptDC"></div></div>
+  </div>
+</div>
+
+<!-- LINKS -->
+<div class="page" id="page-links">
+  <div class="page-inner">
+    <div class="sec-label">// Resources</div>
+    <h2 class="sec-title">Useful Chemistry Links</h2>
+    <div class="sec-line"></div>
+    <div class="link-cat">📚 Learning Platforms</div>
+    <div class="links-grid">
+      <a class="link-card" href="https://www.khanacademy.org/science/chemistry" target="_blank"><div class="lc-icon">🎓</div><div class="lc-title">Khan Academy Chemistry</div><p class="lc-desc">Free chemistry lessons from basic to advanced with practice exercises.</p><span class="lc-url">khanacademy.org/science/chemistry</span></a>
+      <a class="link-card" href="https://www.youtube.com/@crashcourse" target="_blank"><div class="lc-icon">🎬</div><div class="lc-title">Crash Course Chemistry</div><p class="lc-desc">Fast-paced, engaging chemistry video series covering all major topics.</p><span class="lc-url">youtube.com/@crashcourse</span></a>
+      <a class="link-card" href="https://www.chemguide.co.uk" target="_blank"><div class="lc-icon">📖</div><div class="lc-title">ChemGuide</div><p class="lc-desc">Detailed chemistry notes for A-level and university students.</p><span class="lc-url">chemguide.co.uk</span></a>
+      <a class="link-card" href="https://www.masterorganicchemistry.com" target="_blank"><div class="lc-icon">⚗️</div><div class="lc-title">Master Organic Chemistry</div><p class="lc-desc">The best resource for mastering organic reactions and mechanisms.</p><span class="lc-url">masterorganicchemistry.com</span></a>
+    </div>
+    <div class="link-cat">🔬 Reference Tools</div>
+    <div class="links-grid">
+      <a class="link-card" href="https://ptable.com" target="_blank"><div class="lc-icon">⚛️</div><div class="lc-title">PTable — Interactive Periodic Table</div><p class="lc-desc">The most detailed interactive periodic table with orbital diagrams and data.</p><span class="lc-url">ptable.com</span></a>
+      <a class="link-card" href="https://www.wolframalpha.com" target="_blank"><div class="lc-icon">🧮</div><div class="lc-title">Wolfram Alpha</div><p class="lc-desc">Solve chemistry calculations, balance equations and explore chemical data.</p><span class="lc-url">wolframalpha.com</span></a>
+      <a class="link-card" href="https://pubchem.ncbi.nlm.nih.gov" target="_blank"><div class="lc-icon">🏛️</div><div class="lc-title">PubChem</div><p class="lc-desc">Chemical database with structures, properties and biological activities.</p><span class="lc-url">pubchem.ncbi.nlm.nih.gov</span></a>
+      <a class="link-card" href="https://www.rsc.org" target="_blank"><div class="lc-icon">🇬🇧</div><div class="lc-title">Royal Society of Chemistry</div><p class="lc-desc">Professional chemistry resources, journals and educational materials.</p><span class="lc-url">rsc.org</span></a>
+    </div>
+    <div class="link-cat">🧪 Practice &amp; Simulations</div>
+    <div class="links-grid">
+      <a class="link-card" href="https://phet.colorado.edu/en/simulations/filter?subjects=chemistry" target="_blank"><div class="lc-icon">💻</div><div class="lc-title">PhET Simulations</div><p class="lc-desc">Free interactive chemistry simulations from University of Colorado.</p><span class="lc-url">phet.colorado.edu</span></a>
+      <a class="link-card" href="https://www.chemicalaid.com" target="_blank"><div class="lc-icon">⚖️</div><div class="lc-title">Chemical Aid</div><p class="lc-desc">Balance equations, calculate molar mass and solve stoichiometry problems.</p><span class="lc-url">chemicalaid.com</span></a>
+      <a class="link-card" href="https://www.chegg.com/learn/chemistry" target="_blank"><div class="lc-icon">📝</div><div class="lc-title">Chegg Chemistry</div><p class="lc-desc">Textbook solutions and expert Q&amp;A for chemistry problems.</p><span class="lc-url">chegg.com/learn/chemistry</span></a>
+      <a class="link-card" href="https://www.acs.org/education.html" target="_blank"><div class="lc-icon">🇺🇸</div><div class="lc-title">ACS Education</div><p class="lc-desc">American Chemical Society educational resources and career guidance.</p><span class="lc-url">acs.org/education</span></a>
+    </div>
+  </div>
+</div>
+
+<!-- UPLOAD -->
+<div class="page" id="page-upload">
+  <div class="page-inner">
+    <div class="sec-label">// Resources</div>
+    <h2 class="sec-title">Upload Chemistry Files</h2>
+    <div class="sec-line"></div>
+    <div class="upload-area" id="dropzone" onclick="document.getElementById('fileInput').click()">
+      <input type="file" id="fileInput" style="display:none" multiple accept=".pdf,.doc,.docx,.ppt,.pptx,.jpg,.png,.mp4,.txt">
+      <span class="upload-icon">📂</span>
+      <div class="upload-title">Drop files here or click to browse</div>
+      <p class="upload-sub">Upload notes, slides, PDFs, diagrams, exam papers or videos</p>
+      <div class="file-types"><span class="ftag">PDF</span><span class="ftag">DOCX</span><span class="ftag">PPTX</span><span class="ftag">JPG/PNG</span><span class="ftag">MP4</span><span class="ftag">TXT</span></div>
+    </div>
+    <div class="files-list" id="filesList"></div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div class="page" id="page-contact">
+  <div class="page-inner">
+    <div class="sec-label">// Get In Touch</div>
+    <h2 class="sec-title">Contact Jackson</h2>
+    <div class="sec-line"></div>
+    <div class="contact-grid">
+      <div>
+        <div class="citem"><div class="cicon">📧</div><div><div class="clabel">Email</div><div class="cval">jackson.habimana@gmail.com</div></div></div>
+        <div class="citem"><div class="cicon">📱</div><div><div class="clabel">WhatsApp</div><div class="cval">+250 7XX XXX XXX</div></div></div>
+        <div class="citem"><div class="cicon">📍</div><div><div class="clabel">Location</div><div class="cval">Kigali, Rwanda</div></div></div>
+        <div class="citem"><div class="cicon">🕐</div><div><div class="clabel">Office Hours</div><div class="cval">Mon–Fri, 8am – 5pm</div></div></div>
+        <div class="citem"><div class="cicon">⚡</div><div><div class="clabel">Response Time</div><div class="cval">Within 24 hours</div></div></div>
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:0.75rem;padding:1.1rem;margin-top:0.3rem">
+          <div style="font-family:'Playfair Display',serif;font-size:0.92rem;font-weight:700;margin-bottom:0.55rem">💡 Quick Help</div>
+          <ul style="color:var(--muted);font-size:0.76rem;line-height:1.85;padding-left:1rem">
+            <li>Try the <b style="color:var(--text)">Quiz</b> for practice questions</li>
+            <li>Watch <b style="color:var(--text)">Video Lessons</b> for explanations</li>
+            <li>Download papers from <b style="color:var(--text)">Exams</b></li>
+            <li>Use <b style="color:var(--text)">Live Chat</b> button below right ↘</li>
+          </ul>
+        </div>
+      </div>
+      <div class="cform">
+        <div style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;margin-bottom:1.2rem">Send a Message</div>
+        <div class="frow">
+          <div class="fg"><label>First Name</label><input type="text" placeholder="First name" id="cf-fn"></div>
+          <div class="fg"><label>Last Name</label><input type="text" placeholder="Last name" id="cf-ln"></div>
+        </div>
+        <div class="fg"><label>Email Address</label><input type="email" placeholder="your@email.com" id="cf-em"></div>
+        <div class="fg"><label>Subject</label>
+          <select id="cf-sub">
+            <option>General Inquiry</option><option>Question about a Topic</option>
+            <option>Request for Resources</option><option>Exam / Test Help</option>
+            <option>Collaboration</option><option>Report an Issue</option>
+          </select>
+        </div>
+        <div class="fg"><label>Message</label><textarea placeholder="Write your message here..." id="cf-msg"></textarea></div>
+        <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="sendMsg()">📨 Send Message</button>
+        <div class="smsg" id="smsg">✅ Message sent! Jackson will reply within 24 hours.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div class="page" id="page-about">
+  <div class="page-inner">
+    <div class="sec-label">// About</div>
+    <h2 class="sec-title">About Jackson</h2>
+    <div class="sec-line"></div>
+    <div class="about-grid">
+      <div>
+        <div class="acard">
+          <div class="avatar">JH</div>
+          <div class="aname">Jackson Habimana</div>
+          <div class="arole">Chemistry Educator</div>
+          <div class="astats">
+            <div><div class="sval">5+</div><div class="slabel">Years</div></div>
+            <div><div class="sval">60+</div><div class="slabel">Resources</div></div>
+            <div><div class="sval">300+</div><div class="slabel">Students</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="atext">
+        <p>Welcome to my chemistry learning portal. I'm <strong>Jackson Habimana</strong>, a chemistry educator based in <strong>Kigali, Rwanda</strong>, passionate about making chemistry accessible and exciting for every student.</p>
+        <p>This platform shares notes, lecture slides, practice quizzes, YouTube lessons, exam papers and more with learners at all levels — from secondary school to university.</p>
+        <p>Chemistry is the language of the universe. My mission is to help students decode it, one molecule at a time — building confidence through clear explanations and great resources.</p>
+        <div class="skills-list">
+          <span class="skill-tag">Organic Chemistry</span><span class="skill-tag">Physical Chemistry</span>
+          <span class="skill-tag">Inorganic Chemistry</span><span class="skill-tag">Analytical Chemistry</span>
+          <span class="skill-tag">Biochemistry</span><span class="skill-tag">Lab Techniques</span>
+          <span class="skill-tag">Nuclear Chemistry</span><span class="skill-tag">Electrochemistry</span>
+          <span class="skill-tag">Reaction Kinetics</span><span class="skill-tag">Spectroscopy</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CHAT WIDGET -->
+<div class="chat-bubble" onclick="toggleChat()">💬<div class="chat-badge" id="chatBadge">1</div></div>
+<div class="chat-window" id="chatWindow">
+  <div class="chat-header">
+    <div><div class="ch-title">💬 Live Chat</div><div class="ch-status">Jackson is online</div></div>
+    <button class="chat-close" onclick="toggleChat()">✕</button>
+  </div>
+  <div class="chat-messages" id="chatMessages">
+    <div class="msg received">👋 Hello! Welcome to Jackson Habimana's Chemistry Portal. How can I help you today?<div class="msg-time">Jackson · just now</div></div>
+  </div>
+  <div class="chat-input-area">
+    <input class="chat-input" id="chatInput" placeholder="Type a message..." onkeypress="if(event.key==='Enter')sendChat()">
+    <button class="chat-send" onclick="sendChat()">➤</button>
+  </div>
+</div>
+
+<script>
+// MOLECULES
+const mols=['⬡','○','◇','△','□','⬟'];
+const mc=document.getElementById('molecules');
+for(let i=0;i<16;i++){const el=document.createElement('div');el.className='molecule';el.style.cssText=`left:${Math.random()*100}%;font-size:${Math.random()*40+18}px;animation-duration:${Math.random()*25+15}s;animation-delay:-${Math.random()*20}s;color:${Math.random()>0.5?'#00d4aa':'#7c3aed'};`;el.textContent=mols[Math.floor(Math.random()*mols.length)];mc.appendChild(el);}
+
+// LOGIN
+let currentUser={name:'',role:'student'};
+let loginType='student';
+function switchLoginTab(t){
+  loginType=t;
+  document.querySelectorAll('.ltab').forEach(b=>b.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('passGroup').style.display=t==='teacher'?'block':'none';
+  document.getElementById('classGroup').style.display=t==='student'?'block':'none';
+}
+function doLogin(){
+  const name=document.getElementById('loginName').value.trim();
+  if(!name){document.getElementById('loginErr').textContent='❌ Please enter your name.';document.getElementById('loginErr').style.display='block';return;}
+  if(loginType==='teacher'){
+    const pass=document.getElementById('loginPass').value;
+    if(pass!=='chemistry2026'){document.getElementById('loginErr').style.display='block';return;}
+    currentUser={name,role:'teacher'};
+  } else {
+    currentUser={name,role:'student'};
+  }
+  document.getElementById('loginErr').style.display='none';
+  document.getElementById('loginScreen').style.display='none';
+  document.getElementById('navAvatar').textContent=name.charAt(0).toUpperCase();
+  document.getElementById('navRole').textContent=loginType==='teacher'?'Teacher':'Student';
+  addChatMsg(`Hi ${name}! 👋 Welcome to the chemistry portal. Feel free to ask me any chemistry questions!`,'received');
+}
+function doLogout(){if(confirm('Log out?')){document.getElementById('loginScreen').style.display='flex';document.getElementById('loginName').value='';document.getElementById('loginPass').value='';}}
+
+// NAV
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-links button').forEach(b=>b.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  document.getElementById('nav-'+id).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(id==='quiz')startQuiz();
+  if(id==='periodic')buildPT();
+}
+
+// QUIZ - 40+ questions
+const QS=[
+  {t:'atomic',q:'What is the atomic number of Carbon?',o:['4','6','8','12'],a:1},
+  {t:'atomic',q:'Which subshell holds a maximum of 10 electrons?',o:['s','p','d','f'],a:2},
+  {t:'atomic',q:'The nucleus contains:',o:['Protons only','Neutrons only','Protons and neutrons','All particles'],a:2},
+  {t:'atomic',q:'Electron configuration of sodium (Na)?',o:['1s²2s²2p⁶3s²','[Ne]3s¹','[Ar]3s¹','1s²2s²2p⁵'],a:1},
+  {t:'atomic',q:'Which element has the highest electronegativity?',o:['Oxygen','Chlorine','Fluorine','Nitrogen'],a:2},
+  {t:'atomic',q:'How many electrons can the 3rd energy level hold?',o:['2','8','18','32'],a:2},
+  {t:'atomic',q:'Isotopes have the same number of:',o:['Neutrons','Mass number','Protons','Electrons and neutrons'],a:2},
+  {t:'bonding',q:'What type of bond forms between Na⁺ and Cl⁻?',o:['Covalent','Metallic','Ionic','Hydrogen'],a:2},
+  {t:'bonding',q:'Which molecule has tetrahedral geometry?',o:['CO₂','H₂O','CH₄','NH₃'],a:2},
+  {t:'bonding',q:'A polar covalent bond forms when atoms have:',o:['Same electronegativity','Different electronegativity','Same mass','No electrons'],a:1},
+  {t:'bonding',q:'Water molecules are held together by:',o:['Ionic bonds','Covalent bonds','Hydrogen bonds','Metallic bonds'],a:2},
+  {t:'bonding',q:'Which has the shortest bond length?',o:['C-C single bond','C=C double bond','C≡C triple bond','C-H bond'],a:2},
+  {t:'organic',q:'Functional group of an alcohol?',o:['-COOH','-OH','-CHO','-NH₂'],a:1},
+  {t:'organic',q:'Ethene (C₂H₄) belongs to which series?',o:['Alkane','Alkene','Alkyne','Aromatic'],a:1},
+  {t:'organic',q:'IUPAC name for CH₃CH₂CH₃?',o:['Methane','Ethane','Propane','Butane'],a:2},
+  {t:'organic',q:'Which is NOT a functional group?',o:['Aldehyde','Ketone','Proton','Ester'],a:2},
+  {t:'organic',q:'Fermentation of glucose produces:',o:['Methanol','Ethanol','Propanol','Butanol'],a:1},
+  {t:'stoich',q:'Moles in 18g of water (H₂O)?',o:['0.5','1','2','18'],a:1},
+  {t:'stoich',q:'Molar mass of NaCl? (Na=23, Cl=35.5)',o:['48.5','58.5','68.5','78'],a:1},
+  {t:'stoich',q:'Avogadro\'s number is:',o:['6.02×10²¹','6.02×10²³','6.02×10²⁵','3.01×10²³'],a:1},
+  {t:'stoich',q:'What is the empirical formula of C₆H₁₂O₆?',o:['C₆H₁₂O₆','CH₂O','C₂H₄O₂','C₃H₆O₃'],a:1},
+  {t:'stoich',q:'Percent yield = (actual/theoretical) × ?',o:['10','50','100','1000'],a:2},
+  {t:'acids',q:'pH of a neutral solution at 25°C?',o:['0','7','10','14'],a:1},
+  {t:'acids',q:'A buffer solution resists changes in:',o:['Temperature','Pressure','pH','Volume'],a:2},
+  {t:'acids',q:'HCl is classified as a:',o:['Weak acid','Strong base','Strong acid','Weak base'],a:2},
+  {t:'acids',q:'pH + pOH = ? at 25°C',o:['7','10','14','1'],a:2},
+  {t:'acids',q:'An acid donates a ____ in Brønsted-Lowry theory:',o:['Electron pair','Proton','Neutron','Hydroxide'],a:1},
+  {t:'thermo',q:'ΔH is negative means the reaction is:',o:['Endothermic','Exothermic','Neutral','Spontaneous'],a:1},
+  {t:'thermo',q:'Hess\'s law is based on conservation of:',o:['Mass','Energy','Charge','Volume'],a:1},
+  {t:'thermo',q:'Which process always increases entropy?',o:['Freezing','Condensation','Sublimation','Crystallization'],a:2},
+  {t:'thermo',q:'ΔG = ΔH - TΔS. Spontaneous when ΔG is:',o:['Positive','Zero','Negative','Infinite'],a:2},
+  {t:'kinetics',q:'Rate of reaction increases when temperature:',o:['Decreases','Stays same','Increases','Reaches 0°C'],a:2},
+  {t:'kinetics',q:'A catalyst works by:',o:['Adding more reactants','Lowering activation energy','Increasing temperature','Changing products'],a:1},
+  {t:'kinetics',q:'The rate law: Rate = k[A]². The order with respect to A is:',o:['0','1','2','3'],a:2},
+  {t:'kinetics',q:'Half-life is the time for concentration to:',o:['Double','Triple','Halve','Reach zero'],a:2},
+];
+let curTopic='all',qqs=[],curQ=0,score=0,answered=false;
+function setTopic(t,btn){curTopic=t;document.querySelectorAll('.tbtn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');startQuiz();}
+function startQuiz(){let pool=curTopic==='all'?QS:QS.filter(q=>q.t===curTopic);if(pool.length===0)pool=QS;qqs=pool.sort(()=>Math.random()-0.5).slice(0,5);curQ=0;score=0;answered=false;document.getElementById('score-card').style.display='none';document.getElementById('quiz-area').style.display='block';renderQ();}
+function renderQ(){if(curQ>=qqs.length){showScore();return;}const q=qqs[curQ];answered=false;document.getElementById('quiz-status').textContent=`Question ${curQ+1} of ${qqs.length}`;document.getElementById('quiz-fill').style.width=`${((curQ+1)/qqs.length)*100}%`;document.getElementById('quiz-score-display').textContent=`Score: ${score}`;document.getElementById('quiz-area').innerHTML=`<div class="qcard"><div class="qnum">Q${curQ+1} · ${q.t.toUpperCase()}</div><div class="qtext">${q.q}</div><div class="qopts">${q.o.map((o,i)=>`<button class="qopt" onclick="answer(${i})">${String.fromCharCode(65+i)}) ${o}</button>`).join('')}</div></div><div class="qnav"><span style="font-family:'Space Mono',monospace;font-size:0.65rem;color:var(--muted)" id="hint-txt"></span><button class="btn btn-outline btn-sm" id="next-btn" style="display:none" onclick="nextQ()">Next →</button></div>`;}
+function answer(i){if(answered)return;answered=true;const q=qqs[curQ];document.querySelectorAll('.qopt').forEach((o,idx)=>{o.disabled=true;if(idx===q.a)o.classList.add('correct');else if(idx===i)o.classList.add('wrong');});if(i===q.a)score++;document.getElementById('quiz-score-display').textContent=`Score: ${score}`;document.getElementById('hint-txt').textContent=i===q.a?'✅ Correct!':'❌ Answer: '+String.fromCharCode(65+q.a)+') '+q.o[q.a];document.getElementById('next-btn').style.display='block';}
+function nextQ(){curQ++;renderQ();}
+function showScore(){document.getElementById('quiz-area').style.display='none';const sc=document.getElementById('score-card');sc.style.display='block';document.getElementById('final-score').textContent=`${score}/${qqs.length}`;const p=score/qqs.length;document.getElementById('score-msg').textContent=p>=0.8?'🎉 Excellent! Outstanding chemistry knowledge!':p>=0.6?'👍 Good work! Review the missed questions.':'📖 Keep studying — you\'ll get there!';}
+
+// UPLOAD
+const dz=document.getElementById('dropzone');
+const fi=document.getElementById('fileInput');
+const fl=document.getElementById('filesList');
+dz.addEventListener('dragover',e=>{e.preventDefault();dz.classList.add('dragover');});
+dz.addEventListener('dragleave',()=>dz.classList.remove('dragover'));
+dz.addEventListener('drop',e=>{e.preventDefault();dz.classList.remove('dragover');hf(e.dataTransfer.files);});
+fi.addEventListener('change',e=>hf(e.target.files));
+function hf(files){Array.from(files).forEach(file=>{const item=document.createElement('div');item.className='file-item';const ic=({'pdf':'📄','doc':'📝','docx':'📝','ppt':'📊','pptx':'📊','jpg':'🖼️','png':'🖼️','mp4':'🎬','txt':'📃'}[file.name.split('.').pop().toLowerCase()])||'📁';const sz=(file.size/1024).toFixed(1)+' KB';item.innerHTML=`<div class="fib">${ic}</div><div class="fi"><div class="fn">${file.name}</div><div class="fm">${sz} · Uploaded just now</div></div><button class="fdel" onclick="this.closest('.file-item').remove()">✕</button>`;fl.appendChild(item);});}
+
+// CONTACT
+function sendMsg(){const fn=document.getElementById('cf-fn').value;const em=document.getElementById('cf-em').value;const msg=document.getElementById('cf-msg').value;if(!fn||!em||!msg){alert('Please fill in all required fields.');return;}const s=document.getElementById('smsg');s.style.display='block';setTimeout(()=>s.style.display='none',5000);}
+
+// CHAT
+let chatOpen=false;
+function toggleChat(){chatOpen=!chatOpen;document.getElementById('chatWindow').classList.toggle('open',chatOpen);document.getElementById('chatBadge').style.display='none';}
+function addChatMsg(text,type){const cm=document.getElementById('chatMessages');const div=document.createElement('div');div.className='msg '+type;const now=new Date();const t=now.getHours()+':'+String(now.getMinutes()).padStart(2,'0');div.innerHTML=text+`<div class="msg-time">${type==='sent'?(currentUser.name||'You'):('Jackson')} · ${t}</div>`;cm.appendChild(div);cm.scrollTop=cm.scrollHeight;}
+const autoReplies=['Great question! Chemistry is all about understanding matter at its most fundamental level. 🧪','Try checking the Quiz section for practice on that topic! 📝','You can find more information in the Contents page under the relevant unit. 📚','For exam preparation, check the Exams & Tests section for past papers. 📄','Feel free to email me at jackson.habimana@gmail.com for more detailed help! 📧','The interactive periodic table might help with that question! ⚗️'];
+function sendChat(){const inp=document.getElementById('chatInput');const msg=inp.value.trim();if(!msg)return;addChatMsg(msg,'sent');inp.value='';setTimeout(()=>{addChatMsg(autoReplies[Math.floor(Math.random()*autoReplies.length)],'received');},800);}
+
+// PERIODIC TABLE
+const els=[
+  {n:1,s:'H',name:'Hydrogen',m:1.008,cat:'nonmetal',r:1,c:1},{n:2,s:'He',name:'Helium',m:4.003,cat:'noble',r:1,c:18},
+  {n:3,s:'Li',name:'Lithium',m:6.941,cat:'alkali',r:2,c:1},{n:4,s:'Be',name:'Beryllium',m:9.012,cat:'alkaline',r:2,c:2},
+  {n:5,s:'B',name:'Boron',m:10.81,cat:'metalloid',r:2,c:13},{n:6,s:'C',name:'Carbon',m:12.01,cat:'nonmetal',r:2,c:14},
+  {n:7,s:'N',name:'Nitrogen',m:14.01,cat:'nonmetal',r:2,c:15},{n:8,s:'O',name:'Oxygen',m:16.00,cat:'nonmetal',r:2,c:16},
+  {n:9,s:'F',name:'Fluorine',m:19.00,cat:'halogen',r:2,c:17},{n:10,s:'Ne',name:'Neon',m:20.18,cat:'noble',r:2,c:18},
+  {n:11,s:'Na',name:'Sodium',m:22.99,cat:'alkali',r:3,c:1},{n:12,s:'Mg',name:'Magnesium',m:24.31,cat:'alkaline',r:3,c:2},
+  {n:13,s:'Al',name:'Aluminium',m:26.98,cat:'post',r:3,c:13},{n:14,s:'Si',name:'Silicon',m:28.09,cat:'metalloid',r:3,c:14},
+  {n:15,s:'P',name:'Phosphorus',m:30.97,cat:'nonmetal',r:3,c:15},{n:16,s:'S',name:'Sulfur',m:32.07,cat:'nonmetal',r:3,c:16},
+  {n:17,s:'Cl',name:'Chlorine',m:35.45,cat:'halogen',r:3,c:17},{n:18,s:'Ar',name:'Argon',m:39.95,cat:'noble',r:3,c:18},
+  {n:19,s:'K',name:'Potassium',m:39.10,cat:'alkali',r:4,c:1},{n:20,s:'Ca',name:'Calcium',m:40.08,cat:'alkaline',r:4,c:2},
+  {n:26,s:'Fe',name:'Iron',m:55.85,cat:'transition',r:4,c:8},{n:29,s:'Cu',name:'Copper',m:63.55,cat:'transition',r:4,c:11},
+  {n:30,s:'Zn',name:'Zinc',m:65.38,cat:'transition',r:4,c:12},{n:35,s:'Br',name:'Bromine',m:79.90,cat:'halogen',r:4,c:17},
+  {n:36,s:'Kr',name:'Krypton',m:83.80,cat:'noble',r:4,c:18},{n:47,s:'Ag',name:'Silver',m:107.9,cat:'transition',r:5,c:11},
+  {n:53,s:'I',name:'Iodine',m:126.9,cat:'halogen',r:5,c:17},{n:54,s:'Xe',name:'Xenon',m:131.3,cat:'noble',r:5,c:18},
+  {n:56,s:'Ba',name:'Barium',m:137.3,cat:'alkaline',r:6,c:2},{n:79,s:'Au',name:'Gold',m:197.0,cat:'transition',r:6,c:11},
+  {n:80,s:'Hg',name:'Mercury',m:200.6,cat:'post',r:6,c:12},{n:82,s:'Pb',name:'Lead',m:207.2,cat:'post',r:6,c:14},
+  {n:86,s:'Rn',name:'Radon',m:222.0,cat:'noble',r:6,c:18},{n:92,s:'U',name:'Uranium',m:238.0,cat:'actinide',r:10,c:3},
+];
+const catCls={alkali:'pt-alkali',alkaline:'pt-alkaline',transition:'pt-transition',post:'pt-post',metalloid:'pt-metalloid',nonmetal:'pt-nonmetal',halogen:'pt-halogen',noble:'pt-noble',actinide:'pt-actinide'};
+const configs={1:'1s¹',2:'1s²',6:'[He]2s²2p²',7:'[He]2s²2p³',8:'[He]2s²2p⁴',9:'[He]2s²2p⁵',11:'[Ne]3s¹',12:'[Ne]3s²',17:'[Ne]3s²3p⁵',19:'[Ar]4s¹',20:'[Ar]4s²',26:'[Ar]3d⁶4s²',29:'[Ar]3d¹⁰4s¹',79:'[Xe]4f¹⁴5d¹⁰6s¹',92:'[Rn]5f³6d¹7s²'};
+let ptBuilt=false;
+function buildPT(){if(ptBuilt)return;ptBuilt=true;const g=document.getElementById('ptGrid');const cells={};els.forEach(e=>{cells[`${e.r}-${e.c}`]=e;});for(let r=1;r<=10;r++){for(let c=1;c<=18;c++){const e=cells[`${r}-${c}`];const d=document.createElement('div');if(e){d.className=`ptc ${catCls[e.cat]||''}`;d.innerHTML=`<span class="pn">${e.n}</span><span class="ps">${e.s}</span><span class="pm">${e.name.substring(0,4)}</span>`;d.onclick=()=>showEl(e);}else{d.style.cssText='background:transparent;border:none;';}g.appendChild(d);}}}
+function showEl(e){const d=document.getElementById('ptDetail');d.className='pt-detail show';document.getElementById('ptDC').innerHTML=`<div style="display:flex;align-items:center;gap:1.2rem;margin-bottom:1.2rem"><div style="width:68px;height:68px;border-radius:0.5rem;background:rgba(0,212,170,0.1);border:2px solid var(--accent);display:flex;flex-direction:column;align-items:center;justify-content:center"><div style="font-family:'Space Mono',monospace;font-size:0.48rem;color:var(--muted)">${e.n}</div><div style="font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:700;color:var(--accent)">${e.s}</div><div style="font-size:0.48rem;color:var(--muted)">${e.m}</div></div><div><div style="font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:700">${e.name}</div><div style="font-family:'Space Mono',monospace;font-size:0.58rem;color:var(--accent);text-transform:capitalize;margin-top:0.22rem">${e.cat}</div></div></div><div class="pt-dg"><div class="pt-di"><div class="pt-dl">Atomic Number</div><div class="pt-dv">${e.n}</div></div><div class="pt-di"><div class="pt-dl">Atomic Mass</div><div class="pt-dv">${e.m} u</div></div><div class="pt-di"><div class="pt-dl">Period</div><div class="pt-dv">${e.r}</div></div><div class="pt-di"><div class="pt-dl">Group</div><div class="pt-dv">${e.c}</div></div><div class="pt-di"><div class="pt-dl">Category</div><div class="pt-dv" style="text-transform:capitalize">${e.cat}</div></div><div class="pt-di"><div class="pt-dl">Electron Config</div><div class="pt-dv">${configs[e.n]||'—'}</div></div></div>`;}
+</script>
+</body>
+</html>
