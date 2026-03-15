@@ -604,6 +604,138 @@ footer a{color:var(--accent)}
   .modal-header,.modal-body{padding:1.25rem}
   .quiz-top,.quiz-filter,.quiz-body{padding:1.25rem}
 }
+
+/* ══════════════════════════════════════════════
+   TEACHER ADMIN PANEL
+══════════════════════════════════════════════ */
+.admin-fab{
+  position:fixed;bottom:2rem;left:2rem;z-index:1500;
+  width:52px;height:52px;border-radius:50%;
+  background:var(--gold);color:#050d1a;border:none;
+  font-size:1.4rem;box-shadow:0 4px 20px rgba(240,180,41,.35);
+  cursor:pointer;transition:all .25s;display:flex;align-items:center;justify-content:center;
+}
+.admin-fab:hover{transform:scale(1.1);background:#ffc93c}
+
+.admin-overlay{
+  position:fixed;inset:0;background:rgba(5,13,26,.96);z-index:4000;
+  display:none;backdrop-filter:blur(12px);overflow-y:auto;
+}
+.admin-overlay.open{display:block}
+.admin-wrap{max-width:900px;margin:0 auto;padding:2rem 1.5rem 4rem}
+.admin-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.5rem 0;border-bottom:1px solid var(--border);margin-bottom:2rem;
+}
+.admin-header h2{font-family:var(--font-head);font-size:1.6rem;color:var(--gold)}
+.admin-close-btn{
+  background:var(--card);border:1px solid var(--border);color:var(--muted);
+  width:38px;height:38px;border-radius:50%;font-size:1.1rem;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;transition:.2s;
+}
+.admin-close-btn:hover{background:var(--border);color:var(--text)}
+
+/* Login */
+.admin-login{
+  max-width:380px;margin:4rem auto;
+  background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2rem;
+  text-align:center;
+}
+.admin-login h3{font-family:var(--font-head);font-size:1.3rem;margin-bottom:.5rem;color:var(--gold)}
+.admin-login p{color:var(--muted);font-size:.85rem;margin-bottom:1.5rem}
+.admin-login input{
+  width:100%;background:var(--surface);border:1px solid var(--border);
+  color:var(--text);border-radius:9px;padding:.75rem 1rem;font-size:.9rem;
+  margin-bottom:1rem;text-align:center;letter-spacing:.15em;
+}
+.admin-login input:focus{outline:none;border-color:var(--gold)}
+
+/* Tabs */
+.admin-tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:2rem}
+.admin-tab{
+  padding:.55rem 1.2rem;border-radius:8px;font-size:.82rem;font-weight:600;
+  border:1px solid var(--border);background:var(--card);color:var(--muted);cursor:pointer;transition:.2s;
+}
+.admin-tab.active{background:var(--gold);color:#050d1a;border-color:var(--gold)}
+.admin-tab:hover:not(.active){border-color:var(--gold);color:var(--gold)}
+
+/* Panels */
+.admin-panel{display:none}
+.admin-panel.active{display:block}
+.admin-section-title{
+  font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;
+  color:var(--gold);margin-bottom:1rem;font-family:var(--font-mono);
+}
+.admin-card{
+  background:var(--card);border:1px solid var(--border);border-radius:12px;
+  padding:1.5rem;margin-bottom:1.25rem;
+}
+.admin-form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+.admin-form-group{margin-bottom:1rem}
+.admin-form-group label{
+  display:block;font-size:.75rem;font-weight:600;color:var(--muted);
+  text-transform:uppercase;letter-spacing:.06em;margin-bottom:.4rem;
+}
+.admin-form-group input,
+.admin-form-group select,
+.admin-form-group textarea{
+  width:100%;background:var(--surface);border:1px solid var(--border);
+  color:var(--text);border-radius:8px;padding:.65rem .9rem;font-size:.88rem;
+  font-family:var(--font-body);transition:.2s;
+}
+.admin-form-group input:focus,
+.admin-form-group select:focus,
+.admin-form-group textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(240,180,41,.08)}
+.admin-form-group textarea{resize:vertical;min-height:75px}
+
+.admin-options-wrap{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1rem}
+.admin-option-row{display:flex;gap:.5rem;align-items:center}
+.admin-option-row input{flex:1}
+.admin-option-row .correct-radio{
+  width:18px;height:18px;accent-color:var(--accent);flex-shrink:0;cursor:pointer
+}
+.admin-option-label{font-size:.72rem;color:var(--muted);white-space:nowrap}
+
+.admin-btn{
+  display:inline-flex;align-items:center;gap:.4rem;
+  padding:.6rem 1.25rem;border-radius:8px;font-size:.83rem;font-weight:600;
+  border:none;cursor:pointer;transition:all .2s;
+}
+.admin-btn-gold{background:var(--gold);color:#050d1a}
+.admin-btn-gold:hover{background:#ffc93c;transform:translateY(-1px)}
+.admin-btn-outline{background:transparent;border:1px solid var(--border);color:var(--muted)}
+.admin-btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+.admin-btn-danger{background:rgba(255,77,109,.15);border:1px solid rgba(255,77,109,.3);color:var(--danger)}
+.admin-btn-danger:hover{background:rgba(255,77,109,.25)}
+
+/* Item list */
+.admin-item-list{display:flex;flex-direction:column;gap:.6rem}
+.admin-item{
+  display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;
+  background:var(--surface);border:1px solid var(--border);border-radius:9px;
+  padding:.85rem 1rem;
+}
+.admin-item-info{flex:1;min-width:0}
+.admin-item-title{font-size:.88rem;font-weight:600;margin-bottom:.2rem}
+.admin-item-sub{font-size:.75rem;color:var(--muted)}
+.admin-item-actions{display:flex;gap:.4rem;flex-shrink:0}
+
+/* Stats bar */
+.admin-stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:.75rem;margin-bottom:2rem}
+.admin-stat-card{
+  background:var(--card);border:1px solid var(--border);border-radius:10px;
+  padding:1rem;text-align:center;
+}
+.admin-stat-num{font-family:var(--font-head);font-size:1.8rem;color:var(--gold)}
+.admin-stat-lbl{font-size:.73rem;color:var(--muted)}
+
+.admin-success{
+  background:rgba(0,200,160,.08);border:1px solid rgba(0,200,160,.2);
+  border-radius:8px;padding:.75rem 1rem;font-size:.85rem;color:var(--accent);
+  margin-bottom:1rem;display:none;
+}
+.admin-success.show{display:block}
+
 </style>
 </head>
 <body>
@@ -1839,6 +1971,714 @@ renderVideos();
 startQuiz();
 renderExams();
 renderPeriodicTable();
+
+
+/* ══════════════════════════════════════════════
+   TEACHER ADMIN PANEL — JAVASCRIPT
+══════════════════════════════════════════════ */
+
+const ADMIN_STORAGE_KEYS = {
+  pwd: 'jh_admin_pwd',
+  quizzes: 'jh_admin_quizzes',
+  exams: 'jh_admin_exams',
+  videos: 'jh_admin_videos',
+  topics: 'jh_admin_topics',
+  banner: 'jh_admin_banner',
+};
+const DEFAULT_PWD = 'jackson2026';
+
+function getAdminPwd(){ return localStorage.getItem(ADMIN_STORAGE_KEYS.pwd) || DEFAULT_PWD; }
+function getAdminData(key){ try{ return JSON.parse(localStorage.getItem(ADMIN_STORAGE_KEYS[key])||'[]'); }catch{ return []; } }
+function setAdminData(key,val){ localStorage.setItem(ADMIN_STORAGE_KEYS[key], JSON.stringify(val)); }
+
+/* ── Open / Close ─────────────────────────────── */
+function openAdmin(){
+  document.getElementById('adminOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+  // Reset to login if not logged in this session
+  if(!sessionStorage.getItem('jh_admin_logged')){
+    document.getElementById('adminLogin').style.display='block';
+    document.getElementById('adminMain').style.display='none';
+  } else {
+    showAdminMain();
+  }
+}
+function closeAdmin(){
+  document.getElementById('adminOverlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeAdmin(); });
+
+/* ── Login ────────────────────────────────────── */
+function checkAdminPwd(){
+  const val = document.getElementById('adminPwdInput').value;
+  if(val === getAdminPwd()){
+    sessionStorage.setItem('jh_admin_logged','1');
+    document.getElementById('adminLogin').style.display='none';
+    document.getElementById('adminPwdError').style.display='none';
+    document.getElementById('adminPwdInput').value='';
+    showAdminMain();
+  } else {
+    document.getElementById('adminPwdError').style.display='block';
+  }
+}
+
+function showAdminMain(){
+  document.getElementById('adminMain').style.display='block';
+  refreshAdminStats();
+  refreshAdminQuizList();
+  refreshAdminExamList();
+  refreshAdminVideoList();
+  refreshAdminTopicList();
+  loadBannerSetting();
+}
+
+/* ── Stats ────────────────────────────────────── */
+function refreshAdminStats(){
+  const q = getAdminData('quizzes').length;
+  const e = getAdminData('exams').length;
+  const v = getAdminData('videos').length;
+  const t = getAdminData('topics').length;
+  document.getElementById('adminStats').innerHTML = `
+    <div class="admin-stat-card"><div class="admin-stat-num">${QUIZ_BANK.length+q}</div><div class="admin-stat-lbl">Total Quiz Questions</div></div>
+    <div class="admin-stat-card"><div class="admin-stat-num">${e}</div><div class="admin-stat-lbl">Uploaded Exams</div></div>
+    <div class="admin-stat-card"><div class="admin-stat-num">${v}</div><div class="admin-stat-lbl">Video Lessons</div></div>
+    <div class="admin-stat-card"><div class="admin-stat-num">${t}</div><div class="admin-stat-lbl">Published Notes</div></div>
+  `;
+}
+
+/* ── Tabs ─────────────────────────────────────── */
+function switchAdminTab(name, btn){
+  document.querySelectorAll('.admin-tab').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.admin-panel').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('adminPanel-'+name).classList.add('active');
+}
+
+/* ── QUIZ MANAGEMENT ──────────────────────────── */
+function saveQuizQuestion(){
+  const q = document.getElementById('aqQuestion').value.trim();
+  const opts = [0,1,2,3].map(i=>document.getElementById('aqOpt'+i).value.trim());
+  const correct = parseInt(document.querySelector('input[name="aqCorrect"]:checked').value);
+  const exp = document.getElementById('aqExp').value.trim();
+  const topic = document.getElementById('aqTopic').value;
+
+  if(!q || opts.some(o=>!o)){
+    showToast('Please fill in the question and all 4 options','error'); return;
+  }
+
+  const newQ = { id: Date.now(), topic, q, opts, ans: correct, exp };
+  const existing = getAdminData('quizzes');
+  existing.push(newQ);
+  setAdminData('quizzes', existing);
+
+  // Also push to live QUIZ_BANK so students see it immediately
+  QUIZ_BANK.push(newQ);
+
+  // Reset form
+  document.getElementById('aqQuestion').value='';
+  [0,1,2,3].forEach(i=>document.getElementById('aqOpt'+i).value='');
+  document.getElementById('aqExp').value='';
+  document.querySelector('input[name="aqCorrect"][value="0"]').checked=true;
+
+  showAdminSuccess('quizSuccess');
+  refreshAdminQuizList();
+  refreshAdminStats();
+  showToast('✅ Question added to quiz bank!','success');
+}
+
+function refreshAdminQuizList(){
+  const items = getAdminData('quizzes');
+  document.getElementById('qCount').textContent = items.length;
+  const el = document.getElementById('adminQuizList');
+  if(!items.length){ el.innerHTML='<p style="color:var(--muted);font-size:.85rem;padding:.5rem">No questions added yet. Add your first question above.</p>'; return; }
+  el.innerHTML = items.map((q,i)=>`
+    <div class="admin-item">
+      <div class="admin-item-info">
+        <div class="admin-item-title">${q.q.substring(0,80)}${q.q.length>80?'…':''}</div>
+        <div class="admin-item-sub">Topic: ${q.topic} · Correct: ${q.opts[q.ans]}</div>
+      </div>
+      <div class="admin-item-actions">
+        <button class="admin-btn admin-btn-danger btn-sm" onclick="deleteAdminQuiz(${q.id})">🗑️</button>
+      </div>
+    </div>`).join('');
+}
+
+function deleteAdminQuiz(id){
+  if(!confirm('Delete this question?')) return;
+  const items = getAdminData('quizzes').filter(q=>q.id!==id);
+  setAdminData('quizzes', items);
+  // Remove from live QUIZ_BANK
+  const idx = QUIZ_BANK.findIndex(q=>q.id===id);
+  if(idx>-1) QUIZ_BANK.splice(idx,1);
+  refreshAdminQuizList();
+  refreshAdminStats();
+  showToast('Question deleted','success');
+}
+
+/* ── EXAM MANAGEMENT ──────────────────────────── */
+function saveExam(){
+  const title = document.getElementById('aeTitle').value.trim();
+  const type  = document.getElementById('aeType').value;
+  const desc  = document.getElementById('aeDesc').value.trim();
+  const date  = document.getElementById('aeDate').value.trim();
+  const url   = document.getElementById('aeUrl').value.trim();
+  const ansUrl= document.getElementById('aeAnsUrl').value.trim();
+
+  if(!title || !url){ showToast('Please enter a title and file link','error'); return; }
+
+  // Convert Google Drive view link to direct download
+  function gDriveDownload(u){
+    const m = u.match(/\/file\/d\/([^/]+)/);
+    if(m) return 'https://drive.google.com/uc?export=download&id='+m[1];
+    return u;
+  }
+
+  const badgeMap = {past:'badge-past',mock:'badge-mock',test:'badge-test',quiz:'badge-quiz',upcoming:'badge-upcoming',notes:'badge-past'};
+  const links = [{label:'📄 Download', url: gDriveDownload(url)}];
+  if(ansUrl) links.push({label:'✓ Answers', url: gDriveDownload(ansUrl)});
+
+  const exam = { id: Date.now(), type, badge: badgeMap[type]||'badge-past', title, desc, date, links };
+  const existing = getAdminData('exams');
+  existing.push(exam);
+  setAdminData('exams', existing);
+
+  // Inject into live EXAMS array
+  EXAMS.unshift(exam);
+  renderExams();
+
+  // Reset
+  ['aeTitle','aeDesc','aeDate','aeUrl','aeAnsUrl'].forEach(id=>document.getElementById(id).value='');
+  showAdminSuccess('examSuccess');
+  refreshAdminExamList();
+  refreshAdminStats();
+  showToast('✅ Exam added and now visible to students!','success');
+}
+
+function refreshAdminExamList(){
+  const items = getAdminData('exams');
+  document.getElementById('eCount').textContent = items.length;
+  const el = document.getElementById('adminExamList');
+  if(!items.length){ el.innerHTML='<p style="color:var(--muted);font-size:.85rem;padding:.5rem">No exams added yet.</p>'; return; }
+  el.innerHTML = items.map(e=>`
+    <div class="admin-item">
+      <div class="admin-item-info">
+        <div class="admin-item-title">${e.title}</div>
+        <div class="admin-item-sub">${e.type} · ${e.date} · ${e.links.length} link(s)</div>
+      </div>
+      <div class="admin-item-actions">
+        <a href="${e.links[0].url}" target="_blank" class="admin-btn admin-btn-outline btn-sm" style="font-size:.72rem">👁️</a>
+        <button class="admin-btn admin-btn-danger btn-sm" onclick="deleteAdminExam(${e.id})">🗑️</button>
+      </div>
+    </div>`).join('');
+}
+
+function deleteAdminExam(id){
+  if(!confirm('Delete this exam?')) return;
+  const items = getAdminData('exams').filter(e=>e.id!==id);
+  setAdminData('exams', items);
+  const idx = EXAMS.findIndex(e=>e.id===id);
+  if(idx>-1) EXAMS.splice(idx,1);
+  renderExams();
+  refreshAdminExamList();
+  refreshAdminStats();
+  showToast('Exam deleted','success');
+}
+
+/* ── VIDEO MANAGEMENT ─────────────────────────── */
+function saveVideo(){
+  const title = document.getElementById('avTitle').value.trim();
+  const unit  = document.getElementById('avUnit').value.trim();
+  const url   = document.getElementById('avUrl').value.trim();
+  const desc  = document.getElementById('avDesc').value.trim();
+
+  if(!title || !url){ showToast('Please enter a title and YouTube link','error'); return; }
+
+  const vid = { id: 'av'+Date.now(), icon:'🎬', title, unit: unit||'Extra', desc: desc||'', url, views: 0 };
+  const existing = getAdminData('videos');
+  existing.push(vid);
+  setAdminData('videos', existing);
+
+  // Inject into live VIDEOS_DATA and re-render
+  VIDEOS_DATA.push(vid);
+  renderVideos();
+
+  ['avTitle','avUnit','avUrl','avDesc'].forEach(id=>document.getElementById(id).value='');
+  showAdminSuccess('videoSuccess');
+  refreshAdminVideoList();
+  refreshAdminStats();
+  showToast('✅ Video added and visible to students!','success');
+}
+
+function refreshAdminVideoList(){
+  const items = getAdminData('videos');
+  document.getElementById('vCount').textContent = items.length;
+  const el = document.getElementById('adminVideoList');
+  if(!items.length){ el.innerHTML='<p style="color:var(--muted);font-size:.85rem;padding:.5rem">No videos added yet.</p>'; return; }
+  el.innerHTML = items.map(v=>`
+    <div class="admin-item">
+      <div class="admin-item-info">
+        <div class="admin-item-title">${v.title}</div>
+        <div class="admin-item-sub">${v.unit}</div>
+      </div>
+      <div class="admin-item-actions">
+        <a href="${v.url}" target="_blank" class="admin-btn admin-btn-outline btn-sm" style="font-size:.72rem">▶️</a>
+        <button class="admin-btn admin-btn-danger btn-sm" onclick="deleteAdminVideo('${v.id}')">🗑️</button>
+      </div>
+    </div>`).join('');
+}
+
+function deleteAdminVideo(id){
+  if(!confirm('Delete this video?')) return;
+  const items = getAdminData('videos').filter(v=>v.id!==id);
+  setAdminData('videos', items);
+  const idx = VIDEOS_DATA.findIndex(v=>v.id===id);
+  if(idx>-1) VIDEOS_DATA.splice(idx,1);
+  renderVideos();
+  refreshAdminVideoList();
+  refreshAdminStats();
+  showToast('Video deleted','success');
+}
+
+/* ── TOPIC NOTES MANAGEMENT ───────────────────── */
+function saveTopic(){
+  const title   = document.getElementById('atTitle').value.trim();
+  const unit    = document.getElementById('atUnit').value;
+  const content = document.getElementById('atContent').value.trim();
+  const link    = document.getElementById('atLink').value.trim();
+
+  if(!title || !content){ showToast('Please enter a title and content','error'); return; }
+
+  const note = { id: Date.now(), title, unit, content, link, date: new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}) };
+  const existing = getAdminData('topics');
+  existing.push(note);
+  setAdminData('topics', existing);
+
+  ['atTitle','atContent','atLink'].forEach(id=>document.getElementById(id).value='');
+  showAdminSuccess('topicSuccess');
+  refreshAdminTopicList();
+  refreshAdminStats();
+  renderStudentNotes();
+  showToast('✅ Note published to students!','success');
+}
+
+function refreshAdminTopicList(){
+  const items = getAdminData('topics');
+  document.getElementById('tCount').textContent = items.length;
+  const el = document.getElementById('adminTopicList');
+  if(!items.length){ el.innerHTML='<p style="color:var(--muted);font-size:.85rem;padding:.5rem">No notes published yet.</p>'; return; }
+  el.innerHTML = items.map(t=>`
+    <div class="admin-item">
+      <div class="admin-item-info">
+        <div class="admin-item-title">${t.title}</div>
+        <div class="admin-item-sub">${t.unit} · ${t.date}</div>
+      </div>
+      <div class="admin-item-actions">
+        <button class="admin-btn admin-btn-danger btn-sm" onclick="deleteAdminTopic(${t.id})">🗑️</button>
+      </div>
+    </div>`).join('');
+}
+
+function deleteAdminTopic(id){
+  if(!confirm('Delete this note?')) return;
+  const items = getAdminData('topics').filter(t=>t.id!==id);
+  setAdminData('topics', items);
+  refreshAdminTopicList();
+  refreshAdminStats();
+  renderStudentNotes();
+  showToast('Note deleted','success');
+}
+
+/* ── STUDENT NOTES SECTION (visible to everyone) ─ */
+function renderStudentNotes(){
+  const notes = getAdminData('topics');
+  if(!notes.length) return;
+
+  // Check if notes section already exists
+  let section = document.getElementById('studentNotesSection');
+  if(!section){
+    section = document.createElement('section');
+    section.id = 'studentNotesSection';
+    section.style.cssText = 'background:var(--surface);padding:4rem 1.5rem';
+    section.innerHTML = `
+      <div class="container">
+        <div class="section-header">
+          <div class="section-label">// From Your Teacher</div>
+          <h2>Notes & Announcements</h2>
+          <p>Latest resources and notes posted by Jackson</p>
+          <div class="divider"></div>
+        </div>
+        <div id="studentNotesList" style="max-width:800px;margin:0 auto;display:flex;flex-direction:column;gap:1rem"></div>
+      </div>`;
+    // Insert before the contact section
+    const contactSection = document.getElementById('contact');
+    if(contactSection) contactSection.parentNode.insertBefore(section, contactSection);
+    // Add to nav
+    const navLinks = document.querySelector('.nav-links');
+    if(navLinks && !document.getElementById('navNotes')){
+      const li = document.createElement('li');
+      li.id='navNotes';
+      li.innerHTML='<a href="#studentNotesSection">Notes</a>';
+      navLinks.appendChild(li);
+    }
+  }
+
+  document.getElementById('studentNotesList').innerHTML = notes.map(n=>`
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.25rem 1.5rem">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;margin-bottom:.75rem;flex-wrap:wrap">
+        <div>
+          <div style="font-size:.7rem;color:var(--accent);font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.3rem">${n.unit}</div>
+          <div style="font-size:1rem;font-weight:600">${n.title}</div>
+        </div>
+        <div style="font-size:.75rem;color:var(--muted);white-space:nowrap">📅 ${n.date}</div>
+      </div>
+      <p style="color:var(--muted);font-size:.88rem;line-height:1.7;white-space:pre-wrap">${n.content}</p>
+      ${n.link ? `<a href="${n.link}" target="_blank" class="btn btn-outline btn-sm" style="margin-top:.75rem;display:inline-flex">📎 View File</a>` : ''}
+    </div>`).join('');
+}
+
+/* ── BANNER ───────────────────────────────────── */
+function saveBanner(){
+  const msg = document.getElementById('setBanner').value.trim();
+  const type = document.getElementById('setBannerType').value;
+  if(!msg){ showToast('Please enter a message','error'); return; }
+  const banner = { msg, type };
+  localStorage.setItem(ADMIN_STORAGE_KEYS.banner, JSON.stringify(banner));
+  showBanner(banner);
+  showToast('✅ Banner published!','success');
+}
+function clearBanner(){
+  localStorage.removeItem(ADMIN_STORAGE_KEYS.banner);
+  const el = document.getElementById('announcementBanner');
+  el.style.display='none';
+  document.body.style.paddingTop='';
+  showToast('Banner removed','success');
+}
+function loadBannerSetting(){
+  try{
+    const saved = JSON.parse(localStorage.getItem(ADMIN_STORAGE_KEYS.banner)||'null');
+    if(saved){ document.getElementById('setBanner').value=saved.msg; document.getElementById('setBannerType').value=saved.type; }
+  }catch{}
+}
+function showBanner(b){
+  const el = document.getElementById('announcementBanner');
+  const colors = {info:'rgba(59,158,255,.12);border-bottom:1px solid rgba(59,158,255,.25);color:#7dd3fc',warning:'rgba(240,180,41,.1);border-bottom:1px solid rgba(240,180,41,.2);color:var(--gold)',success:'rgba(0,200,160,.1);border-bottom:1px solid rgba(0,200,160,.2);color:var(--accent)'};
+  el.style.cssText = `display:block;position:fixed;top:62px;left:0;right:0;z-index:999;padding:.65rem 1.5rem;font-size:.85rem;font-weight:500;text-align:center;background:${colors[b.type]||colors.info}`;
+  el.textContent = b.msg;
+}
+
+/* ── SETTINGS ─────────────────────────────────── */
+function changePassword(){
+  const oldP = document.getElementById('setPwdOld').value;
+  const newP = document.getElementById('setPwdNew').value;
+  const confP = document.getElementById('setPwdConfirm').value;
+  const msgEl = document.getElementById('pwdMsg');
+
+  if(oldP !== getAdminPwd()){ msgEl.style.display='block'; msgEl.style.color='var(--danger)'; msgEl.textContent='❌ Current password is wrong.'; return; }
+  if(newP.length < 6){ msgEl.style.display='block'; msgEl.style.color='var(--danger)'; msgEl.textContent='❌ New password must be at least 6 characters.'; return; }
+  if(newP !== confP){ msgEl.style.display='block'; msgEl.style.color='var(--danger)'; msgEl.textContent='❌ Passwords do not match.'; return; }
+
+  localStorage.setItem(ADMIN_STORAGE_KEYS.pwd, newP);
+  msgEl.style.display='block'; msgEl.style.color='var(--accent)'; msgEl.textContent='✅ Password changed successfully!';
+  ['setPwdOld','setPwdNew','setPwdConfirm'].forEach(id=>document.getElementById(id).value='');
+  showToast('Password updated!','success');
+}
+
+function clearAllAdminData(){
+  if(!confirm('Are you sure? This will delete ALL your added quiz questions, exams, videos, and notes. This cannot be undone.')) return;
+  Object.values(ADMIN_STORAGE_KEYS).forEach(k=>{ if(k!==ADMIN_STORAGE_KEYS.pwd) localStorage.removeItem(k); });
+  showToast('All admin data cleared','success');
+  closeAdmin();
+  location.reload();
+}
+
+/* ── Helper ───────────────────────────────────── */
+function showAdminSuccess(id){
+  const el = document.getElementById(id);
+  el.classList.add('show');
+  setTimeout(()=>el.classList.remove('show'), 3000);
+}
+
+/* ── LOAD SAVED DATA ON PAGE START ───────────── */
+(function loadSavedAdminData(){
+  // Load saved quiz questions into QUIZ_BANK
+  getAdminData('quizzes').forEach(q=>{ if(!QUIZ_BANK.find(b=>b.id===q.id)) QUIZ_BANK.push(q); });
+  // Load saved exams into EXAMS
+  getAdminData('exams').forEach(e=>{ if(!EXAMS.find(b=>b.id===e.id)) EXAMS.unshift(e); });
+  // Load saved videos into VIDEOS_DATA
+  getAdminData('videos').forEach(v=>{ if(!VIDEOS_DATA.find(b=>b.id===v.id)) VIDEOS_DATA.push(v); });
+  // Load banner
+  try{
+    const banner = JSON.parse(localStorage.getItem(ADMIN_STORAGE_KEYS.banner)||'null');
+    if(banner) setTimeout(()=>showBanner(banner), 500);
+  }catch{}
+  // Load student notes
+  setTimeout(()=>{ if(getAdminData('topics').length) renderStudentNotes(); }, 100);
+})();
+
 </script>
+
+<!-- ══════════════════════════════════════════════
+     TEACHER ADMIN BUTTON
+════════════════════════════════════════════════ -->
+<button class="admin-fab" onclick="openAdmin()" title="Teacher Admin Panel">🎓</button>
+
+<!-- ══════════════════════════════════════════════
+     TEACHER ADMIN PANEL
+════════════════════════════════════════════════ -->
+<div class="admin-overlay" id="adminOverlay">
+<div class="admin-wrap">
+  <div class="admin-header">
+    <h2>🎓 Teacher Admin Panel</h2>
+    <button class="admin-close-btn" onclick="closeAdmin()">✕</button>
+  </div>
+
+  <!-- LOGIN SCREEN -->
+  <div id="adminLogin">
+    <div class="admin-login">
+      <h3>🔒 Teacher Login</h3>
+      <p>Enter your admin password to manage site content</p>
+      <input type="password" id="adminPwdInput" placeholder="Enter password" onkeydown="if(event.key==='Enter')checkAdminPwd()"/>
+      <button class="admin-btn admin-btn-gold" style="width:100%;justify-content:center" onclick="checkAdminPwd()">🔓 Login</button>
+      <p id="adminPwdError" style="color:var(--danger);font-size:.8rem;margin-top:.75rem;display:none">❌ Wrong password. Try again.</p>
+      <p style="margin-top:1.25rem;font-size:.75rem;color:var(--muted)">Default password: <strong style="color:var(--gold)">jackson2026</strong><br>Change it in Settings tab after login.</p>
+    </div>
+  </div>
+
+  <!-- MAIN PANEL (shown after login) -->
+  <div id="adminMain" style="display:none">
+
+    <!-- Stats -->
+    <div class="admin-stats" id="adminStats"></div>
+
+    <!-- Tabs -->
+    <div class="admin-tabs">
+      <button class="admin-tab active" onclick="switchAdminTab('quiz',this)">🧪 Quiz Questions</button>
+      <button class="admin-tab" onclick="switchAdminTab('exams',this)">📄 Exams & Files</button>
+      <button class="admin-tab" onclick="switchAdminTab('videos',this)">🎥 Videos</button>
+      <button class="admin-tab" onclick="switchAdminTab('topics',this)">📚 Topic Notes</button>
+      <button class="admin-tab" onclick="switchAdminTab('settings',this)">⚙️ Settings</button>
+    </div>
+
+    <!-- ── QUIZ TAB ─────────────────────────────────── -->
+    <div class="admin-panel active" id="adminPanel-quiz">
+      <div class="admin-success" id="quizSuccess">✅ Question saved successfully!</div>
+      <div class="admin-card">
+        <div class="admin-section-title">➕ Add New Quiz Question</div>
+        <div class="admin-form-group">
+          <label>Topic</label>
+          <select id="aqTopic">
+            <option value="atomic">Atomic Structure</option>
+            <option value="bonding">Chemical Bonding</option>
+            <option value="stoichiometry">Stoichiometry</option>
+            <option value="organic">Organic Chemistry</option>
+            <option value="thermo">Thermochemistry</option>
+            <option value="electrochem">Electrochemistry</option>
+            <option value="acids">Acids & Bases</option>
+            <option value="equilibrium">Equilibrium</option>
+            <option value="gas">Gas Laws</option>
+            <option value="nuclear">Nuclear Chemistry</option>
+            <option value="lab">Lab Techniques</option>
+            <option value="biochem">Biochemistry</option>
+          </select>
+        </div>
+        <div class="admin-form-group">
+          <label>Question</label>
+          <textarea id="aqQuestion" placeholder="Type your question here..."></textarea>
+        </div>
+        <div class="admin-section-title" style="margin-top:.5rem">Answer Options <span style="color:var(--muted);font-weight:400;text-transform:none;letter-spacing:0">(select the correct answer with the radio button)</span></div>
+        <div class="admin-options-wrap">
+          <div class="admin-option-row"><input type="radio" name="aqCorrect" value="0" class="correct-radio" checked/><span class="admin-option-label">A</span><input type="text" id="aqOpt0" placeholder="Option A"/></div>
+          <div class="admin-option-row"><input type="radio" name="aqCorrect" value="1" class="correct-radio"/><span class="admin-option-label">B</span><input type="text" id="aqOpt1" placeholder="Option B"/></div>
+          <div class="admin-option-row"><input type="radio" name="aqCorrect" value="2" class="correct-radio"/><span class="admin-option-label">C</span><input type="text" id="aqOpt2" placeholder="Option C"/></div>
+          <div class="admin-option-row"><input type="radio" name="aqCorrect" value="3" class="correct-radio"/><span class="admin-option-label">D</span><input type="text" id="aqOpt3" placeholder="Option D"/></div>
+        </div>
+        <div class="admin-form-group">
+          <label>Explanation (shown after student answers)</label>
+          <textarea id="aqExp" placeholder="Explain why the correct answer is right..."></textarea>
+        </div>
+        <button class="admin-btn admin-btn-gold" onclick="saveQuizQuestion()">💾 Save Question</button>
+      </div>
+
+      <div class="admin-section-title">📋 Your Added Questions (<span id="qCount">0</span>)</div>
+      <div class="admin-item-list" id="adminQuizList"></div>
+    </div>
+
+    <!-- ── EXAMS TAB ────────────────────────────────── -->
+    <div class="admin-panel" id="adminPanel-exams">
+      <div class="admin-success" id="examSuccess">✅ Exam saved!</div>
+      <div class="admin-card">
+        <div class="admin-section-title">➕ Add Exam / Past Paper / File</div>
+        <div class="admin-form-row">
+          <div class="admin-form-group">
+            <label>Title</label>
+            <input type="text" id="aeTitle" placeholder="e.g. 2024 Past Paper — Paper 1"/>
+          </div>
+          <div class="admin-form-group">
+            <label>Type</label>
+            <select id="aeType">
+              <option value="past">Past Paper</option>
+              <option value="mock">Mock Exam</option>
+              <option value="test">Unit Test</option>
+              <option value="quiz">Online Quiz</option>
+              <option value="upcoming">Upcoming</option>
+              <option value="notes">Notes / Resource</option>
+            </select>
+          </div>
+        </div>
+        <div class="admin-form-row">
+          <div class="admin-form-group">
+            <label>Description</label>
+            <input type="text" id="aeDesc" placeholder="e.g. MCQ · 40 marks · 45 mins"/>
+          </div>
+          <div class="admin-form-group">
+            <label>Date</label>
+            <input type="text" id="aeDate" placeholder="e.g. Nov 2024"/>
+          </div>
+        </div>
+        <div class="admin-form-group">
+          <label>📎 File Download Link (paste Google Drive or any direct link)</label>
+          <input type="url" id="aeUrl" placeholder="https://drive.google.com/file/d/YOUR_FILE_ID/view?usp=sharing"/>
+        </div>
+        <div class="admin-form-group">
+          <label>✅ Answers Link (optional)</label>
+          <input type="url" id="aeAnsUrl" placeholder="Paste answers PDF link (optional)"/>
+        </div>
+        <div style="background:rgba(59,158,255,.06);border:1px solid rgba(59,158,255,.15);border-radius:8px;padding:.85rem 1rem;font-size:.8rem;color:var(--accent2);margin-bottom:1rem">
+          💡 <strong>How to get a Google Drive link:</strong> Upload PDF to Google Drive → Right-click → "Get link" → Set to "Anyone with the link" → Copy link and paste above.
+        </div>
+        <button class="admin-btn admin-btn-gold" onclick="saveExam()">💾 Save Exam</button>
+      </div>
+
+      <div class="admin-section-title">📋 Your Added Exams & Files (<span id="eCount">0</span>)</div>
+      <div class="admin-item-list" id="adminExamList"></div>
+    </div>
+
+    <!-- ── VIDEOS TAB ───────────────────────────────── -->
+    <div class="admin-panel" id="adminPanel-videos">
+      <div class="admin-success" id="videoSuccess">✅ Video saved!</div>
+      <div class="admin-card">
+        <div class="admin-section-title">➕ Add / Update Video Lesson</div>
+        <div class="admin-form-row">
+          <div class="admin-form-group">
+            <label>Video Title</label>
+            <input type="text" id="avTitle" placeholder="e.g. Atomic Structure — Full Lesson"/>
+          </div>
+          <div class="admin-form-group">
+            <label>Unit / Topic</label>
+            <input type="text" id="avUnit" placeholder="e.g. Unit 1 — Atomic Structure"/>
+          </div>
+        </div>
+        <div class="admin-form-group">
+          <label>YouTube Link</label>
+          <input type="url" id="avUrl" placeholder="https://www.youtube.com/watch?v=..."/>
+        </div>
+        <div class="admin-form-group">
+          <label>Short Description</label>
+          <input type="text" id="avDesc" placeholder="Brief description of what the video covers"/>
+        </div>
+        <button class="admin-btn admin-btn-gold" onclick="saveVideo()">💾 Save Video</button>
+      </div>
+
+      <div class="admin-section-title">📋 Your Added Videos (<span id="vCount">0</span>)</div>
+      <div class="admin-item-list" id="adminVideoList"></div>
+    </div>
+
+    <!-- ── TOPICS TAB ───────────────────────────────── -->
+    <div class="admin-panel" id="adminPanel-topics">
+      <div class="admin-success" id="topicSuccess">✅ Topic note saved!</div>
+      <div class="admin-card">
+        <div class="admin-section-title">➕ Add Lesson Note / Announcement</div>
+        <div class="admin-form-row">
+          <div class="admin-form-group">
+            <label>Title</label>
+            <input type="text" id="atTitle" placeholder="e.g. Extra notes on Oxidation Numbers"/>
+          </div>
+          <div class="admin-form-group">
+            <label>Unit / Topic</label>
+            <select id="atUnit">
+              <option>Unit 1 — Atomic Structure</option>
+              <option>Unit 2 — Chemical Bonding</option>
+              <option>Unit 3 — Stoichiometry</option>
+              <option>Unit 4 — Organic Chemistry</option>
+              <option>Unit 5 — Thermochemistry</option>
+              <option>Unit 6 — Electrochemistry</option>
+              <option>Unit 7 — Acids & Bases</option>
+              <option>Unit 8 — Equilibrium</option>
+              <option>Unit 9 — Gas Laws</option>
+              <option>Unit 10 — Nuclear Chemistry</option>
+              <option>Unit 11 — Lab Techniques</option>
+              <option>Unit 12 — Biochemistry</option>
+              <option>General Announcement</option>
+            </select>
+          </div>
+        </div>
+        <div class="admin-form-group">
+          <label>Content / Notes</label>
+          <textarea id="atContent" style="min-height:120px" placeholder="Type your notes, announcements or lesson content here. Students will see this on the site."></textarea>
+        </div>
+        <div class="admin-form-group">
+          <label>File Link (optional — Google Drive PDF/Doc)</label>
+          <input type="url" id="atLink" placeholder="Optional: paste a link to a file"/>
+        </div>
+        <button class="admin-btn admin-btn-gold" onclick="saveTopic()">💾 Publish Note</button>
+      </div>
+
+      <div class="admin-section-title">📋 Published Notes & Announcements (<span id="tCount">0</span>)</div>
+      <div class="admin-item-list" id="adminTopicList"></div>
+    </div>
+
+    <!-- ── SETTINGS TAB ─────────────────────────────── -->
+    <div class="admin-panel" id="adminPanel-settings">
+      <div class="admin-card">
+        <div class="admin-section-title">🔒 Change Admin Password</div>
+        <div class="admin-form-group">
+          <label>Current Password</label>
+          <input type="password" id="setPwdOld" placeholder="Current password"/>
+        </div>
+        <div class="admin-form-group">
+          <label>New Password</label>
+          <input type="password" id="setPwdNew" placeholder="New password (min 6 characters)"/>
+        </div>
+        <div class="admin-form-group">
+          <label>Confirm New Password</label>
+          <input type="password" id="setPwdConfirm" placeholder="Repeat new password"/>
+        </div>
+        <button class="admin-btn admin-btn-gold" onclick="changePassword()">🔒 Update Password</button>
+        <p id="pwdMsg" style="margin-top:.75rem;font-size:.82rem;display:none"></p>
+      </div>
+
+      <div class="admin-card">
+        <div class="admin-section-title">🔔 Student Announcement Banner</div>
+        <div class="admin-form-group">
+          <label>Announcement Message (shown at top of site for all students)</label>
+          <textarea id="setBanner" placeholder="e.g. 📢 Mid-term exam is on 20 March 2026. Good luck to all students!"></textarea>
+        </div>
+        <div class="admin-form-group">
+          <label>Banner Type</label>
+          <select id="setBannerType">
+            <option value="info">ℹ️ Info (blue)</option>
+            <option value="warning">⚠️ Warning (yellow)</option>
+            <option value="success">✅ Success (green)</option>
+          </select>
+        </div>
+        <button class="admin-btn admin-btn-gold" onclick="saveBanner()">📢 Publish Banner</button>
+        <button class="admin-btn admin-btn-outline" style="margin-left:.5rem" onclick="clearBanner()">✕ Remove Banner</button>
+      </div>
+
+      <div class="admin-card">
+        <div class="admin-section-title" style="color:var(--danger)">⚠️ Danger Zone</div>
+        <p style="color:var(--muted);font-size:.85rem;margin-bottom:1rem">This will permanently delete all quiz questions, exams, videos, and notes you have added through the admin panel.</p>
+        <button class="admin-btn admin-btn-danger" onclick="clearAllAdminData()">🗑️ Clear All Admin Data</button>
+      </div>
+    </div>
+
+  </div><!-- end adminMain -->
+</div><!-- end admin-wrap -->
+</div><!-- end admin-overlay -->
+
+<!-- STUDENT ANNOUNCEMENTS BANNER -->
+<div id="announcementBanner" style="display:none;position:fixed;top:62px;left:0;right:0;z-index:999;padding:.75rem 1.5rem;font-size:.85rem;font-weight:500;text-align:center"></div>
+
 </body>
 </html>
