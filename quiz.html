@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Chemistry Quiz</title>
+</head>
+
+<body>
+
+<h2>Chemistry Quiz</h2>
+
+<form id="quizForm">
+
+<p>1. What is electron gain enthalpy?</p>
+
+<input type="radio" name="q1" value="a"> Energy released when atom gains electron<br>
+<input type="radio" name="q1" value="b"> Energy required to remove electron<br>
+<input type="radio" name="q1" value="c"> Energy of proton<br>
+
+<br>
+
+<p>2. How many orbitals are in the fifth shell?</p>
+
+<input type="radio" name="q2" value="a"> 25<br>
+<input type="radio" name="q2" value="b"> 16<br>
+<input type="radio" name="q2" value="c"> 9<br>
+
+<br><br>
+
+<input type="button" value="Submit Quiz" onclick="checkAnswers()">
+
+</form>
+
+<h3 id="result"></h3>
+
+<script>
+
+function checkAnswers(){
+
+let score = 0;
+
+let q1 = document.querySelector('input[name="q1"]:checked');
+let q2 = document.querySelector('input[name="q2"]:checked');
+
+if(q1 && q1.value === "a"){score++;}
+if(q2 && q2.value === "a"){score++;}
+
+document.getElementById("result").innerHTML =
+"Your score is " + score + "/2";
+
+}
+
+</script>
+
+</body>
+</html>
