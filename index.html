@@ -1902,7 +1902,7 @@ function renderResultsTable(){
     <td style="text-transform:capitalize">${r.topic||'—'}</td>
     <td>${r.score}/${r.total}</td><td>${r.pct}%</td>
     <td class="grade-${r.grade}">${r.grade}</td>
-    <td style="color:var(--muted);font-size:.75rem">${r.datetime}</td></tr>`).join('');
+    <td style="color:var(--muted);font-size:.75rem">${r.datetime}</td> <td style="color:${r.violations>0?'var(--danger)':'var(--accent)'};font-weight:700">${r.violations||0} ${r.violations>0?'⚠️':'✅'}</td></tr>`).join('');
 }
 function downloadResultsCSV(){
   const all=JSON.parse(localStorage.getItem('jh_student_results')||'[]');
