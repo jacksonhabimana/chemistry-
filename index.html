@@ -1660,7 +1660,7 @@ function renderQuestion(){
   document.getElementById('quizOptions').innerHTML=q.opts.map((o,i)=>
     `<button class="quiz-option" onclick="answerQ(${i})">${o}</button>`).join('');
 }
-function answerQ(chosen){
+/* ── ANTI-CHEAT ─────────────────────────────────────── */ let violations = 0; let violationLog = []; document.addEventListener('visibilitychange', function(){   if(document.hidden){     const quizRunning = document.getElementById('quizBody').style.display !== 'none';     if(quizRunning && quizState.questions.length > 0){       violations++;       const time = new Date().toLocaleTimeString('en-GB');       violationLog.push(`Tab switch #${violations} at ${time} (Q${quizState.idx+1})`);       const warning = document.getElementById('antiCheatWarning');       if(warning){         warning.textContent = `⚠️ Warning ${violations}/3: You switched tabs! Your teacher will be notified.`;         warning.style.display = 'block';         setTimeout(()=>warning.style.display='none', 4000);       }       if(violations >= 3){         showToast('❌ Too many tab switches — quiz auto-submitted!','error');         showResult();       }     }   } });  function answerQ(chosen){
   if(quizState.answered)return;
   quizState.answered=true;
   const q=quizState.questions[quizState.idx];
