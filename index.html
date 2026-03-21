@@ -1640,7 +1640,7 @@ function startQuiz(skipReg){
   const topic=document.getElementById('quizTopic').value;
   let pool=topic==='all'?QUIZ_BANK:QUIZ_BANK.filter(q=>q.topic===topic);
   if(!pool.length){showToast('No questions for this topic yet','error');return;}
-  pool=[...pool].sort(()=>Math.random()-.5).slice(0,Math.min(10,pool.length));
+  pool=[...pool].sort(()=>Math.random()-.5);
   quizState={questions:pool,idx:0,score:0,answered:false};
   document.getElementById('quizBody').style.display='block';
   document.getElementById('quizResult').classList.remove('show');
