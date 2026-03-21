@@ -2670,27 +2670,6 @@ function clearAllAdminData(){
   <p style="color:rgba(255,255,255,.7);font-size:.78rem;margin-top:1rem">After 3 strikes the quiz will be auto-submitted.</p>
 </div>
 
-<script>
-/* ANTI-CHEAT */
-let antiCheat={active:false,strikes:0,maxStrikes:3,violations:[]};
-function startAntiCheat(){antiCheat.active=true;antiCheat.strikes=0;antiCheat.violations=[];requestFullscreen();document.addEventListener('visibilitychange',onVisibilityChange);window.addEventListener('blur',onWindowBlur);document.addEventListener('contextmenu',blockContextMenu);}
-function stopAntiCheat(){antiCheat.active=false;document.removeEventListener('visibilitychange',onVisibilityChange);window.removeEventListener('blur',onWindowBlur);document.removeEventListener('contextmenu',blockContextMenu);exitFullscreen();}
-function requestFullscreen(){const el=document.documentElement;if(el.requestFullscreen)el.requestFullscreen();else if(el.webkitRequestFullscreen)el.webkitRequestFullscreen();}
-function exitFullscreen(){if(document.exitFullscreen)document.exitFullscreen();}
-function onVisibilityChange(){if(!antiCheat.active)return;if(document.hidden){antiCheat.violations.push('Tab switch at '+new Date().toLocaleTimeString());showStrike('You switched to another tab!');}}
-function onWindowBlur(){if(!antiCheat.active)return;antiCheat.violations.push('Window blur at '+new Date().toLocaleTimeString());showStrike('You switched away from the quiz!');}
-function blockContextMenu(e){if(antiCheat.active)e.preventDefault();}
-function showStrike(msg){antiCheat.strikes++;const remaining=antiCheat.maxStrikes-antiCheat.strikes;const box=document.getElementById('antiCheatWarning');if(box){document.getElementById('strikeDisplay').textContent='Strike '+antiCheat.strikes+' / '+antiCheat.maxStrikes;document.getElementById('antiCheatMsg').textContent=msg+' You have '+remaining+' strike(s) left.';box.style.display='flex';if(antiCheat.strikes>=antiCheat.maxStrikes){document.getElementById('antiCheatMsg').textContent='Maximum violations! Quiz is being submitted now.';setTimeout(()=>{box.style.display='none';stopAntiCheat();showResult();},3000);}}}
-function dismissWarning(){document.getElementById('antiCheatWarning').style.display='none';requestFullscreen();}
-function showFullscreenPrompt(){document.getElementById('fullscreenPrompt').style.display='flex';} function enterFullscreenAndStart(){document.getElementById('fullscreenPrompt').style.display='none';startAntiCheat();} function registerStudent(){startRegisteredQuiz();}
-function confirmStudentReg(){startRegisteredQuiz();}
-function skipStudentReg(){closeStudentReg();}
-/* Patch startQuiz */
 
-function startQuiz(s){_orig(s);if(s)setTimeout(startAntiCheat,500);}
-/* Patch showResult */
-
-function showResult(){stopAntiCheat();const all=JSON.parse(localStorage.getItem('jh_student_results')||'[]');if(all.length){all[all.length-1].strikes=antiCheat.strikes;all[all.length-1].violations=antiCheat.violations.join(' | ');localStorage.setItem('jh_student_results',JSON.stringify(all));}_origR();}
-</script>
 </body>
 </html>
