@@ -2660,6 +2660,37 @@ function clearAllAdminData(){
 
 <!-- STUDENT REGISTRATION MODAL -->
 
+<!-- ANTI-CHEAT WARNING BOX -->
+<div id="antiCheatWarning" style="display:none;position:fixed;inset:0;background:rgba(255,77,109,.97);z-index:99999;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:2rem;">
+  <div style="font-size:4rem;margin-bottom:1rem">⚠️</div>
+  <h2 style="font-size:2rem;color:#fff;margin-bottom:1rem">Tab Switch Detected!</h2>
+  <div id="strikeDisplay" style="font-size:3rem;font-weight:700;color:#fff;margin-bottom:1rem">Strike 1 / 3</div>
+  <p id="antiCheatMsg" style="color:rgba(255,255,255,.9);font-size:1rem;margin-bottom:1.5rem;max-width:400px;line-height:1.6">You left the quiz tab! This has been recorded.</p>
+  <button onclick="dismissWarning()" style="background:#fff;color:#ff4d6d;border:none;border-radius:10px;padding:.75rem 2rem;font-size:1rem;font-weight:700;cursor:pointer">↩️ Return to Quiz</button>
+  <p style="color:rgba(255,255,255,.7);font-size:.78rem;margin-top:1rem">After 3 strikes the quiz will be auto-submitted.</p>
+</div>
 
+<script>
+/* ANTI-CHEAT */
+let antiCheat={active:false,strikes:0,maxStrikes:3,violations:[]};
+function startAntiCheat(){antiCheat.active=true;antiCheat.strikes=0;antiCheat.violations=[];requestFullscreen();document.addEventListener('visibilitychange',onVisibilityChange);window.addEventListener('blur',onWindowBlur);document.addEventListener('contextmenu',blockContextMenu);}
+function stopAntiCheat(){antiCheat.active=false;document.removeEventListener('visibilitychange',onVisibilityChange);window.removeEventListener('blur',onWindowBlur);document.removeEventListener('contextmenu',blockContextMenu);exitFullscreen();}
+function requestFullscreen(){const el=document.documentElement;if(el.requestFullscreen)el.requestFullscreen();else if(el.webkitRequestFullscreen)el.webkitRequestFullscreen();}
+function exitFullscreen(){if(document.exitFullscreen)document.exitFullscreen();}
+function onVisibilityChange(){if(!antiCheat.active)return;if(document.hidden){antiCheat.violations.push('Tab switch at '+new Date().toLocaleTimeString());showStrike('You switched to another tab!');}}
+function onWindowBlur(){if(!antiCheat.active)return;antiCheat.violations.push('Window blur at '+new Date().toLocaleTimeString());showStrike('You switched away from the quiz!');}
+function blockContextMenu(e){if(antiCheat.active)e.preventDefault();}
+function showStrike(msg){antiCheat.strikes++;const remaining=antiCheat.maxStrikes-antiCheat.strikes;const box=document.getElementById('antiCheatWarning');if(box){document.getElementById('strikeDisplay').textContent='Strike '+antiCheat.strikes+' / '+antiCheat.maxStrikes;document.getElementById('antiCheatMsg').textContent=msg+' You have '+remaining+' strike(s) left.';box.style.display='flex';if(antiCheat.strikes>=antiCheat.maxStrikes){document.getElementById('antiCheatMsg').textContent='Maximum violations! Quiz is being submitted now.';setTimeout(()=>{box.style.display='none';stopAntiCheat();showResult();},3000);}}}
+function dismissWarning(){document.getElementById('antiCheatWarning').style.display='none';requestFullscreen();}
+function registerStudent(){startRegisteredQuiz();}
+function confirmStudentReg(){startRegisteredQuiz();}
+function skipStudentReg(){closeStudentReg();}
+/* Patch startQuiz */
+const _orig=startQuiz;
+function startQuiz(s){_orig(s);if(s)setTimeout(startAntiCheat,500);}
+/* Patch showResult */
+const _origR=showResult;
+function showResult(){stopAntiCheat();const all=JSON.parse(localStorage.getItem('jh_student_results')||'[]');if(all.length){all[all.length-1].strikes=antiCheat.strikes;all[all.length-1].violations=antiCheat.violations.join(' | ');localStorage.setItem('jh_student_results',JSON.stringify(all));}_origR();}
+</script>
 </body>
 </html>
