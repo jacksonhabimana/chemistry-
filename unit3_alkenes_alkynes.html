@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>S5 Chemistry – Unit 3: Alkenes and Alkynes</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Serif+4:wght@300;400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+<style>
+  :root{
+    --bg:#0d1117;--surface:#161b22;--surface2:#1c2333;--border:#30363d;
+    --accent:#58c4dc;--accent2:#f97316;--accent3:#a78bfa;
+    --gold:#e8c547;--green:#34d399;--red:#f87171;
+    --text:#e6edf3;--muted:#8b949e;--radius:10px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg);color:var(--text);font-family:'Source Serif 4',Georgia,serif;font-size:17px;line-height:1.75;overflow-x:hidden;}
+  .hero{position:relative;padding:80px 40px 60px;text-align:center;overflow:hidden;background:radial-gradient(ellipse 80% 60% at 50% 0%,#1e1a2e 0%,var(--bg) 70%);border-bottom:1px solid var(--border);}
+  .hero::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(167,139,250,.05) 40px),repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(167,139,250,.05) 40px);pointer-events:none;}
+  .badge{display:inline-block;background:rgba(167,139,250,.12);border:1px solid rgba(167,139,250,.3);color:var(--accent3);padding:4px 16px;border-radius:50px;font-size:.78rem;font-family:'JetBrains Mono',monospace;letter-spacing:.12em;text-transform:uppercase;margin-bottom:22px;}
+  .hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.4rem);line-height:1.15;color:#fff;max-width:820px;margin:0 auto 18px;}
+  .hero h1 em{color:var(--accent3);font-style:italic;}
+  .hero p.sub{color:var(--muted);font-size:1rem;max-width:600px;margin:0 auto 32px;}
+  .toc-grid{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:760px;margin:0 auto;}
+  .toc-grid a{background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:8px 18px;border-radius:50px;text-decoration:none;font-size:.85rem;transition:all .2s;font-family:'JetBrains Mono',monospace;}
+  .toc-grid a:hover{background:var(--accent3);color:#000;border-color:var(--accent3);}
+  .page{max-width:960px;margin:0 auto;padding:0 28px 80px;}
+  .section-header{display:flex;align-items:center;gap:16px;margin:64px 0 28px;padding-bottom:14px;border-bottom:2px solid var(--border);}
+  .section-number{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--accent3);background:rgba(167,139,250,.1);border:1px solid rgba(167,139,250,.25);padding:4px 12px;border-radius:4px;white-space:nowrap;}
+  .section-header h2{font-family:'Playfair Display',serif;font-size:1.75rem;color:#fff;}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:26px 30px;margin-bottom:22px;}
+  .card h3{font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--gold);margin-bottom:12px;}
+  .card p+p{margin-top:12px;}
+  .def-box{border-left:4px solid var(--accent3);background:rgba(167,139,250,.07);border-radius:0 var(--radius) var(--radius) 0;padding:18px 22px;margin:20px 0;}
+  .def-box strong{color:var(--accent3);display:block;font-size:.78rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;}
+  .callout{border-radius:var(--radius);padding:18px 22px;margin:20px 0;display:flex;gap:14px;align-items:flex-start;}
+  .callout.info{background:rgba(88,196,220,.08);border:1px solid rgba(88,196,220,.25);}
+  .callout.warn{background:rgba(249,115,22,.08);border:1px solid rgba(249,115,22,.25);}
+  .callout.tip{background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.25);}
+  .callout.purple{background:rgba(167,139,250,.08);border:1px solid rgba(167,139,250,.25);}
+  .callout-icon{font-size:1.3rem;margin-top:2px;flex-shrink:0;}
+  .callout-body strong{display:block;margin-bottom:4px;font-size:.9rem;color:#fff;}
+  .tbl-wrap{overflow-x:auto;margin:20px 0;border-radius:var(--radius);border:1px solid var(--border);}
+  table{width:100%;border-collapse:collapse;}
+  thead tr{background:var(--surface2);}
+  th{padding:13px 16px;text-align:left;font-size:.82rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--accent3);white-space:nowrap;}
+  td{padding:12px 16px;border-top:1px solid var(--border);font-size:.9rem;}
+  tr:hover td{background:rgba(255,255,255,.02);}
+  td code{background:rgba(167,139,250,.12);padding:2px 7px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:.85em;}
+  .formula-block{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:20px 26px;margin:16px 0;font-family:'JetBrains Mono',monospace;font-size:.93rem;color:var(--accent3);overflow-x:auto;white-space:pre;}
+  .formula-block .comment{color:var(--muted);}
+  .example-box{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin:26px 0;}
+  .example-header{background:rgba(232,197,71,.1);border-bottom:1px solid rgba(232,197,71,.2);padding:14px 22px;display:flex;align-items:center;gap:12px;}
+  .example-header span.tag{font-family:'JetBrains Mono',monospace;font-size:.72rem;background:var(--gold);color:#000;padding:3px 10px;border-radius:4px;font-weight:600;}
+  .example-header h4{color:var(--gold);font-family:'Playfair Display',serif;font-size:1rem;}
+  .example-body{padding:22px 26px;}
+  .example-body .q{color:var(--text);margin-bottom:14px;font-weight:600;}
+  .example-body .step{display:flex;gap:14px;margin:10px 0;}
+  .step-num{min-width:28px;height:28px;background:rgba(167,139,250,.15);border:1px solid rgba(167,139,250,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--accent3);flex-shrink:0;margin-top:3px;}
+  .step-text{flex:1;}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:20px 0;}
+  @media(max-width:640px){.two-col{grid-template-columns:1fr;}}
+  .exercise-list{list-style:none;counter-reset:ex;}
+  .exercise-list li{counter-increment:ex;margin-bottom:16px;padding:16px 20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);}
+  .exercise-list li::before{content:'Q' counter(ex) '.';font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--accent3);display:block;margin-bottom:6px;}
+  .reveal-btn{margin-top:10px;background:rgba(167,139,250,.1);border:1px solid rgba(167,139,250,.3);color:var(--accent3);padding:6px 16px;border-radius:6px;cursor:pointer;font-size:.82rem;font-family:'JetBrains Mono',monospace;transition:all .2s;}
+  .reveal-btn:hover{background:var(--accent3);color:#000;}
+  .answer{display:none;margin-top:12px;padding:12px 16px;background:rgba(167,139,250,.06);border-left:3px solid var(--accent3);border-radius:0 6px 6px 0;font-size:.9rem;}
+  .answer.open{display:block;}
+  .quiz-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-top:32px;}
+  .quiz-header{background:rgba(167,139,250,.1);border-bottom:1px solid rgba(167,139,250,.2);padding:16px 24px;}
+  .quiz-header h3{font-family:'Playfair Display',serif;color:var(--accent3);font-size:1.2rem;}
+  .quiz-body{padding:24px;}
+  .q-block{margin-bottom:26px;padding-bottom:26px;border-bottom:1px solid var(--border);}
+  .q-block:last-of-type{border-bottom:none;}
+  .q-text{font-weight:600;margin-bottom:12px;color:#fff;}
+  .q-num{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--accent3);display:block;margin-bottom:4px;}
+  .options{display:flex;flex-direction:column;gap:8px;}
+  .opt{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:all .18s;font-size:.92rem;}
+  .opt:hover{border-color:var(--accent3);}
+  .opt input{margin-top:3px;accent-color:var(--accent3);}
+  .opt.correct{background:rgba(52,211,153,.12);border-color:var(--green)!important;color:var(--green);}
+  .opt.wrong{background:rgba(248,113,113,.1);border-color:var(--red)!important;color:var(--red);}
+  .q-exp{display:none;margin-top:10px;padding:10px 14px;background:rgba(167,139,250,.07);border-left:3px solid var(--accent3);border-radius:0 6px 6px 0;font-size:.88rem;}
+  .quiz-submit{background:var(--accent3);color:#000;border:none;padding:12px 32px;border-radius:8px;font-size:1rem;font-family:'JetBrains Mono',monospace;cursor:pointer;transition:opacity .2s;font-weight:600;}
+  .quiz-submit:hover{opacity:.85;}
+  .test-wrap{margin-top:40px;}
+  .test-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:28px;}
+  .test-section-header{background:rgba(249,115,22,.1);border-bottom:1px solid rgba(249,115,22,.2);padding:14px 24px;display:flex;justify-content:space-between;align-items:center;}
+  .test-section-header h3{font-family:'Playfair Display',serif;color:var(--accent2);font-size:1.1rem;}
+  .marks-badge{font-family:'JetBrains Mono',monospace;font-size:.75rem;background:rgba(249,115,22,.2);color:var(--accent2);padding:4px 12px;border-radius:50px;}
+  .test-body{padding:24px;}
+  .test-q{margin-bottom:20px;padding:16px 18px;background:var(--surface2);border-radius:8px;border:1px solid var(--border);}
+  .test-q-num{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--accent2);margin-bottom:6px;display:block;}
+  .test-answer-reveal{margin-top:14px;}
+  .unit-nav{display:flex;justify-content:space-between;align-items:center;margin-top:72px;padding-top:32px;border-top:1px solid var(--border);flex-wrap:wrap;gap:16px;}
+  .nav-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:8px;text-decoration:none;font-family:'JetBrains Mono',monospace;font-size:.85rem;transition:all .2s;}
+  .nav-btn.prev{background:var(--surface);border:1px solid var(--border);color:var(--muted);}
+  .nav-btn.prev:hover{border-color:var(--accent3);color:var(--accent3);}
+  .nav-btn.next{background:var(--accent3);color:#000;font-weight:600;}
+  .nav-btn.next:hover{opacity:.88;}
+  h3.sub-heading{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--gold);margin:28px 0 10px;}
+  sub,sup{font-size:.72em;}
+  @media(max-width:600px){.hero{padding:50px 20px 40px;}.page{padding:0 16px 60px;}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="badge">Unit 3 &middot; Organic Chemistry</div>
+  <h1><em>Alkenes</em> and <em>Alkynes</em></h1>
+  <p class="sub">Unsaturated hydrocarbons &mdash; structure, nomenclature, isomerism, preparation, electrophilic addition, and uses.</p>
+  <nav class="toc-grid">
+    <a href="#structure">3.1 Structure</a>
+    <a href="#nomenclature">3.2 Nomenclature</a>
+    <a href="#isomerism">3.3 Isomerism</a>
+    <a href="#preparation">3.4 Preparation</a>
+    <a href="#properties">3.5 Properties</a>
+    <a href="#reactions">3.6 Reactions</a>
+    <a href="#uses">3.7 Uses</a>
+    <a href="#exercises">Exercises</a>
+    <a href="#quiz">Quiz</a>
+    <a href="#test">Unit Test</a>
+  </nav>
+</header>
+
+<main class="page">
+
+<!-- 3.1 STRUCTURE -->
+<section id="structure">
+  <div class="section-header">
+    <span class="section-number">3.1</span>
+    <h2>Structure of Alkenes and Alkynes</h2>
+  </div>
+
+  <div class="two-col">
+    <div class="def-box">
+      <strong>Alkenes</strong>
+      Hydrocarbons containing at least one <b>C=C double bond</b>. General formula: <b>C<sub>n</sub>H<sub>2n</sub></b> (for one double bond). They are <em>unsaturated</em> — they can undergo addition reactions.
+    </div>
+    <div class="def-box" style="border-left-color:var(--accent2);">
+      <strong style="color:var(--accent2);">Alkynes</strong>
+      Hydrocarbons containing at least one <b>C&equiv;C triple bond</b>. General formula: <b>C<sub>n</sub>H<sub>2n&minus;2</sub></b> (for one triple bond). More unsaturated than alkenes.
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Bonding in Alkenes &mdash; The C=C Double Bond</h3>
+    <p>The C=C double bond consists of:</p>
+    <ul style="padding-left:20px;line-height:2;">
+      <li>One <b>&sigma; (sigma) bond</b> &mdash; formed by direct head-on overlap of sp<sup>2</sup> hybrid orbitals. This bond lies along the internuclear axis and can rotate freely.</li>
+      <li>One <b>&pi; (pi) bond</b> &mdash; formed by sideways overlap of unhybridised p orbitals above and below the plane of the molecule. This bond prevents free rotation around the C=C axis, giving rise to geometric (cis/trans) isomerism.</li>
+    </ul>
+    <p>Each carbon in C=C is <b>sp<sup>2</sup> hybridised</b> &mdash; trigonal planar, bond angles approximately <b>120&deg;</b>.</p>
+  </div>
+
+  <div class="card">
+    <h3>Bonding in Alkynes &mdash; The C&equiv;C Triple Bond</h3>
+    <p>The C&equiv;C triple bond consists of:</p>
+    <ul style="padding-left:20px;line-height:2;">
+      <li>One <b>&sigma; bond</b> (sp hybrid orbital overlap, head-on).</li>
+      <li>Two <b>&pi; bonds</b> (sideways overlap of two pairs of p orbitals, in perpendicular planes).</li>
+    </ul>
+    <p>Each carbon in C&equiv;C is <b>sp hybridised</b> &mdash; linear geometry, bond angle <b>180&deg;</b>.</p>
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Feature</th><th>Alkane (C&ndash;C)</th><th>Alkene (C=C)</th><th>Alkyne (C&equiv;C)</th></tr></thead>
+      <tbody>
+        <tr><td>Bond type</td><td>Single (&sigma;)</td><td>Double (&sigma; + &pi;)</td><td>Triple (&sigma; + 2&pi;)</td></tr>
+        <tr><td>Hybridisation</td><td>sp<sup>3</sup></td><td>sp<sup>2</sup></td><td>sp</td></tr>
+        <tr><td>Bond angle</td><td>109.5&deg;</td><td>~120&deg;</td><td>180&deg;</td></tr>
+        <tr><td>Geometry</td><td>Tetrahedral</td><td>Trigonal planar</td><td>Linear</td></tr>
+        <tr><td>C&ndash;C bond length</td><td>154 pm</td><td>134 pm</td><td>120 pm</td></tr>
+        <tr><td>C&ndash;C bond energy</td><td>347 kJ/mol</td><td>612 kJ/mol</td><td>837 kJ/mol</td></tr>
+        <tr><td>Rotation about bond?</td><td>Yes (free)</td><td>No (restricted)</td><td>No</td></tr>
+        <tr><td>General formula</td><td>C<sub>n</sub>H<sub>2n+2</sub></td><td>C<sub>n</sub>H<sub>2n</sub></td><td>C<sub>n</sub>H<sub>2n&minus;2</sub></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 3.2 NOMENCLATURE -->
+<section id="nomenclature">
+  <div class="section-header">
+    <span class="section-number">3.2</span>
+    <h2>Nomenclature</h2>
+  </div>
+
+  <div class="card">
+    <h3>IUPAC Rules for Alkenes</h3>
+    <ol style="padding-left:20px;line-height:2.1;">
+      <li>Find the <b>longest chain containing the C=C bond</b>. Replace &ndash;ane with <b>&ndash;ene</b>.</li>
+      <li><b>Number the chain</b> from the end nearest the double bond to give the double bond the <b>lowest locant</b>.</li>
+      <li><b>Position of double bond</b>: cite the lower-numbered carbon of the C=C (e.g. but-1-ene, but-2-ene).</li>
+      <li><b>Substituents</b>: named and numbered as with alkanes, with alphabetical ordering.</li>
+      <li>If two double bonds: <b>&ndash;diene</b> (e.g. buta-1,3-diene).</li>
+    </ol>
+  </div>
+
+  <div class="card">
+    <h3>IUPAC Rules for Alkynes</h3>
+    <p>Same as alkenes but replace &ndash;ane with <b>&ndash;yne</b>. The triple bond gets the lowest locant. If a molecule has both a double and triple bond, number to give the <em>double</em> bond the lower locant; suffix is <b>&ndash;en&ndash;yne</b> (e.g. pent-1-en-4-yne).</p>
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Name</th><th>Formula</th><th>Structure</th><th>Class</th></tr></thead>
+      <tbody>
+        <tr><td>Ethene</td><td>C<sub>2</sub>H<sub>4</sub></td><td>CH<sub>2</sub>=CH<sub>2</sub></td><td>Alkene</td></tr>
+        <tr><td>Propene</td><td>C<sub>3</sub>H<sub>6</sub></td><td>CH<sub>2</sub>=CHCH<sub>3</sub></td><td>Alkene</td></tr>
+        <tr><td>But-1-ene</td><td>C<sub>4</sub>H<sub>8</sub></td><td>CH<sub>2</sub>=CHCH<sub>2</sub>CH<sub>3</sub></td><td>Alkene</td></tr>
+        <tr><td>But-2-ene</td><td>C<sub>4</sub>H<sub>8</sub></td><td>CH<sub>3</sub>CH=CHCH<sub>3</sub></td><td>Alkene</td></tr>
+        <tr><td>2-methylpropene</td><td>C<sub>4</sub>H<sub>8</sub></td><td>CH<sub>2</sub>=C(CH<sub>3</sub>)<sub>2</sub></td><td>Alkene</td></tr>
+        <tr><td>Ethyne (acetylene)</td><td>C<sub>2</sub>H<sub>2</sub></td><td>HC&equiv;CH</td><td>Alkyne</td></tr>
+        <tr><td>Propyne</td><td>C<sub>3</sub>H<sub>4</sub></td><td>HC&equiv;CCH<sub>3</sub></td><td>Alkyne</td></tr>
+        <tr><td>But-1-yne</td><td>C<sub>4</sub>H<sub>6</sub></td><td>HC&equiv;CCH<sub>2</sub>CH<sub>3</sub></td><td>Alkyne</td></tr>
+        <tr><td>But-2-yne</td><td>C<sub>4</sub>H<sub>6</sub></td><td>CH<sub>3</sub>C&equiv;CCH<sub>3</sub></td><td>Alkyne</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="example-box">
+    <div class="example-header"><span class="tag">Example 1</span><h4>Name the Alkene: CH<sub>3</sub>CH=CHCH<sub>2</sub>CH<sub>3</sub></h4></div>
+    <div class="example-body">
+      <div class="step"><div class="step-num">1</div><div class="step-text">Longest chain containing C=C: 5 carbons &rarr; parent: <b>pent-</b></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-text">Number from left: C=C is between C2 and C3 (locant = 2). From right: locant = 3. Choose lower &rarr; <b>2</b>.</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-text">No substituents.</div></div>
+      <div class="step"><div class="step-num">&#10003;</div><div class="step-text">Name: <b>pent-2-ene</b>.</div></div>
+    </div>
+  </div>
+
+  <div class="example-box">
+    <div class="example-header"><span class="tag">Example 2</span><h4>Name: CH<sub>3</sub>C(CH<sub>3</sub>)=CHCH<sub>3</sub></h4></div>
+    <div class="example-body">
+      <div class="step"><div class="step-num">1</div><div class="step-text">Longest chain through C=C: C1&ndash;C2=C3&ndash;C4 &rarr; 4 carbons &rarr; <b>but-</b></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-text">Number from right to give C=C lowest locant: C=C is between C2 and C3; from left = locant 2, from right = locant 2. Either gives 2.</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-text">Methyl branch at C2 &rarr; <b>2-methyl</b>.</div></div>
+      <div class="step"><div class="step-num">&#10003;</div><div class="step-text">Name: <b>2-methylbut-2-ene</b>.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3.3 ISOMERISM -->
+<section id="isomerism">
+  <div class="section-header">
+    <span class="section-number">3.3</span>
+    <h2>Isomerism in Alkenes and Alkynes</h2>
+  </div>
+
+  <h3 class="sub-heading">A. Structural (Position) Isomerism</h3>
+  <div class="card">
+    <p>Structural isomers of alkenes can differ in the <b>position of the double bond</b> along the chain (position isomers) or in the <b>carbon skeleton</b> (chain isomers).</p>
+    <p>Example: C<sub>4</sub>H<sub>8</sub> has four structural isomers: but-1-ene, but-2-ene, 2-methylpropene, and cyclobutane (cyclic isomer).</p>
+  </div>
+
+  <h3 class="sub-heading">B. Geometric (Cis/Trans) Isomerism</h3>
+  <div class="def-box">
+    <strong>Geometric Isomerism</strong>
+    Arises in alkenes when <b>rotation about the C=C bond is restricted</b> (by the &pi; bond) and each carbon of the double bond carries <b>two different groups</b>. The two isomers differ in the spatial arrangement of groups around the double bond.
+  </div>
+
+  <div class="two-col">
+    <div class="card">
+      <h3>cis- isomer</h3>
+      <p>The two <b>identical (or similar priority) groups</b> are on the <b>same side</b> of the double bond.</p>
+      <p>Example: <em>cis</em>-but-2-ene &mdash; both CH<sub>3</sub> groups on the same side. Higher boiling point than trans isomer (molecular dipoles reinforce).</p>
+    </div>
+    <div class="card">
+      <h3>trans- isomer</h3>
+      <p>The two <b>identical (or similar priority) groups</b> are on <b>opposite sides</b> of the double bond.</p>
+      <p>Example: <em>trans</em>-but-2-ene &mdash; the two CH<sub>3</sub> groups on opposite sides. More stable (less steric strain).</p>
+    </div>
+  </div>
+
+  <div class="callout info">
+    <span class="callout-icon">&#128204;</span>
+    <div class="callout-body">
+      <strong>Condition for Geometric Isomerism</strong>
+      Each carbon of the C=C must have <b>two different substituents</b>. If either carbon has two identical groups (e.g. CH<sub>2</sub>=), geometric isomers do not exist. For example: but-1-ene (CH<sub>2</sub>=CHCH<sub>2</sub>CH<sub>3</sub>) has no geometric isomers because C1 carries two H atoms.
+    </div>
+  </div>
+
+  <div class="callout purple">
+    <span class="callout-icon">&#128161;</span>
+    <div class="callout-body">
+      <strong>E/Z Notation (IUPAC)</strong>
+      Modern IUPAC uses <b>E</b> (from German <em>entgegen</em>, opposite) and <b>Z</b> (from <em>zusammen</em>, together) based on Cahn-Ingold-Prelog priority rules. Higher priority groups on the same side &rarr; Z; on opposite sides &rarr; E. For simple cases, Z = cis and E = trans, but not always.
+    </div>
+  </div>
+
+  <div class="example-box">
+    <div class="example-header"><span class="tag">Example 3</span><h4>Identify Geometric Isomers of But-2-ene</h4></div>
+    <div class="example-body">
+      <p class="q">Does but-2-ene (CH<sub>3</sub>CH=CHCH<sub>3</sub>) show geometric isomerism? If yes, draw and name both isomers.</p>
+      <div class="step"><div class="step-num">1</div><div class="step-text">Check condition: C2 carries H and CH<sub>3</sub> &rarr; two different groups &#10004;. C3 carries H and CH<sub>3</sub> &rarr; two different groups &#10004;. Geometric isomers <b>exist</b>.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-text"><b>cis-but-2-ene</b>: both CH<sub>3</sub> on same side of C=C. B.P. = 3.7&deg;C.</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-text"><b>trans-but-2-ene</b>: CH<sub>3</sub> groups on opposite sides. B.P. = 0.9&deg;C.</div></div>
+      <div class="step"><div class="step-num">&#10003;</div><div class="step-text">cis isomer has higher B.P. because its net molecular dipole is non-zero (dipoles don't cancel), giving slightly stronger intermolecular forces.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3.4 PREPARATION -->
+<section id="preparation">
+  <div class="section-header">
+    <span class="section-number">3.4</span>
+    <h2>Preparation of Alkenes and Alkynes</h2>
+  </div>
+
+  <h3 class="sub-heading">Preparation of Alkenes</h3>
+
+  <div class="card">
+    <h3>Method 1: Dehydration of Alcohols</h3>
+    <p>An alcohol is heated with concentrated H<sub>2</sub>SO<sub>4</sub> or Al<sub>2</sub>O<sub>3</sub> at high temperature. An H and OH are eliminated from adjacent carbons (<b>elimination reaction</b>).</p>
+    <div class="formula-block">CH3CH2OH  --conc. H2SO4, 170 degC-->  CH2=CH2  +  H2O
+                                         (ethene)
+
+CH3CH(OH)CH3  --conc. H2SO4, 170 degC-->  CH3CH=CH2  +  H2O
+                                              (propene)</div>
+    <p>At lower temperatures (~140&deg;C with H<sub>2</sub>SO<sub>4</sub>), the ether is formed preferentially. At higher temperatures (~170&deg;C), the alkene is formed.</p>
+  </div>
+
+  <div class="card">
+    <h3>Method 2: Dehydrohalogenation of Halogenoalkanes</h3>
+    <p>A halogenoalkane is heated with an <b>alcoholic KOH</b> solution (elimination conditions). HX is removed.</p>
+    <div class="formula-block">CH3CH2Br  +  KOH(alc)  --heat-->  CH2=CH2  +  KBr  +  H2O
+                                              (ethene)</div>
+    <p>Aqueous KOH gives substitution (alcohol); <b>alcoholic KOH</b> gives elimination (alkene). Zaitsev's rule: the more substituted (more stable) alkene is the major product.</p>
+  </div>
+
+  <div class="card">
+    <h3>Method 3: Cracking of Alkanes</h3>
+    <p>Thermal or catalytic cracking of large alkanes gives a mixture of alkenes and shorter alkanes (see Unit 2).</p>
+    <div class="formula-block">C4H10  --high T or catalyst-->  C2H4  +  C2H6</div>
+  </div>
+
+  <h3 class="sub-heading">Preparation of Alkynes</h3>
+
+  <div class="card">
+    <h3>Method 1: Double Dehydrohalogenation</h3>
+    <p>A vicinal (on adjacent C) or geminal (on same C) dihalide reacts with excess alcoholic KOH:</p>
+    <div class="formula-block">CH3CHBrCHBrCH3  +  2KOH(alc)  -->  CH3C≡CCH3  +  2KBr  +  2H2O
+(2,3-dibromobutane)                          (but-2-yne)</div>
+  </div>
+
+  <div class="card">
+    <h3>Method 2: Preparation of Ethyne (Acetylene)</h3>
+    <p>Industrially, ethyne is made by the <b>reaction of calcium carbide with water</b>:</p>
+    <div class="formula-block">CaC2  +  2H2O  -->  Ca(OH)2  +  HC≡CH
+(calcium carbide)              (ethyne / acetylene)</div>
+    <p>Calcium carbide is itself made by heating CaO with coke (carbon) at 2000&deg;C: CaO + 3C &rarr; CaC<sub>2</sub> + CO.</p>
+  </div>
+
+  <div class="example-box">
+    <div class="example-header"><span class="tag">Example 4</span><h4>Preparation of Propene from Propanol</h4></div>
+    <div class="example-body">
+      <p class="q">Write the equation and state the conditions for preparing propene from propan-1-ol.</p>
+      <div class="step"><div class="step-num">1</div><div class="step-text">Reaction type: <b>dehydration</b> (elimination of water).</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-text">Reagent: <b>concentrated H<sub>2</sub>SO<sub>4</sub></b> (or Al<sub>2</sub>O<sub>3</sub>). Temperature: <b>~170&deg;C</b>.</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-text">CH<sub>3</sub>CH<sub>2</sub>CH<sub>2</sub>OH &rarr;<sup>conc. H<sub>2</sub>SO<sub>4</sub>, 170&deg;C</sup> CH<sub>3</sub>CH=CH<sub>2</sub> + H<sub>2</sub>O</div></div>
+      <div class="step"><div class="step-num">&#10003;</div><div class="step-text">Product: <b>propene</b> &#10004;</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3.5 PHYSICAL PROPERTIES -->
+<section id="properties">
+  <div class="section-header">
+    <span class="section-number">3.5</span>
+    <h2>Physical Properties</h2>
+  </div>
+
+  <div class="card">
+    <h3>States, Boiling Points, and Solubility</h3>
+    <p>Alkenes and alkynes have <b>similar physical properties to alkanes</b> of the same carbon number: non-polar (or very slightly polar for alkynes due to the sp C&ndash;H bond), low boiling points, insoluble in water, soluble in non-polar solvents.</p>
+    <p>C<sub>2</sub>&ndash;C<sub>4</sub>: gases; C<sub>5</sub>&ndash;C<sub>17</sub>: liquids; C<sub>18+</sub>: solids.</p>
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Compound</th><th>Formula</th><th>B.P. (&deg;C)</th><th>State</th></tr></thead>
+      <tbody>
+        <tr><td>Ethene</td><td>C<sub>2</sub>H<sub>4</sub></td><td>&minus;104</td><td>Gas</td></tr>
+        <tr><td>Propene</td><td>C<sub>3</sub>H<sub>6</sub></td><td>&minus;47</td><td>Gas</td></tr>
+        <tr><td>But-1-ene</td><td>C<sub>4</sub>H<sub>8</sub></td><td>&minus;6</td><td>Gas</td></tr>
+        <tr><td>Pent-1-ene</td><td>C<sub>5</sub>H<sub>10</sub></td><td>+30</td><td>Liquid</td></tr>
+        <tr><td>Ethyne</td><td>C<sub>2</sub>H<sub>2</sub></td><td>&minus;84</td><td>Gas</td></tr>
+        <tr><td>Propyne</td><td>C<sub>3</sub>H<sub>4</sub></td><td>&minus;23</td><td>Gas</td></tr>
+        <tr><td>But-1-yne</td><td>C<sub>4</sub>H<sub>6</sub></td><td>+8</td><td>Gas/Liquid</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout tip">
+    <span class="callout-icon">&#128161;</span>
+    <div class="callout-body">
+      <strong>Acidic Character of Terminal Alkynes</strong>
+      The sp C&ndash;H bond in terminal alkynes (HC&equiv;C&ndash;R) is more polar than C&ndash;H bonds in alkanes or alkenes, making the H slightly acidic. Terminal alkynes react with strong bases (e.g. NaNH<sub>2</sub>) or with silver/copper(I) ions to form precipitates: HC&equiv;CR + AgNO<sub>3</sub>(NH<sub>3</sub>) &rarr; AgC&equiv;CR (white ppt). This is a chemical test for terminal alkynes.
+    </div>
+  </div>
+</section>
+
+<!-- 3.6 REACTIONS -->
+<section id="reactions">
+  <div class="section-header">
+    <span class="section-number">3.6</span>
+    <h2>Chemical Reactions</h2>
+  </div>
+
+  <div class="callout info">
+    <span class="callout-icon">&#128204;</span>
+    <div class="callout-body">
+      <strong>Key Difference from Alkanes</strong>
+      The &pi; electrons of C=C and C&equiv;C make alkenes and alkynes electron-rich. They react readily with <b>electrophiles</b> (electron-seeking species) by <b>electrophilic addition</b>. They do NOT undergo free-radical substitution under normal conditions.
+    </div>
+  </div>
+
+  <h3 class="sub-heading">Reaction 1: Addition of Hydrogen (Hydrogenation)</h3>
+  <div class="card">
+    <div class="formula-block">Alkene:   CH2=CH2  +  H2  --Ni/Pt/Pd, heat-->  CH3CH3
+Alkyne:   HC≡CH   +  H2  --Ni, heat-->  CH2=CH2  (1 mole H2)
+          HC≡CH   +  2H2 --Ni, heat-->  CH3CH3   (2 moles H2)</div>
+    <p>Alkynes undergo <b>partial</b> (1 mole H<sub>2</sub>) or <b>complete</b> (2 moles H<sub>2</sub>) hydrogenation. Using a Lindlar catalyst (Pd/CaCO<sub>3</sub>/quinoline), only the <em>cis</em> alkene is formed.</p>
+  </div>
+
+  <h3 class="sub-heading">Reaction 2: Addition of Halogens (Halogenation)</h3>
+  <div class="card">
+    <div class="formula-block">CH2=CH2  +  Br2  -->  CH2Br-CH2Br   (1,2-dibromoethane)
+HC≡CH    +  Br2  -->  CHBr=CHBr    (1,2-dibromoethene) [1 mol Br2]
+HC≡CH    +  2Br2 -->  CHBr2-CHBr2  (1,1,2,2-tetrabromoethane) [2 mol Br2]</div>
+    <p><b>Test for unsaturation:</b> alkenes and alkynes <b>decolourise bromine water</b> (orange/brown &rarr; colourless). Alkanes do not react with bromine water in the dark.</p>
+  </div>
+
+  <h3 class="sub-heading">Reaction 3: Addition of Hydrogen Halides (HX)</h3>
+  <div class="card">
+    <div class="formula-block">CH2=CH2  +  HBr  -->  CH3CH2Br  (bromoethane)
+CH3CH=CH2 + HBr  -->  CH3CHBrCH3  (major, Markovnikov)
+                   or  CH3CH2CH2Br  (minor, anti-Markovnikov)</div>
+  </div>
+
+  <div class="def-box">
+    <strong>Markovnikov's Rule</strong>
+    When HX adds across an unsymmetrical double bond, the <b>hydrogen adds to the carbon already carrying more hydrogens</b> (the less substituted carbon), and the halide adds to the more substituted carbon. Equivalently: the major product is the <b>more substituted halogenoalkane</b>.
+    <br><br>
+    <b>Modern explanation:</b> the more substituted carbocation intermediate is more stable (tertiary &gt; secondary &gt; primary). The reaction proceeds through the more stable intermediate.
+  </div>
+
+  <div class="example-box">
+    <div class="example-header"><span class="tag">Example 5</span><h4>Apply Markovnikov's Rule to Propene + HBr</h4></div>
+    <div class="example-body">
+      <p class="q">Predict the major product when HBr adds to propene (CH<sub>3</sub>CH=CH<sub>2</sub>).</p>
+      <div class="step"><div class="step-num">1</div><div class="step-text">Identify the two possible products:<br>
+        (A) CH<sub>3</sub>CHBrCH<sub>3</sub> &mdash; Br on C2 (secondary carbon)<br>
+        (B) CH<sub>3</sub>CH<sub>2</sub>CH<sub>2</sub>Br &mdash; Br on C3 (primary carbon)</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-text">Apply Markovnikov: H adds to CH<sub>2</sub> (2 H already); Br adds to CH (1 H already). &rarr; Major product: <b>(A) 2-bromopropane</b>.</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-text">Via carbocations: secondary carbocation (CH<sub>3</sub>&bull;<sup>+</sup>CHCH<sub>3</sub>) is more stable than primary (CH<sub>3</sub>CH<sub>2</sub>&bull;<sup>+</sup>CH<sub>2</sub>), so (A) forms faster.</div></div>
+      <div class="step"><div class="step-num">&#10003;</div><div class="step-text">Major product: <b>2-bromopropane</b> &#10004;</div></div>
+    </div>
+  </div>
+
+  <h3 class="sub-heading">Reaction 4: Addition of Water (Hydration)</h3>
+  <div class="card">
+    <div class="formula-block">CH2=CH2  +  H2O  --conc. H3PO4, 300 degC, 60 atm-->  CH3CH2OH
+                                                       (ethanol -- industrial route)</div>
+    <p>In the laboratory, dilute H<sub>2</sub>SO<sub>4</sub> or H<sub>3</sub>PO<sub>4</sub> can catalyse hydration. Markovnikov's rule applies for unsymmetrical alkenes.</p>
+  </div>
+
+  <h3 class="sub-heading">Reaction 5: Oxidation &mdash; KMnO<sub>4</sub> Test</h3>
+  <div class="card">
+    <p><b>Cold dilute KMnO<sub>4</sub></b> (Baeyer's reagent, purple) oxidises the C=C to give a <b>diol</b>, and the solution <b>decolourises to colourless</b> (MnO<sub>4</sub><sup>&minus;</sup> &rarr; MnO<sub>2</sub> or Mn<sup>2+</sup>). Alkanes do not decolourise cold KMnO<sub>4</sub>.</p>
+    <div class="formula-block">CH2=CH2  +  [O]  +  H2O  --cold KMnO4-->  CH2(OH)-CH2(OH)
+                                                        (ethane-1,2-diol)</div>
+    <p><b>Hot concentrated KMnO<sub>4</sub></b> cleaves the double bond, giving carboxylic acids and/or ketones &mdash; useful for structure determination.</p>
+  </div>
+
+  <h3 class="sub-heading">Reaction 6: Combustion</h3>
+  <div class="card">
+    <div class="formula-block">C2H4  +  3O2  -->  2CO2  +  2H2O   (complete)
+2C2H2 +  5O2  -->  4CO2  +  2H2O   (complete combustion of ethyne)
+
+Note: alkenes and alkynes burn with a smokier, more luminous flame than
+alkanes due to higher carbon content (lower H:C ratio).</div>
+  </div>
+
+  <h3 class="sub-heading">Reaction 7: Polymerisation (Alkenes only)</h3>
+  <div class="card">
+    <p>Under high pressure and temperature with a catalyst, alkene molecules join together to form <b>addition polymers</b>:</p>
+    <div class="formula-block">n CH2=CH2  --high P, T, Ziegler-Natta catalyst-->  [-CH2-CH2-]n
+(ethene)                                               (poly(ethene) / polyethylene)</div>
+    <p>Other important polymers: poly(propene) from propene; PVC from chloroethene; PTFE from tetrafluoroethene; polystyrene from styrene (phenylethene).</p>
+  </div>
+
+  <div class="example-box">
+    <div class="example-header"><span class="tag">Example 6</span><h4>Complete Combustion of Propyne</h4></div>
+    <div class="example-body">
+      <p class="q">Write the balanced equation for the complete combustion of propyne (C<sub>3</sub>H<sub>4</sub>).</p>
+      <div class="step"><div class="step-num">1</div><div class="step-text">General formula for alkynes: C<sub>n</sub>H<sub>2n&minus;2</sub>. For n=3: C<sub>3</sub>H<sub>4</sub>.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-text">Products: 3 CO<sub>2</sub> and 2 H<sub>2</sub>O. O on right: 3&times;2 + 2&times;1 = 8 O atoms &rarr; 4 O<sub>2</sub>.</div></div>
+      <div class="step"><div class="step-num">&#10003;</div><div class="step-text"><b>C<sub>3</sub>H<sub>4</sub> + 4 O<sub>2</sub> &rarr; 3 CO<sub>2</sub> + 2 H<sub>2</sub>O</b></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3.7 USES -->
+<section id="uses">
+  <div class="section-header">
+    <span class="section-number">3.7</span>
+    <h2>Uses of Alkenes and Alkynes</h2>
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Compound</th><th>Use</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Ethene (CH<sub>2</sub>=CH<sub>2</sub>)</td><td>Manufacture of polyethylene (LDPE, HDPE)</td><td>Most widely produced organic chemical</td></tr>
+        <tr><td>Ethene</td><td>Production of ethanol (hydration), ethylene oxide, ethanal</td><td>Key petrochemical feedstock</td></tr>
+        <tr><td>Ethene</td><td>Fruit ripening agent (plant hormone)</td><td>Accelerates ripening in stored fruit</td></tr>
+        <tr><td>Propene</td><td>Polypropylene manufacture</td><td>Used in packaging, textiles, automotive parts</td></tr>
+        <tr><td>Propene</td><td>Manufacture of acetone (propanone) and glycerol</td><td>Industrial chemical synthesis</td></tr>
+        <tr><td>Buta-1,3-diene</td><td>Synthetic rubber (polybutadiene, styrene-butadiene rubber SBR)</td><td>Tyres, footwear</td></tr>
+        <tr><td>Chloroethene (vinyl chloride)</td><td>PVC (poly(vinyl chloride)) manufacture</td><td>Pipes, flooring, insulation</td></tr>
+        <tr><td>Ethyne (HC&equiv;CH)</td><td>Oxy-acetylene welding and cutting (flame ~3100&deg;C)</td><td>Extremely high flame temperature</td></tr>
+        <tr><td>Ethyne</td><td>Synthesis of vinyl chloride (then PVC), vinyl acetate, acrylonitrile</td><td>Important industrial precursor</td></tr>
+        <tr><td>Ethyne</td><td>Formerly used as anaesthetic (now replaced)</td><td>Historical use only</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- EXERCISES -->
+<section id="exercises">
+  <div class="section-header">
+    <span class="section-number">&#9999;&#65039;</span>
+    <h2>Exercises</h2>
+  </div>
+
+  <ul class="exercise-list">
+
+    <li>
+      Give the IUPAC name for each compound:<br>
+      (a) CH<sub>2</sub>=CHCH<sub>2</sub>CH<sub>3</sub> &nbsp;&nbsp; (b) CH<sub>3</sub>CH=CHCH<sub>2</sub>CH<sub>3</sub> &nbsp;&nbsp; (c) HC&equiv;CCH<sub>2</sub>CH<sub>3</sub>
+      <br><button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+      <div class="answer">
+        (a) <b>but-1-ene</b> (C=C at C1; 4-carbon chain)<br>
+        (b) <b>pent-2-ene</b> (C=C at C2; 5-carbon chain; number from left gives C2)<br>
+        (c) <b>but-1-yne</b> (triple bond at C1; 4-carbon chain)
+      </div>
+    </li>
+
+    <li>
+      Does pent-2-ene show geometric isomerism? Explain your answer and, if yes, name and describe both isomers.
+      <br><button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+      <div class="answer">
+        <b>Yes.</b> In CH<sub>3</sub>CH=CHCH<sub>2</sub>CH<sub>3</sub> (pent-2-ene): C2 carries H and CH<sub>3</sub> (two different groups &#10004;); C3 carries H and CH<sub>2</sub>CH<sub>3</sub> (two different groups &#10004;). Rotation about C=C is restricted by the &pi; bond.<br><br>
+        <b>cis-pent-2-ene</b>: CH<sub>3</sub> and CH<sub>2</sub>CH<sub>3</sub> on the same side.<br>
+        <b>trans-pent-2-ene</b>: CH<sub>3</sub> and CH<sub>2</sub>CH<sub>3</sub> on opposite sides.
+      </div>
+    </li>
+
+    <li>
+      Write the equation for the dehydration of ethanol to produce ethene. State the reagent and conditions.
+      <br><button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+      <div class="answer">
+        CH<sub>3</sub>CH<sub>2</sub>OH &rarr;<sup>conc. H<sub>2</sub>SO<sub>4</sub>, 170&deg;C</sup> CH<sub>2</sub>=CH<sub>2</sub> + H<sub>2</sub>O<br>
+        Reagent: <b>concentrated H<sub>2</sub>SO<sub>4</sub></b> (or Al<sub>2</sub>O<sub>3</sub>). Temperature: <b>~170&deg;C</b>.
+      </div>
+    </li>
+
+    <li>
+      Predict the major product when HI adds to 2-methylpropene (CH<sub>2</sub>=C(CH<sub>3</sub>)<sub>2</sub>). Justify using Markovnikov's rule.
+      <br><button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+      <div class="answer">
+        <b>Major product: 2-iodo-2-methylpropane</b>, (CH<sub>3</sub>)<sub>3</sub>CI.<br>
+        Markovnikov's rule: H adds to C1 (=CH<sub>2</sub>, has 2 H already); I adds to C2 (=C(CH<sub>3</sub>)<sub>2</sub>, more substituted).<br>
+        The tertiary carbocation (CH<sub>3</sub>)<sub>3</sub>C<sup>+</sup> is more stable than the primary carbocation CH<sub>2</sub>I&ndash;C(CH<sub>3</sub>)<sub>2</sub>, so the reaction proceeds through the more stable intermediate.
+      </div>
+    </li>
+
+    <li>
+      A student treats an unknown compound with bromine water. The orange colour is discharged immediately. What class of compound is likely present? What further test would distinguish an alkene from an alkyne?
+      <br><button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+      <div class="answer">
+        Immediate decolourisation of bromine water indicates an <b>unsaturated compound</b> (alkene or alkyne) — the compound adds across the &pi; bond(s).<br><br>
+        To distinguish: add <b>ammoniacal silver nitrate solution</b> (Tollens&rsquo; reagent without the aldehyde context — use AgNO<sub>3</sub>/NH<sub>3</sub>). A terminal alkyne gives a <b>white/cream precipitate</b> (silver acetylide, AgC&equiv;CR). An alkene gives no precipitate.<br>
+        Alternatively: if the compound reacts with only 1 mole of Br<sub>2</sub> it is an alkene; if 2 moles of Br<sub>2</sub> it is an alkyne.
+      </div>
+    </li>
+
+    <li>
+      Write the balanced equation for the preparation of ethyne from calcium carbide. State one industrial use of ethyne.
+      <br><button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+      <div class="answer">
+        CaC<sub>2</sub> + 2H<sub>2</sub>O &rarr; Ca(OH)<sub>2</sub> + HC&equiv;CH<br><br>
+        Industrial use: <b>oxy-acetylene welding and cutting</b> (flame temperature ~3100&deg;C). Also: production of vinyl chloride (monomer for PVC).
+      </div>
+    </li>
+
+  </ul>
+</section>
+
+<!-- QUIZ -->
+<section id="quiz">
+  <div class="section-header">
+    <span class="section-number">&#129504;</span>
+    <h2>Interactive Quiz</h2>
+  </div>
+  <div class="quiz-wrap">
+    <div class="quiz-header"><h3>Unit 3 Quiz &mdash; Alkenes &amp; Alkynes (10 Questions)</h3></div>
+    <div class="quiz-body">
+
+      <div class="q-block">
+        <span class="q-num">Q1</span>
+        <p class="q-text">What is the general formula for alkenes (one double bond)?</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q1" value="a"> C<sub>n</sub>H<sub>2n+2</sub></label>
+          <label class="opt"><input type="radio" name="q1" value="b"> C<sub>n</sub>H<sub>2n</sub></label>
+          <label class="opt"><input type="radio" name="q1" value="c"> C<sub>n</sub>H<sub>2n&minus;2</sub></label>
+          <label class="opt"><input type="radio" name="q1" value="d"> C<sub>n</sub>H<sub>n</sub></label>
+        </div>
+        <div class="q-exp" id="exp1">Alkenes with one C=C have general formula <b>C<sub>n</sub>H<sub>2n</sub></b>. Each double bond removes 2 H atoms relative to the alkane formula.</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q2</span>
+        <p class="q-text">The hybridisation of each carbon in a C=C double bond is:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q2" value="a"> sp<sup>3</sup></label>
+          <label class="opt"><input type="radio" name="q2" value="b"> sp</label>
+          <label class="opt"><input type="radio" name="q2" value="c"> sp<sup>2</sup></label>
+          <label class="opt"><input type="radio" name="q2" value="d"> sp<sup>4</sup></label>
+        </div>
+        <div class="q-exp" id="exp2">Carbon atoms in C=C are <b>sp<sup>2</sup> hybridised</b>: 3 sp<sup>2</sup> orbitals form &sigma; bonds (trigonal planar, 120&deg;), and the remaining p orbital forms the &pi; bond by sideways overlap.</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q3</span>
+        <p class="q-text">Which compound shows geometric (cis/trans) isomerism?</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q3" value="a"> Ethene (CH<sub>2</sub>=CH<sub>2</sub>)</label>
+          <label class="opt"><input type="radio" name="q3" value="b"> Propene (CH<sub>3</sub>CH=CH<sub>2</sub>)</label>
+          <label class="opt"><input type="radio" name="q3" value="c"> But-2-ene (CH<sub>3</sub>CH=CHCH<sub>3</sub>)</label>
+          <label class="opt"><input type="radio" name="q3" value="d"> 2-methylpropene (CH<sub>2</sub>=C(CH<sub>3</sub>)<sub>2</sub>)</label>
+        </div>
+        <div class="q-exp" id="exp3"><b>But-2-ene</b>: both C2 and C3 each carry two different groups (H and an alkyl group), satisfying the condition. Ethene: C1 has two H (identical). Propene: C1 has two H. 2-methylpropene: C2 has two CH<sub>3</sub> (identical).</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q4</span>
+        <p class="q-text">What is the major product when HBr adds to propene (CH<sub>3</sub>CH=CH<sub>2</sub>)?</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q4" value="a"> 1-bromopropane</label>
+          <label class="opt"><input type="radio" name="q4" value="b"> 2-bromopropane</label>
+          <label class="opt"><input type="radio" name="q4" value="c"> 1,2-dibromopropane</label>
+          <label class="opt"><input type="radio" name="q4" value="d"> 3-bromopropane</label>
+        </div>
+        <div class="q-exp" id="exp4">By Markovnikov's rule, H adds to CH<sub>2</sub> (more H) and Br adds to the more substituted CH carbon &rarr; <b>2-bromopropane</b> (CH<sub>3</sub>CHBrCH<sub>3</sub>) is the major product.</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q5</span>
+        <p class="q-text">Bromine water is decolourised by an alkene because:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q5" value="a"> The alkene reduces Br<sub>2</sub> to Br<sup>&minus;</sup> ions</label>
+          <label class="opt"><input type="radio" name="q5" value="b"> Br<sub>2</sub> adds across the C=C double bond (electrophilic addition)</label>
+          <label class="opt"><input type="radio" name="q5" value="c"> Bromine substitutes a hydrogen atom</label>
+          <label class="opt"><input type="radio" name="q5" value="d"> The alkene is oxidised by Br<sub>2</sub></label>
+        </div>
+        <div class="q-exp" id="exp5">Bromine undergoes <b>electrophilic addition</b> across the C=C bond: CH<sub>2</sub>=CH<sub>2</sub> + Br<sub>2</sub> &rarr; CH<sub>2</sub>BrCH<sub>2</sub>Br. The Br<sub>2</sub> is consumed, removing the orange/brown colour.</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q6</span>
+        <p class="q-text">Which conditions are used to dehydrate ethanol to ethene?</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q6" value="a"> Dilute H<sub>2</sub>SO<sub>4</sub>, room temperature</label>
+          <label class="opt"><input type="radio" name="q6" value="b"> Concentrated H<sub>2</sub>SO<sub>4</sub>, ~170&deg;C</label>
+          <label class="opt"><input type="radio" name="q6" value="c"> Alcoholic KOH, heat</label>
+          <label class="opt"><input type="radio" name="q6" value="d"> NaOH(aq), heat</label>
+        </div>
+        <div class="q-exp" id="exp6">Dehydration of alcohols requires <b>concentrated H<sub>2</sub>SO<sub>4</sub> at ~170&deg;C</b> (or Al<sub>2</sub>O<sub>3</sub> at high temperature). At lower temperature (~140&deg;C) with conc. H<sub>2</sub>SO<sub>4</sub>, the ether is the main product.</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q7</span>
+        <p class="q-text">How is ethyne (acetylene) prepared from calcium carbide?</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q7" value="a"> CaC<sub>2</sub> + 2HCl &rarr; Ca + HC&equiv;CH + Cl<sub>2</sub></label>
+          <label class="opt"><input type="radio" name="q7" value="b"> CaC<sub>2</sub> + 2H<sub>2</sub>O &rarr; Ca(OH)<sub>2</sub> + HC&equiv;CH</label>
+          <label class="opt"><input type="radio" name="q7" value="c"> 2CaC<sub>2</sub> + O<sub>2</sub> &rarr; 2CaO + HC&equiv;CH</label>
+          <label class="opt"><input type="radio" name="q7" value="d"> CaC<sub>2</sub> + H<sub>2</sub>SO<sub>4</sub> &rarr; CaSO<sub>4</sub> + HC&equiv;CH</label>
+        </div>
+        <div class="q-exp" id="exp7"><b>CaC<sub>2</sub> + 2H<sub>2</sub>O &rarr; Ca(OH)<sub>2</sub> + HC&equiv;CH</b>. Calcium carbide reacts vigorously with water to liberate ethyne gas.</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q8</span>
+        <p class="q-text">The bond angle around each carbon of a C&equiv;C triple bond is:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q8" value="a"> 109.5&deg;</label>
+          <label class="opt"><input type="radio" name="q8" value="b"> 120&deg;</label>
+          <label class="opt"><input type="radio" name="q8" value="c"> 180&deg;</label>
+          <label class="opt"><input type="radio" name="q8" value="d"> 90&deg;</label>
+        </div>
+        <div class="q-exp" id="exp8">Carbon in C&equiv;C is <b>sp hybridised</b> &mdash; linear geometry, bond angle <b>180&deg;</b>. Two sp orbitals point in opposite directions; two p orbitals form two &pi; bonds perpendicular to each other.</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q9</span>
+        <p class="q-text">Which of the following is NOT a use of ethene?</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q9" value="a"> Manufacture of polyethylene</label>
+          <label class="opt"><input type="radio" name="q9" value="b"> Ripening of fruit</label>
+          <label class="opt"><input type="radio" name="q9" value="c"> Oxy-acetylene welding</label>
+          <label class="opt"><input type="radio" name="q9" value="d"> Production of ethanol</label>
+        </div>
+        <div class="q-exp" id="exp9"><b>Oxy-acetylene welding</b> uses <em>ethyne</em> (acetylene), not ethene. Ethene is used for polyethylene, fruit ripening (it is a plant hormone), and industrial production of ethanol by hydration.</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q10</span>
+        <p class="q-text">A compound decolourises bromine water AND reacts with 2 moles of Br<sub>2</sub> per mole of compound. It is most likely:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q10" value="a"> An alkane</label>
+          <label class="opt"><input type="radio" name="q10" value="b"> An alkene</label>
+          <label class="opt"><input type="radio" name="q10" value="c"> An alkyne</label>
+          <label class="opt"><input type="radio" name="q10" value="d"> An alcohol</label>
+        </div>
+        <div class="q-exp" id="exp10">An <b>alkyne</b> (C&equiv;C) contains two &pi; bonds and reacts with <b>2 moles of Br<sub>2</sub></b> in complete addition. An alkene (one C=C) reacts with only 1 mole.</div>
+      </div>
+
+    </div>
+    <div style="padding:0 24px 24px;">
+      <button class="quiz-submit" onclick="submitQuiz()">Submit Answers</button>
+      <div id="quizResult" style="display:none;margin-top:16px;padding:16px 20px;border-radius:var(--radius);font-family:'JetBrains Mono',monospace;"></div>
+    </div>
+  </div>
+</section>
+
+<!-- UNIT TEST -->
+<section id="test">
+  <div class="section-header">
+    <span class="section-number">&#128221;</span>
+    <h2>Unit Test</h2>
+  </div>
+
+  <div class="callout info">
+    <span class="callout-icon">&#8505;&#65039;</span>
+    <div class="callout-body">
+      <strong>Instructions</strong>
+      Total: 50 marks &nbsp;|&nbsp; Time: 50 minutes &nbsp;|&nbsp; Attempt all questions &nbsp;|&nbsp; Show all working.
+    </div>
+  </div>
+
+  <div class="test-wrap">
+
+    <div class="test-section">
+      <div class="test-section-header">
+        <h3>Section A &mdash; Short Answer</h3>
+        <span class="marks-badge">30 marks</span>
+      </div>
+      <div class="test-body">
+
+        <div class="test-q">
+          <span class="test-q-num">Q1 [4 marks]</span>
+          <p>Give the IUPAC name for each compound:<br>
+          (a) CH<sub>2</sub>=C(CH<sub>3</sub>)CH<sub>2</sub>CH<sub>3</sub> &nbsp;
+          (b) CH<sub>3</sub>CH=C(CH<sub>3</sub>)CH<sub>2</sub>CH<sub>3</sub> &nbsp;
+          (c) HC&equiv;CCH(CH<sub>3</sub>)<sub>2</sub> &nbsp;
+          (d) CH<sub>3</sub>C&equiv;CCH<sub>2</sub>CH<sub>3</sub></p>
+          <div class="test-answer-reveal">
+            <button class="reveal-btn" onclick="toggleAnswer(this)">Show Model Answer</button>
+            <div class="answer">
+              (a) <b>2-methylbut-1-ene</b> (longest chain = 4 C through double bond; methyl on C2; double bond at C1)<br>
+              (b) <b>3-methylpent-2-ene</b> (longest chain = 5 C; double bond between C2&ndash;C3; methyl on C3)<br>
+              (c) <b>3-methylbut-1-yne</b> (longest chain = 4 C; triple bond at C1; methyl on C3)<br>
+              (d) <b>pent-2-yne</b> (longest chain = 5 C; triple bond between C2&ndash;C3)
+            </div>
+          </div>
+        </div>
+
+        <div class="test-q">
+          <span class="test-q-num">Q2 [4 marks]</span>
+          <p>Explain, with reference to orbital theory, why:</p>
+          <p>(a) free rotation is possible around the C&ndash;C single bond in ethane but not around the C=C bond in ethene. <i>[2]</i></p>
+          <p>(b) the bond angle in ethene (~120&deg;) differs from that in ethane (~109.5&deg;). <i>[2]</i></p>
+          <div class="test-answer-reveal">
+            <button class="reveal-btn" onclick="toggleAnswer(this)">Show Model Answer</button>
+            <div class="answer">
+              (a) In ethane, the C&ndash;C &sigma; bond is cylindrically symmetrical — rotation does not break or weaken it. In ethene, the C=C contains both a &sigma; bond AND a &pi; bond. The &pi; bond is formed by sideways p-orbital overlap above and below the molecular plane; rotation would break this overlap and destroy the &pi; bond. Therefore rotation is restricted.<br><br>
+              (b) In ethane, each carbon is <b>sp<sup>3</sup> hybridised</b> (4 electron pairs arranged tetrahedrally &rarr; 109.5&deg;). In ethene, each carbon is <b>sp<sup>2</sup> hybridised</b> (3 electron groups arranged in a plane &rarr; ~120&deg;).
+            </div>
+          </div>
+        </div>
+
+        <div class="test-q">
+          <span class="test-q-num">Q3 [4 marks]</span>
+          <p>(a) State the condition required for geometric isomerism to exist in an alkene. <i>[1]</i></p>
+          <p>(b) Draw and name the two geometric isomers of but-2-ene. <i>[2]</i></p>
+          <p>(c) Explain why cis-but-2-ene has a higher boiling point than trans-but-2-ene. <i>[1]</i></p>
+          <div class="test-answer-reveal">
+            <button class="reveal-btn" onclick="toggleAnswer(this)">Show Model Answer</button>
+            <div class="answer">
+              (a) Each carbon of the C=C must bear <b>two different substituents</b> (and rotation about C=C is restricted).<br><br>
+              (b) <b>cis-but-2-ene</b>: both CH<sub>3</sub> groups on the same side of the C=C.<br>
+              <b>trans-but-2-ene</b>: CH<sub>3</sub> groups on opposite sides of the C=C.<br><br>
+              (c) In cis-but-2-ene, the molecular dipoles from the two C&ndash;CH<sub>3</sub> bonds reinforce each other (net dipole &ne; 0), giving slightly stronger intermolecular attractions and a higher boiling point. In the trans isomer, the dipoles cancel (molecule is symmetric, net dipole &asymp; 0).
+            </div>
+          </div>
+        </div>
+
+        <div class="test-q">
+          <span class="test-q-num">Q4 [5 marks]</span>
+          <p>Write equations, with reagents and conditions, for three different methods of preparing alkenes from other organic compounds.</p>
+          <div class="test-answer-reveal">
+            <button class="reveal-btn" onclick="toggleAnswer(this)">Show Model Answer</button>
+            <div class="answer">
+              <b>1. Dehydration of alcohol:</b><br>
+              CH<sub>3</sub>CH<sub>2</sub>OH &rarr;<sup>conc. H<sub>2</sub>SO<sub>4</sub>, 170&deg;C</sup> CH<sub>2</sub>=CH<sub>2</sub> + H<sub>2</sub>O<br><br>
+              <b>2. Dehydrohalogenation:</b><br>
+              CH<sub>3</sub>CH<sub>2</sub>Br + KOH(alc) &rarr;<sup>heat</sup> CH<sub>2</sub>=CH<sub>2</sub> + KBr + H<sub>2</sub>O<br><br>
+              <b>3. Cracking of alkanes:</b><br>
+              C<sub>4</sub>H<sub>10</sub> &rarr;<sup>high T, cat.</sup> C<sub>2</sub>H<sub>4</sub> + C<sub>2</sub>H<sub>6</sub>
+            </div>
+          </div>
+        </div>
+
+        <div class="test-q">
+          <span class="test-q-num">Q5 [5 marks]</span>
+          <p>Predict the major and minor products when HBr reacts with but-1-ene (CH<sub>2</sub>=CHCH<sub>2</sub>CH<sub>3</sub>). Write equations for both and explain the product distribution using carbocation stability.</p>
+          <div class="test-answer-reveal">
+            <button class="reveal-btn" onclick="toggleAnswer(this)">Show Model Answer</button>
+            <div class="answer">
+              <b>Major product:</b> 2-bromobutane (CH<sub>3</sub>CHBrCH<sub>2</sub>CH<sub>3</sub>)<br>
+              CH<sub>2</sub>=CHCH<sub>2</sub>CH<sub>3</sub> + HBr &rarr; CH<sub>3</sub>CHBrCH<sub>2</sub>CH<sub>3</sub><br><br>
+              <b>Minor product:</b> 1-bromobutane (CH<sub>2</sub>BrCH<sub>2</sub>CH<sub>2</sub>CH<sub>3</sub>)<br>
+              CH<sub>2</sub>=CHCH<sub>2</sub>CH<sub>3</sub> + HBr &rarr; CH<sub>2</sub>BrCH<sub>2</sub>CH<sub>2</sub>CH<sub>3</sub><br><br>
+              <b>Explanation:</b> The intermediate for the major product is a <b>secondary carbocation</b> (CH<sub>3</sub>&bull;<sup>+</sup>CHCH<sub>2</sub>CH<sub>3</sub>), which is more stable than the <b>primary carbocation</b> (CH<sub>2</sub>&bull;<sup>+</sup>CH<sub>2</sub>CH<sub>2</sub>CH<sub>3</sub>) for the minor product. Stability: 3&deg; &gt; 2&deg; &gt; 1&deg; carbocation. The reaction proceeds preferentially through the more stable intermediate.
+            </div>
+          </div>
+        </div>
+
+        <div class="test-q">
+          <span class="test-q-num">Q6 [4 marks]</span>
+          <p>Write balanced equations for the following reactions of ethyne:<br>
+          (a) Complete combustion &nbsp; (b) Addition of 2 moles of HCl &nbsp; (c) Addition of 1 mole of Br<sub>2</sub> &nbsp; (d) Reaction with water (Markovnikov product only)</p>
+          <div class="test-answer-reveal">
+            <button class="reveal-btn" onclick="toggleAnswer(this)">Show Model Answer</button>
+            <div class="answer">
+              (a) 2 C<sub>2</sub>H<sub>2</sub> + 5 O<sub>2</sub> &rarr; 4 CO<sub>2</sub> + 2 H<sub>2</sub>O<br>
+              (b) HC&equiv;CH + 2HCl &rarr; CH<sub>3</sub>CHCl<sub>2</sub> (1,1-dichloroethane)<br>
+              (c) HC&equiv;CH + Br<sub>2</sub> &rarr; CHBr=CHBr (1,2-dibromoethene)<br>
+              (d) HC&equiv;CH + H<sub>2</sub>O &rarr;<sup>H<sub>2</sub>SO<sub>4</sub>/HgSO<sub>4</sub></sup> CH<sub>3</sub>CHO (ethanal, via vinyl alcohol tautomerism)
+            </div>
+          </div>
+        </div>
+
+        <div class="test-q">
+          <span class="test-q-num">Q7 [4 marks]</span>
+          <p>Describe two chemical tests that can be used to distinguish an alkene from an alkane. For each test, state the reagent, observation with the alkene, and observation with the alkane.</p>
+          <div class="test-answer-reveal">
+            <button class="reveal-btn" onclick="toggleAnswer(this)">Show Model Answer</button>
+            <div class="answer">
+              <b>Test 1 — Bromine water:</b><br>
+              Reagent: bromine water (orange/brown)<br>
+              Alkene: immediate decolourisation (orange &rarr; colourless) — Br<sub>2</sub> adds across C=C.<br>
+              Alkane: no change in colour (no reaction in the dark).<br><br>
+              <b>Test 2 — Cold dilute KMnO<sub>4</sub> (Baeyer&rsquo;s reagent):</b><br>
+              Reagent: cold dilute KMnO<sub>4</sub> solution (purple)<br>
+              Alkene: purple colour discharged (decolourises) — diol formed by oxidation of C=C.<br>
+              Alkane: no colour change (alkanes not oxidised by cold KMnO<sub>4</sub>).
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="test-section">
+      <div class="test-section-header">
+        <h3>Section B &mdash; Extended Response</h3>
+        <span class="marks-badge">20 marks</span>
+      </div>
+      <div class="test-body">
+
+        <div class="test-q">
+          <span class="test-q-num">Q8 [10 marks]</span>
+          <p><b>(a)</b> Compare the structure, bonding, and geometry of ethene and ethyne. Include hybridisation, bond angles, bond lengths, and the number and type of bonds. <i>[6 marks]</i></p>
+          <p><b>(b)</b> Starting from ethyne, describe with equations how you could prepare: (i) ethene; (ii) 1,1,2,2-tetrabromoethane. <i>[4 marks]</i></p>
+          <div class="test-answer-reveal">
+            <button class="reveal-btn" onclick="toggleAnswer(this)">Show Model Answer</button>
+            <div class="answer">
+              <b>(a)</b><br>
+              <b>Ethene (CH<sub>2</sub>=CH<sub>2</sub>):</b> each C is sp<sup>2</sup> hybridised. The C=C consists of one &sigma; bond (sp<sup>2</sup>&ndash;sp<sup>2</sup> overlap) and one &pi; bond (p&ndash;p sideways overlap). Bond angle ~120&deg;, trigonal planar. C=C bond length = 134 pm. Molecule is planar; restricted rotation about C=C.<br><br>
+              <b>Ethyne (HC&equiv;CH):</b> each C is sp hybridised. The C&equiv;C consists of one &sigma; bond and two &pi; bonds (in perpendicular planes). Bond angle = 180&deg;, linear. C&equiv;C bond length = 120 pm (shorter than C=C). No rotation issue (already symmetric).<br><br>
+              Comparison: as bond order increases (1 &rarr; 2 &rarr; 3): bond length decreases, bond energy increases, bond angle changes (109.5&deg; &rarr; 120&deg; &rarr; 180&deg;), geometry changes (tetrahedral &rarr; trigonal planar &rarr; linear).<br><br>
+              <b>(b)(i) Ethene from ethyne:</b><br>
+              HC&equiv;CH + H<sub>2</sub> &rarr;<sup>Lindlar catalyst (Pd/CaCO<sub>3</sub>)</sup> CH<sub>2</sub>=CH<sub>2</sub><br>
+              (Lindlar catalyst ensures only 1 mole H<sub>2</sub> adds, giving cis-alkene; regular Ni would give ethane with excess H<sub>2</sub>.)<br><br>
+              <b>(b)(ii) 1,1,2,2-tetrabromoethane from ethyne:</b><br>
+              HC&equiv;CH + 2Br<sub>2</sub> &rarr; CHBr<sub>2</sub>&ndash;CHBr<sub>2</sub> (1,1,2,2-tetrabromoethane)
+            </div>
+          </div>
+        </div>
+
+        <div class="test-q">
+          <span class="test-q-num">Q9 [10 marks]</span>
+          <p><b>(a)</b> State Markovnikov's rule and explain it in terms of carbocation stability. Use the addition of HBr to 2-methylpropene as your example. <i>[6 marks]</i></p>
+          <p><b>(b)</b> Alkenes undergo addition polymerisation. Write the repeat unit of poly(propene) and name two industrial uses of this polymer. <i>[4 marks]</i></p>
+          <div class="test-answer-reveal">
+            <button class="reveal-btn" onclick="toggleAnswer(this)">Show Model Answer</button>
+            <div class="answer">
+              <b>(a)</b><br>
+              <b>Markovnikov's rule:</b> When HX adds to an unsymmetrical alkene, the hydrogen goes to the carbon already bearing more hydrogen atoms (the less substituted carbon), and X goes to the more substituted carbon.<br><br>
+              <b>Mechanism for 2-methylpropene + HBr:</b><br>
+              2-methylpropene: CH<sub>2</sub>=C(CH<sub>3</sub>)<sub>2</sub><br>
+              Step 1 (H<sup>+</sup> adds): Two possible carbocations:<br>
+              &bull; H<sup>+</sup> to C2 &rarr; CH<sub>3</sub>&ndash;&bull;<sup>+</sup>CH&ndash;CH<sub>3</sub> = secondary carbocation<br>
+              &bull; H<sup>+</sup> to C1 &rarr; <sup>+</sup>C(CH<sub>3</sub>)<sub>3</sub> = <b>tertiary carbocation</b> &larr; more stable<br>
+              Step 2 (Br<sup>&minus;</sup> attacks carbocation): Br<sup>&minus;</sup> + (CH<sub>3</sub>)<sub>3</sub>C<sup>+</sup> &rarr; (CH<sub>3</sub>)<sub>3</sub>CBr<br>
+              <b>Major product: 2-bromo-2-methylpropane</b><br><br>
+              <b>Stability order:</b> 3&deg; &gt; 2&deg; &gt; 1&deg; &gt; methyl carbocation. Tertiary carbocations have three alkyl groups donating electron density, dispersing the positive charge and increasing stability.<br><br>
+              <b>(b) Poly(propene) repeat unit:</b> [&ndash;CH<sub>2</sub>&ndash;CH(CH<sub>3</sub>)&ndash;]<sub>n</sub><br>
+              From: n CH<sub>2</sub>=CHCH<sub>3</sub> &rarr; [&ndash;CH<sub>2</sub>&ndash;CH(CH<sub>3</sub>)&ndash;]<sub>n</sub><br><br>
+              <b>Industrial uses:</b> (any two) food packaging (yogurt pots, crisp packets); carpet fibres and ropes; automotive bumpers and trim; laboratory containers; medical syringes and equipment.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="unit-nav">
+  <a class="nav-btn prev" href="unit2_alkanes.html">&larr; Unit 2: Alkanes</a>
+  <a class="nav-btn next" href="unit4_halogenoalkanes.html">Unit 4: Halogenoalkanes &rarr;</a>
+</div>
+
+</main>
+
+<script>
+function toggleAnswer(btn){
+  const ans=btn.nextElementSibling;
+  ans.classList.toggle('open');
+  btn.textContent=ans.classList.contains('open')?'Hide Answer':'Show Answer';
+}
+
+const correctAnswers={q1:'b',q2:'c',q3:'c',q4:'b',q5:'b',q6:'b',q7:'b',q8:'c',q9:'c',q10:'c'};
+
+function submitQuiz(){
+  let score=0;
+  const total=Object.keys(correctAnswers).length;
+  Object.entries(correctAnswers).forEach(([q,correct])=>{
+    const sel=document.querySelector('input[name="'+q+'"]:checked');
+    document.querySelectorAll('input[name="'+q+'"]').forEach(o=>{
+      if(o.value===correct) o.parentElement.classList.add('correct');
+    });
+    if(sel){
+      if(sel.value===correct) score++;
+      else sel.parentElement.classList.add('wrong');
+    }
+    const exp=document.getElementById('exp'+q.slice(1));
+    if(exp) exp.style.display='block';
+    document.querySelectorAll('input[name="'+q+'"]').forEach(o=>o.disabled=true);
+  });
+  const pct=Math.round(score/total*100);
+  const res=document.getElementById('quizResult');
+  res.style.display='block';
+  res.style.background=pct>=70?'rgba(52,211,153,.1)':'rgba(248,113,113,.1)';
+  res.style.border='1px solid '+(pct>=70?'var(--green)':'var(--red)');
+  res.style.color=pct>=70?'var(--green)':'var(--red)';
+  res.innerHTML='Score: '+score+' / '+total+' ('+pct+'%) — '+(pct>=80?'Excellent! 🎉':pct>=60?'Good effort — review marked questions.':'Keep studying — re-read the notes and try again.');
+  document.querySelector('.quiz-submit').disabled=true;
+  document.querySelector('.quiz-submit').style.opacity='0.5';
+}
+</script>
+</body>
+</html>
