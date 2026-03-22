@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>S5 Chemistry – Unit 1: Introduction to Organic Chemistry</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Serif+4:wght@300;400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+<style>
+  :root{
+    --bg:#0d1117;
+    --surface:#161b22;
+    --surface2:#1c2333;
+    --border:#30363d;
+    --accent:#58c4dc;
+    --accent2:#f97316;
+    --accent3:#a78bfa;
+    --gold:#e8c547;
+    --green:#34d399;
+    --red:#f87171;
+    --text:#e6edf3;
+    --muted:#8b949e;
+    --radius:10px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Source Serif 4',Georgia,serif;
+    font-size:17px;
+    line-height:1.75;
+    overflow-x:hidden;
+  }
+
+  /* ─── HERO ─── */
+  .hero{
+    position:relative;
+    padding:80px 40px 60px;
+    text-align:center;
+    overflow:hidden;
+    background:radial-gradient(ellipse 80% 60% at 50% 0%,#1a2a3a 0%,var(--bg) 70%);
+    border-bottom:1px solid var(--border);
+  }
+  .hero::before{
+    content:'';
+    position:absolute;inset:0;
+    background:repeating-linear-gradient(
+      90deg,
+      transparent,transparent 39px,
+      rgba(88,196,220,.05) 40px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      transparent,transparent 39px,
+      rgba(88,196,220,.05) 40px
+    );
+    pointer-events:none;
+  }
+  .badge{
+    display:inline-block;
+    background:rgba(88,196,220,.12);
+    border:1px solid rgba(88,196,220,.3);
+    color:var(--accent);
+    padding:4px 16px;
+    border-radius:50px;
+    font-size:.78rem;
+    font-family:'JetBrains Mono',monospace;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    margin-bottom:22px;
+  }
+  .hero h1{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(2rem,5vw,3.4rem);
+    line-height:1.15;
+    color:#fff;
+    max-width:800px;
+    margin:0 auto 18px;
+  }
+  .hero h1 em{color:var(--accent);font-style:italic;}
+  .hero p.sub{
+    color:var(--muted);
+    font-size:1rem;
+    max-width:580px;
+    margin:0 auto 32px;
+  }
+  .toc-grid{
+    display:flex;flex-wrap:wrap;gap:10px;justify-content:center;
+    max-width:700px;margin:0 auto;
+  }
+  .toc-grid a{
+    background:var(--surface2);
+    border:1px solid var(--border);
+    color:var(--text);
+    padding:8px 18px;
+    border-radius:50px;
+    text-decoration:none;
+    font-size:.85rem;
+    transition:all .2s;
+    font-family:'JetBrains Mono',monospace;
+  }
+  .toc-grid a:hover{background:var(--accent);color:#000;border-color:var(--accent);}
+
+  /* ─── LAYOUT ─── */
+  .page{max-width:960px;margin:0 auto;padding:0 28px 80px;}
+
+  /* ─── SECTION HEADERS ─── */
+  .section-header{
+    display:flex;align-items:center;gap:16px;
+    margin:64px 0 28px;
+    padding-bottom:14px;
+    border-bottom:2px solid var(--border);
+  }
+  .section-number{
+    font-family:'JetBrains Mono',monospace;
+    font-size:.72rem;
+    color:var(--accent);
+    background:rgba(88,196,220,.1);
+    border:1px solid rgba(88,196,220,.25);
+    padding:4px 12px;
+    border-radius:4px;
+    white-space:nowrap;
+  }
+  .section-header h2{
+    font-family:'Playfair Display',serif;
+    font-size:1.75rem;
+    color:#fff;
+  }
+
+  /* ─── CARDS ─── */
+  .card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:26px 30px;
+    margin-bottom:22px;
+  }
+  .card h3{
+    font-family:'Playfair Display',serif;
+    font-size:1.15rem;
+    color:var(--gold);
+    margin-bottom:12px;
+  }
+  .card p+p{margin-top:12px;}
+
+  /* ─── DEFINITION BOX ─── */
+  .def-box{
+    border-left:4px solid var(--accent);
+    background:rgba(88,196,220,.07);
+    border-radius:0 var(--radius) var(--radius) 0;
+    padding:18px 22px;
+    margin:20px 0;
+  }
+  .def-box strong{color:var(--accent);display:block;font-size:.78rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;}
+
+  /* ─── INFO CALLOUT ─── */
+  .callout{
+    border-radius:var(--radius);
+    padding:18px 22px;
+    margin:20px 0;
+    display:flex;gap:14px;align-items:flex-start;
+  }
+  .callout.info{background:rgba(167,139,250,.08);border:1px solid rgba(167,139,250,.25);}
+  .callout.warn{background:rgba(249,115,22,.08);border:1px solid rgba(249,115,22,.25);}
+  .callout.tip{background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.25);}
+  .callout-icon{font-size:1.3rem;margin-top:2px;flex-shrink:0;}
+  .callout-body strong{display:block;margin-bottom:4px;font-size:.9rem;color:#fff;}
+
+  /* ─── TABLE ─── */
+  .tbl-wrap{overflow-x:auto;margin:20px 0;border-radius:var(--radius);border:1px solid var(--border);}
+  table{width:100%;border-collapse:collapse;}
+  thead tr{background:var(--surface2);}
+  th{padding:13px 16px;text-align:left;font-size:.82rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);white-space:nowrap;}
+  td{padding:12px 16px;border-top:1px solid var(--border);font-size:.9rem;}
+  tr:hover td{background:rgba(255,255,255,.02);}
+  td code,th code{background:rgba(88,196,220,.12);padding:2px 7px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:.85em;}
+
+  /* ─── FORMULA / STRUCTURE ─── */
+  .formula-block{
+    background:var(--surface2);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:20px 26px;
+    margin:16px 0;
+    font-family:'JetBrains Mono',monospace;
+    font-size:.95rem;
+    color:var(--accent);
+    overflow-x:auto;
+  }
+  .formula-block .comment{color:var(--muted);font-size:.82rem;}
+
+  /* ─── WORKED EXAMPLE ─── */
+  .example-box{
+    background:var(--surface2);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    overflow:hidden;
+    margin:26px 0;
+  }
+  .example-header{
+    background:linear-gradient(90deg,rgba(249,115,22,.18) 0%,transparent 100%);
+    padding:14px 22px;
+    display:flex;align-items:center;gap:10px;
+    border-bottom:1px solid var(--border);
+  }
+  .example-header span{
+    font-family:'JetBrains Mono',monospace;
+    font-size:.75rem;
+    color:var(--accent2);
+    text-transform:uppercase;
+    letter-spacing:.12em;
+  }
+  .example-body{padding:22px 26px;}
+  .step{
+    display:flex;gap:14px;margin-bottom:16px;align-items:flex-start;
+  }
+  .step-num{
+    background:var(--accent2);
+    color:#000;
+    font-family:'JetBrains Mono',monospace;
+    font-size:.72rem;
+    font-weight:600;
+    width:26px;height:26px;
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;
+    margin-top:2px;
+  }
+  .answer-reveal{
+    margin-top:14px;
+    background:rgba(52,211,153,.07);
+    border:1px solid rgba(52,211,153,.25);
+    border-radius:var(--radius);
+    padding:16px 20px;
+  }
+  .answer-reveal strong{color:var(--green);font-family:'JetBrains Mono',monospace;font-size:.8rem;text-transform:uppercase;display:block;margin-bottom:6px;}
+
+  /* ─── EXERCISES ─── */
+  .exercise-item{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:20px 24px;
+    margin-bottom:16px;
+  }
+  .exercise-item .q-num{
+    font-family:'JetBrains Mono',monospace;
+    font-size:.75rem;
+    color:var(--muted);
+    margin-bottom:8px;
+  }
+  .toggle-btn{
+    margin-top:14px;
+    background:none;
+    border:1px solid var(--border);
+    color:var(--muted);
+    padding:7px 16px;
+    border-radius:6px;
+    cursor:pointer;
+    font-size:.82rem;
+    font-family:'JetBrains Mono',monospace;
+    transition:all .2s;
+  }
+  .toggle-btn:hover{border-color:var(--green);color:var(--green);}
+  .answer-panel{
+    display:none;
+    margin-top:14px;
+    background:rgba(52,211,153,.06);
+    border:1px solid rgba(52,211,153,.2);
+    border-radius:8px;
+    padding:14px 18px;
+    font-size:.92rem;
+  }
+  .answer-panel.open{display:block;}
+
+  /* ─── QUIZ ─── */
+  .quiz-container{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    overflow:hidden;
+    margin-bottom:32px;
+  }
+  .quiz-header{
+    background:linear-gradient(90deg,rgba(167,139,250,.15) 0%,transparent 100%);
+    padding:18px 24px;
+    border-bottom:1px solid var(--border);
+    display:flex;justify-content:space-between;align-items:center;
+  }
+  .quiz-header h3{font-family:'Playfair Display',serif;font-size:1.1rem;}
+  .quiz-meta{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--muted);}
+  .quiz-body{padding:26px;}
+  .q-item{margin-bottom:28px;}
+  .q-item p{margin-bottom:12px;font-weight:600;color:#fff;}
+  .options{display:flex;flex-direction:column;gap:8px;}
+  .option{
+    display:flex;align-items:center;gap:12px;
+    background:var(--surface2);
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:12px 16px;
+    cursor:pointer;
+    transition:all .2s;
+    font-size:.9rem;
+  }
+  .option:hover{border-color:var(--accent3);background:rgba(167,139,250,.08);}
+  .option.correct{border-color:var(--green)!important;background:rgba(52,211,153,.12)!important;}
+  .option.wrong{border-color:var(--red)!important;background:rgba(248,113,113,.12)!important;}
+  .option-key{
+    width:28px;height:28px;
+    border-radius:50%;
+    border:1px solid var(--border);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'JetBrains Mono',monospace;
+    font-size:.75rem;
+    flex-shrink:0;
+  }
+  .quiz-controls{
+    display:flex;gap:12px;flex-wrap:wrap;
+    border-top:1px solid var(--border);
+    padding:20px 26px;
+  }
+  .btn{
+    padding:10px 24px;
+    border-radius:8px;
+    border:none;
+    cursor:pointer;
+    font-size:.88rem;
+    font-family:'JetBrains Mono',monospace;
+    transition:all .2s;
+    font-weight:600;
+  }
+  .btn-primary{background:var(--accent);color:#000;}
+  .btn-primary:hover{background:#79d4e8;}
+  .btn-secondary{background:transparent;border:1px solid var(--border);color:var(--muted);}
+  .btn-secondary:hover{border-color:var(--text);color:var(--text);}
+  .score-display{
+    text-align:center;
+    padding:30px;
+    display:none;
+  }
+  .score-num{
+    font-family:'Playfair Display',serif;
+    font-size:3.5rem;
+    color:var(--gold);
+    display:block;
+  }
+  .score-msg{color:var(--muted);font-size:.95rem;margin-top:8px;}
+
+  /* ─── FORMULA GRID ─── */
+  .formula-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+    gap:14px;
+    margin:20px 0;
+  }
+  .formula-card{
+    background:var(--surface2);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:16px 18px;
+    text-align:center;
+  }
+  .formula-card .mol-name{font-size:.82rem;color:var(--muted);margin-bottom:6px;font-family:'JetBrains Mono',monospace;}
+  .formula-card .mol-formula{font-size:1.4rem;color:var(--accent);font-family:'JetBrains Mono',monospace;font-weight:600;}
+  .formula-card .mol-desc{font-size:.78rem;color:var(--muted);margin-top:4px;}
+
+  /* ─── FUNCTIONAL GROUP TABLE ─── */
+  .fg-badge{
+    display:inline-block;
+    background:rgba(167,139,250,.15);
+    border:1px solid rgba(167,139,250,.3);
+    color:var(--accent3);
+    padding:2px 10px;
+    border-radius:4px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:.82rem;
+  }
+
+  /* ─── PROGRESS NAV ─── */
+  .unit-nav{
+    display:flex;justify-content:space-between;
+    border-top:1px solid var(--border);
+    margin-top:64px;
+    padding-top:32px;
+  }
+  .nav-card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:16px 22px;
+    text-decoration:none;
+    color:var(--text);
+    max-width:240px;
+    transition:all .2s;
+  }
+  .nav-card:hover{border-color:var(--accent);background:rgba(88,196,220,.05);}
+  .nav-card small{display:block;font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);margin-bottom:4px;}
+
+  /* ─── RESPONSIVE ─── */
+  @media(max-width:600px){
+    .hero{padding:50px 20px 40px;}
+    .page{padding:0 16px 60px;}
+    .card{padding:18px;}
+  }
+
+  /* fade-in on scroll */
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .5s ease,transform .5s ease;}
+  .reveal.visible{opacity:1;transform:none;}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════ HERO ═══════════════════════ -->
+<header class="hero">
+  <div class="badge">S5 Chemistry · Unit 1</div>
+  <h1>Introduction to <em>Organic Chemistry</em></h1>
+  <p class="sub">Classification · Formulas · Functional Groups · IUPAC Nomenclature</p>
+  <nav class="toc-grid">
+    <a href="#s1">1.1 Classification</a>
+    <a href="#s2">1.2 Types of Formulas</a>
+    <a href="#s3">1.3 Functional Groups</a>
+    <a href="#s4">1.4 IUPAC Rules</a>
+    <a href="#examples">Worked Examples</a>
+    <a href="#exercises">Exercises</a>
+    <a href="#quiz">Quiz</a>
+    <a href="#test">Unit Test</a>
+  </nav>
+</header>
+
+<main class="page">
+
+<!-- ═══════════ 1.1 CLASSIFICATION ═══════════ -->
+<div class="section-header reveal" id="s1">
+  <span class="section-number">1.1</span>
+  <h2>Classification of Organic Compounds</h2>
+</div>
+
+<div class="card reveal">
+  <h3>What is Organic Chemistry?</h3>
+  <p>Organic chemistry is the branch of chemistry that deals with the study of <strong>carbon-containing compounds</strong>. The word "organic" originally referred to substances obtained from living organisms, but today millions of synthetic organic compounds are known.</p>
+  <p>Carbon is unique because it can form 4 covalent bonds and can bond to itself to form long chains, rings, and branched structures — a property called <strong>catenation</strong>.</p>
+</div>
+
+<div class="def-box reveal">
+  <strong>Definition</strong>
+  An <strong>organic compound</strong> is any compound that contains carbon atoms covalently bonded to hydrogen, and often to oxygen, nitrogen, sulfur, halogens, or other elements.
+</div>
+
+<div class="callout info reveal">
+  <div class="callout-icon">ℹ️</div>
+  <div class="callout-body">
+    <strong>Exceptions to the carbon rule</strong>
+    Some carbon-containing compounds are NOT classified as organic: CO₂ (carbon dioxide), CO (carbon monoxide), carbonates (e.g. CaCO₃), bicarbonates, and cyanides (CN⁻) are considered inorganic.
+  </div>
+</div>
+
+<div class="card reveal">
+  <h3>A: Classification by Carbon Skeleton (Chain Structure)</h3>
+  <p>Organic compounds are first grouped by the shape of their carbon backbone:</p>
+</div>
+
+<div class="tbl-wrap reveal">
+  <table>
+    <thead><tr><th>Class</th><th>Carbon Skeleton</th><th>Example</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Acyclic (open-chain)</strong></td><td>No ring; carbon atoms form a chain</td><td>Butane, CH₃CH₂CH₂CH₃</td><td>Also called aliphatic</td></tr>
+      <tr><td><strong>Cyclic</strong></td><td>Contains at least one ring of carbon atoms</td><td>Cyclohexane, benzene</td><td>Includes aromatic and non-aromatic rings</td></tr>
+      <tr><td><strong>Alicyclic</strong></td><td>Cyclic but NOT aromatic</td><td>Cyclohexane C₆H₁₂</td><td>Behave like aliphatic compounds</td></tr>
+      <tr><td><strong>Aromatic</strong></td><td>Contains a benzene ring (C₆H₆)</td><td>Benzene, toluene, phenol</td><td>Highly stable due to delocalized π electrons</td></tr>
+      <tr><td><strong>Heterocyclic</strong></td><td>Ring contains atoms other than C (e.g. N, O, S)</td><td>Pyridine (N in ring), furan (O in ring)</td><td>Very common in medicines and DNA bases</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="card reveal">
+  <h3>B: Classification by Degree of Unsaturation</h3>
+  <p>Organic compounds are also classified by the type of bonds between carbon atoms:</p>
+</div>
+
+<div class="tbl-wrap reveal">
+  <table>
+    <thead><tr><th>Class</th><th>Bonds</th><th>General Formula</th><th>Examples</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Saturated</strong></td><td>C–C single bonds only</td><td>CₙH₂ₙ₊₂ (alkanes)</td><td>Methane CH₄, ethane C₂H₆</td></tr>
+      <tr><td><strong>Unsaturated</strong></td><td>C=C double or C≡C triple bonds present</td><td>CₙH₂ₙ (alkenes), CₙH₂ₙ₋₂ (alkynes)</td><td>Ethene C₂H₄, ethyne C₂H₂</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="callout tip reveal">
+  <div class="callout-icon">💡</div>
+  <div class="callout-body">
+    <strong>Quick Memory Tip</strong>
+    Saturated = no more hydrogen can be added (like saturated fat — full!). Unsaturated = still has room for more hydrogen (can react with H₂ in addition reactions).
+  </div>
+</div>
+
+<!-- ═══════════ 1.2 TYPES OF FORMULAS ═══════════ -->
+<div class="section-header reveal" id="s2">
+  <span class="section-number">1.2</span>
+  <h2>Types of Formulas for Organic Compounds</h2>
+</div>
+
+<p class="reveal" style="margin-bottom:20px;">There are four main ways to represent an organic molecule. Each gives different levels of information.</p>
+
+<div class="tbl-wrap reveal">
+  <table>
+    <thead><tr><th>Type of Formula</th><th>What it shows</th><th>Example: Butane</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>Molecular (Molecular Formula)</strong></td>
+        <td>The total number of each type of atom in one molecule</td>
+        <td><code>C₄H₁₀</code></td>
+      </tr>
+      <tr>
+        <td><strong>Empirical Formula</strong></td>
+        <td>The simplest whole-number ratio of atoms</td>
+        <td><code>C₂H₅</code></td>
+      </tr>
+      <tr>
+        <td><strong>Structural Formula</strong></td>
+        <td>Shows how atoms are connected (all bonds shown)</td>
+        <td><code>CH₃–CH₂–CH₂–CH₃</code></td>
+      </tr>
+      <tr>
+        <td><strong>Displayed (Full Structural) Formula</strong></td>
+        <td>Shows every atom and every bond explicitly</td>
+        <td>All H atoms drawn out around each C</td>
+      </tr>
+      <tr>
+        <td><strong>Skeletal Formula</strong></td>
+        <td>Zigzag lines; C atoms at each corner/end; H atoms implied</td>
+        <td>A zigzag with 3 line segments</td>
+      </tr>
+      <tr>
+        <td><strong>Condensed Structural Formula</strong></td>
+        <td>Groups H atoms with each carbon, reading left to right</td>
+        <td><code>CH₃CH₂CH₂CH₃</code></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="formula-block reveal">
+<span style="color:var(--muted)">// Butane: Different representations compared</span><br><br>
+Molecular:    C₄H₁₀<br>
+Empirical:    C₂H₅<br>
+Condensed:    CH₃–CH₂–CH₂–CH₃<br>
+IUPAC name:   butane
+</div>
+
+<div class="card reveal">
+  <h3>Relationship between Molecular and Empirical Formulas</h3>
+  <p>The molecular formula is always a whole-number multiple of the empirical formula.</p>
+  <p>If empirical formula is <strong>CH₂</strong> and the molar mass is 56 g/mol:</p>
+  <p>Mass of CH₂ unit = 12 + 2 = 14 g/mol&nbsp;&nbsp;→&nbsp;&nbsp; n = 56 ÷ 14 = <strong>4</strong></p>
+  <p>So molecular formula = (CH₂)₄ = <strong>C₄H₈</strong> (this is butene or cyclobutane)</p>
+</div>
+
+<!-- ═══════════ 1.3 FUNCTIONAL GROUPS ═══════════ -->
+<div class="section-header reveal" id="s3">
+  <span class="section-number">1.3</span>
+  <h2>Functional Groups and Homologous Series</h2>
+</div>
+
+<div class="def-box reveal">
+  <strong>Functional Group</strong>
+  A <strong>functional group</strong> is an atom or group of atoms within a molecule that is responsible for its characteristic chemical reactions. The rest of the molecule (usually a carbon chain) is called the <em>alkyl group (R–)</em>.
+</div>
+
+<div class="def-box reveal" style="border-left-color:var(--gold);">
+  <strong>Homologous Series</strong>
+  A <strong>homologous series</strong> is a family of organic compounds that (i) have the same functional group, (ii) differ by a –CH₂– unit from one member to the next, (iii) have the same general formula, (iv) show a gradual change in physical properties, and (v) have similar chemical properties.
+</div>
+
+<div class="tbl-wrap reveal">
+  <table>
+    <thead><tr><th>Family</th><th>Functional Group</th><th>General Formula</th><th>Example (n=2)</th></tr></thead>
+    <tbody>
+      <tr><td>Alkanes</td><td>C–C (single bond, no FG)</td><td>CₙH₂ₙ₊₂</td><td>Ethane C₂H₆</td></tr>
+      <tr><td>Alkenes</td><td><span class="fg-badge">C=C</span></td><td>CₙH₂ₙ</td><td>Ethene C₂H₄</td></tr>
+      <tr><td>Alkynes</td><td><span class="fg-badge">C≡C</span></td><td>CₙH₂ₙ₋₂</td><td>Ethyne C₂H₂</td></tr>
+      <tr><td>Alcohols</td><td><span class="fg-badge">–OH</span> (hydroxyl)</td><td>CₙH₂ₙ₊₁OH</td><td>Ethanol C₂H₅OH</td></tr>
+      <tr><td>Halogenoalkanes</td><td><span class="fg-badge">–X</span> (X = F,Cl,Br,I)</td><td>CₙH₂ₙ₊₁X</td><td>Chloroethane C₂H₅Cl</td></tr>
+      <tr><td>Aldehydes</td><td><span class="fg-badge">–CHO</span></td><td>CₙH₂ₙO</td><td>Ethanal CH₃CHO</td></tr>
+      <tr><td>Ketones</td><td><span class="fg-badge">–CO–</span></td><td>CₙH₂ₙO</td><td>Propanone CH₃COCH₃</td></tr>
+      <tr><td>Carboxylic acids</td><td><span class="fg-badge">–COOH</span></td><td>CₙH₂ₙO₂</td><td>Ethanoic acid CH₃COOH</td></tr>
+      <tr><td>Esters</td><td><span class="fg-badge">–COO–</span></td><td>CₙH₂ₙO₂</td><td>Methyl ethanoate CH₃COOCH₃</td></tr>
+      <tr><td>Amines</td><td><span class="fg-badge">–NH₂</span></td><td>CₙH₂ₙ₊₁NH₂</td><td>Ethylamine C₂H₅NH₂</td></tr>
+      <tr><td>Amides</td><td><span class="fg-badge">–CONH₂</span></td><td>—</td><td>Ethanamide CH₃CONH₂</td></tr>
+      <tr><td>Nitriles</td><td><span class="fg-badge">–CN</span></td><td>CₙH₂ₙ₊₁CN</td><td>Ethanenitrile CH₃CN</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="card reveal">
+  <h3>Properties of a Homologous Series — illustrated with Alkanes</h3>
+  <p>As the number of carbon atoms increases by 1 (–CH₂–), the following properties change gradually:</p>
+</div>
+<div class="tbl-wrap reveal">
+  <table>
+    <thead><tr><th>Alkane</th><th>Formula</th><th>Mr</th><th>Boiling Point (°C)</th><th>State at 25°C</th></tr></thead>
+    <tbody>
+      <tr><td>Methane</td><td>CH₄</td><td>16</td><td>−162</td><td>Gas</td></tr>
+      <tr><td>Ethane</td><td>C₂H₆</td><td>30</td><td>−89</td><td>Gas</td></tr>
+      <tr><td>Propane</td><td>C₃H₈</td><td>44</td><td>−42</td><td>Gas</td></tr>
+      <tr><td>Butane</td><td>C₄H₁₀</td><td>58</td><td>−1</td><td>Gas</td></tr>
+      <tr><td>Pentane</td><td>C₅H₁₂</td><td>72</td><td>+36</td><td>Liquid</td></tr>
+      <tr><td>Hexane</td><td>C₆H₁₄</td><td>86</td><td>+69</td><td>Liquid</td></tr>
+      <tr><td>Decane</td><td>C₁₀H₂₂</td><td>142</td><td>+174</td><td>Liquid</td></tr>
+      <tr><td>Icosane</td><td>C₂₀H₄₂</td><td>282</td><td>+343</td><td>Solid (wax)</td></tr>
+    </tbody>
+  </table>
+</div>
+<div class="callout tip reveal">
+  <div class="callout-icon">💡</div>
+  <div class="callout-body">
+    <strong>Why do boiling points increase?</strong>
+    Larger molecules have more electrons → stronger van der Waals (London dispersion) forces between molecules → more energy needed to separate them → higher boiling point.
+  </div>
+</div>
+
+<!-- ═══════════ 1.4 IUPAC NOMENCLATURE ═══════════ -->
+<div class="section-header reveal" id="s4">
+  <span class="section-number">1.4</span>
+  <h2>General Rules of IUPAC Nomenclature</h2>
+</div>
+
+<div class="card reveal">
+  <h3>What is IUPAC?</h3>
+  <p>IUPAC stands for the <strong>International Union of Pure and Applied Chemistry</strong>. Their naming system provides a unique, systematic name for every organic compound that conveys its structure.</p>
+</div>
+
+<div class="card reveal">
+  <h3>The Three Building Blocks of an IUPAC Name</h3>
+  <p>Every IUPAC name has up to three parts: <span style="color:var(--red)">PREFIX</span> + <span style="color:var(--accent)">ROOT/STEM</span> + <span style="color:var(--gold)">SUFFIX</span></p>
+</div>
+
+<div class="tbl-wrap reveal">
+  <table>
+    <thead><tr><th>Part</th><th>Tells you…</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td><span style="color:var(--red)">Prefix</span></td><td>Names and positions of substituents (branches, halogens)</td><td>2-methyl, 3-chloro</td></tr>
+      <tr><td><span style="color:var(--accent)">Root/Stem</span></td><td>The length of the longest carbon chain</td><td>meth(1), eth(2), prop(3), but(4), pent(5), hex(6), hept(7), oct(8), non(9), dec(10)</td></tr>
+      <tr><td><span style="color:var(--gold)">Suffix</span></td><td>The main functional group (class of compound)</td><td>-ane, -ene, -yne, -ol, -al, -one, -oic acid</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="card reveal">
+  <h3>Step-by-Step IUPAC Naming Rules</h3>
+  <p><strong>Rule 1 — Find the longest chain:</strong> Identify the longest continuous chain of carbon atoms that contains the principal functional group. This gives the root name (stem).</p>
+  <p><strong>Rule 2 — Number the chain:</strong> Number the carbon atoms from the end closest to the principal functional group (or the branch, if no functional group). The functional group / substituents must get the lowest possible locants (numbers).</p>
+  <p><strong>Rule 3 — Name substituents:</strong> Identify all substituents attached to the main chain (branches = alkyl groups; halogens, etc.). Use prefixes: methyl (–CH₃), ethyl (–C₂H₅), propyl (–C₃H₇), fluoro (–F), chloro (–Cl), bromo (–Br), iodo (–I).</p>
+  <p><strong>Rule 4 — Multiple identical substituents:</strong> Use di-, tri-, tetra- when the same substituent appears 2, 3, 4 times. List their positions separately: 2,2-dimethyl (not 2-dimethyl).</p>
+  <p><strong>Rule 5 — Alphabetical order:</strong> When there are two or more different substituents, list them alphabetically (ignore di-, tri-, etc. when alphabetising).</p>
+  <p><strong>Rule 6 — Suffix for class:</strong> End the name with the correct suffix: –ane (alkane), –ene (alkene), –yne (alkyne), –ol (alcohol), –al (aldehyde), –one (ketone), –oic acid (carboxylic acid), –oate (ester), –amine (amine).</p>
+</div>
+
+<div class="tbl-wrap reveal">
+  <table>
+    <thead><tr><th>Chain length</th><th>Prefix (stem)</th><th>Example (alkane)</th><th>Formula</th></tr></thead>
+    <tbody>
+      <tr><td>1 carbon</td><td>meth-</td><td>methane</td><td>CH₄</td></tr>
+      <tr><td>2 carbons</td><td>eth-</td><td>ethane</td><td>C₂H₆</td></tr>
+      <tr><td>3 carbons</td><td>prop-</td><td>propane</td><td>C₃H₈</td></tr>
+      <tr><td>4 carbons</td><td>but-</td><td>butane</td><td>C₄H₁₀</td></tr>
+      <tr><td>5 carbons</td><td>pent-</td><td>pentane</td><td>C₅H₁₂</td></tr>
+      <tr><td>6 carbons</td><td>hex-</td><td>hexane</td><td>C₆H₁₄</td></tr>
+      <tr><td>7 carbons</td><td>hept-</td><td>heptane</td><td>C₇H₁₆</td></tr>
+      <tr><td>8 carbons</td><td>oct-</td><td>octane</td><td>C₈H₁₈</td></tr>
+      <tr><td>9 carbons</td><td>non-</td><td>nonane</td><td>C₉H₂₀</td></tr>
+      <tr><td>10 carbons</td><td>dec-</td><td>decane</td><td>C₁₀H₂₂</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ═══════════ WORKED EXAMPLES ═══════════ -->
+<div class="section-header reveal" id="examples">
+  <span class="section-number">★</span>
+  <h2>Worked Examples</h2>
+</div>
+
+<!-- Example 1 -->
+<div class="example-box reveal">
+  <div class="example-header">
+    <span>Worked Example 1</span>
+    <span style="color:var(--muted)">— Naming a Branched Alkane</span>
+  </div>
+  <div class="example-body">
+    <p style="margin-bottom:16px;"><strong>Question:</strong> Name the following compound: CH₃–CH(CH₃)–CH₂–CH₃</p>
+    <div class="step"><div class="step-num">1</div><div><strong>Find the longest chain.</strong> Count the main chain: C1–C2–C3–C4 = 4 carbons. Root = <strong>but-</strong></div></div>
+    <div class="step"><div class="step-num">2</div><div><strong>Identify the substituent.</strong> Carbon 2 has an extra –CH₃ (methyl group) attached.</div></div>
+    <div class="step"><div class="step-num">3</div><div><strong>Number the chain.</strong> Number from the end closest to the branch: the branch is on C2 from the left OR C3 from the right. C2 is lower → number from left. Branch position = <strong>2</strong>.</div></div>
+    <div class="step"><div class="step-num">4</div><div><strong>Write the name.</strong> Substituent (2-methyl) + root (but) + suffix (-ane).</div></div>
+    <div class="answer-reveal">
+      <strong>Answer</strong>
+      <strong>2-methylbutane</strong>
+    </div>
+  </div>
+</div>
+
+<!-- Example 2 -->
+<div class="example-box reveal">
+  <div class="example-header">
+    <span>Worked Example 2</span>
+    <span style="color:var(--muted)">— Drawing the Structure from a Name</span>
+  </div>
+  <div class="example-body">
+    <p style="margin-bottom:16px;"><strong>Question:</strong> Draw the condensed structural formula of <em>3-ethyl-2-methylpentane</em>.</p>
+    <div class="step"><div class="step-num">1</div><div>Identify root: <strong>pent</strong> → 5 carbons in main chain.<br>C1–C2–C3–C4–C5</div></div>
+    <div class="step"><div class="step-num">2</div><div>Identify substituents: <strong>2-methyl</strong> (–CH₃ on C2), <strong>3-ethyl</strong> (–C₂H₅ on C3).</div></div>
+    <div class="step"><div class="step-num">3</div><div>Attach substituents to the main chain:
+      <div class="formula-block" style="margin-top:10px;">
+        CH₃–CH(CH₃)–CH(C₂H₅)–CH₂–CH₃
+      </div>
+    </div></div>
+    <div class="step"><div class="step-num">4</div><div>Verify: count all carbons: 5 (chain) + 1 (methyl) + 2 (ethyl) = <strong>8 carbons total</strong> → molecular formula <strong>C₈H₁₈</strong>.</div></div>
+    <div class="answer-reveal">
+      <strong>Answer</strong>
+      CH₃–CH(CH₃)–CH(C₂H₅)–CH₂–CH₃ &nbsp;|&nbsp; C₈H₁₈
+    </div>
+  </div>
+</div>
+
+<!-- Example 3 -->
+<div class="example-box reveal">
+  <div class="example-header">
+    <span>Worked Example 3</span>
+    <span style="color:var(--muted)">— Empirical vs Molecular Formula</span>
+  </div>
+  <div class="example-body">
+    <p style="margin-bottom:16px;"><strong>Question:</strong> A hydrocarbon contains 85.7% carbon and 14.3% hydrogen by mass. Its molar mass is 56 g/mol. Determine the empirical and molecular formulas.</p>
+    <div class="step"><div class="step-num">1</div><div>
+      <strong>Find mole ratio.</strong> Assume 100 g sample:<br>
+      Moles C = 85.7 ÷ 12 = <strong>7.14 mol</strong><br>
+      Moles H = 14.3 ÷ 1 = <strong>14.3 mol</strong>
+    </div></div>
+    <div class="step"><div class="step-num">2</div><div>
+      <strong>Divide by smallest value (7.14):</strong><br>
+      C : H = 7.14/7.14 : 14.3/7.14 = <strong>1 : 2</strong>
+    </div></div>
+    <div class="step"><div class="step-num">3</div><div>
+      <strong>Empirical formula:</strong> <strong>CH₂</strong><br>
+      Empirical formula mass = 12 + 2 = 14 g/mol
+    </div></div>
+    <div class="step"><div class="step-num">4</div><div>
+      <strong>Find n:</strong> n = 56 ÷ 14 = <strong>4</strong>
+    </div></div>
+    <div class="answer-reveal">
+      <strong>Answer</strong>
+      Empirical formula: <strong>CH₂</strong> &nbsp;|&nbsp; Molecular formula: <strong>C₄H₈</strong>
+    </div>
+  </div>
+</div>
+
+<!-- Example 4 -->
+<div class="example-box reveal">
+  <div class="example-header">
+    <span>Worked Example 4</span>
+    <span style="color:var(--muted)">— Identifying the Functional Group & Homologous Series</span>
+  </div>
+  <div class="example-body">
+    <p style="margin-bottom:16px;"><strong>Question:</strong> For each compound below, identify the functional group and state the homologous series it belongs to:<br>
+    (a) CH₃CH₂OH &nbsp;&nbsp; (b) CH₃COOH &nbsp;&nbsp; (c) CH₃CHO &nbsp;&nbsp; (d) CH₃CH₂NH₂</p>
+    <div class="step"><div class="step-num">a</div><div>CH₃CH₂<strong>OH</strong> → functional group: <strong>–OH</strong> (hydroxyl) → <strong>Alcohol</strong> (ethanol)</div></div>
+    <div class="step"><div class="step-num">b</div><div>CH₃<strong>COOH</strong> → functional group: <strong>–COOH</strong> (carboxyl) → <strong>Carboxylic acid</strong> (ethanoic acid)</div></div>
+    <div class="step"><div class="step-num">c</div><div>CH₃<strong>CHO</strong> → functional group: <strong>–CHO</strong> (aldehyde) → <strong>Aldehyde</strong> (ethanal)</div></div>
+    <div class="step"><div class="step-num">d</div><div>CH₃CH₂<strong>NH₂</strong> → functional group: <strong>–NH₂</strong> (amino) → <strong>Amine</strong> (ethylamine)</div></div>
+    <div class="answer-reveal">
+      <strong>Summary</strong>
+      (a) Alcohol &nbsp;·&nbsp; (b) Carboxylic acid &nbsp;·&nbsp; (c) Aldehyde &nbsp;·&nbsp; (d) Amine
+    </div>
+  </div>
+</div>
+
+<!-- Example 5 -->
+<div class="example-box reveal">
+  <div class="example-header">
+    <span>Worked Example 5</span>
+    <span style="color:var(--muted)">— Naming a Compound with Multiple Substituents</span>
+  </div>
+  <div class="example-body">
+    <p style="margin-bottom:16px;"><strong>Question:</strong> Name: CH₃–C(CH₃)₂–CH₂–CH₂–CH₃</p>
+    <div class="step"><div class="step-num">1</div><div>Longest chain: C1–C2–C3–C4–C5 = <strong>5 carbons</strong> → pent-</div></div>
+    <div class="step"><div class="step-num">2</div><div>C2 has <strong>two methyl groups</strong> attached → 2,2-dimethyl</div></div>
+    <div class="step"><div class="step-num">3</div><div>Numbering: from left, branches at C2; from right, at C4. Left gives lower numbers → use left.</div></div>
+    <div class="answer-reveal">
+      <strong>Answer</strong>
+      <strong>2,2-dimethylpentane</strong>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ EXERCISES ═══════════ -->
+<div class="section-header reveal" id="exercises">
+  <span class="section-number">✏</span>
+  <h2>Exercises with Answers</h2>
+</div>
+
+<div class="exercise-item reveal">
+  <div class="q-num">Exercise 1</div>
+  <p>Classify the following as saturated or unsaturated, and as aliphatic, aromatic, or alicyclic:<br>
+  (a) C₆H₆ &nbsp;&nbsp; (b) C₄H₈ &nbsp;&nbsp; (c) C₃H₈ &nbsp;&nbsp; (d) Cyclohexane C₆H₁₂</p>
+  <button class="toggle-btn" onclick="toggleAns(this)">Show Answer ▾</button>
+  <div class="answer-panel">
+    (a) C₆H₆ → <strong>unsaturated, aromatic</strong> (benzene — contains a benzene ring with delocalized electrons)<br>
+    (b) C₄H₈ → <strong>unsaturated, aliphatic</strong> (contains C=C double bond; open chain)<br>
+    (c) C₃H₈ → <strong>saturated, aliphatic</strong> (propane — only C–C single bonds; open chain)<br>
+    (d) C₆H₁₂ → <strong>saturated, alicyclic</strong> (cyclohexane — ring structure but no benzene ring)
+  </div>
+</div>
+
+<div class="exercise-item reveal">
+  <div class="q-num">Exercise 2</div>
+  <p>Give the IUPAC name for each compound:<br>
+  (a) CH₃–CH₂–CH₂–CH₂–CH₃<br>
+  (b) CH₃–CH(Cl)–CH₃<br>
+  (c) CH₃–CH₂–OH<br>
+  (d) CH₃–CH₂–COOH</p>
+  <button class="toggle-btn" onclick="toggleAns(this)">Show Answer ▾</button>
+  <div class="answer-panel">
+    (a) 5-carbon chain, no substituents, –ane suffix → <strong>pentane</strong><br>
+    (b) 3-carbon chain, Cl on C2, –ane suffix → <strong>2-chloropropane</strong><br>
+    (c) 2-carbon chain, –OH group, –ol suffix → <strong>ethanol</strong><br>
+    (d) 3-carbon chain (including the carboxyl C), –oic acid suffix → <strong>propanoic acid</strong>
+  </div>
+</div>
+
+<div class="exercise-item reveal">
+  <div class="q-num">Exercise 3</div>
+  <p>A compound has the molecular formula C₄H₈O. It contains the functional group –CHO.<br>
+  (a) What homologous series does it belong to?<br>
+  (b) Write its IUPAC name.</p>
+  <button class="toggle-btn" onclick="toggleAns(this)">Show Answer ▾</button>
+  <div class="answer-panel">
+    (a) The –CHO functional group → <strong>Aldehydes</strong><br>
+    (b) 4-carbon chain + aldehyde suffix: <strong>butanal</strong> (CH₃CH₂CH₂CHO)
+  </div>
+</div>
+
+<div class="exercise-item reveal">
+  <div class="q-num">Exercise 4</div>
+  <p>A hydrocarbon has the empirical formula CH. Its molar mass is 78 g/mol. Find the molecular formula and identify the compound.</p>
+  <button class="toggle-btn" onclick="toggleAns(this)">Show Answer ▾</button>
+  <div class="answer-panel">
+    Empirical formula mass = 12 + 1 = 13 g/mol<br>
+    n = 78 ÷ 13 = <strong>6</strong><br>
+    Molecular formula = (CH)₆ = <strong>C₆H₆</strong><br>
+    This compound is <strong>benzene</strong> — an aromatic hydrocarbon with a ring structure and delocalized electrons.
+  </div>
+</div>
+
+<div class="exercise-item reveal">
+  <div class="q-num">Exercise 5</div>
+  <p>Write the condensed structural formula for:<br>
+  (a) 2-methylpropane &nbsp;&nbsp; (b) 3-methylhexane &nbsp;&nbsp; (c) 2,3-dimethylbutane</p>
+  <button class="toggle-btn" onclick="toggleAns(this)">Show Answer ▾</button>
+  <div class="answer-panel">
+    (a) <strong>CH₃CH(CH₃)CH₃</strong> — 4 carbons total, methyl branch on C2 of a 3-carbon chain (but IUPAC: rename — the longest chain is actually 4 → 2-methylpropane = isobutane)<br>
+    (b) <strong>CH₃CH₂CH(CH₃)CH₂CH₂CH₃</strong> — hexane chain (6C) + methyl on C3<br>
+    (c) <strong>CH₃CH(CH₃)CH(CH₃)CH₃</strong> — butane chain (4C) + methyl on C2 and C3
+  </div>
+</div>
+
+<div class="exercise-item reveal">
+  <div class="q-num">Exercise 6 — Extended</div>
+  <p>State <strong>four characteristics</strong> of a homologous series and illustrate each with an example from the alcohol series (CₙH₂ₙ₊₁OH).</p>
+  <button class="toggle-btn" onclick="toggleAns(this)">Show Answer ▾</button>
+  <div class="answer-panel">
+    <strong>1. Same general formula:</strong> All alcohols fit CₙH₂ₙ₊₁OH (e.g. methanol CH₃OH, ethanol C₂H₅OH, propanol C₃H₇OH)<br><br>
+    <strong>2. Same functional group:</strong> All have the –OH (hydroxyl) group responsible for their chemical behaviour<br><br>
+    <strong>3. Differ by –CH₂– unit:</strong> Methanol → ethanol → propanol each adds one –CH₂– (mass difference of 14 g/mol)<br><br>
+    <strong>4. Gradual change in physical properties:</strong> Boiling points rise steadily: methanol 65°C, ethanol 78°C, propanol 97°C, butanol 118°C<br><br>
+    <strong>5. Similar chemical properties:</strong> All alcohols undergo oxidation, esterification, and dehydration reactions
+  </div>
+</div>
+
+<!-- ═══════════ QUIZ ═══════════ -->
+<div class="section-header reveal" id="quiz">
+  <span class="section-number">🧪</span>
+  <h2>Quick Quiz — Unit 1</h2>
+</div>
+
+<div class="quiz-container reveal" id="quickQuiz">
+  <div class="quiz-header">
+    <h3>Multiple Choice Quiz</h3>
+    <span class="quiz-meta">10 Questions · Select best answer</span>
+  </div>
+  <div class="quiz-body" id="quizBody"></div>
+  <div class="score-display" id="scoreDisplay">
+    <span class="score-num" id="scoreNum">—</span>
+    <p class="score-msg" id="scoreMsg"></p>
+  </div>
+  <div class="quiz-controls">
+    <button class="btn btn-primary" onclick="submitQuiz()">Submit Quiz</button>
+    <button class="btn btn-secondary" onclick="resetQuiz()">Reset</button>
+  </div>
+</div>
+
+<!-- ═══════════ UNIT TEST ═══════════ -->
+<div class="section-header reveal" id="test">
+  <span class="section-number">📝</span>
+  <h2>Unit 1 Test</h2>
+</div>
+
+<div class="card reveal">
+  <h3>Section A — Short Answer (30 marks)</h3>
+  <p><strong>A1.</strong> (2 marks) Define the term <em>organic compound</em> and give two examples of carbon compounds that are NOT classified as organic.</p>
+  <p style="margin-top:12px;"><strong>A2.</strong> (3 marks) Distinguish between: (a) saturated and unsaturated hydrocarbons; (b) aliphatic and aromatic compounds.</p>
+  <p style="margin-top:12px;"><strong>A3.</strong> (4 marks) Explain the meaning of the term <em>homologous series</em>. State <strong>four</strong> characteristics of a homologous series.</p>
+  <p style="margin-top:12px;"><strong>A4.</strong> (6 marks) Give the IUPAC name for each of the following:<br>
+  (i) CH₃CH₂CH₂CH₂OH &nbsp;&nbsp; (ii) CH₃CH₂COCH₃ &nbsp;&nbsp; (iii) (CH₃)₃CH<br>
+  (iv) CH₃CH(Br)CH₂CH₃ &nbsp;&nbsp; (v) CH₃CH₂NH₂ &nbsp;&nbsp; (vi) CH₃COOC₂H₅</p>
+  <p style="margin-top:12px;"><strong>A5.</strong> (4 marks) Draw the full structural (displayed) formula for: (a) propan-1-ol, (b) propanal, (c) propanone, (d) propanoic acid.</p>
+  <p style="margin-top:12px;"><strong>A6.</strong> (4 marks) A compound contains 40.0% C, 6.7% H, and 53.3% O by mass. The molar mass is 60 g/mol. Find the empirical and molecular formula. Name the compound.</p>
+  <p style="margin-top:12px;"><strong>A7.</strong> (7 marks) Complete the table:</p>
+</div>
+<div class="tbl-wrap reveal">
+  <table>
+    <thead><tr><th>Compound</th><th>Molecular Formula</th><th>Functional Group</th><th>Homologous Series</th><th>IUPAC Name</th></tr></thead>
+    <tbody>
+      <tr><td>CH₃OH</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+      <tr><td>CH₃CHO</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+      <tr><td>—</td><td>C₃H₇Cl</td><td>—</td><td>Halogenoalkane</td><td>1-chloropropane</td></tr>
+      <tr><td>CH₃COCH₃</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+      <tr><td>—</td><td>C₂H₅COOH</td><td>—</td><td>—</td><td>—</td></tr>
+    </tbody>
+  </table>
+</div>
+<div class="card reveal">
+  <h3>Section B — Structured Questions (20 marks)</h3>
+  <p><strong>B1.</strong> (8 marks) Consider the following compounds:</p>
+  <p style="margin-left:20px;">(I) CH₄ &nbsp;&nbsp; (II) C₂H₄ &nbsp;&nbsp; (III) C₂H₂ &nbsp;&nbsp; (IV) C₂H₅OH &nbsp;&nbsp; (V) C₆H₆</p>
+  <p>(a) Which compound belongs to the alkyne series? Name it. (2)</p>
+  <p>(b) Which compound is aromatic? Explain why it is classified as aromatic. (2)</p>
+  <p>(c) Write the general formula for the series to which compound (II) belongs. (1)</p>
+  <p>(d) Why does compound (I) have a much lower boiling point than compound (IV) despite (IV) having only 2 carbons? (3)</p>
+  <p style="margin-top:12px;"><strong>B2.</strong> (12 marks) (a) Define the term <em>functional group</em>. (2)</p>
+  <p>(b) For each functional group listed, name the homologous series, write the general formula, and give one named example: –OH, –COOH, –CHO, –CO–, –NH₂, –COO–. (6 × 1 mark each)</p>
+  <p>(c) Explain why the boiling points increase steadily within a homologous series. (2)</p>
+  <p>(d) State and explain TWO differences between the molecular formula and the structural formula of an organic compound. (2)</p>
+</div>
+<div class="card reveal" style="border-color:var(--green)">
+  <h3 style="color:var(--green)">📋 Model Answers — Unit Test</h3>
+  <p><strong>A4 answers:</strong> (i) butan-1-ol &nbsp;|&nbsp; (ii) butan-2-one &nbsp;|&nbsp; (iii) 2-methylpropane &nbsp;|&nbsp; (iv) 2-bromobutane &nbsp;|&nbsp; (v) ethylamine (ethanamine) &nbsp;|&nbsp; (vi) ethyl ethanoate</p>
+  <p><strong>A6 answer:</strong> Moles: C = 40/12 = 3.33; H = 6.7/1 = 6.7; O = 53.3/16 = 3.33 → Ratio 1:2:1 → empirical CH₂O (mass 30). n = 60/30 = 2 → molecular formula <strong>C₂H₄O₂</strong> → <strong>ethanoic acid (acetic acid)</strong> CH₃COOH</p>
+  <p><strong>B1(d):</strong> Compound (IV) ethanol has –OH group capable of forming <strong>hydrogen bonds</strong> (due to high electronegativity of O and presence of O–H). Methane only has weak van der Waals forces. Hydrogen bonds are much stronger intermolecular forces → much more energy needed to separate ethanol molecules → higher boiling point.</p>
+</div>
+
+<!-- ═══════════ BOTTOM NAV ═══════════ -->
+<div class="unit-nav">
+  <div></div>
+  <a class="nav-card" href="unit2_alkanes.html">
+    <small>Next Unit →</small>
+    <strong>Unit 2: Alkanes</strong>
+  </a>
+</div>
+
+</main>
+
+<script>
+// ── Quiz Data ──
+const quizData = [
+  {
+    q:"Which of the following is classified as an organic compound?",
+    opts:["Carbon dioxide (CO₂)","Calcium carbonate (CaCO₃)","Ethanol (C₂H₅OH)","Sodium cyanide (NaCN)"],
+    ans:2,
+    exp:"Ethanol contains C–H bonds in a molecular compound. CO₂, CaCO₃, and NaCN are classified as inorganic despite containing carbon."
+  },
+  {
+    q:"The empirical formula of a compound is CH₂O and its molar mass is 180 g/mol. What is its molecular formula?",
+    opts:["CH₂O","C₃H₆O₃","C₆H₁₂O₆","C₄H₈O₄"],
+    ans:2,
+    exp:"Empirical formula mass of CH₂O = 12+2+16 = 30. n = 180/30 = 6. Molecular formula = (CH₂O)₆ = C₆H₁₂O₆ (glucose)."
+  },
+  {
+    q:"Which functional group is present in carboxylic acids?",
+    opts:["–OH","–CHO","–COOH","–CO–"],
+    ans:2,
+    exp:"Carboxylic acids contain the –COOH (carboxyl) group. –OH = alcohol, –CHO = aldehyde, –CO– = ketone."
+  },
+  {
+    q:"A compound with general formula CₙH₂ₙ belongs to which homologous series?",
+    opts:["Alkanes","Alkenes","Alkynes","Alcohols"],
+    ans:1,
+    exp:"Alkenes have the general formula CₙH₂ₙ. Alkanes = CₙH₂ₙ₊₂; Alkynes = CₙH₂ₙ₋₂."
+  },
+  {
+    q:"What is the IUPAC name of CH₃–CH(CH₃)–CH₂–CH₃?",
+    opts:["2-methylbutane","3-methylbutane","isopentane","2-methylpropane"],
+    ans:0,
+    exp:"The longest chain has 4 carbons (but-). There is a methyl branch on C2 → 2-methylbutane."
+  },
+  {
+    q:"Which statement about a homologous series is INCORRECT?",
+    opts:[
+      "Members differ by a –CH₂– unit",
+      "Members have the same functional group",
+      "Members have identical physical properties",
+      "Members show a gradual trend in boiling points"
+    ],
+    ans:2,
+    exp:"Members of a homologous series do NOT have identical physical properties — they show a GRADUAL change (e.g. increasing boiling point). All other statements are correct."
+  },
+  {
+    q:"The skeletal formula of a compound shows a zigzag with 4 line segments. How many carbon atoms does the molecule contain?",
+    opts:["4","5","6","8"],
+    ans:1,
+    exp:"In a skeletal formula, carbon atoms appear at every corner and at each end of the chain. 4 line segments → 5 carbon atoms."
+  },
+  {
+    q:"Which of the following is an aromatic compound?",
+    opts:["Cyclohexane","Hexane","Benzene","Cyclohexene"],
+    ans:2,
+    exp:"Benzene (C₆H₆) is the archetypal aromatic compound with a ring containing delocalized π electrons. Cyclohexane and cyclohexene are alicyclic; hexane is aliphatic."
+  },
+  {
+    q:"In IUPAC nomenclature, when two different substituents are present, how should they be listed?",
+    opts:[
+      "In order of increasing chain length",
+      "Alphabetically (ignoring di-, tri- etc.)",
+      "Numerically by their position numbers",
+      "In order of decreasing molecular mass"
+    ],
+    ans:1,
+    exp:"IUPAC rules require substituents to be listed alphabetically. The multiplying prefixes di-, tri-, tetra- are ignored when alphabetising (e.g. ethyl comes before methyl)."
+  },
+  {
+    q:"Which formula type shows the simplest whole-number ratio of atoms in a compound?",
+    opts:["Molecular formula","Structural formula","Displayed formula","Empirical formula"],
+    ans:3,
+    exp:"The empirical formula shows the simplest whole-number ratio of atoms. E.g. benzene C₆H₆ has empirical formula CH."
+  }
+];
+
+let userAnswers = new Array(quizData.length).fill(null);
+let submitted = false;
+
+function buildQuiz(){
+  const body = document.getElementById('quizBody');
+  body.innerHTML = '';
+  quizData.forEach((item,i)=>{
+    const div = document.createElement('div');
+    div.className='q-item';
+    div.innerHTML=`<p>Q${i+1}. ${item.q}</p><div class="options" id="opts-${i}">
+      ${item.opts.map((o,j)=>`
+        <div class="option" id="opt-${i}-${j}" onclick="selectOpt(${i},${j})">
+          <div class="option-key">${['A','B','C','D'][j]}</div>
+          <span>${o}</span>
+        </div>`).join('')}
+    </div><div id="exp-${i}" style="display:none;margin-top:10px;font-size:.85rem;color:var(--muted);padding:8px 12px;background:rgba(255,255,255,.03);border-radius:6px;"></div>`;
+    body.appendChild(div);
+  });
+}
+
+function selectOpt(q,a){
+  if(submitted) return;
+  // clear previous selection
+  for(let j=0;j<4;j++){
+    const el=document.getElementById(`opt-${q}-${j}`);
+    if(el) el.style.borderColor='';
+  }
+  userAnswers[q]=a;
+  document.getElementById(`opt-${q}-${a}`).style.borderColor='var(--accent3)';
+  document.getElementById(`opt-${q}-${a}`).style.background='rgba(167,139,250,.12)';
+}
+
+function submitQuiz(){
+  if(submitted) return;
+  submitted=true;
+  let score=0;
+  quizData.forEach((item,i)=>{
+    const ua=userAnswers[i];
+    const correct=item.ans;
+    for(let j=0;j<item.opts.length;j++){
+      const el=document.getElementById(`opt-${i}-${j}`);
+      el.style.borderColor='';el.style.background='';
+      if(j===correct) el.classList.add('correct');
+      if(ua!==null && j===ua && ua!==correct) el.classList.add('wrong');
+    }
+    if(ua===correct) score++;
+    const exp=document.getElementById(`exp-${i}`);
+    exp.textContent='💬 '+item.exp;
+    exp.style.display='block';
+  });
+  const pct=Math.round(score/quizData.length*100);
+  const scoreDisplay=document.getElementById('scoreDisplay');
+  scoreDisplay.style.display='block';
+  document.getElementById('scoreNum').textContent=`${score}/${quizData.length}`;
+  document.getElementById('scoreMsg').textContent=
+    pct>=80?`Excellent! ${pct}% — You have mastered Unit 1.`:
+    pct>=60?`Good effort! ${pct}% — Review the sections you got wrong.`:
+    `${pct}% — Re-read the notes and try again. You can do it! 💪`;
+}
+
+function resetQuiz(){
+  submitted=false;
+  userAnswers=new Array(quizData.length).fill(null);
+  document.getElementById('scoreDisplay').style.display='none';
+  buildQuiz();
+}
+
+function toggleAns(btn){
+  const panel=btn.nextElementSibling;
+  panel.classList.toggle('open');
+  btn.textContent=panel.classList.contains('open')?'Hide Answer ▴':'Show Answer ▾';
+}
+
+// Scroll reveal
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');}});
+},{threshold:.08});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+buildQuiz();
+</script>
+</body>
+</html>
