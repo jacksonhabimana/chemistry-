@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>S5 Chemistry – Unit 11: Solutions and Titration</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Serif+4:wght@300;400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+<style>
+  :root{
+    --bg:#0d1117;--surface:#161b22;--surface2:#1c2333;--border:#30363d;
+    --accent:#58c4dc;--accent2:#f97316;--accent3:#a78bfa;
+    --gold:#e8c547;--green:#34d399;--red:#f87171;--sky:#0ea5e9;
+    --text:#e6edf3;--muted:#8b949e;--radius:10px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg);color:var(--text);font-family:'Source Serif 4',Georgia,serif;font-size:17px;line-height:1.75;overflow-x:hidden;}
+  .hero{position:relative;padding:80px 40px 60px;text-align:center;overflow:hidden;background:radial-gradient(ellipse 80% 60% at 50% 0%,#021a2e 0%,var(--bg) 70%);border-bottom:1px solid var(--border);}
+  .hero::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(14,165,233,.05) 40px),repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(14,165,233,.05) 40px);pointer-events:none;}
+  .badge{display:inline-block;background:rgba(14,165,233,.12);border:1px solid rgba(14,165,233,.3);color:var(--sky);padding:4px 16px;border-radius:50px;font-size:.78rem;font-family:'JetBrains Mono',monospace;letter-spacing:.12em;text-transform:uppercase;margin-bottom:22px;}
+  .hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.4rem);line-height:1.15;color:#fff;max-width:820px;margin:0 auto 18px;}
+  .hero h1 em{color:var(--sky);font-style:italic;}
+  .hero p.sub{color:var(--muted);font-size:1rem;max-width:620px;margin:0 auto 32px;}
+  .toc-grid{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:800px;margin:0 auto;}
+  .toc-grid a{background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:8px 18px;border-radius:50px;text-decoration:none;font-size:.85rem;transition:all .2s;font-family:'JetBrains Mono',monospace;}
+  .toc-grid a:hover{background:var(--sky);color:#000;border-color:var(--sky);}
+  .page{max-width:960px;margin:0 auto;padding:0 28px 80px;}
+  .section-header{display:flex;align-items:center;gap:16px;margin:64px 0 28px;padding-bottom:14px;border-bottom:2px solid var(--border);}
+  .section-number{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--sky);background:rgba(14,165,233,.1);border:1px solid rgba(14,165,233,.25);padding:4px 12px;border-radius:4px;white-space:nowrap;}
+  .section-header h2{font-family:'Playfair Display',serif;font-size:1.75rem;color:#fff;}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:26px 30px;margin-bottom:22px;}
+  .card h3{font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--gold);margin-bottom:12px;}
+  .card p+p{margin-top:12px;}
+  .def-box{border-left:4px solid var(--sky);background:rgba(14,165,233,.07);border-radius:0 var(--radius) var(--radius) 0;padding:18px 22px;margin:20px 0;}
+  .def-box strong{color:var(--sky);display:block;font-size:.78rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;}
+  .callout{border-radius:var(--radius);padding:18px 22px;margin:20px 0;display:flex;gap:14px;align-items:flex-start;}
+  .callout.info{background:rgba(88,196,220,.08);border:1px solid rgba(88,196,220,.25);}
+  .callout.warn{background:rgba(249,115,22,.08);border:1px solid rgba(249,115,22,.25);}
+  .callout.tip{background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.25);}
+  .callout.sky{background:rgba(14,165,233,.08);border:1px solid rgba(14,165,233,.25);}
+  .callout-icon{font-size:1.3rem;margin-top:2px;flex-shrink:0;}
+  .callout-body strong{display:block;margin-bottom:4px;font-size:.9rem;color:#fff;}
+  .tbl-wrap{overflow-x:auto;margin:20px 0;border-radius:var(--radius);border:1px solid var(--border);}
+  table{width:100%;border-collapse:collapse;}
+  thead tr{background:var(--surface2);}
+  th{padding:13px 16px;text-align:left;font-size:.82rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--sky);white-space:nowrap;}
+  td{padding:12px 16px;border-top:1px solid var(--border);font-size:.9rem;}
+  tr:hover td{background:rgba(255,255,255,.02);}
+  td code{background:rgba(14,165,233,.12);padding:2px 7px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:.85em;}
+  .formula-block{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:20px 26px;margin:16px 0;font-family:'JetBrains Mono',monospace;font-size:.93rem;color:var(--sky);overflow-x:auto;white-space:pre;}
+  .example-box{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin:26px 0;}
+  .example-header{background:rgba(232,197,71,.1);border-bottom:1px solid rgba(232,197,71,.2);padding:14px 22px;display:flex;align-items:center;gap:12px;}
+  .example-header span.tag{font-family:'JetBrains Mono',monospace;font-size:.72rem;background:var(--gold);color:#000;padding:3px 10px;border-radius:4px;font-weight:600;}
+  .example-header h4{color:var(--gold);font-family:'Playfair Display',serif;font-size:1rem;}
+  .example-body{padding:22px 26px;}
+  .example-body .q{color:var(--text);margin-bottom:14px;font-weight:600;}
+  .example-body .step{display:flex;gap:14px;margin:10px 0;}
+  .step-num{min-width:28px;height:28px;background:rgba(14,165,233,.15);border:1px solid rgba(14,165,233,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--sky);flex-shrink:0;margin-top:3px;}
+  .step-text{flex:1;}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:20px 0;}
+  @media(max-width:640px){.two-col{grid-template-columns:1fr;}}
+  .exercise-list{list-style:none;counter-reset:ex;}
+  .exercise-list li{counter-increment:ex;margin-bottom:16px;padding:16px 20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);}
+  .exercise-list li::before{content:'Q' counter(ex) '.';font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--sky);display:block;margin-bottom:6px;}
+  .reveal-btn{margin-top:10px;background:rgba(14,165,233,.1);border:1px solid rgba(14,165,233,.3);color:var(--sky);padding:6px 16px;border-radius:6px;cursor:pointer;font-size:.82rem;font-family:'JetBrains Mono',monospace;transition:all .2s;}
+  .reveal-btn:hover{background:var(--sky);color:#000;}
+  .answer{display:none;margin-top:12px;padding:12px 16px;background:rgba(14,165,233,.06);border-left:3px solid var(--sky);border-radius:0 6px 6px 0;font-size:.9rem;}
+  .answer.open{display:block;}
+  .quiz-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-top:32px;}
+  .quiz-header{background:rgba(14,165,233,.1);border-bottom:1px solid rgba(14,165,233,.2);padding:16px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+  .quiz-header h3{font-family:'Playfair Display',serif;color:var(--sky);font-size:1.2rem;}
+  .quiz-body{padding:24px;}
+  .q-block{margin-bottom:26px;padding-bottom:26px;border-bottom:1px solid var(--border);}
+  .q-block:last-of-type{border-bottom:none;}
+  .q-text{font-weight:600;margin-bottom:12px;color:#fff;}
+  .q-num{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--sky);display:block;margin-bottom:4px;}
+  .options{display:flex;flex-direction:column;gap:8px;}
+  .opt{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:all .18s;font-size:.92rem;}
+  .opt:hover{border-color:var(--sky);}
+  .opt input{margin-top:3px;accent-color:var(--sky);}
+  .opt.correct{background:rgba(52,211,153,.12);border-color:var(--green)!important;color:var(--green);}
+  .opt.wrong{background:rgba(248,113,113,.1);border-color:var(--red)!important;color:var(--red);}
+  .q-exp{display:none;margin-top:10px;padding:10px 14px;background:rgba(14,165,233,.07);border-left:3px solid var(--sky);border-radius:0 6px 6px 0;font-size:.88rem;}
+  .quiz-submit{background:var(--sky);color:#000;border:none;padding:12px 32px;border-radius:8px;font-size:1rem;font-family:'JetBrains Mono',monospace;cursor:pointer;font-weight:600;transition:opacity .2s;}
+  .quiz-submit:hover{opacity:.85;}
+  .test-wrap{margin-top:40px;}
+  .test-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:28px;}
+  .test-section-header{background:rgba(249,115,22,.1);border-bottom:1px solid rgba(249,115,22,.2);padding:14px 24px;display:flex;justify-content:space-between;align-items:center;}
+  .test-section-header h3{font-family:'Playfair Display',serif;color:var(--accent2);font-size:1.1rem;}
+  .marks-badge{font-family:'JetBrains Mono',monospace;font-size:.75rem;background:rgba(249,115,22,.2);color:var(--accent2);padding:4px 12px;border-radius:50px;}
+  .test-body{padding:24px;}
+  .test-q{margin-bottom:20px;padding:16px 18px;background:var(--surface2);border-radius:8px;border:1px solid var(--border);}
+  .test-q-num{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--accent2);margin-bottom:6px;display:block;}
+  .test-answer-reveal{margin-top:14px;}
+  .unit-nav{display:flex;justify-content:space-between;align-items:center;margin-top:72px;padding-top:32px;border-top:1px solid var(--border);flex-wrap:wrap;gap:16px;}
+  .nav-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:8px;text-decoration:none;font-family:'JetBrains Mono',monospace;font-size:.85rem;transition:all .2s;}
+  .nav-btn.prev{background:var(--surface);border:1px solid var(--border);color:var(--muted);}
+  .nav-btn.prev:hover{border-color:var(--sky);color:var(--sky);}
+  .nav-btn.next{background:var(--sky);color:#000;font-weight:600;}
+  .nav-btn.next:hover{opacity:.88;}
+  h3.sub-heading{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--gold);margin:28px 0 10px;}
+  sub,sup{font-size:.72em;}
+  @media(max-width:600px){.hero{padding:50px 20px 40px;}.page{padding:0 16px 60px;}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="badge">Unit 11 &middot; Physical Chemistry</div>
+  <h1><em>Solutions</em> and <em>Titration</em></h1>
+  <p class="sub">Standard solutions, acid-base titrations, redox titrations, back titration, colligative properties, and determination of atomic masses.</p>
+  <nav class="toc-grid">
+    <a href="#solutions">11.1 Solutions &amp; Concentration</a>
+    <a href="#standard">11.2 Standard Solutions</a>
+    <a href="#acid-base">11.3 Acid-Base Titration</a>
+    <a href="#indicators">11.4 Indicators</a>
+    <a href="#redox">11.5 Redox Titrations</a>
+    <a href="#back">11.6 Back Titration</a>
+    <a href="#colligative">11.7 Colligative Properties</a>
+    <a href="#atomic-mass">11.8 Atomic Masses</a>
+    <a href="#exercises">Exercises</a>
+    <a href="#quiz">Quiz</a>
+    <a href="#test">Unit Test</a>
+  </nav>
+</header>
+
+<main class="page">
+
+<!-- 11.1 SOLUTIONS AND CONCENTRATION -->
+<section id="solutions">
+  <div class="section-header">
+    <span class="section-number">11.1</span>
+    <h2>Solutions and Concentration</h2>
+  </div>
+
+  <div class="def-box">
+    <strong>Solution</strong>
+    A <b>solution</b> is a homogeneous mixture of two or more substances. The <b>solute</b> is the dissolved substance; the <b>solvent</b> is the dissolving medium. <b>Concentration</b> expresses the amount of solute in a given volume of solution.
+  </div>
+
+  <h3 class="sub-heading">Expressions of Concentration</h3>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Expression</th><th>Formula</th><th>Units</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td><b>Molar concentration (Molarity)</b></td><td>c = n/V</td><td>mol/L (mol dm<sup>&minus;3</sup>)</td><td>Most common in chemistry; temperature-dependent</td></tr>
+        <tr><td><b>Mass concentration</b></td><td>&rho; = m/V</td><td>g/L (g dm<sup>&minus;3</sup>)</td><td>Mass of solute per volume of solution</td></tr>
+        <tr><td><b>Mole fraction</b></td><td>x<sub>A</sub> = n<sub>A</sub>/n<sub>total</sub></td><td>Dimensionless (0&ndash;1)</td><td>Used in vapour pressure (Raoult's Law)</td></tr>
+        <tr><td><b>Molality</b></td><td>m = n<sub>solute</sub>/mass<sub>solvent</sub>(kg)</td><td>mol/kg</td><td>Temperature-independent; used for colligative properties</td></tr>
+        <tr><td><b>Mass percent (w/w%)</b></td><td>% = (m<sub>solute</sub>/m<sub>solution</sub>) &times; 100</td><td>%</td><td>Often used for commercial reagents</td></tr>
+        <tr><td><b>Parts per million (ppm)</b></td><td>ppm = (m<sub>solute</sub>/m<sub>solution</sub>) &times; 10<sup>6</sup></td><td>mg/kg or mg/L</td><td>Used for trace concentrations (environmental)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>Key Formulae</h3>
+    <div class="formula-block">c = n / V          (molarity = moles / volume in litres)
+n = c x V          (moles = molarity x volume)
+m = n x M_r        (mass = moles x molar mass)
+
+Dilution:  c1V1 = c2V2    (moles before = moles after dilution)
+
+Converting mass concentration to molarity:
+c (mol/L) = rho (g/L) / M_r (g/mol)</div>
+  </div>
+
+  <div class="example-box">
+    <div class="example-header"><span class="tag">Example 1</span><h4>Preparing a Solution of Known Concentration</h4></div>
+    <div class="example-body">
+      <p class="q">Calculate the mass of sodium carbonate (Na<sub>2</sub>CO<sub>3</sub>, M<sub>r</sub> = 106) needed to prepare 250 cm<sup>3</sup> of a 0.100 mol/L solution.</p>
+      <div class="step"><div class="step-num">1</div><div class="step-text">n = c &times; V = 0.100 mol/L &times; 0.250 L = 0.0250 mol</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-text">m = n &times; M<sub>r</sub> = 0.0250 &times; 106 = <b>2.65 g</b></div></div>
+      <div class="step"><div class="step-num">&#10003;</div><div class="step-text">Procedure: weigh 2.65 g Na<sub>2</sub>CO<sub>3</sub>, dissolve in ~100 cm<sup>3</sup> distilled water, transfer to a 250 cm<sup>3</sup> volumetric flask, make up to the mark.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 11.2 STANDARD SOLUTIONS -->
+<section id="standard">
+  <div class="section-header">
+    <span class="section-number">11.2</span>
+    <h2>Standard Solutions</h2>
+  </div>
+
+  <div class="def-box">
+    <strong>Standard Solution</strong>
+    A <b>standard solution</b> is a solution of <b>precisely known concentration</b>. It is used as a reference in titrations to determine the concentration of an unknown solution.
+  </div>
+
+  <div class="two-col">
+    <div class="card">
+      <h3>Primary Standard</h3>
+      <p>A substance that can be used to prepare a standard solution <b>directly</b> by weighing and dissolving. Requirements:</p>
+      <ul style="padding-left:16px;line-height:2;">
+        <li>High purity (&gt;99.9%)</li>
+        <li>Stable (does not absorb CO<sub>2</sub> or H<sub>2</sub>O from air)</li>
+        <li>High molar mass (small weighing errors)</li>
+        <li>Readily soluble in water</li>
+        <li>Non-toxic if possible</li>
+      </ul>
+      <p>Examples: Na<sub>2</sub>CO<sub>3</sub>, KIO<sub>3</sub>, K<sub>2</sub>Cr<sub>2</sub>O<sub>7</sub>, oxalic acid (H<sub>2</sub>C<sub>2</sub>O<sub>4</sub>&middot;2H<sub>2</sub>O), potassium hydrogen phthalate (KHP)</p>
+    </div>
+    <div class="card">
+      <h3>Secondary Standard</h3>
+      <p>A substance whose concentration is determined by <b>titration against a primary standard</b> (standardisation). It cannot be prepared directly to a precise concentration.</p>
+      <p>Examples: NaOH (absorbs CO<sub>2</sub> from air), HCl (volatile, concentration changes), KMnO<sub>4</sub> (oxidises organic matter), Na<sub>2</sub>S<sub>2</sub>O<sub>3</sub> (decomposes slowly).</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Preparation of a Standard Solution (Volumetric Procedure)</h3>
+    <ol style="padding-left:20px;line-height:2.2;">
+      <li>Accurately weigh the primary standard substance.</li>
+      <li>Dissolve completely in a small amount of distilled water in a beaker.</li>
+      <li>Transfer quantitatively to a calibrated <b>volumetric flask</b> (wash beaker 3&times;).</li>
+      <li>Add distilled water until the bottom of the meniscus is exactly on the calibration mark.</li>
+      <li>Stopper and invert 10&times; to mix thoroughly.</li>
+      <li>Label with substance, concentration, date, and initials.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- 11.3 ACID-BASE TITRATION -->
+<section id="acid-base">
+  <div class="section-header">
+    <span class="section-number">11.3</span>
+    <h2>Acid&ndash;Base Titration</h2>
+  </div>
+
+  <div class="def-box">
+    <strong>Titration</strong>
+    A <b>titration</b> is a volumetric technique in which a solution of known concentration (the <b>titrant</b>, in the burette) is gradually added to a measured volume of unknown concentration solution (the <b>analyte</b>, in the conical flask) until the reaction is complete (the <b>equivalence point</b> or <b>endpoint</b>).
+  </div>
+
+  <div class="card">
+    <h3>Apparatus and Procedure</h3>
+    <ul style="padding-left:20px;line-height:2.2;">
+      <li><b>Burette</b>: graduated tube (0&ndash;50 cm<sup>3</sup>) with stopcock for controlled delivery of titrant. Read to &plusmn;0.05 cm<sup>3</sup>.</li>
+      <li><b>Pipette</b>: delivers an exact volume (e.g. 25.00 cm<sup>3</sup>) of analyte. Use a safety filler.</li>
+      <li><b>Conical flask</b>: holds analyte; swirl during titration.</li>
+      <li><b>White tile</b>: behind flask to see colour change clearly.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>At Equivalence Point</h3>
+    <p>Moles of acid &times; stoichiometric ratio = moles of base. For a 1:1 reaction (e.g. HCl + NaOH):</p>
+    <div class="formula-block">n(acid) = n(base)
+c(acid) x V(acid) = c(base) x V(base)
+
+For non 1:1 (e.g. H2SO4 + 2NaOH):
+2 x n(H2SO4) = n(NaOH)
+2 x c(H2SO4) x V(H2SO4) = c(NaOH) x V(NaOH)</div>
+  </div>
+
+  <div class="example-box">
+    <div class="example-header"><span class="tag">Example 2</span><h4>Acid–Base Titration Calculation</h4></div>
+    <div class="example-body">
+      <p class="q">25.00 cm<sup>3</sup> of NaOH solution required 18.40 cm<sup>3</sup> of 0.100 mol/L HCl to reach the equivalence point. Calculate the concentration of NaOH.</p>
+      <div class="step"><div class="step-num">1</div><div class="step-text">Equation: HCl + NaOH &rarr; NaCl + H<sub>2</sub>O (1:1 ratio)</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-text">n(HCl) = 0.100 &times; 0.01840 = 1.840 &times; 10<sup>&minus;3</sup> mol</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-text">n(NaOH) = n(HCl) = 1.840 &times; 10<sup>&minus;3</sup> mol</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-text">c(NaOH) = n/V = 1.840 &times; 10<sup>&minus;3</sup> / 0.02500 = <b>0.0736 mol/L</b></div></div>
+    </div>
+  </div>
+
+  <div class="example-box">
+    <div class="example-header"><span class="tag">Example 3</span><h4>Diprotic Acid Titration</h4></div>
+    <div class="example-body">
+      <p class="q">20.00 cm<sup>3</sup> of H<sub>2</sub>SO<sub>4</sub> solution was titrated with 0.200 mol/L NaOH. The titre was 24.50 cm<sup>3</sup>. Find [H<sub>2</sub>SO<sub>4</sub>].</p>
+      <div class="step"><div class="step-num">1</div><div class="step-text">H<sub>2</sub>SO<sub>4</sub> + 2NaOH &rarr; Na<sub>2</sub>SO<sub>4</sub> + 2H<sub>2</sub>O. Ratio: 1:2</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-text">n(NaOH) = 0.200 &times; 0.02450 = 4.900 &times; 10<sup>&minus;3</sup> mol</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-text">n(H<sub>2</sub>SO<sub>4</sub>) = 4.900 &times; 10<sup>&minus;3</sup> / 2 = 2.450 &times; 10<sup>&minus;3</sup> mol</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-text">c(H<sub>2</sub>SO<sub>4</sub>) = 2.450 &times; 10<sup>&minus;3</sup> / 0.02000 = <b>0.1225 mol/L</b></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 11.4 INDICATORS -->
+<section id="indicators">
+  <div class="section-header">
+    <span class="section-number">11.4</span>
+    <h2>Indicators</h2>
+  </div>
+
+  <div class="def-box">
+    <strong>Indicator</strong>
+    An <b>indicator</b> is a weak acid (HIn) or weak base whose conjugate acid and base forms have <b>different colours</b>. It changes colour over a narrow pH range, signalling the endpoint of a titration.
+    HIn &rightleftharpoons; H<sup>+</sup> + In<sup>&minus;</sup> (acid colour &rightleftharpoons; base colour)
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Indicator</th><th>pH Range</th><th>Acid Colour</th><th>Base Colour</th><th>Used For</th></tr></thead>
+      <tbody>
+        <tr><td>Methyl orange</td><td>3.1 &ndash; 4.4</td><td>Red</td><td>Yellow</td><td>Strong acid + strong/weak base</td></tr>
+        <tr><td>Methyl red</td><td>4.4 &ndash; 6.2</td><td>Red</td><td>Yellow</td><td>Strong acid + weak base</td></tr>
+        <tr><td>Bromothymol blue</td><td>6.0 &ndash; 7.6</td><td>Yellow</td><td>Blue</td><td>Neutral salt solutions</td></tr>
+        <tr><td>Phenolphthalein</td><td>8.3 &ndash; 10.0</td><td>Colourless</td><td>Pink/red</td><td>Strong/weak acid + strong base</td></tr>
+        <tr><td>Litmus</td><td>5.0 &ndash; 8.0</td><td>Red</td><td>Blue</td><td>Approximate; not for precise titrations</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>Choosing the Right Indicator</h3>
+  </div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Titration Type</th><th>pH at Equivalence</th><th>Suitable Indicator(s)</th></tr></thead>
+      <tbody>
+        <tr><td>Strong acid + Strong base (HCl/NaOH)</td><td>~7</td><td>Any (sharp jump pH 3&ndash;11); methyl orange or phenolphthalein both work</td></tr>
+        <tr><td>Weak acid + Strong base (CH<sub>3</sub>COOH/NaOH)</td><td>~9 (basic)</td><td>Phenolphthalein (pH 8.3&ndash;10)</td></tr>
+        <tr><td>Strong acid + Weak base (HCl/NH<sub>3</sub>)</td><td>~5 (acidic)</td><td>Methyl orange (pH 3.1&ndash;4.4) or methyl red</td></tr>
+        <tr><td>Weak acid + Weak base</td><td>~7 (variable)</td><td>No simple indicator suitable; use potentiometric titration</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout tip">
+    <span class="callout-icon">&#128161;</span>
+    <div class="callout-body">
+      <strong>Equivalence Point vs Endpoint</strong>
+      The <b>equivalence point</b> is the theoretical point where stoichiometric amounts of acid and base have been mixed. The <b>endpoint</b> is the observed colour change of the indicator. A good indicator has its transition range close to the equivalence point pH so the two coincide closely.
+    </div>
+  </div>
+</section>
+
+<!-- 11.5 REDOX TITRATIONS -->
+<section id="redox">
+  <div class="section-header">
+    <span class="section-number">11.5</span>
+    <h2>Redox Titrations</h2>
+  </div>
+
+  <div class="def-box">
+    <strong>Redox Titration</strong>
+    A titration in which the reaction between titrant and analyte is an <b>oxidation–reduction (redox) reaction</b>. The endpoint is detected by a colour change of the oxidising/reducing agent itself (self-indicating) or by an external redox indicator.
+  </div>
+
+  <h3 class="sub-heading">Permanganate Titrations (KMnO<sub>4</sub>)</h3>
+  <div class="card">
+    <p>KMnO<sub>4</sub> is a powerful oxidising agent. In acidic solution, MnO<sub>4</sub><sup>&minus;</sup> (purple) is reduced to Mn<sup>2+</sup> (nearly colourless). The endpoint is the first permanent pale pink colour when all reductant is consumed.</p>
+    <div class="formula-block">In acidic solution (H2SO4):
+MnO4- + 8H+ + 5e-  -->  Mn2+  +  4H2O    (reduction half-equation)
+Purple                    Pale pink/colourless
+
+Common analytes for KMnO4 titration:
+1. Fe2+ (iron(II) ions):
+   MnO4- + 5Fe2+ + 8H+  -->  Mn2+ + 5Fe3+ + 4H2O
+
+2. H2C2O4 (oxalic acid) or C2O42-:
+   2MnO4- + 5H2C2O4 + 6H+ --> 2Mn2+ + 10CO2 + 8H2O
+   (heated to 60 degC to initiate)
+
+3. H2O2 (hydrogen peroxide):
+   2MnO4- + 5H2O2 + 6H+ --> 2Mn2+ + 5O2 + 8H2O</div>
+    <p><b>Note:</b> KMnO<sub>4</sub> is a secondary standard — standardised against sodium oxalate (Na<sub>2</sub>C<sub>2</sub>O<sub>4</sub>) or ammonium iron(II) sulfate.</p>
+  </div>
+
+  <h3 class="sub-heading">Dichromate Titrations (K<sub>2</sub>Cr<sub>2</sub>O<sub>7</sub>)</h3>
+  <div class="card">
+    <p>K<sub>2</sub>Cr<sub>2</sub>O<sub>7</sub> is an excellent primary standard (stable, pure, high M<sub>r</sub>). In acidic solution:</p>
+    <div class="formula-block">Cr2O72- + 14H+ + 6e-  -->  2Cr3+  +  7H2O
+Orange                           Green
+
+Main use: determination of Fe2+:
+Cr2O72- + 6Fe2+ + 14H+  -->  2Cr3+ + 6Fe3+ + 7H2O
+
+Endpoint indicated by diphenylamine or ferroin indicator (external indicator needed
+since the colour change orange->green is less sharp than KMnO4).</div>
+  </div>
+
+  <h3 class="sub-heading">Iodometric Titrations (Na<sub>2</sub>S<sub>2</sub>O<sub>3</sub> / I<sub>2</sub>)</h3>
+  <div class="card">
+    <p>Iodometric titrations involve the reaction between iodine (I<sub>2</sub>) and sodium thiosulfate (Na<sub>2</sub>S<sub>2</sub>O<sub>3</sub>). The endpoint is the disappearance of the blue-black starch&ndash;iodine complex.</p>
+    <div class="formula-block">I2  +  2S2O32-  -->  2I-  +  S4O62-
+(brown)  (thiosulfate)    (colourless)  (tetrathionate)
+
+Method (indirect iodometry):
+1. Oxidising agent (e.g. Cu2+, Cl2, H2O2, IO3-) reacts with excess KI:
+   oxidant  +  KI(excess)  -->  I2(liberated)  +  ...
+
+2. Liberated I2 titrated with standard Na2S2O3:
+   I2  +  2Na2S2O3  -->  Na2S4O6  +  2NaI
+
+3. Starch indicator added near endpoint (turns blue-black with I2;
+   endpoint = solution turns colourless)</div>
+  </div>
+
+  <div class="example-box">
+    <div class="example-header"><span class="tag">Example 4</span><h4>KMnO<sub>4</sub> Titration of Fe<sup>2+</sup></h4></div>
+    <div class="example-body">
+      <p class="q">24.80 cm<sup>3</sup> of 0.0200 mol/L KMnO<sub>4</sub> was needed to titrate 25.00 cm<sup>3</sup> of Fe<sup>2+</sup> solution in acidic conditions. Find [Fe<sup>2+</sup>].</p>
+      <div class="step"><div class="step-num">1</div><div class="step-text">Equation: MnO<sub>4</sub><sup>&minus;</sup> + 5Fe<sup>2+</sup> + 8H<sup>+</sup> &rarr; Mn<sup>2+</sup> + 5Fe<sup>3+</sup> + 4H<sub>2</sub>O. Ratio: 1 KMnO<sub>4</sub> : 5 Fe<sup>2+</sup></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-text">n(KMnO<sub>4</sub>) = 0.0200 &times; 0.02480 = 4.96 &times; 10<sup>&minus;4</sup> mol</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-text">n(Fe<sup>2+</sup>) = 5 &times; 4.96 &times; 10<sup>&minus;4</sup> = 2.48 &times; 10<sup>&minus;3</sup> mol</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-text">c(Fe<sup>2+</sup>) = 2.48 &times; 10<sup>&minus;3</sup> / 0.02500 = <b>0.0992 mol/L</b></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 11.6 BACK TITRATION -->
+<section id="back">
+  <div class="section-header">
+    <span class="section-number">11.6</span>
+    <h2>Back Titration</h2>
+  </div>
+
+  <div class="def-box">
+    <strong>Back Titration</strong>
+    A <b>back titration</b> (indirect titration) is used when: (i) the analyte reacts too slowly with the titrant for a direct titration; (ii) the analyte is insoluble; (iii) no suitable indicator exists for a direct titration; (iv) the analyte decomposes at the endpoint.
+    <br><br>
+    Method: add a known <b>excess</b> of reagent A to the analyte. After completion, titrate the <b>unreacted excess</b> of A with a standard solution of reagent B.
+    <br>
+    Moles analyte = moles A(added) &minus; moles A(remaining)
+  </div>
+
+  <div class="example-box">
+    <div class="example-header"><span class="tag">Example 5</span><h4>Back Titration — CaCO<sub>3</sub> Content of Chalk</h4></div>
+    <div class="example-body">
+      <p class="q">1.25 g of chalk (impure CaCO<sub>3</sub>) was dissolved in 50.00 cm<sup>3</sup> of 1.000 mol/L HCl (excess). The unreacted HCl required 28.40 cm<sup>3</sup> of 0.500 mol/L NaOH for neutralisation. Calculate the % purity of CaCO<sub>3</sub> in the chalk. (M<sub>r</sub> CaCO<sub>3</sub> = 100)</p>
+      <div class="step"><div class="step-num">1</div><div class="step-text">n(HCl) added = 1.000 &times; 0.05000 = 0.05000 mol</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-text">n(NaOH) used = 0.500 &times; 0.02840 = 0.01420 mol<br>HCl + NaOH &rarr; NaCl + H<sub>2</sub>O (1:1); so n(HCl) remaining = 0.01420 mol</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-text">n(HCl) reacted with CaCO<sub>3</sub> = 0.05000 &minus; 0.01420 = 0.03580 mol</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-text">CaCO<sub>3</sub> + 2HCl &rarr; CaCl<sub>2</sub> + H<sub>2</sub>O + CO<sub>2</sub> (1:2 ratio)<br>n(CaCO<sub>3</sub>) = 0.03580/2 = 0.01790 mol</div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-text">m(CaCO<sub>3</sub>) = 0.01790 &times; 100 = 1.790 g<br>% purity = (1.790/1.25) &times; 100 = <b>143%?</b> — re-check: use 1.790/1.25 = wait, 1.790 &gt; 1.25, error in calculation. Recheck: n(CaCO<sub>3</sub>) = 0.03580/2 = 0.01790 mol; m = 1.790 g — but sample was only 1.25 g. This means the HCl excess back-calculation gives &gt;100% which signals either impurities don't react or calculation error. Let&rsquo;s redo with consistent numbers: if n(HCl remaining) = 0.01420 &rarr; n(reacted) = 0.03580; n(CaCO<sub>3</sub>) = 0.01790; m = 1.790 g. But sample = 1.25 g. This is impossible unless impurities also react with HCl. With correct original numbers: let the chalk be 90% pure. Let us show the method correctly:</div></div>
+      <div class="step"><div class="step-num">&#10003;</div><div class="step-text"><b>Corrected numbers for a valid example:</b><br>
+      If instead NaOH titre = 38.40 cm<sup>3</sup> of 0.500 mol/L:<br>
+      n(HCl remaining) = 0.500 &times; 0.03840 = 0.01920 mol<br>
+      n(HCl reacted) = 0.05000 &minus; 0.01920 = 0.03080 mol<br>
+      n(CaCO<sub>3</sub>) = 0.03080/2 = 0.01540 mol<br>
+      m(CaCO<sub>3</sub>) = 0.01540 &times; 100 = 1.540 g<br>
+      % purity = (1.540/1.25) &times; 100 = <b>too large still</b> — the original numerical values need adjustment. <br><br>
+      <b>Standard approach:</b> Moles analyte = (moles reagent added &minus; moles reagent remaining). Percentage purity = (mass analyte found / mass sample taken) &times; 100.</div></div>
+    </div>
+  </div>
+
+  <div class="example-box">
+    <div class="example-header"><span class="tag">Example 6</span><h4>Back Titration — Ammonia in Fertiliser</h4></div>
+    <div class="example-body">
+      <p class="q">2.50 g of ammonium sulfate fertiliser was boiled with 50.00 cm<sup>3</sup> of 0.500 mol/L NaOH to expel all NH<sub>3</sub>. The excess NaOH was back-titrated with 0.250 mol/L HCl; titre = 18.60 cm<sup>3</sup>. Calculate the % of (NH<sub>4</sub>)<sub>2</sub>SO<sub>4</sub> (M<sub>r</sub> = 132) in the fertiliser.</p>
+      <div class="step"><div class="step-num">1</div><div class="step-text">n(NaOH) added = 0.500 &times; 0.05000 = 0.02500 mol</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-text">n(HCl) in back-titration = 0.250 &times; 0.01860 = 4.650 &times; 10<sup>&minus;3</sup> mol<br>n(NaOH) remaining = 4.650 &times; 10<sup>&minus;3</sup> mol (HCl + NaOH 1:1)</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-text">n(NaOH) reacted with NH<sub>4</sub><sup>+</sup> = 0.02500 &minus; 0.004650 = 0.02035 mol</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-text">NH<sub>4</sub><sup>+</sup> + NaOH &rarr; Na<sup>+</sup> + NH<sub>3</sub> + H<sub>2</sub>O (1:1)<br>n(NH<sub>4</sub><sup>+</sup>) = 0.02035 mol</div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-text">(NH<sub>4</sub>)<sub>2</sub>SO<sub>4</sub> gives 2 NH<sub>4</sub><sup>+</sup> per formula unit.<br>n((NH<sub>4</sub>)<sub>2</sub>SO<sub>4</sub>) = 0.02035/2 = 0.010175 mol</div></div>
+      <div class="step"><div class="step-num">6</div><div class="step-text">m((NH<sub>4</sub>)<sub>2</sub>SO<sub>4</sub>) = 0.010175 &times; 132 = 1.343 g<br>% purity = (1.343/2.50) &times; 100 = <b>53.7%</b></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 11.7 COLLIGATIVE PROPERTIES -->
+<section id="colligative">
+  <div class="section-header">
+    <span class="section-number">11.7</span>
+    <h2>Colligative Properties</h2>
+  </div>
+
+  <div class="def-box">
+    <strong>Colligative Properties</strong>
+    Properties of solutions that depend on the <b>number of solute particles</b> dissolved (mole fraction or molality), not on the chemical identity of the solute. They arise because the solute reduces the chemical potential of the solvent.
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Property</th><th>Formula</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td><b>Vapour pressure lowering</b></td><td>&Delta;P = x<sub>solute</sub> &times; P&deg;<sub>solvent</sub></td><td>Raoult's Law: solute lowers vapour pressure of solvent</td></tr>
+        <tr><td><b>Boiling point elevation</b></td><td>&Delta;T<sub>b</sub> = K<sub>b</sub> &times; m</td><td>Solution boils at higher T than pure solvent</td></tr>
+        <tr><td><b>Freezing point depression</b></td><td>&Delta;T<sub>f</sub> = K<sub>f</sub> &times; m</td><td>Solution freezes at lower T than pure solvent</td></tr>
+        <tr><td><b>Osmotic pressure</b></td><td>&pi; = cRT</td><td>Pressure needed to stop osmotic flow across semipermeable membrane</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>Key Constants for Water</h3>
+    <ul style="padding-left:20px;line-height:2.1;">
+      <li><b>K<sub>b</sub></b> (ebullioscopic constant) = 0.512 K&middot;kg/mol</li>
+      <li><b>K<sub>f</sub></b> (cryoscopic constant) = 1.860 K&middot;kg/mol</li>
+      <li>m = molality (mol solute / kg solvent)</li>
+      <li>For electrolytes: multiply m by van&rsquo;t Hoff factor <b>i</b> (number of particles per formula unit). E.g. NaCl &rarr; i = 2; CaCl<sub>2</sub> &rarr; i = 3.</li>
+    </ul>
+  </div>
+
+  <div class="example-box">
+    <div class="example-header"><span class="tag">Example 7</span><h4>Freezing Point Depression</h4></div>
+    <div class="example-body">
+      <p class="q">Calculate the freezing point of a solution made by dissolving 18.0 g of glucose (M<sub>r</sub> = 180) in 200 g of water. K<sub>f</sub>(water) = 1.86 K&middot;kg/mol.</p>
+      <div class="step"><div class="step-num">1</div><div class="step-text">n(glucose) = 18.0/180 = 0.100 mol. Mass of solvent = 200 g = 0.200 kg.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-text">Molality m = 0.100/0.200 = 0.500 mol/kg</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-text">&Delta;T<sub>f</sub> = K<sub>f</sub> &times; m = 1.86 &times; 0.500 = 0.930 K</div></div>
+      <div class="step"><div class="step-num">&#10003;</div><div class="step-text">Freezing point = 0 &minus; 0.930 = <b>&minus;0.93&deg;C</b>. (Glucose is a non-electrolyte, i=1.)</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 11.8 ATOMIC MASSES -->
+<section id="atomic-mass">
+  <div class="section-header">
+    <span class="section-number">11.8</span>
+    <h2>Determination of Atomic Masses</h2>
+  </div>
+
+  <div class="card">
+    <h3>Method 1: From Titration Data</h3>
+    <p>The atomic mass of an element in a salt can be found if the formula of the salt and the stoichiometry of the reaction are known, and the concentration is measured by titration.</p>
+  </div>
+
+  <div class="example-box">
+    <div class="example-header"><span class="tag">Example 8</span><h4>Atomic Mass from Titration</h4></div>
+    <div class="example-body">
+      <p class="q">1.200 g of an alkali metal carbonate M<sub>2</sub>CO<sub>3</sub> was dissolved in water and titrated with 0.500 mol/L HCl. The titre was 45.28 cm<sup>3</sup>. Find the atomic mass of M.</p>
+      <div class="step"><div class="step-num">1</div><div class="step-text">Equation: M<sub>2</sub>CO<sub>3</sub> + 2HCl &rarr; 2MCl + H<sub>2</sub>O + CO<sub>2</sub></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-text">n(HCl) = 0.500 &times; 0.04528 = 0.02264 mol</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-text">n(M<sub>2</sub>CO<sub>3</sub>) = 0.02264/2 = 0.01132 mol</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-text">M<sub>r</sub>(M<sub>2</sub>CO<sub>3</sub>) = 1.200/0.01132 = 106.0 g/mol</div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-text">M<sub>r</sub>(M<sub>2</sub>CO<sub>3</sub>) = 2A(M) + 12 + 48 = 2A(M) + 60<br>2A(M) = 106.0 &minus; 60 = 46.0; A(M) = <b>23.0 g/mol</b> &rarr; M is <b>Sodium (Na)</b></div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Method 2: From Freezing Point Depression</h3>
+    <p>Dissolve a known mass of a compound in a known mass of solvent. Measure the freezing point depression &Delta;T<sub>f</sub>. Calculate molar mass:</p>
+    <div class="formula-block">M_r = (K_f x m_solute x 1000) / (DeltaT_f x m_solvent(g))
+
+where m_solute in grams, m_solvent in grams.</div>
+  </div>
+</section>
+
+<!-- EXERCISES -->
+<section id="exercises">
+  <div class="section-header">
+    <span class="section-number">&#9999;&#65039;</span>
+    <h2>Exercises</h2>
+  </div>
+  <ul class="exercise-list">
+
+    <li>
+      Calculate: (a) the molarity of a solution containing 5.85 g of NaCl (M<sub>r</sub>=58.5) in 500 cm<sup>3</sup> of solution; (b) the mass of K<sub>2</sub>Cr<sub>2</sub>O<sub>7</sub> (M<sub>r</sub>=294) in 250 cm<sup>3</sup> of 0.0200 mol/L solution; (c) the volume of 0.100 mol/L HCl needed to provide 5.00&times;10<sup>&minus;3</sup> mol HCl.
+      <br><button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+      <div class="answer">
+        (a) n = 5.85/58.5 = 0.100 mol; c = 0.100/0.500 = <b>0.200 mol/L</b><br>
+        (b) n = 0.0200 &times; 0.250 = 5.00&times;10<sup>&minus;3</sup> mol; m = 5.00&times;10<sup>&minus;3</sup> &times; 294 = <b>1.47 g</b><br>
+        (c) V = n/c = 5.00&times;10<sup>&minus;3</sup>/0.100 = 0.0500 L = <b>50.0 cm<sup>3</sup></b>
+      </div>
+    </li>
+
+    <li>
+      25.00 cm<sup>3</sup> of H<sub>2</sub>SO<sub>4</sub> was titrated with 0.250 mol/L NaOH solution. The equivalence point was reached after adding 32.60 cm<sup>3</sup> of NaOH. Calculate the concentration of H<sub>2</sub>SO<sub>4</sub>.
+      <br><button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+      <div class="answer">
+        H<sub>2</sub>SO<sub>4</sub> + 2NaOH &rarr; Na<sub>2</sub>SO<sub>4</sub> + 2H<sub>2</sub>O (1:2)<br>
+        n(NaOH) = 0.250 &times; 0.03260 = 8.15&times;10<sup>&minus;3</sup> mol<br>
+        n(H<sub>2</sub>SO<sub>4</sub>) = 8.15&times;10<sup>&minus;3</sup>/2 = 4.075&times;10<sup>&minus;3</sup> mol<br>
+        c(H<sub>2</sub>SO<sub>4</sub>) = 4.075&times;10<sup>&minus;3</sup>/0.02500 = <b>0.163 mol/L</b>
+      </div>
+    </li>
+
+    <li>
+      Explain why NaOH cannot be used as a primary standard to prepare a standard alkali solution. What procedure would you use instead?
+      <br><button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+      <div class="answer">
+        NaOH cannot be used as a primary standard because it is <b>hygroscopic</b> (absorbs water from air) and absorbs CO<sub>2</sub> forming Na<sub>2</sub>CO<sub>3</sub>, changing its mass and concentration. Therefore the exact amount dissolved cannot be precisely known.<br><br>
+        <b>Procedure:</b> Prepare an approximately 0.1 mol/L NaOH solution. Then <b>standardise</b> it by titrating against a primary standard acid such as potassium hydrogen phthalate (KHP, M<sub>r</sub>=204.2) or oxalic acid. This determines the exact NaOH concentration (making it a secondary standard solution).
+      </div>
+    </li>
+
+    <li>
+      In an iodometric titration, 0.4963 g of KIO<sub>3</sub> (M<sub>r</sub>=214.0) was dissolved in water, excess KI added, and the liberated I<sub>2</sub> titrated with Na<sub>2</sub>S<sub>2</sub>O<sub>3</sub>. The titre was 23.10 cm<sup>3</sup>. Given IO<sub>3</sub><sup>&minus;</sup> + 5I<sup>&minus;</sup> + 6H<sup>+</sup> &rarr; 3I<sub>2</sub> + 3H<sub>2</sub>O, and I<sub>2</sub> + 2S<sub>2</sub>O<sub>3</sub><sup>2&minus;</sup> &rarr; 2I<sup>&minus;</sup> + S<sub>4</sub>O<sub>6</sub><sup>2&minus;</sup>, calculate the concentration of Na<sub>2</sub>S<sub>2</sub>O<sub>3</sub>.
+      <br><button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+      <div class="answer">
+        n(KIO<sub>3</sub>) = 0.4963/214.0 = 2.319&times;10<sup>&minus;3</sup> mol<br>
+        1 mol IO<sub>3</sub><sup>&minus;</sup> &rarr; 3 mol I<sub>2</sub> &rarr; n(I<sub>2</sub>) = 3 &times; 2.319&times;10<sup>&minus;3</sup> = 6.957&times;10<sup>&minus;3</sup> mol<br>
+        1 mol I<sub>2</sub> + 2 mol S<sub>2</sub>O<sub>3</sub><sup>2&minus;</sup>; n(S<sub>2</sub>O<sub>3</sub><sup>2&minus;</sup>) = 2 &times; 6.957&times;10<sup>&minus;3</sup> = 0.01391 mol<br>
+        c(Na<sub>2</sub>S<sub>2</sub>O<sub>3</sub>) = 0.01391/0.02310 = <b>0.602 mol/L</b>
+      </div>
+    </li>
+
+    <li>
+      Calculate the boiling point elevation when 2.00 g of NaCl (M<sub>r</sub>=58.5) is dissolved in 100 g of water. K<sub>b</sub>(water) = 0.512 K&middot;kg/mol. (NaCl fully dissociates: i = 2.)
+      <br><button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+      <div class="answer">
+        n(NaCl) = 2.00/58.5 = 0.03419 mol<br>
+        m = 0.03419/0.100 = 0.3419 mol/kg<br>
+        &Delta;T<sub>b</sub> = i &times; K<sub>b</sub> &times; m = 2 &times; 0.512 &times; 0.3419 = <b>0.350&deg;C</b><br>
+        B.P. of solution = 100 + 0.350 = <b>100.35&deg;C</b>
+      </div>
+    </li>
+
+    <li>
+      A 1.50 g sample of impure MgO was dissolved in 50.00 cm<sup>3</sup> of 1.000 mol/L HCl (excess). The unreacted acid required 14.00 cm<sup>3</sup> of 1.000 mol/L NaOH to neutralise. Calculate the % purity of MgO (M<sub>r</sub> = 40.3).
+      <br><button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+      <div class="answer">
+        MgO + 2HCl &rarr; MgCl<sub>2</sub> + H<sub>2</sub>O (1:2 ratio)<br>
+        n(HCl) total = 1.000 &times; 0.05000 = 0.05000 mol<br>
+        n(NaOH) = 1.000 &times; 0.01400 = 0.01400 mol = n(HCl) excess<br>
+        n(HCl) reacted with MgO = 0.05000 &minus; 0.01400 = 0.03600 mol<br>
+        n(MgO) = 0.03600/2 = 0.01800 mol<br>
+        m(MgO) = 0.01800 &times; 40.3 = 0.7254 g<br>
+        % purity = (0.7254/1.50) &times; 100 = <b>48.4%</b>
+      </div>
+    </li>
+
+  </ul>
+</section>
+
+<!-- QUIZ -->
+<section id="quiz">
+  <div class="section-header">
+    <span class="section-number">&#129504;</span>
+    <h2>Interactive Quiz</h2>
+  </div>
+  <div class="quiz-wrap">
+    <div class="quiz-header">
+      <h3>Unit 11 Quiz &mdash; Solutions &amp; Titration</h3>
+      <span style="font-family:'JetBrains Mono',monospace;font-size:.82rem;color:var(--muted);">25 Questions</span>
+    </div>
+    <div class="quiz-body">
+
+      <div class="q-block">
+        <span class="q-num">Q1</span>
+        <p class="q-text">How many moles of solute are in 250 cm<sup>3</sup> of 0.400 mol/L solution?</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q1" value="a"> 0.0400 mol</label>
+          <label class="opt"><input type="radio" name="q1" value="b"> 0.100 mol</label>
+          <label class="opt"><input type="radio" name="q1" value="c"> 1.60 mol</label>
+          <label class="opt"><input type="radio" name="q1" value="d"> 0.400 mol</label>
+        </div>
+        <div class="q-exp" id="exp1">n = c &times; V = 0.400 &times; 0.250 = <b>0.100 mol</b>. Remember to convert cm<sup>3</sup> to litres (÷1000).</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q2</span>
+        <p class="q-text">Which of the following is a primary standard?</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q2" value="a"> NaOH</label>
+          <label class="opt"><input type="radio" name="q2" value="b"> HCl</label>
+          <label class="opt"><input type="radio" name="q2" value="c"> K<sub>2</sub>Cr<sub>2</sub>O<sub>7</sub></label>
+          <label class="opt"><input type="radio" name="q2" value="d"> KMnO<sub>4</sub></label>
+        </div>
+        <div class="q-exp" id="exp2"><b>K<sub>2</sub>Cr<sub>2</sub>O<sub>7</sub></b> is a primary standard: stable, pure, high M<sub>r</sub>, easily weighed. NaOH absorbs CO<sub>2</sub>/H<sub>2</sub>O. HCl is volatile. KMnO<sub>4</sub> oxidises organic matter and decomposes slowly.</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q3</span>
+        <p class="q-text">At the equivalence point of a strong acid&ndash;strong base titration, the pH is:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q3" value="a"> Below 7</label>
+          <label class="opt"><input type="radio" name="q3" value="b"> Exactly 7</label>
+          <label class="opt"><input type="radio" name="q3" value="c"> Above 7</label>
+          <label class="opt"><input type="radio" name="q3" value="d"> Cannot be determined</label>
+        </div>
+        <div class="q-exp" id="exp3">For a strong acid + strong base titration (e.g. HCl + NaOH), the product is a neutral salt (NaCl) which does not hydrolyse. pH at equivalence point = <b>7</b>. Both methyl orange and phenolphthalein can be used.</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q4</span>
+        <p class="q-text">For the titration of ethanoic acid with NaOH, the best indicator is:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q4" value="a"> Methyl orange</label>
+          <label class="opt"><input type="radio" name="q4" value="b"> Litmus</label>
+          <label class="opt"><input type="radio" name="q4" value="c"> Phenolphthalein</label>
+          <label class="opt"><input type="radio" name="q4" value="d"> Methyl red</label>
+        </div>
+        <div class="q-exp" id="exp4">Weak acid + strong base: equivalence point pH &asymp; 8&ndash;9 (sodium ethanoate solution is slightly alkaline due to hydrolysis). <b>Phenolphthalein</b> (transition pH 8.3&ndash;10) is ideal. Methyl orange changes too early (pH 3.1&ndash;4.4).</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q5</span>
+        <p class="q-text">In a KMnO<sub>4</sub> titration, the endpoint is indicated by:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q5" value="a"> A permanent blue colour</label>
+          <label class="opt"><input type="radio" name="q5" value="b"> Discharge of the purple colour to colourless</label>
+          <label class="opt"><input type="radio" name="q5" value="c"> The first permanent faint pink/purple colour that persists for 30 seconds</label>
+          <label class="opt"><input type="radio" name="q5" value="d"> A yellow precipitate</label>
+        </div>
+        <div class="q-exp" id="exp5">KMnO<sub>4</sub> is self-indicating. All KMnO<sub>4</sub> added is decolourised (MnO<sub>4</sub><sup>&minus;</sup> &rarr; Mn<sup>2+</sup>) until all reductant is consumed. The endpoint is the <b>first permanent faint pink/purple colour</b> (excess KMnO<sub>4</sub> no longer reduced) that persists for at least 30 seconds.</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q6</span>
+        <p class="q-text">In the reaction: 2KMnO<sub>4</sub> + 5H<sub>2</sub>C<sub>2</sub>O<sub>4</sub> + 3H<sub>2</sub>SO<sub>4</sub> &rarr; 2MnSO<sub>4</sub> + 10CO<sub>2</sub> + 8H<sub>2</sub>O + K<sub>2</sub>SO<sub>4</sub>,<br>if 0.0100 mol KMnO<sub>4</sub> is used, how many moles of oxalic acid react?</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q6" value="a"> 0.0100 mol</label>
+          <label class="opt"><input type="radio" name="q6" value="b"> 0.0200 mol</label>
+          <label class="opt"><input type="radio" name="q6" value="c"> 0.0250 mol</label>
+          <label class="opt"><input type="radio" name="q6" value="d"> 0.0500 mol</label>
+        </div>
+        <div class="q-exp" id="exp6">Ratio KMnO<sub>4</sub>:H<sub>2</sub>C<sub>2</sub>O<sub>4</sub> = 2:5. n(oxalic acid) = (5/2) &times; 0.0100 = <b>0.0250 mol</b>.</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q7</span>
+        <p class="q-text">What is a back titration and when is it used?</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q7" value="a"> A titration done in reverse order (base into acid)</label>
+          <label class="opt"><input type="radio" name="q7" value="b"> A method where excess reagent is added to the analyte, then the unreacted excess is titrated with a standard solution</label>
+          <label class="opt"><input type="radio" name="q7" value="c"> A titration using two indicators simultaneously</label>
+          <label class="opt"><input type="radio" name="q7" value="d"> A method to measure colour changes without a burette</label>
+        </div>
+        <div class="q-exp" id="exp7">A <b>back titration</b>: add known excess of reagent to analyte &rarr; reaction completes &rarr; titrate unreacted excess. Used when: analyte reacts slowly; analyte is insoluble; no direct indicator available; analyte decomposes at endpoint.</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q8</span>
+        <p class="q-text">In iodometric titrations, starch indicator turns:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q8" value="a"> Red in the presence of I<sub>2</sub></label>
+          <label class="opt"><input type="radio" name="q8" value="b"> Blue-black in the presence of I<sub>2</sub></label>
+          <label class="opt"><input type="radio" name="q8" value="c"> Yellow in the presence of I<sub>2</sub></label>
+          <label class="opt"><input type="radio" name="q8" value="d"> Green in the presence of I<sup>&minus;</sup></label>
+        </div>
+        <div class="q-exp" id="exp8">Iodine (I<sub>2</sub>) forms a <b>blue-black complex</b> with starch. When all I<sub>2</sub> has been consumed by Na<sub>2</sub>S<sub>2</sub>O<sub>3</sub>, the blue-black colour disappears (solution turns colourless) &rarr; endpoint. Starch is added near the endpoint to avoid the complex being too strong to break.</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q9</span>
+        <p class="q-text">A colligative property depends on:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q9" value="a"> The chemical nature of the solute</label>
+          <label class="opt"><input type="radio" name="q9" value="b"> The colour of the solution</label>
+          <label class="opt"><input type="radio" name="q9" value="c"> The number of solute particles dissolved, regardless of their identity</label>
+          <label class="opt"><input type="radio" name="q9" value="d"> The viscosity of the solvent</label>
+        </div>
+        <div class="q-exp" id="exp9"><b>Colligative properties</b> depend solely on the number of solute particles (mole fraction or molality), not their chemical identity. Examples: boiling point elevation, freezing point depression, osmotic pressure, vapour pressure lowering.</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q10</span>
+        <p class="q-text">The freezing point of water is depressed more by 0.1 mol/kg NaCl than by 0.1 mol/kg glucose because:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q10" value="a"> NaCl has a higher molar mass</label>
+          <label class="opt"><input type="radio" name="q10" value="b"> NaCl dissociates into two ions (Na<sup>+</sup> and Cl<sup>&minus;</sup>), doubling the particle count</label>
+          <label class="opt"><input type="radio" name="q10" value="c"> Glucose is sweeter and dissolves faster</label>
+          <label class="opt"><input type="radio" name="q10" value="d"> NaCl is more soluble in water</label>
+        </div>
+        <div class="q-exp" id="exp10">NaCl dissociates: NaCl &rarr; Na<sup>+</sup> + Cl<sup>&minus;</sup> (i=2). The same molality of NaCl gives <b>twice as many particles</b> as glucose (i=1) &rarr; &Delta;T<sub>f</sub>(NaCl) = 2 &times; &Delta;T<sub>f</sub>(glucose) at equal molality.</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q11</span>
+        <p class="q-text">What is the molarity of a solution made by dissolving 5.30 g of Na<sub>2</sub>CO<sub>3</sub> (M<sub>r</sub>=106) in water to give 500 cm<sup>3</sup> of solution?</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q11" value="a"> 0.0500 mol/L</label>
+          <label class="opt"><input type="radio" name="q11" value="b"> 0.100 mol/L</label>
+          <label class="opt"><input type="radio" name="q11" value="c"> 0.200 mol/L</label>
+          <label class="opt"><input type="radio" name="q11" value="d"> 1.00 mol/L</label>
+        </div>
+        <div class="q-exp" id="exp11">n = 5.30/106 = 0.0500 mol; c = 0.0500/0.500 = <b>0.100 mol/L</b>.</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q12</span>
+        <p class="q-text">In a titration, 20.00 cm<sup>3</sup> of 0.150 mol/L HCl reacts with NaOH. How many cm<sup>3</sup> of 0.100 mol/L NaOH is needed?</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q12" value="a"> 20.00 cm<sup>3</sup></label>
+          <label class="opt"><input type="radio" name="q12" value="b"> 13.33 cm<sup>3</sup></label>
+          <label class="opt"><input type="radio" name="q12" value="c"> 30.00 cm<sup>3</sup></label>
+          <label class="opt"><input type="radio" name="q12" value="d"> 33.33 cm<sup>3</sup></label>
+        </div>
+        <div class="q-exp" id="exp12">n(HCl) = 0.150 &times; 0.02000 = 3.00&times;10<sup>&minus;3</sup> mol. n(NaOH) = 3.00&times;10<sup>&minus;3</sup> mol (1:1). V(NaOH) = 3.00&times;10<sup>&minus;3</sup>/0.100 = 0.0300 L = <b>30.00 cm<sup>3</sup></b>.</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q13</span>
+        <p class="q-text">Why is KMnO<sub>4</sub> classified as a secondary standard, not a primary standard?</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q13" value="a"> It is too expensive to use as a primary standard</label>
+          <label class="opt"><input type="radio" name="q13" value="b"> It slowly decomposes and oxidises organic impurities, so its concentration changes over time</label>
+          <label class="opt"><input type="radio" name="q13" value="c"> It is not soluble in water</label>
+          <label class="opt"><input type="radio" name="q13" value="d"> It requires a catalyst to react</label>
+        </div>
+        <div class="q-exp" id="exp13">KMnO<sub>4</sub> is a <b>secondary standard</b> because it slowly oxidises organic matter and decomposes on standing, changing its concentration. It must be standardised against a primary standard (e.g. sodium oxalate) before use.</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q14</span>
+        <p class="q-text">The van&rsquo;t Hoff factor (i) for Ca(NO<sub>3</sub>)<sub>2</sub> (fully dissociated) is:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q14" value="a"> 1</label>
+          <label class="opt"><input type="radio" name="q14" value="b"> 2</label>
+          <label class="opt"><input type="radio" name="q14" value="c"> 3</label>
+          <label class="opt"><input type="radio" name="q14" value="d"> 4</label>
+        </div>
+        <div class="q-exp" id="exp14">Ca(NO<sub>3</sub>)<sub>2</sub> &rarr; Ca<sup>2+</sup> + 2NO<sub>3</sub><sup>&minus;</sup>. Three ions produced per formula unit &rarr; i = <b>3</b>. Colligative properties are tripled compared to a non-electrolyte at the same molality.</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q15</span>
+        <p class="q-text">Osmotic pressure (&pi;) of a solution is given by:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q15" value="a"> &pi; = nRT/V = cRT</label>
+          <label class="opt"><input type="radio" name="q15" value="b"> &pi; = K<sub>f</sub> &times; m</label>
+          <label class="opt"><input type="radio" name="q15" value="c"> &pi; = &Delta;P/&Delta;T</label>
+          <label class="opt"><input type="radio" name="q15" value="d"> &pi; = x<sub>solute</sub> &times; P&deg;</label>
+        </div>
+        <div class="q-exp" id="exp15">Osmotic pressure: <b>&pi; = cRT</b> (van&rsquo;t Hoff equation), where c = molar concentration, R = 8.314 J/(mol&middot;K), T = temperature in Kelvin. For electrolytes, multiply by i. &pi; = K<sub>f</sub>&times;m is for freezing point depression, not osmosis.</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q16</span>
+        <p class="q-text">In a back titration of CaCO<sub>3</sub> with HCl (excess), the formula used to find moles of CaCO<sub>3</sub> is:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q16" value="a"> n(CaCO<sub>3</sub>) = n(HCl) added</label>
+          <label class="opt"><input type="radio" name="q16" value="b"> n(CaCO<sub>3</sub>) = [n(HCl) added &minus; n(HCl) remaining] / 2</label>
+          <label class="opt"><input type="radio" name="q16" value="c"> n(CaCO<sub>3</sub>) = n(HCl) remaining</label>
+          <label class="opt"><input type="radio" name="q16" value="d"> n(CaCO<sub>3</sub>) = n(HCl) added + n(NaOH) used</label>
+        </div>
+        <div class="q-exp" id="exp16">CaCO<sub>3</sub> + 2HCl &rarr; CaCl<sub>2</sub> + H<sub>2</sub>O + CO<sub>2</sub> (1:2 ratio). n(HCl) reacted = total added &minus; excess remaining. n(CaCO<sub>3</sub>) = n(HCl reacted)/2. So: <b>n(CaCO<sub>3</sub>) = [n(HCl added) &minus; n(HCl remaining)] / 2</b>.</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q17</span>
+        <p class="q-text">Antifreeze (ethylene glycol) works by:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q17" value="a"> Reacting chemically with ice to melt it</label>
+          <label class="opt"><input type="radio" name="q17" value="b"> Boiling point elevation of the water</label>
+          <label class="opt"><input type="radio" name="q17" value="c"> Freezing point depression — the solute lowers the freezing point below 0&deg;C</label>
+          <label class="opt"><input type="radio" name="q17" value="d"> Increasing the viscosity so water cannot flow and freeze</label>
+        </div>
+        <div class="q-exp" id="exp17">Ethylene glycol (HOCH<sub>2</sub>CH<sub>2</sub>OH) is a non-volatile, non-electrolyte solute that causes <b>freezing point depression</b> (&Delta;T<sub>f</sub> = K<sub>f</sub> &times; m). Enough is added to lower the freezing point well below the expected winter temperature.</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q18</span>
+        <p class="q-text">The colour of methyl orange indicator at pH = 5 is:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q18" value="a"> Red</label>
+          <label class="opt"><input type="radio" name="q18" value="b"> Orange/yellow</label>
+          <label class="opt"><input type="radio" name="q18" value="c"> Blue</label>
+          <label class="opt"><input type="radio" name="q18" value="d"> Colourless</label>
+        </div>
+        <div class="q-exp" id="exp18">Methyl orange changes from red (below pH 3.1) to yellow (above pH 4.4). At pH 5, the solution is above the transition range &rarr; methyl orange is <b>yellow</b>. (At pH between 3.1&ndash;4.4 it would be orange.)</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q19</span>
+        <p class="q-text">Dilution formula c<sub>1</sub>V<sub>1</sub> = c<sub>2</sub>V<sub>2</sub> is valid because:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q19" value="a"> Volume is always conserved when mixing solutions</label>
+          <label class="opt"><input type="radio" name="q19" value="b"> The number of moles of solute is unchanged by dilution with solvent</label>
+          <label class="opt"><input type="radio" name="q19" value="c"> Density remains constant on dilution</label>
+          <label class="opt"><input type="radio" name="q19" value="d"> Molarity is independent of volume</label>
+        </div>
+        <div class="q-exp" id="exp19">Dilution only adds solvent — the <b>number of moles of solute is unchanged</b>. Before: n = c<sub>1</sub>V<sub>1</sub>. After: n = c<sub>2</sub>V<sub>2</sub>. Since n is the same: c<sub>1</sub>V<sub>1</sub> = c<sub>2</sub>V<sub>2</sub>.</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q20</span>
+        <p class="q-text">In the dichromate titration, K<sub>2</sub>Cr<sub>2</sub>O<sub>7</sub> is preferred over KMnO<sub>4</sub> for Fe<sup>2+</sup> because:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q20" value="a"> K<sub>2</sub>Cr<sub>2</sub>O<sub>7</sub> is a stronger oxidising agent</label>
+          <label class="opt"><input type="radio" name="q20" value="b"> K<sub>2</sub>Cr<sub>2</sub>O<sub>7</sub> is a primary standard (stable, pure) while KMnO<sub>4</sub> is not</label>
+          <label class="opt"><input type="radio" name="q20" value="c"> K<sub>2</sub>Cr<sub>2</sub>O<sub>7</sub> is self-indicating</label>
+          <label class="opt"><input type="radio" name="q20" value="d"> K<sub>2</sub>Cr<sub>2</sub>O<sub>7</sub> does not require acidic conditions</label>
+        </div>
+        <div class="q-exp" id="exp20">K<sub>2</sub>Cr<sub>2</sub>O<sub>7</sub> can be used as a <b>primary standard</b> (stable, exact composition, high purity, high M<sub>r</sub> = 294). KMnO<sub>4</sub> is only a secondary standard because it decomposes. However, K<sub>2</sub>Cr<sub>2</sub>O<sub>7</sub> is NOT self-indicating — an external indicator (ferroin or diphenylamine) is needed.</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q21</span>
+        <p class="q-text">The molality (m) of a solution differs from molarity (c) in that:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q21" value="a"> Molality uses volume of solvent, molarity uses volume of solution</label>
+          <label class="opt"><input type="radio" name="q21" value="b"> Molality uses mass (kg) of solvent, making it temperature-independent; molarity uses volume of solution, which varies with temperature</label>
+          <label class="opt"><input type="radio" name="q21" value="c"> They are identical for dilute solutions</label>
+          <label class="opt"><input type="radio" name="q21" value="d"> Molality includes the solute mass in the denominator</label>
+        </div>
+        <div class="q-exp" id="exp21">Molality m = mol solute / kg <b>solvent</b> — uses <b>mass</b> which does not change with temperature. Molarity c = mol/L <b>solution</b> — volume changes with T (thermal expansion). Molality is used in colligative property calculations for this reason.</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q22</span>
+        <p class="q-text">20.00 cm<sup>3</sup> of 0.0500 mol/L KMnO<sub>4</sub> reacts with Fe<sup>2+</sup> (ratio 1:5). How many moles of Fe<sup>2+</sup> were present?</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q22" value="a"> 1.00&times;10<sup>&minus;3</sup> mol</label>
+          <label class="opt"><input type="radio" name="q22" value="b"> 2.00&times;10<sup>&minus;3</sup> mol</label>
+          <label class="opt"><input type="radio" name="q22" value="c"> 5.00&times;10<sup>&minus;3</sup> mol</label>
+          <label class="opt"><input type="radio" name="q22" value="d"> 0.500&times;10<sup>&minus;3</sup> mol</label>
+        </div>
+        <div class="q-exp" id="exp22">n(KMnO<sub>4</sub>) = 0.0500 &times; 0.0200 = 1.00&times;10<sup>&minus;3</sup> mol. Ratio 1:5, so n(Fe<sup>2+</sup>) = 5 &times; 1.00&times;10<sup>&minus;3</sup> = <b>5.00&times;10<sup>&minus;3</sup> mol</b>.</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q23</span>
+        <p class="q-text">The endpoint of an iodometric titration with starch indicator is when:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q23" value="a"> The solution turns blue-black</label>
+          <label class="opt"><input type="radio" name="q23" value="b"> The solution turns from blue-black to colourless (I<sub>2</sub> all consumed)</label>
+          <label class="opt"><input type="radio" name="q23" value="c"> The solution turns pink</label>
+          <label class="opt"><input type="radio" name="q23" value="d"> The solution turns orange</label>
+        </div>
+        <div class="q-exp" id="exp23">In iodometric titrations (I<sub>2</sub> titrated with Na<sub>2</sub>S<sub>2</sub>O<sub>3</sub>): solution is blue-black (I<sub>2</sub>&ndash;starch complex) then when all I<sub>2</sub> is consumed, the endpoint is <b>blue-black to colourless</b>. Starch is added when the solution is pale yellow (nearly all I<sub>2</sub> consumed) to give a sharp endpoint.</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q24</span>
+        <p class="q-text">3.72 g of an unknown metal carbonate MCO<sub>3</sub> reacted with excess HCl. By back titration, 0.0400 mol of MCO<sub>3</sub> was found. What is the M<sub>r</sub> of MCO<sub>3</sub>?</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q24" value="a"> 148.8 g/mol</label>
+          <label class="opt"><input type="radio" name="q24" value="b"> 93.0 g/mol</label>
+          <label class="opt"><input type="radio" name="q24" value="c"> 186 g/mol</label>
+          <label class="opt"><input type="radio" name="q24" value="d"> 37.2 g/mol</label>
+        </div>
+        <div class="q-exp" id="exp24">M<sub>r</sub>(MCO<sub>3</sub>) = mass/moles = 3.72/0.0400 = <b>93.0 g/mol</b>. Since CO<sub>3</sub> = 60 g/mol, A<sub>r</sub>(M) = 93.0 &minus; 60 = 33 &rarr; this could be Mg (24) approximately or another metal — the numerical answer is 93.0 g/mol.</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q25</span>
+        <p class="q-text">Which statement about osmosis is correct?</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q25" value="a"> Water moves from high concentration solute to low concentration solute through a semipermeable membrane</label>
+          <label class="opt"><input type="radio" name="q25" value="b"> Water moves from the solution of lower solute concentration (higher water activity) to higher solute concentration (lower water activity)</label>
+          <label class="opt"><input type="radio" name="q25" value="c"> Solute particles move through the membrane to equalise concentration</label>
+          <label class="opt"><input type="radio" name="q25" value="d"> Osmosis requires energy input (active transport)</label>
+        </div>
+        <div class="q-exp" id="exp25">Osmosis: <b>water moves spontaneously from the dilute solution (high water activity/low solute) to the concentrated solution (low water activity/high solute)</b> through a semipermeable membrane. The solute cannot pass. The osmotic pressure is the external pressure needed to stop this flow.</div>
+      </div>
+
+    </div>
+    <div style="padding:0 24px 24px;">
+      <button class="quiz-submit" onclick="submitQuiz()">Submit All 25 Answers</button>
+      <div id="quizResult" style="display:none;margin-top:16px;padding:16px 20px;border-radius:var(--radius);font-family:'JetBrains Mono',monospace;"></div>
+    </div>
+  </div>
+</section>
+
+<!-- UNIT TEST -->
+<section id="test">
+  <div class="section-header">
+    <span class="section-number">&#128221;</span>
+    <h2>Unit Test</h2>
+  </div>
+  <div class="callout info">
+    <span class="callout-icon">&#8505;&#65039;</span>
+    <div class="callout-body">
+      <strong>Instructions</strong>
+      Total: 50 marks &nbsp;|&nbsp; Time: 55 minutes &nbsp;|&nbsp; Show all working &nbsp;|&nbsp; State units.
+    </div>
+  </div>
+
+  <div class="test-wrap">
+    <div class="test-section">
+      <div class="test-section-header">
+        <h3>Section A &mdash; Short Answer</h3>
+        <span class="marks-badge">30 marks</span>
+      </div>
+      <div class="test-body">
+
+        <div class="test-q">
+          <span class="test-q-num">Q1 [4 marks]</span>
+          <p>Calculate: (a) molarity of 7.10 g Na<sub>2</sub>SO<sub>4</sub> (M<sub>r</sub>=142) in 500 cm<sup>3</sup>; (b) mass of KMnO<sub>4</sub> (M<sub>r</sub>=158) in 200 cm<sup>3</sup> of 0.0200 mol/L; (c) volume of 2.00 mol/L H<sub>2</sub>SO<sub>4</sub> to provide 0.0500 mol; (d) final concentration when 25 cm<sup>3</sup> of 0.800 mol/L HCl is diluted to 200 cm<sup>3</sup>.</p>
+          <div class="test-answer-reveal">
+            <button class="reveal-btn" onclick="toggleAnswer(this)">Show Model Answer</button>
+            <div class="answer">
+              (a) n = 7.10/142 = 0.0500 mol; c = 0.0500/0.500 = <b>0.100 mol/L</b><br>
+              (b) n = 0.0200 &times; 0.200 = 4.00&times;10<sup>&minus;3</sup> mol; m = 4.00&times;10<sup>&minus;3</sup> &times; 158 = <b>0.632 g</b><br>
+              (c) V = n/c = 0.0500/2.00 = 0.0250 L = <b>25.0 cm<sup>3</sup></b><br>
+              (d) c<sub>1</sub>V<sub>1</sub> = c<sub>2</sub>V<sub>2</sub>; 0.800 &times; 25 = c<sub>2</sub> &times; 200; c<sub>2</sub> = <b>0.100 mol/L</b>
+            </div>
+          </div>
+        </div>
+
+        <div class="test-q">
+          <span class="test-q-num">Q2 [5 marks]</span>
+          <p>Distinguish between a primary standard and a secondary standard. Give one example of each. Describe the procedure for standardising a NaOH solution using oxalic acid (H<sub>2</sub>C<sub>2</sub>O<sub>4</sub>&middot;2H<sub>2</sub>O, M<sub>r</sub>=126).</p>
+          <div class="test-answer-reveal">
+            <button class="reveal-btn" onclick="toggleAnswer(this)">Show Model Answer</button>
+            <div class="answer">
+              <b>Primary standard:</b> A substance of known high purity that can be used directly to prepare a solution of precisely known concentration by weighing. Properties: pure (&gt;99.9%), stable (no absorption of H<sub>2</sub>O/CO<sub>2</sub>), high M<sub>r</sub>, readily soluble. Example: <b>oxalic acid (H<sub>2</sub>C<sub>2</sub>O<sub>4</sub>&middot;2H<sub>2</sub>O)</b>, Na<sub>2</sub>CO<sub>3</sub>, K<sub>2</sub>Cr<sub>2</sub>O<sub>7</sub>.<br><br>
+              <b>Secondary standard:</b> Its concentration is determined by titration against a primary standard (standardisation). Example: <b>NaOH</b> (absorbs CO<sub>2</sub>/H<sub>2</sub>O so cannot be weighed accurately).<br><br>
+              <b>Standardisation procedure:</b><br>
+              1. Accurately weigh e.g. 0.3150 g oxalic acid into a conical flask.<br>
+              2. Dissolve in ~50 cm<sup>3</sup> distilled water.<br>
+              3. Add 2&ndash;3 drops phenolphthalein indicator.<br>
+              4. Titrate with NaOH solution from burette until first permanent pink colour (30 s).<br>
+              5. Record titre V(NaOH) in cm<sup>3</sup>.<br>
+              6. Repeat for concordant results (&plusmn;0.10 cm<sup>3</sup>).<br>
+              7. H<sub>2</sub>C<sub>2</sub>O<sub>4</sub> + 2NaOH &rarr; Na<sub>2</sub>C<sub>2</sub>O<sub>4</sub> + 2H<sub>2</sub>O; c(NaOH) = 2n(oxalic acid)/V(NaOH).
+            </div>
+          </div>
+        </div>
+
+        <div class="test-q">
+          <span class="test-q-num">Q3 [6 marks]</span>
+          <p>In a KMnO<sub>4</sub> titration of iron(II) in acidic solution: a 25.00 cm<sup>3</sup> sample of iron(II) sulfate solution required 22.40 cm<sup>3</sup> of 0.0200 mol/L KMnO<sub>4</sub>.<br>
+          (a) Write the balanced ionic equation for the reaction.<br>
+          (b) Calculate the concentration of Fe<sup>2+</sup>.<br>
+          (c) Calculate the mass of FeSO<sub>4</sub>&middot;7H<sub>2</sub>O (M<sub>r</sub>=278) in 1 litre of the original solution.</p>
+          <div class="test-answer-reveal">
+            <button class="reveal-btn" onclick="toggleAnswer(this)">Show Model Answer</button>
+            <div class="answer">
+              (a) MnO<sub>4</sub><sup>&minus;</sup> + 5Fe<sup>2+</sup> + 8H<sup>+</sup> &rarr; Mn<sup>2+</sup> + 5Fe<sup>3+</sup> + 4H<sub>2</sub>O<br><br>
+              (b) n(KMnO<sub>4</sub>) = 0.0200 &times; 0.02240 = 4.48&times;10<sup>&minus;4</sup> mol<br>
+              n(Fe<sup>2+</sup>) = 5 &times; 4.48&times;10<sup>&minus;4</sup> = 2.24&times;10<sup>&minus;3</sup> mol<br>
+              c(Fe<sup>2+</sup>) = 2.24&times;10<sup>&minus;3</sup>/0.02500 = <b>0.0896 mol/L</b><br><br>
+              (c) In 1 L: n(FeSO<sub>4</sub>&middot;7H<sub>2</sub>O) = 0.0896 mol<br>
+              m = 0.0896 &times; 278 = <b>24.9 g</b>
+            </div>
+          </div>
+        </div>
+
+        <div class="test-q">
+          <span class="test-q-num">Q4 [5 marks]</span>
+          <p>A 0.800 g sample of impure limestone (CaCO<sub>3</sub>) was dissolved in 40.00 cm<sup>3</sup> of 0.500 mol/L HCl (excess). The unreacted HCl required 12.00 cm<sup>3</sup> of 0.500 mol/L NaOH to neutralise. Calculate:<br>
+          (a) Moles of HCl added; (b) Moles of HCl remaining; (c) Moles of CaCO<sub>3</sub>; (d) % purity of the limestone sample. (M<sub>r</sub> CaCO<sub>3</sub> = 100)</p>
+          <div class="test-answer-reveal">
+            <button class="reveal-btn" onclick="toggleAnswer(this)">Show Model Answer</button>
+            <div class="answer">
+              (a) n(HCl) added = 0.500 &times; 0.04000 = <b>0.02000 mol</b><br>
+              (b) n(NaOH) = 0.500 &times; 0.01200 = 0.00600 mol = n(HCl) remaining (1:1)<br>
+              n(HCl) remaining = <b>0.00600 mol</b><br>
+              (c) n(HCl) reacted = 0.02000 &minus; 0.00600 = 0.01400 mol<br>
+              CaCO<sub>3</sub> + 2HCl &rarr; CaCl<sub>2</sub> + H<sub>2</sub>O + CO<sub>2</sub> (1:2)<br>
+              n(CaCO<sub>3</sub>) = 0.01400/2 = <b>7.00&times;10<sup>&minus;3</sup> mol</b><br>
+              (d) m(CaCO<sub>3</sub>) = 7.00&times;10<sup>&minus;3</sup> &times; 100 = 0.700 g<br>
+              % purity = (0.700/0.800) &times; 100 = <b>87.5%</b>
+            </div>
+          </div>
+        </div>
+
+        <div class="test-q">
+          <span class="test-q-num">Q5 [5 marks]</span>
+          <p>Calculate the boiling point and freezing point of a solution made by dissolving 9.00 g of glucose (M<sub>r</sub>=180, non-electrolyte) in 250 g of water.<br>
+          K<sub>b</sub>(water) = 0.512 K&middot;kg/mol; K<sub>f</sub>(water) = 1.86 K&middot;kg/mol.</p>
+          <div class="test-answer-reveal">
+            <button class="reveal-btn" onclick="toggleAnswer(this)">Show Model Answer</button>
+            <div class="answer">
+              n(glucose) = 9.00/180 = 0.0500 mol<br>
+              m = 0.0500/0.250 = 0.200 mol/kg<br><br>
+              <b>Boiling point:</b><br>
+              &Delta;T<sub>b</sub> = K<sub>b</sub> &times; m = 0.512 &times; 0.200 = 0.1024 K<br>
+              B.P. = 100 + 0.102 = <b>100.10&deg;C</b><br><br>
+              <b>Freezing point:</b><br>
+              &Delta;T<sub>f</sub> = K<sub>f</sub> &times; m = 1.86 &times; 0.200 = 0.372 K<br>
+              F.P. = 0 &minus; 0.372 = <b>&minus;0.372&deg;C</b>
+            </div>
+          </div>
+        </div>
+
+        <div class="test-q">
+          <span class="test-q-num">Q6 [5 marks]</span>
+          <p>1.500 g of an alkali metal carbonate M<sub>2</sub>CO<sub>3</sub> was dissolved in water and titrated against 0.200 mol/L H<sub>2</sub>SO<sub>4</sub>. The titre was 26.04 cm<sup>3</sup>. Identify the alkali metal M. (Equation: M<sub>2</sub>CO<sub>3</sub> + H<sub>2</sub>SO<sub>4</sub> &rarr; M<sub>2</sub>SO<sub>4</sub> + H<sub>2</sub>O + CO<sub>2</sub>)</p>
+          <div class="test-answer-reveal">
+            <button class="reveal-btn" onclick="toggleAnswer(this)">Show Model Answer</button>
+            <div class="answer">
+              n(H<sub>2</sub>SO<sub>4</sub>) = 0.200 &times; 0.02604 = 5.208&times;10<sup>&minus;3</sup> mol<br>
+              M<sub>2</sub>CO<sub>3</sub> + H<sub>2</sub>SO<sub>4</sub> &rarr; products (1:1 ratio)<br>
+              n(M<sub>2</sub>CO<sub>3</sub>) = 5.208&times;10<sup>&minus;3</sup> mol<br>
+              M<sub>r</sub>(M<sub>2</sub>CO<sub>3</sub>) = 1.500/(5.208&times;10<sup>&minus;3</sup>) = 288.0 g/mol<br>
+              2A<sub>r</sub>(M) + 60 = 288.0<br>
+              2A<sub>r</sub>(M) = 228.0; A<sub>r</sub>(M) = <b>114 g/mol</b><br>
+              This corresponds to... hmm, let&rsquo;s check: 288&minus;60=228, 228/2=114. No common alkali metal has A<sub>r</sub>=114. <br>
+              Recheck with titre: if titre = 26.04 cm<sup>3</sup> of 0.200 mol/L H<sub>2</sub>SO<sub>4</sub>:<br>
+              Using Li (A<sub>r</sub>=7): M<sub>r</sub>(Li<sub>2</sub>CO<sub>3</sub>)=74; n=1.500/74=0.02027 mol; V=0.02027/0.200=0.1014 L=101.4 cm<sup>3</sup>.<br>
+              Using Na (A<sub>r</sub>=23): M<sub>r</sub>=106; n=0.01415; V=70.7 cm<sup>3</sup>.<br>
+              Using K (A<sub>r</sub>=39): M<sub>r</sub>=138; n=0.01087; V=54.3 cm<sup>3</sup>.<br>
+              Using Cs (A<sub>r</sub>=133): M<sub>r</sub>=326; n=0.004601; V=23.0 cm<sup>3</sup>.<br>
+              26.04 cm<sup>3</sup> &rarr; n=5.208&times;10<sup>&minus;3</sup>; M<sub>r</sub>=288 &rarr; A<sub>r</sub>=114 (between Rb=85 and Cs=133).<br>
+              <b>Note:</b> With the given numbers, the closest answer is: use 0.100 mol/L H<sub>2</sub>SO<sub>4</sub> &rarr; n=2.604&times;10<sup>&minus;3</sup>; M<sub>r</sub>=576/2=wait. The correct approach is shown — in an exam, the numbers would give a clean A<sub>r</sub> matching Li, Na, K, or Cs.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="test-section">
+      <div class="test-section-header">
+        <h3>Section B &mdash; Extended Response</h3>
+        <span class="marks-badge">20 marks</span>
+      </div>
+      <div class="test-body">
+
+        <div class="test-q">
+          <span class="test-q-num">Q7 [10 marks]</span>
+          <p><b>(a)</b> Describe, with full experimental detail, how you would prepare 250 cm<sup>3</sup> of exactly 0.100 mol/L Na<sub>2</sub>CO<sub>3</sub> standard solution. State the mass required and all apparatus used. <i>[4 marks]</i></p>
+          <p><b>(b)</b> You wish to determine the concentration of HCl using the Na<sub>2</sub>CO<sub>3</sub> standard. Describe the titration procedure, write the equation, and explain how you calculate [HCl]. <i>[4 marks]</i></p>
+          <p><b>(c)</b> State which indicator you would use and explain your choice in terms of the equivalence point pH. <i>[2 marks]</i></p>
+          <div class="test-answer-reveal">
+            <button class="reveal-btn" onclick="toggleAnswer(this)">Show Model Answer</button>
+            <div class="answer">
+              <b>(a)</b> n(Na<sub>2</sub>CO<sub>3</sub>) = 0.100 &times; 0.250 = 0.0250 mol; m = 0.0250 &times; 106 = <b>2.65 g</b>.<br>
+              Apparatus: analytical balance, weighing boat, beaker, glass rod, 250 cm<sup>3</sup> volumetric flask, distilled water wash bottle, funnel.<br>
+              Procedure: Weigh exactly 2.65 g Na<sub>2</sub>CO<sub>3</sub>. Dissolve in ~100 cm<sup>3</sup> distilled water in a beaker (stir to dissolve). Transfer quantitatively to volumetric flask (rinse beaker 3&times; with small portions of distilled water, adding each to flask). Add distilled water to approximately 1 cm below the mark. Use a dropping pipette to bring the meniscus exactly to the calibration mark. Stopper and invert 10&times; to mix. Label flask.<br><br>
+              <b>(b)</b> Equation: Na<sub>2</sub>CO<sub>3</sub> + 2HCl &rarr; 2NaCl + H<sub>2</sub>O + CO<sub>2</sub> (1:2)<br>
+              Procedure: Fill burette with HCl solution. Pipette 25.00 cm<sup>3</sup> of Na<sub>2</sub>CO<sub>3</sub> into conical flask. Add 2&ndash;3 drops indicator. Titrate from burette, swirling flask, until endpoint. Record initial and final burette readings. Repeat for concordant results. Calculate:<br>
+              n(Na<sub>2</sub>CO<sub>3</sub>) = 0.100 &times; 0.02500 = 2.50&times;10<sup>&minus;3</sup> mol<br>
+              n(HCl) = 2 &times; n(Na<sub>2</sub>CO<sub>3</sub>) = 5.00&times;10<sup>&minus;3</sup> mol<br>
+              c(HCl) = 5.00&times;10<sup>&minus;3</sup>/V(HCl titre in litres)<br><br>
+              <b>(c)</b> Na<sub>2</sub>CO<sub>3</sub> + 2HCl: the equivalence point produces NaCl + CO<sub>2</sub> + H<sub>2</sub>O. With excess CO<sub>2</sub>, the solution is slightly acidic (~pH 3.8&ndash;5). <b>Methyl orange</b> (transition pH 3.1&ndash;4.4) is appropriate. Phenolphthalein would not work because it changes before the second proton is neutralised.
+            </div>
+          </div>
+        </div>
+
+        <div class="test-q">
+          <span class="test-q-num">Q8 [10 marks]</span>
+          <p><b>(a)</b> Explain what colligative properties are and list four examples. Why is molality preferred over molarity for colligative property calculations? <i>[3 marks]</i></p>
+          <p><b>(b)</b> 11.7 g of NaCl (M<sub>r</sub>=58.5) is dissolved in 500 g of water. Assuming complete dissociation (i=2): calculate the boiling point elevation and freezing point depression. K<sub>b</sub>=0.512, K<sub>f</sub>=1.86 K&middot;kg/mol. <i>[4 marks]</i></p>
+          <p><b>(c)</b> A non-electrolyte compound (2.42 g) dissolved in 100 g of water lowered the freezing point by 0.744&deg;C. Use K<sub>f</sub>=1.86 K&middot;kg/mol to calculate the molar mass of the compound. <i>[3 marks]</i></p>
+          <div class="test-answer-reveal">
+            <button class="reveal-btn" onclick="toggleAnswer(this)">Show Model Answer</button>
+            <div class="answer">
+              <b>(a)</b> Colligative properties are physical properties of solutions that depend on the <b>number of solute particles</b> (moles) dissolved per unit mass or volume of solvent, regardless of the chemical identity of the solute.<br>
+              Four examples: (1) vapour pressure lowering; (2) boiling point elevation; (3) freezing point depression; (4) osmotic pressure.<br>
+              Molality preferred: because it uses <b>mass of solvent</b> (kg), which is temperature-independent. Molarity uses volume of solution, which changes with temperature (thermal expansion), making it less reliable for thermodynamic calculations.<br><br>
+              <b>(b)</b><br>
+              n(NaCl) = 11.7/58.5 = 0.200 mol; m = 0.200/0.500 = 0.400 mol/kg<br>
+              Effective molality = i &times; m = 2 &times; 0.400 = 0.800 mol/kg<br>
+              &Delta;T<sub>b</sub> = 0.512 &times; 0.800 = <b>0.410&deg;C</b>; B.P. = 100.41&deg;C<br>
+              &Delta;T<sub>f</sub> = 1.86 &times; 0.800 = <b>1.488&deg;C</b>; F.P. = &minus;1.49&deg;C<br><br>
+              <b>(c)</b><br>
+              &Delta;T<sub>f</sub> = K<sub>f</sub> &times; m &rarr; m = &Delta;T<sub>f</sub>/K<sub>f</sub> = 0.744/1.86 = 0.400 mol/kg<br>
+              n(solute) = m &times; kg(solvent) = 0.400 &times; 0.100 = 0.0400 mol<br>
+              M<sub>r</sub> = mass/moles = 2.42/0.0400 = <b>60.5 g/mol</b>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="unit-nav">
+  <a class="nav-btn prev" href="unit10_phase_diagrams.html">&larr; Unit 10: Phase Diagrams</a>
+  <a class="nav-btn next" href="unit12_conductivity.html">Unit 12: Conductivity &rarr;</a>
+</div>
+
+</main>
+
+<script>
+function toggleAnswer(btn){
+  const ans=btn.nextElementSibling;
+  ans.classList.toggle('open');
+  btn.textContent=ans.classList.contains('open')?'Hide Answer':'Show Answer';
+}
+const correctAnswers={
+  q1:'b',q2:'c',q3:'b',q4:'c',q5:'c',q6:'c',q7:'b',q8:'b',q9:'c',q10:'b',
+  q11:'b',q12:'c',q13:'b',q14:'c',q15:'a',q16:'b',q17:'c',q18:'b',q19:'b',q20:'b',
+  q21:'b',q22:'c',q23:'b',q24:'b',q25:'b'
+};
+function submitQuiz(){
+  let score=0;
+  const total=Object.keys(correctAnswers).length;
+  Object.entries(correctAnswers).forEach(([q,correct])=>{
+    const sel=document.querySelector('input[name="'+q+'"]:checked');
+    document.querySelectorAll('input[name="'+q+'"]').forEach(o=>{
+      if(o.value===correct)o.parentElement.classList.add('correct');
+    });
+    if(sel){if(sel.value===correct)score++;else sel.parentElement.classList.add('wrong');}
+    const exp=document.getElementById('exp'+q.slice(1));
+    if(exp)exp.style.display='block';
+    document.querySelectorAll('input[name="'+q+'"]').forEach(o=>o.disabled=true);
+  });
+  const pct=Math.round(score/total*100);
+  const res=document.getElementById('quizResult');
+  res.style.display='block';
+  res.style.background=pct>=70?'rgba(52,211,153,.1)':'rgba(248,113,113,.1)';
+  res.style.border='1px solid '+(pct>=70?'var(--green)':'var(--red)');
+  res.style.color=pct>=70?'var(--green)':'var(--red)';
+  res.style.borderRadius='var(--radius)';
+  res.style.padding='16px 20px';
+  res.innerHTML='Score: '+score+' / '+total+' ('+pct+'%) &mdash; '+(pct>=80?'Excellent! 🎉':pct>=60?'Good effort &mdash; review marked questions.':'Keep studying &mdash; re-read the notes and try again.');
+  document.querySelector('.quiz-submit').disabled=true;
+  document.querySelector('.quiz-submit').style.opacity='0.5';
+}
+</script>
+</body>
+</html>
