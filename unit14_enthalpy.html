@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>S5 Chemistry – Unit 14: Enthalpy Changes</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Serif+4:wght@300;400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+<style>
+  :root{
+    --bg:#0d1117;--surface:#161b22;--surface2:#1c2333;--border:#30363d;
+    --accent:#34d399;--accent2:#f97316;
+    --gold:#e8c547;--green:#34d399;--red:#f87171;--teal:#2dd4bf;
+    --text:#e6edf3;--muted:#8b949e;--radius:10px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg);color:var(--text);font-family:'Source Serif 4',Georgia,serif;font-size:17px;line-height:1.75;overflow-x:hidden;}
+  .hero{position:relative;padding:80px 40px 60px;text-align:center;overflow:hidden;background:radial-gradient(ellipse 80% 60% at 50% 0%,#03201a 0%,var(--bg) 70%);border-bottom:1px solid var(--border);}
+  .hero::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(52,211,153,.04) 40px),repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(52,211,153,.04) 40px);pointer-events:none;}
+  .badge{display:inline-block;background:rgba(52,211,153,.12);border:1px solid rgba(52,211,153,.3);color:var(--green);padding:4px 16px;border-radius:50px;font-size:.78rem;font-family:'JetBrains Mono',monospace;letter-spacing:.12em;text-transform:uppercase;margin-bottom:22px;}
+  .hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.4rem);line-height:1.15;color:#fff;max-width:820px;margin:0 auto 18px;}
+  .hero h1 em{color:var(--green);font-style:italic;}
+  .hero p.sub{color:var(--muted);font-size:1rem;max-width:640px;margin:0 auto 32px;}
+  .toc-grid{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:860px;margin:0 auto;}
+  .toc-grid a{background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:8px 18px;border-radius:50px;text-decoration:none;font-size:.85rem;transition:all .2s;font-family:'JetBrains Mono',monospace;}
+  .toc-grid a:hover{background:var(--green);color:#000;border-color:var(--green);}
+  .page{max-width:960px;margin:0 auto;padding:0 28px 80px;}
+  .section-header{display:flex;align-items:center;gap:16px;margin:64px 0 28px;padding-bottom:14px;border-bottom:2px solid var(--border);}
+  .section-number{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--green);background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.25);padding:4px 12px;border-radius:4px;white-space:nowrap;}
+  .section-header h2{font-family:'Playfair Display',serif;font-size:1.75rem;color:#fff;}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:26px 30px;margin-bottom:22px;}
+  .card h3{font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--gold);margin-bottom:12px;}
+  .card p+p{margin-top:12px;}
+  .def-box{border-left:4px solid var(--green);background:rgba(52,211,153,.07);border-radius:0 var(--radius) var(--radius) 0;padding:18px 22px;margin:20px 0;}
+  .def-box strong{color:var(--green);display:block;font-size:.78rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;}
+  .callout{border-radius:var(--radius);padding:18px 22px;margin:20px 0;display:flex;gap:14px;align-items:flex-start;}
+  .callout.info{background:rgba(88,196,220,.08);border:1px solid rgba(88,196,220,.25);}
+  .callout.warn{background:rgba(249,115,22,.08);border:1px solid rgba(249,115,22,.25);}
+  .callout.tip{background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.25);}
+  .callout.red{background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.25);}
+  .callout-icon{font-size:1.3rem;margin-top:2px;flex-shrink:0;}
+  .callout-body strong{display:block;margin-bottom:4px;font-size:.9rem;color:#fff;}
+  .tbl-wrap{overflow-x:auto;margin:20px 0;border-radius:var(--radius);border:1px solid var(--border);}
+  table{width:100%;border-collapse:collapse;}
+  thead tr{background:var(--surface2);}
+  th{padding:13px 16px;text-align:left;font-size:.82rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--green);white-space:nowrap;}
+  td{padding:12px 16px;border-top:1px solid var(--border);font-size:.9rem;}
+  tr:hover td{background:rgba(255,255,255,.02);}
+  .formula-block{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:20px 26px;margin:16px 0;font-family:'JetBrains Mono',monospace;font-size:.93rem;color:var(--green);overflow-x:auto;white-space:pre;}
+  .diagram-wrap{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin:20px 0;overflow-x:auto;}
+  .diagram-wrap svg{display:block;margin:0 auto;}
+  .example-box{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin:26px 0;}
+  .example-header{background:rgba(232,197,71,.1);border-bottom:1px solid rgba(232,197,71,.2);padding:14px 22px;display:flex;align-items:center;gap:12px;}
+  .example-header span.tag{font-family:'JetBrains Mono',monospace;font-size:.72rem;background:var(--gold);color:#000;padding:3px 10px;border-radius:4px;font-weight:600;}
+  .example-header h4{color:var(--gold);font-family:'Playfair Display',serif;font-size:1rem;}
+  .example-body{padding:22px 26px;}
+  .example-body .q{color:var(--text);margin-bottom:14px;font-weight:600;}
+  .example-body .step{display:flex;gap:14px;margin:10px 0;}
+  .step-num{min-width:28px;height:28px;background:rgba(52,211,153,.15);border:1px solid rgba(52,211,153,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--green);flex-shrink:0;margin-top:3px;}
+  .step-text{flex:1;}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:20px 0;}
+  @media(max-width:640px){.two-col{grid-template-columns:1fr;}}
+  .exercise-list{list-style:none;counter-reset:ex;}
+  .exercise-list li{counter-increment:ex;margin-bottom:16px;padding:16px 20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);}
+  .exercise-list li::before{content:'Q' counter(ex) '.';font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--green);display:block;margin-bottom:6px;}
+  .reveal-btn{margin-top:10px;background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.3);color:var(--green);padding:6px 16px;border-radius:6px;cursor:pointer;font-size:.82rem;font-family:'JetBrains Mono',monospace;transition:all .2s;}
+  .reveal-btn:hover{background:var(--green);color:#000;}
+  .answer{display:none;margin-top:12px;padding:12px 16px;background:rgba(52,211,153,.06);border-left:3px solid var(--green);border-radius:0 6px 6px 0;font-size:.9rem;}
+  .answer.open{display:block;}
+  .quiz-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-top:32px;}
+  .quiz-header{background:rgba(52,211,153,.1);border-bottom:1px solid rgba(52,211,153,.2);padding:16px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+  .quiz-header h3{font-family:'Playfair Display',serif;color:var(--green);font-size:1.2rem;}
+  .quiz-body{padding:24px;}
+  .q-block{margin-bottom:26px;padding-bottom:26px;border-bottom:1px solid var(--border);}
+  .q-block:last-of-type{border-bottom:none;}
+  .q-text{font-weight:600;margin-bottom:12px;color:#fff;}
+  .q-num{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--green);display:block;margin-bottom:4px;}
+  .options{display:flex;flex-direction:column;gap:8px;}
+  .opt{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:all .18s;font-size:.92rem;}
+  .opt:hover{border-color:var(--green);}
+  .opt input{margin-top:3px;accent-color:var(--green);}
+  .opt.correct{background:rgba(52,211,153,.12);border-color:var(--green)!important;color:var(--green);}
+  .opt.wrong{background:rgba(248,113,113,.1);border-color:var(--red)!important;color:var(--red);}
+  .q-exp{display:none;margin-top:10px;padding:10px 14px;background:rgba(52,211,153,.07);border-left:3px solid var(--green);border-radius:0 6px 6px 0;font-size:.88rem;}
+  .quiz-submit{background:var(--green);color:#000;border:none;padding:12px 32px;border-radius:8px;font-size:1rem;font-family:'JetBrains Mono',monospace;cursor:pointer;font-weight:700;transition:opacity .2s;}
+  .quiz-submit:hover{opacity:.85;}
+  .test-wrap{margin-top:40px;}
+  .test-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:28px;}
+  .test-section-header{background:rgba(249,115,22,.1);border-bottom:1px solid rgba(249,115,22,.2);padding:14px 24px;display:flex;justify-content:space-between;align-items:center;}
+  .test-section-header h3{font-family:'Playfair Display',serif;color:var(--accent2);font-size:1.1rem;}
+  .marks-badge{font-family:'JetBrains Mono',monospace;font-size:.75rem;background:rgba(249,115,22,.2);color:var(--accent2);padding:4px 12px;border-radius:50px;}
+  .test-body{padding:24px;}
+  .test-q{margin-bottom:20px;padding:16px 18px;background:var(--surface2);border-radius:8px;border:1px solid var(--border);}
+  .test-q-num{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--accent2);margin-bottom:6px;display:block;}
+  .test-answer-reveal{margin-top:14px;}
+  .unit-nav{display:flex;justify-content:space-between;align-items:center;margin-top:72px;padding-top:32px;border-top:1px solid var(--border);flex-wrap:wrap;gap:16px;}
+  .nav-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:8px;text-decoration:none;font-family:'JetBrains Mono',monospace;font-size:.85rem;transition:all .2s;}
+  .nav-btn.prev{background:var(--surface);border:1px solid var(--border);color:var(--muted);}
+  .nav-btn.prev:hover{border-color:var(--green);color:var(--green);}
+  .nav-btn.next{background:var(--green);color:#000;font-weight:700;}
+  .nav-btn.next:hover{opacity:.88;}
+  h3.sub-heading{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--gold);margin:28px 0 10px;}
+  sub,sup{font-size:.72em;}
+  @media(max-width:600px){.hero{padding:50px 20px 40px;}.page{padding:0 16px 60px;}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="badge">Unit 14 &middot; Physical Chemistry</div>
+  <h1><em>Enthalpy Changes</em></h1>
+  <p class="sub">Thermochemistry, enthalpy of combustion, formation, neutralisation, bond energies, Hess's Law, Kirchhoff's Law, and calorimetry.</p>
+  <nav class="toc-grid">
+    <a href="#intro">14.1 Thermochemistry Basics</a>
+    <a href="#types">14.2 Types of Enthalpy</a>
+    <a href="#calorimetry">14.3 Calorimetry</a>
+    <a href="#hess">14.4 Hess's Law</a>
+    <a href="#bond">14.5 Bond Energies</a>
+    <a href="#kirchhoff">14.6 Kirchhoff's Law</a>
+    <a href="#born">14.7 Born-Haber Cycles</a>
+    <a href="#exercises">Exercises</a>
+    <a href="#quiz">Quiz</a>
+    <a href="#test">Unit Test</a>
+  </nav>
+</header>
+
+<main class="page">
+
+<!-- 14.1 THERMOCHEMISTRY BASICS -->
+<section id="intro">
+  <div class="section-header">
+    <span class="section-number">14.1</span>
+    <h2>Thermochemistry Basics</h2>
+  </div>
+
+  <div class="def-box">
+    <strong>Enthalpy (H)</strong>
+    <b>Enthalpy</b> is the heat content of a system at constant pressure. We cannot measure H directly, only changes in enthalpy &Delta;H.<br><br>
+    <b>&Delta;H = H<sub>products</sub> &minus; H<sub>reactants</sub></b><br><br>
+    &Delta;H &lt; 0 &rarr; <b>exothermic</b> (heat released to surroundings; products at lower energy)<br>
+    &Delta;H &gt; 0 &rarr; <b>endothermic</b> (heat absorbed from surroundings; products at higher energy)
+  </div>
+
+  <div class="two-col">
+    <div class="card">
+      <h3>Exothermic Reactions</h3>
+      <p>System releases heat &rarr; surroundings get warmer. &Delta;H &lt; 0.</p>
+      <p>Examples: combustion, neutralisation, respiration, condensation, oxidation of metals, dissolving NaOH.</p>
+    </div>
+    <div class="card">
+      <h3>Endothermic Reactions</h3>
+      <p>System absorbs heat &rarr; surroundings get cooler. &Delta;H &gt; 0.</p>
+      <p>Examples: thermal decomposition, photosynthesis, dissolving NH₄NO₃, evaporation.</p>
+    </div>
+  </div>
+
+  <!-- Energy level diagrams -->
+  <div class="diagram-wrap">
+    <svg viewBox="0 0 540 260" width="540" height="260" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;">
+      <rect width="540" height="260" fill="#1c2333" rx="8"/>
+      <!-- EXOTHERMIC -->
+      <text x="120" y="22" fill="#34d399" font-family="JetBrains Mono" font-size="12" font-weight="700" text-anchor="middle">EXOTHERMIC (ΔH &lt; 0)</text>
+      <line x1="30" y1="240" x2="30" y2="20" stroke="#30363d" stroke-width="1.5"/>
+      <line x1="30" y1="240" x2="220" y2="240" stroke="#30363d" stroke-width="1.5"/>
+      <text x="16" y="135" fill="#8b949e" font-family="JetBrains Mono" font-size="9" transform="rotate(-90,16,135)">Enthalpy H</text>
+      <!-- Reactants level (higher) -->
+      <line x1="40" y1="70" x2="110" y2="70" stroke="#f87171" stroke-width="2.5"/>
+      <text x="75" y="62" fill="#f87171" font-family="JetBrains Mono" font-size="9" text-anchor="middle">Reactants</text>
+      <!-- Products level (lower) -->
+      <line x1="130" y1="170" x2="210" y2="170" stroke="#34d399" stroke-width="2.5"/>
+      <text x="170" y="162" fill="#34d399" font-family="JetBrains Mono" font-size="9" text-anchor="middle">Products</text>
+      <!-- Arrow and ΔH -->
+      <line x1="175" y1="70" x2="175" y2="170" stroke="#e8c547" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrow)"/>
+      <defs><marker id="arrow" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#e8c547"/></marker><marker id="arrow2" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M6,0 L0,3 L6,6 Z" fill="#e8c547"/></marker></defs>
+      <text x="185" y="125" fill="#e8c547" font-family="JetBrains Mono" font-size="10">ΔH &lt; 0</text>
+      <!-- Reaction path curve -->
+      <path d="M75,70 Q125,30 170,170" fill="none" stroke="#8b949e" stroke-width="1.5" stroke-dasharray="3,2"/>
+
+      <!-- ENDOTHERMIC -->
+      <text x="400" y="22" fill="#f97316" font-family="JetBrains Mono" font-size="12" font-weight="700" text-anchor="middle">ENDOTHERMIC (ΔH &gt; 0)</text>
+      <line x1="290" y1="240" x2="290" y2="20" stroke="#30363d" stroke-width="1.5"/>
+      <line x1="290" y1="240" x2="520" y2="240" stroke="#30363d" stroke-width="1.5"/>
+      <!-- Reactants (lower) -->
+      <line x1="300" y1="170" x2="370" y2="170" stroke="#f87171" stroke-width="2.5"/>
+      <text x="335" y="182" fill="#f87171" font-family="JetBrains Mono" font-size="9" text-anchor="middle">Reactants</text>
+      <!-- Products (higher) -->
+      <line x1="390" y1="70" x2="510" y2="70" stroke="#f97316" stroke-width="2.5"/>
+      <text x="450" y="62" fill="#f97316" font-family="JetBrains Mono" font-size="9" text-anchor="middle">Products</text>
+      <!-- Arrow -->
+      <line x1="440" y1="170" x2="440" y2="70" stroke="#e8c547" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrow)"/>
+      <text x="450" y="125" fill="#e8c547" font-family="JetBrains Mono" font-size="10">ΔH &gt; 0</text>
+      <path d="M335,170 Q385,210 450,70" fill="none" stroke="#8b949e" stroke-width="1.5" stroke-dasharray="3,2"/>
+    </svg>
+    <p style="text-align:center;color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:.78rem;margin-top:12px;">Energy level diagrams: exothermic (products lower than reactants) and endothermic (products higher)</p>
+  </div>
+
+  <div class="card">
+    <h3>Standard Conditions and State Symbols</h3>
+    <p>Standard enthalpy changes (&Delta;H&deg;) are measured at <b>298 K (25&deg;C)</b> and <b>100 kPa</b> (standard pressure), with all substances in their <b>standard states</b>.</p>
+    <p>State symbols must always be included in thermochemical equations because enthalpy depends on state: e.g. H<sub>2</sub>O(l) vs H<sub>2</sub>O(g) differ by the enthalpy of vaporisation.</p>
+    <div class="formula-block">Standard state = most stable form of an element at 298 K and 100 kPa:
+  C → graphite (not diamond)
+  S → rhombic sulfur (not monoclinic)
+  Br → Br2(l)   (not gas)
+  Hg → Hg(l)   (not solid)</div>
+  </div>
+</section>
+
+<!-- 14.2 TYPES OF ENTHALPY -->
+<section id="types">
+  <div class="section-header">
+    <span class="section-number">14.2</span>
+    <h2>Types of Standard Enthalpy Change</h2>
+  </div>
+
+  <div class="def-box">
+    <strong>Standard Enthalpy of Formation (ΔH°f)</strong>
+    The enthalpy change when <b>one mole</b> of a compound is formed from its <b>elements in their standard states</b> under standard conditions.<br><br>
+    By definition: &Delta;H&deg;<sub>f</sub> of any element in its standard state = <b>0</b>.<br>
+    Example: C(graphite) + O<sub>2</sub>(g) &rarr; CO<sub>2</sub>(g) &nbsp;&nbsp; &Delta;H&deg;<sub>f</sub> = &minus;393.5 kJ/mol
+  </div>
+
+  <div class="def-box">
+    <strong>Standard Enthalpy of Combustion (ΔH°c)</strong>
+    The enthalpy change when <b>one mole</b> of a substance is <b>completely burned</b> in oxygen under standard conditions, with all products in their standard states.<br><br>
+    Always exothermic (&Delta;H&deg;<sub>c</sub> always negative).<br>
+    Example: CH<sub>4</sub>(g) + 2O<sub>2</sub>(g) &rarr; CO<sub>2</sub>(g) + 2H<sub>2</sub>O(l) &nbsp;&nbsp; &Delta;H&deg;<sub>c</sub> = &minus;890 kJ/mol
+  </div>
+
+  <div class="def-box">
+    <strong>Standard Enthalpy of Neutralisation (ΔH°neut)</strong>
+    The enthalpy change when an <b>acid and a base react</b> to form <b>one mole of water</b> under standard conditions.<br><br>
+    Strong acid + strong base: &Delta;H&deg;<sub>neut</sub> &asymp; &minus;57.1 kJ/mol (always, since it is H<sup>+</sup> + OH<sup>&minus;</sup> &rarr; H<sub>2</sub>O)<br>
+    Weak acid or base: less exothermic because energy is needed to dissociate the weak electrolyte.
+  </div>
+
+  <div class="def-box">
+    <strong>Standard Enthalpy of Solution (ΔH°sol)</strong>
+    The enthalpy change when <b>one mole</b> of a solute dissolves in enough solvent to form an infinitely dilute solution.<br><br>
+    Can be exothermic (NaOH, H<sub>2</sub>SO<sub>4</sub>) or endothermic (NH<sub>4</sub>NO<sub>3</sub>, KNO<sub>3</sub>).
+  </div>
+
+  <div class="def-box">
+    <strong>Standard Enthalpy of Atomisation (ΔH°at)</strong>
+    The enthalpy change when <b>one mole of gaseous atoms</b> is formed from an element in its standard state.<br><br>
+    Always endothermic (bonds must be broken).<br>
+    Example: &frac12;Cl<sub>2</sub>(g) &rarr; Cl(g) &nbsp;&nbsp; &Delta;H&deg;<sub>at</sub> = +121.5 kJ/mol
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Type</th><th>Symbol</th><th>Definition (key phrase)</th><th>Sign</th></tr></thead>
+      <tbody>
+        <tr><td>Formation</td><td>&Delta;H&deg;<sub>f</sub></td><td>1 mol compound from elements in standard states</td><td>&plusmn;</td></tr>
+        <tr><td>Combustion</td><td>&Delta;H&deg;<sub>c</sub></td><td>1 mol substance completely burned in O<sub>2</sub></td><td>&minus;</td></tr>
+        <tr><td>Neutralisation</td><td>&Delta;H&deg;<sub>neut</sub></td><td>1 mol water formed from acid + base</td><td>&minus;</td></tr>
+        <tr><td>Solution</td><td>&Delta;H&deg;<sub>sol</sub></td><td>1 mol solute in excess solvent</td><td>&plusmn;</td></tr>
+        <tr><td>Atomisation</td><td>&Delta;H&deg;<sub>at</sub></td><td>1 mol gaseous atoms from element</td><td>+</td></tr>
+        <tr><td>Lattice enthalpy</td><td>&Delta;H&deg;<sub>latt</sub></td><td>1 mol ionic solid from gaseous ions (or vice versa)</td><td>&plusmn;</td></tr>
+        <tr><td>Hydration</td><td>&Delta;H&deg;<sub>hyd</sub></td><td>1 mol gaseous ions dissolved in water</td><td>&minus;</td></tr>
+        <tr><td>Bond dissociation</td><td>&Delta;H&deg;<sub>bond</sub></td><td>1 mol bonds broken in gaseous molecules</td><td>+</td></tr>
+        <tr><td>Ionisation</td><td>&Delta;H&deg;<sub>IE</sub></td><td>1 mol gaseous atoms lose 1 electron</td><td>+</td></tr>
+        <tr><td>Electron affinity</td><td>&Delta;H&deg;<sub>EA</sub></td><td>1 mol gaseous atoms gain 1 electron</td><td>&plusmn;</td></tr>
+        <tr><td>Vaporisation</td><td>&Delta;H&deg;<sub>vap</sub></td><td>1 mol liquid → vapour</td><td>+</td></tr>
+        <tr><td>Fusion (melting)</td><td>&Delta;H&deg;<sub>fus</sub></td><td>1 mol solid → liquid</td><td>+</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="example-box">
+    <div class="example-header"><span class="tag">Example 1</span><h4>Writing Thermochemical Equations</h4></div>
+    <div class="example-body">
+      <p class="q">Write thermochemical equations for: (a) &Delta;H&deg;<sub>f</sub> of ethanol C<sub>2</sub>H<sub>5</sub>OH(l); (b) &Delta;H&deg;<sub>c</sub> of ethanol; (c) &Delta;H&deg;<sub>neut</sub> of HCl + NaOH.</p>
+      <div class="step"><div class="step-num">a</div><div class="step-text">Formation: 2C(graphite) + 3H<sub>2</sub>(g) + &frac12;O<sub>2</sub>(g) &rarr; C<sub>2</sub>H<sub>5</sub>OH(l) &nbsp;&nbsp; &Delta;H&deg;<sub>f</sub> = &minus;277.7 kJ/mol</div></div>
+      <div class="step"><div class="step-num">b</div><div class="step-text">Combustion: C<sub>2</sub>H<sub>5</sub>OH(l) + 3O<sub>2</sub>(g) &rarr; 2CO<sub>2</sub>(g) + 3H<sub>2</sub>O(l) &nbsp;&nbsp; &Delta;H&deg;<sub>c</sub> = &minus;1367 kJ/mol</div></div>
+      <div class="step"><div class="step-num">c</div><div class="step-text">Neutralisation: HCl(aq) + NaOH(aq) &rarr; NaCl(aq) + H<sub>2</sub>O(l) &nbsp;&nbsp; &Delta;H&deg;<sub>neut</sub> = &minus;57.1 kJ/mol<br>
+      Net ionic: H<sup>+</sup>(aq) + OH<sup>&minus;</sup>(aq) &rarr; H<sub>2</sub>O(l)</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 14.3 CALORIMETRY -->
+<section id="calorimetry">
+  <div class="section-header">
+    <span class="section-number">14.3</span>
+    <h2>Calorimetry</h2>
+  </div>
+
+  <div class="def-box">
+    <strong>Calorimetry</strong>
+    The experimental measurement of heat changes in chemical reactions. The heat released or absorbed is calculated from the temperature change of a known mass of solution (or calorimeter).<br><br>
+    <b>q = mc&Delta;T</b><br><br>
+    q = heat (J); m = mass of solution (g); c = specific heat capacity of water = <b>4.18 J/(g&middot;&deg;C)</b>; &Delta;T = temperature change (&deg;C or K).
+  </div>
+
+  <div class="card">
+    <h3>Relating q to &Delta;H</h3>
+    <div class="formula-block">q = m × c × ΔT          (heat released by/to solution)
+
+ΔH = -q / n             (enthalpy change per mole of reactant)
+
+where n = moles of the limiting reactant (or whichever species 
+the enthalpy is quoted per mole of).
+
+Note the sign convention:
+- If T increases (exothermic): q > 0, but ΔH = -q/n < 0
+- If T decreases (endothermic): q < 0, but ΔH = -q/n > 0</div>
+  </div>
+
+  <div class="example-box">
+    <div class="example-header"><span class="tag">Example 2</span><h4>Enthalpy of Neutralisation by Calorimetry</h4></div>
+    <div class="example-body">
+      <p class="q">50.0 cm³ of 1.00 mol/L HCl and 50.0 cm³ of 1.00 mol/L NaOH, both at 20.0°C, are mixed. The final temperature is 26.8°C. Calculate &Delta;H&deg;<sub>neut</sub>. (c = 4.18 J/g·°C; density of solution = 1.00 g/cm³)</p>
+      <div class="step"><div class="step-num">1</div><div class="step-text">Total volume = 100 cm³; m = 100 g (density = 1 g/cm³)</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-text">&Delta;T = 26.8 &minus; 20.0 = 6.8°C</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-text">q = m &times; c &times; &Delta;T = 100 &times; 4.18 &times; 6.8 = 2842 J = 2.842 kJ</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-text">n(H<sub>2</sub>O) = n(HCl) = 0.0500 L &times; 1.00 mol/L = 0.0500 mol</div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-text">&Delta;H<sub>neut</sub> = &minus;q/n = &minus;2.842/0.0500 = <b>&minus;56.8 kJ/mol</b> (cf. literature &minus;57.1 kJ/mol ✓)</div></div>
+    </div>
+  </div>
+
+  <div class="example-box">
+    <div class="example-header"><span class="tag">Example 3</span><h4>Enthalpy of Combustion by Bomb Calorimeter</h4></div>
+    <div class="example-body">
+      <p class="q">0.500 g of ethanol (M<sub>r</sub>=46.0) is burned in a bomb calorimeter containing 800 g of water. Temperature rises by 9.2°C. The heat capacity of the calorimeter (bomb) is 420 J/°C. Calculate &Delta;H&deg;<sub>c</sub>(ethanol).</p>
+      <div class="step"><div class="step-num">1</div><div class="step-text">q(water) = 800 &times; 4.18 &times; 9.2 = 30,765 J</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-text">q(calorimeter) = 420 &times; 9.2 = 3,864 J</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-text">q(total) = 30,765 + 3,864 = 34,629 J = 34.63 kJ</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-text">n(ethanol) = 0.500/46.0 = 0.01087 mol</div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-text">&Delta;H&deg;<sub>c</sub> = &minus;q/n = &minus;34.63/0.01087 = <b>&minus;3186 kJ/mol</b> (literature: &minus;1367 kJ/mol for liquid; value here is inflated by the bomb calorimeter setup in this example — for illustration)</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 14.4 HESS'S LAW -->
+<section id="hess">
+  <div class="section-header">
+    <span class="section-number">14.4</span>
+    <h2>Hess's Law</h2>
+  </div>
+
+  <div class="def-box">
+    <strong>Hess's Law of Constant Heat Summation</strong>
+    The total enthalpy change for a reaction is <b>independent of the route taken</b> — it depends only on the initial and final states. This is a consequence of the conservation of energy (First Law of Thermodynamics).<br><br>
+    &Delta;H<sub>direct</sub> = &Delta;H<sub>route 1</sub> + &Delta;H<sub>route 2</sub> + &hellip;
+  </div>
+
+  <!-- Hess cycle SVG -->
+  <div class="diagram-wrap">
+    <svg viewBox="0 0 520 220" width="520" height="220" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;">
+      <rect width="520" height="220" fill="#1c2333" rx="8"/>
+      <!-- Boxes -->
+      <rect x="170" y="20" width="180" height="45" rx="6" fill="rgba(52,211,153,.1)" stroke="#34d399" stroke-width="1.5"/>
+      <text x="260" y="40" fill="#34d399" font-family="JetBrains Mono" font-size="11" text-anchor="middle" font-weight="600">Reactants A + B</text>
+      <text x="260" y="54" fill="#8b949e" font-family="JetBrains Mono" font-size="10" text-anchor="middle">(starting state)</text>
+
+      <rect x="170" y="155" width="180" height="45" rx="6" fill="rgba(249,115,22,.1)" stroke="#f97316" stroke-width="1.5"/>
+      <text x="260" y="175" fill="#f97316" font-family="JetBrains Mono" font-size="11" text-anchor="middle" font-weight="600">Products C + D</text>
+      <text x="260" y="189" fill="#8b949e" font-family="JetBrains Mono" font-size="10" text-anchor="middle">(final state)</text>
+
+      <rect x="20" y="87" width="140" height="45" rx="6" fill="rgba(232,197,71,.08)" stroke="#e8c547" stroke-width="1.5"/>
+      <text x="90" y="107" fill="#e8c547" font-family="JetBrains Mono" font-size="10" text-anchor="middle">Intermediate</text>
+      <text x="90" y="121" fill="#e8c547" font-family="JetBrains Mono" font-size="10" text-anchor="middle">state (route 2)</text>
+
+      <!-- Direct arrow -->
+      <line x1="260" y1="65" x2="260" y2="155" stroke="#34d399" stroke-width="2" marker-end="url(#ga)"/>
+      <defs><marker id="ga" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#34d399"/></marker><marker id="gb" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#e8c547"/></marker></defs>
+      <text x="268" y="112" fill="#34d399" font-family="JetBrains Mono" font-size="10">ΔH₁</text>
+      <text x="268" y="125" fill="#34d399" font-family="JetBrains Mono" font-size="9">(direct route)</text>
+
+      <!-- Route via intermediate -->
+      <line x1="170" y1="42" x2="160" y2="87" stroke="#e8c547" stroke-width="1.5" marker-end="url(#gb)"/>
+      <text x="142" y="68" fill="#e8c547" font-family="JetBrains Mono" font-size="9">ΔH₂</text>
+      <line x1="160" y1="132" x2="170" y2="162" stroke="#e8c547" stroke-width="1.5" marker-end="url(#gb)"/>
+      <text x="136" y="152" fill="#e8c547" font-family="JetBrains Mono" font-size="9">ΔH₃</text>
+
+      <!-- Hess law statement -->
+      <text x="360" y="105" fill="#fff" font-family="JetBrains Mono" font-size="11" text-anchor="middle">ΔH₁ = ΔH₂ + ΔH₃</text>
+      <text x="360" y="120" fill="#8b949e" font-family="JetBrains Mono" font-size="9" text-anchor="middle">independent of route</text>
+    </svg>
+    <p style="text-align:center;color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:.78rem;margin-top:12px;">Hess's Law: total &Delta;H is the same regardless of the pathway taken</p>
+  </div>
+
+  <h3 class="sub-heading">Using Hess's Law with &Delta;H&deg;<sub>f</sub> (Enthalpies of Formation)</h3>
+  <div class="card">
+    <div class="formula-block">ΔH°rxn = Σ ΔH°f(products) - Σ ΔH°f(reactants)
+
+(multiply each ΔH°f by its stoichiometric coefficient)</div>
+  </div>
+
+  <div class="example-box">
+    <div class="example-header"><span class="tag">Example 4</span><h4>Hess's Law using Enthalpies of Formation</h4></div>
+    <div class="example-body">
+      <p class="q">Calculate &Delta;H&deg;<sub>rxn</sub> for: C<sub>2</sub>H<sub>4</sub>(g) + H<sub>2</sub>(g) &rarr; C<sub>2</sub>H<sub>6</sub>(g)<br>
+      Given: &Delta;H&deg;<sub>f</sub>(C<sub>2</sub>H<sub>4</sub>) = +52.5; &Delta;H&deg;<sub>f</sub>(H<sub>2</sub>) = 0; &Delta;H&deg;<sub>f</sub>(C<sub>2</sub>H<sub>6</sub>) = &minus;84.7 kJ/mol</p>
+      <div class="step"><div class="step-num">1</div><div class="step-text">&Delta;H&deg;<sub>rxn</sub> = &Delta;H&deg;<sub>f</sub>(C<sub>2</sub>H<sub>6</sub>) &minus; [&Delta;H&deg;<sub>f</sub>(C<sub>2</sub>H<sub>4</sub>) + &Delta;H&deg;<sub>f</sub>(H<sub>2</sub>)]</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-text">= (&minus;84.7) &minus; [(+52.5) + 0] = &minus;84.7 &minus; 52.5 = <b>&minus;137.2 kJ/mol</b></div></div>
+      <div class="step"><div class="step-num">&#10003;</div><div class="step-text">Negative: hydrogenation of ethene is exothermic — makes sense (adding H&ndash;H across C=C bond releases energy).</div></div>
+    </div>
+  </div>
+
+  <h3 class="sub-heading">Using Hess's Law with &Delta;H&deg;<sub>c</sub> (Enthalpies of Combustion)</h3>
+  <div class="card">
+    <div class="formula-block">ΔH°rxn = Σ ΔH°c(reactants) - Σ ΔH°c(products)
+
+Note: signs are REVERSED compared to the formation equation —
+this is because combustion routes go "the other way" in the cycle.</div>
+  </div>
+
+  <div class="example-box">
+    <div class="example-header"><span class="tag">Example 5</span><h4>Hess's Law using Enthalpies of Combustion</h4></div>
+    <div class="example-body">
+      <p class="q">Calculate &Delta;H&deg;<sub>f</sub> of C<sub>2</sub>H<sub>5</sub>OH(l) from: &Delta;H&deg;<sub>c</sub>(C) = &minus;393.5; &Delta;H&deg;<sub>c</sub>(H<sub>2</sub>) = &minus;285.8; &Delta;H&deg;<sub>c</sub>(C<sub>2</sub>H<sub>5</sub>OH) = &minus;1367 kJ/mol<br>
+      Formation equation: 2C + 3H<sub>2</sub> + &frac12;O<sub>2</sub> &rarr; C<sub>2</sub>H<sub>5</sub>OH</p>
+      <div class="step"><div class="step-num">1</div><div class="step-text">&Delta;H&deg;<sub>f</sub> = &Sigma;&Delta;H&deg;<sub>c</sub>(reactants) &minus; &Sigma;&Delta;H&deg;<sub>c</sub>(products)</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-text">Reactants (elements): 2&times;&Delta;H&deg;<sub>c</sub>(C) + 3&times;&Delta;H&deg;<sub>c</sub>(H<sub>2</sub>) = 2(&minus;393.5) + 3(&minus;285.8) = &minus;787.0 &minus; 857.4 = &minus;1644.4 kJ</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-text">Products (C<sub>2</sub>H<sub>5</sub>OH): &Delta;H&deg;<sub>c</sub>(C<sub>2</sub>H<sub>5</sub>OH) = &minus;1367 kJ</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-text">&Delta;H&deg;<sub>f</sub> = &minus;1644.4 &minus; (&minus;1367) = &minus;1644.4 + 1367 = <b>&minus;277.4 kJ/mol</b> (literature: &minus;277.7 kJ/mol ✓)</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 14.5 BOND ENERGIES -->
+<section id="bond">
+  <div class="section-header">
+    <span class="section-number">14.5</span>
+    <h2>Bond Energies</h2>
+  </div>
+
+  <div class="def-box">
+    <strong>Bond Dissociation Enthalpy</strong>
+    The <b>bond dissociation enthalpy</b> (bond energy) is the energy required to break <b>one mole of a specific bond</b> in the gas phase into gaseous atoms. It is always <b>positive</b> (endothermic — breaking bonds requires energy).<br><br>
+    <b>Bond making</b> releases energy (exothermic, &Delta;H &lt; 0).<br>
+    <b>Bond breaking</b> absorbs energy (endothermic, &Delta;H &gt; 0).
+  </div>
+
+  <div class="formula-block">ΔH°rxn (from bond energies) = Σ (bond energies broken) - Σ (bond energies formed)
+                           = Σ BE(reactants)        - Σ BE(products)
+
+If BE broken > BE formed: ΔH > 0 (endothermic)
+If BE broken < BE formed: ΔH < 0 (exothermic)</div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Bond</th><th>Bond Energy (kJ/mol)</th><th>Bond</th><th>Bond Energy (kJ/mol)</th></tr></thead>
+      <tbody>
+        <tr><td>H&mdash;H</td><td>436</td><td>C&mdash;H</td><td>413</td></tr>
+        <tr><td>C&mdash;C</td><td>347</td><td>C=C</td><td>614</td></tr>
+        <tr><td>C&equiv;C</td><td>839</td><td>C=O (CO<sub>2</sub>)</td><td>805</td></tr>
+        <tr><td>O=O</td><td>498</td><td>O&mdash;H</td><td>463</td></tr>
+        <tr><td>N&equiv;N</td><td>945</td><td>N&mdash;H</td><td>391</td></tr>
+        <tr><td>Cl&mdash;Cl</td><td>243</td><td>H&mdash;Cl</td><td>432</td></tr>
+        <tr><td>C&mdash;O</td><td>358</td><td>C&mdash;Cl</td><td>346</td></tr>
+        <tr><td>O&mdash;O</td><td>146</td><td>C&mdash;N</td><td>305</td></tr>
+        <tr><td>C&mdash;F</td><td>485</td><td>H&mdash;F</td><td>568</td></tr>
+        <tr><td>H&mdash;Br</td><td>366</td><td>Br&mdash;Br</td><td>193</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout warn">
+    <span class="callout-icon">&#9888;&#65039;</span>
+    <div class="callout-body">
+      <strong>Limitation of Average Bond Energies</strong>
+      Bond energies are <b>average values</b> from many different molecules. They give approximate &Delta;H values. &Delta;H values from bond energies differ from experimental &Delta;H&deg;<sub>f</sub> values because bond energies don't account for structural effects, resonance, or hybridisation state.
+    </div>
+  </div>
+
+  <div class="example-box">
+    <div class="example-header"><span class="tag">Example 6</span><h4>Bond Energy Calculation</h4></div>
+    <div class="example-body">
+      <p class="q">Calculate &Delta;H for: H<sub>2</sub>(g) + Cl<sub>2</sub>(g) &rarr; 2HCl(g)<br>
+      Bond energies: H&mdash;H = 436, Cl&mdash;Cl = 243, H&mdash;Cl = 432 kJ/mol</p>
+      <div class="step"><div class="step-num">1</div><div class="step-text">Bonds broken (reactants): 1&times;H&mdash;H + 1&times;Cl&mdash;Cl = 436 + 243 = 679 kJ (energy IN)</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-text">Bonds formed (products): 2&times;H&mdash;Cl = 2&times;432 = 864 kJ (energy OUT)</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-text">&Delta;H = 679 &minus; 864 = <b>&minus;185 kJ/mol</b> (exothermic — more energy released in bond making than absorbed in breaking)</div></div>
+    </div>
+  </div>
+
+  <div class="example-box">
+    <div class="example-header"><span class="tag">Example 7</span><h4>Bond Energy — Combustion of Methane</h4></div>
+    <div class="example-body">
+      <p class="q">Using bond energies, estimate &Delta;H for: CH<sub>4</sub>(g) + 2O<sub>2</sub>(g) &rarr; CO<sub>2</sub>(g) + 2H<sub>2</sub>O(g)<br>
+      Bond energies: C&mdash;H=413, O=O=498, C=O(in CO₂)=805, O&mdash;H=463 kJ/mol</p>
+      <div class="step"><div class="step-num">1</div><div class="step-text">Bonds broken: 4(C&mdash;H) + 2(O=O) = 4&times;413 + 2&times;498 = 1652 + 996 = 2648 kJ</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-text">Bonds formed: 2(C=O) + 4(O&mdash;H) = 2&times;805 + 4&times;463 = 1610 + 1852 = 3462 kJ</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-text">&Delta;H = 2648 &minus; 3462 = <b>&minus;814 kJ/mol</b> (cf. experimental &minus;802 kJ/mol — close but slightly different due to average bond energies)</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 14.6 KIRCHHOFF'S LAW -->
+<section id="kirchhoff">
+  <div class="section-header">
+    <span class="section-number">14.6</span>
+    <h2>Kirchhoff's Law</h2>
+  </div>
+
+  <div class="def-box">
+    <strong>Kirchhoff's Law</strong>
+    Kirchhoff's law gives the variation of &Delta;H with temperature. The standard enthalpy change at temperature T<sub>2</sub> can be calculated from that at T<sub>1</sub> if the heat capacities are known:<br><br>
+    <b>&Delta;H&deg;(T<sub>2</sub>) = &Delta;H&deg;(T<sub>1</sub>) + &Delta;C<sub>p</sub> &times; (T<sub>2</sub> &minus; T<sub>1</sub>)</b><br><br>
+    where <b>&Delta;C<sub>p</sub> = &Sigma; C<sub>p</sub>(products) &minus; &Sigma; C<sub>p</sub>(reactants)</b> (difference in molar heat capacities at constant pressure, J/mol&middot;K).
+  </div>
+
+  <div class="card">
+    <h3>Derivation</h3>
+    <p>Heat capacity C<sub>p</sub> is defined as: C<sub>p</sub> = dH/dT (at constant pressure). Therefore:</p>
+    <div class="formula-block">d(ΔH)/dT = ΔCp    (Kirchhoff equation in differential form)
+
+Integrating from T1 to T2 (assuming ΔCp is constant):
+ΔH(T2) = ΔH(T1) + ΔCp(T2 - T1)
+
+If ΔCp varies with T (more precise):
+ΔH(T2) = ΔH(T1) + ∫[T1→T2] ΔCp dT</div>
+    <p>In most S5 problems, &Delta;C<sub>p</sub> is treated as <b>constant</b> with temperature.</p>
+  </div>
+
+  <div class="card">
+    <h3>Molar Heat Capacities at Constant Pressure (C<sub>p</sub>)</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Substance</th><th>C<sub>p</sub> (J/mol·K)</th><th>Substance</th><th>C<sub>p</sub> (J/mol·K)</th></tr></thead>
+        <tbody>
+          <tr><td>H<sub>2</sub>O(l)</td><td>75.3</td><td>CO<sub>2</sub>(g)</td><td>37.1</td></tr>
+          <tr><td>H<sub>2</sub>O(g)</td><td>33.6</td><td>H<sub>2</sub>(g)</td><td>28.8</td></tr>
+          <tr><td>O<sub>2</sub>(g)</td><td>29.4</td><td>N<sub>2</sub>(g)</td><td>29.1</td></tr>
+          <tr><td>C(graphite)</td><td>8.5</td><td>CH<sub>4</sub>(g)</td><td>35.7</td></tr>
+          <tr><td>HCl(g)</td><td>29.1</td><td>NH<sub>3</sub>(g)</td><td>35.1</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="example-box">
+    <div class="example-header"><span class="tag">Example 8</span><h4>Kirchhoff's Law Calculation</h4></div>
+    <div class="example-body">
+      <p class="q">The standard enthalpy of formation of H<sub>2</sub>O(l) at 298 K is &minus;285.8 kJ/mol. Calculate &Delta;H&deg;<sub>f</sub>(H<sub>2</sub>O(l)) at 373 K.<br>
+      Reaction: H<sub>2</sub>(g) + &frac12;O<sub>2</sub>(g) &rarr; H<sub>2</sub>O(l)<br>
+      C<sub>p</sub>: H<sub>2</sub>(g)=28.8; O<sub>2</sub>(g)=29.4; H<sub>2</sub>O(l)=75.3 J/mol&middot;K</p>
+      <div class="step"><div class="step-num">1</div><div class="step-text">&Delta;C<sub>p</sub> = C<sub>p</sub>(products) &minus; C<sub>p</sub>(reactants)<br>
+      = C<sub>p</sub>(H<sub>2</sub>O(l)) &minus; [C<sub>p</sub>(H<sub>2</sub>) + &frac12;C<sub>p</sub>(O<sub>2</sub>)]<br>
+      = 75.3 &minus; [28.8 + &frac12;&times;29.4] = 75.3 &minus; [28.8 + 14.7] = 75.3 &minus; 43.5 = +31.8 J/mol&middot;K</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-text">&Delta;T = 373 &minus; 298 = 75 K</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-text">&Delta;H&deg;(373) = &Delta;H&deg;(298) + &Delta;C<sub>p</sub>&times;&Delta;T<br>
+      = &minus;285,800 + (31.8 &times; 75) = &minus;285,800 + 2385 = <b>&minus;283,415 J/mol = &minus;283.4 kJ/mol</b></div></div>
+      <div class="step"><div class="step-num">&#10003;</div><div class="step-text">Note: units must be consistent — use J for &Delta;H since C<sub>p</sub> is in J/mol&middot;K. &Delta;H becomes slightly less negative at higher T (less exothermic).</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 14.7 BORN-HABER CYCLES -->
+<section id="born">
+  <div class="section-header">
+    <span class="section-number">14.7</span>
+    <h2>Born-Haber Cycles</h2>
+  </div>
+
+  <div class="def-box">
+    <strong>Born-Haber Cycle</strong>
+    A <b>Born-Haber cycle</b> is a special application of Hess's Law used to calculate the <b>lattice enthalpy</b> of an ionic solid — a quantity that cannot be measured directly.<br><br>
+    <b>Lattice enthalpy</b> (&Delta;H&deg;<sub>latt</sub>): the enthalpy change when one mole of an ionic solid is formed from its gaseous ions at infinity. (Lattice formation: highly exothermic; lattice dissociation: highly endothermic.)
+  </div>
+
+  <div class="card">
+    <h3>Steps in the Born-Haber Cycle (for NaCl)</h3>
+    <div class="formula-block">Formation equation:  Na(s) + ½Cl₂(g)  →  NaCl(s)   ΔH°f = -411 kJ/mol
+
+The cycle builds up step by step:
+
+Step 1: Atomisation of Na:   Na(s) → Na(g)          ΔH°at(Na)  = +108 kJ/mol
+Step 2: Ionisation of Na:    Na(g) → Na⁺(g) + e⁻    IE₁(Na)    = +496 kJ/mol
+Step 3: Atomisation of Cl:   ½Cl₂(g) → Cl(g)        ΔH°at(Cl)  = +122 kJ/mol
+Step 4: Electron affinity:   Cl(g) + e⁻ → Cl⁻(g)    EA₁(Cl)    = -349 kJ/mol
+Step 5: Lattice formation:   Na⁺(g) + Cl⁻(g) → NaCl(s)  ΔH°latt = ?
+
+Hess's Law:
+ΔH°f = ΔH°at(Na) + IE₁(Na) + ΔH°at(Cl) + EA₁(Cl) + ΔH°latt
+
+-411 = +108 + 496 + 122 + (-349) + ΔH°latt
+-411 = +377 + ΔH°latt
+ΔH°latt = -411 - 377 = -788 kJ/mol</div>
+  </div>
+
+  <div class="callout tip">
+    <span class="callout-icon">&#128161;</span>
+    <div class="callout-body">
+      <strong>Sign Convention for Lattice Enthalpy</strong>
+      Some books define lattice enthalpy as the energy to <b>dissociate</b> the lattice (endothermic, positive). Others define it as lattice <b>formation</b> (exothermic, negative). Always check which convention is being used. In Born-Haber cycles, it is usually lattice <b>formation</b> (negative).
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Enthalpy of Solution from Born-Haber Components</h3>
+    <div class="formula-block">ΔH°sol = ΔH°latt(dissociation) + ΔH°hyd(cation) + ΔH°hyd(anion)
+
+ΔH°latt(dissociation) = -ΔH°latt(formation)   (reverse of lattice formation)
+
+Example (NaCl):
+ΔH°sol(NaCl) = +788 + (-406) + (-364) = +18 kJ/mol
+(slightly endothermic — NaCl dissolves slightly less readily than expected)</div>
+  </div>
+</section>
+
+<!-- EXERCISES -->
+<section id="exercises">
+  <div class="section-header">
+    <span class="section-number">&#9999;&#65039;</span>
+    <h2>Exercises</h2>
+  </div>
+  <ul class="exercise-list">
+
+    <li>
+      Define: (a) standard enthalpy of formation; (b) standard enthalpy of combustion; (c) standard enthalpy of neutralisation. State the standard conditions under which each is measured.
+      <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+      <div class="answer">
+        (a) <b>ΔH°f</b>: enthalpy change when 1 mole of a compound is formed from its constituent elements in their standard states at 298 K and 100 kPa. ΔH°f of any element in standard state = 0.<br>
+        (b) <b>ΔH°c</b>: enthalpy change when 1 mole of a substance is completely burned in oxygen under standard conditions (298 K, 100 kPa), with all products in standard states (H₂O(l), CO₂(g)). Always negative.<br>
+        (c) <b>ΔH°neut</b>: enthalpy change when an acid and base react to form 1 mole of water under standard conditions. Strong acid + strong base: ≈ −57.1 kJ/mol.
+      </div>
+    </li>
+
+    <li>
+      100 cm³ of 0.500 mol/L H₂SO₄ and 100 cm³ of 1.00 mol/L NaOH (both at 22.0°C) are mixed. The temperature rises to 25.6°C. Calculate ΔH°<sub>neut</sub>. (c = 4.18 J/g·°C, density = 1.00 g/cm³)
+      <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+      <div class="answer">
+        Total mass = 200 g; ΔT = 25.6 − 22.0 = 3.6°C<br>
+        q = 200 × 4.18 × 3.6 = 3009.6 J = 3.010 kJ<br>
+        n(H₂O) = n(H₂SO₄) × 2 = 0.100 × 0.500 × 2 = 0.100 mol (H₂SO₄ provides 2H⁺)<br>
+        Wait — n(H₂SO₄) = 0.100 L × 0.500 mol/L = 0.0500 mol → provides 2 mol H⁺ → 0.100 mol H₂O<br>
+        n(NaOH) = 0.100 × 1.00 = 0.100 mol → 0.100 mol H₂O<br>
+        Both equal: n(H₂O) = 0.100 mol<br>
+        ΔH°neut = −q/n = −3.010/0.100 = <b>−30.1 kJ/mol H₂O</b><br>
+        (Lower than −57.1 kJ/mol because of heat capacity approximations; this value is based on the experimental data given)
+      </div>
+    </li>
+
+    <li>
+      Calculate ΔH°rxn for: N₂(g) + 3H₂(g) → 2NH₃(g) using bond energies.<br>
+      Bond energies (kJ/mol): N≡N = 945, H–H = 436, N–H = 391.
+      <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+      <div class="answer">
+        Bonds broken: 1(N≡N) + 3(H–H) = 945 + 3×436 = 945 + 1308 = 2253 kJ<br>
+        Bonds formed: 6(N–H) in 2NH₃ = 6 × 391 = 2346 kJ<br>
+        ΔH = 2253 − 2346 = <b>−93 kJ/mol</b><br>
+        (Exothermic — consistent with the Haber process releasing heat; experimental ΔH° = −92.4 kJ/mol — excellent agreement!)
+      </div>
+    </li>
+
+    <li>
+      The standard enthalpy of combustion of carbon (graphite) is −393.5 kJ/mol and of CO is −283.0 kJ/mol. Use Hess's law to calculate ΔH° for: C(graphite) + ½O₂(g) → CO(g).
+      <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+      <div class="answer">
+        We need: C + ½O₂ → CO (reaction X)<br>
+        Given: (1) C + O₂ → CO₂ &nbsp; ΔH₁ = −393.5 kJ<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(2) CO + ½O₂ → CO₂ &nbsp; ΔH₂ = −283.0 kJ<br>
+        Reaction X = Reaction 1 − Reaction 2 (subtract eq.2 from eq.1):<br>
+        C + O₂ − CO − ½O₂ → CO₂ − CO₂<br>
+        C + ½O₂ → CO<br>
+        ΔH(X) = ΔH₁ − ΔH₂ = −393.5 − (−283.0) = −393.5 + 283.0 = <b>−110.5 kJ/mol</b>
+      </div>
+    </li>
+
+    <li>
+      The enthalpy of formation of water at 298 K is −285.8 kJ/mol. The molar heat capacities are: H₂O(l)=75.3, H₂(g)=28.8, O₂(g)=29.4 J/mol·K. Use Kirchhoff's law to calculate ΔH°f(H₂O(l)) at 350 K.
+      <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+      <div class="answer">
+        Reaction: H₂(g) + ½O₂(g) → H₂O(l)<br>
+        ΔCp = Cp(H₂O(l)) − [Cp(H₂) + ½Cp(O₂)] = 75.3 − [28.8 + 14.7] = 75.3 − 43.5 = +31.8 J/mol·K<br>
+        ΔT = 350 − 298 = 52 K<br>
+        ΔH°(350) = ΔH°(298) + ΔCp×ΔT = −285,800 + (31.8 × 52) = −285,800 + 1654 = −284,146 J/mol = <b>−284.1 kJ/mol</b>
+      </div>
+    </li>
+
+    <li>
+      Using the Born-Haber cycle data below, calculate the lattice enthalpy of KCl:<br>
+      ΔH°f(KCl) = −436.7; ΔH°at(K) = +89.2; IE₁(K) = +418.8; ΔH°at(Cl) = +121.7; EA₁(Cl) = −349.0 kJ/mol.
+      <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+      <div class="answer">
+        Hess's Law: ΔH°f = ΔH°at(K) + IE₁(K) + ΔH°at(Cl) + EA₁(Cl) + ΔH°latt<br>
+        −436.7 = +89.2 + 418.8 + 121.7 + (−349.0) + ΔH°latt<br>
+        −436.7 = +280.7 + ΔH°latt<br>
+        ΔH°latt = −436.7 − 280.7 = <b>−717.4 kJ/mol</b>
+      </div>
+    </li>
+
+  </ul>
+</section>
+
+<!-- QUIZ -->
+<section id="quiz">
+  <div class="section-header">
+    <span class="section-number">&#129504;</span>
+    <h2>Interactive Quiz</h2>
+  </div>
+  <div class="quiz-wrap">
+    <div class="quiz-header">
+      <h3>Unit 14 Quiz &mdash; Enthalpy Changes</h3>
+      <span style="font-family:'JetBrains Mono',monospace;font-size:.82rem;color:var(--muted);">25 Questions</span>
+    </div>
+    <div class="quiz-body">
+
+      <div class="q-block"><span class="q-num">Q1</span>
+        <p class="q-text">An exothermic reaction has:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q1" value="a"> ΔH &gt; 0 and products at higher energy than reactants</label>
+          <label class="opt"><input type="radio" name="q1" value="b"> ΔH &lt; 0 and products at lower energy than reactants</label>
+          <label class="opt"><input type="radio" name="q1" value="c"> ΔH &gt; 0 and the surroundings get warmer</label>
+          <label class="opt"><input type="radio" name="q1" value="d"> ΔH = 0 and no energy change</label>
+        </div>
+        <div class="q-exp" id="exp1">Exothermic: heat is released to surroundings → surroundings get warmer. Products have lower H than reactants → ΔH = H(products) − H(reactants) < 0. Combustion is the classic example.</div>
+      </div>
+
+      <div class="q-block"><span class="q-num">Q2</span>
+        <p class="q-text">The standard enthalpy of formation of O₂(g) is:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q2" value="a"> +498 kJ/mol (bond dissociation energy)</label>
+          <label class="opt"><input type="radio" name="q2" value="b"> −249 kJ/mol</label>
+          <label class="opt"><input type="radio" name="q2" value="c"> 0 kJ/mol</label>
+          <label class="opt"><input type="radio" name="q2" value="d"> +249 kJ/mol</label>
+        </div>
+        <div class="q-exp" id="exp2">By definition, ΔH°f of any <b>element in its standard state</b> = 0. O₂(g) is the standard state of oxygen → ΔH°f(O₂(g)) = <b>0 kJ/mol</b>.</div>
+      </div>
+
+      <div class="q-block"><span class="q-num">Q3</span>
+        <p class="q-text">The formula q = mcΔT is used in calorimetry. What does 'c' represent?</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q3" value="a"> Concentration of solution (mol/L)</label>
+          <label class="opt"><input type="radio" name="q3" value="b"> Specific heat capacity of the solution (J/g·°C)</label>
+          <label class="opt"><input type="radio" name="q3" value="c"> Number of moles of reactant</label>
+          <label class="opt"><input type="radio" name="q3" value="d"> Speed of the reaction</label>
+        </div>
+        <div class="q-exp" id="exp3">'c' is the <b>specific heat capacity</b> — the energy needed to raise 1 gram of solution by 1°C. For water/dilute aqueous solutions, c = 4.18 J/g·°C. m = mass in grams; ΔT = temperature change in °C or K.</div>
+      </div>
+
+      <div class="q-block"><span class="q-num">Q4</span>
+        <p class="q-text">Hess's Law states:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q4" value="a"> ΔH is always negative for spontaneous reactions</label>
+          <label class="opt"><input type="radio" name="q4" value="b"> The total enthalpy change is independent of the pathway — it depends only on initial and final states</label>
+          <label class="opt"><input type="radio" name="q4" value="c"> Enthalpy change equals the bond energy of reactants</label>
+          <label class="opt"><input type="radio" name="q4" value="d"> The faster the reaction, the greater the enthalpy change</label>
+        </div>
+        <div class="q-exp" id="exp4">Hess's Law: ΔH is a <b>state function</b> — it depends only on initial and final states, not on the route. This allows calculation of ΔH for reactions that cannot be measured directly (like ΔH°f of CO).</div>
+      </div>
+
+      <div class="q-block"><span class="q-num">Q5</span>
+        <p class="q-text">ΔH°rxn from enthalpies of formation is calculated as:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q5" value="a"> Σ ΔH°f(reactants) − Σ ΔH°f(products)</label>
+          <label class="opt"><input type="radio" name="q5" value="b"> Σ ΔH°f(products) − Σ ΔH°f(reactants)</label>
+          <label class="opt"><input type="radio" name="q5" value="c"> Σ ΔH°f(products) + Σ ΔH°f(reactants)</label>
+          <label class="opt"><input type="radio" name="q5" value="d"> Σ ΔH°f(reactants) / Σ ΔH°f(products)</label>
+        </div>
+        <div class="q-exp" id="exp5">ΔH°rxn = <b>Σ ΔH°f(products) − Σ ΔH°f(reactants)</b>. Think: ΔH = H(final) − H(initial) = H(products) − H(reactants). Each ΔH°f is multiplied by its stoichiometric coefficient.</div>
+      </div>
+
+      <div class="q-block"><span class="q-num">Q6</span>
+        <p class="q-text">When using bond energies: ΔH = Σ BE(reactants) − Σ BE(products). If ΔH = −200 kJ, the reaction is:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q6" value="a"> Endothermic — more energy in breaking bonds than forming them</label>
+          <label class="opt"><input type="radio" name="q6" value="b"> Exothermic — more energy released in forming bonds than absorbed in breaking them</label>
+          <label class="opt"><input type="radio" name="q6" value="c"> Neither exothermic nor endothermic</label>
+          <label class="opt"><input type="radio" name="q6" value="d"> Endothermic — energy is always absorbed in reactions</label>
+        </div>
+        <div class="q-exp" id="exp6">ΔH &lt; 0 → <b>exothermic</b>. More energy is released forming product bonds than is absorbed breaking reactant bonds. BE(bonds formed) > BE(bonds broken). Heat is released to surroundings.</div>
+      </div>
+
+      <div class="q-block"><span class="q-num">Q7</span>
+        <p class="q-text">The standard enthalpy of neutralisation of a strong acid with a strong base is approximately −57.1 kJ/mol because:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q7" value="a"> All strong acids release 57.1 kJ per mole of acid</label>
+          <label class="opt"><input type="radio" name="q7" value="b"> The net ionic reaction is always H⁺(aq) + OH⁻(aq) → H₂O(l) regardless of which strong acid/base is used</label>
+          <label class="opt"><input type="radio" name="q7" value="c"> All ionic compounds release the same energy when dissolved</label>
+          <label class="opt"><input type="radio" name="q7" value="d"> The spectator ions contribute 57.1 kJ/mol</label>
+        </div>
+        <div class="q-exp" id="exp7">Strong acid + strong base are fully dissociated. The net ionic equation is always <b>H⁺ + OH⁻ → H₂O</b>, regardless of which strong acid or base. This reaction always has ΔH ≈ −57.1 kJ/mol. The spectator ions (Na⁺, Cl⁻ etc.) contribute nothing.</div>
+      </div>
+
+      <div class="q-block"><span class="q-num">Q8</span>
+        <p class="q-text">Kirchhoff's law relates:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q8" value="a"> Enthalpy to entropy</label>
+          <label class="opt"><input type="radio" name="q8" value="b"> The variation of ΔH with temperature, using ΔCp</label>
+          <label class="opt"><input type="radio" name="q8" value="c"> Bond energy to reaction enthalpy</label>
+          <label class="opt"><input type="radio" name="q8" value="d"> Enthalpy to equilibrium constant</label>
+        </div>
+        <div class="q-exp" id="exp8">Kirchhoff's law: <b>ΔH(T₂) = ΔH(T₁) + ΔCp×(T₂−T₁)</b>. It describes how ΔH changes with temperature, using the difference in heat capacities (ΔCp = ΣCp(products) − ΣCp(reactants)).</div>
+      </div>
+
+      <div class="q-block"><span class="q-num">Q9</span>
+        <p class="q-text">The Born-Haber cycle is used to calculate:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q9" value="a"> Enthalpy of combustion of ionic compounds</label>
+          <label class="opt"><input type="radio" name="q9" value="b"> Lattice enthalpy of ionic solids</label>
+          <label class="opt"><input type="radio" name="q9" value="c"> Bond energy of covalent molecules</label>
+          <label class="opt"><input type="radio" name="q9" value="d"> Standard enthalpy of formation of all elements</label>
+        </div>
+        <div class="q-exp" id="exp9">The Born-Haber cycle uses Hess's Law to calculate the <b>lattice enthalpy</b> of ionic solids — energy that cannot be measured directly. It combines atomisation, ionisation energy, electron affinity, and formation enthalpy.</div>
+      </div>
+
+      <div class="q-block"><span class="q-num">Q10</span>
+        <p class="q-text">The enthalpy change for: H₂ + Cl₂ → 2HCl using bond energies (H–H=436, Cl–Cl=243, H–Cl=432 kJ/mol) is:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q10" value="a"> −185 kJ/mol</label>
+          <label class="opt"><input type="radio" name="q10" value="b"> +185 kJ/mol</label>
+          <label class="opt"><input type="radio" name="q10" value="c"> −432 kJ/mol</label>
+          <label class="opt"><input type="radio" name="q10" value="d"> −679 kJ/mol</label>
+        </div>
+        <div class="q-exp" id="exp10">Broken: H–H + Cl–Cl = 436 + 243 = 679 kJ. Formed: 2×H–Cl = 864 kJ. ΔH = 679 − 864 = <b>−185 kJ/mol</b>. More energy released forming bonds than absorbed breaking them → exothermic.</div>
+      </div>
+
+      <div class="q-block"><span class="q-num">Q11</span>
+        <p class="q-text">50 cm³ of water absorbs 1045 J of heat. If ΔT = 5.0°C, the specific heat capacity used is approximately:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q11" value="a"> 4.18 J/g·°C</label>
+          <label class="opt"><input type="radio" name="q11" value="b"> 2.09 J/g·°C</label>
+          <label class="opt"><input type="radio" name="q11" value="c"> 20.9 J/g·°C</label>
+          <label class="opt"><input type="radio" name="q11" value="d"> 418 J/g·°C</label>
+        </div>
+        <div class="q-exp" id="exp11">q = mcΔT → c = q/(mΔT) = 1045/(50×5.0) = 1045/250 = <b>4.18 J/g·°C</b>. This is the specific heat capacity of water/dilute solutions — the standard value used in all calorimetry calculations.</div>
+      </div>
+
+      <div class="q-block"><span class="q-num">Q12</span>
+        <p class="q-text">Bond breaking is always:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q12" value="a"> Exothermic (releases energy)</label>
+          <label class="opt"><input type="radio" name="q12" value="b"> Endothermic (requires energy input)</label>
+          <label class="opt"><input type="radio" name="q12" value="c"> Neither — energy change depends on the bond type</label>
+          <label class="opt"><input type="radio" name="q12" value="d"> Only exothermic for weak bonds</label>
+        </div>
+        <div class="q-exp" id="exp12"><b>Bond breaking always requires energy (endothermic)</b>. Bond making always releases energy (exothermic). Bond dissociation enthalpies are always positive. The overall ΔH of a reaction depends on whether more energy is released (bond making) or absorbed (bond breaking).</div>
+      </div>
+
+      <div class="q-block"><span class="q-num">Q13</span>
+        <p class="q-text">ΔH°rxn for: C₂H₄(g) + H₂(g) → C₂H₆(g), given ΔH°f: C₂H₄=+52.5, H₂=0, C₂H₆=−84.7 kJ/mol, is:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q13" value="a"> +137.2 kJ/mol</label>
+          <label class="opt"><input type="radio" name="q13" value="b"> −32.2 kJ/mol</label>
+          <label class="opt"><input type="radio" name="q13" value="c"> −137.2 kJ/mol</label>
+          <label class="opt"><input type="radio" name="q13" value="d"> +32.2 kJ/mol</label>
+        </div>
+        <div class="q-exp" id="exp13">ΔH°rxn = ΔH°f(C₂H₆) − [ΔH°f(C₂H₄) + ΔH°f(H₂)] = −84.7 − [52.5 + 0] = −84.7 − 52.5 = <b>−137.2 kJ/mol</b>. Hydrogenation is exothermic.</div>
+      </div>
+
+      <div class="q-block"><span class="q-num">Q14</span>
+        <p class="q-text">The lattice enthalpy of NaCl is −788 kJ/mol. This means:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q14" value="a"> 788 kJ is absorbed when 1 mol NaCl dissolves in water</label>
+          <label class="opt"><input type="radio" name="q14" value="b"> 788 kJ is released when 1 mol NaCl(s) forms from Na⁺(g) and Cl⁻(g)</label>
+          <label class="opt"><input type="radio" name="q14" value="c"> 788 kJ is needed to burn 1 mol NaCl</label>
+          <label class="opt"><input type="radio" name="q14" value="d"> NaCl has a low melting point of 788°C</label>
+        </div>
+        <div class="q-exp" id="exp14">Lattice enthalpy (formation convention): <b>Na⁺(g) + Cl⁻(g) → NaCl(s), ΔH = −788 kJ/mol</b>. 788 kJ is released as gaseous ions come together to form the ionic lattice. The large magnitude reflects the strong electrostatic interactions in the crystal.</div>
+      </div>
+
+      <div class="q-block"><span class="q-num">Q15</span>
+        <p class="q-text">Which of the following processes is exothermic?</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q15" value="a"> Atomisation of Na(s) → Na(g)</label>
+          <label class="opt"><input type="radio" name="q15" value="b"> Ionisation: Na(g) → Na⁺(g) + e⁻</label>
+          <label class="opt"><input type="radio" name="q15" value="c"> Electron affinity: Cl(g) + e⁻ → Cl⁻(g)</label>
+          <label class="opt"><input type="radio" name="q15" value="d"> Vaporisation: H₂O(l) → H₂O(g)</label>
+        </div>
+        <div class="q-exp" id="exp15"><b>Electron affinity of Cl</b> is exothermic: Cl has a strong tendency to gain an electron to complete its outer shell (EA₁(Cl) = −349 kJ/mol). Atomisation, ionisation, and vaporisation are all endothermic (require energy input).</div>
+      </div>
+
+      <div class="q-block"><span class="q-num">Q16</span>
+        <p class="q-text">The standard state of carbon used in thermochemical calculations is:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q16" value="a"> Diamond</label>
+          <label class="opt"><input type="radio" name="q16" value="b"> Carbon black (amorphous carbon)</label>
+          <label class="opt"><input type="radio" name="q16" value="c"> Graphite</label>
+          <label class="opt"><input type="radio" name="q16" value="d"> Buckminsterfullerene (C₆₀)</label>
+        </div>
+        <div class="q-exp" id="exp16">The standard state of carbon is <b>graphite</b> — the most thermodynamically stable allotrope at 298 K and 100 kPa. ΔH°f(graphite) = 0; ΔH°f(diamond) = +1.9 kJ/mol (less stable).</div>
+      </div>
+
+      <div class="q-block"><span class="q-num">Q17</span>
+        <p class="q-text">ΔH°rxn from combustion enthalpies uses: ΔH°rxn = Σ ΔH°c(reactants) − Σ ΔH°c(products). Why are the signs reversed compared to the formation equation?</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q17" value="a"> Combustion enthalpies are always positive</label>
+          <label class="opt"><input type="radio" name="q17" value="b"> In combustion cycles, the route goes through CO₂/H₂O as the "bottom" of the cycle, so reactants go down and products go up</label>
+          <label class="opt"><input type="radio" name="q17" value="c"> This is a definition with no physical meaning</label>
+          <label class="opt"><input type="radio" name="q17" value="d"> Products are always at higher energy than reactants when combustion data is used</label>
+        </div>
+        <div class="q-exp" id="exp17">In Hess's combustion cycles, both reactants and products are burned down to CO₂/H₂O (the "basement"). The direct route = reactant combustion path − product combustion path. This reversal of signs vs formation data comes from the directionality of the combustion cycle arrows.</div>
+      </div>
+
+      <div class="q-block"><span class="q-num">Q18</span>
+        <p class="q-text">The enthalpy of neutralisation of CH₃COOH (weak acid) with NaOH is less negative than −57.1 kJ/mol because:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q18" value="a"> Acetic acid releases more heat than hydrochloric acid</label>
+          <label class="opt"><input type="radio" name="q18" value="b"> Energy is required to dissociate the weak acid before neutralisation, making the overall process less exothermic</label>
+          <label class="opt"><input type="radio" name="q18" value="c"> NaOH is a weak base with lower reactivity</label>
+          <label class="opt"><input type="radio" name="q18" value="d"> The reaction does not produce water</label>
+        </div>
+        <div class="q-exp" id="exp18">Weak acids are partially ionised. Energy must be absorbed to dissociate CH₃COOH → CH₃COO⁻ + H⁺ before neutralisation. This energy "penalty" reduces the net heat released, giving ΔH°neut less negative than −57.1 kJ/mol (which is only for H⁺ + OH⁻ → H₂O with fully dissociated species).</div>
+      </div>
+
+      <div class="q-block"><span class="q-num">Q19</span>
+        <p class="q-text">Which bond has the highest bond energy (hardest to break)?</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q19" value="a"> C–C (347 kJ/mol)</label>
+          <label class="opt"><input type="radio" name="q19" value="b"> N≡N (945 kJ/mol)</label>
+          <label class="opt"><input type="radio" name="q19" value="c"> O=O (498 kJ/mol)</label>
+          <label class="opt"><input type="radio" name="q19" value="d"> H–H (436 kJ/mol)</label>
+        </div>
+        <div class="q-exp" id="exp19"><b>N≡N (945 kJ/mol)</b> is the strongest bond listed. The triple bond in N₂ is exceptionally strong, explaining why N₂ is so unreactive (high activation energy for reactions). This is also why the Haber process requires high T and pressure.</div>
+      </div>
+
+      <div class="q-block"><span class="q-num">Q20</span>
+        <p class="q-text">ΔCp in Kirchhoff's law is defined as:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q20" value="a"> Cp(reactants) − Cp(products)</label>
+          <label class="opt"><input type="radio" name="q20" value="b"> Cp(products) − Cp(reactants)</label>
+          <label class="opt"><input type="radio" name="q20" value="c"> Cp(products) × Cp(reactants)</label>
+          <label class="opt"><input type="radio" name="q20" value="d"> Cp(products) / Cp(reactants)</label>
+        </div>
+        <div class="q-exp" id="exp20">ΔCp = <b>ΣCp(products) − ΣCp(reactants)</b>. Same sign convention as ΔH = H(products) − H(reactants). This is the net difference in heat capacities between products and reactants, which determines how ΔH changes with temperature.</div>
+      </div>
+
+      <div class="q-block"><span class="q-num">Q21</span>
+        <p class="q-text">In the Born-Haber cycle for NaCl, the ionisation energy (IE₁) of Na is:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q21" value="a"> Exothermic (Na easily releases an electron)</label>
+          <label class="opt"><input type="radio" name="q21" value="b"> Endothermic (energy is required to remove an electron from Na(g))</label>
+          <label class="opt"><input type="radio" name="q21" value="c"> Zero (Na is a metal)</label>
+          <label class="opt"><input type="radio" name="q21" value="d"> The same as the lattice enthalpy</label>
+        </div>
+        <div class="q-exp" id="exp21">First ionisation energy is <b>always endothermic</b> (positive ΔH): energy must be supplied to remove an electron against the nuclear attraction from the gaseous atom: Na(g) → Na⁺(g) + e⁻, ΔH = +496 kJ/mol.</div>
+      </div>
+
+      <div class="q-block"><span class="q-num">Q22</span>
+        <p class="q-text">An experiment in a polystyrene coffee cup measures ΔH for a reaction. The main source of error is:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q22" value="a"> The solution density not being exactly 1.00 g/cm³</label>
+          <label class="opt"><input type="radio" name="q22" value="b"> Heat loss to the surroundings through the cup</label>
+          <label class="opt"><input type="radio" name="q22" value="c"> The reaction not reaching equilibrium</label>
+          <label class="opt"><input type="radio" name="q22" value="d"> The specific heat capacity of the products being unknown</label>
+        </div>
+        <div class="q-exp" id="exp22"><b>Heat loss to surroundings</b> is the main error in a simple coffee-cup calorimeter. Polystyrene is a reasonable insulator but not perfect. Some heat escapes, making the measured ΔT smaller than ideal, giving a ΔH value less accurate than measured with a bomb calorimeter.</div>
+      </div>
+
+      <div class="q-block"><span class="q-num">Q23</span>
+        <p class="q-text">Enthalpy of atomisation ΔH°at is defined as the enthalpy change when 1 mol of gaseous atoms forms from an element in its standard state. It is always:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q23" value="a"> Negative (formation is always exothermic)</label>
+          <label class="opt"><input type="radio" name="q23" value="b"> Zero (atoms are the standard state)</label>
+          <label class="opt"><input type="radio" name="q23" value="c"> Positive (bonds must be broken to form gaseous atoms)</label>
+          <label class="opt"><input type="radio" name="q23" value="d"> Negative for metals and positive for non-metals</label>
+        </div>
+        <div class="q-exp" id="exp23">ΔH°at is <b>always positive (endothermic)</b>. Forming gaseous atoms requires breaking all bonds/intermolecular forces in the standard state (e.g. metallic bonds for Na, covalent bonds for Cl₂, etc.). Energy must always be put IN to atomise any element.</div>
+      </div>
+
+      <div class="q-block"><span class="q-num">Q24</span>
+        <p class="q-text">The standard enthalpy of formation of CO(g) cannot be measured directly by burning carbon because:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q24" value="a"> CO is too dangerous to measure</label>
+          <label class="opt"><input type="radio" name="q24" value="b"> Burning carbon always produces a mixture of CO and CO₂ — pure CO₂ cannot be guaranteed to form without CO forming too</label>
+          <label class="opt"><input type="radio" name="q24" value="c"> Graphite doesn't burn in oxygen</label>
+          <label class="opt"><input type="radio" name="q24" value="d"> CO₂ is always the product of combustion</label>
+        </div>
+        <div class="q-exp" id="exp24">When carbon burns, both CO and CO₂ can form (incomplete combustion produces CO). It is impossible to guarantee only CO is produced experimentally. So ΔH°f(CO) must be calculated using Hess's law from ΔH°c(C) and ΔH°c(CO), not measured directly.</div>
+      </div>
+
+      <div class="q-block"><span class="q-num">Q25</span>
+        <p class="q-text">The ΔH°f(KCl) from Born-Haber cycle data [ΔH°at(K)=+89, IE₁(K)=+419, ΔH°at(Cl)=+122, EA₁(Cl)=−349, ΔH°latt(KCl)=−717 kJ/mol] is:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q25" value="a"> −436 kJ/mol</label>
+          <label class="opt"><input type="radio" name="q25" value="b"> −717 kJ/mol</label>
+          <label class="opt"><input type="radio" name="q25" value="c"> +436 kJ/mol</label>
+          <label class="opt"><input type="radio" name="q25" value="d"> +281 kJ/mol</label>
+        </div>
+        <div class="q-exp" id="exp25">ΔH°f = ΔH°at(K) + IE₁(K) + ΔH°at(Cl) + EA₁(Cl) + ΔH°latt = 89 + 419 + 122 + (−349) + (−717) = 89+419+122−349−717 = 630−1066 = <b>−436 kJ/mol</b>. ΔH°f(KCl) = −436.7 kJ/mol (literature).</div>
+      </div>
+
+    </div>
+    <div style="padding:0 24px 24px;">
+      <button class="quiz-submit" onclick="submitQuiz()">Submit All 25 Answers</button>
+      <div id="quizResult" style="display:none;margin-top:16px;border-radius:var(--radius);padding:16px 20px;font-family:'JetBrains Mono',monospace;"></div>
+    </div>
+  </div>
+</section>
+
+<!-- UNIT TEST -->
+<section id="test">
+  <div class="section-header">
+    <span class="section-number">&#128221;</span>
+    <h2>Unit Test</h2>
+  </div>
+  <div class="callout info">
+    <span class="callout-icon">&#8505;&#65039;</span>
+    <div class="callout-body">
+      <strong>Instructions</strong>
+      Total: 50 marks &nbsp;|&nbsp; Time: 55 minutes &nbsp;|&nbsp; Show all working &nbsp;|&nbsp; State units throughout.
+    </div>
+  </div>
+
+  <div class="test-wrap">
+    <div class="test-section">
+      <div class="test-section-header">
+        <h3>Section A &mdash; Short Answer</h3>
+        <span class="marks-badge">30 marks</span>
+      </div>
+      <div class="test-body">
+
+        <div class="test-q">
+          <span class="test-q-num">Q1 [4 marks]</span>
+          <p>50.0 cm³ of 2.00 mol/L HCl is mixed with 50.0 cm³ of 2.00 mol/L NaOH, both initially at 21.5°C. The mixture reaches 35.1°C. (c=4.18 J/g·°C; density=1.00 g/cm³)<br>
+          (a) Mass of solution; (b) ΔT; (c) q; (d) ΔH°neut per mole of water formed.</p>
+          <div class="test-answer-reveal">
+            <button class="reveal-btn" onclick="toggleAnswer(this)">Show Model Answer</button>
+            <div class="answer">
+              (a) Total volume = 100 cm³; m = 100 × 1.00 = <b>100 g</b><br>
+              (b) ΔT = 35.1 − 21.5 = <b>13.6°C</b><br>
+              (c) q = 100 × 4.18 × 13.6 = 5684.8 J = <b>5.685 kJ</b><br>
+              (d) n(HCl) = 0.0500 × 2.00 = 0.100 mol; n(H₂O) = 0.100 mol<br>
+              ΔH°neut = −q/n = −5.685/0.100 = <b>−56.85 kJ/mol ≈ −56.9 kJ/mol</b>
+            </div>
+          </div>
+        </div>
+
+        <div class="test-q">
+          <span class="test-q-num">Q2 [5 marks]</span>
+          <p>Calculate ΔH° for the reaction: 2CO(g) + O₂(g) → 2CO₂(g), using the following data:<br>
+          C(graphite) + O₂(g) → CO₂(g) &nbsp; ΔH₁ = −393.5 kJ/mol<br>
+          C(graphite) + ½O₂(g) → CO(g) &nbsp; ΔH₂ = −110.5 kJ/mol<br>
+          Show the Hess cycle with all steps clearly labelled.</p>
+          <div class="test-answer-reveal">
+            <button class="reveal-btn" onclick="toggleAnswer(this)">Show Model Answer</button>
+            <div class="answer">
+              Target: 2CO + O₂ → 2CO₂<br><br>
+              Strategy: Use given equations:<br>
+              (1) C + O₂ → CO₂ &nbsp; ΔH₁ = −393.5 kJ (× 2)<br>
+              (2) C + ½O₂ → CO &nbsp; ΔH₂ = −110.5 kJ (× 2, reversed)<br><br>
+              Multiply (1) by 2: 2C + 2O₂ → 2CO₂ &nbsp; 2ΔH₁ = −787.0 kJ<br>
+              Reverse (2) and multiply by 2: 2CO → 2C + O₂ &nbsp; −2ΔH₂ = +221.0 kJ<br><br>
+              Add: 2C + 2O₂ + 2CO → 2CO₂ + 2C + O₂<br>
+              Cancel: 2CO + O₂ → 2CO₂<br>
+              ΔH° = −787.0 + 221.0 = <b>−566.0 kJ/mol</b><br><br>
+              Alternatively: ΔH°rxn = 2ΔH₁ − 2ΔH₂ = 2(−393.5) − 2(−110.5) = −787.0 + 221.0 = −566.0 kJ/mol
+            </div>
+          </div>
+        </div>
+
+        <div class="test-q">
+          <span class="test-q-num">Q3 [5 marks]</span>
+          <p>Estimate ΔH for the hydrogenation of propene: CH₃CH=CH₂(g) + H₂(g) → CH₃CH₂CH₃(g)<br>
+          Bond energies (kJ/mol): C–C=347, C=C=614, C–H=413, H–H=436<br>
+          (a) Count all bonds broken and formed; (b) Calculate ΔH; (c) Is the reaction exo- or endothermic? Explain.</p>
+          <div class="test-answer-reveal">
+            <button class="reveal-btn" onclick="toggleAnswer(this)">Show Model Answer</button>
+            <div class="answer">
+              Structure of propene: CH₃–CH=CH₂ has: 1×C=C, 1×C–C, 6×C–H<br>
+              Structure of propane: CH₃–CH₂–CH₃ has: 2×C–C, 8×C–H<br><br>
+              (a) Bonds broken: 1(C=C) + 1(C–C) + 6(C–H) + 1(H–H) from propene + H₂<br>
+              = 614 + 347 + 6×413 + 436 = 614 + 347 + 2478 + 436 = 3875 kJ<br><br>
+              Bonds formed (propane): 2(C–C) + 8(C–H)<br>
+              = 2×347 + 8×413 = 694 + 3304 = 3998 kJ<br><br>
+              (b) ΔH = 3875 − 3998 = <b>−123 kJ/mol</b><br><br>
+              (c) <b>Exothermic</b>: more energy released forming bonds (3998 kJ) than absorbed breaking them (3875 kJ). Adding H₂ across a C=C double bond to form two C–H bonds and convert C=C to C–C releases net energy.
+            </div>
+          </div>
+        </div>
+
+        <div class="test-q">
+          <span class="test-q-num">Q4 [5 marks]</span>
+          <p>Using the following enthalpies of combustion, calculate ΔH°f for propane C₃H₈(g):<br>
+          ΔH°c(C, graphite) = −393.5 kJ/mol<br>
+          ΔH°c(H₂, g) = −285.8 kJ/mol<br>
+          ΔH°c(C₃H₈, g) = −2220 kJ/mol<br>
+          Formation: 3C(graphite) + 4H₂(g) → C₃H₈(g)</p>
+          <div class="test-answer-reveal">
+            <button class="reveal-btn" onclick="toggleAnswer(this)">Show Model Answer</button>
+            <div class="answer">
+              ΔH°f = Σ ΔH°c(reactants) − Σ ΔH°c(products)<br>
+              = [3×ΔH°c(C) + 4×ΔH°c(H₂)] − ΔH°c(C₃H₈)<br>
+              = [3×(−393.5) + 4×(−285.8)] − (−2220)<br>
+              = [−1180.5 + (−1143.2)] − (−2220)<br>
+              = −2323.7 + 2220<br>
+              = <b>−103.7 kJ/mol</b><br>
+              (Literature value: ΔH°f(C₃H₈) = −103.8 kJ/mol ✓)
+            </div>
+          </div>
+        </div>
+
+        <div class="test-q">
+          <span class="test-q-num">Q5 [5 marks]</span>
+          <p>The Born-Haber cycle for MgO includes the following steps. Calculate the lattice enthalpy of MgO.<br>
+          ΔH°f(MgO) = −601.6 kJ/mol<br>
+          ΔH°at(Mg) = +148.0 kJ/mol<br>
+          IE₁(Mg) = +737.7 kJ/mol; IE₂(Mg) = +1450.7 kJ/mol<br>
+          ΔH°at(O) = +249.2 kJ/mol (½O₂ → O)<br>
+          EA₁(O) = −141.0 kJ/mol; EA₂(O) = +798.0 kJ/mol</p>
+          <div class="test-answer-reveal">
+            <button class="reveal-btn" onclick="toggleAnswer(this)">Show Model Answer</button>
+            <div class="answer">
+              Formation: Mg(s) + ½O₂(g) → MgO(s)<br><br>
+              Hess's Law:<br>
+              ΔH°f = ΔH°at(Mg) + IE₁(Mg) + IE₂(Mg) + ΔH°at(O) + EA₁(O) + EA₂(O) + ΔH°latt<br><br>
+              −601.6 = 148.0 + 737.7 + 1450.7 + 249.2 + (−141.0) + 798.0 + ΔH°latt<br>
+              −601.6 = +3242.6 + ΔH°latt<br>
+              ΔH°latt = −601.6 − 3242.6 = <b>−3844.2 kJ/mol</b><br><br>
+              Note: EA₂(O) is positive (endothermic) because adding a second electron to the already negatively charged O⁻ ion requires energy to overcome repulsion. Despite this, the very large lattice enthalpy (Mg²⁺ has high charge and small size) drives the formation of MgO.
+            </div>
+          </div>
+        </div>
+
+        <div class="test-q">
+          <span class="test-q-num">Q6 [6 marks]</span>
+          <p>The standard enthalpy of combustion of ethane C₂H₆(g) at 298 K is −1559.7 kJ/mol. The molar heat capacities are: C₂H₆(g)=52.6; O₂(g)=29.4; CO₂(g)=37.1; H₂O(l)=75.3 J/mol·K.<br>
+          (a) Write the balanced combustion equation for ethane.<br>
+          (b) Calculate ΔCp for this reaction.<br>
+          (c) Using Kirchhoff's law, calculate ΔH°c(C₂H₆) at 500 K.</p>
+          <div class="test-answer-reveal">
+            <button class="reveal-btn" onclick="toggleAnswer(this)">Show Model Answer</button>
+            <div class="answer">
+              (a) <b>C₂H₆(g) + 7/2 O₂(g) → 2CO₂(g) + 3H₂O(l)</b><br><br>
+              (b) ΔCp = [2Cp(CO₂) + 3Cp(H₂O(l))] − [Cp(C₂H₆) + 7/2 × Cp(O₂)]<br>
+              = [2×37.1 + 3×75.3] − [52.6 + 3.5×29.4]<br>
+              = [74.2 + 225.9] − [52.6 + 102.9]<br>
+              = 300.1 − 155.5 = <b>+144.6 J/mol·K</b><br><br>
+              (c) ΔT = 500 − 298 = 202 K<br>
+              ΔH°c(500) = ΔH°c(298) + ΔCp × ΔT<br>
+              = −1,559,700 + (144.6 × 202)<br>
+              = −1,559,700 + 29,209<br>
+              = −1,530,491 J/mol = <b>−1530.5 kJ/mol</b><br><br>
+              The combustion is less exothermic at 500 K than at 298 K because ΔCp > 0 (products have higher total heat capacity than reactants, so they warm up faster, making ΔH less negative at higher T).
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="test-section">
+      <div class="test-section-header">
+        <h3>Section B &mdash; Extended Response</h3>
+        <span class="marks-badge">20 marks</span>
+      </div>
+      <div class="test-body">
+
+        <div class="test-q">
+          <span class="test-q-num">Q7 [10 marks]</span>
+          <p><b>(a)</b> State Hess's Law. Explain what makes it valid in terms of the first law of thermodynamics. <i>[2 marks]</i></p>
+          <p><b>(b)</b> Show how to calculate ΔH°f for carbon monoxide CO(g) from the following combustion data (it cannot be found directly). Explain clearly why direct measurement is impossible.<br>
+          ΔH°c(C, graphite) = −393.5 kJ/mol; ΔH°c(CO, g) = −283.0 kJ/mol. <i>[4 marks]</i></p>
+          <p><b>(c)</b> The following data is available for the reaction N₂(g) + 3H₂(g) → 2NH₃(g):<br>
+          Bond energies: N≡N=945, H–H=436, N–H=391 kJ/mol.<br>
+          Also: ΔH°f(NH₃, g) = −46.1 kJ/mol (experimental).<br>
+          Calculate ΔH using (i) bond energies; (ii) enthalpies of formation. Comment on any difference. <i>[4 marks]</i></p>
+          <div class="test-answer-reveal">
+            <button class="reveal-btn" onclick="toggleAnswer(this)">Show Model Answer</button>
+            <div class="answer">
+              <b>(a)</b> Hess's Law: the total enthalpy change for a reaction is independent of the route taken — it depends only on the initial and final states. This is valid because enthalpy H is a <b>state function</b>: its value depends only on the state of the system, not on how that state was reached. This follows from the First Law of Thermodynamics (conservation of energy) — if ΔH depended on path, energy could be created or destroyed by choosing different routes, violating conservation.<br><br>
+              <b>(b)</b> Direct measurement: burning carbon in limited oxygen produces a mixture of CO and CO₂ (incomplete combustion). Pure CO cannot be guaranteed → ΔH°f(CO) cannot be measured directly by calorimetry.<br><br>
+              Hess's Law route:<br>
+              (1) C(s) + O₂(g) → CO₂(g) &nbsp; ΔH₁ = −393.5 kJ<br>
+              (2) CO(g) + ½O₂(g) → CO₂(g) &nbsp; ΔH₂ = −283.0 kJ<br>
+              Target: C(s) + ½O₂(g) → CO(g) = Rxn(1) − Rxn(2)<br>
+              ΔH°f(CO) = ΔH₁ − ΔH₂ = −393.5 − (−283.0) = −393.5 + 283.0 = <b>−110.5 kJ/mol</b><br><br>
+              <b>(c)(i) Bond energies:</b><br>
+              Bonds broken: N≡N + 3(H–H) = 945 + 3×436 = 945 + 1308 = 2253 kJ<br>
+              Bonds formed: 6(N–H) in 2NH₃ = 6×391 = 2346 kJ<br>
+              ΔH = 2253 − 2346 = <b>−93 kJ/mol</b><br><br>
+              <b>(c)(ii) Enthalpies of formation:</b><br>
+              ΔH°rxn = 2×ΔH°f(NH₃) − [ΔH°f(N₂) + 3×ΔH°f(H₂)] = 2×(−46.1) − 0 = <b>−92.2 kJ/mol</b><br><br>
+              <b>Comment:</b> The bond energy result (−93 kJ/mol) is close to the formation enthalpy result (−92.2 kJ/mol) but slightly different. Bond energies are <b>average values</b> from many molecules, not specific to NH₃. They don't account for molecular geometry, hybridisation effects, or non-bonding interactions. Formation enthalpies give the experimentally accurate value.
+            </div>
+          </div>
+        </div>
+
+        <div class="test-q">
+          <span class="test-q-num">Q8 [10 marks]</span>
+          <p><b>(a)</b> Define lattice enthalpy. Explain how the magnitude of lattice enthalpy is affected by (i) ionic charge; (ii) ionic radius. Give examples to support your answer. <i>[5 marks]</i></p>
+          <p><b>(b)</b> Draw and fully label the Born-Haber cycle for NaCl. Use the following data to calculate the lattice enthalpy: ΔH°f(NaCl)=−411; ΔH°at(Na)=+108; IE₁(Na)=+496; ΔH°at(Cl)=+122; EA₁(Cl)=−349 kJ/mol. <i>[5 marks]</i></p>
+          <div class="test-answer-reveal">
+            <button class="reveal-btn" onclick="toggleAnswer(this)">Show Model Answer</button>
+            <div class="answer">
+              <b>(a)</b> <b>Lattice enthalpy</b> (formation): enthalpy change when 1 mol of ionic solid is formed from its gaseous ions at infinite separation. M⁺(g) + X⁻(g) → MX(s). Always highly exothermic (large negative value).<br><br>
+              <b>(i) Effect of ionic charge:</b> Higher charge → stronger electrostatic attraction between ions → higher (more negative) lattice enthalpy. Example: MgO (Mg²⁺ + O²⁻) has ΔH°latt ≈ −3791 kJ/mol, much more than NaCl (Na⁺ + Cl⁻) at −788 kJ/mol. Lattice energy ∝ (charge₊ × charge₋).<br><br>
+              <b>(ii) Effect of ionic radius:</b> Smaller ions → ions can get closer → stronger electrostatic attraction → higher lattice enthalpy. Example: LiF (ΔH°latt ≈ −1037 kJ/mol) > NaF (≈ −923 kJ/mol) > KF (≈ −821 kJ/mol). Li⁺ is smallest → strongest lattice. Lattice energy ∝ 1/(r₊ + r₋).<br><br>
+              <b>(b) Born-Haber cycle steps:</b><br>
+              Na(s) + ½Cl₂(g) [formation reaction → NaCl(s), ΔH°f = −411]<br>
+              ↓ ΔH°at(Na) = +108: Na(s) → Na(g)<br>
+              ↓ IE₁(Na) = +496: Na(g) → Na⁺(g) + e⁻<br>
+              ↓ ΔH°at(Cl) = +122: ½Cl₂(g) → Cl(g)<br>
+              ↓ EA₁(Cl) = −349: Cl(g) + e⁻ → Cl⁻(g)<br>
+              ↓ ΔH°latt = ?: Na⁺(g) + Cl⁻(g) → NaCl(s)<br><br>
+              Hess's Law:<br>
+              ΔH°f = ΔH°at(Na) + IE₁ + ΔH°at(Cl) + EA₁ + ΔH°latt<br>
+              −411 = 108 + 496 + 122 + (−349) + ΔH°latt<br>
+              −411 = +377 + ΔH°latt<br>
+              ΔH°latt = −411 − 377 = <b>−788 kJ/mol</b>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="unit-nav">
+  <a class="nav-btn prev" href="unit13_electrolysis.html">&larr; Unit 13: Electrolysis</a>
+  <a class="nav-btn next" href="unit15_entropy_free_energy.html">Unit 15: Entropy &amp; Free Energy &rarr;</a>
+</div>
+
+</main>
+
+<script>
+function toggleAnswer(btn){
+  const ans=btn.nextElementSibling;
+  ans.classList.toggle('open');
+  btn.textContent=ans.classList.contains('open')?'Hide Answer':'Show Answer';
+}
+const correctAnswers={
+  q1:'b',q2:'c',q3:'b',q4:'b',q5:'b',q6:'b',q7:'b',q8:'b',q9:'b',q10:'a',
+  q11:'a',q12:'b',q13:'c',q14:'b',q15:'c',q16:'c',q17:'b',q18:'b',q19:'b',q20:'b',
+  q21:'b',q22:'b',q23:'c',q24:'b',q25:'a'
+};
+function submitQuiz(){
+  let score=0;
+  const total=Object.keys(correctAnswers).length;
+  Object.entries(correctAnswers).forEach(([q,correct])=>{
+    const sel=document.querySelector('input[name="'+q+'"]:checked');
+    document.querySelectorAll('input[name="'+q+'"]').forEach(o=>{
+      if(o.value===correct)o.parentElement.classList.add('correct');
+    });
+    if(sel){if(sel.value===correct)score++;else sel.parentElement.classList.add('wrong');}
+    const num=q.replace('q','');
+    const exp=document.getElementById('exp'+num);
+    if(exp)exp.style.display='block';
+    document.querySelectorAll('input[name="'+q+'"]').forEach(o=>o.disabled=true);
+  });
+  const pct=Math.round(score/total*100);
+  const res=document.getElementById('quizResult');
+  res.style.display='block';
+  res.style.background=pct>=70?'rgba(52,211,153,.1)':'rgba(248,113,113,.1)';
+  res.style.border='1px solid '+(pct>=70?'var(--green)':'var(--red)');
+  res.style.color=pct>=70?'var(--green)':'var(--red)';
+  res.innerHTML='Score: '+score+' / '+total+' ('+pct+'%) &mdash; '+(pct>=80?'Excellent! 🎉':pct>=60?'Good effort &mdash; review marked questions.':'Keep studying &mdash; re-read the notes and try again.');
+  document.querySelector('.quiz-submit').disabled=true;
+  document.querySelector('.quiz-submit').style.opacity='0.5';
+}
+</script>
+</body>
+</html>
