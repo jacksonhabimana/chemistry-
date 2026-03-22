@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>S5 Chemistry – Unit 10: Phase Diagrams</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Serif+4:wght@300;400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+<style>
+  :root{
+    --bg:#0d1117;--surface:#161b22;--surface2:#1c2333;--border:#30363d;
+    --accent:#58c4dc;--accent2:#f97316;--accent3:#a78bfa;
+    --gold:#e8c547;--green:#34d399;--red:#f87171;--indigo:#6366f1;
+    --text:#e6edf3;--muted:#8b949e;--radius:10px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg);color:var(--text);font-family:'Source Serif 4',Georgia,serif;font-size:17px;line-height:1.75;overflow-x:hidden;}
+  .hero{position:relative;padding:80px 40px 60px;text-align:center;overflow:hidden;background:radial-gradient(ellipse 80% 60% at 50% 0%,#0d1240 0%,var(--bg) 70%);border-bottom:1px solid var(--border);}
+  .hero::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(99,102,241,.05) 40px),repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(99,102,241,.05) 40px);pointer-events:none;}
+  .badge{display:inline-block;background:rgba(99,102,241,.12);border:1px solid rgba(99,102,241,.3);color:var(--indigo);padding:4px 16px;border-radius:50px;font-size:.78rem;font-family:'JetBrains Mono',monospace;letter-spacing:.12em;text-transform:uppercase;margin-bottom:22px;}
+  .hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.4rem);line-height:1.15;color:#fff;max-width:820px;margin:0 auto 18px;}
+  .hero h1 em{color:var(--indigo);font-style:italic;}
+  .hero p.sub{color:var(--muted);font-size:1rem;max-width:620px;margin:0 auto 32px;}
+  .toc-grid{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:800px;margin:0 auto;}
+  .toc-grid a{background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:8px 18px;border-radius:50px;text-decoration:none;font-size:.85rem;transition:all .2s;font-family:'JetBrains Mono',monospace;}
+  .toc-grid a:hover{background:var(--indigo);color:#fff;border-color:var(--indigo);}
+  .page{max-width:960px;margin:0 auto;padding:0 28px 80px;}
+  .section-header{display:flex;align-items:center;gap:16px;margin:64px 0 28px;padding-bottom:14px;border-bottom:2px solid var(--border);}
+  .section-number{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--indigo);background:rgba(99,102,241,.1);border:1px solid rgba(99,102,241,.25);padding:4px 12px;border-radius:4px;white-space:nowrap;}
+  .section-header h2{font-family:'Playfair Display',serif;font-size:1.75rem;color:#fff;}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:26px 30px;margin-bottom:22px;}
+  .card h3{font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--gold);margin-bottom:12px;}
+  .card p+p{margin-top:12px;}
+  .def-box{border-left:4px solid var(--indigo);background:rgba(99,102,241,.07);border-radius:0 var(--radius) var(--radius) 0;padding:18px 22px;margin:20px 0;}
+  .def-box strong{color:var(--indigo);display:block;font-size:.78rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;}
+  .callout{border-radius:var(--radius);padding:18px 22px;margin:20px 0;display:flex;gap:14px;align-items:flex-start;}
+  .callout.info{background:rgba(88,196,220,.08);border:1px solid rgba(88,196,220,.25);}
+  .callout.warn{background:rgba(249,115,22,.08);border:1px solid rgba(249,115,22,.25);}
+  .callout.tip{background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.25);}
+  .callout.indigo{background:rgba(99,102,241,.08);border:1px solid rgba(99,102,241,.25);}
+  .callout-icon{font-size:1.3rem;margin-top:2px;flex-shrink:0;}
+  .callout-body strong{display:block;margin-bottom:4px;font-size:.9rem;color:#fff;}
+  .tbl-wrap{overflow-x:auto;margin:20px 0;border-radius:var(--radius);border:1px solid var(--border);}
+  table{width:100%;border-collapse:collapse;}
+  thead tr{background:var(--surface2);}
+  th{padding:13px 16px;text-align:left;font-size:.82rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--indigo);white-space:nowrap;}
+  td{padding:12px 16px;border-top:1px solid var(--border);font-size:.9rem;}
+  tr:hover td{background:rgba(255,255,255,.02);}
+  td code{background:rgba(99,102,241,.12);padding:2px 7px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:.85em;}
+  .formula-block{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:20px 26px;margin:16px 0;font-family:'JetBrains Mono',monospace;font-size:.93rem;color:var(--indigo);overflow-x:auto;white-space:pre;}
+  .example-box{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin:26px 0;}
+  .example-header{background:rgba(232,197,71,.1);border-bottom:1px solid rgba(232,197,71,.2);padding:14px 22px;display:flex;align-items:center;gap:12px;}
+  .example-header span.tag{font-family:'JetBrains Mono',monospace;font-size:.72rem;background:var(--gold);color:#000;padding:3px 10px;border-radius:4px;font-weight:600;}
+  .example-header h4{color:var(--gold);font-family:'Playfair Display',serif;font-size:1rem;}
+  .example-body{padding:22px 26px;}
+  .example-body .q{color:var(--text);margin-bottom:14px;font-weight:600;}
+  .example-body .step{display:flex;gap:14px;margin:10px 0;}
+  .step-num{min-width:28px;height:28px;background:rgba(99,102,241,.15);border:1px solid rgba(99,102,241,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--indigo);flex-shrink:0;margin-top:3px;}
+  .step-text{flex:1;}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:20px 0;}
+  @media(max-width:640px){.two-col{grid-template-columns:1fr;}}
+  /* Diagram container */
+  .diagram-wrap{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin:20px 0;overflow-x:auto;}
+  .diagram-wrap svg{display:block;margin:0 auto;}
+  .exercise-list{list-style:none;counter-reset:ex;}
+  .exercise-list li{counter-increment:ex;margin-bottom:16px;padding:16px 20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);}
+  .exercise-list li::before{content:'Q' counter(ex) '.';font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--indigo);display:block;margin-bottom:6px;}
+  .reveal-btn{margin-top:10px;background:rgba(99,102,241,.1);border:1px solid rgba(99,102,241,.3);color:var(--indigo);padding:6px 16px;border-radius:6px;cursor:pointer;font-size:.82rem;font-family:'JetBrains Mono',monospace;transition:all .2s;}
+  .reveal-btn:hover{background:var(--indigo);color:#fff;}
+  .answer{display:none;margin-top:12px;padding:12px 16px;background:rgba(99,102,241,.06);border-left:3px solid var(--indigo);border-radius:0 6px 6px 0;font-size:.9rem;}
+  .answer.open{display:block;}
+  .quiz-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-top:32px;}
+  .quiz-header{background:rgba(99,102,241,.1);border-bottom:1px solid rgba(99,102,241,.2);padding:16px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+  .quiz-header h3{font-family:'Playfair Display',serif;color:var(--indigo);font-size:1.2rem;}
+  .quiz-body{padding:24px;}
+  .q-block{margin-bottom:26px;padding-bottom:26px;border-bottom:1px solid var(--border);}
+  .q-block:last-of-type{border-bottom:none;}
+  .q-text{font-weight:600;margin-bottom:12px;color:#fff;}
+  .q-num{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--indigo);display:block;margin-bottom:4px;}
+  .options{display:flex;flex-direction:column;gap:8px;}
+  .opt{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:all .18s;font-size:.92rem;}
+  .opt:hover{border-color:var(--indigo);}
+  .opt input{margin-top:3px;accent-color:var(--indigo);}
+  .opt.correct{background:rgba(52,211,153,.12);border-color:var(--green)!important;color:var(--green);}
+  .opt.wrong{background:rgba(248,113,113,.1);border-color:var(--red)!important;color:var(--red);}
+  .q-exp{display:none;margin-top:10px;padding:10px 14px;background:rgba(99,102,241,.07);border-left:3px solid var(--indigo);border-radius:0 6px 6px 0;font-size:.88rem;}
+  .quiz-submit{background:var(--indigo);color:#fff;border:none;padding:12px 32px;border-radius:8px;font-size:1rem;font-family:'JetBrains Mono',monospace;cursor:pointer;font-weight:600;transition:opacity .2s;}
+  .quiz-submit:hover{opacity:.85;}
+  .test-wrap{margin-top:40px;}
+  .test-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:28px;}
+  .test-section-header{background:rgba(249,115,22,.1);border-bottom:1px solid rgba(249,115,22,.2);padding:14px 24px;display:flex;justify-content:space-between;align-items:center;}
+  .test-section-header h3{font-family:'Playfair Display',serif;color:var(--accent2);font-size:1.1rem;}
+  .marks-badge{font-family:'JetBrains Mono',monospace;font-size:.75rem;background:rgba(249,115,22,.2);color:var(--accent2);padding:4px 12px;border-radius:50px;}
+  .test-body{padding:24px;}
+  .test-q{margin-bottom:20px;padding:16px 18px;background:var(--surface2);border-radius:8px;border:1px solid var(--border);}
+  .test-q-num{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--accent2);margin-bottom:6px;display:block;}
+  .test-answer-reveal{margin-top:14px;}
+  .unit-nav{display:flex;justify-content:space-between;align-items:center;margin-top:72px;padding-top:32px;border-top:1px solid var(--border);flex-wrap:wrap;gap:16px;}
+  .nav-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:8px;text-decoration:none;font-family:'JetBrains Mono',monospace;font-size:.85rem;transition:all .2s;}
+  .nav-btn.prev{background:var(--surface);border:1px solid var(--border);color:var(--muted);}
+  .nav-btn.prev:hover{border-color:var(--indigo);color:var(--indigo);}
+  .nav-btn.next{background:var(--indigo);color:#fff;font-weight:600;}
+  .nav-btn.next:hover{opacity:.88;}
+  h3.sub-heading{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--gold);margin:28px 0 10px;}
+  sub,sup{font-size:.72em;}
+  @media(max-width:600px){.hero{padding:50px 20px 40px;}.page{padding:0 16px 60px;}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="badge">Unit 10 &middot; Physical Chemistry</div>
+  <h1><em>Phase Diagrams</em></h1>
+  <p class="sub">Phase equilibrium, homogeneous and heterogeneous equilibria, one-component and two-component phase diagrams, and their applications.</p>
+  <nav class="toc-grid">
+    <a href="#phases">10.1 Phases &amp; Phase Equilibrium</a>
+    <a href="#gibbs">10.2 Gibbs Phase Rule</a>
+    <a href="#one-component">10.3 One-Component Diagrams</a>
+    <a href="#water">10.4 Water Phase Diagram</a>
+    <a href="#co2">10.5 CO<sub>2</sub> Phase Diagram</a>
+    <a href="#two-component">10.6 Two-Component Diagrams</a>
+    <a href="#applications">10.7 Applications</a>
+    <a href="#exercises">Exercises</a>
+    <a href="#quiz">Quiz</a>
+    <a href="#test">Unit Test</a>
+  </nav>
+</header>
+
+<main class="page">
+
+<!-- 10.1 PHASES AND PHASE EQUILIBRIUM -->
+<section id="phases">
+  <div class="section-header">
+    <span class="section-number">10.1</span>
+    <h2>Phases and Phase Equilibrium</h2>
+  </div>
+
+  <div class="def-box">
+    <strong>Phase</strong>
+    A <b>phase</b> is a physically distinct, homogeneous region of a system that is separated from other regions by definite boundaries (interfaces). A phase has uniform composition and physical properties throughout. Examples: ice (solid phase), liquid water, and water vapour are three phases of H<sub>2</sub>O.
+  </div>
+
+  <div class="card">
+    <h3>Types of Phases</h3>
+    <ul style="padding-left:20px;line-height:2.1;">
+      <li><b>Solid phase</b>: fixed shape and volume; particles in fixed lattice positions.</li>
+      <li><b>Liquid phase</b>: fixed volume, variable shape; particles mobile but in contact.</li>
+      <li><b>Gas/vapour phase</b>: variable volume and shape; particles widely separated.</li>
+      <li>A system may have <b>multiple solid phases</b> (allotropes, polymorphs) e.g. graphite and diamond are two solid phases of carbon.</li>
+      <li>There is only ever <b>one liquid phase</b> for a single component (miscible liquids count as one phase; immiscible liquids count as two).</li>
+      <li>There is only ever <b>one gas phase</b> (all gases mix completely).</li>
+    </ul>
+  </div>
+
+  <div class="def-box">
+    <strong>Phase Equilibrium</strong>
+    A <b>phase equilibrium</b> exists when two or more phases coexist in the same system without any net change over time. At equilibrium, the rate of transition from phase A to phase B equals the rate from B to A. Example: ice and liquid water in equilibrium at 0&deg;C and 1 atm.
+  </div>
+
+  <div class="card">
+    <h3>Conditions for Phase Equilibrium</h3>
+    <p>For two phases to be in equilibrium, they must have the same:</p>
+    <ul style="padding-left:20px;line-height:2.1;">
+      <li><b>Temperature</b> (thermal equilibrium)</li>
+      <li><b>Pressure</b> (mechanical equilibrium)</li>
+      <li><b>Chemical potential</b> of each component (chemical equilibrium)</li>
+    </ul>
+    <p>The <b>chemical potential</b> (&mu;) is essentially the molar Gibbs free energy. At equilibrium: &mu;<sub>solid</sub> = &mu;<sub>liquid</sub> = &mu;<sub>vapour</sub>.</p>
+  </div>
+
+  <div class="card">
+    <h3>Homogeneous vs Heterogeneous Equilibria</h3>
+  </div>
+  <div class="two-col">
+    <div class="card">
+      <h3>Homogeneous Equilibrium</h3>
+      <p>All species involved in the equilibrium are in the <b>same phase</b>. Example: N<sub>2</sub>(g) + 3H<sub>2</sub>(g) &rightleftharpoons; 2NH<sub>3</sub>(g) — all gaseous.<br>K<sub>c</sub> or K<sub>p</sub> expressions include all species.</p>
+    </div>
+    <div class="card">
+      <h3>Heterogeneous Equilibrium</h3>
+      <p>Species are in <b>different phases</b>. Example: CaCO<sub>3</sub>(s) &rightleftharpoons; CaO(s) + CO<sub>2</sub>(g).<br>Concentrations of pure solids and liquids are constant &rarr; they are <b>omitted</b> from K expressions. K<sub>p</sub> = p(CO<sub>2</sub>).</p>
+    </div>
+  </div>
+
+  <div class="formula-block">Examples of heterogeneous equilibria:
+CaCO3(s) <==> CaO(s)  +  CO2(g)        Kp = p(CO2)
+H2O(l)   <==> H2O(g)                   Kp = p(H2O)  [vapour pressure]
+Fe3O4(s) + 4H2(g) <==> 3Fe(s) + 4H2O(g)  Kp = [p(H2O)]^4 / [p(H2)]^4
+I2(s)    <==> I2(aq)                    Kc = [I2(aq)]</div>
+</section>
+
+<!-- 10.2 GIBBS PHASE RULE -->
+<section id="gibbs">
+  <div class="section-header">
+    <span class="section-number">10.2</span>
+    <h2>The Gibbs Phase Rule</h2>
+  </div>
+
+  <div class="def-box">
+    <strong>Gibbs Phase Rule</strong>
+    <b>F = C &minus; P + 2</b><br>
+    where: <b>F</b> = degrees of freedom (number of intensive variables — T, P, composition — that can be independently varied without changing the number of phases); <b>C</b> = number of components; <b>P</b> = number of phases present.
+  </div>
+
+  <div class="card">
+    <h3>Understanding the Variables</h3>
+    <ul style="padding-left:20px;line-height:2.2;">
+      <li><b>Components (C)</b>: minimum number of chemically independent species needed to describe all phases. For pure water: C = 1.</li>
+      <li><b>Phases (P)</b>: number of distinct phases present simultaneously.</li>
+      <li><b>Degrees of freedom (F)</b>: number of variables (T, P, concentration) you can change independently while keeping the same phases.</li>
+    </ul>
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>System (C=1, e.g. water)</th><th>Phases (P)</th><th>F = 1 &minus; P + 2</th><th>Meaning</th></tr></thead>
+      <tbody>
+        <tr><td>Single phase region (e.g. liquid only)</td><td>1</td><td>F = 2</td><td>Both T and P can vary — <b>bivariant</b></td></tr>
+        <tr><td>Two-phase equilibrium (e.g. liquid + vapour)</td><td>2</td><td>F = 1</td><td>Fix T &rarr; P fixed (or vice versa) — <b>univariant</b></td></tr>
+        <tr><td>Triple point (solid + liquid + vapour)</td><td>3</td><td>F = 0</td><td>T and P both fixed — <b>invariant</b></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="example-box">
+    <div class="example-header"><span class="tag">Example 1</span><h4>Applying the Phase Rule</h4></div>
+    <div class="example-body">
+      <p class="q">Apply the Gibbs phase rule to: (a) liquid water only; (b) water at its boiling point (liquid + vapour); (c) water at its triple point.</p>
+      <div class="step"><div class="step-num">a</div><div class="step-text">C=1, P=1: F = 1 &minus; 1 + 2 = <b>2</b>. Both T and P can be varied independently while keeping water in liquid phase. Bivariant system.</div></div>
+      <div class="step"><div class="step-num">b</div><div class="step-text">C=1, P=2: F = 1 &minus; 2 + 2 = <b>1</b>. Fix temperature &rarr; boiling point pressure fixed (or vice versa). Univariant — vapour pressure curve.</div></div>
+      <div class="step"><div class="step-num">c</div><div class="step-text">C=1, P=3: F = 1 &minus; 3 + 2 = <b>0</b>. Invariant &mdash; the triple point exists at one unique T and P only (0.006 atm, 0.0098&deg;C for water). Cannot be varied at all.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 10.3 ONE-COMPONENT PHASE DIAGRAMS -->
+<section id="one-component">
+  <div class="section-header">
+    <span class="section-number">10.3</span>
+    <h2>One-Component Phase Diagrams</h2>
+  </div>
+
+  <div class="card">
+    <h3>General Features of a One-Component Phase Diagram</h3>
+    <p>A one-component (single substance) phase diagram plots <b>pressure (P) on the y-axis</b> and <b>temperature (T) on the x-axis</b>. It shows which phase (solid, liquid, gas) is stable at each combination of T and P.</p>
+  </div>
+
+  <div class="card">
+    <h3>Key Features</h3>
+    <ul style="padding-left:20px;line-height:2.2;">
+      <li><b>Phase regions (areas)</b>: single-phase stable regions (F=2). Solid, liquid, or gas/vapour.</li>
+      <li><b>Phase boundary curves (lines)</b>: two-phase equilibria (F=1). Three important curves:
+        <ul style="padding-left:20px;margin-top:6px;">
+          <li><b>Sublimation curve</b> (solid &rightleftharpoons; gas): below triple point.</li>
+          <li><b>Vapour pressure/vaporisation curve</b> (liquid &rightleftharpoons; gas): from triple point to critical point.</li>
+          <li><b>Fusion/melting curve</b> (solid &rightleftharpoons; liquid): from triple point upward.</li>
+        </ul>
+      </li>
+      <li><b>Triple point (T<sub>t</sub>, P<sub>t</sub>)</b>: all three phases in equilibrium (F=0). Unique T and P.</li>
+      <li><b>Critical point (T<sub>c</sub>, P<sub>c</sub>)</b>: above this, liquid and gas phases are indistinguishable (supercritical fluid). End of vaporisation curve.</li>
+    </ul>
+  </div>
+
+  <!-- SVG Phase Diagram -->
+  <div class="diagram-wrap">
+    <svg viewBox="0 0 600 420" width="600" height="420" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;">
+      <!-- Background -->
+      <rect width="600" height="420" fill="#1c2333" rx="8"/>
+      <!-- Grid lines -->
+      <g stroke="#30363d" stroke-width="0.5">
+        <line x1="80" y1="40" x2="80" y2="360"/>
+        <line x1="80" y1="360" x2="560" y2="360"/>
+      </g>
+      <!-- Phase regions (colored backgrounds) -->
+      <!-- Solid region -->
+      <path d="M80,40 L80,360 L200,240 L160,40 Z" fill="rgba(99,102,241,0.15)" stroke="none"/>
+      <!-- Liquid region -->
+      <path d="M160,40 L200,240 L370,200 L440,40 Z" fill="rgba(34,211,238,0.12)" stroke="none"/>
+      <!-- Gas region -->
+      <path d="M80,360 L200,240 L370,200 L560,360 Z" fill="rgba(52,211,153,0.10)" stroke="none"/>
+
+      <!-- Sublimation curve (solid-gas): from bottom-left to triple point -->
+      <path d="M80,360 Q140,310 200,240" fill="none" stroke="#6366f1" stroke-width="2.5"/>
+      <!-- Vaporisation curve (liquid-gas): from triple point to critical point -->
+      <path d="M200,240 Q280,220 370,200" fill="none" stroke="#22d3ee" stroke-width="2.5"/>
+      <!-- Dashed extension (supercritical) -->
+      <path d="M370,200 Q430,185 480,175" fill="none" stroke="#22d3ee" stroke-width="2" stroke-dasharray="6,4"/>
+      <!-- Fusion curve (solid-liquid): from triple point upward (normal: slight positive slope) -->
+      <path d="M200,240 L160,40" fill="none" stroke="#e8c547" stroke-width="2.5"/>
+
+      <!-- Critical point -->
+      <circle cx="370" cy="200" r="7" fill="#22d3ee" stroke="#fff" stroke-width="1.5"/>
+      <text x="380" y="196" fill="#22d3ee" font-family="JetBrains Mono" font-size="11" font-weight="600">Critical Point</text>
+      <text x="380" y="210" fill="#8b949e" font-family="JetBrains Mono" font-size="10">(Tc, Pc)</text>
+
+      <!-- Triple point -->
+      <circle cx="200" cy="240" r="7" fill="#e8c547" stroke="#fff" stroke-width="1.5"/>
+      <text x="210" y="236" fill="#e8c547" font-family="JetBrains Mono" font-size="11" font-weight="600">Triple Point</text>
+      <text x="210" y="250" fill="#8b949e" font-family="JetBrains Mono" font-size="10">(Tt, Pt)</text>
+
+      <!-- Phase labels -->
+      <text x="108" y="160" fill="#a78bfa" font-family="Playfair Display" font-size="18" font-style="italic">SOLID</text>
+      <text x="238" y="130" fill="#58c4dc" font-family="Playfair Display" font-size="18" font-style="italic">LIQUID</text>
+      <text x="340" y="320" fill="#34d399" font-family="Playfair Display" font-size="18" font-style="italic">GAS / VAPOUR</text>
+
+      <!-- Curve labels -->
+      <text x="90" y="320" fill="#6366f1" font-family="JetBrains Mono" font-size="10" transform="rotate(-38,90,320)">Sublimation</text>
+      <text x="240" y="238" fill="#22d3ee" font-family="JetBrains Mono" font-size="10">Vaporisation</text>
+      <text x="147" y="155" fill="#e8c547" font-family="JetBrains Mono" font-size="10" transform="rotate(-80,147,155)">Fusion</text>
+
+      <!-- Axes labels -->
+      <text x="310" y="395" fill="#8b949e" font-family="JetBrains Mono" font-size="13" text-anchor="middle">Temperature (T) →</text>
+      <text x="22" y="200" fill="#8b949e" font-family="JetBrains Mono" font-size="13" text-anchor="middle" transform="rotate(-90,22,200)">Pressure (P) →</text>
+
+      <!-- 1 atm dashed line -->
+      <line x1="80" y1="290" x2="560" y2="290" stroke="#8b949e" stroke-width="1" stroke-dasharray="8,5"/>
+      <text x="536" y="286" fill="#8b949e" font-family="JetBrains Mono" font-size="10">1 atm</text>
+
+      <!-- Normal BP and MP markers on 1 atm line -->
+      <circle cx="148" cy="290" r="4" fill="#e8c547"/>
+      <text x="130" y="308" fill="#e8c547" font-family="JetBrains Mono" font-size="9">Normal</text>
+      <text x="130" y="319" fill="#e8c547" font-family="JetBrains Mono" font-size="9">MP</text>
+      <circle cx="305" cy="290" r="4" fill="#22d3ee"/>
+      <text x="290" y="308" fill="#22d3ee" font-family="JetBrains Mono" font-size="9">Normal</text>
+      <text x="290" y="319" fill="#22d3ee" font-family="JetBrains Mono" font-size="9">BP</text>
+    </svg>
+    <p style="text-align:center;color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:.78rem;margin-top:12px;">General one-component phase diagram (schematic)</p>
+  </div>
+
+  <div class="card">
+    <h3>Reading the Phase Diagram</h3>
+    <ul style="padding-left:20px;line-height:2.1;">
+      <li>The <b>normal melting point</b> is the T at which the fusion curve intersects P = 1 atm.</li>
+      <li>The <b>normal boiling point</b> is the T at which the vaporisation curve intersects P = 1 atm.</li>
+      <li>At T and P above the critical point, the substance exists as a <b>supercritical fluid</b> — cannot be liquefied by increasing pressure alone.</li>
+      <li>Moving horizontally (constant P) across phase boundaries = heating/cooling transitions.</li>
+      <li>Moving vertically (constant T) across phase boundaries = pressure-induced transitions.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 10.4 WATER PHASE DIAGRAM -->
+<section id="water">
+  <div class="section-header">
+    <span class="section-number">10.4</span>
+    <h2>Phase Diagram of Water</h2>
+  </div>
+
+  <div class="card">
+    <h3>Key Data for Water</h3>
+  </div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Feature</th><th>Value</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Triple point</td><td>T = 0.0098&deg;C, P = 611 Pa (0.006 atm)</td><td>Solid + liquid + vapour coexist</td></tr>
+        <tr><td>Normal melting point</td><td>0&deg;C at 1 atm</td><td>Fusion curve at 1 atm</td></tr>
+        <tr><td>Normal boiling point</td><td>100&deg;C at 1 atm</td><td>Vaporisation curve at 1 atm</td></tr>
+        <tr><td>Critical point</td><td>T = 374&deg;C, P = 218 atm</td><td>Above this: supercritical water</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>Anomalous Feature: Negative Slope of Fusion Curve</h3>
+    <p>The <b>fusion curve (ice&ndash;water boundary) has a negative slope</b> — uniquely different from most substances. This means that <b>increasing pressure at constant temperature melts ice</b> (converts solid to liquid).</p>
+    <p><b>Reason:</b> Ice (solid) is <b>less dense</b> than liquid water (density: ice = 0.917 g/cm³, water = 1.00 g/cm³). Ice has an open hexagonal lattice with H-bonds; liquid water is more compact. By Le Chatelier's principle, increasing pressure favours the denser phase (liquid) &rarr; melting occurs.</p>
+    <p>Most substances have a <b>positive slope</b> fusion curve (solid denser than liquid).</p>
+  </div>
+
+  <!-- SVG Water Phase Diagram -->
+  <div class="diagram-wrap">
+    <svg viewBox="0 0 600 420" width="600" height="420" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;">
+      <rect width="600" height="420" fill="#1c2333" rx="8"/>
+      <!-- Grid -->
+      <g stroke="#30363d" stroke-width="0.5">
+        <line x1="80" y1="40" x2="80" y2="360"/>
+        <line x1="80" y1="360" x2="560" y2="360"/>
+      </g>
+      <!-- Phase regions -->
+      <!-- Ice -->
+      <path d="M80,40 L80,360 L190,250 L220,40 Z" fill="rgba(99,102,241,0.18)" stroke="none"/>
+      <!-- Liquid Water -->
+      <path d="M220,40 L190,250 L380,210 L560,40 Z" fill="rgba(34,211,238,0.15)" stroke="none"/>
+      <!-- Vapour -->
+      <path d="M80,360 L190,250 L380,210 L560,360 Z" fill="rgba(52,211,153,0.10)" stroke="none"/>
+
+      <!-- Sublimation curve -->
+      <path d="M80,360 Q130,320 190,250" fill="none" stroke="#6366f1" stroke-width="2.5"/>
+      <!-- Vaporisation curve -->
+      <path d="M190,250 Q280,230 380,210" fill="none" stroke="#22d3ee" stroke-width="2.5"/>
+      <!-- Extension to critical -->
+      <path d="M380,210 Q450,190 500,180" fill="none" stroke="#22d3ee" stroke-width="2" stroke-dasharray="6,4"/>
+      <!-- Fusion curve: NEGATIVE slope (leans left = higher P gives lower T melting) -->
+      <path d="M190,250 L220,40" fill="none" stroke="#e8c547" stroke-width="2.5"/>
+
+      <!-- Triple point -->
+      <circle cx="190" cy="250" r="7" fill="#e8c547" stroke="#fff" stroke-width="1.5"/>
+      <text x="200" y="246" fill="#e8c547" font-family="JetBrains Mono" font-size="11" font-weight="600">Triple Point</text>
+      <text x="200" y="260" fill="#8b949e" font-family="JetBrains Mono" font-size="10">0.0098°C, 611 Pa</text>
+
+      <!-- Critical point -->
+      <circle cx="380" cy="210" r="7" fill="#22d3ee" stroke="#fff" stroke-width="1.5"/>
+      <text x="390" y="206" fill="#22d3ee" font-family="JetBrains Mono" font-size="11" font-weight="600">Critical Point</text>
+      <text x="390" y="220" fill="#8b949e" font-family="JetBrains Mono" font-size="10">374°C, 218 atm</text>
+
+      <!-- Phase labels -->
+      <text x="95" y="160" fill="#a78bfa" font-family="Playfair Display" font-size="17" font-style="italic">ICE</text>
+      <text x="250" y="120" fill="#58c4dc" font-family="Playfair Display" font-size="17" font-style="italic">LIQUID WATER</text>
+      <text x="330" y="320" fill="#34d399" font-family="Playfair Display" font-size="17" font-style="italic">WATER VAPOUR</text>
+
+      <!-- 1 atm line -->
+      <line x1="80" y1="295" x2="560" y2="295" stroke="#8b949e" stroke-width="1" stroke-dasharray="8,5"/>
+      <text x="530" y="291" fill="#8b949e" font-family="JetBrains Mono" font-size="10">1 atm</text>
+
+      <!-- Normal MP at 0°C, Normal BP at 100°C on 1 atm line -->
+      <circle cx="209" cy="295" r="4" fill="#e8c547"/>
+      <line x1="209" y1="295" x2="209" y2="360" stroke="#e8c547" stroke-width="1" stroke-dasharray="4,3"/>
+      <text x="194" y="375" fill="#e8c547" font-family="JetBrains Mono" font-size="10">0°C</text>
+
+      <circle cx="335" cy="295" r="4" fill="#22d3ee"/>
+      <line x1="335" y1="295" x2="335" y2="360" stroke="#22d3ee" stroke-width="1" stroke-dasharray="4,3"/>
+      <text x="318" y="375" fill="#22d3ee" font-family="JetBrains Mono" font-size="10">100°C</text>
+
+      <!-- Negative slope annotation -->
+      <text x="158" y="130" fill="#e8c547" font-family="JetBrains Mono" font-size="9" transform="rotate(-80,158,130)">Fusion (neg. slope)</text>
+
+      <!-- Axes -->
+      <text x="310" y="400" fill="#8b949e" font-family="JetBrains Mono" font-size="13" text-anchor="middle">Temperature →</text>
+      <text x="22" y="200" fill="#8b949e" font-family="JetBrains Mono" font-size="13" text-anchor="middle" transform="rotate(-90,22,200)">Pressure →</text>
+    </svg>
+    <p style="text-align:center;color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:.78rem;margin-top:12px;">Phase diagram of water (schematic — not to scale)</p>
+  </div>
+
+  <div class="callout indigo">
+    <span class="callout-icon">&#128204;</span>
+    <div class="callout-body">
+      <strong>Why Ice Skates Work</strong>
+      One classical explanation was that the pressure from the blade melts ice, creating a lubricating liquid layer. However, modern research shows the pressure effect is too small at typical skating temperatures (&minus;10&deg;C requires ~100 atm to melt). The primary mechanism is now understood to be frictional heating and a quasi-liquid layer naturally present on ice surfaces.
+    </div>
+  </div>
+
+  <div class="example-box">
+    <div class="example-header"><span class="tag">Example 2</span><h4>Interpreting the Water Phase Diagram</h4></div>
+    <div class="example-body">
+      <p class="q">Using the water phase diagram: (a) What phase(s) exist at 50&deg;C and 1 atm? (b) What happens when water at 25&deg;C is put under very high pressure? (c) Why does water boil at &lt;100&deg;C on a mountaintop?</p>
+      <div class="step"><div class="step-num">a</div><div class="step-text">At 50&deg;C, 1 atm: this point is in the <b>liquid water</b> region (above the triple point temperature, below boiling point of 100&deg;C, at 1 atm).</div></div>
+      <div class="step"><div class="step-num">b</div><div class="step-text">Liquid water at 25&deg;C moving to higher pressure: moves <b>upward</b> on the diagram. The nearest phase boundary above is the fusion curve. Since the fusion curve has a negative slope, moving up eventually crosses it &rarr; water <b>freezes</b> under very high pressure (at 25&deg;C you need ~2500 atm). This is different from most substances.</div></div>
+      <div class="step"><div class="step-num">c</div><div class="step-text">On a mountaintop, atmospheric pressure is <b>lower</b> than 1 atm. On the vaporisation curve, lower pressure corresponds to lower boiling temperature. So water boils at &lt;100&deg;C (e.g. ~90&deg;C at 3000 m altitude where P &asymp; 0.7 atm).</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 10.5 CO2 PHASE DIAGRAM -->
+<section id="co2">
+  <div class="section-header">
+    <span class="section-number">10.5</span>
+    <h2>Phase Diagram of CO<sub>2</sub></h2>
+  </div>
+
+  <div class="card">
+    <h3>Key Data for CO<sub>2</sub></h3>
+  </div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Feature</th><th>Value</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Triple point</td><td>T = &minus;56.6&deg;C, P = 5.11 atm</td><td>All three phases coexist</td></tr>
+        <tr><td>Sublimation at 1 atm</td><td>&minus;78.5&deg;C</td><td>CO<sub>2</sub> sublimates directly at normal pressure</td></tr>
+        <tr><td>Normal melting point</td><td>Does not exist at 1 atm (triple point P &gt; 1 atm)</td><td>Liquid CO<sub>2</sub> cannot exist at 1 atm</td></tr>
+        <tr><td>Critical point</td><td>T = 31.1&deg;C, P = 73.8 atm</td><td>Supercritical CO<sub>2</sub> above this</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>Key Feature: Triple Point Above 1 atm</h3>
+    <p>The triple point of CO<sub>2</sub> occurs at <b>5.11 atm</b>, which is above normal atmospheric pressure (1 atm). Therefore, at 1 atm, the solid&ndash;gas boundary is crossed directly — <b>solid CO<sub>2</sub> (dry ice) sublimates</b> at &minus;78.5&deg;C without melting. Liquid CO<sub>2</sub> can only exist at pressures above 5.11 atm.</p>
+  </div>
+
+  <div class="card">
+    <h3>Positive Slope of Fusion Curve (Normal)</h3>
+    <p>Unlike water, CO<sub>2</sub> has a <b>positive slope</b> on its fusion curve — solid CO<sub>2</sub> is denser than liquid CO<sub>2</sub>. Increasing pressure at constant T favours the solid phase (Le Chatelier).</p>
+  </div>
+
+  <div class="card">
+    <h3>Supercritical CO<sub>2</sub></h3>
+    <p>Above 31.1&deg;C and 73.8 atm, CO<sub>2</sub> becomes a <b>supercritical fluid</b> — it has properties between a gas (low viscosity, high diffusivity) and a liquid (dissolves substances). Applications: supercritical CO<sub>2</sub> extraction of caffeine from coffee, decaffeination; dry cleaning; extraction of essential oils; in HPLC (chromatography).</p>
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Property</th><th>Water</th><th>CO<sub>2</sub></th></tr></thead>
+      <tbody>
+        <tr><td>Triple point pressure</td><td>0.006 atm (&lt;1 atm)</td><td>5.11 atm (&gt;1 atm)</td></tr>
+        <tr><td>Behaviour at 1 atm on heating solid</td><td>Melts (solid &rarr; liquid &rarr; gas)</td><td>Sublimates (solid &rarr; gas directly)</td></tr>
+        <tr><td>Fusion curve slope</td><td>Negative (anomalous)</td><td>Positive (normal)</td></tr>
+        <tr><td>Solid denser than liquid?</td><td>No (ice floats)</td><td>Yes (normal)</td></tr>
+        <tr><td>Critical point</td><td>374&deg;C, 218 atm</td><td>31.1&deg;C, 73.8 atm</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 10.6 TWO-COMPONENT PHASE DIAGRAMS -->
+<section id="two-component">
+  <div class="section-header">
+    <span class="section-number">10.6</span>
+    <h2>Two-Component Phase Diagrams</h2>
+  </div>
+
+  <div class="card">
+    <h3>Vapour Pressure–Composition Diagrams (Raoult's Law)</h3>
+    <p>For an <b>ideal binary mixture</b> of two miscible liquids A and B, the vapour pressure of each component follows <b>Raoult's Law</b>:</p>
+    <div class="formula-block">Raoult's Law:
+p_A = x_A * P_A*       p_B = x_B * P_B*
+
+where:
+p_A = partial vapour pressure of A in mixture
+x_A = mole fraction of A in liquid phase
+P_A* = vapour pressure of pure A
+
+Total pressure: P_total = p_A + p_B = x_A*P_A* + x_B*P_B*</div>
+    <p>On a P&ndash;x diagram, the total pressure varies <b>linearly</b> with composition for an ideal mixture.</p>
+  </div>
+
+  <div class="card">
+    <h3>Boiling Point–Composition Diagram (T&ndash;x Diagram)</h3>
+    <p>At constant pressure (usually 1 atm), the boiling point&ndash;composition diagram shows:</p>
+    <ul style="padding-left:20px;line-height:2.1;">
+      <li><b>Liquid curve (bubble point curve)</b>: compositions and temperatures at which the liquid begins to boil.</li>
+      <li><b>Vapour curve (dew point curve)</b>: compositions and temperatures at which vapour begins to condense.</li>
+      <li>The region between the two curves = two-phase region (liquid + vapour in equilibrium).</li>
+    </ul>
+  </div>
+
+  <!-- SVG T-x diagram -->
+  <div class="diagram-wrap">
+    <svg viewBox="0 0 520 340" width="520" height="340" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;">
+      <rect width="520" height="340" fill="#1c2333" rx="8"/>
+      <!-- Axes -->
+      <line x1="60" y1="30" x2="60" y2="290" stroke="#30363d" stroke-width="1.5"/>
+      <line x1="60" y1="290" x2="480" y2="290" stroke="#30363d" stroke-width="1.5"/>
+      <!-- Liquid curve (bubble point) -->
+      <path d="M60,260 Q270,240 480,100" fill="none" stroke="#22d3ee" stroke-width="2.5"/>
+      <!-- Vapour curve (dew point) -->
+      <path d="M60,260 Q270,190 480,100" fill="none" stroke="#6366f1" stroke-width="2.5"/>
+      <!-- Fill between curves -->
+      <path d="M60,260 Q270,240 480,100 Q270,190 60,260 Z" fill="rgba(99,102,241,0.12)" stroke="none"/>
+      <!-- Region labels -->
+      <text x="80" y="200" fill="#22d3ee" font-family="Playfair Display" font-size="14" font-style="italic">LIQUID</text>
+      <text x="330" y="180" fill="#6366f1" font-family="Playfair Display" font-size="14" font-style="italic">VAPOUR</text>
+      <text x="195" y="248" fill="#a78bfa" font-family="JetBrains Mono" font-size="11">L + V</text>
+      <!-- Tie line example -->
+      <line x1="170" y1="220" x2="350" y2="220" stroke="#e8c547" stroke-width="1.5" stroke-dasharray="6,3"/>
+      <circle cx="170" cy="220" r="4" fill="#22d3ee"/>
+      <circle cx="350" cy="220" r="4" fill="#6366f1"/>
+      <text x="155" y="215" fill="#22d3ee" font-family="JetBrains Mono" font-size="9">xL</text>
+      <text x="354" y="215" fill="#6366f1" font-family="JetBrains Mono" font-size="9">xV</text>
+      <text x="250" y="215" fill="#e8c547" font-family="JetBrains Mono" font-size="9">Tie line</text>
+      <!-- Axis labels -->
+      <text x="270" y="318" fill="#8b949e" font-family="JetBrains Mono" font-size="12" text-anchor="middle">Mole fraction of B (x_B) →</text>
+      <text x="270" y="328" fill="#8b949e" font-family="JetBrains Mono" font-size="11" text-anchor="middle">A (pure) ←———————————→ B (pure)</text>
+      <text x="15" y="160" fill="#8b949e" font-family="JetBrains Mono" font-size="12" text-anchor="middle" transform="rotate(-90,15,160)">Temperature (T) →</text>
+      <!-- Boiling points -->
+      <text x="42" y="264" fill="#8b949e" font-family="JetBrains Mono" font-size="10">BP(A)</text>
+      <text x="458" y="104" fill="#8b949e" font-family="JetBrains Mono" font-size="10">BP(B)</text>
+      <!-- Curve labels -->
+      <text x="300" y="260" fill="#22d3ee" font-family="JetBrains Mono" font-size="10">Liquid curve</text>
+      <text x="300" y="140" fill="#6366f1" font-family="JetBrains Mono" font-size="10">Vapour curve</text>
+    </svg>
+    <p style="text-align:center;color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:.78rem;margin-top:12px;">T&ndash;x diagram for an ideal binary mixture (A more volatile, lower B.P.; B less volatile, higher B.P.)</p>
+  </div>
+
+  <div class="card">
+    <h3>The Lever Rule</h3>
+    <p>At a point in the two-phase region, the <b>relative amounts</b> of liquid and vapour are given by the lever rule:</p>
+    <div class="formula-block">Moles of vapour / Moles of liquid  =  (x_overall - x_liquid) / (x_vapour - x_overall)
+
+where x_liquid and x_vapour are read from the ends of the tie line,
+and x_overall is the overall composition.</div>
+  </div>
+
+  <div class="card">
+    <h3>Azeotropes (Non-Ideal Mixtures)</h3>
+    <p>Real mixtures may deviate from Raoult's law, forming <b>azeotropes</b> — mixtures with constant boiling point at a fixed composition:</p>
+    <ul style="padding-left:20px;line-height:2.1;">
+      <li><b>Minimum-boiling azeotrope</b> (positive deviation): e.g. ethanol&ndash;water (95.6% ethanol, B.P. 78.1&deg;C). Cannot be separated beyond azeotrope composition by simple distillation.</li>
+      <li><b>Maximum-boiling azeotrope</b> (negative deviation): e.g. HCl&ndash;water (20.2% HCl, B.P. 108.6&deg;C). Mixture boils above both pure components.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 10.7 APPLICATIONS -->
+<section id="applications">
+  <div class="section-header">
+    <span class="section-number">10.7</span>
+    <h2>Applications of Phase Diagrams</h2>
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Application</th><th>Phase Diagram Used</th><th>Details</th></tr></thead>
+      <tbody>
+        <tr><td>Fractional distillation of petroleum</td><td>Multi-component T&ndash;x diagram</td><td>Separation based on boiling point differences in complex mixture</td></tr>
+        <tr><td>Freeze-drying (lyophilisation)</td><td>Water phase diagram</td><td>Reduce P below triple point &rarr; ice sublimates directly to vapour without passing through liquid phase. Used for food and pharmaceutical preservation.</td></tr>
+        <tr><td>Supercritical CO<sub>2</sub> extraction</td><td>CO<sub>2</sub> phase diagram</td><td>Operate above critical point (31.1&deg;C, 73.8 atm). Supercritical CO<sub>2</sub> dissolves caffeine, essential oils etc. without toxic solvents.</td></tr>
+        <tr><td>Pressure cookers</td><td>Water phase diagram</td><td>Increase P above 1 atm &rarr; boiling point rises above 100&deg;C &rarr; food cooks faster.</td></tr>
+        <tr><td>Autoclave sterilisation</td><td>Water phase diagram</td><td>Steam at 121&deg;C (2 atm) kills all microbes; used in hospitals and labs.</td></tr>
+        <tr><td>Alloy solidification</td><td>Two-component solid&ndash;liquid diagram</td><td>Eutectic point gives minimum melting temperature mixture (e.g. tin&ndash;lead solder).</td></tr>
+        <tr><td>Fractional distillation (ethanol&ndash;water)</td><td>T&ndash;x diagram with azeotrope</td><td>Maximum ethanol concentration by distillation = 95.6% (azeotrope). Pure ethanol requires molecular sieves or chemical drying.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="example-box">
+    <div class="example-header"><span class="tag">Example 3</span><h4>Freeze-Drying Using the Water Phase Diagram</h4></div>
+    <div class="example-body">
+      <p class="q">Explain, with reference to the water phase diagram, how freeze-drying preserves food.</p>
+      <div class="step"><div class="step-num">1</div><div class="step-text">The food is first <b>frozen</b> — T is reduced below 0&deg;C at atmospheric pressure, converting water to ice (moving left across fusion curve on phase diagram).</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-text">Pressure is then <b>reduced below 611 Pa</b> (the triple point pressure). The system is now below the triple point on the phase diagram.</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-text">At this low P, the ice is in the <b>solid&ndash;gas region</b>. Gentle heating causes the ice to <b>sublime directly to vapour</b> (crosses the sublimation curve) without passing through the liquid phase.</div></div>
+      <div class="step"><div class="step-num">&#10003;</div><div class="step-text">Result: food is dried without ever becoming liquid &rarr; structure and nutrients preserved, long shelf life, easily rehydrated.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- EXERCISES -->
+<section id="exercises">
+  <div class="section-header">
+    <span class="section-number">&#9999;&#65039;</span>
+    <h2>Exercises</h2>
+  </div>
+  <ul class="exercise-list">
+
+    <li>
+      Define: (a) a phase; (b) the triple point; (c) the critical point; (d) degrees of freedom (F) in the Gibbs phase rule.
+      <br><button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+      <div class="answer">
+        (a) A <b>phase</b> is a physically distinct, homogeneous region of a system separated from other regions by definite boundaries, with uniform composition and physical properties throughout.<br>
+        (b) The <b>triple point</b> is the unique temperature and pressure at which solid, liquid, and gas phases of a substance coexist in equilibrium (F = 0; C=1, P=3).<br>
+        (c) The <b>critical point</b> is the temperature and pressure above which the liquid and gas phases are indistinguishable (supercritical fluid); the end of the vaporisation curve.<br>
+        (d) <b>Degrees of freedom (F)</b> = the number of intensive variables (T, P, composition) that can be independently varied without changing the number of phases present. From Gibbs: F = C &minus; P + 2.
+      </div>
+    </li>
+
+    <li>
+      Apply the Gibbs phase rule (F = C &minus; P + 2) to: (a) a single gas; (b) liquid&ndash;vapour equilibrium for a pure substance; (c) the triple point of CO<sub>2</sub>; (d) an ideal binary liquid mixture (two components, one phase).
+      <br><button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+      <div class="answer">
+        (a) C=1, P=1: F = 1&minus;1+2 = <b>2</b>. Both T and P can be varied independently.<br>
+        (b) C=1, P=2: F = 1&minus;2+2 = <b>1</b>. Fix T &rarr; P fixed (vapour pressure curve). Univariant.<br>
+        (c) C=1, P=3: F = 1&minus;3+2 = <b>0</b>. Invariant; unique T=&minus;56.6&deg;C, P=5.11 atm.<br>
+        (d) C=2, P=1: F = 2&minus;1+2 = <b>3</b>. T, P, and composition can all be independently varied.
+      </div>
+    </li>
+
+    <li>
+      Explain why the fusion curve of water has a negative slope while that of CO<sub>2</sub> has a positive slope.
+      <br><button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+      <div class="answer">
+        The slope of the fusion curve is governed by the <b>Clausius&ndash;Clapeyron equation</b> for melting: dP/dT = &Delta;H<sub>fus</sub> / (T&Delta;V<sub>fus</sub>).<br><br>
+        <b>Water</b>: ice is <b>less dense</b> than liquid water (&Delta;V<sub>fus</sub> = V<sub>liquid</sub> &minus; V<sub>solid</sub> &lt; 0). Since &Delta;H<sub>fus</sub> &gt; 0 and &Delta;V<sub>fus</sub> &lt; 0, dP/dT &lt; 0 &rarr; <b>negative slope</b>. Increasing pressure at constant T melts ice (favours denser liquid).<br><br>
+        <b>CO<sub>2</sub></b>: solid CO<sub>2</sub> is denser than liquid CO<sub>2</sub> (&Delta;V<sub>fus</sub> &gt; 0). dP/dT &gt; 0 &rarr; <b>positive slope</b>. Increasing pressure at constant T solidifies liquid CO<sub>2</sub>.
+      </div>
+    </li>
+
+    <li>
+      Why does solid CO<sub>2</sub> (dry ice) sublime at atmospheric pressure rather than melting?
+      <br><button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+      <div class="answer">
+        The triple point of CO<sub>2</sub> is at <b>5.11 atm</b>, which is higher than atmospheric pressure (1 atm). At 1 atm, it is impossible to have liquid CO<sub>2</sub> — the isobar at 1 atm crosses the <b>solid&ndash;gas (sublimation) boundary</b> directly without passing through the liquid region. Therefore, solid CO<sub>2</sub> converts directly to gas (sublimates) at &minus;78.5&deg;C without melting.
+      </div>
+    </li>
+
+    <li>
+      State Raoult's Law and explain what is meant by an ideal binary mixture. What is an azeotrope and why is it important in distillation?
+      <br><button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+      <div class="answer">
+        <b>Raoult's Law:</b> The partial vapour pressure of a component in a mixture equals the mole fraction of that component multiplied by the vapour pressure of the pure component: p<sub>A</sub> = x<sub>A</sub> &times; P<sub>A</sub>*.<br><br>
+        An <b>ideal binary mixture</b> obeys Raoult's law at all compositions. This occurs when the two components have similar intermolecular forces (A&ndash;B forces &asymp; A&ndash;A and B&ndash;B forces). The total vapour pressure varies linearly with composition.<br><br>
+        An <b>azeotrope</b> is a mixture with a fixed composition that boils at a constant temperature (the vapour and liquid have the same composition). Example: ethanol&ndash;water azeotrope (95.6% ethanol, B.P. 78.1&deg;C). At this point, distillation cannot further concentrate the mixture because the vapour has the same composition as the liquid. To obtain pure ethanol, molecular sieves or chemical drying agents must be used.
+      </div>
+    </li>
+
+    <li>
+      A binary mixture of A (B.P. 80&deg;C) and B (B.P. 110&deg;C) has an overall composition x<sub>B</sub> = 0.40. At a certain temperature, the liquid composition is x<sub>B</sub>(liquid) = 0.25 and the vapour composition is x<sub>B</sub>(vapour) = 0.60. Use the lever rule to find the mole fraction of the system that is vapour.
+      <br><button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+      <div class="answer">
+        Lever rule: moles vapour / moles liquid = (x<sub>overall</sub> &minus; x<sub>liquid</sub>) / (x<sub>vapour</sub> &minus; x<sub>overall</sub>)<br>
+        = (0.40 &minus; 0.25) / (0.60 &minus; 0.40)<br>
+        = 0.15 / 0.20 = <b>0.75</b><br><br>
+        So moles vapour = 0.75 &times; moles liquid. If total moles = 1: vapour/(vapour+liquid) = 0.75/1.75 = <b>0.429 (42.9% vapour)</b>.
+      </div>
+    </li>
+
+  </ul>
+</section>
+
+<!-- QUIZ -->
+<section id="quiz">
+  <div class="section-header">
+    <span class="section-number">&#129504;</span>
+    <h2>Interactive Quiz</h2>
+  </div>
+  <div class="quiz-wrap">
+    <div class="quiz-header">
+      <h3>Unit 10 Quiz &mdash; Phase Diagrams</h3>
+      <span style="font-family:'JetBrains Mono',monospace;font-size:.82rem;color:var(--muted);">25 Questions</span>
+    </div>
+    <div class="quiz-body">
+
+      <div class="q-block">
+        <span class="q-num">Q1</span>
+        <p class="q-text">A phase is defined as:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q1" value="a"> Any single chemical compound</label>
+          <label class="opt"><input type="radio" name="q1" value="b"> A physically distinct, homogeneous region with uniform composition and properties</label>
+          <label class="opt"><input type="radio" name="q1" value="c"> Only solid, liquid, or gas states of matter</label>
+          <label class="opt"><input type="radio" name="q1" value="d"> A mixture of two or more substances</label>
+        </div>
+        <div class="q-exp" id="exp1">A <b>phase</b> is a physically distinct, homogeneous region of a system with uniform composition and properties, separated from other regions by definite boundaries. A substance can have multiple solid phases (e.g. allotropes).</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q2</span>
+        <p class="q-text">The Gibbs phase rule is F = C &minus; P + 2. For a pure substance at its triple point, F equals:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q2" value="a"> 3</label>
+          <label class="opt"><input type="radio" name="q2" value="b"> 1</label>
+          <label class="opt"><input type="radio" name="q2" value="c"> 2</label>
+          <label class="opt"><input type="radio" name="q2" value="d"> 0</label>
+        </div>
+        <div class="q-exp" id="exp2">Triple point: C=1, P=3. F = 1&minus;3+2 = <b>0</b>. The system is <b>invariant</b> — T and P are both fixed at unique values. You cannot change either without losing one of the three phases.</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q3</span>
+        <p class="q-text">What is the triple point of water?</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q3" value="a"> 0&deg;C, 1 atm</label>
+          <label class="opt"><input type="radio" name="q3" value="b"> 100&deg;C, 1 atm</label>
+          <label class="opt"><input type="radio" name="q3" value="c"> 0.0098&deg;C, 611 Pa (0.006 atm)</label>
+          <label class="opt"><input type="radio" name="q3" value="d"> 374&deg;C, 218 atm</label>
+        </div>
+        <div class="q-exp" id="exp3">The triple point of water is at <b>0.0098&deg;C and 611 Pa</b> (0.006 atm) — slightly above 0&deg;C and well below 1 atm. At this unique point, all three phases (ice, liquid water, water vapour) coexist in equilibrium.</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q4</span>
+        <p class="q-text">The fusion curve of water has a negative slope because:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q4" value="a"> Water has a high boiling point</label>
+          <label class="opt"><input type="radio" name="q4" value="b"> Ice is less dense than liquid water, so increasing pressure favours the liquid phase</label>
+          <label class="opt"><input type="radio" name="q4" value="c"> Ice has a higher heat capacity than water</label>
+          <label class="opt"><input type="radio" name="q4" value="d"> Water has anomalously high surface tension</label>
+        </div>
+        <div class="q-exp" id="exp4">Ice is <b>less dense</b> than liquid water (V<sub>solid</sub> &gt; V<sub>liquid</sub>). By Le Chatelier, increasing pressure favours the smaller-volume (denser) phase — liquid water. So increasing P at nearly 0&deg;C causes melting &rarr; <b>negative slope</b> of the fusion curve. This is anomalous — most substances have a positive slope.</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q5</span>
+        <p class="q-text">Why does dry ice (solid CO<sub>2</sub>) sublime at atmospheric pressure rather than melting?</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q5" value="a"> CO<sub>2</sub> is a gas at room temperature</label>
+          <label class="opt"><input type="radio" name="q5" value="b"> The triple point of CO<sub>2</sub> (5.11 atm) is above atmospheric pressure, so liquid CO<sub>2</sub> cannot exist at 1 atm</label>
+          <label class="opt"><input type="radio" name="q5" value="c"> CO<sub>2</sub> has no liquid phase at any pressure</label>
+          <label class="opt"><input type="radio" name="q5" value="d"> The critical point is below room temperature</label>
+        </div>
+        <div class="q-exp" id="exp5">CO<sub>2</sub>'s triple point (5.11 atm) is <b>above 1 atm</b>. At atmospheric pressure, there is no liquid phase — the 1 atm isobar crosses the sublimation curve only. Solid CO<sub>2</sub> therefore converts directly to vapour (sublimates) at &minus;78.5&deg;C.</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q6</span>
+        <p class="q-text">Above the critical point, a substance exists as:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q6" value="a"> Only a gas</label>
+          <label class="opt"><input type="radio" name="q6" value="b"> Only a liquid</label>
+          <label class="opt"><input type="radio" name="q6" value="c"> A supercritical fluid</label>
+          <label class="opt"><input type="radio" name="q6" value="d"> A solid</label>
+        </div>
+        <div class="q-exp" id="exp6">Above the critical temperature and pressure, there is no distinction between liquid and gas &rarr; the substance is a <b>supercritical fluid</b> with properties intermediate between a gas (low viscosity) and liquid (solvating ability).</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q7</span>
+        <p class="q-text">For a one-component system along the vapour pressure curve (liquid + vapour equilibrium), F equals:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q7" value="a"> 0</label>
+          <label class="opt"><input type="radio" name="q7" value="b"> 1</label>
+          <label class="opt"><input type="radio" name="q7" value="c"> 2</label>
+          <label class="opt"><input type="radio" name="q7" value="d"> 3</label>
+        </div>
+        <div class="q-exp" id="exp7">C=1, P=2: F = 1&minus;2+2 = <b>1</b>. Univariant — fixing T determines P (vapour pressure), and vice versa. The system has one degree of freedom along the curve.</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q8</span>
+        <p class="q-text">The normal boiling point of a liquid is defined as the temperature at which:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q8" value="a"> The vapour pressure equals the triple point pressure</label>
+          <label class="opt"><input type="radio" name="q8" value="b"> The vapour pressure equals 1 atm (101.325 kPa)</label>
+          <label class="opt"><input type="radio" name="q8" value="c"> The liquid and solid phases are in equilibrium</label>
+          <label class="opt"><input type="radio" name="q8" value="d"> The critical pressure is reached</label>
+        </div>
+        <div class="q-exp" id="exp8">The normal boiling point is where the vaporisation curve intersects <b>P = 1 atm</b>. The vapour pressure equals 1 atm, allowing bubbles to form throughout the liquid (bulk boiling).</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q9</span>
+        <p class="q-text">In a heterogeneous equilibrium such as CaCO<sub>3</sub>(s) &rightleftharpoons; CaO(s) + CO<sub>2</sub>(g), the equilibrium expression K<sub>p</sub> is:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q9" value="a"> K<sub>p</sub> = p(CO<sub>2</sub>) &times; [CaO] / [CaCO<sub>3</sub>]</label>
+          <label class="opt"><input type="radio" name="q9" value="b"> K<sub>p</sub> = p(CO<sub>2</sub>)</label>
+          <label class="opt"><input type="radio" name="q9" value="c"> K<sub>p</sub> = 1/p(CO<sub>2</sub>)</label>
+          <label class="opt"><input type="radio" name="q9" value="d"> K<sub>p</sub> = [CaO][CO<sub>2</sub>]/[CaCO<sub>3</sub>]</label>
+        </div>
+        <div class="q-exp" id="exp9">Pure solids have constant concentration (activity = 1) &rarr; omitted from K expressions. Only gaseous CO<sub>2</sub> appears: <b>K<sub>p</sub> = p(CO<sub>2</sub>)</b>. This means the decomposition pressure of CO<sub>2</sub> is constant at given T, regardless of amounts of solid.</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q10</span>
+        <p class="q-text">Raoult's Law states that the partial vapour pressure of a component equals:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q10" value="a"> The total pressure of the mixture</label>
+          <label class="opt"><input type="radio" name="q10" value="b"> The mole fraction in the vapour phase times the total pressure</label>
+          <label class="opt"><input type="radio" name="q10" value="c"> The mole fraction in the liquid phase times the vapour pressure of the pure component</label>
+          <label class="opt"><input type="radio" name="q10" value="d"> The vapour pressure of pure component minus the mole fraction</label>
+        </div>
+        <div class="q-exp" id="exp10">Raoult's Law: <b>p<sub>A</sub> = x<sub>A</sub> &times; P<sub>A</sub>*</b> — partial pressure = mole fraction in liquid &times; pure component vapour pressure. This holds for ideal mixtures where A&ndash;B intermolecular forces equal A&ndash;A and B&ndash;B forces.</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q11</span>
+        <p class="q-text">In the T&ndash;x diagram for a binary mixture, the area between the liquid and vapour curves represents:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q11" value="a"> Pure liquid only</label>
+          <label class="opt"><input type="radio" name="q11" value="b"> Pure vapour only</label>
+          <label class="opt"><input type="radio" name="q11" value="c"> A two-phase region with liquid and vapour in equilibrium</label>
+          <label class="opt"><input type="radio" name="q11" value="d"> The supercritical region</label>
+        </div>
+        <div class="q-exp" id="exp11">The region between the bubble point (liquid) curve and dew point (vapour) curve is the <b>two-phase region</b>: liquid and vapour coexist in equilibrium. The compositions of each phase are given by the ends of the tie line at that temperature.</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q12</span>
+        <p class="q-text">The ethanol&ndash;water azeotrope at 95.6% ethanol is an example of:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q12" value="a"> A maximum-boiling azeotrope</label>
+          <label class="opt"><input type="radio" name="q12" value="b"> An ideal mixture following Raoult's Law exactly</label>
+          <label class="opt"><input type="radio" name="q12" value="c"> A minimum-boiling azeotrope (positive deviation)</label>
+          <label class="opt"><input type="radio" name="q12" value="d"> A eutectic mixture</label>
+        </div>
+        <div class="q-exp" id="exp12">Ethanol&ndash;water is a <b>minimum-boiling azeotrope</b> (positive deviation from Raoult's Law). It boils at 78.1&deg;C — lower than pure ethanol (78.4&deg;C) or water (100&deg;C). Beyond 95.6% ethanol, distillation cannot proceed further. Pure ethanol requires molecular sieves.</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q13</span>
+        <p class="q-text">Water boils at a lower temperature on a mountain than at sea level because:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q13" value="a"> The air is colder at altitude</label>
+          <label class="opt"><input type="radio" name="q13" value="b"> The atmospheric pressure is lower, so the vapour pressure equals external pressure at a lower temperature</label>
+          <label class="opt"><input type="radio" name="q13" value="c"> Water is purer at altitude</label>
+          <label class="opt"><input type="radio" name="q13" value="d"> Gravity is weaker at altitude</label>
+        </div>
+        <div class="q-exp" id="exp13">The boiling point is where vapour pressure = external pressure. At altitude, <b>atmospheric pressure is lower</b> &rarr; the vaporisation curve is intersected at a lower temperature &rarr; water boils below 100&deg;C. At 3000 m, P &asymp; 0.7 atm and water boils at ~90&deg;C.</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q14</span>
+        <p class="q-text">Freeze-drying works by:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q14" value="a"> Heating food above 100&deg;C to evaporate water</label>
+          <label class="opt"><input type="radio" name="q14" value="b"> Freezing food then reducing pressure below the triple point so ice sublimates directly to vapour</label>
+          <label class="opt"><input type="radio" name="q14" value="c"> Adding salt to lower the freezing point</label>
+          <label class="opt"><input type="radio" name="q14" value="d"> Using supercritical CO<sub>2</sub> to extract water</label>
+        </div>
+        <div class="q-exp" id="exp14">Freeze-drying: food is frozen (ice formed), then pressure is <b>reduced below 611 Pa</b> (triple point pressure of water). At this P, the system is in the solid&ndash;gas region of the water phase diagram. Ice <b>sublimates</b> directly to vapour, removing water without passing through liquid &rarr; preserves food structure.</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q15</span>
+        <p class="q-text">Supercritical CO<sub>2</sub> is used in coffee decaffeination because:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q15" value="a"> It reacts chemically with caffeine</label>
+          <label class="opt"><input type="radio" name="q15" value="b"> It has low viscosity and good solvating ability above 31.1&deg;C and 73.8 atm, and leaves no toxic residue</label>
+          <label class="opt"><input type="radio" name="q15" value="c"> It converts caffeine to a harmless compound</label>
+          <label class="opt"><input type="radio" name="q15" value="d"> It is the cheapest solvent available</label>
+        </div>
+        <div class="q-exp" id="exp15">Supercritical CO<sub>2</sub> (above 31.1&deg;C, 73.8 atm) has <b>gas-like diffusivity and liquid-like solvating power</b> — it dissolves caffeine efficiently. Crucially, when pressure is released, CO<sub>2</sub> returns to gas phase leaving <b>no toxic solvent residue</b> in the food. Safe and selective.</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q16</span>
+        <p class="q-text">At the triple point of water, F = 0. This means:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q16" value="a"> T and P can both be freely varied</label>
+          <label class="opt"><input type="radio" name="q16" value="b"> T and P are both uniquely fixed and cannot be independently changed</label>
+          <label class="opt"><input type="radio" name="q16" value="c"> Only temperature is fixed</label>
+          <label class="opt"><input type="radio" name="q16" value="d"> Only pressure is fixed</label>
+        </div>
+        <div class="q-exp" id="exp16">F=0 means the system is <b>invariant</b>: both T (0.0098&deg;C) and P (611 Pa) are uniquely determined. You cannot change either variable without destroying one of the three coexisting phases.</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q17</span>
+        <p class="q-text">For a binary mixture of two components in a single liquid phase, F equals:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q17" value="a"> 1</label>
+          <label class="opt"><input type="radio" name="q17" value="b"> 2</label>
+          <label class="opt"><input type="radio" name="q17" value="c"> 3</label>
+          <label class="opt"><input type="radio" name="q17" value="d"> 0</label>
+        </div>
+        <div class="q-exp" id="exp17">C=2, P=1: F = 2&minus;1+2 = <b>3</b>. T, P, and composition (e.g. mole fraction of one component) can all be independently varied while staying in the single-phase liquid region.</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q18</span>
+        <p class="q-text">In a T&ndash;x diagram, a tie line connects:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q18" value="a"> The boiling points of the two pure components</label>
+          <label class="opt"><input type="radio" name="q18" value="b"> The composition of the liquid phase and the composition of the vapour phase at the same temperature</label>
+          <label class="opt"><input type="radio" name="q18" value="c"> The critical points of the two components</label>
+          <label class="opt"><input type="radio" name="q18" value="d"> Two azeotropic compositions</label>
+        </div>
+        <div class="q-exp" id="exp18">A <b>tie line</b> is a horizontal line at constant T drawn across the two-phase region. Its endpoints on the liquid curve and vapour curve give the <b>compositions of the liquid and vapour phases</b> in equilibrium at that temperature. The lever rule uses the tie line to find relative amounts.</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q19</span>
+        <p class="q-text">A pressure cooker works because:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q19" value="a"> Steam at high pressure is cooler than steam at 1 atm</label>
+          <label class="opt"><input type="radio" name="q19" value="b"> Increasing pressure raises the boiling point of water, allowing cooking at temperatures above 100&deg;C</label>
+          <label class="opt"><input type="radio" name="q19" value="c"> The sealed container prevents evaporation</label>
+          <label class="opt"><input type="radio" name="q19" value="d"> High pressure denatures proteins faster</label>
+        </div>
+        <div class="q-exp" id="exp19">Moving up the vapour pressure curve of water (higher P), the boiling point increases. A pressure cooker at ~2 atm raises the boiling point to ~121&deg;C. <b>Higher temperature = faster cooking</b> (faster chemical reactions, faster protein denaturation).</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q20</span>
+        <p class="q-text">The critical temperature is the temperature above which:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q20" value="a"> A substance can only exist as a solid</label>
+          <label class="opt"><input type="radio" name="q20" value="b"> A substance cannot be liquefied regardless of applied pressure</label>
+          <label class="opt"><input type="radio" name="q20" value="c"> Boiling becomes impossible</label>
+          <label class="opt"><input type="radio" name="q20" value="d"> The substance sublimes</label>
+        </div>
+        <div class="q-exp" id="exp20">Above the <b>critical temperature</b>, no amount of pressure can liquefy the substance — liquid and vapour become indistinguishable (supercritical fluid). The kinetic energy is too high for intermolecular forces to maintain a distinct liquid phase.</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q21</span>
+        <p class="q-text">The equilibrium H<sub>2</sub>O(l) &rightleftharpoons; H<sub>2</sub>O(g) is an example of:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q21" value="a"> Homogeneous equilibrium</label>
+          <label class="opt"><input type="radio" name="q21" value="b"> Heterogeneous equilibrium</label>
+          <label class="opt"><input type="radio" name="q21" value="c"> A redox equilibrium</label>
+          <label class="opt"><input type="radio" name="q21" value="d"> A decomposition reaction</label>
+        </div>
+        <div class="q-exp" id="exp21"><b>Heterogeneous equilibrium</b>: reactant and product are in different phases (liquid and gas). K<sub>p</sub> = p(H<sub>2</sub>O) — the concentration/activity of the pure liquid is constant and omitted.</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q22</span>
+        <p class="q-text">For the ideal binary mixture of A and B, if x<sub>A</sub> = 0.6, P<sub>A</sub>* = 80 kPa and P<sub>B</sub>* = 40 kPa, the total vapour pressure is:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q22" value="a"> 120 kPa</label>
+          <label class="opt"><input type="radio" name="q22" value="b"> 64 kPa</label>
+          <label class="opt"><input type="radio" name="q22" value="c"> 80 kPa</label>
+          <label class="opt"><input type="radio" name="q22" value="d"> 40 kPa</label>
+        </div>
+        <div class="q-exp" id="exp22">p<sub>A</sub> = 0.6 &times; 80 = 48 kPa; p<sub>B</sub> = 0.4 &times; 40 = 16 kPa; P<sub>total</sub> = 48 + 16 = <b>64 kPa</b>.</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q23</span>
+        <p class="q-text">What does it mean if a binary mixture shows positive deviation from Raoult's Law?</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q23" value="a"> The actual total vapour pressure is lower than predicted by Raoult's Law</label>
+          <label class="opt"><input type="radio" name="q23" value="b"> The actual total vapour pressure is higher than predicted by Raoult's Law</label>
+          <label class="opt"><input type="radio" name="q23" value="c"> The mixture is ideal</label>
+          <label class="opt"><input type="radio" name="q23" value="d"> The mixture has a maximum-boiling azeotrope</label>
+        </div>
+        <div class="q-exp" id="exp23"><b>Positive deviation</b>: actual total vapour pressure &gt; Raoult's Law prediction. Occurs when A&ndash;B intermolecular forces are weaker than A&ndash;A and B&ndash;B forces &rarr; molecules escape more easily &rarr; higher vapour pressure &rarr; minimum-boiling azeotrope possible.</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q24</span>
+        <p class="q-text">Along the sublimation curve of a substance, the equilibrium is between:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q24" value="a"> Liquid and gas</label>
+          <label class="opt"><input type="radio" name="q24" value="b"> Solid and liquid</label>
+          <label class="opt"><input type="radio" name="q24" value="c"> Solid and gas</label>
+          <label class="opt"><input type="radio" name="q24" value="d"> Two different solid phases</label>
+        </div>
+        <div class="q-exp" id="exp24">The sublimation curve is the <b>solid&ndash;gas boundary</b>. Along this curve, solid and vapour are in equilibrium (F=1, univariant). It runs from absolute zero up to the triple point.</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q25</span>
+        <p class="q-text">The lever rule in a two-phase region gives the:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q25" value="a"> Total vapour pressure of the mixture</label>
+          <label class="opt"><input type="radio" name="q25" value="b"> Relative amounts (mole fractions) of liquid and vapour phases at a given overall composition and temperature</label>
+          <label class="opt"><input type="radio" name="q25" value="c"> Boiling point of the pure components</label>
+          <label class="opt"><input type="radio" name="q25" value="d"> The azeotropic composition</label>
+        </div>
+        <div class="q-exp" id="exp25">The <b>lever rule</b> gives the relative amounts of two coexisting phases. Using the tie line: moles vapour/moles liquid = (x<sub>overall</sub> &minus; x<sub>liquid</sub>)/(x<sub>vapour</sub> &minus; x<sub>overall</sub>). Essential for understanding fractional distillation efficiency.</div>
+      </div>
+
+    </div>
+    <div style="padding:0 24px 24px;">
+      <button class="quiz-submit" onclick="submitQuiz()">Submit All 25 Answers</button>
+      <div id="quizResult" style="display:none;margin-top:16px;padding:16px 20px;border-radius:var(--radius);font-family:'JetBrains Mono',monospace;"></div>
+    </div>
+  </div>
+</section>
+
+<!-- UNIT TEST -->
+<section id="test">
+  <div class="section-header">
+    <span class="section-number">&#128221;</span>
+    <h2>Unit Test</h2>
+  </div>
+  <div class="callout info">
+    <span class="callout-icon">&#8505;&#65039;</span>
+    <div class="callout-body">
+      <strong>Instructions</strong>
+      Total: 50 marks &nbsp;|&nbsp; Time: 55 minutes &nbsp;|&nbsp; Attempt all questions &nbsp;|&nbsp; Show all working.
+    </div>
+  </div>
+
+  <div class="test-wrap">
+    <div class="test-section">
+      <div class="test-section-header">
+        <h3>Section A &mdash; Short Answer</h3>
+        <span class="marks-badge">30 marks</span>
+      </div>
+      <div class="test-body">
+
+        <div class="test-q">
+          <span class="test-q-num">Q1 [4 marks]</span>
+          <p>State the Gibbs phase rule and define each variable. Apply it to: (a) ice melting at 0&deg;C and 1 atm; (b) liquid water at 60&deg;C and 1 atm; (c) the triple point of water.</p>
+          <div class="test-answer-reveal">
+            <button class="reveal-btn" onclick="toggleAnswer(this)">Show Model Answer</button>
+            <div class="answer">
+              <b>Phase rule: F = C &minus; P + 2</b><br>
+              F = degrees of freedom; C = number of components; P = number of phases.<br><br>
+              (a) Ice melting (solid + liquid): C=1, P=2 &rarr; F = 1&minus;2+2 = <b>1</b>. Univariant — fixing T (0&deg;C) fixes P (1 atm) along the fusion curve.<br>
+              (b) Liquid water only: C=1, P=1 &rarr; F = 1&minus;1+2 = <b>2</b>. Bivariant — both T and P can be changed independently.<br>
+              (c) Triple point: C=1, P=3 &rarr; F = 1&minus;3+2 = <b>0</b>. Invariant — T (0.0098&deg;C) and P (611 Pa) are fixed uniquely.
+            </div>
+          </div>
+        </div>
+
+        <div class="test-q">
+          <span class="test-q-num">Q2 [5 marks]</span>
+          <p>Sketch a labelled phase diagram for water (P vs T). On it, mark and label: (a) the three phase regions; (b) the triple point with its T and P values; (c) the critical point; (d) the normal melting point and normal boiling point; (e) the anomalous feature of the fusion curve and explain its significance.</p>
+          <div class="test-answer-reveal">
+            <button class="reveal-btn" onclick="toggleAnswer(this)">Show Model Answer</button>
+            <div class="answer">
+              <b>Diagram should show:</b><br>
+              Three regions: ICE (solid, top-left), LIQUID WATER (top-right), WATER VAPOUR (bottom-right).<br>
+              Three boundary curves: sublimation (solid-gas, below triple point), vaporisation (liquid-gas, up to critical point), fusion (solid-liquid, from triple point upward).<br><br>
+              (a) Regions clearly labelled with phases.<br>
+              (b) Triple point at T = 0.0098&deg;C, P = 611 Pa (0.006 atm).<br>
+              (c) Critical point at T = 374&deg;C, P = 218 atm (end of vaporisation curve).<br>
+              (d) Normal M.P. = 0&deg;C at 1 atm (intersection of fusion curve with P=1 atm); Normal B.P. = 100&deg;C at 1 atm (intersection of vaporisation curve with P=1 atm).<br>
+              (e) <b>Anomalous feature:</b> fusion curve has a <b>negative slope</b> (leans slightly to the left — higher P gives lower melting T). Significance: ice is <b>less dense</b> than liquid water; increasing pressure favours the denser phase (liquid) &rarr; melting. Opposite to most substances.
+            </div>
+          </div>
+        </div>
+
+        <div class="test-q">
+          <span class="test-q-num">Q3 [5 marks]</span>
+          <p>Compare the phase diagrams of water and CO<sub>2</sub>, focusing on: (i) triple point pressure; (ii) behaviour at 1 atm on heating the solid; (iii) slope of fusion curve; (iv) properties of the solid vs liquid density. Explain one practical consequence of each difference.</p>
+          <div class="test-answer-reveal">
+            <button class="reveal-btn" onclick="toggleAnswer(this)">Show Model Answer</button>
+            <div class="answer">
+              (i) <b>Triple point pressure:</b> Water = 0.006 atm (below 1 atm); CO<sub>2</sub> = 5.11 atm (above 1 atm).<br>
+              Consequence: At 1 atm, water melts normally (solid&rarr;liquid&rarr;gas); dry ice sublimates (solid&rarr;gas directly). Dry ice useful for cooling without liquid mess.<br><br>
+              (ii) <b>Behaviour at 1 atm:</b> Water: melts at 0&deg;C then boils at 100&deg;C. CO<sub>2</sub>: sublimates at &minus;78.5&deg;C (no liquid phase at 1 atm).<br><br>
+              (iii) <b>Fusion curve slope:</b> Water: negative (anomalous). CO<sub>2</sub>: positive (normal).<br>
+              Consequence: Increasing pressure on ice at ~0&deg;C melts it (water pipe bursts in frost); increasing pressure on solid CO<sub>2</sub> keeps it solid (used safely in pressurised fire extinguishers).<br><br>
+              (iv) <b>Density:</b> Ice less dense than water (ice floats — critical for aquatic life to survive under ice). Solid CO<sub>2</sub> denser than liquid CO<sub>2</sub> (normal behaviour).
+            </div>
+          </div>
+        </div>
+
+        <div class="test-q">
+          <span class="test-q-num">Q4 [5 marks]</span>
+          <p>Write K<sub>p</sub> expressions for the following heterogeneous equilibria and explain why pure solids and liquids are excluded:<br>
+          (a) CaCO<sub>3</sub>(s) &rightleftharpoons; CaO(s) + CO<sub>2</sub>(g)<br>
+          (b) 3Fe(s) + 4H<sub>2</sub>O(g) &rightleftharpoons; Fe<sub>3</sub>O<sub>4</sub>(s) + 4H<sub>2</sub>(g)<br>
+          (c) NH<sub>4</sub>HCO<sub>3</sub>(s) &rightleftharpoons; NH<sub>3</sub>(g) + H<sub>2</sub>O(g) + CO<sub>2</sub>(g)</p>
+          <div class="test-answer-reveal">
+            <button class="reveal-btn" onclick="toggleAnswer(this)">Show Model Answer</button>
+            <div class="answer">
+              <b>Why solids/liquids excluded:</b> The concentration (activity) of a pure solid or pure liquid is constant at a given T (independent of amount present). Including them would just give a constant &rarr; by convention, their activity = 1 and they are omitted from K expressions.<br><br>
+              (a) K<sub>p</sub> = p(CO<sub>2</sub>)<br>
+              (Both CaCO<sub>3</sub> and CaO are pure solids.)<br><br>
+              (b) K<sub>p</sub> = [p(H<sub>2</sub>)]<sup>4</sup> / [p(H<sub>2</sub>O)]<sup>4</sup><br>
+              (Fe and Fe<sub>3</sub>O<sub>4</sub> are pure solids.)<br><br>
+              (c) K<sub>p</sub> = p(NH<sub>3</sub>) &times; p(H<sub>2</sub>O) &times; p(CO<sub>2</sub>)<br>
+              (NH<sub>4</sub>HCO<sub>3</sub> is a pure solid.)
+            </div>
+          </div>
+        </div>
+
+        <div class="test-q">
+          <span class="test-q-num">Q5 [5 marks]</span>
+          <p>For an ideal binary mixture of hexane (P* = 150 mmHg) and heptane (P* = 45 mmHg) at 25&deg;C:<br>
+          (a) Calculate the total vapour pressure of a mixture with mole fraction of hexane x<sub>hex</sub> = 0.70.<br>
+          (b) Calculate the mole fraction of hexane in the vapour phase above this mixture.<br>
+          (c) Is the vapour richer or poorer in hexane compared to the liquid? What does this mean for distillation?</p>
+          <div class="test-answer-reveal">
+            <button class="reveal-btn" onclick="toggleAnswer(this)">Show Model Answer</button>
+            <div class="answer">
+              (a) p<sub>hex</sub> = 0.70 &times; 150 = 105 mmHg<br>
+              p<sub>hep</sub> = 0.30 &times; 45 = 13.5 mmHg<br>
+              P<sub>total</sub> = 105 + 13.5 = <b>118.5 mmHg</b><br><br>
+              (b) y<sub>hex</sub> (mole fraction in vapour) = p<sub>hex</sub>/P<sub>total</sub> = 105/118.5 = <b>0.886</b><br><br>
+              (c) The vapour (y<sub>hex</sub> = 0.886) is <b>richer in hexane</b> than the liquid (x<sub>hex</sub> = 0.70). This makes sense because hexane is more volatile (higher P*). In distillation, the vapour phase is enriched in the more volatile component &rarr; repeated distillation (fractionation) progressively purifies hexane from the mixture.
+            </div>
+          </div>
+        </div>
+
+        <div class="test-q">
+          <span class="test-q-num">Q6 [6 marks]</span>
+          <p>Explain the following, using phase diagrams in your answer:<br>
+          (a) Why a pressure cooker allows food to cook faster at high altitude. <i>[2]</i><br>
+          (b) How supercritical CO<sub>2</sub> is used in decaffeination of coffee. <i>[2]</i><br>
+          (c) Why mountaineers cannot make a proper cup of tea at very high altitude. <i>[2]</i></p>
+          <div class="test-answer-reveal">
+            <button class="reveal-btn" onclick="toggleAnswer(this)">Show Model Answer</button>
+            <div class="answer">
+              (a) At high altitude, atmospheric pressure is lower than 1 atm. On the water phase diagram, moving down the vaporisation curve, lower P corresponds to lower boiling point &rarr; water boils at &lt;100&deg;C. A pressure cooker seals and pressurises above 1 atm, raising the boiling point above 100&deg;C (e.g. 121&deg;C at 2 atm). Higher T means faster chemical reactions &rarr; faster cooking. This compensates for the reduced atmospheric pressure.<br><br>
+              (b) CO<sub>2</sub> is brought to T &gt; 31.1&deg;C and P &gt; 73.8 atm &rarr; supercritical fluid region on the CO<sub>2</sub> phase diagram. Supercritical CO<sub>2</sub> has gas-like diffusivity (penetrates coffee beans easily) and liquid-like solvating ability (dissolves caffeine). When pressure is released, CO<sub>2</sub> returns to gas phase &rarr; leaves no toxic residue in coffee. Clean, efficient, selective extraction.<br><br>
+              (c) At very high altitude (e.g. Everest base camp ~5300 m), atmospheric pressure &asymp; 0.54 atm. The vaporisation curve of water is intersected at ~83&deg;C. Tea requires &gt;90&deg;C to properly brew (extract flavour compounds, kill bacteria). Since water boils at only ~83&deg;C, tea is under-extracted and does not taste right. A pressure cooker would solve this.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="test-section">
+      <div class="test-section-header">
+        <h3>Section B &mdash; Extended Response</h3>
+        <span class="marks-badge">20 marks</span>
+      </div>
+      <div class="test-body">
+
+        <div class="test-q">
+          <span class="test-q-num">Q7 [10 marks]</span>
+          <p><b>(a)</b> Describe the one-component phase diagram of CO<sub>2</sub>. Sketch and label it, indicating: all three phase regions, the triple point (with values), the critical point (with values), and the sublimation curve. Explain why CO<sub>2</sub> does not have a normal melting point. <i>[5 marks]</i></p>
+          <p><b>(b)</b> Using the Gibbs phase rule, calculate F for three different conditions on the CO<sub>2</sub> phase diagram and explain what each value means physically. <i>[3 marks]</i></p>
+          <p><b>(c)</b> Explain what a homogeneous equilibrium is and give one example with its K expression. <i>[2 marks]</i></p>
+          <div class="test-answer-reveal">
+            <button class="reveal-btn" onclick="toggleAnswer(this)">Show Model Answer</button>
+            <div class="answer">
+              <b>(a)</b> CO<sub>2</sub> phase diagram:<br>
+              Three regions: solid (top-left), liquid (top-middle-right), gas (bottom-right).<br>
+              Triple point: &minus;56.6&deg;C, 5.11 atm. Critical point: 31.1&deg;C, 73.8 atm.<br>
+              Fusion curve: positive slope (normal — solid denser than liquid).<br>
+              Sublimation curve: runs from bottom-left to triple point (solid&ndash;gas equilibrium below triple point).<br><br>
+              <b>No normal melting point:</b> The triple point (5.11 atm) is above 1 atm. Therefore the 1 atm isobar does not cross the solid&ndash;liquid (fusion) boundary at any temperature. At 1 atm, moving from solid to gas crosses only the sublimation curve (&minus;78.5&deg;C). Liquid CO<sub>2</sub> can only exist above 5.11 atm.<br><br>
+              <b>(b)</b><br>
+              1. Solid CO<sub>2</sub> only: C=1, P=1 &rarr; F = 2. Both T and P can be varied &mdash; bivariant.<br>
+              2. Solid + gas (on sublimation curve): C=1, P=2 &rarr; F = 1. Fix T &rarr; P fixed (sublimation pressure) &mdash; univariant.<br>
+              3. Triple point: C=1, P=3 &rarr; F = 0. T and P both fixed at &minus;56.6&deg;C, 5.11 atm &mdash; invariant.<br><br>
+              <b>(c)</b> A <b>homogeneous equilibrium</b> is one where all reactants and products are in the same phase.<br>
+              Example: N<sub>2</sub>(g) + 3H<sub>2</sub>(g) &rightleftharpoons; 2NH<sub>3</sub>(g)<br>
+              K<sub>p</sub> = [p(NH<sub>3</sub>)]<sup>2</sup> / (p(N<sub>2</sub>) &times; [p(H<sub>2</sub>)]<sup>3</sup>)
+            </div>
+          </div>
+        </div>
+
+        <div class="test-q">
+          <span class="test-q-num">Q8 [10 marks]</span>
+          <p><b>(a)</b> Describe the T&ndash;x (boiling point&ndash;composition) diagram for an ideal binary mixture. Define and identify: the liquid curve, vapour curve, two-phase region, and a tie line. Explain what the lever rule gives and derive the formula. <i>[5 marks]</i></p>
+          <p><b>(b)</b> Explain what an azeotrope is, distinguishing between minimum-boiling and maximum-boiling azeotropes. Give one example of each and explain why the ethanol&ndash;water azeotrope limits the purity achievable by simple fractional distillation. <i>[5 marks]</i></p>
+          <div class="test-answer-reveal">
+            <button class="reveal-btn" onclick="toggleAnswer(this)">Show Model Answer</button>
+            <div class="answer">
+              <b>(a)</b><br>
+              T&ndash;x diagram (at constant P, usually 1 atm): T on y-axis, mole fraction x<sub>B</sub> on x-axis from 0 (pure A) to 1 (pure B).<br>
+              <b>Liquid (bubble point) curve:</b> the locus of temperatures at which a liquid of given composition begins to boil. Below this curve = single-phase liquid.<br>
+              <b>Vapour (dew point) curve:</b> temperatures at which vapour of given composition begins to condense. Above this curve = single-phase vapour.<br>
+              <b>Two-phase region:</b> between the two curves; liquid and vapour coexist in equilibrium. F = 2&minus;2+1 = 1 (at constant P) &mdash; univariant.<br>
+              <b>Tie line:</b> horizontal line at constant T within the two-phase region, connecting a point on the liquid curve (x<sub>L</sub>) to a point on the vapour curve (x<sub>V</sub>).<br>
+              <b>Lever rule:</b> Moles(vapour) &times; (x<sub>V</sub> &minus; x<sub>overall</sub>) = Moles(liquid) &times; (x<sub>overall</sub> &minus; x<sub>L</sub>)<br>
+              &rarr; n<sub>V</sub>/n<sub>L</sub> = (x<sub>overall</sub> &minus; x<sub>L</sub>)/(x<sub>V</sub> &minus; x<sub>overall</sub>)<br>
+              Gives the relative moles of vapour to liquid at any point in the two-phase region.<br><br>
+              <b>(b)</b><br>
+              An <b>azeotrope</b> is a mixture of fixed composition at which the vapour and liquid have identical composition &rarr; distillation cannot change the composition further at that point.<br><br>
+              <b>Minimum-boiling azeotrope</b> (positive deviation from Raoult's Law): vapour pressure curve has a maximum &rarr; boiling point curve has a minimum. The mixture boils at a temperature below both pure components. Example: <b>ethanol&ndash;water</b> (95.6% ethanol, B.P. 78.1&deg;C; pure ethanol B.P. 78.4&deg;C, water 100&deg;C).<br><br>
+              <b>Maximum-boiling azeotrope</b> (negative deviation): vapour pressure minimum &rarr; boiling point maximum. Mixture boils above both pure components. Example: <b>HCl&ndash;water</b> (20.2% HCl, B.P. 108.6&deg;C).<br><br>
+              <b>Ethanol&ndash;water limitation:</b> Starting from any dilute ethanol&ndash;water mixture and distilling, the distillate becomes progressively richer in ethanol until it reaches 95.6% ethanol (azeotrope). At this point, vapour = liquid composition &rarr; no further enrichment is possible by distillation. To get 100% ethanol, physical desiccants (molecular sieves, CaO) must be used.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="unit-nav">
+  <a class="nav-btn prev" href="unit9_amines_amino_acids.html">&larr; Unit 9: Amines &amp; Amino Acids</a>
+  <a class="nav-btn next" href="unit11_solutions_titration.html">Unit 11: Solutions &amp; Titration &rarr;</a>
+</div>
+
+</main>
+
+<script>
+function toggleAnswer(btn){
+  const ans=btn.nextElementSibling;
+  ans.classList.toggle('open');
+  btn.textContent=ans.classList.contains('open')?'Hide Answer':'Show Answer';
+}
+const correctAnswers={
+  q1:'b',q2:'d',q3:'c',q4:'b',q5:'b',q6:'c',q7:'b',q8:'b',q9:'b',q10:'c',
+  q11:'c',q12:'c',q13:'b',q14:'b',q15:'b',q16:'b',q17:'c',q18:'b',q19:'b',q20:'b',
+  q21:'b',q22:'b',q23:'b',q24:'c',q25:'b'
+};
+function submitQuiz(){
+  let score=0;
+  const total=Object.keys(correctAnswers).length;
+  Object.entries(correctAnswers).forEach(([q,correct])=>{
+    const sel=document.querySelector('input[name="'+q+'"]:checked');
+    document.querySelectorAll('input[name="'+q+'"]').forEach(o=>{
+      if(o.value===correct)o.parentElement.classList.add('correct');
+    });
+    if(sel){if(sel.value===correct)score++;else sel.parentElement.classList.add('wrong');}
+    const exp=document.getElementById('exp'+q.slice(1));
+    if(exp)exp.style.display='block';
+    document.querySelectorAll('input[name="'+q+'"]').forEach(o=>o.disabled=true);
+  });
+  const pct=Math.round(score/total*100);
+  const res=document.getElementById('quizResult');
+  res.style.display='block';
+  res.style.background=pct>=70?'rgba(52,211,153,.1)':'rgba(248,113,113,.1)';
+  res.style.border='1px solid '+(pct>=70?'var(--green)':'var(--red)');
+  res.style.color=pct>=70?'var(--green)':'var(--red)';
+  res.style.borderRadius='var(--radius)';
+  res.style.padding='16px 20px';
+  res.innerHTML='Score: '+score+' / '+total+' ('+pct+'%) &mdash; '+(pct>=80?'Excellent! 🎉':pct>=60?'Good effort &mdash; review marked questions.':'Keep studying &mdash; re-read the notes and try again.');
+  document.querySelector('.quiz-submit').disabled=true;
+  document.querySelector('.quiz-submit').style.opacity='0.5';
+}
+</script>
+</body>
+</html>
