@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>S5 Chemistry – Unit 4: Halogenoalkanes</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Serif+4:wght@300;400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+<style>
+  :root{
+    --bg:#0d1117;--surface:#161b22;--surface2:#1c2333;--border:#30363d;
+    --accent:#58c4dc;--accent2:#f97316;--accent3:#a78bfa;
+    --gold:#e8c547;--green:#34d399;--red:#f87171;--pink:#fb7185;
+    --text:#e6edf3;--muted:#8b949e;--radius:10px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg);color:var(--text);font-family:'Source Serif 4',Georgia,serif;font-size:17px;line-height:1.75;overflow-x:hidden;}
+  .hero{position:relative;padding:80px 40px 60px;text-align:center;overflow:hidden;background:radial-gradient(ellipse 80% 60% at 50% 0%,#2a1a1a 0%,var(--bg) 70%);border-bottom:1px solid var(--border);}
+  .hero::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(251,113,133,.05) 40px),repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(251,113,133,.05) 40px);pointer-events:none;}
+  .badge{display:inline-block;background:rgba(251,113,133,.12);border:1px solid rgba(251,113,133,.3);color:var(--pink);padding:4px 16px;border-radius:50px;font-size:.78rem;font-family:'JetBrains Mono',monospace;letter-spacing:.12em;text-transform:uppercase;margin-bottom:22px;}
+  .hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.4rem);line-height:1.15;color:#fff;max-width:820px;margin:0 auto 18px;}
+  .hero h1 em{color:var(--pink);font-style:italic;}
+  .hero p.sub{color:var(--muted);font-size:1rem;max-width:600px;margin:0 auto 32px;}
+  .toc-grid{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:760px;margin:0 auto;}
+  .toc-grid a{background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:8px 18px;border-radius:50px;text-decoration:none;font-size:.85rem;transition:all .2s;font-family:'JetBrains Mono',monospace;}
+  .toc-grid a:hover{background:var(--pink);color:#000;border-color:var(--pink);}
+  .page{max-width:960px;margin:0 auto;padding:0 28px 80px;}
+  .section-header{display:flex;align-items:center;gap:16px;margin:64px 0 28px;padding-bottom:14px;border-bottom:2px solid var(--border);}
+  .section-number{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--pink);background:rgba(251,113,133,.1);border:1px solid rgba(251,113,133,.25);padding:4px 12px;border-radius:4px;white-space:nowrap;}
+  .section-header h2{font-family:'Playfair Display',serif;font-size:1.75rem;color:#fff;}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:26px 30px;margin-bottom:22px;}
+  .card h3{font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--gold);margin-bottom:12px;}
+  .card p+p{margin-top:12px;}
+  .def-box{border-left:4px solid var(--pink);background:rgba(251,113,133,.07);border-radius:0 var(--radius) var(--radius) 0;padding:18px 22px;margin:20px 0;}
+  .def-box strong{color:var(--pink);display:block;font-size:.78rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;}
+  .callout{border-radius:var(--radius);padding:18px 22px;margin:20px 0;display:flex;gap:14px;align-items:flex-start;}
+  .callout.info{background:rgba(88,196,220,.08);border:1px solid rgba(88,196,220,.25);}
+  .callout.warn{background:rgba(249,115,22,.08);border:1px solid rgba(249,115,22,.25);}
+  .callout.tip{background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.25);}
+  .callout.pink{background:rgba(251,113,133,.08);border:1px solid rgba(251,113,133,.25);}
+  .callout-icon{font-size:1.3rem;margin-top:2px;flex-shrink:0;}
+  .callout-body strong{display:block;margin-bottom:4px;font-size:.9rem;color:#fff;}
+  .tbl-wrap{overflow-x:auto;margin:20px 0;border-radius:var(--radius);border:1px solid var(--border);}
+  table{width:100%;border-collapse:collapse;}
+  thead tr{background:var(--surface2);}
+  th{padding:13px 16px;text-align:left;font-size:.82rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--pink);white-space:nowrap;}
+  td{padding:12px 16px;border-top:1px solid var(--border);font-size:.9rem;}
+  tr:hover td{background:rgba(255,255,255,.02);}
+  td code{background:rgba(251,113,133,.12);padding:2px 7px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:.85em;}
+  .formula-block{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:20px 26px;margin:16px 0;font-family:'JetBrains Mono',monospace;font-size:.93rem;color:var(--pink);overflow-x:auto;white-space:pre;}
+  .example-box{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin:26px 0;}
+  .example-header{background:rgba(232,197,71,.1);border-bottom:1px solid rgba(232,197,71,.2);padding:14px 22px;display:flex;align-items:center;gap:12px;}
+  .example-header span.tag{font-family:'JetBrains Mono',monospace;font-size:.72rem;background:var(--gold);color:#000;padding:3px 10px;border-radius:4px;font-weight:600;}
+  .example-header h4{color:var(--gold);font-family:'Playfair Display',serif;font-size:1rem;}
+  .example-body{padding:22px 26px;}
+  .example-body .q{color:var(--text);margin-bottom:14px;font-weight:600;}
+  .example-body .step{display:flex;gap:14px;margin:10px 0;}
+  .step-num{min-width:28px;height:28px;background:rgba(251,113,133,.15);border:1px solid rgba(251,113,133,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--pink);flex-shrink:0;margin-top:3px;}
+  .step-text{flex:1;}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:20px 0;}
+  @media(max-width:640px){.two-col{grid-template-columns:1fr;}}
+  .exercise-list{list-style:none;counter-reset:ex;}
+  .exercise-list li{counter-increment:ex;margin-bottom:16px;padding:16px 20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);}
+  .exercise-list li::before{content:'Q' counter(ex) '.';font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--pink);display:block;margin-bottom:6px;}
+  .reveal-btn{margin-top:10px;background:rgba(251,113,133,.1);border:1px solid rgba(251,113,133,.3);color:var(--pink);padding:6px 16px;border-radius:6px;cursor:pointer;font-size:.82rem;font-family:'JetBrains Mono',monospace;transition:all .2s;}
+  .reveal-btn:hover{background:var(--pink);color:#000;}
+  .answer{display:none;margin-top:12px;padding:12px 16px;background:rgba(251,113,133,.06);border-left:3px solid var(--pink);border-radius:0 6px 6px 0;font-size:.9rem;}
+  .answer.open{display:block;}
+  .quiz-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-top:32px;}
+  .quiz-header{background:rgba(251,113,133,.1);border-bottom:1px solid rgba(251,113,133,.2);padding:16px 24px;}
+  .quiz-header h3{font-family:'Playfair Display',serif;color:var(--pink);font-size:1.2rem;}
+  .quiz-body{padding:24px;}
+  .q-block{margin-bottom:26px;padding-bottom:26px;border-bottom:1px solid var(--border);}
+  .q-block:last-of-type{border-bottom:none;}
+  .q-text{font-weight:600;margin-bottom:12px;color:#fff;}
+  .q-num{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--pink);display:block;margin-bottom:4px;}
+  .options{display:flex;flex-direction:column;gap:8px;}
+  .opt{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:all .18s;font-size:.92rem;}
+  .opt:hover{border-color:var(--pink);}
+  .opt input{margin-top:3px;accent-color:var(--pink);}
+  .opt.correct{background:rgba(52,211,153,.12);border-color:var(--green)!important;color:var(--green);}
+  .opt.wrong{background:rgba(248,113,113,.1);border-color:var(--red)!important;color:var(--red);}
+  .q-exp{display:none;margin-top:10px;padding:10px 14px;background:rgba(251,113,133,.07);border-left:3px solid var(--pink);border-radius:0 6px 6px 0;font-size:.88rem;}
+  .quiz-submit{background:var(--pink);color:#000;border:none;padding:12px 32px;border-radius:8px;font-size:1rem;font-family:'JetBrains Mono',monospace;cursor:pointer;transition:opacity .2s;font-weight:600;}
+  .quiz-submit:hover{opacity:.85;}
+  .test-wrap{margin-top:40px;}
+  .test-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:28px;}
+  .test-section-header{background:rgba(249,115,22,.1);border-bottom:1px solid rgba(249,115,22,.2);padding:14px 24px;display:flex;justify-content:space-between;align-items:center;}
+  .test-section-header h3{font-family:'Playfair Display',serif;color:var(--accent2);font-size:1.1rem;}
+  .marks-badge{font-family:'JetBrains Mono',monospace;font-size:.75rem;background:rgba(249,115,22,.2);color:var(--accent2);padding:4px 12px;border-radius:50px;}
+  .test-body{padding:24px;}
+  .test-q{margin-bottom:20px;padding:16px 18px;background:var(--surface2);border-radius:8px;border:1px solid var(--border);}
+  .test-q-num{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--accent2);margin-bottom:6px;display:block;}
+  .test-answer-reveal{margin-top:14px;}
+  .unit-nav{display:flex;justify-content:space-between;align-items:center;margin-top:72px;padding-top:32px;border-top:1px solid var(--border);flex-wrap:wrap;gap:16px;}
+  .nav-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:8px;text-decoration:none;font-family:'JetBrains Mono',monospace;font-size:.85rem;transition:all .2s;}
+  .nav-btn.prev{background:var(--surface);border:1px solid var(--border);color:var(--muted);}
+  .nav-btn.prev:hover{border-color:var(--pink);color:var(--pink);}
+  .nav-btn.next{background:var(--pink);color:#000;font-weight:600;}
+  .nav-btn.next:hover{opacity:.88;}
+  h3.sub-heading{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--gold);margin:28px 0 10px;}
+  sub,sup{font-size:.72em;}
+  @media(max-width:600px){.hero{padding:50px 20px 40px;}.page{padding:0 16px 60px;}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="badge">Unit 4 &middot; Organic Chemistry</div>
+  <h1>The <em>Halogenoalkanes</em></h1>
+  <p class="sub">Definition, classification, physical and chemical properties, preparation, chemical tests, and uses including CFCs.</p>
+  <nav class="toc-grid">
+    <a href="#definition">4.1 Definition &amp; Classification</a>
+    <a href="#properties">4.2 Physical Properties</a>
+    <a href="#preparation">4.3 Preparation</a>
+    <a href="#reactions">4.4 Chemical Reactions</a>
+    <a href="#tests">4.5 Chemical Tests</a>
+    <a href="#uses">4.6 Uses &amp; CFCs</a>
+    <a href="#exercises">Exercises</a>
+    <a href="#quiz">Quiz</a>
+    <a href="#test">Unit Test</a>
+  </nav>
+</header>
+
+<main class="page">
+
+<!-- 4.1 DEFINITION AND CLASSIFICATION -->
+<section id="definition">
+  <div class="section-header">
+    <span class="section-number">4.1</span>
+    <h2>Definition and Classification</h2>
+  </div>
+
+  <div class="def-box">
+    <strong>Definition</strong>
+    <b>Halogenoalkanes</b> (also called <b>haloalkanes</b> or <b>alkyl halides</b>) are organic compounds derived from alkanes in which one or more hydrogen atoms have been replaced by a <b>halogen atom</b> (F, Cl, Br, or I). They contain the functional group <b>C&ndash;X</b> where X = F, Cl, Br, or I.
+  </div>
+
+  <div class="card">
+    <h3>General Formula</h3>
+    <p>For a monohalogenoalkane: <b>C<sub>n</sub>H<sub>2n+1</sub>X</b> or written as <b>R&ndash;X</b> where R is an alkyl group and X is a halogen.</p>
+  </div>
+
+  <h3 class="sub-heading">Classification by Degree of Substitution</h3>
+  <div class="card">
+    <p>Halogenoalkanes are classified according to how many carbon atoms are directly bonded to the carbon carrying the halogen:</p>
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Class</th><th>Definition</th><th>Carbon bearing X bonded to:</th><th>Example</th><th>IUPAC Name</th></tr></thead>
+      <tbody>
+        <tr><td><b>Primary (1&deg;)</b></td><td>C bearing X is attached to <b>1 other C</b></td><td>1 carbon + 2 H</td><td>CH<sub>3</sub>CH<sub>2</sub>Br</td><td>bromoethane</td></tr>
+        <tr><td><b>Secondary (2&deg;)</b></td><td>C bearing X is attached to <b>2 other C</b></td><td>2 carbons + 1 H</td><td>CH<sub>3</sub>CHBrCH<sub>3</sub></td><td>2-bromopropane</td></tr>
+        <tr><td><b>Tertiary (3&deg;)</b></td><td>C bearing X is attached to <b>3 other C</b></td><td>3 carbons + 0 H</td><td>(CH<sub>3</sub>)<sub>3</sub>CBr</td><td>2-bromo-2-methylpropane</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="sub-heading">Classification by Halogen</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Halogen</th><th>Prefix</th><th>Example</th><th>Name</th></tr></thead>
+      <tbody>
+        <tr><td>Fluorine (F)</td><td>fluoro&ndash;</td><td>CH<sub>3</sub>F</td><td>fluoromethane</td></tr>
+        <tr><td>Chlorine (Cl)</td><td>chloro&ndash;</td><td>CH<sub>3</sub>Cl</td><td>chloromethane</td></tr>
+        <tr><td>Bromine (Br)</td><td>bromo&ndash;</td><td>CH<sub>3</sub>Br</td><td>bromomethane</td></tr>
+        <tr><td>Iodine (I)</td><td>iodo&ndash;</td><td>CH<sub>3</sub>I</td><td>iodomethane</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="sub-heading">IUPAC Nomenclature</h3>
+  <div class="card">
+    <ol style="padding-left:20px;line-height:2.1;">
+      <li>Find the longest carbon chain containing the carbon with the halogen &rarr; parent alkane name.</li>
+      <li>Number the chain to give the halogen the <b>lowest locant</b>.</li>
+      <li>Name the halogen as a prefix: fluoro&ndash;, chloro&ndash;, bromo&ndash;, iodo&ndash;.</li>
+      <li>Multiple halogens: use di&ndash;, tri&ndash; etc. List halogens alphabetically.</li>
+      <li>If other substituents present, list all alphabetically before the chain name.</li>
+    </ol>
+  </div>
+
+  <div class="example-box">
+    <div class="example-header"><span class="tag">Example 1</span><h4>Naming Halogenoalkanes</h4></div>
+    <div class="example-body">
+      <p class="q">Name: (a) CH<sub>3</sub>CHClCH<sub>2</sub>CH<sub>3</sub> &nbsp; (b) CH<sub>3</sub>CBr<sub>2</sub>CH<sub>3</sub> &nbsp; (c) CHCl<sub>2</sub>CH<sub>2</sub>Br</p>
+      <div class="step"><div class="step-num">a</div><div class="step-text">Longest chain = 4 C (butane). Cl on C2 from left (or C3 from right; C2 is lower). &rarr; <b>2-chlorobutane</b>. Classification: <b>secondary</b> (C2 bonded to C1 and C3).</div></div>
+      <div class="step"><div class="step-num">b</div><div class="step-text">Longest chain = 3 C (propane). Two Br on C2. &rarr; <b>2,2-dibromopropane</b>. Classification: <b>tertiary</b> (C2 bonded to C1 and C3 and C3... wait, two Br on C2 = C2 bonded to C1, C3, Br, Br &rarr; C bearing X attached to 2 C = <b>secondary</b>).</div></div>
+      <div class="step"><div class="step-num">c</div><div class="step-text">Longest chain = 2 C (ethane). C1 has 2 Cl; C2 has 1 Br. Number to give lower set. &rarr; <b>2-bromo-1,1-dichloroethane</b>.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4.2 PHYSICAL PROPERTIES -->
+<section id="properties">
+  <div class="section-header">
+    <span class="section-number">4.2</span>
+    <h2>Physical Properties</h2>
+  </div>
+
+  <div class="card">
+    <h3>Polarity of the C&ndash;X Bond</h3>
+    <p>Halogens are more electronegative than carbon, so the C&ndash;X bond is <b>polar</b> (C<sup>&delta;+</sup>&ndash;X<sup>&delta;&minus;</sup>). This polarity makes halogenoalkanes more reactive than alkanes and gives them slightly higher boiling points than alkanes of similar M<sub>r</sub>.</p>
+    <p>Electronegativity order: F &gt; Cl &gt; Br &gt; I. Bond polarity: C&ndash;F &gt; C&ndash;Cl &gt; C&ndash;Br &gt; C&ndash;I.</p>
+  </div>
+
+  <div class="card">
+    <h3>Boiling Points</h3>
+    <p>Boiling points increase with:</p>
+    <ul style="padding-left:20px;line-height:2;">
+      <li><b>Chain length</b> (more surface area &rarr; stronger van der Waals forces)</li>
+      <li><b>Atomic mass of halogen</b>: R&ndash;F &lt; R&ndash;Cl &lt; R&ndash;Br &lt; R&ndash;I (larger halogens have more electrons &rarr; stronger dispersion forces)</li>
+      <li><b>Degree of substitution</b>: 1&deg; &lt; 2&deg; &lt; 3&deg; (for same chain length, more branching lowers B.P.)</li>
+    </ul>
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Compound</th><th>Formula</th><th>M<sub>r</sub></th><th>B.P. (&deg;C)</th><th>State</th></tr></thead>
+      <tbody>
+        <tr><td>Chloromethane</td><td>CH<sub>3</sub>Cl</td><td>50.5</td><td>&minus;24</td><td>Gas</td></tr>
+        <tr><td>Bromomethane</td><td>CH<sub>3</sub>Br</td><td>95</td><td>+4</td><td>Gas/Liquid</td></tr>
+        <tr><td>Iodomethane</td><td>CH<sub>3</sub>I</td><td>142</td><td>+43</td><td>Liquid</td></tr>
+        <tr><td>Chloroethane</td><td>C<sub>2</sub>H<sub>5</sub>Cl</td><td>64.5</td><td>+12</td><td>Gas/Liquid</td></tr>
+        <tr><td>Bromoethane</td><td>C<sub>2</sub>H<sub>5</sub>Br</td><td>109</td><td>+38</td><td>Liquid</td></tr>
+        <tr><td>Iodoethane</td><td>C<sub>2</sub>H<sub>5</sub>I</td><td>156</td><td>+72</td><td>Liquid</td></tr>
+        <tr><td>1-chloropropane</td><td>C<sub>3</sub>H<sub>7</sub>Cl</td><td>78.5</td><td>+47</td><td>Liquid</td></tr>
+        <tr><td>1-bromopropane</td><td>C<sub>3</sub>H<sub>7</sub>Br</td><td>123</td><td>+71</td><td>Liquid</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>Solubility and Density</h3>
+    <p>Halogenoalkanes are <b>immiscible with water</b> (they cannot form hydrogen bonds as acceptors but their polarity is not sufficient to overcome the strong H-bonds in water). They dissolve readily in organic solvents.</p>
+    <p>Most liquid halogenoalkanes are <b>denser than water</b> (especially bromo- and iodo-compounds). They form the lower layer when shaken with water.</p>
+  </div>
+
+  <div class="card">
+    <h3>Bond Strength and Reactivity Trend</h3>
+    <p>Bond dissociation energies: C&ndash;F (484) &gt; C&ndash;Cl (338) &gt; C&ndash;Br (276) &gt; C&ndash;I (238) kJ/mol.</p>
+    <p>Reactivity in nucleophilic substitution: <b>R&ndash;I &gt; R&ndash;Br &gt; R&ndash;Cl &gt; R&ndash;F</b> (weaker bond = easier to break = faster reaction, despite F being most electronegative).</p>
+  </div>
+</section>
+
+<!-- 4.3 PREPARATION -->
+<section id="preparation">
+  <div class="section-header">
+    <span class="section-number">4.3</span>
+    <h2>Preparation of Halogenoalkanes</h2>
+  </div>
+
+  <h3 class="sub-heading">Method 1: Free-Radical Halogenation of Alkanes</h3>
+  <div class="card">
+    <p>Alkanes react with Cl<sub>2</sub> or Br<sub>2</sub> under UV light (free-radical substitution, see Unit 2). Gives a mixture of products.</p>
+    <div class="formula-block">CH4 + Cl2  --(hv)-->  CH3Cl + HCl   (chloromethane)</div>
+  </div>
+
+  <h3 class="sub-heading">Method 2: Addition of HX to Alkenes</h3>
+  <div class="card">
+    <p>HCl, HBr, or HI add across the C=C bond. Markovnikov's rule gives the major product.</p>
+    <div class="formula-block">CH2=CH2  +  HBr  -->  CH3CH2Br   (bromoethane)
+CH3CH=CH2  +  HBr  -->  CH3CHBrCH3  (2-bromopropane, major)</div>
+  </div>
+
+  <h3 class="sub-heading">Method 3: Addition of X<sub>2</sub> to Alkenes</h3>
+  <div class="card">
+    <div class="formula-block">CH2=CH2  +  Cl2  -->  CH2ClCH2Cl   (1,2-dichloroethane)</div>
+  </div>
+
+  <h3 class="sub-heading">Method 4: Reaction of Alcohols with Halogenating Agents</h3>
+  <div class="card">
+    <p>This is the most reliable laboratory method for preparing a specific halogenoalkane:</p>
+    <div class="formula-block"><b>With PCl5 (phosphorus pentachloride):</b>
+R-OH  +  PCl5  -->  R-Cl  +  POCl3  +  HCl
+e.g.  CH3CH2OH  +  PCl5  -->  CH3CH2Cl  +  POCl3  +  HCl
+
+<b>With PCl3 (phosphorus trichloride):</b>
+3 R-OH  +  PCl3  -->  3 R-Cl  +  H3PO3
+
+<b>With SOCl2 (thionyl chloride) -- best for chloroalkanes:</b>
+R-OH  +  SOCl2  -->  R-Cl  +  SO2  +  HCl
+
+<b>With HBr (conc. H2SO4 + NaBr, or direct HBr):</b>
+R-OH  +  HBr  -->  R-Br  +  H2O
+
+<b>With red phosphorus + I2 (for iodoalkanes):</b>
+3 R-OH  +  PI3 (formed in situ)  -->  3 R-I  +  H3PO3</div>
+  </div>
+
+  <div class="callout tip">
+    <span class="callout-icon">&#128161;</span>
+    <div class="callout-body">
+      <strong>Which Reagent to Use?</strong>
+      For <b>chloroalkanes</b>: PCl<sub>5</sub>, PCl<sub>3</sub>, or SOCl<sub>2</sub> (SOCl<sub>2</sub> is cleanest — only gaseous by-products).<br>
+      For <b>bromoalkanes</b>: NaBr + conc. H<sub>2</sub>SO<sub>4</sub>, or direct HBr.<br>
+      For <b>iodoalkanes</b>: red P + I<sub>2</sub> (NOT HI + H<sub>2</sub>SO<sub>4</sub> — H<sub>2</sub>SO<sub>4</sub> oxidises HI).<br>
+      For <b>fluoroalkanes</b>: special methods (e.g. Balz-Schiemann reaction) — not simple lab prep.
+    </div>
+  </div>
+
+  <div class="example-box">
+    <div class="example-header"><span class="tag">Example 2</span><h4>Preparation of 1-bromopropane from propan-1-ol</h4></div>
+    <div class="example-body">
+      <p class="q">Write the equation for preparing 1-bromopropane from propan-1-ol. State the reagent and any conditions.</p>
+      <div class="step"><div class="step-num">1</div><div class="step-text">React propan-1-ol with <b>NaBr and concentrated H<sub>2</sub>SO<sub>4</sub></b> (which generates HBr in situ) or directly with conc. HBr.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-text">CH<sub>3</sub>CH<sub>2</sub>CH<sub>2</sub>OH + HBr &rarr; CH<sub>3</sub>CH<sub>2</sub>CH<sub>2</sub>Br + H<sub>2</sub>O</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-text">Conditions: heat under reflux. Product is separated by distillation.</div></div>
+      <div class="step"><div class="step-num">&#10003;</div><div class="step-text">Product: <b>1-bromopropane</b> (a primary halogenoalkane) &#10004;</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4.4 CHEMICAL REACTIONS -->
+<section id="reactions">
+  <div class="section-header">
+    <span class="section-number">4.4</span>
+    <h2>Chemical Reactions</h2>
+  </div>
+
+  <div class="callout info">
+    <span class="callout-icon">&#128204;</span>
+    <div class="callout-body">
+      <strong>Why Halogenoalkanes are Reactive</strong>
+      The C<sup>&delta;+</sup>&ndash;X<sup>&delta;&minus;</sup> bond is polar. The &delta;+ carbon is susceptible to attack by <b>nucleophiles</b> (electron-pair donors: OH<sup>&minus;</sup>, CN<sup>&minus;</sup>, NH<sub>3</sub>, RO<sup>&minus;</sup>) and the &delta;&minus; halogen acts as a <b>leaving group</b>. The two main reaction pathways are <b>nucleophilic substitution (S<sub>N</sub>)</b> and <b>elimination (E)</b>.
+    </div>
+  </div>
+
+  <h3 class="sub-heading">Reaction 1: Nucleophilic Substitution with Aqueous NaOH / KOH &rarr; Alcohol</h3>
+  <div class="card">
+    <p>Conditions: <b>aqueous</b> NaOH or KOH, heat under reflux. The OH<sup>&minus;</sup> nucleophile replaces X.</p>
+    <div class="formula-block">R-X  +  NaOH(aq)  --heat/reflux-->  R-OH  +  NaX
+
+e.g.  CH3CH2Br  +  NaOH(aq)  -->  CH3CH2OH  +  NaBr
+      (bromoethane)                   (ethanol)</div>
+  </div>
+
+  <h3 class="sub-heading">Reaction 2: Nucleophilic Substitution with KCN &rarr; Nitrile (chain lengthening)</h3>
+  <div class="card">
+    <p>Conditions: alcoholic KCN, heat under reflux. CN<sup>&minus;</sup> is the nucleophile. The product nitrile has <b>one more carbon</b> than the halogenoalkane &mdash; this reaction lengthens the carbon chain.</p>
+    <div class="formula-block">R-X  +  KCN(alc)  --heat/reflux-->  R-CN  +  KX
+
+e.g.  CH3CH2Br  +  KCN  -->  CH3CH2CN  +  KBr
+      (bromoethane)            (propanenitrile)  -- chain extended by 1 C</div>
+  </div>
+
+  <h3 class="sub-heading">Reaction 3: Nucleophilic Substitution with NH<sub>3</sub> &rarr; Amine</h3>
+  <div class="card">
+    <p>Conditions: excess concentrated NH<sub>3</sub> in ethanol (sealed tube), heat. NH<sub>3</sub> acts as nucleophile. A mixture of primary, secondary, tertiary amines and quaternary ammonium salts may form.</p>
+    <div class="formula-block">R-X  +  NH3(excess, alc)  -->  R-NH2  +  HX
+
+e.g.  CH3Br  +  NH3  -->  CH3NH2  +  HBr
+      (bromomethane)      (methylamine, primary amine)</div>
+  </div>
+
+  <h3 class="sub-heading">Reaction 4: Elimination with Alcoholic KOH &rarr; Alkene</h3>
+  <div class="card">
+    <p>Conditions: <b>alcoholic</b> KOH (KOH dissolved in ethanol), heat under reflux. HX is eliminated to form an alkene. <b>Zaitsev's rule</b>: the more substituted alkene is the major product.</p>
+    <div class="formula-block">R-CHX-CH2-R'  +  KOH(alc)  --heat-->  R-CH=CH-R'  +  KX  +  H2O
+
+e.g.  CH3CH2Br  +  KOH(alc)  -->  CH2=CH2  +  KBr  +  H2O
+      (bromoethane)                  (ethene)</div>
+    <div class="callout pink" style="margin-top:12px;">
+      <span class="callout-icon">&#9888;&#65039;</span>
+      <div class="callout-body">
+        <strong>Aqueous vs Alcoholic KOH</strong>
+        <b>Aqueous KOH</b> &rarr; <b>substitution</b> (gives alcohol). The water acts as solvent and OH<sup>&minus;</sup> is a good nucleophile in polar protic solvent.<br>
+        <b>Alcoholic KOH</b> &rarr; <b>elimination</b> (gives alkene). The ethanol solvent reduces nucleophilicity of OH<sup>&minus;</sup> but favours its role as a base, abstracting a proton from the &beta;-carbon.
+      </div>
+    </div>
+  </div>
+
+  <h3 class="sub-heading">Reaction 5: Substitution with AgNO<sub>3</sub> in Ethanol &rarr; Silver Halide Precipitate</h3>
+  <div class="card">
+    <p>This reaction is used as a <b>chemical test</b> (see Section 4.5). AgNO<sub>3</sub> in ethanol reacts with halogenoalkanes on warming:</p>
+    <div class="formula-block">R-X  +  AgNO3(ethanolic)  --warm-->  R-ONO2  +  AgX(s)
+
+AgCl: white precipitate
+AgBr: cream precipitate
+AgI:  yellow precipitate</div>
+  </div>
+
+  <div class="example-box">
+    <div class="example-header"><span class="tag">Example 3</span><h4>Substitution vs Elimination &mdash; Choosing Conditions</h4></div>
+    <div class="example-body">
+      <p class="q">2-bromopropane is treated with KOH. (a) What product forms with aqueous KOH? (b) What product forms with alcoholic KOH? Write equations for both.</p>
+      <div class="step"><div class="step-num">a</div><div class="step-text"><b>Aqueous KOH &rarr; substitution:</b><br>
+      CH<sub>3</sub>CHBrCH<sub>3</sub> + KOH(aq) &rarr; CH<sub>3</sub>CH(OH)CH<sub>3</sub> + KBr<br>
+      Product: <b>propan-2-ol</b></div></div>
+      <div class="step"><div class="step-num">b</div><div class="step-text"><b>Alcoholic KOH &rarr; elimination:</b><br>
+      CH<sub>3</sub>CHBrCH<sub>3</sub> + KOH(alc) &rarr; CH<sub>3</sub>CH=CH<sub>2</sub> + KBr + H<sub>2</sub>O<br>
+      Product: <b>propene</b></div></div>
+    </div>
+  </div>
+
+  <h3 class="sub-heading">S<sub>N</sub>1 vs S<sub>N</sub>2 Mechanisms</h3>
+  <div class="two-col">
+    <div class="card">
+      <h3>S<sub>N</sub>2 (Bimolecular)</h3>
+      <p>One-step mechanism. Nucleophile attacks the back of the C&ndash;X bond simultaneously as X leaves. <b>Favoured by primary halogenoalkanes</b> (less steric hindrance).</p>
+      <div class="formula-block" style="font-size:.82rem;">Nu:- + R-X  -->  [Nu...C...X]  -->  Nu-R + X-
+(backside attack, inversion of config)</div>
+      <p>Rate = k[R&ndash;X][Nu] &mdash; depends on both reactant concentrations.</p>
+    </div>
+    <div class="card">
+      <h3>S<sub>N</sub>1 (Unimolecular)</h3>
+      <p>Two-step mechanism. First, C&ndash;X ionises to give a <b>carbocation</b>; then nucleophile attacks. <b>Favoured by tertiary halogenoalkanes</b> (more stable carbocation).</p>
+      <div class="formula-block" style="font-size:.82rem;">Step 1: R-X  -->  R+  +  X-   (slow, rate-determining)
+Step 2: R+  +  Nu-  -->  R-Nu  (fast)</div>
+      <p>Rate = k[R&ndash;X] &mdash; depends only on halogenoalkane concentration.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 4.5 CHEMICAL TESTS -->
+<section id="tests">
+  <div class="section-header">
+    <span class="section-number">4.5</span>
+    <h2>Chemical Tests for Halogenoalkanes</h2>
+  </div>
+
+  <div class="card">
+    <h3>Test: Identifying the Halogen Present</h3>
+    <p>The identity of the halogen (Cl, Br, or I) is determined using <b>ethanolic silver nitrate solution</b> after first hydrolysing the halogenoalkane:</p>
+    <ol style="padding-left:20px;line-height:2.2;">
+      <li>Add the halogenoalkane to <b>ethanolic AgNO<sub>3</sub></b> solution in a test tube.</li>
+      <li>Warm the mixture in a water bath.</li>
+      <li>Observe the precipitate formed.</li>
+      <li>To confirm, add dilute HNO<sub>3</sub> then dilute ammonia solution.</li>
+    </ol>
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Halogen</th><th>Precipitate with AgNO<sub>3</sub>/EtOH</th><th>Colour</th><th>Solubility in dilute NH<sub>3</sub></th><th>Solubility in conc. NH<sub>3</sub></th></tr></thead>
+      <tbody>
+        <tr><td>Chlorine (Cl)</td><td>AgCl</td><td><b>White</b></td><td>Soluble (dissolves)</td><td>Soluble</td></tr>
+        <tr><td>Bromine (Br)</td><td>AgBr</td><td><b>Cream</b></td><td>Insoluble</td><td>Soluble</td></tr>
+        <tr><td>Iodine (I)</td><td>AgI</td><td><b>Yellow</b></td><td>Insoluble</td><td>Insoluble</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout info">
+    <span class="callout-icon">&#128204;</span>
+    <div class="callout-body">
+      <strong>Relative Rates of Reaction</strong>
+      The rate of precipitate formation also reveals the C&ndash;X bond strength. <b>Iodoalkanes</b> react fastest (weakest C&ndash;I bond, easiest to hydrolyse); <b>chloroalkanes</b> react slowest (strongest C&ndash;Cl bond). This gives the reactivity order: R&ndash;I &gt; R&ndash;Br &gt; R&ndash;Cl.
+    </div>
+  </div>
+
+  <div class="example-box">
+    <div class="example-header"><span class="tag">Example 4</span><h4>Identifying an Unknown Halogenoalkane</h4></div>
+    <div class="example-body">
+      <p class="q">Three test tubes contain 1-chlorobutane, 1-bromobutane, and 1-iodobutane. Describe how you would identify which is which using one reagent.</p>
+      <div class="step"><div class="step-num">1</div><div class="step-text">Add a few drops of each compound to separate test tubes containing <b>ethanolic AgNO<sub>3</sub></b> solution.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-text">Warm each test tube in a water bath at ~60&deg;C and observe.</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-text">Results:<br>
+        &bull; <b>White precipitate</b> (and fastest with dilute NH<sub>3</sub>) &rarr; <b>1-chlorobutane</b> (AgCl)<br>
+        &bull; <b>Cream precipitate</b> &rarr; <b>1-bromobutane</b> (AgBr)<br>
+        &bull; <b>Yellow precipitate</b> (forms fastest overall) &rarr; <b>1-iodobutane</b> (AgI)</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-text">Confirm by adding dilute then concentrated ammonia: AgCl dissolves in dilute NH<sub>3</sub>; AgBr requires conc. NH<sub>3</sub>; AgI does not dissolve.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4.6 USES AND CFCs -->
+<section id="uses">
+  <div class="section-header">
+    <span class="section-number">4.6</span>
+    <h2>Uses of Halogenoalkanes and CFCs</h2>
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Compound</th><th>Use</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Chloromethane (CH<sub>3</sub>Cl)</td><td>Manufacture of silicones; methylating agent</td><td>Industrial chemical synthesis</td></tr>
+        <tr><td>Dichloromethane (CH<sub>2</sub>Cl<sub>2</sub>)</td><td>Solvent (paint stripper, extraction solvent, decaffeination of coffee)</td><td>Low boiling point (40&deg;C); good solvent for organics</td></tr>
+        <tr><td>Trichloromethane (CHCl<sub>3</sub>, chloroform)</td><td>Formerly used as anaesthetic; solvent; intermediate in synthesis</td><td>Now replaced due to toxicity</td></tr>
+        <tr><td>Tetrachloromethane (CCl<sub>4</sub>)</td><td>Formerly used as dry-cleaning solvent and fire extinguisher</td><td>Phased out due to ozone depletion and toxicity</td></tr>
+        <tr><td>Chloroethane (C<sub>2</sub>H<sub>5</sub>Cl)</td><td>Local anaesthetic (skin cooling spray); ethylating agent</td><td>Rapid evaporation cools the skin</td></tr>
+        <tr><td>1,2-dichloroethane</td><td>Manufacture of vinyl chloride (PVC monomer); solvent</td><td>Important petrochemical intermediate</td></tr>
+        <tr><td>Chloroethene (vinyl chloride)</td><td>Monomer for PVC</td><td>Pipes, cables, flooring</td></tr>
+        <tr><td>Halothane (CF<sub>3</sub>CHBrCl)</td><td>General anaesthetic</td><td>Replaced by newer agents</td></tr>
+        <tr><td>Teflon (PTFE, &ndash;[CF<sub>2</sub>CF<sub>2</sub>]<sub>n</sub>&ndash;)</td><td>Non-stick coatings; electrical insulation</td><td>Extremely chemically inert</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="sub-heading">CFCs and the Ozone Layer</h3>
+  <div class="def-box">
+    <strong>CFCs (Chlorofluorocarbons)</strong>
+    CFCs are halogenoalkanes containing <b>both chlorine and fluorine</b> atoms (and no H). Examples: CCl<sub>3</sub>F (CFC-11, trichlorofluoromethane), CCl<sub>2</sub>F<sub>2</sub> (CFC-12, dichlorodifluoromethane, Freon-12). They were widely used as refrigerants, aerosol propellants, and foam-blowing agents.
+  </div>
+
+  <div class="card">
+    <h3>Why CFCs Were Considered Safe (Initially)</h3>
+    <p>CFCs are non-toxic, non-flammable, chemically inert in the lower atmosphere, and cheap to produce. These properties made them seem ideal for industrial use.</p>
+  </div>
+
+  <div class="card">
+    <h3>How CFCs Destroy the Ozone Layer</h3>
+    <p>In the <b>stratosphere</b> (15&ndash;50 km altitude), UV radiation is intense enough to break C&ndash;Cl bonds homolytically in CFCs, releasing chlorine radicals (Cl&bull;) that catalytically destroy ozone:</p>
+    <div class="formula-block">CFC photolysis:
+CCl2F2  --(UV)-->  CClF2*  +  Cl*   (Cl radical generated)
+
+Ozone destruction (catalytic cycle):
+Cl*  +  O3  -->  ClO*  +  O2          (step 1)
+ClO* +  O   -->  Cl*   +  O2          (step 2)
+-------------------------------------------
+Net:  O3  +  O  -->  2 O2  (Cl* is regenerated -- acts as catalyst)
+
+One Cl* can destroy ~100,000 ozone molecules before being removed.</div>
+  </div>
+
+  <div class="callout warn">
+    <span class="callout-icon">&#9888;&#65039;</span>
+    <div class="callout-body">
+      <strong>Consequences of Ozone Depletion</strong>
+      The ozone layer absorbs harmful UV-B radiation (280&ndash;315 nm). Depletion leads to: increased UV-B reaching Earth's surface &rarr; higher rates of skin cancer, cataracts, and immune suppression; damage to marine phytoplankton and food chains.
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>The Montreal Protocol (1987) and Replacements</h3>
+    <p>The Montreal Protocol phased out the production and use of CFCs internationally. CFCs have been replaced by <b>HCFCs</b> (hydrochlorofluorocarbons, e.g. CHClF<sub>2</sub>) and then <b>HFCs</b> (hydrofluorocarbons, no Cl atoms, e.g. CH<sub>2</sub>FCF<sub>3</sub>). HFCs do not deplete ozone but are still potent greenhouse gases and are being phased out under the Kigali Amendment (2016).</p>
+  </div>
+
+  <div class="example-box">
+    <div class="example-header"><span class="tag">Example 5</span><h4>Explaining CFC Ozone Destruction</h4></div>
+    <div class="example-body">
+      <p class="q">Explain why a small amount of CFC can destroy a large amount of ozone.</p>
+      <div class="step"><div class="step-num">1</div><div class="step-text">UV radiation in the stratosphere breaks the C&ndash;Cl bond in CFCs: CCl<sub>2</sub>F<sub>2</sub> &rarr;(UV) &bull;CClF<sub>2</sub> + Cl&bull;</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-text">Cl&bull; reacts with O<sub>3</sub>: Cl&bull; + O<sub>3</sub> &rarr; ClO&bull; + O<sub>2</sub></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-text">ClO&bull; reacts with an oxygen atom: ClO&bull; + O &rarr; Cl&bull; + O<sub>2</sub></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-text">Cl&bull; is <b>regenerated</b> &mdash; it acts as a <b>catalyst</b>. It is not consumed in the overall reaction. One Cl&bull; can destroy ~100,000 O<sub>3</sub> molecules before being removed by another reaction.</div></div>
+      <div class="step"><div class="step-num">&#10003;</div><div class="step-text">This is why even tiny amounts of CFC cause massive ozone loss.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- EXERCISES -->
+<section id="exercises">
+  <div class="section-header">
+    <span class="section-number">&#9999;&#65039;</span>
+    <h2>Exercises</h2>
+  </div>
+
+  <ul class="exercise-list">
+
+    <li>
+      Classify each as primary, secondary, or tertiary, and give the IUPAC name:<br>
+      (a) (CH<sub>3</sub>)<sub>3</sub>CCl &nbsp; (b) CH<sub>3</sub>CH<sub>2</sub>CHBrCH<sub>3</sub> &nbsp; (c) CH<sub>3</sub>CH<sub>2</sub>CH<sub>2</sub>I
+      <br><button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+      <div class="answer">
+        (a) <b>Tertiary</b>; <b>2-chloro-2-methylpropane</b> (C bearing Cl attached to 3 other C atoms)<br>
+        (b) <b>Secondary</b>; <b>2-bromobutane</b> (C bearing Br attached to 2 other C atoms)<br>
+        (c) <b>Primary</b>; <b>1-iodopropane</b> (C bearing I attached to 1 other C atom)
+      </div>
+    </li>
+
+    <li>
+      Write equations for the reaction of 1-bromopropane with: (a) aqueous KOH; (b) alcoholic KOH; (c) KCN in ethanol. Name all organic products.
+      <br><button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+      <div class="answer">
+        (a) CH<sub>3</sub>CH<sub>2</sub>CH<sub>2</sub>Br + KOH(aq) &rarr; CH<sub>3</sub>CH<sub>2</sub>CH<sub>2</sub>OH + KBr<br>Product: <b>propan-1-ol</b><br><br>
+        (b) CH<sub>3</sub>CH<sub>2</sub>CH<sub>2</sub>Br + KOH(alc) &rarr; CH<sub>3</sub>CH=CH<sub>2</sub> + KBr + H<sub>2</sub>O<br>Product: <b>propene</b><br><br>
+        (c) CH<sub>3</sub>CH<sub>2</sub>CH<sub>2</sub>Br + KCN &rarr; CH<sub>3</sub>CH<sub>2</sub>CH<sub>2</sub>CN + KBr<br>Product: <b>butanenitrile</b> (chain extended from 3 C to 4 C)
+      </div>
+    </li>
+
+    <li>
+      Explain why iodoalkanes react faster with nucleophiles than chloroalkanes, even though C&ndash;I is less polar than C&ndash;Cl.
+      <br><button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+      <div class="answer">
+        Although C&ndash;I is less polar than C&ndash;Cl, the <b>C&ndash;I bond is much weaker</b> (238 kJ/mol vs 338 kJ/mol for C&ndash;Cl). In nucleophilic substitution, the <b>bond breaking</b> step (C&ndash;X cleavage) is rate-determining. The weaker C&ndash;I bond requires less activation energy to break, so iodoalkanes react faster despite being less polar.
+      </div>
+    </li>
+
+    <li>
+      Describe the test you would use to distinguish between 1-chlorobutane and 1-iodobutane. State clearly what you would observe with each compound.
+      <br><button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+      <div class="answer">
+        Add each compound to <b>ethanolic AgNO<sub>3</sub></b> solution and warm in a water bath.<br><br>
+        1-chlorobutane: <b>white precipitate</b> of AgCl (dissolves in dilute ammonia).<br>
+        1-iodobutane: <b>yellow precipitate</b> of AgI (insoluble in both dilute and concentrated ammonia). Also forms faster than the chloro compound.
+      </div>
+    </li>
+
+    <li>
+      Write the two steps of the catalytic cycle by which chlorine radicals destroy ozone. Explain the term "catalytic" in this context.
+      <br><button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+      <div class="answer">
+        <b>Step 1:</b> Cl&bull; + O<sub>3</sub> &rarr; ClO&bull; + O<sub>2</sub><br>
+        <b>Step 2:</b> ClO&bull; + O &rarr; Cl&bull; + O<sub>2</sub><br>
+        <b>Net:</b> O<sub>3</sub> + O &rarr; 2 O<sub>2</sub><br><br>
+        <b>Catalytic:</b> The Cl&bull; radical is <b>regenerated</b> in step 2 and is not consumed overall. It speeds up the destruction of ozone without being permanently used up, so one Cl&bull; can destroy thousands of ozone molecules.
+      </div>
+    </li>
+
+    <li>
+      A student wants to prepare chloroethane from ethanol. Give two possible reagents they could use, and write the equation for one of them.
+      <br><button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+      <div class="answer">
+        <b>Reagent 1: PCl<sub>5</sub></b><br>
+        CH<sub>3</sub>CH<sub>2</sub>OH + PCl<sub>5</sub> &rarr; CH<sub>3</sub>CH<sub>2</sub>Cl + POCl<sub>3</sub> + HCl<br><br>
+        <b>Reagent 2: SOCl<sub>2</sub> (thionyl chloride)</b><br>
+        CH<sub>3</sub>CH<sub>2</sub>OH + SOCl<sub>2</sub> &rarr; CH<sub>3</sub>CH<sub>2</sub>Cl + SO<sub>2</sub> + HCl
+      </div>
+    </li>
+
+  </ul>
+</section>
+
+<!-- QUIZ -->
+<section id="quiz">
+  <div class="section-header">
+    <span class="section-number">&#129504;</span>
+    <h2>Interactive Quiz</h2>
+  </div>
+  <div class="quiz-wrap">
+    <div class="quiz-header"><h3>Unit 4 Quiz &mdash; Halogenoalkanes (10 Questions)</h3></div>
+    <div class="quiz-body">
+
+      <div class="q-block">
+        <span class="q-num">Q1</span>
+        <p class="q-text">(CH<sub>3</sub>)<sub>2</sub>CHBr is classified as:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q1" value="a"> Primary</label>
+          <label class="opt"><input type="radio" name="q1" value="b"> Secondary</label>
+          <label class="opt"><input type="radio" name="q1" value="c"> Tertiary</label>
+          <label class="opt"><input type="radio" name="q1" value="d"> Quaternary</label>
+        </div>
+        <div class="q-exp" id="exp1">(CH<sub>3</sub>)<sub>2</sub>CHBr = CH<sub>3</sub>CHBrCH<sub>3</sub>. The carbon bearing Br is bonded to <b>2 other carbon atoms</b> &rarr; <b>secondary</b>.</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q2</span>
+        <p class="q-text">Which reagent and conditions convert a halogenoalkane into an alcohol?</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q2" value="a"> Alcoholic KOH, heat</label>
+          <label class="opt"><input type="radio" name="q2" value="b"> Aqueous NaOH, heat under reflux</label>
+          <label class="opt"><input type="radio" name="q2" value="c"> KCN in ethanol, heat</label>
+          <label class="opt"><input type="radio" name="q2" value="d"> Concentrated NH<sub>3</sub>, heat</label>
+        </div>
+        <div class="q-exp" id="exp2"><b>Aqueous NaOH</b> (OH<sup>&minus;</sup> nucleophile in water) replaces X with OH to give an alcohol. Alcoholic KOH gives elimination (alkene). KCN gives a nitrile. NH<sub>3</sub> gives an amine.</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q3</span>
+        <p class="q-text">The colour of the AgBr precipitate formed in the AgNO<sub>3</sub> test is:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q3" value="a"> White</label>
+          <label class="opt"><input type="radio" name="q3" value="b"> Yellow</label>
+          <label class="opt"><input type="radio" name="q3" value="c"> Cream</label>
+          <label class="opt"><input type="radio" name="q3" value="d"> Orange</label>
+        </div>
+        <div class="q-exp" id="exp3">AgCl = white; <b>AgBr = cream</b>; AgI = yellow. These colours (and their solubility in ammonia) distinguish which halogen is present.</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q4</span>
+        <p class="q-text">Reaction of a halogenoalkane with KCN in alcohol extends the carbon chain because:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q4" value="a"> K<sup>+</sup> adds to the chain</label>
+          <label class="opt"><input type="radio" name="q4" value="b"> CN<sup>&minus;</sup> replaces X and introduces one new carbon atom</label>
+          <label class="opt"><input type="radio" name="q4" value="c"> HCN is added across a double bond</label>
+          <label class="opt"><input type="radio" name="q4" value="d"> The halogen is converted to a carbon atom</label>
+        </div>
+        <div class="q-exp" id="exp4">CN<sup>&minus;</sup> is the nucleophile; it replaces X and the carbon of CN becomes part of the chain. The product nitrile (R&ndash;CN) has <b>one more carbon</b> than the original halogenoalkane.</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q5</span>
+        <p class="q-text">Which halogenoalkane reacts FASTEST with ethanolic AgNO<sub>3</sub>?</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q5" value="a"> 1-chlorobutane</label>
+          <label class="opt"><input type="radio" name="q5" value="b"> 1-fluorobutane</label>
+          <label class="opt"><input type="radio" name="q5" value="c"> 1-bromobutane</label>
+          <label class="opt"><input type="radio" name="q5" value="d"> 1-iodobutane</label>
+        </div>
+        <div class="q-exp" id="exp5"><b>1-iodobutane</b> reacts fastest because C&ndash;I is the weakest C&ndash;X bond (238 kJ/mol), requiring the least energy to break. Reactivity order: R&ndash;I &gt; R&ndash;Br &gt; R&ndash;Cl &gt; R&ndash;F.</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q6</span>
+        <p class="q-text">CFCs damage the ozone layer primarily because:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q6" value="a"> They are heavier than air and accumulate in the stratosphere</label>
+          <label class="opt"><input type="radio" name="q6" value="b"> UV radiation in the stratosphere cleaves C&ndash;Cl bonds to form Cl radicals that catalytically destroy O<sub>3</sub></label>
+          <label class="opt"><input type="radio" name="q6" value="c"> They react with ozone directly at ground level</label>
+          <label class="opt"><input type="radio" name="q6" value="d"> They absorb infrared radiation and heat up the ozone layer</label>
+        </div>
+        <div class="q-exp" id="exp6">UV radiation in the stratosphere photolyses CFCs to generate Cl&bull; radicals. These catalytically destroy O<sub>3</sub> via: Cl&bull; + O<sub>3</sub> &rarr; ClO&bull; + O<sub>2</sub> and ClO&bull; + O &rarr; Cl&bull; + O<sub>2</sub>. The Cl&bull; is regenerated and destroys thousands of O<sub>3</sub> molecules.</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q7</span>
+        <p class="q-text">The reaction of a halogenoalkane with alcoholic KOH produces:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q7" value="a"> An alcohol</label>
+          <label class="opt"><input type="radio" name="q7" value="b"> A nitrile</label>
+          <label class="opt"><input type="radio" name="q7" value="c"> An alkene</label>
+          <label class="opt"><input type="radio" name="q7" value="d"> An amine</label>
+        </div>
+        <div class="q-exp" id="exp7">Alcoholic KOH promotes <b>elimination</b>: HX is removed from the halogenoalkane to give an <b>alkene</b>. Aqueous KOH promotes substitution to give an alcohol.</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q8</span>
+        <p class="q-text">Which of the following is used to prepare an iodoalkane from an alcohol?</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q8" value="a"> PCl<sub>5</sub></label>
+          <label class="opt"><input type="radio" name="q8" value="b"> HI + conc. H<sub>2</sub>SO<sub>4</sub></label>
+          <label class="opt"><input type="radio" name="q8" value="c"> Red phosphorus + I<sub>2</sub></label>
+          <label class="opt"><input type="radio" name="q8" value="d"> SOCl<sub>2</sub></label>
+        </div>
+        <div class="q-exp" id="exp8"><b>Red phosphorus + I<sub>2</sub></b> (which generates PI<sub>3</sub> in situ) is used for iodoalkanes. HI + H<sub>2</sub>SO<sub>4</sub> cannot be used because H<sub>2</sub>SO<sub>4</sub> oxidises HI to I<sub>2</sub>. PCl<sub>5</sub> and SOCl<sub>2</sub> give chloroalkanes.</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q9</span>
+        <p class="q-text">S<sub>N</sub>2 reactions are favoured by:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q9" value="a"> Tertiary halogenoalkanes</label>
+          <label class="opt"><input type="radio" name="q9" value="b"> Primary halogenoalkanes</label>
+          <label class="opt"><input type="radio" name="q9" value="c"> All halogenoalkanes equally</label>
+          <label class="opt"><input type="radio" name="q9" value="d"> Fluoroalkanes only</label>
+        </div>
+        <div class="q-exp" id="exp9">S<sub>N</sub>2 involves simultaneous backside attack by the nucleophile and departure of the leaving group. <b>Primary halogenoalkanes</b> have least steric hindrance, making backside attack easiest. Tertiary halogenoalkanes favour S<sub>N</sub>1 via a stable carbocation.</div>
+      </div>
+
+      <div class="q-block">
+        <span class="q-num">Q10</span>
+        <p class="q-text">The ozone layer is important because it:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q10" value="a"> Keeps Earth warm by absorbing infrared radiation</label>
+          <label class="opt"><input type="radio" name="q10" value="b"> Absorbs harmful UV-B radiation, protecting life on Earth</label>
+          <label class="opt"><input type="radio" name="q10" value="c"> Provides oxygen for breathing</label>
+          <label class="opt"><input type="radio" name="q10" value="d"> Reflects visible light back to space</label>
+        </div>
+        <div class="q-exp" id="exp10">The ozone layer (stratosphere, 15&ndash;50 km) <b>absorbs UV-B radiation</b> (280&ndash;315 nm). This UV-B causes skin cancer, cataracts, and damage to ecosystems if it reaches Earth's surface in excess.</div>
+      </div>
+
+    </div>
+    <div style="padding:0 24px 24px;">
+      <button class="quiz-submit" onclick="submitQuiz()">Submit Answers</button>
+      <div id="quizResult" style="display:none;margin-top:16px;padding:16px 20px;border-radius:var(--radius);font-family:'JetBrains Mono',monospace;"></div>
+    </div>
+  </div>
+</section>
+
+<!-- UNIT TEST -->
+<section id="test">
+  <div class="section-header">
+    <span class="section-number">&#128221;</span>
+    <h2>Unit Test</h2>
+  </div>
+  <div class="callout info">
+    <span class="callout-icon">&#8505;&#65039;</span>
+    <div class="callout-body">
+      <strong>Instructions</strong>
+      Total: 50 marks &nbsp;|&nbsp; Time: 50 minutes &nbsp;|&nbsp; Attempt all questions &nbsp;|&nbsp; Show all working.
+    </div>
+  </div>
+
+  <div class="test-wrap">
+    <div class="test-section">
+      <div class="test-section-header">
+        <h3>Section A &mdash; Short Answer</h3>
+        <span class="marks-badge">30 marks</span>
+      </div>
+      <div class="test-body">
+
+        <div class="test-q">
+          <span class="test-q-num">Q1 [4 marks]</span>
+          <p>Classify each compound as primary, secondary, or tertiary, and give its IUPAC name:<br>
+          (a) CH<sub>3</sub>CH<sub>2</sub>CH<sub>2</sub>Cl &nbsp; (b) (CH<sub>3</sub>)<sub>2</sub>CHCH<sub>2</sub>Br &nbsp; (c) CH<sub>3</sub>C(CH<sub>3</sub>)(Cl)CH<sub>2</sub>CH<sub>3</sub> &nbsp; (d) CH<sub>3</sub>CHClCH<sub>2</sub>CH<sub>3</sub></p>
+          <div class="test-answer-reveal">
+            <button class="reveal-btn" onclick="toggleAnswer(this)">Show Model Answer</button>
+            <div class="answer">
+              (a) <b>Primary</b>; <b>1-chloropropane</b><br>
+              (b) <b>Primary</b>; <b>1-bromo-2-methylpropane</b> (Br on C1, methyl branch on C2)<br>
+              (c) <b>Tertiary</b>; <b>2-chloro-2-methylbutane</b><br>
+              (d) <b>Secondary</b>; <b>2-chlorobutane</b>
+            </div>
+          </div>
+        </div>
+
+        <div class="test-q">
+          <span class="test-q-num">Q2 [4 marks]</span>
+          <p>Explain the trend in boiling points of CH<sub>3</sub>Cl, CH<sub>3</sub>Br, and CH<sub>3</sub>I. Why does CH<sub>3</sub>F have an anomalously low boiling point compared to the other three?</p>
+          <div class="test-answer-reveal">
+            <button class="reveal-btn" onclick="toggleAnswer(this)">Show Model Answer</button>
+            <div class="answer">
+              <b>Trend CH<sub>3</sub>Cl &rarr; CH<sub>3</sub>Br &rarr; CH<sub>3</sub>I:</b> boiling points increase (&minus;24&deg;C &rarr; +4&deg;C &rarr; +43&deg;C) because atomic mass (and electron count) of the halogen increases from Cl to I &rarr; greater polarisability &rarr; stronger London dispersion forces &rarr; more energy needed to separate molecules.<br><br>
+              <b>CH<sub>3</sub>F anomaly:</b> F has a much smaller atomic radius and fewer electrons than Cl, giving very weak dispersion forces. Despite C&ndash;F being the most polar bond, fluoromethane has a much lower boiling point (&minus;78&deg;C) because dispersion forces dominate over dipole-dipole effects in these small molecules.
+            </div>
+          </div>
+        </div>
+
+        <div class="test-q">
+          <span class="test-q-num">Q3 [6 marks]</span>
+          <p>Write equations, with reagents and conditions, for the reactions of 2-bromobutane with:<br>
+          (a) aqueous NaOH &nbsp; (b) alcoholic KOH &nbsp; (c) KCN in ethanol &nbsp; (d) excess NH<sub>3</sub> in ethanol<br>
+          Name all organic products.</p>
+          <div class="test-answer-reveal">
+            <button class="reveal-btn" onclick="toggleAnswer(this)">Show Model Answer</button>
+            <div class="answer">
+              (a) CH<sub>3</sub>CHBrCH<sub>2</sub>CH<sub>3</sub> + NaOH(aq) &rarr;<sup>heat</sup> CH<sub>3</sub>CH(OH)CH<sub>2</sub>CH<sub>3</sub> + NaBr<br>Product: <b>butan-2-ol</b><br><br>
+              (b) CH<sub>3</sub>CHBrCH<sub>2</sub>CH<sub>3</sub> + KOH(alc) &rarr;<sup>heat</sup> CH<sub>3</sub>CH=CHCH<sub>3</sub> + KBr + H<sub>2</sub>O (major: but-2-ene, Zaitsev)<br>Product: <b>but-2-ene</b> (major) / but-1-ene (minor)<br><br>
+              (c) CH<sub>3</sub>CHBrCH<sub>2</sub>CH<sub>3</sub> + KCN(alc) &rarr;<sup>heat</sup> CH<sub>3</sub>CH(CN)CH<sub>2</sub>CH<sub>3</sub> + KBr<br>Product: <b>2-methylbutanenitrile</b> (5 C total)<br><br>
+              (d) CH<sub>3</sub>CHBrCH<sub>2</sub>CH<sub>3</sub> + NH<sub>3</sub>(excess, alc) &rarr;<sup>heat</sup> CH<sub>3</sub>CH(NH<sub>2</sub>)CH<sub>2</sub>CH<sub>3</sub> + HBr<br>Product: <b>butan-2-amine</b> (primary amine, major with excess NH<sub>3</sub>)
+            </div>
+          </div>
+        </div>
+
+        <div class="test-q">
+          <span class="test-q-num">Q4 [5 marks]</span>
+          <p>Describe fully the test to identify the halogen in an unknown halogenoalkane. Include reagents, observations, and how you would confirm the result.</p>
+          <div class="test-answer-reveal">
+            <button class="reveal-btn" onclick="toggleAnswer(this)">Show Model Answer</button>
+            <div class="answer">
+              <b>Reagent:</b> Ethanolic silver nitrate (AgNO<sub>3</sub>) solution.<br>
+              <b>Procedure:</b> Add a few drops of the halogenoalkane to ethanolic AgNO<sub>3</sub> in a test tube. Warm in a water bath (~60&deg;C). Observe the precipitate.<br><br>
+              <b>Observations:</b><br>
+              &bull; White precipitate &rarr; chlorine present (AgCl)<br>
+              &bull; Cream precipitate &rarr; bromine present (AgBr)<br>
+              &bull; Yellow precipitate &rarr; iodine present (AgI)<br><br>
+              <b>Confirmation:</b> Add dilute nitric acid (to remove interfering ions), then add dilute ammonia solution:<br>
+              &bull; AgCl dissolves in dilute NH<sub>3</sub> &rarr; confirms Cl<br>
+              &bull; AgBr dissolves only in concentrated NH<sub>3</sub> &rarr; confirms Br<br>
+              &bull; AgI does not dissolve in dilute or concentrated NH<sub>3</sub> &rarr; confirms I
+            </div>
+          </div>
+        </div>
+
+        <div class="test-q">
+          <span class="test-q-num">Q5 [5 marks]</span>
+          <p>Give three different reagents that can be used to convert ethanol into chloroethane. Write a balanced equation for each reaction.</p>
+          <div class="test-answer-reveal">
+            <button class="reveal-btn" onclick="toggleAnswer(this)">Show Model Answer</button>
+            <div class="answer">
+              <b>1. PCl<sub>5</sub>:</b><br>
+              CH<sub>3</sub>CH<sub>2</sub>OH + PCl<sub>5</sub> &rarr; CH<sub>3</sub>CH<sub>2</sub>Cl + POCl<sub>3</sub> + HCl<br><br>
+              <b>2. PCl<sub>3</sub>:</b><br>
+              3 CH<sub>3</sub>CH<sub>2</sub>OH + PCl<sub>3</sub> &rarr; 3 CH<sub>3</sub>CH<sub>2</sub>Cl + H<sub>3</sub>PO<sub>3</sub><br><br>
+              <b>3. SOCl<sub>2</sub>:</b><br>
+              CH<sub>3</sub>CH<sub>2</sub>OH + SOCl<sub>2</sub> &rarr; CH<sub>3</sub>CH<sub>2</sub>Cl + SO<sub>2</sub> + HCl
+            </div>
+          </div>
+        </div>
+
+        <div class="test-q">
+          <span class="test-q-num">Q6 [6 marks]</span>
+          <p>Compare the S<sub>N</sub>1 and S<sub>N</sub>2 mechanisms for nucleophilic substitution in halogenoalkanes. For each mechanism, state: (i) the number of steps; (ii) which class of halogenoalkane it favours; (iii) the rate expression; and (iv) write a brief mechanism for the reaction of the appropriate 2-bromopropane isomer with OH<sup>&minus;</sup>.</p>
+          <div class="test-answer-reveal">
+            <button class="reveal-btn" onclick="toggleAnswer(this)">Show Model Answer</button>
+            <div class="answer">
+              <b>S<sub>N</sub>2:</b><br>
+              (i) One step (concerted)<br>
+              (ii) Favours <b>primary</b> halogenoalkanes (low steric hindrance)<br>
+              (iii) Rate = k[R&ndash;X][OH<sup>&minus;</sup>] (bimolecular)<br>
+              (iv) CH<sub>3</sub>Br + OH<sup>&minus;</sup> &rarr; [HO&middot;&middot;&middot;CH<sub>3</sub>&middot;&middot;&middot;Br]<sup>&minus;</sup> &rarr; CH<sub>3</sub>OH + Br<sup>&minus;</sup><br>
+              (backside attack; Walden inversion of configuration)<br><br>
+              <b>S<sub>N</sub>1:</b><br>
+              (i) Two steps<br>
+              (ii) Favours <b>tertiary</b> halogenoalkanes (stable carbocation intermediate)<br>
+              (iii) Rate = k[R&ndash;X] (unimolecular; rate depends only on R&ndash;X)<br>
+              (iv) (CH<sub>3</sub>)<sub>3</sub>CBr &rarr; (CH<sub>3</sub>)<sub>3</sub>C<sup>+</sup> + Br<sup>&minus;</sup> (slow, rate-determining)<br>
+              (CH<sub>3</sub>)<sub>3</sub>C<sup>+</sup> + OH<sup>&minus;</sup> &rarr; (CH<sub>3</sub>)<sub>3</sub>COH (fast)<br>
+              (Attack from both faces possible &rarr; racemic mixture if chiral centre)
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="test-section">
+      <div class="test-section-header">
+        <h3>Section B &mdash; Extended Response</h3>
+        <span class="marks-badge">20 marks</span>
+      </div>
+      <div class="test-body">
+
+        <div class="test-q">
+          <span class="test-q-num">Q7 [10 marks]</span>
+          <p><b>(a)</b> Describe the role of CFCs in the destruction of the ozone layer. Include: how Cl radicals are formed, the two-step catalytic cycle with equations, and why small amounts of CFC cause large-scale damage. <i>[6 marks]</i></p>
+          <p><b>(b)</b> Explain why HCFCs and HFCs were introduced as replacements for CFCs and evaluate their advantages and disadvantages. <i>[4 marks]</i></p>
+          <div class="test-answer-reveal">
+            <button class="reveal-btn" onclick="toggleAnswer(this)">Show Model Answer</button>
+            <div class="answer">
+              <b>(a)</b> CFCs are stable in the lower atmosphere but rise into the stratosphere. UV radiation (short wavelength, high energy) cleaves the C&ndash;Cl bond homolytically:<br>
+              CCl<sub>2</sub>F<sub>2</sub> &rarr;(UV) &bull;CClF<sub>2</sub> + Cl&bull;<br><br>
+              Catalytic cycle:<br>
+              Cl&bull; + O<sub>3</sub> &rarr; ClO&bull; + O<sub>2</sub><br>
+              ClO&bull; + O &rarr; Cl&bull; + O<sub>2</sub><br>
+              Net: O<sub>3</sub> + O &rarr; 2O<sub>2</sub><br><br>
+              Cl&bull; is regenerated in step 2 &mdash; it is a catalyst. One Cl atom can destroy ~100,000 O<sub>3</sub> molecules before being removed (e.g. by reacting with CH<sub>4</sub> or NO<sub>2</sub>). This amplification effect means even small quantities cause massive O<sub>3</sub> depletion.<br><br>
+              <b>(b)</b> <b>HCFCs</b> (e.g. CHClF<sub>2</sub>) contain C&ndash;H bonds, making them reactive in the troposphere (degraded before reaching stratosphere). They deplete ozone ~5% as much as CFCs. <b>Advantage:</b> less ozone-depleting. <b>Disadvantage:</b> still contains Cl, so not completely safe; also a greenhouse gas.<br><br>
+              <b>HFCs</b> (e.g. CH<sub>2</sub>FCF<sub>3</sub>) contain no Cl atoms &rarr; zero ozone depletion potential. <b>Advantage:</b> safe for ozone layer. <b>Disadvantage:</b> very potent greenhouse gases (global warming potential thousands of times that of CO<sub>2</sub>); being phased out under the Kigali Amendment (2016).
+            </div>
+          </div>
+        </div>
+
+        <div class="test-q">
+          <span class="test-q-num">Q8 [10 marks]</span>
+          <p><b>(a)</b> Starting from 2-methylpropan-2-ol, describe with equations how you could prepare: (i) 2-chloro-2-methylpropane; (ii) 2-methylpropene; (iii) 2-methyl-2-methylpropanenitrile (a nitrile). State reagents and conditions for each. <i>[6 marks]</i></p>
+          <p><b>(b)</b> Arrange the following in order of increasing reactivity towards nucleophilic substitution, and explain the trend: CH<sub>3</sub>F, CH<sub>3</sub>Cl, CH<sub>3</sub>Br, CH<sub>3</sub>I. <i>[4 marks]</i></p>
+          <div class="test-answer-reveal">
+            <button class="reveal-btn" onclick="toggleAnswer(this)">Show Model Answer</button>
+            <div class="answer">
+              <b>(a)(i) 2-chloro-2-methylpropane:</b><br>
+              (CH<sub>3</sub>)<sub>3</sub>COH + PCl<sub>5</sub> &rarr; (CH<sub>3</sub>)<sub>3</sub>CCl + POCl<sub>3</sub> + HCl<br>
+              (or SOCl<sub>2</sub>: (CH<sub>3</sub>)<sub>3</sub>COH + SOCl<sub>2</sub> &rarr; (CH<sub>3</sub>)<sub>3</sub>CCl + SO<sub>2</sub> + HCl)<br><br>
+              <b>(a)(ii) 2-methylpropene:</b><br>
+              (CH<sub>3</sub>)<sub>3</sub>COH &rarr;<sup>conc. H<sub>2</sub>SO<sub>4</sub>, 170&deg;C</sup> CH<sub>2</sub>=C(CH<sub>3</sub>)<sub>2</sub> + H<sub>2</sub>O<br>
+              (dehydration/elimination; or via the chloride + alcoholic KOH)<br><br>
+              <b>(a)(iii) Nitrile:</b><br>
+              (CH<sub>3</sub>)<sub>3</sub>CCl + KCN(alc) &rarr;<sup>heat/reflux</sup> (CH<sub>3</sub>)<sub>3</sub>CCN + KCl<br>
+              Product: 2,2-dimethylpropanenitrile<br><br>
+              <b>(b) Increasing reactivity:</b> CH<sub>3</sub>F &lt; CH<sub>3</sub>Cl &lt; CH<sub>3</sub>Br &lt; CH<sub>3</sub>I<br><br>
+              <b>Explanation:</b> Despite F being most electronegative (making C most &delta;+), the C&ndash;F bond has the highest bond dissociation energy (484 kJ/mol). Nucleophilic substitution requires breaking the C&ndash;X bond. The weaker the bond, the lower the activation energy, and the faster the reaction. Bond strengths: C&ndash;F (484) &gt; C&ndash;Cl (338) &gt; C&ndash;Br (276) &gt; C&ndash;I (238) kJ/mol. Therefore reactivity: C&ndash;I &gt; C&ndash;Br &gt; C&ndash;Cl &gt; C&ndash;F.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="unit-nav">
+  <a class="nav-btn prev" href="unit3_alkenes_alkynes.html">&larr; Unit 3: Alkenes &amp; Alkynes</a>
+  <a class="nav-btn next" href="unit5_alcohols_ethers.html">Unit 5: Alcohols &amp; Ethers &rarr;</a>
+</div>
+
+</main>
+
+<script>
+function toggleAnswer(btn){
+  const ans=btn.nextElementSibling;
+  ans.classList.toggle('open');
+  btn.textContent=ans.classList.contains('open')?'Hide Answer':'Show Answer';
+}
+const correctAnswers={q1:'b',q2:'b',q3:'c',q4:'b',q5:'d',q6:'b',q7:'c',q8:'c',q9:'b',q10:'b'};
+function submitQuiz(){
+  let score=0;
+  const total=Object.keys(correctAnswers).length;
+  Object.entries(correctAnswers).forEach(([q,correct])=>{
+    const sel=document.querySelector('input[name="'+q+'"]:checked');
+    document.querySelectorAll('input[name="'+q+'"]').forEach(o=>{
+      if(o.value===correct) o.parentElement.classList.add('correct');
+    });
+    if(sel){if(sel.value===correct)score++;else sel.parentElement.classList.add('wrong');}
+    const exp=document.getElementById('exp'+q.slice(1));
+    if(exp)exp.style.display='block';
+    document.querySelectorAll('input[name="'+q+'"]').forEach(o=>o.disabled=true);
+  });
+  const pct=Math.round(score/total*100);
+  const res=document.getElementById('quizResult');
+  res.style.display='block';
+  res.style.background=pct>=70?'rgba(52,211,153,.1)':'rgba(248,113,113,.1)';
+  res.style.border='1px solid '+(pct>=70?'var(--green)':'var(--red)');
+  res.style.color=pct>=70?'var(--green)':'var(--red)';
+  res.innerHTML='Score: '+score+' / '+total+' ('+pct+'%) — '+(pct>=80?'Excellent! 🎉':pct>=60?'Good effort — review marked questions.':'Keep studying — re-read the notes and try again.');
+  document.querySelector('.quiz-submit').disabled=true;
+  document.querySelector('.quiz-submit').style.opacity='0.5';
+}
+</script>
+</body>
+</html>
