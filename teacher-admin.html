@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Teacher Admin | Habimana Chemistry</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Serif+4:wght@300;400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+<style>
+:root{--bg:#0d1117;--surface:#161b22;--surface2:#1c2333;--border:#30363d;--accent:#38bdf8;--gold:#e8c547;--green:#34d399;--red:#f87171;--text:#e6edf3;--muted:#8b949e;--radius:10px;}
+*{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Source Serif 4',Georgia,serif;font-size:16px;line-height:1.7;}
+#main-nav{position:sticky;top:0;z-index:200;background:rgba(13,17,23,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+.nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:56px;padding:0 24px;gap:12px;}
+.nav-brand{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--accent);text-decoration:none;white-space:nowrap;}
+.nav-links{display:flex;gap:2px;flex-wrap:wrap;}
+.nav-links a{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);text-decoration:none;padding:4px 10px;border-radius:5px;border:1px solid transparent;transition:all .15s;white-space:nowrap;}
+.nav-links a:hover,.nav-links a.active{color:var(--accent);background:rgba(56,189,248,.08);border-color:rgba(56,189,248,.2);}
+.nav-toggle{display:none;background:none;border:1px solid var(--border);color:var(--text);padding:4px 10px;border-radius:5px;cursor:pointer;}
+@media(max-width:768px){.nav-toggle{display:block;}.nav-links{display:none;position:absolute;top:56px;left:0;right:0;background:rgba(13,17,23,.98);flex-direction:column;padding:12px;gap:4px;border-bottom:1px solid var(--border);}#main-nav.open .nav-links{display:flex;}}
+.nav-dropdown{position:relative;}
+.nav-dropdown-menu{display:none;position:absolute;top:100%;left:0;background:var(--surface2);border:1px solid var(--border);border-radius:8px;min-width:160px;padding:6px;z-index:300;flex-direction:column;gap:2px;}
+.nav-dropdown:hover .nav-dropdown-menu{display:flex;}
+.nav-dropdown-menu a{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);text-decoration:none;padding:6px 12px;border-radius:5px;}
+.nav-dropdown-menu a:hover{color:var(--accent);background:rgba(56,189,248,.08);}
+
+/* LOGIN */
+#login-screen{min-height:calc(100vh - 56px);display:flex;align-items:center;justify-content:center;padding:40px 20px;}
+.login-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:48px 44px;max-width:420px;width:100%;text-align:center;}
+.login-card h1{font-family:'Playfair Display',serif;font-size:2rem;color:#fff;margin-bottom:8px;}
+.login-card p{color:var(--muted);font-size:.88rem;margin-bottom:32px;}
+.login-input{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px 16px;color:var(--text);font-family:'JetBrains Mono',monospace;font-size:.88rem;margin-bottom:14px;outline:none;}
+.login-input:focus{border-color:var(--accent);}
+.login-btn{width:100%;background:var(--accent);color:#000;border:none;border-radius:8px;padding:12px;font-family:'JetBrains Mono',monospace;font-size:.9rem;font-weight:700;cursor:pointer;transition:opacity .2s;}
+.login-btn:hover{opacity:.85;}
+.login-err{color:var(--red);font-family:'JetBrains Mono',monospace;font-size:.8rem;margin-top:10px;display:none;}
+
+/* ADMIN DASHBOARD */
+#admin-screen{display:none;max-width:1200px;margin:0 auto;padding:40px 24px 80px;}
+.admin-header{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;margin-bottom:40px;padding-bottom:20px;border-bottom:1px solid var(--border);}
+.admin-header h1{font-family:'Playfair Display',serif;font-size:2rem;color:#fff;}
+.logout-btn{background:var(--surface);border:1px solid var(--border);color:var(--muted);padding:8px 18px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.78rem;cursor:pointer;}
+.logout-btn:hover{border-color:var(--red);color:var(--red);}
+
+/* STATS GRID */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;margin-bottom:40px;}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:22px 20px;}
+.stat-label{font-family:'JetBrains Mono',monospace;font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:8px;}
+.stat-value{font-family:'JetBrains Mono',monospace;font-size:2.2rem;font-weight:700;color:var(--accent);}
+.stat-sub{font-size:.78rem;color:var(--muted);margin-top:4px;}
+
+/* SECTION */
+.admin-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:28px;}
+.admin-section-header{padding:16px 22px;background:var(--surface2);border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
+.admin-section-header h2{font-family:'Playfair Display',serif;font-size:1.1rem;color:#fff;}
+.admin-section-body{padding:22px;}
+
+/* CONTENT TABLE */
+.content-table{width:100%;border-collapse:collapse;}
+.content-table th{font-family:'JetBrains Mono',monospace;font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:10px 14px;text-align:left;border-bottom:1px solid var(--border);}
+.content-table td{padding:10px 14px;border-bottom:1px solid rgba(48,54,61,.5);font-size:.88rem;}
+.content-table tr:last-child td{border-bottom:none;}
+.content-table tr:hover td{background:rgba(255,255,255,.02);}
+.avail-badge{font-family:'JetBrains Mono',monospace;font-size:.65rem;text-transform:uppercase;padding:2px 8px;border-radius:50px;}
+.av-yes{background:rgba(52,211,153,.15);color:var(--green);border:1px solid rgba(52,211,153,.3);}
+.av-no{background:rgba(139,148,158,.12);color:var(--muted);border:1px solid rgba(139,148,158,.2);}
+
+/* ANNOUNCEMENTS */
+.ann-form{display:flex;flex-direction:column;gap:12px;}
+.ann-input{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;color:var(--text);font-family:'Source Serif 4',Georgia,serif;font-size:.88rem;outline:none;resize:vertical;min-height:80px;}
+.ann-input:focus{border-color:var(--accent);}
+.ann-btn{align-self:flex-end;background:var(--accent);color:#000;border:none;border-radius:8px;padding:8px 20px;font-family:'JetBrains Mono',monospace;font-size:.8rem;font-weight:700;cursor:pointer;}
+.ann-btn:hover{opacity:.85;}
+.ann-list{margin-top:16px;display:flex;flex-direction:column;gap:10px;}
+.ann-item{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:14px 16px;display:flex;justify-content:space-between;gap:12px;}
+.ann-text{flex:1;font-size:.88rem;}
+.ann-date{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--muted);white-space:nowrap;}
+.ann-del{background:none;border:none;color:var(--muted);cursor:pointer;font-size:.9rem;padding:2px 6px;}
+.ann-del:hover{color:var(--red);}
+
+/* LINKS */
+.quick-links{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;}
+.quick-link{display:flex;flex-direction:column;align-items:center;gap:8px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:18px 14px;text-decoration:none;color:var(--text);transition:all .2s;text-align:center;}
+.quick-link:hover{border-color:var(--accent);transform:translateY(-2px);}
+.quick-link .ql-icon{font-size:1.6rem;}
+.quick-link .ql-label{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--accent);}
+.quick-link .ql-sub{font-size:.78rem;color:var(--muted);}
+
+footer{border-top:1px solid var(--border);padding:24px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--muted);}
+footer a{color:var(--accent);text-decoration:none;}
+</style>
+</head>
+<body>
+
+<nav id="main-nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="index.html">&#9883; Habimana Chemistry</a>
+    <button class="nav-toggle" onclick="document.getElementById('main-nav').classList.toggle('open')">&#9776;</button>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <div class="nav-dropdown"><a href="#" class="nav-drop-btn">Courses &#9662;</a>
+        <div class="nav-dropdown-menu">
+          <a href="s4-chemistry.html">S4 Chemistry</a>
+          <a href="s5-chemistry.html">S5 Chemistry</a>
+          <a href="s6-chemistry.html">S6 Chemistry</a>
+        </div>
+      </div>
+      <a href="quizzes.html">Quizzes</a>
+      <a href="tests.html">Tests</a>
+      <a href="exams.html">Exams</a>
+      <a href="periodic-table.html">Periodic Table</a>
+      <a href="teacher-admin.html" class="active">Admin</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- LOGIN SCREEN -->
+<div id="login-screen">
+  <div class="login-card">
+    <div style="font-size:2.5rem;margin-bottom:16px">&#128274;</div>
+    <h1>Teacher Admin</h1>
+    <p>Restricted access &mdash; for authorised teachers only. Enter the admin password to continue.</p>
+    <input class="login-input" id="adminUser" placeholder="Username" type="text" autocomplete="username"/>
+    <input class="login-input" id="adminPass" placeholder="Password" type="password" onkeydown="if(event.key==='Enter')doLogin()"/>
+    <button class="login-btn" onclick="doLogin()">&#128275; Login to Dashboard</button>
+    <div class="login-err" id="loginErr">&#10005; Incorrect credentials. Try again.</div>
+    <p style="margin-top:20px;font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--muted)">Default: admin / chemistry2024</p>
+  </div>
+</div>
+
+<!-- ADMIN DASHBOARD -->
+<div id="admin-screen">
+  <div class="admin-header">
+    <div>
+      <h1>&#128203; Teacher Dashboard</h1>
+      <p style="color:var(--muted);font-size:.88rem;margin-top:4px">Welcome back, <span id="welcomeName" style="color:var(--accent)"></span></p>
+    </div>
+    <button class="logout-btn" onclick="doLogout()">&#128275; Logout</button>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-label">Total Units</div>
+      <div class="stat-value">48</div>
+      <div class="stat-sub">Across S4, S5, S6</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Units Available</div>
+      <div class="stat-value" id="statAvail">23</div>
+      <div class="stat-sub">Live &amp; published</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Quiz Questions</div>
+      <div class="stat-value">575</div>
+      <div class="stat-sub">Total MCQ questions</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Test Marks</div>
+      <div class="stat-value">1,150</div>
+      <div class="stat-sub">Total structured marks</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">S4 Progress</div>
+      <div class="stat-value">8<span style="font-size:1.2rem;color:var(--muted)">/18</span></div>
+      <div class="stat-sub">Units published</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">S5 Progress</div>
+      <div class="stat-value">15<span style="font-size:1.2rem;color:var(--muted)">/15</span></div>
+      <div class="stat-sub">&#10003; Complete</div>
+    </div>
+  </div>
+
+  <!-- Quick Links -->
+  <div class="admin-section">
+    <div class="admin-section-header"><h2>&#128279; Quick Navigation</h2></div>
+    <div class="admin-section-body">
+      <div class="quick-links">
+        <a href="s4-chemistry.html" class="quick-link"><span class="ql-icon">&#128218;</span><span class="ql-label">S4 Course</span><span class="ql-sub">8/18 units live</span></a>
+        <a href="s5-chemistry.html" class="quick-link"><span class="ql-icon">&#128218;</span><span class="ql-label">S5 Course</span><span class="ql-sub">15/15 complete</span></a>
+        <a href="s6-chemistry.html" class="quick-link"><span class="ql-icon">&#128218;</span><span class="ql-label">S6 Course</span><span class="ql-sub">15/15 complete</span></a>
+        <a href="quizzes.html" class="quick-link"><span class="ql-icon">&#9989;</span><span class="ql-label">Quizzes Hub</span><span class="ql-sub">All MCQ quizzes</span></a>
+        <a href="tests.html" class="quick-link"><span class="ql-icon">&#128196;</span><span class="ql-label">Tests Hub</span><span class="ql-sub">50-mark tests</span></a>
+        <a href="exams.html" class="quick-link"><span class="ql-icon">&#127891;</span><span class="ql-label">Exams Hub</span><span class="ql-sub">Past &amp; practice</span></a>
+        <a href="periodic-table.html" class="quick-link"><span class="ql-icon">&#9883;</span><span class="ql-label">Periodic Table</span><span class="ql-sub">Interactive</span></a>
+        <a href="contact.html" class="quick-link"><span class="ql-icon">&#128231;</span><span class="ql-label">Contact Page</span><span class="ql-sub">Student info</span></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Course Content Tracker -->
+  <div class="admin-section">
+    <div class="admin-section-header"><h2>&#128203; S4 Content Tracker (18 Units)</h2></div>
+    <div class="admin-section-body">
+      <table class="content-table">
+        <thead><tr><th>Unit</th><th>Title</th><th>Status</th><th>Quiz</th><th>Test</th></tr></thead>
+        <tbody id="s4tracker"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Announcements -->
+  <div class="admin-section">
+    <div class="admin-section-header"><h2>&#128226; Class Announcements</h2><span style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--muted)">Visible to students on contact page</span></div>
+    <div class="admin-section-body">
+      <div class="ann-form">
+        <input class="ann-input" id="annTitle" placeholder="Announcement title..." style="resize:none;height:42px;"/>
+        <textarea class="ann-input" id="annText" placeholder="Type your announcement here..."></textarea>
+        <button class="ann-btn" onclick="addAnn()">Post Announcement</button>
+      </div>
+      <div class="ann-list" id="annList"></div>
+    </div>
+  </div>
+
+  <!-- Notes to self -->
+  <div class="admin-section">
+    <div class="admin-section-header"><h2>&#128221; Teacher Notes</h2></div>
+    <div class="admin-section-body">
+      <textarea class="ann-input" id="teacherNotes" placeholder="Private notes — visible only to you when logged in..." style="min-height:120px;width:100%" oninput="saveNotes()"></textarea>
+      <p style="font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--muted);margin-top:8px">Auto-saved locally to this browser.</p>
+    </div>
+  </div>
+
+</div><!-- end admin-screen -->
+
+<footer>
+  <a href="index.html">Home</a> &bull; <a href="s4-chemistry.html">S4</a> &bull; <a href="s5-chemistry.html">S5</a> &bull; <a href="s6-chemistry.html">S6</a> &bull; Jackson Habimana Chemistry Portal
+</footer>
+
+<script>
+// Credentials
+const CREDS={admin:'chemistry2024',jackson:'habimana2024'};
+
+function doLogin(){
+  const u=document.getElementById('adminUser').value.trim().toLowerCase();
+  const p=document.getElementById('adminPass').value;
+  if(CREDS[u]&&CREDS[u]===p){
+    sessionStorage.setItem('adminLoggedIn','1');
+    sessionStorage.setItem('adminUser',u);
+    showAdmin(u);
+  } else {
+    document.getElementById('loginErr').style.display='block';
+  }
+}
+function doLogout(){
+  sessionStorage.removeItem('adminLoggedIn');
+  document.getElementById('admin-screen').style.display='none';
+  document.getElementById('login-screen').style.display='flex';
+}
+function showAdmin(u){
+  document.getElementById('login-screen').style.display='none';
+  document.getElementById('admin-screen').style.display='block';
+  document.getElementById('welcomeName').textContent=u.charAt(0).toUpperCase()+u.slice(1);
+  buildTracker();
+  loadAnn();
+  loadNotes();
+}
+
+// Auto-login if session exists
+if(sessionStorage.getItem('adminLoggedIn')==='1'){
+  showAdmin(sessionStorage.getItem('adminUser')||'admin');
+}
+
+// S4 tracker
+const S4_UNITS=[
+  {n:1,title:'Structure of an Atom & Mass Spectrum',file:'s4_unit1_atomic_structure.html',done:true},
+  {n:2,title:'Electronic Configuration of Atoms & Ions',file:'s4_unit2_electronic_config.html',done:true},
+  {n:3,title:'Ionic & Metallic Bonds',file:'s4_unit3_ionic_metallic_bonds.html',done:true},
+  {n:4,title:'Covalent Bond & Molecular Structure',file:'s4_unit4_covalent_bond.html',done:true},
+  {n:5,title:'Variation in Trends of Physical Properties',file:'s4_unit5_periodic_trends.html',done:true},
+  {n:6,title:'Group 1 Elements & Their Compounds',file:'s4_unit6_group1.html',done:true},
+  {n:7,title:'Group 2 Elements & Their Compounds',file:'s4_unit7_group2.html',done:true},
+  {n:8,title:'Group 13 Elements & Their Compounds',file:'s4_unit8_group13.html',done:true},
+  {n:9,title:'Group 14 Elements & Their Compounds',file:'',done:false},
+  {n:10,title:'Group 15 Elements & Their Compounds',file:'',done:false},
+  {n:11,title:'Group 16 Elements & Their Compounds',file:'',done:false},
+  {n:12,title:'Group 17 Elements & Their Compounds',file:'',done:false},
+  {n:13,title:'Group 18 Elements & Noble Gases',file:'',done:false},
+  {n:14,title:'Period 3 Elements & Their Compounds',file:'',done:false},
+  {n:15,title:'Factors Affecting Chemical Equilibrium',file:'',done:false},
+  {n:16,title:'Acids and Bases',file:'',done:false},
+  {n:17,title:'Reduction and Oxidation Reactions',file:'',done:false},
+  {n:18,title:'Energy Changes & Energy Profile Diagrams',file:'',done:false},
+];
+function buildTracker(){
+  const tbody=document.getElementById('s4tracker');
+  tbody.innerHTML=S4_UNITS.map(u=>`<tr>
+    <td style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--muted)">U${String(u.n).padStart(2,'0')}</td>
+    <td>${u.done?`<a href="${u.file}" style="color:var(--text);text-decoration:none">${u.title}</a>`:u.title}</td>
+    <td><span class="avail-badge ${u.done?'av-yes':'av-no'}">${u.done?'Live':'Pending'}</span></td>
+    <td><span class="avail-badge ${u.done?'av-yes':'av-no'}">${u.done?'25 Qs':'&mdash;'}</span></td>
+    <td><span class="avail-badge ${u.done?'av-yes':'av-no'}">${u.done?'50 marks':'&mdash;'}</span></td>
+  </tr>`).join('');
+}
+
+// Announcements (localStorage)
+function loadAnn(){
+  const anns=JSON.parse(localStorage.getItem('chem_ann')||'[]');
+  renderAnns(anns);
+}
+function addAnn(){
+  const title=document.getElementById('annTitle').value.trim();
+  const text=document.getElementById('annText').value.trim();
+  if(!text)return;
+  const anns=JSON.parse(localStorage.getItem('chem_ann')||'[]');
+  anns.unshift({id:Date.now(),title,text,date:new Date().toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'})});
+  localStorage.setItem('chem_ann',JSON.stringify(anns));
+  document.getElementById('annTitle').value='';
+  document.getElementById('annText').value='';
+  renderAnns(anns);
+}
+function delAnn(id){
+  let anns=JSON.parse(localStorage.getItem('chem_ann')||'[]');
+  anns=anns.filter(a=>a.id!==id);
+  localStorage.setItem('chem_ann',JSON.stringify(anns));
+  renderAnns(anns);
+}
+function renderAnns(anns){
+  document.getElementById('annList').innerHTML=anns.length?anns.map(a=>`<div class="ann-item">
+    <div class="ann-text"><strong style="display:block;font-size:.88rem;color:#fff;margin-bottom:4px">${a.title||'Announcement'}</strong>${a.text}</div>
+    <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px"><span class="ann-date">${a.date}</span><button class="ann-del" onclick="delAnn(${a.id})">&#10005;</button></div>
+  </div>`).join(''):'<p style="color:var(--muted);font-size:.85rem">No announcements yet.</p>';
+}
+function loadNotes(){
+  document.getElementById('teacherNotes').value=localStorage.getItem('chem_teacher_notes')||'';
+}
+function saveNotes(){
+  localStorage.setItem('chem_teacher_notes',document.getElementById('teacherNotes').value);
+}
+</script>
+</body>
+</html>

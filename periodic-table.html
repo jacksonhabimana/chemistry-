@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Interactive Periodic Table | Habimana Chemistry</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Serif+4:wght@300;400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+<style>
+:root{--bg:#0d1117;--surface:#161b22;--surface2:#1c2333;--border:#30363d;--accent:#38bdf8;--text:#e6edf3;--muted:#8b949e;--radius:8px;
+  --s-block:#3b82f6;--p-block:#8b5cf6;--d-block:#f59e0b;--f-block:#10b981;--noble:#ef4444;--metal:#6366f1;}
+*{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Source Serif 4',Georgia,serif;overflow-x:hidden;}
+/* NAV */
+#main-nav{position:sticky;top:0;z-index:200;background:rgba(13,17,23,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+.nav-inner{max-width:1400px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:56px;padding:0 24px;gap:12px;}
+.nav-brand{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--accent);text-decoration:none;white-space:nowrap;}
+.nav-links{display:flex;gap:2px;flex-wrap:wrap;}
+.nav-links a{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);text-decoration:none;padding:4px 10px;border-radius:5px;border:1px solid transparent;transition:all .15s;white-space:nowrap;}
+.nav-links a:hover,.nav-links a.active{color:var(--accent);background:rgba(56,189,248,.08);border-color:rgba(56,189,248,.2);}
+.nav-toggle{display:none;background:none;border:1px solid var(--border);color:var(--text);padding:4px 10px;border-radius:5px;cursor:pointer;font-size:1rem;}
+@media(max-width:768px){.nav-toggle{display:block;}.nav-links{display:none;position:absolute;top:56px;left:0;right:0;background:rgba(13,17,23,.98);flex-direction:column;padding:12px;gap:4px;border-bottom:1px solid var(--border);}#main-nav.open .nav-links{display:flex;}}
+/* NAV DROPDOWN */
+.nav-dropdown{position:relative;}
+.nav-dropdown-menu{display:none;position:absolute;top:100%;left:0;background:var(--surface2);border:1px solid var(--border);border-radius:8px;min-width:160px;padding:6px;z-index:300;flex-direction:column;gap:2px;}
+.nav-dropdown:hover .nav-dropdown-menu{display:flex;}
+.nav-dropdown-menu a{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);text-decoration:none;padding:6px 12px;border-radius:5px;}
+.nav-dropdown-menu a:hover{color:var(--accent);background:rgba(56,189,248,.08);}
+
+/* PAGE */
+.page-header{text-align:center;padding:40px 20px 24px;}
+.page-header h1{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.8rem);color:#fff;margin-bottom:8px;}
+.page-header p{color:var(--muted);font-size:.9rem;}
+
+/* LEGEND */
+.legend{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:0 16px 20px;}
+.leg{display:flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:.68rem;text-transform:uppercase;letter-spacing:.06em;}
+.leg-dot{width:12px;height:12px;border-radius:3px;}
+
+/* PERIODIC TABLE */
+.pt-wrap{overflow-x:auto;padding:0 12px 20px;}
+.pt{display:grid;grid-template-columns:repeat(18,1fr);gap:3px;min-width:900px;max-width:1360px;margin:0 auto;}
+
+/* ELEMENT CELLS */
+.el{position:relative;border-radius:5px;padding:4px 3px 3px;cursor:pointer;transition:all .15s;border:1px solid transparent;min-height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.el:hover{transform:scale(1.12);z-index:50;border-color:rgba(255,255,255,.4);box-shadow:0 4px 20px rgba(0,0,0,.5);}
+.el.active-el{transform:scale(1.1);border-color:#fff;z-index:50;}
+.el-num{font-family:'JetBrains Mono',monospace;font-size:.5rem;color:rgba(255,255,255,.6);line-height:1;}
+.el-sym{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:.85rem;color:#fff;line-height:1.1;}
+.el-name{font-size:.38rem;color:rgba(255,255,255,.75);text-align:center;line-height:1.2;}
+.el-mass{font-family:'JetBrains Mono',monospace;font-size:.38rem;color:rgba(255,255,255,.55);}
+.el-spacer{background:transparent;border:none;cursor:default;}
+.el-spacer:hover{transform:none;box-shadow:none;}
+
+/* Block colours */
+.s-block{background:rgba(59,130,246,.35);}
+.p-block{background:rgba(139,92,246,.35);}
+.d-block{background:rgba(245,158,11,.3);}
+.f-block{background:rgba(16,185,129,.3);}
+.noble{background:rgba(239,68,68,.35);}
+.h-el{background:rgba(250,250,250,.15);}
+
+/* PANEL */
+.el-panel{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:28px 32px;margin:20px auto;max-width:820px;display:none;gap:28px;align-items:flex-start;}
+.el-panel.show{display:flex;flex-wrap:wrap;}
+.panel-big{flex-shrink:0;width:110px;height:110px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;}
+.panel-big .pnum{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:rgba(255,255,255,.6);}
+.panel-big .psym{font-family:'JetBrains Mono',monospace;font-size:2.6rem;font-weight:700;color:#fff;line-height:1;}
+.panel-big .pname{font-size:.75rem;color:rgba(255,255,255,.8);}
+.panel-big .pmass{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:rgba(255,255,255,.5);}
+.panel-info{flex:1;min-width:220px;}
+.panel-info h2{font-family:'Playfair Display',serif;font-size:1.5rem;color:#fff;margin-bottom:4px;}
+.panel-info .block-tag{font-family:'JetBrains Mono',monospace;font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;padding:2px 10px;border-radius:50px;margin-bottom:14px;display:inline-block;}
+.prop-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.prop{background:var(--surface2);border-radius:6px;padding:8px 12px;}
+.prop-label{font-family:'JetBrains Mono',monospace;font-size:.62rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:2px;}
+.prop-val{font-family:'JetBrains Mono',monospace;font-size:.82rem;color:var(--text);}
+.panel-desc{margin-top:14px;font-size:.88rem;color:var(--muted);line-height:1.7;}
+.close-btn{margin-left:auto;align-self:flex-start;background:none;border:1px solid var(--border);color:var(--muted);padding:4px 10px;border-radius:5px;cursor:pointer;font-size:.75rem;font-family:'JetBrains Mono',monospace;}
+.close-btn:hover{color:var(--text);border-color:var(--accent);}
+
+/* SEARCH */
+.search-row{display:flex;gap:10px;justify-content:center;padding:0 16px 20px;flex-wrap:wrap;}
+.pt-search{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:8px 16px;color:var(--text);font-family:'JetBrains Mono',monospace;font-size:.82rem;width:260px;outline:none;}
+.pt-search:focus{border-color:var(--accent);}
+.filter-btn{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:8px 14px;color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:.72rem;cursor:pointer;transition:all .15s;}
+.filter-btn:hover,.filter-btn.active{color:var(--accent);border-color:var(--accent);background:rgba(56,189,248,.08);}
+
+footer{border-top:1px solid var(--border);padding:24px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--muted);}
+footer a{color:var(--accent);text-decoration:none;}
+</style>
+</head>
+<body>
+
+<nav id="main-nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="index.html">&#9883; Habimana Chemistry</a>
+    <button class="nav-toggle" onclick="document.getElementById('main-nav').classList.toggle('open')">&#9776;</button>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <div class="nav-dropdown"><a href="#" class="nav-drop-btn">Courses &#9662;</a>
+        <div class="nav-dropdown-menu">
+          <a href="s4-chemistry.html">S4 Chemistry</a>
+          <a href="s5-chemistry.html">S5 Chemistry</a>
+          <a href="s6-chemistry.html">S6 Chemistry</a>
+        </div>
+      </div>
+      <a href="quizzes.html">Quizzes</a>
+      <a href="tests.html">Tests</a>
+      <a href="exams.html">Exams</a>
+      <a href="periodic-table.html" class="active">Periodic Table</a>
+      <a href="teacher-admin.html">Admin</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page-header">
+  <h1>&#9883; Interactive Periodic Table</h1>
+  <p>Click any element to view its properties &mdash; electron configuration, atomic mass, state, and more.</p>
+</div>
+
+<div class="search-row">
+  <input class="pt-search" id="ptSearch" placeholder="Search element or symbol..." oninput="filterElements(this.value)"/>
+  <button class="filter-btn" onclick="filterBlock('all')">All</button>
+  <button class="filter-btn" onclick="filterBlock('s-block')">s-block</button>
+  <button class="filter-btn" onclick="filterBlock('p-block')">p-block</button>
+  <button class="filter-btn" onclick="filterBlock('d-block')">d-block</button>
+  <button class="filter-btn" onclick="filterBlock('f-block')">f-block</button>
+  <button class="filter-btn" onclick="filterBlock('noble')">Noble Gases</button>
+</div>
+
+<div class="legend">
+  <div class="leg"><div class="leg-dot" style="background:rgba(59,130,246,.6)"></div>s-block</div>
+  <div class="leg"><div class="leg-dot" style="background:rgba(139,92,246,.6)"></div>p-block</div>
+  <div class="leg"><div class="leg-dot" style="background:rgba(245,158,11,.55)"></div>d-block</div>
+  <div class="leg"><div class="leg-dot" style="background:rgba(16,185,129,.55)"></div>f-block</div>
+  <div class="leg"><div class="leg-dot" style="background:rgba(239,68,68,.55)"></div>Noble Gases</div>
+  <div class="leg"><div class="leg-dot" style="background:rgba(250,250,250,.25)"></div>Hydrogen</div>
+</div>
+
+<div class="pt-wrap">
+  <div class="pt" id="pt"></div>
+</div>
+
+<div class="el-panel" id="elPanel">
+  <div class="panel-big" id="panelBig"></div>
+  <div class="panel-info" id="panelInfo"></div>
+  <button class="close-btn" onclick="closePanel()">&#x2715; Close</button>
+</div>
+
+<footer>
+  <a href="index.html">Home</a> &bull; <a href="s4-chemistry.html">S4</a> &bull; <a href="s5-chemistry.html">S5</a> &bull; <a href="s6-chemistry.html">S6</a> &bull; Jackson Habimana Chemistry Portal
+</footer>
+
+<script>
+const ELEMENTS = [
+  {z:1,sym:"H",name:"Hydrogen",mass:"1.008",group:1,period:1,block:"h-el",state:"Gas",config:"1s¹",cat:"Non-metal",desc:"The lightest and most abundant element in the universe. Forms water and is key to all organic molecules. Used as a clean fuel."},
+  {z:2,sym:"He",name:"Helium",mass:"4.003",group:18,period:1,block:"noble",state:"Gas",config:"1s²",cat:"Noble gas",desc:"Second lightest element; chemically inert noble gas. Used in balloons, MRI cooling, and cryogenics."},
+  {z:3,sym:"Li",name:"Lithium",mass:"6.941",group:1,period:2,block:"s-block",state:"Solid",config:"[He]2s¹",cat:"Alkali metal",desc:"Lightest metal; highly reactive. Used in lithium-ion batteries for phones and electric vehicles."},
+  {z:4,sym:"Be",name:"Beryllium",mass:"9.012",group:2,period:2,block:"s-block",state:"Solid",config:"[He]2s²",cat:"Alkaline earth metal",desc:"Hard, lightweight metal. Toxic; used in aerospace alloys and X-ray windows. Anomalous diagonal relationship with Al."},
+  {z:5,sym:"B",name:"Boron",mass:"10.811",group:13,period:2,block:"p-block",state:"Solid",config:"[He]2s²2p¹",cat:"Metalloid",desc:"Semiconductor metalloid. Used in borosilicate glass (Pyrex), semiconductors, and nuclear reactor control rods."},
+  {z:6,sym:"C",name:"Carbon",mass:"12.011",group:14,period:2,block:"p-block",state:"Solid",config:"[He]2s²2p²",cat:"Non-metal",desc:"Basis of all organic chemistry. Exists as diamond (hardest natural substance) and graphite (conductor). sp, sp², sp³ hybridisation."},
+  {z:7,sym:"N",name:"Nitrogen",mass:"14.007",group:15,period:2,block:"p-block",state:"Gas",config:"[He]2s²2p³",cat:"Non-metal",desc:"Makes up 78% of the atmosphere. Relatively inert due to strong N≡N triple bond. Essential in proteins, DNA, and fertilisers."},
+  {z:8,sym:"O",name:"Oxygen",mass:"15.999",group:16,period:2,block:"p-block",state:"Gas",config:"[He]2s²2p⁴",cat:"Non-metal",desc:"Supports combustion and respiration. Second most abundant element in Earth's crust. Highly electronegative (3.5)."},
+  {z:9,sym:"F",name:"Fluorine",mass:"18.998",group:17,period:2,block:"p-block",state:"Gas",config:"[He]2s²2p⁵",cat:"Halogen",desc:"Most electronegative element (4.0). Most reactive non-metal. Used in Teflon, fluoride toothpaste, and refrigerants."},
+  {z:10,sym:"Ne",name:"Neon",mass:"20.180",group:18,period:2,block:"noble",state:"Gas",config:"[He]2s²2p⁶",cat:"Noble gas",desc:"Chemically inert noble gas. Used in neon signs (red-orange glow), lasers, and cryogenic applications."},
+  {z:11,sym:"Na",name:"Sodium",mass:"22.990",group:1,period:3,block:"s-block",state:"Solid",config:"[Ne]3s¹",cat:"Alkali metal",desc:"Highly reactive metal. Stored under oil. Reacts vigorously with water. Essential for nerve impulses. Used in street lights."},
+  {z:12,sym:"Mg",name:"Magnesium",mass:"24.305",group:2,period:3,block:"s-block",state:"Solid",config:"[Ne]3s²",cat:"Alkaline earth metal",desc:"Lightweight metal; burns with brilliant white flame. Used in aircraft alloys, flares, and as a reducing agent."},
+  {z:13,sym:"Al",name:"Aluminium",mass:"26.982",group:13,period:3,block:"p-block",state:"Solid",config:"[Ne]3s²3p¹",cat:"Metal",desc:"Most abundant metal in Earth's crust. Forms protective Al₂O₃ layer. Amphoteric. Used in aircraft and packaging."},
+  {z:14,sym:"Si",name:"Silicon",mass:"28.086",group:14,period:3,block:"p-block",state:"Solid",config:"[Ne]3s²3p²",cat:"Metalloid",desc:"Semiconductor; forms giant covalent lattice. Basis of computer chips. SiO₂ forms glass and quartz."},
+  {z:15,sym:"P",name:"Phosphorus",mass:"30.974",group:15,period:3,block:"p-block",state:"Solid",config:"[Ne]3s²3p³",cat:"Non-metal",desc:"Exists as P₄ (white) and black forms. Essential in DNA backbone and ATP. Used in fertilisers and matches."},
+  {z:16,sym:"S",name:"Sulfur",mass:"32.065",group:16,period:3,block:"p-block",state:"Solid",config:"[Ne]3s²3p⁴",cat:"Non-metal",desc:"Exists as S₈ rings. Used in H₂SO₄ manufacture (contact process). Key in vulcanisation of rubber."},
+  {z:17,sym:"Cl",name:"Chlorine",mass:"35.453",group:17,period:3,block:"p-block",state:"Gas",config:"[Ne]3s²3p⁵",cat:"Halogen",desc:"Toxic yellow-green gas. Isotopes ³⁵Cl (75%) and ³⁷Cl (25%). Used in water purification and PVC manufacture."},
+  {z:18,sym:"Ar",name:"Argon",mass:"39.948",group:18,period:3,block:"noble",state:"Gas",config:"[Ne]3s²3p⁶",cat:"Noble gas",desc:"Third most abundant gas in atmosphere (0.93%). Used in welding (inert atmosphere) and light bulbs."},
+  {z:19,sym:"K",name:"Potassium",mass:"39.098",group:1,period:4,block:"s-block",state:"Solid",config:"[Ar]4s¹",cat:"Alkali metal",desc:"Reacts vigorously with water, igniting the H₂ with a lilac flame. Essential for plant growth. Used in fertilisers."},
+  {z:20,sym:"Ca",name:"Calcium",mass:"40.078",group:2,period:4,block:"s-block",state:"Solid",config:"[Ar]4s²",cat:"Alkaline earth metal",desc:"Essential for bones and teeth (as Ca₃(PO₄)₂). CaCO₃ (limestone) used in construction and lime production."},
+  {z:21,sym:"Sc",name:"Scandium",mass:"44.956",group:3,period:4,block:"d-block",state:"Solid",config:"[Ar]3d¹4s²",cat:"Transition metal",desc:"First d-block element. Sc³⁺ has empty d orbitals → colourless ion. Used in aerospace alloys and lighting."},
+  {z:22,sym:"Ti",name:"Titanium",mass:"47.867",group:4,period:4,block:"d-block",state:"Solid",config:"[Ar]3d²4s²",cat:"Transition metal",desc:"Strong, lightweight, corrosion-resistant metal. Used in aircraft, medical implants, and TiO₂ white paint."},
+  {z:23,sym:"V",name:"Vanadium",mass:"50.942",group:5,period:4,block:"d-block",state:"Solid",config:"[Ar]3d³4s²",cat:"Transition metal",desc:"V₂O₅ is the catalyst in the Contact Process for H₂SO₄. Multiple oxidation states (+2 to +5), each a different colour."},
+  {z:24,sym:"Cr",name:"Chromium",mass:"51.996",group:6,period:4,block:"d-block",state:"Solid",config:"[Ar]3d⁵4s¹",cat:"Transition metal",desc:"Anomalous config (3d⁵4s¹). Used in stainless steel and chrome plating. Cr³⁺ = green; Cr₂O₇²⁻ = orange."},
+  {z:25,sym:"Mn",name:"Manganese",mass:"54.938",group:7,period:4,block:"d-block",state:"Solid",config:"[Ar]3d⁵4s²",cat:"Transition metal",desc:"Oxidation states +2 to +7. MnO₄⁻ (permanganate) = deep purple; essential in steel production."},
+  {z:26,sym:"Fe",name:"Iron",mass:"55.845",group:8,period:4,block:"d-block",state:"Solid",config:"[Ar]3d⁶4s²",cat:"Transition metal",desc:"Most used metal. Fe²⁺ (green), Fe³⁺ (yellow/brown). Catalyst in Haber process. Forms haemoglobin in blood."},
+  {z:27,sym:"Co",name:"Cobalt",mass:"58.933",group:9,period:4,block:"d-block",state:"Solid",config:"[Ar]3d⁷4s²",cat:"Transition metal",desc:"Co²⁺ = pink/red. Used in vitamin B₁₂, lithium-ion batteries, and high-temperature alloys."},
+  {z:28,sym:"Ni",name:"Nickel",mass:"58.693",group:10,period:4,block:"d-block",state:"Solid",config:"[Ar]3d⁸4s²",cat:"Transition metal",desc:"Ni²⁺ = green. Catalyst for hydrogenation of alkenes. Used in stainless steel and coins."},
+  {z:29,sym:"Cu",name:"Copper",mass:"63.546",group:11,period:4,block:"d-block",state:"Solid",config:"[Ar]3d¹⁰4s¹",cat:"Transition metal",desc:"Anomalous config (3d¹⁰4s¹). Cu²⁺ = blue; Cu⁺ = colourless. Excellent electrical conductor. Aᵣ = 63.6."},
+  {z:30,sym:"Zn",name:"Zinc",mass:"65.38",group:12,period:4,block:"d-block",state:"Solid",config:"[Ar]3d¹⁰4s²",cat:"Transition metal",desc:"Zn²⁺ is colourless (full 3d). Amphoteric. Used in galvanising iron. Zn(OH)₂ dissolves in excess NaOH."},
+  {z:31,sym:"Ga",name:"Gallium",mass:"69.723",group:13,period:4,block:"p-block",state:"Solid",config:"[Ar]3d¹⁰4s²4p¹",cat:"Metal",desc:"Melts at 30°C (in your hand). Used in GaAs semiconductors, LEDs, and laser diodes. Predicted by Mendeleev as eka-aluminium."},
+  {z:32,sym:"Ge",name:"Germanium",mass:"72.630",group:14,period:4,block:"p-block",state:"Solid",config:"[Ar]3d¹⁰4s²4p²",cat:"Metalloid",desc:"Semiconductor metalloid. Predicted by Mendeleev as eka-silicon. Used in fibre optics and IR optics."},
+  {z:33,sym:"As",name:"Arsenic",mass:"74.922",group:15,period:4,block:"p-block",state:"Solid",config:"[Ar]3d¹⁰4s²4p³",cat:"Metalloid",desc:"Toxic metalloid. Used in semiconductors (GaAs) and as a wood preservative (controversial). Arsenic poisoning is well-documented historically."},
+  {z:34,sym:"Se",name:"Selenium",mass:"78.971",group:16,period:4,block:"p-block",state:"Solid",config:"[Ar]3d¹⁰4s²4p⁴",cat:"Non-metal",desc:"Photoconductor; used in photocopiers and solar cells. Trace element essential for human health."},
+  {z:35,sym:"Br",name:"Bromine",mass:"79.904",group:17,period:4,block:"p-block",state:"Liquid",config:"[Ar]3d¹⁰4s²4p⁵",cat:"Halogen",desc:"One of only two liquid elements at room temperature. Red-brown fuming liquid. Used in flame retardants."},
+  {z:36,sym:"Kr",name:"Krypton",mass:"83.798",group:18,period:4,block:"noble",state:"Gas",config:"[Ar]3d¹⁰4s²4p⁶",cat:"Noble gas",desc:"Chemically inert noble gas. Used in high-powered lasers and some fluorescent lamps."},
+  {z:37,sym:"Rb",name:"Rubidium",mass:"85.468",group:1,period:5,block:"s-block",state:"Solid",config:"[Kr]5s¹",cat:"Alkali metal",desc:"Highly reactive alkali metal; reacts explosively with water. Used in atomic clocks and research."},
+  {z:38,sym:"Sr",name:"Strontium",mass:"87.62",group:2,period:5,block:"s-block",state:"Solid",config:"[Kr]5s²",cat:"Alkaline earth metal",desc:"Gives crimson red flame. Sr compounds used in red fireworks and signal flares. Ba²⁺ test uses SO₄²⁻."},
+  {z:39,sym:"Y",name:"Yttrium",mass:"88.906",group:3,period:5,block:"d-block",state:"Solid",config:"[Kr]4d¹5s²",cat:"Transition metal",desc:"Used in YAG (yttrium aluminium garnet) lasers and superconductors. Y³⁺ is colourless."},
+  {z:40,sym:"Zr",name:"Zirconium",mass:"91.224",group:4,period:5,block:"d-block",state:"Solid",config:"[Kr]4d²5s²",cat:"Transition metal",desc:"Corrosion-resistant; used in nuclear reactor fuel rods and as a diamond substitute (cubic zirconia)."},
+  {z:41,sym:"Nb",name:"Niobium",mass:"92.906",group:5,period:5,block:"d-block",state:"Solid",config:"[Kr]4d⁴5s¹",cat:"Transition metal",desc:"Used in superalloys for jet engines and superconducting magnets."},
+  {z:42,sym:"Mo",name:"Molybdenum",mass:"95.95",group:6,period:5,block:"d-block",state:"Solid",config:"[Kr]4d⁵5s¹",cat:"Transition metal",desc:"High melting point. Used in steel alloys and as a catalyst. Essential trace element in plants (nitrogen fixation)."},
+  {z:43,sym:"Tc",name:"Technetium",mass:"(98)",group:7,period:5,block:"d-block",state:"Solid",config:"[Kr]4d⁵5s²",cat:"Transition metal",desc:"First artificially produced element; radioactive. ⁹⁹ᵐTc widely used in nuclear medicine (gamma camera imaging)."},
+  {z:44,sym:"Ru",name:"Ruthenium",mass:"101.07",group:8,period:5,block:"d-block",state:"Solid",config:"[Kr]4d⁷5s¹",cat:"Transition metal",desc:"Platinum group metal; catalyst in ammonia synthesis and organic reactions."},
+  {z:45,sym:"Rh",name:"Rhodium",mass:"102.91",group:9,period:5,block:"d-block",state:"Solid",config:"[Kr]4d⁸5s¹",cat:"Transition metal",desc:"Platinum group metal; key component of catalytic converters in cars. Rare and expensive."},
+  {z:46,sym:"Pd",name:"Palladium",mass:"106.42",group:10,period:5,block:"d-block",state:"Solid",config:"[Kr]4d¹⁰",cat:"Transition metal",desc:"Platinum group metal; catalyst in Suzuki coupling and hydrogenation. Can absorb 900× its volume of hydrogen."},
+  {z:47,sym:"Ag",name:"Silver",mass:"107.87",group:11,period:5,block:"d-block",state:"Solid",config:"[Kr]4d¹⁰5s¹",cat:"Transition metal",desc:"Best electrical conductor. Aᵣ = 107.9 from isotopes ¹⁰⁷Ag (52%) and ¹⁰⁹Ag (48%). Used in photography and jewellery."},
+  {z:48,sym:"Cd",name:"Cadmium",mass:"112.41",group:12,period:5,block:"d-block",state:"Solid",config:"[Kr]4d¹⁰5s²",cat:"Transition metal",desc:"Toxic heavy metal. Cd²⁺ colourless (full d). Used in NiCd batteries and as a neutron absorber in reactors."},
+  {z:49,sym:"In",name:"Indium",mass:"114.82",group:13,period:5,block:"p-block",state:"Solid",config:"[Kr]4d¹⁰5s²5p¹",cat:"Metal",desc:"Used in ITO (indium tin oxide) for touchscreens and flat-panel displays. Very soft, malleable metal."},
+  {z:50,sym:"Sn",name:"Tin",mass:"118.71",group:14,period:5,block:"p-block",state:"Solid",config:"[Kr]4d¹⁰5s²5p²",cat:"Metal",desc:"Resists corrosion; used in tin cans (steel plated with Sn). Sn²⁺ and Sn⁴⁺ oxidation states. Alloys: bronze (Cu+Sn), solder."},
+  {z:51,sym:"Sb",name:"Antimony",mass:"121.76",group:15,period:5,block:"p-block",state:"Solid",config:"[Kr]4d¹⁰5s²5p³",cat:"Metalloid",desc:"Used in flame retardants and semiconductors. Sb₂O₃ is a flame retardant synergist."},
+  {z:52,sym:"Te",name:"Tellurium",mass:"127.60",group:16,period:5,block:"p-block",state:"Solid",config:"[Kr]4d¹⁰5s²5p⁴",cat:"Metalloid",desc:"Rare metalloid. Placed before I by Mendeleev (mass anomaly). Used in thin-film solar cells (CdTe)."},
+  {z:53,sym:"I",name:"Iodine",mass:"126.90",group:17,period:5,block:"p-block",state:"Solid",config:"[Kr]4d¹⁰5s²5p⁵",cat:"Halogen",desc:"Purple-black solid that sublimes to purple vapour. Essential nutrient (thyroid hormones). Used as antiseptic."},
+  {z:54,sym:"Xe",name:"Xenon",mass:"131.29",group:18,period:5,block:"noble",state:"Gas",config:"[Kr]4d¹⁰5s²5p⁶",cat:"Noble gas",desc:"Chemically mostly inert. Used in photography flash lamps and as anaesthetic. XeF₂, XeF₄ exist."},
+  {z:55,sym:"Cs",name:"Caesium",mass:"132.91",group:1,period:6,block:"s-block",state:"Solid",config:"[Xe]6s¹",cat:"Alkali metal",desc:"Most reactive alkali metal. Explodes violently with water. Cs-133 used in atomic clocks (definition of the second)."},
+  {z:56,sym:"Ba",name:"Barium",mass:"137.33",group:2,period:6,block:"s-block",state:"Solid",config:"[Xe]6s²",cat:"Alkaline earth metal",desc:"Apple green flame. Ba²⁺ identified by SO₄²⁻ → white BaSO₄ precipitate. BaSO₄ used as barium meal in X-ray imaging."},
+  {z:57,sym:"La",name:"Lanthanum",mass:"138.91",group:3,period:6,block:"f-block",state:"Solid",config:"[Xe]5d¹6s²",cat:"Lanthanide",desc:"First lanthanide element. Used in camera lenses and hydrogen storage alloys."},
+  {z:72,sym:"Hf",name:"Hafnium",mass:"178.49",group:4,period:6,block:"d-block",state:"Solid",config:"[Xe]4f¹⁴5d²6s²",cat:"Transition metal",desc:"Used in nuclear reactor control rods (high neutron absorption) and computer chips."},
+  {z:73,sym:"Ta",name:"Tantalum",mass:"180.95",group:5,period:6,block:"d-block",state:"Solid",config:"[Xe]4f¹⁴5d³6s²",cat:"Transition metal",desc:"Extracted from coltan (Rwanda is a major producer). Used in capacitors for phones and jet engine parts."},
+  {z:74,sym:"W",name:"Tungsten",mass:"183.84",group:6,period:6,block:"d-block",state:"Solid",config:"[Xe]4f¹⁴5d⁴6s²",cat:"Transition metal",desc:"Highest melting point of all metals (3422°C). Used in light bulb filaments and cutting tools."},
+  {z:75,sym:"Re",name:"Rhenium",mass:"186.21",group:7,period:6,block:"d-block",state:"Solid",config:"[Xe]4f¹⁴5d⁵6s²",cat:"Transition metal",desc:"Second highest melting point. Used in jet engine superalloys and catalysts for petroleum refining."},
+  {z:76,sym:"Os",name:"Osmium",mass:"190.23",group:8,period:6,block:"d-block",state:"Solid",config:"[Xe]4f¹⁴5d⁶6s²",cat:"Transition metal",desc:"Densest naturally occurring element (22.59 g/cm³). Used in fountain pen nibs and electrical contacts."},
+  {z:77,sym:"Ir",name:"Iridium",mass:"192.22",group:9,period:6,block:"d-block",state:"Solid",config:"[Xe]4f¹⁴5d⁷6s²",cat:"Transition metal",desc:"Second densest element. Extremely corrosion resistant. Ir-Os alloy used in standard metre bar and compass bearings."},
+  {z:78,sym:"Pt",name:"Platinum",mass:"195.08",group:10,period:6,block:"d-block",state:"Solid",config:"[Xe]4f¹⁴5d⁹6s¹",cat:"Transition metal",desc:"Catalyst in catalytic converters and nitric acid production. Pt²⁺ in cisplatin (cancer drug). Jewellery metal."},
+  {z:79,sym:"Au",name:"Gold",mass:"196.97",group:11,period:6,block:"d-block",state:"Solid",config:"[Xe]4f¹⁴5d¹⁰6s¹",cat:"Transition metal",desc:"Unreactive noble metal. Excellent electrical conductor. Au³⁺ in solution. Used in jewellery and electronics."},
+  {z:80,sym:"Hg",name:"Mercury",mass:"200.59",group:12,period:6,block:"d-block",state:"Liquid",config:"[Xe]4f¹⁴5d¹⁰6s²",cat:"Transition metal",desc:"Only metal liquid at room temperature. Highly toxic. Hg²⁺ colourless (full d). Formerly in thermometers."},
+  {z:81,sym:"Tl",name:"Thallium",mass:"204.38",group:13,period:6,block:"p-block",state:"Solid",config:"[Xe]4f¹⁴5d¹⁰6s²6p¹",cat:"Metal",desc:"Inert pair effect: Tl⁺ more stable than Tl³⁺. Highly toxic. Used in gamma-ray detectors and IR optics."},
+  {z:82,sym:"Pb",name:"Lead",mass:"207.2",group:14,period:6,block:"p-block",state:"Solid",config:"[Xe]4f¹⁴5d¹⁰6s²6p²",cat:"Metal",desc:"Dense, soft metal. Pb²⁺ more stable than Pb⁴⁺ (inert pair). Used in car batteries and radiation shielding."},
+  {z:83,sym:"Bi",name:"Bismuth",mass:"208.98",group:15,period:6,block:"p-block",state:"Solid",config:"[Xe]4f¹⁴5d¹⁰6s²6p³",cat:"Metal",desc:"Heaviest non-radioactive element. Bismuth subsalicylate in Pepto-Bismol. Low toxicity; replaces Pb in some uses."},
+  {z:84,sym:"Po",name:"Polonium",mass:"(209)",group:16,period:6,block:"p-block",state:"Solid",config:"[Xe]4f¹⁴5d¹⁰6s²6p⁴",cat:"Metalloid",desc:"Radioactive; highly toxic. Discovered by Marie Curie. Used as neutron initiator in early nuclear weapons."},
+  {z:85,sym:"At",name:"Astatine",mass:"(210)",group:17,period:6,block:"p-block",state:"Solid",config:"[Xe]4f¹⁴5d¹⁰6s²6p⁵",cat:"Halogen",desc:"Rarest naturally occurring element on Earth. Radioactive halogen; used experimentally in cancer radiotherapy."},
+  {z:86,sym:"Rn",name:"Radon",mass:"(222)",group:18,period:6,block:"noble",state:"Gas",config:"[Xe]4f¹⁴5d¹⁰6s²6p⁶",cat:"Noble gas",desc:"Radioactive noble gas from U/Th decay. Can accumulate in buildings. Linked to lung cancer risk."},
+  {z:87,sym:"Fr",name:"Francium",mass:"(223)",group:1,period:7,block:"s-block",state:"Solid",config:"[Rn]7s¹",cat:"Alkali metal",desc:"Most unstable naturally occurring element. Highly radioactive; very short half-life (~22 min). No significant uses."},
+  {z:88,sym:"Ra",name:"Radium",mass:"(226)",group:2,period:7,block:"s-block",state:"Solid",config:"[Rn]7s²",cat:"Alkaline earth metal",desc:"Radioactive alkaline earth metal. Discovered by Marie Curie. Formerly used in luminous paint; causes bone cancer."},
+];
+
+// Grid positions [col, row] for each element (period = row, group = col)
+// Lanthanides/Actinides go in separate rows
+// Build a map of grid positions
+function getGridPos(el){
+  let col=el.group, row=el.period;
+  // f-block special rows
+  if(el.block==='f-block'){
+    if(el.z>=57&&el.z<=71){row=8;col=el.z-54;}
+    if(el.z>=89&&el.z<=103){row=9;col=el.z-86;}
+    return [col,row];
+  }
+  // Period 6 d-block starts at col 4 (group 4)
+  return [col,row];
+}
+
+const BLOCK_COLOR={
+  's-block':'s-block','p-block':'p-block','d-block':'d-block','f-block':'f-block','noble':'noble','h-el':'h-el'
+};
+const BLOCK_CSS={
+  's-block':'background:rgba(59,130,246,.4);',
+  'p-block':'background:rgba(139,92,246,.4);',
+  'd-block':'background:rgba(245,158,11,.35);',
+  'f-block':'background:rgba(16,185,129,.35);',
+  'noble':'background:rgba(239,68,68,.4);',
+  'h-el':'background:rgba(220,220,220,.18);'
+};
+
+// Place elements into a 18-col × 9-row grid
+const grid=Array.from({length:9},()=>Array(18).fill(null));
+
+ELEMENTS.forEach(el=>{
+  if(el.block==='f-block'){
+    const frow=el.z<=71?7:8; // 0-indexed rows 7,8
+    const fcol=el.z<=71?(el.z-57):(el.z-89); // 0-indexed
+    if(grid[frow]) grid[frow][fcol]=el;
+  } else {
+    const r=el.period-1;
+    const c=el.group-1;
+    if(r<7&&c<18) grid[r][c]=el;
+  }
+});
+
+function buildTable(){
+  const pt=document.getElementById('pt');
+  pt.innerHTML='';
+  // Main table rows 1-7
+  for(let r=0;r<7;r++){
+    for(let c=0;c<18;c++){
+      const el=grid[r][c];
+      if(el){
+        const div=document.createElement('div');
+        div.className='el '+el.block;
+        div.dataset.z=el.z;
+        div.dataset.block=el.block;
+        div.dataset.name=el.name.toLowerCase();
+        div.dataset.sym=el.sym.toLowerCase();
+        div.innerHTML=`<span class="el-num">${el.z}</span><span class="el-sym">${el.sym}</span><span class="el-name">${el.name}</span><span class="el-mass">${el.mass}</span>`;
+        div.onclick=()=>showPanel(el);
+        pt.appendChild(div);
+      } else {
+        const sp=document.createElement('div');
+        // Special gaps: row 0 needs big gap between H(col0) and He(col17)
+        if(r===0&&c>0&&c<17) sp.style.visibility='hidden';
+        // rows 1,2 need gap in middle (cols 2-11)
+        if((r===1||r===2)&&c>1&&c<12) sp.style.visibility='hidden';
+        // row 5,6 La/Ac placeholder
+        if((r===5||r===6)&&c===2){sp.innerHTML=`<span class="el-num" style="font-size:.5rem;color:var(--muted)">${r===5?'57-71':'89-103'}</span>`;sp.style.background='rgba(255,255,255,.04)';sp.style.borderRadius='5px';}
+        sp.className='el el-spacer';
+        pt.appendChild(sp);
+      }
+    }
+  }
+  // Spacer row
+  for(let c=0;c<18;c++){const sp=document.createElement('div');sp.className='el el-spacer';pt.appendChild(sp);}
+  // f-block row lanthanides
+  for(let c=0;c<15;c++){
+    const el=ELEMENTS.find(e=>e.block==='f-block'&&e.z>=57&&e.z<=71&&(e.z-57)===c);
+    const col3=c<3?c:c; // offset to col 3
+    const div=document.createElement('div');
+    if(el){
+      div.className='el f-block';
+      div.dataset.z=el.z;div.dataset.block=el.block;div.dataset.name=el.name.toLowerCase();div.dataset.sym=el.sym.toLowerCase();
+      div.innerHTML=`<span class="el-num">${el.z}</span><span class="el-sym">${el.sym}</span><span class="el-name">${el.name}</span><span class="el-mass">${el.mass}</span>`;
+      div.onclick=()=>showPanel(el);
+    } else {
+      div.className='el el-spacer';div.style.visibility='hidden';
+    }
+    pt.appendChild(div);
+  }
+  // remaining 3 spacers
+  for(let c=0;c<3;c++){const sp=document.createElement('div');sp.className='el el-spacer';pt.appendChild(sp);}
+}
+
+let currentEl=null;
+function showPanel(el){
+  currentEl=el;
+  document.querySelectorAll('.el').forEach(e=>e.classList.remove('active-el'));
+  document.querySelectorAll('.el').forEach(e=>{if(+e.dataset.z===el.z)e.classList.add('active-el');});
+  const blockCss=BLOCK_CSS[el.block]||'';
+  document.getElementById('panelBig').style.cssText=blockCss+'border-radius:10px;width:110px;height:110px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;flex-shrink:0;';
+  document.getElementById('panelBig').innerHTML=`<span class="pnum" style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:rgba(255,255,255,.6)">${el.z}</span><span class="psym" style="font-family:'JetBrains Mono',monospace;font-size:2.4rem;font-weight:700;color:#fff;line-height:1">${el.sym}</span><span class="pname" style="font-size:.75rem;color:rgba(255,255,255,.8)">${el.name}</span><span class="pmass" style="font-family:'JetBrains Mono',monospace;font-size:.6rem;color:rgba(255,255,255,.5)">${el.mass}</span>`;
+  const blockColors={'s-block':'#3b82f6','p-block':'#8b5cf6','d-block':'#f59e0b','f-block':'#10b981','noble':'#ef4444','h-el':'#94a3b8'};
+  const col=blockColors[el.block]||'#38bdf8';
+  document.getElementById('panelInfo').innerHTML=`
+    <h2 style="font-family:'Playfair Display',serif;font-size:1.5rem;color:#fff;margin-bottom:4px">${el.name}</h2>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;padding:2px 10px;border-radius:50px;background:${col}22;border:1px solid ${col}55;color:${col};display:inline-block;margin-bottom:14px">${el.cat}</span>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px">
+      <div style="background:var(--surface2);border-radius:6px;padding:8px 12px"><div style="font-family:'JetBrains Mono',monospace;font-size:.6rem;text-transform:uppercase;color:var(--muted);margin-bottom:2px">Atomic Number</div><div style="font-family:'JetBrains Mono',monospace;font-size:.82rem">${el.z}</div></div>
+      <div style="background:var(--surface2);border-radius:6px;padding:8px 12px"><div style="font-family:'JetBrains Mono',monospace;font-size:.6rem;text-transform:uppercase;color:var(--muted);margin-bottom:2px">Atomic Mass</div><div style="font-family:'JetBrains Mono',monospace;font-size:.82rem">${el.mass}</div></div>
+      <div style="background:var(--surface2);border-radius:6px;padding:8px 12px"><div style="font-family:'JetBrains Mono',monospace;font-size:.6rem;text-transform:uppercase;color:var(--muted);margin-bottom:2px">Electron Config</div><div style="font-family:'JetBrains Mono',monospace;font-size:.78rem">${el.config}</div></div>
+      <div style="background:var(--surface2);border-radius:6px;padding:8px 12px"><div style="font-family:'JetBrains Mono',monospace;font-size:.6rem;text-transform:uppercase;color:var(--muted);margin-bottom:2px">State (25°C)</div><div style="font-family:'JetBrains Mono',monospace;font-size:.82rem">${el.state}</div></div>
+      <div style="background:var(--surface2);border-radius:6px;padding:8px 12px"><div style="font-family:'JetBrains Mono',monospace;font-size:.6rem;text-transform:uppercase;color:var(--muted);margin-bottom:2px">Period</div><div style="font-family:'JetBrains Mono',monospace;font-size:.82rem">${el.period}</div></div>
+      <div style="background:var(--surface2);border-radius:6px;padding:8px 12px"><div style="font-family:'JetBrains Mono',monospace;font-size:.6rem;text-transform:uppercase;color:var(--muted);margin-bottom:2px">Group</div><div style="font-family:'JetBrains Mono',monospace;font-size:.82rem">${el.group}</div></div>
+    </div>
+    <p style="font-size:.87rem;color:var(--muted);line-height:1.7">${el.desc}</p>`;
+  const panel=document.getElementById('elPanel');
+  panel.classList.add('show');
+  panel.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function closePanel(){
+  document.getElementById('elPanel').classList.remove('show');
+  document.querySelectorAll('.el').forEach(e=>e.classList.remove('active-el'));
+  currentEl=null;
+}
+
+function filterElements(q){
+  const lq=q.toLowerCase();
+  document.querySelectorAll('.el:not(.el-spacer)').forEach(el=>{
+    if(!q){el.style.opacity='1';return;}
+    const match=el.dataset.name&&(el.dataset.name.includes(lq)||el.dataset.sym.includes(lq)||el.dataset.z===q);
+    el.style.opacity=match?'1':'0.15';
+  });
+}
+
+function filterBlock(bl){
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  event.target.classList.add('active');
+  document.querySelectorAll('#ptSearch').forEach(s=>s.value='');
+  document.querySelectorAll('.el:not(.el-spacer)').forEach(el=>{
+    if(bl==='all'){el.style.opacity='1';return;}
+    el.style.opacity=(el.dataset.block===bl)?'1':'0.1';
+  });
+}
+
+buildTable();
+</script>
+</body>
+</html>

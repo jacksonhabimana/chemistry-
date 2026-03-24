@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Contact | Habimana Chemistry</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Serif+4:wght@300;400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+<style>
+:root{--bg:#0d1117;--surface:#161b22;--surface2:#1c2333;--border:#30363d;--accent:#38bdf8;--gold:#e8c547;--green:#34d399;--red:#f87171;--text:#e6edf3;--muted:#8b949e;--radius:10px;}
+*{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Source Serif 4',Georgia,serif;font-size:16px;line-height:1.7;}
+#main-nav{position:sticky;top:0;z-index:200;background:rgba(13,17,23,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+.nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:56px;padding:0 24px;gap:12px;}
+.nav-brand{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--accent);text-decoration:none;white-space:nowrap;}
+.nav-links{display:flex;gap:2px;flex-wrap:wrap;}
+.nav-links a{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);text-decoration:none;padding:4px 10px;border-radius:5px;border:1px solid transparent;transition:all .15s;white-space:nowrap;}
+.nav-links a:hover,.nav-links a.active{color:var(--accent);background:rgba(56,189,248,.08);border-color:rgba(56,189,248,.2);}
+.nav-toggle{display:none;background:none;border:1px solid var(--border);color:var(--text);padding:4px 10px;border-radius:5px;cursor:pointer;}
+@media(max-width:768px){.nav-toggle{display:block;}.nav-links{display:none;position:absolute;top:56px;left:0;right:0;background:rgba(13,17,23,.98);flex-direction:column;padding:12px;gap:4px;border-bottom:1px solid var(--border);}#main-nav.open .nav-links{display:flex;}}
+.nav-dropdown{position:relative;}
+.nav-dropdown-menu{display:none;position:absolute;top:100%;left:0;background:var(--surface2);border:1px solid var(--border);border-radius:8px;min-width:160px;padding:6px;z-index:300;flex-direction:column;gap:2px;}
+.nav-dropdown:hover .nav-dropdown-menu{display:flex;}
+.nav-dropdown-menu a{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);text-decoration:none;padding:6px 12px;border-radius:5px;}
+.nav-dropdown-menu a:hover{color:var(--accent);background:rgba(56,189,248,.08);}
+
+.hero{text-align:center;padding:60px 24px 40px;background:radial-gradient(ellipse 80% 60% at 50% 0%,#001528 0%,var(--bg) 70%);}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(1.9rem,4vw,3rem);color:#fff;margin-bottom:10px;}
+.hero h1 em{color:var(--accent);font-style:italic;}
+.hero p{color:var(--muted);font-size:.95rem;max-width:560px;margin:0 auto;}
+
+.page{max-width:1000px;margin:0 auto;padding:48px 24px 80px;}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-bottom:48px;}
+@media(max-width:640px){.contact-grid{grid-template-columns:1fr;}}
+
+.contact-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:28px 24px;}
+.contact-card h2{font-family:'Playfair Display',serif;font-size:1.3rem;color:#fff;margin-bottom:20px;}
+.contact-item{display:flex;gap:14px;margin-bottom:18px;align-items:flex-start;}
+.ci-icon{font-size:1.3rem;flex-shrink:0;margin-top:2px;}
+.ci-label{font-family:'JetBrains Mono',monospace;font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:3px;}
+.ci-val{font-size:.92rem;color:var(--text);}
+.ci-val a{color:var(--accent);text-decoration:none;}
+.ci-val a:hover{text-decoration:underline;}
+
+/* Message form */
+.msg-form{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:32px 28px;margin-bottom:40px;}
+.msg-form h2{font-family:'Playfair Display',serif;font-size:1.3rem;color:#fff;margin-bottom:6px;}
+.msg-form p{color:var(--muted);font-size:.85rem;margin-bottom:22px;}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+@media(max-width:560px){.form-grid{grid-template-columns:1fr;}}
+.fi{display:flex;flex-direction:column;gap:6px;}
+.fi label{font-family:'JetBrains Mono',monospace;font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);}
+.fi input,.fi select,.fi textarea{background:var(--surface2);border:1px solid var(--border);border-radius:7px;padding:10px 14px;color:var(--text);font-family:'Source Serif 4',Georgia,serif;font-size:.88rem;outline:none;transition:border-color .15s;}
+.fi input:focus,.fi select:focus,.fi textarea:focus{border-color:var(--accent);}
+.fi textarea{resize:vertical;min-height:100px;}
+.fi select option{background:var(--surface2);}
+.submit-btn{background:var(--accent);color:#000;border:none;border-radius:8px;padding:12px 28px;font-family:'JetBrains Mono',monospace;font-size:.85rem;font-weight:700;cursor:pointer;transition:opacity .2s;margin-top:8px;}
+.submit-btn:hover{opacity:.85;}
+#formSuccess{display:none;margin-top:16px;padding:14px 18px;background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.3);border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.82rem;color:var(--green);}
+
+/* Announcements public view */
+.ann-section{background:var(--surface);border:1px solid rgba(232,197,71,.25);border-radius:var(--radius);padding:28px 24px;margin-bottom:40px;}
+.ann-section h2{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--gold);margin-bottom:16px;}
+.ann-public-item{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:16px 18px;margin-bottom:12px;}
+.ap-title{font-weight:600;color:#fff;margin-bottom:4px;font-size:.95rem;}
+.ap-text{color:var(--muted);font-size:.88rem;}
+.ap-date{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--muted);margin-top:8px;}
+
+/* Office hours */
+.hours-table{width:100%;border-collapse:collapse;margin-top:12px;}
+.hours-table td{padding:8px 12px;border-bottom:1px solid rgba(48,54,61,.5);font-size:.88rem;}
+.hours-table td:first-child{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--accent);width:110px;}
+.hours-table tr:last-child td{border-bottom:none;}
+
+footer{border-top:1px solid var(--border);padding:24px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--muted);}
+footer a{color:var(--accent);text-decoration:none;}
+</style>
+</head>
+<body>
+<nav id="main-nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="index.html">&#9883; Habimana Chemistry</a>
+    <button class="nav-toggle" onclick="document.getElementById('main-nav').classList.toggle('open')">&#9776;</button>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <div class="nav-dropdown"><a href="#" class="nav-drop-btn">Courses &#9662;</a>
+        <div class="nav-dropdown-menu">
+          <a href="s4-chemistry.html">S4 Chemistry</a>
+          <a href="s5-chemistry.html">S5 Chemistry</a>
+          <a href="s6-chemistry.html">S6 Chemistry</a>
+        </div>
+      </div>
+      <a href="quizzes.html">Quizzes</a>
+      <a href="tests.html">Tests</a>
+      <a href="exams.html">Exams</a>
+      <a href="periodic-table.html">Periodic Table</a>
+      <a href="teacher-admin.html">Admin</a>
+      <a href="contact.html" class="active">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<div class="hero">
+  <h1>&#128231; Get in <em>Touch</em></h1>
+  <p>Questions about chemistry? Need help with a topic? Reach out to Mr Habimana directly.</p>
+</div>
+
+<main class="page">
+
+  <!-- Announcements from teacher -->
+  <div class="ann-section" id="annSection" style="display:none">
+    <h2>&#128226; Class Announcements</h2>
+    <div id="publicAnns"></div>
+  </div>
+
+  <!-- Contact info + Office hours -->
+  <div class="contact-grid">
+    <div class="contact-card">
+      <h2>&#128100; Contact Information</h2>
+      <div class="contact-item">
+        <span class="ci-icon">&#128231;</span>
+        <div>
+          <div class="ci-label">Email Address</div>
+          <div class="ci-val"><a href="/cdn-cgi/l/email-protection#2f4501474e4d46424e414e6f4c474a42465c5b5d56014a4b5a"><span class="__cf_email__" data-cfemail="503a7e383132393d313e31103338353d39232422297e353425">[email&#160;protected]</span></a></div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <span class="ci-icon">&#128241;</span>
+        <div>
+          <div class="ci-label">Phone / WhatsApp</div>
+          <div class="ci-val"><a href="tel:+250788000000">+250 788 000 000</a></div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <span class="ci-icon">&#127968;</span>
+        <div>
+          <div class="ci-label">School / Institution</div>
+          <div class="ci-val">Rwanda Secondary School<br>Kigali, Rwanda</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <span class="ci-icon">&#128205;</span>
+        <div>
+          <div class="ci-label">Location</div>
+          <div class="ci-val">Kigali, Rwanda &#127479;&#127484;</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <span class="ci-icon">&#127758;</span>
+        <div>
+          <div class="ci-label">This Portal</div>
+          <div class="ci-val"><a href="index.html">habimana-chemistry.github.io</a></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-card">
+      <h2>&#128336; Office Hours &amp; Availability</h2>
+      <p style="color:var(--muted);font-size:.85rem;margin-bottom:14px">Come to the chemistry lab or classroom during these times for extra help.</p>
+      <table class="hours-table">
+        <tr><td>Monday</td><td>2:00 PM – 4:00 PM</td></tr>
+        <tr><td>Tuesday</td><td>1:00 PM – 3:00 PM</td></tr>
+        <tr><td>Wednesday</td><td>Closed</td></tr>
+        <tr><td>Thursday</td><td>2:00 PM – 4:00 PM</td></tr>
+        <tr><td>Friday</td><td>12:00 PM – 2:00 PM</td></tr>
+        <tr><td>Saturday</td><td>By appointment</td></tr>
+        <tr><td>Sunday</td><td>Closed</td></tr>
+      </table>
+      <p style="color:var(--muted);font-size:.78rem;margin-top:14px;font-family:'JetBrains Mono',monospace">&#9432; For urgent exam questions, WhatsApp is fastest.</p>
+    </div>
+  </div>
+
+  <!-- Message form -->
+  <div class="msg-form">
+    <h2>&#9993; Send a Message</h2>
+    <p>Fill in the form below and your message will be prepared for sending. For fastest response, use WhatsApp or email directly.</p>
+    <div class="form-grid">
+      <div class="fi"><label>Your Name</label><input id="fName" type="text" placeholder="Full name"/></div>
+      <div class="fi"><label>Your Class</label>
+        <select id="fClass">
+          <option value="">Select your class</option>
+          <option>S4 (Senior Four)</option>
+          <option>S5 (Senior Five)</option>
+          <option>S6 (Senior Six)</option>
+          <option>Other</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-grid">
+      <div class="fi"><label>Subject</label>
+        <select id="fSubject">
+          <option value="">Select topic</option>
+          <option>Question about a chemistry topic</option>
+          <option>Problem with a quiz or test</option>
+          <option>Request for extra help</option>
+          <option>Report an error on the site</option>
+          <option>General enquiry</option>
+        </select>
+      </div>
+      <div class="fi"><label>Preferred Contact</label>
+        <select id="fContact"><option>Email</option><option>WhatsApp</option><option>In person</option></select>
+      </div>
+    </div>
+    <div class="fi" style="margin-bottom:14px"><label>Your Message</label>
+      <textarea id="fMessage" placeholder="Describe your question or issue here. The more detail you include, the better I can help you."></textarea>
+    </div>
+    <button class="submit-btn" onclick="submitForm()">Send Message &#10148;</button>
+    <div id="formSuccess">&#10003; Thank you! Your message is ready. Please send it via email or WhatsApp to Mr Habimana.</div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="contact-card" style="margin-bottom:28px">
+    <h2>&#10067; Frequently Asked Questions</h2>
+    <div style="margin-top:16px;display:flex;flex-direction:column;gap:14px">
+      <div style="border-bottom:1px solid var(--border);padding-bottom:14px"><strong style="color:#fff;font-size:.92rem">How do I access the unit notes?</strong><p style="color:var(--muted);font-size:.85rem;margin-top:4px">Go to the relevant course homepage (S4, S5, or S6) and click on any available unit card. Notes, examples, quiz, and test are all inside each unit page.</p></div>
+      <div style="border-bottom:1px solid var(--border);padding-bottom:14px"><strong style="color:#fff;font-size:.92rem">Is this portal free?</strong><p style="color:var(--muted);font-size:.85rem;margin-top:4px">Yes &mdash; completely free. All notes, quizzes, and tests are freely available to all students.</p></div>
+      <div style="border-bottom:1px solid var(--border);padding-bottom:14px"><strong style="color:#fff;font-size:.92rem">When will S4 units 9–18 be ready?</strong><p style="color:var(--muted);font-size:.85rem;margin-top:4px">New units are being added regularly. Check the S4 course page to see which units are currently live.</p></div>
+      <div style="border-bottom:1px solid var(--border);padding-bottom:14px"><strong style="color:#fff;font-size:.92rem">How do I prepare for the national exam?</strong><p style="color:var(--muted);font-size:.85rem;margin-top:4px">Work through all unit notes, do every quiz and test, then visit the Exams page for full practice papers and revision tips.</p></div>
+      <div><strong style="color:#fff;font-size:.92rem">I found an error on the site &mdash; what should I do?</strong><p style="color:var(--muted);font-size:.85rem;margin-top:4px">Please send a message using the form above or WhatsApp Mr Habimana directly. Errors are corrected as quickly as possible.</p></div>
+    </div>
+  </div>
+
+</main>
+<footer><a href="index.html">Home</a> &bull; <a href="s4-chemistry.html">S4</a> &bull; <a href="s5-chemistry.html">S5</a> &bull; <a href="s6-chemistry.html">S6</a> &bull; Jackson Habimana Chemistry Portal</footer>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// Show public announcements from teacher admin
+const anns=JSON.parse(localStorage.getItem('chem_ann')||'[]');
+if(anns.length>0){
+  document.getElementById('annSection').style.display='block';
+  document.getElementById('publicAnns').innerHTML=anns.map(a=>`<div class="ann-public-item">
+    ${a.title?`<div class="ap-title">${a.title}</div>`:''}
+    <div class="ap-text">${a.text}</div>
+    <div class="ap-date">Posted: ${a.date}</div>
+  </div>`).join('');
+}
+function submitForm(){
+  const n=document.getElementById('fName').value.trim();
+  const m=document.getElementById('fMessage').value.trim();
+  if(!n||!m){alert('Ple
