@@ -65,13 +65,16 @@ body{background:var(--bg);color:var(--text);font-family:'Source Serif 4',Georgia
 .submit-btn:hover{opacity:.88;}
 
 /* ─── WARNING MODAL ─── */
-#warning-modal{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:9999;display:none;align-items:center;justify-content:center;}
-#warning-modal.show{display:flex;}
-.warning-box{background:var(--surface);border:2px solid var(--red);border-radius:16px;padding:40px 36px;max-width:440px;text-align:center;}
-.warning-box .icon{font-size:3rem;margin-bottom:14px;}
-.warning-box h2{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--red);margin-bottom:12px;}
-.warning-box p{color:var(--muted);margin-bottom:20px;font-size:.92rem;}
-.warning-count{font-family:'JetBrains Mono',monospace;font-size:1.1rem;color:var(--orange);margin-bottom:20px;}
+#warning-modal{position:fixed;inset:0;background:rgba(0,0,0,.97);z-index:9999;display:none;align-items:center;justify-content:center;flex-direction:column;}
+#warning-modal.show{display:flex;animation:flashRed 0.4s ease;}
+@keyframes flashRed{0%{background:rgba(248,113,113,.5);}100%{background:rgba(0,0,0,.97);}}
+.warning-box{background:var(--surface);border:3px solid var(--red);border-radius:16px;padding:44px 40px;max-width:520px;width:90%;text-align:center;box-shadow:0 0 60px rgba(248,113,113,.4);}
+.warning-box .icon{font-size:4rem;margin-bottom:16px;animation:pulse 1s infinite;}
+@keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.1);}}
+.warning-box h2{font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--red);margin-bottom:10px;}
+.warning-box p{color:var(--text);margin-bottom:16px;font-size:.95rem;line-height:1.6;}
+.warning-count{font-family:'JetBrains Mono',monospace;font-size:1.2rem;color:var(--orange);margin-bottom:20px;padding:10px 20px;background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.3);border-radius:8px;display:inline-block;}
+.warning-remaining{font-family:'JetBrains Mono',monospace;font-size:.82rem;color:var(--red);margin-bottom:20px;}
 
 /* ─── RESULT SCREEN ─── */
 #result-screen{display:flex;align-items:center;justify-content:center;flex-direction:column;padding:40px 24px;text-align:center;}
@@ -177,7 +180,9 @@ body{background:var(--bg);color:var(--text);font-family:'Source Serif 4',Georgia
     <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
   </div>
   <div class="exam-body">
-    <div class="violation-bar" id="vbar">⚠️ WARNING: Tab/window switch detected! Violations: <span id="vcount">0</span></div>
+    <div class="violation-bar" id="vbar" style="display:none;background:rgba(248,113,113,.12);border:1px solid rgba(248,113,113,.4);border-radius:8px;padding:12px 18px;margin-bottom:18px;font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--red);">
+      🚨 <strong>CHEATING DETECTED</strong> — You have <span id="vcount">0</span> violation(s) recorded. Your teacher has been notified. Do NOT leave this window again.
+    </div>
     <div class="q-nav" id="q-nav"></div>
     <div id="questions-area"></div>
     <button class="submit-btn" onclick="confirmSubmit()">✅ Submit Exam</button>
@@ -212,11 +217,15 @@ body{background:var(--bg);color:var(--text);font-family:'Source Serif 4',Georgia
 <!-- ═══════════════════════════════════ -->
 <div id="warning-modal">
   <div class="warning-box">
-    <div class="icon">⚠️</div>
-    <h2>Cheating Warning!</h2>
-    <p id="warning-msg">You left the exam window. This has been recorded.</p>
-    <div class="warning-count" id="warning-count-disp"></div>
-    <button class="btn btn-ghost" style="width:100%;justify-content:center;" onclick="dismissWarning()">I Understand – Return to Exam</button>
+    <div class="icon">🚨</div>
+    <h2>⚠️ CHEATING DETECTED!</h2>
+    <p id="warning-msg">You switched away from the exam window. This has been recorded and reported to your teacher.</p>
+    <div class="warning-count" id="warning-count-disp">Warning 1 of 3</div>
+    <div class="warning-remaining" id="warning-remaining">⚡ Your teacher has been notified immediately</div>
+    <div style="background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.2);border-radius:8px;padding:12px 16px;margin-bottom:20px;font-size:.85rem;color:var(--muted);">
+      Every time you leave this window, it is recorded. When you reach the maximum number of warnings, your exam will be <strong style="color:var(--red);">automatically submitted</strong> with your current answers.
+    </div>
+    <button class="btn btn-ghost" style="width:100%;justify-content:center;padding:13px;font-size:.9rem;" onclick="dismissWarning()">✅ I Understand — Return to Exam</button>
   </div>
 </div>
 
@@ -410,16 +419,29 @@ function startTimer(){
 function recordViolation(msg){
   if(dismissing) return;
   violations++;
+  // Update violation bar (always visible after first violation)
   document.getElementById('vbar').style.display='block';
   document.getElementById('vcount').textContent = violations;
-  document.getElementById('warning-msg').textContent = msg+' This has been recorded.';
-  document.getElementById('warning-count-disp').textContent = `⚠️ Warning ${violations} of ${exam.warnings}`;
+  // Update warning modal content
+  document.getElementById('warning-msg').textContent = msg + ' This violation has been recorded and your teacher has been notified immediately.';
+  document.getElementById('warning-count-disp').textContent = `⚠️ Violation ${violations} of ${exam.warnings}`;
+  const remaining = exam.warnings - violations;
+  if(remaining > 0){
+    document.getElementById('warning-remaining').textContent = `⚡ Teacher notified — ${remaining} more violation${remaining>1?'s':''} will auto-submit your exam`;
+    document.getElementById('warning-remaining').style.color = remaining <= 1 ? 'var(--red)' : 'var(--orange)';
+  } else {
+    document.getElementById('warning-remaining').textContent = '🚫 MAXIMUM VIOLATIONS REACHED — Submitting exam now...';
+    document.getElementById('warning-remaining').style.color = 'var(--red)';
+  }
   document.getElementById('warning-modal').classList.add('show');
   dismissing = true;
-  // Send cheat notification
-  sendNotification('CHEAT', `🚨 CHEATING ALERT\n\nStudent: ${document.getElementById('s-name').value.trim()}\nExam: ${exam.title}\nViolation #${violations}/${exam.warnings}: ${msg}\nTime: ${new Date().toLocaleString()}`);
+  // Notify teacher immediately
+  const studentName = document.getElementById('s-name').value.trim() || 'Unknown Student';
+  sendNotification('CHEAT',
+    `🚨 CHEATING ALERT!\n\nStudent: ${studentName}\nExam: ${exam.title}\nViolation: ${violations}/${exam.warnings}\nAction: ${msg}\nTime: ${new Date().toLocaleString()}\n\nStudent has been warned on screen.`
+  );
   if(violations >= exam.warnings){
-    setTimeout(()=>autoSubmit('Maximum violations reached – auto-submitted.'),2000);
+    setTimeout(()=>autoSubmit('Maximum violations reached – exam auto-submitted.'), 2500);
   }
 }
 
@@ -432,22 +454,33 @@ async function sendNotification(eventType, textMsg){
     const studentName = document.getElementById('s-name').value.trim()||'Unknown';
     if(eventType==='CHEAT' && !s.notifCheat) return;
     if(eventType==='SUBMIT' && !s.notifSubmit) return;
-    // Telegram
+
+    // 1. WhatsApp (CallMeBot) — direct to teacher's phone
+    if(s.waPhone && s.waApiKey){
+      const phone = s.waPhone.replace(/[^0-9]/g,'');
+      const msg = encodeURIComponent(textMsg.substring(0,400));
+      fetch(`https://api.callmebot.com/whatsapp.php?phone=${phone}&text=${msg}&apikey=${s.waApiKey}`)
+        .catch(()=>{});
+    }
+
+    // 2. Telegram
     if(s.tgToken && s.tgChatId){
       fetch(`https://api.telegram.org/bot${s.tgToken}/sendMessage`,{
         method:'POST',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({chat_id:s.tgChatId,text:textMsg,parse_mode:'HTML'})
+        body:JSON.stringify({chat_id:s.tgChatId,text:textMsg})
       }).catch(()=>{});
     }
-    // EmailJS
+
+    // 3. EmailJS
     if(s.ejPubKey && s.ejService && s.ejTemplate){
+      const icon = eventType==='CHEAT'?'🚨 CHEATING ALERT':'✅ EXAM SUBMITTED';
       fetch('https://api.emailjs.com/api/v1.0/email/send',{
         method:'POST',headers:{'Content-Type':'application/json'},
         body:JSON.stringify({service_id:s.ejService,template_id:s.ejTemplate,user_id:s.ejPubKey,
           template_params:{
             student_name: studentName,
             exam_title: exam.title,
-            event_type: eventType,
+            event_type: icon,
             message: textMsg,
             to_email: s.ejEmail||'hajackson2020@gmail.com'
           }})

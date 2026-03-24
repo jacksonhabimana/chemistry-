@@ -662,6 +662,8 @@ async function testApiKey(){
 // ══════════ NOTIFICATIONS ══════════
 function saveNotifSettings(){
   const s={
+    waPhone:document.getElementById('wa-phone').value.trim(),
+    waApiKey:document.getElementById('wa-apikey').value.trim(),
     tgToken:document.getElementById('tg-token').value.trim(),
     tgChatId:document.getElementById('tg-chatid').value.trim(),
     ejPubKey:document.getElementById('ej-pubkey').value.trim(),
@@ -677,6 +679,8 @@ function saveNotifSettings(){
 }
 function loadNotifSettings(){
   const s=JSON.parse(localStorage.getItem('notif_settings')||'{}');
+  if(s.waPhone) document.getElementById('wa-phone').value=s.waPhone;
+  if(s.waApiKey) document.getElementById('wa-apikey').value=s.waApiKey;
   if(s.tgToken) document.getElementById('tg-token').value=s.tgToken;
   if(s.tgChatId) document.getElementById('tg-chatid').value=s.tgChatId;
   if(s.ejPubKey) document.getElementById('ej-pubkey').value=s.ejPubKey;
@@ -686,6 +690,15 @@ function loadNotifSettings(){
   if(s.notifCheat!==undefined) document.getElementById('notif-cheat').checked=s.notifCheat;
   if(s.notifSubmit!==undefined) document.getElementById('notif-submit').checked=s.notifSubmit;
 }
+async function testWhatsApp(){
+  const phone=document.getElementById('wa-phone').value.trim();
+  const apikey=document.getElementById('wa-apikey').value.trim();
+  const m=document.getElementById('wa-test-msg');
+  if(!phone||!apikey){m.style.color='var(--red)';m.textContent='Enter phone + API key first';return;}
+  m.style.color='var(--muted)';m.textContent='Configured! Send a test by taking an exam (browser blocks direct API calls).';
+  m.style.color='var(--green)';
+}
+
 async function testTelegram(){
   const token=document.getElementById('tg-token').value.trim();
   const chatId=document.getElementById('tg-chatid').value.trim();
