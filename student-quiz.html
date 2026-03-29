@@ -3,228 +3,143 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Student Quiz Centre | Jackson Habimana Chemistry</title>
+<title>Take a Quiz | Jackson Habimana Chemistry</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Serif+4:wght@300;400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
 <style>
-:root{--bg:#0d1117;--surface:#161b22;--surface2:#1c2333;--border:#30363d;--accent:#38bdf8;--gold:#e8c547;--green:#34d399;--red:#f87171;--orange:#f59e0b;--purple:#a78bfa;--text:#e6edf3;--muted:#8b949e;--radius:10px;}
+:root{--bg:#0d1117;--surface:#161b22;--surface2:#1c2333;--border:#30363d;--accent:#38bdf8;--green:#34d399;--red:#f87171;--orange:#f59e0b;--purple:#a78bfa;--gold:#e8c547;--text:#e6edf3;--muted:#8b949e;--radius:10px;}
 *{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
 body{background:var(--bg);color:var(--text);font-family:'Source Serif 4',Georgia,serif;font-size:17px;line-height:1.75;overflow-x:hidden;}
-nav{position:sticky;top:0;z-index:200;background:rgba(13,17,23,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
-.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:56px;padding:0 24px;}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:200;background:rgba(13,17,23,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+.nav-inner{max-width:1000px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:56px;padding:0 24px;}
 .nav-brand{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--accent);text-decoration:none;}
 .nav-links{display:flex;gap:4px;flex-wrap:wrap;}
 .nav-links a{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);text-decoration:none;padding:4px 10px;border-radius:5px;border:1px solid transparent;transition:all .15s;}
 .nav-links a:hover,.nav-links a.active{color:var(--accent);background:rgba(56,189,248,.08);border-color:rgba(56,189,248,.2);}
-/* SCREENS */
-.screen{display:none;}.screen.active{display:block;}
 
-/* ── SCREEN 1: ENTER NAME ── */
-#name-screen{min-height:calc(100vh - 56px);display:flex;align-items:center;justify-content:center;padding:40px 24px;}
-.name-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:48px 40px;max-width:500px;width:100%;text-align:center;}
-.name-card .icon{font-size:3rem;margin-bottom:14px;}
-.name-card h1{font-family:'Playfair Display',serif;font-size:2rem;color:#fff;margin-bottom:8px;}
-.name-card p{color:var(--muted);margin-bottom:28px;font-size:.93rem;}
-label.inp-lbl{display:block;font-family:'JetBrains Mono',monospace;font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:6px;text-align:left;}
-input.inp{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:7px;color:var(--text);padding:11px 14px;font-size:1rem;margin-bottom:18px;}
-input.inp:focus{outline:none;border-color:var(--accent);}
-.err{color:var(--red);font-size:.85rem;font-family:'JetBrains Mono',monospace;min-height:18px;margin-bottom:12px;}
-.btn{display:inline-flex;align-items:center;gap:7px;padding:11px 24px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.8rem;font-weight:700;cursor:pointer;border:none;transition:all .18s;text-decoration:none;}
+/* SCREENS */
+.screen{display:none;} .screen.active{display:block;}
+
+/* ═══════ SCREEN 1: WELCOME ═══════ */
+#welcome-screen{min-height:calc(100vh - 56px);display:flex;align-items:center;justify-content:center;padding:32px 20px;}
+.welcome-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:44px 38px;max-width:600px;width:100%;}
+.wc-hero{text-align:center;margin-bottom:32px;}
+.wc-hero .icon{font-size:3rem;margin-bottom:12px;}
+.wc-hero h1{font-family:'Playfair Display',serif;font-size:1.9rem;color:#fff;margin-bottom:8px;}
+.wc-hero p{color:var(--muted);font-size:.93rem;}
+
+/* name fields */
+.field-label{font-family:'JetBrains Mono',monospace;font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);display:block;margin-bottom:6px;}
+.field-input{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:7px;color:var(--text);padding:11px 14px;font-size:1rem;margin-bottom:16px;font-family:'Source Serif 4',Georgia,serif;transition:border-color .15s;}
+.field-input:focus{outline:none;border-color:var(--accent);}
+
+/* divider */
+.divider{display:flex;align-items:center;gap:14px;margin:22px 0;}
+.divider-line{flex:1;height:1px;background:var(--border);}
+.divider-text{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);}
+
+/* exam code section */
+.code-section{background:rgba(52,211,153,.06);border:1px solid rgba(52,211,153,.25);border-radius:10px;padding:20px;}
+.code-section h3{font-family:'JetBrains Mono',monospace;font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--green);margin-bottom:10px;}
+.code-inp{width:100%;background:var(--surface2);border:2px solid rgba(52,211,153,.3);border-radius:7px;color:var(--text);padding:12px 16px;font-family:'JetBrains Mono',monospace;font-size:1.1rem;text-align:center;letter-spacing:.1em;margin-bottom:10px;transition:border-color .2s;}
+.code-inp:focus{outline:none;border-color:var(--green);}
+.code-err{font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--red);min-height:16px;margin-bottom:8px;}
+.code-loading{font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--muted);display:none;margin-bottom:8px;}
+
+/* practice section */
+.practice-section{margin-top:22px;}
+.practice-section h3{font-family:'JetBrains Mono',monospace;font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);margin-bottom:14px;}
+.quiz-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+@media(max-width:480px){.quiz-grid{grid-template-columns:1fr;}}
+.quiz-btn{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:14px 12px;cursor:pointer;transition:all .2s;text-align:center;}
+.quiz-btn:hover{transform:translateY(-2px);}
+.quiz-btn .qb-icon{font-size:1.4rem;margin-bottom:6px;}
+.quiz-btn .qb-title{font-family:'Playfair Display',serif;font-size:.95rem;color:#fff;margin-bottom:4px;}
+.quiz-btn .qb-meta{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--muted);}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:7px;padding:10px 22px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.82rem;font-weight:700;cursor:pointer;border:none;transition:all .18s;text-decoration:none;}
 .btn-primary{background:var(--accent);color:#000;}.btn-primary:hover{opacity:.85;}
 .btn-green{background:var(--green);color:#000;}.btn-green:hover{opacity:.85;}
 .btn-ghost{background:var(--surface2);border:1px solid var(--border);color:var(--text);}.btn-ghost:hover{border-color:var(--accent);color:var(--accent);}
+.btn-full{width:100%;justify-content:center;padding:12px;}
+.err-msg{font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--red);min-height:18px;margin-bottom:10px;}
 
-/* ── SCREEN 2: EXAM LIST ── */
-#list-screen{min-height:calc(100vh - 56px);padding:50px 24px;}
-.list-wrap{max-width:900px;margin:0 auto;}
-.list-header{text-align:center;margin-bottom:40px;}
-.list-header h2{font-family:'Playfair Display',serif;font-size:2rem;color:#fff;margin-bottom:8px;}
-.list-header p{color:var(--muted);}
-.student-banner{background:var(--surface);border:1px solid rgba(52,211,153,.3);border-radius:10px;padding:14px 20px;margin-bottom:28px;display:flex;align-items:center;gap:12px;font-family:'JetBrains Mono',monospace;font-size:.82rem;}
-.loading-box{text-align:center;padding:60px 20px;color:var(--muted);}
-.loading-spin{font-size:2rem;animation:spin 1s linear infinite;display:inline-block;margin-bottom:12px;}
-@keyframes spin{to{transform:rotate(360deg);}}
-.exam-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px 26px;margin-bottom:14px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;transition:all .2s;}
-.exam-card:hover{border-color:var(--accent);transform:translateY(-2px);}
-.ec-icon{font-size:2rem;flex-shrink:0;}
-.ec-body{flex:1;}
-.ec-title{font-family:'Playfair Display',serif;font-size:1.1rem;color:#fff;margin-bottom:6px;}
-.ec-meta{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);display:flex;flex-wrap:wrap;gap:10px;}
-.ec-badge{font-family:'JetBrains Mono',monospace;font-size:.68rem;padding:2px 10px;border-radius:50px;}
-.eb-blue{background:rgba(56,189,248,.15);color:var(--accent);border:1px solid rgba(56,189,248,.25);}
-.eb-orange{background:rgba(245,158,11,.15);color:var(--orange);border:1px solid rgba(245,158,11,.25);}
-.eb-green{background:rgba(52,211,153,.15);color:var(--green);border:1px solid rgba(52,211,153,.25);}
-.empty-state{text-align:center;padding:60px 20px;}
-.empty-state .es-icon{font-size:3rem;margin-bottom:14px;}
-.empty-state h3{font-family:'Playfair Display',serif;color:#fff;margin-bottom:8px;}
-.empty-state p{color:var(--muted);font-size:.9rem;}
-
-/* ── SCREEN 3: EXAM ── */
-#exam-screen .quiz-header{position:sticky;top:0;z-index:100;background:rgba(13,17,23,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 24px;}
-.qh-inner{max-width:820px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:60px;gap:14px;}
+/* ═══════ SCREEN 2: QUIZ ═══════ */
+#quiz-screen .quiz-header{position:sticky;top:0;z-index:100;background:rgba(13,17,23,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 24px;}
+.qh-inner{max-width:820px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:60px;gap:16px;}
 .qh-title{font-family:'Playfair Display',serif;font-size:1rem;color:#fff;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.qh-right{display:flex;align-items:center;gap:12px;flex-shrink:0;}
 .timer-box{font-family:'JetBrains Mono',monospace;font-size:1.1rem;font-weight:700;padding:6px 16px;border-radius:8px;min-width:80px;text-align:center;}
 .t-ok{color:var(--green);background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.25);}
 .t-warn{color:var(--orange);background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.25);}
 .t-danger{color:var(--red);background:rgba(248,113,113,.1);border:1px solid rgba(248,113,113,.25);animation:blink 1s step-end infinite;}
 @keyframes blink{50%{opacity:.4;}}
 .prog-bar{height:3px;background:var(--surface2);}
-.prog-fill{height:100%;background:var(--accent);transition:width .3s;}
-.exam-body{max-width:820px;margin:0 auto;padding:28px 24px 80px;}
-.vbar{background:rgba(248,113,113,.1);border:1px solid rgba(248,113,113,.3);border-radius:8px;padding:10px 16px;margin-bottom:18px;display:none;font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--red);}
+.prog-fill{height:100%;transition:width .3s;}
+.quiz-body{max-width:820px;margin:0 auto;padding:28px 24px 80px;}
 .q-nav{display:flex;flex-wrap:wrap;gap:6px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px;margin-bottom:22px;}
-.q-dot{width:34px;height:34px;border-radius:6px;border:1px solid var(--border);background:var(--surface2);font-family:'JetBrains Mono',monospace;font-size:.72rem;font-weight:700;color:var(--muted);cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;}
-.q-dot:hover{border-color:var(--accent);}
-.q-dot.ans{border-color:var(--green);background:rgba(52,211,153,.1);color:var(--green);}
-.q-dot.cur{border-color:var(--accent);color:var(--accent);}
-.q-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:26px 28px;margin-bottom:16px;}
-.q-card-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
-.q-badge{font-family:'JetBrains Mono',monospace;font-size:.7rem;padding:3px 11px;border-radius:6px;background:rgba(56,189,248,.1);color:var(--accent);border:1px solid rgba(56,189,248,.2);}
+.q-dot{width:32px;height:32px;border-radius:6px;border:1px solid var(--border);background:var(--surface2);font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;font-weight:700;}
+.q-dot.answered{border-color:var(--green);background:rgba(52,211,153,.1);color:var(--green);}
+.q-dot.current{border-color:var(--accent);color:var(--accent);}
+.q-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:26px 28px;margin-bottom:18px;}
+.q-card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.q-num{font-family:'JetBrains Mono',monospace;font-size:.72rem;padding:4px 12px;border-radius:6px;}
 .q-topic{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--muted);}
-.q-text{font-size:1rem;color:#fff;margin-bottom:18px;line-height:1.7;}
-.opt-btn{width:100%;display:flex;align-items:center;gap:12px;padding:12px 16px;margin-bottom:9px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:all .18s;text-align:left;color:var(--text);font-size:.93rem;}
-.opt-btn:hover:not(.locked){border-color:var(--accent);background:rgba(56,189,248,.04);}
+.q-text{font-size:1rem;color:#fff;margin-bottom:18px;line-height:1.65;}
+.opt-btn{width:100%;display:flex;align-items:center;gap:11px;padding:11px 15px;margin-bottom:9px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:all .18s;text-align:left;color:var(--text);font-size:.92rem;}
+.opt-btn:hover:not(.locked){border-color:var(--accent);background:rgba(56,189,248,.05);}
 .opt-btn.sel{background:rgba(56,189,248,.1);border-color:var(--accent);color:var(--accent);}
-.opt-btn.correct-ans{background:rgba(52,211,153,.12);border-color:var(--green)!important;color:var(--green);}
-.opt-btn.wrong-ans{background:rgba(248,113,113,.08);border-color:var(--red)!important;color:var(--red);}
+.opt-btn.correct{background:rgba(52,211,153,.12);border-color:var(--green)!important;color:var(--green);}
+.opt-btn.wrong{background:rgba(248,113,113,.08);border-color:var(--red)!important;color:var(--red);}
 .opt-btn.locked{cursor:default;}
 .opt-circle{width:26px;height:26px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:.75rem;font-weight:700;background:rgba(139,148,158,.1);color:var(--muted);flex-shrink:0;}
 .opt-btn.sel .opt-circle{background:var(--accent);color:#000;}
-.opt-btn.correct-ans .opt-circle{background:var(--green);color:#000;}
-.opt-btn.wrong-ans .opt-circle{background:var(--red);color:#000;}
-.exp-box{display:none;margin-top:12px;padding:12px 16px;background:rgba(56,189,248,.07);border-left:3px solid var(--accent);border-radius:0 7px 7px 0;font-size:.88rem;color:var(--text);line-height:1.6;}
-.exp-box.vis{display:block;}
-.q-nav-row{display:flex;align-items:center;justify-content:space-between;margin-top:20px;gap:12px;}
+.opt-btn.correct .opt-circle{background:var(--green);color:#000;}
+.opt-btn.wrong .opt-circle{background:var(--red);color:#000;}
+.exp-box{display:none;margin-top:12px;padding:12px 16px;background:rgba(56,189,248,.07);border-left:3px solid var(--accent);border-radius:0 7px 7px 0;font-size:.88rem;}
+.exp-box.show{display:block;}
+.nav-row{display:flex;align-items:center;justify-content:space-between;margin-top:22px;gap:12px;}
 
-/* WARNING MODAL */
-#warn-modal{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:9999;display:none;align-items:center;justify-content:center;}
-#warn-modal.show{display:flex;}
-.warn-box{background:var(--surface);border:2px solid var(--red);border-radius:14px;padding:36px;max-width:420px;text-align:center;}
-.warn-box h2{font-family:'Playfair Display',serif;color:var(--red);font-size:1.4rem;margin:12px 0 10px;}
-.warn-count{font-family:'JetBrains Mono',monospace;font-size:1rem;color:var(--orange);margin:10px 0 18px;}
+/* ═══════ WARNING MODAL ═══════ */
+#warn-modal{position:fixed;inset:0;background:rgba(0,0,0,.97);z-index:9999;display:none;align-items:center;justify-content:center;}
+#warn-modal.show{display:flex;animation:flash .4s ease;}
+@keyframes flash{0%{background:rgba(248,113,113,.5);}100%{background:rgba(0,0,0,.97);}}
+.warn-box{background:var(--surface);border:3px solid var(--red);border-radius:16px;padding:40px 36px;max-width:500px;width:90%;text-align:center;box-shadow:0 0 60px rgba(248,113,113,.4);}
+.warn-icon{font-size:3.5rem;margin-bottom:14px;animation:pulse 1s infinite;}
+@keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.12);}}
+.warn-box h2{font-family:'Playfair Display',serif;font-size:1.7rem;color:var(--red);margin-bottom:10px;}
+.warn-box p{color:var(--text);margin-bottom:14px;font-size:.93rem;line-height:1.6;}
+.warn-count{font-family:'JetBrains Mono',monospace;font-size:1.1rem;color:var(--orange);padding:10px 18px;background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.3);border-radius:8px;display:inline-block;margin-bottom:16px;}
+.warn-remain{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--red);margin-bottom:18px;}
 
-/* ── SCREEN 4: RESULT ── */
+/* ═══════ SCREEN 3: RESULT ═══════ */
 #result-screen{display:flex;align-items:center;justify-content:center;flex-direction:column;min-height:calc(100vh - 56px);padding:40px 24px 0;}
-.result-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:44px 40px;max-width:600px;width:100%;text-align:center;}
-.res-icon{font-size:3.5rem;margin-bottom:10px;}
-.res-grade{font-family:'Playfair Display',serif;font-size:1.9rem;margin-bottom:4px;}
-.res-student{font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--muted);margin-bottom:16px;}
-.res-score{font-family:'JetBrains Mono',monospace;font-size:3rem;font-weight:700;margin:10px 0 18px;}
-.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px;}
-@media(max-width:500px){.stats-grid{grid-template-columns:1fr 1fr;}}
-.stat-box{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px 6px;}
-.sb-val{font-family:'JetBrains Mono',monospace;font-size:1.2rem;font-weight:700;}
-.sb-lab{font-size:.67rem;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-top:2px;}
-.btn-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:6px;}
-.review-section{max-width:820px;width:100%;padding:0 24px 80px;}
-.review-q{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px;margin-bottom:10px;}
+.result-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:44px 38px;max-width:580px;width:100%;text-align:center;}
+.res-icon{font-size:3.8rem;margin-bottom:12px;}
+.res-grade{font-family:'Playfair Display',serif;font-size:1.9rem;margin-bottom:6px;}
+.res-pct{font-family:'JetBrains Mono',monospace;font-size:3rem;font-weight:700;margin:10px 0;}
+.res-student{font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--muted);margin-bottom:18px;}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:18px 0;}
+@media(max-width:480px){.stats-grid{grid-template-columns:1fr 1fr;}}
+.stat-box{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px 8px;}
+.sb-v{font-family:'JetBrains Mono',monospace;font-size:1.25rem;font-weight:700;}
+.sb-l{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-top:2px;}
+.review-section{max-width:820px;width:100%;padding:0 24px 80px;margin:0 auto;}
+.rq{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px;margin-bottom:10px;}
 .rq-head{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
 .rq-num{font-family:'JetBrains Mono',monospace;font-size:.7rem;padding:3px 10px;border-radius:5px;}
-.rq-text{font-size:.93rem;color:#fff;margin-bottom:8px;}
-.rq-ans{font-family:'JetBrains Mono',monospace;font-size:.77rem;margin-bottom:3px;}
+.rq-q{font-size:.93rem;color:#fff;margin-bottom:8px;}
+.rq-a{font-family:'JetBrains Mono',monospace;font-size:.78rem;margin-bottom:3px;}
 .rq-exp{font-size:.83rem;color:var(--muted);margin-top:8px;padding-top:8px;border-top:1px solid var(--border);}
-@media(max-width:600px){.name-card,.result-card{padding:28px 18px;}.exam-body{padding:18px 16px 60px;}}
+
+footer{border-top:1px solid var(--border);padding:28px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--muted);}
+footer a{color:var(--accent);text-decoration:none;}
+@media(max-width:600px){.welcome-card{padding:30px 20px;}.quiz-body{padding:20px 16px 60px;}}
 </style>
 </head>
 <body>
-<!-- ═══════════════════════════ ACCESS GATE ═══════════════════════════ -->
-<style>
-#quiz-gate{position:fixed;inset:0;background:#0d1117;z-index:99999;display:none;align-items:center;justify-content:center;padding:24px;}
-#quiz-gate.show{display:flex;}
-.gate-box{background:#161b22;border:2px solid rgba(245,158,11,.4);border-radius:16px;padding:44px 36px;max-width:460px;width:100%;text-align:center;box-shadow:0 0 60px rgba(245,158,11,.15);}
-.gate-icon{font-size:3.5rem;margin-bottom:16px;}
-.gate-box h2{font-family:'Playfair Display',serif;font-size:1.8rem;color:#fff;margin-bottom:10px;}
-.gate-box p{color:#8b949e;font-size:.92rem;margin-bottom:22px;line-height:1.7;}
-.gate-inp{width:100%;background:#1c2333;border:2px solid #30363d;border-radius:8px;color:#e6edf3;padding:14px 18px;font-family:'JetBrains Mono',monospace;font-size:1.5rem;text-align:center;letter-spacing:.2em;text-transform:uppercase;transition:border-color .2s;margin-bottom:10px;box-sizing:border-box;}
-.gate-inp:focus{outline:none;border-color:#f59e0b;}
-.gate-btn{width:100%;background:#f59e0b;color:#000;border:none;padding:13px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.9rem;font-weight:700;cursor:pointer;transition:opacity .2s;}
-.gate-btn:hover{opacity:.85;}
-.gate-err{font-family:'JetBrains Mono',monospace;font-size:.82rem;color:#f87171;min-height:20px;margin:8px 0;}
-.gate-hint{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:#8b949e;margin-top:12px;}
-</style>
-<div id="quiz-gate">
-  <div class="gate-box">
-    <div class="gate-icon">🔒</div>
-    <h2>Assessment Locked</h2>
-    <p>Your teacher has locked this assessment.<br>Enter the access code given by your teacher.</p>
-    <input class="gate-inp" type="text" id="gate-inp" placeholder="e.g. CHEM2024" maxlength="20"
-      onkeydown="if(event.key==='Enter')gateCheck()"
-      oninput="this.value=this.value.toUpperCase();document.getElementById('gate-err').textContent=''"/>
-    <div class="gate-err" id="gate-err"></div>
-    <button class="gate-btn" onclick="gateCheck()">🔓 Unlock</button>
-    <div class="gate-hint">Get the code from your teacher — written on board or sent via WhatsApp.</div>
-  </div>
-</div>
-<script>
-(function(){
-  var SKEY='_qa_granted', CKEY='_qa_code';
-  
-  function getCorrectCode(){
-    // 1. Check URL parameter ?c=CODE (teacher shares link with code)
-    var url=new URLSearchParams(window.location.search).get('c');
-    if(url) return url.toUpperCase();
-    // 2. Check localStorage (set by teacher in admin on same device)
-    var ls=localStorage.getItem('quiz_access_code');
-    if(ls) return ls.toUpperCase();
-    return null; // no code set — everything open
-  }
-  
-  function isGranted(code){
-    return sessionStorage.getItem(SKEY)===code;
-  }
-  
-  function grant(code){
-    sessionStorage.setItem(SKEY,code);
-    // Also store code so other pages can verify
-    sessionStorage.setItem(CKEY,code);
-    document.getElementById('quiz-gate').classList.remove('show');
-    document.body.style.overflow='';
-  }
-  
-  window.gateCheck=function(){
-    var entered=document.getElementById('gate-inp').value.trim().toUpperCase();
-    var code=getCorrectCode();
-    if(!entered){document.getElementById('gate-err').textContent='Please enter the code.';return;}
-    if(!code||entered===code){
-      grant(code||entered);
-    } else {
-      document.getElementById('gate-err').textContent='❌ Wrong code. Ask your teacher for the correct code.';
-      document.getElementById('gate-inp').value='';
-      document.getElementById('gate-inp').focus();
-    }
-  };
-  
-  function init(){
-    var code=getCorrectCode();
-    if(!code) return; // No lock — open
-    
-    // Auto-unlock if URL has correct code
-    var urlCode=new URLSearchParams(window.location.search).get('c');
-    if(urlCode&&urlCode.toUpperCase()===code){
-      grant(code);
-      return;
-    }
-    
-    // Check if already granted this session
-    if(isGranted(code)) return;
-    
-    // Show gate
-    document.getElementById('quiz-gate').classList.add('show');
-    document.body.style.overflow='hidden';
-    setTimeout(function(){
-      var inp=document.getElementById('gate-inp');
-      if(inp) inp.focus();
-    },200);
-  }
-  
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init);
-  else init();
-})();
-</script>
-<!-- ═══════════════════════════════════════════ -->
-<!--  ASSESSMENT ACCESS GATE                     -->
-<!-- ═══════════════════════════════════════════ -->
-
-
 <nav>
   <div class="nav-inner">
     <a class="nav-brand" href="index.html">⚗ Jackson Habimana</a>
@@ -240,283 +155,382 @@ input.inp:focus{outline:none;border-color:var(--accent);}
   </div>
 </nav>
 
-<!-- ═══ SCREEN 1: NAME ═══ -->
-<div class="screen active" id="name-screen">
-  <div class="name-card">
-    <div class="icon">🎓</div>
-    <h1>Student Quiz Centre</h1>
-    <p>Enter your name to see all available exams and quizzes your teacher has unlocked for you.</p>
-    <label class="inp-lbl">Your Full Name *</label>
-    <input class="inp" type="text" id="student-name" placeholder="e.g. Uwimana Jean" onkeydown="if(event.key==='Enter')enterPortal()"/>
-    <label class="inp-lbl">Your Class / Student ID (optional)</label>
-    <input class="inp" type="text" id="student-class" placeholder="e.g. S4 A / 2024001"/>
-    <div class="err" id="name-err"></div>
-    <button class="btn btn-primary" style="width:100%;justify-content:center;padding:13px;font-size:.9rem;" onclick="enterPortal()">See Available Exams →</button>
-  </div>
-</div>
+<!-- ═══ SCREEN 1: WELCOME ═══ -->
+<div class="screen active" id="welcome-screen">
+  <div class="welcome-card">
+    <div class="wc-hero">
+      <div class="icon">🎓</div>
+      <h1>Chemistry Assessment</h1>
+      <p>Enter your name to get started — then enter your teacher's exam code or choose a practice quiz.</p>
+    </div>
 
-<!-- ═══ SCREEN 2: EXAM LIST ═══ -->
-<div class="screen" id="list-screen">
-  <div class="list-wrap">
-    <div class="list-header">
-      <h2>📚 Available Exams & Quizzes</h2>
-      <p>Your teacher has unlocked the following assessments for you.</p>
+    <label class="field-label">Your Full Name *</label>
+    <input class="field-input" type="text" id="student-name" placeholder="e.g. Uwimana Jean" onkeydown="if(event.key==='Enter')document.getElementById('student-class').focus()"/>
+    <label class="field-label">Class / ID (optional)</label>
+    <input class="field-input" type="text" id="student-class" placeholder="e.g. S5 MCB / 2024001"/>
+    <div class="err-msg" id="name-err"></div>
+
+    <!-- TEACHER EXAM CODE -->
+    <div class="code-section">
+      <h3>📋 Teacher's Exam — Enter Code</h3>
+      <p style="color:var(--muted);font-size:.84rem;margin-bottom:12px;">If your teacher gave you an exam code, paste it here.</p>
+      <input class="code-inp" type="text" id="exam-code-input" placeholder="Paste exam code from teacher" maxlength="32"
+        onkeydown="if(event.key==='Enter')loadTeacherExam()"/>
+      <div class="code-err" id="code-err"></div>
+      <div class="code-loading" id="code-loading">⏳ Loading your exam...</div>
+      <button class="btn btn-green btn-full" onclick="loadTeacherExam()">🚀 Load Teacher's Exam</button>
     </div>
-    <div class="student-banner" id="student-banner">
-      <span style="font-size:1.2rem;">👤</span>
-      <span id="banner-name">Student</span>
-      <span style="margin-left:auto;cursor:pointer;color:var(--muted);" onclick="show('name-screen')">← Change Name</span>
-    </div>
-    <div id="exam-list-container">
-      <div class="loading-box">
-        <div class="loading-spin">⏳</div>
-        <p>Loading available exams…</p>
+
+    <div class="divider"><div class="divider-line"></div><span class="divider-text">OR CHOOSE PRACTICE QUIZ</span><div class="divider-line"></div></div>
+
+    <!-- PRACTICE QUIZZES -->
+    <div class="practice-section">
+      <h3>⚡ Practice Quizzes (self-study)</h3>
+      <div class="quiz-grid">
+        <div class="quiz-btn" style="border-color:rgba(56,189,248,.3);" onclick="startPractice('s4')">
+          <div class="qb-icon">🔵</div>
+          <div class="qb-title">S4 Quiz</div>
+          <div class="qb-meta">30 questions</div>
+        </div>
+        <div class="quiz-btn" style="border-color:rgba(52,211,153,.3);" onclick="startPractice('s5')">
+          <div class="qb-icon">🟢</div>
+          <div class="qb-title">S5 Quiz</div>
+          <div class="qb-meta">30 questions</div>
+        </div>
+        <div class="quiz-btn" style="border-color:rgba(167,139,250,.3);" onclick="startPractice('s6')">
+          <div class="qb-icon">🟣</div>
+          <div class="qb-title">S6 Quiz</div>
+          <div class="qb-meta">30 questions</div>
+        </div>
+        <div class="quiz-btn" style="border-color:rgba(232,197,71,.3);" onclick="startPractice('mix')">
+          <div class="qb-icon">🏆</div>
+          <div class="qb-title">Mixed</div>
+          <div class="qb-meta">30 questions</div>
+        </div>
       </div>
     </div>
-    <div style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border);">
-      <p style="color:var(--muted);font-size:.85rem;margin-bottom:12px;">Want to try challenge quizzes without a teacher?</p>
-      <a href="quizzes.html" class="btn btn-ghost">⚗ Challenge Quizzes →</a>
-    </div>
   </div>
 </div>
 
-<!-- ═══ SCREEN 3: EXAM ═══ -->
-<div class="screen" id="exam-screen">
+<!-- ═══ SCREEN 2: QUIZ ═══ -->
+<div class="screen" id="quiz-screen">
   <div class="quiz-header">
     <div class="qh-inner">
-      <div class="qh-title" id="qh-title">Exam</div>
-      <div style="display:flex;align-items:center;gap:10px;">
-        <span id="ans-count" style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);"></span>
-        <div class="timer-box t-ok" id="timer">00:00</div>
+      <div class="qh-title" id="qh-title">Quiz</div>
+      <div class="qh-right">
+        <span id="answered-count" style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--muted);"></span>
+        <div class="timer-box t-ok" id="timer">20:00</div>
       </div>
     </div>
-    <div class="prog-bar"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+    <div class="prog-bar"><div class="prog-fill" id="prog" style="width:0%"></div></div>
   </div>
-  <div class="exam-body">
-    <div class="vbar" id="vbar">⚠️ Warning: Tab switch detected! Violations: <span id="vcount">0</span></div>
+  <!-- VIOLATION BAR -->
+  <div id="vbar" style="display:none;max-width:820px;margin:16px auto 0;padding:0 24px;">
+    <div style="background:rgba(248,113,113,.12);border:1px solid rgba(248,113,113,.4);border-radius:8px;padding:12px 18px;font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--red);">
+      🚨 <strong>CHEATING DETECTED</strong> — <span id="vcount">0</span> violation(s) recorded. Teacher notified.
+    </div>
+  </div>
+  <div class="quiz-body">
     <div class="q-nav" id="q-nav"></div>
-    <div id="q-area"></div>
-    <div class="q-nav-row">
-      <button class="btn btn-ghost" id="btn-prev" onclick="navQ(-1)">← Previous</button>
+    <div id="questions-area"></div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" id="btn-prev" onclick="navQ(-1)">← Prev</button>
       <button class="btn btn-primary" onclick="confirmSubmit()">✅ Submit</button>
       <button class="btn btn-ghost" id="btn-next" onclick="navQ(1)">Next →</button>
     </div>
   </div>
 </div>
 
-<!-- WARNING MODAL -->
-<div id="warn-modal">
-  <div class="warn-box">
-    <div style="font-size:2.5rem;">⚠️</div>
-    <h2>Cheating Detected!</h2>
-    <p id="warn-msg" style="color:var(--muted);font-size:.9rem;"></p>
-    <div class="warn-count" id="warn-count-disp"></div>
-    <button class="btn btn-ghost" style="width:100%;justify-content:center;" onclick="dismissWarn()">Return to Exam</button>
-  </div>
-</div>
-
-<!-- ═══ SCREEN 4: RESULT ═══ -->
+<!-- ═══ SCREEN 3: RESULT ═══ -->
 <div class="screen" id="result-screen">
   <div class="result-card">
     <div class="res-icon" id="res-icon"></div>
     <div class="res-grade" id="res-grade"></div>
     <div class="res-student" id="res-student"></div>
-    <div class="res-score" id="res-score"></div>
+    <div class="res-pct" id="res-pct"></div>
     <div class="stats-grid">
-      <div class="stat-box"><div class="sb-val" id="st-c" style="color:var(--green);"></div><div class="sb-lab">Correct</div></div>
-      <div class="stat-box"><div class="sb-val" id="st-w" style="color:var(--red);"></div><div class="sb-lab">Wrong</div></div>
-      <div class="stat-box"><div class="sb-val" id="st-s" style="color:var(--orange);"></div><div class="sb-lab">Skipped</div></div>
-      <div class="stat-box"><div class="sb-val" id="st-t" style="color:var(--accent);"></div><div class="sb-lab">Time</div></div>
+      <div class="stat-box"><div class="sb-v" id="st-correct" style="color:var(--green);"></div><div class="sb-l">Correct</div></div>
+      <div class="stat-box"><div class="sb-v" id="st-wrong" style="color:var(--red);"></div><div class="sb-l">Wrong</div></div>
+      <div class="stat-box"><div class="sb-v" id="st-skip" style="color:var(--orange);"></div><div class="sb-l">Skipped</div></div>
+      <div class="stat-box"><div class="sb-v" id="st-time" style="color:var(--accent);"></div><div class="sb-l">Time</div></div>
     </div>
-    <p id="res-msg" style="color:var(--muted);font-size:.88rem;margin-bottom:14px;"></p>
-    <div class="btn-row">
-      <button class="btn btn-green" onclick="scrollToReview()">📖 Review Answers</button>
-      <button class="btn btn-ghost" onclick="retake()">🔄 Retake</button>
-      <button class="btn btn-ghost" onclick="show('list-screen')">← Back to Exams</button>
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:6px;">
+      <button class="btn btn-ghost" onclick="showReview()">📖 Review Answers</button>
+      <button class="btn btn-ghost" onclick="goHome()">🏠 New Quiz</button>
     </div>
-    <p style="color:var(--muted);font-size:.75rem;margin-top:16px;">💾 Your result is saved. You may also <button onclick="downloadResult()" style="background:none;border:none;color:var(--accent);cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:.75rem;text-decoration:underline;">download it</button> and submit to your teacher.</p>
+    <p style="color:var(--muted);font-size:.78rem;margin-top:14px;">Your result has been recorded for your teacher.</p>
   </div>
-  <div class="review-section" id="review-section" style="margin-top:40px;"></div>
+  <div class="review-section" id="review-section" style="margin-top:36px;"></div>
 </div>
 
+<!-- ═══ WARNING MODAL ═══ -->
+<div id="warn-modal">
+  <div class="warn-box">
+    <div class="warn-icon">🚨</div>
+    <h2>Cheating Detected!</h2>
+    <p id="warn-msg">You left the exam window. This has been recorded and your teacher has been notified.</p>
+    <div class="warn-count" id="warn-count">Warning 1 of 3</div>
+    <div class="warn-remain" id="warn-remain"></div>
+    <button class="btn btn-ghost" id="warn-dismiss-btn" style="width:100%;justify-content:center;" onclick="dismissWarn()">✅ I Understand — Return to Quiz</button>
+  </div>
+</div>
+
+<footer>⚗ Jackson Habimana Chemistry Portal · <a href="index.html">Home</a> · <a href="quizzes.html">Challenge Quizzes</a></footer>
+
 <script>
-// ══════════════════════════════════════════════
+// ════════════════════════════════════════════════
+//  BUILT-IN QUESTION BANKS (30 Qs per level)
+// ════════════════════════════════════════════════
+const BANK={
+s4:[
+  {q:"A proton has a relative mass of approximately:",opts:["0","1/1836","1","4"],a:2,e:"Proton: mass=1, charge=+1. Electron: mass≈0, charge=−1. Neutron: mass=1, charge=0.",t:"Atomic Structure"},
+  {q:"Isotopes of the same element have the same number of:",opts:["Mass numbers","Neutrons","Protons","Physical properties"],a:2,e:"Isotopes: same Z (protons) → same element. Different neutron numbers → different mass numbers.",t:"Atomic Structure"},
+  {q:"The maximum electrons in a 3d subshell is:",opts:["2","6","10","14"],a:2,e:"d subshell has 5 orbitals × 2 electrons = 10. (s=2, p=6, d=10, f=14).",t:"Electronic Config"},
+  {q:"The shape of BF₃ is:",opts:["Pyramidal","Trigonal planar","Tetrahedral","Linear"],a:1,e:"BF₃: 3 bond pairs, 0 lone pairs → trigonal planar, 120°.",t:"VSEPR"},
+  {q:"Bond angle in H₂O is ~104.5° because:",opts:["O is sp²","2 lone pairs compress bond angle below 109.5°","H is very small","O has no d orbitals"],a:1,e:"4 electron pairs on O (2 bonds + 2 lone pairs). Lone pairs repel more → compress angle from 109.5° to 104.5°.",t:"VSEPR"},
+  {q:"London dispersion forces are present in:",opts:["Polar molecules only","Ionic compounds only","All molecules and atoms","Noble gases only"],a:2,e:"LDF are universal — present in ALL species due to instantaneous induced dipoles.",t:"IMF"},
+  {q:"Which type of bond involves complete electron transfer?",opts:["Covalent","Dative covalent","Ionic","Metallic"],a:2,e:"Ionic bond: metal transfers electrons to non-metal → oppositely charged ions attract.",t:"Bonding"},
+  {q:"The modern periodic table arranges elements by:",opts:["Relative atomic mass","Neutron number","Atomic number (proton number)","Electronegativity"],a:2,e:"Moseley (1913): order by atomic number Z. Resolves anomalies like Ar/K.",t:"Periodic Table"},
+  {q:"Atomic radius decreases across a period because:",opts:["Shells are added","Nuclear charge increases with constant shielding","Shielding increases","Mass increases"],a:1,e:"Across a period: Z increases, same shell → Zeff increases → electrons pulled closer → smaller radius.",t:"Periodic Trends"},
+  {q:"IE₁ decreases down Group 1 because:",opts:["Atomic mass increases","Outer electron is in higher shell, further away and more shielded","Shielding decreases","Nuclear charge decreases"],a:1,e:"Down group: outer electron in higher shell, greater distance + more shielding → easier to remove → lower IE₁.",t:"Periodic Trends"},
+  {q:"Group 1 metals react with water to give:",opts:["Metal oxide + H₂","Metal hydroxide + H₂","Metal hydride + O₂","Metal carbonate + CO₂"],a:1,e:"2M + 2H₂O → 2MOH + H₂. Always gives alkaline hydroxide + hydrogen.",t:"Group 1"},
+  {q:"Na⁺ flame test colour is:",opts:["Crimson","Lilac","Persistent yellow-orange","Apple green"],a:2,e:"Na⁺ = persistent yellow-orange. Li=crimson; K=lilac; Ba=apple green.",t:"Flame Tests"},
+  {q:"Thermal stability of Group 2 carbonates increases down the group because:",opts:["Larger cations polarise CO₃²⁻ more","Larger cations polarise CO₃²⁻ less — harder to decompose","More ionic down the group","Higher melting points"],a:1,e:"Larger M²⁺ → lower charge density → less polarisation of CO₃²⁻ → more stable → higher decomposition T.",t:"Group 2"},
+  {q:"BaSO₄ is used as barium meal because:",opts:["It is coloured","It is soluble in water","It is insoluble (can't be absorbed) and opaque to X-rays","It reacts with stomach acid"],a:2,e:"BaSO₄ is virtually insoluble → can't enter bloodstream (safe). Opaque to X-rays → outlines GI tract.",t:"Group 2"},
+  {q:"Al₂O₃ is amphoteric because it:",opts:["Only reacts with acids","Only reacts with bases","Reacts with both acids and bases","Is insoluble"],a:2,e:"Al₂O₃ + 6HCl → 2AlCl₃ + 3H₂O AND Al₂O₃ + 2NaOH + 3H₂O → 2Na[Al(OH)₄].",t:"Group 13"},
+  {q:"The hybridisation of C in ethene (C₂H₄) is:",opts:["sp³","sp²","sp","sp³d"],a:1,e:"Each C has 3 σ bonds (1 C-C, 2 C-H) → sp² hybridised. Remaining p orbital forms π bond. Trigonal planar, 120°.",t:"Hybridisation"},
+  {q:"Which has the highest lattice energy?",opts:["NaF","NaCl","MgO","KBr"],a:2,e:"MgO: Mg²⁺ and O²⁻ (charge product=4, small radii) → strongest electrostatic attraction → highest lattice energy.",t:"Lattice Energy"},
+  {q:"Graphite conducts electricity because:",opts:["It has ionic bonds","Delocalised π electrons between layers carry charge","It has a 3D lattice","It contains free ions"],a:1,e:"Each sp² C donates one p electron to a delocalised π system across the layer → mobile electrons → conducts.",t:"Giant Structures"},
+  {q:"Diamond has high melting point because:",opts:["Strong van der Waals forces","Giant 3D covalent network — all bonds must break to melt","It is ionic","It is metallic"],a:1,e:"Diamond: every C bonded to 4 others by strong covalent bonds in a giant 3D lattice → enormous energy to melt.",t:"Giant Structures"},
+  {q:"Electronegativity increases across a period because:",opts:["Atomic radius increases","Nuclear charge increases with roughly constant shielding","Shielding increases","IE decreases"],a:1,e:"Across period: more protons, same shell → greater Zeff → stronger pull on bonding electrons → higher EN.",t:"Periodic Trends"},
+  {q:"The Pauli exclusion principle states:",opts:["Electrons fill lowest energy first","Electrons in degenerate orbitals fill singly first","No two electrons have identical sets of all 4 quantum numbers","Electrons pair with parallel spins"],a:2,e:"Pauli: no two electrons in an atom can have the same set of all 4 quantum numbers (n, l, mₗ, mₛ). Max 2e per orbital with opposite spins.",t:"Quantum Numbers"},
+  {q:"A dative (coordinate) bond is one where:",opts:["Both electrons come from one atom","Each atom contributes one electron","Electrons are transferred permanently","No electrons are shared"],a:0,e:"Dative bond: both electrons of the shared pair are donated by ONE atom (the donor). e.g. NH₃→H⁺ forms NH₄⁺.",t:"Covalent Bonding"},
+  {q:"Which oxide is acidic?",opts:["Na₂O","CaO","Al₂O₃","SO₃"],a:3,e:"SO₃ + H₂O → H₂SO₄ (acidic). Na₂O and CaO are basic. Al₂O₃ is amphoteric. Non-metal oxides are acidic.",t:"Oxide Types"},
+  {q:"The electron configuration of Fe³⁺ (Z=26) is:",opts:["[Ar]3d⁶4s²","[Ar]3d⁶","[Ar]3d⁵","[Ar]3d⁴4s¹"],a:2,e:"Fe=[Ar]3d⁶4s². Fe³⁺ loses 3e (4s² first, then one 3d) → [Ar]3d⁵. Half-filled d is extra stable.",t:"Electronic Config"},
+  {q:"Which Group 2 hydroxide is most soluble?",opts:["Mg(OH)₂","Ca(OH)₂","Sr(OH)₂","Ba(OH)₂"],a:3,e:"Solubility of Group 2 hydroxides increases down the group. Ba(OH)₂ is most soluble and most alkaline.",t:"Group 2"},
+  {q:"The thermite reaction 2Al + Fe₂O₃ → Al₂O₃ + 2Fe is used to:",opts:["Extract Al from bauxite","Weld railway tracks — highly exothermic, produces molten Fe","Coat iron with Al","Purify iron"],a:1,e:"Thermite reaches ~3000°C → molten iron solidifies to weld rails. Al's high affinity for O drives the reaction.",t:"Group 13"},
+  {q:"HF has a higher boiling point than HCl because:",opts:["HF has stronger London forces","HF forms hydrogen bonds (O−H···F type) — F is small and highly electronegative","HCl is smaller","HF is ionic"],a:1,e:"HF: strong F−H···F hydrogen bonds. HCl: only dipole-dipole + LDF (Cl not electronegative/small enough for H-bonds). HF b.p.=19°C vs HCl b.p.=−85°C.",t:"Hydrogen Bonding"},
+  {q:"An ionic compound conducts electricity:",opts:["Only as a solid","Only when molten or dissolved in water","Always","Never"],a:1,e:"Ionic: fixed ions in solid → cannot conduct. When molten or dissolved → ions free to move → conduct electricity.",t:"Ionic Bonding"},
+  {q:"The electron configuration of Na⁺ is:",opts:["1s²2s²2p⁶3s¹","1s²2s²2p⁶","1s²2s²2p⁵","1s²2s²2p⁶3s²"],a:1,e:"Na=[Ne]3s¹. Na⁺ loses 3s¹ → 1s²2s²2p⁶ (isoelectronic with Ne, 10 electrons).",t:"Ions"},
+  {q:"σ (sigma) bonds are formed by:",opts:["Sideways overlap of p orbitals","End-on (head-on) overlap of atomic orbitals along the internuclear axis","Delocalisation of electrons","Electron transfer"],a:1,e:"σ bond: direct end-on overlap along the bond axis. It is the FIRST bond formed between atoms and allows free rotation.",t:"Covalent Bonding"}
+],
+s5:[
+  {q:"The general formula of an alkane is:",opts:["CₙH₂ₙ","CₙH₂ₙ₋₂","CₙH₂ₙ₊₂","CₙH₂ₙ₊₁OH"],a:2,e:"Alkanes (saturated): CₙH₂ₙ₊₂. e.g. methane CH₄, ethane C₂H₆.",t:"Alkanes"},
+  {q:"Alkanes undergo free radical substitution with halogens under:",opts:["AlCl₃ catalyst","UV light (photochemical)","Aqueous NaOH","High pressure only"],a:1,e:"CH₄ + Cl₂ → CH₃Cl + HCl (UV light). Mechanism: initiation (Cl₂→2Cl•), propagation, termination.",t:"Alkanes"},
+  {q:"Bromine water is decolourised by alkenes because:",opts:["Addition of Br₂ across the C=C double bond (electrophilic addition)","Substitution reaction","Alkenes are acidic","Bromine dissolves in alkenes"],a:0,e:"Alkenes react with Br₂ by electrophilic addition across the π bond → dibromoalkane (colourless).",t:"Alkenes"},
+  {q:"Markovnikov's rule states H adds to:",opts:["The less substituted carbon","The more electronegative carbon","The carbon already bearing more H atoms","Any carbon randomly"],a:2,e:"In HX addition to unsymmetrical alkene: H adds to the C with more H atoms → more stable carbocation intermediate.",t:"Alkenes"},
+  {q:"Hot ethanolic NaOH with a halogenoalkane gives:",opts:["Alcohol (substitution)","Alkene (elimination)","Aldehyde","Ketone"],a:1,e:"Hot ethanolic NaOH: E2 elimination → removes H and X from adjacent carbons → alkene + H₂O + NaX.",t:"Halogenoalkanes"},
+  {q:"Primary alcohol → aldehyde requires:",opts:["LiAlH₄","Acidified K₂Cr₂O₇ with distillation","NaOH(aq)","PCl₅"],a:1,e:"Acidified K₂Cr₂O₇, distil off aldehyde as it forms (prevents further oxidation to carboxylic acid).",t:"Alcohols"},
+  {q:"Tertiary alcohols treated with K₂Cr₂O₇/H₂SO₄:",opts:["Give a ketone","Give an aldehyde","Are not oxidised — no colour change","Give a carboxylic acid"],a:2,e:"Tertiary alcohols have no H on the C bearing OH → cannot be oxidised by K₂Cr₂O₇. No colour change (stays orange).",t:"Alcohols"},
+  {q:"Tollens' reagent gives a silver mirror with:",opts:["Ketones","Aldehydes only","Carboxylic acids","Secondary alcohols"],a:1,e:"Aldehydes reduce Ag⁺ to Ag⁰ (silver mirror). Ketones cannot reduce Tollens'. Distinguishes aldehydes from ketones.",t:"Carbonyl"},
+  {q:"An ester is formed by reaction of:",opts:["Alkene + HX","Alcohol + carboxylic acid (acid catalyst, reversible)","Aldehyde + base","Amine + water"],a:1,e:"Esterification: R-OH + R'COOH ⇌ R'COOR + H₂O. Acid catalyst (H₂SO₄). Reversible equilibrium.",t:"Esters"},
+  {q:"Saponification (ester + NaOH) gives:",opts:["Carboxylic acid + alcohol","Sodium carboxylate salt + alcohol (irreversible)","Anhydride + water","Amide + alcohol"],a:1,e:"Saponification: ester + NaOH → sodium salt of carboxylic acid + alcohol. Irreversible. Used to make soap.",t:"Esters"},
+  {q:"The iodoform test (I₂/NaOH → CHI₃) is positive for:",opts:["Methanol only","CH₃CO− or CH₃CH(OH)− groups (e.g. ethanol, propan-2-ol)","All alcohols","Aldehydes only"],a:1,e:"Yellow CHI₃ precipitate with compounds containing CH₃CO− or CH₃CH(OH)−. e.g. ethanol ✓, propan-2-ol ✓, methanol ✗.",t:"Alcohols"},
+  {q:"What functional group is in an amide?",opts:["−NH₂","−COOH","−CONH₂ (or −CO−NH−)","−CHO"],a:2,e:"Amide: −CONH₂ (primary) or −CO−NH− (secondary). Formed from carboxylic acid + amine (condensation).",t:"Amides"},
+  {q:"Addition polymerisation uses monomers with:",opts:["Ester bonds","C=C double bonds — π bond opens to join chain","Amine and acid groups","Halogen atoms"],a:1,e:"Addition polymerisation: alkene monomers open their π bonds to join. No byproduct. e.g. ethene → poly(ethene).",t:"Polymers"},
+  {q:"Optical isomers (enantiomers) require:",opts:["A C=C double bond","A chiral centre (C with 4 different groups)","A ring structure","Restricted rotation"],a:1,e:"Chiral centre: carbon bonded to 4 DIFFERENT groups → non-superimposable mirror images. Rotate plane-polarised light in opposite directions.",t:"Isomerism"},
+  {q:"Standard enthalpy of formation (ΔHf°) of an element in its standard state is:",opts:["Always negative","Always positive","Zero by definition","Equal to its bond energy"],a:2,e:"ΔHf° = 0 for elements in their standard state (O₂(g), C(graphite), H₂(g), Fe(s), etc.) — reference points.",t:"Thermochemistry"},
+  {q:"Hess's Law states that total ΔH:",opts:["Depends on rate of reaction","Is independent of route — depends only on initial and final states","Is always negative","Is only valid for combustion"],a:1,e:"Hess's Law (conservation of energy): ΔH is the same regardless of the pathway taken from reactants to products.",t:"Thermochemistry"},
+  {q:"The IUPAC name of CH₃CH(OH)CH₃ is:",opts:["Propan-1-ol","Propan-2-ol","Butan-2-ol","2-methylethanol"],a:1,e:"3 carbons = propan; OH on C2 = -2-ol; fully saturated = -an. → propan-2-ol.",t:"Nomenclature"},
+  {q:"Fehling's test gives brick-red Cu₂O precipitate with:",opts:["Ketones","Aldehydes (Cu²⁺ reduced to Cu⁺)","Carboxylic acids","Secondary alcohols"],a:1,e:"Aldehydes reduce alkaline Cu²⁺ (Fehling's) → Cu₂O (brick-red). Ketones: no reaction. Distinguishes aldehydes from ketones.",t:"Carbonyl"},
+  {q:"Dehydration of ethanol with conc. H₂SO₄ at 170°C gives:",opts:["Ethanal","Ethanoic acid","Ethene (intramolecular elimination)","Diethyl ether"],a:2,e:"At 170°C: intramolecular elimination → ethene. At 140°C: intermolecular → diethyl ether. H₂SO₄ protonates OH → good leaving group.",t:"Alcohols"},
+  {q:"Which reagent converts a carboxylic acid to a primary alcohol?",opts:["K₂Cr₂O₇/H⁺","NaBH₄","LiAlH₄ (powerful reducing agent)","PCl₅"],a:2,e:"LiAlH₄ reduces −COOH all the way to −CH₂OH (primary alcohol). NaBH₄ is milder — only reduces aldehydes and ketones.",t:"Carboxylic Acids"},
+  {q:"A nucleophile is:",opts:["An electron pair acceptor","An electron pair donor that attacks δ⁺ centres","A free radical","A species that gains a proton"],a:1,e:"Nucleophile (nucleus-loving): electron-rich species that donates a lone pair to an electron-deficient (δ⁺) carbon. e.g. OH⁻, CN⁻, NH₃.",t:"Mechanisms"},
+  {q:"Geometric (cis-trans) isomerism requires:",opts:["A chiral carbon","Restricted rotation about C=C with 2 different groups on each C","A ring only","More than 5 carbons"],a:1,e:"Cis-trans: restricted rotation about C=C. Each C of C=C must have 2 DIFFERENT substituents for isomerism to exist.",t:"Isomerism"},
+  {q:"What is produced when acyl chloride reacts with an amine?",opts:["An ester","An amide + HCl","An alcohol","An anhydride"],a:1,e:"RCOCl + R'NH₂ → RCONHR' (amide) + HCl. Vigorous reaction at room temperature. More reactive than carboxylic acid.",t:"Acyl Chlorides"},
+  {q:"The degree of unsaturation (DoU) of benzene C₆H₆ is:",opts:["1","3","4","6"],a:2,e:"DoU = (2×6+2−6)/2 = 8/2 = 4. (3 C=C double bonds = 3 DoU) + (1 ring = 1 DoU) = 4 total.",t:"Aromaticity"},
+  {q:"IR spectroscopy identifies functional groups by:",opts:["Mass of fragments","Characteristic absorption wavenumbers of specific bonds (e.g. C=O ~1710 cm⁻¹)","NMR chemical shifts","Colour of the compound"],a:1,e:"IR: bonds absorb IR at characteristic wavenumbers. C=O ~1710-1750 cm⁻¹; O−H broad ~2500-3300 cm⁻¹; N−H ~3300 cm⁻¹.",t:"Spectroscopy"},
+  {q:"Condensation polymerisation differs from addition because:",opts:["It uses UV light","A small molecule (H₂O or HCl) is released at each bond formation","It uses alkene monomers","No bond forms"],a:1,e:"Condensation: each monomer link releases a small molecule (H₂O, HCl). e.g. nylon (polyamide) from diamine + diacid.",t:"Polymers"},
+  {q:"The Markovnikov product of propene + HBr is:",opts:["1-bromopropane","2-bromopropane","Propan-1-ol","Propan-2-ol"],a:1,e:"H adds to CH₂ (more H), Br adds to CH → 2-bromopropane (CH₃CHBrCH₃). More stable secondary carbocation intermediate.",t:"Alkenes"},
+  {q:"Phenol reacts with bromine water (no catalyst) to give:",opts:["Monobromophenol","2,4,6-tribromophenol (white precipitate)","Bromobenzene","No reaction"],a:1,e:"−OH strongly activates benzene ring (ortho/para-directing) → reacts with Br₂/H₂O without catalyst → 2,4,6-tribromophenol↓.",t:"Phenol"},
+  {q:"Nylon-6,6 is made from:",opts:["One monomer with amine + acid groups","Hexanedioic acid + 1,6-diaminohexane (condensation)","Addition polymerisation of acrylonitrile","Ethene + nitrogen"],a:1,e:"Nylon-6,6: condensation polymer. HOOC(CH₂)₄COOH + H₂N(CH₂)₆NH₂ → polyamide + H₂O at each step.",t:"Polymers"},
+  {q:"Bond enthalpy is:",opts:["Energy to break all bonds in 1 mol","Average energy to break 1 mol of a specific bond in gaseous molecules","Energy of combustion","Lattice energy"],a:1,e:"Bond enthalpy: average energy required to break 1 mol of a specific bond in gaseous state. Always endothermic (+ve).",t:"Thermochemistry"}
+],
+s6:[
+  {q:"Transition metals form coloured ions because:",opts:["They have high melting points","d-d electron transitions absorb specific visible wavelengths — complementary colour observed","They are soluble","They have large radii"],a:1,e:"Partially filled d orbitals → d-d transitions absorb visible light → complementary colour transmitted. Cu²⁺=blue; Fe³⁺=yellow-brown.",t:"Transition Metals"},
+  {q:"Kc for N₂ + 3H₂ ⇌ 2NH₃ is:",opts:["[NH₃]²/[N₂][H₂]³","[N₂][H₂]³/[NH₃]²","[NH₃]²","[NH₃]"],a:0,e:"Kc = [products]^n/[reactants]^n = [NH₃]²/([N₂][H₂]³). Stoichiometric coefficients as powers.",t:"Equilibrium"},
+  {q:"Le Châtelier: increasing pressure shifts equilibrium towards:",opts:["The side with more moles of gas","The side with fewer moles of gas","Products always","Reactants always"],a:1,e:"Higher pressure → system opposes → shifts to side with fewer moles of gas (reduces pressure).",t:"Equilibrium"},
+  {q:"pH of 0.01 mol dm⁻³ HCl is:",opts:["1","2","10","12"],a:1,e:"HCl fully dissociates: [H⁺]=0.01=10⁻². pH=−log(10⁻²)=2.",t:"pH"},
+  {q:"A buffer solution contains:",opts:["Strong acid + strong base","Weak acid + its conjugate base in equilibrium","Pure water","Large excess of strong acid"],a:1,e:"Buffer: weak acid HA + conjugate base A⁻. Added H⁺: A⁻+H⁺→HA. Added OH⁻: HA+OH⁻→A⁻+H₂O. pH stays nearly constant.",t:"Buffers"},
+  {q:"Standard electrode potentials are measured vs:",opts:["Copper electrode","Zinc electrode","Standard hydrogen electrode (SHE, E°=0.00V)","Silver electrode"],a:2,e:"SHE: 2H⁺(aq,1 mol/dm³)+2e⁻ ⇌ H₂(g,1 atm) at 298K, Pt electrode. All E° values relative to this.",t:"Electrochemistry"},
+  {q:"Oxidation occurs at the:",opts:["Cathode","Anode (OIL = Oxidation Is Loss)","Salt bridge","Electrolyte"],a:1,e:"OILRIG: Oxidation Is Loss (at Anode). Reduction Is Gain (at Cathode). AN OX, RED CAT.",t:"Electrochemistry"},
+  {q:"ΔG = ΔH − TΔS. A reaction is spontaneous when:",opts:["ΔH < 0 always","ΔS < 0 always","ΔG < 0 (negative Gibbs free energy change)","ΔH > 0 always"],a:2,e:"ΔG < 0: spontaneous at constant T and P. Can occur even if ΔH > 0 if TΔS is large enough (highly disordered products).",t:"Thermodynamics"},
+  {q:"For a first-order reaction, the half-life is:",opts:["Proportional to [A]₀","Constant — t½ = ln2/k, independent of concentration","Increases as concentration decreases","Equal to 1/k[A]₀"],a:1,e:"First order: t½ = 0.693/k. CONSTANT — same fraction (50%) removed each half-life regardless of starting concentration.",t:"Kinetics"},
+  {q:"Alpha (α) radiation consists of:",opts:["High-energy electrons","Electromagnetic waves","Helium nuclei (2p+2n, charge+2)","Positrons"],a:2,e:"α particle = ⁴₂He nucleus. Mass number=4; atomic number decreases by 2 in α decay. Strongly ionising, weakly penetrating (stopped by paper).",t:"Radioactivity"},
+  {q:"After 3 half-lives, fraction remaining is:",opts:["1/2","1/4","1/8","1/6"],a:2,e:"(1/2)ⁿ where n=half-lives. n=3: (1/2)³=1/8. Only 12.5% remains after 3 half-lives.",t:"Radioactivity"},
+  {q:"The Haber process for NH₃ uses:",opts:["Room temperature, 1 atm, Pt","~450°C, 150-200 atm, Fe catalyst","~200°C, 1 atm, V₂O₅","~900°C, 100 atm, Ni"],a:1,e:"N₂+3H₂⇌2NH₃. ~450°C (rate/yield compromise), 150-200 atm (favours fewer moles of gas = products), Fe catalyst.",t:"Industrial Chemistry"},
+  {q:"In electrolysis of molten NaCl at the cathode:",opts:["Cl₂ produced","Na metal deposited (Na⁺+e⁻→Na)","H₂ produced","O₂ produced"],a:1,e:"Cathode: reduction. Na⁺+e⁻→Na (liquid sodium). Anode: 2Cl⁻→Cl₂+2e⁻. Basis of the Downs cell.",t:"Electrolysis"},
+  {q:"A catalyst increases reaction rate by:",opts:["Increasing reactant concentration","Providing a pathway with lower activation energy","Increasing temperature","Shifting equilibrium right"],a:1,e:"Catalyst lowers Eₐ → more molecules have sufficient energy → faster rate. Does NOT change equilibrium position or Kc.",t:"Kinetics"},
+  {q:"In [Cu(H₂O)₄]²⁺, the ligand is:",opts:["Cu²⁺","H₂O (donates lone pair to Cu)","The 2+ charge","The whole complex"],a:1,e:"Ligand = species that donates a lone pair to central metal. H₂O donates via O lone pair to Cu²⁺. Coordination number=4.",t:"Complex Ions"},
+  {q:"Benzene undergoes electrophilic substitution (not addition) to:",opts:["Become more reactive","Preserve aromatic delocalised π system — very stable","Follow Markovnikov's rule","React with nucleophiles"],a:1,e:"Addition would destroy aromaticity (lose ~150 kJ/mol resonance energy). Substitution replaces H and restores the aromatic ring.",t:"Benzene"},
+  {q:"Ksp for BaSO₄ = [Ba²⁺][SO₄²⁻]. This means:",opts:["BaSO₄ is very soluble","The product of ion concentrations at equilibrium with solid BaSO₄","BaSO₄ is acidic","All Ba²⁺ salts are insoluble"],a:1,e:"Ksp: equilibrium constant for dissolving a sparingly soluble salt. BaSO₄(s) ⇌ Ba²⁺(aq) + SO₄²⁻(aq). Ksp=1.1×10⁻¹⁰ mol² dm⁻⁶ (very insoluble).",t:"Solubility"},
+  {q:"The half-equation for reduction of MnO₄⁻ to Mn²⁺ in acid is:",opts:["MnO₄⁻+2e⁻→Mn²⁺+4O²⁻","MnO₄⁻+8H⁺+5e⁻→Mn²⁺+4H₂O","MnO₄⁻+5e⁻→Mn²⁺","MnO₄⁻+4H⁺+3e⁻→MnO₂+2H₂O"],a:1,e:"Balance O with H₂O, H with H⁺, charge with e⁻. MnO₄⁻+8H⁺+5e⁻→Mn²⁺+4H₂O. Mn goes +7→+2 (gains 5e⁻).",t:"Redox"},
+  {q:"Radiocarbon dating uses the ratio of:",opts:["²³⁸U to ²³⁵U","¹²C to ¹⁴C in organic material","³H to ¹H","⁸⁷Sr to ⁸⁶Sr"],a:1,e:"¹⁴C (t½=5730yr) is produced by cosmic rays and absorbed by living organisms. After death, ¹⁴C decays → ¹²C/¹⁴C ratio gives age.",t:"Radioactivity"},
+  {q:"Rate of reaction = k[A][B]². Overall order is:",opts:["1","2","3","4"],a:2,e:"Overall order = sum of all exponents = 1+2 = 3 (third order). k has units of mol⁻² dm⁶ s⁻¹ for 3rd order.",t:"Kinetics"},
+  {q:"At the half-equivalence point of weak acid + strong base titration:",opts:["pH = 7","pH = pKa of the weak acid","pH > 14","pH = 0"],a:1,e:"At half-equivalence: [HA]=[A⁻]. Henderson-Hasselbalch: pH=pKa+log(1)=pKa. Buffer action is maximum here.",t:"Titration"},
+  {q:"The oxidation state of Mn in KMnO₄ is:",opts:["+2","+4","+6","+7"],a:3,e:"K=+1, O=−2(×4=−8). K+Mn+4O=0: 1+Mn−8=0 → Mn=+7. KMnO₄ is a strong oxidising agent.",t:"Oxidation States"},
+  {q:"Nuclear fusion releases energy because:",opts:["Neutrons are destroyed","Light nuclei combine → heavier nucleus with mass defect converted to energy (E=mc²)","Alpha particles are emitted","The nucleus splits"],a:1,e:"Fusion: light nuclei (e.g. ²H+³H→⁴He+n). Product has less mass than reactants → mass defect converted to enormous energy.",t:"Nuclear Chemistry"},
+  {q:"In the Maxwell-Boltzmann distribution, increasing T:",opts:["Narrows the curve","Moves peak right (higher energy), flattens/broadens curve — more molecules exceed Eₐ","Decreases average KE","Raises the peak"],a:1,e:"Higher T: molecules gain KE → distribution shifts right, peak lowers and moves right, curve broadens. Fraction exceeding Eₐ increases → faster rate.",t:"Kinetics"},
+  {q:"The chelate effect means polydentate ligands form:",opts:["Weaker complexes than monodentate","More stable complexes than equivalent monodentate ligands (entropy advantage)","Colourless complexes","Insoluble precipitates"],a:1,e:"Chelate effect: polydentate ligands (e.g. EDTA) form rings with the metal → large +ΔS on displacement of multiple H₂O → more stable complex.",t:"Complex Ions"},
+  {q:"β⁻ decay: a neutron converts to:",opts:["An alpha particle","A proton + electron (beta particle) emitted from nucleus","Two protons","A gamma photon"],a:1,e:"β⁻: ¹n→¹p+⁰₋₁e+antineutrino. Atomic number increases by 1, mass number unchanged. The electron (β) is emitted.",t:"Radioactivity"},
+  {q:"A buffer of CH₃COOH/CH₃COO⁻ (1:1 ratio, pKa=4.76) has pH:",opts:["4.76","9.24","3.76","7.0"],a:0,e:"Henderson-Hasselbalch: pH=pKa+log([A⁻]/[HA])=4.76+log(1)=4.76+0=4.76. Equal concentrations: pH=pKa.",t:"Buffers"},
+  {q:"The Contact process absorbs SO₃ in:",opts:["Water directly","Conc. H₂SO₄ (→ oleum, then diluted with water)","Dilute H₂SO₄","NaOH"],a:1,e:"SO₃+H₂O → H₂SO₄ causes dangerous acid mist. Instead: SO₃ absorbed in conc. H₂SO₄ → oleum → add water safely.",t:"Industrial Chemistry"},
+  {q:"Zn²⁺ and Al³⁺ both give white ppts with NaOH that dissolve in excess. To distinguish:",opts:["Add HCl to both","Add excess NH₃: Zn(OH)₂ dissolves → [Zn(NH₃)₄]²⁺; Al(OH)₃ does NOT dissolve in NH₃","Flame test — both give yellow","Add AgNO₃"],a:1,e:"Both amphoteric. Excess NH₃: Zn(OH)₂ + 4NH₃ → [Zn(NH₃)₄]²⁺ (colourless). Al(OH)₃ does not dissolve in NH₃. Key distinction.",t:"Metal Tests"}
+]
+};
+BANK.mix=[...BANK.s4.slice(0,10),...BANK.s5.slice(0,10),...BANK.s6.slice(0,10)];
+
+// ════════════════════════════════════════════════
 //  STATE
-// ══════════════════════════════════════════════
+// ════════════════════════════════════════════════
 let studentName='', studentClass='';
-let activeExam=null, currentQ=0, answers={}, violations=0;
-let timerInterval=null, timeLeft=0, startTime=null, submitted=false, dismissing=false;
+let activeQuestions=[], activeExam=null;
+let answers={}, currentQ=0, violations=0, submitted=false, dismissing=false;
+let timerInterval=null, timeLeft=0, startTime=null;
 let resultData=null;
-let cloudExams=[];
 
-// JSONbin settings — must match teacher admin
-const JSONBIN_BIN_ID = localStorage.getItem('jb_student_bin') || '';
+const COLORS={s4:'var(--accent)',s5:'var(--green)',s6:'var(--purple)',mix:'var(--gold)'};
+const TITLES={s4:'S4 Chemistry Quiz',s5:'S5 Chemistry Quiz',s6:'S6 Chemistry Quiz',mix:'Mixed Chemistry Quiz'};
 
-// ══════════════════════════════════════════════
+// ════════════════════════════════════════════════
 //  ANTI-CHEAT
-// ══════════════════════════════════════════════
-document.addEventListener('contextmenu',e=>{if(submitted===false&&activeExam)e.preventDefault();});
-document.addEventListener('keydown',e=>{if(!activeExam||submitted)return;if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&['I','J','C'].includes(e.key))||(e.ctrlKey&&e.key==='U'))e.preventDefault();});
-document.addEventListener('visibilitychange',()=>{if(activeExam&&!submitted&&document.hidden)recordViolation('You switched to another tab.');});
-window.addEventListener('blur',()=>{if(activeExam&&!submitted)recordViolation('You switched to another window.');});
+// ════════════════════════════════════════════════
+document.addEventListener('contextmenu',e=>{if(!submitted&&activeQuestions.length)e.preventDefault();});
+document.addEventListener('keydown',e=>{
+  if(!activeQuestions.length||submitted) return;
+  if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&['I','J','C'].includes(e.key))||(e.ctrlKey&&e.key==='U')) e.preventDefault();
+});
+document.addEventListener('visibilitychange',()=>{if(!submitted&&activeQuestions.length&&document.hidden) recordViolation('Tab switch detected.');});
+window.addEventListener('blur',()=>{if(!submitted&&activeQuestions.length) recordViolation('Window switch detected.');});
 
 function recordViolation(msg){
-  if(dismissing||!activeExam||submitted) return;
+  if(dismissing||submitted||!activeQuestions.length) return;
   violations++;
   document.getElementById('vbar').style.display='block';
   document.getElementById('vcount').textContent=violations;
-  document.getElementById('warn-msg').textContent=msg+' This has been recorded.';
-  document.getElementById('warn-count-disp').textContent=`⚠️ Warning ${violations} of ${activeExam.warnings}`;
+  document.getElementById('warn-msg').textContent=msg+' This has been recorded. Your teacher has been notified.';
+  document.getElementById('warn-count').textContent=`⚠️ Violation ${violations} of ${activeExam?activeExam.warnings:3}`;
+  const maxWarnings = activeExam?activeExam.warnings:3;
+  const remaining = maxWarnings-violations;
+  if(remaining>0){
+    document.getElementById('warn-remain').textContent=`⚡ ${remaining} more violation${remaining>1?'s':''} → exam auto-submits`;
+    document.getElementById('warn-remain').style.color='var(--orange)';
+    document.getElementById('warn-dismiss-btn').style.display='flex';
+  } else {
+    document.getElementById('warn-remain').textContent='🚫 SUBMITTING EXAM NOW...';
+    document.getElementById('warn-remain').style.color='var(--red)';
+    document.getElementById('warn-dismiss-btn').style.display='none';
+  }
   document.getElementById('warn-modal').classList.add('show');
   dismissing=true;
-  sendNotif('CHEAT',`🚨 CHEATING ALERT\nStudent: ${studentName}${studentClass?' ('+studentClass+')':''}\nExam: ${activeExam.title}\nViolation #${violations}: ${msg}\nTime: ${new Date().toLocaleString()}`);
-  if(violations>=activeExam.warnings) setTimeout(()=>doSubmit('Max violations — auto-submitted'),2000);
+  sendNotif('CHEAT',`🚨 CHEATING!\nStudent: ${studentName} (${studentClass})\nExam: ${activeExam?activeExam.title:'Quiz'}\nViolation ${violations}/${maxWarnings}: ${msg}\nTime: ${new Date().toLocaleString()}`);
+  if(violations>=maxWarnings){
+    let c=5;
+    const iv=setInterval(()=>{
+      c--;
+      document.getElementById('warn-remain').textContent=c>0?`🚫 Auto-submitting in ${c}s...`:'🚫 Submitting...';
+      if(c<=0){clearInterval(iv);doSubmit('Auto: max violations');}
+    },1000);
+  }
 }
 function dismissWarn(){document.getElementById('warn-modal').classList.remove('show');setTimeout(()=>dismissing=false,800);}
 
-// ══════════════════════════════════════════════
-//  SCREEN 1: ENTER NAME
-// ══════════════════════════════════════════════
-function enterPortal(){
-  const name=document.getElementById('student-name').value.trim();
-  const cls=document.getElementById('student-class').value.trim();
-  const err=document.getElementById('name-err');
-  if(!name){err.textContent='⚠ Please enter your full name.';return;}
-  err.textContent='';
-  studentName=name; studentClass=cls;
-  document.getElementById('banner-name').textContent=name+(cls?' · '+cls:'');
-  show('list-screen');
-  loadExams();
-}
-
-// ══════════════════════════════════════════════
-//  SCREEN 2: LOAD EXAMS FROM CLOUD
-// ══════════════════════════════════════════════
-async function loadExams(){
-  const container=document.getElementById('exam-list-container');
-  container.innerHTML=`<div class="loading-box"><div class="loading-spin">⏳</div><p>Loading available exams from your teacher…</p></div>`;
-
-  // Get bin ID from localStorage (set by teacher admin on same browser, or from URL param)
-  const params=new URLSearchParams(window.location.search);
-  const binId=params.get('bin')||localStorage.getItem('jb_bin_id')||'';
-
-  if(!binId){
-    container.innerHTML=`<div class="empty-state">
-      <div class="es-icon">📭</div>
-      <h3>No Exams Available Yet</h3>
-      <p>Your teacher hasn't published any exams to this portal yet.<br>Check back later or ask your teacher to publish an exam in the Admin portal.</p>
-    </div>`;
-    return;
-  }
-
+// ════════════════════════════════════════════════
+//  LOAD TEACHER EXAM
+// ════════════════════════════════════════════════
+async function loadTeacherExam(){
+  const nm=document.getElementById('student-name').value.trim();
+  if(!nm){document.getElementById('name-err').textContent='Please enter your name first.';return;}
+  const code=document.getElementById('exam-code-input').value.trim();
+  const err=document.getElementById('code-err');
+  const loading=document.getElementById('code-loading');
+  if(!code||code.length<6){err.textContent='Please paste the full exam code from your teacher.';return;}
+  err.textContent='';loading.style.display='block';
+  studentName=nm; studentClass=document.getElementById('student-class').value.trim();
   try{
-    const r=await fetch(`https://api.jsonbin.io/v3/b/${binId}/latest`,{headers:{'X-Bin-Meta':'false'}});
-    if(!r.ok) throw new Error('Could not connect to exam server');
-    const data=await r.json();
-    cloudExams=(data.exams||[]).filter(e=>e.published);
-
-    if(!cloudExams.length){
-      container.innerHTML=`<div class="empty-state">
-        <div class="es-icon">🔒</div>
-        <h3>No Exams Unlocked Yet</h3>
-        <p>Your teacher hasn't unlocked any exams yet. They will appear here automatically once published.</p>
-      </div>`;
-      return;
-    }
-    renderExamCards(cloudExams, container);
+    const r=await fetch('https://api.jsonbin.io/v3/b/'+code+'/latest');
+    if(!r.ok) throw new Error('Exam not found. Check the code. ('+r.status+')');
+    const d=await r.json();
+    if(!d.record||!d.record.questions) throw new Error('Invalid exam file. Ask teacher to re-publish.');
+    activeExam=d.record;
+    activeQuestions=activeExam.questions;
+    loading.style.display='none';
+    beginQuiz(activeExam.title, activeExam.time*60, 'var(--green)', activeExam.warnings||3);
   }catch(e){
-    container.innerHTML=`<div class="empty-state">
-      <div class="es-icon">🌐</div>
-      <h3>Connection Error</h3>
-      <p>Could not load exams. Check your internet connection and try again.</p>
-      <button class="btn btn-ghost" style="margin-top:14px;" onclick="loadExams()">🔄 Retry</button>
-    </div>`;
+    loading.style.display='none';
+    err.textContent='❌ '+e.message;
   }
 }
 
-function renderExamCards(exams, container){
-  container.innerHTML=exams.map(e=>`
-    <div class="exam-card" onclick="startExam('${e.id}')">
-      <div class="ec-icon">📝</div>
-      <div class="ec-body">
-        <div class="ec-title">${e.title}</div>
-        <div class="ec-meta">
-          <span>${e.subject||'Chemistry'}</span>
-          <span>⏱ ${e.time} min</span>
-          <span>${e.questions.length} questions</span>
-          <span>${e.totalMarks} marks</span>
-          <span>Pass: ${e.pass}%</span>
-        </div>
-        <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;">
-          <span class="ec-badge eb-blue">${e.type}</span>
-          <span class="ec-badge eb-green">🔓 Available</span>
-          ${e.instructions?`<span class="ec-badge eb-orange">📌 ${e.instructions}</span>`:''}
-        </div>
-      </div>
-      <button class="btn btn-primary" style="flex-shrink:0;">Start →</button>
-    </div>`).join('');
+// ════════════════════════════════════════════════
+//  START PRACTICE QUIZ
+// ════════════════════════════════════════════════
+function startPractice(level){
+  const nm=document.getElementById('student-name').value.trim();
+  if(!nm){document.getElementById('name-err').textContent='Please enter your name first.';return;}
+  studentName=nm; studentClass=document.getElementById('student-class').value.trim();
+  document.getElementById('name-err').textContent='';
+  // Get teacher-set time from localStorage (set via student-hub or teacher admin)
+  const teacherTime=parseInt(localStorage.getItem('quiz_time_minutes')||'20');
+  activeExam={id:'practice_'+level+'_'+Date.now(),title:TITLES[level],subject:level.toUpperCase()+' Chemistry',time:teacherTime,pass:60,warnings:3,questions:BANK[level].map((q,i)=>({text:q.q,options:q.opts,correct:q.a,marks:1,_exp:q.e,_topic:q.t})),totalMarks:BANK[level].length,_isPractice:true,_level:level};
+  activeQuestions=activeExam.questions;
+  beginQuiz(activeExam.title, activeExam.time*60, COLORS[level], 3);
 }
 
-// ══════════════════════════════════════════════
-//  START EXAM
-// ══════════════════════════════════════════════
-function startExam(id){
-  const exam=cloudExams.find(e=>e.id===id);
-  if(!exam) return;
-  if(!confirm(`Start "${exam.title}"?\n\n⏱ ${exam.time} minutes\n📝 ${exam.questions.length} questions\n✅ Pass: ${exam.pass}%\n\nOnce started, switching windows will be recorded as a violation.`)) return;
-  activeExam=exam; answers={}; violations=0; currentQ=0; submitted=false;
-  timeLeft=exam.time*60; startTime=new Date();
-  document.getElementById('qh-title').textContent=exam.title;
-  document.getElementById('prog-fill').style.background='var(--accent)';
-  buildNavDots(); renderQ(0);
-  show('exam-screen');
+// ════════════════════════════════════════════════
+//  BEGIN QUIZ (shared by both paths)
+// ════════════════════════════════════════════════
+function beginQuiz(title, timeSecs, color, maxWarn){
+  answers={}; violations=0; currentQ=0; submitted=false;
+  timeLeft=timeSecs; startTime=new Date();
+  document.getElementById('qh-title').textContent=title+' — '+studentName;
+  document.getElementById('prog').style.background=color;
+  buildNav(); renderQ(0);
+  show('quiz-screen');
   startTimer();
-  try{document.documentElement.requestFullscreen();}catch(e){}
 }
 
-// ══════════════════════════════════════════════
-//  BUILD QUESTION
-// ══════════════════════════════════════════════
-function buildNavDots(){
-  document.getElementById('q-nav').innerHTML=activeExam.questions.map((_,i)=>`
-    <div class="q-dot ${i===0?'cur':''}" id="dot-${i}" onclick="jumpQ(${i})">${i+1}</div>`).join('');
+// ════════════════════════════════════════════════
+//  QUIZ RENDERING
+// ════════════════════════════════════════════════
+function buildNav(){
+  document.getElementById('q-nav').innerHTML=activeQuestions.map((_,i)=>`<div class="q-dot ${i===0?'current':''}" id="dot-${i}" onclick="jumpQ(${i})">${i+1}</div>`).join('');
 }
 function renderQ(idx){
   currentQ=idx;
-  const q=activeExam.questions[idx];
-  const chosen=answers[idx];
+  const q=activeQuestions[idx];
+  const color=document.getElementById('prog').style.background||'var(--accent)';
   document.querySelectorAll('.q-dot').forEach((d,i)=>{
-    d.classList.remove('cur');
-    d.classList.toggle('ans',answers[i]!==undefined);
-    if(i===idx) d.classList.add('cur');
+    d.classList.remove('current');
+    d.classList.toggle('answered',answers[i]!==undefined);
+    if(i===idx) d.classList.add('current');
   });
-  const answered=Object.keys(answers).length;
-  document.getElementById('ans-count').textContent=`${answered}/${activeExam.questions.length}`;
-  document.getElementById('prog-fill').style.width=(answered/activeExam.questions.length*100)+'%';
-  document.getElementById('q-area').innerHTML=`
-    <div class="q-card">
-      <div class="q-card-hdr">
-        <span class="q-badge">Q${idx+1} / ${activeExam.questions.length}</span>
-        <span class="q-topic">${q.marks} mark${q.marks!==1?'s':''}</span>
-      </div>
-      <div class="q-text">${q.text}</div>
-      ${q.options.map((o,oi)=>`
-        <button class="opt-btn ${chosen===oi?'sel':''}" onclick="pickAns(${oi})">
-          <span class="opt-circle">${String.fromCharCode(65+oi)}</span>
-          <span>${o}</span>
-        </button>`).join('')}
-    </div>`;
-  document.getElementById('btn-prev').style.opacity=idx===0?'.3':'1';
+  document.getElementById('answered-count').textContent=`${Object.keys(answers).length}/${activeQuestions.length}`;
+  document.getElementById('prog').style.width=(Object.keys(answers).length/activeQuestions.length*100)+'%';
+  const chosen=answers[idx];
+  const topic=q._topic||q.topic||'';
+  document.getElementById('questions-area').innerHTML=`<div class="q-card">
+    <div class="q-card-top">
+      <span class="q-num" style="background:rgba(56,189,248,.15);color:${color};border:1px solid rgba(56,189,248,.3);">Q${idx+1} / ${activeQuestions.length}</span>
+      <span class="q-topic">${topic}</span>
+    </div>
+    <div class="q-text">${q.text}</div>
+    ${q.options.map((o,oi)=>`<button class="opt-btn ${chosen===oi?'sel':''}" id="opt${oi}" onclick="pickAns(${oi})">
+      <span class="opt-circle">${String.fromCharCode(65+oi)}</span><span>${o}</span>
+    </button>`).join('')}
+    <div class="exp-box" id="expbox">${q._exp||q.explanation||''}</div>
+  </div>`;
+  document.getElementById('btn-prev').style.opacity=idx===0?.3:1;
   document.getElementById('btn-prev').disabled=idx===0;
-  document.getElementById('btn-next').textContent=idx===activeExam.questions.length-1?'↩ First':'Next →';
+  document.getElementById('btn-next').textContent=idx===activeQuestions.length-1?'↩ First':'Next →';
 }
-function pickAns(oi){if(submitted) return;answers[currentQ]=oi;renderQ(currentQ);}
-function navQ(dir){const l=activeExam.questions.length;if(dir===1&&currentQ===l-1){renderQ(0);return;}renderQ(Math.max(0,Math.min(l-1,currentQ+dir)));}
+function pickAns(oi){if(submitted)return;answers[currentQ]=oi;renderQ(currentQ);}
+function navQ(dir){const n=currentQ+dir;if(n<0){return;}if(n>=activeQuestions.length){renderQ(0);}else{renderQ(n);}}
 function jumpQ(i){renderQ(i);}
 
-// ══════════════════════════════════════════════
+// ════════════════════════════════════════════════
 //  TIMER
-// ══════════════════════════════════════════════
+// ════════════════════════════════════════════════
 function startTimer(){
   timerInterval=setInterval(()=>{
     timeLeft--;
@@ -524,130 +538,132 @@ function startTimer(){
     const el=document.getElementById('timer');
     el.textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
     el.className='timer-box '+(timeLeft>300?'t-ok':timeLeft>60?'t-warn':'t-danger');
-    if(timeLeft<=0){clearInterval(timerInterval);doSubmit('Time expired');}
+    if(timeLeft<=0){clearInterval(timerInterval);doSubmit('Timer expired');}
   },1000);
 }
 
-// ══════════════════════════════════════════════
+// ════════════════════════════════════════════════
 //  SUBMIT
-// ══════════════════════════════════════════════
+// ════════════════════════════════════════════════
 function confirmSubmit(){
-  const u=activeExam.questions.length-Object.keys(answers).length;
-  if(u>0&&!confirm(`You have ${u} unanswered question${u>1?'s':''}. Submit anyway?`)) return;
+  const left=activeQuestions.length-Object.keys(answers).length;
+  if(left>0&&!confirm(`${left} unanswered question${left>1?'s':''}. Submit anyway?`)) return;
   doSubmit('Student submitted');
 }
 function doSubmit(reason){
   submitted=true; clearInterval(timerInterval);
   try{document.exitFullscreen();}catch(e){}
-  const endTime=new Date();
-  const elapsed=Math.floor((endTime-startTime)/1000);
+  const end=new Date();
+  const elapsed=Math.floor((end-startTime)/1000);
   const mm=Math.floor(elapsed/60),ss=elapsed%60;
   let score=0;
-  const breakdown=activeExam.questions.map((q,i)=>{
+  const breakdown=activeQuestions.map((q,i)=>{
     const chosen=answers[i],correct=chosen===q.correct;
-    if(correct) score+=q.marks;
-    return{text:q.text,chosen,correct:q.correct,isCorrect:correct,marks:q.marks,options:q.options};
+    if(correct) score+=q.marks||1;
+    return{text:q.text,chosen,correct:q.correct,isCorrect:correct,marks:q.marks||1,options:q.options,explanation:q._exp||q.explanation||''};
   });
-  const pct=Math.round(score/activeExam.totalMarks*100);
-  const pass=pct>=activeExam.pass;
+  const total=activeQuestions.reduce((s,q)=>s+(q.marks||1),0);
+  const pct=Math.round(score/total*100);
+  const passScore=activeExam?activeExam.pass:60;
+  const pass=pct>=passScore;
   resultData={
     studentName,studentId:studentClass,
-    examId:activeExam.id,examTitle:activeExam.title,examSubject:activeExam.subject||'',
-    score,totalMarks:activeExam.totalMarks,percent:pct,passed:pass,
+    examId:activeExam?activeExam.id:'quiz_'+Date.now(),
+    examTitle:activeExam?activeExam.title:'Chemistry Quiz',
+    examSubject:activeExam?activeExam.subject:'',
+    score,totalMarks:total,percent:pct,passed:pass,
     violations,timeTaken:`${mm}m ${ss}s`,
-    submittedAt:endTime.toISOString(),submitReason:reason,breakdown
+    submittedAt:end.toISOString(),submitReason:reason,breakdown
   };
-  // ── Save result to teacher's admin dashboard ──
+  // Save to localStorage
+  try{const arr=JSON.parse(localStorage.getItem('student_results')||'[]');arr.push(resultData);localStorage.setItem('student_results',JSON.stringify(arr));}catch(e){}
+  // Save to teacher's cloud bin (if exam has embedded key)
+  if(activeExam&&activeExam._apiKey&&activeExam._resultsBin) saveToCloud(resultData,activeExam._apiKey,activeExam._resultsBin);
+  sendNotif('SUBMIT',`${pass?'✅':'❌'} SUBMISSION\nStudent: ${studentName}${studentClass?' ('+studentClass+')':''}\nExam: ${resultData.examTitle}\nScore: ${score}/${total} (${pct}%)\nResult: ${pass?'PASS':'FAIL'}\nViolations: ${violations}\nTime: ${mm}m ${ss}s`);
+  showResult();
+}
+async function saveToCloud(result,key,binId){
   try{
-    const results=JSON.parse(localStorage.getItem('student_results')||'[]');
-    const exists=results.find(r=>r.studentName===resultData.studentName&&r.examId===resultData.examId&&r.submittedAt===resultData.submittedAt);
-    if(!exists){results.push(resultData);localStorage.setItem('student_results',JSON.stringify(results));}
+    const gr=await fetch('https://api.jsonbin.io/v3/b/'+binId+'/latest',{headers:{'X-Master-Key':key}});
+    const gd=await gr.json();
+    const list=Array.isArray(gd.record)?gd.record:[];
+    list.push(result);
+    await fetch('https://api.jsonbin.io/v3/b/'+binId,{method:'PUT',headers:{'Content-Type':'application/json','X-Master-Key':key},body:JSON.stringify(list)});
   }catch(e){}
-  sendNotif('SUBMIT',`${pass?'✅':'❌'} SUBMISSION\nStudent: ${studentName}${studentClass?' ('+studentClass+')':''}\nExam: ${activeExam.title}\nScore: ${score}/${activeExam.totalMarks} (${pct}%)\nResult: ${pass?'PASS':'FAIL'}\nViolations: ${violations}\nTime: ${mm}m ${ss}s\nReason: ${reason}`);
-  showResult(resultData,breakdown);
 }
-
-// ══════════════════════════════════════════════
-//  RESULT
-// ══════════════════════════════════════════════
-function showResult(r,breakdown){
+function showResult(){
   show('result-screen');
+  const r=resultData;
   const pass=r.passed;
-  const grade=r.percent>=80?'Excellent! 🏆':r.percent>=70?'Very Good 🎉':r.percent>=60?'Pass ✅':r.percent>=50?'Almost 📚':'Needs Work 📖';
   document.getElementById('res-icon').textContent=r.percent>=80?'🏆':pass?'🎉':'📚';
-  document.getElementById('res-grade').textContent=grade;
-  document.getElementById('res-grade').style.color=pass?'var(--green)':'var(--red)';
-  document.getElementById('res-score').textContent=r.percent+'%';
-  document.getElementById('res-score').style.color=pass?'var(--green)':'var(--red)';
+  const grade=r.percent>=80?'Excellent!':r.percent>=70?'Very Good':r.percent>=60?'Pass ✅':r.percent>=50?'Almost!':'Try Again';
+  const gr=document.getElementById('res-grade');
+  gr.textContent=grade; gr.style.color=pass?'var(--green)':'var(--red)';
+  const pc=document.getElementById('res-pct');
+  pc.textContent=r.percent+'%'; pc.style.color=pass?'var(--green)':'var(--red)';
   document.getElementById('res-student').textContent=r.studentName+(r.studentId?' · '+r.studentId:'');
-  document.getElementById('st-c').textContent=breakdown.filter(q=>q.isCorrect).length;
-  document.getElementById('st-w').textContent=breakdown.filter(q=>!q.isCorrect&&q.chosen!==undefined).length;
-  document.getElementById('st-s').textContent=breakdown.filter(q=>q.chosen===undefined).length;
-  document.getElementById('st-t').textContent=r.timeTaken;
-  document.getElementById('res-msg').textContent=pass
-    ?`Great work! You scored ${r.score}/${r.totalMarks}. Review any incorrect answers below.`
-    :`You scored ${r.score}/${r.totalMarks}. You need ${activeExam.pass}% to pass. Study the explanations below.`;
-  // Build review
-  document.getElementById('review-section').innerHTML=`
-    <h2 style="font-family:'Playfair Display',serif;color:#fff;margin-bottom:20px;text-align:center;">📖 Answer Review</h2>
-    ${breakdown.map((q,i)=>{
+  document.getElementById('st-correct').textContent=r.breakdown.filter(q=>q.isCorrect).length;
+  document.getElementById('st-wrong').textContent=r.breakdown.filter(q=>!q.isCorrect&&q.chosen!==undefined).length;
+  document.getElementById('st-skip').textContent=r.breakdown.filter(q=>q.chosen===undefined).length;
+  document.getElementById('st-time').textContent=r.timeTaken;
+}
+function showReview(){
+  const area=document.getElementById('review-section');
+  area.innerHTML='<h2 style="font-family:Playfair Display,serif;color:#fff;margin-bottom:20px;text-align:center;">📖 Answer Review</h2>'+
+    resultData.breakdown.map((q,i)=>{
       const skip=q.chosen===undefined;
-      return `<div class="review-q">
+      const col=skip?'var(--orange)':q.isCorrect?'var(--green)':'var(--red)';
+      return `<div class="rq">
         <div class="rq-head">
-          <span class="rq-num" style="background:${skip?'rgba(139,148,158,.1)':q.isCorrect?'rgba(52,211,153,.15)':'rgba(248,113,113,.1)'};color:${skip?'var(--muted)':q.isCorrect?'var(--green)':'var(--red)'};border:1px solid ${skip?'rgba(139,148,158,.2)':q.isCorrect?'rgba(52,211,153,.3)':'rgba(248,113,113,.25)'};">
-            ${skip?'—':q.isCorrect?'✓':'✗'} Q${i+1}
-          </span>
-          <span style="font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--muted);">${q.marks} mark${q.marks!==1?'s':''}</span>
+          <span class="rq-num" style="background:${q.isCorrect?'rgba(52,211,153,.15)':skip?'rgba(245,158,11,.15)':'rgba(248,113,113,.1)'};color:${col};border:1px solid ${col}60;">${skip?'—':q.isCorrect?'✓':'✗'} Q${i+1}</span>
         </div>
-        <div class="rq-text">${q.text}</div>
-        ${!skip?`<div class="rq-ans" style="color:${q.isCorrect?'var(--green)':'var(--red)'};">Your answer: ${String.fromCharCode(65+q.chosen)}) ${q.options[q.chosen]}</div>`:'<div class="rq-ans" style="color:var(--orange);">Not answered</div>'}
-        ${!q.isCorrect?`<div class="rq-ans" style="color:var(--green);">Correct: ${String.fromCharCode(65+q.correct)}) ${q.options[q.correct]}</div>`:''}
+        <div class="rq-q">${q.text}</div>
+        ${!skip?`<div class="rq-a" style="color:${q.isCorrect?'var(--green)':'var(--red)'};">Your answer: ${String.fromCharCode(65+q.chosen)}) ${q.options[q.chosen]}</div>`:'<div class="rq-a" style="color:var(--orange);">Not answered</div>'}
+        ${!q.isCorrect?`<div class="rq-a" style="color:var(--green);">Correct: ${String.fromCharCode(65+q.correct)}) ${q.options[q.correct]}</div>`:''}
+        ${q.explanation?`<div class="rq-exp">💡 ${q.explanation}</div>`:''}
       </div>`;
-    }).join('')}`;
+    }).join('');
+  area.scrollIntoView({behavior:'smooth'});
+}
+function goHome(){
+  show('welcome-screen');
+  document.getElementById('exam-code-input').value='';
+  document.getElementById('code-err').textContent='';
+  activeExam=null; activeQuestions=[]; answers={}; violations=0; submitted=false;
+  clearInterval(timerInterval);
 }
 
-function scrollToReview(){document.getElementById('review-section').scrollIntoView({behavior:'smooth'});}
-function retake(){
-  submitted=false; answers={}; violations=0; currentQ=0;
-  timeLeft=activeExam.time*60; startTime=new Date();
-  document.getElementById('vbar').style.display='none';
-  buildNavDots(); renderQ(0); show('exam-screen'); startTimer(); window.scrollTo({top:0});
-}
-function downloadResult(){
-  if(!resultData) return;
-  const a=document.createElement('a');
-  a.href=URL.createObjectURL(new Blob([JSON.stringify(resultData,null,2)],{type:'application/json'}));
-  a.download=`result_${resultData.studentName.replace(/\s+/g,'_').toLowerCase()}_${resultData.examTitle.replace(/\s+/g,'_').toLowerCase().slice(0,15)}.json`;
-  a.click();
-}
-
-// ══════════════════════════════════════════════
+// ════════════════════════════════════════════════
 //  NOTIFICATIONS
-// ══════════════════════════════════════════════
-async function sendNotif(eventType,textMsg){
+// ════════════════════════════════════════════════
+async function sendNotif(type,msg){
   try{
     const s=JSON.parse(localStorage.getItem('notif_settings')||'{}');
-    if(eventType==='CHEAT'&&!s.notifCheat) return;
-    if(eventType==='SUBMIT'&&!s.notifSubmit) return;
+    if(type==='CHEAT'&&!s.notifCheat) return;
+    if(type==='SUBMIT'&&!s.notifSubmit) return;
+    if(s.waPhone&&s.waApiKey){
+      const p=s.waPhone.replace(/[^0-9]/g,'');
+      fetch(`https://api.callmebot.com/whatsapp.php?phone=${p}&text=${encodeURIComponent(msg.substring(0,400))}&apikey=${s.waApiKey}`).catch(()=>{});
+    }
     if(s.tgToken&&s.tgChatId){
-      fetch(`https://api.telegram.org/bot${s.tgToken}/sendMessage`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:s.tgChatId,text:textMsg})}).catch(()=>{});
+      fetch(`https://api.telegram.org/bot${s.tgToken}/sendMessage`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:s.tgChatId,text:msg})}).catch(()=>{});
     }
     if(s.ejPubKey&&s.ejService&&s.ejTemplate){
-      fetch('https://api.emailjs.com/api/v1.0/email/send',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({service_id:s.ejService,template_id:s.ejTemplate,user_id:s.ejPubKey,template_params:{student_name:studentName,exam_title:activeExam?.title||'',event_type:eventType,message:textMsg,to_email:s.ejEmail||'hajackson2020@gmail.com'}})}).catch(()=>{});
+      fetch('https://api.emailjs.com/api/v1.0/email/send',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({service_id:s.ejService,template_id:s.ejTemplate,user_id:s.ejPubKey,template_params:{student_name:studentName,exam_title:resultData?.examTitle||'Quiz',event_type:type,message:msg,to_email:s.ejEmail||'hajackson2020@gmail.com'}})}).catch(()=>{});
     }
   }catch(e){}
 }
 
-// ══════════════════════════════════════════════
-//  HELPERS
-// ══════════════════════════════════════════════
-function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+// ════════════════════════════════════════════════
+//  UTILITIES
+// ════════════════════════════════════════════════
+function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo({top:0});}
 
-// Save bin ID if passed via URL (for easy sharing)
-(()=>{
-  const p=new URLSearchParams(window.location.search);
-  if(p.get('bin')) localStorage.setItem('jb_bin_id',p.get('bin'));
-})();
+// Auto-load exam code from student-hub session storage
+window.addEventListener('load',()=>{
+  const code=sessionStorage.getItem('exam_code_to_load');
+  if(code){sessionStorage.removeItem('exam_code_to_load');document.getElementById('exam-code-input').value=code;}
+});
 </script>
 </body>
 </html>
