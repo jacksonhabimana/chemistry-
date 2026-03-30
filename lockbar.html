@@ -1,0 +1,401 @@
+<!--
+  ================================================================
+  LOCK BAR COMPONENT — jacksonhabimana.github.io
+  ================================================================
+  HOW IT WORKS:
+  - Teacher sees full lock/unlock controls (after entering teacher code)
+  - Students only see the locked overlay if section is locked
+  - Lock state saved to JSONBin → shared across ALL devices in real time
+
+  SETUP (do once):
+  1. Create a new bin on https://jsonbin.io with this content:
+       { "locked": false }
+     Copy the Bin ID and your API Key below.
+
+  2. Replace these two values:
+       JSONBIN_BIN_ID  → your bin ID
+       JSONBIN_API_KEY → your JSONBin API key
+
+  3. Replace TEACHER_CODE with your actual teacher access code.
+
+  4. Paste the full block anywhere inside <body> on any page.
+     The #lockable-section div is the content you want to lock —
+     replace its contents with your actual lesson/exam content.
+  ================================================================
+-->
+
+<!-- ── CONFIG — edit these three values ── -->
+<script>
+  const LOCKBAR_CONFIG = {
+    JSONBIN_BIN_ID:  'YOUR_BIN_ID_HERE',
+    JSONBIN_API_KEY: 'YOUR_API_KEY_HERE',
+    TEACHER_CODE:    'YOUR_TEACHER_CODE_HERE',
+    POLL_INTERVAL:   8000  // students check for state changes every 8 seconds
+  };
+</script>
+
+<!-- ── STYLES ── -->
+<style>
+  /* ── lock bar panel (teacher only) ── */
+  #lockbar-panel {
+    display: none;
+    background: #0d1117;
+    border: 1px solid #2dd4bf44;
+    border-radius: 12px;
+    padding: 1.2rem 1.4rem;
+    margin-bottom: 1.2rem;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    position: relative;
+  }
+  #lockbar-panel::before {
+    content: 'Teacher control';
+    position: absolute;
+    top: -10px;
+    left: 16px;
+    background: #0d1117;
+    padding: 0 8px;
+    font-size: 11px;
+    color: #2dd4bf;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .lb-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
+  .lb-status {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 13px; font-weight: 600;
+    padding: 4px 12px; border-radius: 6px;
+  }
+  .lb-status.locked   { background: #3a1212; color: #f87171; border: 1px solid #f8717144; }
+  .lb-status.unlocked { background: #0d2e1f; color: #34d399; border: 1px solid #34d39944; }
+  .lb-btn {
+    padding: 6px 14px; border-radius: 7px; font-size: 13px;
+    font-weight: 600; cursor: pointer; transition: opacity 0.15s;
+    border: none;
+  }
+  .lb-btn:hover { opacity: 0.85; }
+  .lb-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .lb-btn.lock-btn   { background: #f87171; color: #1a0a0a; }
+  .lb-btn.unlock-btn { background: #34d399; color: #061a10; }
+  .lb-btn.set-btn    { background: #2dd4bf22; color: #2dd4bf; border: 1px solid #2dd4bf55; }
+  .lb-divider { border: none; border-top: 1px solid #2dd4bf22; margin: 12px 0; }
+  .lb-sub { font-size: 12px; color: #6b7280; margin-bottom: 8px; }
+  .lb-time-group { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .lb-time-label { font-size: 12px; color: #9ca3af; min-width: 68px; }
+  .lb-input {
+    font-size: 13px; padding: 5px 8px; border-radius: 6px;
+    border: 1px solid #2dd4bf33; background: #111827;
+    color: #e5e7eb;
+  }
+  .lb-badge {
+    font-size: 11px; padding: 2px 8px; border-radius: 5px;
+    background: #1e3a2a; color: #34d399; border: 1px solid #34d39933;
+    display: none;
+  }
+  .lb-progress-bar {
+    width: 100%; height: 6px; background: #1f2937;
+    border-radius: 3px; overflow: hidden; margin: 8px 0;
+  }
+  .lb-progress-fill {
+    height: 100%; border-radius: 3px;
+    background: #34d399; width: 0%;
+    transition: width 1s linear, background 0.3s;
+  }
+  .lb-timer-text { font-size: 12px; color: #9ca3af; }
+  .lb-sync { font-size: 11px; color: #4b5563; text-align: right; margin-top: 8px; }
+
+  /* ── lockable section wrapper ── */
+  #lockable-section {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: opacity 0.3s;
+  }
+
+  /* ── student lock overlay ── */
+  #lb-overlay {
+    display: none;
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 14, 20, 0.88);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border-radius: 10px;
+    border: 1.5px dashed #f8717166;
+    z-index: 10;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+  }
+  #lb-overlay .lb-lock-icon {
+    width: 44px; height: 44px;
+    background: #3a1212; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    border: 1.5px solid #f8717155;
+  }
+  #lb-overlay .lb-lock-icon svg { color: #f87171; }
+  #lb-overlay p {
+    margin: 0; font-size: 14px; font-weight: 600;
+    color: #f87171; font-family: 'Segoe UI', system-ui, sans-serif;
+  }
+  #lb-overlay small {
+    font-size: 12px; color: #9ca3af;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+  }
+</style>
+
+<!-- ── TEACHER LOCK BAR PANEL ── -->
+<div id="lockbar-panel">
+
+  <!-- Status + manual buttons -->
+  <div class="lb-row" style="justify-content: space-between;">
+    <span class="lb-status unlocked" id="lb-status-badge">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg>
+      Unlocked
+    </span>
+    <div style="display:flex; gap:8px;">
+      <button class="lb-btn lock-btn" id="lb-lock-btn" onclick="lbLockNow()">
+        🔒 Lock
+      </button>
+      <button class="lb-btn unlock-btn" id="lb-unlock-btn" onclick="lbUnlockNow()" disabled>
+        🔓 Unlock
+      </button>
+    </div>
+  </div>
+
+  <!-- Progress bar + timer label -->
+  <div class="lb-progress-bar"><div class="lb-progress-fill" id="lb-fill"></div></div>
+  <div class="lb-timer-text" id="lb-timer-text">No timer running</div>
+
+  <hr class="lb-divider">
+
+  <!-- Schedule lock/unlock by time -->
+  <div class="lb-sub">Schedule by time</div>
+  <div style="display:flex; flex-direction:column; gap:8px; margin-bottom:10px;">
+    <div class="lb-time-group">
+      <span class="lb-time-label">Lock at</span>
+      <input type="time" class="lb-input" id="lb-lock-time">
+      <button class="lb-btn set-btn" onclick="lbSetSchedule('lock')">Set</button>
+      <span class="lb-badge" id="lb-lock-badge"></span>
+    </div>
+    <div class="lb-time-group">
+      <span class="lb-time-label">Unlock at</span>
+      <input type="time" class="lb-input" id="lb-unlock-time">
+      <button class="lb-btn set-btn" onclick="lbSetSchedule('unlock')">Set</button>
+      <span class="lb-badge" id="lb-unlock-badge"></span>
+    </div>
+  </div>
+
+  <hr class="lb-divider">
+
+  <!-- Countdown timer -->
+  <div class="lb-sub">Lock for a duration then auto-unlock</div>
+  <div class="lb-time-group">
+    <span class="lb-time-label">Duration</span>
+    <input type="number" class="lb-input" id="lb-dur" min="1" max="300" value="60" style="width:64px;">
+    <span style="font-size:12px; color:#9ca3af;">minutes</span>
+    <button class="lb-btn set-btn" onclick="lbStartCountdown()">▶ Start</button>
+    <button class="lb-btn set-btn" onclick="lbStopCountdown()">■ Stop</button>
+  </div>
+
+  <div class="lb-sync" id="lb-sync-text">Syncing with cloud...</div>
+</div>
+
+
+<!-- ── LOCKABLE CONTENT SECTION ── -->
+<!-- Replace the contents of this div with your actual lesson/exam content -->
+<div id="lockable-section">
+
+  <!-- YOUR CONTENT GOES HERE — example below -->
+  <div style="background:#0d1f17; border:1px solid #2dd4bf33; border-radius:10px; padding:1.5rem; font-family:'Segoe UI',system-ui,sans-serif;">
+    <h3 style="color:#2dd4bf; margin:0 0 8px;">S4 Unit 9 – Group 14 Elements</h3>
+    <p style="color:#9ca3af; font-size:14px; line-height:1.7; margin:0;">
+      Carbon, Silicon, Germanium, Tin and Lead. This section contains notes,
+      SVG diagrams, exercises and quizzes. Replace this div with your real content.
+    </p>
+  </div>
+  <!-- END YOUR CONTENT -->
+
+  <!-- Lock overlay (shown to students when locked) -->
+  <div id="lb-overlay">
+    <div class="lb-lock-icon">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+    </div>
+    <p>This section is locked</p>
+    <small>Your teacher will unlock it when ready</small>
+  </div>
+</div>
+
+
+<!-- ── SCRIPT ── -->
+<script>
+(function(){
+  const CFG = LOCKBAR_CONFIG;
+  const API = 'https://api.jsonbin.io/v3/b/' + CFG.JSONBIN_BIN_ID;
+  const HEADERS_READ  = { 'X-Master-Key': CFG.JSONBIN_API_KEY };
+  const HEADERS_WRITE = { 'Content-Type': 'application/json', 'X-Master-Key': CFG.JSONBIN_API_KEY };
+
+  let isTeacher = false;
+  let isLocked  = false;
+  let cdInterval = null;
+  let cdEnd      = null;
+  let schLock    = null;
+  let schUnlock  = null;
+  let schTimer   = null;
+  let pollTimer  = null;
+
+  // ── check if teacher is logged in ──────────────────────────
+  function checkTeacher(){
+    const stored = sessionStorage.getItem('teacherCode') || localStorage.getItem('teacherCode') || '';
+    if(stored === CFG.TEACHER_CODE){
+      isTeacher = true;
+      document.getElementById('lockbar-panel').style.display = 'block';
+    }
+  }
+
+  // ── apply lock state to UI ──────────────────────────────────
+  function applyState(locked){
+    isLocked = locked;
+    const overlay = document.getElementById('lb-overlay');
+    const badge   = document.getElementById('lb-status-badge');
+    const lockBtn = document.getElementById('lb-lock-btn');
+    const unlockBtn = document.getElementById('lb-unlock-btn');
+
+    overlay.style.display = locked ? 'flex' : 'none';
+
+    if(isTeacher){
+      if(locked){
+        badge.className = 'lb-status locked';
+        badge.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Locked';
+        lockBtn.disabled = true;
+        unlockBtn.disabled = false;
+      } else {
+        badge.className = 'lb-status unlocked';
+        badge.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg> Unlocked';
+        lockBtn.disabled = false;
+        unlockBtn.disabled = true;
+      }
+    }
+  }
+
+  // ── sync state to JSONBin ───────────────────────────────────
+  async function pushState(locked){
+    try {
+      await fetch(API, {
+        method: 'PUT',
+        headers: HEADERS_WRITE,
+        body: JSON.stringify({ locked })
+      });
+      setSyncText('Saved to cloud ✓');
+    } catch(e){ setSyncText('Cloud sync failed'); }
+  }
+
+  // ── fetch state from JSONBin ────────────────────────────────
+  async function fetchState(){
+    try {
+      const res  = await fetch(API, { headers: HEADERS_READ });
+      const data = await res.json();
+      const locked = data.record?.locked ?? false;
+      applyState(locked);
+      setSyncText('Last synced ' + new Date().toLocaleTimeString());
+    } catch(e){ setSyncText('Could not reach cloud'); }
+  }
+
+  function setSyncText(t){ const el=document.getElementById('lb-sync-text'); if(el) el.textContent=t; }
+  function pad(n){ return String(n).padStart(2,'0'); }
+
+  // ── manual lock / unlock ───────────────────────────────────
+  window.lbLockNow = function(){
+    stopCountdown();
+    applyState(true);
+    pushState(true);
+    document.getElementById('lb-timer-text').textContent = 'Locked manually';
+    document.getElementById('lb-fill').style.width = '0%';
+  };
+  window.lbUnlockNow = function(){
+    stopCountdown();
+    applyState(false);
+    pushState(false);
+    document.getElementById('lb-timer-text').textContent = 'Unlocked manually';
+    document.getElementById('lb-fill').style.width = '0%';
+  };
+
+  // ── schedule by time ───────────────────────────────────────
+  window.lbSetSchedule = function(type){
+    const val = document.getElementById('lb-'+type+'-time').value;
+    if(!val) return;
+    const [h,m] = val.split(':').map(Number);
+    if(type==='lock'){
+      schLock = {h,m};
+      const b = document.getElementById('lb-lock-badge');
+      b.textContent = 'Set ' + pad(h)+':'+pad(m);
+      b.style.display = 'inline';
+    } else {
+      schUnlock = {h,m};
+      const b = document.getElementById('lb-unlock-badge');
+      b.textContent = 'Set ' + pad(h)+':'+pad(m);
+      b.style.display = 'inline';
+    }
+    if(!schTimer) schTimer = setInterval(checkSchedules, 10000);
+  };
+
+  function checkSchedules(){
+    const now = new Date(), h = now.getHours(), m = now.getMinutes();
+    if(schLock && schLock.h===h && schLock.m===m){
+      applyState(true); pushState(true);
+      document.getElementById('lb-timer-text').textContent = 'Auto-locked at scheduled time';
+      schLock = null; document.getElementById('lb-lock-badge').style.display='none';
+    }
+    if(schUnlock && schUnlock.h===h && schUnlock.m===m){
+      applyState(false); pushState(false);
+      document.getElementById('lb-timer-text').textContent = 'Auto-unlocked at scheduled time';
+      schUnlock = null; document.getElementById('lb-unlock-badge').style.display='none';
+    }
+  }
+
+  // ── countdown timer ────────────────────────────────────────
+  window.lbStartCountdown = function(){
+    stopCountdown();
+    const mins = parseInt(document.getElementById('lb-dur').value) || 60;
+    const totalMs = mins * 60000;
+    cdEnd = Date.now() + totalMs;
+    applyState(true);
+    pushState(true);
+    const fill = document.getElementById('lb-fill');
+    fill.style.background = '#f87171';
+    cdInterval = setInterval(()=>{
+      const rem = cdEnd - Date.now();
+      if(rem <= 0){
+        stopCountdown();
+        applyState(false); pushState(false);
+        document.getElementById('lb-timer-text').textContent = 'Timer ended — auto unlocked';
+        fill.style.width = '0%'; fill.style.background = '#34d399';
+        return;
+      }
+      const pct = Math.round((1 - rem/totalMs)*100);
+      fill.style.width = pct + '%';
+      const rmM = Math.floor(rem/60000), rmS = Math.floor((rem%60000)/1000);
+      document.getElementById('lb-timer-text').textContent = 'Locked — ' + rmM + 'm ' + pad(rmS) + 's remaining';
+    }, 1000);
+  };
+
+  window.lbStopCountdown = stopCountdown;
+  function stopCountdown(){
+    if(cdInterval){ clearInterval(cdInterval); cdInterval=null; }
+    cdEnd = null;
+    document.getElementById('lb-fill').style.width = '0%';
+    document.getElementById('lb-fill').style.background = '#34d399';
+  }
+
+  // ── polling (students get live updates) ───────────────────
+  function startPolling(){
+    pollTimer = setInterval(fetchState, CFG.POLL_INTERVAL);
+  }
+
+  // ── init ──────────────────────────────────────────────────
+  checkTeacher();
+  fetchState();
+  startPolling();
+
+})();
+</script>
