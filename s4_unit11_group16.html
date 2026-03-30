@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>S4 Chemistry – Unit 11: Group 16 Elements & Their Compounds | Jackson Habimana</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Serif+4:wght@300;400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+<style>
+:root{--bg:#0d1117;--surface:#161b22;--surface2:#1c2333;--border:#30363d;--accent:#fb923c;--gold:#e8c547;--green:#34d399;--red:#f87171;--blue:#38bdf8;--purple:#a78bfa;--text:#e6edf3;--muted:#8b949e;--radius:10px;}
+*{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Source Serif 4',Georgia,serif;font-size:17px;line-height:1.75;overflow-x:hidden;}
+nav{position:sticky;top:0;z-index:200;background:rgba(13,17,23,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+.nav-inner{max-width:1060px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:54px;padding:0 24px;}
+.nav-brand{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--accent);text-decoration:none;}
+.nav-links{display:flex;gap:4px;}
+.nav-links a{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);text-decoration:none;padding:4px 10px;border-radius:5px;border:1px solid transparent;transition:all .15s;}
+.nav-links a:hover{color:var(--accent);border-color:rgba(251,146,60,.3);}
+.hero{position:relative;padding:80px 40px 60px;text-align:center;overflow:hidden;background:radial-gradient(ellipse 80% 60% at 50% 0%,#1a0900 0%,var(--bg) 70%);border-bottom:1px solid var(--border);}
+.hero::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(251,146,60,.04) 40px),repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(251,146,60,.04) 40px);pointer-events:none;}
+.badge{display:inline-block;background:rgba(251,146,60,.12);border:1px solid rgba(251,146,60,.3);color:var(--accent);padding:4px 16px;border-radius:50px;font-size:.78rem;font-family:'JetBrains Mono',monospace;letter-spacing:.12em;text-transform:uppercase;margin-bottom:22px;}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.4rem);line-height:1.15;color:#fff;max-width:820px;margin:0 auto 18px;}
+.hero h1 em{color:var(--accent);font-style:italic;}
+.hero p.sub{color:var(--muted);font-size:1rem;max-width:640px;margin:0 auto 32px;}
+.toc-grid{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:860px;margin:0 auto;}
+.toc-grid a{background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:8px 18px;border-radius:50px;text-decoration:none;font-size:.85rem;transition:all .2s;font-family:'JetBrains Mono',monospace;}
+.toc-grid a:hover{background:var(--accent);color:#000;border-color:var(--accent);}
+.page{max-width:960px;margin:0 auto;padding:0 28px 80px;}
+.section-header{display:flex;align-items:center;gap:16px;margin:64px 0 28px;padding-bottom:14px;border-bottom:2px solid var(--border);}
+.section-number{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--accent);background:rgba(251,146,60,.1);border:1px solid rgba(251,146,60,.25);padding:4px 12px;border-radius:4px;white-space:nowrap;}
+.section-header h2{font-family:'Playfair Display',serif;font-size:1.75rem;color:#fff;}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:26px 30px;margin-bottom:22px;}
+.card h3{font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--gold);margin-bottom:14px;}
+.card p+p{margin-top:12px;}
+.def-box{border-left:4px solid var(--accent);background:rgba(251,146,60,.07);border-radius:0 var(--radius) var(--radius) 0;padding:18px 22px;margin:20px 0;}
+.def-box strong{color:var(--accent);display:block;font-size:.78rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;}
+.callout{border-radius:var(--radius);padding:18px 22px;margin:20px 0;display:flex;gap:14px;align-items:flex-start;}
+.callout.info{background:rgba(251,146,60,.08);border:1px solid rgba(251,146,60,.25);}
+.callout.warn{background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.25);}
+.callout.tip{background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.25);}
+.callout.mem{background:rgba(232,197,71,.08);border:1px solid rgba(232,197,71,.25);}
+.callout-icon{font-size:1.3rem;margin-top:2px;flex-shrink:0;}
+.callout-body strong{display:block;margin-bottom:4px;font-size:.9rem;color:#fff;}
+.tbl-wrap{overflow-x:auto;margin:20px 0;border-radius:var(--radius);border:1px solid var(--border);}
+table{width:100%;border-collapse:collapse;}
+thead tr{background:var(--surface2);}
+th{padding:13px 16px;text-align:left;font-size:.82rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);white-space:nowrap;}
+td{padding:12px 16px;border-top:1px solid var(--border);font-size:.9rem;line-height:1.6;}
+tr:hover td{background:rgba(255,255,255,.02);}
+.formula-block{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:18px 24px;margin:16px 0;font-family:'JetBrains Mono',monospace;font-size:.92rem;color:var(--accent);overflow-x:auto;line-height:2.1;}
+h3.sub{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--gold);margin:28px 0 10px;}
+.diagram-box{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin:22px 0;text-align:center;}
+.diagram-box figcaption{font-family:'JetBrains Mono',monospace;font-size:.74rem;color:var(--muted);margin-top:12px;letter-spacing:.05em;}
+.example-box{border:1px solid rgba(251,146,60,.3);border-radius:var(--radius);overflow:hidden;margin:22px 0;}
+.example-box .ex-head{background:rgba(251,146,60,.12);padding:12px 20px;font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--accent);text-transform:uppercase;letter-spacing:.1em;}
+.example-box .ex-body{padding:20px 24px;}
+.example-box .ex-body p+p{margin-top:10px;}
+.step{display:flex;gap:14px;margin-bottom:10px;align-items:flex-start;}
+.step-num{width:28px;height:28px;background:var(--accent);color:#000;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:.78rem;font-weight:700;flex-shrink:0;margin-top:4px;}
+.exercise-list{list-style:none;counter-reset:ex;}
+.exercise-list li{counter-increment:ex;margin-bottom:18px;padding:18px 22px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);}
+.exercise-list li::before{content:'Q' counter(ex) '.';font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--accent);display:block;margin-bottom:8px;}
+.reveal-btn{margin-top:10px;background:rgba(251,146,60,.1);border:1px solid rgba(251,146,60,.3);color:var(--accent);padding:6px 18px;border-radius:6px;cursor:pointer;font-size:.82rem;font-family:'JetBrains Mono',monospace;transition:all .2s;}
+.reveal-btn:hover{background:var(--accent);color:#000;}
+.answer{display:none;margin-top:12px;padding:14px 18px;background:rgba(251,146,60,.06);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-size:.9rem;line-height:1.7;}
+.answer.open{display:block;}
+.quiz-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-top:28px;}
+.quiz-head{padding:22px 28px;background:var(--surface2);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+.quiz-head h3{font-family:'Playfair Display',serif;font-size:1.1rem;color:#fff;}
+.quiz-body{padding:24px 28px;}
+.qblock{margin-bottom:28px;padding-bottom:28px;border-bottom:1px solid var(--border);}
+.qblock:last-child{border-bottom:none;}
+.qnum{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--accent);background:rgba(251,146,60,.1);border:1px solid rgba(251,146,60,.2);padding:3px 10px;border-radius:4px;display:inline-block;margin-bottom:10px;}
+.qtext{font-size:1rem;color:#fff;margin-bottom:14px;line-height:1.7;}
+.opts label{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;margin-bottom:8px;border-radius:8px;border:1px solid var(--border);cursor:pointer;transition:all .15s;font-size:.93rem;}
+.opts label:hover{border-color:var(--accent);background:rgba(251,146,60,.04);}
+.opts label.correct{background:rgba(52,211,153,.12);border-color:var(--green);color:var(--green);}
+.opts label.wrong{background:rgba(248,113,113,.08);border-color:var(--red);color:var(--red);}
+.opts input[type=radio]{margin-top:3px;accent-color:var(--accent);flex-shrink:0;}
+.qexplain{display:none;margin-top:12px;padding:12px 16px;background:rgba(251,146,60,.07);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-size:.88rem;line-height:1.7;}
+.qs{display:block;margin:24px auto 0;background:var(--accent);color:#000;border:none;padding:12px 40px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.88rem;font-weight:700;cursor:pointer;transition:opacity .2s;}
+.qs:hover{opacity:.85;}
+#qR{display:none;margin-top:16px;border-radius:8px;padding:14px 18px;font-family:'JetBrains Mono',monospace;font-size:.88rem;text-align:center;}
+.test-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:22px;overflow:hidden;}
+.test-sec-head{background:var(--surface2);padding:16px 24px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);}
+.test-sec-head h3{font-family:'JetBrains Mono',monospace;font-size:.85rem;color:#fff;text-transform:uppercase;letter-spacing:.08em;}
+.marks-badge{font-family:'JetBrains Mono',monospace;font-size:.75rem;background:rgba(232,197,71,.15);border:1px solid rgba(232,197,71,.3);color:var(--gold);padding:3px 12px;border-radius:50px;}
+.tq{padding:18px 24px;border-bottom:1px solid var(--border);}
+.tq:last-child{border-bottom:none;}
+.tq-num{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--accent);margin-bottom:6px;}
+.unit-nav{display:flex;justify-content:space-between;gap:16px;margin-top:60px;padding-top:28px;border-top:1px solid var(--border);flex-wrap:wrap;}
+.unit-nav a{display:inline-flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--muted);text-decoration:none;padding:10px 18px;border:1px solid var(--border);border-radius:8px;transition:all .2s;}
+.unit-nav a:hover{color:var(--accent);border-color:rgba(251,146,60,.3);}
+footer{border-top:1px solid var(--border);padding:28px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--muted);}
+footer a{color:var(--accent);text-decoration:none;}
+@media(max-width:640px){.hero{padding:60px 24px 40px;}.page{padding:0 16px 60px;}.quiz-body{padding:16px;}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a class="nav-brand" href="index.html">⚗ Jackson Habimana</a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="s4-chemistry.html">S4</a>
+      <a href="s5-chemistry.html">S5</a>
+      <a href="s6-chemistry.html">S6</a>
+      <a href="student-hub.html">Assessments</a>
+    </div>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="badge">S4 Chemistry · Unit 11</div>
+  <h1>Group 16 Elements<br>and Their <em>Compounds</em></h1>
+  <p class="sub">Oxygen & ozone · Sulfur allotropes · SO₂ and SO₃ · The Contact Process · Sulfuric acid · Hydrogen sulfide · Hydrides comparison · Ion tests</p>
+  <div class="toc-grid">
+    <a href="#s111">11.1 Physical Properties</a>
+    <a href="#s112">11.2 Oxygen</a>
+    <a href="#s113">11.3 Sulfur</a>
+    <a href="#s114">11.4 Oxides of Sulfur</a>
+    <a href="#s115">11.5 Contact Process</a>
+    <a href="#s116">11.6 Sulfuric Acid</a>
+    <a href="#s117">11.7 Hydrides</a>
+    <a href="#s118">11.8 Trends & Ion Tests</a>
+    <a href="#exercises">Exercises</a>
+    <a href="#quiz">Quiz</a>
+    <a href="#test">Unit Test</a>
+  </div>
+</div>
+
+<main class="page">
+
+<!-- ═══ 11.1 ═══ -->
+<div class="section-header" id="s111">
+  <span class="section-number">11.1</span>
+  <h2>Physical Properties of Group 16 Elements</h2>
+</div>
+
+<div class="card">
+  <h3>Overview of Group 16 (Chalcogens)</h3>
+  <p>Group 16 elements: <strong>Oxygen (O), Sulfur (S), Selenium (Se), Tellurium (Te), Polonium (Po)</strong>. All have outer electron configuration <strong style="font-family:'JetBrains Mono',monospace;color:var(--accent);">ns²np⁴</strong> — 6 valence electrons, 2 unpaired p electrons available for bonding.</p>
+</div>
+
+<div class="tbl-wrap"><table>
+  <thead><tr><th>Element</th><th>Z</th><th>Config</th><th>State</th><th>M.p. (°C)</th><th>Character</th><th>Common OS</th></tr></thead>
+  <tbody>
+    <tr><td>Oxygen (O)</td><td>8</td><td>[He]2s²2p⁴</td><td>Gas (O₂)</td><td>−218</td><td>Non-metal</td><td>−2, −1, 0</td></tr>
+    <tr><td>Sulfur (S)</td><td>16</td><td>[Ne]3s²3p⁴</td><td>Solid (yellow)</td><td>113 (rhombic)</td><td>Non-metal</td><td>−2, 0, +4, +6</td></tr>
+    <tr><td>Selenium (Se)</td><td>34</td><td>[Ar]3d¹⁰4s²4p⁴</td><td>Solid (grey/red)</td><td>221</td><td>Metalloid</td><td>−2, +4, +6</td></tr>
+    <tr><td>Tellurium (Te)</td><td>52</td><td>[Kr]4d¹⁰5s²5p⁴</td><td>Solid (silvery)</td><td>450</td><td>Metalloid</td><td>−2, +4, +6</td></tr>
+    <tr><td>Polonium (Po)</td><td>84</td><td>[Xe]4f¹⁴5d¹⁰6s²6p⁴</td><td>Solid</td><td>254</td><td>Metal (radioactive)</td><td>+2, +4</td></tr>
+  </tbody>
+</table></div>
+
+<div class="card">
+  <h3>Key Trends Down Group 16</h3>
+  <ul style="margin:0 0 0 22px;line-height:2.3;">
+    <li><strong>Atomic radius</strong> — increases down group</li>
+    <li><strong>Ionisation energy</strong> — decreases</li>
+    <li><strong>Electronegativity</strong> — decreases: O (3.5) > S (2.5) > Se (2.4) > Te (2.1)</li>
+    <li><strong>Metallic character</strong> — increases (O = non-metal; Po = metal)</li>
+    <li><strong>Oxidising power</strong> — decreases: O₂ >> S > Se > Te</li>
+    <li><strong>Hydride boiling point</strong> — H₂O anomalously high (strong H-bonds); H₂S → H₂Te increases with van der Waals forces</li>
+    <li><strong>Oxide acidity</strong> — sulfur forms acidic oxides (SO₂, SO₃); tellurium oxides are amphoteric</li>
+  </ul>
+</div>
+
+<div class="callout info">
+  <span class="callout-icon">💡</span>
+  <div class="callout-body">
+    <strong>Oxygen's unique properties</strong>
+    Oxygen is uniquely electronegative in this group (3.5 — second only to F at 4.0). Unlike sulfur, oxygen cannot expand its octet (no accessible d orbitals in Period 2). Oxygen forms very strong O=O and C=O double bonds; sulfur prefers single bonds in ring/chain structures. This is why O₂ is a gas (simple diatomic molecule) but S exists as S₈ rings (larger, weaker S–S bonds, so a solid at room temperature).
+  </div>
+</div>
+
+<!-- ═══ 11.2 OXYGEN ═══ -->
+<div class="section-header" id="s112">
+  <span class="section-number">11.2</span>
+  <h2>Oxygen and Ozone</h2>
+</div>
+
+<div class="card">
+  <h3>Dioxygen (O₂)</h3>
+  <p>Oxygen occurs as <strong>O₂</strong> — a colourless, odourless gas. It makes up <strong>21%</strong> of the atmosphere. It is paramagnetic (two unpaired electrons in its molecular orbitals — best explained by MO theory). O₂ is the most abundant element on Earth's crust (by mass) when combined with other elements.</p>
+  <p><strong>Industrial production:</strong> Fractional distillation of liquid air. Oxygen condenses at −183°C; nitrogen at −196°C — separated by fractional distillation. Oxygen is used in steelmaking (basic oxygen furnace), medical applications, and combustion.</p>
+  <p><strong>Laboratory preparation:</strong></p>
+  <div class="formula-block">2H₂O₂ → 2H₂O + O₂     (MnO₂ catalyst — decomposition of hydrogen peroxide)
+2KMnO₄ → K₂MnO₄ + MnO₂ + O₂   (thermal decomposition on heating)
+2KClO₃ → 2KCl + 3O₂            (MnO₂ catalyst, heated)</div>
+  <p><strong>Test for oxygen:</strong> A <strong>glowing splint rekindles</strong> (reignites) in the presence of oxygen — oxygen supports combustion.</p>
+</div>
+
+<div class="card">
+  <h3>Reactions of Oxygen</h3>
+  <div class="formula-block">With metals:        2Mg + O₂ → 2MgO          (brilliant white flame)
+                    4Fe + 3O₂ → 2Fe₂O₃       (slow rusting; 3Fe + 2O₂ → Fe₃O₄ in furnace)
+                    2Cu + O₂ → 2CuO           (black oxide on heating)
+With non-metals:   S + O₂ → SO₂              (blue flame)
+                   C + O₂ → CO₂              (excess O₂) / 2C + O₂ → 2CO (limited O₂)
+                   N₂ + O₂ → 2NO             (lightning, very high T)
+                   4P + 5O₂ → P₄O₁₀          (excess oxygen)
+With compounds:    2SO₂ + O₂ ⇌ 2SO₃         (Contact process — V₂O₅, 450°C)
+                   CH₄ + 2O₂ → CO₂ + 2H₂O   (combustion)</div>
+</div>
+
+<div class="card">
+  <h3>Ozone (O₃) — the Allotrope of Oxygen</h3>
+  <p>Ozone is the second allotrope of oxygen. Structure: bent/angular molecule, bond angle = <strong>117°</strong>, bond order = 1.5 (resonance between two structures). O₃ is formed from O₂ by UV radiation in the upper atmosphere:</p>
+  <div class="formula-block">O₂ + UV → 2O•          (homolytic fission — radicals)
+O• + O₂ → O₃           (ozone formation)
+O₃ + UV → O₂ + O•      (ozone destruction — equilibrium maintained)
+
+Net: stratospheric ozone absorbs UV-B and UV-C radiation, protecting life on Earth.</div>
+  <div class="diagram-box">
+    <svg viewBox="0 0 380 160" xmlns="http://www.w3.org/2000/svg" width="100%" style="max-width:380px;">
+      <!-- O3 structure -->
+      <circle cx="190" cy="80" r="22" fill="#1c2333" stroke="#fb923c" stroke-width="2"/>
+      <text x="190" y="86" text-anchor="middle" font-family="JetBrains Mono" font-size="16" fill="#fb923c">O</text>
+      <circle cx="100" cy="130" r="20" fill="#1c2333" stroke="#fb923c" stroke-width="1.8"/>
+      <text x="100" y="136" text-anchor="middle" font-family="JetBrains Mono" font-size="15" fill="#fb923c">O</text>
+      <circle cx="280" cy="130" r="20" fill="#1c2333" stroke="#fb923c" stroke-width="1.8"/>
+      <text x="280" y="136" text-anchor="middle" font-family="JetBrains Mono" font-size="15" fill="#fb923c">O</text>
+      <!-- Bonds (1.5 order — one dashed) -->
+      <line x1="172" y1="95" x2="117" y2="115" stroke="#fb923c" stroke-width="2.5"/>
+      <line x1="208" y1="95" x2="263" y2="115" stroke="#fb923c" stroke-width="2.5" stroke-dasharray="4,3"/>
+      <!-- Lone pair -->
+      <ellipse cx="190" cy="50" rx="12" ry="6" fill="rgba(52,211,153,0.3)" stroke="#34d399" stroke-width="1.5"/>
+      <!-- Angle label -->
+      <text x="172" y="108" font-family="JetBrains Mono" font-size="11" fill="#e8c547">117°</text>
+      <!-- Labels -->
+      <text x="20" y="20" font-family="JetBrains Mono" font-size="11" fill="#8b949e">Ozone O₃: bent, 117°</text>
+      <text x="20" y="35" font-family="JetBrains Mono" font-size="11" fill="#8b949e">Bond order = 1.5 (resonance)</text>
+      <text x="20" y="50" font-family="JetBrains Mono" font-size="11" fill="#34d399">lone pair on central O</text>
+    </svg>
+    <figcaption>O₃ OZONE: bent molecule, bond angle 117°, resonance structures, bond order 1.5</figcaption>
+  </div>
+  <p><strong>Properties of O₃:</strong></p>
+  <ul style="margin:8px 0 0 20px;line-height:2.2;">
+    <li>Pale blue gas with distinctive sharp smell</li>
+    <li>Much stronger oxidising agent than O₂ — used to sterilise water and bleach</li>
+    <li>Decomposes to O₂: 2O₃ → 3O₂</li>
+    <li>Reacts with alkenes via ozonolysis: C=C + O₃ → carbonyl compounds</li>
+    <li>Test for ozone: turns moist starch–iodide paper blue (stronger oxidant than O₂)</li>
+    <li><strong>Ozone layer depletion:</strong> CFCs release Cl• radicals in the stratosphere → Cl• + O₃ → ClO• + O₂; ClO• + O• → Cl• + O₂ (catalytic cycle — each Cl• destroys thousands of O₃ molecules)</li>
+  </ul>
+</div>
+
+<!-- ═══ 11.3 SULFUR ═══ -->
+<div class="section-header" id="s113">
+  <span class="section-number">11.3</span>
+  <h2>Sulfur — Allotropes and Properties</h2>
+</div>
+
+<div class="card">
+  <h3>Allotropes of Sulfur</h3>
+  <p>Sulfur exists in several allotropic forms. The two most important are <strong>rhombic (α) sulfur</strong> and <strong>monoclinic (β) sulfur</strong>, both consisting of <strong>S₈ rings</strong> (crown-shaped cyclic molecules) but with different crystal packing.</p>
+  <div class="tbl-wrap" style="margin:0;"><table>
+    <thead><tr><th>Property</th><th>Rhombic Sulfur (α)</th><th>Monoclinic Sulfur (β)</th><th>Plastic Sulfur</th></tr></thead>
+    <tbody>
+      <tr><td>Structure</td><td>S₈ rings, orthorhombic crystal</td><td>S₈ rings, monoclinic crystal</td><td>Amorphous chains (Sₙ)</td></tr>
+      <tr><td>Colour</td><td>Pale yellow</td><td>Amber/darker yellow</td><td>Brown, rubbery</td></tr>
+      <tr><td>Stable temp.</td><td>Below 96°C</td><td>96–119°C (m.p.)</td><td>Above 160°C → reverses on cooling</td></tr>
+      <tr><td>M.p.</td><td>113°C</td><td>119°C</td><td>—</td></tr>
+      <tr><td>Solubility</td><td>Soluble in CS₂</td><td>Soluble in CS₂</td><td>Insoluble in CS₂</td></tr>
+    </tbody>
+  </table></div>
+  <p style="margin-top:14px;"><strong>Transition temperature:</strong> 96°C — below this, rhombic is the stable form; above this (up to m.p. 119°C), monoclinic is stable. Above ~160°C, the S₈ rings break open → long chain polymers → dark viscous plastic sulfur. Rapid cooling of molten sulfur gives plastic sulfur (metastable).</p>
+</div>
+
+<div class="card">
+  <h3>Reactions of Sulfur</h3>
+  <div class="formula-block">With oxygen:         S + O₂ → SO₂              (blue flame — sulfur burning)
+With metals:         Fe + S → FeS              (iron(II) sulfide — grey solid)
+                     2Cu + S → Cu₂S            (copper(I) sulfide)
+                     Hg + S → HgS              (used to detoxify mercury spills)
+With non-metals:     S + Cl₂ → SCl₂            (disulfur dichloride at excess Cl₂)
+                     S + H₂ ⇌ H₂S             (equilibrium — incomplete, high T)
+With alkali:         S + 2NaOH → Na₂S + H₂O   (hot conc. — comproportionation)
+                     3S + 6NaOH → 2Na₂S + Na₂SO₃ + 3H₂O</div>
+  <p>Sulfur is a good <strong>oxidising agent</strong> in reactions with metals and hydrogen, but can also act as a reducing agent in reactions with fluorine and oxygen.</p>
+</div>
+
+<!-- ═══ 11.4 OXIDES OF SULFUR ═══ -->
+<div class="section-header" id="s114">
+  <span class="section-number">11.4</span>
+  <h2>Oxides of Sulfur: SO₂ and SO₃</h2>
+</div>
+
+<div class="card">
+  <h3>Sulfur Dioxide (SO₂) — Sulfur in +4 Oxidation State</h3>
+  <p>SO₂ is a <strong>bent molecule</strong> with bond angle ~119°. It has resonance structures (like O₃); both S–O bonds are equivalent with bond order ~1.5. SO₂ has a lone pair on S.</p>
+  <div class="diagram-box">
+    <svg viewBox="0 0 380 150" xmlns="http://www.w3.org/2000/svg" width="100%" style="max-width:380px;">
+      <circle cx="190" cy="70" r="24" fill="#1c2333" stroke="#fb923c" stroke-width="2"/>
+      <text x="190" y="77" text-anchor="middle" font-family="JetBrains Mono" font-size="16" fill="#fb923c">S</text>
+      <circle cx="95" cy="120" r="20" fill="#1c2333" stroke="#fb923c" stroke-width="1.8"/>
+      <text x="95" y="126" text-anchor="middle" font-family="JetBrains Mono" font-size="15" fill="#fb923c">O</text>
+      <circle cx="285" cy="120" r="20" fill="#1c2333" stroke="#fb923c" stroke-width="1.8"/>
+      <text x="285" y="126" text-anchor="middle" font-family="JetBrains Mono" font-size="15" fill="#fb923c">O</text>
+      <line x1="172" y1="85" x2="112" y2="105" stroke="#fb923c" stroke-width="2.5"/>
+      <line x1="208" y1="85" x2="268" y2="105" stroke="#fb923c" stroke-width="2.5" stroke-dasharray="4,3"/>
+      <ellipse cx="190" cy="40" rx="13" ry="6" fill="rgba(52,211,153,.3)" stroke="#34d399" stroke-width="1.5"/>
+      <text x="175" y="100" font-family="JetBrains Mono" font-size="11" fill="#e8c547">119°</text>
+      <text x="15" y="20" font-family="JetBrains Mono" font-size="11" fill="#8b949e">SO₂: bent, bond order 1.5</text>
+      <text x="15" y="35" font-family="JetBrains Mono" font-size="11" fill="#8b949e">S in +4 oxidation state</text>
+    </svg>
+    <figcaption>SO₂: bent molecule, 119° bond angle, resonance, lone pair on S</figcaption>
+  </div>
+  <p><strong>Production of SO₂:</strong></p>
+  <div class="formula-block">S + O₂ → SO₂                   (burning sulfur)
+4FeS₂ + 11O₂ → 2Fe₂O₃ + 8SO₂  (roasting pyrite — major industrial source)
+Cu + 2H₂SO₄(conc.) → CuSO₄ + SO₂ + 2H₂O  (hot conc. H₂SO₄ + Cu)</div>
+  <p><strong>Properties and reactions of SO₂:</strong></p>
+  <div class="formula-block">Acidic oxide:  SO₂ + H₂O ⇌ H₂SO₃           (sulfurous acid — weak diprotic acid)
+               SO₂ + 2NaOH → Na₂SO₃ + H₂O  (excess NaOH)
+               SO₂ + NaOH → NaHSO₃         (limited NaOH)
+Reducing agent: SO₂ + Cl₂ + 2H₂O → H₂SO₄ + 2HCl  (SO₂ reduces Cl₂? No — Cl₂ oxidises SO₂)
+               2SO₂ + O₂ → 2SO₃           (→ used in Contact process)
+               SO₂ + 2H₂S → 3S + 2H₂O    (Claus process — makes elemental S)
+Bleaching:     SO₂ + H₂O + coloured matter → colourless (temporary bleaching via reduction)</div>
+  <div class="callout warn">
+    <span class="callout-icon">⚠️</span>
+    <div class="callout-body">
+      <strong>SO₂ — Environmental Significance</strong>
+      SO₂ from burning fossil fuels (especially coal with sulfur impurities) and metal smelting dissolves in rainwater → H₂SO₃/H₂SO₄ → <strong>acid rain</strong> (pH 4–5). Acid rain corrodes buildings (limestone: CaCO₃ + H₂SO₄ → CaSO₄ + H₂O + CO₂), kills aquatic life (fish cannot survive below pH ~5), and damages forests. Controls: desulfurisation of fuels, scrubbing flue gases with Ca(OH)₂ (CaO + SO₂ → CaSO₃).
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <h3>Sulfur Trioxide (SO₃) — Sulfur in +6 Oxidation State</h3>
+  <p>SO₃ is a <strong>planar trigonal molecule</strong> — sulfur uses sp² hybridisation with 3 S–O bonds (each with some double bond character via 3d–2p π bonding). Bond angle = 120°. It is the acid anhydride of sulfuric acid.</p>
+  <div class="formula-block">SO₃ + H₂O → H₂SO₄          (direct — very exothermic; forms acid mist)
+SO₃ + H₂SO₄ → H₂S₂O₇       (oleum/fuming sulfuric acid — better absorption)
+H��S₂O₇ + H₂O → 2H₂SO₄      (then add water to oleum carefully)</div>
+  <p>SO₃ reacts violently with water — produces an acid mist that is hard to handle. This is why SO₃ is first absorbed in concentrated H₂SO₄ to form oleum.</p>
+</div>
+
+<!-- ═══ 11.5 CONTACT PROCESS ═══ -->
+<div class="section-header" id="s115">
+  <span class="section-number">11.5</span>
+  <h2>The Contact Process — Manufacture of H₂SO₄</h2>
+</div>
+
+<div class="card">
+  <h3>The Four Stages of the Contact Process</h3>
+  <p>The Contact Process manufactures sulfuric acid from sulfur (or pyrite). The name comes from the reactants "coming into contact" on the catalyst surface.</p>
+  <div class="formula-block">Stage 1: S + O₂ → SO₂              (burning sulfur or roasting pyrite)
+          4FeS₂ + 11O₂ → 2Fe₂O₃ + 8SO₂
+
+Stage 2: SO₂ + ½O₂ ⇌ SO₃             (key equilibrium step)
+          ΔH = −197 kJ mol⁻¹  (exothermic)
+          Conditions: V₂O₅ catalyst, 450°C, 1–2 atm, ~99.5% conversion
+
+Stage 3: SO₃ + H₂SO₄ → H₂S₂O₇      (SO₃ absorbed in conc. H₂SO₄ → oleum)
+
+Stage 4: H₂S₂O₇ + H₂O → 2H₂SO₄     (careful dilution of oleum)</div>
+
+  <div class="callout warn">
+    <span class="callout-icon">⚠️</span>
+    <div class="callout-body">
+      <strong>Why absorb SO₃ in H₂SO₄ (Stage 3) instead of water directly?</strong>
+      SO₃ + H₂O → H₂SO₄ is highly exothermic and produces an unmanageable acid mist (tiny H₂SO₄ droplets). It is much safer and more efficient to absorb SO₃ in <strong>concentrated H₂SO₄</strong> to make <strong>oleum (H₂S₂O₇)</strong>, then carefully dilute the oleum with water to get the desired H₂SO₄ concentration.
+    </div>
+  </div>
+
+  <h3 class="sub">Stage 2 — Le Châtelier Analysis</h3>
+  <div class="tbl-wrap" style="margin:0;"><table>
+    <thead><tr><th>Factor</th><th>Effect on yield (Le Châtelier)</th><th>Effect on rate</th><th>Compromise chosen</th></tr></thead>
+    <tbody>
+      <tr><td>Temperature</td><td>Lower T → better yield (exothermic → low T shifts right)</td><td>Lower T → slower rate</td><td>450°C — fast enough rate, ~99.5% yield</td></tr>
+      <tr><td>Pressure</td><td>Higher P → better yield (2.5 mol gas → 1.5 mol gas, fewer moles on right — wait, let me recheck: SO₂+½O₂ → SO₃: 1.5 mol left, 1 mol right — high P favours right)</td><td>Higher P → faster rate</td><td>1–2 atm — low P used; catalyst gives high yield anyway</td></tr>
+      <tr><td>V₂O₅ catalyst</td><td>No effect on equilibrium position</td><td>Greatly increases rate</td><td>Essential — allows 450°C to work effectively</td></tr>
+      <tr><td>Excess air (O₂)</td><td>Shifts equilibrium right (more O₂ → more SO₃)</td><td>Increases rate</td><td>Air used in excess</td></tr>
+    </tbody>
+  </table></div>
+</div>
+
+<div class="example-box">
+  <div class="ex-head">Worked Example 11.1 — Calculating OS of Sulfur</div>
+  <div class="ex-body">
+    <p><strong>Find the oxidation state of sulfur in: (a) H₂SO₄ (b) SO₂ (c) Na₂SO₃ (d) H₂S₂O₇ (e) S₂O₃²⁻</strong></p>
+    <div class="step"><span class="step-num">a</span><p>H₂SO₄: 2(+1) + S + 4(−2) = 0 → S = +8−2 = <strong>+6</strong></p></div>
+    <div class="step"><span class="step-num">b</span><p>SO₂: S + 2(−2) = 0 → S = <strong>+4</strong></p></div>
+    <div class="step"><span class="step-num">c</span><p>Na₂SO₃: 2(+1) + S + 3(−2) = 0 → S = 6−2 = <strong>+4</strong></p></div>
+    <div class="step"><span class="step-num">d</span><p>H₂S₂O₇: 2(+1) + 2S + 7(−2) = 0 → 2S = 14−2 = 12 → S = <strong>+6</strong></p></div>
+    <div class="step"><span class="step-num">e</span><p>S₂O₃²⁻ (thiosulfate): 2S + 3(−2) = −2 → 2S = −2+6 = 4 → S = <strong>+2</strong> average (one S is 0, one is +4)</p></div>
+  </div>
+</div>
+
+<!-- ═══ 11.6 SULFURIC ACID ═══ -->
+<div class="section-header" id="s116">
+  <span class="section-number">11.6</span>
+  <h2>Sulfuric Acid (H₂SO₄)</h2>
+</div>
+
+<div class="card">
+  <h3>Physical Properties</h3>
+  <p>Concentrated sulfuric acid (98%) is a <strong>colourless, oily, very dense liquid</strong> (density 1.84 g cm⁻³). It is miscible with water in all proportions. Dilution is <strong>extremely exothermic</strong> — always add acid to water, never water to acid. Boiling point = 337°C (high — due to strong hydrogen bonding and H₂SO₄ → SO₃ + H₂O equilibrium).</p>
+</div>
+
+<div class="card">
+  <h3>Chemical Properties of H₂SO₄</h3>
+  <h3 class="sub">1. As a Diprotic Strong Acid (dilute H₂SO₄)</h3>
+  <div class="formula-block">H₂SO₄ → H⁺ + HSO₄⁻           (1st ionisation — complete, strong acid)
+HSO₄⁻ ⇌ H⁺ + SO₄²⁻           (2nd ionisation — incomplete, Ka₂ = 0.012)
+
+With metals:     Mg + H₂SO₄(dil.) → MgSO₄ + H₂↑
+With bases:      2NaOH + H₂SO₄ → Na₂SO₄ + 2H₂O
+With carbonates: Na₂CO₃ + H₂SO₄ → Na₂SO₄ + H₂O + CO₂↑</div>
+
+  <h3 class="sub">2. As a Dehydrating Agent (concentrated H₂SO₄)</h3>
+  <div class="formula-block">Sugar (C₁₂H₂₂O₁₁) + conc. H₂SO₄ → 12C + 11H₂O   (charring — C left behind)
+Ethanol: C₂H₅OH → C₂H₄ + H₂O                     (at 170°C — elimination)
+HNO₃ + H₂SO₄ → NO₂⁺ + HSO₄⁻ + H₂O               (generates NO₂⁺ for nitration)</div>
+
+  <h3 class="sub">3. As an Oxidising Agent (hot concentrated H₂SO₄)</h3>
+  <div class="formula-block">Cu + 2H₂SO₄(hot conc.) → CuSO₄ + SO₂↑ + 2H₂O   (Cu normally unreactive with dilute H₂SO₄)
+C + 2H₂SO₄(hot conc.) → CO₂ + 2SO₂ + 2H₂O        (carbon oxidised)
+S + 2H₂SO₄(hot conc.) → 3SO₂ + 2H₂O               (sulfur oxidised)</div>
+  <p>In these reactions, sulfur is reduced from +6 (in H₂SO₄) to +4 (in SO₂) — H₂SO₄ is the oxidising agent.</p>
+
+  <h3 class="sub">4. As a Non-volatile Acid</h3>
+  <div class="formula-block">H₂SO₄ + 2NaCl(s) → Na₂SO₄ + 2HCl↑    (displaces volatile HCl — warm)
+H��SO₄ + NaNO₃(s) → NaHSO₄ + HNO₃↑   (displaces volatile HNO₃)
+H��SO₄ + CaF₂(s) → CaSO₄ + 2HF↑       (produces HF — etches glass)</div>
+
+  <h3 class="sub">5. Important Uses of H₂SO₄</h3>
+  <ul style="margin:8px 0 0 20px;line-height:2.2;">
+    <li>Fertiliser manufacture (superphosphate, ammonium sulfate)</li>
+    <li>Lead-acid car batteries (electrolyte)</li>
+    <li>Detergent and dye manufacture</li>
+    <li>Metal refining and pickling (removing oxide layers)</li>
+    <li>Making other acids (HCl, HNO₃, HF)</li>
+    <li>Oil refining and petrochemicals</li>
+  </ul>
+</div>
+
+<!-- ═══ 11.7 HYDRIDES ═══ -->
+<div class="section-header" id="s117">
+  <span class="section-number">11.7</span>
+  <h2>Hydrides of Group 16: H₂O, H₂S, H₂Se, H₂Te</h2>
+</div>
+
+<div class="card">
+  <h3>Comparison of Group 16 Hydrides</h3>
+  <div class="tbl-wrap" style="margin:0;"><table>
+    <thead><tr><th>Hydride</th><th>B.p. (°C)</th><th>Bond angle</th><th>Acid strength in water</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>H₂O</td><td>+100</td><td>104.5°</td><td>Very weak (Kw = 10⁻¹⁴)</td><td>Strong H-bonds; anomalously high b.p.; bent; amphiprotic</td></tr>
+      <tr><td>H₂S</td><td>−60</td><td>92°</td><td>Weak acid (Ka = 9×10⁻⁸)</td><td>Rotten egg smell; toxic; only van der Waals forces</td></tr>
+      <tr><td>H₂Se</td><td>−41</td><td>91°</td><td>Stronger than H₂S (Ka = 1×10⁻⁴)</td><td>Very toxic</td></tr>
+      <tr><td>H₂Te</td><td>−2</td><td>90°</td><td>Strongest (Ka = 2×10⁻³)</td><td>Extremely toxic; b.p. highest of H₂S–H₂Te (most e⁻, strongest vdW)</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout info">
+    <span class="callout-icon">💡</span>
+    <div class="callout-body">
+      <strong>Key trend: Boiling Points</strong>
+      H₂O has anomalously HIGH b.p. due to strong O–H···O hydrogen bonds. H₂S, H₂Se, H₂Te show a regular increase in b.p. going down because van der Waals (London dispersion) forces increase with the number of electrons and larger electron clouds. Acid strength INCREASES H₂O &lt; H₂S &lt; H₂Se &lt; H₂Te because the M–H bond weakens going down (larger M, weaker bond) → easier to donate H⁺.
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <h3>Hydrogen Sulfide (H₂S) in Detail</h3>
+  <p>H₂S is a colourless gas with a characteristic <strong>rotten egg smell</strong>, extremely toxic (as toxic as HCN at high concentrations). Bond angle = 92° (S uses near-pure p orbitals). It is a weak diprotic acid:</p>
+  <div class="formula-block">H₂S ⇌ H⁺ + HS⁻     Ka₁ = 9×10⁻⁸   (very weak)
+HS⁻ ⇌ H⁺ + S²⁻     Ka₂ = 1×10⁻¹⁷  (extremely weak)
+
+Combustion:   2H₂S + 3O₂ → 2SO₂ + 2H₂O   (excess air — blue flame)
+              2H₂S + O₂ → 2S + 2H₂O       (limited air)
+
+As reducing agent: H₂S + Cl₂ → 2HCl + S   (Cl₂ oxidises H₂S — S deposited)
+                   H₂S + SO₂ → 3S + 2H₂O  (Claus process — elemental S made)
+                   2H₂S + SO₂ → 3S + 2H₂O
+
+Lab preparation: FeS + H₂SO₄(dil.) → FeSO₄ + H₂S↑  (Kipp's apparatus)
+                 FeS + 2HCl → FeCl₂ + H₂S↑</div>
+  <p><strong>Test for H₂S / sulfide ions:</strong> Lead acetate paper turns <strong>black</strong> (Pb²⁺ + S²⁻ → PbS ↓ black). Also: H₂S turns aqueous silver nitrate solution black (Ag₂S).</p>
+</div>
+
+<!-- ═══ 11.8 TRENDS & TESTS ═══ -->
+<div class="section-header" id="s118">
+  <span class="section-number">11.8</span>
+  <h2>Trends in Group 16 and Identification Tests</h2>
+</div>
+
+<div class="card">
+  <h3>Trend in Oxide Acidity</h3>
+  <div class="tbl-wrap" style="margin:0;"><table>
+    <thead><tr><th>Oxide</th><th>OS of central atom</th><th>Type</th><th>Reaction with water</th></tr></thead>
+    <tbody>
+      <tr><td>SO₂</td><td>+4</td><td>Acidic</td><td>SO₂ + H₂O ⇌ H₂SO₃</td></tr>
+      <tr><td>SO₃</td><td>+6</td><td>Strongly acidic</td><td>SO₃ + H₂O → H₂SO₄</td></tr>
+      <tr><td>SeO₂</td><td>+4</td><td>Acidic</td><td>SeO₂ + H₂O → H₂SeO₃</td></tr>
+      <tr><td>TeO₂</td><td>+4</td><td>Amphoteric</td><td>Slight reaction — both acid and base</td></tr>
+      <tr><td>PoO₂</td><td>+4</td><td>Basic</td><td>Dissolves in acid; basic character</td></tr>
+    </tbody>
+  </table></div>
+  <p>As with all groups, <strong>oxide acidity decreases going down</strong> as metallic character increases.</p>
+</div>
+
+<div class="card">
+  <h3>Qualitative Tests for Sulfur-Containing Ions</h3>
+  <div class="tbl-wrap" style="margin:0;"><table>
+    <thead><tr><th>Ion</th><th>Test Reagent</th><th>Observation</th><th>Equation</th></tr></thead>
+    <tbody>
+      <tr><td>SO₄²⁻ (sulfate)</td><td>Ba²⁺(aq) + dilute HCl (or HNO₃)</td><td>White precipitate of BaSO₄ — INSOLUBLE in dilute acids</td><td>Ba²⁺ + SO₄²⁻ → BaSO₄↓ (white)</td></tr>
+      <tr><td>SO₃²⁻ (sulfite)</td><td>Ba²⁺(aq)</td><td>White precipitate of BaSO₃ — dissolves in dilute HCl (unlike BaSO₄)</td><td>Ba²⁺ + SO₃²⁻ → BaSO₃↓; BaSO₃ + 2HCl → BaCl₂ + SO₂ + H₂O</td></tr>
+      <tr><td>SO₂ gas</td><td>Acidified K₂Cr₂O₇(aq)</td><td>Orange → green (Cr⁶⁺ → Cr³⁺); also decolourises KMnO₄</td><td>SO₂ + K₂Cr₂O₇ + H₂SO₄ → Cr₂(SO₄)₃ + K₂SO₄ + H₂O</td></tr>
+      <tr><td>SO₂ gas</td><td>Moist filter paper + K₂Cr₂O₇ (orange)</td><td>Paper turns green</td><td>SO₂ reduces Cr(VI) to Cr(III)</td></tr>
+      <tr><td>H₂S / S²⁻</td><td>Lead acetate paper OR Pb(NO₃)₂(aq)</td><td>Paper/solution turns black (PbS)</td><td>Pb²⁺ + S²⁻ → PbS↓ (black)</td></tr>
+      <tr><td>S²⁻</td><td>AgNO₃(aq)</td><td>Black precipitate of Ag₂S</td><td>2Ag⁺ + S²⁻ → Ag₂S↓ (black)</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout mem">
+    <span class="callout-icon">🧠</span>
+    <div class="callout-body">
+      <strong>Key memory: BaSO₄ vs BaSO₃</strong>
+      Both give white precipitate with Ba²⁺. Add dilute HCl: BaSO₄ does NOT dissolve (remains white — confirms sulfate). BaSO₃ dissolves in HCl and SO₂ gas is released (confirms sulfite/SO₂). Always acidify first with dilute HCl/HNO₃ to remove interfering ions (CO₃²⁻, SO₃²⁻) before testing for SO₄²⁻.
+    </div>
+  </div>
+</div>
+
+<!-- ═══ EXERCISES ═══ -->
+<div class="section-header" id="exercises">
+  <span class="section-number">✏️</span>
+  <h2>Exercises</h2>
+</div>
+
+<ul class="exercise-list">
+  <li>Explain why H₂O has a much higher boiling point (100°C) than H₂S (−60°C) despite having lower molar mass.
+    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide Answer':'Show Answer'">Show Answer</button>
+    <div class="answer">H₂O: oxygen is small (Period 2) and highly electronegative (3.5), making the O–H bonds very polar. H₂O molecules form strong <strong>O–H···O hydrogen bonds</strong> (requires ~20 kJ mol⁻¹ each to break). Many H-bonds must be broken to vaporise water → high b.p. (100°C). H₂S: sulfur is larger, less electronegative (2.5). S–H bonds are less polar — S–H···S H-bonds do not form (S not small/electronegative enough). Only <strong>weak London dispersion (van der Waals) forces</strong> act between H₂S molecules → much less energy needed to vaporise → low b.p. (−60°C).</div>
+  </li>
+  <li>Write the four stages of the Contact Process with equations. Explain why SO₃ is absorbed in concentrated H₂SO₄ rather than water in Stage 3.
+    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide Answer':'Show Answer'">Show Answer</button>
+    <div class="answer">Stage 1: S + O₂ → SO₂ (or 4FeS₂ + 11O₂ → 2Fe₂O₃ + 8SO₂). Stage 2: 2SO₂ + O₂ ⇌ 2SO₃ (V₂O₅, 450°C, 1–2 atm). Stage 3: SO₃ + H₂SO₄ → H₂S₂O₇ (oleum). Stage 4: H₂S₂O₇ + H₂O → 2H₂SO₄. Why not water directly: SO₃ + H₂O is highly exothermic and produces an uncontrollable acid mist (fine aerosol of H₂SO₄ droplets) that cannot be collected efficiently and is hazardous. Absorbing in concentrated H₂SO₄ prevents mist formation and gives clean, concentrated product (oleum) that can then be safely diluted.</div>
+  </li>
+  <li>How would you distinguish between SO₄²⁻ and SO₃²⁻ ions in solution? Give the reagents, observations, and equations.
+    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide Answer':'Show Answer'">Show Answer</button>
+    <div class="answer">Add excess <strong>Ba²⁺(aq)</strong> (barium chloride): both SO₄²⁻ and SO₃²⁻ give a white precipitate. Then add <strong>dilute HCl</strong>: BaSO₄ is <em>insoluble</em> in dilute acid — precipitate remains → confirms SO₄²⁻. BaSO₃ dissolves in dilute HCl → effervescence (SO₂ gas) and precipitate disappears → confirms SO₃²⁻. Equations: Ba²⁺ + SO₄²⁻ → BaSO₄↓; Ba²⁺ + SO₃²⁻ → BaSO₃↓; BaSO₃ + 2HCl → BaCl₂ + SO₂↑ + H₂O. (Note: acidify before testing SO₄²⁻ to remove interfering SO₃²⁻ first.)</div>
+  </li>
+  <li>Explain the structure of SO₃ and predict its shape using VSEPR. State the hybridisation of S and the oxidation state of S in SO₃.
+    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide Answer':'Show Answer'">Show Answer</button>
+    <div class="answer">SO₃: S has 3 S–O bonds and no lone pairs (S uses 3d orbitals to expand its octet). VSEPR: 3 bond pairs → <strong>trigonal planar</strong>, bond angle = 120°. Each S–O bond has bond order ~1.33 (resonance between three structures, each with one S=O and two S–O). Hybridisation: S is <strong>sp²</strong> hybridised (three sp² orbitals for σ bonds; unhybridised p orbitals form π bonds with O using S 3d orbitals). Oxidation state: S + 3(−2) = 0 → S = <strong>+6</strong>.</div>
+  </li>
+  <li>Give three different chemical reactions of concentrated H₂SO₄ that cannot be performed by dilute H₂SO₄. Write an equation for each.
+    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide Answer':'Show Answer'">Show Answer</button>
+    <div class="answer">(1) As oxidising agent (oxidises metals that do not react with dilute H₂SO₄): Cu + 2H₂SO₄(hot conc.) → CuSO₄ + SO₂↑ + 2H₂O. (2) As dehydrating agent (removes H₂O from compounds): C₁₂H₂₂O₁₁ + conc. H₂SO₄ → 12C + 11H₂O (sugar to carbon). (3) As non-volatile acid (displaces volatile acids from their salts): NaCl(s) + H₂SO₄(conc.) → NaHSO₄ + HCl↑ (releases HCl gas). Many other valid answers include: ethanol → ethene (dehydration); generating NO₂⁺ for nitration; HF production from CaF₂.</div>
+  </li>
+  <li>Describe the environmental problem of acid rain caused by sulfur dioxide. Include the source of SO₂, the chemistry of acid rain formation, and two effects on the environment.
+    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide Answer':'Show Answer'">Show Answer</button>
+    <div class="answer">Source of SO₂: burning fossil fuels (coal, oil) containing sulfur impurities — S + O₂ → SO₂. Also: smelting metal ores (pyrite roasting). Chemistry: SO₂ + H₂O ⇌ H₂SO₃ (sulfurous acid, weak); 2SO₂ + O₂ → 2SO₃; SO₃ + H₂O → H₂SO₄ (sulfuric acid, strong) → rainfall with pH 4–5. Effects (any 2): (1) Corrodes limestone buildings and statues: CaCO₃ + H₂SO₄ → CaSO₄ + H₂O + CO₂; (2) Acidifies lakes and rivers — kills fish and aquatic invertebrates below pH ~5; (3) Damages forests by leaching mineral nutrients (Ca²⁺, Mg²⁺) from soil; (4) Corrodes metals (iron rusts faster). Solutions: desulfurisation of fuels before burning; flue gas desulfurisation (Ca(OH)₂ + SO₂ → CaSO₃); switching to low-sulfur fuels.</div>
+  </li>
+</ul>
+
+<!-- ═══ QUIZ ═══ -->
+<div class="section-header" id="quiz">
+  <span class="section-number">🧪</span>
+  <h2>Multiple Choice Quiz — 25 Questions</h2>
+</div>
+<div class="quiz-wrap">
+  <div class="quiz-head">
+    <h3>Unit 11: Group 16 Elements and Compounds</h3>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--muted);">25 Questions · Select one answer each</span>
+  </div>
+  <div class="quiz-body">
+
+    <div class="qblock"><span class="qnum">Q1</span>
+    <p class="qtext">What is the outer electron configuration of all Group 16 elements?</p>
+    <div class="opts">
+      <label><input type="radio" name="q1" value="A"> ns²np³</label>
+      <label><input type="radio" name="q1" value="B"> ns²np⁴</label>
+      <label><input type="radio" name="q1" value="C"> ns²np⁵</label>
+      <label><input type="radio" name="q1" value="D"> ns²np²</label>
+    </div>
+    <div class="qexplain" id="e1">Group 16 (chalcogens): ns²np⁴ — 6 valence electrons. Two unpaired electrons available for bonding → forms M–H₂ hydrides and MO₂/MO₃ oxides. This configuration also means Group 16 elements can accept 2 electrons to reach a noble gas configuration (OS = −2).</div></div>
+
+    <div class="qblock"><span class="qnum">Q2</span>
+    <p class="qtext">The test for oxygen gas uses a:</p>
+    <div class="opts">
+      <label><input type="radio" name="q2" value="A"> Damp litmus paper — turns red</label>
+      <label><input type="radio" name="q2" value="B"> Lighted splint — pops</label>
+      <label><input type="radio" name="q2" value="C"> Glowing splint — rekindles</label>
+      <label><input type="radio" name="q2" value="D"> Lime water — turns milky</label>
+    </div>
+    <div class="qexplain" id="e2">Oxygen test: a <strong>glowing (not burning) splint rekindles/reignites</strong> in oxygen — oxygen supports combustion. A lighted splint that pops tests for H₂. Lime water tests for CO₂. Litmus turning red tests for an acidic gas.</div></div>
+
+    <div class="qblock"><span class="qnum">Q3</span>
+    <p class="qtext">Ozone (O₃) has a bond angle of ~117°. This is because:</p>
+    <div class="opts">
+      <label><input type="radio" name="q3" value="A"> O₃ is linear</label>
+      <label><input type="radio" name="q3" value="B"> The central O has 2 bond pairs and 1 lone pair → bent shape; lone pair compression gives angle less than 120°</label>
+      <label><input type="radio" name="q3" value="C"> O₃ has no lone pairs</label>
+      <label><input type="radio" name="q3" value="D"> O₃ has 3 bond pairs and 0 lone pairs → trigonal planar</label>
+    </div>
+    <div class="qexplain" id="e3">O₃: central O has 2 bonding pairs (to terminal O atoms) + 1 lone pair → VSEPR gives bent/V-shape. Ideal angle for 3 electron pairs = 120°; lone pair repels more → actual angle = 117°. Compare SO₂ (similar: 119°). Both are resonance structures with bond order 1.5.</div></div>
+
+    <div class="qblock"><span class="qnum">Q4</span>
+    <p class="qtext">The allotropy of sulfur that is stable at room temperature is:</p>
+    <div class="opts">
+      <label><input type="radio" name="q4" value="A"> Monoclinic sulfur</label>
+      <label><input type="radio" name="q4" value="B"> Plastic sulfur</label>
+      <label><input type="radio" name="q4" value="C"> Rhombic (α) sulfur</label>
+      <label><input type="radio" name="q4" value="D"> Liquid sulfur</label>
+    </div>
+    <div class="qexplain" id="e4">Rhombic (α) sulfur is the thermodynamically stable form below 96°C (the transition temperature). Above 96°C and up to the melting point (119°C), monoclinic (β) sulfur is the stable form. Both consist of S₈ crown-shaped rings in different crystal arrangements.</div></div>
+
+    <div class="qblock"><span class="qnum">Q5</span>
+    <p class="qtext">Burning sulfur in air produces:</p>
+    <div class="opts">
+      <label><input type="radio" name="q5" value="A"> SO₃ only</label>
+      <label><input type="radio" name="q5" value="B"> SO₂ (with a blue flame)</label>
+      <label><input type="radio" name="q5" value="C"> H₂S</label>
+      <label><input type="radio" name="q5" value="D"> S₂O₃</label>
+    </div>
+    <div class="qexplain" id="e5">S + O₂ → SO₂. Sulfur burns with a characteristic pale blue flame to give SO₂ (sulfur dioxide). Direct oxidation of sulfur to SO₃ does not occur easily — SO₃ requires a catalyst (V₂O₅) from SO₂. SO₂ has a sharp, choking smell and is acidic.</div></div>
+
+    <div class="qblock"><span class="qnum">Q6</span>
+    <p class="qtext">What is the correct order of the Contact Process stages?</p>
+    <div class="opts">
+      <label><input type="radio" name="q6" value="A"> SO₂ → SO₃ → H₂SO₄ → oleum</label>
+      <label><input type="radio" name="q6" value="B"> S → SO₂ → SO₃ → oleum (H₂S₂O₇) → H₂SO₄</label>
+      <label><input type="radio" name="q6" value="C"> S → H₂S → SO₂ → H₂SO₄</label>
+      <label><input type="radio" name="q6" value="D"> NH₃ → NO → NO₂ → H₂SO₄</label>
+    </div>
+    <div class="qexplain" id="e6">Contact Process: S (or FeS₂) → SO₂ (Stage 1: burning) → SO₃ (Stage 2: V₂O₅, 450°C) → H₂S₂O₇ oleum (Stage 3: SO₃ absorbed in conc. H₂SO₄) → H₂SO₄ (Stage 4: oleum + water). The NH₃ → HNO₃ sequence is the Ostwald Process (Unit 10).</div></div>
+
+    <div class="qblock"><span class="qnum">Q7</span>
+    <p class="qtext">The catalyst used in Stage 2 of the Contact Process is:</p>
+    <div class="opts">
+      <label><input type="radio" name="q7" value="A"> Iron (Fe)</label>
+      <label><input type="radio" name="q7" value="B"> Platinum (Pt)</label>
+      <label><input type="radio" name="q7" value="C"> Vanadium(V) oxide (V₂O₅)</label>
+      <label><input type="radio" name="q7" value="D"> Nickel (Ni)</label>
+    </div>
+    <div class="qexplain" id="e7">Stage 2: 2SO₂ + O₂ ⇌ 2SO₃. Catalyst: <strong>V₂O₅</strong> (vanadium pentoxide), operating at ~450°C. The catalyst works via a redox cycle: V⁵⁺ + SO₂ → V⁴⁺ + SO₃; V⁴⁺ + ½O₂ → V⁵⁺. Iron is used in Haber; Pt in Ostwald; Ni in steam reforming.</div></div>
+
+    <div class="qblock"><span class="qnum">Q8</span>
+    <p class="qtext">Why must acid always be added to water (not water to acid) when diluting H₂SO₄?</p>
+    <div class="opts">
+      <label><input type="radio" name="q8" value="A"> Water reacts violently with H₂SO₄</label>
+      <label><input type="radio" name="q8" value="B"> Dilution is very exothermic — adding water to acid causes localised boiling and dangerous spattering of concentrated acid</label>
+      <label><input type="radio" name="q8" value="C"> The acid becomes more concentrated when diluted incorrectly</label>
+      <label><input type="radio" name="q8" value="D"> H₂SO₄ decomposes when water is added to it</label>
+    </div>
+    <div class="qexplain" id="e8">Diluting H₂SO₄ is extremely exothermic (H₂SO₄ + H₂O → H₃O⁺ + HSO₄⁻, ΔH very negative). If water is added to concentrated acid, the small volume of water heats up instantly to >100°C, causing violent steam/acid spattering. Adding acid slowly to a large volume of water: the heat is absorbed by the large thermal mass of water, keeping temperature safe.</div></div>
+
+    <div class="qblock"><span class="qnum">Q9</span>
+    <p class="qtext">The oxidation state of sulfur in H₂SO₄ is:</p>
+    <div class="opts">
+      <label><input type="radio" name="q9" value="A"> +4</label>
+      <label><input type="radio" name="q9" value="B"> +2</label>
+      <label><input type="radio" name="q9" value="C"> +6</label>
+      <label><input type="radio" name="q9" value="D"> −2</label>
+    </div>
+    <div class="qexplain" id="e9">H₂SO₄: 2(+1) + S + 4(−2) = 0 → 2 + S − 8 = 0 → S = +6. This is the highest oxidation state of sulfur and explains why concentrated H₂SO₄ is a strong oxidising agent (S can be reduced from +6 to +4 in SO₂).</div></div>
+
+    <div class="qblock"><span class="qnum">Q10</span>
+    <p class="qtext">Concentrated H₂SO₄ chars sugar (C₁₂H₂₂O₁₁ → 12C + 11H₂O). This demonstrates H₂SO₄ acting as:</p>
+    <div class="opts">
+      <label><input type="radio" name="q10" value="A"> An oxidising agent</label>
+      <label><input type="radio" name="q10" value="B"> A dehydrating agent (removes water from the sugar)</label>
+      <label><input type="radio" name="q10" value="C"> A reducing agent</label>
+      <label><input type="radio" name="q10" value="D"> A catalyst</label>
+    </div>
+    <div class="qexplain" id="e10">Dehydration: concentrated H₂SO₄ removes the elements of water (H and O in ratio 2:1) from sugar. C₁₂H₂₂O₁₁ → 12C + 11H₂O. Carbon (black solid) is left behind — dramatic "black snake" demo. Note: H₂SO₄ is not oxidising the sugar here — the carbon produced is elemental carbon, not CO₂.</div></div>
+
+    <div class="qblock"><span class="qnum">Q11</span>
+    <p class="qtext">What is observed when copper reacts with hot concentrated H₂SO₄?</p>
+    <div class="opts">
+      <label><input type="radio" name="q11" value="A"> No reaction — copper is unreactive</label>
+      <label><input type="radio" name="q11" value="B"> Blue solution of CuSO₄ forms and colourless H₂ gas is released</label>
+      <label><input type="radio" name="q11" value="C"> Blue solution of CuSO₄ forms and pungent SO₂ gas is released</label>
+      <label><input type="radio" name="q11" value="D"> Black CuO forms</label>
+    </div>
+    <div class="qexplain" id="e11">Cu + 2H₂SO₄(hot conc.) → CuSO₄ + SO₂↑ + 2H₂O. Blue CuSO₄ solution forms; SO₂ gas (choking, pungent smell) is released. Conc. H₂SO₄ acts as an oxidising agent — Cu is oxidised (0 → +2), S is reduced (+6 → +4 in SO₂). Copper does NOT react with dilute H₂SO₄.</div></div>
+
+    <div class="qblock"><span class="qnum">Q12</span>
+    <p class="qtext">The test for SO₄²⁻ ions in solution uses:</p>
+    <div class="opts">
+      <label><input type="radio" name="q12" value="A"> AgNO₃ — white precipitate</label>
+      <label><input type="radio" name="q12" value="B"> BaCl₂ + dilute HCl — white precipitate insoluble in HCl</label>
+      <label><input type="radio" name="q12" value="C"> NaOH — blue precipitate</label>
+      <label><input type="radio" name="q12" value="D"> Litmus — turns red</label>
+    </div>
+    <div class="qexplain" id="e12">SO₄²⁻ test: acidify with dilute HCl (removes CO₃²⁻, SO₃²⁻ which also give white ppt with Ba²⁺), then add BaCl₂(aq). White precipitate of BaSO₄ forms and is INSOLUBLE in dilute HCl → confirms SO₄²⁻. Equation: Ba²⁺ + SO₄²⁻ → BaSO₄↓ (white). BaSO₄ is one of the most insoluble salts (Ksp = 1.1×10⁻¹⁰).</div></div>
+
+    <div class="qblock"><span class="qnum">Q13</span>
+    <p class="qtext">H₂S gas turns lead acetate paper:</p>
+    <div class="opts">
+      <label><input type="radio" name="q13" value="A"> Blue</label>
+      <label><input type="radio" name="q13" value="B"> Red</label>
+      <label><input type="radio" name="q13" value="C"> Black (PbS formed)</label>
+      <label><input type="radio" name="q13" value="D"> White</label>
+    </div>
+    <div class="qexplain" id="e13">Pb²⁺ + S²⁻ → PbS↓ (black precipitate). Lead acetate paper is soaked in Pb(CH₃COO)₂. When exposed to H₂S gas, S²⁻ from H₂S reacts with Pb²⁺ → black PbS. This is a very sensitive test for H₂S or any sulfide. Also: H₂S turns Ag⁺ solution black (Ag₂S↓).</div></div>
+
+    <div class="qblock"><span class="qnum">Q14</span>
+    <p class="qtext">In the Contact Process, why is a temperature of 450°C used (not 300°C or 600°C)?</p>
+    <div class="opts">
+      <label><input type="radio" name="q14" value="A"> 450°C is the only temperature at which V₂O₅ is stable</label>
+      <label><input type="radio" name="q14" value="B"> At 300°C the rate is too slow; at 600°C the equilibrium yield of SO₃ is too low (exothermic reaction); 450°C balances rate and yield</label>
+      <label><input type="radio" name="q14" value="C"> SO₂ only reacts with O₂ at exactly 450°C</label>
+      <label><input type="radio" name="q14" value="D"> Higher temperatures produce SO₄²⁻ directly</label>
+    </div>
+    <div class="qexplain" id="e14">Same Le Châtelier compromise as Haber. 2SO₂ + O₂ ⇌ 2SO₃ is exothermic (ΔH = −197 kJ/mol). Lower T → better equilibrium yield but too slow. Higher T → faster rate but low yield. 450°C: V₂O₅ is most active, rate acceptable, equilibrium yield ~99.5% — economically optimal.</div></div>
+
+    <div class="qblock"><span class="qnum">Q15</span>
+    <p class="qtext">What is the oxidation state of S in SO₂?</p>
+    <div class="opts">
+      <label><input type="radio" name="q15" value="A"> +6</label>
+      <label><input type="radio" name="q15" value="B"> +4</label>
+      <label><input type="radio" name="q15" value="C"> +2</label>
+      <label><input type="radio" name="q15" value="D"> −2</label>
+    </div>
+    <div class="qexplain" id="e15">SO₂: S + 2(−2) = 0 → S = +4. This intermediate oxidation state (+4) means SO₂ can be both oxidised (to SO₃, +6) and reduced (to S, 0 or to H₂S, −2). Therefore SO₂ can act as both an oxidising agent and a reducing agent (amphoteric redox behaviour).</div></div>
+
+    <div class="qblock"><span class="qnum">Q16</span>
+    <p class="qtext">Acid rain forms when SO₂ from combustion dissolves in rainwater. The primary acid produced is:</p>
+    <div class="opts">
+      <label><input type="radio" name="q16" value="A"> HCl</label>
+      <label><input type="radio" name="q16" value="B"> H₂SO₄ (and H₂SO₃)</label>
+      <label><input type="radio" name="q16" value="C"> H₂CO₃</label>
+      <label><input type="radio" name="q16" value="D"> HNO₂</label>
+    </div>
+    <div class="qexplain" id="e16">SO₂ + H₂O ⇌ H₂SO₃ (weak, pH ~4); some SO₂ is further oxidised to SO₃ → SO₃ + H₂O → H₂SO₄ (strong). Both sulfurous and sulfuric acids contribute. NOₓ (from car engines) also contributes → HNO₃ (Ostwald-like). Together these give acid rain pH typically 4–5 (vs normal rain pH ~5.6 due to CO₂).</div></div>
+
+    <div class="qblock"><span class="qnum">Q17</span>
+    <p class="qtext">Ozone (O₃) is a stronger oxidising agent than O₂ because:</p>
+    <div class="opts">
+      <label><input type="radio" name="q17" value="A"> Ozone has a higher molar mass</label>
+      <label><input type="radio" name="q17" value="B"> Ozone is less stable and decomposes more readily, releasing reactive oxygen atoms [O]</label>
+      <label><input type="radio" name="q17" value="C"> Ozone is denser than O₂</label>
+      <label><input type="radio" name="q17" value="D"> Ozone has a lower bond order than O₂</label>
+    </div>
+    <div class="qexplain" id="e17">O₃ decomposes: O₃ → O₂ + [O] (atomic oxygen). The released atomic oxygen [O] is an extremely reactive species (radical) that oxidises other substances. O₂ is more stable (higher bond order: O=O, 498 kJ/mol) → less reactive. O₃ is used to disinfect water, bleach, and in organic chemistry (ozonolysis) precisely because it is a stronger oxidant.</div></div>
+
+    <div class="qblock"><span class="qnum">Q18</span>
+    <p class="qtext">The boiling point trend in Group 16 hydrides is: H₂O >> H₂Te > H₂Se > H₂S. The anomaly (H₂O being highest) is due to:</p>
+    <div class="opts">
+      <label><input type="radio" name="q18" value="A"> H₂O having the highest molar mass</label>
+      <label><input type="radio" name="q18" value="B"> Hydrogen bonding between H₂O molecules (O–H···O); all others have only van der Waals</label>
+      <label><input type="radio" name="q18" value="C"> Water forming ionic bonds</label>
+      <label><input type="radio" name="q18" value="D"> H₂O having the largest molecule</label>
+    </div>
+    <div class="qexplain" id="e18">H₂O: O is small (Period 2) and highly electronegative (3.5) → very polar O–H bonds → strong O–H···O hydrogen bonds → much more energy needed to vaporise → anomalously high b.p. (100°C). H₂S/H₂Se/H₂Te: only London dispersion forces, increasing in strength with electron count → b.p. increases H₂S → H₂Te. Without H-bonds, H₂O's b.p. would be predicted around −80°C.</div></div>
+
+    <div class="qblock"><span class="qnum">Q19</span>
+    <p class="qtext">The Claus process converts H₂S to elemental sulfur. The reaction is:</p>
+    <div class="opts">
+      <label><input type="radio" name="q19" value="A"> H₂S + Cl₂ → 2HCl + S</label>
+      <label><input type="radio" name="q19" value="B"> 2H₂S + SO₂ → 3S + 2H₂O</label>
+      <label><input type="radio" name="q19" value="C"> H₂S + O₂ → SO₂ + H₂O</label>
+      <label><input type="radio" name="q19" value="D"> H₂S + 2NaOH → Na₂S + 2H₂O</label>
+    </div>
+    <div class="qexplain" id="e19">Claus process: 2H₂S + SO₂ → 3S + 2H₂O. H₂S is a reducing agent; SO₂ acts as the oxidising agent. Both are reduced to elemental sulfur. This is the main industrial process for recovering elemental sulfur from natural gas (which contains H₂S) and oil refining. Prevents release of toxic H₂S into the atmosphere.</div></div>
+
+    <div class="qblock"><span class="qnum">Q20</span>
+    <p class="qtext">When concentrated H₂SO₄ reacts with solid NaCl, the gas produced is:</p>
+    <div class="opts">
+      <label><input type="radio" name="q20" value="A"> Cl₂</label>
+      <label><input type="radio" name="q20" value="B"> HCl (steamy white fumes)</label>
+      <label><input type="radio" name="q20" value="C"> SO₂</label>
+      <label><input type="radio" name="q20" value="D"> H₂S</label>
+    </div>
+    <div class="qexplain" id="e20">NaCl(s) + H₂SO₄(conc.) → NaHSO₄ + HCl↑. HCl is a volatile acid — H₂SO₄ (non-volatile, high b.p. 337°C) displaces the more volatile HCl. White fumes (HCl dissolving in atmospheric moisture) are produced. With excess H₂SO₄: Na₂SO₄ + 2HCl at higher temperature. This is how HCl gas is produced in the lab.</div></div>
+
+    <div class="qblock"><span class="qnum">Q21</span>
+    <p class="qtext">The shape of SO₃ is:</p>
+    <div class="opts">
+      <label><input type="radio" name="q21" value="A"> Bent/V-shaped</label>
+      <label><input type="radio" name="q21" value="B"> Linear</label>
+      <label><input type="radio" name="q21" value="C"> Trigonal planar — 120° bond angles</label>
+      <label><input type="radio" name="q21" value="D"> Pyramidal</label>
+    </div>
+    <div class="qexplain" id="e21">SO₃: S has 3 bond pairs and 0 lone pairs → VSEPR → trigonal planar, 120° bond angles. S is sp² hybridised (uses 3d for π bonding with oxygen). Each S–O bond has bond order ~1.33 (resonance). Compare SO₂ (bent, 119°) which has 1 lone pair on S.</div></div>
+
+    <div class="qblock"><span class="qnum">Q22</span>
+    <p class="qtext">Which of the following correctly summarises the trend in acid strength of Group 16 hydrides?</p>
+    <div class="opts">
+      <label><input type="radio" name="q22" value="A"> H₂O > H₂S > H₂Se > H₂Te (decreases down group)</label>
+      <label><input type="radio" name="q22" value="B"> H₂Te > H₂Se > H₂S > H₂O (increases down group)</label>
+      <label><input type="radio" name="q22" value="C"> All have the same acid strength</label>
+      <label><input type="radio" name="q22" value="D"> H₂S > H₂O > H₂Se > H₂Te</label>
+    </div>
+    <div class="qexplain" id="e22">Acid strength increases down the group: H₂O &lt;&lt; H₂S &lt; H₂Se &lt; H₂Te. As the central atom gets larger, the M–H bond gets longer and weaker → easier to break → easier to donate H⁺ → stronger acid. H₂O is the weakest acid (Ka ~10⁻¹⁶ for 1st ionisation as acid). H₂Te is a moderate weak acid (Ka ~2×10⁻³).</div></div>
+
+    <div class="qblock"><span class="qnum">Q23</span>
+    <p class="qtext">The laboratory preparation of H₂S gas from iron(II) sulfide uses:</p>
+    <div class="opts">
+      <label><input type="radio" name="q23" value="A"> Iron + concentrated H₂SO₄</label>
+      <label><input type="radio" name="q23" value="B"> FeS + dilute H₂SO₄ (or dilute HCl)</label>
+      <label><input type="radio" name="q23" value="C"> FeS + concentrated HNO₃</label>
+      <label><input type="radio" name="q23" value="D"> Fe + H₂O at 100°C</label>
+    </div>
+    <div class="qexplain" id="e23">FeS + H₂SO₄(dil.) → FeSO₄ + H₂S↑. Also: FeS + 2HCl → FeCl₂ + H₂S↑. The gas is generated in a Kipp's apparatus. Concentrated HNO₃ would oxidise H₂S to S or SO₂ — not appropriate. Dilute acid is used because concentrated H₂SO₄ would oxidise H₂S.</div></div>
+
+    <div class="qblock"><span class="qnum">Q24</span>
+    <p class="qtext">CFCs cause ozone layer depletion by:</p>
+    <div class="opts">
+      <label><input type="radio" name="q24" value="A"> Directly reacting with O₂ in the atmosphere</label>
+      <label><input type="radio" name="q24" value="B"> Releasing Cl• radicals in the stratosphere that catalytically destroy O₃ in a chain reaction</label>
+      <label><input type="radio" name="q24" value="C"> Absorbing UV radiation that would otherwise make ozone</label>
+      <label><input type="radio" name="q24" value="D"> Reducing the temperature of the stratosphere</label>
+    </div>
+    <div class="qexplain" id="e24">CFCl₃ + UV → CFCl₂• + Cl•. Then: Cl• + O₃ → ClO• + O₂; ClO• + O• → Cl• + O₂ (catalytic cycle — Cl• regenerated). Each Cl• destroys thousands of O₃ molecules. The hole in the ozone layer (mainly over Antarctica) allows UV-B and UV-C to reach Earth's surface → increased skin cancer, cataracts, crop damage.</div></div>
+
+    <div class="qblock"><span class="qnum">Q25</span>
+    <p class="qtext">Which of these statements about SO₂ is correct?</p>
+    <div class="opts">
+      <label><input type="radio" name="q25" value="A"> SO₂ is a basic oxide — it reacts only with acids</label>
+      <label><input type="radio" name="q25" value="B"> SO₂ is an acidic oxide that dissolves in water to form sulfurous acid (H₂SO₃) and acts as a reducing agent</label>
+      <label><input type="radio" name="q25" value="C"> SO₂ is a neutral oxide with no reaction with water</label>
+      <label><input type="radio" name="q25" value="D"> SO₂ acts only as an oxidising agent, never as a reducing agent</label>
+    </div>
+    <div class="qexplain" id="e25">SO₂ is an acidic oxide: SO₂ + H₂O ⇌ H₂SO₃. It also acts as a reducing agent (S is in +4 state — can be oxidised to +6): SO₂ decolourises acidified KMnO₄ and turns K₂Cr₂O₇ orange → green. SO₂ can also act as an oxidising agent in certain reactions (e.g. with H₂S: 2H₂S + SO₂ → 3S + 2H₂O), but its reducing behaviour is more commonly tested.</div></div>
+
+    <div style="text-align:center;margin-top:28px;">
+      <button class="qs" onclick="submitQuiz()">Submit Quiz — Check Answers</button>
+      <div id="qR"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ UNIT TEST ═══ -->
+<div class="section-header" id="test">
+  <span class="section-number">📝</span>
+  <h2>Unit Test — 50 Marks</h2>
+</div>
+
+<div class="test-section">
+  <div class="test-sec-head"><h3>Section A — Short Answer</h3><span class="marks-badge">30 marks</span></div>
+
+  <div class="tq"><div class="tq-num">Q1 [5 marks]</div>
+  <p>Describe the Contact Process for manufacturing sulfuric acid. Write the equation for each stage, give the conditions for Stage 2, and explain why 450°C is used rather than a lower or higher temperature. [5]</p>
+  <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide':'Model Answer'">Model Answer</button>
+  <div class="answer">Stage 1: S + O₂ → SO₂ (or 4FeS₂ + 11O₂ → 2Fe₂O₃ + 8SO₂). [1] Stage 2: 2SO₂ + O₂ ⇌ 2SO₃. Conditions: V₂O₅ catalyst, 450°C, 1–2 atm. [1] Stage 3: SO₃ + H₂SO₄ → H₂S₂O₇ (oleum). [1] Stage 4: H₂S₂O₇ + H₂O → 2H₂SO₄. [1] 450°C compromise: Stage 2 is exothermic (ΔH = −197 kJ/mol). Lower T → better yield (Le Châtelier → right) but rate too slow. Higher T → faster rate but equilibrium shifts left → lower yield. 450°C gives ~99.5% conversion and an acceptable rate with V₂O₅ catalyst active. [1]</div></div>
+
+  <div class="tq"><div class="tq-num">Q2 [5 marks]</div>
+  <p>Give three different chemical reactions of concentrated H₂SO₄ that demonstrate its three important chemical properties. For each reaction: state the property, write the equation, and name the other product(s). [5]</p>
+  <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide':'Model Answer'">Model Answer</button>
+  <div class="answer">(1) Dehydrating agent: C₁₂H₂₂O₁₁ + conc. H₂SO₄ → 12C + 11H₂O (or C₂H₅OH → C₂H₄ + H₂O at 170°C). Products: carbon (black) and water. [1+0.5] (2) Oxidising agent: Cu + 2H₂SO₄(hot conc.) → CuSO₄ + SO₂↑ + 2H₂O. Products: copper(II) sulfate (blue solution) and sulfur dioxide (pungent gas). [1+0.5] (3) Non-volatile acid (displaces volatile acids): NaCl(s) + H₂SO₄(conc.) → NaHSO₄ + HCl↑. Product: HCl gas (white steamy fumes). [1+0.5] (Total = 5 if all three well-described with equation and product named.)</div></div>
+
+  <div class="tq"><div class="tq-num">Q3 [5 marks]</div>
+  <p>Explain why H₂O has a boiling point of 100°C while H₂S has a boiling point of −60°C. Explain the trend in boiling points H₂S < H₂Se < H₂Te. Why is the acid strength order the opposite: H₂O &lt; H₂S &lt; H₂Se &lt; H₂Te? [5]</p>
+  <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide':'Model Answer'">Model Answer</button>
+  <div class="answer">H₂O high b.p.: O is small and highly electronegative (3.5) → polar O–H bonds → strong O–H···O hydrogen bonds between molecules → much energy needed to overcome → b.p. = 100°C. [2] H₂S low b.p.: S less electronegative (2.5), S–H bonds less polar → no hydrogen bonding → only weak London dispersion forces → easy to vaporise → b.p. = −60°C. [1] H₂S → H₂Se → H₂Te trend: all only have van der Waals forces. Going down: larger atoms, more electrons → stronger London forces → higher b.p. (−60 → −41 → −2°C). [1] Acid strength: larger central atom → longer, weaker M–H bond → easier to donate H⁺ → stronger acid. H₂O (very strong O–H bond, hardest to ionise, pKa ~ 15.7 as acid); H₂Te weakest M–H bond (longest), easiest to ionise → strongest acid. [1]</div></div>
+
+  <div class="tq"><div class="tq-num">Q4 [5 marks]</div>
+  <p>Describe the allotropes of sulfur — rhombic and monoclinic. State: the formula of the structural unit, the crystal system, the temperature of stability, and the melting point of each. Include the transition temperature and what happens above 160°C. [5]</p>
+  <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide':'Model Answer'">Model Answer</button>
+  <div class="answer">Both forms: structural unit = S₈ (crown-shaped rings of 8 sulfur atoms). [1] Rhombic (α): orthorhombic crystal; stable below 96°C; m.p. 113°C; pale yellow; soluble in CS₂. [1.5] Monoclinic (β): monoclinic crystal; stable 96–119°C; m.p. 119°C; darker yellow; soluble in CS₂. [1.5] Transition temperature: 96°C. Above 160°C: S₈ rings break open → linear chain polymers (Sₙ) → viscous dark brown "plastic sulfur." On rapid cooling, plastic sulfur is trapped (amorphous, insoluble in CS₂, rubbery). On slow cooling/standing, it slowly reverts to rhombic. [1]</div></div>
+
+  <div class="tq"><div class="tq-num">Q5 [5 marks]</div>
+  <p>Describe the environmental significance of: (a) the ozone layer and CFC depletion (b) acid rain from SO₂ emissions. For each, write the key equation(s) and state two consequences. [5]</p>
+  <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide':'Model Answer'">Model Answer</button>
+  <div class="answer">(a) Ozone layer: stratospheric O₃ absorbs UV-B/UV-C, protecting living organisms. CFCs (e.g. CFCl₃) are stable at ground level but reach stratosphere, where UV releases Cl•: CFCl₃ → CFCl₂• + Cl•. Catalytic cycle: Cl• + O₃ → ClO• + O₂; ClO• + O• → Cl• + O₂ (Cl• regenerated → destroys thousands of O₃). Consequences: UV penetration → increased skin cancer, cataracts, harm to marine phytoplankton. Solutions: Montreal Protocol (1987) — banned CFCs, replaced by HFCs. [2.5] (b) Acid rain: SO₂ from combustion/smelting: SO₂ + H₂O ⇌ H₂SO₃; SO₃ + H₂O → H₂SO₄. Rain pH drops to 4–5. Consequences: (1) Corrodes limestone (CaCO₃ + H₂SO₄ → CaSO₄ + H₂O + CO₂); (2) acidifies rivers/lakes (kills fish below pH ~5); (3) forest die-back (leaches soil minerals). Solutions: flue gas desulfurisation, use of low-sulfur fuels, catalytic converters. [2.5]</div></div>
+
+  <div class="tq"><div class="tq-num">Q6 [5 marks]</div>
+  <p>Carry out the following calculations: (a) Find the oxidation state of S in: Na₂S₂O₃, H₂SO₃, SF₆, S₄O₆²⁻. [2] (b) Balance the following redox equation in acid solution: SO₂ + MnO₄⁻ → SO₄²⁻ + Mn²⁺. [3]</p>
+  <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide':'Model Answer'">Model Answer</button>
+  <div class="answer">(a) Na₂S₂O₃: 2(+1) + 2S + 3(−2) = 0 → 2S = 4 → S = +2. H₂SO₃: 2(+1) + S + 3(−2) = 0 → S = +4. SF₆: S + 6(−1) = 0 → S = +6. S₄O₆²⁻: 4S + 6(−2) = −2 → 4S = 10 → S = +2.5. [2] (b) Half-equations: SO₂ → SO₄²⁻: SO₂ + 2H₂O → SO₄²⁻ + 4H⁺ + 2e⁻ (oxidation). MnO₄⁻ + 8H⁺ + 5e⁻ → Mn²⁺ + 4H₂O (reduction). Multiply SO₂ half by 5, MnO₄⁻ by 2: 5SO₂ + 10H₂O → 5SO₄²⁻ + 20H⁺ + 10e⁻; 2MnO₄⁻ + 16H⁺ + 10e⁻ → 2Mn²⁺ + 8H₂O. Overall: 5SO₂ + 2MnO₄⁻ + 2H₂O → 5SO₄²⁻ + 2Mn²⁺ + 4H⁺. [3]</div></div>
+</div>
+
+<div class="test-section">
+  <div class="test-sec-head"><h3>Section B — Extended Answer</h3><span class="marks-badge">20 marks</span></div>
+
+  <div class="tq"><div class="tq-num">Q7 [10 marks]</div>
+  <p>(a) Describe the industrial importance of sulfuric acid (H₂SO₄). Give five specific uses with brief explanations for each. [4]<br>
+  (b) Compare the reactions of SO₂ and SO₃ with water, and with sodium hydroxide. Write equations for all reactions. Classify the oxide type and explain any differences in reactivity. [6]</p>
+  <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide':'Model Answer'">Model Answer</button>
+  <div class="answer">(a) Uses (any 5): (1) Fertilisers: H₂SO₄ + Ca₃(PO₄)₂ → superphosphate; (NH₄)₂SO₄ from NH₃ + H₂SO₄. (2) Lead-acid batteries: H₂SO₄ is the electrolyte (1.27 g/cm³ solution); oxidises at positive plate (PbO₂ + SO₄²⁻ → PbSO₄). (3) Detergents and dyes: sulfonation of benzene; intermediate in many dye syntheses. (4) Petrol refining: removing organic sulfur compounds; alkylation reactions. (5) Making other acids: HF (H₂SO₄ + CaF₂), HCl (H₂SO₄ + NaCl), HNO₃ (H₂SO₄ + KNO₃). (6) Metal processing: pickling steel (removes Fe₂O₃ scale before further processing). [4] (b) SO₂ with water: SO₂ + H₂O ⇌ H₂SO₃ (sulfurous acid, weak, Ka₁ = 1.5×10⁻²). SO₃ with water: SO₃ + H₂O → H₂SO₄ (sulfuric acid, strong, complete ionisation of 1st proton). Both are acidic oxides, but SO₃ is more reactive and forms a stronger acid — S in SO₃ is +6 (higher, more electron-withdrawing) vs +4 in SO₂. [2] SO₂ with NaOH (excess): SO₂ + 2NaOH → Na₂SO₃ + H₂O; with limited NaOH: SO₂ + NaOH → NaHSO₃. SO₃ with NaOH: SO₃ + 2NaOH → Na₂SO₄ + H₂O. Both react with NaOH — acidic oxides neutralised by base. SO₃ is more vigorous (reacts exothermically; also fumes in moist air). Na₂SO₃ (from SO₂) and Na₂SO₄ (from SO₃) differ: Na₂SO₃ is a reducing agent; Na₂SO₄ is inert. [4]</div></div>
+
+  <div class="tq"><div class="tq-num">Q8 [10 marks]</div>
+  <p>(a) Compare oxygen and sulfur: explain why O₂ is a gas at room temperature but S₈ is a solid, referring to structure and bonding. [3]<br>
+  (b) Describe how you would test for the presence of: (i) SO₄²⁻ ions (ii) SO₃²⁻/SO₂ (iii) S²⁻/H₂S. State reagents, observations, equations, and possible interference. [4]<br>
+  (c) Give three industrial or environmental uses of SO₂ (not its conversion to H₂SO₄). [3]</p>
+  <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide':'Model Answer'">Model Answer</button>
+  <div class="answer">(a) O₂ is a gas: oxygen forms stable O=O double bonds (2p–2p π overlap, strong, 498 kJ/mol). O₂ is a simple diatomic molecule — only weak van der Waals forces between O₂ molecules → b.p. = −183°C → gas at r.t. Sulfur cannot form strong S=S double bonds (3p–3p π overlap is poor — S is larger, overlap less effective). S forms only S–S single bonds. To satisfy its 2-bond requirement without p-π bonding, S forms large S₈ rings (crown shape). S₈ molecules are heavier and have more electrons → stronger London forces → solid at r.t. (m.p. 113°C). [3] (b)(i) SO₄²⁻: acidify with dilute HCl (to remove CO₃²⁻, SO₃²⁻) then add BaCl₂(aq). White precipitate BaSO₄ that does NOT dissolve in excess dilute HCl → confirms SO₄²⁻. Equation: Ba²⁺ + SO₄²⁻ → BaSO₄↓. Interference: SO₃²⁻ also gives white BaSO₃ — removed by pre-acidification. [1.5] (ii) SO₃²⁻/SO₂: add excess BaCl₂(aq) → white BaSO₃↓. Add dilute HCl → BaSO₃ dissolves with effervescence (SO₂ gas released). Alternatively: bubble gas through acidified KMnO₄ (purple → decolourises) or K₂Cr₂O₇ (orange → green). [1.5] (iii) S²⁻/H₂S: expose lead acetate paper — turns black (PbS). Or add Pb(NO₃)₂ solution → black precipitate. Or expose Ag⁺ solution → black Ag₂S. Equation: Pb²⁺ + S²⁻ → PbS↓ (black). [1] (c) Uses of SO₂ (any 3): (1) Preservative in food and wine — inhibits bacteria and fungi (E220); (2) Bleaching agent for paper pulp and textiles (reduces coloured dyes to colourless forms); (3) Refrigerant in older systems (high latent heat, but toxic — replaced by HFCs); (4) Disinfecting wine barrels (sulfur candle → SO₂); (5) Desulfurisation of fuels and oil refining; (6) Making sodium sulfite/hydrogen sulfite for paper pulp (sulfite process). [3]</div></div>
+</div>
+
+<div class="unit-nav">
+  <a href="s4_unit10_group15.html">← Unit 10: Group 15</a>
+  <a href="s4-chemistry.html">S4 Course Home</a>
+  <a href="s4_unit12_group17.html">Unit 12: Group 17 →</a>
+</div>
+</main>
+
+<footer>
+  ⚗ Jackson Habimana Chemistry Portal &bull; S4 Unit 11: Group 16 &bull;
+  <a href="s4-chemistry.html">Back to S4</a> &bull; <a href="index.html">Home</a>
+</footer>
+
+<script>
+const _CA={q1:'B',q2:'C',q3:'B',q4:'C',q5:'B',q6:'B',q7:'C',q8:'B',q9:'C',q10:'B',q11:'C',q12:'B',q13:'C',q14:'B',q15:'B',q16:'B',q17:'B',q18:'B',q19:'B',q20:'B',q21:'C',q22:'B',q23:'B',q24:'B',q25:'B'};
+function submitQuiz(){
+  let s=0,t=Object.keys(_CA).length;
+  Object.entries(_CA).forEach(([q,c])=>{
+    const sel=document.querySelector('input[name="'+q+'"]:checked');
+    document.querySelectorAll('input[name="'+q+'"]').forEach(o=>{if(o.value===c)o.closest('label').classList.add('correct');});
+    if(sel){if(sel.value===c)s++;else sel.closest('label').classList.add('wrong');}
+    const e=document.getElementById('e'+q.slice(1));if(e)e.style.display='block';
+    document.querySelectorAll('input[name="'+q+'"]').forEach(o=>o.disabled=true);
+  });
+  const p=Math.round(s/t*100);
+  const r=document.getElementById('qR');
+  r.style.cssText='display:block;margin-top:16px;border-radius:8px;padding:14px 18px;font-family:JetBrains Mono,monospace;font-size:.88rem;text-align:center;background:'+(p>=70?'rgba(52,211,153,.1)':'rgba(248,113,113,.1)')+';border:1px solid '+(p>=70?'var(--green)':'var(--red)')+';color:'+(p>=70?'var(--green)':'var(--red)');
+  r.innerHTML='Score: '+s+'/'+t+' ('+p+'%) — '+(p>=80?'🏆 Excellent!':p>=70?'✅ Good — review marked answers.':p>=50?'📚 Keep studying.':'❌ Review all material and try again.');
+  document.querySelector('.qs').disabled=true;document.querySelector('.qs').style.opacity='.5';
+}
+(function(){
+  const SK='quiz_access_granted',CK='quiz_access_code';
+  const gate=document.createElement('div');gate.id='unit-quiz-gate';
+  gate.style.cssText='position:fixed;inset:0;background:#0d1117;z-index:99999;display:none;align-items:center;justify-content:center;padding:24px;';
+  gate.innerHTML='<div style="background:#161b22;border:2px solid rgba(245,158,11,.4);border-radius:16px;padding:48px 40px;max-width:460px;width:100%;text-align:center;"><div style="font-size:3.5rem;margin-bottom:16px;">🔒</div><h2 style="font-family:Playfair Display,serif;font-size:1.8rem;color:#fff;margin-bottom:10px;">Quiz Locked</h2><p style="color:#8b949e;font-size:.93rem;margin-bottom:24px;line-height:1.7;">Enter the access code from your teacher to unlock this quiz.</p><input id="ugc-inp" type="text" placeholder="Enter Code" maxlength="20" style="width:100%;background:#1c2333;border:2px solid #30363d;border-radius:8px;color:#e6edf3;padding:14px 18px;font-family:JetBrains Mono,monospace;font-size:1.4rem;text-align:center;letter-spacing:.2em;text-transform:uppercase;margin-bottom:12px;box-sizing:border-box;" onkeydown="if(event.key===\'Enter\')unlockUnitQuiz()"/><div id="ugc-err" style="font-family:JetBrains Mono,monospace;font-size:.82rem;color:#f87171;min-height:20px;margin-bottom:10px;"></div><button onclick="unlockUnitQuiz()" style="width:100%;background:#f59e0b;color:#000;border:none;padding:13px;border-radius:8px;font-family:JetBrains Mono,monospace;font-size:.9rem;font-weight:700;cursor:pointer;margin-bottom:10px;">🔓 Unlock Quiz</button><button onclick="document.getElementById(\'unit-quiz-gate\').style.display=\'none\';document.body.style.overflow=\'\'" style="width:100%;background:transparent;border:1px solid #30363d;color:#8b949e;padding:9px;border-radius:8px;font-family:JetBrains Mono,monospace;font-size:.8rem;cursor:pointer;">✕ Cancel</button></div>';
+  document.body.appendChild(gate);
+  window.unlockUnitQuiz=function(){const v=document.getElementById('ugc-inp').value.trim().toUpperCase();const c=localStorage.getItem(CK);if(!v){document.getElementById('ugc-err').textContent='Enter the code.';return;}if(v===c||!c){sessionStorage.setItem(SK,c||'open');document.getElementById('unit-quiz-gate').style.display='none';document.body.style.overflow='';}else{document.getElementById('ugc-err').textContent='❌ Wrong code.';document.getElementById('ugc-inp').value='';}};
+  window.addEventListener('DOMContentLoaded',function(){const code=localStorage.getItem(CK);if(!code)return;const granted=sessionStorage.getItem(SK);if(granted)return;const qw=document.querySelector('.quiz-wrap');if(!qw)return;qw.addEventListener('click',function(e){if(!localStorage.getItem(CK))return;if(sessionStorage.getItem(SK))return;e.stopPropagation();e.preventDefault();document.getElementById('unit-quiz-gate').style.display='flex';document.body.style.overflow='hidden';},true);});
+})();
+</script>
+</body>
+</html>

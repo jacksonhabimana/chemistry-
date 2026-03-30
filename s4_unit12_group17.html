@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>S4 Chemistry – Unit 12: Group 17 Halogens | Jackson Habimana</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Serif+4:wght@300;400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+<style>
+:root{--bg:#0d1117;--surface:#161b22;--surface2:#1c2333;--border:#30363d;--accent:#2dd4bf;--gold:#e8c547;--green:#34d399;--red:#f87171;--orange:#f59e0b;--purple:#a78bfa;--text:#e6edf3;--muted:#8b949e;--radius:10px;}
+*{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Source Serif 4',Georgia,serif;font-size:17px;line-height:1.75;overflow-x:hidden;}
+nav{position:sticky;top:0;z-index:200;background:rgba(13,17,23,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+.nav-inner{max-width:1060px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:54px;padding:0 24px;}
+.nav-brand{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--accent);text-decoration:none;}
+.nav-links{display:flex;gap:4px;}
+.nav-links a{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);text-decoration:none;padding:4px 10px;border-radius:5px;border:1px solid transparent;transition:all .15s;}
+.nav-links a:hover{color:var(--accent);border-color:rgba(45,212,191,.3);}
+.hero{position:relative;padding:80px 40px 60px;text-align:center;overflow:hidden;background:radial-gradient(ellipse 80% 60% at 50% 0%,#001a18 0%,var(--bg) 70%);border-bottom:1px solid var(--border);}
+.hero::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(45,212,191,.04) 40px),repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(45,212,191,.04) 40px);pointer-events:none;}
+.badge{display:inline-block;background:rgba(45,212,191,.12);border:1px solid rgba(45,212,191,.3);color:var(--accent);padding:4px 16px;border-radius:50px;font-size:.78rem;font-family:'JetBrains Mono',monospace;letter-spacing:.12em;text-transform:uppercase;margin-bottom:22px;}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.4rem);line-height:1.15;color:#fff;max-width:820px;margin:0 auto 18px;}
+.hero h1 em{color:var(--accent);font-style:italic;}
+.hero p.sub{color:var(--muted);font-size:1rem;max-width:640px;margin:0 auto 32px;}
+.toc-grid{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:860px;margin:0 auto;}
+.toc-grid a{background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:8px 18px;border-radius:50px;text-decoration:none;font-size:.85rem;transition:all .2s;font-family:'JetBrains Mono',monospace;}
+.toc-grid a:hover{background:var(--accent);color:#000;border-color:var(--accent);}
+.page{max-width:960px;margin:0 auto;padding:0 28px 80px;}
+.section-header{display:flex;align-items:center;gap:16px;margin:64px 0 28px;padding-bottom:14px;border-bottom:2px solid var(--border);}
+.section-number{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--accent);background:rgba(45,212,191,.1);border:1px solid rgba(45,212,191,.25);padding:4px 12px;border-radius:4px;white-space:nowrap;}
+.section-header h2{font-family:'Playfair Display',serif;font-size:1.75rem;color:#fff;}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:26px 30px;margin-bottom:22px;}
+.card h3{font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--gold);margin-bottom:14px;}
+.card p+p{margin-top:12px;}
+.def-box{border-left:4px solid var(--accent);background:rgba(45,212,191,.07);border-radius:0 var(--radius) var(--radius) 0;padding:18px 22px;margin:20px 0;}
+.def-box strong{color:var(--accent);display:block;font-size:.78rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;}
+.callout{border-radius:var(--radius);padding:18px 22px;margin:20px 0;display:flex;gap:14px;align-items:flex-start;}
+.callout.info{background:rgba(45,212,191,.08);border:1px solid rgba(45,212,191,.25);}
+.callout.warn{background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.25);}
+.callout.tip{background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.25);}
+.callout.mem{background:rgba(232,197,71,.08);border:1px solid rgba(232,197,71,.25);}
+.callout-icon{font-size:1.3rem;margin-top:2px;flex-shrink:0;}
+.callout-body strong{display:block;margin-bottom:4px;font-size:.9rem;color:#fff;}
+.tbl-wrap{overflow-x:auto;margin:20px 0;border-radius:var(--radius);border:1px solid var(--border);}
+table{width:100%;border-collapse:collapse;}
+thead tr{background:var(--surface2);}
+th{padding:13px 16px;text-align:left;font-size:.82rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);white-space:nowrap;}
+td{padding:12px 16px;border-top:1px solid var(--border);font-size:.9rem;line-height:1.6;}
+tr:hover td{background:rgba(255,255,255,.02);}
+.formula-block{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:18px 24px;margin:16px 0;font-family:'JetBrains Mono',monospace;font-size:.92rem;color:var(--accent);overflow-x:auto;line-height:2.1;}
+h3.sub{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--gold);margin:28px 0 10px;}
+.diagram-box{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin:22px 0;text-align:center;}
+.diagram-box figcaption{font-family:'JetBrains Mono',monospace;font-size:.74rem;color:var(--muted);margin-top:12px;letter-spacing:.05em;}
+.example-box{border:1px solid rgba(45,212,191,.3);border-radius:var(--radius);overflow:hidden;margin:22px 0;}
+.example-box .ex-head{background:rgba(45,212,191,.12);padding:12px 20px;font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--accent);text-transform:uppercase;letter-spacing:.1em;}
+.example-box .ex-body{padding:20px 24px;}
+.example-box .ex-body p+p{margin-top:10px;}
+.step{display:flex;gap:14px;margin-bottom:10px;align-items:flex-start;}
+.step-num{width:28px;height:28px;background:var(--accent);color:#000;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:.78rem;font-weight:700;flex-shrink:0;margin-top:4px;}
+.exercise-list{list-style:none;counter-reset:ex;}
+.exercise-list li{counter-increment:ex;margin-bottom:18px;padding:18px 22px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);}
+.exercise-list li::before{content:'Q' counter(ex) '.';font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--accent);display:block;margin-bottom:8px;}
+.reveal-btn{margin-top:10px;background:rgba(45,212,191,.1);border:1px solid rgba(45,212,191,.3);color:var(--accent);padding:6px 18px;border-radius:6px;cursor:pointer;font-size:.82rem;font-family:'JetBrains Mono',monospace;transition:all .2s;}
+.reveal-btn:hover{background:var(--accent);color:#000;}
+.answer{display:none;margin-top:12px;padding:14px 18px;background:rgba(45,212,191,.06);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-size:.9rem;line-height:1.7;}
+.answer.open{display:block;}
+.quiz-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-top:28px;}
+.quiz-head{padding:22px 28px;background:var(--surface2);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+.quiz-head h3{font-family:'Playfair Display',serif;font-size:1.1rem;color:#fff;}
+.quiz-body{padding:24px 28px;}
+.qblock{margin-bottom:28px;padding-bottom:28px;border-bottom:1px solid var(--border);}
+.qblock:last-child{border-bottom:none;}
+.qnum{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--accent);background:rgba(45,212,191,.1);border:1px solid rgba(45,212,191,.2);padding:3px 10px;border-radius:4px;display:inline-block;margin-bottom:10px;}
+.qtext{font-size:1rem;color:#fff;margin-bottom:14px;line-height:1.7;}
+.opts label{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;margin-bottom:8px;border-radius:8px;border:1px solid var(--border);cursor:pointer;transition:all .15s;font-size:.93rem;}
+.opts label:hover{border-color:var(--accent);background:rgba(45,212,191,.04);}
+.opts label.correct{background:rgba(52,211,153,.12);border-color:var(--green);color:var(--green);}
+.opts label.wrong{background:rgba(248,113,113,.08);border-color:var(--red);color:var(--red);}
+.opts input[type=radio]{margin-top:3px;accent-color:var(--accent);flex-shrink:0;}
+.qexplain{display:none;margin-top:12px;padding:12px 16px;background:rgba(45,212,191,.07);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-size:.88rem;line-height:1.7;}
+.qs{display:block;margin:24px auto 0;background:var(--accent);color:#000;border:none;padding:12px 40px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.88rem;font-weight:700;cursor:pointer;transition:opacity .2s;}
+.qs:hover{opacity:.85;}
+#qR{display:none;margin-top:16px;border-radius:8px;padding:14px 18px;font-family:'JetBrains Mono',monospace;font-size:.88rem;text-align:center;}
+.test-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:22px;overflow:hidden;}
+.test-sec-head{background:var(--surface2);padding:16px 24px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);}
+.test-sec-head h3{font-family:'JetBrains Mono',monospace;font-size:.85rem;color:#fff;text-transform:uppercase;letter-spacing:.08em;}
+.marks-badge{font-family:'JetBrains Mono',monospace;font-size:.75rem;background:rgba(232,197,71,.15);border:1px solid rgba(232,197,71,.3);color:var(--gold);padding:3px 12px;border-radius:50px;}
+.tq{padding:18px 24px;border-bottom:1px solid var(--border);}
+.tq:last-child{border-bottom:none;}
+.tq-num{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--accent);margin-bottom:6px;}
+.unit-nav{display:flex;justify-content:space-between;gap:16px;margin-top:60px;padding-top:28px;border-top:1px solid var(--border);flex-wrap:wrap;}
+.unit-nav a{display:inline-flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--muted);text-decoration:none;padding:10px 18px;border:1px solid var(--border);border-radius:8px;transition:all .2s;}
+.unit-nav a:hover{color:var(--accent);border-color:rgba(45,212,191,.3);}
+footer{border-top:1px solid var(--border);padding:28px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--muted);}
+footer a{color:var(--accent);text-decoration:none;}
+@media(max-width:640px){.hero{padding:60px 24px 40px;}.page{padding:0 16px 60px;}.quiz-body{padding:16px;}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a class="nav-brand" href="index.html">⚗ Jackson Habimana</a>
+    <div class="nav-links">
+      <a href="index.html">Home</a><a href="s4-chemistry.html">S4</a>
+      <a href="s5-chemistry.html">S5</a><a href="s6-chemistry.html">S6</a>
+      <a href="student-hub.html">Assessments</a>
+    </div>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="badge">S4 Chemistry · Unit 12</div>
+  <h1>Group 17 — The <em>Halogens</em></h1>
+  <p class="sub">Physical trends · Oxidising power · Reactions of halogens · Hydrogen halides · Halide ion tests · Oxoacids · Disproportionation · Industrial uses</p>
+  <div class="toc-grid">
+    <a href="#s121">12.1 Physical Properties</a>
+    <a href="#s122">12.2 Oxidising Power</a>
+    <a href="#s123">12.3 Reactions of Halogens</a>
+    <a href="#s124">12.4 Hydrogen Halides</a>
+    <a href="#s125">12.5 Halides of Metals</a>
+    <a href="#s126">12.6 Oxoacids & Halates</a>
+    <a href="#s127">12.7 Disproportionation</a>
+    <a href="#s128">12.8 Uses & Tests</a>
+    <a href="#exercises">Exercises</a>
+    <a href="#quiz">Quiz</a>
+    <a href="#test">Unit Test</a>
+  </div>
+</div>
+
+<main class="page">
+
+<!-- ═══ 12.1 ═══ -->
+<div class="section-header" id="s121">
+  <span class="section-number">12.1</span>
+  <h2>Physical Properties of Group 17 Elements</h2>
+</div>
+
+<div class="card">
+  <h3>Overview of the Halogens</h3>
+  <p>Group 17 (halogens — Greek: "salt-formers"): <strong>Fluorine (F), Chlorine (Cl), Bromine (Br), Iodine (I), Astatine (At)</strong>. All have outer electron configuration <strong style="font-family:'JetBrains Mono',monospace;color:var(--accent);">ns²np⁵</strong> — 7 valence electrons, one electron short of a noble gas. They are the most electronegative group (F most electronegative element, EN = 4.0).</p>
+  <p>All halogens exist as diatomic molecules (X₂) in their elemental form. They react vigorously with metals to form <strong>ionic halide salts</strong> and with non-metals to form <strong>covalent halides</strong>.</p>
+</div>
+
+<div class="tbl-wrap"><table>
+  <thead><tr><th>Element</th><th>Z</th><th>Config</th><th>State (25°C)</th><th>Colour</th><th>M.p. (°C)</th><th>B.p. (°C)</th><th>EN</th></tr></thead>
+  <tbody>
+    <tr><td>Fluorine (F₂)</td><td>9</td><td>[He]2s²2p⁵</td><td>Gas</td><td>Pale yellow</td><td>−220</td><td>−188</td><td>4.0</td></tr>
+    <tr><td>Chlorine (Cl₂)</td><td>17</td><td>[Ne]3s²3p⁵</td><td>Gas</td><td>Yellow-green</td><td>−101</td><td>−34</td><td>3.0</td></tr>
+    <tr><td>Bromine (Br₂)</td><td>35</td><td>[Ar]3d¹⁰4s²4p⁵</td><td>Liquid</td><td>Red-brown</td><td>−7</td><td>+59</td><td>2.8</td></tr>
+    <tr><td>Iodine (I₂)</td><td>53</td><td>[Kr]4d¹⁰5s²5p⁵</td><td>Solid</td><td>Dark grey/purple vapour</td><td>+114</td><td>+184</td><td>2.5</td></tr>
+    <tr><td>Astatine (At₂)</td><td>85</td><td>[Xe]4f¹⁴5d¹⁰6s²6p⁵</td><td>Solid (radioactive)</td><td>Black (predicted)</td><td>~302</td><td>~337</td><td>2.2</td></tr>
+  </tbody>
+</table></div>
+
+<div class="card">
+  <h3>Trends in Physical Properties</h3>
+  <ul style="margin:0 0 0 22px;line-height:2.3;">
+    <li><strong>State at room temperature</strong> — F₂ and Cl₂ are gases; Br₂ is the only liquid non-metallic element; I₂ is a solid. This reflects increasing London dispersion forces (more electrons → stronger vdW).</li>
+    <li><strong>Colour</strong> — deepens down the group: pale yellow → yellow-green → red-brown → dark grey/violet</li>
+    <li><strong>Melting and boiling points</strong> — increase down the group (stronger London forces with more electrons)</li>
+    <li><strong>Atomic radius</strong> — increases (more shells)</li>
+    <li><strong>Electronegativity</strong> — decreases: F (4.0) > Cl (3.0) > Br (2.8) > I (2.5)</li>
+    <li><strong>Oxidising power</strong> — decreases: F₂ > Cl₂ > Br₂ > I₂ (key trend!)</li>
+    <li><strong>Bond dissociation enthalpy of X₂</strong> — generally decreases (F–F is anomalously low at 158 kJ/mol due to lone pair–lone pair repulsion in the small F₂ molecule)</li>
+    <li><strong>X–H bond strength</strong> — decreases: H–F (565) > H–Cl (432) > H–Br (366) > H–I (298) kJ/mol</li>
+  </ul>
+</div>
+
+<div class="callout info">
+  <span class="callout-icon">💡</span>
+  <div class="callout-body">
+    <strong>Why is Bromine the only liquid non-metal at room temperature?</strong>
+    Br₂ has 70 electrons — strong enough London dispersion forces to keep it liquid at 25°C (b.p. = 59°C). F₂ and Cl₂ have too few electrons (18 and 34) for strong enough London forces → gases. I₂ has 106 electrons but forms a close-packed solid crystal → solid.
+  </div>
+</div>
+
+<!-- ═══ 12.2 ═══ -->
+<div class="section-header" id="s122">
+  <span class="section-number">12.2</span>
+  <h2>Oxidising Power and Displacement Reactions</h2>
+</div>
+
+<div class="card">
+  <h3>Trend in Oxidising Power</h3>
+  <p>The halogens are excellent <strong>oxidising agents</strong> — they gain electrons readily (X₂ + 2e⁻ → 2X⁻). Oxidising power <strong>decreases</strong> down the group: F₂ > Cl₂ > Br₂ > I₂.</p>
+  <p><strong>Explanation:</strong> Going down the group, atomic radius increases. The incoming electron is further from the nucleus and is more shielded → less attracted → less easily gained → weaker oxidising agent.</p>
+
+  <div class="tbl-wrap" style="margin:12px 0 0;"><table>
+    <thead><tr><th>Half-equation</th><th>E° (V)</th><th>Oxidising power</th></tr></thead>
+    <tbody>
+      <tr><td>F₂ + 2e⁻ → 2F⁻</td><td>+2.87</td><td>Strongest oxidising agent</td></tr>
+      <tr><td>Cl₂ + 2e⁻ → 2Cl⁻</td><td>+1.36</td><td>Strong</td></tr>
+      <tr><td>Br₂ + 2e⁻ → 2Br⁻</td><td>+1.07</td><td>Moderate</td></tr>
+      <tr><td>I₂ + 2e⁻ → 2I⁻</td><td>+0.54</td><td>Weakest oxidising agent</td></tr>
+    </tbody>
+  </table></div>
+</div>
+
+<div class="card">
+  <h3>Halogen Displacement Reactions</h3>
+  <p>A more reactive (stronger oxidising) halogen can displace a less reactive one from its salt solution:</p>
+  <div class="formula-block">Cl₂ + 2KBr(aq) → 2KCl(aq) + Br₂    (Cl₂ displaces Br⁻ → orange/brown solution)
+Cl₂ + 2KI(aq)  → 2KCl(aq) + I₂     (Cl₂ displaces I⁻ → brown solution; blue-black with starch)
+Br₂ + 2KI(aq)  → 2KBr(aq) + I₂     (Br₂ displaces I⁻ → brown → blue-black with starch)
+Br₂ + 2KCl(aq) → NO REACTION        (Br₂ cannot displace Cl⁻ — Cl₂ stronger oxidising agent)
+I₂  + 2KCl(aq) → NO REACTION        (I₂ weakest — cannot displace Br⁻ or Cl⁻)</div>
+
+  <div class="callout mem">
+    <span class="callout-icon">🧠</span>
+    <div class="callout-body">
+      <strong>Memory tip — displacement reactions</strong>
+      A halogen can only displace halides BELOW it in Group 17. F displaces all; Cl displaces Br and I; Br displaces only I; I displaces none. "Stronger halogens kick out weaker ones."
+    </div>
+  </div>
+
+  <p><strong>Confirming displacement — solvent extraction test:</strong> Add hexane (cyclohexane) to the reaction mixture and shake. The organic layer separates and colours indicate:</p>
+  <ul style="margin:8px 0 0 20px;line-height:2.2;">
+    <li>Cl₂ dissolved in hexane → <strong>very pale yellow</strong> (almost colourless)</li>
+    <li>Br₂ dissolved in hexane → <strong>orange-red</strong></li>
+    <li>I₂ dissolved in hexane → <strong>violet/purple</strong></li>
+  </ul>
+</div>
+
+<div class="example-box">
+  <div class="ex-head">Worked Example 12.1 — Displacement + Organic Layer</div>
+  <div class="ex-body">
+    <p><strong>Question:</strong> Aqueous KI is treated with Cl₂(aq), then hexane is added and shaken. Describe and explain what is observed.</p>
+    <div class="step"><span class="step-num">1</span><p>Cl₂ is a stronger oxidising agent than I₂: Cl₂ + 2I⁻ → 2Cl⁻ + I₂. Iodine is displaced — the aqueous layer turns brown (I₂ in water).</p></div>
+    <div class="step"><span class="step-num">2</span><p>When hexane is added and shaken, I₂ preferentially dissolves in the non-polar hexane layer (like dissolves like — I₂ is non-polar).</p></div>
+    <div class="step"><span class="step-num">3</span><p>The hexane layer (top) turns <strong>violet/purple</strong> — I₂ dissolved in hexane. The aqueous layer (bottom) becomes paler.</p></div>
+    <div class="step"><span class="step-num">4</span><p>Adding starch solution to the aqueous layer gives a blue-black colour — confirms the presence of I₂ (iodine-starch complex).</p></div>
+  </div>
+</div>
+
+<!-- ═══ 12.3 ═══ -->
+<div class="section-header" id="s123">
+  <span class="section-number">12.3</span>
+  <h2>Reactions of the Halogens</h2>
+</div>
+
+<div class="card">
+  <h3>Reactions with Metals</h3>
+  <p>All halogens react with metals to form ionic metal halides (except some halides of less reactive metals which have covalent character):</p>
+  <div class="formula-block">2Na + Cl₂ → 2NaCl          (burns in Cl₂ — bright white flame)
+2Fe + 3Cl₂ → 2FeCl₃        (iron burns in Cl₂ → Fe³⁺; in I₂ → FeI₂ (Fe²⁺ only — I₂ weaker oxidiser))
+2Al + 3Cl₂ → 2AlCl₃        (AlCl₃ — covalent solid, hydrolyses in water)
+Cu + Cl₂ → CuCl₂           (copper(II) — Cl₂ strong enough to oxidise to +2)
+Cu + I₂  → NO CuI₂; instead: 2Cu + I₂ → 2CuI  (I₂ too weak to oxidise Cu²⁺ → CuI forms)</div>
+  <div class="callout info">
+    <span class="callout-icon">💡</span>
+    <div class="callout-body">
+      <strong>Iron + Halogens: Fe²⁺ vs Fe³⁺</strong>
+      Cl₂ is a strong enough oxidising agent to oxidise Fe to Fe³⁺ (FeCl₃). Br₂ also gives FeBr₃. I₂ is a weaker oxidising agent and can only oxidise Fe to Fe²⁺ (FeI₂) — it cannot achieve Fe³⁺ because I₂ is not strong enough (and Fe³⁺ would actually oxidise I⁻ back to I₂).
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <h3>Reactions with Non-metals and Hydrogen</h3>
+  <div class="formula-block">With hydrogen (vigour decreases F > Cl > Br > I):
+  H₂ + F₂ → 2HF   (explosive, even in the dark — room temperature)
+  H₂ + Cl₂ → 2HCl (explosive in UV light; slow in dark; 300°C in diffuse daylight)
+  H₂ + Br₂ → 2HBr (reversible; 300°C, Pt catalyst)
+  H₂ + I₂ ⇌ 2HI   (reversible equilibrium; high T — never complete)
+
+With water:
+  F₂ + H₂O → 2HF + ½O₂             (or: 2F₂ + 2H₂O → 4HF + O₂)
+  Cl₂ + H₂O ⇌ HCl + HOCl           (chlorine water — reversible; HOCl = hypochlorous acid)
+  Br₂ + H₂O ⇌ HBr + HOBr           (less extent than Cl₂)
+  I₂ + H₂O → negligible reaction    (I₂ barely reacts with water)
+
+With sodium hydroxide (cold, dilute):
+  Cl₂ + 2NaOH → NaCl + NaOCl + H₂O  (bleach — sodium chlorate(I))
+With NaOH (hot, concentrated):
+  3Cl₂ + 6NaOH → 5NaCl + NaClO₃ + 3H₂O  (sodium chlorate(V))</div>
+</div>
+
+<div class="card">
+  <h3>Reactions of Fluorine — Special Cases</h3>
+  <p>Fluorine is so reactive that it shows unique behaviour:</p>
+  <ul style="margin:8px 0 0 20px;line-height:2.2;">
+    <li>Fluorine reacts with <strong>water</strong> (unlike other halogens which only partially dissolve): 2F₂ + 2H₂O → 4HF + O₂</li>
+    <li>Fluorine can react with <strong>noble gases</strong>: Xe + F₂ → XeF₂ (xenon difluoride — impossible for other halogens)</li>
+    <li>Fluorine <strong>cannot</strong> be made by chemical oxidation — it is prepared only by electrolysis of molten KHF₂ (Moissan process, 1886)</li>
+    <li>F₂ has anomalously <strong>low bond energy</strong> (158 kJ/mol) compared to Cl₂ (243), Br₂ (193), I₂ (151 kJ/mol) — due to lone pair–lone pair repulsion in the very small F₂ molecule</li>
+    <li>Fluorine shows <strong>only −1 oxidation state</strong> (most electronegative — cannot be oxidised to positive OS)</li>
+  </ul>
+</div>
+
+<!-- ═══ 12.4 ═══ -->
+<div class="section-header" id="s124">
+  <span class="section-number">12.4</span>
+  <h2>Hydrogen Halides (HX)</h2>
+</div>
+
+<div class="card">
+  <h3>Properties of Hydrogen Halides</h3>
+  <div class="tbl-wrap" style="margin:0;"><table>
+    <thead><tr><th>Property</th><th>HF</th><th>HCl</th><th>HBr</th><th>HI</th></tr></thead>
+    <tbody>
+      <tr><td>Boiling point (°C)</td><td>+19.5</td><td>−85</td><td>−67</td><td>−35</td></tr>
+      <tr><td>Bond energy (kJ/mol)</td><td>565</td><td>432</td><td>366</td><td>298</td></tr>
+      <tr><td>Acid strength in water</td><td>Weak (Ka = 6.3×10⁻⁴)</td><td>Strong</td><td>Strong</td><td>Strongest</td></tr>
+      <tr><td>Reducing power of X⁻</td><td>None</td><td>None (HCl with MnO₂ → Cl₂ only under forcing)</td><td>Moderate — HBr reduced by H₂SO₄</td><td>Strong — HI reduces H₂SO₄ to H₂S</td></tr>
+      <tr><td>Thermal stability</td><td>Very stable (strong H–F)</td><td>Stable</td><td>Less stable</td><td>Decomposes above ~300°C</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout info">
+    <span class="callout-icon">💡</span>
+    <div class="callout-body">
+      <strong>Anomalous boiling point of HF</strong>
+      HF has an anomalously HIGH boiling point (+19.5°C) compared to HCl (−85°C), HBr (−67°C), HI (−35°C). This is because HF molecules form strong <strong>F–H···F hydrogen bonds</strong> — F is the most electronegative element and has a small atomic radius. HCl, HBr, HI cannot form proper H-bonds → only van der Waals forces → lower b.p. The trend from HCl → HI is a regular increase because London forces increase with electron count.
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <h3>Preparation of Hydrogen Halides</h3>
+  <h3 class="sub">HF and HCl — from concentrated H₂SO₄</h3>
+  <div class="formula-block">CaF₂ + H₂SO₄(conc.) → CaSO₄ + 2HF↑      (gently warm — HF is a gas)
+NaCl + H₂SO₄(conc.) → NaHSO₄ + HCl↑     (H₂SO₄ displaces more volatile HCl)</div>
+  <div class="callout warn">
+    <span class="callout-icon">⚠️</span>
+    <div class="callout-body">
+      <strong>Why can't HBr or HI be made this way?</strong>
+      Hot concentrated H₂SO₄ is an oxidising agent. It would oxidise HBr → Br₂ and HI → I₂ (and further to H₂S). Therefore, a non-oxidising acid (H₃PO₄) must be used instead for HBr and HI.
+    </div>
+  </div>
+  <h3 class="sub">HBr and HI — from H₃PO₄ (non-oxidising acid)</h3>
+  <div class="formula-block">NaBr + H₃PO₄ → NaH₂PO₄ + HBr↑     (H₃PO₄ non-oxidising — won't oxidise Br⁻)
+NaI  + H₃PO₄ → NaH₂PO₄ + HI↑      (H₃PO₄ non-oxidising — won't oxidise I⁻)</div>
+  <h3 class="sub">Alternative — direct synthesis</h3>
+  <div class="formula-block">H₂ + X₂ → 2HX   (F₂: room temp; Cl₂: UV; Br₂: 300°C + Pt; I₂: 300°C, equilibrium)</div>
+</div>
+
+<div class="card">
+  <h3>Reducing Power of Halide Ions — Reaction with Concentrated H₂SO₄</h3>
+  <p>This is a key comparison test. The reducing power of X⁻ ions increases: F⁻ &lt; Cl⁻ &lt; Br⁻ &lt; I⁻ (opposite to oxidising power of X₂).</p>
+  <div class="formula-block">NaF  + H₂SO₄(conc.) → NaHSO₄ + HF↑                (no redox — F⁻ cannot reduce H₂SO₄)
+NaCl + H₂SO₄(conc.) → NaHSO₄ + HCl↑               (no redox — Cl⁻ cannot reduce H₂SO₄; only acid-base)
+NaBr + H₂SO₄(conc.) → NaHSO₄ + HBr↑               (some HBr initially)
+                       then: 2HBr + H₂SO₄ → Br₂ + SO₂ + 2H₂O  (Br⁻ reduces S from +6→+4; Br₂ produced — orange fumes)
+NaI  + H₂SO₄(conc.) → NaHSO₄ + HI↑                 (HI initially)
+                       then: 8HI + H₂SO₄ → 4I₂ + H₂S + 4H₂O   (I⁻ strong reducing agent — reduces S all the way to −2 in H₂S; I₂ — black solid/purple vapour)</div>
+  <div class="callout tip">
+    <span class="callout-icon">✅</span>
+    <div class="callout-body">
+      <strong>Summary of observations with conc. H₂SO₄:</strong>
+      NaF → steamy HF fumes only. NaCl → steamy HCl fumes only. NaBr → steamy fumes then orange/brown Br₂ fumes + SO₂ (choking). NaI → steamy fumes then violet I₂ vapour + rotten-egg H₂S smell (very distinctive). The further down the group, the greater the reducing power and the more severe the oxidation of H₂SO₄.
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 12.5 ═══ -->
+<div class="section-header" id="s125">
+  <span class="section-number">12.5</span>
+  <h2>Metal Halides — Properties and Trends</h2>
+</div>
+
+<div class="card">
+  <h3>Ionic vs Covalent Halides</h3>
+  <p>The bonding in metal halides depends on the metal's charge density and the halide's polarisability:</p>
+  <ul style="margin:8px 0 0 20px;line-height:2.2;">
+    <li><strong>Alkali metal halides (NaX, KX)</strong> — ionic; NaCl structure or CsCl structure; high m.p.; conduct when molten/dissolved</li>
+    <li><strong>Alkaline earth metal halides (MgX₂, CaX₂)</strong> — ionic; high m.p.; conduct</li>
+    <li><strong>Higher oxidation state metal halides (AlCl₃, FeCl₃, SnCl₄)</strong> — covalent; lower m.p.; hydrolyse in water</li>
+    <li><strong>Fluorides are more ionic</strong> than the corresponding chloride — F⁻ is small, less polarisable. Iodides are more covalent than fluorides (I⁻ large and very polarisable)</li>
+  </ul>
+  <div class="callout info">
+    <span class="callout-icon">💡</span>
+    <div class="callout-body">
+      <strong>Fajans' Rules — Covalent Character in Halides</strong>
+      Covalent character in a "ionic" compound increases when: (1) the cation has a high charge and small radius (high charge density) → AlCl₃ more covalent than NaCl; (2) the anion is large and easily polarised → iodides more covalent than fluorides. A small, highly charged cation distorts the electron cloud of the anion → charge density on cation approaches that needed for covalent bond.
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <h3>Silver Halides — Solubility and Stability</h3>
+  <div class="tbl-wrap" style="margin:0;"><table>
+    <thead><tr><th>Salt</th><th>Colour</th><th>Solubility in water</th><th>Solubility in NH₃(aq)</th><th>Light sensitivity</th></tr></thead>
+    <tbody>
+      <tr><td>AgF</td><td>White</td><td>Soluble</td><td>Soluble</td><td>Stable</td></tr>
+      <tr><td>AgCl</td><td>White</td><td>Insoluble</td><td>Dissolves in dilute NH₃: AgCl + 2NH₃ → [Ag(NH₃)₂]⁺ + Cl⁻</td><td>Turns grey in UV</td></tr>
+      <tr><td>AgBr</td><td>Cream/pale yellow</td><td>Insoluble</td><td>Dissolves in conc. NH₃ only</td><td>Sensitive — used in photography</td></tr>
+      <tr><td>AgI</td><td>Yellow</td><td>Insoluble</td><td>Insoluble in NH₃</td><td>Very sensitive</td></tr>
+    </tbody>
+  </table></div>
+  <p style="margin-top:12px;">The trend in solubility (AgF soluble → AgI insoluble) reflects increasing covalent character: As the anion gets larger (F⁻ → I⁻), it is more polarisable → more covalent character → less lattice energy released on dissolution → less soluble.</p>
+</div>
+
+<!-- ═══ 12.6 ═══ -->
+<div class="section-header" id="s126">
+  <span class="section-number">12.6</span>
+  <h2>Oxoacids of the Halogens and Halates</h2>
+</div>
+
+<div class="card">
+  <h3>Oxoacids of Chlorine</h3>
+  <div class="tbl-wrap" style="margin:0;"><table>
+    <thead><tr><th>Name</th><th>Formula</th><th>OS of Cl</th><th>Acid strength</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>Hypochlorous acid</td><td>HOCl (HClO)</td><td>+1</td><td>Weak (Ka = 4.7×10⁻⁸)</td><td>Formed when Cl₂ dissolves in water; oxidising/bleaching agent</td></tr>
+      <tr><td>Chlorous acid</td><td>HClO₂</td><td>+3</td><td>Weak</td><td>Unstable, rarely encountered</td></tr>
+      <tr><td>Chloric acid</td><td>HClO₃</td><td>+5</td><td>Strong</td><td>Formed in hot NaOH + Cl₂; basis of KClO₃</td></tr>
+      <tr><td>Perchloric acid</td><td>HClO₄</td><td>+7</td><td>Strongest common acid</td><td>Stable; thermally sensitive at high conc.; made from NaClO₄</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout info">
+    <span class="callout-icon">💡</span>
+    <div class="callout-body">
+      <strong>Acid strength increases with oxidation state of Cl</strong>
+      As more O atoms are bonded to Cl (higher OS), the O–H bond is weaker → easier to ionise → stronger acid. HClO₄ (+7) is a much stronger acid than HOCl (+1). This is a general trend for oxoacids: more O atoms on the central atom = stronger acid.
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <h3>Chlorates and Perchlorates</h3>
+  <div class="formula-block">Chlorate(I) — hypochlorite: NaOCl (bleach), OCl⁻, OS = +1
+Chlorate(V) — chlorate:   KClO₃, ClO₃⁻, OS = +5
+Perchlorate: — perchlorate: KClO₄, ClO₄⁻, OS = +7
+
+Thermal decomposition of KClO₃:
+  2KClO₃ → 2KCl + 3O₂     (MnO₂ catalyst, 200–300°C)   — lab source of O₂
+  4KClO₃ → 3KClO₄ + KCl    (slow, above 400°C — disproportionation)
+
+KClO₃ is used in matches, flares, and fireworks (strong oxidising agent)
+KClO₄ (perchlorate) — stable oxidising agent; rocket propellant</div>
+</div>
+
+<!-- ═══ 12.7 ═══ -->
+<div class="section-header" id="s127">
+  <span class="section-number">12.7</span>
+  <h2>Disproportionation Reactions</h2>
+</div>
+
+<div class="def-box">
+  <strong>Definition — Disproportionation</strong>
+  A reaction in which the same element is <strong>simultaneously oxidised and reduced</strong>. The element is in an intermediate oxidation state and reacts with itself — some atoms are oxidised to a higher state and some are reduced to a lower state.
+</div>
+
+<div class="card">
+  <h3>Disproportionation of Halogens in Alkali</h3>
+  <div class="formula-block">Cl₂ + 2NaOH(cold, dilute) → NaCl + NaOCl + H₂O
+     Cl₂: OS = 0 → NaCl (Cl = −1, reduced) + NaOCl (Cl = +1, oxidised)
+     This is disproportionation: 0 → −1 and +1 simultaneously
+
+3Cl₂ + 6NaOH(hot, conc.) → 5NaCl + NaClO₃ + 3H₂O
+     0 → −1 (in 5NaCl) and +5 (in NaClO₃) — more extensive disproportionation
+
+Similarly for bromine:
+  Br₂ + 2NaOH(cold) → NaBr + NaOBr + H₂O
+  3Br₂ + 6NaOH(hot) → 5NaBr + NaBrO₃ + 3H₂O</div>
+
+  <div class="callout tip">
+    <span class="callout-icon">💡</span>
+    <div class="callout-body">
+      <strong>Iodine in alkali</strong>
+      I₂ + 2NaOH → NaI + NaIO + H₂O (cold — NaIO, iodate(I), unstable, rapidly converts to iodate(V)). 3I₂ + 6NaOH → 5NaI + NaIO₃ + 3H₂O even at room temperature (iodine prefers the +5 state in basic solution). This is why the iodine/alkali reaction gives iodate(V) rather than iodate(I) as the main product.
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <h3>Other Disproportionation Examples</h3>
+  <div class="formula-block">Comproportionation (reverse of disproportionation — two different OS → one):
+  Cl₂ + SO₂ + 2H₂O → HCl + H₂SO₄  (not a disproportionation of Cl)
+
+True disproportionation examples:
+  2H₂O₂ → 2H₂O + O₂        (H₂O₂: O = −1 → H₂O (O = −2) + O₂ (O = 0))
+  3MnO₄²⁻ + 2H₂O → 2MnO₄⁻ + MnO₂ + 4OH⁻  (manganate disproportionates in water)
+  Cu⁺ + Cu⁺ → Cu + Cu²⁺     (Cu⁺ disproportionates in water — this is why CuI is stable but CuCl not)</div>
+</div>
+
+<!-- ═══ 12.8 ═══ -->
+<div class="section-header" id="s128">
+  <span class="section-number">12.8</span>
+  <h2>Uses of Halogens and Tests for Halide Ions</h2>
+</div>
+
+<div class="card">
+  <h3>Industrial and Everyday Uses of Halogens</h3>
+  <div class="tbl-wrap" style="margin:0;"><table>
+    <thead><tr><th>Halogen / Compound</th><th>Use</th><th>Reason</th></tr></thead>
+    <tbody>
+      <tr><td>Cl₂ (chlorine gas)</td><td>Water treatment / sterilisation</td><td>Cl₂ + H₂O → HOCl — kills bacteria and viruses</td></tr>
+      <tr><td>NaOCl (bleach)</td><td>Household bleach, disinfectant</td><td>HOCl releases [O] — oxidises colour molecules and bacteria</td></tr>
+      <tr><td>PVC (polyvinylchloride)</td><td>Pipes, flooring, clothing, insulation</td><td>Addition polymer from chloroethene (vinyl chloride)</td></tr>
+      <tr><td>HCl</td><td>Metal pickling, food processing (HCl in stomach), PVC production</td><td>Strong acid; reaction with metal oxides</td></tr>
+      <tr><td>CFCs (Freons)</td><td>Now banned — formerly refrigerants, aerosol propellants</td><td>Inert, non-toxic, low b.p. — but destroy ozone layer</td></tr>
+      <tr><td>HFCs</td><td>Modern refrigerants (replacing CFCs)</td><td>No Cl → no ozone depletion; still greenhouse gases</td></tr>
+      <tr><td>PTFE (Teflon)</td><td>Non-stick cookware, cables</td><td>Very inert (strong C–F bonds), low friction</td></tr>
+      <tr><td>AgBr</td><td>Photographic film (now mostly replaced by digital)</td><td>Light-sensitive: 2AgBr + light → 2Ag + Br₂ (darkens)</td></tr>
+      <tr><td>NaI (iodide)</td><td>Iodised salt — prevents goitre (iodine deficiency)</td><td>I⁻ absorbed by thyroid gland — needed for thyroxine hormone</td></tr>
+      <tr><td>I₂</td><td>Antiseptic (tincture of iodine); starch test</td><td>Kills bacteria; I₂ + starch → blue-black complex</td></tr>
+      <tr><td>F₂ / HF</td><td>Production of uranium hexafluoride (UF₆) for nuclear fuel enrichment; etching glass</td><td>HF attacks SiO₂: SiO₂ + 4HF → SiF₄ + 2H₂O</td></tr>
+    </tbody>
+  </table></div>
+</div>
+
+<div class="card">
+  <h3>Tests for Halide Ions (X⁻)</h3>
+  <p>Add <strong>dilute nitric acid</strong> (to remove CO₃²⁻, SO₃²⁻ and other interferences) then add <strong>silver nitrate solution (AgNO₃)</strong>:</p>
+  <div class="formula-block">Ag⁺ + F⁻ → NO precipitate (AgF is soluble)
+Ag⁺ + Cl⁻ → AgCl↓ (white precipitate)
+Ag⁺ + Br⁻ → AgBr↓ (cream/pale yellow precipitate)
+Ag⁺ + I⁻ → AgI↓  (yellow precipitate)</div>
+  <p><strong>Distinguishing the precipitates — add ammonia solution:</strong></p>
+  <div class="formula-block">AgCl + 2NH₃(dil.) → [Ag(NH₃)₂]⁺ + Cl⁻     (dissolves in DILUTE NH₃)
+AgBr: dissolves only in CONCENTRATED NH₃
+AgI:  does NOT dissolve in NH₃ (even concentrated)</div>
+  <div class="tbl-wrap" style="margin:12px 0 0;"><table>
+    <thead><tr><th>Test</th><th>F⁻</th><th>Cl⁻</th><th>Br⁻</th><th>I⁻</th></tr></thead>
+    <tbody>
+      <tr><td>AgNO₃/HNO₃</td><td>No ppt</td><td>White ppt</td><td>Cream ppt</td><td>Yellow ppt</td></tr>
+      <tr><td>+ dilute NH₃</td><td>—</td><td>Dissolves</td><td>Remains</td><td>Remains</td></tr>
+      <tr><td>+ conc. NH₃</td><td>—</td><td>Dissolves</td><td>Dissolves</td><td>Remains</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout mem">
+    <span class="callout-icon">🧠</span>
+    <div class="callout-body">
+      <strong>Memory: AgF, AgCl, AgBr, AgI colours</strong>
+      "WCCY" — White, Cream, Cream-yellow, Yellow. Or: "Further down, deeper colour." AgF = soluble (no ppt). AgCl = white. AgBr = cream. AgI = yellow.
+    </div>
+  </div>
+</div>
+
+<!-- ═══ EXERCISES ═══ -->
+<div class="section-header" id="exercises">
+  <span class="section-number">✏️</span>
+  <h2>Exercises</h2>
+</div>
+
+<ul class="exercise-list">
+  <li>Explain the trend in oxidising power across Group 17 from F₂ to I₂. Give one displacement reaction equation to illustrate this trend.
+    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide Answer':'Show Answer'">Show Answer</button>
+    <div class="answer">Oxidising power decreases: F₂ > Cl₂ > Br₂ > I₂. Reason: going down group, atomic radius increases and the outer shell is more shielded. The incoming electron (to form X⁻) is added to a larger shell, further from the nucleus, with more shielding → less attracted by the nucleus → less readily gained → weaker oxidising agent. Example: Cl₂ + 2KBr(aq) → 2KCl(aq) + Br₂ (Cl₂ displaces Br⁻ because Cl₂ is the stronger oxidising agent). Ionic equation: Cl₂ + 2Br⁻ → 2Cl⁻ + Br₂.</div>
+  </li>
+  <li>Describe what you would observe when concentrated H₂SO₄ is added to (a) NaCl (b) NaBr (c) NaI. Write equations and explain the differences in terms of reducing power of the halide ions.
+    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide Answer':'Show Answer'">Show Answer</button>
+    <div class="answer">(a) NaCl + H₂SO₄ → NaHSO₄ + HCl↑. Observation: steamy white/colourless HCl fumes. No redox — Cl⁻ too weak a reducing agent to reduce H₂SO₄. (b) NaBr + H₂SO₄ → NaHSO₄ + HBr↑; then 2HBr + H₂SO₄ → Br₂ + SO₂ + 2H₂O. Observation: steamy fumes initially, then orange-brown Br₂ fumes + choking SO₂ smell. Br⁻ reduces S from +6 → +4. (c) NaI + H₂SO₄ → NaHSO₄ + HI↑; then 8HI + H₂SO₄ → 4I₂ + H₂S + 4H₂O. Observation: steamy fumes, then black solid I₂ / violet vapour + rotten-egg H₂S gas. I⁻ is strongest reducing agent — reduces S all the way from +6 to −2. Reducing power: I⁻ > Br⁻ > Cl⁻ (increasing atomic radius, weaker bond to H, more easily oxidised).</div>
+  </li>
+  <li>Explain what is meant by disproportionation. Write the equation for the reaction of Cl₂ with cold dilute NaOH. Identify the oxidation state changes.
+    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide Answer':'Show Answer'">Show Answer</button>
+    <div class="answer">Disproportionation: a reaction in which the SAME element is simultaneously oxidised (OS increases) AND reduced (OS decreases) in the same reaction. Cl₂ + 2NaOH(cold, dilute) → NaCl + NaOCl + H₂O. OS changes: Cl₂ has Cl in OS = 0. In NaCl: Cl = −1 (REDUCED). In NaOCl: Cl = +1 (OXIDISED). So Cl goes from 0 → −1 (reduction) and 0 → +1 (oxidation) simultaneously. This is a disproportionation. The product NaOCl (sodium hypochlorite) is household bleach.</div>
+  </li>
+  <li>Explain why HF has a much higher boiling point (19.5°C) than HCl (−85°C) even though HF has lower molar mass. Why does the boiling point then increase from HCl → HBr → HI?
+    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide Answer':'Show Answer'">Show Answer</button>
+    <div class="answer">HF high b.p.: fluorine is very small (Period 2) and highly electronegative (4.0). The H–F bond is very polar → HF molecules form strong F–H···F hydrogen bonds. Many hydrogen bonds must be broken to vaporise HF → high b.p. (19.5°C). HCl lower b.p.: Cl is larger (Period 3, EN=3.0), H–Cl bond is less polar → no significant H-bonds → only weak London dispersion forces → easy to vaporise → b.p. = −85°C. HCl → HBr → HI increase: none of these can form H-bonds (Cl, Br, I not small/electronegative enough). They only have van der Waals (London) forces. Going from HCl → HBr → HI: more electrons, larger molecules → stronger London forces → higher b.p. (−85 → −67 → −35°C).</div>
+  </li>
+  <li>Describe how you would distinguish between solutions of NaCl, NaBr, and NaI using silver nitrate solution and ammonia. State observations and equations for each.
+    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide Answer':'Show Answer'">Show Answer</button>
+    <div class="answer">Step 1: Add dilute HNO₃ (to remove interferents), then AgNO₃(aq). NaCl: white precipitate (AgCl). NaBr: cream precipitate (AgBr). NaI: yellow precipitate (AgI). Equations: Ag⁺ + Cl⁻ → AgCl↓ (white); Ag⁺ + Br⁻ → AgBr↓ (cream); Ag⁺ + I⁻ → AgI↓ (yellow). Step 2: Add dilute NH₃: AgCl dissolves (AgCl + 2NH₃ → [Ag(NH₃)₂]⁺ + Cl⁻); AgBr and AgI remain. Step 3: Add concentrated NH₃: AgBr dissolves; AgI remains. Summary: Cl⁻ = dissolves in dilute NH₃; Br⁻ = requires conc. NH₃; I⁻ = insoluble in NH₃. Also colour of precipitate alone distinguishes them.</div>
+  </li>
+  <li>Why can fluorine NOT be prepared by chemical oxidation of F⁻ ions, whereas Cl₂, Br₂, and I₂ can? How is F₂ manufactured industrially?
+    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide Answer':'Show Answer'">Show Answer</button>
+    <div class="answer">F₂ is the strongest oxidising agent known (E° = +2.87V). No chemical oxidising agent is strong enough to oxidise F⁻ to F₂ — F⁻ simply cannot be chemically oxidised by any reagent that exists. In contrast, Cl⁻ can be oxidised to Cl₂ by MnO₂ + HCl, Br⁻ by Cl₂, I⁻ by Cl₂ or Br₂. Industrial production of F₂: electrolysis of molten potassium hydrogen difluoride (KHF₂) dissolved in liquid HF at ~70°C. This is the Moissan process (Henri Moissan, Nobel Prize 1906). Anode: 2F⁻ → F₂ + 2e⁻. Steel or copper containers are used (they form a protective fluoride coating — passivation).</div>
+  </li>
+</ul>
+
+<!-- ═══ QUIZ ═══ -->
+<div class="section-header" id="quiz">
+  <span class="section-number">🧪</span>
+  <h2>Multiple Choice Quiz — 25 Questions</h2>
+</div>
+<div class="quiz-wrap">
+  <div class="quiz-head">
+    <h3>Unit 12: Group 17 — The Halogens</h3>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--muted);">25 Questions · Select one answer each</span>
+  </div>
+  <div class="quiz-body">
+
+    <div class="qblock"><span class="qnum">Q1</span>
+    <p class="qtext">The outer electron configuration of all Group 17 elements is:</p>
+    <div class="opts">
+      <label><input type="radio" name="q1" value="A"> ns²np⁴</label>
+      <label><input type="radio" name="q1" value="B"> ns²np⁵</label>
+      <label><input type="radio" name="q1" value="C"> ns²np⁶</label>
+      <label><input type="radio" name="q1" value="D"> ns²np³</label>
+    </div>
+    <div class="qexplain" id="e1">Group 17 halogens: ns²np⁵ — 7 valence electrons. One electron short of a noble gas configuration. This drives them to gain one electron (forming X⁻, OS = −1) or share electrons in covalent bonds.</div></div>
+
+    <div class="qblock"><span class="qnum">Q2</span>
+    <p class="qtext">Which halogen is a red-brown liquid at room temperature?</p>
+    <div class="opts">
+      <label><input type="radio" name="q2" value="A"> Fluorine</label>
+      <label><input type="radio" name="q2" value="B"> Chlorine</label>
+      <label><input type="radio" name="q2" value="C"> Bromine</label>
+      <label><input type="radio" name="q2" value="D"> Iodine</label>
+    </div>
+    <div class="qexplain" id="e2">Bromine (Br₂) is a red-brown liquid — it is the only non-metallic element that is a liquid at room temperature. F₂ and Cl₂ are gases (pale yellow and yellow-green respectively). I₂ is a dark grey/black solid.</div></div>
+
+    <div class="qblock"><span class="qnum">Q3</span>
+    <p class="qtext">The oxidising power of halogens decreases in the order:</p>
+    <div class="opts">
+      <label><input type="radio" name="q3" value="A"> I₂ > Br₂ > Cl₂ > F₂</label>
+      <label><input type="radio" name="q3" value="B"> F₂ > Cl₂ > Br₂ > I₂</label>
+      <label><input type="radio" name="q3" value="C"> Cl₂ > F₂ > I₂ > Br₂</label>
+      <label><input type="radio" name="q3" value="D"> All halogens have equal oxidising power</label>
+    </div>
+    <div class="qexplain" id="e3">F₂ > Cl₂ > Br₂ > I₂. F₂ is the strongest oxidising agent in all of chemistry (E° = +2.87V). Down the group: atomic radius increases, shielding increases → incoming electron less attracted → weaker oxidising agent.</div></div>
+
+    <div class="qblock"><span class="qnum">Q4</span>
+    <p class="qtext">Chlorine water (Cl₂ dissolved in water) contains which species?</p>
+    <div class="opts">
+      <label><input type="radio" name="q4" value="A"> Only Cl₂ molecules</label>
+      <label><input type="radio" name="q4" value="B"> Cl₂, H⁺, Cl⁻, and HOCl (hypochlorous acid)</label>
+      <label><input type="radio" name="q4" value="C"> Only HCl and HOCl</label>
+      <label><input type="radio" name="q4" value="D"> Cl₂O only</label>
+    </div>
+    <div class="qexplain" id="e4">Cl₂ + H₂O ⇌ H⁺ + Cl⁻ + HOCl (reversible equilibrium). Chlorine water contains unreacted Cl₂, plus the products of the disproportionation: H⁺, Cl⁻, and HOCl (hypochlorous acid). HOCl is a weak acid but a strong oxidising/bleaching agent — it is responsible for bleaching action.</div></div>
+
+    <div class="qblock"><span class="qnum">Q5</span>
+    <p class="qtext">When chlorine water is added to potassium bromide solution, the solution turns:</p>
+    <div class="opts">
+      <label><input type="radio" name="q5" value="A"> Blue-black (starch-iodine complex)</label>
+      <label><input type="radio" name="q5" value="B"> Orange-brown (Br₂ produced)</label>
+      <label><input type="radio" name="q5" value="C"> Colourless (no reaction)</label>
+      <label><input type="radio" name="q5" value="D"> Green (Cl₂ colour dominates)</label>
+    </div>
+    <div class="qexplain" id="e5">Cl₂ + 2Br⁻ → 2Cl⁻ + Br₂. Br₂ is displaced — it produces an orange-brown colour in aqueous solution. If hexane is added, the organic layer turns orange-red (Br₂ more soluble in non-polar hexane). Blue-black would indicate I₂ with starch.</div></div>
+
+    <div class="qblock"><span class="qnum">Q6</span>
+    <p class="qtext">Iodine solution turns starch:</p>
+    <div class="opts">
+      <label><input type="radio" name="q6" value="A"> Orange</label>
+      <label><input type="radio" name="q6" value="B"> Red</label>
+      <label><input type="radio" name="q6" value="C"> Blue-black</label>
+      <label><input type="radio" name="q6" value="D"> Yellow</label>
+    </div>
+    <div class="qexplain" id="e6">I₂ + starch → intense blue-black complex (I₃⁻ ions fit into the helical structure of amylose starch). This is a very sensitive and specific test for I₂ (or I₃⁻). Used as the endpoint indicator in iodometric titrations. The blue-black colour disappears on heating (I₂ evaporates) and returns on cooling.</div></div>
+
+    <div class="qblock"><span class="qnum">Q7</span>
+    <p class="qtext">Why does HF have a higher boiling point than HCl despite having a lower molar mass?</p>
+    <div class="opts">
+      <label><input type="radio" name="q7" value="A"> HF is ionic</label>
+      <label><input type="radio" name="q7" value="B"> HF forms strong F–H···F hydrogen bonds; HCl has only van der Waals forces</label>
+      <label><input type="radio" name="q7" value="C"> HF has stronger covalent bonds than HCl</label>
+      <label><input type="radio" name="q7" value="D"> HF has a higher molar mass than HCl</label>
+    </div>
+    <div class="qexplain" id="e7">F is small (Period 2) and highly electronegative (4.0) → very polar H–F bond → strong hydrogen bonds F–H···F. Many H-bonds must be broken to boil HF → b.p. = +19.5°C. HCl: Cl too large/not electronegative enough to form H-bonds → only van der Waals → b.p. = −85°C. Same anomaly as H₂O vs H₂S and NH₃ vs PH₃.</div></div>
+
+    <div class="qblock"><span class="qnum">Q8</span>
+    <p class="qtext">The reaction of Cl₂ with cold dilute NaOH is described as disproportionation because:</p>
+    <div class="opts">
+      <label><input type="radio" name="q8" value="A"> Cl₂ only acts as a reducing agent</label>
+      <label><input type="radio" name="q8" value="B"> Cl (OS=0) is simultaneously oxidised to +1 (in NaOCl) and reduced to −1 (in NaCl)</label>
+      <label><input type="radio" name="q8" value="C"> The reaction is reversible</label>
+      <label><input type="radio" name="q8" value="D"> NaOH is both oxidised and reduced</label>
+    </div>
+    <div class="qexplain" id="e8">Cl₂ + 2NaOH → NaCl + NaOCl + H₂O. Cl₂ (Cl = 0) → NaCl (Cl = −1, reduced) and NaOCl (Cl = +1, oxidised). The SAME element (Cl) undergoes both oxidation (+) and reduction (−) simultaneously. Definition of disproportionation: one element in one oxidation state converts to two different oxidation states.</div></div>
+
+    <div class="qblock"><span class="qnum">Q9</span>
+    <p class="qtext">Silver halide precipitates with AgNO₃/HNO₃: which is yellow?</p>
+    <div class="opts">
+      <label><input type="radio" name="q9" value="A"> AgCl</label>
+      <label><input type="radio" name="q9" value="B"> AgBr</label>
+      <label><input type="radio" name="q9" value="C"> AgI</label>
+      <label><input type="radio" name="q9" value="D"> AgF</label>
+    </div>
+    <div class="qexplain" id="e9">AgI is yellow. AgCl = white; AgBr = cream (pale yellow). AgF is soluble (no precipitate). Memory: deeper colour going down the group because increasing covalent character causes greater light absorption. AgI is also the most insoluble, insoluble even in concentrated NH₃.</div></div>
+
+    <div class="qblock"><span class="qnum">Q10</span>
+    <p class="qtext">HBr cannot be made by adding concentrated H₂SO₄ to NaBr because:</p>
+    <div class="opts">
+      <label><input type="radio" name="q10" value="A"> NaBr is insoluble in H₂SO₄</label>
+      <label><input type="radio" name="q10" value="B"> Conc. H₂SO₄ oxidises HBr to Br₂ — the HBr is destroyed before it can be collected</label>
+      <label><input type="radio" name="q10" value="C"> HBr reacts with H₂SO₄ to give H₂SO₃</label>
+      <label><input type="radio" name="q10" value="D"> NaBr and H₂SO₄ do not react</label>
+    </div>
+    <div class="qexplain" id="e10">Hot conc. H₂SO₄ is an oxidising agent: 2HBr + H₂SO₄ → Br₂ + SO₂ + 2H₂O. The HBr produced is immediately oxidised to Br₂ — you get Br₂ vapour instead of HBr. Therefore H₃PO₄ (non-oxidising) must be used instead. Same problem for HI (8HI + H₂SO₄ → 4I₂ + H₂S + 4H₂O).</div></div>
+
+    <div class="qblock"><span class="qnum">Q11</span>
+    <p class="qtext">The oxidation state of Cl in household bleach (NaOCl) is:</p>
+    <div class="opts">
+      <label><input type="radio" name="q11" value="A"> −1</label>
+      <label><input type="radio" name="q11" value="B"> 0</label>
+      <label><input type="radio" name="q11" value="C"> +1</label>
+      <label><input type="radio" name="q11" value="D"> +5</label>
+    </div>
+    <div class="qexplain" id="e11">NaOCl: Na = +1, O = −2, Cl = ? Na(+1) + O(−2) + Cl = 0 → Cl = +1. Also written as sodium chlorate(I). This is the +1 state that results from disproportionation of Cl₂ in cold NaOH. The bleaching/disinfecting action is due to Cl(+1) being a powerful oxidising agent.</div></div>
+
+    <div class="qblock"><span class="qnum">Q12</span>
+    <p class="qtext">When I₂ is shaken with hexane and aqueous KI solution, I₂ preferentially moves into the hexane layer because:</p>
+    <div class="opts">
+      <label><input type="radio" name="q12" value="A"> I₂ is an ionic compound, like-dissolves-like with hexane</label>
+      <label><input type="radio" name="q12" value="B"> I₂ is a non-polar molecule — it dissolves better in non-polar hexane than in polar water (like-dissolves-like)</label>
+      <label><input type="radio" name="q12" value="C"> I₂ reacts with hexane</label>
+      <label><input type="radio" name="q12" value="D"> Water oxidises I₂ to IO₃⁻</label>
+    </div>
+    <div class="qexplain" id="e12">Like dissolves like: I₂ is a non-polar diatomic molecule (only London forces between I₂ molecules). Hexane is non-polar — London forces between I₂ and hexane molecules → I₂ dissolves in hexane (violet layer). Water is polar and can only form weak interactions with I₂ → I₂ prefers non-polar hexane. This extraction test identifies which halogen is present from the colour of the organic layer.</div></div>
+
+    <div class="qblock"><span class="qnum">Q13</span>
+    <p class="qtext">The reaction between iron and iodine produces:</p>
+    <div class="opts">
+      <label><input type="radio" name="q13" value="A"> FeI₃ (iron(III) iodide)</label>
+      <label><input type="radio" name="q13" value="B"> FeI₂ (iron(II) iodide — I₂ not strong enough to oxidise Fe to +3)</label>
+      <label><input type="radio" name="q13" value="C"> Fe₂I₃</label>
+      <label><input type="radio" name="q13" value="D"> No reaction</label>
+    </div>
+    <div class="qexplain" id="e13">I₂ is the weakest halogen oxidising agent — it can only oxidise Fe to Fe²⁺ (FeI₂). It cannot achieve Fe³⁺ because I₂'s oxidising power (E° = +0.54V) is insufficient. Also, Fe³⁺ would oxidise I⁻ back to I₂ — so FeI₃ is thermodynamically unstable: 2FeI₃ → 2FeI₂ + I₂. Contrast: Cl₂ → FeCl₃; Br₂ → FeBr₃.</div></div>
+
+    <div class="qblock"><span class="qnum">Q14</span>
+    <p class="qtext">What is the observation when AgCl is treated with dilute ammonia solution?</p>
+    <div class="opts">
+      <label><input type="radio" name="q14" value="A"> White precipitate remains unchanged</label>
+      <label><input type="radio" name="q14" value="B"> White precipitate dissolves to give a colourless solution ([Ag(NH₃)₂]⁺ complex ion forms)</label>
+      <label><input type="radio" name="q14" value="C"> Blue colour appears</label>
+      <label><input type="radio" name="q14" value="D"> Precipitate turns yellow</label>
+    </div>
+    <div class="qexplain" id="e14">AgCl + 2NH₃(dil.) → [Ag(NH₃)₂]⁺ + Cl⁻. The white AgCl precipitate dissolves completely in dilute ammonia, forming the soluble diamminesilver(I) complex ion. This is used to distinguish AgCl (dissolves in dilute NH₃) from AgBr (dissolves only in concentrated NH₃) and AgI (insoluble in any concentration of NH₃).</div></div>
+
+    <div class="qblock"><span class="qnum">Q15</span>
+    <p class="qtext">Which halogen reacts with water to produce oxygen gas?</p>
+    <div class="opts">
+      <label><input type="radio" name="q15" value="A"> Chlorine</label>
+      <label><input type="radio" name="q15" value="B"> Bromine</label>
+      <label><input type="radio" name="q15" value="C"> Fluorine (2F₂ + 2H₂O → 4HF + O₂)</label>
+      <label><input type="radio" name="q15" value="D"> Iodine</label>
+    </div>
+    <div class="qexplain" id="e15">F₂ is so powerfully oxidising that it oxidises water: 2F₂ + 2H₂O → 4HF + O₂. F₂ oxidises O from −2 (in H₂O) to 0 (in O₂). Cl₂, Br₂, I₂ react much more gently with water via disproportionation (Cl₂ + H₂O ⇌ HCl + HOCl) but do not produce O₂. This is another indication of F₂'s extraordinary reactivity.</div></div>
+
+    <div class="qblock"><span class="qnum">Q16</span>
+    <p class="qtext">The acid strength of the oxoacids of chlorine increases in the order:</p>
+    <div class="opts">
+      <label><input type="radio" name="q16" value="A"> HClO₄ > HClO₃ > HClO₂ > HOCl</label>
+      <label><input type="radio" name="q16" value="B"> HOCl > HClO₂ > HClO₃ > HClO₄</label>
+      <label><input type="radio" name="q16" value="C"> All are equally strong</label>
+      <label><input type="radio" name="q16" value="D"> HClO₃ > HClO₄ > HClO₂ > HOCl</label>
+    </div>
+    <div class="qexplain" id="e16">Acid strength increases with the number of oxygen atoms (higher OS on Cl): HOCl (+1) weakest → HClO₂ (+3) → HClO₃ (+5) → HClO₄ (+7) strongest. Each additional O atom withdraws more electron density from the O–H bond → H⁺ more easily released → stronger acid. HClO₄ (perchloric acid) is one of the strongest known acids.</div></div>
+
+    <div class="qblock"><span class="qnum">Q17</span>
+    <p class="qtext">Fluorine shows only the −1 oxidation state in its compounds. This is because:</p>
+    <div class="opts">
+      <label><input type="radio" name="q17" value="A"> Fluorine has only one unpaired electron</label>
+      <label><input type="radio" name="q17" value="B"> Fluorine is the most electronegative element and has no d orbitals available — it cannot be oxidised to a positive OS</label>
+      <label><input type="radio" name="q17" value="C"> Fluorine reacts too slowly to show other states</label>
+      <label><input type="radio" name="q17" value="D"> Fluorine's high ionisation energy prevents any positive OS</label>
+    </div>
+    <div class="qexplain" id="e17">Fluorine: most electronegative element (4.0) → always attracts electrons → always gains electrons → always −1. Cannot be oxidised to positive OS because: (1) No element is more electronegative than F to force it to lose electrons; (2) F is in Period 2 — no available d orbitals to expand its octet and accommodate extra bonds (unlike Cl which can form ClO₃⁻ (+5), ClO₄⁻ (+7) using 3d orbitals). F only shows 0 (in F₂) and −1.</div></div>
+
+    <div class="qblock"><span class="qnum">Q18</span>
+    <p class="qtext">The trend in HX bond strength across the hydrogen halides is:</p>
+    <div class="opts">
+      <label><input type="radio" name="q18" value="A"> HI > HBr > HCl > HF</label>
+      <label><input type="radio" name="q18" value="B"> HF > HCl > HBr > HI</label>
+      <label><input type="radio" name="q18" value="C"> HCl > HF > HBr > HI</label>
+      <label><input type="radio" name="q18" value="D"> All have equal bond strength</label>
+    </div>
+    <div class="qexplain" id="e18">H–X bond energy decreases: H–F (565) > H–Cl (432) > H–Br (366) > H–I (298) kJ/mol. As X gets larger going down Group 17, the bonding orbitals overlap less effectively (smaller H 1s orbital vs larger X np orbital) → weaker bond. This explains why HI is the strongest acid (weakest H–I bond → easiest to donate H⁺) and why the reducing power of X⁻ increases I⁻ > Br⁻ > Cl⁻.</div></div>
+
+    <div class="qblock"><span class="qnum">Q19</span>
+    <p class="qtext">Which of the following reactions is NOT a displacement reaction?</p>
+    <div class="opts">
+      <label><input type="radio" name="q19" value="A"> Cl₂ + 2KBr → 2KCl + Br₂</label>
+      <label><input type="radio" name="q19" value="B"> Br₂ + 2KI → 2KBr + I₂</label>
+      <label><input type="radio" name="q19" value="C"> Cl₂ + 2NaOH → NaCl + NaOCl + H₂O</label>
+      <label><input type="radio" name="q19" value="D"> Cl₂ + 2KI → 2KCl + I₂</label>
+    </div>
+    <div class="qexplain" id="e19">A displacement reaction involves a more reactive halogen pushing out a less reactive halide ion. Option C (Cl₂ + NaOH → NaCl + NaOCl + H₂O) is a disproportionation reaction — Cl₂ reacts with alkali, not with a halide ion, and the same element (Cl) is both oxidised and reduced. Options A, B, D are all displacement reactions.</div></div>
+
+    <div class="qblock"><span class="qnum">Q20</span>
+    <p class="qtext">Bleaching powder (CaOCl₂) releases its bleaching action because:</p>
+    <div class="opts">
+      <label><input type="radio" name="q20" value="A"> It directly reacts with dyes using Ca²⁺</label>
+      <label><input type="radio" name="q20" value="B"> In contact with CO₂ or dilute acid, it releases HOCl which is the actual bleaching agent</label>
+      <label><input type="radio" name="q20" value="C"> It is a strong base that destroys colour</label>
+      <label><input type="radio" name="q20" value="D"> It produces O₂ which bleaches</label>
+    </div>
+    <div class="qexplain" id="e20">Bleaching powder (Ca(OCl)Cl): CaOCl₂ + CO₂ + H₂O → CaCO₃ + 2HOCl. HOCl (hypochlorous acid, Cl = +1) is the actual bleaching agent. HOCl decomposes: HOCl → HCl + [O] (nascent oxygen) — the reactive oxygen atom oxidises coloured organic dye molecules, destroying the chromophore → colour lost → bleached.</div></div>
+
+    <div class="qblock"><span class="qnum">Q21</span>
+    <p class="qtext">The reducing power of the halide ions increases in the order:</p>
+    <div class="opts">
+      <label><input type="radio" name="q21" value="A"> I⁻ < Br⁻ < Cl⁻ < F⁻</label>
+      <label><input type="radio" name="q21" value="B"> F⁻ < Cl⁻ < Br⁻ < I⁻</label>
+      <label><input type="radio" name="q21" value="C"> All halides have equal reducing power</label>
+      <label><input type="radio" name="q21" value="D"> Br⁻ > I⁻ > Cl⁻ > F⁻</label>
+    </div>
+    <div class="qexplain" id="e21">F⁻ &lt; Cl⁻ &lt; Br⁻ &lt; I⁻ (reducing power increases going down). This is the REVERSE of oxidising power of X₂. I⁻ has the largest radius → H–I bond weakest → most easily oxidised (gives up electron most easily) → strongest reducing agent. F⁻ cannot be oxidised at all under normal conditions. Demonstrated by reactions with conc. H₂SO₄: only Br⁻ and I⁻ reduce it.</div></div>
+
+    <div class="qblock"><span class="qnum">Q22</span>
+    <p class="qtext">AgCl turns grey in sunlight because:</p>
+    <div class="opts">
+      <label><input type="radio" name="q22" value="A"> AgCl reacts with oxygen in air</label>
+      <label><input type="radio" name="q22" value="B"> UV light decomposes AgCl: 2AgCl → 2Ag (grey metal) + Cl₂</label>
+      <label><input type="radio" name="q22" value="C"> AgCl absorbs moisture and changes colour</label>
+      <label><input type="radio" name="q22" value="D"> AgCl is reduced by water vapour</label>
+    </div>
+    <div class="qexplain" id="e22">2AgCl → 2Ag + Cl₂ (photodecomposition in UV light). Silver metal (Ag⁰) is grey/black. This light sensitivity forms the basis of traditional photographic film (AgBr is even more sensitive). In photography: light hits AgBr crystals → Ag⁰ forms (latent image) → developing amplifies this → image forms.</div></div>
+
+    <div class="qblock"><span class="qnum">Q23</span>
+    <p class="qtext">The reaction 3Cl₂ + 6NaOH(hot, concentrated) → 5NaCl + NaClO₃ + 3H₂O gives which product containing Cl in an oxidation state of +5?</p>
+    <div class="opts">
+      <label><input type="radio" name="q23" value="A"> NaCl</label>
+      <label><input type="radio" name="q23" value="B"> NaOCl</label>
+      <label><input type="radio" name="q23" value="C"> NaClO₃ (sodium chlorate(V))</label>
+      <label><input type="radio" name="q23" value="D"> NaClO₄</label>
+    </div>
+    <div class="qexplain" id="e23">NaClO₃: Na(+1) + Cl + 3O(−2) = 0 → Cl = +5. Sodium chlorate(V). Compare with NaOCl (Cl = +1) from cold dilute NaOH. Hot concentrated NaOH gives more extensive disproportionation: Cl goes from 0 → −1 (in 5NaCl) and 0 → +5 (in NaClO₃). KClO₃ is used in matches, fireworks, and thermal decomposition to make O₂.</div></div>
+
+    <div class="qblock"><span class="qnum">Q24</span>
+    <p class="qtext">Iodine solution in organic solvents such as hexane appears:</p>
+    <div class="opts">
+      <label><input type="radio" name="q24" value="A"> Orange-red</label>
+      <label><input type="radio" name="q24" value="B"> Yellow-green</label>
+      <label><input type="radio" name="q24" value="C"> Violet/purple</label>
+      <label><input type="radio" name="q24" value="D"> Colourless</label>
+    </div>
+    <div class="qexplain" id="e24">I₂ dissolved in non-polar solvents (hexane, CCl₄, cyclohexane) gives a <strong>violet/purple</strong> colour. In polar solvents (water, ethanol), I₂ appears brown (complex formed with solvent molecules). The colour difference helps identify the halogen present in solvent extraction tests. Cl₂ in hexane = very pale yellow; Br₂ in hexane = orange-red; I₂ in hexane = violet.</div></div>
+
+    <div class="qblock"><span class="qnum">Q25</span>
+    <p class="qtext">The anomalously low bond dissociation energy of F₂ (158 kJ/mol) compared to Cl₂ (243 kJ/mol) is explained by:</p>
+    <div class="opts">
+      <label><input type="radio" name="q25" value="A"> F₂ is a gas while Cl₂ is not</label>
+      <label><input type="radio" name="q25" value="B"> Strong lone pair–lone pair repulsion between the small, close F atoms in F₂ weakens the F–F bond</label>
+      <label><input type="radio" name="q25" value="C"> The F–F bond is ionic</label>
+      <label><input type="radio" name="q25" value="D"> F has fewer electrons than Cl</label>
+    </div>
+    <div class="qexplain" id="e25">F₂ has an anomalously weak F–F bond (158 kJ/mol). F is very small — the two F atoms are close together in F₂. The three lone pairs on each F interact strongly with the lone pairs on the other F atom (lone pair–lone pair repulsion) → this weakens the F–F σ bond. Cl₂ (243 kJ/mol), Br₂ (193), I₂ (151) follow the expected decreasing trend with increasing size. F₂'s weakness explains its extreme reactivity despite the strong H–F bond in products.</div></div>
+
+    <div style="text-align:center;margin-top:28px;">
+      <button class="qs" onclick="submitQuiz()">Submit Quiz — Check Answers</button>
+      <div id="qR"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ TEST ═══ -->
+<div class="section-header" id="test">
+  <span class="section-number">📝</span>
+  <h2>Unit Test — 50 Marks</h2>
+</div>
+
+<div class="test-section">
+  <div class="test-sec-head"><h3>Section A — Short Answer</h3><span class="marks-badge">30 marks</span></div>
+
+  <div class="tq"><div class="tq-num">Q1 [5 marks]</div>
+  <p>Explain the trend in oxidising power of the halogens from F₂ to I₂. Use standard electrode potentials to illustrate your answer. Write one displacement reaction equation and state what you would observe. [5]</p>
+  <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide':'Model Answer'">Model Answer</button>
+  <div class="answer">Trend: F₂ > Cl₂ > Br₂ > I₂ (decreasing oxidising power). [1] Explanation: going down group, atomic radius increases and nuclear shielding increases. The X₂ molecule is less able to attract incoming electrons to form X⁻ because the electron would be added to a larger, more shielded shell → electron affinity decreases → oxidising power decreases. [2] E° values: F₂ = +2.87V, Cl₂ = +1.36V, Br₂ = +1.07V, I₂ = +0.54V — confirms F₂ strongest, I₂ weakest. [1] Example: Cl₂(aq) + 2KI(aq) → 2KCl(aq) + I₂. Observation: colourless solution → brown (I₂ in water); blue-black with starch; organic layer turns violet with hexane. [1]</div></div>
+
+  <div class="tq"><div class="tq-num">Q2 [5 marks]</div>
+  <p>Describe what happens when concentrated H₂SO₄ is added separately to (a) NaCl, (b) NaBr, (c) NaI. Write equations and explain the differences in terms of reducing power of X⁻. [5]</p>
+  <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide':'Model Answer'">Model Answer</button>
+  <div class="answer">(a) NaCl + H₂SO₄ → NaHSO₄ + HCl↑. Steamy colourless fumes. Cl⁻ cannot reduce H₂SO₄ → only acid-base, no redox. [1] (b) NaBr: NaBr + H₂SO₄ → NaHSO₄ + HBr↑; then 2HBr + H₂SO₄ → Br₂ + SO₂ + 2H₂O. Steamy fumes, then orange-brown Br₂ fumes + choking SO₂. Br⁻ reduces S(+6) to S(+4). [2] (c) NaI: NaI + H₂SO₄ → NaHSO₄ + HI↑; then 8HI + H₂SO₄ → 4I₂ + H₂S + 4H₂O. Steamy fumes, then black solid I₂ and violet I₂ vapour + rotten-egg H₂S smell. I⁻ strongest reducer — reduces S all the way to −2. [2] Order of reducing power: I⁻ > Br⁻ > Cl⁻ (increasing radius, weaker X–H bond, easier to lose electron).</div></div>
+
+  <div class="tq"><div class="tq-num">Q3 [5 marks]</div>
+  <p>Describe the test for halide ions using silver nitrate. Include: (a) the reagent added before AgNO₃ and why, (b) observations for Cl⁻, Br⁻, I⁻, (c) how to distinguish between the precipitates using ammonia solution. Write equations for each step. [5]</p>
+  <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide':'Model Answer'">Model Answer</button>
+  <div class="answer">(a) Add dilute HNO₃ first — acidification removes interfering ions (CO₃²⁻ → CO₂; SO₃²⁻ → SO₂; OH⁻ → H₂O) that would also precipitate with Ag⁺, giving false positives. [1] (b) AgNO₃ + Cl⁻ → AgCl↓ (white); Ag⁺ + Br⁻ → AgBr↓ (cream); Ag⁺ + I⁻ → AgI↓ (yellow). [1.5] (c) Add dilute NH₃: AgCl dissolves (AgCl + 2NH₃ → [Ag(NH₃)₂]⁺ + Cl⁻); AgBr and AgI remain. Then add concentrated NH₃: AgBr dissolves; AgI remains. Summary: Cl⁻: dissolves in dilute NH₃; Br⁻: dissolves only in conc. NH₃; I⁻: insoluble in any strength NH₃. [2.5]</div></div>
+
+  <div class="tq"><div class="tq-num">Q4 [5 marks]</div>
+  <p>Explain what disproportionation means and give two examples from Group 17 chemistry. For each example, write the equation and identify the oxidation state changes. [5]</p>
+  <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide':'Model Answer'">Model Answer</button>
+  <div class="answer">Disproportionation: the same element simultaneously undergoes both oxidation (OS increases) and reduction (OS decreases) in one reaction. [1] Example 1: Cl₂ + 2NaOH(cold) → NaCl + NaOCl + H₂O. Cl (0) → Cl(−1) in NaCl [REDUCED] and Cl(+1) in NaOCl [OXIDISED]. [2] Example 2: 3Cl₂ + 6NaOH(hot) → 5NaCl + NaClO₃ + 3H₂O. Cl(0) → Cl(−1) in NaCl [REDUCED] and Cl(+5) in NaClO₃ [OXIDISED]. [2] (Other valid examples: Cl₂ + H₂O → H⁺ + Cl⁻ + HOCl; Cu⁺ + Cu⁺ → Cu + Cu²⁺).</div></div>
+
+  <div class="tq"><div class="tq-num">Q5 [5 marks]</div>
+  <p>Compare the properties of the hydrogen halides HF, HCl, HBr, HI with respect to: (a) boiling points and the anomaly of HF; (b) acid strength in water; (c) thermal stability; (d) reducing power of the corresponding halide ion. [5]</p>
+  <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide':'Model Answer'">Model Answer</button>
+  <div class="answer">(a) B.p.: HF (+19.5) >> HCl (−85) < HBr (−67) < HI (−35)°C. HF anomaly: F–H···F hydrogen bonds (F small, highly electronegative) → much more energy to boil. HCl–HI: only van der Waals, increasing with electron count → regular increase. [1.5] (b) Acid strength: HCl, HBr, HI are all strong acids (complete ionisation). HF is a weak acid (Ka = 6.3×10⁻⁴) — anomalously: H–F bond (565 kJ/mol) is very strong, HF dimerises in solution (F–H···F⁻ remains stable). Acid strength increases down: HCl < HBr < HI (H–X bond weakens). [1.5] (c) Thermal stability decreases: HF > HCl > HBr > HI (H–I bond only 298 kJ/mol, decomposes at ~300°C; H–F 565 kJ/mol, stable to very high T). [1] (d) Reducing power of X⁻: F⁻ (none) < Cl⁻ (none normally) < Br⁻ (moderate) < I⁻ (strong). As X–H bond weakens going down, X⁻ is more easily oxidised. [1]</div></div>
+
+  <div class="tq"><div class="tq-num">Q6 [5 marks]</div>
+  <p>Describe a halogen displacement experiment. Include: (a) the method with three test tubes (KCl/KBr/KI with Cl₂ and Br₂ water, then hexane extraction); (b) all observations; (c) full ionic equations for reactions that occur. [5]</p>
+  <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide':'Model Answer'">Model Answer</button>
+  <div class="answer">(a) Method: set up 6 test tubes with: (1) KCl + Cl₂(aq); (2) KBr + Cl₂(aq); (3) KI + Cl₂(aq); (4) KCl + Br₂(aq); (5) KBr + Br₂(aq); (6) KI + Br₂(aq). Add hexane, shake, observe organic layer colour. [1] (b) Observations: (1) hexane = very pale/colourless (Cl₂ present, no displacement); (2) hexane = orange (Br₂ extracted); (3) hexane = violet (I₂ extracted, aqueous = blue-black with starch); (4) hexane = pale (no displacement — Br₂ cannot displace Cl⁻); (5) hexane = orange (Br₂, no displacement); (6) hexane = violet (I₂ extracted). [2] (c) Equations for reactions that occur: Cl₂ + 2Br⁻ → 2Cl⁻ + Br₂; Cl₂ + 2I⁻ → 2Cl⁻ + I₂; Br₂ + 2I⁻ → 2Br⁻ + I₂. No reaction: Br₂ + 2Cl⁻ → no reaction; I₂ + 2Br⁻ → no reaction; I₂ + 2Cl⁻ → no reaction. [2]</div></div>
+</div>
+
+<div class="test-section">
+  <div class="test-sec-head"><h3>Section B — Extended Answer</h3><span class="marks-badge">20 marks</span></div>
+
+  <div class="tq"><div class="tq-num">Q7 [10 marks]</div>
+  <p>(a) Describe the industrial uses of chlorine and its compounds. Give five specific applications with explanations. [4]<br>
+  (b) Explain the chemistry of water chlorination — what reactions occur, what species are formed, and why it is effective for sterilisation. Discuss any disadvantages. [3]<br>
+  (c) Compare and contrast the silver halides (AgCl, AgBr, AgI) — formation, colour, solubility in water and in ammonia, light sensitivity. Explain the trends in terms of bonding. [3]</p>
+  <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide':'Model Answer'">Model Answer</button>
+  <div class="answer">(a) Uses of Cl₂ (any 5): (1) Water purification: Cl₂ added to drinking water kills pathogens; Cl₂ + H₂O → HOCl (bactericidal). (2) Bleach (NaOCl): from Cl₂ + NaOH; used as household disinfectant, laundry bleach, hospital sterilisation. (3) PVC manufacture: Cl₂ + C₂H₄ → C₂H₄Cl₂ → (cracking) → CH₂=CHCl → polymerisation → PVC (pipes, insulation, flooring). (4) HCl production: H₂ + Cl₂ → 2HCl; used in metal pickling, food processing, pharmaceutical synthesis. (5) Solvents: CCl₄ (historical), CHCl₃ (chloroform — anaesthetic). (6) Agrochemicals: chlorinated pesticides (DDT — now banned; various herbicides). [4] (b) Cl₂ + H₂O ⇌ HCl + HOCl. HOCl (hypochlorous acid, Cl = +1) is the active sterilising species — it is a small, neutral molecule able to penetrate bacterial cell walls. Once inside, HOCl oxidises vital enzymes and disrupts metabolism → bacteria killed. More effective at slightly acidic pH (HOCl dissociation: HOCl ⇌ H⁺ + OCl⁻; at higher pH more OCl⁻ which is less bactericidal). Disadvantages: chlorine taste/odour in water; forms trihalomethanes (THMs) such as CHCl₃ (by-products from organic matter + HOCl) — potential carcinogens at high concentration; some bacteria develop resistance. [3] (c) Formation: Ag⁺ + X⁻ → AgX↓ (from AgNO₃ + KX). All insoluble except AgF. Colour: AgCl white, AgBr cream, AgI yellow — deepening colour reflects increasing covalent character and decreased band gap → absorbs visible light at longer wavelengths. Solubility in water: AgF soluble; AgCl, AgBr, AgI increasingly insoluble — as I⁻ is more polarisable → more covalent → less ionic → lattice harder to break by water. Ammonia: AgCl dissolves in dilute NH₃ ([Ag(NH₃)₂]⁺ formed); AgBr requires conc. NH₃; AgI insoluble in any NH₃ (very low Ksp). Light: all sensitive (2AgX → 2Ag + X₂ under UV); AgBr most widely used in photography (appropriate sensitivity + solubility balance). Trend in covalent character: F⁻ small/hard/non-polarisable → AgF ionic → soluble. I⁻ large/soft/polarisable → AgI largely covalent → very insoluble, strongly light-sensitive. [3]</div></div>
+
+  <div class="tq"><div class="tq-num">Q8 [10 marks]</div>
+  <p>(a) Explain why fluorine is the most reactive element in the periodic table. Your answer should refer to: electronegativity, bond dissociation energy of F₂, electrode potential, and the anomalously high reactivity compared with the expected trend. [4]<br>
+  (b) Describe the reactions of Cl₂ with (i) cold dilute NaOH (ii) hot concentrated NaOH (iii) water. For each, write the equation, identify the type of reaction, and state the oxidation states. [3]<br>
+  (c) Explain the uses of fluorine in the chemical industry, giving three specific examples with chemical details. [3]</p>
+  <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide':'Model Answer'">Model Answer</button>
+  <div class="answer">(a) Fluorine most reactive element: (1) Highest electronegativity (4.0) — attracts electrons from ANY other element → always acts as oxidising agent → OS always −1. (2) Very large positive electrode potential (E° = +2.87V) → F₂ is the strongest oxidising agent of all elements. (3) F₂ bond dissociation energy is anomalously LOW (158 kJ/mol) — F atoms are so small that lone pair–lone pair repulsion between the two F atoms weakens the F–F bond → F₂ breaks apart easily → reactive. (4) Products (HF, metal fluorides) have very strong bonds → reactions are highly exothermic → thermodynamically strongly favoured. Expected trend would suggest F₂ should have higher bond energy than Cl₂ (as it is smaller, closer bond) — but lone-pair repulsion in the very small molecule reverses this. [4] (b) (i) Cl₂ + 2NaOH(cold, dilute) → NaCl + NaOCl + H₂O. Type: disproportionation. Cl(0) → Cl(−1) in NaCl and Cl(+1) in NaOCl. Product NaOCl is bleach. [1] (ii) 3Cl₂ + 6NaOH(hot, conc.) → 5NaCl + NaClO₃ + 3H₂O. Type: disproportionation (more extensive). Cl(0) → Cl(−1) and Cl(+5). Product NaClO₃ = sodium chlorate(V). [1] (iii) Cl₂ + H₂O ⇌ H⁺ + Cl⁻ + HOCl. Type: disproportionation (equilibrium). Cl(0) → Cl(−1) in HCl and Cl(+1) in HOCl. [1] (c) Industrial uses of fluorine/HF (any 3): (1) Uranium enrichment: UF₆ (uranium hexafluoride) is used for gaseous diffusion or centrifuge enrichment of U-235. F₂ + U → UF₆ (gas). The only volatile uranium compound — used for isotope separation. [1] (2) PTFE (polytetrafluoroethylene/Teflon): monomer CF₂=CF₂ (tetrafluoroethylene) from CHClF₂ by pyrolysis. Polymerisation → PTFE. Non-stick, inert, high-temperature resistant. F₂ essential for making CF₂=CF₂. [1] (3) HF for etching glass/semiconductors: HF + SiO₂ → SiF₄ + 2H₂O. Used to etch silicon wafers in semiconductor manufacture (circuit patterns), frost glass, and in chemical analysis. [1] Other valid: refrigerants (HFCs — replacing CFCs; contain F but no Cl → no ozone depletion); fluoride in toothpaste and water (NaF, SnF₂ → F⁻ ion hardens tooth enamel: Ca₅(PO₄)₃OH + F⁻ → Ca₅(PO₄)₃F). [3 total]</div></div>
+</div>
+
+<div class="unit-nav">
+  <a href="s4_unit11_group16.html">← Unit 11: Group 16</a>
+  <a href="s4-chemistry.html">S4 Course Home</a>
+  <a href="s4_unit13_group18.html">Unit 13: Group 18 →</a>
+</div>
+</main>
+<footer>
+  ⚗ Jackson Habimana Chemistry Portal &bull; S4 Unit 12: Group 17 &bull;
+  <a href="s4-chemistry.html">Back to S4</a> &bull; <a href="index.html">Home</a>
+</footer>
+
+<script>
+const _CA={q1:'B',q2:'C',q3:'B',q4:'B',q5:'B',q6:'C',q7:'B',q8:'B',q9:'C',q10:'B',q11:'C',q12:'B',q13:'B',q14:'B',q15:'C',q16:'A',q17:'B',q18:'B',q19:'C',q20:'B',q21:'B',q22:'B',q23:'C',q24:'C',q25:'B'};
+function submitQuiz(){
+  let s=0,t=Object.keys(_CA).length;
+  Object.entries(_CA).forEach(([q,c])=>{
+    const sel=document.querySelector('input[name="'+q+'"]:checked');
+    document.querySelectorAll('input[name="'+q+'"]').forEach(o=>{if(o.value===c)o.closest('label').classList.add('correct');});
+    if(sel){if(sel.value===c)s++;else sel.closest('label').classList.add('wrong');}
+    const e=document.getElementById('e'+q.slice(1));if(e)e.style.display='block';
+    document.querySelectorAll('input[name="'+q+'"]').forEach(o=>o.disabled=true);
+  });
+  const p=Math.round(s/t*100);
+  const r=document.getElementById('qR');
+  r.style.cssText='display:block;margin-top:16px;border-radius:8px;padding:14px 18px;font-family:JetBrains Mono,monospace;font-size:.88rem;text-align:center;background:'+(p>=70?'rgba(52,211,153,.1)':'rgba(248,113,113,.1)')+';border:1px solid '+(p>=70?'var(--green)':'var(--red)')+';color:'+(p>=70?'var(--green)':'var(--red)');
+  r.innerHTML='Score: '+s+'/'+t+' ('+p+'%) — '+(p>=80?'🏆 Excellent!':p>=70?'✅ Good — review marked answers.':p>=50?'📚 Keep studying.':'❌ Review all material and try again.');
+  document.querySelector('.qs').disabled=true;document.querySelector('.qs').style.opacity='.5';
+}
+(function(){
+  const SK='quiz_access_granted',CK='quiz_access_code';
+  const gate=document.createElement('div');gate.id='unit-quiz-gate';
+  gate.style.cssText='position:fixed;inset:0;background:#0d1117;z-index:99999;display:none;align-items:center;justify-content:center;padding:24px;';
+  gate.innerHTML='<div style="background:#161b22;border:2px solid rgba(245,158,11,.4);border-radius:16px;padding:48px 40px;max-width:460px;width:100%;text-align:center;"><div style="font-size:3.5rem;margin-bottom:16px;">🔒</div><h2 style="font-family:Playfair Display,serif;font-size:1.8rem;color:#fff;margin-bottom:10px;">Quiz Locked</h2><p style="color:#8b949e;font-size:.93rem;margin-bottom:24px;line-height:1.7;">Enter the access code from your teacher to unlock this quiz.</p><input id="ugc-inp" type="text" placeholder="Enter Code" maxlength="20" style="width:100%;background:#1c2333;border:2px solid #30363d;border-radius:8px;color:#e6edf3;padding:14px 18px;font-family:JetBrains Mono,monospace;font-size:1.4rem;text-align:center;letter-spacing:.2em;text-transform:uppercase;margin-bottom:12px;box-sizing:border-box;" onkeydown="if(event.key===\'Enter\')unlockUnitQuiz()"/><div id="ugc-err" style="font-family:JetBrains Mono,monospace;font-size:.82rem;color:#f87171;min-height:20px;margin-bottom:10px;"></div><button onclick="unlockUnitQuiz()" style="width:100%;background:#f59e0b;color:#000;border:none;padding:13px;border-radius:8px;font-family:JetBrains Mono,monospace;font-size:.9rem;font-weight:700;cursor:pointer;margin-bottom:10px;">🔓 Unlock Quiz</button><button onclick="document.getElementById(\'unit-quiz-gate\').style.display=\'none\';document.body.style.overflow=\'\'" style="width:100%;background:transparent;border:1px solid #30363d;color:#8b949e;padding:9px;border-radius:8px;font-family:JetBrains Mono,monospace;font-size:.8rem;cursor:pointer;">✕ Cancel</button></div>';
+  document.body.appendChild(gate);
+  window.unlockUnitQuiz=function(){const v=document.getElementById('ugc-inp').value.trim().toUpperCase();const c=localStorage.getItem(CK);if(!v){document.getElementById('ugc-err').textContent='Enter the code.';return;}if(v===c||!c){sessionStorage.setItem(SK,c||'open');document.getElementById('unit-quiz-gate').style.display='none';document.body.style.overflow='';}else{document.getElementById('ugc-err').textContent='❌ Wrong code.';document.getElementById('ugc-inp').value='';}};
+  window.addEventListener('DOMContentLoaded',function(){const code=localStorage.getItem(CK);if(!code)return;const granted=sessionStorage.getItem(SK);if(granted)return;const qw=document.querySelector('.quiz-wrap');if(!qw)return;qw.addEventListener('click',function(e){if(!localStorage.getItem(CK))return;if(sessionStorage.getItem(SK))return;e.stopPropagation();e.preventDefault();document.getElementById('unit-quiz-gate').style.display='flex';document.body.style.overflow='hidden';},true);});
+})();
+</script>
+</body>
+</html>

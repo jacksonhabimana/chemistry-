@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>S4 Chemistry – Unit 13: Group 18 Noble Gases | Jackson Habimana</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Serif+4:wght@300;400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+<style>
+:root{--bg:#0d1117;--surface:#161b22;--surface2:#1c2333;--border:#30363d;--accent:#e879f9;--gold:#e8c547;--green:#34d399;--red:#f87171;--orange:#f59e0b;--blue:#38bdf8;--text:#e6edf3;--muted:#8b949e;--radius:10px;}
+*{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Source Serif 4',Georgia,serif;font-size:17px;line-height:1.75;overflow-x:hidden;}
+nav{position:sticky;top:0;z-index:200;background:rgba(13,17,23,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+.nav-inner{max-width:1060px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:54px;padding:0 24px;}
+.nav-brand{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--accent);text-decoration:none;}
+.nav-links{display:flex;gap:4px;}
+.nav-links a{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);text-decoration:none;padding:4px 10px;border-radius:5px;border:1px solid transparent;transition:all .15s;}
+.nav-links a:hover{color:var(--accent);border-color:rgba(232,121,249,.3);}
+.hero{position:relative;padding:80px 40px 60px;text-align:center;overflow:hidden;background:radial-gradient(ellipse 80% 60% at 50% 0%,#1a001c 0%,var(--bg) 70%);border-bottom:1px solid var(--border);}
+.hero::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(232,121,249,.04) 40px),repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(232,121,249,.04) 40px);pointer-events:none;}
+.badge{display:inline-block;background:rgba(232,121,249,.12);border:1px solid rgba(232,121,249,.3);color:var(--accent);padding:4px 16px;border-radius:50px;font-size:.78rem;font-family:'JetBrains Mono',monospace;letter-spacing:.12em;text-transform:uppercase;margin-bottom:22px;}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.4rem);line-height:1.15;color:#fff;max-width:820px;margin:0 auto 18px;}
+.hero h1 em{color:var(--accent);font-style:italic;}
+.hero p.sub{color:var(--muted);font-size:1rem;max-width:640px;margin:0 auto 32px;}
+.toc-grid{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:860px;margin:0 auto;}
+.toc-grid a{background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:8px 18px;border-radius:50px;text-decoration:none;font-size:.85rem;transition:all .2s;font-family:'JetBrains Mono',monospace;}
+.toc-grid a:hover{background:var(--accent);color:#000;border-color:var(--accent);}
+.page{max-width:960px;margin:0 auto;padding:0 28px 80px;}
+.section-header{display:flex;align-items:center;gap:16px;margin:64px 0 28px;padding-bottom:14px;border-bottom:2px solid var(--border);}
+.section-number{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--accent);background:rgba(232,121,249,.1);border:1px solid rgba(232,121,249,.25);padding:4px 12px;border-radius:4px;white-space:nowrap;}
+.section-header h2{font-family:'Playfair Display',serif;font-size:1.75rem;color:#fff;}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:26px 30px;margin-bottom:22px;}
+.card h3{font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--gold);margin-bottom:14px;}
+.card p+p{margin-top:12px;}
+.def-box{border-left:4px solid var(--accent);background:rgba(232,121,249,.07);border-radius:0 var(--radius) var(--radius) 0;padding:18px 22px;margin:20px 0;}
+.def-box strong{color:var(--accent);display:block;font-size:.78rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;}
+.callout{border-radius:var(--radius);padding:18px 22px;margin:20px 0;display:flex;gap:14px;align-items:flex-start;}
+.callout.info{background:rgba(232,121,249,.08);border:1px solid rgba(232,121,249,.25);}
+.callout.warn{background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.25);}
+.callout.tip{background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.25);}
+.callout.mem{background:rgba(232,197,71,.08);border:1px solid rgba(232,197,71,.25);}
+.callout-icon{font-size:1.3rem;margin-top:2px;flex-shrink:0;}
+.callout-body strong{display:block;margin-bottom:4px;font-size:.9rem;color:#fff;}
+.tbl-wrap{overflow-x:auto;margin:20px 0;border-radius:var(--radius);border:1px solid var(--border);}
+table{width:100%;border-collapse:collapse;}
+thead tr{background:var(--surface2);}
+th{padding:13px 16px;text-align:left;font-size:.82rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);white-space:nowrap;}
+td{padding:12px 16px;border-top:1px solid var(--border);font-size:.9rem;line-height:1.6;}
+tr:hover td{background:rgba(255,255,255,.02);}
+.formula-block{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:18px 24px;margin:16px 0;font-family:'JetBrains Mono',monospace;font-size:.92rem;color:var(--accent);overflow-x:auto;line-height:2.1;}
+h3.sub{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--gold);margin:28px 0 10px;}
+.diagram-box{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin:22px 0;text-align:center;}
+.diagram-box figcaption{font-family:'JetBrains Mono',monospace;font-size:.74rem;color:var(--muted);margin-top:12px;letter-spacing:.05em;}
+.example-box{border:1px solid rgba(232,121,249,.3);border-radius:var(--radius);overflow:hidden;margin:22px 0;}
+.example-box .ex-head{background:rgba(232,121,249,.12);padding:12px 20px;font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--accent);text-transform:uppercase;letter-spacing:.1em;}
+.example-box .ex-body{padding:20px 24px;}
+.step{display:flex;gap:14px;margin-bottom:10px;align-items:flex-start;}
+.step-num{width:28px;height:28px;background:var(--accent);color:#000;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:.78rem;font-weight:700;flex-shrink:0;margin-top:4px;}
+.exercise-list{list-style:none;counter-reset:ex;}
+.exercise-list li{counter-increment:ex;margin-bottom:18px;padding:18px 22px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);}
+.exercise-list li::before{content:'Q' counter(ex) '.';font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--accent);display:block;margin-bottom:8px;}
+.reveal-btn{margin-top:10px;background:rgba(232,121,249,.1);border:1px solid rgba(232,121,249,.3);color:var(--accent);padding:6px 18px;border-radius:6px;cursor:pointer;font-size:.82rem;font-family:'JetBrains Mono',monospace;transition:all .2s;}
+.reveal-btn:hover{background:var(--accent);color:#000;}
+.answer{display:none;margin-top:12px;padding:14px 18px;background:rgba(232,121,249,.06);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-size:.9rem;line-height:1.7;}
+.answer.open{display:block;}
+.quiz-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-top:28px;}
+.quiz-head{padding:22px 28px;background:var(--surface2);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+.quiz-head h3{font-family:'Playfair Display',serif;font-size:1.1rem;color:#fff;}
+.quiz-body{padding:24px 28px;}
+.qblock{margin-bottom:28px;padding-bottom:28px;border-bottom:1px solid var(--border);}
+.qblock:last-child{border-bottom:none;}
+.qnum{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--accent);background:rgba(232,121,249,.1);border:1px solid rgba(232,121,249,.2);padding:3px 10px;border-radius:4px;display:inline-block;margin-bottom:10px;}
+.qtext{font-size:1rem;color:#fff;margin-bottom:14px;line-height:1.7;}
+.opts label{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;margin-bottom:8px;border-radius:8px;border:1px solid var(--border);cursor:pointer;transition:all .15s;font-size:.93rem;}
+.opts label:hover{border-color:var(--accent);background:rgba(232,121,249,.04);}
+.opts label.correct{background:rgba(52,211,153,.12);border-color:var(--green);color:var(--green);}
+.opts label.wrong{background:rgba(248,113,113,.08);border-color:var(--red);color:var(--red);}
+.opts input[type=radio]{margin-top:3px;accent-color:var(--accent);flex-shrink:0;}
+.qexplain{display:none;margin-top:12px;padding:12px 16px;background:rgba(232,121,249,.07);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-size:.88rem;line-height:1.7;}
+.qs{display:block;margin:24px auto 0;background:var(--accent);color:#000;border:none;padding:12px 40px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.88rem;font-weight:700;cursor:pointer;transition:opacity .2s;}
+.qs:hover{opacity:.85;}
+#qR{display:none;margin-top:16px;border-radius:8px;padding:14px 18px;font-family:'JetBrains Mono',monospace;font-size:.88rem;text-align:center;}
+.test-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:22px;overflow:hidden;}
+.test-sec-head{background:var(--surface2);padding:16px 24px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);}
+.test-sec-head h3{font-family:'JetBrains Mono',monospace;font-size:.85rem;color:#fff;text-transform:uppercase;letter-spacing:.08em;}
+.marks-badge{font-family:'JetBrains Mono',monospace;font-size:.75rem;background:rgba(232,197,71,.15);border:1px solid rgba(232,197,71,.3);color:var(--gold);padding:3px 12px;border-radius:50px;}
+.tq{padding:18px 24px;border-bottom:1px solid var(--border);}
+.tq:last-child{border-bottom:none;}
+.tq-num{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--accent);margin-bottom:6px;}
+.unit-nav{display:flex;justify-content:space-between;gap:16px;margin-top:60px;padding-top:28px;border-top:1px solid var(--border);flex-wrap:wrap;}
+.unit-nav a{display:inline-flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--muted);text-decoration:none;padding:10px 18px;border:1px solid var(--border);border-radius:8px;transition:all .2s;}
+.unit-nav a:hover{color:var(--accent);border-color:rgba(232,121,249,.3);}
+footer{border-top:1px solid var(--border);padding:28px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--muted);}
+footer a{color:var(--accent);text-decoration:none;}
+@media(max-width:640px){.hero{padding:60px 24px 40px;}.page{padding:0 16px 60px;}.quiz-body{padding:16px;}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a class="nav-brand" href="index.html">⚗ Jackson Habimana</a>
+    <div class="nav-links">
+      <a href="index.html">Home</a><a href="s4-chemistry.html">S4</a>
+      <a href="s5-chemistry.html">S5</a><a href="s6-chemistry.html">S6</a>
+      <a href="student-hub.html">Assessments</a>
+    </div>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="badge">S4 Chemistry · Unit 13</div>
+  <h1>Group 18 — The <em>Noble Gases</em></h1>
+  <p class="sub">Occurrence and isolation · Electronic structure and inertness · Physical properties · Noble gas compounds · Industrial and scientific uses</p>
+  <div class="toc-grid">
+    <a href="#s131">13.1 Physical Properties</a>
+    <a href="#s132">13.2 Electronic Structure & Inertness</a>
+    <a href="#s133">13.3 Occurrence & Isolation</a>
+    <a href="#s134">13.4 Noble Gas Compounds</a>
+    <a href="#s135">13.5 Uses</a>
+    <a href="#exercises">Exercises</a>
+    <a href="#quiz">Quiz</a>
+    <a href="#test">Unit Test</a>
+  </div>
+</div>
+
+<main class="page">
+
+<!-- 13.1 -->
+<div class="section-header" id="s131">
+  <span class="section-number">13.1</span>
+  <h2>Physical Properties of the Noble Gases</h2>
+</div>
+
+<div class="card">
+  <h3>Overview of Group 18</h3>
+  <p>The noble gases — <strong>Helium (He), Neon (Ne), Argon (Ar), Krypton (Kr), Xenon (Xe), Radon (Rn)</strong> — are colourless, odourless, monoatomic gases at room temperature. They are sometimes called <strong>rare gases</strong> or <strong>inert gases</strong>, though these terms are not entirely accurate (some are not rare, and some do form compounds).</p>
+  <p>All noble gases are <strong>monoatomic</strong> — they exist as single atoms rather than diatomic molecules — because they have completely filled outer electron shells and have no tendency to form bonds with other atoms.</p>
+</div>
+
+<div class="tbl-wrap"><table>
+  <thead><tr><th>Element</th><th>Z</th><th>Config</th><th>B.p. (°C)</th><th>Density (g/L)</th><th>% in atmosphere</th><th>First IE (kJ/mol)</th></tr></thead>
+  <tbody>
+    <tr><td>Helium (He)</td><td>2</td><td>1s²</td><td>−269</td><td>0.164</td><td>0.0005%</td><td>2372 (highest of all)</td></tr>
+    <tr><td>Neon (Ne)</td><td>10</td><td>[He]2s²2p⁶</td><td>−246</td><td>0.839</td><td>0.0018%</td><td>2081</td></tr>
+    <tr><td>Argon (Ar)</td><td>18</td><td>[Ne]3s²3p⁶</td><td>−186</td><td>1.661</td><td>0.93% (most abundant)</td><td>1521</td></tr>
+    <tr><td>Krypton (Kr)</td><td>36</td><td>[Ar]3d¹⁰4s²4p⁶</td><td>−153</td><td>3.479</td><td>0.00011%</td><td>1351</td></tr>
+    <tr><td>Xenon (Xe)</td><td>54</td><td>[Kr]4d¹⁰5s²5p⁶</td><td>−108</td><td>5.458</td><td>0.000009%</td><td>1170</td></tr>
+    <tr><td>Radon (Rn)</td><td>86</td><td>[Xe]4f¹⁴5d¹⁰6s²6p⁶</td><td>−62</td><td>9.23</td><td>Trace (radioactive)</td><td>1037</td></tr>
+  </tbody>
+</table></div>
+
+<div class="card">
+  <h3>Trends in Physical Properties</h3>
+  <ul style="margin:0 0 0 22px;line-height:2.3;">
+    <li><strong>Boiling points</strong> — increase from He (−269°C) to Rn (−62°C). All are far below room temperature (all are gases at r.t.). The increase is due to increasing London dispersion forces as the number of electrons and atomic size increases going down.</li>
+    <li><strong>Atomic radius</strong> — increases down the group (more electron shells).</li>
+    <li><strong>Ionisation energy</strong> — decreases from He (highest of any element, 2372 kJ/mol) to Rn (1037 kJ/mol). Despite full shells, IE decreases as outer electrons are farther from the nucleus and better shielded.</li>
+    <li><strong>Density</strong> — increases from He (lightest gas, 0.164 g/L) to Rn (heavy, 9.23 g/L).</li>
+    <li><strong>Solubility in water</strong> — slightly increases going down (larger atoms, more polarisable — stronger induced dipole interactions with water).</li>
+  </ul>
+  <div class="callout mem">
+    <span class="callout-icon">🧠</span>
+    <div class="callout-body">
+      <strong>He has the lowest boiling point of ANY substance (−269°C = 4 K)</strong>
+      Helium remains a liquid all the way to absolute zero at normal pressure — it must be pressurised to solidify. This is because He atoms are so tiny and light with such weak van der Waals forces that even at 4 K there is enough zero-point energy to prevent solidification. Used for cooling superconducting magnets.
+    </div>
+  </div>
+</div>
+
+<!-- 13.2 -->
+<div class="section-header" id="s132">
+  <span class="section-number">13.2</span>
+  <h2>Electronic Structure and Chemical Inertness</h2>
+</div>
+
+<div class="card">
+  <h3>Why Are Noble Gases Inert?</h3>
+  <p>Noble gases have <strong>completely filled outer electron shells</strong>:</p>
+  <div class="formula-block">He:  1s²           (2 electrons — full n=1 shell)
+Ne:  [He]2s²2p⁶   (8 electrons in outer shell — full n=2)
+Ar:  [Ne]3s²3p⁶   (8 electrons in outer shell — full n=3)
+Kr:  [Ar]3d¹⁰4s²4p⁶  (full 4s and 4p — 8 outer electrons)
+Xe:  [Kr]4d¹⁰5s²5p⁶  (full 5s and 5p — 8 outer electrons)</div>
+  <p><strong>Reasons for chemical inertness:</strong></p>
+  <ul style="margin:8px 0 0 20px;line-height:2.3;">
+    <li><strong>Full outer shells</strong> — no tendency to gain or lose electrons. Already at the most stable electronic configuration (octet or duet for He).</li>
+    <li><strong>Very high ionisation energies</strong> — especially for He and Ne, it requires enormous energy to remove any electron. No tendency to form positive ions.</li>
+    <li><strong>Very low electron affinity</strong> — addition of an electron to a full shell would go into a new, higher-energy shell. No tendency to form negative ions.</li>
+    <li><strong>No unpaired electrons</strong> — no half-filled orbitals available for bond formation through electron sharing.</li>
+    <li><strong>No available low-energy empty orbitals</strong> for He and Ne — He and Ne are particularly inert as they have no accessible d orbitals to allow expansion of their small electron clouds.</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h3>Why Do Kr and Xe Form Compounds but He and Ne Do Not?</h3>
+  <p>Although all noble gases are generally inert, <strong>Kr and Xe can form compounds</strong> under extreme conditions. The key factors are:</p>
+  <div class="tbl-wrap" style="margin:0;"><table>
+    <thead><tr><th>Noble Gas</th><th>Can form compounds?</th><th>Reason</th></tr></thead>
+    <tbody>
+      <tr><td>He, Ne</td><td>❌ No known stable compounds</td><td>Very small atoms; very high IE (2372, 2081 kJ/mol); no accessible d orbitals; electrons too tightly held</td></tr>
+      <tr><td>Ar</td><td>❌ Essentially no stable compounds (ArF compound only in matrix)</td><td>Still very high IE (1521 kJ/mol); very small</td></tr>
+      <tr><td>Kr</td><td>✅ A few — KrF₂, KrF⁺</td><td>Lower IE (1351 kJ/mol); larger atom with accessible 4d orbitals; very strong oxidants (F₂) can force reaction</td></tr>
+      <tr><td>Xe</td><td>✅ Many — XeF₂, XeF₄, XeF₆, XeO₃, XeOF₄, XePtF₆</td><td>Lower IE (1170 kJ/mol); large atom; accessible 5d orbitals; several compounds now well-characterised</td></tr>
+      <tr><td>Rn</td><td>✅ Theoretically possible (RnF₂)</td><td>Lowest IE (1037 kJ/mol); difficult to study due to radioactivity</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout info">
+    <span class="callout-icon">💡</span>
+    <div class="callout-body">
+      <strong>Historical breakthrough — 1962</strong>
+      Neil Bartlett at University of British Columbia made the first noble gas compound: <strong>XePtF₆</strong>. He reasoned that since O₂ and Xe have similar ionisation energies, and O₂ + PtF₆ → O₂⁺PtF₆⁻ was known, Xe + PtF₆ should also react. The product Xe⁺PtF₆⁻ was the first noble gas compound ever made. This shattered the belief that noble gases are completely inert. Bartlett subsequently made XeF₂ and XeF₄.
+    </div>
+  </div>
+</div>
+
+<!-- 13.3 -->
+<div class="section-header" id="s133">
+  <span class="section-number">13.3</span>
+  <h2>Occurrence and Isolation of Noble Gases</h2>
+</div>
+
+<div class="card">
+  <h3>Natural Occurrence</h3>
+  <p><strong>Atmospheric source:</strong> All noble gases except radon are present in the atmosphere. Argon is by far the most abundant (0.93% of air — the third most abundant atmospheric gas after N₂ and O₂). The others are present in trace amounts.</p>
+  <p><strong>How did noble gases get into the atmosphere?</strong></p>
+  <ul style="margin:8px 0 0 20px;line-height:2.3;">
+    <li><strong>Helium</strong> — mainly produced by α-decay of radioactive elements in Earth's crust (α particles = He nuclei → capture 2 electrons → He gas). Also primordial He from Earth's formation, but it escapes to space (too light). Natural gas wells in the USA and elsewhere contain significant He (trapped underground).</li>
+    <li><strong>Argon</strong> — produced by radioactive decay of <sup>40</sup>K (potassium-40) in rocks: <sup>40</sup>K + e⁻ → <sup>40</sup>Ar. This is how most atmospheric Ar was generated over billions of years. Also <sup>38</sup>Ar and <sup>36</sup>Ar are primordial.</li>
+    <li><strong>Radon</strong> — produced continuously by radioactive decay of radium (<sup>226</sup>Ra → <sup>222</sup>Rn + α). It seeps from rocks and soil. Radon-222 has a half-life of only 3.82 days — it does not accumulate significantly in the open atmosphere but can build up in enclosed spaces (homes, caves) to dangerous levels.</li>
+    <li><strong>Ne, Kr, Xe</strong> — primarily primordial, trapped in the atmosphere since Earth's formation.</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h3>Industrial Isolation</h3>
+  <p>Noble gases are isolated from air by <strong>fractional distillation of liquid air</strong> — the same process used for N₂ and O₂. Air is first purified (CO₂ and water removed), then liquefied by cooling under pressure (Linde process). The liquid air is then fractionally distilled.</p>
+  <div class="tbl-wrap" style="margin:0;"><table>
+    <thead><tr><th>Gas</th><th>Boiling Point</th><th>Isolation</th></tr></thead>
+    <tbody>
+      <tr><td>N₂</td><td>−196°C</td><td>Distils off first (lowest b.p.) — collected separately</td></tr>
+      <tr><td>Ar</td><td>−186°C</td><td>Distils with N₂ fraction — separated by further distillation</td></tr>
+      <tr><td>O₂</td><td>−183°C</td><td>Remains as liquid longer — separated from N₂/Ar</td></tr>
+      <tr><td>Kr, Xe</td><td>−153, −108°C</td><td>Remain in liquid oxygen fraction — concentrated and purified separately</td></tr>
+      <tr><td>Ne, He</td><td>−246, −269°C</td><td>Very low b.p. — escape before other gases liquefy; concentrated from waste gas stream</td></tr>
+    </tbody>
+  </table></div>
+  <p><strong>Helium</strong> is also isolated from natural gas wells (especially in the USA, Russia, Qatar), where it may constitute 0.3–7% of the gas stream. The natural gas is liquefied, He remains as a gas and is collected.</p>
+</div>
+
+<!-- 13.4 -->
+<div class="section-header" id="s134">
+  <span class="section-number">13.4</span>
+  <h2>Noble Gas Compounds</h2>
+</div>
+
+<div class="card">
+  <h3>Xenon Fluorides</h3>
+  <p>The most important noble gas compounds are the <strong>xenon fluorides</strong>, made by direct reaction of Xe and F₂ under UV light or heating:</p>
+  <div class="formula-block">Xe + F₂   → XeF₂      (excess Xe, UV light or low pressure)
+Xe + 2F₂  → XeF₄      (Xe:F₂ = 1:2 ratio, ~400°C, ~6 atm)
+Xe + 3F₂  → XeF₆      (Xe:F₂ = 1:9 ratio, ~300°C, high pressure)</div>
+
+  <div class="diagram-box">
+    <svg viewBox="0 0 480 200" xmlns="http://www.w3.org/2000/svg" width="100%" style="max-width:480px;">
+      <text x="240" y="18" text-anchor="middle" font-family="Playfair Display,serif" font-size="13" fill="#e6edf3">Structures of Xenon Fluorides</text>
+      <!-- XeF2 -->
+      <text x="80" y="42" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#e879f9">XeF₂</text>
+      <circle cx="80" cy="100" r="20" fill="#1c2333" stroke="#e879f9" stroke-width="2"/>
+      <text x="80" y="106" text-anchor="middle" font-family="JetBrains Mono" font-size="14" fill="#e879f9">Xe</text>
+      <circle cx="80" cy="55" r="14" fill="#1c2333" stroke="#8b949e" stroke-width="1.5"/>
+      <text x="80" y="60" text-anchor="middle" font-family="JetBrains Mono" font-size="12" fill="#e6edf3">F</text>
+      <circle cx="80" cy="145" r="14" fill="#1c2333" stroke="#8b949e" stroke-width="1.5"/>
+      <text x="80" y="150" text-anchor="middle" font-family="JetBrains Mono" font-size="12" fill="#e6edf3">F</text>
+      <line x1="80" y1="80" x2="80" y2="69" stroke="#8b949e" stroke-width="2"/>
+      <line x1="80" y1="120" x2="80" y2="131" stroke="#8b949e" stroke-width="2"/>
+      <text x="80" y="175" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#8b949e">Linear</text>
+      <text x="80" y="188" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#8b949e">3 lone pairs on Xe</text>
+      <!-- XeF4 -->
+      <text x="240" y="42" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#e879f9">XeF₄</text>
+      <circle cx="240" cy="100" r="20" fill="#1c2333" stroke="#e879f9" stroke-width="2"/>
+      <text x="240" y="106" text-anchor="middle" font-family="JetBrains Mono" font-size="14" fill="#e879f9">Xe</text>
+      <circle cx="240" cy="55" r="14" fill="#1c2333" stroke="#8b949e" stroke-width="1.5"/>
+      <text x="240" y="60" text-anchor="middle" font-family="JetBrains Mono" font-size="12" fill="#e6edf3">F</text>
+      <circle cx="240" cy="145" r="14" fill="#1c2333" stroke="#8b949e" stroke-width="1.5"/>
+      <text x="240" y="150" text-anchor="middle" font-family="JetBrains Mono" font-size="12" fill="#e6edf3">F</text>
+      <circle cx="195" cy="100" r="14" fill="#1c2333" stroke="#8b949e" stroke-width="1.5"/>
+      <text x="195" y="106" text-anchor="middle" font-family="JetBrains Mono" font-size="12" fill="#e6edf3">F</text>
+      <circle cx="285" cy="100" r="14" fill="#1c2333" stroke="#8b949e" stroke-width="1.5"/>
+      <text x="285" y="106" text-anchor="middle" font-family="JetBrains Mono" font-size="12" fill="#e6edf3">F</text>
+      <line x1="240" y1="80" x2="240" y2="69" stroke="#8b949e" stroke-width="2"/>
+      <line x1="240" y1="120" x2="240" y2="131" stroke="#8b949e" stroke-width="2"/>
+      <line x1="220" y1="100" x2="209" y2="100" stroke="#8b949e" stroke-width="2"/>
+      <line x1="260" y1="100" x2="271" y2="100" stroke="#8b949e" stroke-width="2"/>
+      <text x="240" y="175" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#8b949e">Square planar</text>
+      <text x="240" y="188" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#8b949e">2 lone pairs on Xe</text>
+      <!-- XeF6 label -->
+      <text x="400" y="42" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#e879f9">XeF₆</text>
+      <text x="400" y="90" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#8b949e">Distorted</text>
+      <text x="400" y="105" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#8b949e">octahedral</text>
+      <text x="400" y="120" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#8b949e">(1 lone pair)</text>
+      <text x="400" y="140" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#8b949e">sp³d³</text>
+    </svg>
+    <figcaption>Xenon fluoride shapes: XeF₂ = linear · XeF₄ = square planar · XeF₆ = distorted octahedral</figcaption>
+  </div>
+
+  <div class="tbl-wrap" style="margin:0;"><table>
+    <thead><tr><th>Compound</th><th>Xe electron pairs</th><th>Lone pairs on Xe</th><th>Shape</th><th>Hybridisation</th></tr></thead>
+    <tbody>
+      <tr><td>XeF₂</td><td>5 (2 bond + 3 lone)</td><td>3</td><td>Linear</td><td>sp³d</td></tr>
+      <tr><td>XeF₄</td><td>6 (4 bond + 2 lone)</td><td>2</td><td>Square planar</td><td>sp³d²</td></tr>
+      <tr><td>XeF₆</td><td>7 (6 bond + 1 lone)</td><td>1</td><td>Distorted octahedral</td><td>sp³d³</td></tr>
+    </tbody>
+  </table></div>
+</div>
+
+<div class="card">
+  <h3>Xenon Oxides and Other Compounds</h3>
+  <div class="formula-block">XeF₂ + H₂O → Xe + 2HF + ½O₂          (hydrolysis — Xe oxidises water)
+2XeF₂ + 2H₂O → 2Xe + 4HF + O₂
+
+XeF₄ + 2H₂O → XeO₂ + 4HF            (partial hydrolysis)
+6XeF₄ + 12H₂O → 4Xe + 24HF + 2XeO₃ + 3O₂  (disproportionation hydrolysis)
+
+XeF₆ + 3H₂O → XeO₃ + 6HF            (vigorous hydrolysis → xenon trioxide)
+XeO₃: explosive solid; Xe in +6 state; strong oxidant
+
+Xe + PtF₆ → Xe⁺PtF₆⁻                (Bartlett's 1962 discovery)</div>
+  <p>Noble gas compounds have been characterised primarily for Xe. They are all powerful oxidising agents and fluorinating agents used in research.</p>
+</div>
+
+<div class="card">
+  <h3>Clathrates — Physical Entrapment of Noble Gases</h3>
+  <p>Noble gases (especially Ar, Kr, Xe) can be physically trapped within crystalline lattices of other compounds without forming true chemical bonds. These are called <strong>clathrates</strong> or <strong>inclusion compounds</strong>:</p>
+  <ul style="margin:8px 0 0 20px;line-height:2.2;">
+    <li>Xe can form hydrate clathrates: Xe·nH₂O — water molecules form cage structures around Xe atoms (held by van der Waals forces only — no chemical bond)</li>
+    <li>Noble gas clathrates form at high pressure and low temperature</li>
+    <li>These are not true compounds — the noble gas can be released by warming or reducing pressure</li>
+    <li>Used to study noble gas behaviour and in separation processes</li>
+  </ul>
+</div>
+
+<!-- 13.5 -->
+<div class="section-header" id="s135">
+  <span class="section-number">13.5</span>
+  <h2>Industrial and Scientific Uses of Noble Gases</h2>
+</div>
+
+<div class="tbl-wrap"><table>
+  <thead><tr><th>Noble Gas</th><th>Use</th><th>Reason</th></tr></thead>
+  <tbody>
+    <tr><td rowspan="4"><strong>Helium (He)</strong></td><td>Cooling superconducting magnets (MRI scanners, particle accelerators — LHC at CERN)</td><td>Lowest boiling point (4K) — only liquid that can cool to ~4K at normal pressure</td></tr>
+    <tr><td>Filling balloons and airships (dirigibles)</td><td>Very low density (2nd lightest gas), non-flammable — safer than H₂</td></tr>
+    <tr><td>Helium-oxygen breathing mixture (heliox) for deep-sea divers</td><td>Prevents nitrogen narcosis; does not dissolve in blood as much as N₂</td></tr>
+    <tr><td>Inert atmosphere for welding reactive metals (Ti, Al)</td><td>Chemically inert — prevents oxidation of hot metal</td></tr>
+    <tr><td rowspan="3"><strong>Neon (Ne)</strong></td><td>Neon signs and advertising lights</td><td>Emits bright red-orange light when electricity passes through low-pressure Ne gas</td></tr>
+    <tr><td>He-Ne laser (632.8 nm red)</td><td>Stimulated emission from excited Ne atoms; He pumps Ne to metastable state</td></tr>
+    <tr><td>Plasma displays</td><td>Electrical discharge in Ne produces visible light</td></tr>
+    <tr><td rowspan="4"><strong>Argon (Ar)</strong></td><td>Inert atmosphere in arc welding (MIG/TIG) and metal casting</td><td>Most abundant cheap noble gas; prevents metal oxidation during high-T processing</td></tr>
+    <tr><td>Filling incandescent and fluorescent light bulbs</td><td>Inert — prevents tungsten filament from oxidising at high temperature; slows evaporation</td></tr>
+    <tr><td>Inert atmosphere in production of reactive metals (Ti, Zr) and silicon for semiconductors</td><td>Chemically inert; cheaper than He or Kr</td></tr>
+    <tr><td>Argon-40/Argon-39 isotope dating of rocks</td><td>⁴⁰K → ⁴⁰Ar: ratio gives age of rock (K-Ar dating)</td></tr>
+    <tr><td rowspan="2"><strong>Krypton (Kr)</strong></td><td>Krypton fluoride (KrF₂) laser (248 nm UV)</td><td>High-energy UV laser used in photolithography (making microchips), LASIK eye surgery</td></tr>
+    <tr><td>High-intensity photographic flash lamps (krypton flash)</td><td>Intense white flash when current passes through Kr</td></tr>
+    <tr><td rowspan="3"><strong>Xenon (Xe)</strong></td><td>Xenon HID headlights and cinema projectors</td><td>Produces very bright white light spectrum similar to sunlight when electrically excited</td></tr>
+    <tr><td>Xenon ion thrusters (spacecraft propulsion — Dawn, Hayabusa2)</td><td>Xe atoms ionised and accelerated electrostatically → efficient propulsion in space</td></tr>
+    <tr><td>General anaesthetic (XeF used in medicine)</td><td>Xe dissolves in cell membranes, blocking Na⁺ ion channels → anaesthesia; non-toxic, fast recovery</td></tr>
+    <tr><td><strong>Radon (Rn)</strong></td><td>Radiotherapy for cancer (historical) — now rarely used</td><td>Alpha emitter — localised radiation treatment; replaced by safer alternatives</td></tr>
+  </tbody>
+</table></div>
+
+<div class="callout warn">
+  <span class="callout-icon">☢️</span>
+  <div class="callout-body">
+    <strong>Radon — a natural radiation hazard</strong>
+    Radon-222 (t½ = 3.82 days) is produced by decay of radium in rocks and soil, especially in granite-rich areas. It seeps into buildings through floors and walls. Being a gas, it can accumulate in poorly-ventilated ground-floor rooms. Radon decays to solid radioactive daughters that deposit in the lungs → <strong>alpha radiation</strong> → lung tissue damage → lung cancer. Radon is the second-leading cause of lung cancer after smoking. Test: radon detector kits; solution: improved ventilation.
+  </div>
+</div>
+
+<div class="card">
+  <h3>Helium Supply Crisis</h3>
+  <p>Helium is <strong>irreplaceable</strong> for cooling superconducting magnets — no other substance reaches 4 K as a liquid at normal pressure. However:</p>
+  <ul style="margin:8px 0 0 20px;line-height:2.2;">
+    <li>Helium released into the atmosphere escapes to space (too light to be held by gravity)</li>
+    <li>Earth's helium reserves (trapped underground, mainly in the USA) are finite and non-renewable</li>
+    <li>Global helium supply has experienced shortages (2019–2023)</li>
+    <li>Major producers: USA (depleting), Qatar, Russia, Algeria</li>
+    <li>Conservation: MRI machines should recycle their He; research into He-free superconductors</li>
+  </ul>
+</div>
+
+<!-- EXERCISES -->
+<div class="section-header" id="exercises">
+  <span class="section-number">✏️</span>
+  <h2>Exercises</h2>
+</div>
+
+<ul class="exercise-list">
+  <li>Explain why the noble gases are monoatomic and chemically inert. Give three specific reasons referring to their electronic structure.
+    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide Answer':'Show Answer'">Show Answer</button>
+    <div class="answer">(1) Completely filled outer electron shells (He: 1s²; others: ns²np⁶) — no tendency to gain or lose electrons; already at stable configuration → no ionic bonds. (2) No unpaired electrons — no half-filled orbitals available for covalent bond formation through electron sharing. (3) Very high ionisation energies (especially He: 2372 kJ/mol) — enormous energy needed to remove any electron → no tendency to form positive ions. (4) Very low electron affinity — adding an electron to a full shell would place it in a new higher-energy shell → unfavourable → no tendency to form negative ions. Noble gases exist as monoatomic gases because there is no energetic driving force to form X–X bonds.</div>
+  </li>
+  <li>Explain why krypton and xenon can form compounds with fluorine, but helium and neon cannot.
+    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide Answer':'Show Answer'">Show Answer</button>
+    <div class="answer">Kr and Xe: (1) Lower ionisation energies (Kr 1351, Xe 1170 kJ/mol) — electrons can be removed / used in bonding more easily. (2) Larger atoms with accessible nd orbitals (4d for Kr, 5d for Xe) — can expand their octet beyond 8 electrons to accommodate 2, 4, or 6 F atoms. (3) Very strong oxidising agent F₂ (E° = +2.87V) provides sufficient driving force to overcome the energy of ionisation. He and Ne: (1) Very high ionisation energies (2372, 2081 kJ/mol) — virtually impossible to use these electrons in bonding. (2) No accessible low-energy d orbitals (Period 1 and 2 — no d orbitals). (3) Very small atoms — steric factors also prevent multiple bonds. No known stable He or Ne compounds.</div>
+  </li>
+  <li>Using VSEPR theory, predict the shapes of XeF₂ and XeF₄. Give the hybridisation and bond angles for each.
+    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide Answer':'Show Answer'">Show Answer</button>
+    <div class="answer">XeF₂: Xe has 2 bond pairs (to 2 F) + 3 lone pairs = 5 electron pairs. VSEPR: 5 electron pairs → trigonal bipyramidal electron geometry. The 3 lone pairs go to equatorial positions (least repulsion). 2 F atoms in axial positions → shape = linear. Bond angle = 180°. Hybridisation = sp³d. XeF₄: Xe has 4 bond pairs + 2 lone pairs = 6 electron pairs. VSEPR: 6 pairs → octahedral electron geometry. 2 lone pairs go to opposite axial positions. 4 F atoms in equatorial plane → shape = square planar. Bond angles = 90°. Hybridisation = sp³d².</div>
+  </li>
+  <li>Argon is used as an inert atmosphere in welding. Why is it preferred over nitrogen for welding titanium?
+    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide Answer':'Show Answer'">Show Answer</button>
+    <div class="answer">Argon is chemically inert — it does not react with hot titanium under any conditions. Nitrogen, although relatively unreactive at room temperature, reacts with titanium at high welding temperatures (>600°C): N₂ + 2Ti → 2TiN (titanium nitride — hard, brittle compound that weakens the weld). Ar (Group 18, full outer shell) forms no compounds at all under normal conditions. Ar is also preferred over He (also inert) because Ar is much cheaper and more abundant (0.93% of air vs 0.0005% for He) and has higher density — better shielding of the weld pool.</div>
+  </li>
+  <li>Explain the trend in boiling points of noble gases from He (−269°C) to Xe (−108°C). Include the reason why helium has the lowest boiling point of any substance.
+    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide Answer':'Show Answer'">Show Answer</button>
+    <div class="answer">Boiling point increases He → Xe because London dispersion forces (instantaneous dipole–induced dipole) increase with the number of electrons and size of the electron cloud. Larger noble gas atoms are more polarisable — stronger temporary dipoles → stronger attractions between atoms → more energy needed to vaporise → higher boiling point. He has the lowest boiling point of any substance (−269°C = 4K) because: (1) He atoms have only 2 electrons — the smallest, least polarisable electron cloud → weakest London forces. (2) He atoms are so light that their zero-point kinetic energy (from quantum uncertainty) is large enough to prevent solidification even near absolute zero. He remains liquid down to 0K at normal pressure — it must be pressurised to solidify (solidifies at ~25 atm at 0K).</div>
+  </li>
+  <li>Describe how radon poses a health risk. Include its source, how it enters buildings, and why it is dangerous.
+    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide Answer':'Show Answer'">Show Answer</button>
+    <div class="answer">Source: Rn-222 is produced by radioactive decay of radium-226 (itself a decay product of uranium-238) in granite and certain other rocks and soil. ²²⁶Ra → ²²²Rn + ⁴He (α decay). Entry into buildings: Rn seeps upward from soil and rock through foundations, cracks, and building materials → accumulates in ground-floor rooms and basements, especially in poorly ventilated buildings in granite-rich areas. Danger: Rn itself is a gas and is inhaled. It decays (t½ = 3.82 days) to solid radioactive daughters (Po-218, Pb-214, etc.), which are alpha and beta emitters. These deposit on lung tissue → ionising radiation → DNA damage → lung cancer. Radon is the second most common cause of lung cancer after smoking. Solution: improve ventilation, seal floors, use radon-resistant building materials.</div>
+  </li>
+</ul>
+
+<!-- QUIZ -->
+<div class="section-header" id="quiz">
+  <span class="section-number">🧪</span>
+  <h2>Multiple Choice Quiz — 25 Questions</h2>
+</div>
+<div class="quiz-wrap">
+  <div class="quiz-head">
+    <h3>Unit 13: Group 18 Noble Gases</h3>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--muted);">25 Questions</span>
+  </div>
+  <div class="quiz-body">
+
+    <div class="qblock"><span class="qnum">Q1</span>
+    <p class="qtext">The outer electron configuration of all noble gases (except He) is:</p>
+    <div class="opts">
+      <label><input type="radio" name="q1" value="A"> ns²np⁵</label>
+      <label><input type="radio" name="q1" value="B"> ns²np⁶</label>
+      <label><input type="radio" name="q1" value="C"> ns²np⁴</label>
+      <label><input type="radio" name="q1" value="D"> ns¹</label>
+    </div>
+    <div class="qexplain" id="e1">Noble gases (Ne, Ar, Kr, Xe, Rn): ns²np⁶ — a full octet. He is ns² (1s²) — a full duet (only n=1 shell). The completely filled outer shells mean no tendency to form bonds — chemically inert.</div></div>
+
+    <div class="qblock"><span class="qnum">Q2</span>
+    <p class="qtext">Which noble gas is the most abundant in the atmosphere?</p>
+    <div class="opts">
+      <label><input type="radio" name="q2" value="A"> Helium</label>
+      <label><input type="radio" name="q2" value="B"> Neon</label>
+      <label><input type="radio" name="q2" value="C"> Argon</label>
+      <label><input type="radio" name="q2" value="D"> Xenon</label>
+    </div>
+    <div class="qexplain" id="e2">Argon (Ar) at 0.93% is by far the most abundant noble gas in the atmosphere — third most abundant gas after N₂ (78%) and O₂ (21%). It accumulated over geological time from radioactive decay of ⁴⁰K in Earth's rocks. He, Ne, Kr, Xe are all present in much smaller trace amounts.</div></div>
+
+    <div class="qblock"><span class="qnum">Q3</span>
+    <p class="qtext">Why do the boiling points of noble gases increase from He to Xe?</p>
+    <div class="opts">
+      <label><input type="radio" name="q3" value="A"> Ionic bonds form between the heavier noble gas atoms</label>
+      <label><input type="radio" name="q3" value="B"> London dispersion forces increase as the atoms get larger and have more electrons</label>
+      <label><input type="radio" name="q3" value="C"> The noble gases form hydrogen bonds going down the group</label>
+      <label><input type="radio" name="q3" value="D"> Their ionisation energies decrease</label>
+    </div>
+    <div class="qexplain" id="e3">Noble gases are non-polar monoatomic — only London (dispersion) forces act between atoms. Going down: larger atoms with more electrons → greater polarisability → stronger instantaneous dipoles → stronger London forces → more energy needed to overcome these forces → higher boiling points. He (2e⁻, −269°C) → Xe (54e⁻, −108°C).</div></div>
+
+    <div class="qblock"><span class="qnum">Q4</span>
+    <p class="qtext">The first noble gas compound was made by Neil Bartlett in 1962. What was it?</p>
+    <div class="opts">
+      <label><input type="radio" name="q4" value="A"> XeF₂</label>
+      <label><input type="radio" name="q4" value="B"> ArF₂</label>
+      <label><input type="radio" name="q4" value="C"> XePtF₆ (xenon hexafluoroplatinate)</label>
+      <label><input type="radio" name="q4" value="D"> NeF₄</label>
+    </div>
+    <div class="qexplain" id="e4">Bartlett reacted Xe with PtF₆ → Xe⁺PtF₆⁻. He realised that Xe (IE = 1170 kJ/mol) and O₂ (IE = 1165 kJ/mol) have similar ionisation energies, and since O₂ + PtF₆ → O₂⁺PtF₆⁻ was known, Xe should do the same. This shattered 100 years of belief in complete noble gas inertness. He then made XeF₂ and XeF₄ shortly after.</div></div>
+
+    <div class="qblock"><span class="qnum">Q5</span>
+    <p class="qtext">The shape of XeF₂ is:</p>
+    <div class="opts">
+      <label><input type="radio" name="q5" value="A"> Bent/V-shaped</label>
+      <label><input type="radio" name="q5" value="B"> Trigonal planar</label>
+      <label><input type="radio" name="q5" value="C"> Linear (180°)</label>
+      <label><input type="radio" name="q5" value="D"> Square planar</label>
+    </div>
+    <div class="qexplain" id="e5">XeF₂: Xe has 2 bond pairs + 3 lone pairs = 5 electron pairs. Trigonal bipyramidal electron geometry. The 3 lone pairs occupy equatorial positions (120° apart, minimise repulsion). 2 F atoms are in axial positions (180° apart). Molecular shape = linear. Bond angle = 180°. This is an example of octet expansion using 3d orbitals of Xe (sp³d hybridisation).</div></div>
+
+    <div class="qblock"><span class="qnum">Q6</span>
+    <p class="qtext">Helium is used to fill weather balloons rather than hydrogen because:</p>
+    <div class="opts">
+      <label><input type="radio" name="q6" value="A"> He is denser than H₂</label>
+      <label><input type="radio" name="q6" value="B"> He provides more lift than H₂</label>
+      <label><input type="radio" name="q6" value="C"> He is non-flammable and chemically inert, unlike H₂ which is explosive</label>
+      <label><input type="radio" name="q6" value="D"> He is cheaper than H₂</label>
+    </div>
+    <div class="qexplain" id="e6">He is chemically inert and non-flammable — completely safe. H₂ is flammable and forms explosive mixtures with air (H₂/O₂ = explosive, as demonstrated by the Hindenburg disaster in 1937). He is slightly denser than H₂ (4 vs 2 g/mol) so provides slightly less lift, but the safety advantage is overwhelming. He is more expensive but safety takes priority.</div></div>
+
+    <div class="qblock"><span class="qnum">Q7</span>
+    <p class="qtext">Why can xenon form compounds but neon cannot, even though both have full outer shells?</p>
+    <div class="opts">
+      <label><input type="radio" name="q7" value="A"> Xe has a higher boiling point</label>
+      <label><input type="radio" name="q7" value="B"> Xe has lower ionisation energy (1170 vs 2081 kJ/mol for Ne) and accessible 5d orbitals allowing octet expansion</label>
+      <label><input type="radio" name="q7" value="C"> Ne is smaller</label>
+      <label><input type="radio" name="q7" value="D"> Xe has more electrons than Ne</label>
+    </div>
+    <div class="qexplain" id="e7">Two key factors: (1) IE: Xe (1170 kJ/mol) is much lower than Ne (2081 kJ/mol) — Xe's outer electrons are further from nucleus, less tightly held → can be used in bonding with very electronegative F₂. (2) Orbitals: Xe (Period 5) has accessible 5d orbitals for bond expansion → can accommodate 2, 4, or 6 F atoms. Ne (Period 2) has no d orbitals → maximum 4 bonds impossible → Ne cannot form XeF₂ analogue.</div></div>
+
+    <div class="qblock"><span class="qnum">Q8</span>
+    <p class="qtext">Argon is used as an inert atmosphere in light bulbs. What does this prevent?</p>
+    <div class="opts">
+      <label><input type="radio" name="q8" value="A"> The glass from cracking at high temperatures</label>
+      <label><input type="radio" name="q8" value="B"> Oxidation of the hot tungsten filament and slows its evaporation</label>
+      <label><input type="radio" name="q8" value="C"> The bulb from conducting electricity</label>
+      <label><input type="radio" name="q8" value="D"> The light from being too bright</label>
+    </div>
+    <div class="qexplain" id="e8">Tungsten filament reaches ~2500°C in operation. In vacuum, W evaporates quickly (blackening bulb). In pure N₂, W eventually reacts. Ar (inert) prevents: (1) oxidation (2W + O₂ → 2WO₃) and (2) reduces W evaporation rate (collisions with Ar atoms return some W atoms to filament). This extends filament life. Modern LED bulbs have largely replaced this technology.</div></div>
+
+    <div class="qblock"><span class="qnum">Q9</span>
+    <p class="qtext">Radon (Rn-222) is considered a health hazard in buildings because:</p>
+    <div class="opts">
+      <label><input type="radio" name="q9" value="A"> It is chemically toxic and reacts with lung tissue</label>
+      <label><input type="radio" name="q9" value="B"> It decays to solid radioactive daughters that emit alpha radiation in the lungs, causing lung cancer</label>
+      <label><input type="radio" name="q9" value="C"> It displaces oxygen, causing suffocation</label>
+      <label><input type="radio" name="q9" value="D"> It reacts with moisture to form corrosive acid</label>
+    </div>
+    <div class="qexplain" id="e9">Rn-222 (α emitter, t½ = 3.82 days) seeps from granite/rock into buildings. Inhaled Rn decays to solid Po-218 and Pb-214 etc. (also α/β emitters) which deposit on lung tissue. Ionising radiation damages lung cell DNA → mutations → lung cancer. 2nd leading cause of lung cancer. The gas itself is relatively harmless — the issue is its solid radioactive daughter products depositing in lungs.</div></div>
+
+    <div class="qblock"><span class="qnum">Q10</span>
+    <p class="qtext">Helium has the lowest boiling point of any substance (−269°C). This is because:</p>
+    <div class="opts">
+      <label><input type="radio" name="q10" value="A"> He has ionic bonds</label>
+      <label><input type="radio" name="q10" value="B"> He atoms have only 2 electrons — the weakest possible London forces — and quantum zero-point energy prevents solidification</label>
+      <label><input type="radio" name="q10" value="C"> He is a noble gas so it cannot condense</label>
+      <label><input type="radio" name="q10" value="D"> He repels other He atoms</label>
+    </div>
+    <div class="qexplain" id="e10">He has 2 electrons in 1s² — the smallest, lightest atom with the weakest London forces of any substance (just 2 electrons to polarise). The interatomic attractions are so weak that only at 4 K (−269°C) do atoms come close enough to condense. He remains liquid to 0 K at normal pressure — quantum zero-point energy keeps atoms in motion even at absolute zero. Must be pressurised to ~25 atm to solidify. Unique among all elements.</div></div>
+
+    <div class="qblock"><span class="qnum">Q11</span>
+    <p class="qtext">How is atmospheric argon produced naturally?</p>
+    <div class="opts">
+      <label><input type="radio" name="q11" value="A"> By UV photolysis of N₂</label>
+      <label><input type="radio" name="q11" value="B"> By radioactive decay of potassium-40 (⁴⁰K + e⁻ → ⁴⁰Ar) in Earth's rocks</label>
+      <label><input type="radio" name="q11" value="C"> By volcanic outgassing of primordial argon</td>
+      <label><input type="radio" name="q11" value="D"> From decay of radon</label>
+    </div>
+    <div class="qexplain" id="e11">Most atmospheric ⁴⁰Ar was produced over geological time by electron capture decay of ⁴⁰K: ⁴⁰K + e⁻ → ⁴⁰Ar (t½ = 1.25×10⁹ years). The ⁴⁰Ar released from rocks accumulated in the atmosphere (too heavy to escape to space). This is why Ar makes up 0.93% of air — far more than expected for a primordial noble gas. ⁴⁰K/⁴⁰Ar ratio is also used in K-Ar radiometric dating of rocks.</div></div>
+
+    <div class="qblock"><span class="qnum">Q12</span>
+    <p class="qtext">The shape of XeF₄ (4 bond pairs + 2 lone pairs on Xe) is:</p>
+    <div class="opts">
+      <label><input type="radio" name="q12" value="A"> Tetrahedral</label>
+      <label><input type="radio" name="q12" value="B"> Octahedral</label>
+      <label><input type="radio" name="q12" value="C"> Square planar</label>
+      <label><input type="radio" name="q12" value="D"> Trigonal bipyramidal</label>
+    </div>
+    <div class="qexplain" id="e12">XeF₄: 4 bonding pairs + 2 lone pairs = 6 electron pairs → octahedral electron geometry. The 2 lone pairs go to opposite positions (axial) to minimise lone pair–lone pair repulsion (180° apart). The 4 F atoms occupy the equatorial plane → square planar molecular shape, 90° F–Xe–F angles. Hybridisation: sp³d².</div></div>
+
+    <div class="qblock"><span class="qnum">Q13</span>
+    <p class="qtext">Neon signs produce a characteristic red-orange glow because:</p>
+    <div class="opts">
+      <label><input type="radio" name="q13" value="A"> Neon burns in oxygen to produce coloured flame</label>
+      <label><input type="radio" name="q13" value="B"> Electrical discharge excites Ne electrons to higher energy levels; red-orange photons are emitted when electrons return to ground state</label>
+      <label><input type="radio" name="q13" value="C"> Neon reacts with the glass to produce colour</label>
+      <label><input type="radio" name="q13" value="D"> The colour comes from impurities in neon</label>
+    </div>
+    <div class="qexplain" id="e13">Electrical discharge ionises/excites Ne atoms → electrons promoted to higher energy levels (Ne* excited states). When electrons fall back to lower energy levels, they emit photons. Ne's characteristic emission lines are in the red-orange region of the visible spectrum → red-orange glow. Different gases give different colours: He (yellow/white), Ar (blue/violet), Kr (green/yellow), Xe (blue-white).</div></div>
+
+    <div class="qblock"><span class="qnum">Q14</span>
+    <p class="qtext">Helium is used in MRI scanners to cool superconducting magnets. Why is helium uniquely suited?</p>
+    <div class="opts">
+      <label><input type="radio" name="q14" value="A"> It has the highest heat capacity</label>
+      <label><input type="radio" name="q14" value="B"> Liquid He is the only substance that can cool to ~4 K, which is below the critical temperature of superconducting alloys</label>
+      <label><input type="radio" name="q14" value="C"> It is magnetic and enhances the magnetic field</label>
+      <label><input type="radio" name="q14" value="D"> It absorbs electromagnetic radiation from the magnet</label>
+    </div>
+    <div class="qexplain" id="e14">Superconducting magnets (used in MRI, LHC, NMR spectrometers) must be cooled below their critical temperature (~4–10 K for NbTi alloys). Only liquid helium (b.p. 4.2 K) can achieve this. No other substance exists as a liquid at these temperatures. At 4 K, electrical resistance of the superconductor drops to zero → persistent current → powerful magnetic field with zero energy loss. Without He, MRI scanners would require enormous electrical power to maintain the magnetic field.</div></div>
+
+    <div class="qblock"><span class="qnum">Q15</span>
+    <p class="qtext">Noble gases are isolated industrially from air by:</p>
+    <div class="opts">
+      <label><input type="radio" name="q15" value="A"> Chemical reaction with sodium hydroxide</label>
+      <label><input type="radio" name="q15" value="B"> Fractional distillation of liquid air</label>
+      <label><input type="radio" name="q15" value="C"> Electrolysis of water</label>
+      <label><input type="radio" name="q15" value="D"> Combustion of organic compounds</label>
+    </div>
+    <div class="qexplain" id="e15">Noble gases are isolated by fractional distillation of liquid air (Linde process). Air is purified (CO₂ and H₂O removed), compressed, cooled until it liquefies, then fractionally distilled. Different gases boil off at different temperatures: N₂ (−196°C), Ar (−186°C), O₂ (−183°C), Kr (−153°C), Xe (−108°C). He and Ne (very low b.p.) are collected from the non-condensable fraction.</div></div>
+
+    <div class="qblock"><span class="qnum">Q16</span>
+    <p class="qtext">Xenon ion thrusters are used in spacecraft because:</p>
+    <div class="opts">
+      <label><input type="radio" name="q16" value="A"> Xe burns efficiently in space</label>
+      <label><input type="radio" name="q16" value="B"> Xe is easily ionised and accelerated electrostatically, providing very efficient low-thrust propulsion ideal for long-duration space missions</label>
+      <label><input type="radio" name="q16" value="C"> Xe reacts with the vacuum of space to create thrust</label>
+      <label><input type="radio" name="q16" value="D"> Xe produces more thrust per kg than any chemical fuel</label>
+    </div>
+    <div class="qexplain" id="e16">Xe ion thrusters: Xe atoms are ionised (Xe → Xe⁺ + e⁻) then accelerated through an electric field → high-velocity Xe⁺ ions expelled → thrust (Newton's 3rd law). Advantages: very high specific impulse (fuel efficiency) — ~10× better than chemical rockets. Drawback: very low thrust (milli-newtons). Ideal for long missions where gradual acceleration is acceptable (Dawn spacecraft to Vesta and Ceres; Hayabusa2 to asteroid). Xe chosen because it is heavy (large mass/atom), easily ionised, inert, and storable as liquid.</div></div>
+
+    <div class="qblock"><span class="qnum">Q17</span>
+    <p class="qtext">Helium is produced naturally inside Earth primarily by:</p>
+    <div class="opts">
+      <label><input type="radio" name="q17" value="A"> Fusion of hydrogen atoms</label>
+      <label><input type="radio" name="q17" value="B"> Alpha decay of radioactive elements (U, Th) — alpha particles capture electrons to become He atoms</label>
+      <label><input type="radio" name="q17" value="C"> Decomposition of water at high pressure</label>
+      <label><input type="radio" name="q17" value="D"> Chemical weathering of rocks</label>
+    </div>
+    <div class="qexplain" id="e17">Alpha particles (⁴He nuclei) emitted by U-238, U-235, Th-232 decay chains are slowed by rock, capture 2 electrons → become neutral He atoms trapped underground. Over millions of years, He accumulates in natural gas reservoirs (especially in porous sandstone above impermeable salt domes). USA (Kansas, Texas, Oklahoma, Wyoming) has the world's largest He reserves. He that reaches the atmosphere is so light it escapes to space → essentially non-renewable resource.</div></div>
+
+    <div class="qblock"><span class="qnum">Q18</span>
+    <p class="qtext">Which xenon fluoride, when hydrolysed, produces the explosive solid XeO₃?</p>
+    <div class="opts">
+      <label><input type="radio" name="q18" value="A"> XeF₂</label>
+      <label><input type="radio" name="q18" value="B"> XeF₄ (partial disproportionation hydrolysis)</label>
+      <label><input type="radio" name="q18" value="C"> XeF₆ (direct hydrolysis: XeF₆ + 3H₂O → XeO₃ + 6HF)</label>
+      <label><input type="radio" name="q18" value="D"> KrF₂</label>
+    </div>
+    <div class="qexplain" id="e18">XeF₆ + 3H₂O → XeO₃ + 6HF. XeO₃ is an explosive white solid (Xe in +6 oxidation state, powerful oxidant). It must be handled with extreme care. XeF₄ hydrolysis also produces some XeO₃ via disproportionation: 6XeF₄ + 12H₂O → 4Xe + 2XeO₃ + 24HF + 3O₂. XeF₂ hydrolysis gives Xe gas: XeF₂ + H₂O → Xe + 2HF + ½O₂.</div></div>
+
+    <div class="qblock"><span class="qnum">Q19</span>
+    <p class="qtext">The ionisation energy trend across Group 18 is:</p>
+    <div class="opts">
+      <label><input type="radio" name="q19" value="A"> Increases from He to Xe</label>
+      <label><input type="radio" name="q19" value="B"> Decreases from He (2372) to Xe (1170 kJ/mol) going down the group</label>
+      <label><input type="radio" name="q19" value="C"> Remains constant</label>
+      <label><input type="radio" name="q19" value="D"> He has the lowest and Xe the highest IE</label>
+    </div>
+    <div class="qexplain" id="e19">IE decreases He (2372) > Ne (2081) > Ar (1521) > Kr (1351) > Xe (1170) kJ/mol — going down, outer electrons are in higher n shells, further from nucleus, better shielded → easier to remove. He has the highest IE of any element. Despite having full shells, IEs still decrease going down — outer electrons in larger shells experience less effective nuclear charge due to increased shielding.</div></div>
+
+    <div class="qblock"><span class="qnum">Q20</span>
+    <p class="qtext">What is a clathrate (inclusion compound) in the context of noble gases?</p>
+    <div class="opts">
+      <label><input type="radio" name="q20" value="A"> A covalent compound of a noble gas with a halogen</label>
+      <label><input type="radio" name="q20" value="B"> A compound where a noble gas atom is physically trapped inside the crystal lattice of another substance without forming chemical bonds</label>
+      <label><input type="radio" name="q20" value="C"> A mixture of two noble gases</label>
+      <label><input type="radio" name="q20" value="D"> An ionic compound of xenon</label>
+    </div>
+    <div class="qexplain" id="e20">Clathrates: noble gas atoms are physically enclosed in cage-like structures (water ice clathrates, for example) by van der Waals forces — no chemical bonds formed. Xe·nH₂O: water forms hydrogen-bonded cages around Xe atoms. These are NOT true compounds — the noble gas can be released by warming. Clathrates form under high pressure and low temperature and are of interest in studying gas storage and noble gas behaviour.</div></div>
+
+    <div class="qblock"><span class="qnum">Q21</span>
+    <p class="qtext">Xenon can be used as a general anaesthetic because:</p>
+    <div class="opts">
+      <label><input type="radio" name="q21" value="A"> Xe reacts with brain cells chemically</label>
+      <label><input type="radio" name="q21" value="B"> Xe dissolves in cell membranes and blocks Na⁺ ion channels, inhibiting nerve signal transmission</label>
+      <label><input type="radio" name="q21" value="C"> Xe displaces oxygen in the bloodstream</label>
+      <label><input type="radio" name="q21" value="D"> Xe forms a compound with haemoglobin</label>
+    </div>
+    <div class="qexplain" id="e21">Xe is soluble in non-polar lipid cell membranes (large, polarisable atom — significant van der Waals interactions with lipids). In the membrane it physically blocks ion channels (particularly NMDA and AMPA receptors, Na⁺ channels) → inhibits nerve impulse transmission → anaesthesia. Properties: rapid onset and recovery, non-toxic, no metabolic breakdown required, mild cardiovascular effects. Disadvantage: expensive (scarce and costly to produce from air).</div></div>
+
+    <div class="qblock"><span class="qnum">Q22</span>
+    <p class="qtext">Why is helium use in industry described as "non-renewable"?</p>
+    <div class="opts">
+      <label><input type="radio" name="q22" value="A"> Helium is radioactive and decays over time</label>
+      <label><input type="radio" name="q22" value="B"> Once helium escapes into the atmosphere it rises to the top and eventually escapes Earth's gravity — it cannot be recaptured economically</label>
+      <label><input type="radio" name="q22" value="C"> Helium reacts with oxygen and is lost</label>
+      <label><input type="radio" name="q22" value="D"> The supply is limitless but transport is too expensive</label>
+    </div>
+    <div class="qexplain" id="e22">He is the second lightest element. At thermosphere temperatures, some He atoms exceed escape velocity and are permanently lost to space. Underground He (from α-decay of U/Th) has been accumulating for billions of years in geological traps — once mined and used, He released to atmosphere gradually escapes. We cannot economically recapture atmospheric He. The underground reserves are finite and depleting. This makes He a genuinely non-renewable resource — unlike most other gases that cycle through the atmosphere.</div></div>
+
+    <div class="qblock"><span class="qnum">Q23</span>
+    <p class="qtext">He-Ne lasers produce a red beam (632.8 nm). The role of helium in a He-Ne laser is to:</p>
+    <div class="opts">
+      <label><input type="radio" name="q23" value="A"> Be directly excited by current and emit red light</label>
+      <label><input type="radio" name="q23" value="B"> Transfer energy to neon: He absorbs electrical energy → excited He* transfers energy to Ne via collisions → Ne emits stimulated red photons</label>
+      <label><input type="radio" name="q23" value="C"> Cool the laser tube</label>
+      <label><input type="radio" name="q23" value="D"> Act as a mirror to reflect the neon light</label>
+    </div>
+    <div class="qexplain" id="e23">He-Ne laser mechanism: Electrical discharge excites He to metastable excited states (He*). He* collides with ground-state Ne → energy transfer → Ne excited to specific laser levels. Stimulated emission of Ne produces coherent 632.8 nm (red) photons. He acts as the "pump" that efficiently excites Ne. The He metastable level matches the Ne laser level — near-resonant energy transfer → very efficient. He is not the light-emitter; Ne is.</div></div>
+
+    <div class="qblock"><span class="qnum">Q24</span>
+    <p class="qtext">Which statement about noble gas compounds is correct?</p>
+    <div class="opts">
+      <label><input type="radio" name="q24" value="A"> All noble gases form stable fluorides</label>
+      <label><input type="radio" name="q24" value="B"> Only xenon forms compounds, and only with fluorine</label>
+      <label><input type="radio" name="q24" value="C"> Xe forms many compounds (XeF₂, XeF₄, XeF₆, XeO₃, etc.); Kr forms a few (KrF₂); He and Ne form essentially none</label>
+      <label><input type="radio" name="q24" value="D"> Noble gas compounds are all gases at room temperature</label>
+    </div>
+    <div class="qexplain" id="e24">He and Ne: essentially no stable compounds (Ne compounds exist only in matrix isolation at very low T). Ar: ArF has been detected but no stable Ar compound at room T. Kr: KrF₂ is stable (white solid), KrF⁺ known. Xe: rich chemistry — XeF₂ (linear, white solid), XeF₄ (square planar, colourless), XeF₆ (distorted octahedral), XeO₃ (explosive solid), XeOF₄, XePtF₆, etc. Rn: theoretically similar to Xe but radioactivity makes study difficult. All noble gas compounds are strong oxidising agents.</div></div>
+
+    <div class="qblock"><span class="qnum">Q25</span>
+    <p class="qtext">The KrF₂ laser (248 nm UV) is used in LASIK eye surgery because:</p>
+    <div class="opts">
+      <label><input type="radio" name="q25" value="A"> It produces warm infrared radiation ideal for heating tissue</label>
+      <label><input type="radio" name="q25" value="B"> The 248 nm UV pulses precisely ablate corneal tissue (break molecular bonds in organic tissue) with minimal heat damage to surrounding cells</label>
+      <label><input type="radio" name="q25" value="C"> It colours the cornea permanently</label>
+      <label><input type="radio" name="q25" value="D"> It sterilises the eye before surgery</label>
+    </div>
+    <div class="qexplain" id="e25">KrF excimer laser (248 nm, deep UV): each photon has energy ~5 eV — enough to break C–C and C–N bonds in corneal tissue directly (photoablation). The ablation is very precise (tissue removal per pulse is nanometres deep) with minimal thermal damage to surrounding tissue. Computer-guided pulses reshape the cornea to correct refractive errors (myopia, hyperopia, astigmatism). The KrF laser is also used in photolithography (making microchip circuits). Excimer = "excited dimer" — KrF forms only in the excited state, not the ground state.</div></div>
+
+    <div style="text-align:center;margin-top:28px;">
+      <button class="qs" onclick="submitQuiz()">Submit Quiz — Check Answers</button>
+      <div id="qR"></div>
+    </div>
+  </div>
+</div>
+
+<!-- TEST -->
+<div class="section-header" id="test">
+  <span class="section-number">📝</span>
+  <h2>Unit Test — 50 Marks</h2>
+</div>
+
+<div class="test-section">
+  <div class="test-sec-head"><h3>Section A — Short Answer</h3><span class="marks-badge">30 marks</span></div>
+
+  <div class="tq"><div class="tq-num">Q1 [5 marks]</div>
+  <p>Explain why noble gases are chemically inert and exist as monoatomic gases. Why can xenon form compounds but helium cannot? [5]</p>
+  <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide':'Model Answer'">Model Answer</button>
+  <div class="answer">Noble gas inertness: (1) Completely filled outer shells (1s² for He; ns²np⁶ for others) — no tendency to gain/lose electrons or form bonds. (2) No unpaired electrons → no covalent bonds possible. (3) Very high IEs (He 2372 kJ/mol) → very stable electron configuration. Monoatomic: no driving force to form X–X bonds; already at minimum energy configuration as single atoms. [2] He cannot form compounds: IE = 2372 kJ/mol (highest of any element); no accessible d orbitals (Period 1); 1s² shell is the smallest possible — extremely stable. [1.5] Xe can form compounds: IE only 1170 kJ/mol (much lower — outer 5p electrons less tightly held); has accessible 5d orbitals → can expand octet; large atomic radius allows multiple fluorine ligands; very strong oxidant F₂ provides sufficient driving force. [1.5]</div></div>
+
+  <div class="tq"><div class="tq-num">Q2 [5 marks]</div>
+  <p>Using VSEPR theory, predict the shapes of XeF₂ and XeF₄. For each: draw the electron pair geometry, state the number of lone pairs on Xe, give the molecular shape, bond angle, and hybridisation. [5]</p>
+  <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide':'Model Answer'">Model Answer</button>
+  <div class="answer">XeF₂: Total electron pairs on Xe = 2(bond) + 3(lone) = 5 → trigonal bipyramidal electron geometry. Lone pairs occupy equatorial positions (less repulsion at 120°). F atoms in axial positions. Molecular shape: linear (F–Xe–F = 180°). Hybridisation: sp³d. [2.5] XeF₄: Total electron pairs = 4(bond) + 2(lone) = 6 → octahedral electron geometry. Lone pairs in opposing axial positions (180° apart — minimise lp–lp repulsion). 4 F in equatorial plane. Molecular shape: square planar (F–Xe–F = 90°). Hybridisation: sp³d². [2.5]</div></div>
+
+  <div class="tq"><div class="tq-num">Q3 [5 marks]</div>
+  <p>Describe the industrial isolation of noble gases from air. Which noble gas is most abundant in air, and why? How is helium isolated from a different source? [5]</p>
+  <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide':'Model Answer'">Model Answer</button>
+  <div class="answer">Isolation from air: fractional distillation of liquid air. Air cleaned (CO₂/H₂O removed), compressed, cooled until it liquefies. Fractional distillation separates components: N₂ (−196°C) boils off first, then Ar (−186°C) with N₂ fraction, then O₂ (−183°C). Kr and Xe (−153, −108°C) remain in liquid O₂ fraction — extracted separately. Ne and He (very low b.p.) remain as gas and are collected separately. [3] Most abundant: Argon (0.93% of air). Reason: ⁴⁰Ar has accumulated over billions of years from radioactive decay of ⁴⁰K in Earth's rocks (⁴⁰K + e⁻ → ⁴⁰Ar, t½ = 1.25×10⁹ yr). [1] He from natural gas: He (from α-decay of U/Th trapped underground) makes up 0.3–7% of some natural gas wells. The natural gas is cooled to liquefy it — He (too low b.p. to liquefy at these conditions) remains as a gas and is collected. [1]</div></div>
+
+  <div class="tq"><div class="tq-num">Q4 [5 marks]</div>
+  <p>Neil Bartlett's 1962 synthesis of the first noble gas compound was based on a key piece of chemical reasoning. Explain this reasoning, write the equation for his compound, and describe how he subsequently made XeF₂ and XeF₄. [5]</p>
+  <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide':'Model Answer'">Model Answer</button>
+  <div class="answer">Bartlett's reasoning: He knew that O₂ + PtF₆ → O₂⁺PtF₆⁻ (oxygen molecule is oxidised). He noted that IE₁ of Xe (1170 kJ/mol) is almost identical to IE of O₂ (1165 kJ/mol). If O₂ can be oxidised by PtF₆, so should Xe. [2] Equation: Xe + PtF₆ → Xe⁺PtF₆⁻ (xenon hexafluoroplatinate — orange-yellow solid, forms when Xe and PtF₆ vapours mix at room temperature). [1] XeF₂ and XeF₄: reacting mixtures of Xe and F₂ under different conditions: Xe + F₂ (excess Xe, UV light) → XeF₂; Xe + 2F₂ (Xe:F₂ = 1:2, 400°C, ~6 atm) → XeF₄. Significance: ended 50+ years of belief that noble gases are completely inert — prompted research into noble gas chemistry. [2]</div></div>
+
+  <div class="tq"><div class="tq-num">Q5 [5 marks]</div>
+  <p>Describe the uses of He, Ne, Ar, and Xe in technology and science. Give one specific use for each, explain the chemical/physical property exploited, and explain why no other substance could substitute for He in cooling superconducting magnets. [5]</p>
+  <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open')?'Hide':'Model Answer'">Model Answer</button>
+  <div class="answer">He: cooling superconducting MRI magnets. Property: lowest b.p. (4.2 K at 1 atm) — liquid He cools superconducting NbTi coils below their critical temperature (~9 K) → zero electrical resistance → powerful persistent magnetic field. Irreplaceable: no other substance is liquid at 4 K — N₂ (b.p. 77 K), H₂ (b.p. 20 K) both too high and do not reach the required temperature. [1.5] Ne: neon signs. Property: electrical discharge excites Ne electrons → emit red-orange light (characteristic emission spectrum). [1] Ar: MIG/TIG welding inert atmosphere. Property: chemically inert even at welding temperatures (~1500°C), cheap (0.93% of air), higher density than He → better shielding of weld pool. [1] Xe: spacecraft ion thrusters (e.g. Dawn mission). Property: Xe atoms ionised and electrostatically accelerated → efficient low-thrust propulsion; Xe chosen for high mass (heavy atom → more momentum per particle), ease of ionisation (low IE 1170 kJ/mol), and ability to be stored as liquid. [1] He irreplaceable: only liquid at 4 K; NbTi and Nb₃Sn superconductors critical temperature ~9 K; liquid N₂ (77 K) is far too warm to cool them below critical temperature. No alternative cooling agent exists at these temperatures under normal pressure. Research into higher-temperature superconductors ongoing. [0.5]</div></div>
+
+  <div class="tq"><div class="tq-num">Q6 [5 marks]</div>
+  <p>Explain the radon health hazard fully: how it forms, why it accumulates indoors, how it damages health, and what steps can reduce exposure. Write the nuclear equation for its formation. [5]</p>
+  <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide':'Model Answer'">Model Answer</button>
+  <div class="answer">Formation: ²²⁶Ra → ²²²Rn + ⁴He (alpha decay; t½ of Ra-226 = 1600 yr; Rn-222 t½ = 3.82 days). Ra is itself a decay product of U-238 in uranium-containing rocks (granite, some soils). [1] Accumulation: Rn gas seeps upward through soil and rock; enters buildings through cracks in foundations, porous concrete, gaps around pipes. Being dense (9.23 g/L) and a gas, accumulates especially in basements and ground floors in poorly ventilated buildings in radon-prone areas (granite regions). [1] Health damage: Rn itself is inhaled as inert gas. Its solid decay daughters (Po-218, Pb-214, Bi-214, Po-214) are alpha and beta emitters and attach to airway surfaces. Alpha particles ionise lung tissue DNA → mutations → lung cancer (2nd cause after smoking; causes ~20,000 deaths/year in USA). [2] Reduction: improve ventilation (open windows; install sub-slab depressurisation); seal cracks in floors/foundations; use radon-resistant building materials; test regularly with radon detector kits. [1]</div></div>
+</div>
+
+<div class="test-section">
+  <div class="test-sec-head"><h3>Section B — Extended Answer</h3><span class="marks-badge">20 marks</span></div>
+
+  <div class="tq"><div class="tq-num">Q7 [10 marks]</div>
+  <p>(a) Compare the noble gases with the halogens (Group 17) in terms of: electronic structure, reactivity, physical state at room temperature, and ability to form compounds. [5]<br>
+  (b) Describe the trend in ionisation energies across Period 2 (Li to Ne). Explain the anomalies at B and O. Explain why Ne has the highest IE in Period 2 and how this connects to its complete chemical inertness. [5]</p>
+  <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide':'Model Answer'">Model Answer</button>
+  <div class="answer">(a) Electronic structure: Noble gases — ns²np⁶ (full outer shell, 8 electrons, or 2 for He). Halogens — ns²np⁵ (7 valence electrons, 1 electron short of full shell). [1] Reactivity: Noble gases — essentially inert (only heaviest form compounds with F₂). Halogens — very reactive; all form compounds readily; powerful oxidising agents. [1] Physical state: Noble gases — all monoatomic gases at r.t. (no bonding between atoms). Halogens — F₂ and Cl₂ are gases; Br₂ is liquid; I₂ is solid (all diatomic molecules X₂ held by London forces which increase down group). [1.5] Compounds: Noble gases — only Kr (KrF₂) and Xe (XeF₂, XeF₄, etc.) with F₂ under forcing conditions; no ionic compounds. Halogens — form ionic halides with metals (Na⁺Cl⁻ etc.) and covalent compounds with non-metals; full range of oxidation states (Cl: −1 to +7); very large variety of compounds. The difference is explained by the single electron vacancy in halogens vs the completed shell in noble gases. [1.5] (b) Period 2 trend: general increase Li → Ne as nuclear charge increases with same n=2 shell → increasing Zeff → electrons held more tightly → higher IE. [1] Anomaly at B (IE lower than Be): Be = 2s², B = 2s²2p¹. B's 2p¹ electron is in a higher-energy subshell than Be's 2s² and is better shielded by the 2s² → easier to remove → lower IE. [1] Anomaly at O (IE lower than N): N = 2s²2p³ (half-filled 2p, each electron in its own orbital, extra stability from exchange energy). O = 2s²2p⁴ (one paired electron in 2p — extra electron repulsion → easier to remove → lower IE than expected). [1] Ne: highest IE in Period 2 (2081 kJ/mol): Z=10, full 1s²2s²2p⁶ — maximum Zeff with full shielding from 1s² and 2s² → outer 2p electrons experience the highest effective nuclear charge of any Period 2 element. Complete chemical inertness: removing any electron from Ne requires >2000 kJ/mol — energetically impossible under normal chemical conditions; no standard chemical oxidant can do this. Similarly, adding an electron goes into n=3 (much higher energy) — no thermodynamic driving force. Net result: Ne has absolutely no chemistry. [2]</div></div>
+
+  <div class="tq"><div class="tq-num">Q8 [10 marks]</div>
+  <p>(a) Argon constitutes 0.93% of the atmosphere, making it far more abundant than the other noble gases. Explain why argon is so abundant. Compare this with why helium is so scarce in the atmosphere. [4]<br>
+  (b) Describe the strategic and economic importance of helium in modern technology. Explain why some scientists warn of a "helium crisis" and suggest what measures could be taken to conserve supplies. [6]</p>
+  <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide':'Model Answer'">Model Answer</button>
+  <div class="answer">(a) Argon abundance: ⁴⁰K (t½ = 1.25×10⁹ yr) has been decaying by electron capture to ⁴⁰Ar continuously throughout Earth's history. K is a very common element in rocks. The ⁴⁰Ar produced is trapped in the atmosphere (too heavy to escape — molecular mass 40 g/mol) and has accumulated for ~4.5 billion years. Also ³⁶Ar and ³⁸Ar from primordial nucleosynthesis. Total = 0.93% of atmosphere. [2] Helium scarcity in atmosphere: He (mass 4) is very light. Some He atoms at the top of the atmosphere (thermosphere) have enough thermal velocity to exceed escape velocity (~11 km/s) → permanently lost to space. He produced underground by α-decay accumulates in geological traps but does not reach the atmosphere in significant amounts. He present in atmosphere (0.0005%) is the balance between production (α-decay) and loss (space escape). [2] (b) Strategic importance: (1) MRI machines (hospitals worldwide — >40,000 MRI scanners globally, each uses ~1,700 L liquid He). (2) Scientific research: NMR spectrometers in chemistry/biochemistry labs; particle accelerators (LHC at CERN uses 120 tonnes of liquid He to cool 27 km of superconducting magnets). (3) Space programme: NASA uses He to pressurise rocket fuel tanks and purge rocket engines. (4) Semiconductor manufacturing: Ar/He atmosphere for Si crystal growth. (5) Fibre optic cable manufacturing. [3] Helium crisis: (1) Finite reserves — USA has largest proven reserves but has been selling from strategic reserve (US Federal Helium Reserve, Texas) since 1996; reserves declining. (2) Non-renewable — once in atmosphere, escapes to space over geological time; cannot be economically recovered. (3) No substitute for cooling below ~10 K. (4) Shortage events: multiple global shortages (2011–2013, 2019–2020, 2022) disrupted MRI, research, and industry. (5) Major producers: USA (depleting), Qatar (now world's 2nd largest), Russia, Algeria. [2] Conservation measures: (1) Recycle He from MRI scanners (install reliquefaction units — most modern MRI machines do this now). (2) Use He-free alternatives where possible — replace He-cooled NMR with higher-T superconductors or permanent magnets for some applications. (3) Develop high-temperature superconductors (YBCO, etc. that work at 77 K — cooled with cheap liquid N₂). (4) International treaty on He as a strategic resource — regulate export and pricing. (5) Increase He recovery from natural gas (currently much is vented). (6) Research into He substitutes for specific applications (e.g. turbine cooling). [1]</div></div>
+</div>
+
+<div class="unit-nav">
+  <a href="s4_unit12_group17.html">← Unit 12: Halogens</a>
+  <a href="s4-chemistry.html">S4 Course Home</a>
+  <a href="s4_unit14_period3.html">Unit 14: Period 3 →</a>
+</div>
+</main>
+
+<footer>
+  ⚗ Jackson Habimana Chemistry Portal &bull; S4 Unit 13: Group 18 Noble Gases &bull;
+  <a href="s4-chemistry.html">Back to S4</a> &bull; <a href="index.html">Home</a>
+</footer>
+
+<script>
+const _CA={q1:'B',q2:'C',q3:'B',q4:'C',q5:'C',q6:'C',q7:'B',q8:'B',q9:'B',q10:'B',q11:'B',q12:'C',q13:'B',q14:'B',q15:'B',q16:'B',q17:'B',q18:'C',q19:'B',q20:'B',q21:'B',q22:'B',q23:'B',q24:'C',q25:'B'};
+function submitQuiz(){
+  let s=0,t=Object.keys(_CA).length;
+  Object.entries(_CA).forEach(([q,c])=>{
+    const sel=document.querySelector('input[name="'+q+'"]:checked');
+    document.querySelectorAll('input[name="'+q+'"]').forEach(o=>{if(o.value===c)o.closest('label').classList.add('correct');});
+    if(sel){if(sel.value===c)s++;else sel.closest('label').classList.add('wrong');}
+    const e=document.getElementById('e'+q.slice(1));if(e)e.style.display='block';
+    document.querySelectorAll('input[name="'+q+'"]').forEach(o=>o.disabled=true);
+  });
+  const p=Math.round(s/t*100);
+  const r=document.getElementById('qR');
+  r.style.cssText='display:block;margin-top:16px;border-radius:8px;padding:14px 18px;font-family:JetBrains Mono,monospace;font-size:.88rem;text-align:center;background:'+(p>=70?'rgba(52,211,153,.1)':'rgba(248,113,113,.1)')+';border:1px solid '+(p>=70?'var(--green)':'var(--red)')+';color:'+(p>=70?'var(--green)':'var(--red)');
+  r.innerHTML='Score: '+s+'/'+t+' ('+p+'%) — '+(p>=80?'🏆 Excellent!':p>=70?'✅ Good.':p>=50?'📚 Keep studying.':'❌ Review all material.');
+  document.querySelector('.qs').disabled=true;document.querySelector('.qs').style.opacity='.5';
+}
+(function(){
+  const SK='quiz_access_granted',CK='quiz_access_code';
+  const gate=document.createElement('div');gate.id='unit-quiz-gate';
+  gate.style.cssText='position:fixed;inset:0;background:#0d1117;z-index:99999;display:none;align-items:center;justify-content:center;padding:24px;';
+  gate.innerHTML='<div style="background:#161b22;border:2px solid rgba(245,158,11,.4);border-radius:16px;padding:48px 40px;max-width:460px;width:100%;text-align:center;"><div style="font-size:3.5rem;margin-bottom:16px;">🔒</div><h2 style="font-family:Playfair Display,serif;font-size:1.8rem;color:#fff;margin-bottom:10px;">Quiz Locked</h2><p style="color:#8b949e;font-size:.93rem;margin-bottom:24px;">Enter the access code from your teacher.</p><input id="ugc-inp" type="text" placeholder="Enter Code" maxlength="20" style="width:100%;background:#1c2333;border:2px solid #30363d;border-radius:8px;color:#e6edf3;padding:14px 18px;font-family:JetBrains Mono,monospace;font-size:1.4rem;text-align:center;letter-spacing:.2em;text-transform:uppercase;margin-bottom:12px;box-sizing:border-box;" onkeydown="if(event.key===\'Enter\')unlockUnitQuiz()"/><div id="ugc-err" style="font-family:JetBrains Mono,monospace;font-size:.82rem;color:#f87171;min-height:20px;margin-bottom:10px;"></div><button onclick="unlockUnitQuiz()" style="width:100%;background:#f59e0b;color:#000;border:none;padding:13px;border-radius:8px;font-family:JetBrains Mono,monospace;font-size:.9rem;font-weight:700;cursor:pointer;margin-bottom:10px;">🔓 Unlock Quiz</button><button onclick="document.getElementById(\'unit-quiz-gate\').style.display=\'none\';document.body.style.overflow=\'\'" style="width:100%;background:transparent;border:1px solid #30363d;color:#8b949e;padding:9px;border-radius:8px;font-family:JetBrains Mono,monospace;font-size:.8rem;cursor:pointer;">✕ Cancel</button></div>';
+  document.body.appendChild(gate);
+  window.unlockUnitQuiz=function(){const v=document.getElementById('ugc-inp').value.trim().toUpperCase();const c=localStorage.getItem(CK);if(!v){document.getElementById('ugc-err').textContent='Enter the code.';return;}if(v===c||!c){sessionStorage.setItem(SK,c||'open');document.getElementById('unit-quiz-gate').style.display='none';document.body.style.overflow='';}else{document.getElementById('ugc-err').textContent='❌ Wrong code.';document.getElementById('ugc-inp').value='';}};
+  window.addEventListener('DOMContentLoaded',function(){const code=localStorage.getItem(CK);if(!code)return;const granted=sessionStorage.getItem(SK);if(granted)return;const qw=document.querySelector('.quiz-wrap');if(!qw)return;qw.addEventListener('click',function(e){if(!localStorage.getItem(CK))return;if(sessionStorage.getItem(SK))return;e.stopPropagation();e.preventDefault();document.getElementById('unit-quiz-gate').style.display='flex';document.body.style.overflow='hidden';},true);});
+})();
+</script>
+</body>
+</html>
