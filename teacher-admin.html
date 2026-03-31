@@ -162,6 +162,7 @@ table.results tr:hover td{background:rgba(255,255,255,.02);}
     <button class="tab-btn" onclick="showTab('results',this)">📊 Student Results</button>
     <button class="tab-btn" onclick="showTab('import',this)">📥 Import</button>
     <button class="tab-btn" onclick="showTab('settings',this)">⚙️ Settings</button>
+    <button class="tab-btn" onclick="showTab('resources',this)">🔗 Links & Files</button>
     <a href="lock-manager.html" class="tab-btn" style="text-decoration:none;">🔒 Lock Manager</a>
   </div>
 
@@ -266,6 +267,108 @@ table.results tr:hover td{background:rgba(255,255,255,.02);}
 
       <!-- RESULTS TABLE -->
       <div id="results-container"><p style="color:var(--muted);">No results yet. Click ☁️ Refresh from Cloud to load.</p></div>
+    </div>
+  </div>
+
+
+  <!-- ═══ LINKS & FILES ═══ -->
+  <div class="tab-panel" id="tab-resources">
+    <div class="card">
+      <h2>🔗 Share External Links with Students</h2>
+      <p style="color:var(--muted);font-size:.88rem;margin-bottom:20px;">
+        Paste any URL (online quiz, video, article, Google Form, etc.) and give it a title. 
+        Students see all your links on the Student Hub page.
+      </p>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+        <div>
+          <label>Link Title</label>
+          <input type="text" id="link-title" placeholder="e.g. Organic Chemistry Quiz — Alkanes"/>
+        </div>
+        <div>
+          <label>Category</label>
+          <select id="link-cat" style="margin-bottom:0;">
+            <option value="S4">S4 Resource</option>
+            <option value="S5">S5 Resource</option>
+            <option value="S6">S6 Resource</option>
+            <option value="Video">Video Lesson</option>
+            <option value="Quiz">External Quiz</option>
+            <option value="Notes">Extra Notes</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+      </div>
+      <label>Full URL</label>
+      <input type="text" id="link-url" placeholder="https://chemistry.coach/organic-chemistry-1/reactions-of-alkanes/quiz/3"/>
+      <label>Description (optional)</label>
+      <input type="text" id="link-desc" placeholder="e.g. Practice quiz on reactions of alkanes — attempt before class"/>
+      <button class="btn btn-primary" onclick="addLink()" style="margin-bottom:0;">➕ Add Link</button>
+      <div id="link-msg" style="font-family:'JetBrains Mono',monospace;font-size:.8rem;margin-top:8px;"></div>
+    </div>
+
+    <div class="card">
+      <h2>📄 Upload Files for Students</h2>
+      <p style="color:var(--muted);font-size:.88rem;margin-bottom:20px;">
+        Upload a PDF, Word document, or any file. It will be encoded and stored so students 
+        can download it directly from the Student Hub.
+      </p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+        <div>
+          <label>File Title</label>
+          <input type="text" id="file-title" placeholder="e.g. S5 Unit 3 Past Paper 2023"/>
+        </div>
+        <div>
+          <label>Category</label>
+          <select id="file-cat" style="margin-bottom:0;">
+            <option value="S4">S4 Resource</option>
+            <option value="S5">S5 Resource</option>
+            <option value="S6">S6 Resource</option>
+            <option value="Exam Paper">Exam Paper</option>
+            <option value="Notes">Extra Notes</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+      </div>
+      <label>Select File (PDF, Word, Excel, Image — max 2MB)</label>
+      <div class="drop-zone" id="file-drop" onclick="document.getElementById('file-inp').click()"
+           ondragover="event.preventDefault();this.classList.add('drag-over')"
+           ondragleave="this.classList.remove('drag-over')"
+           ondrop="event.preventDefault();this.classList.remove('drag-over');handleFileDrop(event.dataTransfer.files[0])">
+        <div style="font-size:2rem;margin-bottom:8px;">📂</div>
+        <strong style="color:var(--text);">Click to browse or drag & drop</strong>
+        <p style="color:var(--muted);font-size:.82rem;margin-top:4px;">PDF · Word (.docx) · Excel · Images · max 2 MB</p>
+        <input type="file" id="file-inp" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.jpg,.jpeg,.png,.gif" style="display:none;" onchange="handleFileSelect(this.files[0])"/>
+      </div>
+      <div id="file-preview" style="display:none;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:14px 16px;margin-top:12px;">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span id="file-icon" style="font-size:1.8rem;">📄</span>
+          <div>
+            <div id="file-name-preview" style="font-family:'JetBrains Mono',monospace;font-size:.85rem;color:#fff;"></div>
+            <div id="file-size-preview" style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);"></div>
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-success" onclick="uploadFile()" style="margin-top:12px;margin-bottom:0;">📤 Save File for Students</button>
+      <div id="file-msg" style="font-family:'JetBrains Mono',monospace;font-size:.8rem;margin-top:8px;"></div>
+    </div>
+
+    <div class="card">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px;">
+        <h2 style="margin-bottom:0;">📋 Your Links & Files</h2>
+        <div style="display:flex;gap:8px;">
+          <select id="res-filter" onchange="renderResources()" style="width:auto;margin-bottom:0;font-family:'JetBrains Mono',monospace;font-size:.78rem;padding:6px 12px;">
+            <option value="">All Categories</option>
+            <option value="S4">S4</option>
+            <option value="S5">S5</option>
+            <option value="S6">S6</option>
+            <option value="Video">Videos</option>
+            <option value="Quiz">Quizzes</option>
+            <option value="Exam Paper">Exam Papers</option>
+          </select>
+          <button class="btn btn-ghost btn-sm" onclick="clearAllResources()">🗑 Clear All</button>
+        </div>
+      </div>
+      <div id="resources-list"><p style="color:var(--muted);">No links or files added yet.</p></div>
     </div>
   </div>
 
@@ -1031,6 +1134,150 @@ function init(){
     document.getElementById('dir-bin-id').textContent=dId;
   }
 }
+
+// ══════════════════════════════════════════════════════════
+//  LINKS & FILES MANAGER
+// ══════════════════════════════════════════════════════════
+
+let _pendingFile = null;
+
+const FILE_ICONS = {
+  pdf:'📕', doc:'📘', docx:'📘', xls:'📗', xlsx:'📗',
+  ppt:'📙', pptx:'📙', jpg:'🖼️', jpeg:'🖼️', png:'🖼️', gif:'🖼️'
+};
+
+function getFileIcon(name){
+  const ext = (name.split('.').pop()||'').toLowerCase();
+  return FILE_ICONS[ext] || '📄';
+}
+
+function handleFileSelect(file){ processFile(file); }
+function handleFileDrop(file){ processFile(file); }
+
+function processFile(file){
+  if(!file) return;
+  const maxMB = 2;
+  if(file.size > maxMB * 1024 * 1024){
+    document.getElementById('file-msg').innerHTML = '<span style="color:var(--red)">❌ File too large (max 2 MB). Compress it or use a link instead.</span>';
+    return;
+  }
+  _pendingFile = file;
+  const preview = document.getElementById('file-preview');
+  document.getElementById('file-icon').textContent = getFileIcon(file.name);
+  document.getElementById('file-name-preview').textContent = file.name;
+  document.getElementById('file-size-preview').textContent = (file.size/1024).toFixed(1) + ' KB';
+  preview.style.display = 'block';
+  document.getElementById('file-msg').textContent = '';
+  // Auto-fill title if empty
+  if(!document.getElementById('file-title').value){
+    document.getElementById('file-title').value = file.name.replace(/\.[^.]+$/, '');
+  }
+}
+
+function addLink(){
+  const title = document.getElementById('link-title').value.trim();
+  const url   = document.getElementById('link-url').value.trim();
+  const cat   = document.getElementById('link-cat').value;
+  const desc  = document.getElementById('link-desc').value.trim();
+  const msg   = document.getElementById('link-msg');
+  if(!title){ msg.innerHTML='<span style="color:var(--red)">Enter a title.</span>'; return; }
+  if(!url || !url.startsWith('http')){ msg.innerHTML='<span style="color:var(--red)">Enter a valid URL starting with http.</span>'; return; }
+  const resources = JSON.parse(localStorage.getItem('teacher_resources')||'[]');
+  resources.unshift({ id: Date.now(), type:'link', title, url, cat, desc, date: new Date().toLocaleDateString() });
+  localStorage.setItem('teacher_resources', JSON.stringify(resources));
+  document.getElementById('link-title').value='';
+  document.getElementById('link-url').value='';
+  document.getElementById('link-desc').value='';
+  msg.innerHTML='<span style="color:var(--green)">✅ Link saved! Students can see it on Student Hub.</span>';
+  renderResources();
+}
+
+function uploadFile(){
+  const title = document.getElementById('file-title').value.trim();
+  const cat   = document.getElementById('file-cat').value;
+  const msg   = document.getElementById('file-msg');
+  if(!title){ msg.innerHTML='<span style="color:var(--red)">Enter a title.</span>'; return; }
+  if(!_pendingFile){ msg.innerHTML='<span style="color:var(--red)">Select a file first.</span>'; return; }
+  msg.innerHTML='<span style="color:var(--muted)">⏳ Encoding file...</span>';
+  const reader = new FileReader();
+  reader.onload = function(e){
+    try {
+      const resources = JSON.parse(localStorage.getItem('teacher_resources')||'[]');
+      resources.unshift({
+        id: Date.now(), type:'file', title, cat,
+        fileName: _pendingFile.name,
+        fileSize: _pendingFile.size,
+        fileType: _pendingFile.type,
+        data: e.target.result,
+        date: new Date().toLocaleDateString()
+      });
+      localStorage.setItem('teacher_resources', JSON.stringify(resources));
+      document.getElementById('file-title').value='';
+      document.getElementById('file-preview').style.display='none';
+      _pendingFile = null;
+      msg.innerHTML='<span style="color:var(--green)">✅ File saved! Students can download it from Student Hub.</span>';
+      renderResources();
+    } catch(err) {
+      msg.innerHTML='<span style="color:var(--red)">❌ Storage full. File too large for browser storage. Use a smaller file or share a link instead.</span>';
+    }
+  };
+  reader.readAsDataURL(_pendingFile);
+}
+
+function renderResources(){
+  const filter = document.getElementById('res-filter')?document.getElementById('res-filter').value:'';
+  const resources = JSON.parse(localStorage.getItem('teacher_resources')||'[]');
+  const filtered = filter ? resources.filter(r=>r.cat===filter) : resources;
+  const el = document.getElementById('resources-list');
+  if(!el) return;
+  if(!filtered.length){ el.innerHTML='<p style="color:var(--muted);">No resources yet.</p>'; return; }
+  el.innerHTML = filtered.map(r => `
+    <div style="background:var(--surface2);border:1px solid var(--border);border-radius:9px;padding:14px 16px;margin-bottom:10px;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+      <div style="flex:1;min-width:0;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;flex-wrap:wrap;">
+          <span style="font-size:1.1rem;">${r.type==='link'?'🔗':'📄'}</span>
+          <strong style="color:#fff;font-size:.95rem;">${r.title}</strong>
+          <span class="badge badge-${r.type==='link'?'blue':'green'}" style="font-size:.65rem;">${r.cat}</span>
+          <span class="badge" style="background:rgba(139,148,158,.1);color:var(--muted);border:1px solid rgba(139,148,158,.2);font-size:.65rem;">${r.type==='link'?'LINK':'FILE'}</span>
+        </div>
+        ${r.type==='link'
+          ? `<a href="${r.url}" target="_blank" style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--accent);word-break:break-all;">${r.url.length>60?r.url.slice(0,60)+'…':r.url}</a>`
+          : `<span style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--muted);">${r.fileName} · ${(r.fileSize/1024).toFixed(1)} KB</span>`
+        }
+        ${r.desc?`<div style="font-size:.82rem;color:var(--muted);margin-top:4px;">${r.desc}</div>`:''}
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--muted);margin-top:4px;">Added: ${r.date}</div>
+      </div>
+      <div style="display:flex;gap:6px;flex-shrink:0;">
+        ${r.type==='file'?`<button class="btn btn-ghost btn-sm" onclick="downloadResource(${r.id})">⬇ Download</button>`:''}
+        <button class="btn btn-danger btn-sm" onclick="deleteResource(${r.id})">🗑</button>
+      </div>
+    </div>`).join('');
+}
+
+function downloadResource(id){
+  const resources = JSON.parse(localStorage.getItem('teacher_resources')||'[]');
+  const r = resources.find(x=>x.id===id);
+  if(!r||!r.data) return;
+  const a = document.createElement('a');
+  a.href = r.data;
+  a.download = r.fileName || r.title;
+  a.click();
+}
+
+function deleteResource(id){
+  if(!confirm('Delete this resource?')) return;
+  let resources = JSON.parse(localStorage.getItem('teacher_resources')||'[]');
+  resources = resources.filter(r=>r.id!==id);
+  localStorage.setItem('teacher_resources', JSON.stringify(resources));
+  renderResources();
+}
+
+function clearAllResources(){
+  if(!confirm('Delete ALL links and files? This cannot be undone.')) return;
+  localStorage.removeItem('teacher_resources');
+  renderResources();
+}
+
 </script>
 </body>
 </html>
