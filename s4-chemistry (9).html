@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>S4 Chemistry – Course Portal | Jackson Habimana</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Serif+4:wght@300;400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+<style>
+  :root{--bg:#0d1117;--surface:#161b22;--surface2:#1c2333;--border:#30363d;--accent:#38bdf8;--gold:#e8c547;--green:#34d399;--red:#f87171;--text:#e6edf3;--muted:#8b949e;--radius:12px;}
+  *{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+  body{background:var(--bg);color:var(--text);font-family:'Source Serif 4',Georgia,serif;font-size:17px;line-height:1.75;overflow-x:hidden;}
+  /* NAV */
+  nav{position:sticky;top:0;z-index:100;background:rgba(13,17,23,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 32px;}
+  .nav-inner{max-width:1080px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:58px;gap:16px;}
+  .nav-brand{font-family:'JetBrains Mono',monospace;font-size:.82rem;color:var(--accent);text-decoration:none;letter-spacing:.06em;}
+  .nav-links{display:flex;gap:6px;flex-wrap:wrap;}
+  .nav-links a{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--muted);text-decoration:none;padding:5px 14px;border-radius:6px;border:1px solid transparent;transition:all .18s;}
+  .nav-links a:hover{color:var(--text);border-color:var(--border);}
+  .nav-links a.active{background:rgba(56,189,248,.1);color:var(--accent);border-color:rgba(56,189,248,.25);}
+  /* HERO */
+  .hero{position:relative;min-height:400px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:90px 40px 70px;overflow:hidden;background:radial-gradient(ellipse 90% 60% at 50% 0%,#001528 0%,var(--bg) 70%);}
+  .hero::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent,transparent 59px,rgba(56,189,248,.04) 60px),repeating-linear-gradient(0deg,transparent,transparent 59px,rgba(56,189,248,.04) 60px);pointer-events:none;}
+  .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.25);color:var(--accent);padding:6px 18px;border-radius:50px;font-size:.78rem;font-family:'JetBrains Mono',monospace;letter-spacing:.12em;text-transform:uppercase;margin-bottom:24px;}
+  .hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,6vw,4rem);color:#fff;line-height:1.1;max-width:820px;margin-bottom:18px;}
+  .hero h1 em{color:var(--accent);font-style:italic;}
+  .hero p.tagline{color:var(--muted);font-size:1.05rem;max-width:600px;margin-bottom:36px;}
+  .stat-row{display:flex;gap:40px;justify-content:center;flex-wrap:wrap;}
+  .stat{text-align:center;}
+  .stat-value{font-family:'JetBrains Mono',monospace;font-size:2rem;font-weight:700;color:var(--accent);}
+  .stat-label{font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;}
+  /* LAYOUT */
+  .page{max-width:1080px;margin:0 auto;padding:60px 28px 100px;}
+  /* INFO STRIP */
+  .info-strip{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-bottom:60px;}
+  .info-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px 22px;display:flex;gap:14px;align-items:flex-start;}
+  .info-icon{font-size:1.5rem;flex-shrink:0;margin-top:2px;}
+  .info-card h4{font-family:'JetBrains Mono',monospace;font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);margin-bottom:4px;}
+  .info-card p{font-size:.83rem;color:var(--muted);}
+  /* SECTION LABEL */
+  .section-label{font-family:'JetBrains Mono',monospace;font-size:.75rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--border);}
+  /* UNIT GRID */
+  .unit-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;margin-bottom:60px;}
+  .unit-card{display:block;text-decoration:none;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px 26px;transition:all .22s;position:relative;overflow:hidden;}
+  .unit-card::before{content:'';position:absolute;inset:0 0 auto 0;height:3px;background:var(--card-accent,var(--accent));opacity:.7;transition:opacity .2s;}
+  .unit-card:hover{transform:translateY(-3px);border-color:var(--card-accent,var(--accent));box-shadow:0 8px 28px rgba(0,0,0,.35);}
+  .unit-card:hover::before{opacity:1;}
+  .unit-card.locked{opacity:.55;pointer-events:none;cursor:default;}
+  .unit-num{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;}
+  .unit-card h3{font-family:'Playfair Display',serif;font-size:1.1rem;color:#fff;margin-bottom:10px;line-height:1.3;}
+  .unit-card p{font-size:.84rem;color:var(--muted);line-height:1.5;}
+  .status-badge{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;padding:3px 10px;border-radius:50px;margin-top:14px;}
+  .status-ready{background:rgba(52,211,153,.15);color:var(--green);border:1px solid rgba(52,211,153,.3);}
+  .status-soon{background:rgba(139,148,158,.12);color:var(--muted);border:1px solid rgba(139,148,158,.25);}
+  /* FOOTER */
+  footer{border-top:1px solid var(--border);padding:32px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--muted);}
+  footer a{color:var(--accent);text-decoration:none;}
+  @media(max-width:600px){.hero{padding:60px 20px 50px;}.page{padding:40px 16px 80px;}.stat-row{gap:24px;}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="nav-brand" href="index.html">&#9883; Jackson Habimana</a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="s4-chemistry.html" class="active">S4</a>
+      <a href="s5-chemistry.html">S5</a>
+      <a href="s6-chemistry.html">S6</a>
+      <a href="student-quiz.html">Take Quiz</a><a href="student-hub.html">Student Hub</a>
+      <a href="quizzes.html">Challenge</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-badge">&#9883; Jackson Habimana &bull; S4 Chemistry</div>
+  <h1>Senior Four <em>Chemistry</em></h1>
+  <p class="tagline">Atomic structure, chemical bonding, the periodic table, group chemistry, equilibrium, redox reactions, and thermochemistry.</p>
+  <div class="stat-row">
+    <div class="stat"><div class="stat-value">18</div><div class="stat-label">Units</div></div>
+    <div class="stat"><div class="stat-value">144+</div><div class="stat-label">Worked Examples</div></div>
+    <div class="stat"><div class="stat-value">450</div><div class="stat-label">Quiz Questions</div></div>
+    <div class="stat"><div class="stat-value">900</div><div class="stat-label">Test Marks</div></div>
+  </div>
+</header>
+
+<main class="page">
+
+  <div class="info-strip">
+    <div class="info-card"><span class="info-icon">&#128218;</span><div><h4>Full Notes</h4><p>Comprehensive theory with diagrams, tables, and definitions for every sub-topic.</p></div></div>
+    <div class="info-card"><span class="info-icon">&#128221;</span><div><h4>Worked Examples</h4><p>Step-by-step solutions covering all calculation and reaction types.</p></div></div>
+    <div class="info-card"><span class="info-icon">&#9989;</span><div><h4>Interactive Quizzes</h4><p>25-question MCQ quizzes with instant feedback and full explanations.</p></div></div>
+    <div class="info-card"><span class="info-icon">&#128196;</span><div><h4>Unit Tests</h4><p>50-mark structured tests with model answers for exam practice.</p></div></div>
+  </div>
+
+  <!-- Units 1–4: Atomic Structure & Bonding -->
+  <div class="section-label">Atomic Structure &amp; Bonding &bull; Units 1&ndash;4</div>
+  <div class="unit-grid">
+    <a href="s4_unit1_atomic_structure.html" class="unit-card" style="--card-accent:#38bdf8;">
+      <div class="unit-num">Unit 01</div>
+      <h3>Structure of an Atom &amp; Mass Spectrum</h3>
+      <p>Subatomic particles, atomic number, isotopes, relative atomic mass, the mass spectrometer, and mass spectra interpretation.</p>
+      <span class="status-badge status-ready">Available</span>
+    </a>
+    <a href="s4_unit2_electronic_config.html" class="unit-card" style="--card-accent:#a78bfa;">
+      <div class="unit-num">Unit 02</div>
+      <h3>Electronic Configuration of Atoms &amp; Ions</h3>
+      <p>Bohr's model, hydrogen spectrum, spectral series, orbitals, quantum numbers, electron configurations, and ionisation energy.</p>
+      <span class="status-badge status-ready">Available</span>
+    </a>
+    <a href="s4_unit3_ionic_metallic_bonds.html" class="unit-card" style="--card-accent:#f59e0b;">
+      <div class="unit-num">Unit 03</div>
+      <h3>Ionic &amp; Metallic Bonds</h3>
+      <p>Why atoms bond, ionic bond formation, giant ionic lattice, lattice energy, metallic bonding, and physical properties of metals.</p>
+      <span class="status-badge status-ready">Available</span>
+    </a>
+    <a href="s4_unit4_covalent_bond.html" class="unit-card" style="--card-accent:#22d3ee;">
+      <div class="unit-num">Unit 04</div>
+      <h3>Covalent Bond &amp; Molecular Structure</h3>
+      <p>Orbital overlap, VBT, dative bonds, VSEPR, hybridisation, polar bonds, simple vs giant covalent structures, and intermolecular forces.</p>
+      <span class="status-badge status-ready">Available</span>
+    </a>
+  </div>
+
+  <!-- Units 5–8: Periodic Table & Group Chemistry -->
+  <div class="section-label">Periodic Table &amp; Group Chemistry &bull; Units 5&ndash;8</div>
+  <div class="unit-grid">
+    <a href="s4_unit5_periodic_trends.html" class="unit-card" style="--card-accent:#84cc16;">
+      <div class="unit-num">Unit 05</div>
+      <h3>Variation in Trends of Physical Properties</h3>
+      <p>History of the periodic table, Mendeleev vs modern, blocks (s,p,d,f), and trends in atomic radius, IE, electronegativity, melting point.</p>
+      <span class="status-badge status-ready">Available</span>
+    </a>
+    <a href="s4_unit6_group1.html" class="unit-card" style="--card-accent:#fb923c;">
+      <div class="unit-num">Unit 06</div>
+      <h3>Group 1 Elements &amp; Their Compounds</h3>
+      <p>Alkali metals: occurrence, reactions with O&#x2082;/H&#x2082;O/halogens, oxides, hydroxides, thermal decomposition, solubility, flame tests, and hydrogen.</p>
+      <span class="status-badge status-ready">Available</span>
+    </a>
+    <a href="s4_unit7_group2.html" class="unit-card" style="--card-accent:#2dd4bf;">
+      <div class="unit-num">Unit 07</div>
+      <h3>Group 2 Elements &amp; Their Compounds</h3>
+      <p>Alkaline earth metals: reactivity, carbonates, hydroxides, sulfates, anomalous beryllium, identification of Ba&#xB2;&#x207A;, and uses.</p>
+      <span class="status-badge status-ready">Available</span>
+    </a>
+    <a href="s4_unit8_group13.html" class="unit-card" style="--card-accent:#e879f9;">
+      <div class="unit-num">Unit 08</div>
+      <h3>Group 13 Elements &amp; Their Compounds</h3>
+      <p>Aluminium chemistry, reactions with alkalis, amphoteric oxides/hydroxides, anomalous boron, identification of Al&#xB3;&#x207A;, inert pair effect.</p>
+      <span class="status-badge status-ready">Available</span>
+    </a>
+  </div>
+
+  <!-- Units 9–14: More Group Chemistry -->
+  <div class="section-label">Group Chemistry Continued &bull; Units 9&ndash;14</div>
+  <div class="unit-grid">
+    <div class="unit-card" href="s4_unit9_group14.html" style="--card-accent:#22d3ee;">
+      <div class="unit-num">Unit 09</a>
+      <h3>Group 14 Elements &amp; Their Compounds</h3>
+      <p>Carbon allotropes, silicon, oxides/chlorides trends, thermal stability, +2 vs +4 oxidation states, diagonal relationship.</p>
+      <span class="status-badge available-badge">Available</span>
+    </a>
+    <a class="unit-card" href="s4_unit10_group15.html" style="--card-accent:#a78bfa;">
+      <div class="unit-num">Unit 10</a>
+      <h3>Group 15 Elements &amp; Their Compounds</h3>
+      <p>Nitrogen inertness, ammonia, nitric acid, phosphorus and its compounds, phosphoric acid, and trends in properties.</p>
+      <span class="status-badge available-badge">Available</span>
+    </a>
+    <a class="unit-card" href="s4_unit11_group16.html" style="--card-accent:#34d399;">
+      <div class="unit-num">Unit 11</a>
+      <h3>Group 16 Elements &amp; Their Compounds</h3>
+      <p>Oxygen and sulfur chemistry, acidity/volatility of hydrides, sulfuric acid manufacture, oxoanions, identification of SO&#x3;&#xB2;&#x207B;/SO&#x4;&#xB2;&#x207B;.</p>
+      <span class="status-badge available-badge">Available</span>
+    </a>
+    <a class="unit-card" href="s4_unit12_group17.html" style="--card-accent:#f59e0b;">
+      <div class="unit-num">Unit 12</a>
+      <h3>Group 17 Elements &amp; Their Compounds</h3>
+      <p>Halogens: preparation, physical/chemical trends, hydrogen halides, halates/perhalates, and uses of halogens.</p>
+      <span class="status-badge available-badge">Available</span>
+    </a>
+    <a class="unit-card" href="s4_unit13_group18.html" style="--card-accent:#a78bfa;">
+      <div class="unit-num">Unit 13</a>
+      <h3>Group 18 Elements &amp; Noble Gases</h3>
+      <p>Occurrence, physical properties, reactivity and inertness of noble gases, and their industrial and scientific uses.</p>
+      <span class="status-badge available-badge">Available</span>
+    </a>
+    <a class="unit-card" href="s4_unit13_group18.html" style="--card-accent:#84cc16;">
+      <div class="unit-num">Unit 14</div>
+      <h3>Period 3 Elements &amp; Their Compounds</h3>
+      <p>Physical and chemical properties across Period 3, trends in oxides and chlorides, and periodic law applied to Period 3.</p>
+      <span class="status-badge status-soon">Available</span>
+    </div>
+  </div>
+
+  <!-- Units 15–18: Physical Chemistry -->
+  <div class="section-label">Physical Chemistry &bull; Units 15&ndash;18</div>
+  <div class="unit-grid">
+    <a class="unit-card" href="s4_unit15_equilibrium.html" style="--card-accent:#22d3ee;">
+      <div class="unit-num">Unit 15</a>
+      <h3>Factors Affecting Chemical Equilibrium</h3>
+      <p>Reversible reactions, dynamic equilibrium, Le Ch&acirc;telier's principle, and factors affecting equilibrium position.</p>
+      <span class="status-badge status-soon">Available</span>
+    </div>
+    <a class="unit-card" href="s4_unit16_acids_bases.html" style="--card-accent:#fb7185;">
+      <div class="unit-num">Unit 16</a>
+      <h3>Acids and Bases</h3>
+      <p>Arrhenius, Br&oslash;nsted-Lowry, and Lewis acid-base theories, pH, strong vs weak acids and bases, and neutralisation.</p>
+      <span class="status-badge status-soon">Available</span>
+    </div>
+    <a class="unit-card" href="s4_unit17_redox.html" style="--card-accent:#f97316;">
+      <div class="unit-num">Unit 17</a>
+      <h3>Reduction and Oxidation Reactions</h3>
+      <p>Electrochemistry, oxidation numbers, balancing redox equations, the reactivity series, and electrolytic cells.</p>
+      <span class="status-badge status-soon">Available</span>
+    </div>
+    <div class="unit-card locked" style="--card-accent:#facc15;">
+      <div class="unit-num">Unit 18</div>
+      <h3>Energy Changes &amp; Energy Profile Diagrams</h3>
+      <p>Internal energy, first law of thermodynamics, standard enthalpy changes, exothermic/endothermic reactions, and energy profiles.</p>
+      <span class="status-badge status-soon">Coming Soon</span>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <p>&#9883; Jackson Habimana &mdash; Chemistry Education Portal &nbsp;&bull;&nbsp;
+  <a href="index.html">Home</a> &nbsp;&bull;&nbsp;
+  <a href="s5-chemistry.html">S5 Course</a> &nbsp;&bull;&nbsp;
+  <a href="s6-chemistry.html">S6 Course</a>
+  </p>
+</footer>
+
+</body>
+</html>
