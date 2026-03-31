@@ -200,8 +200,9 @@ table.results tr:hover td{background:rgba(255,255,255,.02);}
     <!-- CODE RESULT -->
     <div id="code-result" style="display:none;">
       <div class="code-box">
-        <p style="color:var(--green);font-family:'JetBrains Mono',monospace;font-size:.75rem;text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;">✅ Exam Published! Share this code with students:</p>
-        <div class="code" id="exam-code-display">------</div>
+        <p style="color:var(--green);font-family:'JetBrains Mono',monospace;font-size:.75rem;text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;">✅ Exam Published! Copy this FULL CODE and share with students:</p>
+        <div class="code" id="exam-code-display" style="font-size:1rem;letter-spacing:.08em;word-break:break-all;padding:12px;">------</div>
+        <p style="color:var(--muted);font-size:.78rem;margin-top:6px;">⚠️ Students must paste this <strong style="color:#fff;">entire code</strong> (not just the last 6 digits) into student-exam.html</p>
         <p>Students go to <strong style="color:#fff;">student-exam.html</strong> and paste this full code to start.</p>
         <p style="margin-top:8px;font-size:.78rem;color:var(--orange);">This is the full exam ID — students paste the whole thing. Results will appear automatically in your Results tab.</p>
         <div style="display:flex;gap:10px;justify-content:center;margin-top:14px;flex-wrap:wrap;">
@@ -635,11 +636,11 @@ function renderExamsList(){
           <span class="badge badge-blue">${e.type}</span>
           <span class="badge badge-orange">⏱ ${e.time}min</span>
           <span class="badge badge-green">${e.questions.length}Q · ${e.totalMarks}marks</span>
-          ${e.code?`<span class="badge badge-purple">🔑 Code: ${e.code}</span>`:'<span class="badge" style="background:rgba(139,148,158,.1);color:var(--muted);border:1px solid rgba(139,148,158,.2);">No code — local only</span>'}
+          ${e.binId?`<span class="badge badge-purple" title="Full student code: ${e.binId}">🔑 Code: ${e.code||e.binId.slice(-8)}</span>`:'<span class="badge" style="background:rgba(139,148,158,.1);color:var(--muted);border:1px solid rgba(139,148,158,.2);">No code — local only</span>'}
         </div>
       </div>
       <div class="exam-actions">
-        ${e.binId?`<button class="btn btn-success btn-sm" onclick='reshareCode("${e.code}")'>📋 Share Code</button>`:''}
+        ${e.binId?`<button class="btn btn-success btn-sm" onclick='reshareCode("${e.binId}","${e.code}")'>📋 Share Code</button><button class="btn btn-ghost btn-sm" onclick='copyFullCode("${e.binId}")' title="Copy full student code">📋 Copy Code</button>`:''}
         <button class="btn btn-ghost btn-sm" onclick='redownloadExam("${e.id}")'>⬇ Download</button>
         ${e.binId?`<button class="btn btn-primary btn-sm" onclick='republishExam("${e.id}")'>🔄 Re-Publish</button>`:''}
         <button class="btn btn-danger btn-sm" onclick='deleteExam("${e.id}")'>🗑</button>
@@ -647,8 +648,10 @@ function renderExamsList(){
     </div>`).join('');
 }
 
-function reshareCode(code){
-  alert(`Share this code with your students:\n\n🔑 ${code}\n\nStudents enter it on student-exam.html to start the exam.`);
+function reshareCode(binId, shortCode){
+  const display = binId || shortCode;
+  navigator.clipboard.writeText(display).catch(()=>{});
+  alert(`Share this FULL CODE with your students:\n\n🔑 ${display}\n\nStudents paste it in student-exam.html to start.\n\n(Copied to clipboard automatically)`);
 }
 
 async function republishExam(id){
@@ -666,7 +669,7 @@ async function republishExam(id){
     const d=await r.json();
     if(!d.metadata?.id) throw new Error(d.message||'Failed');
     const binId=d.metadata.id;
-    const code=binId.slice(-6).toUpperCase();
+    const code=binId.slice(-8).toUpperCase();
     const codes=JSON.parse(localStorage.getItem('exam_codes')||'{}');
     codes[code]=binId;
     localStorage.setItem('exam_codes',JSON.stringify(codes));
