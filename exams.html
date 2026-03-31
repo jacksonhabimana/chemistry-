@@ -397,10 +397,6 @@ window.addEventListener('load', ()=>{
 });
 
 function showExam(lv){
-  if(!_sName){window._afterName=function(){_doShowExam(lv);};document.getElementById("name-overlay").style.display="flex";return;}
-  _doShowExam(lv);
-}
-function _doShowExam(lv){
   if(!_sName){window._afterName=()=>_doShowExam(lv);document.getElementById('name-overlay').style.display='flex';return;}
   _doShowExam(lv);
 }
@@ -485,14 +481,7 @@ function reset(lv){
   document.getElementById('panel-'+lv).scrollIntoView({behavior:'smooth',block:'start'});
 }
 
-let _sName='',_sClass='';
-function startNamedSession(){
-  const nm=document.getElementById('nq-name').value.trim();
-  if(!nm){document.getElementById('nq-err').textContent='Enter your name.';return;}
-  _sName=nm;_sClass=document.getElementById('nq-class').value.trim();
-  document.getElementById('name-overlay').style.display='none';
-  if(window._afterName) window._afterName();
-}
+// name session handled below
 
 // ════════════════════════════════════════════════════════
 //  SAVE RESULT TO TEACHER ADMIN (localStorage + cloud)
