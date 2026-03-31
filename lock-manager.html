@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>🔒 Lock Manager — Jackson Habimana Chemistry Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=JetBrains+Mono:wght@400;600&family=Source+Serif+4:wght@400&display=swap" rel="stylesheet"/>
+<style>
+:root{--bg:#0d1117;--surface:#161b22;--surface2:#1c2333;--border:#30363d;--accent:#f59e0b;--green:#34d399;--red:#f87171;--blue:#38bdf8;--purple:#a78bfa;--text:#e6edf3;--muted:#8b949e;--radius:10px;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:'Source Serif 4',Georgia,serif;font-size:16px;line-height:1.6;min-height:100vh;padding:0 0 60px;}
+header{background:var(--surface);border-bottom:1px solid var(--border);padding:18px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+header h1{font-family:'Playfair Display',serif;font-size:1.4rem;color:#fff;}
+header span{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--muted);}
+.page{max-width:780px;margin:0 auto;padding:32px 24px;}
+h2{font-family:'Playfair Display',serif;font-size:1.4rem;color:#fff;margin-bottom:18px;}
+h3{font-family:'JetBrains Mono',monospace;font-size:.78rem;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:14px;}
+
+/* STATUS BAR */
+.status-bar{display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px 20px;margin-bottom:28px;}
+.status-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0;}
+.status-dot.active{background:var(--red);box-shadow:0 0 8px var(--red);}
+.status-dot.inactive{background:var(--green);box-shadow:0 0 8px var(--green);}
+.status-text{font-family:'JetBrains Mono',monospace;font-size:.85rem;}
+
+/* SECTION */
+.section{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:20px;}
+
+/* CODE INPUT */
+.code-wrap{display:flex;gap:10px;align-items:flex-end;margin-bottom:12px;}
+input[type=text]{background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:11px 14px;font-family:'JetBrains Mono',monospace;font-size:1rem;width:100%;outline:none;transition:border .15s;}
+input[type=text]:focus{border-color:var(--accent);}
+input#code-inp{font-size:1.3rem;letter-spacing:.18em;text-transform:uppercase;text-align:center;}
+label.lbl{font-family:'JetBrains Mono',monospace;font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);display:block;margin-bottom:6px;}
+
+/* BUTTONS */
+.btn{font-family:'JetBrains Mono',monospace;font-size:.82rem;font-weight:600;padding:10px 20px;border:none;border-radius:8px;cursor:pointer;transition:opacity .15s;white-space:nowrap;}
+.btn:hover{opacity:.85;}
+.btn-amber{background:var(--accent);color:#000;}
+.btn-green{background:var(--green);color:#000;}
+.btn-red{background:var(--red);color:#000;}
+.btn-gray{background:var(--surface2);color:var(--text);border:1px solid var(--border);}
+
+/* TOGGLE GRID */
+.toggle-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-top:8px;}
+.toggle-card{background:var(--surface2);border:2px solid var(--border);border-radius:10px;padding:16px 18px;cursor:pointer;transition:all .2s;user-select:none;}
+.toggle-card.on{border-color:var(--red);background:rgba(248,113,113,.08);}
+.toggle-card.on .tc-status{color:var(--red);}
+.toggle-card.off .tc-status{color:var(--green);}
+.tc-icon{font-size:1.6rem;margin-bottom:6px;}
+.tc-label{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--text);margin-bottom:4px;font-weight:600;}
+.tc-desc{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--muted);}
+.tc-status{font-family:'JetBrains Mono',monospace;font-size:.72rem;font-weight:700;margin-top:8px;letter-spacing:.06em;}
+
+/* QUICK ACTIONS */
+.quick-row{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:0;}
+
+/* CLOUD SECTION */
+.cloud-box{background:rgba(56,189,248,.06);border:1px solid rgba(56,189,248,.2);border-radius:var(--radius);padding:20px;margin-top:16px;}
+.cloud-box p{font-size:.88rem;color:var(--muted);margin-bottom:12px;}
+.code-display{font-family:'JetBrains Mono',monospace;font-size:.82rem;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px 14px;color:var(--blue);word-break:break-all;margin-bottom:10px;}
+
+/* MSG */
+.msg{font-family:'JetBrains Mono',monospace;font-size:.8rem;padding:8px 12px;border-radius:6px;margin-top:8px;display:none;}
+.msg.ok{background:rgba(52,211,153,.12);color:var(--green);display:block;}
+.msg.err{background:rgba(248,113,113,.12);color:var(--red);display:block;}
+.msg.info{background:rgba(56,189,248,.12);color:var(--blue);display:block;}
+
+/* DIVIDER */
+hr{border:none;border-top:1px solid var(--border);margin:20px 0;}
+
+/* HOW TO */
+.step-list{list-style:none;counter-reset:step;}
+.step-list li{counter-increment:step;display:flex;gap:12px;margin-bottom:14px;font-size:.88rem;}
+.step-list li::before{content:counter(step);min-width:24px;height:24px;background:var(--accent);color:#000;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:.72rem;font-weight:700;flex-shrink:0;margin-top:2px;}
+code{font-family:'JetBrains Mono',monospace;background:var(--surface2);padding:2px 6px;border-radius:4px;font-size:.82rem;color:var(--blue);}
+
+/* BACK LINK */
+.back{display:inline-flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--muted);text-decoration:none;margin-bottom:24px;padding:6px 12px;border:1px solid var(--border);border-radius:6px;transition:all .15s;}
+.back:hover{color:var(--accent);border-color:rgba(245,158,11,.3);}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🔒 Lock Manager</h1>
+  <span>Jackson Habimana Chemistry Portal</span>
+</header>
+
+<div class="page">
+  <a class="back" href="teacher-admin.html">← Back to Admin</a>
+
+  <!-- STATUS -->
+  <div class="status-bar" id="status-bar">
+    <div class="status-dot inactive" id="status-dot"></div>
+    <div class="status-text" id="status-text">Loading lock status…</div>
+  </div>
+
+  <!-- ACCESS CODE -->
+  <div class="section">
+    <h3>🔑 Access Code</h3>
+    <p style="font-size:.88rem;color:var(--muted);margin-bottom:14px;">Students must enter this code to unlock protected pages. Leave blank to remove all locks.</p>
+    <label class="lbl">Access Code</label>
+    <div class="code-wrap">
+      <input type="text" id="code-inp" placeholder="e.g. CHEM2024" maxlength="20"
+        oninput="this.value=this.value.toUpperCase().replace(/[^A-Z0-9]/g,'')"/>
+      <button class="btn btn-amber" onclick="saveCode()">💾 Save Code</button>
+    </div>
+    <div class="msg" id="code-msg"></div>
+  </div>
+
+  <!-- LOCK TOGGLES -->
+  <div class="section">
+    <h3>🗂️ What to Lock</h3>
+    <p style="font-size:.88rem;color:var(--muted);margin-bottom:16px;">Toggle each section ON (🔴 locked) or OFF (🟢 open). Click any card to toggle.</p>
+
+    <div class="toggle-grid" id="toggle-grid">
+      <!-- populated by JS -->
+    </div>
+
+    <hr/>
+
+    <h3 style="margin-top:0;">⚡ Quick Actions</h3>
+    <div class="quick-row">
+      <button class="btn btn-red" onclick="lockAll()">🔒 Lock Everything</button>
+      <button class="btn btn-green" onclick="unlockAll()">🔓 Unlock Everything</button>
+      <button class="btn btn-gray" onclick="lockQuizzesOnly()">🔒 Quizzes Only</button>
+      <button class="btn btn-gray" onclick="lockAssessmentsOnly()">🔒 Assessments Only</button>
+    </div>
+  </div>
+
+  <!-- SAVE & APPLY -->
+  <div class="section">
+    <h3>☁️ Save & Apply to All Students</h3>
+    <p style="font-size:.88rem;color:var(--muted);margin-bottom:14px;">
+      To apply locks to students on <em>other devices</em>, save to the cloud (JSONBin).
+      Students' pages will fetch lock settings automatically.
+    </p>
+
+    <label class="lbl">JSONBin API Key (from teacher-admin settings)</label>
+    <div style="display:flex;gap:10px;margin-bottom:12px;">
+      <input type="text" id="api-key-inp" placeholder="$2b$10$xxxxxxxxx…" style="font-size:.82rem;"/>
+      <button class="btn btn-gray" onclick="loadApiKey()">Load from Admin</button>
+    </div>
+
+    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+      <button class="btn btn-amber" onclick="saveToCloud()" id="cloud-save-btn">☁️ Save to Cloud</button>
+      <button class="btn btn-gray" onclick="fetchFromCloud()">🔄 Fetch from Cloud</button>
+    </div>
+    <div class="msg" id="cloud-msg"></div>
+
+    <div class="cloud-box" id="bin-info" style="display:none;">
+      <p>🆔 <strong>Lock Settings Bin ID</strong> — paste this into <code>lock.js</code> line 1:</p>
+      <div class="code-display" id="bin-id-display"></div>
+      <p style="margin-bottom:8px;">Or add this <code>&lt;meta&gt;</code> tag to any page you want to protect:</p>
+      <div class="code-display" id="meta-tag-display"></div>
+      <button class="btn btn-gray" onclick="copyMeta()" style="font-size:.75rem;padding:7px 14px;">📋 Copy meta tag</button>
+    </div>
+  </div>
+
+  <!-- HOW TO USE -->
+  <div class="section">
+    <h3>📖 How to Use</h3>
+    <ol class="step-list">
+      <li><strong>Set an access code</strong> above (e.g. <code>CHEM2024</code>) and save it.</li>
+      <li><strong>Toggle the sections</strong> you want to lock ON (red) and save.</li>
+      <li><strong>Same device</strong>: Locks apply immediately to unit quizzes on this browser — students using the same computer will see the lock.</li>
+      <li><strong>All student devices</strong>: Enter your JSONBin API key and click <em>Save to Cloud</em>. Note the Bin ID shown. Add the <code>&lt;meta&gt;</code> tag to any HTML page you want locked, then push to GitHub.</li>
+      <li><strong>Unlock</strong>: Toggle sections OFF and save. Or click <em>Unlock Everything</em>.</li>
+    </ol>
+
+    <hr/>
+    <h3 style="margin-top:0;">📋 Page Scope Reference</h3>
+    <p style="font-size:.85rem;color:var(--muted);margin-bottom:12px;">Add this before <code>&lt;/body&gt;</code> in any HTML page to make it use the cloud lock system:</p>
+    <div class="code-display" id="snippet-display" style="font-size:.75rem;line-height:1.6;">
+      &lt;!-- Declare page scope --&gt;<br>
+      &lt;script&gt;window.LOCK_SCOPE='s4';&lt;/script&gt;<br>
+      &lt;!-- Load lock engine --&gt;<br>
+      &lt;script src="lock.js"&gt;&lt;/script&gt;
+    </div>
+    <p style="font-size:.8rem;color:var(--muted);margin-top:8px;">
+      Available scopes: <code>all</code> · <code>s4</code> · <code>s5</code> · <code>s6</code> · <code>s4quiz</code> · <code>s5quiz</code> · <code>s6quiz</code> · <code>assessment</code>
+    </p>
+  </div>
+
+</div><!-- /page -->
+
+<script>
+// ── LOCK DEFINITIONS ──────────────────────────────────────────────────────────
+const LOCKS = [
+  { id:'all',        icon:'🌐', label:'Entire Website',    desc:'All pages & quizzes' },
+  { id:'s4',         icon:'📘', label:'S4 Chemistry',      desc:'S4 notes, quizzes, tests' },
+  { id:'s5',         icon:'📗', label:'S5 Chemistry',      desc:'S5 notes, quizzes, tests' },
+  { id:'s6',         icon:'📕', label:'S6 Chemistry',      desc:'S6 notes, quizzes, tests' },
+  { id:'s4quiz',     icon:'🧪', label:'S4 Quizzes Only',   desc:'S4 quiz sections only' },
+  { id:'s5quiz',     icon:'🧪', label:'S5 Quizzes Only',   desc:'S5 quiz sections only' },
+  { id:'s6quiz',     icon:'🧪', label:'S6 Quizzes Only',   desc:'S6 quiz sections only' },
+  { id:'assessment', icon:'📝', label:'Assessments',       desc:'Exams, tests, student hub' },
+];
+
+// ── STATE ─────────────────────────────────────────────────────────────────────
+let state = {
+  code: '',
+  locks: { all:false, s4:false, s5:false, s6:false, s4quiz:false, s5quiz:false, s6quiz:false, assessment:false },
+  enabled: false,
+  binId: '',
+  message: ''
+};
+
+function loadState() {
+  const code = localStorage.getItem('quiz_access_code') || '';
+  const locks = JSON.parse(localStorage.getItem('local_locks') || '{}');
+  const binId = localStorage.getItem('lock_bin_id') || '';
+  state.code = code;
+  state.locks = Object.assign(state.locks, locks);
+  state.enabled = !!code;
+  state.binId = binId;
+  document.getElementById('code-inp').value = code;
+  if(binId){ showBinInfo(binId); }
+}
+
+function saveState() {
+  localStorage.setItem('quiz_access_code', state.code);
+  localStorage.setItem('local_locks', JSON.stringify(state.locks));
+  if(state.binId) localStorage.setItem('lock_bin_id', state.binId);
+}
+
+// ── RENDER ────────────────────────────────────────────────────────────────────
+function renderToggles() {
+  const grid = document.getElementById('toggle-grid');
+  grid.innerHTML = LOCKS.map(l => {
+    const on = state.locks[l.id];
+    return `<div class="toggle-card ${on?'on':'off'}" onclick="toggleLock('${l.id}')" title="Click to toggle">
+      <div class="tc-icon">${l.icon}</div>
+      <div class="tc-label">${l.label}</div>
+      <div class="tc-desc">${l.desc}</div>
+      <div class="tc-status">${on ? '🔴 LOCKED' : '🟢 OPEN'}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderStatus() {
+  const anyLocked = Object.values(state.locks).some(v=>v);
+  const dot = document.getElementById('status-dot');
+  const txt = document.getElementById('status-text');
+  if(!state.code){
+    dot.className = 'status-dot inactive';
+    txt.textContent = '🟢 No access code set — all pages are open to everyone.';
+  } else if(!anyLocked){
+    dot.className = 'status-dot inactive';
+    txt.textContent = `🟢 Code "${state.code}" saved but no sections are locked yet.`;
+  } else {
+    const locked = LOCKS.filter(l=>state.locks[l.id]).map(l=>l.label).join(', ');
+    dot.className = 'status-dot active';
+    txt.textContent = `🔴 LOCKED — Code: "${state.code}" · Locked: ${locked}`;
+  }
+}
+
+function render() { renderToggles(); renderStatus(); }
+
+// ── ACTIONS ───────────────────────────────────────────────────────────────────
+function saveCode() {
+  const val = document.getElementById('code-inp').value.trim().toUpperCase();
+  state.code = val;
+  state.enabled = !!val;
+  saveState();
+  render();
+  showMsg('code-msg', val ? `✅ Code "${val}" saved.` : '✅ Code removed — site unlocked.', val?'ok':'info');
+}
+
+function toggleLock(id) {
+  // If toggling 'all' ON, turn off individual; if OFF, nothing special
+  if(id === 'all' && !state.locks.all){
+    // turning all ON — we can leave others, 'all' takes precedence
+  }
+  state.locks[id] = !state.locks[id];
+  // If turning off 'all', leave others as-is
+  saveState();
+  render();
+}
+
+function lockAll() {
+  LOCKS.forEach(l => state.locks[l.id] = true);
+  saveState(); render();
+  showMsg('cloud-msg','🔒 Everything set to locked. Don\'t forget to save to cloud if needed.','info');
+}
+
+function unlockAll() {
+  LOCKS.forEach(l => state.locks[l.id] = false);
+  saveState(); render();
+  showMsg('cloud-msg','🟢 Everything unlocked.','ok');
+}
+
+function lockQuizzesOnly() {
+  LOCKS.forEach(l => state.locks[l.id] = false);
+  state.locks.s4quiz = true;
+  state.locks.s5quiz = true;
+  state.locks.s6quiz = true;
+  saveState(); render();
+  showMsg('cloud-msg','🧪 All quiz sections locked; notes remain open.','info');
+}
+
+function lockAssessmentsOnly() {
+  LOCKS.forEach(l => state.locks[l.id] = false);
+  state.locks.assessment = true;
+  saveState(); render();
+  showMsg('cloud-msg','📝 Assessment pages locked; notes and quizzes remain open.','info');
+}
+
+// ── CLOUD ─────────────────────────────────────────────────────────────────────
+function loadApiKey() {
+  const k = localStorage.getItem('jsonbin_key') || '';
+  document.getElementById('api-key-inp').value = k;
+  if(k) showMsg('cloud-msg','API key loaded from teacher-admin.','ok');
+  else showMsg('cloud-msg','No API key found. Enter it in teacher-admin Settings first.','err');
+}
+
+async function saveToCloud() {
+  const key = document.getElementById('api-key-inp').value.trim();
+  if(!key){ showMsg('cloud-msg','Enter your JSONBin API key first.','err'); return; }
+  if(!state.code){ showMsg('cloud-msg','Set an access code first.','err'); return; }
+
+  const btn = document.getElementById('cloud-save-btn');
+  btn.textContent = '⏳ Saving…'; btn.disabled = true;
+
+  const payload = {
+    code: state.code,
+    enabled: state.enabled,
+    locks: state.locks,
+    message: state.message || '',
+    updatedAt: new Date().toISOString()
+  };
+
+  try {
+    let binId = state.binId || localStorage.getItem('lock_bin_id') || '';
+    let url, method;
+
+    if(binId){
+      url = 'https://api.jsonbin.io/v3/b/' + binId;
+      method = 'PUT';
+    } else {
+      url = 'https://api.jsonbin.io/v3/b';
+      method = 'POST';
+    }
+
+    const r = await fetch(url, {
+      method,
+      headers:{
+        'Content-Type':'application/json',
+        'X-Master-Key': key,
+        ...(method==='POST' ? {'X-Bin-Name':'lock-settings','X-Bin-Private':'false'} : {})
+      },
+      body: JSON.stringify(payload)
+    });
+    const data = await r.json();
+
+    if(!r.ok) throw new Error(data.message || 'API error');
+
+    if(method === 'POST'){
+      binId = data.metadata?.id;
+      state.binId = binId;
+      localStorage.setItem('lock_bin_id', binId);
+      localStorage.setItem('jsonbin_key', key);
+    }
+
+    showBinInfo(binId);
+    showMsg('cloud-msg', '☁️ Lock settings saved to cloud! Bin ID: ' + binId, 'ok');
+  } catch(e){
+    showMsg('cloud-msg', '❌ Error: ' + e.message, 'err');
+  } finally {
+    btn.textContent = '☁️ Save to Cloud'; btn.disabled = false;
+  }
+}
+
+async function fetchFromCloud() {
+  const key = document.getElementById('api-key-inp').value.trim();
+  const binId = state.binId || localStorage.getItem('lock_bin_id') || '';
+  if(!binId){ showMsg('cloud-msg','No cloud bin found. Save to cloud first.','err'); return; }
+
+  try {
+    const r = await fetch('https://api.jsonbin.io/v3/b/' + binId + '/latest', {
+      headers: key ? {'X-Master-Key': key, 'X-Bin-Meta':'false'} : {'X-Bin-Meta':'false'}
+    });
+    const data = await r.json();
+    const rec = data.record || data;
+    if(rec.code){
+      state.code = rec.code;
+      state.enabled = rec.enabled;
+      state.locks = Object.assign(state.locks, rec.locks || {});
+      document.getElementById('code-inp').value = state.code;
+      saveState();
+      render();
+      showMsg('cloud-msg','✅ Fetched from cloud successfully.','ok');
+    }
+  } catch(e){
+    showMsg('cloud-msg','❌ Fetch failed: ' + e.message,'err');
+  }
+}
+
+function showBinInfo(binId) {
+  const box = document.getElementById('bin-info');
+  box.style.display = 'block';
+  document.getElementById('bin-id-display').textContent = binId;
+  const meta = `<meta name="lock-bin" content="${binId}">`;
+  document.getElementById('meta-tag-display').textContent = meta;
+}
+
+function copyMeta() {
+  const binId = state.binId || '';
+  if(!binId){ alert('Save to cloud first to get a bin ID.'); return; }
+  navigator.clipboard.writeText(`<meta name="lock-bin" content="${binId}">`).then(()=>{ showMsg('cloud-msg','✅ Meta tag copied!','ok'); });
+}
+
+// ── HELPERS ───────────────────────────────────────────────────────────────────
+function showMsg(id, text, type) {
+  const el = document.getElementById(id);
+  if(!el) return;
+  el.textContent = text;
+  el.className = 'msg ' + type;
+  setTimeout(()=>{ el.className = 'msg'; }, 6000);
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+loadState();
+render();
+loadApiKey();
+</script>
+</body>
+</html>

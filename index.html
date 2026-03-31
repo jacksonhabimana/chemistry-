@@ -250,5 +250,29 @@
   </p>
 </footer>
 
+<script>
+(function(){
+  const PK="page_access_granted", CK="quiz_access_code";
+  const code = localStorage.getItem(CK);
+  if(!code) return;
+  if(sessionStorage.getItem(PK)) return;
+  const gate = document.createElement("div");
+  gate.id = "page-gate";
+  gate.style.cssText = "position:fixed;inset:0;background:#0d1117;z-index:99999;display:flex;align-items:center;justify-content:center;padding:24px;";
+  gate.innerHTML = `<div style="background:#161b22;border:2px solid rgba(245,158,11,.5);border-radius:16px;padding:48px 40px;max-width:480px;width:100%;text-align:center;"><div style="font-size:4rem;margin-bottom:16px;">🔒</div><h2 style="font-family:Playfair Display,serif;font-size:2rem;color:#fff;margin-bottom:10px;">Access Restricted</h2><p style="color:#8b949e;font-size:.95rem;margin-bottom:28px;line-height:1.7;">This page is locked by your teacher.<br>Enter the access code to continue.</p><input id="pg-inp" type="text" placeholder="Enter Access Code" maxlength="20" style="width:100%;background:#1c2333;border:2px solid #30363d;border-radius:8px;color:#e6edf3;padding:14px 18px;font-family:JetBrains Mono,monospace;font-size:1.5rem;text-align:center;letter-spacing:.25em;text-transform:uppercase;margin-bottom:12px;box-sizing:border-box;" onkeydown="if(event.key==='Enter')unlockPage()"/><div id="pg-err" style="font-family:JetBrains Mono,monospace;font-size:.82rem;color:#f87171;min-height:22px;margin-bottom:12px;"></div><button onclick="unlockPage()" style="width:100%;background:linear-gradient(135deg,#f59e0b,#d97706);color:#000;border:none;padding:14px;border-radius:8px;font-family:JetBrains Mono,monospace;font-size:.95rem;font-weight:700;cursor:pointer;">🔓 Unlock Page</button></div>`;
+  document.documentElement.style.overflow = "hidden";
+  document.body.appendChild(gate);
+  window.unlockPage = function(){
+    const val = document.getElementById("pg-inp").value.trim().toUpperCase();
+    const stored = localStorage.getItem(CK);
+    if(!val){ document.getElementById("pg-err").textContent = "Please enter the code."; return; }
+    if(val === stored){ sessionStorage.setItem(PK,"granted"); document.getElementById("page-gate").remove(); document.documentElement.style.overflow = ""; }
+    else { document.getElementById("pg-err").textContent = "❌ Wrong code — try again."; document.getElementById("pg-inp").value = ""; }
+  };
+})();
+</script>
+
+<script>window.LOCK_SCOPE='all';</script>
+<script src="lock.js"></script>
 </body>
 </html>
