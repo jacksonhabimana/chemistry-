@@ -194,6 +194,7 @@ table.results tr:hover td{background:rgba(255,255,255,.02);}
 
     <div style="display:flex;gap:12px;flex-wrap:wrap;">
       <button class="btn btn-success" onclick="publishExam()">🌐 Publish Exam (Get Student Code)</button>
+        <a href="exam-import.html" class="btn btn-ghost" style="text-decoration:none;">📋 Advanced Import Tool →</a>
       <button class="btn btn-primary" onclick="saveExamLocal()">💾 Save Locally (No Internet)</button>
       <button class="btn btn-ghost" onclick="clearForm()">🗑 Clear</button>
     </div>
@@ -352,6 +353,65 @@ table.results tr:hover td{background:rgba(255,255,255,.02);}
       <div id="file-msg" style="font-family:'JetBrains Mono',monospace;font-size:.8rem;margin-top:8px;"></div>
     </div>
 
+    <div class="card" style="border-color:rgba(245,158,11,.35);">
+      <h2>📝 Upload Exam Paper + Answer Key</h2>
+      <p style="color:var(--muted);font-size:.88rem;margin-bottom:20px;">
+        Upload your exam paper (PDF/Word) and enter the answer key. Students view the paper and submit answers on this portal — results appear automatically in <strong style="color:#fff;">Student Results</strong>.
+      </p>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div>
+          <label>Exam Title *</label>
+          <input type="text" id="pe-title" placeholder="e.g. S4 Chemistry End of Term Exam"/>
+        </div>
+        <div>
+          <label>Class / Level *</label>
+          <select id="pe-level" style="margin-bottom:0;">
+            <option value="S4">S4</option>
+            <option value="S5">S5</option>
+            <option value="S6">S6</option>
+            <option value="Mixed">Mixed</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:4px;">
+        <div>
+          <label>Number of Questions *</label>
+          <input type="number" id="pe-qcount" min="1" max="100" value="20" style="margin-bottom:0;"/>
+        </div>
+        <div>
+          <label>Time Limit (minutes)</label>
+          <input type="number" id="pe-time" min="5" max="180" value="60" style="margin-bottom:0;"/>
+        </div>
+      </div>
+
+      <div style="margin-top:16px;">
+        <label>Answer Key * <span style="color:var(--muted);font-weight:400;">(comma-separated, e.g. A,B,C,D,A,B,C,D...)</span></label>
+        <input type="text" id="pe-answers" placeholder="A,B,C,D,A,C,B,D,A,B,C,A,D,B,C,A,B,D,C,A" style="font-family:'JetBrains Mono',monospace;letter-spacing:.05em;text-transform:uppercase;"/>
+        <div id="pe-answers-preview" style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);margin-top:-10px;margin-bottom:10px;"></div>
+      </div>
+
+      <label>Upload Exam Paper File (PDF or Word — students will see and download this)</label>
+      <div class="drop-zone" id="pe-drop" onclick="document.getElementById('pe-file-inp').click()"
+           ondragover="event.preventDefault();this.classList.add('drag-over')"
+           ondragleave="this.classList.remove('drag-over')"
+           ondrop="event.preventDefault();this.classList.remove('drag-over');handlePEFile(event.dataTransfer.files[0])">
+        <div style="font-size:2rem;margin-bottom:6px;">📄</div>
+        <strong style="color:var(--text);">Click to upload exam paper</strong>
+        <p style="color:var(--muted);font-size:.82rem;margin-top:4px;">PDF or Word (.docx) recommended · max 5 MB</p>
+        <input type="file" id="pe-file-inp" accept=".pdf,.doc,.docx" style="display:none;" onchange="handlePEFile(this.files[0])"/>
+      </div>
+      <div id="pe-file-preview" style="display:none;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin-top:10px;">
+        <span id="pe-file-icon" style="font-size:1.5rem;margin-right:8px;">📄</span>
+        <span id="pe-file-name" style="font-family:'JetBrains Mono',monospace;font-size:.85rem;color:#fff;"></span>
+        <span id="pe-file-size" style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);margin-left:8px;"></span>
+      </div>
+
+      <button class="btn btn-orange" onclick="publishPaperExam()" style="margin-top:14px;margin-bottom:4px;">🚀 Publish Paper Exam → Students Can Now Attempt It</button>
+      <div id="pe-msg" style="font-family:'JetBrains Mono',monospace;font-size:.8rem;margin-top:6px;"></div>
+    </div>
+
     <div class="card">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px;">
         <h2 style="margin-bottom:0;">📋 Your Links & Files</h2>
@@ -482,44 +542,130 @@ table.results tr:hover td{background:rgba(255,255,255,.02);}
     </div>
 
     <!-- NOTIFICATIONS -->
-    <div class="card">
-      <h2>📲 Notifications (Email & Phone)</h2>
-      <p style="color:var(--muted);font-size:.88rem;margin-bottom:18px;">Get notified when students cheat or submit exams.</p>
-      <div style="background:var(--surface2);border:1px solid rgba(56,189,248,.2);border-radius:8px;padding:18px 20px;margin-bottom:16px;">
-        <strong style="color:#fff;">📱 Telegram</strong>
-        <div class="setup-step" style="margin:10px 0;">Open Telegram → <strong>@BotFather</strong> → <code>/newbot</code> → copy <strong>Bot Token</strong> · Then <strong>@userinfobot</strong> → copy <strong>Chat ID</strong></div>
+    <div class="card" style="border-color:rgba(248,113,113,.3);">
+      <h2>🚨 Cheat Alert Notifications</h2>
+      <p style="color:var(--muted);font-size:.88rem;margin-bottom:20px;">
+        When a student cheats, they instantly see a full-screen warning. You also receive an alert on your email and WhatsApp.
+      </p>
+
+      <!-- HOW IT WORKS -->
+      <div style="background:rgba(248,113,113,.07);border:1px solid rgba(248,113,113,.2);border-radius:10px;padding:18px 20px;margin-bottom:20px;">
+        <strong style="color:var(--red);font-family:'JetBrains Mono',monospace;font-size:.78rem;text-transform:uppercase;letter-spacing:.1em;">How it works</strong>
+        <ol style="margin:10px 0 0 18px;line-height:2.2;font-size:.88rem;color:var(--muted);">
+          <li>Student switches tab / opens another window → <strong style="color:#fff;">instantly blocked</strong></li>
+          <li>Big red warning covers their screen: <em>"CHEATING DETECTED — your teacher has been notified"</em></li>
+          <li>You receive an alert on <strong style="color:#fff;">email</strong> AND <strong style="color:#fff;">WhatsApp</strong> within seconds</li>
+          <li>After 3 violations → <strong style="color:var(--red);">exam auto-submits</strong></li>
+        </ol>
+      </div>
+
+      <!-- EMAIL SETUP -->
+      <div style="background:var(--surface2);border:1px solid rgba(232,197,71,.25);border-radius:10px;padding:20px;margin-bottom:16px;">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+          <span style="font-size:1.4rem;">📧</span>
+          <strong style="color:#fff;font-size:1rem;">Email Alerts (Gmail)</strong>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:.68rem;background:rgba(52,211,153,.12);color:var(--green);border:1px solid rgba(52,211,153,.25);padding:2px 10px;border-radius:50px;">FREE</span>
+        </div>
+        <div style="background:rgba(56,189,248,.06);border:1px solid rgba(56,189,248,.15);border-radius:8px;padding:14px 16px;margin-bottom:14px;font-size:.85rem;">
+          <strong style="color:var(--accent);display:block;margin-bottom:8px;">⚡ Quick Setup (3 minutes):</strong>
+          <ol style="margin-left:18px;line-height:2.1;color:var(--muted);">
+            <li>Go to <a href="https://emailjs.com" target="_blank" style="color:var(--accent);">emailjs.com</a> → <strong style="color:#fff;">Sign Up Free</strong></li>
+            <li>Click <strong style="color:#fff;">Email Services</strong> → <strong style="color:#fff;">Add New Service</strong> → choose <strong style="color:#fff;">Gmail</strong> → connect your Gmail account → copy the <strong style="color:var(--orange);">Service ID</strong></li>
+            <li>Click <strong style="color:#fff;">Email Templates</strong> → <strong style="color:#fff;">Create New Template</strong> → set Subject to <code>🚨 Cheat Alert — {{student_name}}</code> and Body to <code>{{message}}</code> → Save → copy the <strong style="color:var(--orange);">Template ID</strong></li>
+            <li>Click your account name (top right) → <strong style="color:#fff;">Account</strong> → copy the <strong style="color:var(--orange);">Public Key</strong></li>
+            <li>Paste all three below and click Save</li>
+          </ol>
+        </div>
+        <div class="form-row">
+          <div>
+            <label>EmailJS Public Key</label>
+            <input type="text" id="ej-pubkey" placeholder="user_aBcDeFgH..." oninput="saveNotifSettings()"/>
+          </div>
+          <div>
+            <label>Service ID</label>
+            <input type="text" id="ej-service" placeholder="service_xxxxxxx" oninput="saveNotifSettings()"/>
+          </div>
+        </div>
+        <div class="form-row">
+          <div>
+            <label>Template ID</label>
+            <input type="text" id="ej-template" placeholder="template_xxxxxxx" oninput="saveNotifSettings()"/>
+          </div>
+          <div>
+            <label>Your Email Address</label>
+            <input type="text" id="ej-email" placeholder="hajackson2020@gmail.com" oninput="saveNotifSettings()"/>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+          <button class="btn btn-ghost btn-sm" onclick="testEmail()">📤 Send Test Email</button>
+          <span id="ej-test-msg" style="font-family:'JetBrains Mono',monospace;font-size:.75rem;"></span>
+        </div>
+      </div>
+
+      <!-- WHATSAPP SETUP -->
+      <div style="background:var(--surface2);border:1px solid rgba(52,211,153,.25);border-radius:10px;padding:20px;margin-bottom:16px;">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+          <span style="font-size:1.4rem;">📱</span>
+          <strong style="color:#fff;font-size:1rem;">WhatsApp Alerts (CallMeBot)</strong>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:.68rem;background:rgba(52,211,153,.12);color:var(--green);border:1px solid rgba(52,211,153,.25);padding:2px 10px;border-radius:50px;">FREE</span>
+        </div>
+        <div style="background:rgba(52,211,153,.06);border:1px solid rgba(52,211,153,.15);border-radius:8px;padding:14px 16px;margin-bottom:14px;font-size:.85rem;">
+          <strong style="color:var(--green);display:block;margin-bottom:8px;">⚡ Quick Setup (2 minutes — one time only):</strong>
+          <ol style="margin-left:18px;line-height:2.1;color:var(--muted);">
+            <li>Open WhatsApp on your phone → Add contact: <strong style="color:#fff;">+34 644 44 91 94</strong> (CallMeBot)</li>
+            <li>Send this message to that contact: <code style="background:rgba(52,211,153,.1);padding:2px 6px;border-radius:4px;">I allow callmebot to send me messages</code></li>
+            <li>Wait ~1 minute → they will reply with your <strong style="color:var(--orange);">API Key</strong></li>
+            <li>Enter your phone number (with country code) and that API key below</li>
+          </ol>
+        </div>
+        <div class="form-row">
+          <div>
+            <label>Your WhatsApp Number (with country code)</label>
+            <input type="text" id="wa-phone" placeholder="+250788800375" oninput="saveNotifSettings()"/>
+          </div>
+          <div>
+            <label>CallMeBot API Key (received via WhatsApp)</label>
+            <input type="text" id="wa-apikey" placeholder="1234567" oninput="saveNotifSettings()"/>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+          <button class="btn btn-ghost btn-sm" onclick="testWhatsApp()">📤 Send Test WhatsApp</button>
+          <span id="wa-test-msg" style="font-family:'JetBrains Mono',monospace;font-size:.75rem;"></span>
+        </div>
+      </div>
+
+      <!-- TELEGRAM (optional) -->
+      <div style="background:var(--surface2);border:1px solid rgba(56,189,248,.2);border-radius:10px;padding:20px;margin-bottom:16px;">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+          <span style="font-size:1.4rem;">✈️</span>
+          <strong style="color:#fff;font-size:1rem;">Telegram Alerts (Optional)</strong>
+        </div>
         <div class="form-row">
           <div><label>Bot Token</label><input type="text" id="tg-token" placeholder="7512345678:AAH..." oninput="saveNotifSettings()"/></div>
           <div><label>Chat ID</label><input type="text" id="tg-chatid" placeholder="123456789" oninput="saveNotifSettings()"/></div>
         </div>
-        <button class="btn btn-ghost btn-sm" onclick="testTelegram()">📤 Test</button>
-        <span id="tg-test-msg" style="font-family:'JetBrains Mono',monospace;font-size:.75rem;margin-left:8px;"></span>
-      </div>
-      <div style="background:var(--surface2);border:1px solid rgba(232,197,71,.2);border-radius:8px;padding:18px 20px;margin-bottom:16px;">
-        <strong style="color:#fff;">📧 Email (EmailJS)</strong>
-        <div class="setup-step" style="margin:10px 0;">Go to <a href="https://emailjs.com" target="_blank" style="color:var(--accent);">emailjs.com</a> (free) → Add Gmail → copy <strong>Service ID</strong> · Create template with <code>{{student_name}} {{exam_title}} {{event_type}} {{message}}</code> → copy <strong>Template ID</strong> · Account → copy <strong>Public Key</strong></div>
-        <div class="form-row">
-          <div><label>Public Key</label><input type="text" id="ej-pubkey" placeholder="user_aBcDe..." oninput="saveNotifSettings()"/></div>
-          <div><label>Service ID</label><input type="text" id="ej-service" placeholder="service_xxx" oninput="saveNotifSettings()"/></div>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <button class="btn btn-ghost btn-sm" onclick="testTelegram()">📤 Test Telegram</button>
+          <span id="tg-test-msg" style="font-family:'JetBrains Mono',monospace;font-size:.75rem;margin-left:8px;"></span>
         </div>
-        <div class="form-row">
-          <div><label>Template ID</label><input type="text" id="ej-template" placeholder="template_xxx" oninput="saveNotifSettings()"/></div>
-          <div><label>Your Email</label><input type="text" id="ej-email" placeholder="hajackson2020@gmail.com" oninput="saveNotifSettings()"/></div>
+      </div>
+
+      <!-- TOGGLE NOTIFICATIONS -->
+      <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:16px 20px;">
+        <strong style="color:#fff;display:block;margin-bottom:12px;">What triggers a notification?</strong>
+        <div style="display:flex;gap:24px;flex-wrap:wrap;">
+          <label style="display:flex;align-items:center;gap:10px;cursor:pointer;text-transform:none;font-size:.9rem;letter-spacing:0;margin-bottom:0;">
+            <input type="checkbox" id="notif-cheat" onchange="saveNotifSettings()" style="width:auto;accent-color:var(--red);margin-bottom:0;" checked/>
+            <span>🚨 <strong style="color:var(--red);">Student cheats</strong> — tab switch / window blur</span>
+          </label>
+          <label style="display:flex;align-items:center;gap:10px;cursor:pointer;text-transform:none;font-size:.9rem;letter-spacing:0;margin-bottom:0;">
+            <input type="checkbox" id="notif-submit" onchange="saveNotifSettings()" style="width:auto;accent-color:var(--green);margin-bottom:0;" checked/>
+            <span>✅ <strong style="color:var(--green);">Student submits</strong> exam</span>
+          </label>
         </div>
-        <button class="btn btn-ghost btn-sm" onclick="testEmail()">📤 Test</button>
-        <span id="ej-test-msg" style="font-family:'JetBrains Mono',monospace;font-size:.75rem;margin-left:8px;"></span>
       </div>
-      <div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:10px;">
-        <label style="display:flex;align-items:center;gap:8px;cursor:pointer;text-transform:none;font-size:.9rem;letter-spacing:0;margin-bottom:0;">
-          <input type="checkbox" id="notif-cheat" onchange="saveNotifSettings()" style="width:auto;accent-color:var(--red);margin-bottom:0;"/>
-          <span>🚨 Notify on cheat</span>
-        </label>
-        <label style="display:flex;align-items:center;gap:8px;cursor:pointer;text-transform:none;font-size:.9rem;letter-spacing:0;margin-bottom:0;">
-          <input type="checkbox" id="notif-submit" onchange="saveNotifSettings()" style="width:auto;accent-color:var(--green);margin-bottom:0;"/>
-          <span>✅ Notify on submission</span>
-        </label>
-      </div>
-      <div id="notif-save-msg" style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--green);"></div>
+
+      <div id="notif-save-msg" style="font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--green);margin-top:10px;"></div>
     </div>
 
     <!-- STUDENT LINK -->
@@ -1002,12 +1148,20 @@ function loadNotifSettings(){
   if(s.notifSubmit!==undefined) document.getElementById('notif-submit').checked=s.notifSubmit;
 }
 async function testWhatsApp(){
-  const phone=document.getElementById('wa-phone').value.trim();
+  const phone=document.getElementById('wa-phone').value.trim().replace(/[^0-9]/g,'');
   const apikey=document.getElementById('wa-apikey').value.trim();
   const m=document.getElementById('wa-test-msg');
-  if(!phone||!apikey){m.style.color='var(--red)';m.textContent='Enter phone + API key first';return;}
-  m.style.color='var(--muted)';m.textContent='Configured! Send a test by taking an exam (browser blocks direct API calls).';
-  m.style.color='var(--green)';
+  if(!phone||!apikey){m.style.color='var(--red)';m.textContent='❌ Enter phone number and API key first.';return;}
+  m.style.color='var(--muted)';m.textContent='Sending test...';
+  const msg=encodeURIComponent('✅ TEST from Chemistry Portal — cheat alerts are working! You will receive messages like this when a student cheats.');
+  try{
+    await fetch(`https://api.callmebot.com/whatsapp.php?phone=${phone}&text=${msg}&apikey=${apikey}`);
+    m.style.color='var(--green)';
+    m.textContent='✅ Sent! Check your WhatsApp now.';
+  }catch(e){
+    m.style.color='var(--orange)';
+    m.textContent='⚠️ Request sent — check WhatsApp. (CORS errors are normal — the message still arrives)';
+  }
 }
 
 async function testTelegram(){
@@ -1275,6 +1429,184 @@ function deleteResource(id){
 function clearAllResources(){
   if(!confirm('Delete ALL links and files? This cannot be undone.')) return;
   localStorage.removeItem('teacher_resources');
+  renderResources();
+}
+
+
+// ══════════════════════════════════════════════════════════
+//  PAPER EXAM SYSTEM
+// ══════════════════════════════════════════════════════════
+
+let _peFile = null;
+
+function handlePEFile(file){
+  if(!file) return;
+  if(file.size > 5*1024*1024){
+    document.getElementById('pe-msg').innerHTML='<span style="color:var(--red)">❌ File too large (max 5MB).</span>';
+    return;
+  }
+  _peFile = file;
+  const icon = file.name.endsWith('.pdf') ? '📕' : '📘';
+  document.getElementById('pe-file-icon').textContent = icon;
+  document.getElementById('pe-file-name').textContent = file.name;
+  document.getElementById('pe-file-size').textContent = (file.size/1024).toFixed(1)+' KB';
+  document.getElementById('pe-file-preview').style.display = 'block';
+  document.getElementById('pe-msg').textContent = '';
+}
+
+// Live preview of answer key
+document.addEventListener('DOMContentLoaded', function(){
+  const inp = document.getElementById('pe-answers');
+  const prev = document.getElementById('pe-answers-preview');
+  if(inp && prev){
+    inp.addEventListener('input', function(){
+      const vals = this.value.toUpperCase().split(',').filter(v=>v.trim());
+      const count = document.getElementById('pe-qcount').value;
+      prev.textContent = vals.length + ' answers entered' + (vals.length == count ? ' ✅' : ' (need '+count+')');
+    });
+  }
+});
+
+function publishPaperExam(){
+  const title   = document.getElementById('pe-title').value.trim();
+  const level   = document.getElementById('pe-level').value;
+  const qcount  = parseInt(document.getElementById('pe-qcount').value)||0;
+  const timeMin = parseInt(document.getElementById('pe-time').value)||60;
+  const rawAnswers = document.getElementById('pe-answers').value.toUpperCase().trim();
+  const answers = rawAnswers.split(',').map(a=>a.trim()).filter(a=>a);
+  const msg = document.getElementById('pe-msg');
+
+  if(!title){ msg.innerHTML='<span style="color:var(--red)">❌ Enter a title.</span>'; return; }
+  if(qcount < 1){ msg.innerHTML='<span style="color:var(--red)">❌ Enter number of questions.</span>'; return; }
+  if(answers.length !== qcount){
+    msg.innerHTML='<span style="color:var(--red)">❌ Answer key has '+answers.length+' answers but you set '+qcount+' questions. They must match.</span>';
+    return;
+  }
+  const validAnswers = answers.every(a => ['A','B','C','D','E'].includes(a));
+  if(!validAnswers){
+    msg.innerHTML='<span style="color:var(--red)">❌ Answers must be A, B, C, D, or E only (comma-separated).</span>';
+    return;
+  }
+  if(!_peFile){ msg.innerHTML='<span style="color:var(--red)">❌ Upload an exam paper file.</span>'; return; }
+
+  msg.innerHTML='<span style="color:var(--muted)">⏳ Processing...</span>';
+
+  const reader = new FileReader();
+  reader.onload = function(e){
+    try {
+      const exam = {
+        id: 'pe_' + Date.now(),
+        type: 'paper',
+        title, level, qcount, timeMin, answers,
+        fileName: _peFile.name,
+        fileType: _peFile.type,
+        fileSize: _peFile.size,
+        fileData: e.target.result,
+        createdAt: new Date().toISOString(),
+        attempts: 0
+      };
+      const paperExams = JSON.parse(localStorage.getItem('paper_exams')||'[]');
+      paperExams.unshift(exam);
+      localStorage.setItem('paper_exams', JSON.stringify(paperExams));
+      
+      // Reset form
+      document.getElementById('pe-title').value='';
+      document.getElementById('pe-answers').value='';
+      document.getElementById('pe-file-preview').style.display='none';
+      document.getElementById('pe-answers-preview').textContent='';
+      _peFile = null;
+      
+      msg.innerHTML='<span style="color:var(--green)">✅ Paper exam published! Students can now open and attempt it from Student Hub.</span>';
+      renderPaperExamsList();
+    } catch(err){
+      msg.innerHTML='<span style="color:var(--red)">❌ Error: '+err.message+'. Try a smaller file.</span>';
+    }
+  };
+  reader.readAsDataURL(_peFile);
+}
+
+function renderPaperExamsList(){
+  // Render in resources list
+  renderResources();
+  // Also update the My Exams tab if it shows paper exams
+  const paperExams = JSON.parse(localStorage.getItem('paper_exams')||'[]');
+  // Update stat card
+  const el = document.getElementById('stat-exams');
+  if(el){
+    const myExams = JSON.parse(localStorage.getItem('my_exams')||'[]');
+    el.textContent = myExams.length + paperExams.length;
+  }
+}
+
+// Override renderResources to also show paper exams
+const _origRenderResources = typeof renderResources === 'function' ? renderResources : null;
+function renderResources(){
+  // Paper exams section
+  const filter = document.getElementById('res-filter')?document.getElementById('res-filter').value:'';
+  const resources = JSON.parse(localStorage.getItem('teacher_resources')||'[]');
+  const paperExams = JSON.parse(localStorage.getItem('paper_exams')||'[]');
+  
+  const filtered = filter ? resources.filter(r=>r.cat===filter) : resources;
+  const el = document.getElementById('resources-list');
+  if(!el) return;
+  
+  // Build paper exams HTML
+  const peHTML = paperExams.length ? `
+    <div style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--orange);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;margin-top:4px;">📝 Paper Exams (${paperExams.length})</div>
+    ${paperExams.map(pe=>`
+    <div style="background:var(--surface2);border:1px solid rgba(245,158,11,.3);border-radius:9px;padding:14px 16px;margin-bottom:10px;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+      <div style="flex:1;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;flex-wrap:wrap;">
+          <span>📝</span>
+          <strong style="color:#fff;">${pe.title}</strong>
+          <span class="badge badge-orange">${pe.level}</span>
+          <span class="badge" style="background:rgba(245,158,11,.15);color:var(--orange);border:1px solid rgba(245,158,11,.3);">${pe.qcount}Q · ${pe.timeMin}min</span>
+        </div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);">${pe.fileName} · ${(pe.fileSize/1024).toFixed(1)}KB · ${pe.attempts||0} attempts</div>
+      </div>
+      <div style="display:flex;gap:6px;">
+        <button class="btn btn-ghost btn-sm" onclick="copyPECode('${pe.id}')">📋 Share Code</button>
+        <button class="btn btn-danger btn-sm" onclick="deletePE('${pe.id}')">🗑</button>
+      </div>
+    </div>`).join('')}
+  ` : '';
+
+  // Build links/files HTML
+  const linksHTML = filtered.length ? `
+    <div style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--blue);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;margin-top:${paperExams.length?'16px':'4px'};">🔗 Links & Files (${filtered.length})</div>
+    ${filtered.map(r=>`
+    <div style="background:var(--surface2);border:1px solid var(--border);border-radius:9px;padding:14px 16px;margin-bottom:10px;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+      <div style="flex:1;min-width:0;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;flex-wrap:wrap;">
+          <span>${r.type==='link'?'🔗':'📄'}</span>
+          <strong style="color:#fff;font-size:.95rem;">${r.title}</strong>
+          <span class="badge badge-${r.type==='link'?'blue':'green'}">${r.cat}</span>
+        </div>
+        ${r.type==='link'?`<a href="${r.url}" target="_blank" style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--accent);word-break:break-all;">${r.url.length>60?r.url.slice(0,60)+'…':r.url}</a>`:
+        `<span style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--muted);">${r.fileName} · ${(r.fileSize/1024).toFixed(1)}KB</span>`}
+        ${r.desc?`<div style="font-size:.82rem;color:var(--muted);margin-top:4px;">${r.desc}</div>`:''}
+      </div>
+      <div style="display:flex;gap:6px;flex-shrink:0;">
+        ${r.type==='file'?`<button class="btn btn-ghost btn-sm" onclick="downloadResource(${r.id})">⬇</button>`:''}
+        <button class="btn btn-danger btn-sm" onclick="deleteResource(${r.id})">🗑</button>
+      </div>
+    </div>`).join('')}
+  ` : '';
+
+  if(!peHTML && !linksHTML){ el.innerHTML='<p style="color:var(--muted);">No resources yet.</p>'; return; }
+  el.innerHTML = peHTML + linksHTML;
+}
+
+function copyPECode(id){
+  navigator.clipboard.writeText(id).catch(()=>{});
+  alert('Share this code with students:\n\n' + id + '\n\nStudents enter it on Student Hub → Paper Exams → Enter Code.');
+}
+
+function deletePE(id){
+  if(!confirm('Delete this paper exam?')) return;
+  let pes = JSON.parse(localStorage.getItem('paper_exams')||'[]');
+  pes = pes.filter(p=>p.id!==id);
+  localStorage.setItem('paper_exams', JSON.stringify(pes));
   renderResources();
 }
 
