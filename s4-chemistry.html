@@ -26,24 +26,21 @@ nav{position:sticky;top:0;z-index:200;background:rgba(13,17,23,.96);backdrop-fil
 .hero h1 span{color:#38bdf8;}
 .hero p{color:var(--muted);max-width:580px;font-size:1rem;}
 .hero-stats{display:flex;gap:2rem;margin-top:1.5rem;flex-wrap:wrap;}
-.hero-stat{text-align:center;}
 .hero-stat .num{font-family:'JetBrains Mono',monospace;font-size:1.8rem;color:#38bdf8;display:block;}
 .hero-stat .label{font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;}
 
 main{max-width:1100px;margin:0 auto;padding:2.5rem 1.5rem 5rem;}
-
 .section-label{font-family:'JetBrains Mono',monospace;font-size:.72rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin:2.8rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border);}
+.unit-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:1.2rem;}
 
-.unit-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:1.2rem;margin-bottom:1rem;}
-
-.unit-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;display:block;text-decoration:none;color:var(--text);transition:transform .18s, border-color .18s, box-shadow .18s;position:relative;border-top:3px solid var(--card-accent,#38bdf8);}
+.unit-card{background:var(--surface);border:1px solid var(--border);border-top:3px solid var(--card-accent,#38bdf8);border-radius:var(--radius);padding:1.5rem;display:block;text-decoration:none;color:var(--text);transition:transform .18s,border-color .18s,box-shadow .18s;position:relative;}
 .unit-card:hover{transform:translateY(-3px);border-color:var(--card-accent,#38bdf8);box-shadow:0 8px 30px rgba(0,0,0,.4);}
 .unit-num{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--card-accent,#38bdf8);margin-bottom:.5rem;text-transform:uppercase;letter-spacing:.08em;}
-.unit-card h3{font-family:'Playfair Display',serif;font-size:1.1rem;margin-bottom:.6rem;line-height:1.3;}
-.unit-card p{font-size:.85rem;color:var(--muted);line-height:1.55;}
+.unit-card h3{font-family:'Playfair Display',serif;font-size:1.05rem;margin-bottom:.6rem;line-height:1.3;}
+.unit-card p{font-size:.84rem;color:var(--muted);line-height:1.55;}
 .status-badge{display:inline-block;font-size:.7rem;font-family:'JetBrains Mono',monospace;border-radius:4px;padding:.2rem .6rem;margin-top:.8rem;}
 .status-done{background:rgba(52,211,153,.12);color:#34d399;border:1px solid rgba(52,211,153,.25);}
-.arrow{position:absolute;right:1.2rem;top:50%;transform:translateY(-50%);color:var(--card-accent,#38bdf8);font-size:1.1rem;opacity:.6;}
+.arrow{position:absolute;right:1.2rem;top:1.4rem;color:var(--card-accent,#38bdf8);font-size:1rem;opacity:.5;}
 .unit-card:hover .arrow{opacity:1;}
 
 .complete-banner{background:linear-gradient(135deg,rgba(52,211,153,.08),rgba(56,189,248,.05));border:1px solid rgba(52,211,153,.2);border-radius:var(--radius);padding:1.5rem 2rem;text-align:center;margin-top:2.5rem;}
@@ -84,177 +81,177 @@ footer a{color:#38bdf8;text-decoration:none;}
 
 <main>
 
-  <!-- ATOMIC STRUCTURE & BONDING -->
-  <div class="section-label">Atomic Structure &amp; Bonding &bull; Units 1–4</div>
+  <!-- Units 1–4 -->
+  <div class="section-label">Atomic Structure &amp; Bonding · Units 1–4</div>
   <div class="unit-grid">
 
     <a class="unit-card" href="s4_unit1_atomic_structure.html" style="--card-accent:#38bdf8;">
+      <span class="arrow">→</span>
       <div class="unit-num">Unit 01</div>
-      <h3>Atomic Structure</h3>
-      <p>Sub-atomic particles, isotopes, electron configuration, ionisation energies, and the development of atomic models.</p>
+      <h3>Structure of an Atom &amp; Mass Spectrum</h3>
+      <p>Subatomic particles, atomic number, isotopes, relative atomic mass, the mass spectrometer, and mass spectra interpretation.</p>
       <span class="status-badge status-done">✓ Complete</span>
-      <span class="arrow">→</span>
     </a>
 
-    <a class="unit-card" href="s4_unit2_chemical_bonding.html" style="--card-accent:#818cf8;">
+    <a class="unit-card" href="s4_unit2_electronic_config.html" style="--card-accent:#a78bfa;">
+      <span class="arrow">→</span>
       <div class="unit-num">Unit 02</div>
-      <h3>Chemical Bonding</h3>
-      <p>Ionic, covalent, and metallic bonding, Lewis structures, VSEPR theory, and bond polarity.</p>
+      <h3>Electronic Configuration of Atoms &amp; Ions</h3>
+      <p>Bohr's model, hydrogen spectrum, orbitals, quantum numbers, electron configurations, and ionisation energy.</p>
       <span class="status-badge status-done">✓ Complete</span>
-      <span class="arrow">→</span>
     </a>
 
-    <a class="unit-card" href="s4_unit3_structure_properties.html" style="--card-accent:#34d399;">
+    <a class="unit-card" href="s4_unit3_ionic_metallic_bonds.html" style="--card-accent:#f59e0b;">
+      <span class="arrow">→</span>
       <div class="unit-num">Unit 03</div>
-      <h3>Structure and Properties of Matter</h3>
-      <p>Giant ionic, covalent, and metallic structures; molecular substances; intermolecular forces; and physical property trends.</p>
+      <h3>Ionic &amp; Metallic Bonds</h3>
+      <p>Why atoms bond, ionic bond formation, giant ionic lattice, lattice energy, metallic bonding, and physical properties of metals.</p>
       <span class="status-badge status-done">✓ Complete</span>
-      <span class="arrow">→</span>
     </a>
 
-    <a class="unit-card" href="s4_unit4_periodic_table.html" style="--card-accent:#fb923c;">
+    <a class="unit-card" href="s4_unit4_covalent_bond.html" style="--card-accent:#22d3ee;">
+      <span class="arrow">→</span>
       <div class="unit-num">Unit 04</div>
-      <h3>The Periodic Table</h3>
-      <p>Periodic trends in atomic radius, ionisation energy, electronegativity, and periodicity of physical/chemical properties.</p>
+      <h3>Covalent Bond &amp; Molecular Structure</h3>
+      <p>Orbital overlap, VBT, dative bonds, VSEPR theory, hybridisation, polar bonds, and intermolecular forces.</p>
       <span class="status-badge status-done">✓ Complete</span>
-      <span class="arrow">→</span>
     </a>
 
   </div>
 
-  <!-- QUANTITATIVE CHEMISTRY -->
-  <div class="section-label">Quantitative Chemistry &bull; Units 5–8</div>
+  <!-- Units 5–8 -->
+  <div class="section-label">Periodic Table &amp; Group Chemistry · Units 5–8</div>
   <div class="unit-grid">
 
-    <a class="unit-card" href="s4_unit5_stoichiometry.html" style="--card-accent:#facc15;">
+    <a class="unit-card" href="s4_unit5_periodic_trends.html" style="--card-accent:#84cc16;">
+      <span class="arrow">→</span>
       <div class="unit-num">Unit 05</div>
-      <h3>Stoichiometry</h3>
-      <p>The mole concept, Avogadro's number, empirical and molecular formulae, percentage yield, and limiting reagents.</p>
+      <h3>Variation in Trends of Physical Properties</h3>
+      <p>History of the periodic table, blocks (s,p,d,f), and trends in atomic radius, ionisation energy, electronegativity, and melting point.</p>
       <span class="status-badge status-done">✓ Complete</span>
-      <span class="arrow">→</span>
     </a>
 
-    <a class="unit-card" href="s4_unit6_gases.html" style="--card-accent:#f472b6;">
+    <a class="unit-card" href="s4_unit6_group1.html" style="--card-accent:#fb923c;">
+      <span class="arrow">→</span>
       <div class="unit-num">Unit 06</div>
-      <h3>Gases</h3>
-      <p>Kinetic molecular theory, ideal gas law (PV=nRT), gas stoichiometry, partial pressures, and real vs ideal gases.</p>
+      <h3>Group 1 Elements &amp; Their Compounds</h3>
+      <p>Alkali metals: occurrence, reactions with O₂/H₂O/halogens, oxides, hydroxides, thermal decomposition, solubility, and flame tests.</p>
       <span class="status-badge status-done">✓ Complete</span>
-      <span class="arrow">→</span>
     </a>
 
-    <a class="unit-card" href="s4_unit7_solutions.html" style="--card-accent:#2dd4bf;">
+    <a class="unit-card" href="s4_unit7_group2.html" style="--card-accent:#34d399;">
+      <span class="arrow">→</span>
       <div class="unit-num">Unit 07</div>
-      <h3>Solutions and Concentrations</h3>
-      <p>Solubility, concentration calculations, molarity, dilution, titration calculations, and colligative properties.</p>
+      <h3>Group 2 Elements &amp; Their Compounds</h3>
+      <p>Alkaline earth metals: trends in reactivity, reactions with water and acids, oxides, hydroxides, sulfates, and uses.</p>
       <span class="status-badge status-done">✓ Complete</span>
-      <span class="arrow">→</span>
     </a>
 
-    <a class="unit-card" href="s4_unit8_kinetics.html" style="--card-accent:#a78bfa;">
-      <div class="unit-num">Unit 08</div>
-      <h3>Reaction Kinetics</h3>
-      <p>Factors affecting reaction rate, collision theory, activation energy, Maxwell-Boltzmann distribution, and rate experiments.</p>
-      <span class="status-badge status-done">✓ Complete</span>
+    <a class="unit-card" href="s4_unit8_group13.html" style="--card-accent:#f472b6;">
       <span class="arrow">→</span>
+      <div class="unit-num">Unit 08</div>
+      <h3>Group 13 — Aluminium &amp; Its Compounds</h3>
+      <p>Aluminium extraction, amphoteric behaviour, Al₂O₃ and Al(OH)₃ reactions, aluminium chloride, and uses of aluminium.</p>
+      <span class="status-badge status-done">✓ Complete</span>
     </a>
 
   </div>
 
-  <!-- GROUP CHEMISTRY -->
-  <div class="section-label">Group Chemistry &bull; Units 9–13</div>
+  <!-- Units 9–13 -->
+  <div class="section-label">Group Chemistry Continued · Units 9–13</div>
   <div class="unit-grid">
 
-    <a class="unit-card" href="s4_unit9_group1_2.html" style="--card-accent:#38bdf8;">
+    <a class="unit-card" href="s4_unit9_group14.html" style="--card-accent:#38bdf8;">
+      <span class="arrow">→</span>
       <div class="unit-num">Unit 09</div>
-      <h3>Group 1 and Group 2 Elements</h3>
-      <p>Alkali and alkaline earth metals, reactions with water and oxygen, trends in reactivity, compounds and their uses.</p>
+      <h3>Group 14 Elements &amp; Their Compounds</h3>
+      <p>Carbon allotropes, silicon, oxides/chlorides trends, thermal stability, +2 vs +4 oxidation states, and diagonal relationship.</p>
       <span class="status-badge status-done">✓ Complete</span>
-      <span class="arrow">→</span>
     </a>
 
-    <a class="unit-card" href="s4_unit10_transition_metals.html" style="--card-accent:#fb923c;">
+    <a class="unit-card" href="s4_unit10_group15.html" style="--card-accent:#a78bfa;">
+      <span class="arrow">→</span>
       <div class="unit-num">Unit 10</div>
-      <h3>Transition Metals</h3>
-      <p>d-block elements, variable oxidation states, complex ion formation, colour, catalytic properties, and extraction.</p>
+      <h3>Group 15 Elements &amp; Their Compounds</h3>
+      <p>Nitrogen inertness, ammonia, nitric acid, phosphorus and its compounds, phosphoric acid, and trends in properties.</p>
       <span class="status-badge status-done">✓ Complete</span>
-      <span class="arrow">→</span>
     </a>
 
-    <a class="unit-card" href="s4_unit11_nitrogen_sulfur.html" style="--card-accent:#34d399;">
+    <a class="unit-card" href="s4_unit11_group16.html" style="--card-accent:#fb923c;">
+      <span class="arrow">→</span>
       <div class="unit-num">Unit 11</div>
-      <h3>Nitrogen and Sulfur Chemistry</h3>
-      <p>The nitrogen cycle, ammonia, oxides of nitrogen, sulfur chemistry, sulfuric acid manufacture, and acid rain.</p>
+      <h3>Group 16 Elements &amp; Their Compounds</h3>
+      <p>Oxygen and sulfur chemistry, acidity/volatility of hydrides, sulfuric acid manufacture, oxoanions, and identification of SO₃²⁻/SO₄²⁻.</p>
       <span class="status-badge status-done">✓ Complete</span>
-      <span class="arrow">→</span>
     </a>
 
-    <a class="unit-card" href="s4_unit12_halogens.html" style="--card-accent:#f472b6;">
+    <a class="unit-card" href="s4_unit12_halogens.html" style="--card-accent:#e879f9;">
+      <span class="arrow">→</span>
       <div class="unit-num">Unit 12</div>
       <h3>Group 17 — Halogens</h3>
-      <p>Halogens: preparation, physical/chemical trends, hydrogen halides, halates/perhalates, and uses of halogens.</p>
+      <p>Preparation, physical/chemical trends, hydrogen halides, halates/perhalates, and uses of halogens.</p>
       <span class="status-badge status-done">✓ Complete</span>
-      <span class="arrow">→</span>
     </a>
 
-    <a class="unit-card" href="s4_unit13_group18.html" style="--card-accent:#e879f9;">
+    <a class="unit-card" href="s4_unit13_group18.html" style="--card-accent:#34d399;">
+      <span class="arrow">→</span>
       <div class="unit-num">Unit 13</div>
       <h3>Group 18 — Noble Gases</h3>
-      <p>Occurrence, physical properties, reactivity and inertness of noble gases, and their industrial and scientific uses.</p>
+      <p>Occurrence, physical properties, reactivity and inertness, noble gas compounds, and industrial and scientific uses.</p>
       <span class="status-badge status-done">✓ Complete</span>
-      <span class="arrow">→</span>
     </a>
 
   </div>
 
-  <!-- PHYSICAL CHEMISTRY -->
-  <div class="section-label">Physical Chemistry &bull; Units 14–18</div>
+  <!-- Units 14–18 -->
+  <div class="section-label">Physical Chemistry · Units 14–18</div>
   <div class="unit-grid">
 
-    <a class="unit-card" href="s4_unit14_period3.html" style="--card-accent:#84cc16;">
+    <a class="unit-card" href="s4_unit14_period3.html" style="--card-accent:#facc15;">
+      <span class="arrow">→</span>
       <div class="unit-num">Unit 14</div>
       <h3>Period 3 Elements &amp; Their Compounds</h3>
-      <p>Physical and chemical properties across Period 3, trends in oxides and chlorides, and periodic law applied to Period 3.</p>
+      <p>Physical and chemical properties across Period 3, trends in oxides and chlorides, and the Periodic Law.</p>
       <span class="status-badge status-done">✓ Complete</span>
-      <span class="arrow">→</span>
     </a>
 
     <a class="unit-card" href="s4_unit15_equilibrium.html" style="--card-accent:#22d3ee;">
+      <span class="arrow">→</span>
       <div class="unit-num">Unit 15</div>
       <h3>Chemical Equilibrium</h3>
       <p>Reversible reactions, dynamic equilibrium, Le Châtelier's principle, Kc and Kp, and industrial applications.</p>
       <span class="status-badge status-done">✓ Complete</span>
-      <span class="arrow">→</span>
     </a>
 
     <a class="unit-card" href="s4_unit16_acids_bases.html" style="--card-accent:#fb7185;">
+      <span class="arrow">→</span>
       <div class="unit-num">Unit 16</div>
       <h3>Acids and Bases</h3>
-      <p>Arrhenius, Brønsted-Lowry, and Lewis acid-base theories, pH, strong vs weak acids and bases, and neutralisation.</p>
+      <p>Arrhenius, Brønsted-Lowry, and Lewis theories, pH calculations, strong vs weak acids and bases, and neutralisation.</p>
       <span class="status-badge status-done">✓ Complete</span>
-      <span class="arrow">→</span>
     </a>
 
     <a class="unit-card" href="s4_unit17_redox.html" style="--card-accent:#f97316;">
+      <span class="arrow">→</span>
       <div class="unit-num">Unit 17</div>
       <h3>Reduction and Oxidation Reactions</h3>
-      <p>Electrochemistry, oxidation numbers, balancing redox equations, the reactivity series, and electrolytic cells.</p>
+      <p>Oxidation numbers, balancing redox equations, electrochemical cells, electrolysis, and Faraday's laws.</p>
       <span class="status-badge status-done">✓ Complete</span>
-      <span class="arrow">→</span>
     </a>
 
-    <a class="unit-card" href="s4_unit18_energy_changes.html" style="--card-accent:#facc15;">
+    <a class="unit-card" href="s4_unit18_energy_changes.html" style="--card-accent:#84cc16;">
+      <span class="arrow">→</span>
       <div class="unit-num">Unit 18</div>
       <h3>Energy Changes &amp; Energy Profile Diagrams</h3>
-      <p>Internal energy, first law, standard enthalpy changes, Hess's law, bond enthalpies, calorimetry, Born-Haber cycles, and Gibbs free energy.</p>
+      <p>Enthalpy changes, Hess's Law, bond enthalpies, calorimetry, Born-Haber cycles, and Gibbs free energy.</p>
       <span class="status-badge status-done">✓ Complete</span>
-      <span class="arrow">→</span>
     </a>
 
   </div>
 
   <div class="complete-banner">
     <h3>🏆 S4 Course — All 18 Units Complete</h3>
-    <p>All notes, quizzes, and tests are available. Ready to move to S5? <a href="s5-chemistry.html" style="color:#38bdf8;">Go to S5 Chemistry →</a></p>
+    <p>All notes, quizzes, and tests available. <a href="s5-chemistry.html" style="color:#38bdf8;">Go to S5 Chemistry →</a></p>
   </div>
 
 </main>
