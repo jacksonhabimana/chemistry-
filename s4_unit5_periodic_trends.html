@@ -1,168 +1,770 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>S4 Chemistry – Unit 5: Variation in Trends of Physical Properties | Jackson Habimana</title>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>S4 Chemistry – Unit 5: Variation in Trends of Physical Properties</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Serif+4:wght@300;400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
 <style>
-:root{--bg:#0d1117;--surface:#161b22;--surface2:#1c2333;--border:#30363d;--accent:#84cc16;--green:#34d399;--red:#f87171;--text:#e6edf3;--muted:#8b949e;--radius:10px;}
-*{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
-body{background:var(--bg);color:var(--text);font-family:'Source Serif 4',Georgia,serif;font-size:17px;line-height:1.75;}
-nav{position:sticky;top:0;z-index:200;background:rgba(13,17,23,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
-.nav-inner{max-width:1060px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:.7rem 1.5rem;}
-.nav-brand{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--accent);text-decoration:none;}
-.nav-links{display:flex;gap:1.2rem;}.nav-links a{color:var(--muted);text-decoration:none;font-size:.85rem;}.nav-links a:hover{color:var(--accent);}
-.hero{background:linear-gradient(135deg,#0a0d0f,#0d1117);border-bottom:1px solid var(--border);padding:3rem 1.5rem 2rem;}
-.hero-inner{max-width:1060px;margin:0 auto;}
-.badge{display:inline-block;background:rgba(255,255,255,.06);color:var(--accent);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:.3rem 1rem;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:1rem;}
-.hero h1{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.2;margin-bottom:.6rem;}
-.hero h1 span{color:var(--accent);}
-.hero-meta{display:flex;gap:1rem;flex-wrap:wrap;font-size:.84rem;color:var(--muted);margin-top:1rem;}
-.toc{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:var(--radius);padding:1.2rem 1.5rem;max-width:1060px;margin:1.5rem auto;width:calc(100% - 3rem);}
-.toc h3{font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:.8rem;}
-.toc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.3rem .8rem;}
-.toc-grid a{color:var(--muted);text-decoration:none;font-size:.88rem;}.toc-grid a:hover{color:var(--accent);}
-main{max-width:1060px;margin:0 auto;padding:1rem 1.5rem 4rem;}
-section{margin-bottom:3rem;scroll-margin-top:80px;}
-.sec-head{display:flex;align-items:baseline;gap:.8rem;margin-bottom:1.2rem;padding-bottom:.5rem;border-bottom:1px solid var(--border);}
-.sec-num{font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--accent);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:5px;padding:.2rem .6rem;}
-.sec-head h2{font-family:'Playfair Display',serif;font-size:1.45rem;}
-p{margin-bottom:.9rem;}
-.key{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-left:4px solid var(--accent);border-radius:var(--radius);padding:1.1rem 1.4rem;margin:1.2rem 0;}
-.key .kl{font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:.4rem;}
-.eq{font-family:'JetBrains Mono',monospace;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:.8rem 1.1rem;margin:.8rem 0;font-size:.93rem;overflow-x:auto;}
-table{width:100%;border-collapse:collapse;margin:1.2rem 0;font-size:.9rem;}
-th{background:var(--surface2);color:var(--accent);padding:.65rem .9rem;text-align:left;border:1px solid var(--border);}
-td{padding:.6rem .9rem;border:1px solid var(--border);vertical-align:top;}
-tr:nth-child(even) td{background:rgba(255,255,255,.02);}
-.qcard{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin-top:1rem;}
-.qcard h3{font-family:'Playfair Display',serif;color:var(--accent);margin-bottom:1rem;}
-.qi{margin:.9rem 0;padding-left:1.1rem;border-left:2px solid var(--border);}
-.qi:hover{border-left-color:var(--accent);}
-.qn{font-size:.74rem;color:var(--accent);font-family:'JetBrains Mono',monospace;}
-.ans{display:none;margin-top:.4rem;font-size:.88rem;color:var(--green);font-style:italic;}
-.sa{background:none;border:1px solid var(--border);color:var(--muted);font-size:.74rem;border-radius:4px;padding:.15rem .5rem;cursor:pointer;margin-top:.3rem;}
-.sa:hover{border-color:var(--accent);color:var(--accent);}
-.mk{float:right;font-size:.74rem;color:var(--muted);font-family:'JetBrains Mono',monospace;}
-.unit-nav{display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--border);}
-.unit-nav a{color:var(--accent);text-decoration:none;font-size:.9rem;}
-footer{background:var(--surface);border-top:1px solid var(--border);text-align:center;padding:1.2rem;font-size:.8rem;color:var(--muted);}
-footer a{color:var(--accent);text-decoration:none;}
+  :root{--bg:#0d1117;--surface:#161b22;--surface2:#1c2333;--border:#30363d;--accent:#84cc16;--accent2:#f97316;--gold:#e8c547;--green:#34d399;--red:#f87171;--text:#e6edf3;--muted:#8b949e;--radius:10px;}
+  *{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+  body{background:var(--bg);color:var(--text);font-family:'Source Serif 4',Georgia,serif;font-size:17px;line-height:1.75;overflow-x:hidden;}
+  .hero{position:relative;padding:80px 40px 60px;text-align:center;overflow:hidden;background:radial-gradient(ellipse 80% 60% at 50% 0%,#0a1500 0%,var(--bg) 70%);border-bottom:1px solid var(--border);}
+  .hero::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(132,204,22,.04) 40px),repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(132,204,22,.04) 40px);pointer-events:none;}
+  .badge{display:inline-block;background:rgba(132,204,22,.12);border:1px solid rgba(132,204,22,.3);color:var(--accent);padding:4px 16px;border-radius:50px;font-size:.78rem;font-family:'JetBrains Mono',monospace;letter-spacing:.12em;text-transform:uppercase;margin-bottom:22px;}
+  .hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.4rem);line-height:1.15;color:#fff;max-width:820px;margin:0 auto 18px;}
+  .hero h1 em{color:var(--accent);font-style:italic;}
+  .hero p.sub{color:var(--muted);font-size:1rem;max-width:640px;margin:0 auto 32px;}
+  .toc-grid{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:860px;margin:0 auto;}
+  .toc-grid a{background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:8px 18px;border-radius:50px;text-decoration:none;font-size:.85rem;transition:all .2s;font-family:'JetBrains Mono',monospace;}
+  .toc-grid a:hover{background:var(--accent);color:#000;border-color:var(--accent);}
+  .page{max-width:960px;margin:0 auto;padding:0 28px 80px;}
+  .section-header{display:flex;align-items:center;gap:16px;margin:64px 0 28px;padding-bottom:14px;border-bottom:2px solid var(--border);}
+  .section-number{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--accent);background:rgba(132,204,22,.1);border:1px solid rgba(132,204,22,.25);padding:4px 12px;border-radius:4px;white-space:nowrap;}
+  .section-header h2{font-family:'Playfair Display',serif;font-size:1.75rem;color:#fff;}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:26px 30px;margin-bottom:22px;}
+  .card h3{font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--gold);margin-bottom:12px;}
+  .card p+p{margin-top:12px;}
+  .def-box{border-left:4px solid var(--accent);background:rgba(132,204,22,.07);border-radius:0 var(--radius) var(--radius) 0;padding:18px 22px;margin:20px 0;}
+  .def-box strong{color:var(--accent);display:block;font-size:.78rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;}
+  .callout{border-radius:var(--radius);padding:18px 22px;margin:20px 0;display:flex;gap:14px;align-items:flex-start;}
+  .callout.info{background:rgba(132,204,22,.08);border:1px solid rgba(132,204,22,.25);}
+  .callout.warn{background:rgba(249,115,22,.08);border:1px solid rgba(249,115,22,.25);}
+  .callout.tip{background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.25);}
+  .callout-icon{font-size:1.3rem;margin-top:2px;flex-shrink:0;}
+  .callout-body strong{display:block;margin-bottom:4px;font-size:.9rem;color:#fff;}
+  .tbl-wrap{overflow-x:auto;margin:20px 0;border-radius:var(--radius);border:1px solid var(--border);}
+  table{width:100%;border-collapse:collapse;}
+  thead tr{background:var(--surface2);}
+  th{padding:13px 16px;text-align:left;font-size:.82rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);white-space:nowrap;}
+  td{padding:12px 16px;border-top:1px solid var(--border);font-size:.9rem;}
+  tr:hover td{background:rgba(255,255,255,.02);}
+  .formula-block{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:20px 26px;margin:16px 0;font-family:'JetBrains Mono',monospace;font-size:.93rem;color:var(--accent);overflow-x:auto;white-space:pre-wrap;}
+  .example-box{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin:26px 0;}
+  .example-header{background:rgba(232,197,71,.1);border-bottom:1px solid rgba(232,197,71,.2);padding:14px 22px;display:flex;align-items:center;gap:12px;}
+  .example-header span.tag{font-family:'JetBrains Mono',monospace;font-size:.72rem;background:var(--gold);color:#000;padding:3px 10px;border-radius:4px;font-weight:600;}
+  .example-header h4{color:var(--gold);font-family:'Playfair Display',serif;font-size:1rem;}
+  .example-body{padding:22px 26px;}
+  .example-body .step{display:flex;gap:14px;margin:10px 0;}
+  .step-num{min-width:28px;height:28px;background:rgba(132,204,22,.15);border:1px solid rgba(132,204,22,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--accent);flex-shrink:0;margin-top:3px;}
+  .step-text{flex:1;}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:20px 0;}
+  @media(max-width:640px){.two-col{grid-template-columns:1fr;}}
+  .diagram-wrap{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin:20px 0;overflow-x:auto;}
+  .exercise-list{list-style:none;counter-reset:ex;}
+  .exercise-list li{counter-increment:ex;margin-bottom:16px;padding:16px 20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);}
+  .exercise-list li::before{content:'Q' counter(ex) '.';font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--accent);display:block;margin-bottom:6px;}
+  .reveal-btn{margin-top:10px;background:rgba(132,204,22,.1);border:1px solid rgba(132,204,22,.3);color:var(--accent);padding:6px 16px;border-radius:6px;cursor:pointer;font-size:.82rem;font-family:'JetBrains Mono',monospace;transition:all .2s;}
+  .reveal-btn:hover{background:var(--accent);color:#000;}
+  .answer{display:none;margin-top:12px;padding:12px 16px;background:rgba(132,204,22,.06);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-size:.9rem;}
+  .answer.open{display:block;}
+  .quiz-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-top:32px;}
+  .quiz-header{background:rgba(132,204,22,.1);border-bottom:1px solid rgba(132,204,22,.2);padding:16px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+  .quiz-header h3{font-family:'Playfair Display',serif;color:var(--accent);font-size:1.2rem;}
+  .quiz-body{padding:24px;}
+  .q-block{margin-bottom:26px;padding-bottom:26px;border-bottom:1px solid var(--border);}
+  .q-block:last-of-type{border-bottom:none;}
+  .q-text{font-weight:600;margin-bottom:12px;color:#fff;}
+  .q-num{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--accent);display:block;margin-bottom:4px;}
+  .options{display:flex;flex-direction:column;gap:8px;}
+  .opt{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:all .18s;font-size:.92rem;}
+  .opt:hover{border-color:var(--accent);}
+  .opt input{margin-top:3px;accent-color:var(--accent);}
+  .opt.correct{background:rgba(52,211,153,.12);border-color:var(--green)!important;color:var(--green);}
+  .opt.wrong{background:rgba(248,113,113,.1);border-color:var(--red)!important;color:var(--red);}
+  .q-exp{display:none;margin-top:10px;padding:10px 14px;background:rgba(132,204,22,.07);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-size:.88rem;}
+  .qs{background:var(--accent);color:#000;border:none;padding:12px 32px;border-radius:8px;font-size:1rem;font-family:'JetBrains Mono',monospace;cursor:pointer;font-weight:700;transition:opacity .2s;}
+  .qs:hover{opacity:.85;}
+  #qR{display:none;margin-top:18px;padding:16px 22px;border-radius:var(--radius);font-family:'JetBrains Mono',monospace;font-weight:700;font-size:1rem;text-align:center;}
+  .test-wrap{margin-top:40px;}
+  .test-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:28px;}
+  .test-sh{background:rgba(249,115,22,.1);border-bottom:1px solid rgba(249,115,22,.2);padding:14px 24px;display:flex;justify-content:space-between;align-items:center;}
+  .test-sh h3{font-family:'Playfair Display',serif;color:var(--accent2);font-size:1.1rem;}
+  .mb{font-family:'JetBrains Mono',monospace;font-size:.75rem;background:rgba(249,115,22,.2);color:var(--accent2);padding:4px 12px;border-radius:50px;}
+  .test-body{padding:24px;}
+  .tq{margin-bottom:20px;padding:16px 18px;background:var(--surface2);border-radius:8px;border:1px solid var(--border);}
+  .tqn{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--accent2);margin-bottom:6px;display:block;}
+  .rb{margin-top:12px;background:rgba(249,115,22,.1);border:1px solid rgba(249,115,22,.3);color:var(--accent2);padding:6px 16px;border-radius:6px;cursor:pointer;font-size:.82rem;font-family:'JetBrains Mono',monospace;transition:all .2s;}
+  .rb:hover{background:var(--accent2);color:#000;}
+  .ans{display:none;margin-top:12px;padding:12px 16px;background:rgba(249,115,22,.06);border-left:3px solid var(--accent2);border-radius:0 6px 6px 0;font-size:.9rem;line-height:1.7;}
+  .ans.open{display:block;}
+  .nav{display:flex;justify-content:space-between;align-items:center;margin-top:72px;padding-top:32px;border-top:1px solid var(--border);flex-wrap:wrap;gap:16px;}
+  .nb{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:8px;text-decoration:none;font-family:'JetBrains Mono',monospace;font-size:.85rem;transition:all .2s;}
+  .nb.p{background:var(--surface);border:1px solid var(--border);color:var(--muted);}
+  .nb.p:hover{border-color:var(--accent);color:var(--accent);}
+  .nb.n{background:var(--accent);color:#000;font-weight:700;}
+  .nb.n:hover{opacity:.88;}
+  h3.sub{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--gold);margin:28px 0 10px;}
+  sub,sup{font-size:.72em;}
+  /* periodic table block colours */
+  .s-block{background:rgba(248,113,113,.2);border:1px solid rgba(248,113,113,.4);border-radius:4px;padding:3px 8px;font-family:'JetBrains Mono',monospace;font-size:.82rem;}
+  .p-block{background:rgba(34,211,238,.2);border:1px solid rgba(34,211,238,.4);border-radius:4px;padding:3px 8px;font-family:'JetBrains Mono',monospace;font-size:.82rem;}
+  .d-block{background:rgba(132,204,22,.2);border:1px solid rgba(132,204,22,.4);border-radius:4px;padding:3px 8px;font-family:'JetBrains Mono',monospace;font-size:.82rem;}
+  .f-block{background:rgba(167,139,250,.2);border:1px solid rgba(167,139,250,.4);border-radius:4px;padding:3px 8px;font-family:'JetBrains Mono',monospace;font-size:.82rem;}
+  @media(max-width:600px){.hero{padding:50px 20px 40px;}.page{padding:0 16px 60px;}}
 </style>
 </head>
 <body>
-<nav><div class="nav-inner">
-  <a class="nav-brand" href="index.html">⚗ Jackson Habimana</a>
-  <div class="nav-links"><a href="s4-chemistry.html">S4 Course</a><a href="s5-chemistry.html">S5</a><a href="s6-chemistry.html">S6</a></div>
-</div></nav>
-<header class="hero"><div class="hero-inner">
-  <div class="badge">S4 · Unit 5</div>
-  <h1>Variation in Trends of Physical Properties</h1>
-  <p style="color:var(--muted);max-width:580px;margin-top:.5rem;">History of the periodic table, blocks, and trends in atomic radius, ionisation energy, electronegativity, and melting point.</p>
-  <div class="hero-meta"><span>📚 6 Sections</span><span>🧪 25 Quiz Questions</span><span>📝 50-Mark Test</span></div>
-</div></header>
-<div class="toc"><h3>Contents</h3><div class="toc-grid">
-  <a href="#s1">Section 1</a><a href="#s2">Section 2</a><a href="#s3">Section 3</a>
-  <a href="#s4">Section 4</a><a href="#s5">Section 5</a><a href="#s6">Section 6</a>
-  <a href="#quiz">Quiz (25 Qs)</a><a href="#test">50-Mark Test</a>
-</div></div>
-<main>
+<div id="sitenav" style="position:sticky;top:0;z-index:200;background:rgba(13,17,23,.95);backdrop-filter:blur(12px);border-bottom:1px solid #30363d;padding:0 28px;font-family:JetBrains Mono,monospace;"><div style="max-width:960px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:52px;gap:12px;"><a href="index.html" style="font-size:.78rem;color:#38bdf8;text-decoration:none;letter-spacing:.06em;white-space:nowrap;">&#9883; Habimana</a><div style="display:flex;gap:4px;flex-wrap:wrap;"><a href="index.html" style="font-size:.72rem;color:#8b949e;text-decoration:none;padding:4px 12px;border-radius:5px;border:1px solid transparent;">Home</a><a href="s4-chemistry.html" style="font-size:.72rem;color:#38bdf8;text-decoration:none;padding:4px 12px;border-radius:5px;background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.25);">S4</a><a href="s5-chemistry.html" style="font-size:.72rem;color:#8b949e;text-decoration:none;padding:4px 12px;border-radius:5px;border:1px solid transparent;">S5</a><a href="s6-chemistry.html" style="font-size:.72rem;color:#8b949e;text-decoration:none;padding:4px 12px;border-radius:5px;border:1px solid transparent;">S6</a></div></div></div>
 
-<section id="s1"><div class="sec-head"><span class="sec-num">5.1</span><h2>History of the Periodic Table</h2></div>
-<p><strong>Döbereiner (1829)</strong>: noted triads of elements with similar properties. <strong>Newlands (1864)</strong>: law of octaves — every 8th element similar. <strong>Mendeleev (1869)</strong>: arranged 63 elements by atomic mass, grouped by properties, left gaps for undiscovered elements (predicted Ga, Sc, Ge). <strong>Moseley (1913)</strong>: showed atomic number (not mass) is the basis of the periodic law. Modern periodic table: elements arranged in order of increasing atomic number.</p></section>
-
-<section id="s2"><div class="sec-head"><span class="sec-num">5.2</span><h2>Blocks of the Periodic Table</h2></div>
-<table><tr><th>Block</th><th>Sub-shell being filled</th><th>Location</th><th>Examples</th></tr>
-<tr><td>s-block</td><td>s sub-shell</td><td>Groups 1 &amp; 2</td><td>Na, Mg, Ca</td></tr>
-<tr><td>p-block</td><td>p sub-shell</td><td>Groups 13–18</td><td>C, N, O, Cl, Ar</td></tr>
-<tr><td>d-block</td><td>d sub-shell</td><td>Transition metals (Groups 3–12)</td><td>Fe, Cu, Zn</td></tr>
-<tr><td>f-block</td><td>f sub-shell</td><td>Lanthanides &amp; actinides</td><td>Eu, U</td></tr></table></section>
-
-<section id="s3"><div class="sec-head"><span class="sec-num">5.3</span><h2>Atomic Radius Trends</h2></div>
-<div class="key"><div class="kl">Definition</div><p>Atomic radius = half the distance between nuclei of two bonded atoms of the same element.</p></div>
-<table><tr><th>Direction</th><th>Trend</th><th>Reason</th></tr>
-<tr><td>Down a group</td><td>Increases</td><td>More electron shells added → outer electrons further from nucleus</td></tr>
-<tr><td>Across a period (left to right)</td><td>Decreases</td><td>Nuclear charge increases → same shell electrons pulled closer; shielding nearly constant</td></tr></table></section>
-
-<section id="s4"><div class="sec-head"><span class="sec-num">5.4</span><h2>Ionisation Energy Trends</h2></div>
-<table><tr><th>Direction</th><th>Trend in IE₁</th><th>Reason</th></tr>
-<tr><td>Down a group</td><td>Decreases</td><td>More shells → increased shielding → weaker attraction on outer electron</td></tr>
-<tr><td>Across a period</td><td>Generally increases</td><td>Nuclear charge increases → stronger pull on outer electrons</td></tr></table>
-<div class="key"><div class="kl">Two anomalies across Period 2</div>
-<p><strong>Be → B</strong>: IE₁ decreases. B removes from 2p (higher energy than 2s). <strong>N → O</strong>: IE₁ decreases. N has stable half-filled 2p³; O has paired electron in 2p that is easier to remove.</p></div></section>
-
-<section id="s5"><div class="sec-head"><span class="sec-num">5.5</span><h2>Electronegativity Trends</h2></div>
-<div class="key"><div class="kl">Definition (Pauling scale)</div><p>Electronegativity measures the power of an atom to attract the shared electron pair in a covalent bond. F = 4.0 (highest).</p></div>
-<table><tr><th>Direction</th><th>Trend</th><th>Reason</th></tr>
-<tr><td>Down a group</td><td>Decreases</td><td>Increasing atomic radius and shielding → nucleus attracts bonding electrons less strongly</td></tr>
-<tr><td>Across a period</td><td>Increases</td><td>Increasing nuclear charge; similar shielding → stronger attraction for bonding electrons</td></tr></table></section>
-
-<section id="s6"><div class="sec-head"><span class="sec-num">5.6</span><h2>Melting Point Trends</h2></div>
-<table><tr><th>Structure type</th><th>Melting point</th><th>Example across Period 3</th></tr>
-<tr><td>Giant metallic (Na, Mg, Al)</td><td>Moderate to high — increases with charge/electrons</td><td>Na 98°C → Mg 650°C → Al 660°C</td></tr>
-<tr><td>Giant covalent (Si)</td><td>Very high — many covalent bonds</td><td>Si 1414°C</td></tr>
-<tr><td>Simple molecular (P₄, S₈, Cl₂, Ar)</td><td>Low — only IMFs broken</td><td>S₈ 119°C, Cl₂ −101°C, Ar −189°C</td></tr></table>
-<p>The melting point trend across Period 3: rises from Na to Si (giant structures), then drops sharply at phosphorus (simple molecular P₄), continues to fall: S₈ &gt; Cl₂ &gt; Ar.</p></section>
-
-<section id="quiz">
-  <div class="sec-head"><span class="sec-num">QUIZ</span><h2>25-Question Quiz — Unit 5</h2></div>
-  <div class="qcard"><h3>Click "Show" to reveal each answer</h3>
-    <p style="color:var(--muted);font-size:.88rem;margin-bottom:1rem;">Questions cover all 6 sections of this unit.</p>
-    <div class="qi"><div class="qn">Q1–Q25</div>
-    <p>Use your notes above to attempt 25 questions on this unit. Full question sets are available in the printed workbook and teacher-administered quizzes accessible from <a href="student-quiz.html" style="color:var(--accent);">Student Hub</a>.</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show guidance</button>
-    <div class="ans">Review all 6 sections above. Focus on: definitions in key boxes, trends in tables, equations, and worked examples. Use the 50-mark test below to assess your understanding with mark schemes.</div></div>
+<div class="hero">
+  <div class="badge">S4 Chemistry &middot; Unit 5</div>
+  <h1>Variation in Trends of<br><em>Physical Properties</em></h1>
+  <p class="sub">History of the periodic table, Mendeleev vs modern table, electronic configuration and position, s/p/d/f blocks, and periodic trends in physical properties.</p>
+  <div class="toc-grid">
+    <a href="#s51">5.1 History</a>
+    <a href="#s52">5.2 Mendeleev vs Modern</a>
+    <a href="#s53">5.3 Position from Config.</a>
+    <a href="#s54">5.4 Blocks</a>
+    <a href="#s55">5.5 Block Characteristics</a>
+    <a href="#s56">5.6 Periodic Trends</a>
+    <a href="#exercises">Exercises</a>
+    <a href="#quiz">Quiz</a>
+    <a href="#test">Test</a>
   </div>
-</section>
+</div>
+<main class="page">
 
-<section id="test">
-  <div class="sec-head"><span class="sec-num">TEST</span><h2>50-Mark Test — Unit 5</h2></div>
-  <p style="color:var(--muted);font-size:.88rem;margin-bottom:1rem;">Time: 60 minutes. Answer all questions. Show all working.</p>
-  <div class="qcard"><h3>Section A — Knowledge (20 marks)</h3>
-    <div class="qi"><div class="qn">A1 <span class="mk">[4]</span></div>
-    <p>State and explain four key trends going down this group/period covered in this unit.</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
-    <div class="ans">[1 each] Refer to the trend tables in sections above. For full marks: name the trend, state the direction, and give the correct reason linking to atomic structure (nuclear charge, shielding, atomic radius, electron configuration).</div></div>
+<!-- 5.1 -->
+<div class="section-header" id="s51"><span class="section-number">5.1</span><h2>Historical Background of the Periodic Table</h2></div>
+<div class="card"><h3>Early Attempts at Classification</h3>
+<p>By the mid-19th century, over 60 elements had been discovered. Chemists noticed patterns in their properties and tried to organise them systematically.</p></div>
+<div class="tbl-wrap"><table>
+  <thead><tr><th>Year</th><th>Scientist</th><th>Contribution</th><th>Limitation</th></tr></thead>
+  <tbody>
+    <tr><td>1829</td><td>J. W. D&ouml;bereiner</td><td><strong>Law of Triads:</strong> groups of three elements with similar properties where the middle element's atomic mass was the average of the other two (e.g. Li, Na, K; Cl, Br, I; Ca, Sr, Ba).</td><td>Only worked for a few groups; could not classify all known elements.</td></tr>
+    <tr><td>1864</td><td>John Newlands</td><td><strong>Law of Octaves:</strong> when elements were arranged by increasing atomic mass, every 8th element had similar properties to the first (like musical octaves).</td><td>Only worked for the first 20 elements. Failed for heavier elements; ridiculed by contemporaries.</td></tr>
+    <tr><td>1869</td><td>Dmitri Mendeleev</td><td><strong>Periodic Table:</strong> arranged 63 known elements by increasing atomic mass and grouped by similar chemical properties. Left gaps for undiscovered elements and predicted their properties.</td><td>Had to reverse atomic mass order for some pairs (e.g. Te/I); based on mass not atomic number.</td></tr>
+    <tr><td>1869</td><td>Lothar Meyer</td><td>Independently proposed a similar arrangement, focusing on physical properties (atomic volumes).</td><td>Did not predict missing elements as effectively as Mendeleev.</td></tr>
+    <tr><td>1913</td><td>Henry Moseley</td><td>Used X-ray spectra to determine atomic numbers. Showed the periodic table should be arranged by <strong>atomic number</strong> (not mass), resolving anomalies.</td><td>&mdash;</td></tr>
+  </tbody>
+</table></div>
+<div class="callout info"><span class="callout-icon">&#x2139;&#xFE0F;</span><div class="callout-body"><strong>Why Mendeleev succeeded</strong>Mendeleev's key insight was leaving <em>gaps</em> for unknown elements rather than forcing elements into ill-fitting places. He predicted properties of eka-aluminium (gallium, discovered 1875), eka-boron (scandium, 1879), and eka-silicon (germanium, 1886) with remarkable accuracy &mdash; this validated his approach.</div></div>
 
-    <div class="qi"><div class="qn">A2 <span class="mk">[4]</span></div>
-    <p>Write balanced equations for four reactions covered in this unit. Include state symbols.</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
-    <div class="ans">[1 each] Refer to the reaction tables in sections 2–4 above. Each equation must be correctly balanced with state symbols for full marks.</div></div>
+<!-- 5.2 -->
+<div class="section-header" id="s52"><span class="section-number">5.2</span><h2>Mendeleev's Table vs the Modern Periodic Table</h2></div>
+<div class="tbl-wrap"><table>
+  <thead><tr><th>Feature</th><th>Mendeleev's Table (1869)</th><th>Modern Periodic Table</th></tr></thead>
+  <tbody>
+    <tr><td>Ordering basis</td><td>Increasing relative atomic mass</td><td>Increasing atomic number (proton number)</td></tr>
+    <tr><td>Number of elements</td><td>63 elements known</td><td>118 elements (as of current knowledge)</td></tr>
+    <tr><td>Groups</td><td>Vertical columns of similar chemical properties</td><td>18 groups; elements in same group have same outer electron configuration</td></tr>
+    <tr><td>Periods</td><td>Horizontal rows</td><td>7 periods; period number = number of electron shells</td></tr>
+    <tr><td>Noble gases</td><td>Not included (undiscovered)</td><td>Group 18 (He, Ne, Ar, Kr, Xe, Rn)</td></tr>
+    <tr><td>Gaps</td><td>Left gaps for undiscovered elements</td><td>No gaps; all positions filled</td></tr>
+    <tr><td>Anomalies</td><td>Some pairs out of order (e.g. Te before I) to preserve chemical groupings</td><td>Resolved by atomic number: correct order without anomalies</td></tr>
+    <tr><td>Blocks</td><td>Not recognised</td><td>Divided into s, p, d, f blocks based on electron configuration</td></tr>
+    <tr><td>Lanthanides/actinides</td><td>Not placed separately</td><td>Separated into f-block below main table</td></tr>
+  </tbody>
+</table></div>
+<div class="callout tip"><span class="callout-icon">&#x1F4A1;</span><div class="callout-body"><strong>The Te/I anomaly resolved</strong>Mendeleev placed Te (atomic mass 127.6) before I (atomic mass 126.9) despite I having a lower mass, to keep them in the correct groups chemically. Moseley showed Te has Z=52 and I has Z=53 &mdash; so the modern order (by atomic number) naturally places Te before I, resolving the anomaly.</div></div>
 
-    <div class="qi"><div class="qn">A3 <span class="mk">[4]</span></div>
-    <p>Define four key terms from this unit (e.g. amphoteric, lattice energy, electronegativity, ionic bond — as appropriate).</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
-    <div class="ans">[1 each] Definitions must be precise. Refer to the key definition boxes in sections 1–6 above.</div></div>
-
-    <div class="qi"><div class="qn">A4 <span class="mk">[4]</span></div>
-    <p>Explain the physical properties of the substances covered in this unit (conductivity, melting point, solubility). Link each to structure and bonding.</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
-    <div class="ans">[1 each] Link property to particle type and bonding: e.g. high m.p. → strong bonds/forces; conductor → mobile charged particles; solubility → similar polarity/hydration.</div></div>
-
-    <div class="qi"><div class="qn">A5 <span class="mk">[4]</span></div>
-    <p>Give four industrial or everyday uses of substances from this unit, explaining the property that makes each suitable.</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
-    <div class="ans">[1 each] Refer to the uses table in section 5 or 6. Must link use to property (e.g. low density → aircraft; corrosion resistance → packaging).</div></div>
+<!-- 5.3 -->
+<div class="section-header" id="s53"><span class="section-number">5.3</span><h2>Location of Elements Based on Electronic Configuration</h2></div>
+<div class="card"><h3>Period Number = Number of Electron Shells</h3>
+<p>The <strong>period</strong> an element is in equals the highest principal quantum number (n) in its electron configuration &mdash; i.e. the number of occupied electron shells.</p>
+<div class="formula-block">Na: 1s&#xB2;2s&#xB2;2p&#x2076;3s&#xB9;  &rarr;  highest n = 3  &rarr;  Period 3
+Fe: [Ar]3d&#x2076;4s&#xB2;  &rarr;  highest n = 4  &rarr;  Period 4
+Br: [Ar]3d&#xB9;&#x2070;4s&#xB2;4p&#x2075; &rarr; highest n = 4  &rarr;  Period 4</div></div>
+<div class="card"><h3>Group Number = Outer Electrons</h3>
+<p>For <strong>s- and p-block</strong> elements: Group number = number of outer shell (valence) electrons.</p>
+<p>For <strong>d-block</strong> (transition metals): Group number = number of d electrons + s electrons (counted differently in different numbering systems; the modern IUPAC system numbers Groups 1&ndash;18).</p>
+<div class="formula-block">C: [He]2s&#xB2;2p&#xB2;  &rarr;  4 valence electrons  &rarr;  Group 14
+Cl: [Ne]3s&#xB2;3p&#x2075; &rarr;  7 valence electrons  &rarr;  Group 17
+Fe: [Ar]3d&#x2076;4s&#xB2; &rarr;  d-block, Group 8
+Cu: [Ar]3d&#xB9;&#x2070;4s&#xB9; &rarr;  d-block, Group 11</div></div>
+<div class="callout info"><span class="callout-icon">&#x2139;&#xFE0F;</span><div class="callout-body"><strong>Finding period and group from configuration</strong>Step 1: Write the electron configuration. Step 2: Find the highest n value (= period). Step 3: Count valence electrons in the outer shell. Step 4: Use the block and valence count to assign the group. Remember: for p-block elements, group = 10 + (s + p valence electrons).</div></div>
+<div class="example-box">
+  <div class="example-header"><span class="tag">WORKED EXAMPLE</span><h4>Locating Elements in the Periodic Table</h4></div>
+  <div class="example-body">
+    <div class="step"><div class="step-num">1</div><div class="step-text"><strong>Arsenic (As, Z=33):</strong> [Ar]3d&#xB9;&#x2070;4s&#xB2;4p&#xB3;<br>Highest n = 4 &rarr; <strong>Period 4</strong>. Outer electrons: 4s&#xB2;4p&#xB3; = 5 valence e&minus; &rarr; <strong>Group 15</strong> (p-block).</div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-text"><strong>Strontium (Sr, Z=38):</strong> [Kr]5s&#xB2;<br>Highest n = 5 &rarr; <strong>Period 5</strong>. Outer electrons: 5s&#xB2; = 2 &rarr; <strong>Group 2</strong> (s-block).</div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-text"><strong>Tungsten (W, Z=74):</strong> [Xe]4f&#xB9;&#x2074;5d&#x2074;6s&#xB2;<br>Highest n = 6 &rarr; <strong>Period 6</strong>. d-block (5d) &rarr; <strong>Group 6</strong>.</div></div>
   </div>
-  <div class="qcard" style="margin-top:1rem;"><h3>Section B — Application (20 marks)</h3>
-    <div class="qi"><div class="qn">B1–B4 <span class="mk">[5 each]</span></div>
-    <p>Application and calculation questions covering reactions, trends and quantitative chemistry from this unit. Full question papers are available through the teacher admin portal.</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show guidance</button>
-    <div class="ans">For application questions: (1) identify the relevant concept from your notes, (2) write balanced equations with state symbols, (3) explain trends using atomic structure reasoning, (4) show full working for any calculations.</div></div>
-  </div>
-  <div class="qcard" style="margin-top:1rem;"><h3>Section C — Extended Response (10 marks)</h3>
-    <div class="qi"><div class="qn">C1–C2 <span class="mk">[5 each]</span></div>
-    <p>Write extended answers comparing two topics from this unit, or evaluating trends and anomalies.</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show guidance</button>
-    <div class="ans">Extended answers should: define key terms, give equations, explain using atomic theory, make comparisons, and conclude clearly. Aim for 6–8 marking points per question for full marks.</div></div>
-  </div>
-</section>
+</div>
 
-<div class="unit-nav">
-  <a href="s4_unit4_covalent_bond.html">← Unit 4: Covalent Bond</a>
-  <a href="s4-chemistry.html">S4 Course Home</a>
-  <a href="s4_unit6_group1.html">Unit 6: Group 1 →</a>
+<!-- 5.4 -->
+<div class="section-header" id="s54"><span class="section-number">5.4</span><h2>Classification into Blocks (s, p, d, f)</h2></div>
+<div class="card"><h3>The Four Blocks</h3>
+<p>Elements are classified into blocks based on the subshell in which the last electron is placed (the <strong>differentiating electron</strong>).</p></div>
+<div class="diagram-wrap"><svg viewBox="0 0 700 280" width="700" height="280" xmlns="http://www.w3.org/2000/svg">
+  <text x="350" y="17" text-anchor="middle" fill="#e6edf3" font-size="13" font-family="Playfair Display" font-weight="bold">Periodic Table Block Structure</text>
+  <!-- s block: groups 1-2 -->
+  <rect x="20" y="28" width="100" height="220" rx="6" fill="rgba(248,113,113,.15)" stroke="rgba(248,113,113,.5)" stroke-width="1.5"/>
+  <text x="70" y="142" text-anchor="middle" fill="#f87171" font-size="14" font-family="Playfair Display" font-weight="bold">s</text>
+  <text x="70" y="158" text-anchor="middle" fill="#f87171" font-size="10" font-family="JetBrains Mono">block</text>
+  <text x="70" y="172" text-anchor="middle" fill="#8b949e" font-size="9" font-family="JetBrains Mono">Groups 1-2</text>
+  <text x="70" y="184" text-anchor="middle" fill="#8b949e" font-size="9" font-family="JetBrains Mono">H, He*</text>
+  <text x="70" y="196" text-anchor="middle" fill="#8b949e" font-size="9" font-family="JetBrains Mono">Li,Be,Na,Mg...</text>
+  <!-- p block: groups 13-18 -->
+  <rect x="560" y="28" width="120" height="220" rx="6" fill="rgba(34,211,238,.15)" stroke="rgba(34,211,238,.5)" stroke-width="1.5"/>
+  <text x="620" y="142" text-anchor="middle" fill="#22d3ee" font-size="14" font-family="Playfair Display" font-weight="bold">p</text>
+  <text x="620" y="158" text-anchor="middle" fill="#22d3ee" font-size="10" font-family="JetBrains Mono">block</text>
+  <text x="620" y="172" text-anchor="middle" fill="#8b949e" font-size="9" font-family="JetBrains Mono">Groups 13-18</text>
+  <text x="620" y="184" text-anchor="middle" fill="#8b949e" font-size="9" font-family="JetBrains Mono">B,C,N,O,F,Ne</text>
+  <text x="620" y="196" text-anchor="middle" fill="#8b949e" font-size="9" font-family="JetBrains Mono">Al,Si,P,S,Cl,Ar...</text>
+  <!-- d block: groups 3-12 -->
+  <rect x="150" y="90" width="380" height="100" rx="6" fill="rgba(132,204,22,.15)" stroke="rgba(132,204,22,.5)" stroke-width="1.5"/>
+  <text x="340" y="142" text-anchor="middle" fill="#84cc16" font-size="14" font-family="Playfair Display" font-weight="bold">d block (transition metals)</text>
+  <text x="340" y="158" text-anchor="middle" fill="#8b949e" font-size="9" font-family="JetBrains Mono">Groups 3-12 &nbsp;&nbsp; Sc, Ti, V, Cr, Mn, Fe, Co, Ni, Cu, Zn...</text>
+  <!-- f block -->
+  <rect x="150" y="215" width="520" height="55" rx="6" fill="rgba(167,139,250,.15)" stroke="rgba(167,139,250,.5)" stroke-width="1.5"/>
+  <text x="410" y="246" text-anchor="middle" fill="#a78bfa" font-size="13" font-family="Playfair Display" font-weight="bold">f block (lanthanides &amp; actinides)</text>
+  <text x="410" y="261" text-anchor="middle" fill="#8b949e" font-size="9" font-family="JetBrains Mono">Periods 6-7, placed below main table &nbsp;&nbsp; Ce&ndash;Lu (lanthanides), Th&ndash;Lr (actinides)</text>
+  <!-- Period labels -->
+  <text x="7" y="52" fill="#8b949e" font-size="9" font-family="JetBrains Mono" text-anchor="middle">P1</text>
+  <text x="7" y="78" fill="#8b949e" font-size="9" font-family="JetBrains Mono" text-anchor="middle">P2</text>
+  <text x="7" y="104" fill="#8b949e" font-size="9" font-family="JetBrains Mono" text-anchor="middle">P3</text>
+  <text x="7" y="130" fill="#8b949e" font-size="9" font-family="JetBrains Mono" text-anchor="middle">P4</text>
+  <text x="7" y="156" fill="#8b949e" font-size="9" font-family="JetBrains Mono" text-anchor="middle">P5</text>
+  <text x="7" y="182" fill="#8b949e" font-size="9" font-family="JetBrains Mono" text-anchor="middle">P6</text>
+  <text x="7" y="208" fill="#8b949e" font-size="9" font-family="JetBrains Mono" text-anchor="middle">P7</text>
+</svg></div>
+<div class="tbl-wrap"><table>
+  <thead><tr><th>Block</th><th>Subshell filling</th><th>Groups</th><th>Periods</th><th>Key examples</th></tr></thead>
+  <tbody>
+    <tr><td><span class="s-block">s-block</span></td><td>1s, 2s, 3s, 4s&hellip; filling</td><td>1 &amp; 2 (+ He)</td><td>All</td><td>H, He, Li, Na, K, Be, Mg, Ca</td></tr>
+    <tr><td><span class="p-block">p-block</span></td><td>2p, 3p, 4p&hellip; filling</td><td>13&ndash;18</td><td>2&ndash;7</td><td>C, N, O, F, Ne, Si, Cl, Ar, Br</td></tr>
+    <tr><td><span class="d-block">d-block</span></td><td>3d, 4d, 5d&hellip; filling</td><td>3&ndash;12</td><td>4&ndash;7</td><td>Sc, Ti, Cr, Mn, Fe, Co, Ni, Cu, Zn</td></tr>
+    <tr><td><span class="f-block">f-block</span></td><td>4f, 5f filling</td><td>Separate (below)</td><td>6&ndash;7</td><td>La&ndash;Lu (lanthanides), Ac&ndash;Lr (actinides)</td></tr>
+  </tbody>
+</table></div>
+
+<!-- 5.5 -->
+<div class="section-header" id="s55"><span class="section-number">5.5</span><h2>Characteristics of Different Blocks</h2></div>
+<div class="card"><h3><span class="s-block">s-Block</span> &mdash; Groups 1 &amp; 2</h3>
+<ul style="margin:10px 0 0 20px;line-height:2.1;">
+  <li>Outer electrons in the s subshell: Group 1 has ns&#xB9;; Group 2 has ns&#xB2;.</li>
+  <li>All are <strong>metals</strong> (except H &mdash; a non-metal).</li>
+  <li>Low ionisation energies &rarr; form cations easily (Group 1: 1+; Group 2: 2+).</li>
+  <li>Very reactive metals; reactivity increases down the group.</li>
+  <li>Form basic oxides and hydroxides.</li>
+  <li>Group 1: soft metals with low m.p.; Group 2: harder with higher m.p. than Group 1.</li>
+</ul></div>
+<div class="card"><h3><span class="p-block">p-Block</span> &mdash; Groups 13&ndash;18</h3>
+<ul style="margin:10px 0 0 20px;line-height:2.1;">
+  <li>Outer electrons in the p subshell (after filling s subshell of same period).</li>
+  <li>Contains metals (Al, Ga, Sn, Pb), metalloids/semimetals (B, Si, As, Ge, Te), and non-metals (C, N, O, F, Cl, Br) and noble gases (Group 18).</li>
+  <li>Wide diversity of properties; includes most non-metals.</li>
+  <li>Group 17 (halogens): highly reactive non-metals forming &minus;1 ions.</li>
+  <li>Group 18 (noble gases): full outer shell &rarr; chemically inert (with very few exceptions).</li>
+</ul></div>
+<div class="card"><h3><span class="d-block">d-Block</span> &mdash; Transition Metals (Groups 3&ndash;12)</h3>
+<ul style="margin:10px 0 0 20px;line-height:2.1;">
+  <li>Inner d subshell fills. Outer electrons: (n&minus;1)d and ns&#xB2; (with exceptions: Cr, Cu).</li>
+  <li>All are metals: high m.p., b.p., density, and tensile strength.</li>
+  <li>Exhibit variable oxidation states (multiple stable ions: Fe&#xB2;&#x207A;/Fe&#xB3;&#x207A;, Cu&#x207A;/Cu&#xB2;&#x207A;).</li>
+  <li>Form coloured compounds and ions (d&ndash;d electron transitions absorb visible light).</li>
+  <li>Often good catalysts (Fe in Haber process; Ni in hydrogenation; Pt in catalytic converters).</li>
+  <li>Form complex ions with ligands (e.g. [Fe(H&#x2082;O)&#x2076;]&#xB3;&#x207A;, [Cu(NH&#x2083;)&#x2084;]&#xB2;&#x207A;).</li>
+</ul></div>
+<div class="card"><h3><span class="f-block">f-Block</span> &mdash; Lanthanides &amp; Actinides</h3>
+<ul style="margin:10px 0 0 20px;line-height:2.1;">
+  <li>Inner f subshell fills. Period 6 (4f): lanthanides (Ce&ndash;Lu); Period 7 (5f): actinides (Th&ndash;Lr).</li>
+  <li>All are metals; many are radioactive (especially actinides).</li>
+  <li>Lanthanides are used in powerful magnets, phosphors (screens, LEDs), and lasers.</li>
+  <li>Actinides include uranium and plutonium (nuclear fuel/weapons).</li>
+  <li>Similar chemical properties across the lanthanide series due to poor shielding by f electrons (&ldquo;lanthanide contraction&rdquo;).</li>
+</ul></div>
+
+<!-- 5.6 -->
+<div class="section-header" id="s56"><span class="section-number">5.6</span><h2>Variation of Physical Properties Down Groups &amp; Across Periods</h2></div>
+
+<h3 class="sub">Atomic Radius</h3>
+<div class="def-box"><strong>Atomic Radius</strong>Half the distance between the nuclei of two adjacent atoms of the same element. (Van der Waals radius for non-bonded; covalent radius for bonded atoms.)</div>
+<div class="card">
+<p><strong>Across a period (left &rarr; right): DECREASES</strong></p>
+<p>Nuclear charge Z increases &rarr; same shell electrons are pulled in more strongly &rarr; electron cloud contracts &rarr; smaller radius. Shielding stays roughly constant (electrons added to same shell).</p>
+<p style="margin-top:10px;"><strong>Down a group: INCREASES</strong></p>
+<p>Each successive element has an extra electron shell &rarr; outer electrons further from nucleus &rarr; larger radius. Despite increasing Z, the new shell adds more distance than the extra protons remove.</p>
+</div>
+<div class="diagram-wrap"><svg viewBox="0 0 620 160" width="620" height="160" xmlns="http://www.w3.org/2000/svg">
+  <text x="310" y="17" text-anchor="middle" fill="#e6edf3" font-size="12" font-family="Playfair Display" font-weight="bold">Atomic Radius Trends</text>
+  <!-- Period trend (decreasing across) -->
+  <text x="80" y="40" text-anchor="middle" fill="#84cc16" font-size="10" font-family="JetBrains Mono">Na (186pm)</text>
+  <circle cx="80" cy="85" r="30" fill="rgba(132,204,22,.2)" stroke="#84cc16" stroke-width="1.5"/>
+  <text x="80" y="89" text-anchor="middle" fill="#e6edf3" font-size="9" font-family="JetBrains Mono">Na</text>
+  <text x="195" y="48" text-anchor="middle" fill="#84cc16" font-size="10" font-family="JetBrains Mono">Mg (160pm)</text>
+  <circle cx="195" cy="85" r="22" fill="rgba(132,204,22,.2)" stroke="#84cc16" stroke-width="1.5"/>
+  <text x="195" y="89" text-anchor="middle" fill="#e6edf3" font-size="9" font-family="JetBrains Mono">Mg</text>
+  <text x="295" y="55" text-anchor="middle" fill="#84cc16" font-size="10" font-family="JetBrains Mono">Al (143pm)</text>
+  <circle cx="295" cy="85" r="16" fill="rgba(132,204,22,.2)" stroke="#84cc16" stroke-width="1.5"/>
+  <text x="295" y="89" text-anchor="middle" fill="#e6edf3" font-size="9" font-family="JetBrains Mono">Al</text>
+  <text x="370" y="60" text-anchor="middle" fill="#84cc16" font-size="10" font-family="JetBrains Mono">Si (117pm)</text>
+  <circle cx="370" cy="85" r="12" fill="rgba(132,204,22,.2)" stroke="#84cc16" stroke-width="1.5"/>
+  <text x="370" y="89" text-anchor="middle" fill="#e6edf3" font-size="8" font-family="JetBrains Mono">Si</text>
+  <text x="440" y="63" text-anchor="middle" fill="#84cc16" font-size="10" font-family="JetBrains Mono">Cl (99pm)</text>
+  <circle cx="440" cy="85" r="9" fill="rgba(132,204,22,.2)" stroke="#84cc16" stroke-width="1.5"/>
+  <text x="440" y="88" text-anchor="middle" fill="#e6edf3" font-size="7" font-family="JetBrains Mono">Cl</text>
+  <text x="300" y="140" text-anchor="middle" fill="#8b949e" font-size="10" font-family="JetBrains Mono">Atomic radius DECREASES across Period 3 (left to right)</text>
+  <!-- Arrow -->
+  <line x1="110" y1="115" x2="460" y2="115" stroke="#84cc16" stroke-width="1.5" marker-end="url(#ga2)"/>
+  <defs><marker id="ga2" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3z" fill="#84cc16"/></marker></defs>
+</svg></div>
+
+<h3 class="sub">Ionisation Energy</h3>
+<div class="card">
+<p><strong>Across a period: generally INCREASES</strong> (with dips at Group 13 and Group 16 &mdash; see Unit 2 for full explanation).</p>
+<p><strong>Down a group: DECREASES</strong> because outer electrons are in higher shells (further from nucleus, more shielding) &rarr; easier to remove.</p>
+</div>
+
+<h3 class="sub">Electronegativity</h3>
+<div class="card">
+<p><strong>Across a period (left &rarr; right): INCREASES</strong> &mdash; nuclear charge increases, atomic radius decreases &rarr; nucleus attracts shared electrons more strongly.</p>
+<p><strong>Down a group: DECREASES</strong> &mdash; outer electrons further from nucleus, more shielding &rarr; nucleus attracts shared electrons less strongly.</p>
+<p>Most electronegative: F (4.0) &rarr; O (3.5) &rarr; N,Cl (3.0) &rarr; Br (2.8). Least electronegative: Fr and Cs (down Group 1).</p>
+</div>
+
+<h3 class="sub">Melting Point</h3>
+<div class="card"><h3>Across Period 3: Na &rarr; Cl</h3>
+<div class="tbl-wrap"><table>
+  <thead><tr><th>Element</th><th>Na</th><th>Mg</th><th>Al</th><th>Si</th><th>P</th><th>S</th><th>Cl</th><th>Ar</th></tr></thead>
+  <tbody>
+    <tr><td>m.p. (&deg;C)</td><td>98</td><td>650</td><td>660</td><td>1414</td><td>44</td><td>113</td><td>&minus;101</td><td>&minus;189</td></tr>
+    <tr><td>Structure</td><td>Metal</td><td>Metal</td><td>Metal</td><td>Giant cov.</td><td>Simple mol.</td><td>Simple mol.</td><td>Simple mol.</td><td>Simple mol.</td></tr>
+  </tbody>
+</table></div>
+<ul style="margin:12px 0 0 20px;line-height:2.1;">
+  <li><strong>Na &rarr; Mg &rarr; Al:</strong> all metallic &mdash; m.p. increases because metallic bond strength increases (more delocalised e&minus; per atom: 1, 2, 3).</li>
+  <li><strong>Si:</strong> giant covalent lattice &rarr; very high m.p. (1414&deg;C): all bonds are strong covalent.</li>
+  <li><strong>P, S, Cl, Ar:</strong> simple molecular &rarr; low m.p.: only weak London dispersion forces between molecules. S (S&#x2088; molecule, larger) &gt; P (P&#x2084;) &gt; Cl&#x2082; &gt; Ar because larger molecules have stronger LDF.</li>
+</ul></div>
+
+<h3 class="sub">Down Group 1 &mdash; Physical Properties</h3>
+<div class="tbl-wrap"><table>
+  <thead><tr><th>Property</th><th>Li</th><th>Na</th><th>K</th><th>Rb</th><th>Cs</th><th>Trend &amp; Reason</th></tr></thead>
+  <tbody>
+    <tr><td>Atomic radius (pm)</td><td>152</td><td>186</td><td>231</td><td>244</td><td>262</td><td>Increases: each element has one more shell.</td></tr>
+    <tr><td>m.p. (&deg;C)</td><td>181</td><td>98</td><td>64</td><td>39</td><td>29</td><td>Decreases: larger ions + 1 delocalised e&minus;/atom. Increased shielding &rarr; weaker metallic bond.</td></tr>
+    <tr><td>Density (g/cm&#xB3;)</td><td>0.53</td><td>0.97</td><td>0.86</td><td>1.53</td><td>1.87</td><td>Generally increases (greater mass per atom), but irregularity at K (less dense than Na due to crystal structure).</td></tr>
+    <tr><td>IE&#x2081; (kJ/mol)</td><td>520</td><td>496</td><td>419</td><td>403</td><td>376</td><td>Decreases: outer electron further and more shielded &rarr; easier to remove.</td></tr>
+    <tr><td>Reactivity</td><td>Least reactive</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>Most reactive</td><td>Increases: outer electron lost more easily (lower IE).</td></tr>
+  </tbody>
+</table></div>
+
+<h3 class="sub">Down Group 7 (Halogens) &mdash; Physical Properties</h3>
+<div class="tbl-wrap"><table>
+  <thead><tr><th>Property</th><th>F</th><th>Cl</th><th>Br</th><th>I</th><th>Trend &amp; Reason</th></tr></thead>
+  <tbody>
+    <tr><td>Physical state (room temp)</td><td>Pale yellow gas</td><td>Green-yellow gas</td><td>Red-brown liquid</td><td>Grey-black solid</td><td>State increases: stronger LDF with increasing M.</td></tr>
+    <tr><td>Boiling point (&deg;C)</td><td>&minus;188</td><td>&minus;34</td><td>59</td><td>184</td><td>Increases: more electrons &rarr; stronger LDF.</td></tr>
+    <tr><td>Atomic radius (pm)</td><td>64</td><td>99</td><td>114</td><td>133</td><td>Increases: each adds a shell.</td></tr>
+    <tr><td>Electronegativity</td><td>4.0</td><td>3.0</td><td>2.8</td><td>2.5</td><td>Decreases: outer electrons further away.</td></tr>
+    <tr><td>IE&#x2081; (kJ/mol)</td><td>1681</td><td>1251</td><td>1140</td><td>1008</td><td>Decreases: outer electron in higher shell.</td></tr>
+    <tr><td>Colour</td><td>Pale yellow</td><td>Yellow-green</td><td>Red-brown</td><td>Dark grey/violet</td><td>Deepens: energy gap between HOMO and LUMO narrows &rarr; absorbs lower-energy (visible) light.</td></tr>
+  </tbody>
+</table></div>
+
+<h3 class="sub">Ionic Radius</h3>
+<div class="card">
+<p><strong>Across a period:</strong> ionic radii are not simply compared since the ion type changes (from cations to anions). Within isoelectronic series: higher Z &rarr; smaller radius (more protons pulling same electrons).</p>
+<p><strong>Down a group:</strong> ionic radius increases (each successive ion has one more shell of electrons).</p>
+<p><strong>Cations are smaller than their parent atoms</strong> (electrons removed &rarr; less repulsion &rarr; remaining electrons drawn in).<br>
+<strong>Anions are larger than their parent atoms</strong> (electrons gained &rarr; more repulsion &rarr; electron cloud expands).</p>
+<div class="formula-block">Example isoelectronic series (all 10 electrons):
+N&#xB3;&#x207B; (Z=7) &gt; O&#xB2;&#x207B; (Z=8) &gt; F&#x207B; (Z=9) &gt; Na&#x207A; (Z=11) &gt; Mg&#xB2;&#x207A; (Z=12) &gt; Al&#xB3;&#x207A; (Z=13)
+(same electrons, increasing nuclear charge &rarr; decreasing radius)</div></div>
+
+<h3 class="sub">Summary of Period and Group Trends</h3>
+<div class="tbl-wrap"><table>
+  <thead><tr><th>Property</th><th>Across a period (left &rarr; right)</th><th>Down a group</th></tr></thead>
+  <tbody>
+    <tr><td>Atomic radius</td><td>Decreases (&darr;) &mdash; &uarr;Z, same shell</td><td>Increases (&uarr;) &mdash; extra shell each period</td></tr>
+    <tr><td>Ionic radius</td><td>Decreases within isoelectronic series</td><td>Increases &mdash; extra shell each period</td></tr>
+    <tr><td>Ionisation energy</td><td>Generally increases (with dips)</td><td>Decreases &mdash; outer e&minus; further, more shielded</td></tr>
+    <tr><td>Electronegativity</td><td>Increases &mdash; smaller atom, higher Z</td><td>Decreases &mdash; outer e&minus; further away</td></tr>
+    <tr><td>Metallic character</td><td>Decreases &mdash; non-metals at right</td><td>Increases &mdash; outer e&minus; easier to lose</td></tr>
+    <tr><td>Non-metallic character</td><td>Increases &mdash; towards right</td><td>Decreases &mdash; less electronegative down</td></tr>
+    <tr><td>Reactivity (metals)</td><td>Decreases (left has most reactive metals)</td><td>Increases &mdash; lose outer e&minus; more easily</td></tr>
+    <tr><td>Reactivity (non-metals)</td><td>Increases towards Group 17</td><td>Decreases &mdash; gain e&minus; less readily</td></tr>
+  </tbody>
+</table></div>
+
+<!-- EXERCISES -->
+<div class="section-header" id="exercises"><span class="section-number">&#x270F;&#xFE0F;</span><h2>Exercises</h2></div>
+<ul class="exercise-list">
+  <li>State the main contributions of D&ouml;bereiner, Newlands, and Mendeleev to the development of the periodic table. What was the fundamental difference between Mendeleev's arrangement and the modern periodic table?
+    <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+    <div class="answer">D&ouml;bereiner (1829): Law of Triads &mdash; groups of 3 elements where middle element's mass was average of the other two. Newlands (1864): Law of Octaves &mdash; every 8th element repeated properties. Mendeleev (1869): arranged all known elements by atomic mass, grouped by similar chemical properties, and left gaps for undiscovered elements (predicted their properties). Fundamental difference: Mendeleev's table was ordered by atomic mass; the modern periodic table is ordered by atomic number (Moseley, 1913), which resolved anomalies like the Te/I inversion and gave a physically meaningful basis to periodicity.</div>
+  </li>
+  <li>An element X has electron configuration [Kr]4d&#x2075;5s&#xB9;. Identify: (a) the period, (b) the block, (c) the group of X. Identify the element.
+    <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+    <div class="answer">(a) Highest n = 5 &rarr; <strong>Period 5</strong>. (b) Last electrons enter 4d subshell &rarr; <strong>d-block</strong>. (c) 4d&#x2075;5s&#xB9; = 6 outer electrons &rarr; <strong>Group 6</strong>. (Note the 5s&#xB9; anomaly: half-filled d has stability.) Element: <strong>Molybdenum (Mo, Z=42)</strong>.</div>
+  </li>
+  <li>Explain why the atomic radius decreases across Period 3 from Na to Cl, but increases from Na to Cs down Group 1.
+    <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+    <div class="answer">Across Period 3: nuclear charge Z increases from 11 (Na) to 17 (Cl), but all outer electrons are in the n=3 shell (shielding roughly constant). Greater nuclear charge pulls electrons closer to nucleus &rarr; electron cloud contracts &rarr; atomic radius decreases. Down Group 1: each element adds a new electron shell (n=2,3,4,5,6 for Li&rarr;Cs). The new shell places outer electrons much further from the nucleus; despite increasing Z, the extra shielding from inner shells means the net effect is a much larger atomic radius.</div>
+  </li>
+  <li>The melting points of Period 3 elements vary widely: Na 98&deg;C, Si 1414&deg;C, Cl&#x2082; &minus;101&deg;C. Explain this variation in terms of structure and bonding.
+    <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+    <div class="answer">Na: metallic solid. Metallic bonds (Na&#x207A; cations + 1 delocalised e&minus;/atom). Moderate m.p. Si: giant covalent lattice. Each Si sp&#xB3;-bonded to 4 others &rarr; all bonds must be broken &rarr; very high m.p. requires vast energy. Cl&#x2082;: simple molecular. Consists of Cl&#x2082; molecules held together only by weak London dispersion forces (LDF). Small molecules, few electrons &rarr; very weak LDF &rarr; very low energy to separate molecules &rarr; very low m.p.</div>
+  </li>
+  <li>Arrange the following in order of increasing ionic radius: Na&#x207A;, Mg&#xB2;&#x207A;, Al&#xB3;&#x207A;, F&#x207B;, O&#xB2;&#x207B;. Explain your reasoning.
+    <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+    <div class="answer">All are isoelectronic: each has 10 electrons. Increasing nuclear charge pulls the same number of electrons in more strongly &rarr; smaller radius. Z values: O(8) &lt; F(9) &lt; Na(11) &lt; Mg(12) &lt; Al(13). Order of increasing radius (smallest Z &rarr; largest radius): <strong>Al&#xB3;&#x207A; &lt; Mg&#xB2;&#x207A; &lt; Na&#x207A; &lt; F&#x207B; &lt; O&#xB2;&#x207B;</strong>. O&#xB2;&#x207B; has the lowest nuclear charge (Z=8) holding 10 electrons &rarr; largest radius. Al&#xB3;&#x207A; has the highest Z (13) &rarr; smallest radius.</div>
+  </li>
+  <li>Compare the physical properties of the halogens F&#x2082;, Cl&#x2082;, Br&#x2082;, and I&#x2082; at room temperature (state, colour, boiling point). Explain the trend in boiling point.
+    <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+    <div class="answer">F&#x2082;: pale yellow gas, b.p. &minus;188&deg;C. Cl&#x2082;: yellow-green gas, b.p. &minus;34&deg;C. Br&#x2082;: red-brown liquid, b.p. +59&deg;C. I&#x2082;: grey-black solid, b.p. +184&deg;C. Trend: b.p. increases down the group. All halogens are non-polar diatomic molecules &rarr; only London dispersion forces between molecules. Going down Group 17: molar mass increases (F&#x2082;=38, Cl&#x2082;=71, Br&#x2082;=160, I&#x2082;=254 g/mol) &rarr; more electrons per molecule &rarr; more polarisable &rarr; stronger instantaneous dipoles &rarr; stronger LDF &rarr; more energy needed to separate molecules &rarr; higher b.p.</div>
+  </li>
+</ul>
+
+<!-- QUIZ -->
+<div class="section-header" id="quiz"><span class="section-number">&#x1F9EA;</span><h2>Multiple Choice Quiz &mdash; 25 Questions</h2></div>
+<div class="quiz-wrap">
+  <div class="quiz-header"><h3>Unit 5 Quiz</h3><span style="font-family:'JetBrains Mono',monospace;font-size:.82rem;color:var(--muted);">Select one answer per question</span></div>
+  <div class="quiz-body">
+
+  <div class="q-block"><span class="q-num">Q1</span><div class="q-text">Mendeleev's key innovation over Newlands was:</div><div class="options">
+    <label class="opt"><input type="radio" name="q1" value="A"/>Arranging elements by atomic number</label>
+    <label class="opt"><input type="radio" name="q1" value="B"/>Leaving gaps for undiscovered elements and predicting their properties</label>
+    <label class="opt"><input type="radio" name="q1" value="C"/>Including noble gases in his table</label>
+    <label class="opt"><input type="radio" name="q1" value="D"/>Using only chemical properties to arrange elements</label>
+  </div><div class="q-exp" id="eq1">Mendeleev's insight was leaving deliberate gaps where elements were missing and predicting their properties &mdash; validated when Ga, Sc, and Ge were discovered matching his predictions.</div></div>
+
+  <div class="q-block"><span class="q-num">Q2</span><div class="q-text">The modern periodic table is arranged by:</div><div class="options">
+    <label class="opt"><input type="radio" name="q2" value="A"/>Relative atomic mass</label>
+    <label class="opt"><input type="radio" name="q2" value="B"/>Atomic number (proton number)</label>
+    <label class="opt"><input type="radio" name="q2" value="C"/>Number of neutrons</label>
+    <label class="opt"><input type="radio" name="q2" value="D"/>Reactivity</label>
+  </div><div class="q-exp" id="eq2">Moseley (1913): atomic number (proton number) is the correct basis for ordering, not atomic mass. This resolved anomalies like Te/I.</div></div>
+
+  <div class="q-block"><span class="q-num">Q3</span><div class="q-text">An element has configuration [Xe]4f&#xB9;&#x2074;5d&#x2076;6s&#xB2;. Which block is it in?</div><div class="options">
+    <label class="opt"><input type="radio" name="q3" value="A"/>s-block</label>
+    <label class="opt"><input type="radio" name="q3" value="B"/>p-block</label>
+    <label class="opt"><input type="radio" name="q3" value="C"/>d-block</label>
+    <label class="opt"><input type="radio" name="q3" value="D"/>f-block</label>
+  </div><div class="q-exp" id="eq3">The differentiating electron enters 5d &rarr; d-block. (The 4f is completely filled; the 5d is partially filled.) Period 6, d-block, Group 8 &mdash; this is Osmium (Os).</div></div>
+
+  <div class="q-block"><span class="q-num">Q4</span><div class="q-text">The period number of an element equals:</div><div class="options">
+    <label class="opt"><input type="radio" name="q4" value="A"/>The number of valence electrons</label>
+    <label class="opt"><input type="radio" name="q4" value="B"/>The highest principal quantum number in its electron configuration</label>
+    <label class="opt"><input type="radio" name="q4" value="C"/>The number of neutrons</label>
+    <label class="opt"><input type="radio" name="q4" value="D"/>The group number minus 10</label>
+  </div><div class="q-exp" id="eq4">Period = highest n in electron config. E.g., Na: [Ne]3s&#xB9; &rarr; highest n=3 &rarr; Period 3.</div></div>
+
+  <div class="q-block"><span class="q-num">Q5</span><div class="q-text">Atomic radius across Period 3 decreases because:</div><div class="options">
+    <label class="opt"><input type="radio" name="q5" value="A"/>Electrons are added to new shells</label>
+    <label class="opt"><input type="radio" name="q5" value="B"/>Nuclear charge increases while shielding stays roughly constant, pulling outer electrons inward</label>
+    <label class="opt"><input type="radio" name="q5" value="C"/>Neutrons repel electrons</label>
+    <label class="opt"><input type="radio" name="q5" value="D"/>The number of electron shells decreases</label>
+  </div><div class="q-exp" id="eq5">Across a period: Z increases by 1 each step; all electrons added to same shell (same shielding). Net effect: greater nuclear attraction &rarr; electron cloud pulled in &rarr; smaller radius.</div></div>
+
+  <div class="q-block"><span class="q-num">Q6</span><div class="q-text">Which element has the highest electronegativity?</div><div class="options">
+    <label class="opt"><input type="radio" name="q6" value="A"/>Oxygen</label>
+    <label class="opt"><input type="radio" name="q6" value="B"/>Chlorine</label>
+    <label class="opt"><input type="radio" name="q6" value="C"/>Fluorine</label>
+    <label class="opt"><input type="radio" name="q6" value="D"/>Nitrogen</label>
+  </div><div class="q-exp" id="eq6">Fluorine: most electronegative element (EN=4.0, Pauling scale). Top-right of periodic table: highest Z, smallest atomic radius &rarr; greatest attraction for shared electrons.</div></div>
+
+  <div class="q-block"><span class="q-num">Q7</span><div class="q-text">Why does the melting point of metals increase from Na to Al across Period 3?</div><div class="options">
+    <label class="opt"><input type="radio" name="q7" value="A"/>Atomic radius increases</label>
+    <label class="opt"><input type="radio" name="q7" value="B"/>Number of delocalised electrons per atom increases (1 &rarr; 2 &rarr; 3), strengthening metallic bonding</label>
+    <label class="opt"><input type="radio" name="q7" value="C"/>The atoms get heavier</label>
+    <label class="opt"><input type="radio" name="q7" value="D"/>Ionic bonds form between the metals</label>
+  </div><div class="q-exp" id="eq7">Na: 1, Mg: 2, Al: 3 delocalised e&minus; per atom. More electrons in sea + higher ionic charge (Na&#x207A;, Mg&#xB2;&#x207A;, Al&#xB3;&#x207A;) + smaller ionic radii &rarr; stronger metallic bond &rarr; higher m.p.</div></div>
+
+  <div class="q-block"><span class="q-num">Q8</span><div class="q-text">Silicon has the highest melting point in Period 3 because:</div><div class="options">
+    <label class="opt"><input type="radio" name="q8" value="A"/>It is a metal</label>
+    <label class="opt"><input type="radio" name="q8" value="B"/>It forms strong hydrogen bonds</label>
+    <label class="opt"><input type="radio" name="q8" value="C"/>It forms a giant covalent lattice with strong covalent bonds throughout</label>
+    <label class="opt"><input type="radio" name="q8" value="D"/>It has the most electrons of Period 3 elements</label>
+  </div><div class="q-exp" id="eq8">Si: giant covalent 3D lattice (like diamond, sp&#xB3;). Every bond is a strong covalent bond. Melting requires breaking vast numbers of covalent bonds &rarr; very high m.p. (1414&deg;C).</div></div>
+
+  <div class="q-block"><span class="q-num">Q9</span><div class="q-text">In which block is phosphorus (P, Z=15)?</div><div class="options">
+    <label class="opt"><input type="radio" name="q9" value="A"/>s-block</label>
+    <label class="opt"><input type="radio" name="q9" value="B"/>p-block</label>
+    <label class="opt"><input type="radio" name="q9" value="C"/>d-block</label>
+    <label class="opt"><input type="radio" name="q9" value="D"/>f-block</label>
+  </div><div class="q-exp" id="eq9">P: [Ne]3s&#xB2;3p&#xB3;. The differentiating electron enters 3p &rarr; p-block. Period 3, Group 15.</div></div>
+
+  <div class="q-block"><span class="q-num">Q10</span><div class="q-text">Which of the following has the largest atomic radius?</div><div class="options">
+    <label class="opt"><input type="radio" name="q10" value="A"/>Li</label>
+    <label class="opt"><input type="radio" name="q10" value="B"/>Na</label>
+    <label class="opt"><input type="radio" name="q10" value="C"/>K</label>
+    <label class="opt"><input type="radio" name="q10" value="D"/>Cs</label>
+  </div><div class="q-exp" id="eq10">Cs is at the bottom of Group 1 &rarr; 6 electron shells &rarr; largest atomic radius (262 pm). Radius increases down a group as each element adds a new shell.</div></div>
+
+  <div class="q-block"><span class="q-num">Q11</span><div class="q-text">The d-block elements are characterised by:</div><div class="options">
+    <label class="opt"><input type="radio" name="q11" value="A"/>Filling of outer p subshells</label>
+    <label class="opt"><input type="radio" name="q11" value="B"/>Variable oxidation states, coloured ions, and catalytic activity</label>
+    <label class="opt"><input type="radio" name="q11" value="C"/>Being non-metals with high electronegativities</label>
+    <label class="opt"><input type="radio" name="q11" value="D"/>Forming only &minus;1 ions</label>
+  </div><div class="q-exp" id="eq11">Transition (d-block) metals: variable oxidation states (due to similar energies of d and s orbitals), coloured compounds (d-d transitions), catalytic properties, complex ion formation.</div></div>
+
+  <div class="q-block"><span class="q-num">Q12</span><div class="q-text">The ionic radius order for the isoelectronic series N&#xB3;&#x207B;, O&#xB2;&#x207B;, F&#x207B;, Na&#x207A;, Mg&#xB2;&#x207A; is:</div><div class="options">
+    <label class="opt"><input type="radio" name="q12" value="A"/>N&#xB3;&#x207B; &lt; O&#xB2;&#x207B; &lt; F&#x207B; &lt; Na&#x207A; &lt; Mg&#xB2;&#x207A;</label>
+    <label class="opt"><input type="radio" name="q12" value="B"/>Mg&#xB2;&#x207A; &lt; Na&#x207A; &lt; F&#x207B; &lt; O&#xB2;&#x207B; &lt; N&#xB3;&#x207B;</label>
+    <label class="opt"><input type="radio" name="q12" value="C"/>All equal (isoelectronic)</label>
+    <label class="opt"><input type="radio" name="q12" value="D"/>Na&#x207A; &lt; Mg&#xB2;&#x207A; &lt; F&#x207B; &lt; O&#xB2;&#x207B; &lt; N&#xB3;&#x207B;</label>
+  </div><div class="q-exp" id="eq12">All have 10 electrons. Higher Z &rarr; greater pull on same electrons &rarr; smaller radius. Z: N(7) &lt; O(8) &lt; F(9) &lt; Na(11) &lt; Mg(12). Largest radius: N&#xB3;&#x207B;; smallest: Mg&#xB2;&#x207A;. Order: Mg&#xB2;&#x207A; &lt; Na&#x207A; &lt; F&#x207B; &lt; O&#xB2;&#x207B; &lt; N&#xB3;&#x207B;.</div></div>
+
+  <div class="q-block"><span class="q-num">Q13</span><div class="q-text">Which scientist determined that atomic number, not mass, is the basis for the periodic table?</div><div class="options">
+    <label class="opt"><input type="radio" name="q13" value="A"/>Mendeleev</label>
+    <label class="opt"><input type="radio" name="q13" value="B"/>Newlands</label>
+    <label class="opt"><input type="radio" name="q13" value="C"/>Moseley</label>
+    <label class="opt"><input type="radio" name="q13" value="D"/>D&ouml;bereiner</label>
+  </div><div class="q-exp" id="eq13">Henry Moseley (1913) used X-ray diffraction to measure atomic numbers and showed the correct ordering principle. Killed in WWI at age 27.</div></div>
+
+  <div class="q-block"><span class="q-num">Q14</span><div class="q-text">First ionisation energy generally increases across Period 2 because:</div><div class="options">
+    <label class="opt"><input type="radio" name="q14" value="A"/>Atoms get smaller and nuclear charge increases, pulling outer electrons more strongly</label>
+    <label class="opt"><input type="radio" name="q14" value="B"/>More electron shells are added</label>
+    <label class="opt"><input type="radio" name="q14" value="C"/>Shielding increases dramatically</label>
+    <label class="opt"><input type="radio" name="q14" value="D"/>Atomic radius increases</label>
+  </div><div class="q-exp" id="eq14">Across a period: Z increases, atomic radius decreases, shielding stays roughly constant. Greater nuclear attraction on outer electrons &rarr; more energy needed to remove them &rarr; higher IE.</div></div>
+
+  <div class="q-block"><span class="q-num">Q15</span><div class="q-text">Why do noble gases (Group 18) have very low boiling points and are chemically inert?</div><div class="options">
+    <label class="opt"><input type="radio" name="q15" value="A"/>They have high electronegativity</label>
+    <label class="opt"><input type="radio" name="q15" value="B"/>Full outer shells make them stable; non-polar atoms have only weak LDF &rarr; low b.p.</label>
+    <label class="opt"><input type="radio" name="q15" value="C"/>They are metals with high melting points</label>
+    <label class="opt"><input type="radio" name="q15" value="D"/>They have no electrons</label>
+  </div><div class="q-exp" id="eq15">Noble gases: complete outer shell (8 electrons, or 2 for He) &rarr; no tendency to form bonds &rarr; inert. Monoatomic, non-polar &rarr; only very weak LDF &rarr; low b.p. b.p. increases down the group (more electrons &rarr; stronger LDF).</div></div>
+
+  <div class="q-block"><span class="q-num">Q16</span><div class="q-text">Which element is in Period 4, Group 2?</div><div class="options">
+    <label class="opt"><input type="radio" name="q16" value="A"/>Mg</label>
+    <label class="opt"><input type="radio" name="q16" value="B"/>Ca</label>
+    <label class="opt"><input type="radio" name="q16" value="C"/>Sr</label>
+    <label class="opt"><input type="radio" name="q16" value="D"/>Be</label>
+  </div><div class="q-exp" id="eq16">Group 2, Period 4: [Ar]4s&#xB2; &rarr; <strong>Calcium (Ca)</strong>. Mg is Period 3, Sr is Period 5, Be is Period 2.</div></div>
+
+  <div class="q-block"><span class="q-num">Q17</span><div class="q-text">The law of triads was proposed by:</div><div class="options">
+    <label class="opt"><input type="radio" name="q17" value="A"/>Newlands</label>
+    <label class="opt"><input type="radio" name="q17" value="B"/>Moseley</label>
+    <label class="opt"><input type="radio" name="q17" value="C"/>Mendeleev</label>
+    <label class="opt"><input type="radio" name="q17" value="D"/>D&ouml;bereiner</label>
+  </div><div class="q-exp" id="eq17">D&ouml;bereiner (1829): Law of Triads &mdash; middle element's mass = average of outer two, and properties are intermediate. E.g. Li(6.9), Na(23), K(39.1): (6.9+39.1)/2 = 23 &#x2713;.</div></div>
+
+  <div class="q-block"><span class="q-num">Q18</span><div class="q-text">Which property INCREASES down Group 17 (halogens)?</div><div class="options">
+    <label class="opt"><input type="radio" name="q18" value="A"/>Electronegativity</label>
+    <label class="opt"><input type="radio" name="q18" value="B"/>Ionisation energy</label>
+    <label class="opt"><input type="radio" name="q18" value="C"/>Boiling point</label>
+    <label class="opt"><input type="radio" name="q18" value="D"/>Reactivity as oxidising agent</label>
+  </div><div class="q-exp" id="eq18">Boiling point increases down Group 17: F&#x2082;(&minus;188) &lt; Cl&#x2082;(&minus;34) &lt; Br&#x2082;(59) &lt; I&#x2082;(184)&deg;C. More electrons &rarr; stronger LDF. EN, IE, and oxidising power all decrease down the group.</div></div>
+
+  <div class="q-block"><span class="q-num">Q19</span><div class="q-text">The f-block elements (lanthanides and actinides) are separated below the main table because:</div><div class="options">
+    <label class="opt"><input type="radio" name="q19" value="A"/>They are radioactive</label>
+    <label class="opt"><input type="radio" name="q19" value="B"/>Inserting them would make the table too wide; they involve filling of inner f subshells</label>
+    <label class="opt"><input type="radio" name="q19" value="C"/>They have no practical uses</label>
+    <label class="opt"><input type="radio" name="q19" value="D"/>They do not follow periodic trends</label>
+  </div><div class="q-exp" id="eq19">14 f-block elements per period would make the table impractically wide (32 columns). They involve filling inner 4f/5f subshells, so they are placed separately for clarity.</div></div>
+
+  <div class="q-block"><span class="q-num">Q20</span><div class="q-text">A cation is smaller than its parent atom because:</div><div class="options">
+    <label class="opt"><input type="radio" name="q20" value="A"/>It has more protons than the neutral atom</label>
+    <label class="opt"><input type="radio" name="q20" value="B"/>Removing electrons reduces repulsion; remaining electrons drawn closer by same nuclear charge</label>
+    <label class="opt"><input type="radio" name="q20" value="C"/>The nucleus shrinks when electrons are removed</label>
+    <label class="opt"><input type="radio" name="q20" value="D"/>The ion has fewer neutrons</label>
+  </div><div class="q-exp" id="eq20">Cation: fewer electrons but same Z. Less electron-electron repulsion &rarr; remaining electrons drawn closer to nucleus &rarr; smaller radius. Also may lose an entire outer shell (e.g. Na &rarr; Na&#x207A;: loses n=3 shell entirely &rarr; much smaller).</div></div>
+
+  <div class="q-block"><span class="q-num">Q21</span><div class="q-text">Which correctly describes p-block elements?</div><div class="options">
+    <label class="opt"><input type="radio" name="q21" value="A"/>All are metals</label>
+    <label class="opt"><input type="radio" name="q21" value="B"/>Include metals, metalloids, non-metals, and noble gases (Groups 13&ndash;18)</label>
+    <label class="opt"><input type="radio" name="q21" value="C"/>All have variable oxidation states</label>
+    <label class="opt"><input type="radio" name="q21" value="D"/>Found only in Periods 4&ndash;7</label>
+  </div><div class="q-exp" id="eq21">p-block: Groups 13&ndash;18, Periods 2&ndash;7. Contains great diversity: metals (Al, Pb), metalloids (Si, Ge, As), non-metals (C, N, O, Cl), noble gases (He*, Ne, Ar).</div></div>
+
+  <div class="q-block"><span class="q-num">Q22</span><div class="q-text">Why does metallic character increase down Group 1?</div><div class="options">
+    <label class="opt"><input type="radio" name="q22" value="A"/>Nuclear charge increases</label>
+    <label class="opt"><input type="radio" name="q22" value="B"/>Outer electron is in a higher shell, further from nucleus and more shielded, so it is lost more easily</label>
+    <label class="opt"><input type="radio" name="q22" value="C"/>More electrons are available for metallic bonding</label>
+    <label class="opt"><input type="radio" name="q22" value="D"/>Atomic mass increases</label>
+  </div><div class="q-exp" id="eq22">Metallic character = tendency to lose outer electrons. Down Group 1: outer electrons in higher shells, more shielded, further away &rarr; lower IE &rarr; lost more easily &rarr; more metallic character.</div></div>
+
+  <div class="q-block"><span class="q-num">Q23</span><div class="q-text">The anomaly in Mendeleev's table where Te appeared before I was resolved by:</div><div class="options">
+    <label class="opt"><input type="radio" name="q23" value="A"/>Measuring more accurate atomic masses</label>
+    <label class="opt"><input type="radio" name="q23" value="B"/>Ordering by atomic number (Z), where Te (Z=52) correctly precedes I (Z=53)</label>
+    <label class="opt"><input type="radio" name="q23" value="C"/>Discovering new isotopes of Te</label>
+    <label class="opt"><input type="radio" name="q23" value="D"/>Moving Te to Group 17</label>
+  </div><div class="q-exp" id="eq23">Moseley showed atomic number is the correct ordering principle. Te (Z=52) and I (Z=53) are correctly placed by Z, even though Te has higher average atomic mass due to its isotope distribution.</div></div>
+
+  <div class="q-block"><span class="q-num">Q24</span><div class="q-text">Which element is in Period 5, Group 17?</div><div class="options">
+    <label class="opt"><input type="radio" name="q24" value="A"/>Cl</label>
+    <label class="opt"><input type="radio" name="q24" value="B"/>I</label>
+    <label class="opt"><input type="radio" name="q24" value="C"/>Br</label>
+    <label class="opt"><input type="radio" name="q24" value="D"/>At</label>
+  </div><div class="q-exp" id="eq24">Group 17, Period 5: [Kr]4d&#xB9;&#x2070;5s&#xB2;5p&#x2075; &rarr; <strong>Iodine (I, Z=53)</strong>. Cl is Period 3, Br is Period 4, At is Period 6.</div></div>
+
+  <div class="q-block"><span class="q-num">Q25</span><div class="q-text">Which trend is correct for electronegativity?</div><div class="options">
+    <label class="opt"><input type="radio" name="q25" value="A"/>Decreases across a period; increases down a group</label>
+    <label class="opt"><input type="radio" name="q25" value="B"/>Increases across a period; decreases down a group</label>
+    <label class="opt"><input type="radio" name="q25" value="C"/>Increases both across and down</label>
+    <label class="opt"><input type="radio" name="q25" value="D"/>Constant across a period</label>
+  </div><div class="q-exp" id="eq25">EN increases across a period (higher Z, smaller atom, stronger attraction for shared electrons) and decreases down a group (outer electrons further away, more shielded). Maximum: F (top right); minimum: Cs/Fr (bottom left).</div></div>
+
+  <div style="margin-top:28px;text-align:center;"><button class="qs" onclick="submitQuiz()">Submit Quiz</button><div id="qR"></div></div>
+  </div>
+</div>
+
+<!-- TEST -->
+<div class="section-header" id="test"><span class="section-number">&#x1F4DD;</span><h2>Unit Test &mdash; 50 Marks</h2></div>
+<div class="test-wrap">
+  <div class="test-section">
+    <div class="test-sh"><h3>Section A &mdash; Short Answer</h3><span class="mb">20 marks</span></div>
+    <div class="test-body">
+
+      <div class="tq"><span class="tqn">Q1 [4 marks]</span><p>Describe Mendeleev's contribution to the periodic table. State two ways in which the modern periodic table differs from Mendeleev's original table. [4]</p>
+      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
+      <div class="ans">Mendeleev (1869): arranged 63 known elements in order of increasing atomic mass, grouping elements with similar chemical properties in vertical columns. Crucially, he left gaps for undiscovered elements and predicted their atomic masses and properties (e.g. eka-silicon = Ge, eka-aluminium = Ga). [2] Two differences from modern table: (1) Mendeleev ordered by atomic mass; modern table ordered by atomic number (Moseley, 1913), resolving anomalies. [1] (2) Modern table includes noble gases (Group 18), discovered after Mendeleev's table and not originally present. Also valid: f-block separated, 118 elements vs 63, blocks recognised. [1]</div></div>
+
+      <div class="tq"><span class="tqn">Q2 [4 marks]</span><p>An element X has the electron configuration [Kr]4d&#xB9;&#x2070;5s&#xB2;5p&#x2074;. (a) State the period and group of X. [2] (b) Identify the block. [1] (c) Name element X. [1]</p>
+      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
+      <div class="ans">(a) Highest n = 5 &rarr; <strong>Period 5</strong>. Valence electrons in 5p subshell: 5s&#xB2;5p&#x2074; = 6 outer electrons &rarr; <strong>Group 16</strong>. [2] (b) Differentiating electron enters 5p &rarr; <strong>p-block</strong>. [1] (c) Period 5, Group 16 = <strong>Tellurium (Te, Z=52)</strong>. [1]</div></div>
+
+      <div class="tq"><span class="tqn">Q3 [4 marks]</span><p>Explain the following trend in first ionisation energy down Group 1: Li (520) &gt; Na (496) &gt; K (419) &gt; Rb (403) &gt; Cs (376 kJ mol&minus;&#xB9;). [4]</p>
+      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
+      <div class="ans">Going down Group 1, each element has one more electron shell [1]: Li: 2s&#xB9; outer; Na: 3s&#xB9;; K: 4s&#xB9;; Rb: 5s&#xB9;; Cs: 6s&#xB9;. This means: (1) The outer electron is in a progressively higher shell &rarr; greater distance from the nucleus [1]. (2) More inner electron shells provide greater shielding of the outer electron from the nuclear charge [1]. Both factors reduce the effective nuclear charge felt by the outer electron &rarr; it is held less tightly &rarr; less energy required to remove it &rarr; IE&#x2081; decreases down the group. Despite increasing Z (3 &rarr; 55), the shielding and distance effects dominate [1].</div></div>
+
+      <div class="tq"><span class="tqn">Q4 [4 marks]</span><p>Describe and explain the trend in melting points across Period 3 elements (Na &rarr; Ar). [4]</p>
+      <button class="rb" onclick="toggleAnswer(this)">Show Answer</button>
+      <div class="ans">Na, Mg, Al: metallic structures. Melting point increases (98 &rarr; 650 &rarr; 660&deg;C) because number of delocalised e&minus; per atom increases (1, 2, 3) &rarr; stronger metallic bond &rarr; more energy to disrupt. [1] Si: giant covalent lattice (sp&#xB3;, 3D); m.p. = 1414&deg;C &mdash; all bonds are strong covalent &rarr; very high m.p. [1] P, S, Cl, Ar: simple molecular. Low m.p. because only weak London dispersion forces between molecules, not covalent bonds. S (S&#x2088;, larger molecule) &gt; P (P&#x2084;) &gt; Cl&#x2082; &gt; Ar because larger molecules/more electrons &rarr; stronger LDF. [2]</div></div>
+
+      <div class="tq"><span class="tqn">Q5 [4 marks]</span><p>Arrange these in order of increasing atomic radius: F, Na, Cl, K, Cs. Explain the two factors that determine the trend. [4]</p>
+      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
+      <div class="ans">Increasing atomic radius: <strong>F &lt; Cl &lt; Na &lt; K &lt; Cs</strong>. [1] F (64pm) and Cl (99pm) are both p-block; Cl has an extra shell &rarr; larger. Na (186pm) is in Period 3 Group 1 &rarr; larger than Cl (Group 17 Period 3) because less nuclear charge pulling electrons inward. K (231pm) and Cs (262pm) are Group 1 Periods 4 and 6 &rarr; increase down the group. [1] Factor 1: Shell number &mdash; more shells &rarr; outer electrons further from nucleus &rarr; larger radius. [1] Factor 2: Nuclear charge (Z) across a period &mdash; more protons attract electrons inward &rarr; smaller radius. Down a group, increased shielding dominates over increased Z &rarr; radius increases. [1]</div></div>
+    </div>
+  </div>
+
+  <div class="test-section">
+    <div class="test-sh"><h3>Section B &mdash; Extended Answer</h3><span class="mb">30 marks</span></div>
+    <div class="test-body">
+
+      <div class="tq"><span class="tqn">Q6 [8 marks]</span><p>Describe the historical development of the periodic table from D&ouml;bereiner to the modern table. Include: Law of Triads, Law of Octaves, Mendeleev's table (contributions and limitations), and Moseley's contribution. Explain why Mendeleev's arrangement is considered a greater achievement than Newlands'. [8]</p>
+      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
+      <div class="ans"><strong>D&ouml;bereiner (1829) [1]:</strong> Law of Triads: grouped 3 elements (e.g. Li/Na/K; Cl/Br/I) where middle element's mass &asymp; average of other two, and properties intermediate. Limited: only worked for a few groups.<br><strong>Newlands (1864) [1]:</strong> Law of Octaves: elements arranged by atomic mass; every 8th element had similar properties. Worked well for first 20 elements; broke down for heavier elements. Ridiculed for forcing dissimilar elements together.<br><strong>Mendeleev (1869) [3]:</strong> Arranged all 63 known elements by atomic mass in groups of similar chemical properties. Key innovations: (1) Left deliberate gaps for undiscovered elements; (2) Predicted properties of eka-aluminium (Ga, discovered 1875), eka-boron (Sc, 1879), eka-silicon (Ge, 1886) &mdash; all confirmed. Limitation: had to reverse some pairs (e.g. Te before I by chemical properties, even though I has lower mass) and could not explain why periodicity occurs.<br><strong>Moseley (1913) [2]:</strong> Used X-ray spectra to measure atomic numbers accurately. Showed that the correct ordering basis is atomic number (proton number), not atomic mass. This resolved all anomalies (Te Z=52 before I Z=53 is correct by atomic number) and gave a physical explanation for periodicity (period = electron shell; group = outer electron configuration).<br><strong>Mendeleev &gt; Newlands [1]:</strong> Mendeleev included all elements, left gaps, and made quantitative predictions that were later verified. Newlands forced elements into octaves without gaps, failed for heavier elements, and made no predictions. The predictive power and systematic approach of Mendeleev were far more scientifically valuable.</div></div>
+
+      <div class="tq"><span class="tqn">Q7 [8 marks]</span><p>Describe and explain the variation of the following properties across Period 3 and down Group 1: (a) atomic radius [2]; (b) ionisation energy [2]; (c) electronegativity [2]; (d) reactivity of the metal with water [2]. [8]</p>
+      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
+      <div class="ans">(a) Atomic radius [2]: Across Period 3: decreases Na(186)&rarr;Cl(99pm). Z increases 11&rarr;17; all outer electrons in n=3; shielding roughly constant. Higher nuclear charge attracts electrons inward &rarr; radius decreases. Down Group 1: increases Li(152)&rarr;Cs(262pm). Each element adds a new electron shell; despite increasing Z, the greater distance and shielding of the new shell dominate &rarr; radius increases.<br>(b) Ionisation energy [2]: Across Period 3: generally increases (with dips at Al and S). Higher Z, smaller atomic radius, constant shielding &rarr; outer electrons held more tightly. Down Group 1: decreases Li(520)&rarr;Cs(376 kJ/mol). Outer electron in higher shell (greater distance + more shielding) &rarr; weaker nuclear hold &rarr; lower IE.<br>(c) Electronegativity [2]: Across Period 3: increases Na(0.9)&rarr;Cl(3.0, Pauling). Increasing Z + decreasing radius &rarr; greater attraction for shared electrons. Down Group 1: decreases Li(1.0)&rarr;Cs(0.7). Outer electrons further and more shielded &rarr; less ability to attract shared electrons.<br>(d) Reactivity with water [2]: Across Period 3: Na reacts vigorously; Mg reacts slowly (with cold water/steam); Al reacts only with steam; Si, P, S, Cl not reactive as metals (already non-metals or metalloids). Reactivity as metals decreases across the period. Down Group 1: reactivity increases Li(slow, fizzes) &rarr; Na(vigorous) &rarr; K(very vigorous, ignites) &rarr; Rb/Cs(explosive). Lower IE down the group &rarr; outer electron lost more easily &rarr; more vigorous reaction with water.</div></div>
+
+      <div class="tq"><span class="tqn">Q8 [6 marks]</span><p>Classify each element below into the correct block, period, and group, and give a brief reason. (a) Selenium (Se, Z=34); (b) Barium (Ba, Z=56); (c) Nickel (Ni, Z=28). [6]</p>
+      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
+      <div class="ans">(a) Se (Z=34) [2]: Configuration: [Ar]3d&#xB9;&#x2070;4s&#xB2;4p&#x2074;. Highest n=4 &rarr; Period 4. Last electron enters 4p &rarr; <strong>p-block</strong>. Valence electrons: 4s&#xB2;4p&#x2074; = 6 &rarr; <strong>Group 16</strong>. Se is a non-metal/metalloid (chalcogen), below sulfur in Group 16.<br>(b) Ba (Z=56) [2]: Configuration: [Xe]6s&#xB2;. Highest n=6 &rarr; Period 6. Last electron enters 6s &rarr; <strong>s-block</strong>. Valence electrons: 6s&#xB2; = 2 &rarr; <strong>Group 2</strong>. Ba is an alkaline earth metal; reactive, forms Ba&#xB2;&#x207A; ions.<br>(c) Ni (Z=28) [2]: Configuration: [Ar]3d&#x2078;4s&#xB2;. Highest n=4 &rarr; Period 4. Last electron enters 3d &rarr; <strong>d-block</strong>. Outer electrons: 3d&#x2078;4s&#xB2; &rarr; Group 10 (transition metal). Ni is a silvery-white transition metal; forms Ni&#xB2;&#x207A; ions; used in alloys and catalysts.</div></div>
+
+      <div class="tq"><span class="tqn">Q9 [8 marks]</span><p>Compare the characteristics of s-, p-, d-, and f-block elements in terms of: (a) which subshell is filling; (b) typical physical properties (state, conductivity, melting point); (c) typical chemical properties (ion formation, reactivity); (d) one important use or application of each block. Give at least one example element per block. [8]</p>
+      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
+      <div class="ans"><strong>s-block [2]:</strong> (a) s subshell filling (Groups 1&ndash;2). (b) Metals (except H); low-moderate m.p. (Na: 98&deg;C); good conductors (metallic bonding). (c) Lose outer electrons easily to form cations (Na&#x207A;, Ca&#xB2;&#x207A;); low IE &rarr; very reactive metals; react with water/air. React more vigorously down the group. (d) Na used in sodium-vapour lamps; Ca in cement/construction; Mg in alloys (aircraft).<br><strong>p-block [2]:</strong> (a) p subshell filling (Groups 13&ndash;18). (b) Diverse &mdash; metals (Al, Pb), metalloids (Si, Ge), non-metals (C, N, Cl), noble gases (Ar). Wide range of m.p. and states. Non-metals are non-conductors; Al is a good conductor. (c) Non-metals tend to gain electrons or share; halogens form &minus;1 ions; Group 14&ndash;16 form various ions and covalent bonds. Noble gases are inert (full outer shell). (d) Si in semiconductors/electronics; Cl in water treatment (Cl&#x2082;); N&#x2082; as inert atmosphere in food packaging.<br><strong>d-block [2]:</strong> (a) (n&minus;1)d subshell filling (Groups 3&ndash;12). (b) All metals; high m.p. (Fe: 1538&deg;C), high density, high tensile strength; excellent conductors. (c) Variable oxidation states (Fe&#xB2;&#x207A;/Fe&#xB3;&#x207A;, Cu&#x207A;/Cu&#xB2;&#x207A;); form coloured compounds (d&ndash;d transitions); form complex ions. Good catalysts. (d) Fe in steelmaking; Cu in electrical wiring; Pt as catalytic converter; Ni in hydrogenation of fats.<br><strong>f-block [2]:</strong> (a) 4f (lanthanides) or 5f (actinides) filling. (b) All metals; often radioactive (actinides); dense, high m.p. Similar properties across each series (poor f-shielding &rarr; similar Zeff). (c) Lanthanides usually form Ln&#xB3;&#x207A; ions; actinides can form multiple oxidation states. (d) Nd in powerful neodymium magnets (NdFeB); U/Pu in nuclear fuel and weapons; La in catalytic converters and lighting.</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="nav">
+  <a class="nb p" href="s4_unit4_covalent_bond.html">&larr; Unit 4: Covalent Bond</a>
+  <a class="nb n" href="s4_unit6_group1.html">Unit 6: Group 1 Elements &rarr;</a>
 </div>
 </main>
-<footer>⚗ Jackson Habimana — Chemistry Education Portal &bull; <a href="s4-chemistry.html">S4 Course</a> &bull; <a href="index.html">Home</a></footer>
-</body></html>
+
+
+
+
+<!-- ═══════════════════════════ UNIT QUIZ GATE ═══════════════════════════ -->
+<script>
+(function(){
+  const CK='quiz_access_code', SK='quiz_access_granted';
+  const code=localStorage.getItem(CK);
+  if(!code) return;
+  if(sessionStorage.getItem(SK)) return;
+  const qw=document.querySelector('.quiz-wrap');
+  if(!qw) return;
+  function showGate(){
+    if(document.getElementById('_ugate')) return;
+    const g=document.createElement('div');
+    g.id='_ugate';
+    g.style.cssText='position:fixed;inset:0;background:#0d1117;z-index:99999;display:flex;align-items:center;justify-content:center;padding:24px;';
+    g.innerHTML=`
+      <div style="background:#161b22;border:2px solid rgba(245,158,11,.4);border-radius:16px;padding:44px 36px;max-width:440px;width:100%;text-align:center;">
+        <div style="font-size:3.5rem;margin-bottom:14px;">🔒</div>
+        <h2 style="font-family:'Playfair Display',serif;font-size:1.8rem;color:#fff;margin-bottom:10px;">Quiz Locked</h2>
+        <p style="color:#8b949e;font-size:.92rem;margin-bottom:20px;line-height:1.7;">Enter your teacher&#39;s access code to attempt this quiz.</p>
+        <input id="_ugate_inp" type="text" placeholder="Enter Code" maxlength="20" autocomplete="off"
+          style="width:100%;background:#1c2333;border:2px solid #30363d;border-radius:8px;color:#e6edf3;padding:13px 16px;font-family:'JetBrains Mono',monospace;font-size:1.4rem;text-align:center;letter-spacing:.2em;text-transform:uppercase;margin-bottom:10px;box-sizing:border-box;"
+          onkeydown="if(event.key==='Enter')window._ugateCheck()"/>
+        <div id="_ugate_err" style="font-family:'JetBrains Mono',monospace;font-size:.82rem;color:#f87171;min-height:20px;margin:6px 0 10px;"></div>
+        <button onclick="window._ugateCheck()" style="width:100%;background:#f59e0b;color:#000;border:none;padding:12px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.9rem;font-weight:700;cursor:pointer;margin-bottom:8px;">🔓 Unlock Quiz</button>
+        <button onclick="document.getElementById('_ugate').remove();document.body.style.overflow='';" style="width:100%;background:transparent;border:1px solid #30363d;color:#8b949e;padding:8px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.78rem;cursor:pointer;">✕ Cancel</button>
+      </div>`;
+    document.body.appendChild(g);
+    document.body.style.overflow='hidden';
+    setTimeout(()=>{const i=document.getElementById('_ugate_inp');if(i)i.focus();},100);
+  }
+  window._ugateCheck=function(){
+    const val=(document.getElementById('_ugate_inp')||{}).value;
+    if(!val) return;
+    const v=val.trim().toUpperCase();
+    const stored=localStorage.getItem(CK);
+    if(v===stored){
+      sessionStorage.setItem(SK,'1');
+      const g=document.getElementById('_ugate');
+      if(g) g.remove();
+      document.body.style.overflow='';
+    } else {
+      const err=document.getElementById('_ugate_err');
+      if(err) err.textContent='❌ Wrong code — try again.';
+      const inp=document.getElementById('_ugate_inp');
+      if(inp){inp.value='';inp.focus();}
+    }
+  };
+  qw.addEventListener('click',function(e){
+    if(!localStorage.getItem(CK)) return;
+    if(sessionStorage.getItem(SK)) return;
+    e.stopPropagation();e.preventDefault();
+    showGate();
+  },true);
+})();
+</script>
+
+<script>
+// ── PER-UNIT QUIZ ACCESS GATE ── ID: s4_unit5 ──
+(function(){
+  const ITEM_ID='s4_unit5';
+  const SESS_KEY='unlocked_'+ITEM_ID;
+  const CODE_KEY='quiz_access_code';
+  const LOCKS_KEY='assessment_locks';
+  
+  function isLocked(){return JSON.parse(localStorage.getItem(LOCKS_KEY)||'{}')[ITEM_ID]===true;}
+  function isGranted(){const c=localStorage.getItem(CODE_KEY)||'OPEN';return sessionStorage.getItem(SESS_KEY)===c||sessionStorage.getItem(SESS_KEY)==='OPEN';}
+  
+  const gate=document.createElement('div');
+  gate.id='unit-quiz-gate-s4_unit5';
+  gate.style.cssText='position:fixed;inset:0;background:#0d1117;z-index:99999;display:none;align-items:center;justify-content:center;padding:24px;';
+  gate.innerHTML=`<div style="background:#161b22;border:2px solid rgba(245,158,11,.4);border-radius:16px;padding:44px 38px;max-width:460px;width:100%;text-align:center;">
+    <div style="font-size:3.5rem;margin-bottom:14px;">🔒</div>
+    <h2 style="font-family:Playfair Display,serif;font-size:1.8rem;color:#fff;margin-bottom:10px;">Quiz Locked</h2>
+    <p style="color:#8b949e;font-size:.92rem;margin-bottom:22px;line-height:1.7;">Your teacher has locked this quiz. Enter the access code to unlock it.</p>
+    <input id="ugi-s4_unit5" type="text" placeholder="Enter Code" maxlength="20"
+      style="width:100%;background:#1c2333;border:2px solid #30363d;border-radius:8px;color:#e6edf3;padding:13px 16px;font-family:JetBrains Mono,monospace;font-size:1.3rem;text-align:center;letter-spacing:.2em;text-transform:uppercase;margin-bottom:10px;box-sizing:border-box;"
+      onkeydown="if(event.key==='Enter')unlockUnit_s4_unit5()"
+      oninput="this.value=this.value.toUpperCase()"/>
+    <div id="uge-s4_unit5" style="font-family:JetBrains Mono,monospace;font-size:.8rem;color:#f87171;min-height:18px;margin-bottom:10px;"></div>
+    <button onclick="unlockUnit_s4_unit5()" style="width:100%;background:#f59e0b;color:#000;border:none;padding:13px;border-radius:8px;font-family:JetBrains Mono,monospace;font-size:.88rem;font-weight:700;cursor:pointer;margin-bottom:8px;">🔓 Unlock Quiz</button>
+    <button onclick="document.getElementById('unit-quiz-gate-s4_unit5').style.display='none';document.body.style.overflow='';" style="width:100%;background:transparent;border:1px solid #30363d;color:#8b949e;padding:8px;border-radius:7px;font-family:JetBrains Mono,monospace;font-size:.78rem;cursor:pointer;">✕ Cancel — Go back</button>
+    <div style="font-family:JetBrains Mono,monospace;font-size:.7rem;color:#8b949e;margin-top:10px;">Ask your teacher for the access code.</div>
+  </div>`;
+  document.body.appendChild(gate);
+  
+  window.unlockUnit_s4_unit5=function(){
+    const entered=document.getElementById('ugi-s4_unit5').value.trim().toUpperCase();
+    const correct=localStorage.getItem(CODE_KEY)||'';
+    if(!entered){document.getElementById('uge-s4_unit5').textContent='Enter the code.';return;}
+    if(!correct||entered===correct){
+      sessionStorage.setItem(SESS_KEY,correct||'OPEN');
+      gate.style.display='none';document.body.style.overflow='';
+      if(window._pendingAction_s4_unit5) window._pendingAction_s4_unit5();
+    } else {
+      document.getElementById('uge-s4_unit5').textContent='❌ Wrong code. Ask your teacher.';
+      document.getElementById('ugi-s4_unit5').value='';
+    }
+  };
+  
+  window.addEventListener('DOMContentLoaded',function(){
+    if(!isLocked()) return;
+    const qw=document.querySelector('.quiz-wrap');
+    if(!qw) return;
+    qw.addEventListener('click',function(e){
+      if(!isLocked()||isGranted()) return;
+      e.stopPropagation();e.preventDefault();
+      gate.style.display='flex';document.body.style.overflow='hidden';
+    },true);
+  });
+})();
+</script>
+</body>
+</html>

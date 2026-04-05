@@ -3,354 +3,833 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>S4 Chemistry – Unit 1: Atomic Structure | Jackson Habimana</title>
+<title>S4 Chemistry – Unit 1: Structure of an Atom &amp; Mass Spectrum</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Serif+4:wght@300;400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
 <style>
-:root{--bg:#0d1117;--surface:#161b22;--surface2:#1c2333;--border:#30363d;--accent:#38bdf8;--green:#34d399;--red:#f87171;--text:#e6edf3;--muted:#8b949e;--radius:10px;}
-*{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
-body{background:var(--bg);color:var(--text);font-family:'Source Serif 4',Georgia,serif;font-size:17px;line-height:1.75;}
-nav{position:sticky;top:0;z-index:200;background:rgba(13,17,23,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
-.nav-inner{max-width:1060px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:.7rem 1.5rem;}
-.nav-brand{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--accent);text-decoration:none;}
-.nav-links{display:flex;gap:1.2rem;}.nav-links a{color:var(--muted);text-decoration:none;font-size:.85rem;}.nav-links a:hover{color:var(--accent);}
-.hero{background:linear-gradient(135deg,#001a2e,#0d1117);border-bottom:1px solid var(--border);padding:3rem 1.5rem 2rem;}
-.hero-inner{max-width:1060px;margin:0 auto;}
-.badge{display:inline-block;background:rgba(56,189,248,.12);color:var(--accent);border:1px solid rgba(56,189,248,.3);border-radius:20px;padding:.3rem 1rem;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:1rem;}
-.hero h1{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.2;margin-bottom:.6rem;}
-.hero h1 span{color:var(--accent);}
-.hero-meta{display:flex;gap:1rem;flex-wrap:wrap;font-size:.84rem;color:var(--muted);margin-top:1rem;}
-.toc{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:var(--radius);padding:1.2rem 1.5rem;max-width:1060px;margin:1.5rem auto;width:calc(100% - 3rem);}
-.toc h3{font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:.8rem;}
-.toc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.3rem .8rem;}
-.toc-grid a{color:var(--muted);text-decoration:none;font-size:.88rem;}.toc-grid a:hover{color:var(--accent);}
-main{max-width:1060px;margin:0 auto;padding:1rem 1.5rem 4rem;}
-section{margin-bottom:3rem;scroll-margin-top:80px;}
-.sec-head{display:flex;align-items:baseline;gap:.8rem;margin-bottom:1.2rem;padding-bottom:.5rem;border-bottom:1px solid var(--border);}
-.sec-num{font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--accent);background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.2);border-radius:5px;padding:.2rem .6rem;}
-.sec-head h2{font-family:'Playfair Display',serif;font-size:1.45rem;}
-p{margin-bottom:.9rem;}
-.key{background:rgba(56,189,248,.07);border:1px solid rgba(56,189,248,.2);border-left:4px solid var(--accent);border-radius:var(--radius);padding:1.1rem 1.4rem;margin:1.2rem 0;}
-.key .kl{font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:.4rem;}
-.note{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.1rem 1.4rem;margin:1.2rem 0;}
-.eq{font-family:'JetBrains Mono',monospace;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:.8rem 1.1rem;margin:.8rem 0;font-size:.93rem;overflow-x:auto;}
-table{width:100%;border-collapse:collapse;margin:1.2rem 0;font-size:.9rem;}
-th{background:var(--surface2);color:var(--accent);padding:.65rem .9rem;text-align:left;border:1px solid var(--border);}
-td{padding:.6rem .9rem;border:1px solid var(--border);vertical-align:top;}
-tr:nth-child(even) td{background:rgba(255,255,255,.02);}
-.worked{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.3rem;margin:1.2rem 0;}
-.worked .wt{font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--green);margin-bottom:.7rem;}
-.step{display:flex;gap:.7rem;margin:.4rem 0;}
-.sn{flex-shrink:0;width:1.5rem;height:1.5rem;background:var(--accent);color:#0d1117;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;margin-top:.2rem;}
-/* QUIZ */
-.qcard{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin-top:1rem;}
-.qcard h3{font-family:'Playfair Display',serif;color:var(--accent);margin-bottom:1rem;}
-.qi{margin:.9rem 0;padding-left:1.1rem;border-left:2px solid var(--border);}
-.qi:hover{border-left-color:var(--accent);}
-.qn{font-size:.74rem;color:var(--accent);font-family:'JetBrains Mono',monospace;}
-.ans{display:none;margin-top:.4rem;font-size:.88rem;color:var(--green);font-style:italic;}
-.sa{background:none;border:1px solid var(--border);color:var(--muted);font-size:.74rem;border-radius:4px;padding:.15rem .5rem;cursor:pointer;margin-top:.3rem;}
-.sa:hover{border-color:var(--accent);color:var(--accent);}
-.mk{float:right;font-size:.74rem;color:var(--muted);font-family:'JetBrains Mono',monospace;}
-.unit-nav{display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--border);}
-.unit-nav a{color:var(--accent);text-decoration:none;font-size:.9rem;}
-footer{background:var(--surface);border-top:1px solid var(--border);text-align:center;padding:1.2rem;font-size:.8rem;color:var(--muted);}
-footer a{color:var(--accent);text-decoration:none;}
+  :root{--bg:#0d1117;--surface:#161b22;--surface2:#1c2333;--border:#30363d;--accent:#38bdf8;--accent2:#f97316;--gold:#e8c547;--green:#34d399;--red:#f87171;--text:#e6edf3;--muted:#8b949e;--radius:10px;}
+  *{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+  body{background:var(--bg);color:var(--text);font-family:'Source Serif 4',Georgia,serif;font-size:17px;line-height:1.75;overflow-x:hidden;}
+  .hero{position:relative;padding:80px 40px 60px;text-align:center;overflow:hidden;background:radial-gradient(ellipse 80% 60% at 50% 0%,#001528 0%,var(--bg) 70%);border-bottom:1px solid var(--border);}
+  .hero::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(56,189,248,.04) 40px),repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(56,189,248,.04) 40px);pointer-events:none;}
+  .badge{display:inline-block;background:rgba(56,189,248,.12);border:1px solid rgba(56,189,248,.3);color:var(--accent);padding:4px 16px;border-radius:50px;font-size:.78rem;font-family:'JetBrains Mono',monospace;letter-spacing:.12em;text-transform:uppercase;margin-bottom:22px;}
+  .hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.4rem);line-height:1.15;color:#fff;max-width:820px;margin:0 auto 18px;}
+  .hero h1 em{color:var(--accent);font-style:italic;}
+  .hero p.sub{color:var(--muted);font-size:1rem;max-width:640px;margin:0 auto 32px;}
+  .toc-grid{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:860px;margin:0 auto;}
+  .toc-grid a{background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:8px 18px;border-radius:50px;text-decoration:none;font-size:.85rem;transition:all .2s;font-family:'JetBrains Mono',monospace;}
+  .toc-grid a:hover{background:var(--accent);color:#000;border-color:var(--accent);}
+  .page{max-width:960px;margin:0 auto;padding:0 28px 80px;}
+  .section-header{display:flex;align-items:center;gap:16px;margin:64px 0 28px;padding-bottom:14px;border-bottom:2px solid var(--border);}
+  .section-number{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--accent);background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.25);padding:4px 12px;border-radius:4px;white-space:nowrap;}
+  .section-header h2{font-family:'Playfair Display',serif;font-size:1.75rem;color:#fff;}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:26px 30px;margin-bottom:22px;}
+  .card h3{font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--gold);margin-bottom:12px;}
+  .card p+p{margin-top:12px;}
+  .def-box{border-left:4px solid var(--accent);background:rgba(56,189,248,.07);border-radius:0 var(--radius) var(--radius) 0;padding:18px 22px;margin:20px 0;}
+  .def-box strong{color:var(--accent);display:block;font-size:.78rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;}
+  .callout{border-radius:var(--radius);padding:18px 22px;margin:20px 0;display:flex;gap:14px;align-items:flex-start;}
+  .callout.info{background:rgba(56,189,248,.08);border:1px solid rgba(56,189,248,.25);}
+  .callout.warn{background:rgba(249,115,22,.08);border:1px solid rgba(249,115,22,.25);}
+  .callout.tip{background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.25);}
+  .callout-icon{font-size:1.3rem;margin-top:2px;flex-shrink:0;}
+  .callout-body strong{display:block;margin-bottom:4px;font-size:.9rem;color:#fff;}
+  .tbl-wrap{overflow-x:auto;margin:20px 0;border-radius:var(--radius);border:1px solid var(--border);}
+  table{width:100%;border-collapse:collapse;}
+  thead tr{background:var(--surface2);}
+  th{padding:13px 16px;text-align:left;font-size:.82rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);white-space:nowrap;}
+  td{padding:12px 16px;border-top:1px solid var(--border);font-size:.9rem;}
+  tr:hover td{background:rgba(255,255,255,.02);}
+  .formula-block{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:20px 26px;margin:16px 0;font-family:'JetBrains Mono',monospace;font-size:.93rem;color:var(--accent);overflow-x:auto;white-space:pre-wrap;}
+  .example-box{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin:26px 0;}
+  .example-header{background:rgba(232,197,71,.1);border-bottom:1px solid rgba(232,197,71,.2);padding:14px 22px;display:flex;align-items:center;gap:12px;}
+  .example-header span.tag{font-family:'JetBrains Mono',monospace;font-size:.72rem;background:var(--gold);color:#000;padding:3px 10px;border-radius:4px;font-weight:600;}
+  .example-header h4{color:var(--gold);font-family:'Playfair Display',serif;font-size:1rem;}
+  .example-body{padding:22px 26px;}
+  .example-body .q{margin-bottom:14px;font-weight:600;}
+  .example-body .step{display:flex;gap:14px;margin:10px 0;}
+  .step-num{min-width:28px;height:28px;background:rgba(56,189,248,.15);border:1px solid rgba(56,189,248,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--accent);flex-shrink:0;margin-top:3px;}
+  .step-text{flex:1;}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:20px 0;}
+  @media(max-width:640px){.two-col{grid-template-columns:1fr;}}
+  .diagram-wrap{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin:20px 0;overflow-x:auto;}
+  .diagram-wrap svg{display:block;margin:0 auto;}
+  .exercise-list{list-style:none;counter-reset:ex;}
+  .exercise-list li{counter-increment:ex;margin-bottom:16px;padding:16px 20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);}
+  .exercise-list li::before{content:'Q' counter(ex) '.';font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--accent);display:block;margin-bottom:6px;}
+  .reveal-btn{margin-top:10px;background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.3);color:var(--accent);padding:6px 16px;border-radius:6px;cursor:pointer;font-size:.82rem;font-family:'JetBrains Mono',monospace;transition:all .2s;}
+  .reveal-btn:hover{background:var(--accent);color:#000;}
+  .answer{display:none;margin-top:12px;padding:12px 16px;background:rgba(56,189,248,.06);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-size:.9rem;}
+  .answer.open{display:block;}
+  .quiz-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-top:32px;}
+  .quiz-header{background:rgba(56,189,248,.1);border-bottom:1px solid rgba(56,189,248,.2);padding:16px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+  .quiz-header h3{font-family:'Playfair Display',serif;color:var(--accent);font-size:1.2rem;}
+  .quiz-body{padding:24px;}
+  .q-block{margin-bottom:26px;padding-bottom:26px;border-bottom:1px solid var(--border);}
+  .q-block:last-of-type{border-bottom:none;}
+  .q-text{font-weight:600;margin-bottom:12px;color:#fff;}
+  .q-num{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--accent);display:block;margin-bottom:4px;}
+  .options{display:flex;flex-direction:column;gap:8px;}
+  .opt{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:all .18s;font-size:.92rem;}
+  .opt:hover{border-color:var(--accent);}
+  .opt input{margin-top:3px;accent-color:var(--accent);}
+  .opt.correct{background:rgba(52,211,153,.12);border-color:var(--green)!important;color:var(--green);}
+  .opt.wrong{background:rgba(248,113,113,.1);border-color:var(--red)!important;color:var(--red);}
+  .q-exp{display:none;margin-top:10px;padding:10px 14px;background:rgba(56,189,248,.07);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-size:.88rem;}
+  .qs{background:var(--accent);color:#000;border:none;padding:12px 32px;border-radius:8px;font-size:1rem;font-family:'JetBrains Mono',monospace;cursor:pointer;font-weight:700;transition:opacity .2s;}
+  .qs:hover{opacity:.85;}
+  #qR{display:none;margin-top:18px;padding:16px 22px;border-radius:var(--radius);font-family:'JetBrains Mono',monospace;font-weight:700;font-size:1rem;text-align:center;}
+  .test-wrap{margin-top:40px;}
+  .test-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:28px;}
+  .test-sh{background:rgba(249,115,22,.1);border-bottom:1px solid rgba(249,115,22,.2);padding:14px 24px;display:flex;justify-content:space-between;align-items:center;}
+  .test-sh h3{font-family:'Playfair Display',serif;color:var(--accent2);font-size:1.1rem;}
+  .mb{font-family:'JetBrains Mono',monospace;font-size:.75rem;background:rgba(249,115,22,.2);color:var(--accent2);padding:4px 12px;border-radius:50px;}
+  .test-body{padding:24px;}
+  .tq{margin-bottom:20px;padding:16px 18px;background:var(--surface2);border-radius:8px;border:1px solid var(--border);}
+  .tqn{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--accent2);margin-bottom:6px;display:block;}
+  .rb{margin-top:12px;background:rgba(249,115,22,.1);border:1px solid rgba(249,115,22,.3);color:var(--accent2);padding:6px 16px;border-radius:6px;cursor:pointer;font-size:.82rem;font-family:'JetBrains Mono',monospace;transition:all .2s;}
+  .rb:hover{background:var(--accent2);color:#000;}
+  .ans{display:none;margin-top:12px;padding:12px 16px;background:rgba(249,115,22,.06);border-left:3px solid var(--accent2);border-radius:0 6px 6px 0;font-size:.9rem;line-height:1.7;}
+  .ans.open{display:block;}
+  .nav{display:flex;justify-content:space-between;align-items:center;margin-top:72px;padding-top:32px;border-top:1px solid var(--border);flex-wrap:wrap;gap:16px;}
+  .nb{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:8px;text-decoration:none;font-family:'JetBrains Mono',monospace;font-size:.85rem;transition:all .2s;}
+  .nb.p{background:var(--surface);border:1px solid var(--border);color:var(--muted);}
+  .nb.p:hover{border-color:var(--accent);color:var(--accent);}
+  .nb.n{background:var(--accent);color:#000;font-weight:700;}
+  .nb.n:hover{opacity:.88;}
+  h3.sub{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--gold);margin:28px 0 10px;}
+  sub,sup{font-size:.72em;}
+  @media(max-width:600px){.hero{padding:50px 20px 40px;}.page{padding:0 16px 60px;}}
 </style>
 </head>
 <body>
-<nav><div class="nav-inner">
-  <a class="nav-brand" href="index.html">⚗ Jackson Habimana</a>
-  <div class="nav-links"><a href="s4-chemistry.html">S4 Course</a><a href="s5-chemistry.html">S5</a><a href="s6-chemistry.html">S6</a></div>
-</div></nav>
+<div id="sitenav" style="position:sticky;top:0;z-index:200;background:rgba(13,17,23,.95);backdrop-filter:blur(12px);border-bottom:1px solid #30363d;padding:0 28px;font-family:JetBrains Mono,monospace;"><div style="max-width:960px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:52px;gap:12px;"><a href="index.html" style="font-size:.78rem;color:#38bdf8;text-decoration:none;letter-spacing:.06em;white-space:nowrap;">&#9883; Habimana</a><div style="display:flex;gap:4px;flex-wrap:wrap;"><a href="index.html" style="font-size:.72rem;color:#8b949e;text-decoration:none;padding:4px 12px;border-radius:5px;border:1px solid transparent;">Home</a><a href="s4-chemistry.html" style="font-size:.72rem;color:#38bdf8;text-decoration:none;padding:4px 12px;border-radius:5px;background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.25);">S4</a><a href="s5-chemistry.html" style="font-size:.72rem;color:#8b949e;text-decoration:none;padding:4px 12px;border-radius:5px;border:1px solid transparent;">S5</a><a href="s6-chemistry.html" style="font-size:.72rem;color:#8b949e;text-decoration:none;padding:4px 12px;border-radius:5px;border:1px solid transparent;">S6</a></div></div></div>
 
-<header class="hero"><div class="hero-inner">
-  <div class="badge">S4 · Unit 1</div>
-  <h1>Structure of an Atom &amp;<br><span>Mass Spectrum</span></h1>
-  <p style="color:var(--muted);max-width:580px;margin-top:.5rem;">Subatomic particles, isotopes, relative atomic mass, the mass spectrometer, and mass spectra interpretation.</p>
-  <div class="hero-meta"><span>📚 6 Sections</span><span>🧪 25 Quiz Questions</span><span>📝 50-Mark Test</span></div>
-</div></header>
-
-<div class="toc"><h3>Contents</h3><div class="toc-grid">
-  <a href="#s1">1.1 Discovery of Subatomic Particles</a>
-  <a href="#s2">1.2 Atomic Number &amp; Mass Number</a>
-  <a href="#s3">1.3 Isotopes</a>
-  <a href="#s4">1.4 Relative Atomic Mass</a>
-  <a href="#s5">1.5 The Mass Spectrometer</a>
-  <a href="#s6">1.6 Mass Spectra</a>
-  <a href="#quiz">Quiz (25 Qs)</a><a href="#test">50-Mark Test</a>
-</div></div>
-
-<main>
-<section id="s1">
-  <div class="sec-head"><span class="sec-num">1.1</span><h2>Discovery of Subatomic Particles</h2></div>
-  <p>The modern atom was revealed through landmark experiments. Dalton (1803) proposed indivisible atoms; later experiments proved atoms have internal structure.</p>
-  <table>
-    <tr><th>Particle</th><th>Discoverer</th><th>Experiment</th><th>Charge</th><th>Mass (u)</th><th>Location</th></tr>
-    <tr><td><strong>Electron</strong></td><td>J.J. Thomson (1897)</td><td>Cathode ray tube — rays deflected by electric/magnetic fields</td><td>−1</td><td>1/1840 ≈ 0</td><td>Orbitals around nucleus</td></tr>
-    <tr><td><strong>Proton</strong></td><td>Rutherford (1919)</td><td>Alpha particle bombardment of nitrogen</td><td>+1</td><td>1</td><td>Nucleus</td></tr>
-    <tr><td><strong>Neutron</strong></td><td>Chadwick (1932)</td><td>Beryllium bombarded with α-particles → neutral radiation</td><td>0</td><td>1</td><td>Nucleus</td></tr>
-  </table>
-  <div class="key"><div class="kl">Rutherford's Nuclear Model (1911)</div>
-  <p>Gold foil experiment: most α-particles passed straight through, but a few deflected at large angles, some bounced back. Conclusion: the atom is mostly empty space with a tiny, dense, positively charged <strong>nucleus</strong>.</p></div>
-</section>
-
-<section id="s2">
-  <div class="sec-head"><span class="sec-num">1.2</span><h2>Atomic Number and Mass Number</h2></div>
-  <div class="key"><div class="kl">Key Definitions</div>
-  <p><strong>Atomic number (Z)</strong> = number of protons in the nucleus. Defines the element.<br>
-  <strong>Mass number (A)</strong> = number of protons + neutrons (nucleons).<br>
-  <strong>Number of neutrons</strong> = A − Z</p></div>
-  <div class="eq">Notation: ᴬ_Z X &nbsp; e.g. ²³_₁₁Na means A=23, Z=11, so 11 protons, 12 neutrons, 11 electrons</div>
-  <p>In a neutral atom: number of electrons = number of protons = Z.</p>
-  <p>In ions: cations have lost electrons (fewer e⁻ than protons); anions have gained electrons (more e⁻ than protons).</p>
-  <table>
-    <tr><th>Species</th><th>Z (protons)</th><th>A (mass no.)</th><th>Neutrons</th><th>Electrons</th></tr>
-    <tr><td>²³Na</td><td>11</td><td>23</td><td>12</td><td>11</td></tr>
-    <tr><td>²³Na⁺</td><td>11</td><td>23</td><td>12</td><td>10</td></tr>
-    <tr><td>³⁵Cl</td><td>17</td><td>35</td><td>18</td><td>17</td></tr>
-    <tr><td>³⁵Cl⁻</td><td>17</td><td>35</td><td>18</td><td>18</td></tr>
-  </table>
-</section>
-
-<section id="s3">
-  <div class="sec-head"><span class="sec-num">1.3</span><h2>Isotopes</h2></div>
-  <div class="key"><div class="kl">Definition</div>
-  <p><strong>Isotopes</strong> are atoms of the same element (same Z) with different mass numbers (different number of neutrons).</p></div>
-  <table>
-    <tr><th>Element</th><th>Isotopes</th><th>Protons</th><th>Neutrons</th><th>Natural abundance</th></tr>
-    <tr><td>Hydrogen</td><td>¹H (protium), ²H (deuterium), ³H (tritium)</td><td>1</td><td>0, 1, 2</td><td>99.98%, 0.02%, trace</td></tr>
-    <tr><td>Carbon</td><td>¹²C, ¹³C, ¹⁴C</td><td>6</td><td>6, 7, 8</td><td>98.9%, 1.1%, trace</td></tr>
-    <tr><td>Chlorine</td><td>³⁵Cl, ³⁷Cl</td><td>17</td><td>18, 20</td><td>75%, 25%</td></tr>
-    <tr><td>Uranium</td><td>²³⁵U, ²³⁸U</td><td>92</td><td>143, 146</td><td>0.72%, 99.27%</td></tr>
-  </table>
-  <p>Isotopes have <strong>identical chemical properties</strong> (same electron configuration) but <strong>different physical properties</strong> (different mass → different density, boiling point, diffusion rate).</p>
-</section>
-
-<section id="s4">
-  <div class="sec-head"><span class="sec-num">1.4</span><h2>Relative Atomic Mass</h2></div>
-  <div class="key"><div class="kl">Definition</div>
-  <p><strong>Relative atomic mass (Aᵣ)</strong> is the weighted mean mass of atoms of an element compared to 1/12 the mass of a ¹²C atom.</p></div>
-  <div class="eq">Aᵣ = Σ (isotope mass × fractional abundance)</div>
-  <div class="worked"><div class="wt">Worked Example — Chlorine</div>
-    <p>³⁵Cl: mass = 35, abundance = 75.77% &nbsp;|&nbsp; ³⁷Cl: mass = 37, abundance = 24.23%</p>
-    <div class="step"><div class="sn">1</div><div>Aᵣ = (35 × 0.7577) + (37 × 0.2423)</div></div>
-    <div class="step"><div class="sn">2</div><div>= 26.52 + 8.97 = <strong style="color:var(--accent)">35.49</strong></div></div>
+<div class="hero">
+  <div class="badge">S4 Chemistry · Unit 1</div>
+  <h1>Structure of an Atom &amp;<br><em>Mass Spectrum</em></h1>
+  <p class="sub">Discovery of subatomic particles, atomic notation, isotopes, relative atomic mass, the mass spectrometer, and interpretation of mass spectra.</p>
+  <div class="toc-grid">
+    <a href="#s11">1.1 Discovery</a>
+    <a href="#s12">1.2 Atomic Numbers</a>
+    <a href="#s13">1.3 Relative Atomic Mass</a>
+    <a href="#s14">1.4 Mass Spectrometer</a>
+    <a href="#s15">1.5 Mass Spectra</a>
+    <a href="#s16">1.6 Uses &amp; Calculations</a>
+    <a href="#exercises">Exercises</a>
+    <a href="#quiz">Quiz</a>
+    <a href="#test">Unit Test</a>
   </div>
-  <div class="worked"><div class="wt">Worked Example — Boron</div>
-    <p>¹⁰B: 19.9% &nbsp;|&nbsp; ¹¹B: 80.1%</p>
-    <div class="step"><div class="sn">1</div><div>Aᵣ = (10 × 0.199) + (11 × 0.801) = 1.99 + 8.81 = <strong style="color:var(--accent)">10.80</strong></div></div>
-  </div>
-</section>
+</div>
 
-<section id="s5">
-  <div class="sec-head"><span class="sec-num">1.5</span><h2>The Mass Spectrometer</h2></div>
-  <p>The mass spectrometer separates ions by their mass-to-charge ratio (m/z) and measures the relative abundance of each.</p>
-  <table>
-    <tr><th>Stage</th><th>Name</th><th>What happens</th></tr>
-    <tr><td>1</td><td><strong>Vaporisation</strong></td><td>Sample is vaporised into a gas</td></tr>
-    <tr><td>2</td><td><strong>Ionisation</strong></td><td>Electrons fired at gas atoms → knock out electrons → positive ions formed (M → M⁺ + e⁻)</td></tr>
-    <tr><td>3</td><td><strong>Acceleration</strong></td><td>Positive ions accelerated by electric field to high speed</td></tr>
-    <tr><td>4</td><td><strong>Deflection</strong></td><td>Ions deflected by magnetic field — lighter ions deflect more; heavier ions deflect less</td></tr>
-    <tr><td>5</td><td><strong>Detection</strong></td><td>Ions hit detector, produce current proportional to abundance</td></tr>
-  </table>
-  <div class="key"><div class="kl">Key Point</div>
-  <p>Only <strong>positive ions</strong> are detected. The magnetic field separates ions of different m/z values. A graph of relative abundance vs m/z gives the <strong>mass spectrum</strong>.</p></div>
-</section>
+<main class="page">
 
-<section id="s6">
-  <div class="sec-head"><span class="sec-num">1.6</span><h2>Interpreting Mass Spectra</h2></div>
-  <p>Each peak in a mass spectrum corresponds to an isotope. The x-axis shows m/z (≈ mass number for singly charged ions) and the y-axis shows relative abundance (%).</p>
-  <div class="worked"><div class="wt">Worked Example — Calculate Aᵣ from Mass Spectrum of Neon</div>
-    <p>Peaks: m/z = 20 (abundance 90.9%), m/z = 21 (0.3%), m/z = 22 (8.8%)</p>
-    <div class="step"><div class="sn">1</div><div>Aᵣ = (20×90.9 + 21×0.3 + 22×8.8) / (90.9+0.3+8.8)</div></div>
-    <div class="step"><div class="sn">2</div><div>= (1818 + 6.3 + 193.6) / 100 = 2017.9/100 = <strong style="color:var(--accent)">20.18</strong></div></div>
+<!-- 1.1 -->
+<div class="section-header" id="s11">
+  <span class="section-number">1.1</span>
+  <h2>Discovery of Atomic Constituents &amp; Their Properties</h2>
+</div>
+
+<div class="card">
+  <h3>The Story of the Atom</h3>
+  <p>The modern atom was revealed through a series of landmark experiments. Each discovery overturned an earlier model and added a new layer of structure.</p>
+</div>
+
+<h3 class="sub">Dalton's Atomic Theory (1803)</h3>
+<div class="card">
+  <p>John Dalton proposed that matter is made of indivisible, indestructible atoms. All atoms of a given element are identical in mass and properties; atoms of different elements differ in mass. Compounds form when atoms combine in fixed whole-number ratios. This model could not explain electrical phenomena, and later experiments proved atoms contain smaller particles.</p>
+</div>
+
+<h3 class="sub">Discovery of the Electron — J.J. Thomson (1897)</h3>
+<div class="card">
+  <p>Using cathode ray tubes, Thomson showed that cathode rays consist of negatively charged particles deflected by electric and magnetic fields. He measured the charge-to-mass ratio: e/m<sub>e</sub> = 1.76 × 10<sup>11</sup> C kg<sup>−1</sup>. This proved atoms contain sub-atomic particles and are divisible.</p>
+  <p><strong>Thomson's Plum Pudding Model:</strong> the atom is a uniform sphere of positive charge with electrons embedded within it — like plums in a pudding.</p>
+</div>
+
+<h3 class="sub">Rutherford's Gold Foil Experiment (1909–1911)</h3>
+<div class="card">
+  <p>Rutherford, Geiger, and Marsden fired alpha particles at thin gold foil. Results:</p>
+  <ul style="margin:10px 0 0 20px;line-height:2.1;">
+    <li>Most α-particles passed straight through → atom is mostly empty space.</li>
+    <li>A few deflected at large angles → a positive charge repels the positive α-particles.</li>
+    <li>A very small number bounced back → a tiny, dense, positive <strong>nucleus</strong> exists.</li>
+  </ul>
+  <p style="margin-top:12px;">This disproved Thomson's model. If charge were diffuse (plum pudding), only tiny deflections would occur — back-scattering is impossible without a concentrated mass.</p>
+</div>
+
+<div class="diagram-wrap">
+<svg viewBox="0 0 620 210" width="620" height="210" xmlns="http://www.w3.org/2000/svg">
+  <text x="28" y="12" fill="#8b949e" font-size="9" font-family="JetBrains Mono">SOURCE</text>
+  <rect x="10" y="88" width="38" height="28" rx="4" fill="rgba(56,189,248,.15)" stroke="#38bdf8" stroke-width="1"/>
+  <text x="29" y="105" text-anchor="middle" fill="#38bdf8" font-size="9" font-family="JetBrains Mono">α</text>
+  <!-- Gold foil -->
+  <rect x="278" y="20" width="7" height="172" fill="rgba(232,197,71,.2)" stroke="#e8c547" stroke-width="1"/>
+  <text x="281" y="205" text-anchor="middle" fill="#e8c547" font-size="9" font-family="JetBrains Mono">foil</text>
+  <!-- Nucleus -->
+  <circle cx="281" cy="102" r="5" fill="#f87171"/>
+  <!-- Straight through -->
+  <line x1="48" y1="102" x2="278" y2="102" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="285" y1="102" x2="610" y2="102" stroke="#38bdf8" stroke-width="1.5"/>
+  <text x="520" y="93" fill="#8b949e" font-size="9" font-family="JetBrains Mono">most pass through</text>
+  <!-- Slight deflection -->
+  <line x1="48" y1="108" x2="278" y2="128" stroke="#34d399" stroke-width="1.2" stroke-dasharray="4,3"/>
+  <line x1="285" y1="131" x2="490" y2="175" stroke="#34d399" stroke-width="1.2"/>
+  <text x="430" y="188" fill="#34d399" font-size="9" font-family="JetBrains Mono">small deflection</text>
+  <!-- Large backscatter -->
+  <line x1="48" y1="97" x2="278" y2="77" stroke="#f87171" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <path d="M 281 71 Q 265 50 230 62 L 80 40" fill="none" stroke="#f87171" stroke-width="1.5"/>
+  <text x="30" y="34" fill="#f87171" font-size="9" font-family="JetBrains Mono">back-scatter (rare)</text>
+  <defs><marker id="a2" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3z" fill="#38bdf8"/></marker></defs>
+</svg>
+</div>
+
+<h3 class="sub">Discovery of the Proton — Rutherford (1919)</h3>
+<div class="card">
+  <p>Rutherford bombarded nitrogen with alpha particles and detected hydrogen nuclei — named <strong>protons</strong>. Protons carry charge +1 (1.6 × 10<sup>−19</sup> C) and mass ≈ 1 u, and reside in the nucleus.</p>
+</div>
+
+<h3 class="sub">Discovery of the Neutron — Chadwick (1932)</h3>
+<div class="card">
+  <p>Chadwick bombarded beryllium with alpha particles and detected neutral, penetrating radiation that ejected protons from paraffin wax. He identified these as <strong>neutrons</strong> — neutral particles of mass ≈ 1 u in the nucleus. Neutrons explain why atomic mass is roughly double atomic number for lighter elements.</p>
+</div>
+
+<h3 class="sub">Properties of Subatomic Particles</h3>
+<div class="tbl-wrap"><table>
+  <thead><tr><th>Particle</th><th>Symbol</th><th>Relative Mass</th><th>Relative Charge</th><th>Location</th></tr></thead>
+  <tbody>
+    <tr><td>Proton</td><td>p⁺</td><td>1</td><td>+1</td><td>Nucleus</td></tr>
+    <tr><td>Neutron</td><td>n⁰</td><td>1</td><td>0</td><td>Nucleus</td></tr>
+    <tr><td>Electron</td><td>e⁻</td><td>1/1836 ≈ 0</td><td>−1</td><td>Shells outside nucleus</td></tr>
+  </tbody>
+</table></div>
+
+<div class="callout info"><span class="callout-icon">ℹ️</span><div class="callout-body"><strong>Neutral atom</strong>In a neutral atom: number of protons = number of electrons. The nucleus is positive because protons outweigh the effect of neutral neutrons.</div></div>
+
+<!-- 1.2 -->
+<div class="section-header" id="s12">
+  <span class="section-number">1.2</span>
+  <h2>Atomic Number, Mass Number &amp; Isotopic Mass</h2>
+</div>
+
+<div class="two-col">
+  <div class="def-box"><strong>Atomic Number (Z)</strong>The number of protons in the nucleus. Defines the element — unique to each element. In a neutral atom, Z also equals the number of electrons.</div>
+  <div class="def-box"><strong>Mass Number (A)</strong>The total number of protons + neutrons (nucleons) in the nucleus.<br>A = Z + N &nbsp;→&nbsp; N = A − Z</div>
+</div>
+
+<div class="card">
+  <h3>Standard Nuclear Notation</h3>
+  <div class="formula-block">  ᴬX     e.g.  ²³Na  → A=23, Z=11
+  ᶻ            protons=11, neutrons=23−11=12</div>
+  <p style="margin-top:10px;">The superscript is the mass number; the subscript is the atomic number.</p>
+</div>
+
+<div class="def-box"><strong>Isotopes</strong>Atoms of the same element (same Z) with different mass numbers (different number of neutrons). Same chemical properties (same electron config), different physical properties (different mass).</div>
+
+<div class="tbl-wrap"><table>
+  <thead><tr><th>Element</th><th>Isotope</th><th>Protons (Z)</th><th>Neutrons</th><th>Mass No. (A)</th></tr></thead>
+  <tbody>
+    <tr><td>Hydrogen</td><td>¹H (protium)</td><td>1</td><td>0</td><td>1</td></tr>
+    <tr><td>Hydrogen</td><td>²H (deuterium)</td><td>1</td><td>1</td><td>2</td></tr>
+    <tr><td>Hydrogen</td><td>³H (tritium)</td><td>1</td><td>2</td><td>3</td></tr>
+    <tr><td>Carbon</td><td>¹²C</td><td>6</td><td>6</td><td>12</td></tr>
+    <tr><td>Carbon</td><td>¹³C</td><td>6</td><td>7</td><td>13</td></tr>
+    <tr><td>Carbon</td><td>¹⁴C</td><td>6</td><td>8</td><td>14</td></tr>
+    <tr><td>Chlorine</td><td>³⁵Cl</td><td>17</td><td>18</td><td>35</td></tr>
+    <tr><td>Chlorine</td><td>³⁷Cl</td><td>17</td><td>20</td><td>37</td></tr>
+  </tbody>
+</table></div>
+
+<div class="def-box"><strong>Isotopic Mass</strong>The exact mass of one atom of a specific isotope, measured relative to 1/12 the mass of ¹²C. Isotopic masses are close to (but not exactly) whole numbers due to nuclear binding energy (mass defect).</div>
+
+<div class="callout tip"><span class="callout-icon">💡</span><div class="callout-body"><strong>Why isotopes have the same chemistry</strong>Chemical behaviour is governed by electron configuration, which depends only on the number of protons (Z). Neutrons sit in the nucleus and play no role in bonding.</div></div>
+
+<!-- 1.3 -->
+<div class="section-header" id="s13">
+  <span class="section-number">1.3</span>
+  <h2>Calculation of Relative Atomic Mass</h2>
+</div>
+
+<div class="def-box"><strong>Relative Atomic Mass (Aᵣ)</strong>The weighted mean mass of an atom of an element relative to 1/12 the mass of a ¹²C atom. Accounts for the natural abundance of each isotope.</div>
+
+<div class="formula-block">Aᵣ = Σ (isotopic mass × fractional abundance)
+   = (m₁ × a₁) + (m₂ × a₂) + ...    where aᵢ = % abundance ÷ 100</div>
+
+<div class="example-box">
+  <div class="example-header"><span class="tag">WORKED EXAMPLE</span><h4>Aᵣ of Chlorine</h4></div>
+  <div class="example-body">
+    <div class="q">³⁵Cl (75.0%) and ³⁷Cl (25.0%). Calculate Aᵣ(Cl).</div>
+    <div class="step"><div class="step-num">1</div><div class="step-text">Convert % → fractions: ³⁵Cl = 0.750, ³⁷Cl = 0.250</div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-text">Aᵣ = (35 × 0.750) + (37 × 0.250) = 26.25 + 9.25</div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-text"><strong>Aᵣ(Cl) = 35.5</strong></div></div>
   </div>
-  <p>For <strong>diatomic molecules</strong> like Cl₂, the mass spectrum shows peaks for all isotope combinations: ³⁵Cl³⁵Cl (m/z=70), ³⁵Cl³⁷Cl (m/z=72), ³⁷Cl³⁷Cl (m/z=74) in ratio 9:6:1.</p>
-</section>
+</div>
+
+<div class="example-box">
+  <div class="example-header"><span class="tag">WORKED EXAMPLE</span><h4>Aᵣ of Boron</h4></div>
+  <div class="example-body">
+    <div class="q">¹⁰B (19.9%) and ¹¹B (80.1%). Calculate Aᵣ(B).</div>
+    <div class="step"><div class="step-num">1</div><div class="step-text">Aᵣ = (10 × 0.199) + (11 × 0.801) = 1.99 + 8.811</div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-text"><strong>Aᵣ(B) = 10.8</strong></div></div>
+  </div>
+</div>
+
+<div class="example-box">
+  <div class="example-header"><span class="tag">WORKED EXAMPLE</span><h4>Finding % Abundance from Aᵣ</h4></div>
+  <div class="example-body">
+    <div class="q">An element has two isotopes at m/z = 63 and m/z = 65. Aᵣ = 63.5. Find each % abundance.</div>
+    <div class="step"><div class="step-num">1</div><div class="step-text">Let x = fraction of m/z 63. Then (1−x) = fraction of m/z 65.</div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-text">63.5 = (63 × x) + (65 × (1−x)) = 63x + 65 − 65x = 65 − 2x</div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-text">2x = 65 − 63.5 = 1.5 → x = 0.75</div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-text"><strong>m/z 63 = 75%, m/z 65 = 25%</strong></div></div>
+  </div>
+</div>
+
+<!-- 1.4 -->
+<div class="section-header" id="s14">
+  <span class="section-number">1.4</span>
+  <h2>Description &amp; Functioning of the Mass Spectrometer</h2>
+</div>
+
+<div class="card"><h3>Purpose</h3><p>The mass spectrometer separates ions by their mass-to-charge ratio (m/z) to determine isotopic masses, natural abundances, relative atomic and molecular masses, and molecular structures.</p></div>
+
+<div class="tbl-wrap"><table>
+  <thead><tr><th>Stage</th><th>What Happens</th></tr></thead>
+  <tbody>
+    <tr><td><strong>1. Vaporisation</strong></td><td>Sample is heated to produce gaseous atoms or molecules. Required for ions to travel freely through the vacuum.</td></tr>
+    <tr><td><strong>2. Ionisation</strong></td><td>High-energy electrons (70 eV) bombard the gas, knocking out one electron per atom: M → M⁺ + e⁻. This is electron impact (EI) ionisation. All ions carry +1 charge.</td></tr>
+    <tr><td><strong>3. Acceleration</strong></td><td>Ions are accelerated through a high-voltage electric field. All ions gain the same kinetic energy (KE = qV). Lighter ions travel faster: v = √(2qV/m).</td></tr>
+    <tr><td><strong>4. Deflection</strong></td><td>Ions enter a magnetic field. Lighter ions (lower m/z) are deflected more; only ions of a specific m/z reach the detector as the field is varied.</td></tr>
+    <tr><td><strong>5. Detection</strong></td><td>Ions hit the detector and generate an electrical current proportional to ion abundance. The output is a mass spectrum (m/z vs relative abundance).</td></tr>
+  </tbody>
+</table></div>
+
+<div class="diagram-wrap">
+<svg viewBox="0 0 700 175" width="700" height="175" xmlns="http://www.w3.org/2000/svg">
+  <text x="50" y="14" text-anchor="middle" fill="#8b949e" font-size="9" font-family="JetBrains Mono">VAPORISE</text>
+  <text x="168" y="14" text-anchor="middle" fill="#8b949e" font-size="9" font-family="JetBrains Mono">IONISE</text>
+  <text x="288" y="14" text-anchor="middle" fill="#8b949e" font-size="9" font-family="JetBrains Mono">ACCELERATE</text>
+  <text x="430" y="14" text-anchor="middle" fill="#8b949e" font-size="9" font-family="JetBrains Mono">DEFLECT</text>
+  <text x="615" y="14" text-anchor="middle" fill="#8b949e" font-size="9" font-family="JetBrains Mono">DETECT</text>
+  <rect x="10" y="24" width="78" height="46" rx="5" fill="rgba(56,189,248,.1)" stroke="#38bdf8" stroke-width="1"/>
+  <text x="49" y="50" text-anchor="middle" fill="#e6edf3" font-size="10" font-family="JetBrains Mono">Sample</text>
+  <text x="49" y="63" text-anchor="middle" fill="#8b949e" font-size="9" font-family="JetBrains Mono">Chamber</text>
+  <rect x="128" y="24" width="78" height="46" rx="5" fill="rgba(56,189,248,.1)" stroke="#38bdf8" stroke-width="1"/>
+  <text x="167" y="50" text-anchor="middle" fill="#e6edf3" font-size="10" font-family="JetBrains Mono">Electron</text>
+  <text x="167" y="63" text-anchor="middle" fill="#8b949e" font-size="9" font-family="JetBrains Mono">Gun</text>
+  <rect x="248" y="24" width="78" height="46" rx="5" fill="rgba(56,189,248,.1)" stroke="#38bdf8" stroke-width="1"/>
+  <text x="287" y="50" text-anchor="middle" fill="#e6edf3" font-size="10" font-family="JetBrains Mono">Electric</text>
+  <text x="287" y="63" text-anchor="middle" fill="#8b949e" font-size="9" font-family="JetBrains Mono">Plates</text>
+  <rect x="390" y="24" width="78" height="46" rx="5" fill="rgba(56,189,248,.1)" stroke="#38bdf8" stroke-width="1"/>
+  <text x="429" y="50" text-anchor="middle" fill="#e6edf3" font-size="10" font-family="JetBrains Mono">Magnet</text>
+  <text x="429" y="63" text-anchor="middle" fill="#8b949e" font-size="9" font-family="JetBrains Mono">Field</text>
+  <rect x="572" y="105" width="96" height="46" rx="5" fill="rgba(52,211,153,.1)" stroke="#34d399" stroke-width="1"/>
+  <text x="620" y="131" text-anchor="middle" fill="#34d399" font-size="10" font-family="JetBrains Mono">Detector</text>
+  <text x="620" y="144" text-anchor="middle" fill="#8b949e" font-size="9" font-family="JetBrains Mono">(recorder)</text>
+  <!-- Straight arrows -->
+  <line x1="88" y1="47" x2="126" y2="47" stroke="#38bdf8" stroke-width="1.5" marker-end="url(#ar)"/>
+  <line x1="206" y1="47" x2="246" y2="47" stroke="#38bdf8" stroke-width="1.5" marker-end="url(#ar)"/>
+  <line x1="326" y1="47" x2="388" y2="47" stroke="#38bdf8" stroke-width="1.5" marker-end="url(#ar)"/>
+  <!-- Curved path from deflect to detect -->
+  <path d="M 468 47 L 510 47 Q 530 47 530 120 L 530 128" fill="none" stroke="#38bdf8" stroke-width="1.5"/>
+  <line x1="530" y1="128" x2="571" y2="128" stroke="#38bdf8" stroke-width="1.5" marker-end="url(#ar)"/>
+  <text x="350" y="170" text-anchor="middle" fill="#8b949e" font-size="9" font-family="JetBrains Mono">High vacuum throughout</text>
+  <defs><marker id="ar" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3z" fill="#38bdf8"/></marker></defs>
+</svg>
+</div>
+
+<div class="callout warn"><span class="callout-icon">⚠️</span><div class="callout-body"><strong>High vacuum is essential</strong>Without a vacuum, ions would collide with air molecules, scattering them unpredictably and preventing accurate m/z measurement.</div></div>
+
+<!-- 1.5 -->
+<div class="section-header" id="s15">
+  <span class="section-number">1.5</span>
+  <h2>Interpretation of Mass Spectra</h2>
+</div>
+
+<div class="card">
+  <h3>Reading a Mass Spectrum</h3>
+  <p><strong>x-axis:</strong> m/z (mass-to-charge ratio). For singly charged ions (z=1), this equals the mass number.</p>
+  <p><strong>y-axis:</strong> Relative abundance (%). The tallest peak = <strong>base peak</strong> = 100% — the most abundant ion.</p>
+  <p>Each peak corresponds to one isotope. Peak height ∝ abundance of that isotope.</p>
+</div>
+
+<h3 class="sub">Chlorine Mass Spectrum</h3>
+<div class="diagram-wrap">
+<svg viewBox="0 0 480 220" width="480" height="220" xmlns="http://www.w3.org/2000/svg">
+  <text x="240" y="18" text-anchor="middle" fill="#e6edf3" font-size="13" font-family="Playfair Display" font-weight="bold">Mass Spectrum of Chlorine</text>
+  <line x1="65" y1="178" x2="450" y2="178" stroke="#30363d" stroke-width="1.5"/>
+  <line x1="65" y1="32" x2="65" y2="178" stroke="#30363d" stroke-width="1.5"/>
+  <text x="57" y="182" text-anchor="end" fill="#8b949e" font-size="9" font-family="JetBrains Mono">0</text>
+  <text x="57" y="132" text-anchor="end" fill="#8b949e" font-size="9" font-family="JetBrains Mono">50</text>
+  <text x="57" y="82" text-anchor="end" fill="#8b949e" font-size="9" font-family="JetBrains Mono">75</text>
+  <text x="57" y="37" text-anchor="end" fill="#8b949e" font-size="9" font-family="JetBrains Mono">100</text>
+  <line x1="65" y1="132" x2="450" y2="132" stroke="#30363d" stroke-width=".5" stroke-dasharray="3,4"/>
+  <line x1="65" y1="82" x2="450" y2="82" stroke="#30363d" stroke-width=".5" stroke-dasharray="3,4"/>
+  <line x1="65" y1="37" x2="450" y2="37" stroke="#30363d" stroke-width=".5" stroke-dasharray="3,4"/>
+  <!-- 35Cl 75% → height = 75% of 141px range = 106px from bottom → top = 178-106 = 72 -->
+  <rect x="170" y="72" width="42" height="106" fill="rgba(56,189,248,.55)" stroke="#38bdf8" stroke-width="1.5" rx="2"/>
+  <!-- 37Cl 25% → height = 35px → top = 143 -->
+  <rect x="320" y="143" width="42" height="35" fill="rgba(56,189,248,.3)" stroke="#38bdf8" stroke-width="1.5" rx="2"/>
+  <text x="191" y="65" text-anchor="middle" fill="#38bdf8" font-size="10" font-family="JetBrains Mono">75%</text>
+  <text x="341" y="136" text-anchor="middle" fill="#38bdf8" font-size="10" font-family="JetBrains Mono">25%</text>
+  <text x="191" y="195" text-anchor="middle" fill="#e6edf3" font-size="11" font-family="JetBrains Mono">35</text>
+  <text x="341" y="195" text-anchor="middle" fill="#e6edf3" font-size="11" font-family="JetBrains Mono">37</text>
+  <text x="191" y="160" text-anchor="middle" fill="#fff" font-size="9" font-family="JetBrains Mono">³⁵Cl</text>
+  <text x="341" y="162" text-anchor="middle" fill="#fff" font-size="9" font-family="JetBrains Mono">³⁷Cl</text>
+  <text x="257" y="212" text-anchor="middle" fill="#8b949e" font-size="10" font-family="JetBrains Mono">m/z</text>
+  <text x="14" y="110" text-anchor="middle" fill="#8b949e" font-size="9" font-family="JetBrains Mono" transform="rotate(-90,14,110)">Relative Abundance (%)</text>
+</svg>
+</div>
+
+<div class="card">
+  <h3>Calculating Aᵣ from the Spectrum</h3>
+  <p>Use the formula with % abundances directly (divide by total):</p>
+  <div class="formula-block">Aᵣ = (35×75 + 37×25) / (75+25) = (2625 + 925) / 100 = 35.5</div>
+</div>
+
+<div class="card">
+  <h3>Neon Mass Spectrum Example</h3>
+  <p>Neon has three isotopes: ²⁰Ne (90.48%), ²¹Ne (0.27%), ²²Ne (9.25%). Three peaks appear at m/z = 20, 21, 22. The base peak is m/z = 20 (most abundant).</p>
+  <div class="formula-block">Aᵣ(Ne) = (20×90.48 + 21×0.27 + 22×9.25) / 100
+         = (1809.6 + 5.67 + 203.5) / 100 = 20.2</div>
+</div>
+
+<!-- 1.6 -->
+<div class="section-header" id="s16">
+  <span class="section-number">1.6</span>
+  <h2>Uses of the Mass Spectrometer &amp; Calculations</h2>
+</div>
+
+<div class="tbl-wrap"><table>
+  <thead><tr><th>Use</th><th>Details</th></tr></thead>
+  <tbody>
+    <tr><td>Isotope identification</td><td>Determines the exact masses and natural abundances of all isotopes of an element.</td></tr>
+    <tr><td>Calculating Aᵣ</td><td>Uses peak positions (m/z) and heights (abundance) to compute weighted mean atomic mass.</td></tr>
+    <tr><td>Relative molecular mass (Mᵣ)</td><td>The molecular ion peak M⁺ gives the Mᵣ of a compound directly.</td></tr>
+    <tr><td>Structural determination</td><td>Fragmentation patterns reveal functional groups and molecular structure in organic chemistry.</td></tr>
+    <tr><td>Radiocarbon dating</td><td>Measures ¹²C/¹⁴C ratio to date ancient organic samples (archaeology, geology).</td></tr>
+    <tr><td>Drug testing / forensics</td><td>Identifies substances by unique mass spectra — "molecular fingerprinting".</td></tr>
+    <tr><td>Quality control</td><td>Used in pharmaceuticals, food science, and environmental monitoring.</td></tr>
+    <tr><td>Space exploration</td><td>Mars rovers carry mass spectrometers to analyse atmospheric/soil composition.</td></tr>
+  </tbody>
+</table></div>
+
+<div class="example-box">
+  <div class="example-header"><span class="tag">WORKED EXAMPLE</span><h4>Copper — Aᵣ from Mass Spectrum</h4></div>
+  <div class="example-body">
+    <div class="q">Mass spectrum of Cu: m/z = 63 (69.2%) and m/z = 65 (30.8%). Calculate Aᵣ(Cu).</div>
+    <div class="step"><div class="step-num">1</div><div class="step-text">Aᵣ = (63×69.2 + 65×30.8) / 100</div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-text">= (4359.6 + 2002) / 100 = 6361.6 / 100</div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-text"><strong>Aᵣ(Cu) = 63.6</strong></div></div>
+  </div>
+</div>
+
+<div class="example-box">
+  <div class="example-header"><span class="tag">WORKED EXAMPLE</span><h4>Bromine — Finding % Abundance from Aᵣ</h4></div>
+  <div class="example-body">
+    <div class="q">Br has two isotopes: ⁷⁹Br and ⁸¹Br. Aᵣ(Br) = 79.9. Find each % abundance.</div>
+    <div class="step"><div class="step-num">1</div><div class="step-text">Let x = fraction of ⁷⁹Br. 79.9 = (79×x) + (81×(1−x))</div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-text">79.9 = 79x + 81 − 81x = 81 − 2x → 2x = 1.1 → x = 0.55</div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-text"><strong>⁷⁹Br = 55.0%, ⁸¹Br = 45.0%</strong> — base peak at m/z = 79.</div></div>
+  </div>
+</div>
+
+<!-- EXERCISES -->
+<div class="section-header" id="exercises">
+  <span class="section-number">✏️</span>
+  <h2>Exercises</h2>
+</div>
+<ul class="exercise-list">
+  <li>An atom has the symbol ⁵⁶Fe. State the number of protons, neutrons, and electrons in a neutral iron atom.
+    <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+    <div class="answer">Z(Fe) = 26: protons = 26, neutrons = 56 − 26 = 30, electrons = 26 (neutral). ²⁶p, ³⁰n, ²⁶e⁻.</div>
+  </li>
+  <li>Describe the key observations and conclusions of Rutherford's gold foil experiment. Why did it disprove Thomson's plum pudding model?
+    <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+    <div class="answer"><strong>Observations:</strong> (1) Most α-particles passed straight through. (2) Some were deflected at large angles. (3) A very small number bounced back. <strong>Conclusions:</strong> (1) Atom is mostly empty space. (2) Positive charge and most mass are concentrated in a tiny dense nucleus. (3) Electrons orbit outside at a distance. <strong>Disproves plum pudding:</strong> A diffuse positive sphere can only cause small deflections — it cannot account for large-angle scattering or back-scatter, which require a concentrated nuclear mass.</div>
+  </li>
+  <li>Magnesium has three isotopes: ²⁴Mg (78.99%), ²⁵Mg (10.00%), ²⁶Mg (11.01%). Calculate Aᵣ(Mg).
+    <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+    <div class="answer">Aᵣ = (24×0.7899) + (25×0.1000) + (26×0.1101) = 18.9576 + 2.500 + 2.8626 = <strong>24.32</strong></div>
+  </li>
+  <li>Name and describe the five stages of the mass spectrometer. Why is a vacuum required throughout?
+    <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+    <div class="answer">(1) Vaporisation — sample heated to gas phase. (2) Ionisation — high-energy electrons (electron gun) remove one electron per atom to form M⁺ ions. (3) Acceleration — ions accelerated through a high voltage; all ions gain the same KE, so lighter ions move faster. (4) Deflection — magnetic field curves ion paths; lighter ions (lower m/z) deflected more; only one m/z reaches the detector per field setting. (5) Detection — ion current recorded as a function of m/z, producing the mass spectrum. <br>Vacuum: prevents ions colliding with air molecules, which would scatter them and destroy the m/z signal.</div>
+  </li>
+  <li>The mass spectrum of lead shows: ²⁰⁴Pb (1.4%), ²⁰⁶Pb (24.1%), ²⁰⁷Pb (22.1%), ²⁰⁸Pb (52.4%). Calculate Aᵣ(Pb).
+    <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+    <div class="answer">Aᵣ = (204×1.4 + 206×24.1 + 207×22.1 + 208×52.4) / 100<br>= (285.6 + 4944.6 + 4574.7 + 10899.2) / 100 = 20704.1 / 100 = <strong>207.0</strong></div>
+  </li>
+  <li>An element Q has two isotopes: ᵐ¹Q (60%) and ᵐ²Q (40%) where m₁ = 63 and m₂ = 65. A student says Aᵣ = 64 (the simple average). Without calculating, predict whether the true Aᵣ is above or below 64, then verify.
+    <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+    <div class="answer">Since m/z = 63 is more abundant (60% &gt; 40%), the Aᵣ is pulled towards 63, so it should be <em>below</em> 64. <br>Aᵣ = (63×0.60) + (65×0.40) = 37.8 + 26.0 = <strong>63.8</strong> ✓ (below 64, closer to 63).</div>
+  </li>
+</ul>
 
 <!-- QUIZ -->
-<section id="quiz">
-  <div class="sec-head"><span class="sec-num">QUIZ</span><h2>25-Question Quiz</h2></div>
-  <div class="qcard"><h3>Questions — Click "Show" for each answer</h3>
+<div class="section-header" id="quiz">
+  <span class="section-number">🧪</span>
+  <h2>Multiple Choice Quiz — 25 Questions</h2>
+</div>
+<div class="quiz-wrap">
+  <div class="quiz-header"><h3>Unit 1 Quiz</h3><span style="font-family:'JetBrains Mono',monospace;font-size:.82rem;color:var(--muted);">Select one answer per question</span></div>
+  <div class="quiz-body">
 
-    <div class="qi"><div class="qn">Q1</div><p>State the charge and mass of a proton, neutron, and electron.</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button>
-    <div class="ans">Proton: charge +1, mass 1 u. Neutron: charge 0, mass 1 u. Electron: charge −1, mass ≈ 0 (1/1840 u).</div></div>
+  <div class="q-block"><span class="q-num">Q1</span><div class="q-text">Who first proposed that atoms are indivisible solid spheres?</div><div class="options">
+    <label class="opt"><input type="radio" name="q1" value="A"/>Rutherford</label>
+    <label class="opt"><input type="radio" name="q1" value="B"/>Thomson</label>
+    <label class="opt"><input type="radio" name="q1" value="C"/>Dalton</label>
+    <label class="opt"><input type="radio" name="q1" value="D"/>Chadwick</label>
+  </div><div class="q-exp" id="eq1">Dalton (1803) proposed the indivisible atom. Thomson later discovered electrons, disproving this.</div></div>
 
-    <div class="qi"><div class="qn">Q2</div><p>Define atomic number and mass number.</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button>
-    <div class="ans">Atomic number (Z) = number of protons. Mass number (A) = number of protons + neutrons.</div></div>
+  <div class="q-block"><span class="q-num">Q2</span><div class="q-text">Thomson discovered electrons using:</div><div class="options">
+    <label class="opt"><input type="radio" name="q2" value="A"/>Gold foil experiment</label>
+    <label class="opt"><input type="radio" name="q2" value="B"/>Cathode ray tubes</label>
+    <label class="opt"><input type="radio" name="q2" value="C"/>Alpha particle scattering</label>
+    <label class="opt"><input type="radio" name="q2" value="D"/>Beryllium bombardment</label>
+  </div><div class="q-exp" id="eq2">Thomson used cathode ray tubes to deflect cathode rays with electric/magnetic fields, measuring e/m of electrons.</div></div>
 
-    <div class="qi"><div class="qn">Q3</div><p>How many protons, neutrons, and electrons does ⁵⁶Fe have?</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button>
-    <div class="ans">Z=26 → 26 protons, 26 electrons. Neutrons = 56−26 = 30.</div></div>
+  <div class="q-block"><span class="q-num">Q3</span><div class="q-text">In Rutherford's gold foil experiment, what did most alpha particles do?</div><div class="options">
+    <label class="opt"><input type="radio" name="q3" value="A"/>Were absorbed by the foil</label>
+    <label class="opt"><input type="radio" name="q3" value="B"/>Bounced directly back</label>
+    <label class="opt"><input type="radio" name="q3" value="C"/>Passed straight through</label>
+    <label class="opt"><input type="radio" name="q3" value="D"/>Were deflected by 90°</label>
+  </div><div class="q-exp" id="eq3">Most alpha particles passed straight through because the atom is mostly empty space.</div></div>
 
-    <div class="qi"><div class="qn">Q4</div><p>Define isotopes. Give one example with two isotopes.</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button>
-    <div class="ans">Isotopes are atoms of the same element with the same number of protons but different numbers of neutrons. Example: ¹²C and ¹³C both have 6 protons but 6 and 7 neutrons respectively.</div></div>
+  <div class="q-block"><span class="q-num">Q4</span><div class="q-text">Who discovered the neutron?</div><div class="options">
+    <label class="opt"><input type="radio" name="q4" value="A"/>Rutherford</label>
+    <label class="opt"><input type="radio" name="q4" value="B"/>Bohr</label>
+    <label class="opt"><input type="radio" name="q4" value="C"/>Chadwick</label>
+    <label class="opt"><input type="radio" name="q4" value="D"/>Thomson</label>
+  </div><div class="q-exp" id="eq4">James Chadwick discovered the neutron in 1932 by bombarding beryllium with alpha particles.</div></div>
 
-    <div class="qi"><div class="qn">Q5</div><p>Why do isotopes have the same chemical properties?</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button>
-    <div class="ans">Because chemical properties depend on the number and arrangement of electrons, which is the same for all isotopes of an element.</div></div>
+  <div class="q-block"><span class="q-num">Q5</span><div class="q-text">The atomic number (Z) equals the number of:</div><div class="options">
+    <label class="opt"><input type="radio" name="q5" value="A"/>Neutrons in the nucleus</label>
+    <label class="opt"><input type="radio" name="q5" value="B"/>Protons in the nucleus</label>
+    <label class="opt"><input type="radio" name="q5" value="C"/>Electrons in the outer shell</label>
+    <label class="opt"><input type="radio" name="q5" value="D"/>Nucleons in the nucleus</label>
+  </div><div class="q-exp" id="eq5">Z = number of protons. This uniquely defines the element. In a neutral atom Z also = number of electrons.</div></div>
 
-    <div class="qi"><div class="qn">Q6</div><p>Define relative atomic mass.</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button>
-    <div class="ans">The weighted mean mass of atoms of an element compared to 1/12 the mass of one atom of carbon-12.</div></div>
+  <div class="q-block"><span class="q-num">Q6</span><div class="q-text">How many electrons does ⁴⁰Ca²⁺ have?</div><div class="options">
+    <label class="opt"><input type="radio" name="q6" value="A"/>20</label>
+    <label class="opt"><input type="radio" name="q6" value="B"/>18</label>
+    <label class="opt"><input type="radio" name="q6" value="C"/>22</label>
+    <label class="opt"><input type="radio" name="q6" value="D"/>40</label>
+  </div><div class="q-exp" id="eq6">Ca has Z=20 → 20 electrons neutral. Ca²⁺ loses 2 electrons: 20−2 = 18.</div></div>
 
-    <div class="qi"><div class="qn">Q7</div><p>Bromine has two isotopes: ⁷⁹Br (50.5%) and ⁸¹Br (49.5%). Calculate Aᵣ.</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button>
-    <div class="ans">Aᵣ = (79×0.505) + (81×0.495) = 39.895 + 40.095 = 79.99 ≈ 80.0</div></div>
+  <div class="q-block"><span class="q-num">Q7</span><div class="q-text">Isotopes of the same element differ in the number of:</div><div class="options">
+    <label class="opt"><input type="radio" name="q7" value="A"/>Protons</label>
+    <label class="opt"><input type="radio" name="q7" value="B"/>Electrons</label>
+    <label class="opt"><input type="radio" name="q7" value="C"/>Neutrons</label>
+    <label class="opt"><input type="radio" name="q7" value="D"/>Energy levels</label>
+  </div><div class="q-exp" id="eq7">Isotopes: same Z (protons), different A (mass number), therefore different neutrons.</div></div>
 
-    <div class="qi"><div class="qn">Q8</div><p>State the five stages of the mass spectrometer in order.</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button>
-    <div class="ans">1. Vaporisation 2. Ionisation 3. Acceleration 4. Deflection (by magnetic field) 5. Detection</div></div>
+  <div class="q-block"><span class="q-num">Q8</span><div class="q-text">The relative atomic mass is defined relative to:</div><div class="options">
+    <label class="opt"><input type="radio" name="q8" value="A"/>1/12 mass of ¹H atom</label>
+    <label class="opt"><input type="radio" name="q8" value="B"/>1/12 mass of ¹²C atom</label>
+    <label class="opt"><input type="radio" name="q8" value="C"/>Mass of a proton</label>
+    <label class="opt"><input type="radio" name="q8" value="D"/>Mass of a neutron</label>
+  </div><div class="q-exp" id="eq8">By IUPAC definition, Aᵣ is on the ¹²C scale: 1 u = 1/12 × mass of one ¹²C atom.</div></div>
 
-    <div class="qi"><div class="qn">Q9</div><p>Why must the inside of a mass spectrometer be kept at very low pressure (vacuum)?</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button>
-    <div class="ans">To prevent ions colliding with air molecules, which would deflect them and give inaccurate results.</div></div>
+  <div class="q-block"><span class="q-num">Q9</span><div class="q-text">³⁵Cl (75%) and ³⁷Cl (25%). What is Aᵣ(Cl)?</div><div class="options">
+    <label class="opt"><input type="radio" name="q9" value="A"/>36.0</label>
+    <label class="opt"><input type="radio" name="q9" value="B"/>35.0</label>
+    <label class="opt"><input type="radio" name="q9" value="C"/>35.5</label>
+    <label class="opt"><input type="radio" name="q9" value="D"/>36.5</label>
+  </div><div class="q-exp" id="eq9">Aᵣ = (35×0.75)+(37×0.25) = 26.25+9.25 = 35.5</div></div>
 
-    <div class="qi"><div class="qn">Q10</div><p>In a mass spectrometer, which ions are deflected more by the magnetic field — heavier or lighter ions? Explain.</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button>
-    <div class="ans">Lighter ions are deflected more because the magnetic force causes greater change in direction for particles of smaller mass travelling at the same speed.</div></div>
+  <div class="q-block"><span class="q-num">Q10</span><div class="q-text">In the mass spectrometer, ions are separated by their:</div><div class="options">
+    <label class="opt"><input type="radio" name="q10" value="A"/>Charge only</label>
+    <label class="opt"><input type="radio" name="q10" value="B"/>Mass only</label>
+    <label class="opt"><input type="radio" name="q10" value="C"/>Mass-to-charge ratio (m/z)</label>
+    <label class="opt"><input type="radio" name="q10" value="D"/>Speed only</label>
+  </div><div class="q-exp" id="eq10">The deflection in the magnetic field depends on m/z. Lighter ions are deflected more.</div></div>
 
-    <div class="qi"><div class="qn">Q11</div><p>What does the x-axis of a mass spectrum represent?</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button>
-    <div class="ans">Mass-to-charge ratio (m/z). For singly charged ions (z=1), this equals the mass number of the isotope.</div></div>
+  <div class="q-block"><span class="q-num">Q11</span><div class="q-text">Which stage converts atoms to positive ions in the mass spectrometer?</div><div class="options">
+    <label class="opt"><input type="radio" name="q11" value="A"/>Acceleration</label>
+    <label class="opt"><input type="radio" name="q11" value="B"/>Deflection</label>
+    <label class="opt"><input type="radio" name="q11" value="C"/>Vaporisation</label>
+    <label class="opt"><input type="radio" name="q11" value="D"/>Ionisation</label>
+  </div><div class="q-exp" id="eq11">Ionisation: high-energy electrons from an electron gun knock out one electron per atom to form M⁺.</div></div>
 
-    <div class="qi"><div class="qn">Q12</div><p>What does the y-axis of a mass spectrum represent?</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button>
-    <div class="ans">Relative abundance (or relative intensity) — the proportion of each isotope present.</div></div>
+  <div class="q-block"><span class="q-num">Q12</span><div class="q-text">The base peak in a mass spectrum is:</div><div class="options">
+    <label class="opt"><input type="radio" name="q12" value="A"/>The smallest peak</label>
+    <label class="opt"><input type="radio" name="q12" value="B"/>The peak with highest m/z</label>
+    <label class="opt"><input type="radio" name="q12" value="C"/>The most abundant ion (100% relative abundance)</label>
+    <label class="opt"><input type="radio" name="q12" value="D"/>The molecular ion peak always</label>
+  </div><div class="q-exp" id="eq12">The base peak is the tallest peak, assigned 100% relative abundance — represents the most abundant ion.</div></div>
 
-    <div class="qi"><div class="qn">Q13</div><p>Silicon has three isotopes: ²⁸Si (92.2%), ²⁹Si (4.7%), ³⁰Si (3.1%). Calculate Aᵣ.</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button>
-    <div class="ans">Aᵣ = (28×0.922)+(29×0.047)+(30×0.031) = 25.816+1.363+0.930 = 28.11</div></div>
+  <div class="q-block"><span class="q-num">Q13</span><div class="q-text">How many neutrons are in ²³⁸U (Z = 92)?</div><div class="options">
+    <label class="opt"><input type="radio" name="q13" value="A"/>92</label>
+    <label class="opt"><input type="radio" name="q13" value="B"/>146</label>
+    <label class="opt"><input type="radio" name="q13" value="C"/>238</label>
+    <label class="opt"><input type="radio" name="q13" value="D"/>330</label>
+  </div><div class="q-exp" id="eq13">N = A − Z = 238 − 92 = 146 neutrons.</div></div>
 
-    <div class="qi"><div class="qn">Q14</div><p>State one difference between protons and neutrons.</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button>
-    <div class="ans">Protons have a charge of +1; neutrons have no charge (charge = 0). Both have mass ≈ 1 u.</div></div>
+  <div class="q-block"><span class="q-num">Q14</span><div class="q-text">Why must the mass spectrometer operate under high vacuum?</div><div class="options">
+    <label class="opt"><input type="radio" name="q14" value="A"/>To cool the ions down</label>
+    <label class="opt"><input type="radio" name="q14" value="B"/>To prevent ions colliding with air molecules</label>
+    <label class="opt"><input type="radio" name="q14" value="C"/>To increase ionisation rate</label>
+    <label class="opt"><input type="radio" name="q14" value="D"/>To allow slower ion movement</label>
+  </div><div class="q-exp" id="eq14">Without vacuum, ions would scatter off air molecules unpredictably, giving false m/z readings.</div></div>
 
-    <div class="qi"><div class="qn">Q15</div><p>An ion ²⁷Al³⁺ has how many electrons?</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button>
-    <div class="ans">Al has Z=13 (13 protons). Al³⁺ has lost 3 electrons → 13−3 = 10 electrons.</div></div>
+  <div class="q-block"><span class="q-num">Q15</span><div class="q-text">The relative charge of an electron is:</div><div class="options">
+    <label class="opt"><input type="radio" name="q15" value="A"/>+1</label>
+    <label class="opt"><input type="radio" name="q15" value="B"/>0</label>
+    <label class="opt"><input type="radio" name="q15" value="C"/>−1</label>
+    <label class="opt"><input type="radio" name="q15" value="D"/>−1/1836</label>
+  </div><div class="q-exp" id="eq15">Electron: relative charge = −1, relative mass ≈ 0 (1/1836). Proton: +1, mass = 1.</div></div>
 
-    <div class="qi"><div class="qn">Q16</div><p>What experiment did Rutherford perform and what did he conclude?</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button>
-    <div class="ans">Gold foil experiment — fired alpha particles at thin gold foil. Most passed through; some deflected at large angles. Conclusion: atoms are mostly empty space with a tiny, dense, positively charged nucleus.</div></div>
+  <div class="q-block"><span class="q-num">Q16</span><div class="q-text">Which is NOT a use of the mass spectrometer?</div><div class="options">
+    <label class="opt"><input type="radio" name="q16" value="A"/>Radiocarbon dating</label>
+    <label class="opt"><input type="radio" name="q16" value="B"/>Measuring melting points</label>
+    <label class="opt"><input type="radio" name="q16" value="C"/>Determining molecular mass</label>
+    <label class="opt"><input type="radio" name="q16" value="D"/>Identifying isotopes</label>
+  </div><div class="q-exp" id="eq16">Melting points are measured with a thermometer/melting point apparatus, not a mass spectrometer.</div></div>
 
-    <div class="qi"><div class="qn">Q17</div><p>What was the plum pudding model and who proposed it?</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button>
-    <div class="ans">J.J. Thomson proposed the plum pudding model: electrons (plums) embedded in a diffuse positive charge (pudding). Disproved by Rutherford's gold foil experiment.</div></div>
+  <div class="q-block"><span class="q-num">Q17</span><div class="q-text">Deuterium (²H) and protium (¹H) have the same:</div><div class="options">
+    <label class="opt"><input type="radio" name="q17" value="A"/>Mass number</label>
+    <label class="opt"><input type="radio" name="q17" value="B"/>Number of neutrons</label>
+    <label class="opt"><input type="radio" name="q17" value="C"/>Chemical properties</label>
+    <label class="opt"><input type="radio" name="q17" value="D"/>Physical properties</label>
+  </div><div class="q-exp" id="eq17">Same Z → same electron config → same chemical properties. Physical properties differ due to different mass.</div></div>
 
-    <div class="qi"><div class="qn">Q18</div><p>How is ionisation achieved in a mass spectrometer?</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button>
-    <div class="ans">Electron bombardment (EI) — high-energy electrons are fired at the vaporised sample, knocking out electrons to form positive ions: M + e⁻(fast) → M⁺ + 2e⁻</div></div>
+  <div class="q-block"><span class="q-num">Q18</span><div class="q-text">In the magnetic field of a mass spectrometer, heavier ions are deflected _______ lighter ions.</div><div class="options">
+    <label class="opt"><input type="radio" name="q18" value="A"/>More than</label>
+    <label class="opt"><input type="radio" name="q18" value="B"/>Less than</label>
+    <label class="opt"><input type="radio" name="q18" value="C"/>The same as</label>
+    <label class="opt"><input type="radio" name="q18" value="D"/>Not at all, unlike</label>
+  </div><div class="q-exp" id="eq18">Heavier ions have more inertia → harder to deflect → deflected less than lighter ions.</div></div>
 
-    <div class="qi"><div class="qn">Q19</div><p>Chlorine-35 makes up 75% and Chlorine-37 makes up 25% of natural chlorine. What is Aᵣ?</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button>
-    <div class="ans">Aᵣ = (35×0.75)+(37×0.25) = 26.25+9.25 = 35.50</div></div>
+  <div class="q-block"><span class="q-num">Q19</span><div class="q-text">Silicon: ²⁸Si (92%), ²⁹Si (5%), ³⁰Si (3%). Which value is closest to Aᵣ(Si)?</div><div class="options">
+    <label class="opt"><input type="radio" name="q19" value="A"/>28.0</label>
+    <label class="opt"><input type="radio" name="q19" value="B"/>28.1</label>
+    <label class="opt"><input type="radio" name="q19" value="C"/>29.0</label>
+    <label class="opt"><input type="radio" name="q19" value="D"/>28.5</label>
+  </div><div class="q-exp" id="eq19">Aᵣ ≈ (28×0.92)+(29×0.05)+(30×0.03) = 25.76+1.45+0.90 = 28.11 ≈ 28.1</div></div>
 
-    <div class="qi"><div class="qn">Q20</div><p>What is the mass-to-charge ratio (m/z) of a ⁴⁰Ca²⁺ ion?</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button>
-    <div class="ans">m/z = 40/2 = 20</div></div>
+  <div class="q-block"><span class="q-num">Q20</span><div class="q-text">A neutral atom has mass number 39 and 20 neutrons. Its atomic number is:</div><div class="options">
+    <label class="opt"><input type="radio" name="q20" value="A"/>20</label>
+    <label class="opt"><input type="radio" name="q20" value="B"/>59</label>
+    <label class="opt"><input type="radio" name="q20" value="C"/>19</label>
+    <label class="opt"><input type="radio" name="q20" value="D"/>39</label>
+  </div><div class="q-exp" id="eq20">Z = A − N = 39 − 20 = 19 (potassium, K).</div></div>
 
-    <div class="qi"><div class="qn">Q21</div><p>Why are isotopes useful in medicine? Give one example.</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button>
-    <div class="ans">Radioactive isotopes can be used as tracers or in cancer treatment. Example: ¹³¹I (iodine-131) is used to treat thyroid cancer as the thyroid absorbs iodine.</div></div>
+  <div class="q-block"><span class="q-num">Q21</span><div class="q-text">A neutral atom has 17 protons and 18 neutrons. Its symbol is:</div><div class="options">
+    <label class="opt"><input type="radio" name="q21" value="A"/>³⁵Cl</label>
+    <label class="opt"><input type="radio" name="q21" value="B"/>³⁷Cl</label>
+    <label class="opt"><input type="radio" name="q21" value="C"/>³⁵S</label>
+    <label class="opt"><input type="radio" name="q21" value="D"/>³⁷Ar</label>
+  </div><div class="q-exp" id="eq21">Z=17 → Cl. A = 17+18 = 35. → ³⁵Cl.</div></div>
 
-    <div class="qi"><div class="qn">Q22</div><p>Carbon-14 is used in radiocarbon dating. It has Z=6 and A=14. How many neutrons does it have?</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button>
-    <div class="ans">Neutrons = A − Z = 14 − 6 = 8 neutrons.</div></div>
+  <div class="q-block"><span class="q-num">Q22</span><div class="q-text">Which scientist proposed a dense, positive nucleus at the atom's centre?</div><div class="options">
+    <label class="opt"><input type="radio" name="q22" value="A"/>Dalton</label>
+    <label class="opt"><input type="radio" name="q22" value="B"/>Thomson</label>
+    <label class="opt"><input type="radio" name="q22" value="C"/>Rutherford</label>
+    <label class="opt"><input type="radio" name="q22" value="D"/>Chadwick</label>
+  </div><div class="q-exp" id="eq22">Rutherford's nuclear model (1911) proposed the dense positive nucleus from his gold foil experiment.</div></div>
 
-    <div class="qi"><div class="qn">Q23</div><p>The mass spectrum of an element shows peaks at m/z = 63 (69%) and m/z = 65 (31%). Calculate Aᵣ and identify the element.</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button>
-    <div class="ans">Aᵣ = (63×0.69)+(65×0.31) = 43.47+20.15 = 63.62 ≈ 63.6. The element is Copper (Cu, Z=29).</div></div>
+  <div class="q-block"><span class="q-num">Q23</span><div class="q-text">The ion ⁵⁶Fe³⁺ has how many electrons?</div><div class="options">
+    <label class="opt"><input type="radio" name="q23" value="A"/>26</label>
+    <label class="opt"><input type="radio" name="q23" value="B"/>23</label>
+    <label class="opt"><input type="radio" name="q23" value="C"/>29</label>
+    <label class="opt"><input type="radio" name="q23" value="D"/>30</label>
+  </div><div class="q-exp" id="eq23">Fe: Z=26. Fe³⁺ loses 3 electrons: 26−3 = 23 electrons.</div></div>
 
-    <div class="qi"><div class="qn">Q24</div><p>Give two physical properties that differ between isotopes.</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button>
-    <div class="ans">Any two of: density, boiling point, melting point, rate of diffusion, nuclear stability (radioactivity).</div></div>
+  <div class="q-block"><span class="q-num">Q24</span><div class="q-text">Electron impact ionisation in the mass spectrometer produces:</div><div class="options">
+    <label class="opt"><input type="radio" name="q24" value="A"/>M⁻ anions</label>
+    <label class="opt"><input type="radio" name="q24" value="B"/>M²⁺ cations</label>
+    <label class="opt"><input type="radio" name="q24" value="C"/>M⁺ cations</label>
+    <label class="opt"><input type="radio" name="q24" value="D"/>Neutral radicals</label>
+  </div><div class="q-exp" id="eq24">EI removes one electron per atom: M → M⁺ + e⁻. Singly charged positive ions are formed.</div></div>
 
-    <div class="qi"><div class="qn">Q25</div><p>In the mass spectrum of Cl₂, three peaks appear at m/z = 70, 72, 74. Explain what causes each peak.</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button>
-    <div class="ans">m/z=70: ³⁵Cl–³⁵Cl (35+35). m/z=72: ³⁵Cl–³⁷Cl (35+37). m/z=74: ³⁷Cl–³⁷Cl (37+37). The ratio of peak heights is 9:6:1.</div></div>
+  <div class="q-block"><span class="q-num">Q25</span><div class="q-text">Mass spectrum: m/z=10 (20%), m/z=11 (80%). Aᵣ = ?</div><div class="options">
+    <label class="opt"><input type="radio" name="q25" value="A"/>10.5</label>
+    <label class="opt"><input type="radio" name="q25" value="B"/>10.2</label>
+    <label class="opt"><input type="radio" name="q25" value="C"/>10.8</label>
+    <label class="opt"><input type="radio" name="q25" value="D"/>11.0</label>
+  </div><div class="q-exp" id="eq25">Aᵣ = (10×20+11×80)/100 = (200+880)/100 = 10.8 — this is boron.</div></div>
+
+  <div style="margin-top:28px;text-align:center;">
+    <button class="qs" onclick="submitQuiz()">Submit Quiz</button>
+    <div id="qR"></div>
   </div>
-</section>
+  </div>
+</div>
 
 <!-- TEST -->
-<section id="test">
-  <div class="sec-head"><span class="sec-num">TEST</span><h2>50-Mark Test</h2></div>
-  <p style="color:var(--muted);font-size:.88rem;margin-bottom:1rem;">Time: 60 minutes. Show all working.</p>
-  <div class="qcard"><h3>Section A — Short Answer (20 marks)</h3>
+<div class="section-header" id="test">
+  <span class="section-number">📝</span>
+  <h2>Unit Test — 50 Marks</h2>
+</div>
+<div class="test-wrap">
+  <div class="test-section">
+    <div class="test-sh"><h3>Section A — Short Answer</h3><span class="mb">20 marks</span></div>
+    <div class="test-body">
 
-    <div class="qi"><div class="qn">A1 <span class="mk">[2]</span></div>
-    <p>State the location, charge and relative mass of each subatomic particle.</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
-    <div class="ans">Proton: nucleus, +1, 1 [½+½+½ — award 2 if all 3 particles correct]. Neutron: nucleus, 0, 1. Electron: orbitals/shells, −1, ≈0.</div></div>
+      <div class="tq"><span class="tqn">Q1 [4 marks]</span><p>Name the scientist who discovered each subatomic particle and briefly describe the experiment used: (a) electron [2]; (b) nucleus [1]; (c) neutron [1].</p>
+      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
+      <div class="ans">(a) J.J. Thomson (1897) — cathode ray tube experiment. Cathode rays deflected by electric/magnetic fields; measured e/m of electrons, proving they are negatively charged sub-atomic particles. [2] (b) Rutherford (1909–1911) — gold foil experiment. Back-scatter of alpha particles proved existence of a dense, positive nucleus. [1] (c) Chadwick (1932) — beryllium bombarded with alpha particles; neutral penetrating radiation ejecting protons from paraffin identified as neutrons. [1]</div></div>
 
-    <div class="qi"><div class="qn">A2 <span class="mk">[3]</span></div>
-    <p>Describe Rutherford's gold foil experiment. State three observations and the conclusion from each.</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
-    <div class="ans">[1] Most α-particles passed straight through → atom is mostly empty space. [1] Some deflected at large angles → there is a concentrated positive charge. [1] Very few bounced back → nucleus is tiny and very dense.</div></div>
+      <div class="tq"><span class="tqn">Q2 [4 marks]</span><p>³¹P (phosphorus, Z=15). (a) State the protons, neutrons, and electrons in neutral ³¹P. [3] (b) State the electron count in P³⁻. [1]</p>
+      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
+      <div class="ans">(a) Protons=15, neutrons=31−15=16, electrons=15. [3] (b) P³⁻ gains 3 electrons: 15+3=18 electrons. [1]</div></div>
 
-    <div class="qi"><div class="qn">A3 <span class="mk">[2]</span></div>
-    <p>Define isotope. State one way isotopes are chemically similar and one way they differ physically.</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
-    <div class="ans">[1] Atoms of the same element with the same number of protons but different numbers of neutrons. [½] Same chemical properties (same electron configuration). [½] Different physical properties e.g. different density/boiling point.</div></div>
+      <div class="tq"><span class="tqn">Q3 [4 marks]</span><p>Gallium: ⁶⁹Ga (60.1%) and ⁷¹Ga (39.9%). (a) Calculate Aᵣ(Ga) to 1 d.p. [2] (b) Identify the base peak and explain why. [2]</p>
+      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
+      <div class="ans">(a) Aᵣ = (69×0.601)+(71×0.399) = 41.469+28.329 = <strong>69.8</strong> [2] (b) Base peak at m/z=69 (⁶⁹Ga): it is more abundant (60.1%>39.9%), so more ⁶⁹Ga⁺ ions reach the detector, producing the largest signal. [2]</div></div>
 
-    <div class="qi"><div class="qn">A4 <span class="mk">[4]</span></div>
-    <p>Name and describe the five stages in the operation of a mass spectrometer.</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
-    <div class="ans">[4 × 1 mark — any 4 stages correctly named and described]: (1) Vaporisation — sample converted to gas. (2) Ionisation — electron bombardment removes electrons forming M⁺. (3) Acceleration — ions accelerated by electric field. (4) Deflection — magnetic field separates ions by m/z. (5) Detection — ions detected, current proportional to abundance.</div></div>
+      <div class="tq"><span class="tqn">Q4 [4 marks]</span><p>Explain why isotopes of an element have identical chemical properties but different physical properties. Give one example of a physical property that differs. [4]</p>
+      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
+      <div class="ans">Chemical properties depend on electrons [1], which depends on Z (proton number). Since isotopes have the same Z, they have identical electron configurations → identical chemical reactivity [1]. Physical properties depend on mass [1]. Since isotopes differ in neutron number, they have different masses → different physical properties, e.g. ¹H₂O (bp 100°C) vs ²H₂O (heavy water, bp 101.4°C); or different densities/rates of diffusion [1].</div></div>
 
-    <div class="qi"><div class="qn">A5 <span class="mk">[4]</span></div>
-    <p>For the ion ³²S²⁻, state the number of protons, neutrons, and electrons. Write its nuclear symbol.</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
-    <div class="ans">[1] Z=16 → 16 protons. [1] Neutrons = 32−16 = 16. [1] S²⁻ has gained 2e⁻ → 18 electrons. [1] Nuclear symbol: ³²₁₆S²⁻</div></div>
-
-    <div class="qi"><div class="qn">A6 <span class="mk">[5]</span></div>
-    <p>The mass spectrum of magnesium shows peaks: ²⁴Mg (78.7%), ²⁵Mg (10.0%), ²⁶Mg (11.3%). Calculate the Aᵣ of magnesium. Show full working.</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
-    <div class="ans">[1] Aᵣ = (24×0.787)+(25×0.100)+(26×0.113) [1] = 18.888+2.500+2.938 [1] = 24.326 [1] ≈ 24.3 [1 for correct answer to 3 s.f.]</div></div>
+      <div class="tq"><span class="tqn">Q5 [4 marks]</span><p>Describe the acceleration and deflection stages of the mass spectrometer, stating the physical quantity that determines ion behaviour at each stage. [4]</p>
+      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
+      <div class="ans"><strong>Acceleration [2]:</strong> Ions accelerated through a high-voltage electric field; all gain the same kinetic energy (KE=qV). Since KE=½mv², lighter ions reach higher speed. Property: mass (and charge). <strong>Deflection [2]:</strong> Ions travel through a magnetic field that curves their path. The radius of curvature depends on m/z — lighter ions (lower m/z) are deflected more (smaller radius). Varying field strength brings different m/z ions to the detector in sequence. Property: mass-to-charge ratio (m/z).</div></div>
+    </div>
   </div>
 
-  <div class="qcard" style="margin-top:1rem;"><h3>Section B — Calculations (20 marks)</h3>
-    <div class="qi"><div class="qn">B1 <span class="mk">[5]</span></div>
-    <p>An element X has two isotopes. The mass spectrum shows a peak at m/z=107 with relative abundance 52% and m/z=109 with 48%. Calculate Aᵣ. Identify the element and state how many protons and neutrons each isotope has (Z=47).</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
-    <div class="ans">[1] Aᵣ = (107×0.52)+(109×0.48) = 55.64+52.32 = 107.96 ≈ 108.0 [1] Element is Silver (Ag). [1] ¹⁰⁷Ag: 47 protons, 60 neutrons. [1] ¹⁰⁹Ag: 47 protons, 62 neutrons. [1 for both neutron counts correct]</div></div>
+  <div class="test-section">
+    <div class="test-sh"><h3>Section B — Extended Answer</h3><span class="mb">30 marks</span></div>
+    <div class="test-body">
 
-    <div class="qi"><div class="qn">B2 <span class="mk">[5]</span></div>
-    <p>An element has Aᵣ = 6.94 and two isotopes: ⁶Li and ⁷Li. Calculate the percentage abundance of each isotope.</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
-    <div class="ans">[1] Let x = fraction of ⁶Li, so (1−x) = fraction of ⁷Li. [1] 6x + 7(1−x) = 6.94. [1] 6x + 7 − 7x = 6.94 → −x = −0.06 → x = 0.06. [1] ⁶Li = 6%, ⁷Li = 94%. [1 check: (6×0.06)+(7×0.94) = 0.36+6.58 = 6.94 ✓]</div></div>
+      <div class="tq"><span class="tqn">Q6 [8 marks]</span><p>Trace the development of atomic models from Dalton to Rutherford. For each model state (i) what it proposed and (ii) the evidence that supported or overturned it. [8]</p>
+      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
+      <div class="ans"><strong>Dalton (1803) [2]:</strong> (i) Atoms are indivisible solid spheres; all atoms of one element are identical. Explained conservation of mass and definite proportions. (ii) Disproved when Thomson discovered electrons — atoms contain smaller particles. <br><strong>Thomson's plum pudding model (1904) [3]:</strong> (i) Atom is a uniform sphere of diffuse positive charge with electrons embedded within it; explains electrical neutrality. (ii) Supported by discovery of electrons (cathode rays). Disproved by Rutherford's gold foil — if charge were diffuse, back-scatter would be impossible. <br><strong>Rutherford's nuclear model (1911) [3]:</strong> (i) Atom mostly empty space; tiny dense positive nucleus at centre; electrons orbit at a distance. (ii) Gold foil experiment: most α through (empty space), some deflected (nucleus repels +α), tiny fraction back-scattered (dense nucleus). Limitation: could not explain stability of orbiting electrons (addressed later by Bohr and quantum mechanics).</div></div>
 
-    <div class="qi"><div class="qn">B3 <span class="mk">[5]</span></div>
-    <p>The mass spectrum of Cl₂ shows peaks at m/z = 70, 72 and 74. Given that ³⁵Cl has abundance 75% and ³⁷Cl has abundance 25%, calculate the expected ratio of the three peaks.</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
-    <div class="ans">[1] m/z=70 (³⁵Cl³⁵Cl): probability = 0.75×0.75 = 0.5625 [1] m/z=72 (³⁵Cl³⁷Cl): probability = 2×(0.75×0.25) = 0.375 [1] m/z=74 (³⁷Cl³⁷Cl): probability = 0.25×0.25 = 0.0625 [1] Ratio: 0.5625:0.375:0.0625 = 9:6:1 [1 for correct ratio]</div></div>
+      <div class="tq"><span class="tqn">Q7 [8 marks]</span><p>Strontium (Sr, Z=38) has four isotopes: ⁸⁴Sr (0.56%), ⁸⁶Sr (9.86%), ⁸⁷Sr (7.00%), ⁸⁸Sr (82.58%). (a) Calculate Aᵣ(Sr) to 2 d.p. [3] (b) Describe the expected mass spectrum: axes, relative peak heights, and base peak. [3] (c) State the neutron count of each isotope. [2]</p>
+      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
+      <div class="ans">(a) Aᵣ = (84×0.0056)+(86×0.0986)+(87×0.0700)+(88×0.8258) = 0.4704+8.4796+6.090+72.6704 = <strong>87.71</strong> [3]<br>(b) x-axis: m/z (84–88); y-axis: relative abundance (%). Four peaks: m/z=84 (~0.6%, very small), m/z=86 (~10%, small), m/z=87 (~7%, small), m/z=88 (tallest — base peak at 100%); all other peaks are short relative to m/z=88. [3]<br>(c) N = A−Z: ⁸⁴Sr: 46n; ⁸⁶Sr: 48n; ⁸⁷Sr: 49n; ⁸⁸Sr: 50n. [2]</div></div>
 
-    <div class="qi"><div class="qn">B4 <span class="mk">[5]</span></div>
-    <p>Uranium has two main isotopes: ²³⁵U (0.720%) and ²³⁸U (99.274%), plus trace ²³⁴U (0.006%). Calculate the Aᵣ of uranium.</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
-    <div class="ans">[2] Aᵣ = (235×0.00720)+(238×0.99274)+(234×0.00006) [2] = 1.692+236.272+0.014 [1] = 237.978 ≈ 238.0</div></div>
+      <div class="tq"><span class="tqn">Q8 [6 marks]</span><p>Describe how a sample of neon gas is analysed in a mass spectrometer to produce its mass spectrum. Explain how ions are formed, separated by mass, and detected. Include why a vacuum is essential. [6]</p>
+      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
+      <div class="ans">(1) Neon enters the instrument as a gas through an inlet valve into the vacuum chamber. [1] (2) Ionisation: high-energy electrons (electron gun, ~70 eV) bombard Ne atoms, each collision removes one electron: Ne → Ne⁺ + e⁻. [1] (3) Acceleration: Ne⁺ ions accelerated through a high-voltage electric field; all ions gain the same KE = qV. Lighter ²⁰Ne⁺ ions travel faster than heavier ²²Ne⁺ ions. [1] (4) Deflection: ions enter a magnetic field. Lighter ions (²⁰Ne⁺, m/z=20) curve more sharply; heavier ions (²²Ne⁺, m/z=22) curve less. By varying field strength, each ion (²⁰Ne⁺, ²¹Ne⁺, ²²Ne⁺) is directed to the detector in turn. [2] (5) Detection: each ion type produces an electrical current at the detector; signal intensity ∝ ion abundance. Result: three peaks at m/z=20 (base peak, ~90%), 21 (~0.3%), 22 (~9%). Vacuum essential: without it, ions would collide with air molecules, scatter unpredictably, and give false m/z readings. [1]</div></div>
+
+      <div class="tq"><span class="tqn">Q9 [8 marks]</span><p>An unknown element Q shows two peaks in its mass spectrum: m/z=107 (52.0%) and m/z=109 (48.0%). (a) Calculate Aᵣ(Q). [2] (b) Identify element Q. [1] (c) State protons and neutrons in each isotope. [2] (d) Explain why both isotopes occupy the same position in the periodic table. [2] (e) Suggest one use of the mass spectrometer relevant to element Q. [1]</p>
+      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
+      <div class="ans">(a) Aᵣ = (107×52.0+109×48.0)/100 = (5564+5232)/100 = <strong>107.96 ≈ 108</strong> [2]<br>(b) Aᵣ≈108, Z=47 → <strong>Silver (Ag)</strong> [1]<br>(c) ¹⁰⁷Ag: p=47, n=60. ¹⁰⁹Ag: p=47, n=62. [2]<br>(d) Position in the periodic table is determined by atomic number Z (proton number). Both isotopes have Z=47, so identical electron configurations and identical chemical properties → same position. Neutron count affects mass only, not chemistry or periodic table placement. [2]<br>(e) Identifying silver isotope ratios in ancient artifacts or ore samples (provenance/authentication); determining the exact Aᵣ of silver; quality control in silver refining; forensic identification of silver compounds. [1]</div></div>
+    </div>
   </div>
+</div>
 
-  <div class="qcard" style="margin-top:1rem;"><h3>Section C — Extended (10 marks)</h3>
-    <div class="qi"><div class="qn">C1 <span class="mk">[5]</span></div>
-    <p>Describe how the mass spectrometer can be used to determine the Aᵣ of an element. Include how the instrument works and how you would use the data it produces.</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
-    <div class="ans">[1] Sample vaporised and ionised by electron bombardment. [1] Ions accelerated by electric field and deflected by magnetic field — separated by m/z. [1] Detector records relative abundance of each m/z value. [1] Read m/z values (= isotope masses) and relative abundances from the mass spectrum. [1] Aᵣ = Σ(isotope mass × fractional abundance). Award marks for clarity and accuracy of description.</div></div>
-
-    <div class="qi"><div class="qn">C2 <span class="mk">[5]</span></div>
-    <p>Compare Thomson's plum pudding model with Rutherford's nuclear model. Explain how the gold foil experiment disproved the plum pudding model.</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
-    <div class="ans">[1] Thomson: electrons embedded in diffuse positive charge spread over whole atom. [1] Rutherford: tiny dense positive nucleus surrounded by mostly empty space with electrons orbiting. [1] Plum pudding predicted all α-particles would pass through or deflect slightly (positive charge spread out). [1] Instead, some α-particles deflected at large angles and some bounced back — only possible if positive charge is concentrated in a tiny nucleus. [1] Therefore plum pudding was wrong and nuclear model proposed.</div></div>
-  </div>
-</section>
-
-<div class="unit-nav">
-  <a href="s4-chemistry.html">← S4 Course Home</a>
-  <a href="s4_unit2_electronic_config.html">Unit 2: Electronic Configuration →</a>
+<div class="nav">
+  <a class="nb p" href="s4-chemistry.html">← S4 Course Home</a>
+  <a class="nb n" href="s4_unit2_electronic_config.html">Unit 2: Electronic Configuration →</a>
 </div>
 </main>
-<footer>⚗ Jackson Habimana — Chemistry Education Portal &bull; <a href="s4-chemistry.html">S4 Course</a> &bull; <a href="index.html">Home</a></footer>
-</body></html>
+
+
+
+
+
+<!-- ═══════════════════════════ UNIT QUIZ GATE ═══════════════════════════ -->
+<script>
+(function(){
+  const CK='quiz_access_code', SK='quiz_access_granted';
+  const code=localStorage.getItem(CK);
+  if(!code) return;
+  if(sessionStorage.getItem(SK)) return;
+  const qw=document.querySelector('.quiz-wrap');
+  if(!qw) return;
+  function showGate(){
+    if(document.getElementById('_ugate')) return;
+    const g=document.createElement('div');
+    g.id='_ugate';
+    g.style.cssText='position:fixed;inset:0;background:#0d1117;z-index:99999;display:flex;align-items:center;justify-content:center;padding:24px;';
+    g.innerHTML=`
+      <div style="background:#161b22;border:2px solid rgba(245,158,11,.4);border-radius:16px;padding:44px 36px;max-width:440px;width:100%;text-align:center;">
+        <div style="font-size:3.5rem;margin-bottom:14px;">🔒</div>
+        <h2 style="font-family:'Playfair Display',serif;font-size:1.8rem;color:#fff;margin-bottom:10px;">Quiz Locked</h2>
+        <p style="color:#8b949e;font-size:.92rem;margin-bottom:20px;line-height:1.7;">Enter your teacher&#39;s access code to attempt this quiz.</p>
+        <input id="_ugate_inp" type="text" placeholder="Enter Code" maxlength="20" autocomplete="off"
+          style="width:100%;background:#1c2333;border:2px solid #30363d;border-radius:8px;color:#e6edf3;padding:13px 16px;font-family:'JetBrains Mono',monospace;font-size:1.4rem;text-align:center;letter-spacing:.2em;text-transform:uppercase;margin-bottom:10px;box-sizing:border-box;"
+          onkeydown="if(event.key==='Enter')window._ugateCheck()"/>
+        <div id="_ugate_err" style="font-family:'JetBrains Mono',monospace;font-size:.82rem;color:#f87171;min-height:20px;margin:6px 0 10px;"></div>
+        <button onclick="window._ugateCheck()" style="width:100%;background:#f59e0b;color:#000;border:none;padding:12px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.9rem;font-weight:700;cursor:pointer;margin-bottom:8px;">🔓 Unlock Quiz</button>
+        <button onclick="document.getElementById('_ugate').remove();document.body.style.overflow='';" style="width:100%;background:transparent;border:1px solid #30363d;color:#8b949e;padding:8px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.78rem;cursor:pointer;">✕ Cancel</button>
+      </div>`;
+    document.body.appendChild(g);
+    document.body.style.overflow='hidden';
+    setTimeout(()=>{const i=document.getElementById('_ugate_inp');if(i)i.focus();},100);
+  }
+  window._ugateCheck=function(){
+    const val=(document.getElementById('_ugate_inp')||{}).value;
+    if(!val) return;
+    const v=val.trim().toUpperCase();
+    const stored=localStorage.getItem(CK);
+    if(v===stored){
+      sessionStorage.setItem(SK,'1');
+      const g=document.getElementById('_ugate');
+      if(g) g.remove();
+      document.body.style.overflow='';
+    } else {
+      const err=document.getElementById('_ugate_err');
+      if(err) err.textContent='❌ Wrong code — try again.';
+      const inp=document.getElementById('_ugate_inp');
+      if(inp){inp.value='';inp.focus();}
+    }
+  };
+  qw.addEventListener('click',function(e){
+    if(!localStorage.getItem(CK)) return;
+    if(sessionStorage.getItem(SK)) return;
+    e.stopPropagation();e.preventDefault();
+    showGate();
+  },true);
+})();
+</script>
+
+<script>
+// ── PER-UNIT QUIZ ACCESS GATE ── ID: s4_unit1 ──
+(function(){
+  const ITEM_ID='s4_unit1';
+  const SESS_KEY='unlocked_'+ITEM_ID;
+  const CODE_KEY='quiz_access_code';
+  const LOCKS_KEY='assessment_locks';
+  
+  function isLocked(){return JSON.parse(localStorage.getItem(LOCKS_KEY)||'{}')[ITEM_ID]===true;}
+  function isGranted(){const c=localStorage.getItem(CODE_KEY)||'OPEN';return sessionStorage.getItem(SESS_KEY)===c||sessionStorage.getItem(SESS_KEY)==='OPEN';}
+  
+  const gate=document.createElement('div');
+  gate.id='unit-quiz-gate-s4_unit1';
+  gate.style.cssText='position:fixed;inset:0;background:#0d1117;z-index:99999;display:none;align-items:center;justify-content:center;padding:24px;';
+  gate.innerHTML=`<div style="background:#161b22;border:2px solid rgba(245,158,11,.4);border-radius:16px;padding:44px 38px;max-width:460px;width:100%;text-align:center;">
+    <div style="font-size:3.5rem;margin-bottom:14px;">🔒</div>
+    <h2 style="font-family:Playfair Display,serif;font-size:1.8rem;color:#fff;margin-bottom:10px;">Quiz Locked</h2>
+    <p style="color:#8b949e;font-size:.92rem;margin-bottom:22px;line-height:1.7;">Your teacher has locked this quiz. Enter the access code to unlock it.</p>
+    <input id="ugi-s4_unit1" type="text" placeholder="Enter Code" maxlength="20"
+      style="width:100%;background:#1c2333;border:2px solid #30363d;border-radius:8px;color:#e6edf3;padding:13px 16px;font-family:JetBrains Mono,monospace;font-size:1.3rem;text-align:center;letter-spacing:.2em;text-transform:uppercase;margin-bottom:10px;box-sizing:border-box;"
+      onkeydown="if(event.key==='Enter')unlockUnit_s4_unit1()"
+      oninput="this.value=this.value.toUpperCase()"/>
+    <div id="uge-s4_unit1" style="font-family:JetBrains Mono,monospace;font-size:.8rem;color:#f87171;min-height:18px;margin-bottom:10px;"></div>
+    <button onclick="unlockUnit_s4_unit1()" style="width:100%;background:#f59e0b;color:#000;border:none;padding:13px;border-radius:8px;font-family:JetBrains Mono,monospace;font-size:.88rem;font-weight:700;cursor:pointer;margin-bottom:8px;">🔓 Unlock Quiz</button>
+    <button onclick="document.getElementById('unit-quiz-gate-s4_unit1').style.display='none';document.body.style.overflow='';" style="width:100%;background:transparent;border:1px solid #30363d;color:#8b949e;padding:8px;border-radius:7px;font-family:JetBrains Mono,monospace;font-size:.78rem;cursor:pointer;">✕ Cancel — Go back</button>
+    <div style="font-family:JetBrains Mono,monospace;font-size:.7rem;color:#8b949e;margin-top:10px;">Ask your teacher for the access code.</div>
+  </div>`;
+  document.body.appendChild(gate);
+  
+  window.unlockUnit_s4_unit1=function(){
+    const entered=document.getElementById('ugi-s4_unit1').value.trim().toUpperCase();
+    const correct=localStorage.getItem(CODE_KEY)||'';
+    if(!entered){document.getElementById('uge-s4_unit1').textContent='Enter the code.';return;}
+    if(!correct||entered===correct){
+      sessionStorage.setItem(SESS_KEY,correct||'OPEN');
+      gate.style.display='none';document.body.style.overflow='';
+      if(window._pendingAction_s4_unit1) window._pendingAction_s4_unit1();
+    } else {
+      document.getElementById('uge-s4_unit1').textContent='❌ Wrong code. Ask your teacher.';
+      document.getElementById('ugi-s4_unit1').value='';
+    }
+  };
+  
+  window.addEventListener('DOMContentLoaded',function(){
+    if(!isLocked()) return;
+    const qw=document.querySelector('.quiz-wrap');
+    if(!qw) return;
+    qw.addEventListener('click',function(e){
+      if(!isLocked()||isGranted()) return;
+      e.stopPropagation();e.preventDefault();
+      gate.style.display='flex';document.body.style.overflow='hidden';
+    },true);
+  });
+})();
+</script>
+</body>
+</html>

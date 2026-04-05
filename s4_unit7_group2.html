@@ -1,185 +1,753 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>S4 Chemistry – Unit 7: Group 2 Elements &amp; Their Compounds | Jackson Habimana</title>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>S4 Chemistry – Unit 7: Group 2 Elements &amp; Their Compounds</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Serif+4:wght@300;400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
 <style>
-:root{--bg:#0d1117;--surface:#161b22;--surface2:#1c2333;--border:#30363d;--accent:#34d399;--green:#34d399;--red:#f87171;--text:#e6edf3;--muted:#8b949e;--radius:10px;}
-*{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
-body{background:var(--bg);color:var(--text);font-family:'Source Serif 4',Georgia,serif;font-size:17px;line-height:1.75;}
-nav{position:sticky;top:0;z-index:200;background:rgba(13,17,23,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
-.nav-inner{max-width:1060px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:.7rem 1.5rem;}
-.nav-brand{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--accent);text-decoration:none;}
-.nav-links{display:flex;gap:1.2rem;}.nav-links a{color:var(--muted);text-decoration:none;font-size:.85rem;}.nav-links a:hover{color:var(--accent);}
-.hero{background:linear-gradient(135deg,#0a0d0f,#0d1117);border-bottom:1px solid var(--border);padding:3rem 1.5rem 2rem;}
-.hero-inner{max-width:1060px;margin:0 auto;}
-.badge{display:inline-block;background:rgba(255,255,255,.06);color:var(--accent);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:.3rem 1rem;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:1rem;}
-.hero h1{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.2;margin-bottom:.6rem;}
-.hero h1 span{color:var(--accent);}
-.hero-meta{display:flex;gap:1rem;flex-wrap:wrap;font-size:.84rem;color:var(--muted);margin-top:1rem;}
-.toc{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:var(--radius);padding:1.2rem 1.5rem;max-width:1060px;margin:1.5rem auto;width:calc(100% - 3rem);}
-.toc h3{font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:.8rem;}
-.toc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.3rem .8rem;}
-.toc-grid a{color:var(--muted);text-decoration:none;font-size:.88rem;}.toc-grid a:hover{color:var(--accent);}
-main{max-width:1060px;margin:0 auto;padding:1rem 1.5rem 4rem;}
-section{margin-bottom:3rem;scroll-margin-top:80px;}
-.sec-head{display:flex;align-items:baseline;gap:.8rem;margin-bottom:1.2rem;padding-bottom:.5rem;border-bottom:1px solid var(--border);}
-.sec-num{font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--accent);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:5px;padding:.2rem .6rem;}
-.sec-head h2{font-family:'Playfair Display',serif;font-size:1.45rem;}
-p{margin-bottom:.9rem;}
-.key{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-left:4px solid var(--accent);border-radius:var(--radius);padding:1.1rem 1.4rem;margin:1.2rem 0;}
-.key .kl{font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:.4rem;}
-.eq{font-family:'JetBrains Mono',monospace;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:.8rem 1.1rem;margin:.8rem 0;font-size:.93rem;overflow-x:auto;}
-table{width:100%;border-collapse:collapse;margin:1.2rem 0;font-size:.9rem;}
-th{background:var(--surface2);color:var(--accent);padding:.65rem .9rem;text-align:left;border:1px solid var(--border);}
-td{padding:.6rem .9rem;border:1px solid var(--border);vertical-align:top;}
-tr:nth-child(even) td{background:rgba(255,255,255,.02);}
-.qcard{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin-top:1rem;}
-.qcard h3{font-family:'Playfair Display',serif;color:var(--accent);margin-bottom:1rem;}
-.qi{margin:.9rem 0;padding-left:1.1rem;border-left:2px solid var(--border);}
-.qi:hover{border-left-color:var(--accent);}
-.qn{font-size:.74rem;color:var(--accent);font-family:'JetBrains Mono',monospace;}
-.ans{display:none;margin-top:.4rem;font-size:.88rem;color:var(--green);font-style:italic;}
-.sa{background:none;border:1px solid var(--border);color:var(--muted);font-size:.74rem;border-radius:4px;padding:.15rem .5rem;cursor:pointer;margin-top:.3rem;}
-.sa:hover{border-color:var(--accent);color:var(--accent);}
-.mk{float:right;font-size:.74rem;color:var(--muted);font-family:'JetBrains Mono',monospace;}
-.unit-nav{display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--border);}
-.unit-nav a{color:var(--accent);text-decoration:none;font-size:.9rem;}
-footer{background:var(--surface);border-top:1px solid var(--border);text-align:center;padding:1.2rem;font-size:.8rem;color:var(--muted);}
-footer a{color:var(--accent);text-decoration:none;}
+  :root{--bg:#0d1117;--surface:#161b22;--surface2:#1c2333;--border:#30363d;--accent:#2dd4bf;--accent2:#f97316;--gold:#e8c547;--green:#34d399;--red:#f87171;--text:#e6edf3;--muted:#8b949e;--radius:10px;}
+  *{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+  body{background:var(--bg);color:var(--text);font-family:'Source Serif 4',Georgia,serif;font-size:17px;line-height:1.75;overflow-x:hidden;}
+  .hero{position:relative;padding:80px 40px 60px;text-align:center;overflow:hidden;background:radial-gradient(ellipse 80% 60% at 50% 0%,#001a18 0%,var(--bg) 70%);border-bottom:1px solid var(--border);}
+  .hero::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(45,212,191,.04) 40px),repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(45,212,191,.04) 40px);pointer-events:none;}
+  .badge{display:inline-block;background:rgba(45,212,191,.12);border:1px solid rgba(45,212,191,.3);color:var(--accent);padding:4px 16px;border-radius:50px;font-size:.78rem;font-family:'JetBrains Mono',monospace;letter-spacing:.12em;text-transform:uppercase;margin-bottom:22px;}
+  .hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.4rem);line-height:1.15;color:#fff;max-width:820px;margin:0 auto 18px;}
+  .hero h1 em{color:var(--accent);font-style:italic;}
+  .hero p.sub{color:var(--muted);font-size:1rem;max-width:640px;margin:0 auto 32px;}
+  .toc-grid{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:860px;margin:0 auto;}
+  .toc-grid a{background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:8px 18px;border-radius:50px;text-decoration:none;font-size:.85rem;transition:all .2s;font-family:'JetBrains Mono',monospace;}
+  .toc-grid a:hover{background:var(--accent);color:#000;border-color:var(--accent);}
+  .page{max-width:960px;margin:0 auto;padding:0 28px 80px;}
+  .section-header{display:flex;align-items:center;gap:16px;margin:64px 0 28px;padding-bottom:14px;border-bottom:2px solid var(--border);}
+  .section-number{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--accent);background:rgba(45,212,191,.1);border:1px solid rgba(45,212,191,.25);padding:4px 12px;border-radius:4px;white-space:nowrap;}
+  .section-header h2{font-family:'Playfair Display',serif;font-size:1.75rem;color:#fff;}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:26px 30px;margin-bottom:22px;}
+  .card h3{font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--gold);margin-bottom:12px;}
+  .card p+p{margin-top:12px;}
+  .def-box{border-left:4px solid var(--accent);background:rgba(45,212,191,.07);border-radius:0 var(--radius) var(--radius) 0;padding:18px 22px;margin:20px 0;}
+  .def-box strong{color:var(--accent);display:block;font-size:.78rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;}
+  .callout{border-radius:var(--radius);padding:18px 22px;margin:20px 0;display:flex;gap:14px;align-items:flex-start;}
+  .callout.info{background:rgba(45,212,191,.08);border:1px solid rgba(45,212,191,.25);}
+  .callout.warn{background:rgba(249,115,22,.08);border:1px solid rgba(249,115,22,.25);}
+  .callout.tip{background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.25);}
+  .callout-icon{font-size:1.3rem;margin-top:2px;flex-shrink:0;}
+  .callout-body strong{display:block;margin-bottom:4px;font-size:.9rem;color:#fff;}
+  .tbl-wrap{overflow-x:auto;margin:20px 0;border-radius:var(--radius);border:1px solid var(--border);}
+  table{width:100%;border-collapse:collapse;}
+  thead tr{background:var(--surface2);}
+  th{padding:13px 16px;text-align:left;font-size:.82rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);white-space:nowrap;}
+  td{padding:12px 16px;border-top:1px solid var(--border);font-size:.9rem;}
+  tr:hover td{background:rgba(255,255,255,.02);}
+  .formula-block{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:20px 26px;margin:16px 0;font-family:'JetBrains Mono',monospace;font-size:.93rem;color:var(--accent);overflow-x:auto;white-space:pre-wrap;}
+  .example-box{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin:26px 0;}
+  .example-header{background:rgba(232,197,71,.1);border-bottom:1px solid rgba(232,197,71,.2);padding:14px 22px;display:flex;align-items:center;gap:12px;}
+  .example-header span.tag{font-family:'JetBrains Mono',monospace;font-size:.72rem;background:var(--gold);color:#000;padding:3px 10px;border-radius:4px;font-weight:600;}
+  .example-header h4{color:var(--gold);font-family:'Playfair Display',serif;font-size:1rem;}
+  .example-body{padding:22px 26px;}
+  .example-body .step{display:flex;gap:14px;margin:10px 0;}
+  .step-num{min-width:28px;height:28px;background:rgba(45,212,191,.15);border:1px solid rgba(45,212,191,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--accent);flex-shrink:0;margin-top:3px;}
+  .step-text{flex:1;}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:20px 0;}
+  @media(max-width:640px){.two-col{grid-template-columns:1fr;}}
+  .exercise-list{list-style:none;counter-reset:ex;}
+  .exercise-list li{counter-increment:ex;margin-bottom:16px;padding:16px 20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);}
+  .exercise-list li::before{content:'Q' counter(ex) '.';font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--accent);display:block;margin-bottom:6px;}
+  .reveal-btn{margin-top:10px;background:rgba(45,212,191,.1);border:1px solid rgba(45,212,191,.3);color:var(--accent);padding:6px 16px;border-radius:6px;cursor:pointer;font-size:.82rem;font-family:'JetBrains Mono',monospace;transition:all .2s;}
+  .reveal-btn:hover{background:var(--accent);color:#000;}
+  .answer{display:none;margin-top:12px;padding:12px 16px;background:rgba(45,212,191,.06);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-size:.9rem;}
+  .answer.open{display:block;}
+  .quiz-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-top:32px;}
+  .quiz-header{background:rgba(45,212,191,.1);border-bottom:1px solid rgba(45,212,191,.2);padding:16px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+  .quiz-header h3{font-family:'Playfair Display',serif;color:var(--accent);font-size:1.2rem;}
+  .quiz-body{padding:24px;}
+  .q-block{margin-bottom:26px;padding-bottom:26px;border-bottom:1px solid var(--border);}
+  .q-block:last-of-type{border-bottom:none;}
+  .q-text{font-weight:600;margin-bottom:12px;color:#fff;}
+  .q-num{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--accent);display:block;margin-bottom:4px;}
+  .options{display:flex;flex-direction:column;gap:8px;}
+  .opt{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:all .18s;font-size:.92rem;}
+  .opt:hover{border-color:var(--accent);}
+  .opt input{margin-top:3px;accent-color:var(--accent);}
+  .opt.correct{background:rgba(52,211,153,.12);border-color:var(--green)!important;color:var(--green);}
+  .opt.wrong{background:rgba(248,113,113,.1);border-color:var(--red)!important;color:var(--red);}
+  .q-exp{display:none;margin-top:10px;padding:10px 14px;background:rgba(45,212,191,.07);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-size:.88rem;}
+  .qs{background:var(--accent);color:#000;border:none;padding:12px 32px;border-radius:8px;font-size:1rem;font-family:'JetBrains Mono',monospace;cursor:pointer;font-weight:700;transition:opacity .2s;}
+  .qs:hover{opacity:.85;}
+  #qR{display:none;margin-top:18px;padding:16px 22px;border-radius:var(--radius);font-family:'JetBrains Mono',monospace;font-weight:700;font-size:1rem;text-align:center;}
+  .test-wrap{margin-top:40px;}
+  .test-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:28px;}
+  .test-sh{background:rgba(249,115,22,.1);border-bottom:1px solid rgba(249,115,22,.2);padding:14px 24px;display:flex;justify-content:space-between;align-items:center;}
+  .test-sh h3{font-family:'Playfair Display',serif;color:var(--accent2);font-size:1.1rem;}
+  .mb{font-family:'JetBrains Mono',monospace;font-size:.75rem;background:rgba(249,115,22,.2);color:var(--accent2);padding:4px 12px;border-radius:50px;}
+  .test-body{padding:24px;}
+  .tq{margin-bottom:20px;padding:16px 18px;background:var(--surface2);border-radius:8px;border:1px solid var(--border);}
+  .tqn{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--accent2);margin-bottom:6px;display:block;}
+  .rb{margin-top:12px;background:rgba(249,115,22,.1);border:1px solid rgba(249,115,22,.3);color:var(--accent2);padding:6px 16px;border-radius:6px;cursor:pointer;font-size:.82rem;font-family:'JetBrains Mono',monospace;transition:all .2s;}
+  .rb:hover{background:var(--accent2);color:#000;}
+  .ans{display:none;margin-top:12px;padding:12px 16px;background:rgba(249,115,22,.06);border-left:3px solid var(--accent2);border-radius:0 6px 6px 0;font-size:.9rem;line-height:1.7;}
+  .ans.open{display:block;}
+  .nav{display:flex;justify-content:space-between;align-items:center;margin-top:72px;padding-top:32px;border-top:1px solid var(--border);flex-wrap:wrap;gap:16px;}
+  .nb{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:8px;text-decoration:none;font-family:'JetBrains Mono',monospace;font-size:.85rem;transition:all .2s;}
+  .nb.p{background:var(--surface);border:1px solid var(--border);color:var(--muted);}
+  .nb.p:hover{border-color:var(--accent);color:var(--accent);}
+  .nb.n{background:var(--accent);color:#000;font-weight:700;}
+  .nb.n:hover{opacity:.88;}
+  h3.sub{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--gold);margin:28px 0 10px;}
+  sub,sup{font-size:.72em;}
+  @media(max-width:600px){.hero{padding:50px 20px 40px;}.page{padding:0 16px 60px;}}
 </style>
 </head>
 <body>
-<nav><div class="nav-inner">
-  <a class="nav-brand" href="index.html">⚗ Jackson Habimana</a>
-  <div class="nav-links"><a href="s4-chemistry.html">S4 Course</a><a href="s5-chemistry.html">S5</a><a href="s6-chemistry.html">S6</a></div>
-</div></nav>
-<header class="hero"><div class="hero-inner">
-  <div class="badge">S4 · Unit 7</div>
-  <h1>Group 2 Elements &amp; Their Compounds</h1>
-  <p style="color:var(--muted);max-width:580px;margin-top:.5rem;">Alkaline earth metals: trends in reactivity, reactions with water and acids, oxides, hydroxides, and sulfates.</p>
-  <div class="hero-meta"><span>📚 6 Sections</span><span>🧪 25 Quiz Questions</span><span>📝 50-Mark Test</span></div>
-</div></header>
-<div class="toc"><h3>Contents</h3><div class="toc-grid">
-  <a href="#s1">Section 1</a><a href="#s2">Section 2</a><a href="#s3">Section 3</a>
-  <a href="#s4">Section 4</a><a href="#s5">Section 5</a><a href="#s6">Section 6</a>
-  <a href="#quiz">Quiz (25 Qs)</a><a href="#test">50-Mark Test</a>
-</div></div>
-<main>
+<div id="sitenav" style="position:sticky;top:0;z-index:200;background:rgba(13,17,23,.95);backdrop-filter:blur(12px);border-bottom:1px solid #30363d;padding:0 28px;font-family:JetBrains Mono,monospace;"><div style="max-width:960px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:52px;gap:12px;"><a href="index.html" style="font-size:.78rem;color:#38bdf8;text-decoration:none;letter-spacing:.06em;white-space:nowrap;">&#9883; Habimana</a><div style="display:flex;gap:4px;flex-wrap:wrap;"><a href="index.html" style="font-size:.72rem;color:#8b949e;text-decoration:none;padding:4px 12px;border-radius:5px;border:1px solid transparent;">Home</a><a href="s4-chemistry.html" style="font-size:.72rem;color:#38bdf8;text-decoration:none;padding:4px 12px;border-radius:5px;background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.25);">S4</a><a href="s5-chemistry.html" style="font-size:.72rem;color:#8b949e;text-decoration:none;padding:4px 12px;border-radius:5px;border:1px solid transparent;">S5</a><a href="s6-chemistry.html" style="font-size:.72rem;color:#8b949e;text-decoration:none;padding:4px 12px;border-radius:5px;border:1px solid transparent;">S6</a></div></div></div>
 
-<section id="s1"><div class="sec-head"><span class="sec-num">7.1</span><h2>Physical Properties of Group 2</h2></div>
-<table><tr><th>Element</th><th>Symbol</th><th>Z</th><th>Config</th><th>m.p. (°C)</th><th>Density (g/cm³)</th></tr>
-<tr><td>Beryllium</td><td>Be</td><td>4</td><td>[He]2s²</td><td>1287</td><td>1.85</td></tr>
-<tr><td>Magnesium</td><td>Mg</td><td>12</td><td>[Ne]3s²</td><td>650</td><td>1.74</td></tr>
-<tr><td>Calcium</td><td>Ca</td><td>20</td><td>[Ar]4s²</td><td>842</td><td>1.55</td></tr>
-<tr><td>Strontium</td><td>Sr</td><td>38</td><td>[Kr]5s²</td><td>777</td><td>2.64</td></tr>
-<tr><td>Barium</td><td>Ba</td><td>56</td><td>[Xe]6s²</td><td>727</td><td>3.62</td></tr></table>
-<div class="key"><div class="kl">Trends down Group 2</div>
-<p>Atomic radius increases. IE₁ generally decreases. Reactivity increases. Melting points vary (not a simple trend due to crystal structures). All form 2+ ions only.</p></div></section>
-
-<section id="s2"><div class="sec-head"><span class="sec-num">7.2</span><h2>Reactions of Group 2 Metals</h2></div>
-<table><tr><th>Reaction</th><th>Equation</th><th>Observations / Notes</th></tr>
-<tr><td>With O₂</td><td>2Mg + O₂ → 2MgO; 2Ca + O₂ → 2CaO</td><td>All form ionic oxides MO. Mg burns brilliantly white.</td></tr>
-<tr><td>With water</td><td>Ca + 2H₂O → Ca(OH)₂ + H₂; Mg + H₂O → MgO + H₂ (steam)</td><td>Be — no reaction with water; Mg — very slowly in cold water; Ca to Ba — react readily, producing H₂</td></tr>
-<tr><td>With dilute HCl</td><td>Mg + 2HCl → MgCl₂ + H₂</td><td>All react; reactivity increases down group</td></tr>
-<tr><td>With N₂</td><td>3Mg + N₂ → Mg₃N₂</td><td>Mg burns in nitrogen; forms nitride (ionic, Mg²⁺ and N³⁻)</td></tr></table></section>
-
-<section id="s3"><div class="sec-head"><span class="sec-num">7.3</span><h2>Oxides and Hydroxides</h2></div>
-<table><tr><th>Compound</th><th>Reaction with water</th><th>pH of solution</th><th>Notes</th></tr>
-<tr><td>MgO</td><td>MgO + H₂O → Mg(OH)₂ (slow, slightly soluble)</td><td>~9</td><td>Used as antacid (milk of magnesia)</td></tr>
-<tr><td>CaO (quicklime)</td><td>CaO + H₂O → Ca(OH)₂ (vigorous, exothermic)</td><td>~12</td><td>Used in cement; neutralises soil acidity</td></tr>
-<tr><td>Ca(OH)₂ (slaked lime)</td><td>Slightly soluble; limewater turns milky with CO₂</td><td>~12</td><td>Ca(OH)₂ + CO₂ → CaCO₃ + H₂O</td></tr>
-<tr><td>Ba(OH)₂</td><td>Soluble; strong base</td><td>~13</td><td>Used to test for sulfate ions</td></tr></table>
-<p><strong>Solubility of hydroxides increases down the group</strong>: Be(OH)₂ insoluble → Mg(OH)₂ sparingly soluble → Ca(OH)₂ slightly soluble → Sr(OH)₂ and Ba(OH)₂ soluble.</p></section>
-
-<section id="s4"><div class="sec-head"><span class="sec-num">7.4</span><h2>Sulfates and Solubility</h2></div>
-<div class="key"><div class="kl">Solubility of Group 2 sulfates decreases down the group</div>
-<table><tr><th>Sulfate</th><th>Solubility</th><th>Use/Test</th></tr>
-<tr><td>BeSO₄</td><td>Soluble</td><td>—</td></tr>
-<tr><td>MgSO₄</td><td>Soluble</td><td>Epsom salts — laxative, bath salts</td></tr>
-<tr><td>CaSO₄</td><td>Sparingly soluble</td><td>Plaster of Paris (CaSO₄·½H₂O)</td></tr>
-<tr><td>SrSO₄</td><td>Insoluble</td><td>—</td></tr>
-<tr><td>BaSO₄</td><td>Insoluble</td><td>Used to test for SO₄²⁻ ions; barium meal in X-rays</td></tr></table></div>
-<p>Test for SO₄²⁻: add BaCl₂ solution (acidified with HCl) → white precipitate of BaSO₄ confirms sulfate. HCl prevents false positives from BaCO₃ or BaSO₃.</p></section>
-
-<section id="s5"><div class="sec-head"><span class="sec-num">7.5</span><h2>Thermal Stability of Carbonates and Nitrates</h2></div>
-<p>Group 2 carbonates decompose on heating: MCO₃ → MO + CO₂. Thermal stability <strong>increases down the group</strong> (BaCO₃ needs highest temperature). Smaller cations (higher charge density) polarise the carbonate ion more, weakening C–O bonds and lowering decomposition temperature.</p>
-<table><tr><th>Carbonate</th><th>Decomposition temperature (°C)</th></tr>
-<tr><td>MgCO₃</td><td>~540</td></tr>
-<tr><td>CaCO₃</td><td>~840</td></tr>
-<tr><td>SrCO₃</td><td>~1290</td></tr>
-<tr><td>BaCO₃</td><td>~1360</td></tr></table>
-<p>Group 2 nitrates all decompose to oxide + NO₂ + O₂: 2M(NO₃)₂ → 2MO + 4NO₂ + O₂ (unlike Group 1 which form nitrites).</p></section>
-
-<section id="s6"><div class="sec-head"><span class="sec-num">7.6</span><h2>Industrial and Biological Uses</h2></div>
-<table><tr><th>Compound</th><th>Use</th></tr>
-<tr><td>CaO (quicklime)</td><td>Steel manufacture (removes SiO₂ impurities); neutralising acidic soil</td></tr>
-<tr><td>Ca(OH)₂ (slaked lime)</td><td>Treating sewage, neutralising acid in soil, making cement/mortar</td></tr>
-<tr><td>CaCO₃ (limestone)</td><td>Building material, manufacture of glass and cement, blast furnace flux</td></tr>
-<tr><td>MgSO₄ (Epsom salts)</td><td>Laxative, bath salts, treating magnesium deficiency in plants</td></tr>
-<tr><td>BaSO₄</td><td>Barium meal for X-ray imaging of digestive system (opaque to X-rays, insoluble/non-toxic)</td></tr>
-<tr><td>Mg (metal)</td><td>Alloys for aircraft (light + strong); fireworks (bright white light)</td></tr></table></section>
-
-<section id="quiz">
-  <div class="sec-head"><span class="sec-num">QUIZ</span><h2>25-Question Quiz — Unit 7</h2></div>
-  <div class="qcard"><h3>Click "Show" to reveal each answer</h3>
-    <p style="color:var(--muted);font-size:.88rem;margin-bottom:1rem;">Questions cover all 6 sections of this unit.</p>
-    <div class="qi"><div class="qn">Q1–Q25</div>
-    <p>Use your notes above to attempt 25 questions on this unit. Full question sets are available in the printed workbook and teacher-administered quizzes accessible from <a href="student-quiz.html" style="color:var(--accent);">Student Hub</a>.</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show guidance</button>
-    <div class="ans">Review all 6 sections above. Focus on: definitions in key boxes, trends in tables, equations, and worked examples. Use the 50-mark test below to assess your understanding with mark schemes.</div></div>
+<div class="hero">
+  <div class="badge">S4 Chemistry &middot; Unit 7</div>
+  <h1>Trends in Chemical Properties of<br><em>Group 2 Elements</em></h1>
+  <p class="sub">Occurrence, physical properties, reactivity, compounds (oxides, hydroxides, carbonates, sulfates, nitrates), anomalous beryllium, identification of Ba&#xB2;&#x207A;, and uses of Group 2 elements.</p>
+  <div class="toc-grid">
+    <a href="#s71">7.1 Occurrence &amp; Physical Properties</a>
+    <a href="#s72">7.2 Reactivity</a>
+    <a href="#s73">7.3 Properties of Compounds</a>
+    <a href="#s74">7.4 Anomalous Beryllium</a>
+    <a href="#s75">7.5 Identification of Ba&#xB2;&#x207A;</a>
+    <a href="#s76">7.6 Uses</a>
+    <a href="#exercises">Exercises</a>
+    <a href="#quiz">Quiz</a>
+    <a href="#test">Unit Test</a>
   </div>
-</section>
+</div>
+<main class="page">
 
-<section id="test">
-  <div class="sec-head"><span class="sec-num">TEST</span><h2>50-Mark Test — Unit 7</h2></div>
-  <p style="color:var(--muted);font-size:.88rem;margin-bottom:1rem;">Time: 60 minutes. Answer all questions. Show all working.</p>
-  <div class="qcard"><h3>Section A — Knowledge (20 marks)</h3>
-    <div class="qi"><div class="qn">A1 <span class="mk">[4]</span></div>
-    <p>State and explain four key trends going down this group/period covered in this unit.</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
-    <div class="ans">[1 each] Refer to the trend tables in sections above. For full marks: name the trend, state the direction, and give the correct reason linking to atomic structure (nuclear charge, shielding, atomic radius, electron configuration).</div></div>
+<!-- 7.1 -->
+<div class="section-header" id="s71"><span class="section-number">7.1</span><h2>Occurrence &amp; Physical Properties of Group 2 Elements</h2></div>
+<div class="card"><h3>Occurrence (Alkaline Earth Metals)</h3>
+<p>Group 2 elements (Be, Mg, Ca, Sr, Ba, Ra) are the <strong>alkaline earth metals</strong>. Like Group 1, they are too reactive to occur as free elements in nature &mdash; found as ionic compounds in minerals:</p>
+<ul style="margin:8px 0 0 20px;line-height:2.1;">
+  <li><strong>Beryllium:</strong> beryl (Be&#x2083;Al&#x2082;Si&#x2076;O&#x18;)</li>
+  <li><strong>Magnesium:</strong> magnesite (MgCO&#x2083;), dolomite (MgCO&#x2083;&middot;CaCO&#x2083;), seawater</li>
+  <li><strong>Calcium:</strong> calcite/limestone/chalk (CaCO&#x2083;), gypsum (CaSO&#x2084;&middot;2H&#x2082;O), fluorite (CaF&#x2082;)</li>
+  <li><strong>Strontium:</strong> strontianite (SrCO&#x2083;), celestine (SrSO&#x2084;)</li>
+  <li><strong>Barium:</strong> barite (BaSO&#x2084;), witherite (BaCO&#x2083;)</li>
+  <li><strong>Radium:</strong> radioactive; trace amounts in uranium ores</li>
+</ul>
+</div>
 
-    <div class="qi"><div class="qn">A2 <span class="mk">[4]</span></div>
-    <p>Write balanced equations for four reactions covered in this unit. Include state symbols.</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
-    <div class="ans">[1 each] Refer to the reaction tables in sections 2–4 above. Each equation must be correctly balanced with state symbols for full marks.</div></div>
+<div class="tbl-wrap"><table>
+  <thead><tr><th>Element</th><th>Z</th><th>Config</th><th>M.p. (&deg;C)</th><th>Density (g/cm&#xB3;)</th><th>Flame colour</th></tr></thead>
+  <tbody>
+    <tr><td>Beryllium (Be)</td><td>4</td><td>[He]2s&#xB2;</td><td>1287</td><td>1.85</td><td>No characteristic colour</td></tr>
+    <tr><td>Magnesium (Mg)</td><td>12</td><td>[Ne]3s&#xB2;</td><td>650</td><td>1.74</td><td>Brilliant white</td></tr>
+    <tr><td>Calcium (Ca)</td><td>20</td><td>[Ar]4s&#xB2;</td><td>842</td><td>1.55</td><td>Brick red/orange-red</td></tr>
+    <tr><td>Strontium (Sr)</td><td>38</td><td>[Kr]5s&#xB2;</td><td>777</td><td>2.64</td><td>Crimson red</td></tr>
+    <tr><td>Barium (Ba)</td><td>56</td><td>[Xe]6s&#xB2;</td><td>727</td><td>3.51</td><td>Apple green</td></tr>
+    <tr><td>Radium (Ra)</td><td>88</td><td>[Rn]7s&#xB2;</td><td>700</td><td>5.50</td><td>Crimson (radioactive)</td></tr>
+  </tbody>
+</table></div>
 
-    <div class="qi"><div class="qn">A3 <span class="mk">[4]</span></div>
-    <p>Define four key terms from this unit (e.g. amphoteric, lattice energy, electronegativity, ionic bond — as appropriate).</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
-    <div class="ans">[1 each] Definitions must be precise. Refer to the key definition boxes in sections 1–6 above.</div></div>
+<div class="card"><h3>Trends in Physical Properties Down Group 2</h3>
+<ul style="margin:0 0 0 20px;line-height:2.2;">
+  <li><strong>Melting point:</strong> No simple trend (Be highest; irregular due to changing structure/bonding). Generally lower than expected from metallic bond argument alone &mdash; Be anomalously high.</li>
+  <li><strong>Density: increases</strong> &mdash; molar mass increases faster than atomic volume.</li>
+  <li><strong>Atomic/ionic radius: increases</strong> &mdash; new shell added each period.</li>
+  <li><strong>First ionisation energy: decreases</strong> &mdash; outer electron in higher shell, more shielded.</li>
+  <li><strong>Reactivity: increases</strong> &mdash; easier to lose both outer s electrons.</li>
+  <li><strong>Electronegativity: decreases</strong></li>
+</ul>
+<p style="margin-top:10px;">Comparison with Group 1: Group 2 metals have <strong>higher melting points</strong>, <strong>harder</strong>, and <strong>higher densities</strong> than corresponding Group 1 metals because they contribute 2 delocalised electrons per atom &rarr; stronger metallic bonding.</p>
+</div>
 
-    <div class="qi"><div class="qn">A4 <span class="mk">[4]</span></div>
-    <p>Explain the physical properties of the substances covered in this unit (conductivity, melting point, solubility). Link each to structure and bonding.</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
-    <div class="ans">[1 each] Link property to particle type and bonding: e.g. high m.p. → strong bonds/forces; conductor → mobile charged particles; solubility → similar polarity/hydration.</div></div>
+<!-- 7.2 -->
+<div class="section-header" id="s72"><span class="section-number">7.2</span><h2>Reactivity of Group 2 Elements</h2></div>
 
-    <div class="qi"><div class="qn">A5 <span class="mk">[4]</span></div>
-    <p>Give four industrial or everyday uses of substances from this unit, explaining the property that makes each suitable.</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
-    <div class="ans">[1 each] Refer to the uses table in section 5 or 6. Must link use to property (e.g. low density → aircraft; corrosion resistance → packaging).</div></div>
+<h3 class="sub">Reactions with Oxygen</h3>
+<div class="card">
+<div class="formula-block">General: 2M + O&#x2082; &rarr; 2MO  (metal oxide, normal oxide for all Group 2)
+
+2Mg + O&#x2082; &rarr; 2MgO  (bright white flame)
+2Ca + O&#x2082; &rarr; 2CaO
+2Ba + O&#x2082; &rarr; 2BaO  (Ba may also form BaO&#x2082; peroxide in excess O&#x2082;)</div>
+<p>All Group 2 metals burn brilliantly in oxygen. Mg burns with a very bright white flame (used in flares). BaO&#x2082; can form with excess oxygen for Ba.</p>
+</div>
+
+<h3 class="sub">Reactions with Water</h3>
+<div class="card">
+<div class="formula-block">General: M + 2H&#x2082;O &rarr; M(OH)&#x2082; + H&#x2082;
+
+Be: No reaction with water (even steam) at room temp &mdash; protected by oxide layer
+Mg: Very slow reaction with cold water; reacts with steam:
+    Mg + H&#x2082;O(g) &rarr; MgO + H&#x2082;
+Ca: Reacts slowly with cold water:
+    Ca + 2H&#x2082;O &rarr; Ca(OH)&#x2082; + H&#x2082;  (milky suspension)
+Sr: Reacts more vigorously than Ca
+Ba: Most vigorous of the common Group 2 metals with water</div>
+<p>Reactivity increases Ca &lt; Sr &lt; Ba. The solution formed is alkaline (M(OH)&#x2082; is a base).</p>
+</div>
+
+<h3 class="sub">Reactions with Dilute Acids</h3>
+<div class="card">
+<p>All Group 2 metals react readily with dilute acids:</p>
+<div class="formula-block">Mg + 2HCl &rarr; MgCl&#x2082; + H&#x2082;   (vigorous)
+Ca + 2HCl &rarr; CaCl&#x2082; + H&#x2082;   (vigorous)
+Mg + H&#x2082;SO&#x2084; &rarr; MgSO&#x2084; + H&#x2082; (initially fast, then slows &mdash;
+  MgSO&#x2084; forms a protective layer)</div>
+<p>Note: Ca + H&#x2082;SO&#x2084; &rarr; CaSO&#x2084; (insoluble layer) + H&#x2082;. CaSO&#x2084; is sparingly soluble and coats Ca surface &rarr; reaction slows.</p>
+</div>
+
+<h3 class="sub">Reactions with Halogens</h3>
+<div class="formula-block">M + X&#x2082; &rarr; MX&#x2082;  (metal dihalide)
+
+Mg + Cl&#x2082; &rarr; MgCl&#x2082;
+Ca + Br&#x2082; &rarr; CaBr&#x2082;
+Ba + F&#x2082;  &rarr; BaF&#x2082;</div>
+
+<!-- 7.3 -->
+<div class="section-header" id="s73"><span class="section-number">7.3</span><h2>Properties of Group 2 Compounds</h2></div>
+
+<h3 class="sub">Oxides</h3>
+<div class="card">
+<p>All Group 2 oxides are basic (ionic, with O&#xB2;&#x207B;). They react with water to form hydroxides, and with acids to form salts:</p>
+<div class="formula-block">MgO + H&#x2082;O &rarr; Mg(OH)&#x2082;   (slightly exothermic; Mg(OH)&#x2082; slightly soluble)
+CaO + H&#x2082;O &rarr; Ca(OH)&#x2082;   (very exothermic &mdash; "slaking" of quicklime; produces
+                               slaked lime)
+MgO + 2HCl &rarr; MgCl&#x2082; + H&#x2082;O
+CaO + H&#x2082;SO&#x2084; &rarr; CaSO&#x2084; + H&#x2082;O</div>
+<p>BeO is <strong>amphoteric</strong> (reacts with both acids AND bases) &mdash; anomalous (see 7.4).</p>
+</div>
+
+<h3 class="sub">Hydroxides</h3>
+<div class="card">
+<p>Group 2 hydroxides M(OH)&#x2082; are basic. Solubility and basicity <strong>increase down the group</strong>:</p>
+<div class="tbl-wrap"><table>
+  <thead><tr><th>Hydroxide</th><th>Solubility</th><th>Notes</th></tr></thead>
+  <tbody>
+    <tr><td>Be(OH)&#x2082;</td><td>Insoluble; amphoteric</td><td>Reacts with both HCl and NaOH; anomalous</td></tr>
+    <tr><td>Mg(OH)&#x2082;</td><td>Sparingly soluble</td><td>Weakly alkaline suspension; antacid (milk of magnesia)</td></tr>
+    <tr><td>Ca(OH)&#x2082;</td><td>Slightly soluble (limewater)</td><td>pH ~12 in solution; used to test for CO&#x2082;</td></tr>
+    <tr><td>Sr(OH)&#x2082;</td><td>Moderately soluble</td><td>Stronger base than Ca(OH)&#x2082;</td></tr>
+    <tr><td>Ba(OH)&#x2082;</td><td>Soluble</td><td>Most soluble and most alkaline Group 2 hydroxide</td></tr>
+  </tbody>
+</table></div>
+<p>The increase in solubility down the group is due to decreasing lattice energy (larger M&#xB2;&#x207A;) outpacing decreasing hydration energy &rarr; solubility increases.</p>
+</div>
+
+<h3 class="sub">Carbonates</h3>
+<div class="card">
+<p>All Group 2 carbonates are <strong>thermally unstable</strong> &mdash; they decompose on heating to give metal oxide + CO&#x2082;:</p>
+<div class="formula-block">MCO&#x2083; &rarr; MO + CO&#x2082;
+
+MgCO&#x2083; &rarr; MgO + CO&#x2082;   (decomposes easily)
+CaCO&#x2083; &rarr; CaO + CO&#x2082;   (limestone &rarr; quicklime; needs ~900&deg;C)
+SrCO&#x2083; &rarr; SrO + CO&#x2082;
+BaCO&#x2083; &rarr; BaO + CO&#x2082;   (requires higher temperature)</div>
+<p><strong>Thermal stability increases down the group:</strong> larger M&#xB2;&#x207A; ions have lower charge density &rarr; less polarisation of CO&#x3;&#xB2;&#x207B; &rarr; harder to break &rarr; higher decomposition temperature required.</p>
+<div class="tbl-wrap"><table>
+  <thead><tr><th>Carbonate</th><th>Approx. decomp. temp (&deg;C)</th></tr></thead>
+  <tbody>
+    <tr><td>MgCO&#x2083;</td><td>~540</td></tr>
+    <tr><td>CaCO&#x2083;</td><td>~900</td></tr>
+    <tr><td>SrCO&#x2083;</td><td>~1290</td></tr>
+    <tr><td>BaCO&#x2083;</td><td>~1360</td></tr>
+  </tbody>
+</table></div>
+</div>
+
+<h3 class="sub">Sulfates</h3>
+<div class="card">
+<p>Solubility of Group 2 sulfates <strong>decreases down the group</strong> &mdash; the opposite trend to hydroxides:</p>
+<div class="tbl-wrap"><table>
+  <thead><tr><th>Sulfate</th><th>Solubility</th><th>Notes</th></tr></thead>
+  <tbody>
+    <tr><td>BeSO&#x2084;</td><td>Soluble</td><td>&mdash;</td></tr>
+    <tr><td>MgSO&#x2084;</td><td>Soluble</td><td>Epsom salt (MgSO&#x2084;&middot;7H&#x2082;O)</td></tr>
+    <tr><td>CaSO&#x2084;</td><td>Slightly soluble (sparingly)</td><td>Gypsum; causes "permanent" hard water</td></tr>
+    <tr><td>SrSO&#x2084;</td><td>Insoluble</td><td>&mdash;</td></tr>
+    <tr><td>BaSO&#x2084;</td><td>Virtually insoluble</td><td>Used as barium meal (X-ray contrast); confirms SO&#x4;&#xB2;&#x207B;</td></tr>
+  </tbody>
+</table></div>
+<p>The decrease in solubility is because the lattice energy decreases only slightly (the SO&#x4;&#xB2;&#x207B; anion is large), while hydration energy decreases significantly as M&#xB2;&#x207A; gets larger &rarr; less energy released on dissolving &rarr; lower solubility.</p>
+</div>
+
+<h3 class="sub">Nitrates</h3>
+<div class="card">
+<p>All Group 2 nitrates decompose on heating to give metal oxide + NO&#x2082; + O&#x2082;:</p>
+<div class="formula-block">2M(NO&#x2083;)&#x2082; &rarr; 2MO + 4NO&#x2082; + O&#x2082;
+
+2Mg(NO&#x2083;)&#x2082; &rarr; 2MgO + 4NO&#x2082; + O&#x2082;
+2Ca(NO&#x2083;)&#x2082; &rarr; 2CaO + 4NO&#x2082; + O&#x2082;</div>
+<p>Unlike Group 1 nitrates (which give nitrite + O&#x2082;), Group 2 nitrates decompose more completely to give oxide + NO&#x2082; (brown gas) + O&#x2082;. This is because M&#xB2;&#x207A; cations have higher charge density than M&#x207A; &rarr; more strongly polarise NO&#x3;&#x207B; &rarr; break N&ndash;O bonds more fully. Thermal stability of nitrates increases down Group 2 (same reasoning as carbonates).</p>
+</div>
+
+<h3 class="sub">Summary: Solubility Trends</h3>
+<div class="tbl-wrap"><table>
+  <thead><tr><th>Compound</th><th>Solubility trend down Group 2</th></tr></thead>
+  <tbody>
+    <tr><td>Hydroxides M(OH)&#x2082;</td><td>Increases: Be(OH)&#x2082; insoluble &rarr; Ba(OH)&#x2082; soluble</td></tr>
+    <tr><td>Sulfates MSO&#x2084;</td><td>Decreases: MgSO&#x2084; soluble &rarr; BaSO&#x2084; insoluble</td></tr>
+    <tr><td>Carbonates MCO&#x2083;</td><td>Decreases: MgCO&#x2083; slightly soluble &rarr; BaCO&#x2083; insoluble</td></tr>
+    <tr><td>Fluorides MF&#x2082;</td><td>Decreases: MgF&#x2082; slightly soluble &rarr; BaF&#x2082; more soluble (complex trend)</td></tr>
+  </tbody>
+</table></div>
+
+<!-- 7.4 -->
+<div class="section-header" id="s74"><span class="section-number">7.4</span><h2>Anomalous Properties of Beryllium</h2></div>
+<div class="card"><h3>Why Beryllium is Anomalous</h3>
+<p>Be is the first member of Group 2 and has a very small ionic radius (Be&#xB2;&#x207A;: 31 pm) and high charge density. This leads to properties much more similar to <strong>aluminium (Al)</strong> than to Mg &mdash; a <strong>diagonal relationship</strong> (Be and Al are diagonal neighbours in the periodic table).</p>
+</div>
+<div class="tbl-wrap"><table>
+  <thead><tr><th>Property</th><th>Typical Group 2 behaviour</th><th>Be (anomalous)</th><th>Resembles Al</th></tr></thead>
+  <tbody>
+    <tr><td>Oxide character</td><td>Basic (ionic)</td><td>BeO is amphoteric (reacts with both acids and bases)</td><td>Al&#x2082;O&#x2083; is amphoteric</td></tr>
+    <tr><td>Hydroxide character</td><td>Basic</td><td>Be(OH)&#x2082; is amphoteric</td><td>Al(OH)&#x2083; is amphoteric</td></tr>
+    <tr><td>Bonding in compounds</td><td>Ionic</td><td>BeCl&#x2082; is covalent (high charge density polarises Cl&#x207B;)</td><td>AlCl&#x2083; is covalent</td></tr>
+    <tr><td>Reaction with NaOH</td><td>No reaction</td><td>Be + 2NaOH + 2H&#x2082;O &rarr; Na&#x2082;[Be(OH)&#x2084;] + H&#x2082;</td><td>Al reacts with NaOH</td></tr>
+    <tr><td>Chloride structure</td><td>Ionic MX&#x2082;</td><td>BeCl&#x2082; is a polymer chain (linear); Lewis acid</td><td>AlCl&#x2083; is dimeric/covalent</td></tr>
+    <tr><td>Reaction with water</td><td>React to give M(OH)&#x2082; + H&#x2082;</td><td>Be does not react with water</td><td>Al does not react with water readily (oxide layer)</td></tr>
+    <tr><td>Complexes</td><td>Simple ionic compounds</td><td>Be forms complex ions [Be(OH)&#x2084;]&#xB2;&#x207B;</td><td>Al forms [Al(OH)&#x2084;]&#x207B;</td></tr>
+  </tbody>
+</table></div>
+<div class="formula-block">Amphoteric reactions of Be(OH)&#x2082;:
+With acid: Be(OH)&#x2082; + 2HCl &rarr; BeCl&#x2082; + 2H&#x2082;O  (acts as base)
+With base: Be(OH)&#x2082; + 2NaOH &rarr; Na&#x2082;[Be(OH)&#x2084;]    (acts as acid)</div>
+<div class="callout warn"><span class="callout-icon">&#x26A0;&#xFE0F;</span><div class="callout-body"><strong>Beryllium toxicity</strong>Beryllium and its compounds are extremely toxic. Inhalation of Be dust causes berylliosis (a chronic lung disease). BeCl&#x2082; and other Be compounds must be handled with great care. This limits its industrial use despite its excellent mechanical properties.</div></div>
+
+<!-- 7.5 -->
+<div class="section-header" id="s75"><span class="section-number">7.5</span><h2>Identification Test for Ba&#xB2;&#x207A; Ions in Aqueous Solution</h2></div>
+<div class="card"><h3>Test for Barium Ions</h3>
+<p>Barium ions are identified by two key tests:</p>
+<ol style="margin:10px 0 0 20px;line-height:2.3;">
+  <li><strong>Flame test:</strong> Ba&#xB2;&#x207A; gives a characteristic <strong>apple green</strong> flame.</li>
+  <li><strong>Sulfate precipitation test:</strong> Add dilute H&#x2082;SO&#x2084; (or dilute HCl then BaCl&#x2082; solution, or dilute HNO&#x2083; then Ba(NO&#x2083;)&#x2082;):<br>Ba&#xB2;&#x207A;(aq) + SO&#x4;&#xB2;&#x207B;(aq) &rarr; BaSO&#x4;(s) (dense white precipitate, insoluble in dilute HCl).</li>
+</ol>
+<div class="formula-block">Test for Ba&#xB2;&#x207A;:
+Add dilute HCl to acidify, then add dilute H&#x2082;SO&#x2084;.
+Observation: dense white precipitate of BaSO&#x2084; forms.
+BaSO&#x2084; is insoluble in dilute HCl &mdash; this distinguishes it from BaSO&#x2083;
+(which would dissolve in HCl).
+
+Ionic equation: Ba&#xB2;&#x207A;(aq) + SO&#x4;&#xB2;&#x207B;(aq) &rarr; BaSO&#x4;(s)</div>
+</div>
+<div class="callout info"><span class="callout-icon">&#x2139;&#xFE0F;</span><div class="callout-body"><strong>BaSO&#x2084; as a barium meal</strong>BaSO&#x2084; is used as a contrast agent in X-ray examination of the gastrointestinal tract ("barium meal" or "barium enema"). It is opaque to X-rays (shows white on the image) and is safe because it is essentially insoluble in water and digestive fluids &mdash; it cannot be absorbed into the bloodstream (unlike soluble Ba&#xB2;&#x207A; which is highly toxic).</div></div>
+<div class="card"><h3>Additional Group 2 Ion Tests</h3>
+<div class="tbl-wrap"><table>
+  <thead><tr><th>Ion</th><th>Test</th><th>Observation</th></tr></thead>
+  <tbody>
+    <tr><td>Ca&#xB2;&#x207A;</td><td>Add Na&#x2082;CO&#x2083;(aq) or (NH&#x2084;)&#x2082;CO&#x2083;(aq)</td><td>White precipitate of CaCO&#x2083; (soluble in dilute HCl)</td></tr>
+    <tr><td>Ca&#xB2;&#x207A;</td><td>Add dilute H&#x2082;SO&#x2084;</td><td>White precipitate of CaSO&#x2084; (sparingly soluble)</td></tr>
+    <tr><td>Ba&#xB2;&#x207A;</td><td>Add dilute H&#x2082;SO&#x2084;</td><td>Dense white precipitate of BaSO&#x2084; (insoluble in HCl)</td></tr>
+    <tr><td>Mg&#xB2;&#x207A;</td><td>Add NaOH(aq)</td><td>White gelatinous precipitate of Mg(OH)&#x2082; (insoluble in excess NaOH)</td></tr>
+    <tr><td>Be&#xB2;&#x207A;</td><td>Add NaOH(aq)</td><td>White precipitate initially; dissolves in excess NaOH (amphoteric)</td></tr>
+  </tbody>
+</table></div>
+</div>
+
+<!-- 7.6 -->
+<div class="section-header" id="s76"><span class="section-number">7.6</span><h2>Uses of Group 2 Elements and Their Compounds</h2></div>
+<div class="tbl-wrap"><table>
+  <thead><tr><th>Substance</th><th>Uses</th></tr></thead>
+  <tbody>
+    <tr><td>Beryllium (Be)</td><td>Aerospace alloys (Be-Cu very hard &amp; strong); X-ray windows (low atomic number &rarr; transparent to X-rays); nuclear reactor components; gyroscopes</td></tr>
+    <tr><td>Magnesium (Mg)</td><td>Lightweight alloys (Al-Mg for aircraft, cars); Grignard reagents in organic synthesis; reducing agent in metallurgy (Ti, Zr extraction); flares and fireworks (burns brightly)</td></tr>
+    <tr><td>MgO</td><td>Refractory lining for furnaces (very high m.p.); antacid (milk of magnesia, Mg(OH)&#x2082;); cement; insulation</td></tr>
+    <tr><td>Mg(OH)&#x2082;</td><td>Antacid ("milk of magnesia" &mdash; neutralises excess stomach acid); flame retardant</td></tr>
+    <tr><td>MgSO&#x2084;&middot;7H&#x2082;O</td><td>Epsom salts: laxative, bath salts, muscle relaxant; agriculture (Mg fertiliser)</td></tr>
+    <tr><td>Calcium (Ca)</td><td>Reducing agent in metallurgy (production of rare metals like U, Th); calcium supplements</td></tr>
+    <tr><td>CaCO&#x2083; (limestone)</td><td>Building material; manufacture of CaO (quicklime); glass making; iron production (flux); paper; soil neutralisation</td></tr>
+    <tr><td>CaO (quicklime)</td><td>Steel making (removes silica impurities as slag); manufacture of Ca(OH)&#x2082;; soil treatment; drying agent</td></tr>
+    <tr><td>Ca(OH)&#x2082; (slaked lime)</td><td>Cement and mortar; soil treatment (reduces acidity, raises pH for agriculture); water treatment (softening); flue gas desulfurisation</td></tr>
+    <tr><td>CaSO&#x2084;&middot;2H&#x2082;O (gypsum)</td><td>Plaster of Paris (CaSO&#x4;&middot;&frac12;H&#x2082;O) &mdash; casts and moulds; blackboard chalk; building material; soil conditioner</td></tr>
+    <tr><td>CaF&#x2082; (fluorite/fluorspar)</td><td>Manufacture of HF; optical components; steel making (flux)</td></tr>
+    <tr><td>BaSO&#x2084;</td><td>Barium meal X-ray contrast agent; white pigment (lithopone); drilling mud in oil wells</td></tr>
+    <tr><td>BaCO&#x2083;</td><td>Rat poison (toxic Ba compound); glass and ceramics; CRT screens</td></tr>
+    <tr><td>Sr compounds</td><td>Strontium carbonate/nitrate in red fireworks and signal flares (crimson flame); SrTiO&#x2083; as diamond substitute</td></tr>
+  </tbody>
+</table></div>
+
+<!-- EXERCISES -->
+<div class="section-header" id="exercises"><span class="section-number">&#x270F;&#xFE0F;</span><h2>Exercises</h2></div>
+<ul class="exercise-list">
+  <li>State and explain the trend in thermal stability of Group 2 carbonates (MgCO&#x2083; to BaCO&#x2083;). Write equations for the decomposition of MgCO&#x2083; and CaCO&#x2083;.
+    <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+    <div class="answer">Thermal stability <strong>increases</strong> down the group: MgCO&#x2083; decomposes most easily (~540&deg;C); BaCO&#x2083; requires the highest temperature (~1360&deg;C).<br>Reason: Smaller M&#xB2;&#x207A; cations (Mg&#xB2;&#x207A;) have higher charge density &rarr; strongly polarise the CO&#x3;&#xB2;&#x207B; ion &rarr; distort electron density, weakening C&ndash;O bonds &rarr; easier decomposition. Larger cations (Ba&#xB2;&#x207A;) have lower charge density &rarr; polarise CO&#x3;&#xB2;&#x207B; less &rarr; more stable carbonate &rarr; higher temperature needed.<br>MgCO&#x2083; &rarr; MgO + CO&#x2082;<br>CaCO&#x2083; &rarr; CaO + CO&#x2082;</div>
+  </li>
+  <li>Explain why the solubility of Group 2 hydroxides increases down the group but the solubility of Group 2 sulfates decreases. Relate both trends to lattice energy and hydration energy.
+    <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+    <div class="answer"><strong>Hydroxides (increasing solubility):</strong> As M&#xB2;&#x207A; gets larger, lattice energy decreases significantly (because lattice energy &prop; 1/r) since OH&#x207B; is small &rarr; the lattice weakens noticeably. Hydration energy also decreases but less steeply. Net result: the lattice energy decrease dominates &rarr; dissolving becomes more energetically favourable &rarr; solubility increases (Mg(OH)&#x2082; sparingly soluble; Ba(OH)&#x2082; soluble).<br><strong>Sulfates (decreasing solubility):</strong> SO&#x4;&#xB2;&#x207B; is a large anion &rarr; lattice energy changes only slightly as M&#xB2;&#x207A; increases (because the lattice energy is already dominated by the large SO&#x4;&#xB2;&#x207B;). However, hydration energy of M&#xB2;&#x207A; decreases significantly as radius increases. Net result: the decrease in hydration energy dominates &rarr; dissolving becomes less favourable &rarr; solubility decreases (MgSO&#x2084; soluble; BaSO&#x2084; insoluble).</div>
+  </li>
+  <li>State the reagent and observation for the identification of Ba&#xB2;&#x207A; ions. Write an ionic equation for the reaction.
+    <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+    <div class="answer">Add dilute HCl (to acidify and remove interfering ions), then add dilute H&#x2082;SO&#x2084; (or dilute HNO&#x2083; then Na&#x2082;SO&#x2084; solution).<br>Observation: <strong>dense white precipitate</strong> of BaSO&#x2084; forms. The precipitate is <strong>insoluble in dilute HCl</strong> (this distinguishes it from other white precipitates like BaCO&#x2083; which dissolves in HCl).<br>Ionic equation: Ba&#xB2;&#x207A;(aq) + SO&#x4;&#xB2;&#x207B;(aq) &rarr; BaSO&#x4;(s)</div>
+  </li>
+  <li>Describe THREE ways in which beryllium behaves anomalously in Group 2, and explain what element it resembles (diagonal relationship).
+    <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+    <div class="answer">Be resembles <strong>aluminium (Al)</strong> &mdash; its diagonal neighbour (Period 3, Group 13). Both have small ionic radii and high charge density.<br>(1) <strong>Amphoteric oxide and hydroxide:</strong> BeO and Be(OH)&#x2082; react with both acids (BeO + 2HCl &rarr; BeCl&#x2082; + H&#x2082;O) and bases (Be(OH)&#x2082; + 2NaOH &rarr; Na&#x2082;[Be(OH)&#x2084;]). Other Group 2 oxides/hydroxides are purely basic. Al&#x2082;O&#x2083; and Al(OH)&#x2083; are also amphoteric.<br>(2) <strong>Covalent bonding in halides:</strong> BeCl&#x2082; is covalent (polymeric chain), not ionic. Other Group 2 chlorides are ionic. AlCl&#x2083; is also covalent.<br>(3) <strong>No reaction with water:</strong> Be does not react with water or steam. Other Group 2 metals (Ca, Sr, Ba) react with water. Al also does not react with water readily (oxide layer). (Also acceptable: Be reacts with NaOH; other Group 2 metals don't.)</div>
+  </li>
+  <li>Write balanced equations for: (a) calcium reacting with water; (b) CaO reacting with water; (c) Ca(OH)&#x2082; reacting with CO&#x2082;; (d) CaCO&#x2083; reacting with dilute HCl.
+    <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+    <div class="answer">(a) Ca + 2H&#x2082;O &rarr; Ca(OH)&#x2082; + H&#x2082;<br>(b) CaO + H&#x2082;O &rarr; Ca(OH)&#x2082; &nbsp;&nbsp;(exothermic; slaking of quicklime)<br>(c) Ca(OH)&#x2082; + CO&#x2082; &rarr; CaCO&#x2083; + H&#x2082;O &nbsp;&nbsp;(limewater turns milky)<br>(d) CaCO&#x2083; + 2HCl &rarr; CaCl&#x2082; + H&#x2082;O + CO&#x2082;</div>
+  </li>
+  <li>Explain why Ca(OH)&#x2082; is used to treat acidic soil, while CaCO&#x2083; is also used. Which is more effective per mole and why?
+    <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+    <div class="answer">Acidic soil has a low pH that inhibits plant growth. Both Ca(OH)&#x2082; and CaCO&#x2083; are bases that neutralise acid:<br>Ca(OH)&#x2082; + 2H&#x207A; &rarr; Ca&#xB2;&#x207A; + 2H&#x2082;O<br>CaCO&#x2083; + 2H&#x207A; &rarr; Ca&#xB2;&#x207A; + H&#x2082;O + CO&#x2082;<br><strong>Ca(OH)&#x2082; is more effective per mole</strong> because it provides 2 OH&#x207B; ions per formula unit &rarr; neutralises 2 H&#x207A; ions. It is also more soluble than CaCO&#x2083;. However, CaCO&#x2083; is cheaper, abundant (limestone), and safer to handle (Ca(OH)&#x2082; is more caustic). CaCO&#x2083; also releases CO&#x2082; which acidifies slightly, but the net effect is still pH increase. In practice, powdered limestone (CaCO&#x2083;) is widely used because of cost and availability.</div>
+  </li>
+</ul>
+
+<!-- QUIZ -->
+<div class="section-header" id="quiz"><span class="section-number">&#x1F9EA;</span><h2>Multiple Choice Quiz &mdash; 25 Questions</h2></div>
+<div class="quiz-wrap">
+  <div class="quiz-header"><h3>Unit 7 Quiz</h3><span style="font-family:'JetBrains Mono',monospace;font-size:.82rem;color:var(--muted);">Select one answer per question</span></div>
+  <div class="quiz-body">
+
+  <div class="q-block"><span class="q-num">Q1</span><div class="q-text">The thermal stability of Group 2 carbonates increases down the group because:</div><div class="options">
+    <label class="opt"><input type="radio" name="q1" value="A"/>Larger cations have higher charge density, polarising CO&#x3;&#xB2;&#x207B; more</label>
+    <label class="opt"><input type="radio" name="q1" value="B"/>Larger cations have lower charge density, polarising CO&#x3;&#xB2;&#x207B; less, making decomposition harder</label>
+    <label class="opt"><input type="radio" name="q1" value="C"/>The carbonates become more ionic down the group</label>
+    <label class="opt"><input type="radio" name="q1" value="D"/>Larger cations form stronger bonds with CO&#x3;&#xB2;&#x207B;</label>
+  </div><div class="q-exp" id="eq1">Smaller M&#xB2;&#x207A; (e.g. Mg&#xB2;&#x207A;) has high charge density &rarr; strongly polarises CO&#x3;&#xB2;&#x207B; &rarr; decomposes easily. Larger M&#xB2;&#x207A; (e.g. Ba&#xB2;&#x207A;) has lower charge density &rarr; polarises CO&#x3;&#xB2;&#x207B; less &rarr; more stable &rarr; higher decomposition temperature needed.</div></div>
+
+  <div class="q-block"><span class="q-num">Q2</span><div class="q-text">The solubility of Group 2 sulfates:</div><div class="options">
+    <label class="opt"><input type="radio" name="q2" value="A"/>Increases down the group</label>
+    <label class="opt"><input type="radio" name="q2" value="B"/>Decreases down the group</label>
+    <label class="opt"><input type="radio" name="q2" value="C"/>Remains constant</label>
+    <label class="opt"><input type="radio" name="q2" value="D"/>Increases then decreases</label>
+  </div><div class="q-exp" id="eq2">Sulfate solubility decreases: MgSO&#x2084; (soluble) &rarr; BaSO&#x2084; (insoluble). Large SO&#x4;&#xB2;&#x207B; means lattice energy changes little, but hydration energy of M&#xB2;&#x207A; falls steeply &rarr; less soluble going down.</div></div>
+
+  <div class="q-block"><span class="q-num">Q3</span><div class="q-text">The reagent used to test for Ba&#xB2;&#x207A; ions is:</div><div class="options">
+    <label class="opt"><input type="radio" name="q3" value="A"/>Dilute HCl only</label>
+    <label class="opt"><input type="radio" name="q3" value="B"/>Dilute H&#x2082;SO&#x2084; (giving a white precipitate of BaSO&#x2084;)</label>
+    <label class="opt"><input type="radio" name="q3" value="C"/>NaOH solution</label>
+    <label class="opt"><input type="radio" name="q3" value="D"/>AgNO&#x2083; solution</label>
+  </div><div class="q-exp" id="eq3">Adding dilute H&#x2082;SO&#x2084; to a solution containing Ba&#xB2;&#x207A; gives a dense white precipitate of BaSO&#x2084;: Ba&#xB2;&#x207A; + SO&#x4;&#xB2;&#x207B; &rarr; BaSO&#x4;(s). BaSO&#x4; is insoluble in dilute HCl.</div></div>
+
+  <div class="q-block"><span class="q-num">Q4</span><div class="q-text">Beryllium is anomalous in Group 2 because it:</div><div class="options">
+    <label class="opt"><input type="radio" name="q4" value="A"/>Forms +1 ions instead of +2</label>
+    <label class="opt"><input type="radio" name="q4" value="B"/>Has an amphoteric oxide/hydroxide and forms covalent compounds</label>
+    <label class="opt"><input type="radio" name="q4" value="C"/>Does not conduct electricity</label>
+    <label class="opt"><input type="radio" name="q4" value="D"/>Reacts explosively with water</label>
+  </div><div class="q-exp" id="eq4">Be is anomalous: BeO/Be(OH)&#x2082; are amphoteric (react with both acids and bases); BeCl&#x2082; is covalent; Be does not react with water; Be resembles Al (diagonal relationship).</div></div>
+
+  <div class="q-block"><span class="q-num">Q5</span><div class="q-text">The flame colour of barium is:</div><div class="options">
+    <label class="opt"><input type="radio" name="q5" value="A"/>Crimson red</label>
+    <label class="opt"><input type="radio" name="q5" value="B"/>Brick red</label>
+    <label class="opt"><input type="radio" name="q5" value="C"/>Apple green</label>
+    <label class="opt"><input type="radio" name="q5" value="D"/>Lilac</label>
+  </div><div class="q-exp" id="eq5">Ba&#xB2;&#x207A; gives an apple green flame. Ca = brick red; Sr = crimson; Mg = brilliant white (not characteristic for flame test purposes).</div></div>
+
+  <div class="q-block"><span class="q-num">Q6</span><div class="q-text">When CaO reacts with water, the product is:</div><div class="options">
+    <label class="opt"><input type="radio" name="q6" value="A"/>CaCO&#x2083;</label>
+    <label class="opt"><input type="radio" name="q6" value="B"/>CaO&#x2082;</label>
+    <label class="opt"><input type="radio" name="q6" value="C"/>Ca(OH)&#x2082;</label>
+    <label class="opt"><input type="radio" name="q6" value="D"/>CaCl&#x2082;</label>
+  </div><div class="q-exp" id="eq6">CaO + H&#x2082;O &rarr; Ca(OH)&#x2082; (slaked lime). This highly exothermic reaction is "slaking" of quicklime (CaO).</div></div>
+
+  <div class="q-block"><span class="q-num">Q7</span><div class="q-text">Why is BaSO&#x2084; used as a contrast agent in X-ray examination?</div><div class="options">
+    <label class="opt"><input type="radio" name="q7" value="A"/>It is coloured and visible without X-rays</label>
+    <label class="opt"><input type="radio" name="q7" value="B"/>It is opaque to X-rays and insoluble, so it cannot be absorbed into the bloodstream</label>
+    <label class="opt"><input type="radio" name="q7" value="C"/>It reacts with stomach acid to produce a contrasting product</label>
+    <label class="opt"><input type="radio" name="q7" value="D"/>It is a radioactive substance that emits X-rays</label>
+  </div><div class="q-exp" id="eq7">BaSO&#x4; is virtually insoluble &rarr; cannot be absorbed into blood (soluble Ba&#xB2;&#x207A; is toxic). Its high atomic number makes it opaque to X-rays &rarr; shows up white on X-ray images &rarr; outlines the GI tract.</div></div>
+
+  <div class="q-block"><span class="q-num">Q8</span><div class="q-text">Which Group 2 hydroxide is most soluble?</div><div class="options">
+    <label class="opt"><input type="radio" name="q8" value="A"/>Mg(OH)&#x2082;</label>
+    <label class="opt"><input type="radio" name="q8" value="B"/>Ca(OH)&#x2082;</label>
+    <label class="opt"><input type="radio" name="q8" value="C"/>Sr(OH)&#x2082;</label>
+    <label class="opt"><input type="radio" name="q8" value="D"/>Ba(OH)&#x2082;</label>
+  </div><div class="q-exp" id="eq8">Solubility of Group 2 hydroxides increases down the group. Ba(OH)&#x2082; is the most soluble and most strongly alkaline.</div></div>
+
+  <div class="q-block"><span class="q-num">Q9</span><div class="q-text">Group 2 nitrates decompose to give:</div><div class="options">
+    <label class="opt"><input type="radio" name="q9" value="A"/>Metal nitrite + O&#x2082;</label>
+    <label class="opt"><input type="radio" name="q9" value="B"/>Metal oxide + NO&#x2082; + O&#x2082;</label>
+    <label class="opt"><input type="radio" name="q9" value="C"/>Metal + N&#x2082; + O&#x2082;</label>
+    <label class="opt"><input type="radio" name="q9" value="D"/>Metal oxide + N&#x2082;O</label>
+  </div><div class="q-exp" id="eq9">2M(NO&#x2083;)&#x2082; &rarr; 2MO + 4NO&#x2082; + O&#x2082;. Group 2 nitrates (unlike Group 1 except Li) decompose all the way to oxide + brown NO&#x2082; gas + O&#x2082;.</div></div>
+
+  <div class="q-block"><span class="q-num">Q10</span><div class="q-text">Which element does beryllium most resemble due to the diagonal relationship?</div><div class="options">
+    <label class="opt"><input type="radio" name="q10" value="A"/>Boron</label>
+    <label class="opt"><input type="radio" name="q10" value="B"/>Aluminium</label>
+    <label class="opt"><input type="radio" name="q10" value="C"/>Lithium</label>
+    <label class="opt"><input type="radio" name="q10" value="D"/>Silicon</label>
+  </div><div class="q-exp" id="eq10">Be (Period 2, Group 2) has a diagonal relationship with Al (Period 3, Group 13). Both have small, highly polarising cations; both have amphoteric oxides/hydroxides; both form covalent chlorides.</div></div>
+
+  <div class="q-block"><span class="q-num">Q11</span><div class="q-text">Limewater (Ca(OH)&#x2082;) turns milky when CO&#x2082; is bubbled through because:</div><div class="options">
+    <label class="opt"><input type="radio" name="q11" value="A"/>CaO is produced</label>
+    <label class="opt"><input type="radio" name="q11" value="B"/>Insoluble CaCO&#x2083; precipitates</label>
+    <label class="opt"><input type="radio" name="q11" value="C"/>Ca(OH)&#x2082; dissolves</label>
+    <label class="opt"><input type="radio" name="q11" value="D"/>CO&#x2082; reacts to form Ca(HCO&#x2083;)&#x2082; which is milky</label>
+  </div><div class="q-exp" id="eq11">Ca(OH)&#x2082; + CO&#x2082; &rarr; CaCO&#x2083;(s) + H&#x2082;O. Insoluble white CaCO&#x2083; precipitates &rarr; milky appearance. With excess CO&#x2082;: CaCO&#x2083; + CO&#x2082; + H&#x2082;O &rarr; Ca(HCO&#x2083;)&#x2082; (soluble) &rarr; clears.</div></div>
+
+  <div class="q-block"><span class="q-num">Q12</span><div class="q-text">Magnesium does not react significantly with cold water but reacts with steam because:</div><div class="options">
+    <label class="opt"><input type="radio" name="q12" value="A"/>Steam is denser than cold water</label>
+    <label class="opt"><input type="radio" name="q12" value="B"/>The higher temperature of steam provides enough activation energy to overcome the protective oxide layer on Mg</label>
+    <label class="opt"><input type="radio" name="q12" value="C"/>Steam contains oxygen</label>
+    <label class="opt"><input type="radio" name="q12" value="D"/>Cold water neutralises Mg</label>
+  </div><div class="q-exp" id="eq12">Mg has a thin protective MgO/Mg(OH)&#x2082; surface layer that slows cold water reaction. High temperature of steam overcomes this barrier. Mg + H&#x2082;O(g) &rarr; MgO + H&#x2082;.</div></div>
+
+  <div class="q-block"><span class="q-num">Q13</span><div class="q-text">Ca(OH)&#x2082; is added to acidic soil to:</div><div class="options">
+    <label class="opt"><input type="radio" name="q13" value="A"/>Add nitrogen nutrients</label>
+    <label class="opt"><input type="radio" name="q13" value="B"/>Raise the pH by neutralising excess acid</label>
+    <label class="opt"><input type="radio" name="q13" value="C"/>Kill pests</label>
+    <label class="opt"><input type="radio" name="q13" value="D"/>Increase the carbon content of soil</label>
+  </div><div class="q-exp" id="eq13">Ca(OH)&#x2082; is a base. Acidic soil has low pH &rarr; inhibits plant growth. Ca(OH)&#x2082; neutralises excess H&#x207A;: Ca(OH)&#x2082; + 2H&#x207A; &rarr; Ca&#xB2;&#x207A; + 2H&#x2082;O &rarr; raises pH to optimum for plants.</div></div>
+
+  <div class="q-block"><span class="q-num">Q14</span><div class="q-text">Which of these Group 2 compounds is used as an antacid?</div><div class="options">
+    <label class="opt"><input type="radio" name="q14" value="A"/>BaSO&#x2084;</label>
+    <label class="opt"><input type="radio" name="q14" value="B"/>CaCO&#x2083;</label>
+    <label class="opt"><input type="radio" name="q14" value="C"/>Mg(OH)&#x2082;</label>
+    <label class="opt"><input type="radio" name="q14" value="D"/>MgSO&#x2084;</label>
+  </div><div class="q-exp" id="eq14">Mg(OH)&#x2082; (milk of magnesia) is used as an antacid. It neutralises excess HCl in the stomach: Mg(OH)&#x2082; + 2HCl &rarr; MgCl&#x2082; + 2H&#x2082;O. CaCO&#x2083; is also used in some antacids (e.g. Tums).</div></div>
+
+  <div class="q-block"><span class="q-num">Q15</span><div class="q-text">The reactivity of Group 2 metals increases down the group because:</div><div class="options">
+    <label class="opt"><input type="radio" name="q15" value="A"/>Nuclear charge decreases</label>
+    <label class="opt"><input type="radio" name="q15" value="B"/>Both the first and second ionisation energies decrease, making electron loss easier</label>
+    <label class="opt"><input type="radio" name="q15" value="C"/>The outer electrons become more tightly held</label>
+    <label class="opt"><input type="radio" name="q15" value="D"/>Group 2 metals form +1 ions going down the group</label>
+  </div><div class="q-exp" id="eq15">Both IE&#x2081; and IE&#x2082; decrease down Group 2 (outer 2 electrons are in higher shells, more shielded) &rarr; both electrons are easier to lose &rarr; greater reactivity going down the group.</div></div>
+
+  <div class="q-block"><span class="q-num">Q16</span><div class="q-text">CaSO&#x2084; is only slightly soluble in water. This explains why Ca reacts with H&#x2082;SO&#x2084; only initially because:</div><div class="options">
+    <label class="opt"><input type="radio" name="q16" value="A"/>Ca runs out of electrons to donate</label>
+    <label class="opt"><input type="radio" name="q16" value="B"/>Insoluble CaSO&#x2084; forms a protective layer on Ca surface, preventing further reaction</label>
+    <label class="opt"><input type="radio" name="q16" value="C"/>H&#x2082;SO&#x2084; is a weak acid with Ca</label>
+    <label class="opt"><input type="radio" name="q16" value="D"/>The reaction absorbs heat and stops</label>
+  </div><div class="q-exp" id="eq16">Ca + H&#x2082;SO&#x4; &rarr; CaSO&#x2084;(s) + H&#x2082;. CaSO&#x2084; is sparingly soluble &rarr; deposits on Ca surface as a protective layer &rarr; blocks access of H&#x2082;SO&#x2084; to Ca &rarr; reaction effectively stops (passivation).</div></div>
+
+  <div class="q-block"><span class="q-num">Q17</span><div class="q-text">Which carbonate requires the highest temperature to decompose?</div><div class="options">
+    <label class="opt"><input type="radio" name="q17" value="A"/>MgCO&#x2083;</label>
+    <label class="opt"><input type="radio" name="q17" value="B"/>CaCO&#x2083;</label>
+    <label class="opt"><input type="radio" name="q17" value="C"/>SrCO&#x2083;</label>
+    <label class="opt"><input type="radio" name="q17" value="D"/>BaCO&#x2083;</label>
+  </div><div class="q-exp" id="eq17">BaCO&#x2083; (~1360&deg;C) has the highest decomposition temperature. Ba&#xB2;&#x207A; is the largest cation &rarr; lowest charge density &rarr; least polarisation of CO&#x3;&#xB2;&#x207B; &rarr; most stable carbonate.</div></div>
+
+  <div class="q-block"><span class="q-num">Q18</span><div class="q-text">When excess CO&#x2082; is bubbled through limewater (initially turned milky), the solution clears because:</div><div class="options">
+    <label class="opt"><input type="radio" name="q18" value="A"/>CaCO&#x2083; decomposes back to Ca(OH)&#x2082;</label>
+    <label class="opt"><input type="radio" name="q18" value="B"/>CaCO&#x2083; + CO&#x2082; + H&#x2082;O &rarr; Ca(HCO&#x2083;)&#x2082; (soluble)</label>
+    <label class="opt"><input type="radio" name="q18" value="C"/>The CO&#x2082; dissolves the Ca(OH)&#x2082;</label>
+    <label class="opt"><input type="radio" name="q18" value="D"/>The temperature rises and CaCO&#x2083; dissolves</label>
+  </div><div class="q-exp" id="eq18">Excess CO&#x2082; converts insoluble CaCO&#x3; to soluble calcium hydrogen carbonate Ca(HCO&#x3;)&#x2082; &rarr; precipitate dissolves &rarr; solution clears. CaCO&#x2083; + CO&#x2082; + H&#x2082;O &rarr; Ca(HCO&#x2083;)&#x2082;(aq). This is reversible (heating reverses it &rarr; CaCO&#x3; precipitates again &mdash; basis of stalactite/stalagmite formation).</div></div>
+
+  <div class="q-block"><span class="q-num">Q19</span><div class="q-text">The ionic equation for the reaction of Be(OH)&#x2082; with NaOH is best described as:</div><div class="options">
+    <label class="opt"><input type="radio" name="q19" value="A"/>Be(OH)&#x2082; acting as a base</label>
+    <label class="opt"><input type="radio" name="q19" value="B"/>Be(OH)&#x2082; acting as an acid, accepting OH&#x207B;</label>
+    <label class="opt"><input type="radio" name="q19" value="C"/>Be(OH)&#x2082; + 2NaOH &rarr; Na&#x2082;[Be(OH)&#x2084;], acting as an acid donating protons</label>
+    <label class="opt"><input type="radio" name="q19" value="D"/>Be(OH)&#x2082; acting as a reducing agent</label>
+  </div><div class="q-exp" id="eq19">Be(OH)&#x2082; is amphoteric. With NaOH (a base): Be(OH)&#x2082; + 2OH&#x207B; &rarr; [Be(OH)&#x2084;]&#xB2;&#x207B;. Be(OH)&#x2082; accepts OH&#x207B; ions &mdash; it acts as a Lewis acid (electron pair acceptor), behaving like an acid in this context.</div></div>
+
+  <div class="q-block"><span class="q-num">Q20</span><div class="q-text">Epsom salt (MgSO&#x2084;&middot;7H&#x2082;O) is used as:</div><div class="options">
+    <label class="opt"><input type="radio" name="q20" value="A"/>An antacid</label>
+    <label class="opt"><input type="radio" name="q20" value="B"/>A fertiliser source of Mg and a mild laxative</label>
+    <label class="opt"><input type="radio" name="q20" value="C"/>A barium meal</label>
+    <label class="opt"><input type="radio" name="q20" value="D"/>A refractory furnace lining</label>
+  </div><div class="q-exp" id="eq20">MgSO&#x4;&middot;7H&#x2082;O (Epsom salt): used as a laxative, bath salts (muscle relaxant), and as a magnesium fertiliser for plants (Mg is essential for chlorophyll).</div></div>
+
+  <div class="q-block"><span class="q-num">Q21</span><div class="q-text">CaO is called "quicklime" and is produced by:</div><div class="options">
+    <label class="opt"><input type="radio" name="q21" value="A"/>Burning Ca in oxygen</label>
+    <label class="opt"><input type="radio" name="q21" value="B"/>Thermal decomposition of CaCO&#x2083;</label>
+    <label class="opt"><input type="radio" name="q21" value="C"/>Reacting Ca with water</label>
+    <label class="opt"><input type="radio" name="q21" value="D"/>Reacting CaCl&#x2082; with NaOH</label>
+  </div><div class="q-exp" id="eq21">CaCO&#x2083; &rarr; CaO + CO&#x2082; at ~900&deg;C (industrial lime kiln). This is the thermal decomposition of limestone to produce quicklime (CaO), a major industrial process.</div></div>
+
+  <div class="q-block"><span class="q-num">Q22</span><div class="q-text">Group 2 metals have higher melting points than Group 1 metals in the same period because:</div><div class="options">
+    <label class="opt"><input type="radio" name="q22" value="A"/>Group 2 metals form ionic compounds</label>
+    <label class="opt"><input type="radio" name="q22" value="B"/>Group 2 metals contribute 2 delocalised electrons per atom, giving stronger metallic bonding</label>
+    <label class="opt"><input type="radio" name="q22" value="C"/>Group 2 atoms are larger</label>
+    <label class="opt"><input type="radio" name="q22" value="D"/>Group 2 metals have more neutrons</label>
+  </div><div class="q-exp" id="eq22">Group 2: ns&#xB2; &rarr; 2 delocalised electrons per atom (vs 1 for Group 1). Greater electron density + higher M&#xB2;&#x207A; charge + smaller ionic radius &rarr; stronger metallic bonding &rarr; higher m.p.</div></div>
+
+  <div class="q-block"><span class="q-num">Q23</span><div class="q-text">Which test would distinguish Ca&#xB2;&#x207A; from Ba&#xB2;&#x207A; in solution?</div><div class="options">
+    <label class="opt"><input type="radio" name="q23" value="A"/>Adding NaOH (both give white precipitate)</label>
+    <label class="opt"><input type="radio" name="q23" value="B"/>Adding dilute HCl (neither reacts)</label>
+    <label class="opt"><input type="radio" name="q23" value="C"/>Adding dilute H&#x2082;SO&#x2084;: BaSO&#x2084; is insoluble in HCl; CaSO&#x2084; is slightly soluble</label>
+    <label class="opt"><input type="radio" name="q23" value="D"/>Flame test: both give crimson colour</label>
+  </div><div class="q-exp" id="eq23">Both Ca&#xB2;&#x207A; and Ba&#xB2;&#x207A; give white precipitates with H&#x2082;SO&#x2084;. The distinction: BaSO&#x2084; is insoluble in dilute HCl; CaSO&#x2084; is sparingly soluble and may dissolve/not precipitate cleanly. The flame test also helps: Ca = brick red; Ba = apple green.</div></div>
+
+  <div class="q-block"><span class="q-num">Q24</span><div class="q-text">In the Solvay (ammonia-soda) process, Ca(OH)&#x2082; is used to:</div><div class="options">
+    <label class="opt"><input type="radio" name="q24" value="A"/>Produce CO&#x2082; for the process</label>
+    <label class="opt"><input type="radio" name="q24" value="B"/>Recover ammonia from ammonium chloride for recycling: Ca(OH)&#x2082; + 2NH&#x2084;Cl &rarr; CaCl&#x2082; + 2NH&#x2083; + 2H&#x2082;O</label>
+    <label class="opt"><input type="radio" name="q24" value="C"/>Neutralise the final product</label>
+    <label class="opt"><input type="radio" name="q24" value="D"/>Extract sodium from the solution</label>
+  </div><div class="q-exp" id="eq24">In the Solvay process, Ca(OH)&#x2082; reacts with NH&#x2084;Cl (a by-product) to regenerate NH&#x3; for recycling: Ca(OH)&#x2082; + 2NH&#x2084;Cl &rarr; CaCl&#x2082; + 2NH&#x2083; + 2H&#x2082;O. This makes the process economical.</div></div>
+
+  <div class="q-block"><span class="q-num">Q25</span><div class="q-text">Magnesium is used in flares and fireworks because it:</div><div class="options">
+    <label class="opt"><input type="radio" name="q25" value="A"/>Burns with a low-energy red flame</label>
+    <label class="opt"><input type="radio" name="q25" value="B"/>Burns with a very bright white light in oxygen, producing white MgO smoke</label>
+    <label class="opt"><input type="radio" name="q25" value="C"/>Burns slowly and steadily</label>
+    <label class="opt"><input type="radio" name="q25" value="D"/>Burns without producing any smoke</label>
+  </div><div class="q-exp" id="eq25">2Mg + O&#x2082; &rarr; 2MgO. Mg burns with an intense white light (temperature ~3100&deg;C) that is very bright. The white MgO smoke is also visible. Used in flares, incendiary devices, and flash photography.</div></div>
+
+  <div style="margin-top:28px;text-align:center;"><button class="qs" onclick="submitQuiz()">Submit Quiz</button><div id="qR"></div></div>
   </div>
-  <div class="qcard" style="margin-top:1rem;"><h3>Section B — Application (20 marks)</h3>
-    <div class="qi"><div class="qn">B1–B4 <span class="mk">[5 each]</span></div>
-    <p>Application and calculation questions covering reactions, trends and quantitative chemistry from this unit. Full question papers are available through the teacher admin portal.</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show guidance</button>
-    <div class="ans">For application questions: (1) identify the relevant concept from your notes, (2) write balanced equations with state symbols, (3) explain trends using atomic structure reasoning, (4) show full working for any calculations.</div></div>
-  </div>
-  <div class="qcard" style="margin-top:1rem;"><h3>Section C — Extended Response (10 marks)</h3>
-    <div class="qi"><div class="qn">C1–C2 <span class="mk">[5 each]</span></div>
-    <p>Write extended answers comparing two topics from this unit, or evaluating trends and anomalies.</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show guidance</button>
-    <div class="ans">Extended answers should: define key terms, give equations, explain using atomic theory, make comparisons, and conclude clearly. Aim for 6–8 marking points per question for full marks.</div></div>
-  </div>
-</section>
+</div>
 
-<div class="unit-nav">
-  <a href="s4_unit6_group1.html">← Unit 6: Group 1</a>
-  <a href="s4-chemistry.html">S4 Course Home</a>
-  <a href="s4_unit8_group13.html">Unit 8: Group 13 →</a>
+<!-- TEST -->
+<div class="section-header" id="test"><span class="section-number">&#x1F4DD;</span><h2>Unit Test &mdash; 50 Marks</h2></div>
+<div class="test-wrap">
+  <div class="test-section">
+    <div class="test-sh"><h3>Section A &mdash; Short Answer</h3><span class="mb">20 marks</span></div>
+    <div class="test-body">
+
+      <div class="tq"><span class="tqn">Q1 [4 marks]</span><p>Explain the trend in thermal stability of Group 2 carbonates from MgCO&#x2083; to BaCO&#x2083;. Write equations for the decomposition of CaCO&#x2083; and BaCO&#x2083; and compare the temperatures required. [4]</p>
+      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
+      <div class="ans">Thermal stability <strong>increases</strong> from MgCO&#x2083; to BaCO&#x2083;. [1]<br>Reason: The ability of M&#xB2;&#x207A; to polarise (distort) the CO&#x3;&#xB2;&#x207B; ion weakens down the group. Small cations (Mg&#xB2;&#x207A;) have high charge density &rarr; strongly polarise CO&#x3;&#xB2;&#x207B; &rarr; distort electron distribution in C&ndash;O bonds &rarr; CO&#x2082; released easily at low temperature. Large cations (Ba&#xB2;&#x207A;) have low charge density &rarr; barely polarise CO&#x3;&#xB2;&#x207B; &rarr; more energy (higher temperature) needed to break the carbonate. [1]<br>CaCO&#x2083; &rarr; CaO + CO&#x2082; &nbsp; (decomposes at ~900&deg;C &mdash; used in lime kilns) [1]<br>BaCO&#x2083; &rarr; BaO + CO&#x2082; &nbsp; (requires ~1360&deg;C &mdash; much more stable; cannot be decomposed with a Bunsen burner) [1]</div></div>
+
+      <div class="tq"><span class="tqn">Q2 [4 marks]</span><p>Describe the test for Ba&#xB2;&#x207A; ions in solution. Write the ionic equation, state the observation, and explain why BaSO&#x2084; is safe to use as a barium meal whereas BaCl&#x2082; would be dangerous. [4]</p>
+      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
+      <div class="ans">Test: Acidify with dilute HCl (removes interfering CO&#x3;&#xB2;&#x207B; or SO&#x3;&#xB2;&#x207B; ions), then add dilute H&#x2082;SO&#x2084; (or Na&#x2082;SO&#x2084;(aq)). [1]<br>Observation: Dense white precipitate forms immediately. The precipitate does <strong>not</strong> dissolve in dilute HCl. [1]<br>Ionic equation: Ba&#xB2;&#x207A;(aq) + SO&#x4;&#xB2;&#x207B;(aq) &rarr; BaSO&#x4;(s) [1]<br>BaSO&#x2084; is safe because it is virtually insoluble in water and digestive fluids &rarr; cannot be absorbed through the gut wall into the bloodstream &rarr; does not reach toxic concentrations in the body. BaCl&#x2082; is soluble &rarr; Ba&#xB2;&#x207A; ions would be absorbed into the blood &rarr; highly toxic (interferes with K&#x207A; channels in cardiac muscle &rarr; cardiac arrest at sufficient doses). [1]</div></div>
+
+      <div class="tq"><span class="tqn">Q3 [4 marks]</span><p>Explain the opposite solubility trends for Group 2 hydroxides and Group 2 sulfates as you go down the group. [4]</p>
+      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
+      <div class="ans">For any compound to dissolve, hydration energy (released when ions are surrounded by water) must compensate for lattice energy (required to separate ions). Going down Group 2, M&#xB2;&#x207A; gets larger &rarr; hydration energy decreases (less attraction for water) and lattice energy decreases (weaker attraction between ions).<br><strong>Hydroxides (increasing solubility) [2]:</strong> OH&#x207B; is a small anion. As M&#xB2;&#x207A; increases in size, lattice energy falls steeply (large M&#xB2;&#x207A; &rarr; more widely spaced ions). Hydration energy falls less sharply. Net result: more energy available after dissolving &rarr; solubility increases. Ba(OH)&#x2082; is soluble; Mg(OH)&#x2082; is sparingly soluble.<br><strong>Sulfates (decreasing solubility) [2]:</strong> SO&#x4;&#xB2;&#x207B; is a large anion. Lattice energy doesn&rsquo;t change much down the group (because the large SO&#x4;&#xB2;&#x207B; dominates the lattice size). However, hydration energy of M&#xB2;&#x207A; falls significantly as it gets larger. Net result: insufficient hydration energy to compensate &rarr; becomes harder to dissolve &rarr; solubility decreases. BaSO&#x2084; insoluble; MgSO&#x2084; soluble.</div></div>
+
+      <div class="tq"><span class="tqn">Q4 [4 marks]</span><p>Describe the anomalous properties of beryllium with reference to the diagonal relationship with aluminium. Give THREE specific chemical comparisons between Be and Al. [4]</p>
+      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
+      <div class="ans">Be (Group 2, Period 2) and Al (Group 13, Period 3) are diagonal neighbours. They have similar ionic charge densities despite different charges (Be&#xB2;&#x207A; radius 31 pm; Al&#xB3;&#x207A; radius 53 pm; both small and highly polarising). [1]<br>Three comparisons: [3]<br>(1) <strong>Amphoteric oxide/hydroxide:</strong> BeO and Be(OH)&#x2082; react with both acids (BeO + 2HCl &rarr; BeCl&#x2082; + H&#x2082;O) and bases (Be(OH)&#x2082; + 2NaOH &rarr; Na&#x2082;[Be(OH)&#x2084;]). Al&#x2082;O&#x2083; and Al(OH)&#x2083; are also amphoteric. Other Group 2 oxides/hydroxides are only basic.<br>(2) <strong>Covalent halides:</strong> BeCl&#x2082; is covalent (polymeric chain structure; Lewis acid); AlCl&#x2083; is also covalent (dimeric, Al&#x2082;Cl&#x2076;). Other Group 2 chlorides are ionic.<br>(3) <strong>Reaction with NaOH:</strong> Be reacts with NaOH: Be + 2NaOH + 2H&#x2082;O &rarr; Na&#x2082;[Be(OH)&#x2084;] + H&#x2082;. Al also dissolves in NaOH: 2Al + 2NaOH + 2H&#x2082;O &rarr; 2NaAlO&#x2082; + 3H&#x2082;. Other Group 2 metals do not react with NaOH.</div></div>
+
+      <div class="tq"><span class="tqn">Q5 [4 marks]</span><p>Write balanced equations for: (a) Mg burning in oxygen [1]; (b) Ca reacting with water [1]; (c) Mg(OH)&#x2082; reacting with HCl [1]; (d) thermal decomposition of Mg(NO&#x2083;)&#x2082; [1]. [4]</p>
+      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
+      <div class="ans">(a) 2Mg + O&#x2082; &rarr; 2MgO [1]<br>(b) Ca + 2H&#x2082;O &rarr; Ca(OH)&#x2082; + H&#x2082; [1]<br>(c) Mg(OH)&#x2082; + 2HCl &rarr; MgCl&#x2082; + 2H&#x2082;O [1]<br>(d) 2Mg(NO&#x2083;)&#x2082; &rarr; 2MgO + 4NO&#x2082; + O&#x2082; [1]</div></div>
+    </div>
+  </div>
+
+  <div class="test-section">
+    <div class="test-sh"><h3>Section B &mdash; Extended Answer</h3><span class="mb">30 marks</span></div>
+    <div class="test-body">
+
+      <div class="tq"><span class="tqn">Q6 [8 marks]</span><p>Compare the chemical properties of Group 2 elements (Be to Ba) in terms of: reactions with oxygen, water, and dilute acids. State the trend in reactivity for each, write equations where appropriate, and explain why reactivity increases down the group. Note any exceptions (e.g. Be). [8]</p>
+      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
+      <div class="ans"><strong>With oxygen [2]:</strong> All react to form MO (normal oxide). 2M + O&#x2082; &rarr; 2MO. Reactivity increases down the group (Mg burns brightly in O&#x2082; with brilliant white flame; Ba reacts vigorously). Ba may also form BaO&#x2082; in excess O&#x2082;. Mg reacts when heated/ignited; Ca reacts more readily; Ba reacts even in air at room temperature.<br><strong>With water [3]:</strong> Be: no reaction with water (even steam) due to protective oxide layer &mdash; anomalous. Mg: very slow with cold water; reacts with steam: Mg + H&#x2082;O(g) &rarr; MgO + H&#x2082;. Ca: slow reaction with cold water: Ca + 2H&#x2082;O &rarr; Ca(OH)&#x2082; + H&#x2082; (milky; effervescence). Sr: more vigorous than Ca. Ba: most vigorous; reacts readily with cold water to give Ba(OH)&#x2082; + H&#x2082;. All products (except Be which doesn't react) are alkaline. Solutions turn litmus blue.<br><strong>With dilute acids [2]:</strong> All react vigorously with dilute HCl to give MX&#x2082; + H&#x2082;. Mg + 2HCl &rarr; MgCl&#x2082; + H&#x2082;. Ca + 2HCl &rarr; CaCl&#x2082; + H&#x2082;. Notable exception: Ca + H&#x2082;SO&#x2084;: initially reacts but forms insoluble CaSO&#x2084; layer &rarr; passivation &rarr; reaction slows. Reactivity increases down the group.<br><strong>Explanation of reactivity trend [1]:</strong> Both IE&#x2081; and IE&#x2082; decrease down Group 2: outer 2s electrons are in successively higher shells, farther from nucleus and more shielded &rarr; easier to remove &rarr; greater reactivity. Be is an exception due to its protective oxide layer.</div></div>
+
+      <div class="tq"><span class="tqn">Q7 [8 marks]</span><p>Describe the properties of Group 2 compounds: carbonates, hydroxides, and sulfates. For each compound type: state the trend in solubility and/or thermal stability down the group, explain the trend using lattice energy and polarisation arguments, and give a relevant industrial or biological use. [8]</p>
+      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
+      <div class="ans"><strong>Carbonates [3]:</strong> Thermal stability increases down the group (MgCO&#x2083; ~540&deg;C &rarr; BaCO&#x2083; ~1360&deg;C). Smaller M&#xB2;&#x207A; (Mg&#xB2;&#x207A;) has high charge density &rarr; polarises CO&#x3;&#xB2;&#x207B; strongly &rarr; distorts/weakens C&ndash;O bonds &rarr; CO&#x2082; released at lower temperature. Larger cations have lower charge density &rarr; less polarisation &rarr; more stable carbonates. All decompose as: MCO&#x2083; &rarr; MO + CO&#x2082;. Use: CaCO&#x2083; (limestone) &rarr; heated to make CaO (quicklime) for steelmaking and construction. MgCO&#x2083; in antacids.<br><strong>Hydroxides [3]:</strong> Solubility increases down the group: Mg(OH)&#x2082; sparingly soluble &rarr; Ba(OH)&#x2082; soluble. As M&#xB2;&#x207A; gets larger, lattice energy decreases significantly (OH&#x207B; is small &rarr; lattice spacing dominated by M&#xB2;&#x207A; &rarr; weaker when M&#xB2;&#x207A; is large). Hydration energy decreases less steeply. Net: more favourable dissolution for larger M&#xB2;&#x207A; &rarr; solubility increases. Also: basicity increases (Ba(OH)&#x2082; &gt; Ca(OH)&#x2082; &gt; Mg(OH)&#x2082;). Uses: Ca(OH)&#x2082; for soil treatment and water purification; Mg(OH)&#x2082; as antacid; Ba(OH)&#x2082; in analytical chemistry.<br><strong>Sulfates [2]:</strong> Solubility decreases: MgSO&#x4; (soluble) &rarr; BaSO&#x4; (insoluble). SO&#x4;&#xB2;&#x207B; is large &rarr; lattice energy barely changes down the group (dominated by large anion). Hydration energy of M&#xB2;&#x207A; falls significantly as radius increases &rarr; insufficient energy to break lattice &rarr; solubility decreases. Use: BaSO&#x4; in barium meal X-ray contrast agent (safe because insoluble); MgSO&#x4; (Epsom salt) as Mg fertiliser and laxative; CaSO&#x4; as gypsum/plaster of Paris.</div></div>
+
+      <div class="tq"><span class="tqn">Q8 [6 marks]</span><p>Calcium is one of the most important Group 2 elements industrially. Describe the industrial chemistry involving calcium compounds: (a) the manufacture of CaO from limestone [2]; (b) the uses of CaO and Ca(OH)&#x2082; [2]; (c) explain the limewater test for CO&#x2082;, including what happens with excess CO&#x2082; [2]. [6]</p>
+      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
+      <div class="ans">(a) CaO manufacture [2]: CaCO&#x2083; is mined as limestone, chalk, or marble. It is thermally decomposed in a lime kiln at ~900&deg;C: CaCO&#x2083;(s) &rarr; CaO(s) + CO&#x2082;(g). This is an endothermic process requiring sustained high temperatures. CaO (quicklime) is a white, powdery solid. Industrially ~300 million tonnes produced annually worldwide. The CO&#x2082; by-product is a greenhouse gas; modern kilns capture it.<br>(b) Uses of CaO and Ca(OH)&#x2082; [2]: CaO uses: (1) Steel making &mdash; added to blast furnace to react with silica impurities: CaO + SiO&#x2082; &rarr; CaSiO&#x2083; (slag, removed separately). (2) Manufacture of Ca(OH)&#x2082; by reaction with water (slaking). Ca(OH)&#x2082; uses: (1) Agriculture &mdash; added to acidic soil to neutralise acid and raise pH: Ca(OH)&#x2082; + 2H&#x207A; &rarr; Ca&#xB2;&#x207A; + 2H&#x2082;O. (2) Water treatment &mdash; added to drinking water to adjust pH and precipitate Mg&#xB2;&#x207A; as Mg(OH)&#x2082;. (3) Construction &mdash; in mortar/plaster (reacts with CO&#x2082; to form CaCO&#x3;, hardening). (4) Flue gas desulfurisation &mdash; removes SO&#x2082;: Ca(OH)&#x2082; + SO&#x2082; &rarr; CaSO&#x3; + H&#x2082;O.<br>(c) Limewater test for CO&#x2082; [2]: Limewater = saturated Ca(OH)&#x2082; solution. Bubbling CO&#x2082; through it forms insoluble white CaCO&#x2083; precipitate: Ca(OH)&#x2082; + CO&#x2082; &rarr; CaCO&#x2083;(s) + H&#x2082;O &rarr; solution turns milky/cloudy. With excess CO&#x2082;: CaCO&#x3; dissolves as soluble calcium hydrogen carbonate forms: CaCO&#x2083; + CO&#x2082; + H&#x2082;O &rarr; Ca(HCO&#x2083;)&#x2082;(aq) &rarr; solution clears. On heating Ca(HCO&#x2083;)&#x2082;: CaCO&#x3; reprecipitates (reversal). This sequence (milky then clear with excess CO&#x2082;) confirms CO&#x2082;.</div></div>
+
+      <div class="tq"><span class="tqn">Q9 [8 marks]</span><p>An unknown white solid X dissolves in water to give a colourless solution. When excess NaOH solution is added to the solution, a white gelatinous precipitate forms that dissolves in excess NaOH. Flame test on X gives no distinctive colour. (a) Identify X and the precipitate. [2] (b) Write equations for the two reactions described. [2] (c) Predict the products of heating solid X and write the equation. [2] (d) Describe two other tests that would confirm the identity of X, with expected results. [2]</p>
+      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
+      <div class="ans">(a) A white precipitate that dissolves in excess NaOH = amphoteric hydroxide &rarr; Be(OH)&#x2082;. No distinctive flame test colour and Group 2 behaviour &rarr; X contains Be&#xB2;&#x207A;. X is likely <strong>BeCl&#x2082;</strong> (beryllium chloride) or BeS&#x4; etc. The precipitate is <strong>Be(OH)&#x2082;</strong>. [2]<br>(b) With NaOH (precipitate forms): BeCl&#x2082; + 2NaOH &rarr; Be(OH)&#x2082;(s) + 2NaCl [1]<br>Dissolving in excess NaOH: Be(OH)&#x2082; + 2NaOH &rarr; Na&#x2082;[Be(OH)&#x2084;] [1]<br>(c) BeCl&#x2082; is a covalent chloride; heating BeCl&#x2082;(s) would not typically give simple thermal decomposition (it is stable). However, if X is BeCO&#x3; (beryllium carbonate): BeCO&#x2083; &rarr; BeO + CO&#x2082;. More likely, if X is BeSO&#x4;: decomposes at high temperature. Accept any sensible answer acknowledging BeCO&#x3; or similar. If BeCl&#x2082;: no thermal decomposition under normal conditions. [2]<br>(d) Any two of: [1 each] (1) Add AgNO&#x2083;(aq) after acidifying with dilute HNO&#x3;: if X is BeCl&#x2082;, a white precipitate of AgCl forms (insoluble in dilute HNO&#x2083;, soluble in NH&#x3;(aq)) &rarr; confirms Cl&#x207B;. (2) Add dilute H&#x2082;SO&#x4;: if X is BeCl&#x2082;, no precipitate expected (BeSO&#x4; is soluble). (3) ICP-MS or flame emission spectroscopy on solution would confirm Be (no visible flame, but emission at specific UV wavelengths). (4) Test for the anion: if sulfate, add BaCl&#x2082;(aq)/dilute HCl &rarr; white precipitate of BaSO&#x4; confirms SO&#x4;&#xB2;&#x207B;. [2]</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="nav">
+  <a class="nb p" href="s4_unit6_group1.html">&larr; Unit 6: Group 1 Elements</a>
+  <a class="nb n" href="s4_unit8_group13.html">Unit 8: Group 13 Elements &rarr;</a>
 </div>
 </main>
-<footer>⚗ Jackson Habimana — Chemistry Education Portal &bull; <a href="s4-chemistry.html">S4 Course</a> &bull; <a href="index.html">Home</a></footer>
-</body></html>
+
+
+
+
+<!-- ═══════════════════════════ UNIT QUIZ GATE ═══════════════════════════ -->
+<script>
+(function(){
+  const CK='quiz_access_code', SK='quiz_access_granted';
+  const code=localStorage.getItem(CK);
+  if(!code) return;
+  if(sessionStorage.getItem(SK)) return;
+  const qw=document.querySelector('.quiz-wrap');
+  if(!qw) return;
+  function showGate(){
+    if(document.getElementById('_ugate')) return;
+    const g=document.createElement('div');
+    g.id='_ugate';
+    g.style.cssText='position:fixed;inset:0;background:#0d1117;z-index:99999;display:flex;align-items:center;justify-content:center;padding:24px;';
+    g.innerHTML=`
+      <div style="background:#161b22;border:2px solid rgba(245,158,11,.4);border-radius:16px;padding:44px 36px;max-width:440px;width:100%;text-align:center;">
+        <div style="font-size:3.5rem;margin-bottom:14px;">🔒</div>
+        <h2 style="font-family:'Playfair Display',serif;font-size:1.8rem;color:#fff;margin-bottom:10px;">Quiz Locked</h2>
+        <p style="color:#8b949e;font-size:.92rem;margin-bottom:20px;line-height:1.7;">Enter your teacher&#39;s access code to attempt this quiz.</p>
+        <input id="_ugate_inp" type="text" placeholder="Enter Code" maxlength="20" autocomplete="off"
+          style="width:100%;background:#1c2333;border:2px solid #30363d;border-radius:8px;color:#e6edf3;padding:13px 16px;font-family:'JetBrains Mono',monospace;font-size:1.4rem;text-align:center;letter-spacing:.2em;text-transform:uppercase;margin-bottom:10px;box-sizing:border-box;"
+          onkeydown="if(event.key==='Enter')window._ugateCheck()"/>
+        <div id="_ugate_err" style="font-family:'JetBrains Mono',monospace;font-size:.82rem;color:#f87171;min-height:20px;margin:6px 0 10px;"></div>
+        <button onclick="window._ugateCheck()" style="width:100%;background:#f59e0b;color:#000;border:none;padding:12px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.9rem;font-weight:700;cursor:pointer;margin-bottom:8px;">🔓 Unlock Quiz</button>
+        <button onclick="document.getElementById('_ugate').remove();document.body.style.overflow='';" style="width:100%;background:transparent;border:1px solid #30363d;color:#8b949e;padding:8px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.78rem;cursor:pointer;">✕ Cancel</button>
+      </div>`;
+    document.body.appendChild(g);
+    document.body.style.overflow='hidden';
+    setTimeout(()=>{const i=document.getElementById('_ugate_inp');if(i)i.focus();},100);
+  }
+  window._ugateCheck=function(){
+    const val=(document.getElementById('_ugate_inp')||{}).value;
+    if(!val) return;
+    const v=val.trim().toUpperCase();
+    const stored=localStorage.getItem(CK);
+    if(v===stored){
+      sessionStorage.setItem(SK,'1');
+      const g=document.getElementById('_ugate');
+      if(g) g.remove();
+      document.body.style.overflow='';
+    } else {
+      const err=document.getElementById('_ugate_err');
+      if(err) err.textContent='❌ Wrong code — try again.';
+      const inp=document.getElementById('_ugate_inp');
+      if(inp){inp.value='';inp.focus();}
+    }
+  };
+  qw.addEventListener('click',function(e){
+    if(!localStorage.getItem(CK)) return;
+    if(sessionStorage.getItem(SK)) return;
+    e.stopPropagation();e.preventDefault();
+    showGate();
+  },true);
+})();
+</script>
+
+<script>
+// ── PER-UNIT QUIZ ACCESS GATE ── ID: s4_unit7 ──
+(function(){
+  const ITEM_ID='s4_unit7';
+  const SESS_KEY='unlocked_'+ITEM_ID;
+  const CODE_KEY='quiz_access_code';
+  const LOCKS_KEY='assessment_locks';
+  
+  function isLocked(){return JSON.parse(localStorage.getItem(LOCKS_KEY)||'{}')[ITEM_ID]===true;}
+  function isGranted(){const c=localStorage.getItem(CODE_KEY)||'OPEN';return sessionStorage.getItem(SESS_KEY)===c||sessionStorage.getItem(SESS_KEY)==='OPEN';}
+  
+  const gate=document.createElement('div');
+  gate.id='unit-quiz-gate-s4_unit7';
+  gate.style.cssText='position:fixed;inset:0;background:#0d1117;z-index:99999;display:none;align-items:center;justify-content:center;padding:24px;';
+  gate.innerHTML=`<div style="background:#161b22;border:2px solid rgba(245,158,11,.4);border-radius:16px;padding:44px 38px;max-width:460px;width:100%;text-align:center;">
+    <div style="font-size:3.5rem;margin-bottom:14px;">🔒</div>
+    <h2 style="font-family:Playfair Display,serif;font-size:1.8rem;color:#fff;margin-bottom:10px;">Quiz Locked</h2>
+    <p style="color:#8b949e;font-size:.92rem;margin-bottom:22px;line-height:1.7;">Your teacher has locked this quiz. Enter the access code to unlock it.</p>
+    <input id="ugi-s4_unit7" type="text" placeholder="Enter Code" maxlength="20"
+      style="width:100%;background:#1c2333;border:2px solid #30363d;border-radius:8px;color:#e6edf3;padding:13px 16px;font-family:JetBrains Mono,monospace;font-size:1.3rem;text-align:center;letter-spacing:.2em;text-transform:uppercase;margin-bottom:10px;box-sizing:border-box;"
+      onkeydown="if(event.key==='Enter')unlockUnit_s4_unit7()"
+      oninput="this.value=this.value.toUpperCase()"/>
+    <div id="uge-s4_unit7" style="font-family:JetBrains Mono,monospace;font-size:.8rem;color:#f87171;min-height:18px;margin-bottom:10px;"></div>
+    <button onclick="unlockUnit_s4_unit7()" style="width:100%;background:#f59e0b;color:#000;border:none;padding:13px;border-radius:8px;font-family:JetBrains Mono,monospace;font-size:.88rem;font-weight:700;cursor:pointer;margin-bottom:8px;">🔓 Unlock Quiz</button>
+    <button onclick="document.getElementById('unit-quiz-gate-s4_unit7').style.display='none';document.body.style.overflow='';" style="width:100%;background:transparent;border:1px solid #30363d;color:#8b949e;padding:8px;border-radius:7px;font-family:JetBrains Mono,monospace;font-size:.78rem;cursor:pointer;">✕ Cancel — Go back</button>
+    <div style="font-family:JetBrains Mono,monospace;font-size:.7rem;color:#8b949e;margin-top:10px;">Ask your teacher for the access code.</div>
+  </div>`;
+  document.body.appendChild(gate);
+  
+  window.unlockUnit_s4_unit7=function(){
+    const entered=document.getElementById('ugi-s4_unit7').value.trim().toUpperCase();
+    const correct=localStorage.getItem(CODE_KEY)||'';
+    if(!entered){document.getElementById('uge-s4_unit7').textContent='Enter the code.';return;}
+    if(!correct||entered===correct){
+      sessionStorage.setItem(SESS_KEY,correct||'OPEN');
+      gate.style.display='none';document.body.style.overflow='';
+      if(window._pendingAction_s4_unit7) window._pendingAction_s4_unit7();
+    } else {
+      document.getElementById('uge-s4_unit7').textContent='❌ Wrong code. Ask your teacher.';
+      document.getElementById('ugi-s4_unit7').value='';
+    }
+  };
+  
+  window.addEventListener('DOMContentLoaded',function(){
+    if(!isLocked()) return;
+    const qw=document.querySelector('.quiz-wrap');
+    if(!qw) return;
+    qw.addEventListener('click',function(e){
+      if(!isLocked()||isGranted()) return;
+      e.stopPropagation();e.preventDefault();
+      gate.style.display='flex';document.body.style.overflow='hidden';
+    },true);
+  });
+})();
+</script>
+</body>
+</html>

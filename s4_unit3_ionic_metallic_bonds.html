@@ -1,184 +1,774 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>S4 Chemistry – Unit 3: Ionic &amp; Metallic Bonds | Jackson Habimana</title>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>S4 Chemistry – Unit 3: Ionic &amp; Metallic Bonds</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Serif+4:wght@300;400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
 <style>
-:root{--bg:#0d1117;--surface:#161b22;--surface2:#1c2333;--border:#30363d;--accent:#f59e0b;--green:#34d399;--red:#f87171;--text:#e6edf3;--muted:#8b949e;--radius:10px;}
-*{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
-body{background:var(--bg);color:var(--text);font-family:'Source Serif 4',Georgia,serif;font-size:17px;line-height:1.75;}
-nav{position:sticky;top:0;z-index:200;background:rgba(13,17,23,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
-.nav-inner{max-width:1060px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:.7rem 1.5rem;}
-.nav-brand{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--accent);text-decoration:none;}
-.nav-links{display:flex;gap:1.2rem;}.nav-links a{color:var(--muted);text-decoration:none;font-size:.85rem;}.nav-links a:hover{color:var(--accent);}
-.hero{background:linear-gradient(135deg,#0a0d0f,#0d1117);border-bottom:1px solid var(--border);padding:3rem 1.5rem 2rem;}
-.hero-inner{max-width:1060px;margin:0 auto;}
-.badge{display:inline-block;background:rgba(255,255,255,.06);color:var(--accent);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:.3rem 1rem;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:1rem;}
-.hero h1{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.2;margin-bottom:.6rem;}
-.hero h1 span{color:var(--accent);}
-.hero-meta{display:flex;gap:1rem;flex-wrap:wrap;font-size:.84rem;color:var(--muted);margin-top:1rem;}
-.toc{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:var(--radius);padding:1.2rem 1.5rem;max-width:1060px;margin:1.5rem auto;width:calc(100% - 3rem);}
-.toc h3{font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:.8rem;}
-.toc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.3rem .8rem;}
-.toc-grid a{color:var(--muted);text-decoration:none;font-size:.88rem;}.toc-grid a:hover{color:var(--accent);}
-main{max-width:1060px;margin:0 auto;padding:1rem 1.5rem 4rem;}
-section{margin-bottom:3rem;scroll-margin-top:80px;}
-.sec-head{display:flex;align-items:baseline;gap:.8rem;margin-bottom:1.2rem;padding-bottom:.5rem;border-bottom:1px solid var(--border);}
-.sec-num{font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--accent);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:5px;padding:.2rem .6rem;}
-.sec-head h2{font-family:'Playfair Display',serif;font-size:1.45rem;}
-p{margin-bottom:.9rem;}
-.key{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-left:4px solid var(--accent);border-radius:var(--radius);padding:1.1rem 1.4rem;margin:1.2rem 0;}
-.key .kl{font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:.4rem;}
-.eq{font-family:'JetBrains Mono',monospace;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:.8rem 1.1rem;margin:.8rem 0;font-size:.93rem;overflow-x:auto;}
-table{width:100%;border-collapse:collapse;margin:1.2rem 0;font-size:.9rem;}
-th{background:var(--surface2);color:var(--accent);padding:.65rem .9rem;text-align:left;border:1px solid var(--border);}
-td{padding:.6rem .9rem;border:1px solid var(--border);vertical-align:top;}
-tr:nth-child(even) td{background:rgba(255,255,255,.02);}
-.qcard{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin-top:1rem;}
-.qcard h3{font-family:'Playfair Display',serif;color:var(--accent);margin-bottom:1rem;}
-.qi{margin:.9rem 0;padding-left:1.1rem;border-left:2px solid var(--border);}
-.qi:hover{border-left-color:var(--accent);}
-.qn{font-size:.74rem;color:var(--accent);font-family:'JetBrains Mono',monospace;}
-.ans{display:none;margin-top:.4rem;font-size:.88rem;color:var(--green);font-style:italic;}
-.sa{background:none;border:1px solid var(--border);color:var(--muted);font-size:.74rem;border-radius:4px;padding:.15rem .5rem;cursor:pointer;margin-top:.3rem;}
-.sa:hover{border-color:var(--accent);color:var(--accent);}
-.mk{float:right;font-size:.74rem;color:var(--muted);font-family:'JetBrains Mono',monospace;}
-.unit-nav{display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--border);}
-.unit-nav a{color:var(--accent);text-decoration:none;font-size:.9rem;}
-footer{background:var(--surface);border-top:1px solid var(--border);text-align:center;padding:1.2rem;font-size:.8rem;color:var(--muted);}
-footer a{color:var(--accent);text-decoration:none;}
+  :root{--bg:#0d1117;--surface:#161b22;--surface2:#1c2333;--border:#30363d;--accent:#f59e0b;--accent2:#f97316;--gold:#e8c547;--green:#34d399;--red:#f87171;--text:#e6edf3;--muted:#8b949e;--radius:10px;}
+  *{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+  body{background:var(--bg);color:var(--text);font-family:'Source Serif 4',Georgia,serif;font-size:17px;line-height:1.75;overflow-x:hidden;}
+  .hero{position:relative;padding:80px 40px 60px;text-align:center;overflow:hidden;background:radial-gradient(ellipse 80% 60% at 50% 0%,#1a0e00 0%,var(--bg) 70%);border-bottom:1px solid var(--border);}
+  .hero::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(245,158,11,.04) 40px),repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(245,158,11,.04) 40px);pointer-events:none;}
+  .badge{display:inline-block;background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.3);color:var(--accent);padding:4px 16px;border-radius:50px;font-size:.78rem;font-family:'JetBrains Mono',monospace;letter-spacing:.12em;text-transform:uppercase;margin-bottom:22px;}
+  .hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.4rem);line-height:1.15;color:#fff;max-width:820px;margin:0 auto 18px;}
+  .hero h1 em{color:var(--accent);font-style:italic;}
+  .hero p.sub{color:var(--muted);font-size:1rem;max-width:640px;margin:0 auto 32px;}
+  .toc-grid{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:860px;margin:0 auto;}
+  .toc-grid a{background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:8px 18px;border-radius:50px;text-decoration:none;font-size:.85rem;transition:all .2s;font-family:'JetBrains Mono',monospace;}
+  .toc-grid a:hover{background:var(--accent);color:#000;border-color:var(--accent);}
+  .page{max-width:960px;margin:0 auto;padding:0 28px 80px;}
+  .section-header{display:flex;align-items:center;gap:16px;margin:64px 0 28px;padding-bottom:14px;border-bottom:2px solid var(--border);}
+  .section-number{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--accent);background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.25);padding:4px 12px;border-radius:4px;white-space:nowrap;}
+  .section-header h2{font-family:'Playfair Display',serif;font-size:1.75rem;color:#fff;}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:26px 30px;margin-bottom:22px;}
+  .card h3{font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--gold);margin-bottom:12px;}
+  .card p+p{margin-top:12px;}
+  .def-box{border-left:4px solid var(--accent);background:rgba(245,158,11,.07);border-radius:0 var(--radius) var(--radius) 0;padding:18px 22px;margin:20px 0;}
+  .def-box strong{color:var(--accent);display:block;font-size:.78rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;}
+  .callout{border-radius:var(--radius);padding:18px 22px;margin:20px 0;display:flex;gap:14px;align-items:flex-start;}
+  .callout.info{background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.25);}
+  .callout.warn{background:rgba(249,115,22,.08);border:1px solid rgba(249,115,22,.25);}
+  .callout.tip{background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.25);}
+  .callout-icon{font-size:1.3rem;margin-top:2px;flex-shrink:0;}
+  .callout-body strong{display:block;margin-bottom:4px;font-size:.9rem;color:#fff;}
+  .tbl-wrap{overflow-x:auto;margin:20px 0;border-radius:var(--radius);border:1px solid var(--border);}
+  table{width:100%;border-collapse:collapse;}
+  thead tr{background:var(--surface2);}
+  th{padding:13px 16px;text-align:left;font-size:.82rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);white-space:nowrap;}
+  td{padding:12px 16px;border-top:1px solid var(--border);font-size:.9rem;}
+  tr:hover td{background:rgba(255,255,255,.02);}
+  .formula-block{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:20px 26px;margin:16px 0;font-family:'JetBrains Mono',monospace;font-size:.93rem;color:var(--accent);overflow-x:auto;white-space:pre-wrap;}
+  .example-box{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin:26px 0;}
+  .example-header{background:rgba(232,197,71,.1);border-bottom:1px solid rgba(232,197,71,.2);padding:14px 22px;display:flex;align-items:center;gap:12px;}
+  .example-header span.tag{font-family:'JetBrains Mono',monospace;font-size:.72rem;background:var(--gold);color:#000;padding:3px 10px;border-radius:4px;font-weight:600;}
+  .example-header h4{color:var(--gold);font-family:'Playfair Display',serif;font-size:1rem;}
+  .example-body{padding:22px 26px;}
+  .example-body .q{margin-bottom:14px;font-weight:600;}
+  .example-body .step{display:flex;gap:14px;margin:10px 0;}
+  .step-num{min-width:28px;height:28px;background:rgba(245,158,11,.15);border:1px solid rgba(245,158,11,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--accent);flex-shrink:0;margin-top:3px;}
+  .step-text{flex:1;}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:20px 0;}
+  @media(max-width:640px){.two-col{grid-template-columns:1fr;}}
+  .diagram-wrap{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin:20px 0;overflow-x:auto;}
+  .exercise-list{list-style:none;counter-reset:ex;}
+  .exercise-list li{counter-increment:ex;margin-bottom:16px;padding:16px 20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);}
+  .exercise-list li::before{content:'Q' counter(ex) '.';font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--accent);display:block;margin-bottom:6px;}
+  .reveal-btn{margin-top:10px;background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.3);color:var(--accent);padding:6px 16px;border-radius:6px;cursor:pointer;font-size:.82rem;font-family:'JetBrains Mono',monospace;transition:all .2s;}
+  .reveal-btn:hover{background:var(--accent);color:#000;}
+  .answer{display:none;margin-top:12px;padding:12px 16px;background:rgba(245,158,11,.06);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-size:.9rem;}
+  .answer.open{display:block;}
+  .quiz-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-top:32px;}
+  .quiz-header{background:rgba(245,158,11,.1);border-bottom:1px solid rgba(245,158,11,.2);padding:16px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+  .quiz-header h3{font-family:'Playfair Display',serif;color:var(--accent);font-size:1.2rem;}
+  .quiz-body{padding:24px;}
+  .q-block{margin-bottom:26px;padding-bottom:26px;border-bottom:1px solid var(--border);}
+  .q-block:last-of-type{border-bottom:none;}
+  .q-text{font-weight:600;margin-bottom:12px;color:#fff;}
+  .q-num{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--accent);display:block;margin-bottom:4px;}
+  .options{display:flex;flex-direction:column;gap:8px;}
+  .opt{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:all .18s;font-size:.92rem;}
+  .opt:hover{border-color:var(--accent);}
+  .opt input{margin-top:3px;accent-color:var(--accent);}
+  .opt.correct{background:rgba(52,211,153,.12);border-color:var(--green)!important;color:var(--green);}
+  .opt.wrong{background:rgba(248,113,113,.1);border-color:var(--red)!important;color:var(--red);}
+  .q-exp{display:none;margin-top:10px;padding:10px 14px;background:rgba(245,158,11,.07);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-size:.88rem;}
+  .qs{background:var(--accent);color:#000;border:none;padding:12px 32px;border-radius:8px;font-size:1rem;font-family:'JetBrains Mono',monospace;cursor:pointer;font-weight:700;transition:opacity .2s;}
+  .qs:hover{opacity:.85;}
+  #qR{display:none;margin-top:18px;padding:16px 22px;border-radius:var(--radius);font-family:'JetBrains Mono',monospace;font-weight:700;font-size:1rem;text-align:center;}
+  .test-wrap{margin-top:40px;}
+  .test-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:28px;}
+  .test-sh{background:rgba(249,115,22,.1);border-bottom:1px solid rgba(249,115,22,.2);padding:14px 24px;display:flex;justify-content:space-between;align-items:center;}
+  .test-sh h3{font-family:'Playfair Display',serif;color:var(--accent2);font-size:1.1rem;}
+  .mb{font-family:'JetBrains Mono',monospace;font-size:.75rem;background:rgba(249,115,22,.2);color:var(--accent2);padding:4px 12px;border-radius:50px;}
+  .test-body{padding:24px;}
+  .tq{margin-bottom:20px;padding:16px 18px;background:var(--surface2);border-radius:8px;border:1px solid var(--border);}
+  .tqn{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--accent2);margin-bottom:6px;display:block;}
+  .rb{margin-top:12px;background:rgba(249,115,22,.1);border:1px solid rgba(249,115,22,.3);color:var(--accent2);padding:6px 16px;border-radius:6px;cursor:pointer;font-size:.82rem;font-family:'JetBrains Mono',monospace;transition:all .2s;}
+  .rb:hover{background:var(--accent2);color:#000;}
+  .ans{display:none;margin-top:12px;padding:12px 16px;background:rgba(249,115,22,.06);border-left:3px solid var(--accent2);border-radius:0 6px 6px 0;font-size:.9rem;line-height:1.7;}
+  .ans.open{display:block;}
+  .nav{display:flex;justify-content:space-between;align-items:center;margin-top:72px;padding-top:32px;border-top:1px solid var(--border);flex-wrap:wrap;gap:16px;}
+  .nb{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:8px;text-decoration:none;font-family:'JetBrains Mono',monospace;font-size:.85rem;transition:all .2s;}
+  .nb.p{background:var(--surface);border:1px solid var(--border);color:var(--muted);}
+  .nb.p:hover{border-color:var(--accent);color:var(--accent);}
+  .nb.n{background:var(--accent);color:#000;font-weight:700;}
+  .nb.n:hover{opacity:.88;}
+  h3.sub{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--gold);margin:28px 0 10px;}
+  sub,sup{font-size:.72em;}
+  @media(max-width:600px){.hero{padding:50px 20px 40px;}.page{padding:0 16px 60px;}}
 </style>
 </head>
 <body>
-<nav><div class="nav-inner">
-  <a class="nav-brand" href="index.html">⚗ Jackson Habimana</a>
-  <div class="nav-links"><a href="s4-chemistry.html">S4 Course</a><a href="s5-chemistry.html">S5</a><a href="s6-chemistry.html">S6</a></div>
-</div></nav>
-<header class="hero"><div class="hero-inner">
-  <div class="badge">S4 · Unit 3</div>
-  <h1>Ionic &amp; Metallic Bonds</h1>
-  <p style="color:var(--muted);max-width:580px;margin-top:.5rem;">Why atoms bond, ionic bond formation, giant ionic lattice, lattice energy, metallic bonding, and properties.</p>
-  <div class="hero-meta"><span>📚 6 Sections</span><span>🧪 25 Quiz Questions</span><span>📝 50-Mark Test</span></div>
-</div></header>
-<div class="toc"><h3>Contents</h3><div class="toc-grid">
-  <a href="#s1">Section 1</a><a href="#s2">Section 2</a><a href="#s3">Section 3</a>
-  <a href="#s4">Section 4</a><a href="#s5">Section 5</a><a href="#s6">Section 6</a>
-  <a href="#quiz">Quiz (25 Qs)</a><a href="#test">50-Mark Test</a>
-</div></div>
-<main>
+<div id="sitenav" style="position:sticky;top:0;z-index:200;background:rgba(13,17,23,.95);backdrop-filter:blur(12px);border-bottom:1px solid #30363d;padding:0 28px;font-family:JetBrains Mono,monospace;"><div style="max-width:960px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:52px;gap:12px;"><a href="index.html" style="font-size:.78rem;color:#38bdf8;text-decoration:none;letter-spacing:.06em;white-space:nowrap;">&#9883; Habimana</a><div style="display:flex;gap:4px;flex-wrap:wrap;"><a href="index.html" style="font-size:.72rem;color:#8b949e;text-decoration:none;padding:4px 12px;border-radius:5px;border:1px solid transparent;">Home</a><a href="s4-chemistry.html" style="font-size:.72rem;color:#38bdf8;text-decoration:none;padding:4px 12px;border-radius:5px;background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.25);">S4</a><a href="s5-chemistry.html" style="font-size:.72rem;color:#8b949e;text-decoration:none;padding:4px 12px;border-radius:5px;border:1px solid transparent;">S5</a><a href="s6-chemistry.html" style="font-size:.72rem;color:#8b949e;text-decoration:none;padding:4px 12px;border-radius:5px;border:1px solid transparent;">S6</a></div></div></div>
 
-<section id="s1"><div class="sec-head"><span class="sec-num">3.1</span><h2>Why Atoms Form Bonds</h2></div>
-<p>Atoms bond to achieve a more stable, lower-energy electron configuration — usually a full outer shell (octet, or duplet for H/He). Bonds form when the resulting arrangement has lower energy than the separate atoms.</p>
-<div class="key"><div class="kl">Types of chemical bond</div><table>
-<tr><th>Bond type</th><th>Formed between</th><th>Transfer or sharing</th></tr>
-<tr><td>Ionic</td><td>Metal + non-metal</td><td>Transfer of electrons</td></tr>
-<tr><td>Covalent</td><td>Non-metal + non-metal</td><td>Sharing of electron pairs</td></tr>
-<tr><td>Metallic</td><td>Metal + metal</td><td>Delocalised electron sea</td></tr>
-</table></div></section>
-
-<section id="s2"><div class="sec-head"><span class="sec-num">3.2</span><h2>Ionic Bonding</h2></div>
-<p>Ionic bonds form when a metal transfers one or more electrons to a non-metal, forming oppositely charged ions that attract each other electrostatically.</p>
-<div class="key"><div class="kl">Formation of NaCl</div>
-<p>Na (2,8,1) → Na⁺ (2,8) + e⁻ &nbsp;|&nbsp; Cl (2,8,7) + e⁻ → Cl⁻ (2,8,8). The ions arrange in a giant ionic lattice held by electrostatic forces in all directions.</p></div>
-<table><tr><th>Property</th><th>Explanation</th></tr>
-<tr><td>High melting/boiling point</td><td>Strong electrostatic forces between many ions require large energy to break</td></tr>
-<tr><td>Conduct electricity when molten/dissolved</td><td>Ions are free to move and carry charge</td></tr>
-<tr><td>Do not conduct when solid</td><td>Ions are fixed in lattice positions</td></tr>
-<tr><td>Brittle</td><td>Displacement of layers brings like charges together → repulsion → lattice shatters</td></tr>
-<tr><td>Often soluble in water</td><td>Polar water molecules attract and surround ions (hydration)</td></tr></table></section>
-
-<section id="s3"><div class="sec-head"><span class="sec-num">3.3</span><h2>Lattice Energy</h2></div>
-<div class="key"><div class="kl">Definition</div><p><strong>Lattice energy (ΔH°<sub>latt</sub>)</strong> is the enthalpy change when 1 mol of an ionic compound is formed from its gaseous ions. Always exothermic (negative).</p>
-<div class="eq">Na⁺(g) + Cl⁻(g) → NaCl(s) &nbsp; ΔH°<sub>latt</sub> = −787 kJ mol⁻¹</div></div>
-<p>Larger lattice energy (more negative) means a more stable ionic compound. Lattice energy is larger when: ions have higher charge (MgO &gt;&gt; NaCl) and when ions have smaller radius (closer together → stronger attraction).</p></section>
-
-<section id="s4"><div class="sec-head"><span class="sec-num">3.4</span><h2>Metallic Bonding</h2></div>
-<div class="key"><div class="kl">The Electron Sea Model</div>
-<p>In metals, the outer electrons are <strong>delocalised</strong> — they leave their parent atoms and move freely through the structure. This leaves a lattice of positive metal ions surrounded by a "sea" of mobile electrons. The attraction between the positive ions and the delocalised electrons is the <strong>metallic bond</strong>.</p></div>
-<table><tr><th>Property</th><th>Explanation</th></tr>
-<tr><td>High melting/boiling point</td><td>Strong metallic bonds require large energy to break (especially transition metals)</td></tr>
-<tr><td>Good electrical conductors</td><td>Delocalised electrons move freely and carry charge</td></tr>
-<tr><td>Good thermal conductors</td><td>Mobile electrons transfer kinetic energy rapidly</td></tr>
-<tr><td>Malleable and ductile</td><td>Layers of ions can slide over each other without breaking bonds; electron sea re-forms around new positions</td></tr>
-<tr><td>Lustrous (shiny)</td><td>Delocalised electrons absorb and re-emit light</td></tr></table></section>
-
-<section id="s5"><div class="sec-head"><span class="sec-num">3.5</span><h2>Factors Affecting Metallic Bond Strength</h2></div>
-<table><tr><th>Factor</th><th>Effect on bond strength</th><th>Example</th></tr>
-<tr><td>Number of delocalised electrons per atom</td><td>More electrons → stronger bond</td><td>Al (3 e⁻) &gt; Mg (2 e⁻) &gt; Na (1 e⁻)</td></tr>
-<tr><td>Ionic radius</td><td>Smaller ion → higher charge density → stronger bond</td><td>Mg²⁺ smaller than Na⁺</td></tr>
-<tr><td>Charge on cation</td><td>Higher charge → stronger attraction to electron sea</td><td>Al³⁺ &gt; Mg²⁺ &gt; Na⁺</td></tr>
-</table>
-<p>This is why aluminium has a higher melting point than magnesium, which has a higher melting point than sodium.</p></section>
-
-<section id="s6"><div class="sec-head"><span class="sec-num">3.6</span><h2>Comparing Ionic and Metallic Bonding</h2></div>
-<table><tr><th>Feature</th><th>Ionic</th><th>Metallic</th></tr>
-<tr><td>Particles</td><td>Positive and negative ions in lattice</td><td>Positive ions + delocalised electrons</td></tr>
-<tr><td>Bond nature</td><td>Electrostatic attraction between oppositely charged ions</td><td>Electrostatic attraction between cations and electron sea</td></tr>
-<tr><td>Conductivity (solid)</td><td>No — ions fixed</td><td>Yes — electrons mobile</td></tr>
-<tr><td>Conductivity (liquid)</td><td>Yes — ions mobile</td><td>Yes — electrons still mobile</td></tr>
-<tr><td>Malleability</td><td>No — brittle</td><td>Yes — malleable and ductile</td></tr>
-</table></section>
-
-<section id="quiz">
-  <div class="sec-head"><span class="sec-num">QUIZ</span><h2>25-Question Quiz — Unit 3</h2></div>
-  <div class="qcard"><h3>Click "Show" to reveal each answer</h3>
-    <p style="color:var(--muted);font-size:.88rem;margin-bottom:1rem;">Questions cover all 6 sections of this unit.</p>
-    <div class="qi"><div class="qn">Q1–Q25</div>
-    <p>Use your notes above to attempt 25 questions on this unit. Full question sets are available in the printed workbook and teacher-administered quizzes accessible from <a href="student-quiz.html" style="color:var(--accent);">Student Hub</a>.</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show guidance</button>
-    <div class="ans">Review all 6 sections above. Focus on: definitions in key boxes, trends in tables, equations, and worked examples. Use the 50-mark test below to assess your understanding with mark schemes.</div></div>
+<div class="hero">
+  <div class="badge">S4 Chemistry &middot; Unit 3</div>
+  <h1>Formation of Ionic &amp;<br><em>Metallic Bonds</em></h1>
+  <p class="sub">Why atoms bond, ionic bond formation and properties, lattice energy, metallic bonding, and the physical properties of metals explained.</p>
+  <div class="toc-grid">
+    <a href="#s31">3.1 Why Atoms Bond</a>
+    <a href="#s32">3.2 Ionic Bonding</a>
+    <a href="#s33">3.3 Metallic Bonds &amp; Properties</a>
+    <a href="#exercises">Exercises</a>
+    <a href="#quiz">Quiz</a>
+    <a href="#test">Unit Test</a>
   </div>
-</section>
+</div>
+<main class="page">
 
-<section id="test">
-  <div class="sec-head"><span class="sec-num">TEST</span><h2>50-Mark Test — Unit 3</h2></div>
-  <p style="color:var(--muted);font-size:.88rem;margin-bottom:1rem;">Time: 60 minutes. Answer all questions. Show all working.</p>
-  <div class="qcard"><h3>Section A — Knowledge (20 marks)</h3>
-    <div class="qi"><div class="qn">A1 <span class="mk">[4]</span></div>
-    <p>State and explain four key trends going down this group/period covered in this unit.</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
-    <div class="ans">[1 each] Refer to the trend tables in sections above. For full marks: name the trend, state the direction, and give the correct reason linking to atomic structure (nuclear charge, shielding, atomic radius, electron configuration).</div></div>
+<!-- 3.1 -->
+<div class="section-header" id="s31"><span class="section-number">3.1</span><h2>Stability of Atoms &amp; Why They Bond</h2></div>
 
-    <div class="qi"><div class="qn">A2 <span class="mk">[4]</span></div>
-    <p>Write balanced equations for four reactions covered in this unit. Include state symbols.</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
-    <div class="ans">[1 each] Refer to the reaction tables in sections 2–4 above. Each equation must be correctly balanced with state symbols for full marks.</div></div>
+<div class="card"><h3>The Drive Towards Stability</h3>
+<p>Atoms form bonds because doing so lowers their overall energy, producing a more stable arrangement. The driving force is the tendency to achieve a <strong>full outer electron shell</strong> &mdash; the same electron configuration as the nearest noble gas (Group 18). Noble gases are chemically inert precisely because they already have full outer shells (2 electrons for He, 8 for the rest).</p>
+<p>This idea is formalised as the <strong>octet rule</strong>: atoms tend to gain, lose, or share electrons to achieve 8 electrons in their outer shell (or 2 for hydrogen and lithium, which aim for He configuration).</p>
+</div>
 
-    <div class="qi"><div class="qn">A3 <span class="mk">[4]</span></div>
-    <p>Define four key terms from this unit (e.g. amphoteric, lattice energy, electronegativity, ionic bond — as appropriate).</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
-    <div class="ans">[1 each] Definitions must be precise. Refer to the key definition boxes in sections 1–6 above.</div></div>
+<div class="callout warn"><span class="callout-icon">&#x26A0;&#xFE0F;</span><div class="callout-body"><strong>The octet rule has exceptions</strong>Some atoms (e.g. Be, B, P, S, and transition metals) can have fewer or more than 8 electrons in their outer shell when bonded. The octet rule is a useful guide, not an absolute law.</div></div>
 
-    <div class="qi"><div class="qn">A4 <span class="mk">[4]</span></div>
-    <p>Explain the physical properties of the substances covered in this unit (conductivity, melting point, solubility). Link each to structure and bonding.</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
-    <div class="ans">[1 each] Link property to particle type and bonding: e.g. high m.p. → strong bonds/forces; conductor → mobile charged particles; solubility → similar polarity/hydration.</div></div>
+<h3 class="sub">Types of Chemical Bond</h3>
+<div class="tbl-wrap"><table>
+  <thead><tr><th>Bond Type</th><th>Formed Between</th><th>How</th><th>Example</th></tr></thead>
+  <tbody>
+    <tr><td>Ionic</td><td>Metal + non-metal</td><td>Transfer of electrons</td><td>NaCl, MgO, CaCl&#x2082;</td></tr>
+    <tr><td>Covalent</td><td>Non-metal + non-metal</td><td>Sharing of electrons</td><td>H&#x2082;O, CO&#x2082;, CH&#x2084;</td></tr>
+    <tr><td>Metallic</td><td>Metal + metal (or pure metal)</td><td>Delocalised electron sea</td><td>Fe, Cu, Al, brass</td></tr>
+  </tbody>
+</table></div>
 
-    <div class="qi"><div class="qn">A5 <span class="mk">[4]</span></div>
-    <p>Give four industrial or everyday uses of substances from this unit, explaining the property that makes each suitable.</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
-    <div class="ans">[1 each] Refer to the uses table in section 5 or 6. Must link use to property (e.g. low density → aircraft; corrosion resistance → packaging).</div></div>
+<div class="card"><h3>Electronegativity and Bond Type</h3>
+<p><strong>Electronegativity</strong> is the ability of an atom to attract shared electrons towards itself. The difference in electronegativity (&Delta;EN) between two bonded atoms determines the bond type:</p>
+<div class="formula-block">&Delta;EN &gt; 1.7  &rarr;  Ionic bond (electron transfer)
+&Delta;EN 0.4&ndash;1.7 &rarr;  Polar covalent bond
+&Delta;EN &lt; 0.4  &rarr;  Non-polar covalent bond</div>
+<p>Electronegativity increases across a period (left &rarr; right) and decreases down a group (top &rarr; bottom). Fluorine is the most electronegative element (EN = 4.0 on Pauling scale).</p>
+</div>
+
+<!-- 3.2 -->
+<div class="section-header" id="s32"><span class="section-number">3.2</span><h2>Ionic Bonding</h2></div>
+
+<div class="def-box"><strong>Ionic Bond</strong>The electrostatic force of attraction between oppositely charged ions (cation and anion) formed by the complete transfer of one or more electrons from a metal atom to a non-metal atom.</div>
+
+<h3 class="sub">Formation of Ions</h3>
+<div class="card">
+<p><strong>Metal atoms</strong> (low IE, low EN) lose their outer electrons to form <strong>cations</strong> (positive ions). They achieve the electron configuration of the preceding noble gas.</p>
+<p><strong>Non-metal atoms</strong> (high IE, high EN) gain electrons to form <strong>anions</strong> (negative ions). They achieve the electron configuration of the next noble gas.</p>
+</div>
+
+<div class="example-box">
+  <div class="example-header"><span class="tag">WORKED EXAMPLE</span><h4>Formation of Sodium Chloride (NaCl)</h4></div>
+  <div class="example-body">
+    <div class="step"><div class="step-num">1</div><div class="step-text">Na (Z=11): 1s&#xB2;2s&#xB2;2p&#x2076;3s&#xB9; &rarr; Na loses its 3s&#xB9; electron &rarr; Na&#x207A;: 1s&#xB2;2s&#xB2;2p&#x2076; (isoelectronic with Ne)</div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-text">Cl (Z=17): 1s&#xB2;2s&#xB2;2p&#x2076;3s&#xB2;3p&#x2075; &rarr; Cl gains one electron &rarr; Cl&#x207B;: 1s&#xB2;2s&#xB2;2p&#x2076;3s&#xB2;3p&#x2076; (isoelectronic with Ar)</div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-text">Na&#x207A; and Cl&#x207B; are attracted by electrostatic forces &rarr; ionic bond formed. The compound NaCl is electrically neutral (charges balance).</div></div>
   </div>
-  <div class="qcard" style="margin-top:1rem;"><h3>Section B — Application (20 marks)</h3>
-    <div class="qi"><div class="qn">B1–B4 <span class="mk">[5 each]</span></div>
-    <p>Application and calculation questions covering reactions, trends and quantitative chemistry from this unit. Full question papers are available through the teacher admin portal.</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show guidance</button>
-    <div class="ans">For application questions: (1) identify the relevant concept from your notes, (2) write balanced equations with state symbols, (3) explain trends using atomic structure reasoning, (4) show full working for any calculations.</div></div>
-  </div>
-  <div class="qcard" style="margin-top:1rem;"><h3>Section C — Extended Response (10 marks)</h3>
-    <div class="qi"><div class="qn">C1–C2 <span class="mk">[5 each]</span></div>
-    <p>Write extended answers comparing two topics from this unit, or evaluating trends and anomalies.</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show guidance</button>
-    <div class="ans">Extended answers should: define key terms, give equations, explain using atomic theory, make comparisons, and conclude clearly. Aim for 6–8 marking points per question for full marks.</div></div>
-  </div>
-</section>
+</div>
 
-<div class="unit-nav">
-  <a href="s4_unit2_electronic_config.html">← Unit 2: Electronic Config</a>
-  <a href="s4-chemistry.html">S4 Course Home</a>
-  <a href="s4_unit4_covalent_bond.html">Unit 4: Covalent Bond →</a>
+<div class="diagram-wrap"><svg viewBox="0 0 600 200" width="600" height="200" xmlns="http://www.w3.org/2000/svg">
+  <text x="300" y="17" text-anchor="middle" fill="#e6edf3" font-size="12" font-family="Playfair Display" font-weight="bold">Electron Transfer in NaCl Formation</text>
+  <!-- Na atom -->
+  <circle cx="120" cy="110" r="45" fill="none" stroke="rgba(245,158,11,.3)" stroke-width="1.2" stroke-dasharray="4,3"/>
+  <circle cx="120" cy="110" r="28" fill="none" stroke="rgba(245,158,11,.3)" stroke-width="1.2" stroke-dasharray="4,3"/>
+  <circle cx="120" cy="110" r="12" fill="rgba(245,158,11,.3)" stroke="var(--accent)" stroke-width="1.5"/>
+  <text x="120" y="114" text-anchor="middle" fill="#fff" font-size="9" font-family="JetBrains Mono">Na</text>
+  <!-- Na outer electron -->
+  <circle cx="120" cy="65" r="5" fill="#f59e0b"/>
+  <text x="75" y="110" fill="#f59e0b" font-size="9" font-family="JetBrains Mono">2,8,1</text>
+  <text x="120" y="175" text-anchor="middle" fill="#f59e0b" font-size="10" font-family="JetBrains Mono">Na atom</text>
+  <!-- Arrow showing electron transfer -->
+  <line x1="200" y1="95" x2="360" y2="95" stroke="#34d399" stroke-width="1.5" marker-end="url(#ea)"/>
+  <text x="280" y="86" text-anchor="middle" fill="#34d399" font-size="9" font-family="JetBrains Mono">e&#x207B; transfer</text>
+  <!-- Na+ ion -->
+  <circle cx="230" cy="140" r="32" fill="rgba(245,158,11,.15)" stroke="var(--accent)" stroke-width="1.5"/>
+  <text x="230" y="136" text-anchor="middle" fill="#fff" font-size="9" font-family="JetBrains Mono">Na&#x207A;</text>
+  <text x="230" y="148" text-anchor="middle" fill="#f59e0b" font-size="8" font-family="JetBrains Mono">2,8</text>
+  <!-- Cl atom -->
+  <circle cx="470" cy="110" r="50" fill="none" stroke="rgba(167,139,250,.3)" stroke-width="1.2" stroke-dasharray="4,3"/>
+  <circle cx="470" cy="110" r="33" fill="none" stroke="rgba(167,139,250,.3)" stroke-width="1.2" stroke-dasharray="4,3"/>
+  <circle cx="470" cy="110" r="12" fill="rgba(167,139,250,.3)" stroke="#a78bfa" stroke-width="1.5"/>
+  <text x="470" y="114" text-anchor="middle" fill="#fff" font-size="9" font-family="JetBrains Mono">Cl</text>
+  <text x="425" y="110" fill="#a78bfa" font-size="9" font-family="JetBrains Mono">2,8,7</text>
+  <text x="470" y="178" text-anchor="middle" fill="#a78bfa" font-size="10" font-family="JetBrains Mono">Cl atom</text>
+  <!-- Cl- ion -->
+  <circle cx="400" cy="140" r="40" fill="rgba(167,139,250,.15)" stroke="#a78bfa" stroke-width="1.5"/>
+  <text x="400" y="136" text-anchor="middle" fill="#fff" font-size="9" font-family="JetBrains Mono">Cl&#x207B;</text>
+  <text x="400" y="148" text-anchor="middle" fill="#a78bfa" font-size="8" font-family="JetBrains Mono">2,8,8</text>
+  <!-- Attraction arrow -->
+  <line x1="264" y1="140" x2="358" y2="140" stroke="#f87171" stroke-width="2" stroke-dasharray="4,3"/>
+  <text x="312" y="160" text-anchor="middle" fill="#f87171" font-size="9" font-family="JetBrains Mono">attraction</text>
+  <defs><marker id="ea" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3z" fill="#34d399"/></marker></defs>
+</svg></div>
+
+<h3 class="sub">More Examples of Ionic Bond Formation</h3>
+<div class="example-box">
+  <div class="example-header"><span class="tag">WORKED EXAMPLE</span><h4>Formation of Magnesium Oxide (MgO)</h4></div>
+  <div class="example-body">
+    <div class="step"><div class="step-num">1</div><div class="step-text">Mg (Z=12): [Ne]3s&#xB2; &rarr; loses 2 electrons &rarr; Mg&#xB2;&#x207A;: [Ne] (2,8)</div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-text">O (Z=8): [He]2s&#xB2;2p&#x2074; &rarr; gains 2 electrons &rarr; O&#xB2;&#x207B;: [He]2s&#xB2;2p&#x2076; = [Ne] (2,8)</div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-text">Mg&#xB2;&#x207A; + O&#xB2;&#x207B; &rarr; MgO. The 2+ and 2&minus; charges balance &rarr; formula MgO.</div></div>
+  </div>
+</div>
+
+<div class="example-box">
+  <div class="example-header"><span class="tag">WORKED EXAMPLE</span><h4>Formation of Calcium Chloride (CaCl&#x2082;)</h4></div>
+  <div class="example-body">
+    <div class="step"><div class="step-num">1</div><div class="step-text">Ca (Z=20): [Ar]4s&#xB2; &rarr; loses 2 electrons &rarr; Ca&#xB2;&#x207A;: [Ar] (2,8,8)</div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-text">Cl (Z=17): [Ne]3s&#xB2;3p&#x2075; &rarr; gains 1 electron &rarr; Cl&#x207B;: [Ne]3s&#xB2;3p&#x2076; = [Ar]</div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-text">Ca&#xB2;&#x207A; needs 2 Cl&#x207B; to balance charge &rarr; formula CaCl&#x2082;. Ca transfers one electron to each Cl atom.</div></div>
+  </div>
+</div>
+
+<h3 class="sub">Ionic Crystal Structure</h3>
+<div class="card"><h3>Giant Ionic Lattice</h3>
+<p>In the solid state, ionic compounds form a <strong>giant ionic lattice</strong> &mdash; a regular, repeating 3-dimensional arrangement of cations and anions held together by strong electrostatic forces in all directions. There are no discrete molecules in an ionic solid.</p>
+<p>In NaCl, each Na&#x207A; is surrounded by 6 Cl&#x207B; ions, and each Cl&#x207B; is surrounded by 6 Na&#x207A; ions. This is called a <strong>6:6 coordination</strong>.</p>
+</div>
+
+<div class="diagram-wrap"><svg viewBox="0 0 400 240" width="400" height="240" xmlns="http://www.w3.org/2000/svg">
+  <text x="200" y="17" text-anchor="middle" fill="#e6edf3" font-size="12" font-family="Playfair Display" font-weight="bold">NaCl Giant Ionic Lattice</text>
+  <!-- Draw a 3x3 grid of ions alternating Na+ and Cl- -->
+  <!-- Row 1 -->
+  <circle cx="80" cy="60" r="16" fill="rgba(245,158,11,.4)" stroke="#f59e0b" stroke-width="1.5"/><text x="80" y="64" text-anchor="middle" fill="#fff" font-size="9" font-family="JetBrains Mono">Na&#x207A;</text>
+  <circle cx="150" cy="60" r="20" fill="rgba(167,139,250,.4)" stroke="#a78bfa" stroke-width="1.5"/><text x="150" y="64" text-anchor="middle" fill="#fff" font-size="9" font-family="JetBrains Mono">Cl&#x207B;</text>
+  <circle cx="225" cy="60" r="16" fill="rgba(245,158,11,.4)" stroke="#f59e0b" stroke-width="1.5"/><text x="225" y="64" text-anchor="middle" fill="#fff" font-size="9" font-family="JetBrains Mono">Na&#x207A;</text>
+  <circle cx="300" cy="60" r="20" fill="rgba(167,139,250,.4)" stroke="#a78bfa" stroke-width="1.5"/><text x="300" y="64" text-anchor="middle" fill="#fff" font-size="9" font-family="JetBrains Mono">Cl&#x207B;</text>
+  <!-- Row 2 -->
+  <circle cx="80" cy="135" r="20" fill="rgba(167,139,250,.4)" stroke="#a78bfa" stroke-width="1.5"/><text x="80" y="139" text-anchor="middle" fill="#fff" font-size="9" font-family="JetBrains Mono">Cl&#x207B;</text>
+  <circle cx="150" cy="135" r="16" fill="rgba(245,158,11,.4)" stroke="#f59e0b" stroke-width="1.5"/><text x="150" y="139" text-anchor="middle" fill="#fff" font-size="9" font-family="JetBrains Mono">Na&#x207A;</text>
+  <circle cx="225" cy="135" r="20" fill="rgba(167,139,250,.4)" stroke="#a78bfa" stroke-width="1.5"/><text x="225" y="139" text-anchor="middle" fill="#fff" font-size="9" font-family="JetBrains Mono">Cl&#x207B;</text>
+  <circle cx="300" cy="135" r="16" fill="rgba(245,158,11,.4)" stroke="#f59e0b" stroke-width="1.5"/><text x="300" y="139" text-anchor="middle" fill="#fff" font-size="9" font-family="JetBrains Mono">Na&#x207A;</text>
+  <!-- Row 3 -->
+  <circle cx="80" cy="208" r="16" fill="rgba(245,158,11,.4)" stroke="#f59e0b" stroke-width="1.5"/><text x="80" y="212" text-anchor="middle" fill="#fff" font-size="9" font-family="JetBrains Mono">Na&#x207A;</text>
+  <circle cx="150" cy="208" r="20" fill="rgba(167,139,250,.4)" stroke="#a78bfa" stroke-width="1.5"/><text x="150" y="212" text-anchor="middle" fill="#fff" font-size="9" font-family="JetBrains Mono">Cl&#x207B;</text>
+  <circle cx="225" cy="208" r="16" fill="rgba(245,158,11,.4)" stroke="#f59e0b" stroke-width="1.5"/><text x="225" y="212" text-anchor="middle" fill="#fff" font-size="9" font-family="JetBrains Mono">Na&#x207A;</text>
+  <circle cx="300" cy="208" r="20" fill="rgba(167,139,250,.4)" stroke="#a78bfa" stroke-width="1.5"/><text x="300" y="212" text-anchor="middle" fill="#fff" font-size="9" font-family="JetBrains Mono">Cl&#x207B;</text>
+  <!-- Bond lines -->
+  <line x1="96" y1="60" x2="130" y2="60" stroke="#30363d" stroke-width="1"/>
+  <line x1="170" y1="60" x2="209" y2="60" stroke="#30363d" stroke-width="1"/>
+  <line x1="241" y1="60" x2="280" y2="60" stroke="#30363d" stroke-width="1"/>
+  <line x1="100" y1="135" x2="134" y2="135" stroke="#30363d" stroke-width="1"/>
+  <line x1="166" y1="135" x2="205" y2="135" stroke="#30363d" stroke-width="1"/>
+  <line x1="245" y1="135" x2="284" y2="135" stroke="#30363d" stroke-width="1"/>
+  <line x1="80" y1="76" x2="80" y2="115" stroke="#30363d" stroke-width="1"/>
+  <line x1="150" y1="80" x2="150" y2="119" stroke="#30363d" stroke-width="1"/>
+  <line x1="225" y1="76" x2="225" y2="115" stroke="#30363d" stroke-width="1"/>
+  <line x1="300" y1="80" x2="300" y2="119" stroke="#30363d" stroke-width="1"/>
+  <line x1="80" y1="155" x2="80" y2="192" stroke="#30363d" stroke-width="1"/>
+  <line x1="150" y1="151" x2="150" y2="188" stroke="#30363d" stroke-width="1"/>
+  <line x1="225" y1="155" x2="225" y2="192" stroke="#30363d" stroke-width="1"/>
+  <line x1="300" y1="151" x2="300" y2="192" stroke="#30363d" stroke-width="1"/>
+  <!-- Legend -->
+  <circle cx="355" cy="70" r="10" fill="rgba(245,158,11,.4)" stroke="#f59e0b" stroke-width="1"/>
+  <text x="370" y="74" fill="#f59e0b" font-size="9" font-family="JetBrains Mono">Na&#x207A;</text>
+  <circle cx="355" cy="95" r="12" fill="rgba(167,139,250,.4)" stroke="#a78bfa" stroke-width="1"/>
+  <text x="370" y="99" fill="#a78bfa" font-size="9" font-family="JetBrains Mono">Cl&#x207B;</text>
+</svg></div>
+
+<h3 class="sub">Lattice Energy</h3>
+<div class="def-box"><strong>Lattice Energy (&Delta;H&#x1D473;&#x1D46E;&#x1D47B;)</strong>The energy released when one mole of an ionic compound is formed from its gaseous ions under standard conditions.<br>Na&#x207A;(g) + Cl&#x207B;(g) &rarr; NaCl(s) &nbsp; &Delta;H = &minus;787 kJ mol&#x207B;&#xB9; (lattice energy of NaCl)<br>Always negative (exothermic) &mdash; energy is released as ions come together.</div>
+
+<div class="card"><h3>Factors Affecting Lattice Energy</h3>
+<p>Lattice energy depends on the strength of the electrostatic attraction between ions:</p>
+<div class="formula-block">E &prop; (q&#x207A; &times; q&#x207B;) / r
+
+q&#x207A; = charge on cation, q&#x207B; = charge on anion, r = ionic radius</div>
+<ul style="margin:12px 0 0 20px;line-height:2.1;">
+  <li><strong>Higher ionic charge</strong> &rarr; stronger attraction &rarr; more exothermic lattice energy (larger magnitude).<br>e.g. MgO (&minus;3791 kJ/mol) &gt;&gt; NaCl (&minus;787 kJ/mol) because Mg&#xB2;&#x207A; and O&#xB2;&#x207B; have greater charge than Na&#x207A; and Cl&#x207B;.</li>
+  <li><strong>Smaller ionic radius</strong> &rarr; ions closer together &rarr; stronger attraction &rarr; larger (more negative) lattice energy.</li>
+</ul>
+</div>
+
+<h3 class="sub">Physical Properties of Ionic Compounds</h3>
+<div class="tbl-wrap"><table>
+  <thead><tr><th>Property</th><th>Observation</th><th>Explanation</th></tr></thead>
+  <tbody>
+    <tr><td>Melting/boiling point</td><td>High (e.g. NaCl: 801&deg;C)</td><td>Strong electrostatic forces between oppositely charged ions in the giant lattice require large amounts of energy to overcome.</td></tr>
+    <tr><td>Electrical conductivity (solid)</td><td>Non-conductor</td><td>Ions are fixed in the lattice &mdash; they cannot move to carry charge.</td></tr>
+    <tr><td>Electrical conductivity (molten/aq)</td><td>Conductor</td><td>When melted or dissolved in water, ions are free to move and carry charge.</td></tr>
+    <tr><td>Solubility in water</td><td>Many are soluble</td><td>Polar water molecules can attract and separate ions from the lattice (hydration). Lattice energy must be overcome by hydration energy.</td></tr>
+    <tr><td>Solubility in organic solvents</td><td>Generally insoluble</td><td>Non-polar solvents cannot interact strongly enough with ions to break the lattice.</td></tr>
+    <tr><td>Hardness and brittleness</td><td>Hard but brittle</td><td>Lattice is rigid (hard). When stressed, layers of ions shift &mdash; like charges align and repel, causing the crystal to shatter (brittle).</td></tr>
+  </tbody>
+</table></div>
+
+<div class="callout info"><span class="callout-icon">&#x2139;&#xFE0F;</span><div class="callout-body"><strong>Writing ionic formulae from charges</strong>Use the "cross-over" rule: the magnitude of the cation's charge becomes the subscript of the anion and vice versa, then simplify. E.g. Al&#xB3;&#x207A; + O&#xB2;&#x207B; &rarr; Al&#xB2;O&#xB3;.</div></div>
+
+<!-- 3.3 -->
+<div class="section-header" id="s33"><span class="section-number">3.3</span><h2>Metallic Bonds &amp; Physical Properties of Metals</h2></div>
+
+<div class="def-box"><strong>Metallic Bond</strong>The electrostatic attraction between a lattice of positive metal ions (cations) and a surrounding "sea" of delocalised electrons. The outer electrons of metal atoms are released into a shared pool that flows freely throughout the structure.</div>
+
+<div class="card"><h3>The Metallic Bonding Model</h3>
+<p>When metal atoms come together, their outer (valence) electrons leave the individual atoms and become <strong>delocalised</strong> &mdash; free to move throughout the entire metallic structure. This leaves behind positively charged metal ions arranged in a regular lattice. The delocalised electrons are attracted to all the positive ions simultaneously, holding the structure together.</p>
+<p>This can be described as: <em>"positive ions immersed in a sea of delocalised electrons."</em></p>
+</div>
+
+<div class="diagram-wrap"><svg viewBox="0 0 500 220" width="500" height="220" xmlns="http://www.w3.org/2000/svg">
+  <text x="250" y="17" text-anchor="middle" fill="#e6edf3" font-size="12" font-family="Playfair Display" font-weight="bold">Metallic Bonding &mdash; Sea of Electrons Model</text>
+  <!-- Background electron sea -->
+  <rect x="30" y="28" width="440" height="175" rx="10" fill="rgba(245,158,11,.06)" stroke="rgba(245,158,11,.2)" stroke-width="1"/>
+  <!-- Metal cations in grid -->
+  <circle cx="95" cy="80" r="22" fill="rgba(245,158,11,.3)" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="95" y="84" text-anchor="middle" fill="#fff" font-size="9" font-family="JetBrains Mono">M&#x207A;</text>
+  <circle cx="185" cy="80" r="22" fill="rgba(245,158,11,.3)" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="185" y="84" text-anchor="middle" fill="#fff" font-size="9" font-family="JetBrains Mono">M&#x207A;</text>
+  <circle cx="275" cy="80" r="22" fill="rgba(245,158,11,.3)" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="275" y="84" text-anchor="middle" fill="#fff" font-size="9" font-family="JetBrains Mono">M&#x207A;</text>
+  <circle cx="365" cy="80" r="22" fill="rgba(245,158,11,.3)" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="365" y="84" text-anchor="middle" fill="#fff" font-size="9" font-family="JetBrains Mono">M&#x207A;</text>
+  <circle cx="140" cy="155" r="22" fill="rgba(245,158,11,.3)" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="140" y="159" text-anchor="middle" fill="#fff" font-size="9" font-family="JetBrains Mono">M&#x207A;</text>
+  <circle cx="230" cy="155" r="22" fill="rgba(245,158,11,.3)" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="230" y="159" text-anchor="middle" fill="#fff" font-size="9" font-family="JetBrains Mono">M&#x207A;</text>
+  <circle cx="320" cy="155" r="22" fill="rgba(245,158,11,.3)" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="320" y="159" text-anchor="middle" fill="#fff" font-size="9" font-family="JetBrains Mono">M&#x207A;</text>
+  <circle cx="410" cy="155" r="22" fill="rgba(245,158,11,.3)" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="410" y="159" text-anchor="middle" fill="#fff" font-size="9" font-family="JetBrains Mono">M&#x207A;</text>
+  <!-- Delocalised electrons (small dots scattered between ions) -->
+  <circle cx="55" cy="70" r="4" fill="#34d399" opacity=".8"/>
+  <circle cx="145" cy="50" r="4" fill="#34d399" opacity=".8"/>
+  <circle cx="237" cy="115" r="4" fill="#34d399" opacity=".8"/>
+  <circle cx="315" cy="45" r="4" fill="#34d399" opacity=".8"/>
+  <circle cx="440" cy="100" r="4" fill="#34d399" opacity=".8"/>
+  <circle cx="60" cy="130" r="4" fill="#34d399" opacity=".8"/>
+  <circle cx="165" cy="115" r="4" fill="#34d399" opacity=".8"/>
+  <circle cx="380" cy="130" r="4" fill="#34d399" opacity=".8"/>
+  <circle cx="450" cy="55" r="4" fill="#34d399" opacity=".8"/>
+  <circle cx="100" cy="175" r="4" fill="#34d399" opacity=".8"/>
+  <circle cx="270" cy="185" r="4" fill="#34d399" opacity=".8"/>
+  <circle cx="355" cy="185" r="4" fill="#34d399" opacity=".8"/>
+  <!-- Legend -->
+  <circle cx="55" cy="205" r="8" fill="rgba(245,158,11,.3)" stroke="#f59e0b" stroke-width="1"/>
+  <text x="70" y="209" fill="#f59e0b" font-size="9" font-family="JetBrains Mono">Metal cation (M&#x207A;)</text>
+  <circle cx="230" cy="205" r="4" fill="#34d399"/>
+  <text x="242" y="209" fill="#34d399" font-size="9" font-family="JetBrains Mono">Delocalised electron</text>
+</svg></div>
+
+<h3 class="sub">Physical Properties of Metals Explained</h3>
+<div class="tbl-wrap"><table>
+  <thead><tr><th>Property</th><th>Observation</th><th>Explanation (metallic bonding)</th></tr></thead>
+  <tbody>
+    <tr><td>High melting/boiling point</td><td>Most metals have high m.p. (Fe: 1538&deg;C)</td><td>Strong electrostatic attraction between the lattice of cations and the delocalised electron sea requires large energy to disrupt. More valence electrons per atom = stronger bonding (e.g. Al &gt; Na).</td></tr>
+    <tr><td>Electrical conductivity</td><td>Good conductors (solid and liquid)</td><td>Delocalised electrons are free to move throughout the metal. When a voltage is applied, electrons flow, creating a current. (Unlike ionic compounds, metals conduct in the solid state.)</td></tr>
+    <tr><td>Thermal conductivity</td><td>Good heat conductors</td><td>Mobile delocalised electrons transfer kinetic energy rapidly throughout the metal. Vibrations also propagate through the lattice.</td></tr>
+    <tr><td>Malleability &amp; ductility</td><td>Can be hammered into sheets (malleable) or drawn into wires (ductile)</td><td>Metal ion layers can slide past each other without breaking the bond &mdash; the delocalised electron sea adjusts around the new positions. No localised bonds to break.</td></tr>
+    <tr><td>Metallic lustre</td><td>Shiny appearance</td><td>Delocalised electrons absorb and re-emit light across a broad range of frequencies, giving the characteristic shiny surface.</td></tr>
+    <tr><td>High density</td><td>Generally dense (Fe: 7.87 g cm&#x207B;&#xB3;)</td><td>Metal atoms are closely packed in a regular lattice with little empty space.</td></tr>
+    <tr><td>Strength</td><td>High tensile strength</td><td>Strong, non-directional metallic bonds hold the lattice together in all directions; difficult to pull apart.</td></tr>
+  </tbody>
+</table></div>
+
+<h3 class="sub">Factors Affecting Strength of Metallic Bonding</h3>
+<div class="card">
+<p>Metallic bond strength increases with:</p>
+<ul style="margin:10px 0 0 20px;line-height:2.1;">
+  <li><strong>More delocalised electrons per atom</strong> &mdash; Group 2 metals bond more strongly than Group 1 metals (e.g. Mg has higher m.p. than Na). Transition metals are often very strong due to d-electron involvement.</li>
+  <li><strong>Smaller ionic radius</strong> &mdash; smaller ions allow electrons to be held more tightly, increasing bond strength and m.p.</li>
+  <li><strong>Higher charge on metal ion</strong> &mdash; more positive cations attract the electron sea more strongly.</li>
+</ul>
+</div>
+
+<div class="callout tip"><span class="callout-icon">&#x1F4A1;</span><div class="callout-body"><strong>Comparing metallic bond strength</strong>Going across Period 3 (Na &rarr; Mg &rarr; Al), the number of delocalised electrons increases (1, 2, 3), the ionic charge increases, and the ionic radius decreases. All three factors strengthen the metallic bond, so melting point increases: Na (98&deg;C) &lt; Mg (650&deg;C) &lt; Al (660&deg;C). (Note: Al and Mg are close because the higher charge of Al&#xB3;&#x207A; is partly offset by its slightly larger effective radius in context.)</div></div>
+
+<h3 class="sub">Comparison of Bond Types</h3>
+<div class="tbl-wrap"><table>
+  <thead><tr><th>Property</th><th>Ionic</th><th>Metallic</th><th>Covalent (simple)</th></tr></thead>
+  <tbody>
+    <tr><td>Melting point</td><td>High</td><td>Variable (often high)</td><td>Low (weak IMF)</td></tr>
+    <tr><td>Electrical conductivity</td><td>Only when molten/dissolved</td><td>Always (solid &amp; liquid)</td><td>None (usually)</td></tr>
+    <tr><td>Solubility in water</td><td>Often soluble</td><td>Insoluble</td><td>Variable</td></tr>
+    <tr><td>Mechanical</td><td>Hard, brittle</td><td>Malleable, ductile</td><td>Soft (molecular)</td></tr>
+    <tr><td>Bonding particle</td><td>Ions (cation + anion)</td><td>Cation + delocalised e&#x207B;</td><td>Molecules</td></tr>
+  </tbody>
+</table></div>
+
+<!-- EXERCISES -->
+<div class="section-header" id="exercises"><span class="section-number">&#x270F;&#xFE0F;</span><h2>Exercises</h2></div>
+<ul class="exercise-list">
+  <li>Using dot-and-cross diagrams, show the formation of: (a) KBr, (b) MgCl&#x2082;, (c) Al&#x2082;O&#x2083;. In each case state the charge on each ion.
+    <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+    <div class="answer">(a) K ([Ar]4s&#xB9;) loses 1e &rarr; K&#x207A; [Ar]. Br ([Ar]3d&#xB9;&#x2070;4s&#xB2;4p&#x2075;) gains 1e &rarr; Br&#x207B; [Kr]. Formula KBr (1:1).<br>(b) Mg ([Ne]3s&#xB2;) loses 2e &rarr; Mg&#xB2;&#x207A; [Ne]. Cl ([Ne]3s&#xB2;3p&#x2075;) gains 1e &rarr; Cl&#x207B; [Ar]. 1 Mg&#xB2;&#x207A; needs 2 Cl&#x207B; &rarr; MgCl&#x2082;.<br>(c) Al ([Ne]3s&#xB2;3p&#xB9;) loses 3e &rarr; Al&#xB3;&#x207A; [Ne]. O ([He]2s&#xB2;2p&#x2074;) gains 2e &rarr; O&#xB2;&#x207B; [Ne]. Cross-over: 2Al&#xB3;&#x207A; + 3O&#xB2;&#x207B; &rarr; Al&#x2082;O&#xB3;.</div>
+  </li>
+  <li>State and explain four physical properties of ionic compounds in terms of their giant ionic lattice structure.
+    <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+    <div class="answer">(1) High m.p.: strong electrostatic forces between oppositely charged ions throughout the lattice require large energy to overcome. (2) Non-conductor (solid): ions are fixed in place &mdash; cannot move to carry charge. (3) Conductor (molten/dissolved): ions become free to move. (4) Brittle: when stress shifts layers, like charges align and repel strongly &rarr; crystal shatters. Also: many soluble in water because polar water molecules hydrate ions and overcome lattice energy.</div>
+  </li>
+  <li>Compare the lattice energies of NaCl (&minus;787 kJ/mol) and MgO (&minus;3791 kJ/mol). Explain the large difference in terms of ionic charge and radius.
+    <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+    <div class="answer">MgO has a much larger (more negative) lattice energy. (1) <strong>Charge:</strong> MgO contains Mg&#xB2;&#x207A; (+2) and O&#xB2;&#x207B; (&minus;2), giving a charge product of 4. NaCl has Na&#x207A; (+1) and Cl&#x207B; (&minus;1), charge product = 1. Higher charge &rarr; much stronger electrostatic attraction. (2) <strong>Radius:</strong> Mg&#xB2;&#x207A; (72 pm) is smaller than Na&#x207A; (102 pm), and O&#xB2;&#x207B; (140 pm) is smaller than Cl&#x207B; (181 pm). Smaller ions are closer together &rarr; stronger attraction &rarr; more exothermic lattice energy.</div>
+  </li>
+  <li>Describe the structure and bonding in a metal and use this to explain why metals are (a) good electrical conductors and (b) malleable.
+    <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+    <div class="answer">Structure: regular lattice of positive metal cations surrounded by a sea of delocalised (mobile) electrons. The metallic bond is the electrostatic attraction between cations and this electron sea. (a) Conductivity: delocalised electrons are free to move throughout the metal. When a potential difference is applied, electrons move in one direction, creating an electric current. (b) Malleability: layers of metal cations can slide past each other when a force is applied. The non-directional, delocalised electron sea adjusts to maintain bonding around the new positions &mdash; no specific bonds are broken, so the metal bends/deforms rather than shattering.</div>
+  </li>
+  <li>Explain why the melting point increases across Na &rarr; Mg &rarr; Al. Use metallic bonding theory in your answer.
+    <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+    <div class="answer">Na has 1, Mg has 2, and Al has 3 delocalised electrons per atom. More delocalised electrons &rarr; stronger, denser electron sea &rarr; stronger attraction to cations. Additionally, the cationic charge increases (Na&#x207A;, Mg&#xB2;&#x207A;, Al&#xB3;&#x207A;) and ionic radii decrease across the period. All these factors increase the strength of metallic bonding &rarr; more energy required to disrupt &rarr; higher melting points (Na: 98&deg;C, Mg: 650&deg;C, Al: 660&deg;C).</div>
+  </li>
+  <li>Give the formula of the ionic compound formed between: (a) Ca and N; (b) Al and S; (c) Fe&#xB3;&#x207A; and O&#xB2;&#x207B;.
+    <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+    <div class="answer">(a) Ca&#xB2;&#x207A; + N&#xB3;&#x207B;: cross-over gives Ca&#xB3;N&#x2082;.<br>(b) Al&#xB3;&#x207A; + S&#xB2;&#x207B;: cross-over gives Al&#x2082;S&#xB3;.<br>(c) Fe&#xB3;&#x207A; + O&#xB2;&#x207B;: cross-over gives Fe&#x2082;O&#xB3;.</div>
+  </li>
+</ul>
+
+<!-- QUIZ -->
+<div class="section-header" id="quiz"><span class="section-number">&#x1F9EA;</span><h2>Multiple Choice Quiz &mdash; 25 Questions</h2></div>
+<div class="quiz-wrap">
+  <div class="quiz-header"><h3>Unit 3 Quiz</h3><span style="font-family:'JetBrains Mono',monospace;font-size:.82rem;color:var(--muted);">Select one answer per question</span></div>
+  <div class="quiz-body">
+
+  <div class="q-block"><span class="q-num">Q1</span><div class="q-text">Ionic bonds form by:</div><div class="options">
+    <label class="opt"><input type="radio" name="q1" value="A"/>Sharing of electrons between two non-metals</label>
+    <label class="opt"><input type="radio" name="q1" value="B"/>Transfer of electrons from a metal to a non-metal</label>
+    <label class="opt"><input type="radio" name="q1" value="C"/>Delocalisation of electrons in a metal lattice</label>
+    <label class="opt"><input type="radio" name="q1" value="D"/>Sharing of electrons between two metals</label>
+  </div><div class="q-exp" id="eq1">Ionic bonds form by electron transfer from metal to non-metal, producing oppositely charged ions that attract each other.</div></div>
+
+  <div class="q-block"><span class="q-num">Q2</span><div class="q-text">Which compound contains the strongest ionic bond?</div><div class="options">
+    <label class="opt"><input type="radio" name="q2" value="A"/>NaF</label>
+    <label class="opt"><input type="radio" name="q2" value="B"/>NaCl</label>
+    <label class="opt"><input type="radio" name="q2" value="C"/>MgO</label>
+    <label class="opt"><input type="radio" name="q2" value="D"/>KBr</label>
+  </div><div class="q-exp" id="eq2">MgO: Mg&#xB2;&#x207A; and O&#xB2;&#x207B; both have charge &#xB12;2 &rarr; much stronger electrostatic attraction. NaF/NaCl/KBr are all &#xB11; ions.</div></div>
+
+  <div class="q-block"><span class="q-num">Q3</span><div class="q-text">What is the correct formula of the ionic compound formed between Al&#xB3;&#x207A; and O&#xB2;&#x207B;?</div><div class="options">
+    <label class="opt"><input type="radio" name="q3" value="A"/>AlO</label>
+    <label class="opt"><input type="radio" name="q3" value="B"/>Al&#x2082;O&#xB3;</label>
+    <label class="opt"><input type="radio" name="q3" value="C"/>Al&#xB3;O&#x2082;</label>
+    <label class="opt"><input type="radio" name="q3" value="D"/>AlO&#x2082;</label>
+  </div><div class="q-exp" id="eq3">Cross-over rule: charge on O&#xB2;&#x207B; (2) gives subscript 2 for Al; charge on Al&#xB3;&#x207A; (3) gives subscript 3 for O &rarr; Al&#x2082;O&#xB3;.</div></div>
+
+  <div class="q-block"><span class="q-num">Q4</span><div class="q-text">Why does solid NaCl not conduct electricity?</div><div class="options">
+    <label class="opt"><input type="radio" name="q4" value="A"/>It has no charged particles</label>
+    <label class="opt"><input type="radio" name="q4" value="B"/>Its ions are fixed in the lattice and cannot move</label>
+    <label class="opt"><input type="radio" name="q4" value="C"/>It is insoluble in water</label>
+    <label class="opt"><input type="radio" name="q4" value="D"/>It has no delocalised electrons or mobile ions</label>
+  </div><div class="q-exp" id="eq4">In solid NaCl, ions are held rigidly in the giant ionic lattice &mdash; they cannot move to carry charge. (D is also partially correct but B is the most precise reason.)</div></div>
+
+  <div class="q-block"><span class="q-num">Q5</span><div class="q-text">Metallic bonding is best described as:</div><div class="options">
+    <label class="opt"><input type="radio" name="q5" value="A"/>Sharing of electrons between two metal atoms</label>
+    <label class="opt"><input type="radio" name="q5" value="B"/>Electrostatic attraction between metal cations and a sea of delocalised electrons</label>
+    <label class="opt"><input type="radio" name="q5" value="C"/>Transfer of electrons from one metal to another</label>
+    <label class="opt"><input type="radio" name="q5" value="D"/>Attraction between neutral metal atoms</label>
+  </div><div class="q-exp" id="eq5">Metallic bond = electrostatic attraction between lattice of positive metal cations and surrounding delocalised (mobile) electron sea.</div></div>
+
+  <div class="q-block"><span class="q-num">Q6</span><div class="q-text">Why are metals malleable?</div><div class="options">
+    <label class="opt"><input type="radio" name="q6" value="A"/>Their ions repel each other when stress is applied</label>
+    <label class="opt"><input type="radio" name="q6" value="B"/>Ion layers slide past each other while delocalised electrons maintain the bond</label>
+    <label class="opt"><input type="radio" name="q6" value="C"/>They have directional covalent bonds that flex</label>
+    <label class="opt"><input type="radio" name="q6" value="D"/>Their metallic bonds are very weak</label>
+  </div><div class="q-exp" id="eq6">In metals, cation layers can slide relative to each other. The non-directional delocalised electron sea adjusts and maintains attraction, so the metal deforms rather than shattering.</div></div>
+
+  <div class="q-block"><span class="q-num">Q7</span><div class="q-text">Why are ionic compounds brittle?</div><div class="options">
+    <label class="opt"><input type="radio" name="q7" value="A"/>They have weak bonds throughout</label>
+    <label class="opt"><input type="radio" name="q7" value="B"/>When layers shift, like charges align and repel strongly, causing fracture</label>
+    <label class="opt"><input type="radio" name="q7" value="C"/>Their electrons are not delocalised</label>
+    <label class="opt"><input type="radio" name="q7" value="D"/>They dissolve too easily</label>
+  </div><div class="q-exp" id="eq7">Ionic crystals: when an external force shifts a layer, originally alternating +/&minus; ions now have +/+ and &minus;/&minus; neighbours &rarr; strong repulsion &rarr; crystal cleaves/shatters.</div></div>
+
+  <div class="q-block"><span class="q-num">Q8</span><div class="q-text">Which species has the electron configuration of argon (Ar)?</div><div class="options">
+    <label class="opt"><input type="radio" name="q8" value="A"/>Na&#x207A;</label>
+    <label class="opt"><input type="radio" name="q8" value="B"/>Cl&#x207B;</label>
+    <label class="opt"><input type="radio" name="q8" value="C"/>Mg&#xB2;&#x207A;</label>
+    <label class="opt"><input type="radio" name="q8" value="D"/>Both B and C</label>
+  </div><div class="q-exp" id="eq8">Ar = 18 electrons. Cl&#x207B; (Z=17, +1e) = 18e &#x2713;. Mg&#xB2;&#x207A; (Z=12, &minus;2e) = 10e (neon config). Na&#x207A; (Z=11, &minus;1e) = 10e. Only Cl&#x207B; = 18e = Ar config.</div></div>
+
+  <div class="q-block"><span class="q-num">Q9</span><div class="q-text">Lattice energy is always:</div><div class="options">
+    <label class="opt"><input type="radio" name="q9" value="A"/>Endothermic (positive)</label>
+    <label class="opt"><input type="radio" name="q9" value="B"/>Exothermic (negative)</label>
+    <label class="opt"><input type="radio" name="q9" value="C"/>Zero for all compounds</label>
+    <label class="opt"><input type="radio" name="q9" value="D"/>Equal to the ionisation energy</label>
+  </div><div class="q-exp" id="eq9">Lattice energy is always exothermic (&Delta;H negative): energy is released when gaseous ions come together to form the solid lattice due to electrostatic attraction.</div></div>
+
+  <div class="q-block"><span class="q-num">Q10</span><div class="q-text">Why does Al have a higher melting point than Na?</div><div class="options">
+    <label class="opt"><input type="radio" name="q10" value="A"/>Al has larger atoms</label>
+    <label class="opt"><input type="radio" name="q10" value="B"/>Al has more delocalised electrons per atom and a higher ionic charge, giving stronger metallic bonding</label>
+    <label class="opt"><input type="radio" name="q10" value="C"/>Al is heavier</label>
+    <label class="opt"><input type="radio" name="q10" value="D"/>Na has more electrons in its outer shell</label>
+  </div><div class="q-exp" id="eq10">Al contributes 3 delocalised electrons per atom (vs 1 for Na) and has Al&#xB3;&#x207A; (vs Na&#x207A;). Greater charge density and electron density &rarr; stronger metallic bond &rarr; higher m.p.</div></div>
+
+  <div class="q-block"><span class="q-num">Q11</span><div class="q-text">Which correctly explains why metals conduct electricity?</div><div class="options">
+    <label class="opt"><input type="radio" name="q11" value="A"/>Positive ions move through the metal</label>
+    <label class="opt"><input type="radio" name="q11" value="B"/>Ionic bonds break and re-form</label>
+    <label class="opt"><input type="radio" name="q11" value="C"/>Delocalised electrons are free to move and carry charge</label>
+    <label class="opt"><input type="radio" name="q11" value="D"/>Metal atoms share electrons with adjacent atoms in fixed pairs</label>
+  </div><div class="q-exp" id="eq11">The mobile, delocalised electrons in the metallic structure can flow freely when a voltage is applied, carrying charge and creating a current.</div></div>
+
+  <div class="q-block"><span class="q-num">Q12</span><div class="q-text">The octet rule states that atoms tend to:</div><div class="options">
+    <label class="opt"><input type="radio" name="q12" value="A"/>Have 8 protons in their nucleus</label>
+    <label class="opt"><input type="radio" name="q12" value="B"/>Lose exactly 8 electrons when bonding</label>
+    <label class="opt"><input type="radio" name="q12" value="C"/>Achieve 8 electrons in their outer shell</label>
+    <label class="opt"><input type="radio" name="q12" value="D"/>Form exactly 8 ionic bonds</label>
+  </div><div class="q-exp" id="eq12">Octet rule: atoms gain, lose, or share electrons to achieve 8 electrons in the outer shell (noble gas configuration). Exceptions exist (H aims for 2).</div></div>
+
+  <div class="q-block"><span class="q-num">Q13</span><div class="q-text">Which property of ionic compounds is best explained by strong electrostatic forces in the lattice?</div><div class="options">
+    <label class="opt"><input type="radio" name="q13" value="A"/>Solubility in organic solvents</label>
+    <label class="opt"><input type="radio" name="q13" value="B"/>Malleability</label>
+    <label class="opt"><input type="radio" name="q13" value="C"/>High melting point</label>
+    <label class="opt"><input type="radio" name="q13" value="D"/>Electrical conductivity in the solid state</label>
+  </div><div class="q-exp" id="eq13">High m.p.: large amounts of energy needed to overcome strong electrostatic forces between oppositely charged ions in the giant lattice.</div></div>
+
+  <div class="q-block"><span class="q-num">Q14</span><div class="q-text">When Na forms Na&#x207A;, it becomes isoelectronic with:</div><div class="options">
+    <label class="opt"><input type="radio" name="q14" value="A"/>Ar</label>
+    <label class="opt"><input type="radio" name="q14" value="B"/>Ne</label>
+    <label class="opt"><input type="radio" name="q14" value="C"/>He</label>
+    <label class="opt"><input type="radio" name="q14" value="D"/>Kr</label>
+  </div><div class="q-exp" id="eq14">Na (Z=11) loses 1e &rarr; Na&#x207A; has 10 electrons = same as Ne (Z=10). Na&#x207A; is isoelectronic with Ne.</div></div>
+
+  <div class="q-block"><span class="q-num">Q15</span><div class="q-text">The coordination number of Na&#x207A; in the NaCl lattice is:</div><div class="options">
+    <label class="opt"><input type="radio" name="q15" value="A"/>4</label>
+    <label class="opt"><input type="radio" name="q15" value="B"/>8</label>
+    <label class="opt"><input type="radio" name="q15" value="C"/>6</label>
+    <label class="opt"><input type="radio" name="q15" value="D"/>12</label>
+  </div><div class="q-exp" id="eq15">In NaCl, each Na&#x207A; is surrounded by 6 Cl&#x207B; ions (top, bottom, left, right, front, back). Coordination number = 6. This is 6:6 coordination.</div></div>
+
+  <div class="q-block"><span class="q-num">Q16</span><div class="q-text">Which statement about metallic bonding is correct?</div><div class="options">
+    <label class="opt"><input type="radio" name="q16" value="A"/>Metallic bonds are directional</label>
+    <label class="opt"><input type="radio" name="q16" value="B"/>Metallic bonds are non-directional &mdash; the electron sea surrounds cations in all directions</label>
+    <label class="opt"><input type="radio" name="q16" value="C"/>Only the outermost layer of atoms contributes electrons</label>
+    <label class="opt"><input type="radio" name="q16" value="D"/>Metallic bonds are weaker than covalent bonds</label>
+  </div><div class="q-exp" id="eq16">Metallic bonds are non-directional: the delocalised electron sea acts uniformly in all directions around each cation. This non-directionality is why metals are malleable.</div></div>
+
+  <div class="q-block"><span class="q-num">Q17</span><div class="q-text">MgO has a higher lattice energy than MgS because:</div><div class="options">
+    <label class="opt"><input type="radio" name="q17" value="A"/>O&#xB2;&#x207B; has a higher charge than S&#xB2;&#x207B;</label>
+    <label class="opt"><input type="radio" name="q17" value="B"/>O&#xB2;&#x207B; is smaller than S&#xB2;&#x207B;, so ions are closer and attraction is stronger</label>
+    <label class="opt"><input type="radio" name="q17" value="C"/>Mg is more reactive than S</label>
+    <label class="opt"><input type="radio" name="q17" value="D"/>MgO has a different lattice structure</label>
+  </div><div class="q-exp" id="eq17">Both O&#xB2;&#x207B; and S&#xB2;&#x207B; have the same &minus;2 charge, so charge is not the difference. O&#xB2;&#x207B; (ionic radius 140 pm) is much smaller than S&#xB2;&#x207B; (184 pm) &rarr; Mg&#xB2;&#x207A; and O&#xB2;&#x207B; are closer &rarr; stronger attraction &rarr; larger (more &minus;ve) lattice energy.</div></div>
+
+  <div class="q-block"><span class="q-num">Q18</span><div class="q-text">Which correctly describes how ionic compounds dissolve in water?</div><div class="options">
+    <label class="opt"><input type="radio" name="q18" value="A"/>The crystal structure is unchanged; water surrounds the lattice</label>
+    <label class="opt"><input type="radio" name="q18" value="B"/>Polar water molecules attract ions from the lattice surface; hydration energy overcomes lattice energy</label>
+    <label class="opt"><input type="radio" name="q18" value="C"/>Electrons are transferred from water to the ions</label>
+    <label class="opt"><input type="radio" name="q18" value="D"/>The compound reacts chemically with water</label>
+  </div><div class="q-exp" id="eq18">Water is polar; its &delta;&#x207B; oxygen is attracted to cations and &delta;&#x207A; hydrogens to anions. Hydration energy released compensates for energy needed to break the lattice (lattice energy).</div></div>
+
+  <div class="q-block"><span class="q-num">Q19</span><div class="q-text">The formula of the ionic compound formed between Fe&#xB3;&#x207A; and SO&#x2084;&#xB2;&#x207B; is:</div><div class="options">
+    <label class="opt"><input type="radio" name="q19" value="A"/>FeSO&#x2084;</label>
+    <label class="opt"><input type="radio" name="q19" value="B"/>Fe&#x2082;(SO&#x2084;)&#xB3;</label>
+    <label class="opt"><input type="radio" name="q19" value="C"/>Fe&#xB3;SO&#x2084;</label>
+    <label class="opt"><input type="radio" name="q19" value="D"/>Fe(SO&#x2084;)&#xB2;</label>
+  </div><div class="q-exp" id="eq19">Fe&#xB3;&#x207A; (charge 3+) and SO&#x2084;&#xB2;&#x207B; (charge 2&minus;). Cross-over: 2 Fe&#xB3;&#x207A; and 3 SO&#x2084;&#xB2;&#x207B; &rarr; Fe&#x2082;(SO&#x2084;)&#xB3;. Total charge: 2(+3) + 3(&minus;2) = 0 &#x2713;.</div></div>
+
+  <div class="q-block"><span class="q-num">Q20</span><div class="q-text">Which property do metals and ionic compounds share?</div><div class="options">
+    <label class="opt"><input type="radio" name="q20" value="A"/>Electrical conductivity in the solid state</label>
+    <label class="opt"><input type="radio" name="q20" value="B"/>Malleability</label>
+    <label class="opt"><input type="radio" name="q20" value="C"/>High melting points (generally)</label>
+    <label class="opt"><input type="radio" name="q20" value="D"/>Solubility in water</label>
+  </div><div class="q-exp" id="eq20">Both metals and ionic compounds generally have high melting points due to strong bonding (metallic or electrostatic). Metals conduct in solid state (ionic do not); metals are malleable (ionic are brittle).</div></div>
+
+  <div class="q-block"><span class="q-num">Q21</span><div class="q-text">Which correctly describes the electron configuration of O&#xB2;&#x207B;?</div><div class="options">
+    <label class="opt"><input type="radio" name="q21" value="A"/>1s&#xB2;2s&#xB2;2p&#x2074;</label>
+    <label class="opt"><input type="radio" name="q21" value="B"/>1s&#xB2;2s&#xB2;2p&#x2076;</label>
+    <label class="opt"><input type="radio" name="q21" value="C"/>1s&#xB2;2s&#xB2;2p&#xB3;</label>
+    <label class="opt"><input type="radio" name="q21" value="D"/>1s&#xB2;2s&#xB2;2p&#x2075;</label>
+  </div><div class="q-exp" id="eq21">O (Z=8) has 8 electrons: 1s&#xB2;2s&#xB2;2p&#x2074;. O&#xB2;&#x207B; gains 2 electrons: 8+2=10 electrons &rarr; 1s&#xB2;2s&#xB2;2p&#x2076; (isoelectronic with Ne).</div></div>
+
+  <div class="q-block"><span class="q-num">Q22</span><div class="q-text">The shiny lustre of metals is due to:</div><div class="options">
+    <label class="opt"><input type="radio" name="q22" value="A"/>The large size of metal ions</label>
+    <label class="opt"><input type="radio" name="q22" value="B"/>Delocalised electrons absorbing and re-emitting light across a broad frequency range</label>
+    <label class="opt"><input type="radio" name="q22" value="C"/>The regular arrangement of lattice ions reflecting light</label>
+    <label class="opt"><input type="radio" name="q22" value="D"/>The ionic bonds within the metal</label>
+  </div><div class="q-exp" id="eq22">The sea of delocalised electrons can absorb photons of many frequencies and re-emit them, giving metals their characteristic lustre (shininess) and reflectivity.</div></div>
+
+  <div class="q-block"><span class="q-num">Q23</span><div class="q-text">Which element has the highest electronegativity?</div><div class="options">
+    <label class="opt"><input type="radio" name="q23" value="A"/>Oxygen</label>
+    <label class="opt"><input type="radio" name="q23" value="B"/>Nitrogen</label>
+    <label class="opt"><input type="radio" name="q23" value="C"/>Chlorine</label>
+    <label class="opt"><input type="radio" name="q23" value="D"/>Fluorine</label>
+  </div><div class="q-exp" id="eq23">Fluorine has the highest electronegativity of all elements (4.0 on the Pauling scale). Electronegativity increases across periods and up groups &rarr; F is top-right of the periodic table.</div></div>
+
+  <div class="q-block"><span class="q-num">Q24</span><div class="q-text">An element X forms an ion X&#xB3;&#x207A;. It is most likely:</div><div class="options">
+    <label class="opt"><input type="radio" name="q24" value="A"/>In Group 1</label>
+    <label class="opt"><input type="radio" name="q24" value="B"/>In Group 3 (Group 13)</label>
+    <label class="opt"><input type="radio" name="q24" value="C"/>In Group 6</label>
+    <label class="opt"><input type="radio" name="q24" value="D"/>In Group 7</label>
+  </div><div class="q-exp" id="eq24">X&#xB3;&#x207A; loses 3 electrons &rarr; the element has 3 valence electrons &rarr; Group 13 (e.g. Al&#xB3;&#x207A;). Group 1 loses 1, Group 2 loses 2, Group 17 gains 1.</div></div>
+
+  <div class="q-block"><span class="q-num">Q25</span><div class="q-text">Molten NaCl conducts electricity because:</div><div class="options">
+    <label class="opt"><input type="radio" name="q25" value="A"/>The covalent bonds break, releasing electrons</label>
+    <label class="opt"><input type="radio" name="q25" value="B"/>Na atoms donate electrons to Cl atoms</label>
+    <label class="opt"><input type="radio" name="q25" value="C"/>Ions are free to move and carry charge when the lattice is disrupted by melting</label>
+    <label class="opt"><input type="radio" name="q25" value="D"/>The temperature increases electron energy</label>
+  </div><div class="q-exp" id="eq25">When NaCl melts, the giant lattice breaks down. Na&#x207A; and Cl&#x207B; ions become free to migrate when a voltage is applied &rarr; ions carry charge &rarr; electrical conduction.</div></div>
+
+  <div style="margin-top:28px;text-align:center;"><button class="qs" onclick="submitQuiz()">Submit Quiz</button><div id="qR"></div></div>
+  </div>
+</div>
+
+<!-- TEST -->
+<div class="section-header" id="test"><span class="section-number">&#x1F4DD;</span><h2>Unit Test &mdash; 50 Marks</h2></div>
+<div class="test-wrap">
+  <div class="test-section">
+    <div class="test-sh"><h3>Section A &mdash; Short Answer</h3><span class="mb">20 marks</span></div>
+    <div class="test-body">
+
+      <div class="tq"><span class="tqn">Q1 [4 marks]</span><p>Describe the formation of the ionic bond in magnesium chloride (MgCl&#x2082;). Include: the electron transfer that occurs [2], the electron configurations of the ions formed [1], and why the formula is MgCl&#x2082; and not MgCl [1].</p>
+      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
+      <div class="ans">Mg ([Ne]3s&#xB2;) loses 2 electrons &rarr; Mg&#xB2;&#x207A; [Ne]; each of two Cl ([Ne]3s&#xB2;3p&#x2075;) atoms gains 1 electron &rarr; Cl&#x207B; [Ne]3s&#xB2;3p&#x2076; = [Ar]. [2] Mg&#xB2;&#x207A; has configuration 1s&#xB2;2s&#xB2;2p&#x2076; (isoelectronic with Ne); Cl&#x207B; has 1s&#xB2;2s&#xB2;2p&#x2076;3s&#xB2;3p&#x2076; (isoelectronic with Ar). [1] The formula is MgCl&#x2082; because Mg loses 2 electrons and each Cl gains only 1, so 2 Cl atoms are needed to accept both electrons and balance the charges (2+ from Mg and 2&#x2715;1&minus; from two Cl). [1]</div></div>
+
+      <div class="tq"><span class="tqn">Q2 [4 marks]</span><p>State and explain four physical properties of a giant ionic compound (e.g. NaCl). [4]</p>
+      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
+      <div class="ans">(1) High m.p.: strong electrostatic forces between oppositely charged ions throughout the giant lattice require large energy to overcome. [1] (2) Non-conductor (solid): ions are fixed rigidly in the lattice; they cannot move to carry electrical charge. [1] (3) Conductor when molten or dissolved: lattice breaks down; ions become mobile and can migrate under voltage. [1] (4) Brittle: when a shearing force displaces a layer, like charges align &rarr; strong repulsion &rarr; crystal shatters. [1] (Also acceptable: solubility in water &mdash; polar water molecules hydrate ions, overcoming lattice energy.)</div></div>
+
+      <div class="tq"><span class="tqn">Q3 [4 marks]</span><p>Compare the lattice energies of NaF and MgO. Explain in detail why they differ so much, using the relationship E &prop; (q&#x207A; &times; q&#x207B;)/r. [4]</p>
+      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
+      <div class="ans">NaF lattice energy &approx; &minus;918 kJ/mol; MgO &approx; &minus;3791 kJ/mol &mdash; MgO has a much larger (more &minus;ve) lattice energy. [1] <strong>Charge effect [2]:</strong> In NaF, ions are Na&#x207A; (+1) and F&#x207B; (&minus;1) &rarr; charge product = 1. In MgO, Mg&#xB2;&#x207A; (+2) and O&#xB2;&#x207B; (&minus;2) &rarr; charge product = 4. The electrostatic force (E &prop; q&#x207A;&times;q&#x207B;/r) is four times greater for MgO just from charge alone. [2] <strong>Radius effect [1]:</strong> Mg&#xB2;&#x207A; (72 pm) is smaller than Na&#x207A; (102 pm) and O&#xB2;&#x207B; (140 pm) is smaller than F&#x207B; (133 pm in context of the compound). Smaller interionic distance r &rarr; stronger attraction &rarr; more exothermic lattice energy. [1]</div></div>
+
+      <div class="tq"><span class="tqn">Q4 [4 marks]</span><p>Describe the metallic bonding model. Explain how it accounts for (a) electrical conductivity [1] and (b) malleability [1] of metals, and explain why aluminium has a higher melting point than sodium [2].</p>
+      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
+      <div class="ans">Metallic bonding: metal atoms lose their outer (valence) electrons into a delocalised &ldquo;sea&rdquo;, leaving behind a regular lattice of positive cations. The metallic bond is the electrostatic attraction between the cation lattice and this mobile electron sea. [1 implicit] (a) Electrical conductivity: delocalised electrons are free to move throughout the metal under an applied voltage, carrying charge and creating a current. [1] (b) Malleability: cation layers can slide past each other under stress; the non-directional electron sea adjusts and maintains bonding in the new configuration, so the metal deforms plastically rather than fracturing. [1] Al vs Na m.p. [2]: Al contributes 3 delocalised electrons per atom; Na contributes only 1. More electrons in the sea + higher ionic charge (Al&#xB3;&#x207A; vs Na&#x207A;) + smaller ionic radius of Al&#xB3;&#x207A; vs Na&#x207A; &rarr; stronger electrostatic attraction between cations and electron sea in Al &rarr; more energy required to disrupt &rarr; higher melting point (Al 660&deg;C vs Na 98&deg;C).</div></div>
+
+      <div class="tq"><span class="tqn">Q5 [4 marks]</span><p>Define electronegativity and explain how it relates to bond type. Using electronegativity, predict the bond type in: (a) HF, (b) Cl&#x2082;, (c) CaO. [4]</p>
+      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
+      <div class="ans">Electronegativity: the ability of an atom to attract the shared pair of electrons in a covalent bond towards itself. [1] Bond type depends on &Delta;EN: &Delta;EN &gt; 1.7 &rarr; ionic; &Delta;EN 0.4&ndash;1.7 &rarr; polar covalent; &Delta;EN &lt; 0.4 &rarr; non-polar covalent. [1] (a) HF: EN(H)=2.2, EN(F)=4.0, &Delta;EN=1.8 &rarr; <strong>ionic/strongly polar covalent</strong> (borderline, often called polar covalent). [0.67] (b) Cl&#x2082;: both Cl atoms identical, &Delta;EN=0 &rarr; <strong>non-polar covalent</strong>. [0.67] (c) CaO: EN(Ca)=1.0, EN(O)=3.5, &Delta;EN=2.5 &rarr; <strong>ionic</strong>. [0.67]</div></div>
+    </div>
+  </div>
+
+  <div class="test-section">
+    <div class="test-sh"><h3>Section B &mdash; Extended Answer</h3><span class="mb">30 marks</span></div>
+    <div class="test-body">
+
+      <div class="tq"><span class="tqn">Q6 [8 marks]</span><p>Describe the giant ionic lattice structure of NaCl. Draw a diagram of the lattice. Explain how each of the following properties arises from the structure: (a) high melting point; (b) non-conductor in the solid state but conductor when molten; (c) brittleness; (d) solubility in water. [8]</p>
+      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
+      <div class="ans"><strong>Structure [2]:</strong> NaCl has a giant ionic lattice: Na&#x207A; and Cl&#x207B; ions are arranged in a regular, repeating 3D pattern. Each Na&#x207A; is surrounded by 6 Cl&#x207B; (6:6 coordination) and vice versa, held together by strong electrostatic forces (ionic bonds) acting in all directions. There are no discrete NaCl molecules. Diagram: shows alternating Na&#x207A; and Cl&#x207B; in a grid/3D arrangement with lines indicating bonds. [1 for diagram]<br>(a) High m.p. [1]: strong electrostatic forces throughout the entire lattice must be overcome. Large amounts of energy are required &rarr; high melting point (801&deg;C for NaCl).<br>(b) Non-conductor (solid)/conductor (molten) [2]: In solid NaCl, all ions are fixed in lattice positions &mdash; they cannot move to carry electrical charge. When melted, the lattice breaks down and ions are free to migrate towards oppositely charged electrodes under an applied voltage &rarr; electrical current flows.<br>(c) Brittleness [1]: Under a mechanical stress, one layer of ions shifts. Ions that were alternating +/&minus; now align +/+ and &minus;/&minus; in the shifted layers &rarr; strong repulsion between like charges &rarr; the crystal cleaves/shatters.<br>(d) Solubility in water [2]: Water is a polar molecule (&delta;&#x207B; oxygen, &delta;&#x207A; hydrogen). The &delta;&#x207B; oxygen is attracted to Na&#x207A; cations; the &delta;&#x207A; hydrogens are attracted to Cl&#x207B; anions. These interactions (hydration energy) provide enough energy to pull ions away from the lattice surface, overcoming the lattice energy. Ions become surrounded by water molecules (hydrated) and disperse throughout the solution.</div></div>
+
+      <div class="tq"><span class="tqn">Q7 [8 marks]</span><p>Explain the metallic bonding model in detail. Describe the physical properties of metals (high m.p., conductivity, malleability, lustre, density) in terms of this model. Compare metals with ionic compounds in terms of: melting point, electrical conductivity, and mechanical properties. [8]</p>
+      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
+      <div class="ans"><strong>Metallic bonding model [2]:</strong> Metal atoms release their valence electrons into a &ldquo;sea&rdquo; of delocalised electrons that extends throughout the entire metallic structure. Left behind are positive metal cations arranged in a close-packed regular lattice. The metallic bond is the strong, non-directional electrostatic attraction between these cations and the mobile electron sea. The bond acts in all directions equally.<br><strong>Physical properties [4]:</strong> (1) High m.p.: strong electrostatic forces between cations and dense electron sea require large energy to disrupt. More valence electrons and higher ionic charge &rarr; stronger bond &rarr; higher m.p. (2) Electrical conductivity: delocalised electrons flow freely when a potential difference is applied, carrying charge. Metals conduct in both solid and liquid states (unlike ionic compounds which only conduct when molten/dissolved). (3) Malleability/ductility: cation layers slide past each other under stress; the non-directional electron sea continuously maintains bonding around displaced ions &rarr; metal deforms without fracturing. (4) Metallic lustre: delocalised electrons absorb and re-emit photons across a broad range of frequencies &rarr; shiny surface. (5) High density: cations are closely packed in the lattice with little wasted space.<br><strong>Comparison with ionic [2]:</strong> Melting point: both can be high (ionic due to lattice energy; metallic due to electron sea attraction), but ionic compounds vary widely; transition metals often have very high m.p. Conductivity: metals always conduct (solid state); ionic only when molten/dissolved (fixed ions in solid). Mechanical: metals are malleable/ductile (non-directional bonds); ionic compounds are hard but brittle (layer shift causes like-charge repulsion and fracture).</div></div>
+
+      <div class="tq"><span class="tqn">Q8 [6 marks]</span><p>Using the concept of lattice energy and ionic charge/radius, explain why: (a) MgO has a higher m.p. than NaCl [3]; (b) LiF has a higher m.p. than LiI [2]; (c) CaO has a higher m.p. than BaO [1]. [6]</p>
+      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
+      <div class="ans">(a) MgO vs NaCl [3]: MgO contains Mg&#xB2;&#x207A; (+2) and O&#xB2;&#x207B; (&minus;2) while NaCl has Na&#x207A; (+1) and Cl&#x207B; (&minus;1). The charge product for MgO (4) is four times that of NaCl (1). Additionally, Mg&#xB2;&#x207A; is smaller than Na&#x207A; and O&#xB2;&#x207B; is smaller than Cl&#x207B; &rarr; ions are closer together. Both effects give MgO a much more exothermic lattice energy (&minus;3791 vs &minus;787 kJ/mol) &rarr; much more energy needed to melt &rarr; higher m.p. (MgO 2852&deg;C vs NaCl 801&deg;C). [3]<br>(b) LiF vs LiI [2]: Both contain Li&#x207A; (+1). F&#x207B; (ionic radius 133 pm) is much smaller than I&#x207B; (220 pm). Smaller anion &rarr; shorter Li&#x207A;&ndash;anion distance &rarr; stronger electrostatic attraction &rarr; more exothermic lattice energy &rarr; higher m.p. for LiF. [2]<br>(c) CaO vs BaO [1]: Both contain O&#xB2;&#x207B; (&minus;2) and +2 cations. Ca&#xB2;&#x207A; (ionic radius 100 pm) is smaller than Ba&#xB2;&#x207A; (135 pm). Smaller interionic distance in CaO &rarr; stronger attraction &rarr; larger lattice energy &rarr; higher m.p. [1]</div></div>
+
+      <div class="tq"><span class="tqn">Q9 [8 marks]</span><p>(a) Define ionic bonding and explain why atoms tend to form ions. [2] (b) Describe what is meant by a &ldquo;giant ionic lattice&rdquo; with reference to NaCl. [2] (c) Using the Born-Haber cycle concept (without drawing it in full), explain how lattice energy can be determined indirectly and why it cannot be measured directly. [2] (d) Compare the melting points of NaF, NaCl, NaBr and NaI. Explain the trend. [2]</p>
+      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
+      <div class="ans">(a) [2]: Ionic bond = electrostatic force of attraction between oppositely charged ions formed by electron transfer from metal to non-metal. Atoms form ions to achieve a full outer electron shell (noble gas configuration), which is a lower-energy, more stable arrangement than an incomplete shell. The energy released when the ionic lattice forms (lattice energy) provides the thermodynamic driving force. [2]<br>(b) [2]: In NaCl, Na&#x207A; and Cl&#x207B; ions are arranged in an infinite, regular, three-dimensional repeating pattern. Each Na&#x207A; is surrounded by 6 Cl&#x207B; neighbours and each Cl&#x207B; by 6 Na&#x207A; (6:6 coordination). The lattice extends in all three dimensions and is held together by strong, omnidirectional electrostatic forces. There are no discrete NaCl molecules &mdash; the formula unit represents the simplest ratio. [2]<br>(c) [2]: Lattice energy cannot be measured directly because it is impossible to bring together one mole of gaseous ions and measure the energy experimentally &mdash; producing pure gaseous ions at standard conditions is not feasible. Instead, the Born-Haber cycle uses Hess&rsquo;s law to calculate lattice energy indirectly: the formation enthalpy of the ionic compound is related to enthalpy of atomisation, ionisation energies, electron affinities, and lattice energy via a thermodynamic cycle. Since all other quantities can be measured, lattice energy is calculated as the &ldquo;missing&rdquo; step. [2]<br>(d) [2]: NaF &gt; NaCl &gt; NaBr &gt; NaI (m.p. decreases down the series). All contain Na&#x207A;. The halide ion increases in size: F&#x207B; &lt; Cl&#x207B; &lt; Br&#x207B; &lt; I&#x207B;. As ionic radius increases, the interionic distance r increases &rarr; electrostatic attraction E &prop; 1/r decreases &rarr; lattice energy becomes less negative &rarr; less energy needed to melt &rarr; lower m.p. [2]</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="nav">
+  <a class="nb p" href="s4_unit2_electronic_config.html">&larr; Unit 2: Electronic Configuration</a>
+  <a class="nb n" href="s4_unit4_covalent_bond.html">Unit 4: Covalent Bond &rarr;</a>
 </div>
 </main>
-<footer>⚗ Jackson Habimana — Chemistry Education Portal &bull; <a href="s4-chemistry.html">S4 Course</a> &bull; <a href="index.html">Home</a></footer>
-</body></html>
+
+
+
+
+<!-- ═══════════════════════════ UNIT QUIZ GATE ═══════════════════════════ -->
+<script>
+(function(){
+  const CK='quiz_access_code', SK='quiz_access_granted';
+  const code=localStorage.getItem(CK);
+  if(!code) return;
+  if(sessionStorage.getItem(SK)) return;
+  const qw=document.querySelector('.quiz-wrap');
+  if(!qw) return;
+  function showGate(){
+    if(document.getElementById('_ugate')) return;
+    const g=document.createElement('div');
+    g.id='_ugate';
+    g.style.cssText='position:fixed;inset:0;background:#0d1117;z-index:99999;display:flex;align-items:center;justify-content:center;padding:24px;';
+    g.innerHTML=`
+      <div style="background:#161b22;border:2px solid rgba(245,158,11,.4);border-radius:16px;padding:44px 36px;max-width:440px;width:100%;text-align:center;">
+        <div style="font-size:3.5rem;margin-bottom:14px;">🔒</div>
+        <h2 style="font-family:'Playfair Display',serif;font-size:1.8rem;color:#fff;margin-bottom:10px;">Quiz Locked</h2>
+        <p style="color:#8b949e;font-size:.92rem;margin-bottom:20px;line-height:1.7;">Enter your teacher&#39;s access code to attempt this quiz.</p>
+        <input id="_ugate_inp" type="text" placeholder="Enter Code" maxlength="20" autocomplete="off"
+          style="width:100%;background:#1c2333;border:2px solid #30363d;border-radius:8px;color:#e6edf3;padding:13px 16px;font-family:'JetBrains Mono',monospace;font-size:1.4rem;text-align:center;letter-spacing:.2em;text-transform:uppercase;margin-bottom:10px;box-sizing:border-box;"
+          onkeydown="if(event.key==='Enter')window._ugateCheck()"/>
+        <div id="_ugate_err" style="font-family:'JetBrains Mono',monospace;font-size:.82rem;color:#f87171;min-height:20px;margin:6px 0 10px;"></div>
+        <button onclick="window._ugateCheck()" style="width:100%;background:#f59e0b;color:#000;border:none;padding:12px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.9rem;font-weight:700;cursor:pointer;margin-bottom:8px;">🔓 Unlock Quiz</button>
+        <button onclick="document.getElementById('_ugate').remove();document.body.style.overflow='';" style="width:100%;background:transparent;border:1px solid #30363d;color:#8b949e;padding:8px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.78rem;cursor:pointer;">✕ Cancel</button>
+      </div>`;
+    document.body.appendChild(g);
+    document.body.style.overflow='hidden';
+    setTimeout(()=>{const i=document.getElementById('_ugate_inp');if(i)i.focus();},100);
+  }
+  window._ugateCheck=function(){
+    const val=(document.getElementById('_ugate_inp')||{}).value;
+    if(!val) return;
+    const v=val.trim().toUpperCase();
+    const stored=localStorage.getItem(CK);
+    if(v===stored){
+      sessionStorage.setItem(SK,'1');
+      const g=document.getElementById('_ugate');
+      if(g) g.remove();
+      document.body.style.overflow='';
+    } else {
+      const err=document.getElementById('_ugate_err');
+      if(err) err.textContent='❌ Wrong code — try again.';
+      const inp=document.getElementById('_ugate_inp');
+      if(inp){inp.value='';inp.focus();}
+    }
+  };
+  qw.addEventListener('click',function(e){
+    if(!localStorage.getItem(CK)) return;
+    if(sessionStorage.getItem(SK)) return;
+    e.stopPropagation();e.preventDefault();
+    showGate();
+  },true);
+})();
+</script>
+
+<script>
+// ── PER-UNIT QUIZ ACCESS GATE ── ID: s4_unit3 ──
+(function(){
+  const ITEM_ID='s4_unit3';
+  const SESS_KEY='unlocked_'+ITEM_ID;
+  const CODE_KEY='quiz_access_code';
+  const LOCKS_KEY='assessment_locks';
+  
+  function isLocked(){return JSON.parse(localStorage.getItem(LOCKS_KEY)||'{}')[ITEM_ID]===true;}
+  function isGranted(){const c=localStorage.getItem(CODE_KEY)||'OPEN';return sessionStorage.getItem(SESS_KEY)===c||sessionStorage.getItem(SESS_KEY)==='OPEN';}
+  
+  const gate=document.createElement('div');
+  gate.id='unit-quiz-gate-s4_unit3';
+  gate.style.cssText='position:fixed;inset:0;background:#0d1117;z-index:99999;display:none;align-items:center;justify-content:center;padding:24px;';
+  gate.innerHTML=`<div style="background:#161b22;border:2px solid rgba(245,158,11,.4);border-radius:16px;padding:44px 38px;max-width:460px;width:100%;text-align:center;">
+    <div style="font-size:3.5rem;margin-bottom:14px;">🔒</div>
+    <h2 style="font-family:Playfair Display,serif;font-size:1.8rem;color:#fff;margin-bottom:10px;">Quiz Locked</h2>
+    <p style="color:#8b949e;font-size:.92rem;margin-bottom:22px;line-height:1.7;">Your teacher has locked this quiz. Enter the access code to unlock it.</p>
+    <input id="ugi-s4_unit3" type="text" placeholder="Enter Code" maxlength="20"
+      style="width:100%;background:#1c2333;border:2px solid #30363d;border-radius:8px;color:#e6edf3;padding:13px 16px;font-family:JetBrains Mono,monospace;font-size:1.3rem;text-align:center;letter-spacing:.2em;text-transform:uppercase;margin-bottom:10px;box-sizing:border-box;"
+      onkeydown="if(event.key==='Enter')unlockUnit_s4_unit3()"
+      oninput="this.value=this.value.toUpperCase()"/>
+    <div id="uge-s4_unit3" style="font-family:JetBrains Mono,monospace;font-size:.8rem;color:#f87171;min-height:18px;margin-bottom:10px;"></div>
+    <button onclick="unlockUnit_s4_unit3()" style="width:100%;background:#f59e0b;color:#000;border:none;padding:13px;border-radius:8px;font-family:JetBrains Mono,monospace;font-size:.88rem;font-weight:700;cursor:pointer;margin-bottom:8px;">🔓 Unlock Quiz</button>
+    <button onclick="document.getElementById('unit-quiz-gate-s4_unit3').style.display='none';document.body.style.overflow='';" style="width:100%;background:transparent;border:1px solid #30363d;color:#8b949e;padding:8px;border-radius:7px;font-family:JetBrains Mono,monospace;font-size:.78rem;cursor:pointer;">✕ Cancel — Go back</button>
+    <div style="font-family:JetBrains Mono,monospace;font-size:.7rem;color:#8b949e;margin-top:10px;">Ask your teacher for the access code.</div>
+  </div>`;
+  document.body.appendChild(gate);
+  
+  window.unlockUnit_s4_unit3=function(){
+    const entered=document.getElementById('ugi-s4_unit3').value.trim().toUpperCase();
+    const correct=localStorage.getItem(CODE_KEY)||'';
+    if(!entered){document.getElementById('uge-s4_unit3').textContent='Enter the code.';return;}
+    if(!correct||entered===correct){
+      sessionStorage.setItem(SESS_KEY,correct||'OPEN');
+      gate.style.display='none';document.body.style.overflow='';
+      if(window._pendingAction_s4_unit3) window._pendingAction_s4_unit3();
+    } else {
+      document.getElementById('uge-s4_unit3').textContent='❌ Wrong code. Ask your teacher.';
+      document.getElementById('ugi-s4_unit3').value='';
+    }
+  };
+  
+  window.addEventListener('DOMContentLoaded',function(){
+    if(!isLocked()) return;
+    const qw=document.querySelector('.quiz-wrap');
+    if(!qw) return;
+    qw.addEventListener('click',function(e){
+      if(!isLocked()||isGranted()) return;
+      e.stopPropagation();e.preventDefault();
+      gate.style.display='flex';document.body.style.overflow='hidden';
+    },true);
+  });
+})();
+</script>
+</body>
+</html>
