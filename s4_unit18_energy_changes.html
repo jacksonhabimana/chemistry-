@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>S4 Chemistry – Unit 18: Energy Changes | Jackson Habimana</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Serif+4:wght@300;400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#0d1117;--surface:#161b22;--surface2:#1c2333;--border:#30363d;
+  --accent:#facc15;--gold:#e8c547;--green:#34d399;--red:#f87171;
+  --blue:#38bdf8;--purple:#a78bfa;--text:#e6edf3;--muted:#8b949e;--radius:10px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Source Serif 4',Georgia,serif;font-size:17px;line-height:1.75;overflow-x:hidden;}
+
+nav{position:sticky;top:0;z-index:200;background:rgba(13,17,23,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+.nav-inner{max-width:1060px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:.7rem 1.5rem;gap:1rem;}
+.nav-brand{font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--accent);text-decoration:none;white-space:nowrap;}
+.nav-links{display:flex;gap:1.2rem;flex-wrap:wrap;}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:.85rem;transition:color .2s;}
+.nav-links a:hover{color:var(--accent);}
+
+.hero{background:linear-gradient(135deg,#1a1400 0%,#0d1117 60%);border-bottom:1px solid var(--border);padding:3.5rem 1.5rem 2.5rem;}
+.hero-inner{max-width:1060px;margin:0 auto;}
+.unit-badge{display:inline-block;background:rgba(250,204,21,.12);color:var(--accent);border:1px solid rgba(250,204,21,.3);border-radius:20px;padding:.3rem 1rem;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:1rem;}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3rem);line-height:1.15;margin-bottom:.8rem;}
+.hero h1 span{color:var(--accent);}
+.hero-meta{display:flex;flex-wrap:wrap;gap:1rem;font-size:.85rem;color:var(--muted);margin-top:1.2rem;}
+.hero-meta span{display:flex;align-items:center;gap:.4rem;}
+
+.toc-card{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:var(--radius);padding:1.5rem 2rem;max-width:1060px;margin:2rem auto;width:calc(100% - 3rem);}
+.toc-card h3{font-size:.75rem;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:1rem;}
+.toc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:.4rem .8rem;}
+.toc-grid a{color:var(--muted);text-decoration:none;font-size:.9rem;padding:.2rem 0;transition:color .2s;}
+.toc-grid a:hover{color:var(--accent);}
+
+main{max-width:1060px;margin:0 auto;padding:1rem 1.5rem 4rem;}
+section{margin-bottom:3.5rem;scroll-margin-top:80px;}
+.section-header{display:flex;align-items:baseline;gap:1rem;margin-bottom:1.5rem;padding-bottom:.6rem;border-bottom:1px solid var(--border);}
+.section-num{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--accent);background:rgba(250,204,21,.1);border:1px solid rgba(250,204,21,.25);border-radius:5px;padding:.2rem .6rem;white-space:nowrap;}
+.section-header h2{font-family:'Playfair Display',serif;font-size:1.55rem;}
+
+p{margin-bottom:1rem;}
+.key-box{background:rgba(250,204,21,.07);border:1px solid rgba(250,204,21,.2);border-left:4px solid var(--accent);border-radius:var(--radius);padding:1.2rem 1.5rem;margin:1.5rem 0;}
+.key-box .kb-label{font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:.5rem;}
+.note-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.2rem 1.5rem;margin:1.5rem 0;}
+.note-box .nb-label{font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--blue);margin-bottom:.5rem;}
+.warn-box{background:rgba(248,113,113,.07);border:1px solid rgba(248,113,113,.2);border-left:4px solid var(--red);border-radius:var(--radius);padding:1.2rem 1.5rem;margin:1.5rem 0;}
+.warn-box .wb-label{font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--red);margin-bottom:.5rem;}
+
+table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.9rem;}
+th{background:var(--surface2);color:var(--accent);padding:.7rem 1rem;text-align:left;font-weight:600;border:1px solid var(--border);}
+td{padding:.65rem 1rem;border:1px solid var(--border);vertical-align:top;}
+tr:nth-child(even) td{background:rgba(255,255,255,.02);}
+
+.eq{font-family:'JetBrains Mono',monospace;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:.9rem 1.2rem;margin:1rem 0;font-size:.95rem;overflow-x:auto;}
+.eq .lbl{font-size:.7rem;color:var(--accent);display:block;margin-bottom:.4rem;font-family:'Source Serif 4',serif;text-transform:uppercase;letter-spacing:.05em;}
+
+.worked{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin:1.5rem 0;}
+.worked .w-title{font-size:.75rem;text-transform:uppercase;letter-spacing:.1em;color:var(--green);margin-bottom:.8rem;}
+.step{display:flex;gap:.8rem;margin:.5rem 0;}
+.step-n{flex-shrink:0;width:1.6rem;height:1.6rem;background:var(--accent);color:#0d1117;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;margin-top:.15rem;}
+.step-text{flex:1;}
+
+.diagram-wrap{text-align:center;margin:2rem 0;}
+.diagram-wrap figcaption{font-size:.82rem;color:var(--muted);margin-top:.6rem;font-style:italic;}
+
+/* quiz / test */
+.assessment-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:1.5rem;}
+@media(max-width:640px){.assessment-grid{grid-template-columns:1fr;}}
+.assess-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;}
+.assess-card h3{font-family:'Playfair Display',serif;font-size:1.1rem;margin-bottom:1rem;color:var(--accent);}
+.q-item{margin:.9rem 0;padding-left:1.2rem;border-left:2px solid var(--border);}
+.q-item:hover{border-left-color:var(--accent);}
+.q-num{font-size:.75rem;color:var(--accent);font-family:'JetBrains Mono',monospace;}
+.answer{display:none;margin-top:.4rem;font-size:.88rem;color:var(--green);font-style:italic;}
+.show-ans{background:none;border:1px solid var(--border);color:var(--muted);font-size:.75rem;border-radius:4px;padding:.15rem .5rem;cursor:pointer;margin-top:.3rem;}
+.show-ans:hover{border-color:var(--accent);color:var(--accent);}
+.marks{float:right;font-size:.75rem;color:var(--muted);font-family:'JetBrains Mono',monospace;}
+
+.progress-bar-wrap{background:var(--surface2);border-radius:20px;height:6px;margin:1rem 0;}
+.progress-bar{background:var(--accent);height:6px;border-radius:20px;width:100%;}
+.progress-label{font-size:.75rem;color:var(--accent);text-align:right;margin-top:.2rem;}
+
+.unit-nav{display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--border);}
+.unit-nav a{color:var(--accent);text-decoration:none;font-size:.9rem;display:flex;align-items:center;gap:.4rem;}
+.unit-nav a:hover{text-decoration:underline;}
+
+footer{background:var(--surface);border-top:1px solid var(--border);text-align:center;padding:1.5rem;font-size:.82rem;color:var(--muted);}
+footer a{color:var(--accent);text-decoration:none;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="nav-brand" href="index.html">⚗ Jackson Habimana</a>
+    <div class="nav-links">
+      <a href="s4-chemistry.html">S4 Course</a>
+      <a href="s5-chemistry.html">S5 Course</a>
+      <a href="s6-chemistry.html">S6 Course</a>
+      <a href="s4-labs.html">S4 Labs</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="unit-badge">S4 · Unit 18 · Final Unit</div>
+    <h1>Energy Changes &amp;<br><span>Energy Profile Diagrams</span></h1>
+    <p style="color:var(--muted);max-width:640px;margin-top:.8rem;">Enthalpy, Hess's Law, bond enthalpies, calorimetry, Born-Haber cycles, and Gibbs free energy — the thermodynamic foundations of chemistry.</p>
+    <div class="hero-meta">
+      <span>📚 8 Sections</span>
+      <span>🧪 25 Quiz Questions</span>
+      <span>📝 50-Mark Test</span>
+      <span style="color:var(--accent);">🏆 S4 Complete!</span>
+    </div>
+  </div>
+</header>
+
+<div class="toc-card">
+  <h3>Contents</h3>
+  <div class="toc-grid">
+    <a href="#s18-1">18.1 Exo- &amp; Endothermic Reactions</a>
+    <a href="#s18-2">18.2 Standard Enthalpy Changes</a>
+    <a href="#s18-3">18.3 Energy Profile Diagrams</a>
+    <a href="#s18-4">18.4 Hess's Law &amp; Enthalpy Cycles</a>
+    <a href="#s18-5">18.5 Bond Enthalpies</a>
+    <a href="#s18-6">18.6 Calorimetry</a>
+    <a href="#s18-7">18.7 Born-Haber Cycles</a>
+    <a href="#s18-8">18.8 Entropy &amp; Gibbs Free Energy</a>
+    <a href="#quiz">Quiz (25 Questions)</a>
+    <a href="#test">50-Mark Test</a>
+  </div>
+</div>
+
+<main>
+
+<!-- ═══════════════════ 18.1 ═══════════════════ -->
+<section id="s18-1">
+  <div class="section-header">
+    <span class="section-num">18.1</span>
+    <h2>Exothermic and Endothermic Reactions</h2>
+  </div>
+
+  <p>Every chemical reaction involves energy change. When bonds break, energy is <strong>absorbed</strong> from the surroundings. When new bonds form, energy is <strong>released</strong> to the surroundings. The net energy change determines whether a reaction heats or cools its surroundings.</p>
+
+  <table>
+    <tr><th>Type</th><th>Heat flow</th><th>Sign of ΔH</th><th>Temperature change</th><th>Examples</th></tr>
+    <tr><td><strong>Exothermic</strong></td><td>System → Surroundings</td><td style="color:var(--red);">Negative (−)</td><td>Surroundings get hotter</td><td>Combustion, neutralisation, respiration, rusting</td></tr>
+    <tr><td><strong>Endothermic</strong></td><td>Surroundings → System</td><td style="color:var(--blue);">Positive (+)</td><td>Surroundings get colder</td><td>Thermal decomposition, photosynthesis, dissolving NH₄NO₃, citric acid + NaHCO₃</td></tr>
+  </table>
+
+  <div class="key-box">
+    <div class="kb-label">Key Definition — Enthalpy Change (ΔH)</div>
+    <p><strong>Enthalpy (H)</strong> is the heat content of a system at constant pressure. The <strong>enthalpy change (ΔH)</strong> is the heat energy transferred between system and surroundings during a reaction at constant pressure.</p>
+    <div class="eq"><span class="lbl">Definition</span>ΔH = H<sub>products</sub> − H<sub>reactants</sub></div>
+    <p>Units: kJ mol⁻¹ (kilojoules per mole of reaction as written)</p>
+  </div>
+
+  <p>The <strong>First Law of Thermodynamics</strong> states that energy cannot be created or destroyed — only transferred or converted. This underpins all enthalpy calculations: energy released by a reaction equals energy absorbed by the surroundings.</p>
+
+  <div class="note-box">
+    <div class="nb-label">Common Exothermic Reactions</div>
+    <table>
+      <tr><th>Reaction</th><th>ΔH (approx.)</th></tr>
+      <tr><td>CH₄(g) + 2O₂(g) → CO₂(g) + 2H₂O(l)</td><td>−890 kJ mol⁻¹</td></tr>
+      <tr><td>H⁺(aq) + OH⁻(aq) → H₂O(l)</td><td>−57.3 kJ mol⁻¹</td></tr>
+      <tr><td>C(s) + O₂(g) → CO₂(g)</td><td>−394 kJ mol⁻¹</td></tr>
+      <tr><td>2H₂(g) + O₂(g) → 2H₂O(l)</td><td>−572 kJ mol⁻¹</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════ 18.2 ═══════════════════ -->
+<section id="s18-2">
+  <div class="section-header">
+    <span class="section-num">18.2</span>
+    <h2>Standard Enthalpy Changes</h2>
+  </div>
+
+  <p>To allow fair comparison of energy data, chemists define <strong>standard conditions</strong>: temperature 298 K (25 °C), pressure 100 kPa, all substances in their standard states. The symbol ΔH° (or ΔH⊖) denotes a standard enthalpy change.</p>
+
+  <table>
+    <tr><th>Name</th><th>Symbol</th><th>Definition</th><th>Example equation</th></tr>
+    <tr>
+      <td><strong>Standard enthalpy of formation</strong></td><td>ΔH°<sub>f</sub></td>
+      <td>Enthalpy change when 1 mol of a compound is formed from its elements in their standard states</td>
+      <td>C(s) + 2H₂(g) → CH₄(g) &nbsp; ΔH°<sub>f</sub> = −74.8 kJ mol⁻¹</td>
+    </tr>
+    <tr>
+      <td><strong>Standard enthalpy of combustion</strong></td><td>ΔH°<sub>c</sub></td>
+      <td>Enthalpy change when 1 mol of a substance is completely burned in excess oxygen under standard conditions</td>
+      <td>C₂H₅OH(l) + 3O₂(g) → 2CO₂(g) + 3H₂O(l) &nbsp; ΔH°<sub>c</sub> = −1367 kJ mol⁻¹</td>
+    </tr>
+    <tr>
+      <td><strong>Standard enthalpy of neutralisation</strong></td><td>ΔH°<sub>neut</sub></td>
+      <td>Enthalpy change when 1 mol of water is formed in an acid-base neutralisation reaction</td>
+      <td>HCl(aq) + NaOH(aq) → NaCl(aq) + H₂O(l) &nbsp; ΔH°<sub>neut</sub> = −57.3 kJ mol⁻¹</td>
+    </tr>
+    <tr>
+      <td><strong>Standard enthalpy of atomisation</strong></td><td>ΔH°<sub>at</sub></td>
+      <td>Enthalpy change when 1 mol of gaseous atoms is formed from the element in its standard state</td>
+      <td>½Cl₂(g) → Cl(g) &nbsp; ΔH°<sub>at</sub> = +121 kJ mol⁻¹</td>
+    </tr>
+    <tr>
+      <td><strong>Standard enthalpy of solution</strong></td><td>ΔH°<sub>sol</sub></td>
+      <td>Enthalpy change when 1 mol of a substance is completely dissolved in water to form an infinitely dilute solution</td>
+      <td>NaCl(s) + aq → Na⁺(aq) + Cl⁻(aq) &nbsp; ΔH°<sub>sol</sub> = +3.9 kJ mol⁻¹</td>
+    </tr>
+    <tr>
+      <td><strong>Lattice enthalpy</strong></td><td>ΔH°<sub>latt</sub></td>
+      <td>Enthalpy change when 1 mol of an ionic compound is formed from its gaseous ions (exothermic, negative)</td>
+      <td>Na⁺(g) + Cl⁻(g) → NaCl(s) &nbsp; ΔH°<sub>latt</sub> = −787 kJ mol⁻¹</td>
+    </tr>
+    <tr>
+      <td><strong>Electron affinity</strong></td><td>ΔH°<sub>ea</sub></td>
+      <td>Enthalpy change when 1 mol of gaseous atoms each gains an electron to form anions</td>
+      <td>Cl(g) + e⁻ → Cl⁻(g) &nbsp; ΔH°<sub>ea</sub> = −349 kJ mol⁻¹</td>
+    </tr>
+    <tr>
+      <td><strong>Ionisation energy</strong></td><td>ΔH°<sub>IE</sub></td>
+      <td>Enthalpy change when 1 mol of electrons is removed from 1 mol of gaseous atoms (always endothermic)</td>
+      <td>Na(g) → Na⁺(g) + e⁻ &nbsp; ΔH°<sub>IE</sub> = +496 kJ mol⁻¹</td>
+    </tr>
+  </table>
+
+  <div class="warn-box">
+    <div class="wb-label">Common Error</div>
+    <p>ΔH°<sub>f</sub> of any element in its <strong>standard state</strong> is always <strong>zero</strong> by definition. For example: ΔH°<sub>f</sub>[O₂(g)] = 0, ΔH°<sub>f</sub>[C(graphite)] = 0, ΔH°<sub>f</sub>[Na(s)] = 0.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════ 18.3 ═══════════════════ -->
+<section id="s18-3">
+  <div class="section-header">
+    <span class="section-num">18.3</span>
+    <h2>Energy Profile Diagrams</h2>
+  </div>
+
+  <p>An <strong>energy profile diagram</strong> (or reaction profile) shows how the potential energy of reactants and products changes along the reaction pathway. The <strong>reaction coordinate</strong> on the x-axis represents progress from reactants to products, not time.</p>
+
+  <div class="diagram-wrap">
+    <svg viewBox="0 0 700 320" xmlns="http://www.w3.org/2000/svg" style="max-width:680px;width:100%;background:#161b22;border-radius:10px;border:1px solid #30363d;">
+      <!-- Axes -->
+      <line x1="60" y1="280" x2="660" y2="280" stroke="#30363d" stroke-width="2"/>
+      <line x1="60" y1="30" x2="60" y2="280" stroke="#30363d" stroke-width="2"/>
+      <text x="350" y="308" fill="#8b949e" font-size="13" text-anchor="middle" font-family="sans-serif">Reaction coordinate →</text>
+      <text x="25" y="160" fill="#8b949e" font-size="13" text-anchor="middle" font-family="sans-serif" transform="rotate(-90,25,160)">Potential Energy</text>
+
+      <!-- EXOTHERMIC curve (left panel) -->
+      <path d="M80,210 Q160,205 210,205 Q260,195 310,70 Q340,30 370,70 Q410,130 450,230 Q490,250 550,250 Q580,250 620,250" fill="none" stroke="#facc15" stroke-width="3" stroke-linecap="round"/>
+      <!-- Reactant level -->
+      <line x1="80" y1="210" x2="200" y2="210" stroke="#34d399" stroke-width="1.5" stroke-dasharray="5,3"/>
+      <!-- Product level -->
+      <line x1="490" y1="250" x2="620" y2="250" stroke="#f87171" stroke-width="1.5" stroke-dasharray="5,3"/>
+      <!-- Ea arrow -->
+      <line x1="380" y1="65" x2="380" y2="210" stroke="#facc15" stroke-width="1" stroke-dasharray="3,3"/>
+      <text x="390" y="145" fill="#facc15" font-size="11" font-family="sans-serif">Eₐ</text>
+      <!-- ΔH arrow -->
+      <line x1="560" y1="210" x2="560" y2="250" stroke="#f87171" stroke-width="1.5"/>
+      <polygon points="560,210 555,220 565,220" fill="#f87171"/>
+      <polygon points="560,250 555,240 565,240" fill="#f87171"/>
+      <text x="568" y="232" fill="#f87171" font-size="11" font-family="sans-serif">ΔH &lt; 0</text>
+      <!-- Labels -->
+      <text x="150" y="198" fill="#34d399" font-size="12" font-family="sans-serif">Reactants</text>
+      <text x="500" y="245" fill="#f87171" font-size="12" font-family="sans-serif">Products</text>
+      <text x="355" y="52" fill="#e6edf3" font-size="11" font-family="sans-serif" text-anchor="middle">Transition</text>
+      <text x="355" y="64" fill="#e6edf3" font-size="11" font-family="sans-serif" text-anchor="middle">state</text>
+      <text x="350" y="18" fill="#facc15" font-size="13" font-family="sans-serif" text-anchor="middle" font-weight="bold">EXOTHERMIC</text>
+    </svg>
+    <figcaption>Exothermic reaction: products at lower energy, ΔH is negative. Activation energy (Eₐ) is the energy barrier.</figcaption>
+  </div>
+
+  <div class="diagram-wrap">
+    <svg viewBox="0 0 700 320" xmlns="http://www.w3.org/2000/svg" style="max-width:680px;width:100%;background:#161b22;border-radius:10px;border:1px solid #30363d;">
+      <line x1="60" y1="280" x2="660" y2="280" stroke="#30363d" stroke-width="2"/>
+      <line x1="60" y1="30" x2="60" y2="280" stroke="#30363d" stroke-width="2"/>
+      <text x="350" y="308" fill="#8b949e" font-size="13" text-anchor="middle" font-family="sans-serif">Reaction coordinate →</text>
+      <text x="25" y="160" fill="#8b949e" font-size="13" text-anchor="middle" font-family="sans-serif" transform="rotate(-90,25,160)">Potential Energy</text>
+      <!-- ENDOTHERMIC curve -->
+      <path d="M80,250 Q160,248 210,248 Q260,240 310,90 Q340,50 370,90 Q410,130 450,210 Q490,205 550,205 Q580,205 620,205" fill="none" stroke="#38bdf8" stroke-width="3" stroke-linecap="round"/>
+      <line x1="80" y1="250" x2="200" y2="250" stroke="#34d399" stroke-width="1.5" stroke-dasharray="5,3"/>
+      <line x1="490" y1="205" x2="620" y2="205" stroke="#f87171" stroke-width="1.5" stroke-dasharray="5,3"/>
+      <line x1="380" y1="48" x2="380" y2="250" stroke="#38bdf8" stroke-width="1" stroke-dasharray="3,3"/>
+      <text x="390" y="155" fill="#38bdf8" font-size="11" font-family="sans-serif">Eₐ</text>
+      <line x1="560" y1="205" x2="560" y2="250" stroke="#38bdf8" stroke-width="1.5"/>
+      <polygon points="560,250 555,240 565,240" fill="#38bdf8"/>
+      <polygon points="560,205 555,215 565,215" fill="#38bdf8"/>
+      <text x="568" y="230" fill="#38bdf8" font-size="11" font-family="sans-serif">ΔH &gt; 0</text>
+      <text x="150" y="245" fill="#34d399" font-size="12" font-family="sans-serif">Reactants</text>
+      <text x="510" y="198" fill="#f87171" font-size="12" font-family="sans-serif">Products</text>
+      <text x="350" y="18" fill="#38bdf8" font-size="13" font-family="sans-serif" text-anchor="middle" font-weight="bold">ENDOTHERMIC</text>
+    </svg>
+    <figcaption>Endothermic reaction: products at higher energy, ΔH is positive. The activation energy is measured from reactants to the peak.</figcaption>
+  </div>
+
+  <div class="key-box">
+    <div class="kb-label">Activation Energy &amp; Catalysts</div>
+    <p>The <strong>activation energy (Eₐ)</strong> is the minimum energy reactant particles must possess to react when they collide. It represents the energy needed to break bonds in reactants and reach the <strong>transition state</strong> (the highest-energy intermediate arrangement of atoms).</p>
+    <p>A <strong>catalyst</strong> provides an alternative reaction pathway with a <strong>lower activation energy</strong>. This increases the proportion of particles with sufficient energy to react, speeding up the reaction. Importantly, a catalyst does <em>not</em> change ΔH — the start and end energy levels remain the same; only the peak is lowered.</p>
+  </div>
+
+  <div class="diagram-wrap">
+    <svg viewBox="0 0 500 280" xmlns="http://www.w3.org/2000/svg" style="max-width:500px;width:100%;background:#161b22;border-radius:10px;border:1px solid #30363d;">
+      <line x1="40" y1="250" x2="470" y2="250" stroke="#30363d" stroke-width="2"/>
+      <line x1="40" y1="20" x2="40" y2="250" stroke="#30363d" stroke-width="2"/>
+      <!-- Uncatalysed -->
+      <path d="M60,190 Q120,185 160,185 Q200,175 240,55 Q260,25 280,55 Q310,110 360,210 Q400,225 440,225" fill="none" stroke="#facc15" stroke-width="2.5" stroke-dasharray="0"/>
+      <!-- Catalysed -->
+      <path d="M60,190 Q100,188 160,188 Q195,185 230,100 Q248,70 265,100 Q295,145 360,210 Q400,225 440,225" fill="none" stroke="#34d399" stroke-width="2.5" stroke-dasharray="6,3"/>
+      <line x1="60" y1="190" x2="155" y2="190" stroke="#8b949e" stroke-width="1" stroke-dasharray="3,3"/>
+      <line x1="370" y1="225" x2="445" y2="225" stroke="#8b949e" stroke-width="1" stroke-dasharray="3,3"/>
+      <!-- Labels -->
+      <text x="270" y="17" fill="#facc15" font-size="11" font-family="sans-serif" text-anchor="middle">Uncatalysed Eₐ</text>
+      <text x="252" y="58" fill="#facc15" font-size="11" font-family="sans-serif" text-anchor="middle">↑</text>
+      <text x="252" y="88" fill="#34d399" font-size="11" font-family="sans-serif" text-anchor="middle">Catalysed Eₐ</text>
+      <text x="252" y="100" fill="#34d399" font-size="11" font-family="sans-serif" text-anchor="middle">↑</text>
+      <text x="250" y="265" fill="#8b949e" font-size="11" font-family="sans-serif" text-anchor="middle">Reaction coordinate →</text>
+      <text x="20" y="130" fill="#8b949e" font-size="11" font-family="sans-serif" text-anchor="middle" transform="rotate(-90,20,130)">Energy</text>
+    </svg>
+    <figcaption>A catalyst lowers Eₐ (dashed green) but does not change the overall ΔH of the reaction.</figcaption>
+  </div>
+</section>
+
+<!-- ═══════════════════ 18.4 ═══════════════════ -->
+<section id="s18-4">
+  <div class="section-header">
+    <span class="section-num">18.4</span>
+    <h2>Hess's Law and Enthalpy Cycles</h2>
+  </div>
+
+  <div class="key-box">
+    <div class="kb-label">Hess's Law (1840)</div>
+    <p><strong>Hess's Law</strong> states that the total enthalpy change for a chemical reaction is the same regardless of the route taken, provided the initial and final conditions are the same.</p>
+    <p>This is a consequence of the <strong>First Law of Thermodynamics</strong> — enthalpy is a state function, so ΔH depends only on the initial and final states, not the pathway between them.</p>
+  </div>
+
+  <h3 style="margin:1.5rem 0 .8rem;">Using Hess's Law — Two Main Methods</h3>
+
+  <p><strong>Method 1: Using ΔH°<sub>f</sub> values</strong></p>
+  <div class="eq">
+    <span class="lbl">Standard formula</span>
+    ΔH°<sub>rxn</sub> = Σ ΔH°<sub>f</sub>(products) − Σ ΔH°<sub>f</sub>(reactants)
+  </div>
+
+  <div class="worked">
+    <div class="w-title">Worked Example 1 — Using ΔH°<sub>f</sub></div>
+    <p><strong>Find ΔH° for:</strong> CH₄(g) + 2O₂(g) → CO₂(g) + 2H₂O(l)</p>
+    <p>Given: ΔH°<sub>f</sub>[CH₄(g)] = −74.8 kJ mol⁻¹, ΔH°<sub>f</sub>[CO₂(g)] = −393.5 kJ mol⁻¹, ΔH°<sub>f</sub>[H₂O(l)] = −285.8 kJ mol⁻¹, ΔH°<sub>f</sub>[O₂(g)] = 0</p>
+    <div class="step"><div class="step-n">1</div><div class="step-text">Sum ΔH°<sub>f</sub> of products: (−393.5) + 2×(−285.8) = −393.5 − 571.6 = −965.1 kJ mol⁻¹</div></div>
+    <div class="step"><div class="step-n">2</div><div class="step-text">Sum ΔH°<sub>f</sub> of reactants: (−74.8) + 2×(0) = −74.8 kJ mol⁻¹</div></div>
+    <div class="step"><div class="step-n">3</div><div class="step-text">ΔH°<sub>rxn</sub> = −965.1 − (−74.8) = <strong style="color:var(--accent);">−890.3 kJ mol⁻¹</strong></div></div>
+  </div>
+
+  <p><strong>Method 2: Using ΔH°<sub>c</sub> values (combustion enthalpy cycles)</strong></p>
+  <div class="eq">
+    <span class="lbl">Standard formula</span>
+    ΔH°<sub>rxn</sub> = Σ ΔH°<sub>c</sub>(reactants) − Σ ΔH°<sub>c</sub>(products)
+  </div>
+  <p style="font-size:.9rem;color:var(--muted);">Note: this formula is reversed compared to the formation formula. With combustion data, reactants come first.</p>
+
+  <div class="worked">
+    <div class="w-title">Worked Example 2 — Using ΔH°<sub>c</sub></div>
+    <p><strong>Find ΔH°<sub>f</sub> for ethanol</strong> using: ΔH°<sub>c</sub>[C] = −394 kJ mol⁻¹, ΔH°<sub>c</sub>[H₂] = −286 kJ mol⁻¹, ΔH°<sub>c</sub>[C₂H₅OH] = −1367 kJ mol⁻¹</p>
+    <p>Equation for formation: 2C(s) + 3H₂(g) + ½O₂(g) → C₂H₅OH(l)</p>
+    <div class="step"><div class="step-n">1</div><div class="step-text">Sum ΔH°<sub>c</sub> of reactants: 2×(−394) + 3×(−286) = −788 − 858 = −1646 kJ mol⁻¹</div></div>
+    <div class="step"><div class="step-n">2</div><div class="step-text">Sum ΔH°<sub>c</sub> of products: 1×(−1367) = −1367 kJ mol⁻¹</div></div>
+    <div class="step"><div class="step-n">3</div><div class="step-text">ΔH°<sub>f</sub>[C₂H₅OH] = −1646 − (−1367) = <strong style="color:var(--accent);">−279 kJ mol⁻¹</strong></div></div>
+  </div>
+
+  <div class="note-box">
+    <div class="nb-label">Enthalpy Cycle Diagram (Hess's Law)</div>
+    <svg viewBox="0 0 540 180" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:540px;display:block;margin:.5rem auto;">
+      <!-- Boxes -->
+      <rect x="10" y="20" width="160" height="45" rx="8" fill="#1c2333" stroke="#facc15" stroke-width="1.5"/>
+      <text x="90" y="40" text-anchor="middle" fill="#facc15" font-size="12" font-family="sans-serif" font-weight="bold">Reactants</text>
+      <text x="90" y="57" text-anchor="middle" fill="#e6edf3" font-size="11" font-family="sans-serif">2C + 3H₂ + ½O₂</text>
+      <rect x="370" y="20" width="160" height="45" rx="8" fill="#1c2333" stroke="#facc15" stroke-width="1.5"/>
+      <text x="450" y="40" text-anchor="middle" fill="#facc15" font-size="12" font-family="sans-serif" font-weight="bold">Products</text>
+      <text x="450" y="57" text-anchor="middle" fill="#e6edf3" font-size="11" font-family="sans-serif">C₂H₅OH</text>
+      <rect x="190" y="120" width="160" height="45" rx="8" fill="#1c2333" stroke="#34d399" stroke-width="1.5"/>
+      <text x="270" y="140" text-anchor="middle" fill="#34d399" font-size="11" font-family="sans-serif">CO₂ + H₂O</text>
+      <text x="270" y="156" text-anchor="middle" fill="#8b949e" font-size="10" font-family="sans-serif">(combustion products)</text>
+      <!-- Arrows -->
+      <line x1="170" y1="42" x2="370" y2="42" stroke="#facc15" stroke-width="2" marker-end="url(#arr)"/>
+      <text x="270" y="34" text-anchor="middle" fill="#facc15" font-size="11" font-family="sans-serif">ΔH°f (to find)</text>
+      <line x1="90" y1="65" x2="220" y2="120" stroke="#34d399" stroke-width="2" marker-end="url(#arr2)"/>
+      <text x="120" y="105" fill="#34d399" font-size="10" font-family="sans-serif">ΔH°c(reactants)</text>
+      <line x1="350" y1="120" x2="460" y2="65" stroke="#38bdf8" stroke-width="2" marker-end="url(#arr3)"/>
+      <text x="410" y="105" fill="#38bdf8" font-size="10" font-family="sans-serif">ΔH°c(products)</text>
+      <defs>
+        <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#facc15"/></marker>
+        <marker id="arr2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#34d399"/></marker>
+        <marker id="arr3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#38bdf8"/></marker>
+      </defs>
+    </svg>
+    <p style="font-size:.85rem;">ΔH°<sub>f</sub> = ΔH°<sub>c</sub>(reactants) − ΔH°<sub>c</sub>(products). The green route down and blue route up must equal the yellow direct route.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════ 18.5 ═══════════════════ -->
+<section id="s18-5">
+  <div class="section-header">
+    <span class="section-num">18.5</span>
+    <h2>Bond Enthalpies</h2>
+  </div>
+
+  <p>Every covalent bond has a <strong>bond enthalpy</strong> (also called bond dissociation energy): the energy required to break one mole of that bond in gaseous molecules, averaged across different chemical environments.</p>
+
+  <div class="key-box">
+    <div class="kb-label">Bond Breaking vs Bond Forming</div>
+    <ul style="list-style:disc;padding-left:1.5rem;">
+      <li><strong>Bond breaking</strong> → always <span style="color:var(--red);">endothermic (+)</span> — energy must be put in</li>
+      <li><strong>Bond forming</strong> → always <span style="color:var(--green);">exothermic (−)</span> — energy is released</li>
+    </ul>
+    <div class="eq"><span class="lbl">Overall rule</span>ΔH°<sub>rxn</sub> = Σ Bond enthalpies (bonds broken) − Σ Bond enthalpies (bonds formed)</div>
+    <p style="font-size:.9rem;color:var(--muted);">If more energy is released forming bonds than is used breaking them → exothermic (ΔH negative). If less → endothermic.</p>
+  </div>
+
+  <table>
+    <tr><th>Bond</th><th>Bond enthalpy / kJ mol⁻¹</th><th>Bond</th><th>Bond enthalpy / kJ mol⁻¹</th></tr>
+    <tr><td>H–H</td><td>436</td><td>C=O</td><td>743</td></tr>
+    <tr><td>O=O</td><td>498</td><td>C–O</td><td>358</td></tr>
+    <tr><td>C–H</td><td>413</td><td>O–H</td><td>463</td></tr>
+    <tr><td>C–C</td><td>347</td><td>N≡N</td><td>944</td></tr>
+    <tr><td>C=C</td><td>612</td><td>N–H</td><td>391</td></tr>
+    <tr><td>Cl–Cl</td><td>243</td><td>H–Cl</td><td>432</td></tr>
+    <tr><td>C–Cl</td><td>339</td><td>H–F</td><td>565</td></tr>
+  </table>
+
+  <div class="worked">
+    <div class="w-title">Worked Example — Bond Enthalpy Calculation for CH₄ + 2O₂ → CO₂ + 2H₂O</div>
+    <div class="step"><div class="step-n">1</div><div class="step-text"><strong>Bonds broken</strong> (reactants): 4×(C–H) + 2×(O=O) = 4×413 + 2×498 = 1652 + 996 = +2648 kJ</div></div>
+    <div class="step"><div class="step-n">2</div><div class="step-text"><strong>Bonds formed</strong> (products): 2×(C=O) in CO₂ + 4×(O–H) in 2H₂O = 2×743 + 4×463 = 1486 + 1852 = 3338 kJ</div></div>
+    <div class="step"><div class="step-n">3</div><div class="step-text">ΔH° = 2648 − 3338 = <strong style="color:var(--accent);">−690 kJ mol⁻¹</strong> (exothermic ✓)</div></div>
+    <p style="margin-top:.8rem;font-size:.9rem;color:var(--muted);">Note: this differs from the experimental value (−890 kJ mol⁻¹) because bond enthalpies are <em>averages</em>. Bond enthalpy calculations give approximate ΔH values only.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════ 18.6 ═══════════════════ -->
+<section id="s18-6">
+  <div class="section-header">
+    <span class="section-num">18.6</span>
+    <h2>Calorimetry</h2>
+  </div>
+
+  <p><strong>Calorimetry</strong> is the experimental method for measuring enthalpy changes. Heat energy transferred to or from a solution (or calorimeter) causes a temperature change, which can be measured with a thermometer.</p>
+
+  <div class="key-box">
+    <div class="kb-label">Core Equation</div>
+    <div class="eq">q = m c ΔT</div>
+    <table>
+      <tr><th>Symbol</th><th>Quantity</th><th>Typical units</th></tr>
+      <tr><td>q</td><td>Heat energy transferred</td><td>Joules (J)</td></tr>
+      <tr><td>m</td><td>Mass of solution (or water)</td><td>grams (g)</td></tr>
+      <tr><td>c</td><td>Specific heat capacity of water</td><td>4.18 J g⁻¹ °C⁻¹</td></tr>
+      <tr><td>ΔT</td><td>Temperature change (T<sub>final</sub> − T<sub>initial</sub>)</td><td>°C (or K)</td></tr>
+    </table>
+  </div>
+
+  <div class="worked">
+    <div class="w-title">Worked Example — Enthalpy of Neutralisation</div>
+    <p>25.0 cm³ of 1.00 mol dm⁻³ HCl is mixed with 25.0 cm³ of 1.00 mol dm⁻³ NaOH. Temperature rises from 22.0 °C to 28.7 °C.</p>
+    <div class="step"><div class="step-n">1</div><div class="step-text">Total volume = 50.0 cm³ → mass of solution ≈ 50.0 g (assuming density ≈ 1 g cm⁻³)</div></div>
+    <div class="step"><div class="step-n">2</div><div class="step-text">ΔT = 28.7 − 22.0 = 6.7 °C</div></div>
+    <div class="step"><div class="step-n">3</div><div class="step-text">q = 50.0 × 4.18 × 6.7 = <strong>1400 J = 1.40 kJ</strong></div></div>
+    <div class="step"><div class="step-n">4</div><div class="step-text">Moles of water formed = 0.025 × 1.00 = 0.025 mol</div></div>
+    <div class="step"><div class="step-n">5</div><div class="step-text">ΔH<sub>neut</sub> = −1.40 / 0.025 = <strong style="color:var(--accent);">−56.0 kJ mol⁻¹</strong> (negative because exothermic)</div></div>
+  </div>
+
+  <div class="note-box">
+    <div class="nb-label">Sources of Error in Calorimetry</div>
+    <table>
+      <tr><th>Error source</th><th>Effect</th><th>Improvement</th></tr>
+      <tr><td>Heat loss to surroundings</td><td>ΔT smaller than expected → ΔH underestimated</td><td>Use insulated cup; plot temp-time graph and extrapolate</td></tr>
+      <tr><td>Heat capacity of cup ignored</td><td>ΔH slightly underestimated</td><td>Use calibrated calorimeter; account for C<sub>cal</sub></td></tr>
+      <tr><td>Incomplete combustion</td><td>Less heat released</td><td>Ensure good oxygen supply</td></tr>
+      <tr><td>Density of solution assumed = water</td><td>Small error in mass</td><td>Weigh the solution directly</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════ 18.7 ═══════════════════ -->
+<section id="s18-7">
+  <div class="section-header">
+    <span class="section-num">18.7</span>
+    <h2>Born-Haber Cycles</h2>
+  </div>
+
+  <p>A <strong>Born-Haber cycle</strong> is a specific application of Hess's Law used to calculate <strong>lattice enthalpy</strong> — a quantity that cannot be measured directly. It applies Hess's Law to ionic compound formation, breaking the process into measurable steps.</p>
+
+  <table>
+    <tr><th>Step</th><th>Name</th><th>Energy term</th><th>Typical sign</th></tr>
+    <tr><td>1</td><td>Atomisation of metal</td><td>ΔH°<sub>at</sub>(metal)</td><td>+ (endothermic)</td></tr>
+    <tr><td>2</td><td>Atomisation of non-metal (e.g., ½Cl₂ → Cl)</td><td>ΔH°<sub>at</sub>(non-metal)</td><td>+ (endothermic)</td></tr>
+    <tr><td>3</td><td>1st ionisation energy of metal</td><td>IE₁</td><td>+ (endothermic)</td></tr>
+    <tr><td>4</td><td>2nd ionisation energy (if M²⁺)</td><td>IE₂</td><td>+ (endothermic)</td></tr>
+    <tr><td>5</td><td>Electron affinity of non-metal</td><td>ΔH°<sub>ea</sub></td><td>− (usually exothermic)</td></tr>
+    <tr><td>6</td><td>Lattice enthalpy (formation)</td><td>ΔH°<sub>latt</sub></td><td>− (exothermic)</td></tr>
+    <tr><td>Result</td><td>Overall formation enthalpy</td><td>ΔH°<sub>f</sub></td><td>Usually − </td></tr>
+  </table>
+
+  <div class="key-box">
+    <div class="kb-label">Hess's Law applied to Born-Haber</div>
+    <div class="eq"><span class="lbl">For NaCl</span>ΔH°<sub>f</sub>[NaCl] = ΔH°<sub>at</sub>[Na] + ΔH°<sub>at</sub>[½Cl₂] + IE₁[Na] + ΔH°<sub>ea</sub>[Cl] + ΔH°<sub>latt</sub>[NaCl]</div>
+    <p>To find the unknown (usually ΔH°<sub>latt</sub>), rearrange the equation:</p>
+    <div class="eq">ΔH°<sub>latt</sub> = ΔH°<sub>f</sub> − ΔH°<sub>at</sub>[Na] − ΔH°<sub>at</sub>[½Cl₂] − IE₁ − ΔH°<sub>ea</sub></div>
+  </div>
+
+  <div class="worked">
+    <div class="w-title">Worked Example — Born-Haber Cycle for NaCl</div>
+    <p>Data: ΔH°<sub>f</sub>[NaCl] = −411, ΔH°<sub>at</sub>[Na] = +107, ΔH°<sub>at</sub>[½Cl₂] = +121, IE₁[Na] = +496, ΔH°<sub>ea</sub>[Cl] = −349 (all kJ mol⁻¹)</p>
+    <div class="step"><div class="step-n">1</div><div class="step-text">Apply Hess's Law: ΔH°<sub>latt</sub> = ΔH°<sub>f</sub> − (all other steps)</div></div>
+    <div class="step"><div class="step-n">2</div><div class="step-text">Sum of known steps = +107 + 121 + 496 + (−349) = +375 kJ mol⁻¹</div></div>
+    <div class="step"><div class="step-n">3</div><div class="step-text">ΔH°<sub>latt</sub> = −411 − 375 = <strong style="color:var(--accent);">−786 kJ mol⁻¹</strong></div></div>
+    <p style="margin-top:.8rem;font-size:.9rem;color:var(--muted);">The large negative value confirms NaCl is a stable ionic compound — the lattice is held together by strong electrostatic forces.</p>
+  </div>
+
+  <div class="note-box">
+    <div class="nb-label">Factors affecting lattice enthalpy magnitude</div>
+    <p>Lattice enthalpy becomes more negative (stronger lattice) when:</p>
+    <ul style="list-style:disc;padding-left:1.5rem;">
+      <li><strong>Ionic charge increases</strong>: MgO (−3791) &gt;&gt; NaCl (−787) because Mg²⁺ and O²⁻ carry more charge</li>
+      <li><strong>Ionic radius decreases</strong>: ions closer together → stronger electrostatic attraction</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════ 18.8 ═══════════════════ -->
+<section id="s18-8">
+  <div class="section-header">
+    <span class="section-num">18.8</span>
+    <h2>Entropy and Gibbs Free Energy</h2>
+  </div>
+
+  <p>Enthalpy alone cannot predict whether a reaction is spontaneous (will proceed without external energy input). A reaction is favoured by two factors: <strong>releasing energy (exothermic)</strong> and <strong>increasing disorder</strong>. The second factor is described by <strong>entropy (S)</strong>.</p>
+
+  <div class="key-box">
+    <div class="kb-label">Entropy (S)</div>
+    <p><strong>Entropy</strong> is a measure of the <strong>disorder or randomness</strong> of a system. Units: J K⁻¹ mol⁻¹.</p>
+    <table>
+      <tr><th>Change</th><th>Sign of ΔS</th><th>Example</th></tr>
+      <tr><td>Solid → liquid → gas</td><td style="color:var(--green);">+ (disorder increases)</td><td>H₂O(l) → H₂O(g)</td></tr>
+      <tr><td>Gas dissolved → ions in solution</td><td style="color:var(--green);">+ (more particles)</td><td>HCl(g) → H⁺(aq) + Cl⁻(aq)</td></tr>
+      <tr><td>Gas + gas → solid</td><td style="color:var(--red);">− (disorder decreases)</td><td>N₂ + 3H₂ → 2NH₃</td></tr>
+      <tr><td>More moles of gas formed</td><td style="color:var(--green);">+</td><td>CaCO₃ → CaO + CO₂↑</td></tr>
+    </table>
+  </div>
+
+  <div class="key-box">
+    <div class="kb-label">Gibbs Free Energy (ΔG)</div>
+    <p><strong>Gibbs free energy (ΔG)</strong> combines enthalpy and entropy into a single criterion for spontaneity.</p>
+    <div class="eq"><span class="lbl">Gibbs Equation</span>ΔG = ΔH − TΔS</div>
+    <table>
+      <tr><th>ΔG</th><th>Meaning</th></tr>
+      <tr><td style="color:var(--green);">ΔG &lt; 0 (negative)</td><td>Reaction is <strong>spontaneous</strong> (feasible) under these conditions</td></tr>
+      <tr><td style="color:var(--muted);">ΔG = 0</td><td>Reaction is at <strong>equilibrium</strong></td></tr>
+      <tr><td style="color:var(--red);">ΔG &gt; 0 (positive)</td><td>Reaction is <strong>non-spontaneous</strong> (reverse reaction is favoured)</td></tr>
+    </table>
+    <p style="margin-top:.8rem;font-size:.9rem;">T is temperature in <strong>Kelvin</strong>. Note: ΔH is in kJ mol⁻¹ but ΔS is in J K⁻¹ mol⁻¹ — convert to kJ before substituting!</p>
+  </div>
+
+  <table>
+    <tr><th>ΔH</th><th>ΔS</th><th>ΔG = ΔH − TΔS</th><th>Spontaneity</th></tr>
+    <tr><td style="color:var(--red);">− (exo)</td><td style="color:var(--green);">+</td><td style="color:var(--green);">Always −</td><td>Always spontaneous at all T</td></tr>
+    <tr><td style="color:var(--blue);">+ (endo)</td><td style="color:var(--red);">−</td><td style="color:var(--red);">Always +</td><td>Never spontaneous</td></tr>
+    <tr><td style="color:var(--red);">−</td><td style="color:var(--red);">−</td><td>Depends on T</td><td>Spontaneous at <strong>low T</strong></td></tr>
+    <tr><td style="color:var(--blue);">+</td><td style="color:var(--green);">+</td><td>Depends on T</td><td>Spontaneous at <strong>high T</strong></td></tr>
+  </table>
+
+  <div class="worked">
+    <div class="w-title">Worked Example — Gibbs Free Energy</div>
+    <p><strong>Is the decomposition of CaCO₃ spontaneous at 800 °C?</strong></p>
+    <p>CaCO₃(s) → CaO(s) + CO₂(g) &nbsp; ΔH° = +178 kJ mol⁻¹, ΔS° = +165 J K⁻¹ mol⁻¹</p>
+    <div class="step"><div class="step-n">1</div><div class="step-text">T = 800 + 273 = 1073 K</div></div>
+    <div class="step"><div class="step-n">2</div><div class="step-text">Convert ΔS to kJ: +165 J K⁻¹ mol⁻¹ = +0.165 kJ K⁻¹ mol⁻¹</div></div>
+    <div class="step"><div class="step-n">3</div><div class="step-text">TΔS = 1073 × 0.165 = +177.0 kJ mol⁻¹</div></div>
+    <div class="step"><div class="step-n">4</div><div class="step-text">ΔG = +178 − 177 = <strong style="color:var(--green);">+1 kJ mol⁻¹</strong> ≈ 0 → barely non-spontaneous at 800 °C</div></div>
+    <div class="step"><div class="step-n">5</div><div class="step-text">At 900 °C (1173 K): ΔG = 178 − (1173 × 0.165) = 178 − 193.5 = <strong style="color:var(--green);">−15.5 kJ mol⁻¹</strong> → spontaneous ✓</div></div>
+    <p style="margin-top:.8rem;font-size:.9rem;color:var(--muted);">This explains why limestone kilns operate above ~840 °C — only above this temperature does decomposition become spontaneous.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════ QUIZ ═══════════════════ -->
+<section id="quiz">
+  <div class="section-header">
+    <span class="section-num">QUIZ</span>
+    <h2>25-Question Quiz</h2>
+  </div>
+  <div class="progress-bar-wrap"><div class="progress-bar" style="width:100%;"></div></div>
+  <div class="progress-label">S4 Unit 18 — All 8 sections covered</div>
+
+  <div class="assess-card" style="max-width:100%;margin-top:1rem;">
+    <h3>Questions — Click "Show" for each answer</h3>
+
+    <div class="q-item"><div class="q-num">Q1</div><p>Define enthalpy change (ΔH) and state its units.</p><button class="show-ans" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button><div class="answer">ΔH is the heat energy transferred between system and surroundings at constant pressure. Units: kJ mol⁻¹.</div></div>
+
+    <div class="q-item"><div class="q-num">Q2</div><p>Is the sign of ΔH positive or negative for an exothermic reaction? Explain.</p><button class="show-ans" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button><div class="answer">Negative (−). The products have less enthalpy than the reactants, so H<sub>products</sub> − H<sub>reactants</sub> &lt; 0. Heat flows out to the surroundings.</div></div>
+
+    <div class="q-item"><div class="q-num">Q3</div><p>What are the standard conditions for ΔH° measurements?</p><button class="show-ans" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button><div class="answer">298 K (25 °C), 100 kPa pressure, all substances in their standard states.</div></div>
+
+    <div class="q-item"><div class="q-num">Q4</div><p>State Hess's Law.</p><button class="show-ans" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button><div class="answer">The total enthalpy change for a reaction is the same regardless of the route taken, provided the initial and final conditions are the same.</div></div>
+
+    <div class="q-item"><div class="q-num">Q5</div><p>Write the formula for ΔH°<sub>rxn</sub> using standard enthalpies of formation.</p><button class="show-ans" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button><div class="answer">ΔH°<sub>rxn</sub> = Σ ΔH°<sub>f</sub>(products) − Σ ΔH°<sub>f</sub>(reactants)</div></div>
+
+    <div class="q-item"><div class="q-num">Q6</div><p>What is the standard enthalpy of formation of O₂(g)? Explain why.</p><button class="show-ans" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button><div class="answer">Zero. By definition, ΔH°<sub>f</sub> of any element in its standard state is 0 — no reaction is needed to form it from itself.</div></div>
+
+    <div class="q-item"><div class="q-num">Q7</div><p>Define standard enthalpy of combustion.</p><button class="show-ans" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button><div class="answer">The enthalpy change when 1 mol of a substance is completely burned in excess oxygen under standard conditions.</div></div>
+
+    <div class="q-item"><div class="q-num">Q8</div><p>What is activation energy? Mark it on a sketch of an energy profile diagram.</p><button class="show-ans" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button><div class="answer">Activation energy (Eₐ) is the minimum energy that colliding particles must possess to react. On the diagram it is the energy difference from the reactant energy level up to the peak (transition state).</div></div>
+
+    <div class="q-item"><div class="q-num">Q9</div><p>How does a catalyst affect the energy profile diagram? Does it change ΔH?</p><button class="show-ans" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button><div class="answer">A catalyst lowers the activation energy (lowers the peak), providing an alternative reaction pathway. It does NOT change ΔH — the reactant and product energy levels remain unchanged.</div></div>
+
+    <div class="q-item"><div class="q-num">Q10</div><p>When using bond enthalpies to calculate ΔH, which gives a positive contribution and which gives a negative contribution?</p><button class="show-ans" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button><div class="answer">Breaking bonds (reactants) gives a positive contribution (endothermic). Forming bonds (products) gives a negative contribution (exothermic). ΔH = Σ(bonds broken) − Σ(bonds formed).</div></div>
+
+    <div class="q-item"><div class="q-num">Q11</div><p>Why do bond enthalpy calculations give only approximate values of ΔH?</p><button class="show-ans" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button><div class="answer">Bond enthalpy values are average values across many different compounds. The actual bond energy in a specific molecule may differ from the average.</div></div>
+
+    <div class="q-item"><div class="q-num">Q12</div><p>Write the equation for calorimetry and define each term.</p><button class="show-ans" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button><div class="answer">q = mcΔT. q = heat energy (J); m = mass of solution (g); c = specific heat capacity of water = 4.18 J g⁻¹ °C⁻¹; ΔT = temperature change in °C.</div></div>
+
+    <div class="q-item"><div class="q-num">Q13</div><p>50 cm³ of HCl is mixed with 50 cm³ of NaOH and the temperature rises by 5.0 °C. Calculate the heat released.</p><button class="show-ans" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button><div class="answer">m = 100 g, c = 4.18 J g⁻¹ °C⁻¹, ΔT = 5.0 °C → q = 100 × 4.18 × 5.0 = 2090 J = 2.09 kJ</div></div>
+
+    <div class="q-item"><div class="q-num">Q14</div><p>Give three sources of error in a calorimetry experiment and how each can be reduced.</p><button class="show-ans" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button><div class="answer">(1) Heat loss to surroundings → use insulated cup, extrapolate temp-time graph. (2) Heat capacity of cup ignored → use calibrated calorimeter. (3) Density assumed = 1 g cm⁻³ → weigh the solution directly.</div></div>
+
+    <div class="q-item"><div class="q-num">Q15</div><p>What is lattice enthalpy? Why is it always negative when defined as ionic solid formation?</p><button class="show-ans" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button><div class="answer">Lattice enthalpy is the enthalpy change when 1 mol of ionic compound is formed from its gaseous ions. It is exothermic (negative) because strong electrostatic attractions are formed between oppositely charged ions.</div></div>
+
+    <div class="q-item"><div class="q-num">Q16</div><p>Name all the steps in a Born-Haber cycle for NaCl, starting from the elements.</p><button class="show-ans" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button><div class="answer">(1) Atomisation of Na(s) → Na(g). (2) Atomisation of ½Cl₂(g) → Cl(g). (3) 1st ionisation energy of Na(g) → Na⁺(g) + e⁻. (4) Electron affinity: Cl(g) + e⁻ → Cl⁻(g). (5) Lattice enthalpy: Na⁺(g) + Cl⁻(g) → NaCl(s).</div></div>
+
+    <div class="q-item"><div class="q-num">Q17</div><p>MgO has a much more negative lattice enthalpy than NaCl. Explain why in terms of ionic charges and radii.</p><button class="show-ans" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button><div class="answer">Mg²⁺ and O²⁻ carry double the charge of Na⁺ and Cl⁻, so electrostatic attractions are much stronger. Also, Mg²⁺ and O²⁻ have smaller ionic radii, bringing ions closer together and further strengthening the lattice.</div></div>
+
+    <div class="q-item"><div class="q-num">Q18</div><p>Define entropy. Give two examples of changes that increase entropy.</p><button class="show-ans" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button><div class="answer">Entropy is a measure of the disorder or randomness of a system. Examples: (1) liquid water vaporising to steam; (2) a solid dissolving into ions in solution.</div></div>
+
+    <div class="q-item"><div class="q-num">Q19</div><p>Write the Gibbs free energy equation and state when a reaction is spontaneous.</p><button class="show-ans" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button><div class="answer">ΔG = ΔH − TΔS. A reaction is spontaneous when ΔG &lt; 0 (negative).</div></div>
+
+    <div class="q-item"><div class="q-num">Q20</div><p>A reaction has ΔH = +200 kJ mol⁻¹ and ΔS = +500 J K⁻¹ mol⁻¹. At what temperature does it become spontaneous?</p><button class="show-ans" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button><div class="answer">ΔG = 0 at the crossover point. 0 = ΔH − TΔS → T = ΔH/ΔS = 200 000 J / 500 J K⁻¹ = 400 K (127 °C). Above 400 K, ΔG becomes negative and the reaction is spontaneous.</div></div>
+
+    <div class="q-item"><div class="q-num">Q21</div><p>ΔH = −100 kJ mol⁻¹, ΔS = −200 J K⁻¹ mol⁻¹. Is this reaction always, never, or sometimes spontaneous?</p><button class="show-ans" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button><div class="answer">Sometimes spontaneous — at LOW temperatures. Since ΔH &lt; 0 and ΔS &lt; 0, ΔG = ΔH − TΔS becomes less negative (less favourable) as T rises. It is spontaneous when T &lt; ΔH/ΔS = 100 000/200 = 500 K.</div></div>
+
+    <div class="q-item"><div class="q-num">Q22</div><p>Using ΔH°<sub>f</sub> data, calculate ΔH° for: 2SO₂(g) + O₂(g) → 2SO₃(g). Given: ΔH°<sub>f</sub>[SO₂] = −297, ΔH°<sub>f</sub>[SO₃] = −396 kJ mol⁻¹.</p><button class="show-ans" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button><div class="answer">ΔH° = Σproducts − Σreactants = [2×(−396)] − [2×(−297) + 0] = −792 − (−594) = −198 kJ mol⁻¹</div></div>
+
+    <div class="q-item"><div class="q-num">Q23</div><p>Using bond enthalpies, calculate ΔH for H₂(g) + Cl₂(g) → 2HCl(g). [H–H: 436, Cl–Cl: 243, H–Cl: 432 kJ mol⁻¹]</p><button class="show-ans" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button><div class="answer">Bonds broken: 1×H–H + 1×Cl–Cl = 436 + 243 = 679 kJ. Bonds formed: 2×H–Cl = 2×432 = 864 kJ. ΔH = 679 − 864 = −185 kJ mol⁻¹</div></div>
+
+    <div class="q-item"><div class="q-num">Q24</div><p>Distinguish between the transition state and an intermediate in a reaction mechanism.</p><button class="show-ans" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button><div class="answer">The transition state is the highest-energy point in a single step — it is unstable, exists momentarily, and cannot be isolated. An intermediate exists in a trough between two peaks on a multi-step profile; it has finite lifetime and can sometimes be detected.</div></div>
+
+    <div class="q-item"><div class="q-num">Q25</div><p>A weak acid neutralisation produces ΔH<sub>neut</sub> = −52 kJ mol⁻¹, compared to −57.3 kJ mol⁻¹ for HCl/NaOH. Explain the difference.</p><button class="show-ans" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button><div class="answer">Weak acids are partially dissociated. Energy must be supplied to fully ionise the weak acid before neutralisation can occur. This ionisation is endothermic, so the net enthalpy released is less than for a strong acid where full ionisation has already occurred.</div></div>
+  </div>
+</section>
+
+<!-- ═══════════════════ 50-MARK TEST ═══════════════════ -->
+<section id="test">
+  <div class="section-header">
+    <span class="section-num">TEST</span>
+    <h2>50-Mark Test — Energy Changes</h2>
+  </div>
+  <p style="color:var(--muted);font-size:.9rem;margin-bottom:1.5rem;">Time allowed: 60 minutes. Show all working for full marks. Data: c<sub>water</sub> = 4.18 J g⁻¹ °C⁻¹.</p>
+
+  <div class="assess-card" style="max-width:100%;">
+    <h3>Section A — Short Answer (20 marks)</h3>
+
+    <div class="q-item"><div class="q-num">A1 <span class="marks">[2]</span></div>
+    <p>Define <em>standard enthalpy of formation</em> and write the equation for the standard enthalpy of formation of ethane, C₂H₆(g).</p>
+    <button class="show-ans" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
+    <div class="answer">Definition: enthalpy change when 1 mol of a compound is formed from its elements in their standard states under standard conditions [1 mark]. Equation: 2C(s) + 3H₂(g) → C₂H₆(g) [1 mark — must show correct states, must form exactly 1 mol product].</div></div>
+
+    <div class="q-item"><div class="q-num">A2 <span class="marks">[2]</span></div>
+    <p>On an energy profile diagram for an endothermic reaction, label: (i) the activation energy Eₐ; (ii) the enthalpy change ΔH; (iii) the transition state.</p>
+    <button class="show-ans" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
+    <div class="answer">[1 mark] Eₐ = arrow from reactant energy level up to the peak; ΔH = arrow from reactant level up to product level (positive, as products are higher); [1 mark] Transition state labelled at the peak of the curve.</div></div>
+
+    <div class="q-item"><div class="q-num">A3 <span class="marks">[3]</span></div>
+    <p>State Hess's Law and explain the thermodynamic principle that justifies it.</p>
+    <button class="show-ans" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
+    <div class="answer">[1] Total enthalpy change is independent of the route taken. [1] Enthalpy is a state function — its value depends only on the initial and final states. [1] This is a consequence of the First Law of Thermodynamics (conservation of energy).</div></div>
+
+    <div class="q-item"><div class="q-num">A4 <span class="marks">[3]</span></div>
+    <p>Explain the terms exothermic and endothermic using the concept of bond enthalpies.</p>
+    <button class="show-ans" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
+    <div class="answer">[1] Bond breaking is endothermic (energy absorbed). [1] Bond forming is exothermic (energy released). [1] Exothermic overall: more energy released forming bonds in products than absorbed breaking bonds in reactants; endothermic overall: the reverse.</div></div>
+
+    <div class="q-item"><div class="q-num">A5 <span class="marks">[4]</span></div>
+    <p>Explain what is meant by <em>entropy</em>. Predict the sign of ΔS for each: (i) ice melting; (ii) N₂(g) + 3H₂(g) → 2NH₃(g); (iii) sugar dissolving in water; (iv) 2NO₂(g) → N₂O₄(g).</p>
+    <button class="show-ans" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
+    <div class="answer">Entropy is a measure of disorder/randomness [1 mark]. (i) ΔS &gt; 0 (solid to liquid increases disorder). (ii) ΔS &lt; 0 (4 mol gas → 2 mol gas, less disorder). (iii) ΔS &gt; 0 (more disorder in solution). (iv) ΔS &lt; 0 (2 mol gas → 1 mol gas) [1 mark each, max 3].</div></div>
+
+    <div class="q-item"><div class="q-num">A6 <span class="marks">[6]</span></div>
+    <p>Write the Gibbs free energy equation. For a reaction where ΔH = −86 kJ mol⁻¹ and ΔS = −170 J K⁻¹ mol⁻¹, calculate ΔG at (a) 298 K, (b) 700 K. State whether the reaction is spontaneous at each temperature and explain the trend.</p>
+    <button class="show-ans" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
+    <div class="answer">ΔG = ΔH − TΔS [1]. Convert ΔS: −0.170 kJ K⁻¹ mol⁻¹ [1]. (a) 298 K: ΔG = −86 − 298×(−0.170) = −86 + 50.7 = −35.3 kJ mol⁻¹ → spontaneous [1]. (b) 700 K: ΔG = −86 − 700×(−0.170) = −86 + 119 = +33 kJ mol⁻¹ → not spontaneous [1]. At low T, the negative ΔH dominates; at high T, the −TΔS term (positive, since ΔS &lt; 0) dominates and eventually makes ΔG positive [2].</div></div>
+  </div>
+
+  <div class="assess-card" style="max-width:100%;margin-top:1.5rem;">
+    <h3>Section B — Calculations (20 marks)</h3>
+
+    <div class="q-item"><div class="q-num">B1 <span class="marks">[5]</span></div>
+    <p>Using the following data, calculate the standard enthalpy of formation of propane, C₃H₈(g).<br>
+    ΔH°<sub>c</sub>[C(s)] = −394 kJ mol⁻¹, ΔH°<sub>c</sub>[H₂(g)] = −286 kJ mol⁻¹, ΔH°<sub>c</sub>[C₃H₈(g)] = −2220 kJ mol⁻¹</p>
+    <button class="show-ans" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
+    <div class="answer">Formation equation: 3C(s) + 4H₂(g) → C₃H₈(g) [1]. ΔH°<sub>f</sub> = Σ ΔH°<sub>c</sub>(reactants) − Σ ΔH°<sub>c</sub>(products) [1]. = [3×(−394) + 4×(−286)] − [−2220] [1] = [−1182 − 1144] + 2220 [1] = −2326 + 2220 = −106 kJ mol⁻¹ [1].</div></div>
+
+    <div class="q-item"><div class="q-num">B2 <span class="marks">[4]</span></div>
+    <p>Calculate the bond enthalpy of the N≡N bond using the following data for:<br>
+    N₂(g) + 3H₂(g) → 2NH₃(g) &nbsp; ΔH° = −92 kJ mol⁻¹<br>
+    Bond enthalpies: H–H = 436, N–H = 391 kJ mol⁻¹</p>
+    <button class="show-ans" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
+    <div class="answer">ΔH = Bonds broken − Bonds formed [1]. −92 = [N≡N + 3×436] − [6×391] [1]. −92 = [N≡N + 1308] − 2346. −92 = N≡N − 1038. N≡N = 1038 − 92 = 946 kJ mol⁻¹ [1 mark for correct algebra, 1 mark for answer]. Accept 944–946.</div></div>
+
+    <div class="q-item"><div class="q-num">B3 <span class="marks">[5]</span></div>
+    <p>100 cm³ of 0.500 mol dm⁻³ H₂SO₄ is neutralised by 100 cm³ of 1.00 mol dm⁻³ NaOH. The temperature rises from 21.5 °C to 24.9 °C. Calculate ΔH<sub>neut</sub> in kJ mol⁻¹.</p>
+    <button class="show-ans" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
+    <div class="answer">Total mass = 200 g [1]. ΔT = 3.4 °C [1]. q = 200 × 4.18 × 3.4 = 2842 J = 2.842 kJ [1]. Moles H₂O formed: H₂SO₄ provides 2×(0.100×0.500) = 0.100 mol H⁺; moles H₂O = 0.100 mol [1]. ΔH<sub>neut</sub> = −2.842 / 0.100 = −28.4 kJ mol⁻¹... wait, recalculate: H₂SO₄ mol = 0.100 × 0.500 = 0.050 mol → 0.100 mol H⁺ → 0.100 mol H₂O [correct]. ΔH<sub>neut</sub> = −2.842/0.100 = −28.4 kJ mol⁻¹ [1]. (If student uses 0.050 mol H₂SO₄ as reference → ΔH = −56.8 kJ mol⁻¹; accept if justified.)</div></div>
+
+    <div class="q-item"><div class="q-num">B4 <span class="marks">[6]</span></div>
+    <p>Using the Born-Haber data below, calculate the lattice enthalpy of MgCl₂:<br>
+    ΔH°<sub>f</sub>[MgCl₂] = −641, ΔH°<sub>at</sub>[Mg] = +148, IE₁[Mg] = +738, IE₂[Mg] = +1451,<br>
+    ΔH°<sub>at</sub>[½Cl₂] = +121, ΔH°<sub>ea</sub>[Cl] = −349 kJ mol⁻¹</p>
+    <button class="show-ans" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
+    <div class="answer">By Hess's Law: ΔH°<sub>f</sub> = ΔH°<sub>at</sub>[Mg] + IE₁ + IE₂ + 2×ΔH°<sub>at</sub>[Cl] + 2×ΔH°<sub>ea</sub>[Cl] + ΔH°<sub>latt</sub> [2 marks for correct cycle setup]. [1] Sum of known: 148 + 738 + 1451 + 2(121) + 2(−349) = 148 + 738 + 1451 + 242 − 698 = 1881 kJ mol⁻¹ [2]. ΔH°<sub>latt</sub> = −641 − 1881 = −2522 kJ mol⁻¹ [1].</div></div>
+  </div>
+
+  <div class="assess-card" style="max-width:100%;margin-top:1.5rem;">
+    <h3>Section C — Extended Response (10 marks)</h3>
+
+    <div class="q-item"><div class="q-num">C1 <span class="marks">[5]</span></div>
+    <p>A student claims that all exothermic reactions are spontaneous and all endothermic reactions are non-spontaneous. Evaluate this claim using the Gibbs free energy equation, with one worked numerical example to illustrate your argument.</p>
+    <button class="show-ans" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
+    <div class="answer">[1] The claim is incorrect — spontaneity depends on ΔG = ΔH − TΔS, not ΔH alone. [1] An endothermic reaction CAN be spontaneous if ΔS is sufficiently positive and T is high enough (e.g., CaCO₃ decomposition above ~840 °C). [1] An exothermic reaction can be non-spontaneous if ΔS is very negative and T is high (e.g., N₂ + 3H₂ → 2NH₃ at very high T). [1] Numerical example: CaCO₃ decomposition — ΔH = +178, ΔS = +165 J K⁻¹ mol⁻¹; at 1200 K, ΔG = 178 − 1200×0.165 = 178 − 198 = −20 kJ mol⁻¹ → spontaneous despite being endothermic [1].</div></div>
+
+    <div class="q-item"><div class="q-num">C2 <span class="marks">[5]</span></div>
+    <p>Describe the experimental procedure for measuring the enthalpy change of the reaction between zinc powder and copper sulfate solution using calorimetry. Include all steps, sources of error, and how you would calculate ΔH per mole of zinc.</p>
+    <button class="show-ans" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
+    <div class="answer">[1] Measure 25.0 cm³ of known concentration CuSO₄ into an insulated polystyrene cup; record initial temperature. [1] Add excess zinc powder (weighed), stir, and record maximum temperature reached. [1] Calculate q = mcΔT (m = mass of solution, c = 4.18 J g⁻¹ °C⁻¹, ΔT = T<sub>max</sub> − T<sub>initial</sub>). [1] Calculate moles of CuSO₄ (the limiting reagent) = c × V; ΔH = −q / n(CuSO₄) in kJ mol⁻¹ (negative because exothermic). [1] Sources of error: heat loss to surroundings (reduce: insulate cup, extrapolate temp-time graph); heat capacity of cup ignored (reduce: use calibrated calorimeter); zinc may not react completely (reduce: use excess zinc).</div></div>
+  </div>
+</section>
+
+<div class="assess-card" style="max-width:100%;margin-top:2rem;text-align:center;background:linear-gradient(135deg,rgba(250,204,21,.1),rgba(52,211,153,.08));border-color:rgba(250,204,21,.3);">
+  <h3 style="font-size:1.4rem;margin-bottom:.5rem;">🏆 S4 Chemistry — Complete!</h3>
+  <p style="color:var(--muted);">All 18 units of the S4 course are now complete. Unit 18 is the final unit.</p>
+  <p style="margin-top:.8rem;">Proceed to <a href="s5-chemistry.html" style="color:var(--accent);">S5 Chemistry →</a></p>
+</div>
+
+<div class="unit-nav">
+  <a href="s4_unit17_redox.html">← Unit 17: Redox Reactions</a>
+  <a href="s4-chemistry.html">📖 S4 Course Home</a>
+  <a href="s5-chemistry.html">S5 Course →</a>
+</div>
+</main>
+
+<footer>
+  ⚗ Jackson Habimana &mdash; Chemistry Education Portal &nbsp;&bull;&nbsp;
+  <a href="s4-chemistry.html">S4 Course</a> &nbsp;&bull;&nbsp;
+  <a href="s5-chemistry.html">S5 Course</a> &nbsp;&bull;&nbsp;
+  <a href="index.html">Home</a>
+</footer>
+
+<script>
+// Smooth scroll for TOC links
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    e.preventDefault();
+    document.querySelector(a.getAttribute('href'))?.scrollIntoView({behavior:'smooth'});
+  });
+});
+</script>
+</body>
+</html>
