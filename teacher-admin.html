@@ -162,6 +162,8 @@ table.results tr:hover td{background:rgba(255,255,255,.02);}
     <button class="tab-btn" onclick="showTab('results',this)">📊 Student Results</button>
     <button class="tab-btn" onclick="showTab('import',this)">📥 Import</button>
     <button class="tab-btn" onclick="showTab('settings',this)">⚙️ Settings</button>
+    <button class="tab-btn" onclick="showTab('activity',this)">📝 Quiz Activity</button>
+    <button class="tab-btn" onclick="showTab('publish-quiz',this)">📚 Publish Quiz</button>
     <button class="tab-btn" onclick="showTab('resources',this)">🔗 Links & Files</button>
     <a href="lock-manager.html" class="tab-btn" style="text-decoration:none;">🔒 Lock Manager</a>
   </div>
@@ -271,6 +273,167 @@ table.results tr:hover td{background:rgba(255,255,255,.02);}
     </div>
   </div>
 
+
+  <!-- ═══ QUIZ ACTIVITY RESULTS ═══ -->
+  <div class="tab-panel" id="tab-activity">
+    <div class="card">
+      <h2>📝 Quiz Activity Tracker</h2>
+      <p style="color:var(--muted);font-size:.88rem;margin-bottom:20px;">
+        Students' quiz attempts from unit pages are saved here. First create an Activity Bin, then share the Class Code with your students.
+      </p>
+
+      <!-- Setup section -->
+      <div id="activity-setup" style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:22px;margin-bottom:24px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--accent);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px;">Step 1 — Setup</div>
+        <div id="activity-bin-status" style="margin-bottom:14px;"></div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <button class="btn btn-primary" onclick="createActivityBin()">🗄️ Create Activity Bin</button>
+          <button class="btn" onclick="showActivityCode()" id="show-code-btn" style="display:none;">📋 Show Class Code</button>
+        </div>
+        <div id="activity-code-box" style="display:none;margin-top:16px;background:var(--bg);border:1px solid var(--accent);border-radius:8px;padding:16px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--muted);margin-bottom:6px;">CLASS CODE — Share this with ALL your students:</div>
+          <div id="activity-code-text" style="font-family:'JetBrains Mono',monospace;font-size:1rem;color:var(--accent);word-break:break-all;margin-bottom:10px;"></div>
+          <button class="btn btn-sm" onclick="copyActivityCode()">📋 Copy Code</button>
+          <p style="margin-top:10px;font-size:.78rem;color:var(--orange);">Students enter this code once on any unit page. After that, every quiz attempt is automatically saved here.</p>
+        </div>
+      </div>
+
+      <!-- Filters -->
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;align-items:center;">
+        <input type="text" id="act-filter-name" placeholder="🔍 Filter by student name..." oninput="renderActivity()" style="flex:1;min-width:160px;"/>
+        <select id="act-filter-unit" onchange="renderActivity()" style="min-width:140px;">
+          <option value="">All Units</option>
+          <option value="S4">S4</option>
+          <option value="S5">S5</option>
+          <option value="S6">S6</option>
+        </select>
+        <select id="act-filter-type" onchange="renderActivity()" style="min-width:140px;">
+          <option value="">All Types</option>
+          <option value="quiz">Quick Quiz</option>
+          <option value="unit-quiz">Unit Quiz</option>
+          <option value="test">Unit Test</option>
+        </select>
+        <button class="btn btn-sm" onclick="refreshActivity()">🔄 Refresh</button>
+        <button class="btn btn-danger btn-sm" onclick="clearActivityResults()">🗑 Clear</button>
+        <button class="btn btn-sm" onclick="exportActivityCSV()">⬇️ Export CSV</button>
+      </div>
+
+      <!-- Summary stats -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin-bottom:20px;" id="act-stats">
+        <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:14px;text-align:center;">
+          <div id="act-stat-students" style="font-size:1.5rem;font-weight:700;color:var(--accent);">0</div>
+          <div style="font-size:.72rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">STUDENTS</div>
+        </div>
+        <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:14px;text-align:center;">
+          <div id="act-stat-attempts" style="font-size:1.5rem;font-weight:700;color:#34d399;">0</div>
+          <div style="font-size:.72rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">ATTEMPTS</div>
+        </div>
+        <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:14px;text-align:center;">
+          <div id="act-stat-avg" style="font-size:1.5rem;font-weight:700;color:#f59e0b;">0%</div>
+          <div style="font-size:.72rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">AVG SCORE</div>
+        </div>
+        <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:14px;text-align:center;">
+          <div id="act-stat-pass" style="font-size:1.5rem;font-weight:700;color:#a78bfa;">0%</div>
+          <div style="font-size:.72rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">PASS RATE</div>
+        </div>
+      </div>
+
+      <!-- Results table -->
+      <div id="act-results-container" style="overflow-x:auto;">
+        <table style="width:100%;border-collapse:collapse;font-size:.85rem;">
+          <thead>
+            <tr style="background:var(--surface2);font-family:'JetBrains Mono',monospace;font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;">
+              <th style="padding:10px 14px;text-align:left;color:var(--muted);border-bottom:1px solid var(--border);">Student</th>
+              <th style="padding:10px 14px;text-align:left;color:var(--muted);border-bottom:1px solid var(--border);">Unit / Topic</th>
+              <th style="padding:10px 14px;text-align:left;color:var(--muted);border-bottom:1px solid var(--border);">Type</th>
+              <th style="padding:10px 14px;text-align:center;color:var(--muted);border-bottom:1px solid var(--border);">Score</th>
+              <th style="padding:10px 14px;text-align:center;color:var(--muted);border-bottom:1px solid var(--border);">%</th>
+              <th style="padding:10px 14px;text-align:left;color:var(--muted);border-bottom:1px solid var(--border);">Date</th>
+            </tr>
+          </thead>
+          <tbody id="act-results-body">
+            <tr><td colspan="6" style="text-align:center;padding:30px;color:var(--muted);">No activity yet. Create a bin and share the Class Code with students.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ PUBLISH UNIT QUIZ AS EXAM ═══ -->
+  <div class="tab-panel" id="tab-publish-quiz">
+    <div class="card">
+      <h2>📚 Publish a Unit Quiz as Exam</h2>
+      <p style="color:var(--muted);font-size:.88rem;margin-bottom:24px;">
+        Select any S4 unit quiz and publish it directly to the cloud. Students get a code to attempt it in the exam portal — with full tracking, timer, and cheat detection.
+      </p>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;">
+        <div>
+          <label>Course</label>
+          <select id="pq-course" onchange="pqLoadUnits()" style="margin-bottom:0;">
+            <option value="S4">S4 Chemistry</option>
+            <option value="S5" disabled>S5 Chemistry (coming soon)</option>
+            <option value="S6" disabled>S6 Chemistry (coming soon)</option>
+          </select>
+        </div>
+        <div>
+          <label>Unit / Quiz</label>
+          <select id="pq-unit" style="margin-bottom:0;">
+            <option value="">— Select a unit —</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="pq-preview" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:20px;display:none;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--accent);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;">Quiz Preview</div>
+        <div id="pq-preview-title" style="font-size:1rem;color:#fff;font-weight:600;margin-bottom:4px;"></div>
+        <div id="pq-preview-info" style="font-size:.82rem;color:var(--muted);"></div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:20px;">
+        <div>
+          <label>Time Limit (minutes)</label>
+          <input type="number" id="pq-time" value="30" min="5" max="180" style="margin-bottom:0;"/>
+        </div>
+        <div>
+          <label>Pass Mark (%)</label>
+          <input type="number" id="pq-pass" value="50" min="1" max="100" style="margin-bottom:0;"/>
+        </div>
+        <div>
+          <label>Max Warnings</label>
+          <input type="number" id="pq-warn" value="3" min="1" max="10" style="margin-bottom:0;"/>
+        </div>
+      </div>
+
+      <div style="margin-bottom:20px;">
+        <label>Instructions (optional)</label>
+        <textarea id="pq-instructions" rows="2" placeholder="e.g. This is a closed-book quiz. No calculators." style="margin-bottom:0;resize:vertical;"></textarea>
+      </div>
+
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <button class="btn btn-success" onclick="publishUnitQuiz()">🌐 Publish Quiz as Exam</button>
+        <button class="btn" onclick="pqPreview()">👁 Preview Questions</button>
+      </div>
+
+      <div id="pq-alert" style="margin-top:14px;"></div>
+
+      <div id="pq-code-box" style="display:none;margin-top:20px;background:var(--bg);border:2px solid var(--green);border-radius:10px;padding:20px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--green);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;">✅ Quiz Published! Share this code with students:</div>
+        <div id="pq-code-text" style="font-family:'JetBrains Mono',monospace;font-size:.88rem;color:#fff;word-break:break-all;background:var(--surface2);padding:12px 16px;border-radius:6px;margin-bottom:12px;border:1px solid var(--border);"></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button class="btn btn-primary" onclick="copyPqCode()">📋 Copy Code</button>
+          <a id="pq-exam-link" href="student-exam.html" target="_blank" class="btn" style="text-decoration:none;">🔗 Open Student Exam Page</a>
+        </div>
+        <p style="margin-top:10px;font-size:.78rem;color:var(--orange);">Students go to the Student Exam page and paste this full code to start.</p>
+      </div>
+    </div>
+
+    <!-- Questions preview modal area -->
+    <div id="pq-questions-list" style="display:none;" class="card">
+      <h3 style="margin-bottom:16px;">Questions Preview</h3>
+      <div id="pq-ql-body"></div>
+    </div>
+  </div>
 
   <!-- ═══ LINKS & FILES ═══ -->
   <div class="tab-panel" id="tab-resources">
@@ -1075,6 +1238,757 @@ function downloadCSV(){
 }
 function clearResults(){if(!confirm('Delete ALL results?'))return;localStorage.removeItem('student_results');renderResults(); // updates stats too
 }
+// ═══════════════════════════════════════════════════
+// PUBLISH UNIT QUIZ AS EXAM
+// ═══════════════════════════════════════════════════
+const UNIT_QUIZ_DB = [
+  {num:"Unit 1",title:`Atomic Structure`,questions:[
+    {text:`Who first proposed that atoms are indivisible solid spheres?`,options:[`Rutherford`,`Thomson`,`Dalton`,`Chadwick`],correct:1,marks:1},
+    {text:`Thomson discovered electrons using:`,options:[`Gold foil experiment`,`Cathode ray tubes`,`Alpha particle scattering`,`Beryllium bombardment`],correct:1,marks:1},
+    {text:`In Rutherford's gold foil experiment, what did most alpha particles do?`,options:[`Were absorbed by the foil`,`Bounced directly back`,`Passed straight through`,`Were deflected by 90°`],correct:2,marks:1},
+    {text:`Who discovered the neutron?`,options:[`Rutherford`,`Bohr`,`Chadwick`,`Thomson`],correct:2,marks:1},
+    {text:`The atomic number (Z) equals the number of:`,options:[`Neutrons in the nucleus`,`Protons in the nucleus`,`Electrons in the outer shell`,`Nucleons in the nucleus`],correct:1,marks:1},
+    {text:`How many electrons does ⁴⁰Ca²⁺ have?`,options:[`20`,`18`,`22`,`40`],correct:1,marks:1},
+    {text:`Isotopes of the same element differ in the number of:`,options:[`Protons`,`Electrons`,`Neutrons`,`Energy levels`],correct:0,marks:1},
+    {text:`The relative atomic mass is defined relative to:`,options:[`1/12 mass of ¹H atom`,`1/12 mass of ¹²C atom`,`Mass of a proton`,`Mass of a neutron`],correct:0,marks:1},
+    {text:`³⁵Cl (75%) and ³⁷Cl (25%). What is Aᵣ(Cl)?`,options:[`36.0`,`35.0`,`35.5`,`36.5`],correct:2,marks:1},
+    {text:`In the mass spectrometer, ions are separated by their:`,options:[`Charge only`,`Mass only`,`Mass-to-charge ratio (m/z)`,`Speed only`],correct:2,marks:1},
+    {text:`Which stage converts atoms to positive ions in the mass spectrometer?`,options:[`Acceleration`,`Deflection`,`Vaporisation`,`Ionisation`],correct:3,marks:1},
+    {text:`The base peak in a mass spectrum is:`,options:[`The smallest peak`,`The peak with highest m/z`,`The most abundant ion (100% relative abundance)`,`The molecular ion peak always`],correct:2,marks:1},
+    {text:`How many neutrons are in ²³⁸U (Z = 92)?`,options:[`92`,`146`,`238`,`330`],correct:1,marks:1},
+    {text:`Why must the mass spectrometer operate under high vacuum?`,options:[`To cool the ions down`,`To prevent ions colliding with air molecules`,`To increase ionisation rate`,`To allow slower ion movement`],correct:1,marks:1},
+    {text:`The relative charge of an electron is:`,options:[`+1`,`0`,`−1`,`−1/1836`],correct:2,marks:1},
+    {text:`Which is NOT a use of the mass spectrometer?`,options:[`Radiocarbon dating`,`Measuring melting points`,`Determining molecular mass`,`Identifying isotopes`],correct:1,marks:1},
+    {text:`Deuterium (²H) and protium (¹H) have the same:`,options:[`Mass number`,`Number of neutrons`,`Chemical properties`,`Physical properties`],correct:2,marks:1},
+    {text:`In the magnetic field of a mass spectrometer, heavier ions are deflected _______ lighter ions.`,options:[`More than`,`Less than`,`The same as`,`Not at all, unlike`],correct:0,marks:1},
+    {text:`Silicon: ²⁸Si (92%), ²⁹Si (5%), ³⁰Si (3%). Which value is closest to Aᵣ(Si)?`,options:[`28.0`,`28.1`,`29.0`,`28.5`],correct:1,marks:1},
+    {text:`A neutral atom has mass number 39 and 20 neutrons. Its atomic number is:`,options:[`20`,`59`,`19`,`39`],correct:2,marks:1},
+    {text:`A neutral atom has 17 protons and 18 neutrons. Its symbol is:`,options:[`³⁵Cl`,`³⁷Cl`,`³⁵S`,`³⁷Ar`],correct:0,marks:1},
+    {text:`Which scientist proposed a dense, positive nucleus at the atom's centre?`,options:[`Dalton`,`Thomson`,`Rutherford`,`Chadwick`],correct:2,marks:1},
+    {text:`The ion ⁵⁶Fe³⁺ has how many electrons?`,options:[`26`,`23`,`29`,`30`],correct:1,marks:1},
+    {text:`Electron impact ionisation in the mass spectrometer produces:`,options:[`M⁻ anions`,`M²⁺ cations`,`M⁺ cations`,`Neutral radicals`],correct:2,marks:1},
+    {text:`Mass spectrum: m/z=10 (20%), m/z=11 (80%). Aᵣ = ?`,options:[`10.5`,`10.2`,`10.8`,`11.0`],correct:2,marks:1},
+  ]},
+  {num:"Unit 2",title:`Electronic Configuration`,questions:[
+    {text:`In Bohr's model, an electron emits a photon when it:`,options:[`Absorbs energy from the nucleus`,`Falls from a higher to a lower energy level`,`Moves to a higher energy level`,`Orbits at constant speed`],correct:1,marks:1},
+    {text:`The Balmer series appears in the:`,options:[`Ultraviolet region`,`Visible light region`,`Infrared region`,`X-ray region`],correct:1,marks:1},
+    {text:`Atomic emission spectra consist of:`,options:[`A continuous rainbow`,`Dark lines on a white background`,`Bright coloured lines on a dark background`,`A single colour`],correct:2,marks:1},
+    {text:`Maximum electrons in shell n=3:`,options:[`8`,`18`,`32`,`6`],correct:1,marks:1},
+    {text:`Which quantum number describes orbital shape?`,options:[`n (principal)`,`m&#x209B; (spin)`,`l (angular momentum)`,`m&#x2097; (magnetic)`],correct:2,marks:1},
+    {text:`The electron configuration of Cr (Z=24) is:`,options:[`[Ar]3d&#x2074;4s&#xB2;`,`[Ar]3d&#x2075;4s&#xB9;`,`[Ar]3d&#x2076;4s&#x2070;`,`[Ar]3d&#xB3;4s&#xB2;`],correct:1,marks:1},
+    {text:`Hund's rule states that:`,options:[`Electrons fill orbitals in increasing energy order`,`No two electrons have the same four quantum numbers`,`Electrons occupy degenerate orbitals singly before pairing`,`Each orbital holds exactly 2 electrons`],correct:2,marks:1},
+    {text:`Which species has configuration [Ar]3d&#x2076;?`,options:[`Fe atom`,`Fe&#xB2;&#x207A;`,`Fe&#xB3;&#x207A;`,`Co&#xB2;&#x207A;`],correct:1,marks:1},
+    {text:`First ionisation energy is defined as:`,options:[`Energy to remove all electrons from 1 mol of atoms`,`Energy to remove 1 mol of electrons from 1 mol of gaseous atoms`,`Energy released when an atom gains an electron`,`Energy to convert a solid to a gas`],correct:1,marks:1},
+    {text:`Why does IE&#x2081; decrease down Group 1?`,options:[`Nuclear charge decreases`,`Outer electron is in a higher shell, further from nucleus and more shielded`,`More protons attract the electron less`,`Electronegativity increases`],correct:1,marks:1},
+    {text:`Number of orbitals in the 3d subshell:`,options:[`3`,`5`,`7`,`10`],correct:1,marks:1},
+    {text:`Successive IEs: 496, 4562, 6912, 9544, 13353. Which group?`,options:[`Group 1`,`Group 2`,`Group 3`,`Group 4`],correct:0,marks:1},
+    {text:`Why does IE&#x2081;(O) &lt; IE&#x2081;(N)?`,options:[`O has a larger atomic radius`,`O has a paired 2p electron with greater repulsion, making it easier to remove`,`O has more shielding electrons`,`O is in a different period`],correct:1,marks:1},
+    {text:`The Pauli Exclusion Principle states:`,options:[`Electrons fill lowest energy orbitals first`,`Electrons in degenerate orbitals must be parallel`,`No two electrons in an atom can have the same four quantum numbers`,`Electrons must pair before filling new orbitals`],correct:2,marks:1},
+    {text:`Convergence of spectral lines indicates:`,options:[`All wavelengths become equal`,`Energy levels get closer; the limit gives the ionisation energy`,`Electrons are slowing down`,`The nucleus repels electrons`],correct:1,marks:1},
+    {text:`The electron configuration of Cu&#xB2;&#x207A; (Z=29) is:`,options:[`[Ar]3d&#x2079;4s&#xB2;`,`[Ar]3d&#x2079;`,`[Ar]3d&#xB9;&#x2070;`,`[Ar]3d&#x2078;4s&#xB9;`],correct:1,marks:1},
+    {text:`An s orbital has shape:`,options:[`Dumbbell`,`Spherical`,`Double dumbbell`,`Ring`],correct:2,marks:1},
+    {text:`Which equation correctly represents first ionisation energy?`,options:[`X(g) + e&#x207B; &rarr; X&#x207B;(g)`,`X(s) &rarr; X&#x207A;(g) + e&#x207B;`,`X(g) &rarr; X&#x207A;(g) + e&#x207B;`,`X&#xB2;&#x207A;(g) + e&#x207B; &rarr; X&#x207A;(g)`],correct:2,marks:1},
+    {text:`4s fills before 3d because:`,options:[`4s has lower principal quantum number`,`4s has lower energy than 3d in neutral atoms`,`4s holds more electrons`,`3d is in a different period`],correct:1,marks:1},
+    {text:`How many unpaired electrons does N (1s&#xB2;2s&#xB2;2p&#xB3;) have?`,options:[`0`,`1`,`2`,`3`],correct:3,marks:1},
+    {text:`Which ion is isoelectronic with Ne (Z=10)?`,options:[`Na&#x207A; only`,`Al&#xB3;&#x207A; only`,`Both Na&#x207A; and Al&#xB3;&#x207A;`,`F&#xB2;&#x207B;`],correct:2,marks:1},
+    {text:`The convergence limit of the Lyman series corresponds to:`,options:[`The n=1&rarr;n=2 transition energy`,`The ionisation energy of hydrogen`,`The ground state energy of hydrogen`,`The energy of the n=2 level`],correct:1,marks:1},
+    {text:`Shielding by inner electrons causes outer electrons to experience:`,options:[`Increased nuclear charge`,`Reduced effective nuclear charge`,`No change in nuclear attraction`,`Greater attraction to nucleus`],correct:2,marks:1},
+    {text:`The electron configuration of Fe&#xB3;&#x207A; is:`,options:[`[Ar]3d&#x2076;`,`[Ar]3d&#x2075;`,`[Ar]3d&#x2074;4s&#xB9;`,`[Ar]3d&#xB3;4s&#xB2;`],correct:0,marks:1},
+    {text:`Which statement about absorption spectra is correct?`,options:[`Bright lines on a dark background`,`Lines at different wavelengths to emission lines`,`Dark lines on a continuous spectrum, at the same wavelengths as emission lines`,`Produced when electrons fall to lower energy levels`],correct:2,marks:1},
+  ]},
+  {num:"Unit 3",title:`Ionic & Metallic Bonds`,questions:[
+    {text:`Ionic bonds form by:`,options:[`Sharing of electrons between two non-metals`,`Transfer of electrons from a metal to a non-metal`,`Delocalisation of electrons in a metal lattice`,`Sharing of electrons between two metals`],correct:1,marks:1},
+    {text:`Which compound contains the strongest ionic bond?`,options:[`NaF`,`NaCl`,`MgO`,`KBr`],correct:1,marks:1},
+    {text:`What is the correct formula of the ionic compound formed between Al&#xB3;&#x207A; and O&#xB2;&#x207B;?`,options:[`AlO`,`Al&#x2082;O&#xB3;`,`Al&#xB3;O&#x2082;`,`AlO&#x2082;`],correct:1,marks:1},
+    {text:`Why does solid NaCl not conduct electricity?`,options:[`It has no charged particles`,`Its ions are fixed in the lattice and cannot move`,`It is insoluble in water`,`It has no delocalised electrons or mobile ions`],correct:1,marks:1},
+    {text:`Metallic bonding is best described as:`,options:[`Sharing of electrons between two metal atoms`,`Electrostatic attraction between metal cations and a sea of delocalised electrons`,`Transfer of electrons from one metal to another`,`Attraction between neutral metal atoms`],correct:1,marks:1},
+    {text:`Why are metals malleable?`,options:[`Their ions repel each other when stress is applied`,`Ion layers slide past each other while delocalised electrons maintain the bond`,`They have directional covalent bonds that flex`,`Their metallic bonds are very weak`],correct:1,marks:1},
+    {text:`Why are ionic compounds brittle?`,options:[`They have weak bonds throughout`,`When layers shift, like charges align and repel strongly, causing fracture`,`Their electrons are not delocalised`,`They dissolve too easily`],correct:0,marks:1},
+    {text:`Which species has the electron configuration of argon (Ar)?`,options:[`Na&#x207A;`,`Cl&#x207B;`,`Mg&#xB2;&#x207A;`,`Both B and C`],correct:0,marks:1},
+    {text:`Lattice energy is always:`,options:[`Endothermic (positive)`,`Exothermic (negative)`,`Zero for all compounds`,`Equal to the ionisation energy`],correct:1,marks:1},
+    {text:`Why does Al have a higher melting point than Na?`,options:[`Al has larger atoms`,`Al has more delocalised electrons per atom and a higher ionic charge, giving stronger metallic bonding`,`Al is heavier`,`Na has more electrons in its outer shell`],correct:1,marks:1},
+    {text:`Which correctly explains why metals conduct electricity?`,options:[`Positive ions move through the metal`,`Ionic bonds break and re-form`,`Delocalised electrons are free to move and carry charge`,`Metal atoms share electrons with adjacent atoms in fixed pairs`],correct:2,marks:1},
+    {text:`The octet rule states that atoms tend to:`,options:[`Have 8 protons in their nucleus`,`Lose exactly 8 electrons when bonding`,`Achieve 8 electrons in their outer shell`,`Form exactly 8 ionic bonds`],correct:2,marks:1},
+    {text:`Which property of ionic compounds is best explained by strong electrostatic forces in the lattice?`,options:[`Solubility in organic solvents`,`Malleability`,`High melting point`,`Electrical conductivity in the solid state`],correct:2,marks:1},
+    {text:`When Na forms Na&#x207A;, it becomes isoelectronic with:`,options:[`Ar`,`Ne`,`He`,`Kr`],correct:1,marks:1},
+    {text:`The coordination number of Na&#x207A; in the NaCl lattice is:`,options:[`4`,`8`,`6`,`12`],correct:2,marks:1},
+    {text:`Which statement about metallic bonding is correct?`,options:[`Metallic bonds are directional`,`Metallic bonds are non-directional &mdash; the electron sea surrounds cations in all directions`,`Only the outermost layer of atoms contributes electrons`,`Metallic bonds are weaker than covalent bonds`],correct:1,marks:1},
+    {text:`MgO has a higher lattice energy than MgS because:`,options:[`O&#xB2;&#x207B; has a higher charge than S&#xB2;&#x207B;`,`O&#xB2;&#x207B; is smaller than S&#xB2;&#x207B;, so ions are closer and attraction is stronger`,`Mg is more reactive than S`,`MgO has a different lattice structure`],correct:1,marks:1},
+    {text:`Which correctly describes how ionic compounds dissolve in water?`,options:[`The crystal structure is unchanged; water surrounds the lattice`,`Polar water molecules attract ions from the lattice surface; hydration energy overcomes lattice energy`,`Electrons are transferred from water to the ions`,`The compound reacts chemically with water`],correct:1,marks:1},
+    {text:`The formula of the ionic compound formed between Fe&#xB3;&#x207A; and SO&#x2084;&#xB2;&#x207B; is:`,options:[`FeSO&#x2084;`,`Fe&#x2082;(SO&#x2084;)&#xB3;`,`Fe&#xB3;SO&#x2084;`,`Fe(SO&#x2084;)&#xB2;`],correct:1,marks:1},
+    {text:`Which property do metals and ionic compounds share?`,options:[`Electrical conductivity in the solid state`,`Malleability`,`High melting points (generally)`,`Solubility in water`],correct:2,marks:1},
+    {text:`Which correctly describes the electron configuration of O&#xB2;&#x207B;?`,options:[`1s&#xB2;2s&#xB2;2p&#x2074;`,`1s&#xB2;2s&#xB2;2p&#x2076;`,`1s&#xB2;2s&#xB2;2p&#xB3;`,`1s&#xB2;2s&#xB2;2p&#x2075;`],correct:0,marks:1},
+    {text:`The shiny lustre of metals is due to:`,options:[`The large size of metal ions`,`Delocalised electrons absorbing and re-emitting light across a broad frequency range`,`The regular arrangement of lattice ions reflecting light`,`The ionic bonds within the metal`],correct:1,marks:1},
+    {text:`Which element has the highest electronegativity?`,options:[`Oxygen`,`Nitrogen`,`Chlorine`,`Fluorine`],correct:3,marks:1},
+    {text:`An element X forms an ion X&#xB3;&#x207A;. It is most likely:`,options:[`In Group 1`,`In Group 3 (Group 13)`,`In Group 6`,`In Group 7`],correct:0,marks:1},
+    {text:`Molten NaCl conducts electricity because:`,options:[`The covalent bonds break, releasing electrons`,`Na atoms donate electrons to Cl atoms`,`Ions are free to move and carry charge when the lattice is disrupted by melting`,`The temperature increases electron energy`],correct:2,marks:1},
+  ]},
+  {num:"Unit 4",title:`Covalent Bonding`,questions:[
+    {text:`A covalent bond forms by:`,options:[`Transfer of electrons from one atom to another`,`Mutual sharing of one or more electron pairs between atoms`,`Delocalisation of electrons across a lattice`,`Attraction between opposite ions`],correct:1,marks:1},
+    {text:`A dative bond differs from a normal covalent bond because:`,options:[`It is weaker than a covalent bond`,`Both electrons in the shared pair are donated by the same atom`,`It involves transfer of electrons permanently`,`Only one atom is involved`],correct:1,marks:1},
+    {text:`The shape of H&#x2082;O is:`,options:[`Linear`,`Trigonal planar`,`Bent/V-shaped`,`Tetrahedral`],correct:3,marks:1},
+    {text:`The bond angle in CH&#x2084; is:`,options:[`90&deg;`,`120&deg;`,`109.5&deg;`,`104.5&deg;`],correct:2,marks:1},
+    {text:`Which molecule has a trigonal pyramidal shape?`,options:[`BF&#x2083;`,`CO&#x2082;`,`NH&#x2083;`,`H&#x2082;O`],correct:0,marks:1},
+    {text:`sp&#xB3; hybridised carbon forms:`,options:[`Linear geometry; 180&deg;`,`Trigonal planar geometry; 120&deg;`,`Tetrahedral geometry; 109.5&deg;`,`Octahedral geometry; 90&deg;`],correct:2,marks:1},
+    {text:`A double bond consists of:`,options:[`Two &sigma; bonds`,`One &sigma; + one &pi; bond`,`Two &pi; bonds`,`One &sigma; + two &pi; bonds`],correct:1,marks:1},
+    {text:`Which has the strongest intermolecular forces?`,options:[`CH&#x2084;`,`HCl`,`H&#x2082;O`,`Ar`],correct:0,marks:1},
+    {text:`Why does CO&#x2082; have polar bonds but is a non-polar molecule?`,options:[`The C&ndash;O bonds are non-polar because C and O have the same electronegativity`,`The two bond dipoles cancel because CO&#x2082; is linear and symmetric`,`CO&#x2082; has no lone pairs anywhere`,`The molecule has a very low molar mass`],correct:1,marks:1},
+    {text:`Hydrogen bonds can form between molecules containing:`,options:[`H bonded to any electronegative atom`,`H bonded to N, O, or F only`,`H bonded to Cl, Br, or I`,`Any molecule containing hydrogen`],correct:0,marks:1},
+    {text:`The hybridisation of carbon in ethene (C&#x2082;H&#x2084;) is:`,options:[`sp`,`sp&#xB2;`,`sp&#xB3;`,`sp&#xB3;d`],correct:1,marks:1},
+    {text:`Which property does graphite have that diamond does not?`,options:[`High melting point`,`Giant covalent structure`,`Electrical conductivity`,`Insolubility in water`],correct:2,marks:1},
+    {text:`VSEPR theory predicts bond angles by:`,options:[`Maximising electron pair repulsion`,`Minimising repulsion between all electron pairs around the central atom`,`Counting only bonding electron pairs`,`Minimising the number of bonds`],correct:0,marks:1},
+    {text:`Why does the boiling point of noble gases increase from He to Xe?`,options:[`Xe forms hydrogen bonds`,`Increasing molar mass &rarr; more electrons &rarr; stronger London dispersion forces`,`Xe has a permanent dipole`,`Noble gases become ionic down the group`],correct:1,marks:1},
+    {text:`Simple molecular substances have low melting points because:`,options:[`Their covalent bonds are weak`,`The intermolecular forces between molecules are weak`,`They are composed of ions`,`They have delocalised electrons`],correct:0,marks:1},
+    {text:`The bond angle in NH&#x2083; (&approx;107&deg;) is less than the tetrahedral angle (109.5&deg;) because:`,options:[`N is more electronegative than H`,`The lone pair on N exerts greater repulsion than a bonding pair, compressing the bond angles`,`NH&#x2083; has only 3 bonds instead of 4`,`N&ndash;H bonds are shorter than predicted`],correct:1,marks:1},
+    {text:`Which molecule is polar?`,options:[`CCl&#x2084;`,`CO&#x2082;`,`BF&#x2083;`,`CHCl&#x2083;`],correct:0,marks:1},
+    {text:`Which species contains a dative covalent bond?`,options:[`NaCl`,`H&#x2082;`,`NH&#x2084;&#x207A;`,`Cl&#x2082;`],correct:0,marks:1},
+    {text:`Diamond has a very high melting point because:`,options:[`It has strong London dispersion forces`,`It is an ionic compound`,`Each carbon is covalently bonded to 4 others in a giant 3D lattice requiring enormous energy to break`,`It contains hydrogen bonds`],correct:2,marks:1},
+    {text:`The hybridisation of carbon in ethyne (HC&equiv;CH) is:`,options:[`sp&#xB3;`,`sp&#xB2;`,`sp`,`sp&#xB3;d`],correct:2,marks:1},
+    {text:`Which correctly orders the repulsion strength?`,options:[`bp&ndash;bp &gt; lp&ndash;bp &gt; lp&ndash;lp`,`lp&ndash;lp &gt; lp&ndash;bp &gt; bp&ndash;bp`,`lp&ndash;bp &gt; lp&ndash;lp &gt; bp&ndash;bp`,`All equal`],correct:0,marks:1},
+    {text:`Ice is less dense than liquid water because:`,options:[`Ice has fewer hydrogen bonds`,`In ice, H-bonds create an open hexagonal lattice with more space than liquid water`,`Ice molecules move faster`,`Covalent bonds in ice are longer`],correct:1,marks:1},
+    {text:`Which substance has the highest boiling point?`,options:[`CH&#x2084; (M = 16)`,`HF (M = 20)`,`NH&#x2083; (M = 17)`,`H&#x2082;O (M = 18)`],correct:2,marks:1},
+    {text:`Silicon dioxide (SiO&#x2082;) is best described as:`,options:[`A simple molecular compound`,`An ionic compound`,`A giant covalent compound`,`A metallic compound`],correct:2,marks:1},
+    {text:`A &pi; bond is weaker than a &sigma; bond because:`,options:[`It involves more electrons`,`It has less orbital overlap (side-on) than the end-on overlap of a &sigma; bond`,`It is a dative bond`,`It connects atoms further apart`],correct:1,marks:1},
+  ]},
+  {num:"Unit 5",title:`Periodic Trends`,questions:[
+    {text:`Mendeleev's key innovation over Newlands was:`,options:[`Arranging elements by atomic number`,`Leaving gaps for undiscovered elements and predicting their properties`,`Including noble gases in his table`,`Using only chemical properties to arrange elements`],correct:1,marks:1},
+    {text:`The modern periodic table is arranged by:`,options:[`Relative atomic mass`,`Atomic number (proton number)`,`Number of neutrons`,`Reactivity`],correct:1,marks:1},
+    {text:`An element has configuration [Xe]4f&#xB9;&#x2074;5d&#x2076;6s&#xB2;. Which block is it in?`,options:[`s-block`,`p-block`,`d-block`,`f-block`],correct:2,marks:1},
+    {text:`The period number of an element equals:`,options:[`The number of valence electrons`,`The highest principal quantum number in its electron configuration`,`The number of neutrons`,`The group number minus 10`],correct:1,marks:1},
+    {text:`Atomic radius across Period 3 decreases because:`,options:[`Electrons are added to new shells`,`Nuclear charge increases while shielding stays roughly constant, pulling outer electrons inward`,`Neutrons repel electrons`,`The number of electron shells decreases`],correct:1,marks:1},
+    {text:`Which element has the highest electronegativity?`,options:[`Oxygen`,`Chlorine`,`Fluorine`,`Nitrogen`],correct:2,marks:1},
+    {text:`Why does the melting point of metals increase from Na to Al across Period 3?`,options:[`Atomic radius increases`,`Number of delocalised electrons per atom increases (1 &rarr; 2 &rarr; 3), strengthening metallic bonding`,`The atoms get heavier`,`Ionic bonds form between the metals`],correct:1,marks:1},
+    {text:`Silicon has the highest melting point in Period 3 because:`,options:[`It is a metal`,`It forms strong hydrogen bonds`,`It forms a giant covalent lattice with strong covalent bonds throughout`,`It has the most electrons of Period 3 elements`],correct:2,marks:1},
+    {text:`In which block is phosphorus (P, Z=15)?`,options:[`s-block`,`p-block`,`d-block`,`f-block`],correct:1,marks:1},
+    {text:`Which of the following has the largest atomic radius?`,options:[`Li`,`Na`,`K`,`Cs`],correct:3,marks:1},
+    {text:`The d-block elements are characterised by:`,options:[`Filling of outer p subshells`,`Variable oxidation states, coloured ions, and catalytic activity`,`Being non-metals with high electronegativities`,`Forming only &minus;1 ions`],correct:1,marks:1},
+    {text:`The ionic radius order for the isoelectronic series N&#xB3;&#x207B;, O&#xB2;&#x207B;, F&#x207B;, Na&#x207A;, Mg&#xB2;&#x207A; is:`,options:[`N&#xB3;&#x207B; &lt; O&#xB2;&#x207B; &lt; F&#x207B; &lt; Na&#x207A; &lt; Mg&#xB2;&#x207A;`,`Mg&#xB2;&#x207A; &lt; Na&#x207A; &lt; F&#x207B; &lt; O&#xB2;&#x207B; &lt; N&#xB3;&#x207B;`,`All equal (isoelectronic)`,`Na&#x207A; &lt; Mg&#xB2;&#x207A; &lt; F&#x207B; &lt; O&#xB2;&#x207B; &lt; N&#xB3;&#x207B;`],correct:0,marks:1},
+    {text:`Which scientist determined that atomic number, not mass, is the basis for the periodic table?`,options:[`Mendeleev`,`Newlands`,`Moseley`,`D&ouml;bereiner`],correct:2,marks:1},
+    {text:`First ionisation energy generally increases across Period 2 because:`,options:[`Atoms get smaller and nuclear charge increases, pulling outer electrons more strongly`,`More electron shells are added`,`Shielding increases dramatically`,`Atomic radius increases`],correct:0,marks:1},
+    {text:`Why do noble gases (Group 18) have very low boiling points and are chemically inert?`,options:[`They have high electronegativity`,`Full outer shells make them stable; non-polar atoms have only weak LDF &rarr; low b.p.`,`They are metals with high melting points`,`They have no electrons`],correct:1,marks:1},
+    {text:`Which element is in Period 4, Group 2?`,options:[`Mg`,`Ca`,`Sr`,`Be`],correct:1,marks:1},
+    {text:`The law of triads was proposed by:`,options:[`Newlands`,`Moseley`,`Mendeleev`,`D&ouml;bereiner`],correct:3,marks:1},
+    {text:`Which property INCREASES down Group 17 (halogens)?`,options:[`Electronegativity`,`Ionisation energy`,`Boiling point`,`Reactivity as oxidising agent`],correct:2,marks:1},
+    {text:`The f-block elements (lanthanides and actinides) are separated below the main table because:`,options:[`They are radioactive`,`Inserting them would make the table too wide; they involve filling of inner f subshells`,`They have no practical uses`,`They do not follow periodic trends`],correct:1,marks:1},
+    {text:`A cation is smaller than its parent atom because:`,options:[`It has more protons than the neutral atom`,`Removing electrons reduces repulsion; remaining electrons drawn closer by same nuclear charge`,`The nucleus shrinks when electrons are removed`,`The ion has fewer neutrons`],correct:1,marks:1},
+    {text:`Which correctly describes p-block elements?`,options:[`All are metals`,`Include metals, metalloids, non-metals, and noble gases (Groups 13&ndash;18)`,`All have variable oxidation states`,`Found only in Periods 4&ndash;7`],correct:1,marks:1},
+    {text:`Why does metallic character increase down Group 1?`,options:[`Nuclear charge increases`,`Outer electron is in a higher shell, further from nucleus and more shielded, so it is lost more easily`,`More electrons are available for metallic bonding`,`Atomic mass increases`],correct:1,marks:1},
+    {text:`The anomaly in Mendeleev's table where Te appeared before I was resolved by:`,options:[`Measuring more accurate atomic masses`,`Ordering by atomic number (Z), where Te (Z=52) correctly precedes I (Z=53)`,`Discovering new isotopes of Te`,`Moving Te to Group 17`],correct:1,marks:1},
+    {text:`Which element is in Period 5, Group 17?`,options:[`Cl`,`I`,`Br`,`At`],correct:1,marks:1},
+    {text:`Which trend is correct for electronegativity?`,options:[`Decreases across a period; increases down a group`,`Increases across a period; decreases down a group`,`Increases both across and down`,`Constant across a period`],correct:0,marks:1},
+  ]},
+  {num:"Unit 6",title:`Group 1 Metals`,questions:[
+    {text:`Reactivity of Group 1 metals increases down the group because:`,options:[`Nuclear charge decreases`,`Ionisation energy decreases &mdash; outer electron is in a higher shell, further away and more shielded`,`Atomic radius decreases`,`Metallic character decreases`],correct:1,marks:1},
+    {text:`The product when sodium burns in excess oxygen is:`,options:[`Na&#x2082;O`,`Na&#x2082;O&#x2082;`,`NaO&#x2082;`,`Na&#x2082;O&#x2083;`],correct:0,marks:1},
+    {text:`The equation for potassium reacting with water is:`,options:[`K + H&#x2082;O &rarr; KOH + H`,`2K + 2H&#x2082;O &rarr; 2KOH + H&#x2082;`,`K + H&#x2082;O &rarr; K&#x2082;O + H&#x2082;`,`4K + O&#x2082; &rarr; 2K&#x2082;O`],correct:1,marks:1},
+    {text:`The flame test colour for sodium is:`,options:[`Crimson red`,`Lilac`,`Persistent yellow`,`Blue-green`],correct:2,marks:1},
+    {text:`Why is blue cobalt glass used when performing a flame test for potassium?`,options:[`To intensify the potassium flame colour`,`To filter out the yellow colour of sodium that would mask the lilac of potassium`,`To protect the eyes from UV radiation`,`To change K&#x207A; into a coloured compound`],correct:1,marks:1},
+    {text:`When heated, NaNO&#x2083; produces:`,options:[`Na&#x2082;O + NO&#x2082; + O&#x2082;`,`NaNO&#x2082; + O&#x2082;`,`Na&#x2082;O + O&#x2082;`,`NaNO&#x2082; + H&#x2082;O`],correct:0,marks:1},
+    {text:`Li&#x2082;CO&#x2083; decomposes on heating while Na&#x2082;CO&#x2083; does not because:`,options:[`Li is more metallic than Na`,`Li&#x207A; is smaller with higher charge density, polarising CO&#x2083;&#xB2;&#x207B; more strongly`,`Li&#x2082;CO&#x2083; has a higher lattice energy`,`Na is less reactive than Li`],correct:1,marks:1},
+    {text:`Which Group 1 compound is used in self-contained breathing apparatus?`,options:[`NaCl`,`NaOH`,`Na&#x2082;O&#x2082;`,`Na&#x2082;CO&#x2083;`],correct:2,marks:1},
+    {text:`Which property of Group 1 metals decreases down the group?`,options:[`Atomic radius`,`Density`,`Reactivity`,`Melting point`],correct:0,marks:1},
+    {text:`The diagonal relationship means Li resembles:`,options:[`Be in Group 2`,`Mg in Group 2`,`B in Group 13`,`Na in Group 1`],correct:0,marks:1},
+    {text:`Hydrogen differs from Group 1 metals because it:`,options:[`Has one outer electron`,`Can form a &minus;1 ion (hydride) and is a non-metal gas`,`Can lose one electron to form a +1 ion`,`Is placed in Period 1`],correct:1,marks:1},
+    {text:`The product of reacting potassium with oxygen (in excess) is:`,options:[`K&#x2082;O`,`K&#x2082;O&#x2082;`,`KO&#x2082;`,`K&#x2082;O&#x2083;`],correct:2,marks:1},
+    {text:`NaHCO&#x2083; is used as an antacid because:`,options:[`It reacts with excess stomach acid (HCl) to neutralise it`,`It produces hydrogen that neutralises acid`,`It is soluble in organic solvents`,`It absorbs water in the stomach`],correct:0,marks:1},
+    {text:`Which of the following is sparingly soluble in water (unlike most Group 1 compounds)?`,options:[`NaCl`,`KNO&#x2083;`,`Li&#x2082;CO&#x2083;`,`Na&#x2082;SO&#x2084;`],correct:2,marks:1},
+    {text:`Which Group 1 element has the lowest first ionisation energy?`,options:[`Li`,`Na`,`K`,`Cs`],correct:3,marks:1},
+    {text:`The reaction of Na&#x2082;O&#x2082; with CO&#x2082; is important in rebreathers because it:`,options:[`Absorbs O&#x2082; and releases CO&#x2082;`,`Absorbs CO&#x2082; and releases O&#x2082;`,`Converts CO&#x2082; to water`,`Burns the CO&#x2082; for energy`],correct:0,marks:1},
+    {text:`Flame tests work because:`,options:[`Metals burn in oxygen`,`Electrons excited by heat emit photons of specific visible wavelengths as they return to ground state`,`Metals form coloured ionic compounds in the flame`,`The flame changes composition based on the metal present`],correct:1,marks:1},
+    {text:`Which use best describes Na&#x2082;CO&#x2083;?`,options:[`Used in lithium-ion batteries`,`Used in glass manufacture and water softening`,`Used as a coolant in nuclear reactors`,`Used in gunpowder`],correct:1,marks:1},
+    {text:`The reaction of NaOH with CO&#x2082; (excess NaOH) gives:`,options:[`NaHCO&#x2083;`,`Na&#x2082;CO&#x2083; + H&#x2082;O`,`Na&#x2082;O + H&#x2082;O`,`NaCl + H&#x2082;O`],correct:1,marks:1},
+    {text:`Hydrogen is sometimes placed in Group 17 because it:`,options:[`Has 7 outer electrons`,`Can gain one electron to form H&#x207B; (hydride), similar to halide ions`,`Reacts with water like a halogen`,`Has a high electronegativity similar to fluorine`],correct:1,marks:1},
+    {text:`All Group 1 elements are stored under oil because:`,options:[`They dissolve in oil, improving stability`,`Oil prevents them from reacting with moisture and oxygen in air`,`Oil reduces their reactivity permanently`,`They float on water so oil provides buoyancy`],correct:1,marks:1},
+    {text:`Which alkali metal has the highest melting point?`,options:[`Cs`,`K`,`Na`,`Li`],correct:3,marks:1},
+    {text:`Sodium hydroxide reacts with hydrochloric acid to give:`,options:[`Na&#x2082;O + H&#x2082;O`,`Na&#x2082;Cl + H&#x2082;O`,`NaCl + H&#x2082;O`,`NaCl + H&#x2082;`],correct:2,marks:1},
+    {text:`KNO&#x2083; is used in fertilisers because:`,options:[`It contains potassium (K) and nitrogen (N), both essential nutrients for plant growth`,`It releases oxygen for plant respiration`,`It neutralises acidic soils`,`It is a cheap source of salt`],correct:0,marks:1},
+    {text:`Lithium batteries are widely used in portable electronics because lithium:`,options:[`Is the most reactive metal`,`Has a very low atomic mass, giving a high energy-to-mass ratio`,`Forms the most stable ionic compounds`,`Is the most abundant alkali metal`],correct:1,marks:1},
+  ]},
+  {num:"Unit 7",title:`Group 2 Metals`,questions:[
+    {text:`The thermal stability of Group 2 carbonates increases down the group because:`,options:[`Larger cations have higher charge density, polarising CO&#x3;&#xB2;&#x207B; more`,`Larger cations have lower charge density, polarising CO&#x3;&#xB2;&#x207B; less, making decomposition harder`,`The carbonates become more ionic down the group`,`Larger cations form stronger bonds with CO&#x3;&#xB2;&#x207B;`],correct:0,marks:1},
+    {text:`The solubility of Group 2 sulfates:`,options:[`Increases down the group`,`Decreases down the group`,`Remains constant`,`Increases then decreases`],correct:1,marks:1},
+    {text:`The reagent used to test for Ba&#xB2;&#x207A; ions is:`,options:[`Dilute HCl only`,`Dilute H&#x2082;SO&#x2084; (giving a white precipitate of BaSO&#x2084;)`,`NaOH solution`,`AgNO&#x2083; solution`],correct:1,marks:1},
+    {text:`Beryllium is anomalous in Group 2 because it:`,options:[`Forms +1 ions instead of +2`,`Has an amphoteric oxide/hydroxide and forms covalent compounds`,`Does not conduct electricity`,`Reacts explosively with water`],correct:1,marks:1},
+    {text:`The flame colour of barium is:`,options:[`Crimson red`,`Brick red`,`Apple green`,`Lilac`],correct:2,marks:1},
+    {text:`When CaO reacts with water, the product is:`,options:[`CaCO&#x2083;`,`CaO&#x2082;`,`Ca(OH)&#x2082;`,`CaCl&#x2082;`],correct:2,marks:1},
+    {text:`Why is BaSO&#x2084; used as a contrast agent in X-ray examination?`,options:[`It is coloured and visible without X-rays`,`It is opaque to X-rays and insoluble, so it cannot be absorbed into the bloodstream`,`It reacts with stomach acid to produce a contrasting product`,`It is a radioactive substance that emits X-rays`],correct:1,marks:1},
+    {text:`Which Group 2 hydroxide is most soluble?`,options:[`Mg(OH)&#x2082;`,`Ca(OH)&#x2082;`,`Sr(OH)&#x2082;`,`Ba(OH)&#x2082;`],correct:3,marks:1},
+    {text:`Group 2 nitrates decompose to give:`,options:[`Metal nitrite + O&#x2082;`,`Metal oxide + NO&#x2082; + O&#x2082;`,`Metal + N&#x2082; + O&#x2082;`,`Metal oxide + N&#x2082;O`],correct:1,marks:1},
+    {text:`Which element does beryllium most resemble due to the diagonal relationship?`,options:[`Boron`,`Aluminium`,`Lithium`,`Silicon`],correct:1,marks:1},
+    {text:`Limewater (Ca(OH)&#x2082;) turns milky when CO&#x2082; is bubbled through because:`,options:[`CaO is produced`,`Insoluble CaCO&#x2083; precipitates`,`Ca(OH)&#x2082; dissolves`,`CO&#x2082; reacts to form Ca(HCO&#x2083;)&#x2082; which is milky`],correct:1,marks:1},
+    {text:`Magnesium does not react significantly with cold water but reacts with steam because:`,options:[`Steam is denser than cold water`,`The higher temperature of steam provides enough activation energy to overcome the protective oxide layer on Mg`,`Steam contains oxygen`,`Cold water neutralises Mg`],correct:1,marks:1},
+    {text:`Ca(OH)&#x2082; is added to acidic soil to:`,options:[`Add nitrogen nutrients`,`Raise the pH by neutralising excess acid`,`Kill pests`,`Increase the carbon content of soil`],correct:1,marks:1},
+    {text:`Which of these Group 2 compounds is used as an antacid?`,options:[`BaSO&#x2084;`,`CaCO&#x2083;`,`Mg(OH)&#x2082;`,`MgSO&#x2084;`],correct:1,marks:1},
+    {text:`The reactivity of Group 2 metals increases down the group because:`,options:[`Nuclear charge decreases`,`Both the first and second ionisation energies decrease, making electron loss easier`,`The outer electrons become more tightly held`,`Group 2 metals form +1 ions going down the group`],correct:3,marks:1},
+    {text:`CaSO&#x2084; is only slightly soluble in water. This explains why Ca reacts with H&#x2082;SO&#x2084; only initially because:`,options:[`Ca runs out of electrons to donate`,`Insoluble CaSO&#x2084; forms a protective layer on Ca surface, preventing further reaction`,`H&#x2082;SO&#x2084; is a weak acid with Ca`,`The reaction absorbs heat and stops`],correct:1,marks:1},
+    {text:`Which carbonate requires the highest temperature to decompose?`,options:[`MgCO&#x2083;`,`CaCO&#x2083;`,`SrCO&#x2083;`,`BaCO&#x2083;`],correct:3,marks:1},
+    {text:`When excess CO&#x2082; is bubbled through limewater (initially turned milky), the solution clears because:`,options:[`CaCO&#x2083; decomposes back to Ca(OH)&#x2082;`,`CaCO&#x2083; + CO&#x2082; + H&#x2082;O &rarr; Ca(HCO&#x2083;)&#x2082; (soluble)`,`The CO&#x2082; dissolves the Ca(OH)&#x2082;`,`The temperature rises and CaCO&#x2083; dissolves`],correct:1,marks:1},
+    {text:`The ionic equation for the reaction of Be(OH)&#x2082; with NaOH is best described as:`,options:[`Be(OH)&#x2082; acting as a base`,`Be(OH)&#x2082; acting as an acid, accepting OH&#x207B;`,`Be(OH)&#x2082; + 2NaOH &rarr; Na&#x2082;[Be(OH)&#x2084;], acting as an acid donating protons`,`Be(OH)&#x2082; acting as a reducing agent`],correct:2,marks:1},
+    {text:`Epsom salt (MgSO&#x2084;&middot;7H&#x2082;O) is used as:`,options:[`An antacid`,`A fertiliser source of Mg and a mild laxative`,`A barium meal`,`A refractory furnace lining`],correct:1,marks:1},
+    {text:`CaO is called "quicklime" and is produced by:`,options:[`Burning Ca in oxygen`,`Thermal decomposition of CaCO&#x2083;`,`Reacting Ca with water`,`Reacting CaCl&#x2082; with NaOH`],correct:1,marks:1},
+    {text:`Group 2 metals have higher melting points than Group 1 metals in the same period because:`,options:[`Group 2 metals form ionic compounds`,`Group 2 metals contribute 2 delocalised electrons per atom, giving stronger metallic bonding`,`Group 2 atoms are larger`,`Group 2 metals have more neutrons`],correct:1,marks:1},
+    {text:`Which test would distinguish Ca&#xB2;&#x207A; from Ba&#xB2;&#x207A; in solution?`,options:[`Adding NaOH (both give white precipitate)`,`Adding dilute HCl (neither reacts)`,`Adding dilute H&#x2082;SO&#x2084;: BaSO&#x2084; is insoluble in HCl; CaSO&#x2084; is slightly soluble`,`Flame test: both give crimson colour`],correct:2,marks:1},
+    {text:`In the Solvay (ammonia-soda) process, Ca(OH)&#x2082; is used to:`,options:[`Produce CO&#x2082; for the process`,`Recover ammonia from ammonium chloride for recycling: Ca(OH)&#x2082; + 2NH&#x2084;Cl &rarr; CaCl&#x2082; + 2NH&#x2083; + 2H&#x2082;O`,`Neutralise the final product`,`Extract sodium from the solution`],correct:1,marks:1},
+    {text:`Magnesium is used in flares and fireworks because it:`,options:[`Burns with a low-energy red flame`,`Burns with a very bright white light in oxygen, producing white MgO smoke`,`Burns slowly and steadily`,`Burns without producing any smoke`],correct:1,marks:1},
+  ]},
+  {num:"Unit 8",title:`Group 13 Elements`,questions:[
+    {text:`All Group 13 elements have the outer electron configuration:`,options:[`ns&#xB2;np&#xB2;`,`ns&#xB2;np&#xB9;`,`ns&#xB9;`,`ns&#xB2;`],correct:1,marks:1},
+    {text:`Al&#x2082;O&#x2083; is described as amphoteric because it:`,options:[`Only reacts with acids`,`Only reacts with bases`,`Reacts with both acids and bases`,`Does not react with acids or bases`],correct:2,marks:1},
+    {text:`When excess NaOH is added to a solution containing Al&#xB3;&#x207A;, the white precipitate:`,options:[`Turns brown`,`Remains unchanged`,`Dissolves to give a colourless solution`,`Turns blue`],correct:2,marks:1},
+    {text:`Why does aluminium appear unreactive in everyday life?`,options:[`It has a very low standard electrode potential`,`A thin protective layer of Al&#x2082;O&#x2083; covers the surface, preventing further reaction`,`Aluminium forms very weak bonds with oxygen`,`Aluminium is a noble metal`],correct:1,marks:1},
+    {text:`The thermite reaction (2Al + Fe&#x2082;O&#x2083; &rarr; Al&#x2082;O&#x2083; + 2Fe) is used to:`,options:[`Extract aluminium from bauxite`,`Weld railway tracks using the highly exothermic reduction producing molten iron`,`Coat iron with aluminium to prevent rusting`,`Produce Fe&#x2082;O&#x3; from iron`],correct:1,marks:1},
+    {text:`Boron forms B&#x2082;O&#x2083; which is:`,options:[`Basic`,`Amphoteric`,`Acidic`,`Neutral`],correct:1,marks:1},
+    {text:`The inert pair effect in Group 13 explains why:`,options:[`Boron is a semiconductor`,`Thallium commonly forms +1 ions rather than +3 ions`,`Aluminium forms amphoteric compounds`,`Gallium has a low melting point`],correct:1,marks:1},
+    {text:`AlCl&#x2083; acts as a Lewis acid because:`,options:[`It donates a proton to bases`,`Al has only 6 electrons around it in AlCl&#x2083; and can accept a lone pair`,`It contains chlorine which is electronegative`,`Al has a full octet in AlCl&#x2083;`],correct:1,marks:1},
+    {text:`Boron resembles silicon via the diagonal relationship. Which property do they share?`,options:[`Both form ionic chlorides`,`Both are semiconductors with acidic oxides and covalent compounds`,`Both form +2 ions in solution`,`Both dissolve in dilute HCl to give H&#x2082;`],correct:1,marks:1},
+    {text:`Al(OH)&#x2083; is used in water treatment because:`,options:[`It kills bacteria in water`,`Its gelatinous precipitate traps suspended impurities (flocculation)`,`It dissolves in water to make it acidic`,`It absorbs dissolved gases`],correct:1,marks:1},
+    {text:`Which equation correctly shows aluminium dissolving in NaOH(aq)?`,options:[`Al + NaOH &rarr; NaAlO&#x2082; + H&#x2082;`,`2Al + 2NaOH + 6H&#x2082;O &rarr; 2Na[Al(OH)&#x2084;] + 3H&#x2082;`,`Al + 3NaOH &rarr; Al(OH)&#x2083; + 3Na`,`2Al + 6NaOH &rarr; 2Na&#x2083;AlO&#x2083; + 3H&#x2082;`],correct:1,marks:1},
+    {text:`Al&#x2082;O&#x2083; is used as a refractory material because:`,options:[`It has a very low melting point`,`It has a very high melting point (~2050&deg;C) and is chemically stable at high temperatures`,`It is soluble in water and easily moulded`,`It is a semiconductor`],correct:1,marks:1},
+    {text:`Which characteristic of boron compounds makes BF&#x2083; a Lewis acid?`,options:[`BF&#x2083; contains a very electronegative F atom`,`B in BF&#x2083; has only 6 electrons &mdash; electron deficient &mdash; so it can accept a lone pair`,`BF&#x2083; can donate a proton`,`BF&#x2083; has a full octet`],correct:1,marks:1},
+    {text:`GaAs is widely used in:`,options:[`Railway welding`,`LEDs and laser diodes (semiconductors)`,`Nuclear reactor control rods`,`Water purification`],correct:1,marks:1},
+    {text:`The ionic equation for the reaction of Al(OH)&#x2083; with excess NaOH is:`,options:[`Al(OH)&#x2083; + 3OH&#x207B; &rarr; Al&#xB3;&#x207A; + 6H&#x2082;O`,`Al(OH)&#x2083; + OH&#x207B; &rarr; [Al(OH)&#x2084;]&#x207B;`,`Al(OH)&#x2083; + H&#x207A; &rarr; Al&#xB3;&#x207A; + H&#x2082;O`,`Al(OH)&#x2083; &rarr; Al&#xB3;&#x207A; + 3OH&#x207B;`],correct:1,marks:1},
+    {text:`Indium tin oxide (ITO) is used in:`,options:[`Refractory furnace linings`,`Touchscreens and flat-panel displays as a transparent conductor`,`Antacid preparations`,`Thermite welding`],correct:1,marks:1},
+    {text:`Aluminium reacts with dilute H&#x2082;SO&#x4; to give:`,options:[`Al&#x2082;O&#x2083; + SO&#x2082;`,`Al&#x2082;(SO&#x4;)&#x2083; + H&#x2082;`,`AlSO&#x2084; + H&#x2082;O`,`Al + SO&#x2084;&#xB2;&#x207B; &rarr; no reaction`],correct:1,marks:1},
+    {text:`Borosilicate glass (Pyrex) is valued because:`,options:[`It has a very high refractive index`,`The B&#x2082;O&#x2083;/SiO&#x2082; network gives a very low coefficient of thermal expansion, resisting thermal shock`,`It is opaque to UV light`,`It is cheaper than soda-lime glass`],correct:1,marks:1},
+    {text:`Which product forms when aluminium is heated with nitrogen?`,options:[`AlN (aluminium nitride)`,`Al(NO&#x2083;)&#x2083;`,`Al&#x2082;N&#x2083;`,`No reaction`],correct:0,marks:1},
+    {text:`What distinguishes the white precipitate formed with Al&#xB3;&#x207A; from that formed with Mg&#xB2;&#x207A; when NaOH is added?`,options:[`Al&#xB3;&#x207A; gives a coloured precipitate`,`Al(OH)&#x2083; dissolves in excess NaOH; Mg(OH)&#x2082; does not`,`Mg&#xB2;&#x207A; gives no precipitate`,`The precipitates have different colours`],correct:1,marks:1},
+    {text:`Aluminium is used for overhead electrical cables instead of copper because:`,options:[`Aluminium is a better conductor than copper`,`Aluminium is much less dense (lighter) for a given conductance &mdash; lower mass for same length of cable`,`Aluminium does not oxidise in air`,`Aluminium is cheaper to produce than copper`],correct:1,marks:1},
+    {text:`Borax (Na&#x2082;B&#x2084;O&#x2077;&middot;10H&#x2082;O) is used in washing powder because:`,options:[`It is a strong acid that breaks down fats`,`It acts as a mild alkali and water softener, and releases H&#x2082;O&#x2082; at washing temperatures`,`It provides Na&#x207A; ions that enhance cleaning`,`It is a reducing agent that bleaches stains`],correct:1,marks:1},
+    {text:`Which ion produces a red-brown precipitate with NaOH that is insoluble in excess NaOH?`,options:[`Al&#xB3;&#x207A;`,`Zn&#xB2;&#x207A;`,`Fe&#xB3;&#x207A;`,`Mg&#xB2;&#x207A;`],correct:0,marks:1},
+    {text:`Al&#x2082;(SO&#x4;)&#x2083; is added to drinking water during treatment because:`,options:[`It kills bacteria directly`,`It hydrolyses to form Al(OH)&#x2083; which flocculates suspended particles and colloids`,`It adjusts the pH of water to acidic`,`It removes dissolved oxygen from water`],correct:1,marks:1},
+    {text:`The outer electron configuration ns&#xB2;np&#xB9; of Group 13 elements means they typically form:`,options:[`+1 ions by losing the np electron`,`+3 ions by losing all 3 valence electrons (or forming 3 covalent bonds)`,`+2 ions by losing the ns electrons`,`+4 ions by also involving d electrons`],correct:1,marks:1},
+  ]},
+  {num:"Unit 9",title:`Group 14 Elements`,questions:[
+    {text:`What is the outer electron configuration of all Group 14 elements?`,options:[`ns²np¹`,`ns²np²`,`ns²np³`,`ns²np⁴`],correct:1,marks:1},
+    {text:`Which allotrope of carbon has a giant covalent structure and does NOT conduct electricity?`,options:[`Graphite`,`Diamond`,`C₆₀ fullerene`,`Graphene`],correct:1,marks:1},
+    {text:`Why does graphite conduct electricity but diamond does not?`,options:[`Graphite is denser than diamond`,`Graphite has a layered structure`,`Graphite has delocalised π electrons from sp² carbon; diamond uses all 4 electrons in sp³ bonds`,`Graphite has ionic bonding`],correct:2,marks:1},
+    {text:`The lubricating property of graphite is due to:`,options:[`Its high melting point`,`Weak van der Waals forces between layers, allowing them to slide over each other`,`Strong covalent bonds within each layer`,`Its ability to conduct electricity`],correct:1,marks:1},
+    {text:`Which statement correctly describes the structure of SiO₂?`,options:[`Simple molecular — discrete SiO₂ molecules`,`Ionic — Si⁴⁺ and O²⁻ ions`,`Giant covalent — each Si bonded to 4 O atoms, each O bridges 2 Si atoms`,`Metallic — delocalised electrons`],correct:2,marks:1},
+    {text:`SiCl₄ is rapidly hydrolysed by water but CCl₄ is not. What is the main reason?`,options:[`CCl₄ has stronger C–Cl bonds than Si–Cl bonds in SiCl₄`,`Si has empty 3d orbitals available to accept a lone pair from H₂O; C has no accessible empty orbitals`,`SiCl₄ is more soluble in water than CCl₄`,`CCl₄ has a higher boiling point than SiCl₄`],correct:1,marks:1},
+    {text:`What are the products when SiCl₄ reacts with excess water?`,options:[`SiO + 4HCl`,`SiO₂ + 4HCl`,`SiCl₂ + 2HCl + H₂`,`Si(OH)₂ + 2HCl`],correct:1,marks:1},
+    {text:`The inert pair effect explains why, going down Group 14:`,options:[`The +4 oxidation state becomes more stable`,`The +2 oxidation state becomes increasingly stable relative to +4`,`All elements prefer the +2 state throughout the group`,`The elements become more electronegative`],correct:1,marks:1},
+    {text:`Which of the following is the most stable oxidation state for lead in aqueous solution?`,options:[`+4`,`+3`,`+2`,`0`],correct:2,marks:1},
+    {text:`Carbon monoxide (CO) is toxic because:`,options:[`It reacts with water to form carbonic acid in the lungs`,`It binds irreversibly to haemoglobin (~200× stronger than O₂), preventing O₂ transport`,`It is an acidic oxide that corrodes lung tissue`,`It burns in the lungs when inhaled`],correct:1,marks:1},
+    {text:`What is the oxidation state of carbon in CO?`,options:[`−2`,`0`,`+2`,`+4`],correct:2,marks:1},
+    {text:`Which Group 14 element is used as a semiconductor in computer chips?`,options:[`Carbon`,`Silicon`,`Lead`,`Tin`],correct:1,marks:1},
+    {text:`The reaction Fe₂O₃ + 3CO → 2Fe + 3CO₂ occurs in the blast furnace. In this reaction, CO acts as:`,options:[`An oxidising agent`,`A catalyst`,`A reducing agent (removes O from Fe₂O₃)`,`An acid`],correct:2,marks:1},
+    {text:`Which allotrope of carbon has a simple molecular structure?`,options:[`Diamond`,`Graphite`,`C₆₀ fullerene`,`Both diamond and graphite`],correct:2,marks:1},
+    {text:`SiO₂ reacts with molten sodium oxide (Na₂O) to give:`,options:[`Si + 2NaO`,`Na₂SiO₃ (sodium silicate)`,`NaSiO₂`,`No reaction — SiO₂ is inert`],correct:1,marks:1},
+    {text:`A white precipitate forms when HCl(aq) is added to Pb(NO₃)₂(aq). The precipitate is:`,options:[`PbO`,`PbCl₄`,`PbCl₂`,`Pb(OH)₂`],correct:2,marks:1},
+    {text:`Which of the following correctly states the hybridisation and bond angle in diamond?`,options:[`sp² hybridised; 120°`,`sp hybridised; 180°`,`sp³ hybridised; 109.5°`,`sp³d hybridised; 90° and 120°`],correct:2,marks:1},
+    {text:`The diagonal relationship exists between B and Si because they have similar:`,options:[`Atomic masses`,`Charge density (charge/radius ratio)`,`Number of electrons`,`Metallic character`],correct:1,marks:1},
+    {text:`Which property of graphite makes it suitable for use as an electrode?`,options:[`It is transparent`,`It conducts electricity due to delocalised π electrons and has a very high melting point`,`It is hard and brittle`,`It reacts easily with electrolytes`],correct:1,marks:1},
+    {text:`SnCl₂ acts as a reducing agent in many reactions. What happens to tin during reduction by SnCl₂?`,options:[`Sn²⁺ is reduced to Sn⁰`,`Sn²⁺ is oxidised to Sn⁴⁺`,`Sn²⁺ is oxidised to Sn⁶⁺`,`No change — Sn is a spectator`],correct:1,marks:1},
+    {text:`What is observed when NaOH(aq) is added to Pb²⁺(aq) first in small amounts and then in excess?`,options:[`Blue precipitate that does not dissolve in excess`,`White precipitate of Pb(OH)₂ forms; dissolves in excess NaOH to give [Pb(OH)₄]²⁻`,`No precipitate — Pb(OH)₂ is soluble`,`Yellow precipitate that turns brown on standing`],correct:1,marks:1},
+    {text:`Which acid reacts with SiO₂ (silica)?`,options:[`Dilute hydrochloric acid (HCl)`,`Dilute sulfuric acid (H₂SO₄)`,`Hydrofluoric acid (HF)`,`Dilute nitric acid (HNO₃)`],correct:2,marks:1},
+    {text:`Carbon dioxide (CO₂) has a much lower melting point than silicon dioxide (SiO₂) because:`,options:[`CO₂ has weaker C=O bonds than SiO₂ has Si–O bonds`,`CO₂ is a simple molecular compound (discrete molecules, weak IMF); SiO₂ is a giant covalent network (many strong bonds)`,`CO₂ is ionic while SiO₂ is covalent`,`CO₂ has a higher molar mass`],correct:1,marks:1},
+    {text:`PbCl₄ decomposes readily at room temperature. The products are:`,options:[`Pb + 4Cl`,`PbCl₂ + Cl₂`,`PbO₂ + 2Cl₂`,`No decomposition occurs`],correct:1,marks:1},
+    {text:`Which statement about carbon monoxide (CO) is correct?`,options:[`CO is an acidic oxide — it reacts with water to form carbonic acid`,`CO is a neutral oxide — it does not react with water; it is a strong reducing agent`,`CO is a basic oxide — it reacts with acids`,`CO has the same structure as CO₂ — it is linear with two C=O bonds`],correct:1,marks:1},
+  ]},
+  {num:"Unit 10",title:`Group 15 Elements`,questions:[
+    {text:`What is the outer electron configuration of all Group 15 elements?`,options:[`ns²np²`,`ns²np³`,`ns²np⁴`,`ns¹np³`],correct:1,marks:1},
+    {text:`The bond energy of N≡N is 945 kJ mol⁻¹. This makes N₂:`,options:[`Very reactive at room temperature`,`Very unreactive at room temperature — high activation energy required to break the triple bond`,`Easily soluble in water`,`A good oxidising agent`],correct:1,marks:1},
+    {text:`The conditions for the Haber process are approximately:`,options:[`200°C, 1 atm, V₂O₅ catalyst`,`450°C, 200 atm, Fe catalyst`,`850°C, 5 atm, Pt/Rh catalyst`,`300°C, 50 atm, Ni catalyst`],correct:1,marks:1},
+    {text:`Why is a high pressure used in the Haber process?`,options:[`It raises the temperature needed for the reaction`,`N₂ + 3H₂ → 2NH₃ has fewer moles of gas on the right — high pressure shifts equilibrium right, increasing yield`,`It activates the iron catalyst`,`It prevents the explosion of NH₃`],correct:1,marks:1},
+    {text:`The shape of NH₃ is trigonal pyramidal with a bond angle of 107°. The angle is less than 109.5° because:`,options:[`The H–N–H bond is weaker than expected`,`The lone pair on N occupies more space than a bonding pair, pushing the N–H bonds closer together`,`Nitrogen has a smaller atomic radius than carbon`,`Ammonia has ionic character`],correct:1,marks:1},
+    {text:`Which reagent produces white fumes when held near a flask of ammonia?`,options:[`Dilute H₂SO₄`,`Concentrated HCl`,`NaOH solution`,`Water`],correct:1,marks:1},
+    {text:`In the Ostwald process, what catalyst is used in Step 1 (oxidation of NH₃)?`,options:[`Iron (Fe)`,`Vanadium(V) oxide (V₂O₅)`,`Platinum/rhodium gauze (Pt/Rh)`,`Nickel (Ni)`],correct:2,marks:1},
+    {text:`What gas is produced when copper reacts with dilute nitric acid?`,options:[`NO₂ (brown gas)`,`N₂ (colourless)`,`NO (colourless, turns brown in air)`,`H₂ (colourless)`],correct:2,marks:1},
+    {text:`The oxidation state of nitrogen in HNO₃ is:`,options:[`+3`,`+4`,`+5`,`−3`],correct:2,marks:1},
+    {text:`White phosphorus ignites spontaneously in air because:`,options:[`It contains radioactive atoms`,`The P₄ molecule has severe angle strain (P–P–P = 60°) making the bonds highly reactive`,`It is a liquid at room temperature`,`It reacts with nitrogen in the air`],correct:1,marks:1},
+    {text:`Why does NH₃ have a much higher boiling point than PH₃, despite having a lower molar mass?`,options:[`NH₃ is ionic; PH₃ is covalent`,`NH₃ forms hydrogen bonds (N–H···N); PH₃ cannot form hydrogen bonds — only weak van der Waals forces`,`PH₃ has stronger covalent bonds than NH₃`,`NH₃ has a higher molecular mass`],correct:1,marks:1},
+    {text:`Phosphorus pentachloride (PCl₅) has a trigonal bipyramidal shape because:`,options:[`It has 4 bonding pairs`,`Phosphorus uses sp³d hybridisation — 5 bond pairs around P, no lone pairs — trigonal bipyramidal`,`It has 2 lone pairs on P`,`It is isoelectronic with SF₆`],correct:1,marks:1},
+    {text:`The reaction of PCl₅ with water produces:`,options:[`PCl₃ + Cl₂`,`H₃PO₄ + 5HCl (white fumes)`,`H₃PO₃ + 3HCl`,`P₂O₅ + HCl`],correct:1,marks:1},
+    {text:`What is the main product of the thermal decomposition of ammonium nitrate (NH₄NO₃) at ~230°C?`,options:[`N₂ + 2H₂O`,`N₂O + 2H₂O`,`NO₂ + H₂O`,`NO + HNO₃`],correct:1,marks:1},
+    {text:`Which of the following is the oxidation state of N in NO₂?`,options:[`+2`,`+3`,`+4`,`+5`],correct:2,marks:1},
+    {text:`Superphosphate fertiliser is made by treating calcium phosphate with:`,options:[`Ammonia`,`Concentrated sulfuric acid`,`Potassium chloride`,`Nitric acid`],correct:1,marks:1},
+    {text:`The reaction 2NO + O₂ → 2NO₂ is responsible for:`,options:[`The smell of ammonia in industry`,`The brown colour seen when NO gas is collected and exposed to air, and brown/yellow smog in cities`,`Acid rain from sulfur dioxide`,`The bleaching action of chlorine`],correct:1,marks:1},
+    {text:`P₄O₁₀ is used industrially as a:`,options:[`Reducing agent`,`Drying/desiccant agent — it reacts vigorously with water`,`Catalyst for ammonia synthesis`,`Antacid`],correct:1,marks:1},
+    {text:`Which of the following statements about nitrogen fixation is correct?`,options:[`Nitrogen fixation means converting NH₃ to N₂`,`Nitrogen fixation means converting N₂ into useful nitrogen compounds (e.g. NH₃)`,`Only industrial processes can fix nitrogen`,`Nitrogen is fixed by dissolving N₂ in water`],correct:1,marks:1},
+    {text:`The bond angle in PH₃ (93°) is much smaller than in NH₃ (107°) because:`,options:[`P has a larger atomic radius so bonds are further apart`,`P is less electronegative — P–H bonds are less polar and have less electron density to repel each other; P uses near-pure p orbitals (bond angle close to 90°)`,`PH₃ has more lone pairs than NH₃`,`The H atoms in PH₃ are larger than in NH₃`],correct:1,marks:1},
+    {text:`Iron is passivated by concentrated nitric acid. This means:`,options:[`Iron dissolves rapidly in concentrated HNO₃`,`A thin, impervious oxide layer (Fe₂O₃) forms on the surface, preventing further reaction`,`Iron reduces HNO₃ to NH₃`,`Iron absorbs HNO₃ without reacting`],correct:1,marks:1},
+    {text:`Phosphoric acid (H₃PO₄) is described as triprotic. What does this mean?`,options:[`It contains three phosphorus atoms`,`It has three ionisable protons (H⁺) — can donate 3 H⁺ per molecule`,`It can only be used three times before becoming inactive`,`It reacts with three types of metal`],correct:1,marks:1},
+    {text:`Which oxide of nitrogen is a radical (contains an unpaired electron)?`,options:[`N₂O only`,`NO only`,`Both NO and NO₂`,`N₂O₄ only`],correct:2,marks:1},
+    {text:`The thermal decomposition of potassium nitrate (KNO₃) produces:`,options:[`K₂O + NO₂ + O₂`,`KNO₂ + O₂`,`K + N₂ + O₂`,`K₂O₂ + N₂ + O₂`],correct:1,marks:1},
+    {text:`Biological nitrogen fixation is carried out by:`,options:[`Plants directly`,`Certain bacteria (e.g. Rhizobium) using the enzyme nitrogenase to convert N₂ to NH₃`,`Fungi in soil`,`Algae in water`],correct:1,marks:1},
+  ]},
+  {num:"Unit 11",title:`Group 16 Elements`,questions:[
+    {text:`What is the outer electron configuration of all Group 16 elements?`,options:[`ns²np³`,`ns²np⁴`,`ns²np⁵`,`ns²np²`],correct:1,marks:1},
+    {text:`The test for oxygen gas uses a:`,options:[`Damp litmus paper — turns red`,`Lighted splint — pops`,`Glowing splint — rekindles`,`Lime water — turns milky`],correct:2,marks:1},
+    {text:`Ozone (O₃) has a bond angle of ~117°. This is because:`,options:[`O₃ is linear`,`The central O has 2 bond pairs and 1 lone pair → bent shape; lone pair compression gives angle less than 120°`,`O₃ has no lone pairs`,`O₃ has 3 bond pairs and 0 lone pairs → trigonal planar`],correct:1,marks:1},
+    {text:`The allotropy of sulfur that is stable at room temperature is:`,options:[`Monoclinic sulfur`,`Plastic sulfur`,`Rhombic (α) sulfur`,`Liquid sulfur`],correct:2,marks:1},
+    {text:`Burning sulfur in air produces:`,options:[`SO₃ only`,`SO₂ (with a blue flame)`,`H₂S`,`S₂O₃`],correct:1,marks:1},
+    {text:`What is the correct order of the Contact Process stages?`,options:[`SO₂ → SO₃ → H₂SO₄ → oleum`,`S → SO₂ → SO₃ → oleum (H₂S₂O₇) → H₂SO₄`,`S → H₂S → SO₂ → H₂SO₄`,`NH₃ → NO → NO₂ → H₂SO₄`],correct:1,marks:1},
+    {text:`The catalyst used in Stage 2 of the Contact Process is:`,options:[`Iron (Fe)`,`Platinum (Pt)`,`Vanadium(V) oxide (V₂O₅)`,`Nickel (Ni)`],correct:2,marks:1},
+    {text:`Why must acid always be added to water (not water to acid) when diluting H₂SO₄?`,options:[`Water reacts violently with H₂SO₄`,`Dilution is very exothermic — adding water to acid causes localised boiling and dangerous spattering of concentrated acid`,`The acid becomes more concentrated when diluted incorrectly`,`H₂SO₄ decomposes when water is added to it`],correct:1,marks:1},
+    {text:`The oxidation state of sulfur in H₂SO₄ is:`,options:[`+4`,`+2`,`+6`,`−2`],correct:2,marks:1},
+    {text:`Concentrated H₂SO₄ chars sugar (C₁₂H₂₂O₁₁ → 12C + 11H₂O). This demonstrates H₂SO₄ acting as:`,options:[`An oxidising agent`,`A dehydrating agent (removes water from the sugar)`,`A reducing agent`,`A catalyst`],correct:1,marks:1},
+    {text:`What is observed when copper reacts with hot concentrated H₂SO₄?`,options:[`No reaction — copper is unreactive`,`Blue solution of CuSO₄ forms and colourless H₂ gas is released`,`Blue solution of CuSO₄ forms and pungent SO₂ gas is released`,`Black CuO forms`],correct:2,marks:1},
+    {text:`The test for SO₄²⁻ ions in solution uses:`,options:[`AgNO₃ — white precipitate`,`BaCl₂ + dilute HCl — white precipitate insoluble in HCl`,`NaOH — blue precipitate`,`Litmus — turns red`],correct:1,marks:1},
+    {text:`H₂S gas turns lead acetate paper:`,options:[`Blue`,`Red`,`Black (PbS formed)`,`White`],correct:2,marks:1},
+    {text:`In the Contact Process, why is a temperature of 450°C used (not 300°C or 600°C)?`,options:[`450°C is the only temperature at which V₂O₅ is stable`,`At 300°C the rate is too slow; at 600°C the equilibrium yield of SO₃ is too low (exothermic reaction); 450°C balances rate and yield`,`SO₂ only reacts with O₂ at exactly 450°C`,`Higher temperatures produce SO₄²⁻ directly`],correct:1,marks:1},
+    {text:`What is the oxidation state of S in SO₂?`,options:[`+6`,`+4`,`+2`,`−2`],correct:1,marks:1},
+    {text:`Acid rain forms when SO₂ from combustion dissolves in rainwater. The primary acid produced is:`,options:[`HCl`,`H₂SO₄ (and H₂SO₃)`,`H₂CO₃`,`HNO₂`],correct:1,marks:1},
+    {text:`Ozone (O₃) is a stronger oxidising agent than O₂ because:`,options:[`Ozone has a higher molar mass`,`Ozone is less stable and decomposes more readily, releasing reactive oxygen atoms [O]`,`Ozone is denser than O₂`,`Ozone has a lower bond order than O₂`],correct:1,marks:1},
+    {text:`The boiling point trend in Group 16 hydrides is: H₂O >> H₂Te > H₂Se > H₂S. The anomaly (H₂O being highest) is due to:`,options:[`H₂O having the highest molar mass`,`Hydrogen bonding between H₂O molecules (O–H···O); all others have only van der Waals`,`Water forming ionic bonds`,`H₂O having the largest molecule`],correct:1,marks:1},
+    {text:`The Claus process converts H₂S to elemental sulfur. The reaction is:`,options:[`H₂S + Cl₂ → 2HCl + S`,`2H₂S + SO₂ → 3S + 2H₂O`,`H₂S + O₂ → SO₂ + H₂O`,`H₂S + 2NaOH → Na₂S + 2H₂O`],correct:1,marks:1},
+    {text:`When concentrated H₂SO₄ reacts with solid NaCl, the gas produced is:`,options:[`Cl₂`,`HCl (steamy white fumes)`,`SO₂`,`H₂S`],correct:1,marks:1},
+    {text:`The shape of SO₃ is:`,options:[`Bent/V-shaped`,`Linear`,`Trigonal planar — 120° bond angles`,`Pyramidal`],correct:2,marks:1},
+    {text:`Which of the following correctly summarises the trend in acid strength of Group 16 hydrides?`,options:[`H₂Te (decreases down group)`,`H₂O (increases down group)`,`All have the same acid strength`,`H₂Te`],correct:1,marks:1},
+    {text:`The laboratory preparation of H₂S gas from iron(II) sulfide uses:`,options:[`Iron + concentrated H₂SO₄`,`FeS + dilute H₂SO₄ (or dilute HCl)`,`FeS + concentrated HNO₃`,`Fe + H₂O at 100°C`],correct:1,marks:1},
+    {text:`CFCs cause ozone layer depletion by:`,options:[`Directly reacting with O₂ in the atmosphere`,`Releasing Cl• radicals in the stratosphere that catalytically destroy O₃ in a chain reaction`,`Absorbing UV radiation that would otherwise make ozone`,`Reducing the temperature of the stratosphere`],correct:1,marks:1},
+    {text:`Which of these statements about SO₂ is correct?`,options:[`SO₂ is a basic oxide — it reacts only with acids`,`SO₂ is an acidic oxide that dissolves in water to form sulfurous acid (H₂SO₃) and acts as a reducing agent`,`SO₂ is a neutral oxide with no reaction with water`,`SO₂ acts only as an oxidising agent, never as a reducing agent`],correct:1,marks:1},
+  ]},
+  {num:"Unit 12",title:`Group 17 Elements`,questions:[
+    {text:`The outer electron configuration of all Group 17 elements is:`,options:[`ns²np⁴`,`ns²np⁵`,`ns²np⁶`,`ns²np³`],correct:1,marks:1},
+    {text:`Which halogen is a red-brown liquid at room temperature?`,options:[`Fluorine`,`Chlorine`,`Bromine`,`Iodine`],correct:2,marks:1},
+    {text:`The oxidising power of halogens decreases in the order:`,options:[`F₂`,`I₂`,`Br₂`,`All halogens have equal oxidising power`],correct:1,marks:1},
+    {text:`Chlorine water (Cl₂ dissolved in water) contains which species?`,options:[`Only Cl₂ molecules`,`Cl₂, H⁺, Cl⁻, and HOCl (hypochlorous acid)`,`Only HCl and HOCl`,`Cl₂O only`],correct:1,marks:1},
+    {text:`When chlorine water is added to potassium bromide solution, the solution turns:`,options:[`Blue-black (starch-iodine complex)`,`Orange-brown (Br₂ produced)`,`Colourless (no reaction)`,`Green (Cl₂ colour dominates)`],correct:1,marks:1},
+    {text:`Iodine solution turns starch:`,options:[`Orange`,`Red`,`Blue-black`,`Yellow`],correct:2,marks:1},
+    {text:`Why does HF have a higher boiling point than HCl despite having a lower molar mass?`,options:[`HF is ionic`,`HF forms strong F–H···F hydrogen bonds; HCl has only van der Waals forces`,`HF has stronger covalent bonds than HCl`,`HF has a higher molar mass than HCl`],correct:1,marks:1},
+    {text:`The reaction of Cl₂ with cold dilute NaOH is described as disproportionation because:`,options:[`Cl₂ only acts as a reducing agent`,`Cl (OS=0) is simultaneously oxidised to +1 (in NaOCl) and reduced to −1 (in NaCl)`,`The reaction is reversible`,`NaOH is both oxidised and reduced`],correct:1,marks:1},
+    {text:`Silver halide precipitates with AgNO₃/HNO₃: which is yellow?`,options:[`AgCl`,`AgBr`,`AgI`,`AgF`],correct:2,marks:1},
+    {text:`HBr cannot be made by adding concentrated H₂SO₄ to NaBr because:`,options:[`NaBr is insoluble in H₂SO₄`,`Conc. H₂SO₄ oxidises HBr to Br₂ — the HBr is destroyed before it can be collected`,`HBr reacts with H₂SO₄ to give H₂SO₃`,`NaBr and H₂SO₄ do not react`],correct:1,marks:1},
+    {text:`The oxidation state of Cl in household bleach (NaOCl) is:`,options:[`−1`,`0`,`+1`,`+5`],correct:2,marks:1},
+    {text:`When I₂ is shaken with hexane and aqueous KI solution, I₂ preferentially moves into the hexane layer because:`,options:[`I₂ is an ionic compound, like-dissolves-like with hexane`,`I₂ is a non-polar molecule — it dissolves better in non-polar hexane than in polar water (like-dissolves-like)`,`I₂ reacts with hexane`,`Water oxidises I₂ to IO₃⁻`],correct:1,marks:1},
+    {text:`The reaction between iron and iodine produces:`,options:[`FeI₃ (iron(III) iodide)`,`FeI₂ (iron(II) iodide — I₂ not strong enough to oxidise Fe to +3)`,`Fe₂I₃`,`No reaction`],correct:1,marks:1},
+    {text:`What is the observation when AgCl is treated with dilute ammonia solution?`,options:[`White precipitate remains unchanged`,`White precipitate dissolves to give a colourless solution ([Ag(NH₃)₂]⁺ complex ion forms)`,`Blue colour appears`,`Precipitate turns yellow`],correct:1,marks:1},
+    {text:`Which halogen reacts with water to produce oxygen gas?`,options:[`Chlorine`,`Bromine`,`Fluorine (2F₂ + 2H₂O → 4HF + O₂)`,`Iodine`],correct:2,marks:1},
+    {text:`The acid strength of the oxoacids of chlorine increases in the order:`,options:[`HOCl`,`HClO₄`,`All are equally strong`,`HOCl`],correct:0,marks:1},
+    {text:`Fluorine shows only the −1 oxidation state in its compounds. This is because:`,options:[`Fluorine has only one unpaired electron`,`Fluorine is the most electronegative element and has no d orbitals available — it cannot be oxidised to a positive OS`,`Fluorine reacts too slowly to show other states`,`Fluorine's high ionisation energy prevents any positive OS`],correct:1,marks:1},
+    {text:`The trend in HX bond strength across the hydrogen halides is:`,options:[`HF`,`HI`,`HI`,`All have equal bond strength`],correct:1,marks:1},
+    {text:`Which of the following reactions is NOT a displacement reaction?`,options:[`Cl₂ + 2KBr → 2KCl + Br₂`,`Br₂ + 2KI → 2KBr + I₂`,`Cl₂ + 2NaOH → NaCl + NaOCl + H₂O`,`Cl₂ + 2KI → 2KCl + I₂`],correct:2,marks:1},
+    {text:`Bleaching powder (CaOCl₂) releases its bleaching action because:`,options:[`It directly reacts with dyes using Ca²⁺`,`In contact with CO₂ or dilute acid, it releases HOCl which is the actual bleaching agent`,`It is a strong base that destroys colour`,`It produces O₂ which bleaches`],correct:1,marks:1},
+    {text:`The reducing power of the halide ions increases in the order:`,options:[`I⁻`,`F⁻`,`All halides have equal reducing power`,`F⁻`],correct:1,marks:1},
+    {text:`AgCl turns grey in sunlight because:`,options:[`AgCl reacts with oxygen in air`,`UV light decomposes AgCl: 2AgCl → 2Ag (grey metal) + Cl₂`,`AgCl absorbs moisture and changes colour`,`AgCl is reduced by water vapour`],correct:1,marks:1},
+    {text:`The reaction 3Cl₂ + 6NaOH(hot, concentrated) → 5NaCl + NaClO₃ + 3H₂O gives which product containing Cl in an oxidation state of +5?`,options:[`NaCl`,`NaOCl`,`NaClO₃ (sodium chlorate(V))`,`NaClO₄`],correct:2,marks:1},
+    {text:`Iodine solution in organic solvents such as hexane appears:`,options:[`Orange-red`,`Yellow-green`,`Violet/purple`,`Colourless`],correct:2,marks:1},
+    {text:`The anomalously low bond dissociation energy of F₂ (158 kJ/mol) compared to Cl₂ (243 kJ/mol) is explained by:`,options:[`F₂ is a gas while Cl₂ is not`,`Strong lone pair–lone pair repulsion between the small, close F atoms in F₂ weakens the F–F bond`,`The F–F bond is ionic`,`F has fewer electrons than Cl`],correct:1,marks:1},
+  ]},
+  {num:"Unit 13",title:`Group 18 Elements`,questions:[
+    {text:`The outer electron configuration of all noble gases (except He) is:`,options:[`ns²np⁵`,`ns²np⁶`,`ns²np⁴`,`ns¹`],correct:1,marks:1},
+    {text:`Which noble gas is the most abundant in the atmosphere?`,options:[`Helium`,`Neon`,`Argon`,`Xenon`],correct:2,marks:1},
+    {text:`Why do the boiling points of noble gases increase from He to Xe?`,options:[`Ionic bonds form between the heavier noble gas atoms`,`London dispersion forces increase as the atoms get larger and have more electrons`,`The noble gases form hydrogen bonds going down the group`,`Their ionisation energies decrease`],correct:1,marks:1},
+    {text:`The first noble gas compound was made by Neil Bartlett in 1962. What was it?`,options:[`XeF₂`,`ArF₂`,`XePtF₆ (xenon hexafluoroplatinate)`,`NeF₄`],correct:2,marks:1},
+    {text:`The shape of XeF₂ is:`,options:[`Bent/V-shaped`,`Trigonal planar`,`Linear (180°)`,`Square planar`],correct:2,marks:1},
+    {text:`Helium is used to fill weather balloons rather than hydrogen because:`,options:[`He is denser than H₂`,`He provides more lift than H₂`,`He is non-flammable and chemically inert, unlike H₂ which is explosive`,`He is cheaper than H₂`],correct:2,marks:1},
+    {text:`Why can xenon form compounds but neon cannot, even though both have full outer shells?`,options:[`Xe has a higher boiling point`,`Xe has lower ionisation energy (1170 vs 2081 kJ/mol for Ne) and accessible 5d orbitals allowing octet expansion`,`Ne is smaller`,`Xe has more electrons than Ne`],correct:1,marks:1},
+    {text:`Argon is used as an inert atmosphere in light bulbs. What does this prevent?`,options:[`The glass from cracking at high temperatures`,`Oxidation of the hot tungsten filament and slows its evaporation`,`The bulb from conducting electricity`,`The light from being too bright`],correct:1,marks:1},
+    {text:`Radon (Rn-222) is considered a health hazard in buildings because:`,options:[`It is chemically toxic and reacts with lung tissue`,`It decays to solid radioactive daughters that emit alpha radiation in the lungs, causing lung cancer`,`It displaces oxygen, causing suffocation`,`It reacts with moisture to form corrosive acid`],correct:1,marks:1},
+    {text:`Helium has the lowest boiling point of any substance (−269°C). This is because:`,options:[`He has ionic bonds`,`He atoms have only 2 electrons — the weakest possible London forces — and quantum zero-point energy prevents solidification`,`He is a noble gas so it cannot condense`,`He repels other He atoms`],correct:1,marks:1},
+    {text:`How is atmospheric argon produced naturally?`,options:[`By UV photolysis of N₂`,`By radioactive decay of potassium-40 (⁴⁰K + e⁻ → ⁴⁰Ar) in Earth's rocks`,`By volcanic outgassing of primordial argon`,`From decay of radon`],correct:1,marks:1},
+    {text:`The shape of XeF₄ (4 bond pairs + 2 lone pairs on Xe) is:`,options:[`Tetrahedral`,`Octahedral`,`Square planar`,`Trigonal bipyramidal`],correct:2,marks:1},
+    {text:`Neon signs produce a characteristic red-orange glow because:`,options:[`Neon burns in oxygen to produce coloured flame`,`Electrical discharge excites Ne electrons to higher energy levels; red-orange photons are emitted when electrons return to ground state`,`Neon reacts with the glass to produce colour`,`The colour comes from impurities in neon`],correct:1,marks:1},
+    {text:`Helium is used in MRI scanners to cool superconducting magnets. Why is helium uniquely suited?`,options:[`It has the highest heat capacity`,`Liquid He is the only substance that can cool to ~4 K, which is below the critical temperature of superconducting alloys`,`It is magnetic and enhances the magnetic field`,`It absorbs electromagnetic radiation from the magnet`],correct:1,marks:1},
+    {text:`Noble gases are isolated industrially from air by:`,options:[`Chemical reaction with sodium hydroxide`,`Fractional distillation of liquid air`,`Electrolysis of water`,`Combustion of organic compounds`],correct:1,marks:1},
+    {text:`Xenon ion thrusters are used in spacecraft because:`,options:[`Xe burns efficiently in space`,`Xe is easily ionised and accelerated electrostatically, providing very efficient low-thrust propulsion ideal for long-duration space missions`,`Xe reacts with the vacuum of space to create thrust`,`Xe produces more thrust per kg than any chemical fuel`],correct:1,marks:1},
+    {text:`Helium is produced naturally inside Earth primarily by:`,options:[`Fusion of hydrogen atoms`,`Alpha decay of radioactive elements (U, Th) — alpha particles capture electrons to become He atoms`,`Decomposition of water at high pressure`,`Chemical weathering of rocks`],correct:1,marks:1},
+    {text:`Which xenon fluoride, when hydrolysed, produces the explosive solid XeO₃?`,options:[`XeF₂`,`XeF₄ (partial disproportionation hydrolysis)`,`XeF₆ (direct hydrolysis: XeF₆ + 3H₂O → XeO₃ + 6HF)`,`KrF₂`],correct:2,marks:1},
+    {text:`The ionisation energy trend across Group 18 is:`,options:[`Increases from He to Xe`,`Decreases from He (2372) to Xe (1170 kJ/mol) going down the group`,`Remains constant`,`He has the lowest and Xe the highest IE`],correct:1,marks:1},
+    {text:`What is a clathrate (inclusion compound) in the context of noble gases?`,options:[`A covalent compound of a noble gas with a halogen`,`A compound where a noble gas atom is physically trapped inside the crystal lattice of another substance without forming chemical bonds`,`A mixture of two noble gases`,`An ionic compound of xenon`],correct:1,marks:1},
+    {text:`Xenon can be used as a general anaesthetic because:`,options:[`Xe reacts with brain cells chemically`,`Xe dissolves in cell membranes and blocks Na⁺ ion channels, inhibiting nerve signal transmission`,`Xe displaces oxygen in the bloodstream`,`Xe forms a compound with haemoglobin`],correct:1,marks:1},
+    {text:`Why is helium use in industry described as "non-renewable"?`,options:[`Helium is radioactive and decays over time`,`Once helium escapes into the atmosphere it rises to the top and eventually escapes Earth's gravity — it cannot be recaptured economically`,`Helium reacts with oxygen and is lost`,`The supply is limitless but transport is too expensive`],correct:1,marks:1},
+    {text:`He-Ne lasers produce a red beam (632.8 nm). The role of helium in a He-Ne laser is to:`,options:[`Be directly excited by current and emit red light`,`Transfer energy to neon: He absorbs electrical energy → excited He* transfers energy to Ne via collisions → Ne emits stimulated red photons`,`Cool the laser tube`,`Act as a mirror to reflect the neon light`],correct:1,marks:1},
+    {text:`Which statement about noble gas compounds is correct?`,options:[`All noble gases form stable fluorides`,`Only xenon forms compounds, and only with fluorine`,`Xe forms many compounds (XeF₂, XeF₄, XeF₆, XeO₃, etc.); Kr forms a few (KrF₂); He and Ne form essentially none`,`Noble gas compounds are all gases at room temperature`],correct:2,marks:1},
+    {text:`The KrF₂ laser (248 nm UV) is used in LASIK eye surgery because:`,options:[`It produces warm infrared radiation ideal for heating tissue`,`The 248 nm UV pulses precisely ablate corneal tissue (break molecular bonds in organic tissue) with minimal heat damage to surrounding cells`,`It colours the cornea permanently`,`It sterilises the eye before surgery`],correct:1,marks:1},
+  ]},
+  {num:"Unit 14",title:`Period 3 Trends`,questions:[
+    {text:`Across Period 3 (Na→Cl), atomic radius:`,options:[`Increases due to more electron shells`,`Decreases due to increasing nuclear charge with the same shielding (n=3 shell throughout)`,`Stays constant across the period`,`First decreases then increases at Al`],correct:1,marks:1},
+    {text:`Which Period 3 element has the highest melting point, and why?`,options:[`Na — strongest metallic bond`,`Al — three delocalised electrons`,`Si — giant covalent structure with many strong Si–Si bonds`,`S — largest molecules (S₈)`],correct:2,marks:1},
+    {text:`The first ionisation energy of Al (577 kJ/mol) is LOWER than that of Mg (738 kJ/mol) despite Al having higher Z. Why?`,options:[`Al has more electrons to shield the nucleus`,`Al's outermost electron is in a 3p orbital (higher energy, better shielded by 3s²) making it easier to remove than Mg's 3s² electron`,`Mg has a smaller atomic radius than Al`,`Al has a metallic structure while Mg does not`],correct:1,marks:1},
+    {text:`Which Period 3 oxide reacts with both dilute HCl and dilute NaOH?`,options:[`Na₂O`,`MgO`,`Al₂O₃`,`SiO₂`],correct:2,marks:1},
+    {text:`When SiCl₄ is added to water, white fumes are produced. These fumes are:`,options:[`SiO₂ vapour`,`HCl gas (produced by hydrolysis: SiCl₄ + 2H₂O → SiO₂ + 4HCl)`,`Steam`,`Cl₂ gas`],correct:1,marks:1},
+    {text:`The trend in oxide character across Period 3 is:`,options:[`Acidic → Amphoteric → Basic (left to right)`,`Basic → Amphoteric → Acidic (left to right)`,`All oxides are neutral across Period 3`,`Random — no trend exists`],correct:1,marks:1},
+    {text:`NaCl dissolves in water to give a neutral solution (pH 7) while AlCl₃ gives an acidic solution. This is because:`,options:[`NaCl is a smaller molecule`,`Al³⁺ has high charge density — it polarises surrounding water molecules, causing hydrolysis and releasing H⁺; Na⁺ is large and low-charge, does not hydrolyse water`,`NaCl contains a non-metal (Cl)`,`AlCl₃ contains more Cl atoms`],correct:1,marks:1},
+    {text:`The melting point of S (113°C) is higher than that of P (44°C) because:`,options:[`S forms ionic bonds while P does not`,`S₈ molecules are larger than P₄ molecules → stronger London dispersion forces between S₈ units`,`S has a higher nuclear charge`,`P has a more stable electronic configuration`],correct:1,marks:1},
+    {text:`When Na₂O is added to water, the solution formed has pH approximately:`,options:[`1`,`7`,`9`,`14`],correct:3,marks:1},
+    {text:`Sodium reacts vigorously with water but magnesium reacts only very slowly with cold water. The main reason for this difference is:`,options:[`Mg has a higher melting point`,`Na has a lower ionisation energy and a single loosely-held valence electron; Mg has two valence electrons and higher charge density — forms a less soluble Mg(OH)₂ surface layer`,`Na is a liquid at room temperature`,`Mg is more electronegative than Na`],correct:1,marks:1},
+    {text:`Why is aluminium resistant to corrosion despite being a reactive metal?`,options:[`Al is not reactive enough to corrode`,`A thin, adherent Al₂O₃ layer forms instantly on exposure to air, sealing the surface (passivation)`,`Al is coated with a layer of MgO`,`Al only reacts above 1000°C`],correct:1,marks:1},
+    {text:`The electronegativity trend across Period 3 is:`,options:[`Decreases Na → Cl`,`Increases Na (0.9) → Cl (3.0)`,`Stays constant throughout Period 3`,`Increases Na→Al then decreases Al→Cl`],correct:1,marks:1},
+    {text:`When phosphorus(V) chloride (PCl₅) reacts with water, the products are:`,options:[`PCl₃ + Cl₂`,`H₃PO₄ + 5HCl`,`POCl₃ + 2HCl`,`H₃PO₃ + 3HCl`],correct:1,marks:1},
+    {text:`Which Period 3 chloride, when dissolved in water, gives a neutral solution (pH 7)?`,options:[`AlCl₃`,`SiCl₄`,`NaCl`,`PCl₅`],correct:2,marks:1},
+    {text:`Magnesium reacts readily with steam but very slowly with cold water. The equation for the steam reaction is:`,options:[`Mg + 2H₂O → Mg(OH)₂ + H₂`,`Mg + H₂O → MgO + H₂`,`Mg + 2H₂O → MgO₂ + 2H₂`,`2Mg + H₂O → Mg₂O + H₂`],correct:1,marks:1},
+    {text:`Why does first ionisation energy of S (1000 kJ/mol) fall below that of P (1012 kJ/mol)?`,options:[`S has a smaller atomic radius than P`,`P has a half-filled 3p³ (extra stability); S has a 3p⁴ paired electron which experiences extra repulsion — easier to remove`,`P is in a lower group than S`,`S has more electron shells`],correct:1,marks:1},
+    {text:`The reaction of SO₃ with water gives:`,options:[`H₂SO₃ (sulfurous acid)`,`H₂SO₄ (sulfuric acid) — strongly acidic solution`,`A neutral solution`,`SO₂ + O₂`],correct:1,marks:1},
+    {text:`Which of the following correctly describes the structure of AlCl₃?`,options:[`Ionic lattice (Al³⁺ and Cl⁻)`,`Covalent dimer Al₂Cl₆ in solid/vapour — Al has high charge density polarising Cl⁻; bonding is predominantly covalent`,`Giant covalent network`,`Simple ionic (like NaCl)`],correct:1,marks:1},
+    {text:`Across Period 3, which element has the lowest first ionisation energy?`,options:[`Ar`,`Cl`,`Na`,`Si`],correct:2,marks:1},
+    {text:`The reaction 4Al + 3O₂ → 2Al₂O₃ releases a large amount of energy. This is exploited in:`,options:[`The Haber process`,`The thermite reaction: 2Al + Fe₂O₃ → Al₂O₃ + 2Fe (Al reduces iron oxide, releasing intense heat to weld rails)`,`The Contact process`,`The Ostwald process`],correct:1,marks:1},
+    {text:`Which Period 3 element reacts vigorously with both oxygen and nitrogen when burned?`,options:[`Na`,`Mg`,`Al`,`Si`],correct:1,marks:1},
+    {text:`The oxide with the highest percentage of oxygen that reacts with water to give the strongest acid in Period 3 is:`,options:[`SO₂ → H₂SO₃ (pH ~3)`,`P₄O₁₀ → H₃PO₄ (pH ~2)`,`SO₃ → H₂SO₄ (pH ~1) — strongest common acid`,`Cl₂O₇ → HClO₄ (pH &lt;1) — strongest acid from Period 3 oxides`],correct:3,marks:1},
+    {text:`The hydrolysis of SiCl₄ but not CCl₄ illustrates:`,options:[`That Si–Cl bonds are weaker than C–Cl bonds`,`That Si (Period 3) has accessible empty 3d orbitals allowing H₂O to attack; C (Period 2) has no d orbitals and cannot expand its octet`,`That CCl₄ is more soluble in water than SiCl₄`,`That C is a better conductor than Si`],correct:1,marks:1},
+    {text:`The electrical conductivities of Period 3 elements in order are:`,options:[`All conduct equally well`,`Na, Mg, Al are good conductors; Si is a semiconductor; P, S, Cl, Ar are insulators`,`Only Na conducts electricity`,`Si is the best conductor`],correct:1,marks:1},
+    {text:`Which statement best describes the pattern of oxide reactions with water across Period 3?`,options:[`All Period 3 oxides dissolve in water to give neutral solutions`,`Metal oxides (Na₂O, MgO) give alkaline solutions; Al₂O₃ does not react with water; SiO₂ does not react with water; P, S, Cl oxides give acidic solutions of increasing strength`,`All Period 3 oxides are acidic`,`Non-metal oxides give alkaline solutions`],correct:1,marks:1},
+  ]},
+  {num:"Unit 15",title:`Chemical Equilibrium`,questions:[
+    {text:`At dynamic equilibrium, which statement is correct?`,options:[`The forward reaction has stopped`,`The concentrations of all species are zero`,`The rate of the forward reaction equals the rate of the reverse reaction; concentrations are constant`,`The reaction is complete — all reactants converted to products`],correct:2,marks:1},
+    {text:`Le Châtelier's Principle states that when a system at equilibrium is disturbed, it will:`,options:[`Shift to completely counteract the disturbance`,`Partially oppose the change to minimise its effect and establish a new equilibrium`,`Stop reacting until conditions return to normal`,`Always shift in the forward direction`],correct:1,marks:1},
+    {text:`For 2SO₂(g) + O₂(g) ⇌ 2SO₃(g), increasing pressure will:`,options:[`Shift equilibrium left (more SO₂ + O₂)`,`Shift equilibrium right (more SO₃) — left side has 3 mol gas, right has 2 mol`,`Have no effect — both sides have equal moles of gas`,`Increase the value of Kc`],correct:1,marks:1},
+    {text:`Which of the following changes will alter the VALUE of the equilibrium constant Kc?`,options:[`Adding more reactant`,`Increasing pressure`,`Adding a catalyst`,`Changing temperature`],correct:3,marks:1},
+    {text:`The Kc expression for N₂(g) + 3H₂(g) ⇌ 2NH₃(g) is:`,options:[`Kc = [N₂][H₂]³ / [NH₃]²`,`Kc = [NH₃]² / ([N₂][H₂]³)`,`Kc = [NH₃] / ([N₂][H₂])`,`Kc = [N₂] + [H₂]³ / [NH₃]²`],correct:1,marks:1},
+    {text:`For the exothermic reaction A ⇌ B (ΔH = −50 kJ mol⁻¹), increasing temperature:`,options:[`Shifts equilibrium right → more B; Kc increases`,`Shifts equilibrium left → more A; Kc decreases`,`No effect on equilibrium position`,`Shifts equilibrium right; Kc unchanged`],correct:1,marks:1},
+    {text:`Adding a catalyst to a reaction at equilibrium:`,options:[`Increases the yield of products`,`Shifts equilibrium in the forward direction`,`Speeds up both forward and reverse reactions equally — equilibrium is reached faster; position and Kc unchanged`,`Changes the value of Kc`],correct:2,marks:1},
+    {text:`For N₂O₄(g) ⇌ 2NO₂(g) (endothermic, ΔH = +57 kJ/mol), a mixture of N₂O₄ and NO₂ is placed in a syringe and rapidly compressed. The immediate change is:`,options:[`The mixture becomes darker (more NO₂ — brown)`,`The mixture first becomes lighter (paler) as NO₂ combines to form N₂O₄ due to pressure increase shifting left`,`No change observed`,`Temperature decreases immediately`],correct:1,marks:1},
+    {text:`If Kc for a reaction is very large (e.g. 10¹⁰), this means:`,options:[`The reaction is very slow`,`Equilibrium lies far to the right — mostly products at equilibrium; reaction is essentially complete`,`The activation energy is very high`,`The reaction requires a catalyst to proceed`],correct:1,marks:1},
+    {text:`For CaCO₃(s) ⇌ CaO(s) + CO₂(g), the Kc expression is:`,options:[`Kc = [CaO][CO₂] / [CaCO₃]`,`Kc = [CO₂]`,`Kc = [CaO] / [CaCO₃]`,`Kc = 1`],correct:1,marks:1},
+    {text:`In the Haber Process (N₂ + 3H₂ ⇌ 2NH₃, exothermic), which set of conditions gives the best YIELD of NH₃?`,options:[`High T, low P, no catalyst`,`Low T, high P (thermodynamically best but rate too slow)`,`High T, high P, Fe catalyst`,`Low T, low P, Fe catalyst`],correct:1,marks:1},
+    {text:`The reaction CH₃COOH + C₂H₅OH ⇌ CH₃COOC₂H₅ + H₂O has Kc ≈ 4. To increase the yield of ester, you could:`,options:[`Add a catalyst (H₂SO₄)`,`Use excess ethanol and remove water as it forms`,`Increase pressure`,`Decrease temperature`],correct:1,marks:1},
+    {text:`Adding iron catalyst to the Haber Process at equilibrium:`,options:[`Shifts equilibrium right → more NH₃`,`Increases Kc`,`Does not change equilibrium position or Kc — only increases rate at which equilibrium is reached`,`Shifts equilibrium left → less NH₃`],correct:2,marks:1},
+    {text:`For the equilibrium: Fe³⁺(aq) + SCN⁻(aq) ⇌ [FeSCN]²⁺(aq) (blood red), adding more Fe(NO₃)₃ solution will cause:`,options:[`The solution to become paler (less red)`,`The solution to become darker red (more [FeSCN]²⁺ formed)`,`No visible change`,`A precipitate to form`],correct:1,marks:1},
+    {text:`The units of Kc for the reaction N₂(g) + 3H₂(g) ⇌ 2NH₃(g) are:`,options:[`mol dm⁻³`,`mol² dm⁻⁶`,`mol⁻² dm⁶`,`Dimensionless`],correct:2,marks:1},
+    {text:`For H₂(g) + I₂(g) ⇌ 2HI(g), increasing pressure has:`,options:[`Equilibrium shifts right → more HI`,`No effect on equilibrium position — equal moles of gas on both sides (Δn = 0)`,`Equilibrium shifts left → less HI`,`Kc increases`],correct:1,marks:1},
+    {text:`Ksp for AgBr = 5.0 × 10⁻¹³ mol² dm⁻⁶. The molar solubility of AgBr in pure water is:`,options:[`5.0 × 10⁻¹³ mol dm⁻³`,`7.1 × 10⁻⁷ mol dm⁻³`,`2.5 × 10⁻¹³ mol dm⁻³`,`1.0 × 10⁻⁶ mol dm⁻³`],correct:1,marks:1},
+    {text:`The equilibrium constant for A + B ⇌ C + D is Kc. If the equation is reversed (C + D ⇌ A + B), the new Kc is:`,options:[`Kc (unchanged)`,`1/Kc`,`Kc²`,`−Kc`],correct:1,marks:1},
+    {text:`Why must a reversible reaction be carried out in a closed system to achieve equilibrium?`,options:[`Open systems are too hot`,`In an open system, gaseous or volatile products escape → reaction continues forward without reverse reaction → goes to completion`,`Catalysts only work in closed systems`,`Pressure cannot build up in an open system`],correct:1,marks:1},
+    {text:`In the Contact Process (2SO₂ + O₂ ⇌ 2SO₃, exothermic), which change would DECREASE the yield of SO₃?`,options:[`Decreasing temperature`,`Increasing pressure`,`Increasing temperature`,`Adding excess O₂`],correct:2,marks:1},
+    {text:`The Kp for 2NO₂(g) ⇌ N₂O₄(g) at 25°C is 8.8 atm⁻¹. This means:`,options:[`Mostly NO₂ at equilibrium at 25°C`,`1)`,`Equal amounts of NO₂ and N₂O₄`,`The reaction does not proceed`],correct:1,marks:1},
+    {text:`At equilibrium, [A] = 0.20, [B] = 0.30, [C] = 0.60 mol dm⁻³ for A + B ⇌ C. Calculate Kc.`,options:[`10`,`0.1`,`0.036`,`1.0`],correct:0,marks:1},
+    {text:`Adding a common ion reduces the solubility of a sparingly soluble salt. This is because:`,options:[`The common ion reacts chemically with the salt`,`Adding an ion already present increases the ionic product above Ksp → precipitation occurs until ionic product drops back to Ksp → less salt dissolves`,`The temperature decreases when the common ion is added`,`The common ion increases the Ksp`],correct:1,marks:1},
+    {text:`The equilibrium H₂(g) + I₂(g) ⇌ 2HI(g) has Kc = 46 at 450°C. Starting with 0.50 mol H₂ and 0.50 mol I₂ in a 1.0 dm³ vessel, the [HI] at equilibrium is approximately:`,options:[`0.50 mol dm⁻³`,`1.0 mol dm⁻³`,`0.39 mol dm⁻³`,`0.78 mol dm⁻³`],correct:3,marks:1},
+    {text:`In an industrial ammonia synthesis plant, NH₃ is continuously removed by condensation as it is formed. The effect of this is:`,options:[`Shifts equilibrium left → less NH₃ total`,`Shifts equilibrium right continuously → more NH₃ produced from N₂ and H₂; overall conversion of N₂/H₂ to NH₃ exceeds equilibrium yield per pass`,`No effect — NH₃ removal does not affect equilibrium`,`Increases Kc → more product at each equilibrium`],correct:1,marks:1},
+  ]},
+  {num:"Unit 16",title:`Acids & Bases`,questions:[
+    {text:`According to Brønsted-Lowry theory, a base is:`,options:[`A substance that produces OH⁻ in water`,`A proton (H⁺) acceptor`,`A substance that accepts electrons`,`A metal hydroxide`],correct:1,marks:1},
+    {text:`What is the conjugate base of H₂SO₄?`,options:[`SO₄²⁻`,`HSO₄⁻`,`H₂SO₃`,`H₃SO₄⁺`],correct:1,marks:1},
+    {text:`The pH of 0.010 mol dm⁻³ HNO₃ is:`,options:[`2`,`1`,`3`,`12`],correct:2,marks:1},
+    {text:`Which of the following is a weak acid?`,options:[`HCl`,`H₂SO₄`,`CH₃COOH (ethanoic acid)`,`HNO₃`],correct:1,marks:1},
+    {text:`At 25°C, the ionic product of water Kw = 10⁻¹⁴. This means in pure water:`,options:[`[H⁺] = 10⁻⁷ mol dm⁻³ and pH = 7`,`[H⁺] = 10⁻¹⁴ mol dm⁻³`,`Water does not contain any ions`,`pH = 14`],correct:1,marks:1},
+    {text:`Ka for CH₃COOH = 1.7×10⁻⁵. The pH of 0.10 mol dm⁻³ CH₃COOH is approximately:`,options:[`1.0`,`4.76`,`2.89`,`5.00`],correct:1,marks:1},
+    {text:`A buffer solution is best described as:`,options:[`A solution with pH = 7`,`A solution that resists pH change when small amounts of acid or alkali are added`,`A solution of a strong acid`,`A solution that neutralises all added H⁺`],correct:2,marks:1},
+    {text:`The Henderson-Hasselbalch equation gives the pH of a buffer as:`,options:[`pH = pKa × [A⁻]/[HA]`,`pH = pKa + log([A⁻]/[HA])`,`pH = Ka + [A⁻]`,`pH = −log[HA]`],correct:1,marks:1},
+    {text:`The pH of blood must be maintained at 7.35–7.45. The main buffer system in blood is:`,options:[`NaCl/HCl buffer`,`H₂CO₃/HCO₃⁻ (carbonate buffer) regulated by breathing and the kidneys`,`CH₃COOH/CH₃COO⁻ buffer`,`NaOH/Na₂SO₄ buffer`],correct:1,marks:1},
+    {text:`What is the pH of 0.050 mol dm⁻³ NaOH at 25°C?`,options:[`1.30`,`12.70`,`7.00`,`13.00`],correct:1,marks:1},
+    {text:`For a titration of weak acid with strong base (e.g. CH₃COOH with NaOH), the most suitable indicator is:`,options:[`Methyl orange (range 3.1–4.4)`,`Litmus (range 5.0–8.0)`,`Phenolphthalein (range 8.3–10.0)`,`Any indicator works equally well`],correct:2,marks:1},
+    {text:`A solution of Na₂CO₃ in water is alkaline because:`,options:[`Na₂CO₃ contains sodium, a metal`,`CO₃²⁻ is the conjugate base of the weak acid HCO₃⁻ — it hydrolyses to produce OH⁻`,`Na₂CO₃ directly ionises to give OH⁻`,`The solution becomes acidic, not alkaline`],correct:1,marks:1},
+    {text:`The pKa of CH₃COOH is 4.76. A buffer of equal concentrations of CH₃COOH and CH₃COONa has pH:`,options:[`7.00`,`9.52`,`4.76`,`2.38`],correct:2,marks:1},
+    {text:`Lewis acid BF₃ reacts with Lewis base NH₃ to form the adduct F₃B←NH₃. The new bond formed is:`,options:[`Ionic bond`,`A dative (coordinate) covalent bond — NH₃ donates its lone pair to empty orbital on B`,`Hydrogen bond`,`Van der Waals bond`],correct:1,marks:1},
+    {text:`The Ka × Kb relationship for a conjugate acid-base pair at 25°C is:`,options:[`Ka × Kb = 1`,`Ka × Kb = Kw = 1.0×10⁻¹⁴`,`Ka + Kb = 14`,`Ka / Kb = 7`],correct:2,marks:1},
+    {text:`HCO₃⁻ (hydrogen carbonate ion) is described as amphiprotic because:`,options:[`It contains both H and C atoms`,`It can act as both a proton donor (acid) AND a proton acceptor (base) in Brønsted-Lowry theory`,`It reacts with both metals and non-metals`,`It is an amphipathic molecule`],correct:1,marks:1},
+    {text:`A buffer is made from equal volumes of 0.1 mol dm⁻³ NH₃ and 0.1 mol dm⁻³ NH₄Cl mixed together. The pH of this buffer (pKa NH₄⁺ = 9.25) is:`,options:[`7.00`,`9.25`,`4.75`,`11.00`],correct:1,marks:1},
+    {text:`A solution of NH₄Cl (ammonium chloride) is:`,options:[`Alkaline — due to NH₃ formed`,`Acidic — NH₄⁺ partially hydrolyses to give H⁺`,`Neutral — both ions from strong species`,`Neutral — because Cl⁻ and NH₄⁺ cancel`],correct:1,marks:1},
+    {text:`Which of the following pairs can act as a buffer?`,options:[`HCl and NaCl`,`NaOH and NaCl`,`CH₃COOH and CH₃COONa`,`HCl and NaOH (equal amounts)`],correct:1,marks:1},
+    {text:`The pH of 0.040 mol dm⁻³ H₂SO₄ (assume complete dissociation of both protons) is:`,options:[`1.40`,`2.40`,`1.10`,`0.70`],correct:1,marks:1},
+    {text:`A strong acid and a weak acid at the same concentration have different pH values. At 0.1 mol dm⁻³, HCl has pH 1 but CH₃COOH has pH ~2.9. This is because:`,options:[`CH₃COOH has a larger molar mass`,`CH₃COOH only partially dissociates — [H⁺] &lt;&lt; 0.1 mol dm⁻³`,`HCl is more concentrated`,`pH does not depend on [H⁺]`],correct:2,marks:1},
+    {text:`Phenolphthalein is colourless below pH 8.3 and pink above pH 10.0. It is suitable for titration of:`,options:[`Strong acid with strong base (equivalence at pH 7)`,`Weak acid with strong base (equivalence at pH ~8–9)`,`Strong acid with weak base (equivalence at pH ~5)`,`All titrations — phenolphthalein is universal`],correct:1,marks:1},
+    {text:`Which species acts as a Lewis acid in the formation of [Fe(H₂O)₆]³⁺?`,options:[`H₂O`,`OH⁻`,`Fe³⁺`,`H⁺`],correct:2,marks:1},
+    {text:`The pKa of HF is 3.2. Which is more acidic: HF or CH₃COOH (pKa 4.76)?`,options:[`CH₃COOH — it has a larger pKa`,`HF — it has a smaller pKa (larger Ka)`,`They are equally acidic`,`Cannot be determined from pKa`],correct:1,marks:1},
+    {text:`If [H⁺] in a solution is doubled, the pH:`,options:[`Doubles`,`Decreases by log(2) ≈ 0.30 pH units`,`Increases by 2`,`Halves`],correct:1,marks:1},
+    {text:`According to Brønsted-Lowry theory, an acid is:`,options:[`A substance that produces OH⁻ in water`,`A proton (H⁺) donor`,`An electron pair acceptor`,`A substance that produces H⁺ only in aqueous solution`],correct:1,marks:1},
+    {text:`In the reaction: NH₃ + H₂O ⇌ NH₄⁺ + OH⁻, water acts as:`,options:[`A Lewis acid`,`A Brønsted-Lowry acid (H⁺ donor → OH⁻)`,`An Arrhenius acid`,`A neutral spectator`],correct:1,marks:1},
+    {text:`Which of the following is a Lewis acid but NOT a Brønsted-Lowry acid?`,options:[`HCl`,`CH₃COOH`,`BF₃`,`H₂SO₄`],correct:1,marks:1},
+    {text:`What is the pH of 0.01 mol dm⁻³ HCl?`,options:[`1`,`2`,`12`,`0.01`],correct:3,marks:1},
+    {text:`A strong acid differs from a weak acid of the same concentration because:`,options:[`The strong acid is more concentrated`,`The strong acid is completely ionised; the weak acid is only partially ionised → [H⁺] is much higher for strong acid at same initial concentration`,`The strong acid has a higher molar mass`,`The weak acid has more H atoms in its formula`],correct:1,marks:1},
+    {text:`For a weak acid HA with Ka = 4.0×10⁻⁵ and [HA] = 0.20 mol dm⁻³, [H⁺] is approximately:`,options:[`4.0×10⁻⁵ mol dm⁻³`,`2.8×10⁻³ mol dm⁻³`,`8.0×10⁻⁵ mol dm⁻³`,`0.20 mol dm⁻³`],correct:0,marks:1},
+    {text:`The conjugate base of H₂PO₄⁻ is:`,options:[`H₃PO₄`,`H₂PO₄²⁻`,`HPO₄²⁻`,`PO₄³⁻`],correct:0,marks:1},
+    {text:`What is the pH of 0.050 mol dm⁻³ NaOH?`,options:[`1.30`,`12.70`,`7.00`,`13.00`],correct:0,marks:1},
+    {text:`A buffer solution resists changes in pH because:`,options:[`It has a very high pH`,`It contains both a weak acid (to neutralise added OH⁻) and its conjugate base (to neutralise added H⁺) in large concentrations`,`It contains a strong acid that reacts with any base added`,`It has no protons available`],correct:1,marks:1},
+    {text:`The Henderson-Hasselbalch equation gives buffer pH = pKa + log([A⁻]/[HA]). At the half-equivalence point of a weak acid titration:`,options:[`pH = 7`,`pH = pKa (because [A⁻] = [HA] → log(1) = 0)`,`pH = 14`,`pH = 2×pKa`],correct:1,marks:1},
+    {text:`An aqueous solution of NH₄Cl is:`,options:[`Basic (pH &gt; 7)`,`Neutral (pH = 7)`,`Acidic (pH &lt; 7)`,`Cannot be determined`],correct:0,marks:1},
+    {text:`Kw = [H⁺][OH⁻] = 1.0×10⁻¹⁴ at 25°C. In pure water at 25°C, [H⁺] = [OH⁻] = ?`,options:[`1.0×10⁻¹⁴ mol dm⁻³`,`1.0×10⁻⁷ mol dm⁻³`,`1.0 mol dm⁻³`,`7.0×10⁻⁷ mol dm⁻³`],correct:0,marks:1},
+    {text:`Which indicator is most suitable for titrating ethanoic acid against sodium hydroxide?`,options:[`Methyl orange (range 3.1–4.4)`,`Litmus (range 5.0–8.0)`,`Phenolphthalein (range 8.3–10.0)`,`Universal indicator`],correct:0,marks:1},
+    {text:`The enthalpy of neutralisation for strong acid + strong base is approximately −57 kJ/mol. For CH₃COOH + NaOH it is −55 kJ/mol. Why is it less exothermic for the weak acid?`,options:[`Weaker acid releases less energy overall`,`Some energy is absorbed in the (endothermic) partial ionisation of CH₃COOH before neutralisation can occur — reducing the net heat released`,`NaOH is less reactive with weak acids`,`Water formation is less exothermic with weak acids`],correct:0,marks:1},
+    {text:`Which of the following salts gives a basic aqueous solution?`,options:[`NH₄Cl`,`KNO₃`,`Na₂CO₃`,`FeCl₃`],correct:0,marks:1},
+    {text:`For conjugate acid-base pair: Ka(acid) × Kb(conjugate base) = Kw. If Ka(HF) = 6.3×10⁻⁴, what is Kb(F⁻)?`,options:[`6.3×10⁻⁴`,`1.6×10⁻¹¹`,`6.3×10⁻¹⁸`,`1.0×10⁻¹⁴`],correct:0,marks:1},
+    {text:`A buffer with pH = 5.00 is made from a weak acid with pKa = 4.74. The ratio [A⁻]/[HA] must be:`,options:[`1:1`,`1.82:1`,`0.55:1`,`5:4.74`],correct:1,marks:1},
+    {text:`Water is described as "amphiprotic." This means:`,options:[`It is both acidic and basic in the same solution`,`It can act as both a proton donor (acid) and a proton acceptor (base) in different reactions`,`It has amphoteric oxides dissolved in it`,`It conducts electricity in both directions`],correct:1,marks:1},
+    {text:`A solution has [OH⁻] = 2.0×10⁻³ mol dm⁻³. Its pH is:`,options:[`2.70`,`11.30`,`7.00`,`12.00`],correct:0,marks:1},
+    {text:`The degree of ionisation of a weak acid increases when:`,options:[`The acid concentration is increased`,`The acid is diluted (concentration decreases)`,`Temperature is decreased`,`A common ion (A⁻) is added`],correct:0,marks:1},
+    {text:`For the reaction: BF₃ + F⁻ → BF₄⁻, BF₃ acts as a:`,options:[`Brønsted-Lowry acid`,`Brønsted-Lowry base`,`Lewis acid (electron pair acceptor)`,`Lewis base (electron pair donor)`],correct:2,marks:1},
+    {text:`The titration of a weak acid vs weak base has no sharp equivalence point. This is because:`,options:[`No neutralisation occurs`,`The pH changes very gradually throughout the titration — no steep jump occurs at the equivalence point, so no indicator shows a sharp colour change`,`Both substances are liquids`,`The Kc for this reaction is zero`],correct:1,marks:1},
+    {text:`pKa of CH₃COOH = 4.75. A buffer made with equal concentrations of CH₃COOH and CH₃COO⁻ has pH:`,options:[`7.00`,`9.50`,`4.75`,`2.38`],correct:2,marks:1},
+    {text:`Ka for HCN = 4.9×10⁻¹⁰. The pKa is approximately:`,options:[`4.9`,`9.3`,`10.3`,`−9.3`],correct:1,marks:1},
+    {text:`The blood buffer maintains pH 7.35–7.45. If blood pH falls below 7.35, the condition is called:`,options:[`Alkalosis`,`Acidosis`,`Neutralisation`,`Buffering`],correct:0,marks:1},
+  ]},
+  {num:"Unit 17",title:`Redox Reactions`,questions:[
+    {text:`In the reaction 2Fe³⁺ + Sn²⁺ → 2Fe²⁺ + Sn⁴⁺, the reducing agent is:`,options:[`Fe³⁺`,`Fe²⁺`,`Sn²⁺`,`Sn⁴⁺`],correct:2,marks:1},
+    {text:`The oxidation state of Cr in K₂Cr₂O₇ is:`,options:[`+2`,`+3`,`+6`,`+7`],correct:2,marks:1},
+    {text:`In the standard hydrogen electrode, E° is defined as:`,options:[`+1.00 V`,`−1.00 V`,`0.00 V (by definition)`,`7.00 V`],correct:2,marks:1},
+    {text:`For the galvanic cell Mg | Mg²⁺ || Cu²⁺ | Cu, E°cell = ?(E°(Mg²⁺/Mg) = −2.37V; E°(Cu²⁺/Cu) = +0.34V)`,options:[`−2.03 V`,`+2.03 V`,`+2.71 V`,`−2.71 V`],correct:2,marks:1},
+    {text:`The balanced ionic equation for MnO₄⁻ oxidising Fe²⁺ in acid is:`,options:[`MnO₄⁻ + Fe²⁺ → Mn²⁺ + Fe³⁺`,`MnO₄⁻ + 8H⁺ + 5Fe²⁺ → Mn²⁺ + 4H₂O + 5Fe³⁺`,`2MnO₄⁻ + Fe²⁺ → 2Mn + Fe⁴⁺`,`MnO₄⁻ + 5Fe²⁺ + 4H₂O → Mn²⁺ + 5Fe³⁺ + 8OH⁻`],correct:1,marks:1},
+    {text:`In electrolysis, which process occurs at the cathode?`,options:[`Oxidation — anions lose electrons`,`Reduction — cations gain electrons`,`No reaction — cathode is inert`,`Oxidation — cations gain electrons`],correct:1,marks:1},
+    {text:`A current of 3.0 A is passed for 10 minutes through molten AlCl₃. What mass of Al is deposited? (F = 96,485 C/mol; Ar(Al) = 27)`,options:[`0.17 g`,`0.50 g`,`1.0 g`,`3.0 g`],correct:0,marks:1},
+    {text:`In the electrolysis of aqueous sodium chloride (brine), the gas produced at the cathode is:`,options:[`Cl₂`,`O₂`,`H₂`,`Na vapour`],correct:2,marks:1},
+    {text:`The oxidation state of N in HNO₂ (nitrous acid) is:`,options:[`+5`,`+3`,`+1`,`−3`],correct:1,marks:1},
+    {text:`Galvanising protects iron from corrosion even when the coating is scratched because:`,options:[`Zinc forms a waterproof layer`,`Zinc is more reactive than iron — it acts as a sacrificial anode, oxidising preferentially and protecting Fe`,`Zinc reacts with oxygen to produce a colourless gas`,`Zinc and iron form a compound that prevents water reaching Fe`],correct:1,marks:1},
+    {text:`Which half-equation correctly represents the reduction of dichromate ions in acid?`,options:[`Cr₂O₇²⁻ + 6e⁻ → 2Cr³⁺`,`Cr₂O₇²⁻ + 14H⁺ + 6e⁻ → 2Cr³⁺ + 7H₂O`,`Cr₂O₇²⁻ + 14OH⁻ → 2Cr³⁺ + 7H₂O`,`2Cr³⁺ + 7H₂O → Cr₂O₇²⁻ + 14H⁺ + 6e⁻`],correct:1,marks:1},
+    {text:`The cell notation Zn(s) | Zn²⁺(aq) || Cu²⁺(aq) | Cu(s) indicates:`,options:[`Cu is the anode and Zn is the cathode`,`Zn is the anode (oxidation, left) and Cu is the cathode (reduction, right); || represents the salt bridge`,`Both electrodes are the same`,`The cell is in electrolysis mode`],correct:1,marks:1},
+    {text:`In a galvanic cell, the function of the salt bridge is to:`,options:[`Allow electron flow between the two half-cells`,`Maintain electrical neutrality in each half-cell by allowing ion migration, completing the circuit`,`Increase the voltage of the cell`,`Prevent any mixing of the two solutions`],correct:1,marks:1},
+    {text:`Which of the following will react spontaneously? (E° values: F₂/F⁻ +2.87; Cl₂/Cl⁻ +1.36; Br₂/Br⁻ +1.07; I₂/I⁻ +0.54 V)`,options:[`I₂ + 2Cl⁻ → 2I⁻ + Cl₂`,`Br₂ + 2Cl⁻ → 2Br⁻ + Cl₂`,`Cl₂ + 2Br⁻ → 2Cl⁻ + Br₂`,`Br₂ + 2I⁻ → no reaction`],correct:2,marks:1},
+    {text:`Rusting of iron is an electrochemical process. The ANODIC (oxidation) reaction is:`,options:[`O₂ + 2H₂O + 4e⁻ → 4OH⁻`,`Fe → Fe²⁺ + 2e⁻`,`Fe²⁺ + 2OH⁻ → Fe(OH)₂`],correct:1,marks:1},
+    {text:`What is the oxidation state of Fe in Fe₃O₄?`,options:[`+2`,`+3`,`+8/3 (mixed +2 and +3)`,`+4`],correct:2,marks:1},
+    {text:`Which change represents REDUCTION?`,options:[`Zn → Zn²⁺`,`Fe²⁺ → Fe³⁺`,`MnO₄⁻ → Mn²⁺`,`2I⁻ → I₂`],correct:2,marks:1},
+    {text:`In electrolytic copper refining, the impure copper is:`,options:[`The cathode — pure copper deposits on it`,`The anode — impure copper dissolves; pure copper deposits on the cathode`,`The electrolyte solution`,`Not involved — pure copper appears from the CuSO₄ solution`],correct:1,marks:1},
+    {text:`The Faraday constant (F = 96,485 C mol⁻¹) represents:`,options:[`The charge on one electron`,`The charge on one mole of electrons`,`The mass of one mole of any element deposited`,`The current needed to deposit one mole of metal`],correct:1,marks:1},
+    {text:`The breathalyser test uses K₂Cr₂O₇ (orange) → Cr₂(SO₄)₃ (green). In this reaction, ethanol is:`,options:[`Reduced — OS of C decreases`,`Oxidised — OS of C increases (ethanol → ethanoic acid)`,`Unchanged — it acts as a catalyst`,`The indicator only`],correct:1,marks:1},
+    {text:`Which statement about E°cell is correct?`,options:[`E°cell &lt; 0 means the reaction is spontaneous`,`E°cell &gt; 0 means the reaction is thermodynamically feasible (spontaneous)`,`E°cell = 0 means maximum energy is produced`,`E°cell does not depend on temperature`],correct:1,marks:1},
+    {text:`In the oxidation number method: what change occurs in a reaction where ClO₃⁻ is converted to Cl⁻?`,options:[`Cl OS changes from −1 to +5 (oxidation)`,`Cl OS changes from +5 to −1 (reduction, gain of 6 electrons per Cl)`,`Cl OS stays at −1`,`Cl OS changes from +3 to −1`],correct:1,marks:1},
+    {text:`The displacement reaction Cu + 2AgNO₃ → Cu(NO₃)₂ + 2Ag occurs because:`,options:[`Cu is less reactive than Ag`,`Cu has a more negative E° than Ag — E°(Cu²⁺/Cu) = +0.34V; E°(Ag⁺/Ag) = +0.80V — so Cu is oxidised preferentially`,`NO₃⁻ is the reducing agent`,`Ag is more reactive than Cu`],correct:1,marks:1},
+    {text:`Hydrogen peroxide (H₂O₂) can act as both an oxidising agent and a reducing agent. In which reaction does H₂O₂ act as a REDUCING agent?`,options:[`H₂O₂ + 2KI → I₂ + 2KOH (H₂O₂ oxidises I⁻)`,`H₂O₂ + 2KMnO₄ + 3H₂SO₄ → 2MnSO₄ + K₂SO₄ + 3O₂ + 4H₂O (H₂O₂ reduces MnO₄⁻)`,`H₂O₂ + H₂S → S + 2H₂O (H₂O₂ oxidises H₂S)`,`H₂O₂ → H₂O + ½O₂ (decomposition)`],correct:1,marks:1},
+    {text:`Standard electrode potentials are measured under standard conditions. Which of these is NOT a standard condition?`,options:[`Temperature = 298 K (25°C)`,`All ion concentrations = 1 mol dm⁻³`,`All gas pressures = 100 kPa (1 bar)`,`pH = 7 (neutral solution)`],correct:3,marks:1},
+  ]},
+  {num:"Unit 18",title:`Energy Changes`,questions:[
+    {text:`A reaction in which ΔH is negative is:`,options:[`Endothermic — heat absorbed from surroundings`,`Exothermic — heat released to surroundings`,`Neither — ΔH = 0 means no energy change`,`Endothermic — temperature of surroundings rises`],correct:1,marks:1},
+    {text:`The standard enthalpy of formation of any element in its standard state is:`,options:[`+100 kJ/mol`,`−100 kJ/mol`,`Zero (0 kJ/mol) by definition`,`Variable — depends on the element`],correct:2,marks:1},
+    {text:`Hess's Law states that:`,options:[`Energy is always conserved in chemical reactions`,`The total enthalpy change is independent of the route taken between the same initial and final states`,`Exothermic reactions always go faster than endothermic ones`,`Bond breaking always releases energy`],correct:1,marks:1},
+    {text:`In an energy profile diagram for an exothermic reaction, the products are:`,options:[`At the same enthalpy level as reactants`,`At a higher enthalpy level than reactants`,`At a lower enthalpy level than reactants`,`At the transition state energy level`],correct:2,marks:1},
+    {text:`Breaking a covalent bond is:`,options:[`Exothermic — energy is released`,`Endothermic — energy is required`,`Neither — bond breaking has no energy change`,`Exothermic for ionic bonds, endothermic for covalent`],correct:1,marks:1},
+    {text:`The formula q = mcΔT is used in calorimetry. What does 'c' represent?`,options:[`Concentration in mol/dm³`,`Specific heat capacity of the solution (J g⁻¹ °C⁻¹)`,`Calorimeter constant`,`Change in temperature`],correct:1,marks:1},
+    {text:`Given: ΔH°f(CO₂) = −394, ΔH°f(H₂O) = −286, ΔH°f(C₂H₆) = −85 kJ/mol. ΔH°c for ethane: C₂H₆ + 3½O₂ → 2CO₂ + 3H₂O is:`,options:[`−1428 kJ/mol`,`−1561 kJ/mol`,`+1561 kJ/mol`,`−765 kJ/mol`],correct:1,marks:1},
+    {text:`When a catalyst is added to a reaction at equilibrium, which quantity changes?`,options:[`ΔH of the reaction`,`The equilibrium constant Kc`,`The activation energy Ea`,`The enthalpy of reactants and products`],correct:2,marks:1},
+    {text:`The enthalpy of neutralisation of a strong acid with a strong base (−57 kJ/mol) is always the same because:`,options:[`All acids have the same concentration`,`The net ionic equation is always H⁺ + OH⁻ → H₂O regardless of which strong acid or base is used`,`The reaction always produces the same salt`,`Temperature is always 25°C`],correct:1,marks:1},
+    {text:`Bond enthalpy calculations give slightly different values from Hess's law calculations because:`,options:[`Bond enthalpies are measured at different temperatures`,`Bond enthalpies are AVERAGE values from many compounds — the actual bond strength varies with molecular environment`,`Hess's law does not apply to all reactions`,`Bond enthalpies include lattice energies`],correct:1,marks:1},
+    {text:`What is the activation energy (Ea) in an energy profile diagram?`,options:[`The energy of the products`,`The enthalpy change of the reaction`,`The minimum energy that reacting molecules must possess for a successful collision to occur`,`The energy released when bonds form`],correct:2,marks:1},
+    {text:`100 cm³ of 0.5 mol/dm³ HNO₃ is mixed with 100 cm³ of 0.5 mol/dm³ NaOH. Temperature rises by 3.35°C. Heat released (q) is:`,options:[`1401 J`,`2802 J`,`3500 J`,`700 J`],correct:1,marks:1},
+    {text:`Which of these processes is endothermic?`,options:[`Combustion of methane`,`Neutralisation of HCl with NaOH`,`Thermal decomposition of calcium carbonate`,`Rusting of iron`],correct:2,marks:1},
+    {text:`Use bond enthalpies: N₂ + 3H₂ → 2NH₃. (N≡N = 945; H–H = 436; N–H = 391 kJ/mol). ΔH is:`,options:[`+92 kJ/mol`,`−92 kJ/mol`,`−105 kJ/mol`,`+46 kJ/mol`],correct:1,marks:1},
+    {text:`The sign convention for ΔH is based on:`,options:[`The surroundings — positive if surroundings gain heat`,`The system — negative if system releases heat (exothermic)`,`The temperature change — positive if temperature rises`,`The products — negative if products have less mass`],correct:1,marks:1},
+    {text:`Photosynthesis is an example of which type of reaction?`,options:[`Exothermic — glucose is a high-energy product`,`Endothermic — light energy is absorbed to drive the reaction`,`Thermoneutral — ΔH = 0`,`Exothermic — CO₂ is released`],correct:1,marks:1},
+    {text:`In Hess's Law, if you reverse a reaction equation, you must:`,options:[`Double ΔH`,`Change the sign of ΔH (multiply by −1)`,`Divide ΔH by 2`,`Leave ΔH unchanged`],correct:1,marks:1},
+    {text:`Standard conditions for thermochemistry are:`,options:[`273 K, 1 atm, all concentrations 1 mol/dm³`,`298 K, 100 kPa, all species in standard states`,`298 K, 1 atm, all gases at 1 mol/dm³`,`25°C, 1 bar, only for gas-phase reactions`],correct:1,marks:1},
+    {text:`Which of the following has the largest activation energy?`,options:[`A reaction that occurs explosively at room temperature`,`A reaction that requires heating to 800°C to proceed`,`A reaction catalysed by an enzyme at 37°C`,`A reaction between two ions in solution (instantaneous)`],correct:1,marks:1},
+    {text:`The enthalpy change calculated using bond enthalpies differs from Hess's law result because:`,options:[`Bond enthalpies apply only to ionic compounds`,`Bond enthalpies are average values; they also assume all species are gaseous`,`Hess's law is approximate`,`Bond enthalpies include electron affinity values`],correct:1,marks:1},
+    {text:`Which statement about the enthalpy of atomisation is correct?`,options:[`It can be negative for reactive metals`,`It is always positive (endothermic) — energy needed to separate atoms from their standard state`,`It equals the bond dissociation enthalpy for all elements`,`It applies only to diatomic molecules`],correct:1,marks:1},
+    {text:`A student measures ΔH for a reaction using a polystyrene cup. The value obtained is always less exothermic than the true value because:`,options:[`Polystyrene absorbs some of the heat`,`Heat is lost to the surroundings during the experiment — the measured ΔT is lower than the true ΔT`,`The specific heat capacity of the solution is higher than 4.18`,`The student uses the wrong formula`],correct:1,marks:1},
+    {text:`The standard enthalpy of combustion is always:`,options:[`Positive (endothermic)`,`Negative (exothermic)`,`Zero for elements`,`Variable — can be positive or negative`],correct:1,marks:1},
+    {text:`What does the area under the Maxwell-Boltzmann distribution curve to the right of Ea represent?`,options:[`The total number of molecules`,`The fraction of molecules with enough energy to react (to overcome Ea)`,`The activation energy value`,`The enthalpy change of the reaction`],correct:1,marks:1},
+    {text:`ΔH°f for water is −286 kJ/mol. This means:`,options:[`286 kJ/mol is released when 1 mol of H₂O decomposes`,`286 kJ/mol is released when 1 mol of H₂O(l) is formed from H₂(g) and O₂(g) at standard conditions`,`286 kJ/mol is required to form 2 mol of H₂O`,`The enthalpy of water vapour is −286 kJ/mol`],correct:1,marks:1},
+  ]},
+];
+
+let _pqLastBinId = '';
+
+function pqLoadUnits(){
+  const sel = document.getElementById('pq-unit');
+  sel.innerHTML = '<option value="">— Select a unit —</option>';
+  UNIT_QUIZ_DB.forEach((u,i)=>{
+    sel.innerHTML += `<option value="${i}">${u.num} — ${u.title} (${u.questions.length} questions)</option>`;
+  });
+  document.getElementById('pq-preview').style.display='none';
+  document.getElementById('pq-code-box').style.display='none';
+  document.getElementById('pq-questions-list').style.display='none';
+}
+
+function pqPreview(){
+  const idx = document.getElementById('pq-unit').value;
+  if(idx===''){alert('Please select a unit first.');return;}
+  const unit = UNIT_QUIZ_DB[parseInt(idx)];
+  const prev = document.getElementById('pq-preview');
+  prev.style.display='';
+  document.getElementById('pq-preview-title').textContent = `S4 ${unit.num} — ${unit.title}`;
+  document.getElementById('pq-preview-info').textContent = `${unit.questions.length} questions · ${unit.questions.length} marks total`;
+  
+  // Show questions list
+  const ql = document.getElementById('pq-questions-list');
+  const body = document.getElementById('pq-ql-body');
+  ql.style.display='';
+  body.innerHTML = unit.questions.map((q,i)=>`
+    <div style="padding:14px 0;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--accent);margin-bottom:6px;">Q${i+1}</div>
+      <div style="font-size:.92rem;color:#fff;margin-bottom:8px;">${q.text}</div>
+      ${q.options.map((o,oi)=>`<div style="font-size:.82rem;padding:4px 10px;margin-bottom:4px;border-radius:5px;${oi===q.correct?'background:rgba(52,211,153,.1);border:1px solid var(--green);color:var(--green);':'color:var(--muted);background:var(--surface2);border:1px solid var(--border);'}">
+        <strong>${String.fromCharCode(65+oi)}.</strong> ${o} ${oi===q.correct?'✓':''}
+      </div>`).join('')}
+    </div>`).join('');
+}
+
+async function publishUnitQuiz(){
+  const idx = document.getElementById('pq-unit').value;
+  if(idx===''){alert('Please select a unit first.');return;}
+  const key = localStorage.getItem('jsonbin_key');
+  const alertEl = document.getElementById('pq-alert');
+  if(!key){
+    alertEl.innerHTML='<div class="alert alert-danger">⚠️ No JSONBin API key set. Go to Settings tab first.</div>';
+    return;
+  }
+
+  const unit = UNIT_QUIZ_DB[parseInt(idx)];
+  const time = parseInt(document.getElementById('pq-time').value)||30;
+  const pass = parseInt(document.getElementById('pq-pass').value)||50;
+  const warn = parseInt(document.getElementById('pq-warn').value)||3;
+  const instructions = document.getElementById('pq-instructions').value.trim();
+
+  alertEl.innerHTML='<div class="alert alert-success">Publishing...</div>';
+  document.getElementById('pq-code-box').style.display='none';
+
+  // Build exam object in exact format student-exam.html expects
+  const examObj = {
+    id: 'exam_' + Date.now(),
+    title: `S4 ${unit.num} Quiz — ${unit.title}`,
+    subject: 'S4 Chemistry',
+    type: 'quiz',
+    time, pass, warnings: warn, instructions,
+    questions: unit.questions,
+    totalMarks: unit.questions.length,
+    created: new Date().toISOString(),
+    _apiKey: key,
+    _resultsBin: localStorage.getItem('results_bin_id')||'',
+    _notif: (()=>{
+      const s=JSON.parse(localStorage.getItem('notif_settings')||'{}');
+      return {waPhone:s.waPhone||'',waApiKey:s.waApiKey||'',ejPubKey:s.ejPubKey||'',ejService:s.ejService||'',ejTemplate:s.ejTemplate||'',ejEmail:s.ejEmail||'hajackson2020@gmail.com',notifCheat:s.notifCheat!==false,notifSubmit:s.notifSubmit!==false};
+    })()
+  };
+
+  try{
+    const r = await fetch('https://api.jsonbin.io/v3/b',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','X-Master-Key':key,'X-Bin-Private':'false','X-Bin-Name':examObj.title.slice(0,30)},
+      body: JSON.stringify(examObj)
+    });
+    const d = await r.json();
+    if(!d.metadata?.id) throw new Error(d.message||'Publish failed');
+    const binId = d.metadata.id;
+    _pqLastBinId = binId;
+
+    // Save to local exams list
+    const exams = JSON.parse(localStorage.getItem('exams')||'[]');
+    examObj.binId = binId;
+    examObj.code = binId;
+    exams.push(examObj);
+    localStorage.setItem('exams', JSON.stringify(exams));
+
+    alertEl.innerHTML='<div class="alert alert-success">✅ Published successfully!</div>';
+    document.getElementById('pq-code-box').style.display='';
+    document.getElementById('pq-code-text').textContent = binId;
+
+    // Update stats
+    updateStats();
+
+  }catch(e){
+    alertEl.innerHTML=`<div class="alert alert-danger">❌ Error: ${e.message}</div>`;
+  }
+}
+
+function copyPqCode(){
+  const code = document.getElementById('pq-code-text').textContent;
+  navigator.clipboard.writeText(code).then(()=>alert('Code copied! Share it with your students.'));
+}
+
+// ═══════════════════════════════════════════════════
+// QUIZ ACTIVITY TRACKER
+// ═══════════════════════════════════════════════════
+function initActivityTab(){
+  const binId = localStorage.getItem('activity_bin_id');
+  const status = document.getElementById('activity-bin-status');
+  const showBtn = document.getElementById('show-code-btn');
+  if(binId){
+    if(status) status.innerHTML = '<span style="color:#34d399;">✅ Activity Bin is set up.</span>';
+    if(showBtn) showBtn.style.display = '';
+    renderActivity();
+  } else {
+    if(status) status.innerHTML = '<span style="color:#f59e0b;">⚠️ No Activity Bin yet. Click "Create Activity Bin" to start.</span>';
+  }
+}
+
+async function createActivityBin(){
+  const key = localStorage.getItem('jsonbin_key');
+  if(!key){ alert('Please set your JSONBin Master Key in Settings first.'); return; }
+  try{
+    const r = await fetch('https://api.jsonbin.io/v3/b',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','X-Master-Key':key,'X-Bin-Name':'ChemPortal-Activity','X-Bin-Private':'false'},
+      body:JSON.stringify({results:[], created: new Date().toISOString()})
+    });
+    const d = await r.json();
+    if(!d.metadata?.id) throw new Error('Failed');
+    localStorage.setItem('activity_bin_id', d.metadata.id);
+    alert('✅ Activity Bin created! Share the Class Code with your students.');
+    initActivityTab();
+    showActivityCode();
+  }catch(e){ alert('Error: '+e.message); }
+}
+
+function showActivityCode(){
+  const binId = localStorage.getItem('activity_bin_id');
+  if(!binId){ alert('No bin yet. Create one first.'); return; }
+  const box = document.getElementById('activity-code-box');
+  const txt = document.getElementById('activity-code-text');
+  if(box) box.style.display = '';
+  if(txt) txt.textContent = binId;
+}
+
+function copyActivityCode(){
+  const binId = localStorage.getItem('activity_bin_id');
+  if(!binId) return;
+  navigator.clipboard.writeText(binId).then(()=>alert('Class Code copied! Share it with your students.'));
+}
+
+async function refreshActivity(){
+  const key = localStorage.getItem('jsonbin_key');
+  const binId = localStorage.getItem('activity_bin_id');
+  if(!key||!binId){ alert('Set up Activity Bin first.'); return; }
+  try{
+    const r = await fetch('https://api.jsonbin.io/v3/b/'+binId+'/latest',{
+      headers:{'X-Master-Key':key}
+    });
+    const d = await r.json();
+    const results = d.record?.results || [];
+    localStorage.setItem('activity_results', JSON.stringify(results));
+    renderActivity();
+    alert('✅ Refreshed! Found '+results.length+' result(s).');
+  }catch(e){ alert('Error fetching results: '+e.message); }
+}
+
+function renderActivity(){
+  const all = JSON.parse(localStorage.getItem('activity_results')||'[]');
+  const nameF = (document.getElementById('act-filter-name')||{}).value||'';
+  const unitF = (document.getElementById('act-filter-unit')||{}).value||'';
+  const typeF = (document.getElementById('act-filter-type')||{}).value||'';
+
+  let filtered = all.filter(r=>{
+    if(nameF && !r.student?.toLowerCase().includes(nameF.toLowerCase())) return false;
+    if(unitF && !r.unit?.includes(unitF)) return false;
+    if(typeF && r.type !== typeF) return false;
+    return true;
+  });
+
+  // Stats
+  const students = [...new Set(filtered.map(r=>r.student))].length;
+  const avg = filtered.length ? Math.round(filtered.reduce((s,r)=>s+(r.score/r.total*100),0)/filtered.length) : 0;
+  const pass = filtered.length ? Math.round(filtered.filter(r=>r.score/r.total>=0.5).length/filtered.length*100) : 0;
+  document.getElementById('act-stat-students').textContent = students;
+  document.getElementById('act-stat-attempts').textContent = filtered.length;
+  document.getElementById('act-stat-avg').textContent = avg+'%';
+  document.getElementById('act-stat-pass').textContent = pass+'%';
+
+  const tbody = document.getElementById('act-results-body');
+  if(!tbody) return;
+  if(!filtered.length){
+    tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:30px;color:var(--muted);">No results found.</td></tr>';
+    return;
+  }
+  filtered.sort((a,b)=>new Date(b.date)-new Date(a.date));
+  tbody.innerHTML = filtered.map(r=>{
+    const pct = Math.round(r.score/r.total*100);
+    const color = pct>=70?'#34d399':pct>=50?'#f59e0b':'#f87171';
+    const typeBadge = r.type==='quiz'?'Quick Quiz':r.type==='unit-quiz'?'Unit Quiz':r.type==='test'?'Unit Test':'Activity';
+    return `<tr style="border-bottom:1px solid var(--border);">
+      <td style="padding:10px 14px;font-weight:600;">${r.student||'Unknown'}</td>
+      <td style="padding:10px 14px;color:var(--muted);">${r.unit||'—'}</td>
+      <td style="padding:10px 14px;"><span style="font-family:'JetBrains Mono',monospace;font-size:.72rem;background:rgba(56,189,248,.1);color:#38bdf8;padding:2px 8px;border-radius:4px;">${typeBadge}</span></td>
+      <td style="padding:10px 14px;text-align:center;">${r.score}/${r.total}</td>
+      <td style="padding:10px 14px;text-align:center;font-weight:700;color:${color};">${pct}%</td>
+      <td style="padding:10px 14px;color:var(--muted);font-size:.8rem;">${r.date?new Date(r.date).toLocaleString():'—'}</td>
+    </tr>`;
+  }).join('');
+}
+
+function clearActivityResults(){
+  if(!confirm('Clear all locally cached activity results?')) return;
+  localStorage.removeItem('activity_results');
+  renderActivity();
+}
+
+function exportActivityCSV(){
+  const all = JSON.parse(localStorage.getItem('activity_results')||'[]');
+  if(!all.length){ alert('No results to export.'); return; }
+  const rows = [['Student','Unit','Type','Score','Total','Percent','Date']];
+  all.forEach(r=>{
+    rows.push([r.student||'',r.unit||'',r.type||'',r.score,r.total,Math.round(r.score/r.total*100)+'%',r.date?new Date(r.date).toLocaleString():'']);
+  });
+  const csv = rows.map(r=>r.map(c=>'"'+String(c).replace(/"/g,'\"')+'"').join(',')).join('\n');
+  downloadFile(csv,'activity_results_'+Date.now()+'.csv','text/csv');
+}
+
 
 // ══════════ IMPORT ══════════
 function importResults(files){
