@@ -809,6 +809,18 @@ async function publishExam(){
     // Embed API key and results bin into exam so students can submit results cross-device
     exam._apiKey=key;
     exam._resultsBin=resultsBinId||'';
+    // CRITICAL FIX: embed notification settings so student's browser can send alerts
+    const _ns = JSON.parse(localStorage.getItem('notif_settings')||'{}');
+    exam._notif = {
+      waPhone:  _ns.waPhone  || '',
+      waApiKey: _ns.waApiKey || '',
+      ejPubKey: _ns.ejPubKey || '',
+      ejService:_ns.ejService|| '',
+      ejTemplate:_ns.ejTemplate||'',
+      ejEmail:  _ns.ejEmail  || 'hajackson2020@gmail.com',
+      notifCheat:  _ns.notifCheat  !== false,
+      notifSubmit: _ns.notifSubmit !== false
+    };
     // Store exam in JSONBin
     const r=await fetch('https://api.jsonbin.io/v3/b',{
       method:'POST',
@@ -908,6 +920,11 @@ async function republishExam(id){
   if(!key){alert('Set your JSONBin API key in Settings first.');return;}
   const exams=JSON.parse(localStorage.getItem('exams')||'[]');
   const exam=exams.find(e=>e.id===id);
+  // Re-embed notification settings in case they changed
+  if(exam){
+    const _ns2=JSON.parse(localStorage.getItem('notif_settings')||'{}');
+    exam._notif={waPhone:_ns2.waPhone||'',waApiKey:_ns2.waApiKey||'',ejPubKey:_ns2.ejPubKey||'',ejService:_ns2.ejService||'',ejTemplate:_ns2.ejTemplate||'',ejEmail:_ns2.ejEmail||'hajackson2020@gmail.com',notifCheat:_ns2.notifCheat!==false,notifSubmit:_ns2.notifSubmit!==false};
+  }
   if(!exam) return;
   try{
     const r=await fetch('https://api.jsonbin.io/v3/b',{

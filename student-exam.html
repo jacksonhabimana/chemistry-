@@ -328,6 +328,8 @@ function showInfoScreen(){
 //  START EXAM
 // ══════════════════════════════════════════════
 function startExam(){
+  // Store student name so notifications can use it
+  if(exam) exam._studentName = (document.getElementById('s-name')||{}).value||'Unknown';
   const name = document.getElementById('s-name').value.trim();
   const err = document.getElementById('info-err');
   if(!name){err.textContent='Please enter your full name.';return;}
@@ -480,17 +482,21 @@ Student has been shown a red warning screen.`
 // ══════════════════════════════════════════════
 async function sendNotification(eventType, textMsg){
   try{
-    const s = JSON.parse(localStorage.getItem('notif_settings')||'{}');
-    const studentName = document.getElementById('s-name').value.trim()||'Unknown';
-    if(eventType==='CHEAT' && !s.notifCheat) return;
-    if(eventType==='SUBMIT' && !s.notifSubmit) return;
+    // Read settings from exam object (embedded by teacher when publishing)
+    // This works on the STUDENT's device — no localStorage needed
+    const s = (exam && exam._notif) ? exam._notif : JSON.parse(localStorage.getItem('notif_settings')||'{}');
+    const studentName = (document.getElementById('s-name')||{}).value||exam._studentName||'Unknown Student';
 
-    // 1. WhatsApp (CallMeBot) — direct to teacher's phone
+    if(eventType==='CHEAT' && s.notifCheat === false) return;
+    if(eventType==='SUBMIT' && s.notifSubmit === false) return;
+
+    // 1. WhatsApp via CallMeBot — sends to teacher's phone instantly
     if(s.waPhone && s.waApiKey){
       const phone = s.waPhone.replace(/[^0-9]/g,'');
       const msg = encodeURIComponent(textMsg.substring(0,400));
-      fetch(`https://api.callmebot.com/whatsapp.php?phone=${phone}&text=${msg}&apikey=${s.waApiKey}`)
-        .catch(()=>{});
+      // Use no-cors to avoid CORS errors — message still gets delivered
+      fetch(`https://api.callmebot.com/whatsapp.php?phone=${phone}&text=${msg}&apikey=${s.waApiKey}`,
+        {mode:'no-cors'}).catch(()=>{});
     }
 
     // 2. Telegram
@@ -501,19 +507,23 @@ async function sendNotification(eventType, textMsg){
       }).catch(()=>{});
     }
 
-    // 3. EmailJS
+    // 3. EmailJS — sends email to teacher
     if(s.ejPubKey && s.ejService && s.ejTemplate){
       const icon = eventType==='CHEAT'?'🚨 CHEATING ALERT':'✅ EXAM SUBMITTED';
       fetch('https://api.emailjs.com/api/v1.0/email/send',{
         method:'POST',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({service_id:s.ejService,template_id:s.ejTemplate,user_id:s.ejPubKey,
+        body:JSON.stringify({
+          service_id:s.ejService,
+          template_id:s.ejTemplate,
+          user_id:s.ejPubKey,
           template_params:{
             student_name: studentName,
-            exam_title: exam.title,
+            exam_title: exam ? exam.title : 'Unknown Exam',
             event_type: icon,
             message: textMsg,
             to_email: s.ejEmail||'hajackson2020@gmail.com'
-          }})
+          }
+        })
       }).catch(()=>{});
     }
   }catch(e){}
