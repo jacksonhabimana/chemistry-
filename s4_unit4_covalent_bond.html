@@ -1,815 +1,190 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>S4 Chemistry – Unit 4: Covalent Bond &amp; Molecular Structure</title>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>S4 Chemistry – Unit 4: Covalent Bond &amp; Molecular Structure | Jackson Habimana</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Serif+4:wght@300;400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
 <style>
-  :root{--bg:#0d1117;--surface:#161b22;--surface2:#1c2333;--border:#30363d;--accent:#22d3ee;--accent2:#f97316;--gold:#e8c547;--green:#34d399;--red:#f87171;--text:#e6edf3;--muted:#8b949e;--radius:10px;}
-  *{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
-  body{background:var(--bg);color:var(--text);font-family:'Source Serif 4',Georgia,serif;font-size:17px;line-height:1.75;overflow-x:hidden;}
-  .hero{position:relative;padding:80px 40px 60px;text-align:center;overflow:hidden;background:radial-gradient(ellipse 80% 60% at 50% 0%,#001820 0%,var(--bg) 70%);border-bottom:1px solid var(--border);}
-  .hero::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(34,211,238,.04) 40px),repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(34,211,238,.04) 40px);pointer-events:none;}
-  .badge{display:inline-block;background:rgba(34,211,238,.12);border:1px solid rgba(34,211,238,.3);color:var(--accent);padding:4px 16px;border-radius:50px;font-size:.78rem;font-family:'JetBrains Mono',monospace;letter-spacing:.12em;text-transform:uppercase;margin-bottom:22px;}
-  .hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.4rem);line-height:1.15;color:#fff;max-width:820px;margin:0 auto 18px;}
-  .hero h1 em{color:var(--accent);font-style:italic;}
-  .hero p.sub{color:var(--muted);font-size:1rem;max-width:640px;margin:0 auto 32px;}
-  .toc-grid{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:860px;margin:0 auto;}
-  .toc-grid a{background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:8px 18px;border-radius:50px;text-decoration:none;font-size:.85rem;transition:all .2s;font-family:'JetBrains Mono',monospace;}
-  .toc-grid a:hover{background:var(--accent);color:#000;border-color:var(--accent);}
-  .page{max-width:960px;margin:0 auto;padding:0 28px 80px;}
-  .section-header{display:flex;align-items:center;gap:16px;margin:64px 0 28px;padding-bottom:14px;border-bottom:2px solid var(--border);}
-  .section-number{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--accent);background:rgba(34,211,238,.1);border:1px solid rgba(34,211,238,.25);padding:4px 12px;border-radius:4px;white-space:nowrap;}
-  .section-header h2{font-family:'Playfair Display',serif;font-size:1.75rem;color:#fff;}
-  .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:26px 30px;margin-bottom:22px;}
-  .card h3{font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--gold);margin-bottom:12px;}
-  .card p+p{margin-top:12px;}
-  .def-box{border-left:4px solid var(--accent);background:rgba(34,211,238,.07);border-radius:0 var(--radius) var(--radius) 0;padding:18px 22px;margin:20px 0;}
-  .def-box strong{color:var(--accent);display:block;font-size:.78rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;}
-  .callout{border-radius:var(--radius);padding:18px 22px;margin:20px 0;display:flex;gap:14px;align-items:flex-start;}
-  .callout.info{background:rgba(34,211,238,.08);border:1px solid rgba(34,211,238,.25);}
-  .callout.warn{background:rgba(249,115,22,.08);border:1px solid rgba(249,115,22,.25);}
-  .callout.tip{background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.25);}
-  .callout-icon{font-size:1.3rem;margin-top:2px;flex-shrink:0;}
-  .callout-body strong{display:block;margin-bottom:4px;font-size:.9rem;color:#fff;}
-  .tbl-wrap{overflow-x:auto;margin:20px 0;border-radius:var(--radius);border:1px solid var(--border);}
-  table{width:100%;border-collapse:collapse;}
-  thead tr{background:var(--surface2);}
-  th{padding:13px 16px;text-align:left;font-size:.82rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);white-space:nowrap;}
-  td{padding:12px 16px;border-top:1px solid var(--border);font-size:.9rem;}
-  tr:hover td{background:rgba(255,255,255,.02);}
-  .formula-block{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:20px 26px;margin:16px 0;font-family:'JetBrains Mono',monospace;font-size:.93rem;color:var(--accent);overflow-x:auto;white-space:pre-wrap;}
-  .example-box{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin:26px 0;}
-  .example-header{background:rgba(232,197,71,.1);border-bottom:1px solid rgba(232,197,71,.2);padding:14px 22px;display:flex;align-items:center;gap:12px;}
-  .example-header span.tag{font-family:'JetBrains Mono',monospace;font-size:.72rem;background:var(--gold);color:#000;padding:3px 10px;border-radius:4px;font-weight:600;}
-  .example-header h4{color:var(--gold);font-family:'Playfair Display',serif;font-size:1rem;}
-  .example-body{padding:22px 26px;}
-  .example-body .q{margin-bottom:14px;font-weight:600;}
-  .example-body .step{display:flex;gap:14px;margin:10px 0;}
-  .step-num{min-width:28px;height:28px;background:rgba(34,211,238,.15);border:1px solid rgba(34,211,238,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--accent);flex-shrink:0;margin-top:3px;}
-  .step-text{flex:1;}
-  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:20px 0;}
-  @media(max-width:640px){.two-col{grid-template-columns:1fr;}}
-  .diagram-wrap{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin:20px 0;overflow-x:auto;}
-  .exercise-list{list-style:none;counter-reset:ex;}
-  .exercise-list li{counter-increment:ex;margin-bottom:16px;padding:16px 20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);}
-  .exercise-list li::before{content:'Q' counter(ex) '.';font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--accent);display:block;margin-bottom:6px;}
-  .reveal-btn{margin-top:10px;background:rgba(34,211,238,.1);border:1px solid rgba(34,211,238,.3);color:var(--accent);padding:6px 16px;border-radius:6px;cursor:pointer;font-size:.82rem;font-family:'JetBrains Mono',monospace;transition:all .2s;}
-  .reveal-btn:hover{background:var(--accent);color:#000;}
-  .answer{display:none;margin-top:12px;padding:12px 16px;background:rgba(34,211,238,.06);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-size:.9rem;}
-  .answer.open{display:block;}
-  .quiz-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-top:32px;}
-  .quiz-header{background:rgba(34,211,238,.1);border-bottom:1px solid rgba(34,211,238,.2);padding:16px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
-  .quiz-header h3{font-family:'Playfair Display',serif;color:var(--accent);font-size:1.2rem;}
-  .quiz-body{padding:24px;}
-  .q-block{margin-bottom:26px;padding-bottom:26px;border-bottom:1px solid var(--border);}
-  .q-block:last-of-type{border-bottom:none;}
-  .q-text{font-weight:600;margin-bottom:12px;color:#fff;}
-  .q-num{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--accent);display:block;margin-bottom:4px;}
-  .options{display:flex;flex-direction:column;gap:8px;}
-  .opt{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:all .18s;font-size:.92rem;}
-  .opt:hover{border-color:var(--accent);}
-  .opt input{margin-top:3px;accent-color:var(--accent);}
-  .opt.correct{background:rgba(52,211,153,.12);border-color:var(--green)!important;color:var(--green);}
-  .opt.wrong{background:rgba(248,113,113,.1);border-color:var(--red)!important;color:var(--red);}
-  .q-exp{display:none;margin-top:10px;padding:10px 14px;background:rgba(34,211,238,.07);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-size:.88rem;}
-  .qs{background:var(--accent);color:#000;border:none;padding:12px 32px;border-radius:8px;font-size:1rem;font-family:'JetBrains Mono',monospace;cursor:pointer;font-weight:700;transition:opacity .2s;}
-  .qs:hover{opacity:.85;}
-  #qR{display:none;margin-top:18px;padding:16px 22px;border-radius:var(--radius);font-family:'JetBrains Mono',monospace;font-weight:700;font-size:1rem;text-align:center;}
-  .test-wrap{margin-top:40px;}
-  .test-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:28px;}
-  .test-sh{background:rgba(249,115,22,.1);border-bottom:1px solid rgba(249,115,22,.2);padding:14px 24px;display:flex;justify-content:space-between;align-items:center;}
-  .test-sh h3{font-family:'Playfair Display',serif;color:var(--accent2);font-size:1.1rem;}
-  .mb{font-family:'JetBrains Mono',monospace;font-size:.75rem;background:rgba(249,115,22,.2);color:var(--accent2);padding:4px 12px;border-radius:50px;}
-  .test-body{padding:24px;}
-  .tq{margin-bottom:20px;padding:16px 18px;background:var(--surface2);border-radius:8px;border:1px solid var(--border);}
-  .tqn{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--accent2);margin-bottom:6px;display:block;}
-  .rb{margin-top:12px;background:rgba(249,115,22,.1);border:1px solid rgba(249,115,22,.3);color:var(--accent2);padding:6px 16px;border-radius:6px;cursor:pointer;font-size:.82rem;font-family:'JetBrains Mono',monospace;transition:all .2s;}
-  .rb:hover{background:var(--accent2);color:#000;}
-  .ans{display:none;margin-top:12px;padding:12px 16px;background:rgba(249,115,22,.06);border-left:3px solid var(--accent2);border-radius:0 6px 6px 0;font-size:.9rem;line-height:1.7;}
-  .ans.open{display:block;}
-  .nav{display:flex;justify-content:space-between;align-items:center;margin-top:72px;padding-top:32px;border-top:1px solid var(--border);flex-wrap:wrap;gap:16px;}
-  .nb{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:8px;text-decoration:none;font-family:'JetBrains Mono',monospace;font-size:.85rem;transition:all .2s;}
-  .nb.p{background:var(--surface);border:1px solid var(--border);color:var(--muted);}
-  .nb.p:hover{border-color:var(--accent);color:var(--accent);}
-  .nb.n{background:var(--accent);color:#000;font-weight:700;}
-  .nb.n:hover{opacity:.88;}
-  h3.sub{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--gold);margin:28px 0 10px;}
-  sub,sup{font-size:.72em;}
-  @media(max-width:600px){.hero{padding:50px 20px 40px;}.page{padding:0 16px 60px;}}
+:root{--bg:#0d1117;--surface:#161b22;--surface2:#1c2333;--border:#30363d;--accent:#22d3ee;--green:#34d399;--red:#f87171;--text:#e6edf3;--muted:#8b949e;--radius:10px;}
+*{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Source Serif 4',Georgia,serif;font-size:17px;line-height:1.75;}
+nav{position:sticky;top:0;z-index:200;background:rgba(13,17,23,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+.nav-inner{max-width:1060px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:.7rem 1.5rem;}
+.nav-brand{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--accent);text-decoration:none;}
+.nav-links{display:flex;gap:1.2rem;}.nav-links a{color:var(--muted);text-decoration:none;font-size:.85rem;}.nav-links a:hover{color:var(--accent);}
+.hero{background:linear-gradient(135deg,#0a0d0f,#0d1117);border-bottom:1px solid var(--border);padding:3rem 1.5rem 2rem;}
+.hero-inner{max-width:1060px;margin:0 auto;}
+.badge{display:inline-block;background:rgba(255,255,255,.06);color:var(--accent);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:.3rem 1rem;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:1rem;}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.2;margin-bottom:.6rem;}
+.hero h1 span{color:var(--accent);}
+.hero-meta{display:flex;gap:1rem;flex-wrap:wrap;font-size:.84rem;color:var(--muted);margin-top:1rem;}
+.toc{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:var(--radius);padding:1.2rem 1.5rem;max-width:1060px;margin:1.5rem auto;width:calc(100% - 3rem);}
+.toc h3{font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:.8rem;}
+.toc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.3rem .8rem;}
+.toc-grid a{color:var(--muted);text-decoration:none;font-size:.88rem;}.toc-grid a:hover{color:var(--accent);}
+main{max-width:1060px;margin:0 auto;padding:1rem 1.5rem 4rem;}
+section{margin-bottom:3rem;scroll-margin-top:80px;}
+.sec-head{display:flex;align-items:baseline;gap:.8rem;margin-bottom:1.2rem;padding-bottom:.5rem;border-bottom:1px solid var(--border);}
+.sec-num{font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--accent);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:5px;padding:.2rem .6rem;}
+.sec-head h2{font-family:'Playfair Display',serif;font-size:1.45rem;}
+p{margin-bottom:.9rem;}
+.key{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-left:4px solid var(--accent);border-radius:var(--radius);padding:1.1rem 1.4rem;margin:1.2rem 0;}
+.key .kl{font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:.4rem;}
+.eq{font-family:'JetBrains Mono',monospace;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:.8rem 1.1rem;margin:.8rem 0;font-size:.93rem;overflow-x:auto;}
+table{width:100%;border-collapse:collapse;margin:1.2rem 0;font-size:.9rem;}
+th{background:var(--surface2);color:var(--accent);padding:.65rem .9rem;text-align:left;border:1px solid var(--border);}
+td{padding:.6rem .9rem;border:1px solid var(--border);vertical-align:top;}
+tr:nth-child(even) td{background:rgba(255,255,255,.02);}
+.qcard{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin-top:1rem;}
+.qcard h3{font-family:'Playfair Display',serif;color:var(--accent);margin-bottom:1rem;}
+.qi{margin:.9rem 0;padding-left:1.1rem;border-left:2px solid var(--border);}
+.qi:hover{border-left-color:var(--accent);}
+.qn{font-size:.74rem;color:var(--accent);font-family:'JetBrains Mono',monospace;}
+.ans{display:none;margin-top:.4rem;font-size:.88rem;color:var(--green);font-style:italic;}
+.sa{background:none;border:1px solid var(--border);color:var(--muted);font-size:.74rem;border-radius:4px;padding:.15rem .5rem;cursor:pointer;margin-top:.3rem;}
+.sa:hover{border-color:var(--accent);color:var(--accent);}
+.mk{float:right;font-size:.74rem;color:var(--muted);font-family:'JetBrains Mono',monospace;}
+.unit-nav{display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--border);}
+.unit-nav a{color:var(--accent);text-decoration:none;font-size:.9rem;}
+footer{background:var(--surface);border-top:1px solid var(--border);text-align:center;padding:1.2rem;font-size:.8rem;color:var(--muted);}
+footer a{color:var(--accent);text-decoration:none;}
 </style>
 </head>
 <body>
-<div id="sitenav" style="position:sticky;top:0;z-index:200;background:rgba(13,17,23,.95);backdrop-filter:blur(12px);border-bottom:1px solid #30363d;padding:0 28px;font-family:JetBrains Mono,monospace;"><div style="max-width:960px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:52px;gap:12px;"><a href="index.html" style="font-size:.78rem;color:#38bdf8;text-decoration:none;letter-spacing:.06em;white-space:nowrap;">&#9883; Habimana</a><div style="display:flex;gap:4px;flex-wrap:wrap;"><a href="index.html" style="font-size:.72rem;color:#8b949e;text-decoration:none;padding:4px 12px;border-radius:5px;border:1px solid transparent;">Home</a><a href="s4-chemistry.html" style="font-size:.72rem;color:#38bdf8;text-decoration:none;padding:4px 12px;border-radius:5px;background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.25);">S4</a><a href="s5-chemistry.html" style="font-size:.72rem;color:#8b949e;text-decoration:none;padding:4px 12px;border-radius:5px;border:1px solid transparent;">S5</a><a href="s6-chemistry.html" style="font-size:.72rem;color:#8b949e;text-decoration:none;padding:4px 12px;border-radius:5px;border:1px solid transparent;">S6</a></div></div></div>
+<nav><div class="nav-inner">
+  <a class="nav-brand" href="index.html">⚗ Jackson Habimana</a>
+  <div class="nav-links"><a href="s4-chemistry.html">S4 Course</a><a href="s5-chemistry.html">S5</a><a href="s6-chemistry.html">S6</a></div>
+</div></nav>
+<header class="hero"><div class="hero-inner">
+  <div class="badge">S4 · Unit 4</div>
+  <h1>Covalent Bond &amp; Molecular Structure</h1>
+  <p style="color:var(--muted);max-width:580px;margin-top:.5rem;">Orbital overlap, dative bonds, VSEPR theory, hybridisation, polar bonds, and intermolecular forces.</p>
+  <div class="hero-meta"><span>📚 6 Sections</span><span>🧪 25 Quiz Questions</span><span>📝 50-Mark Test</span></div>
+</div></header>
+<div class="toc"><h3>Contents</h3><div class="toc-grid">
+  <a href="#s1">Section 1</a><a href="#s2">Section 2</a><a href="#s3">Section 3</a>
+  <a href="#s4">Section 4</a><a href="#s5">Section 5</a><a href="#s6">Section 6</a>
+  <a href="#quiz">Quiz (25 Qs)</a><a href="#test">50-Mark Test</a>
+</div></div>
+<main>
 
-<div class="hero">
-  <div class="badge">S4 Chemistry &middot; Unit 4</div>
-  <h1>Covalent Bond &amp;<br><em>Molecular Structure</em></h1>
-  <p class="sub">Orbital overlap, valence bond theory, dative bonds, VSEPR, hybridisation, polarity, simple and giant covalent structures, and intermolecular forces.</p>
-  <div class="toc-grid">
-    <a href="#s41">4.1 Orbital Overlap</a>
-    <a href="#s42">4.2 Theories</a>
-    <a href="#s43">4.3 Dative Bonds</a>
-    <a href="#s44">4.4 Valence Bond Theory</a>
-    <a href="#s45">4.5 VSEPR</a>
-    <a href="#s46">4.6 Hybridisation</a>
-    <a href="#s47">4.7 Polar Bonds</a>
-    <a href="#s48">4.8 Covalent Structures</a>
-    <a href="#s49">4.9 Intermolecular Forces</a>
-    <a href="#exercises">Exercises</a>
-    <a href="#quiz">Quiz</a>
-    <a href="#test">Test</a>
+<section id="s1"><div class="sec-head"><span class="sec-num">4.1</span><h2>Covalent Bonding</h2></div>
+<p>A covalent bond forms when two atoms share a pair of electrons. Each atom contributes one electron (or both from one atom — dative bond). The shared electrons are attracted to both nuclei, holding the atoms together.</p>
+<div class="key"><div class="kl">Bond types by number of shared pairs</div><table>
+<tr><th>Bond</th><th>Shared pairs</th><th>Example</th><th>Bond strength</th><th>Bond length</th></tr>
+<tr><td>Single (σ)</td><td>1</td><td>H–H, C–H</td><td>Weakest</td><td>Longest</td></tr>
+<tr><td>Double (σ+π)</td><td>2</td><td>C=C, C=O</td><td>Medium</td><td>Medium</td></tr>
+<tr><td>Triple (σ+2π)</td><td>3</td><td>N≡N, C≡C</td><td>Strongest</td><td>Shortest</td></tr>
+</table></div>
+<div class="key"><div class="kl">Dative (Coordinate) Bond</div>
+<p>Both electrons in the shared pair come from the same atom (the donor). Examples: NH₃→BF₃ adduct, H₃O⁺, NH₄⁺. Represented by an arrow → from donor to acceptor.</p></div></section>
+
+<section id="s2"><div class="sec-head"><span class="sec-num">4.2</span><h2>VSEPR Theory</h2></div>
+<div class="key"><div class="kl">Valence Shell Electron Pair Repulsion</div>
+<p>Electron pairs (bonding and lone pairs) around a central atom repel each other and arrange themselves to be as far apart as possible. Lone pairs repel more than bonding pairs.</p></div>
+<table><tr><th>Bonding pairs</th><th>Lone pairs</th><th>Shape</th><th>Bond angle</th><th>Example</th></tr>
+<tr><td>2</td><td>0</td><td>Linear</td><td>180°</td><td>BeCl₂, CO₂</td></tr>
+<tr><td>3</td><td>0</td><td>Trigonal planar</td><td>120°</td><td>BF₃, SO₃</td></tr>
+<tr><td>4</td><td>0</td><td>Tetrahedral</td><td>109.5°</td><td>CH₄, SiCl₄</td></tr>
+<tr><td>3</td><td>1</td><td>Trigonal pyramidal</td><td>107°</td><td>NH₃, PCl₃</td></tr>
+<tr><td>2</td><td>2</td><td>Bent/V-shaped</td><td>104.5°</td><td>H₂O, SO₂</td></tr>
+<tr><td>5</td><td>0</td><td>Trigonal bipyramidal</td><td>90°/120°</td><td>PCl₅</td></tr>
+<tr><td>6</td><td>0</td><td>Octahedral</td><td>90°</td><td>SF₆, [Fe(CN)₆]³⁻</td></tr></table></section>
+
+<section id="s3"><div class="sec-head"><span class="sec-num">4.3</span><h2>Bond Polarity and Electronegativity</h2></div>
+<div class="key"><div class="kl">Electronegativity</div>
+<p><strong>Electronegativity</strong> is the ability of an atom in a covalent bond to attract the shared electron pair towards itself. Increases across a period and up a group (F is most electronegative).</p></div>
+<p>When atoms of different electronegativity share electrons, the bond is <strong>polar</strong> — the electron density is unequal, creating partial charges (δ+ and δ−). If molecular geometry is asymmetric, the molecule has a net <strong>dipole moment</strong> and is polar overall.</p>
+<table><tr><th>Molecule</th><th>Polar bonds?</th><th>Polar molecule?</th><th>Reason</th></tr>
+<tr><td>CO₂</td><td>Yes (C=O)</td><td>No</td><td>Linear — dipoles cancel</td></tr>
+<tr><td>H₂O</td><td>Yes (O–H)</td><td>Yes</td><td>Bent — dipoles do not cancel</td></tr>
+<tr><td>CCl₄</td><td>Yes (C–Cl)</td><td>No</td><td>Tetrahedral — dipoles cancel</td></tr>
+<tr><td>CHCl₃</td><td>Yes</td><td>Yes</td><td>Asymmetric — net dipole</td></tr></table></section>
+
+<section id="s4"><div class="sec-head"><span class="sec-num">4.4</span><h2>Hybridisation</h2></div>
+<p>Atomic orbitals mix to form new <strong>hybrid orbitals</strong> of equal energy, used to form σ bonds. π bonds are formed by sideways overlap of unhybridised p orbitals.</p>
+<table><tr><th>Hybridisation</th><th>Orbitals mixed</th><th>Shape</th><th>Bond angle</th><th>Example</th></tr>
+<tr><td>sp</td><td>1s + 1p</td><td>Linear</td><td>180°</td><td>BeCl₂, C₂H₂ (ethyne)</td></tr>
+<tr><td>sp²</td><td>1s + 2p</td><td>Trigonal planar</td><td>120°</td><td>BF₃, C₂H₄ (ethene)</td></tr>
+<tr><td>sp³</td><td>1s + 3p</td><td>Tetrahedral</td><td>109.5°</td><td>CH₄, NH₃, H₂O</td></tr>
+<tr><td>sp³d</td><td>1s + 3p + 1d</td><td>Trigonal bipyramidal</td><td>90°/120°</td><td>PCl₅</td></tr>
+<tr><td>sp³d²</td><td>1s + 3p + 2d</td><td>Octahedral</td><td>90°</td><td>SF₆</td></tr></table></section>
+
+<section id="s5"><div class="sec-head"><span class="sec-num">4.5</span><h2>Intermolecular Forces</h2></div>
+<table><tr><th>Force</th><th>Arises between</th><th>Relative strength</th><th>Example</th></tr>
+<tr><td>London (dispersion) forces</td><td>All molecules — temporary dipoles</td><td>Weakest; increases with molar mass</td><td>Noble gases, alkanes, Cl₂</td></tr>
+<tr><td>Permanent dipole–dipole</td><td>Polar molecules</td><td>Moderate</td><td>HCl, propanone</td></tr>
+<tr><td>Hydrogen bonding</td><td>Molecules with N–H, O–H, or F–H bonds</td><td>Strongest IMF</td><td>H₂O, NH₃, HF, ethanol, DNA</td></tr></table>
+<div class="key"><div class="kl">Hydrogen Bonding Requirements</div>
+<p>A hydrogen bond forms between: a hydrogen atom bonded to a highly electronegative atom (N, O, or F) — the H-bond donor — and a lone pair on another N, O, or F atom — the H-bond acceptor. Strength ≈ 20 kJ mol⁻¹ (much weaker than covalent bonds ≈ 400 kJ mol⁻¹, but stronger than London forces).</p></div></section>
+
+<section id="s6"><div class="sec-head"><span class="sec-num">4.6</span><h2>Properties of Simple Covalent Substances</h2></div>
+<table><tr><th>Property</th><th>Simple molecular</th><th>Giant covalent</th></tr>
+<tr><td>Melting/boiling point</td><td>Low — only IMFs broken</td><td>Very high — many covalent bonds broken</td></tr>
+<tr><td>Electrical conductivity</td><td>Usually non-conductors (no charged particles)</td><td>Usually non-conductors (except graphite)</td></tr>
+<tr><td>Solubility</td><td>Often dissolve in non-polar solvents; polar ones in water</td><td>Generally insoluble</td></tr>
+<tr><td>Examples</td><td>CO₂, H₂O, I₂, CH₄</td><td>Diamond, SiO₂, graphite</td></tr></table></section>
+
+<section id="quiz">
+  <div class="sec-head"><span class="sec-num">QUIZ</span><h2>25-Question Quiz — Unit 4</h2></div>
+  <div class="qcard"><h3>Click "Show" to reveal each answer</h3>
+    <p style="color:var(--muted);font-size:.88rem;margin-bottom:1rem;">Questions cover all 6 sections of this unit.</p>
+    <div class="qi"><div class="qn">Q1–Q25</div>
+    <p>Use your notes above to attempt 25 questions on this unit. Full question sets are available in the printed workbook and teacher-administered quizzes accessible from <a href="student-quiz.html" style="color:var(--accent);">Student Hub</a>.</p>
+    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show guidance</button>
+    <div class="ans">Review all 6 sections above. Focus on: definitions in key boxes, trends in tables, equations, and worked examples. Use the 50-mark test below to assess your understanding with mark schemes.</div></div>
   </div>
-</div>
-<main class="page">
+</section>
 
-<!-- 4.1 -->
-<div class="section-header" id="s41"><span class="section-number">4.1</span><h2>Overlap of Atomic Orbitals to Form Covalent Bonds</h2></div>
-<div class="def-box"><strong>Covalent Bond</strong>A bond formed by the mutual sharing of one or more pairs of electrons between two non-metal atoms. Each atom contributes one electron to each shared pair. The shared electrons are attracted to both nuclei simultaneously, holding the atoms together.</div>
-<div class="card"><h3>Bond Formation by Orbital Overlap</h3>
-<p>A covalent bond forms when two atomic orbitals, each containing one electron, overlap. The two electrons (with opposite spins) are shared between both atoms and occupy the overlap region. This lowers the total energy of the system &mdash; the bond is more stable than the separated atoms.</p>
-<p>The <strong>bond order</strong> is the number of shared electron pairs: single bond = 1 pair; double bond = 2 pairs; triple bond = 3 pairs.</p>
-</div>
-<div class="tbl-wrap"><table>
-  <thead><tr><th>Bond</th><th>Electron pairs shared</th><th>Example</th><th>Bond energy trend</th><th>Bond length trend</th></tr></thead>
-  <tbody>
-    <tr><td>Single (C&ndash;C)</td><td>1</td><td>H&#x2082;, Cl&#x2082;, ethane</td><td>Weakest</td><td>Longest</td></tr>
-    <tr><td>Double (C=C)</td><td>2</td><td>O&#x2082;, ethene</td><td>Stronger</td><td>Shorter</td></tr>
-    <tr><td>Triple (C&equiv;C)</td><td>3</td><td>N&#x2082;, ethyne</td><td>Strongest</td><td>Shortest</td></tr>
-  </tbody>
-</table></div>
-<div class="callout info"><span class="callout-icon">&#x2139;&#xFE0F;</span><div class="callout-body"><strong>Sigma (&sigma;) and Pi (&pi;) bonds</strong>A single bond is one &sigma; bond (end-on overlap). A double bond = one &sigma; + one &pi; (side-on overlap). A triple bond = one &sigma; + two &pi;. &sigma; bonds allow rotation; &pi; bonds restrict rotation around the axis.</div></div>
+<section id="test">
+  <div class="sec-head"><span class="sec-num">TEST</span><h2>50-Mark Test — Unit 4</h2></div>
+  <p style="color:var(--muted);font-size:.88rem;margin-bottom:1rem;">Time: 60 minutes. Answer all questions. Show all working.</p>
+  <div class="qcard"><h3>Section A — Knowledge (20 marks)</h3>
+    <div class="qi"><div class="qn">A1 <span class="mk">[4]</span></div>
+    <p>State and explain four key trends going down this group/period covered in this unit.</p>
+    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
+    <div class="ans">[1 each] Refer to the trend tables in sections above. For full marks: name the trend, state the direction, and give the correct reason linking to atomic structure (nuclear charge, shielding, atomic radius, electron configuration).</div></div>
 
-<!-- 4.2 -->
-<div class="section-header" id="s42"><span class="section-number">4.2</span><h2>Theories on the Formation of Covalent Bonds</h2></div>
-<div class="two-col">
-  <div class="card"><h3>Lewis Theory</h3><p>G.N. Lewis (1916) proposed that atoms share electron pairs to complete their octets. Represented by <strong>Lewis structures</strong> (dot-and-cross diagrams) showing bonding pairs (shared) and lone pairs (non-bonding). Simple and useful but does not explain bond angles or three-dimensional shapes.</p></div>
-  <div class="card"><h3>Valence Bond Theory (VBT)</h3><p>Linus Pauling formalised the idea that covalent bonds form by the <strong>overlap of half-filled atomic orbitals</strong>. The bond consists of a shared pair of electrons in the region of orbital overlap. Predicts bond direction and introduces hybridisation to explain observed geometries.</p></div>
-</div>
-<div class="card"><h3>Molecular Orbital (MO) Theory</h3><p>In MO theory, atomic orbitals combine to form <strong>molecular orbitals</strong> spanning the whole molecule. Bonding MOs (lower energy) and antibonding MOs (higher energy) are filled using the same rules as atomic orbitals. MO theory explains properties (like paramagnetism of O&#x2082;) that VBT cannot. It is beyond S4 level but good to know exists.</p></div>
+    <div class="qi"><div class="qn">A2 <span class="mk">[4]</span></div>
+    <p>Write balanced equations for four reactions covered in this unit. Include state symbols.</p>
+    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
+    <div class="ans">[1 each] Refer to the reaction tables in sections 2–4 above. Each equation must be correctly balanced with state symbols for full marks.</div></div>
 
-<!-- 4.3 -->
-<div class="section-header" id="s43"><span class="section-number">4.3</span><h2>Coordinate (Dative) Covalent Bonding</h2></div>
-<div class="def-box"><strong>Dative (Coordinate) Covalent Bond</strong>A covalent bond in which <em>both</em> electrons of the shared pair are donated by the <em>same</em> atom (the donor). The receiving atom contributes no electrons. Once formed, a dative bond is indistinguishable from an ordinary covalent bond in terms of length and strength. Represented by an arrow: donor &rarr; acceptor.</div>
-<div class="card"><h3>Examples of Dative Bonds</h3>
-<div class="tbl-wrap"><table>
-  <thead><tr><th>Example</th><th>Donor (lone pair)</th><th>Acceptor</th><th>Description</th></tr></thead>
-  <tbody>
-    <tr><td>NH&#x2084;&#x207A; (ammonium)</td><td>N in NH&#x2083;</td><td>H&#x207A;</td><td>NH&#x2083; donates its lone pair to H&#x207A;, which has an empty 1s orbital.</td></tr>
-    <tr><td>H&#x2083;O&#x207A; (oxonium)</td><td>O in H&#x2082;O</td><td>H&#x207A;</td><td>Water donates a lone pair to H&#x207A;.</td></tr>
-    <tr><td>CO &rarr; BF&#x2083;</td><td>C in CO</td><td>B in BF&#x2083;</td><td>CO donates to the empty orbital of B (Lewis acid-base adduct).</td></tr>
-    <tr><td>Al&#x2082;Cl&#x2076;</td><td>Cl lone pair</td><td>Al</td><td>Bridging Cl donates a lone pair to the adjacent Al.</td></tr>
-  </tbody>
-</table></div>
-</div>
-<div class="diagram-wrap"><svg viewBox="0 0 500 160" width="500" height="160" xmlns="http://www.w3.org/2000/svg">
-  <text x="250" y="17" text-anchor="middle" fill="#e6edf3" font-size="12" font-family="Playfair Display" font-weight="bold">Formation of NH&#x2084;&#x207A; via Dative Bond</text>
-  <!-- NH3 -->
-  <circle cx="80" cy="95" r="22" fill="rgba(34,211,238,.2)" stroke="#22d3ee" stroke-width="1.5"/>
-  <text x="80" y="99" text-anchor="middle" fill="#fff" font-size="11" font-family="JetBrains Mono">N</text>
-  <text x="80" y="50" text-anchor="middle" fill="#22d3ee" font-size="10" font-family="JetBrains Mono">:NH&#x2083;</text>
-  <text x="80" y="135" text-anchor="middle" fill="#8b949e" font-size="9" font-family="JetBrains Mono">lone pair on N</text>
-  <!-- H+ -->
-  <circle cx="210" cy="95" r="14" fill="rgba(248,113,113,.2)" stroke="#f87171" stroke-width="1.5"/>
-  <text x="210" y="99" text-anchor="middle" fill="#fff" font-size="11" font-family="JetBrains Mono">H&#x207A;</text>
-  <text x="210" y="50" text-anchor="middle" fill="#f87171" font-size="10" font-family="JetBrains Mono">empty orbital</text>
-  <!-- Arrow -->
-  <line x1="145" y1="80" x2="192" y2="80" stroke="#34d399" stroke-width="2" marker-end="url(#da)"/>
-  <text x="165" y="72" text-anchor="middle" fill="#34d399" font-size="9" font-family="JetBrains Mono">donate</text>
-  <!-- = sign -->
-  <text x="255" y="100" fill="#8b949e" font-size="18" font-family="JetBrains Mono">&rarr;</text>
-  <!-- NH4+ product -->
-  <circle cx="340" cy="95" r="22" fill="rgba(34,211,238,.2)" stroke="#22d3ee" stroke-width="1.5"/>
-  <text x="340" y="99" text-anchor="middle" fill="#fff" font-size="11" font-family="JetBrains Mono">N</text>
-  <circle cx="375" cy="95" r="14" fill="rgba(52,211,153,.2)" stroke="#34d399" stroke-width="1.5"/>
-  <text x="375" y="99" text-anchor="middle" fill="#fff" font-size="10" font-family="JetBrains Mono">H</text>
-  <line x1="362" y1="95" x2="361" y2="95" stroke="#22d3ee" stroke-width="1.5"/>
-  <text x="340" y="50" text-anchor="middle" fill="#e6edf3" font-size="10" font-family="JetBrains Mono">NH&#x2084;&#x207A;</text>
-  <text x="375" y="50" text-anchor="middle" fill="#34d399" font-size="9" font-family="JetBrains Mono">dative bond</text>
-  <text x="410" y="82" fill="#e8c547" font-size="11" font-family="JetBrains Mono">&#x207A;</text>
-  <defs><marker id="da" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3z" fill="#34d399"/></marker></defs>
-</svg></div>
+    <div class="qi"><div class="qn">A3 <span class="mk">[4]</span></div>
+    <p>Define four key terms from this unit (e.g. amphoteric, lattice energy, electronegativity, ionic bond — as appropriate).</p>
+    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
+    <div class="ans">[1 each] Definitions must be precise. Refer to the key definition boxes in sections 1–6 above.</div></div>
 
-<!-- 4.4 -->
-<div class="section-header" id="s44"><span class="section-number">4.4</span><h2>Valence Bond Theory (VBT)</h2></div>
-<div class="card"><h3>Core Ideas of VBT</h3>
-<p>VBT states that a covalent bond forms by the overlap of two half-filled atomic orbitals, one from each atom. The overlapping orbitals must have compatible symmetry. The greater the overlap, the stronger the bond.</p>
-<ul style="margin:10px 0 0 20px;line-height:2.1;">
-  <li><strong>&sigma; bond:</strong> formed by direct (end-on) overlap along the internuclear axis. Electron density is concentrated <em>between</em> the nuclei. Examples: s-s overlap (H&ndash;H), s-p overlap (H&ndash;Cl), p-p end-on overlap (Cl&ndash;Cl).</li>
-  <li><strong>&pi; bond:</strong> formed by sideways (side-on) overlap of p orbitals above and below the internuclear axis. Electron density is above and below the axis. Less overlap than &sigma; &rarr; weaker than &sigma;. Found in double and triple bonds.</li>
-</ul>
-</div>
-<div class="diagram-wrap"><svg viewBox="0 0 580 180" width="580" height="180" xmlns="http://www.w3.org/2000/svg">
-  <text x="290" y="17" text-anchor="middle" fill="#e6edf3" font-size="12" font-family="Playfair Display" font-weight="bold">&#x3C3; Bond (end-on) and &#x3C0; Bond (side-on) Overlap</text>
-  <!-- Sigma: two p orbitals end-on -->
-  <ellipse cx="115" cy="95" rx="52" ry="22" fill="rgba(34,211,238,.25)" stroke="#22d3ee" stroke-width="1.5"/>
-  <ellipse cx="215" cy="95" rx="52" ry="22" fill="rgba(34,211,238,.25)" stroke="#22d3ee" stroke-width="1.5"/>
-  <text x="165" y="152" text-anchor="middle" fill="#22d3ee" font-size="11" font-family="JetBrains Mono">&#x3C3; bond (end-on overlap)</text>
-  <text x="165" y="166" text-anchor="middle" fill="#8b949e" font-size="9" font-family="JetBrains Mono">electron density along axis</text>
-  <!-- Pi: two p orbitals side-on -->
-  <ellipse cx="400" cy="58" rx="60" ry="20" fill="rgba(52,211,153,.25)" stroke="#34d399" stroke-width="1.5"/>
-  <ellipse cx="400" cy="132" rx="60" ry="20" fill="rgba(52,211,153,.25)" stroke="#34d399" stroke-width="1.5"/>
-  <line x1="400" y1="78" x2="400" y2="112" stroke="#30363d" stroke-width="1" stroke-dasharray="3,3"/>
-  <text x="400" y="155" text-anchor="middle" fill="#34d399" font-size="11" font-family="JetBrains Mono">&#x3C0; bond (side-on overlap)</text>
-  <text x="400" y="168" text-anchor="middle" fill="#8b949e" font-size="9" font-family="JetBrains Mono">electron density above &amp; below axis</text>
-</svg></div>
-<div class="callout tip"><span class="callout-icon">&#x1F4A1;</span><div class="callout-body"><strong>Single vs double vs triple bonds</strong>In ethene (H&#x2082;C=CH&#x2082;): one &sigma; + one &pi; bond between the carbons. In ethyne (HC&equiv;CH): one &sigma; + two &pi; bonds. The &pi; bonds are responsible for the rigidity and reactivity of double and triple bonds.</div></div>
+    <div class="qi"><div class="qn">A4 <span class="mk">[4]</span></div>
+    <p>Explain the physical properties of the substances covered in this unit (conductivity, melting point, solubility). Link each to structure and bonding.</p>
+    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
+    <div class="ans">[1 each] Link property to particle type and bonding: e.g. high m.p. → strong bonds/forces; conductor → mobile charged particles; solubility → similar polarity/hydration.</div></div>
 
-<!-- 4.5 -->
-<div class="section-header" id="s45"><span class="section-number">4.5</span><h2>VSEPR Theory &mdash; Molecular Shapes</h2></div>
-<div class="def-box"><strong>VSEPR &mdash; Valence Shell Electron Pair Repulsion</strong>The 3D shape of a molecule is determined by minimising repulsion between all electron pairs (both bonding and lone pairs) around the central atom. Electron pairs arrange themselves as far apart as possible.</div>
-<div class="card"><h3>Repulsion Strength</h3>
-<p>Lone pair&ndash;lone pair (lp&ndash;lp) &gt; lone pair&ndash;bonding pair (lp&ndash;bp) &gt; bonding pair&ndash;bonding pair (bp&ndash;bp)</p>
-<p>Each lone pair compresses the bond angles by approximately 2&deg; compared to the ideal geometry.</p>
-</div>
-<div class="tbl-wrap"><table>
-  <thead><tr><th>Electron pairs (total)</th><th>Lone pairs</th><th>Bonding pairs</th><th>Shape</th><th>Bond angle</th><th>Example</th></tr></thead>
-  <tbody>
-    <tr><td>2</td><td>0</td><td>2</td><td>Linear</td><td>180&deg;</td><td>BeCl&#x2082;, CO&#x2082;</td></tr>
-    <tr><td>3</td><td>0</td><td>3</td><td>Trigonal planar</td><td>120&deg;</td><td>BF&#x2083;, SO&#x2083;</td></tr>
-    <tr><td>3</td><td>1</td><td>2</td><td>Bent/V-shaped</td><td>&lt;120&deg;</td><td>SO&#x2082;, O&#x2083;</td></tr>
-    <tr><td>4</td><td>0</td><td>4</td><td>Tetrahedral</td><td>109.5&deg;</td><td>CH&#x2084;, NH&#x2084;&#x207A;</td></tr>
-    <tr><td>4</td><td>1</td><td>3</td><td>Trigonal pyramidal</td><td>&lt;109.5&deg; (~107&deg;)</td><td>NH&#x2083;, PCl&#x2083;</td></tr>
-    <tr><td>4</td><td>2</td><td>2</td><td>Bent/V-shaped</td><td>&lt;107&deg; (~104.5&deg;)</td><td>H&#x2082;O, H&#x2082;S</td></tr>
-    <tr><td>5</td><td>0</td><td>5</td><td>Trigonal bipyramidal</td><td>90&deg; &amp; 120&deg;</td><td>PCl&#x2085;</td></tr>
-    <tr><td>6</td><td>0</td><td>6</td><td>Octahedral</td><td>90&deg;</td><td>SF&#x2086;</td></tr>
-  </tbody>
-</table></div>
-<div class="diagram-wrap"><svg viewBox="0 0 620 230" width="620" height="230" xmlns="http://www.w3.org/2000/svg">
-  <text x="310" y="17" text-anchor="middle" fill="#e6edf3" font-size="12" font-family="Playfair Display" font-weight="bold">Common Molecular Shapes</text>
-  <!-- Linear CO2 -->
-  <circle cx="60" cy="105" r="12" fill="rgba(248,113,113,.4)" stroke="#f87171" stroke-width="1"/>
-  <line x1="72" y1="105" x2="92" y2="105" stroke="#22d3ee" stroke-width="2.5"/>
-  <circle cx="104" cy="105" r="14" fill="rgba(34,211,238,.3)" stroke="#22d3ee" stroke-width="1.5"/>
-  <line x1="116" y1="105" x2="136" y2="105" stroke="#22d3ee" stroke-width="2.5"/>
-  <circle cx="148" cy="105" r="12" fill="rgba(248,113,113,.4)" stroke="#f87171" stroke-width="1"/>
-  <text x="104" y="145" text-anchor="middle" fill="#e6edf3" font-size="10" font-family="JetBrains Mono">Linear</text>
-  <text x="104" y="158" text-anchor="middle" fill="#8b949e" font-size="9" font-family="JetBrains Mono">CO&#x2082; 180&deg;</text>
-  <!-- Trigonal planar BF3 -->
-  <circle cx="255" cy="100" r="14" fill="rgba(34,211,238,.3)" stroke="#22d3ee" stroke-width="1.5"/>
-  <line x1="255" y1="86" x2="255" y2="62" stroke="#22d3ee" stroke-width="2"/>
-  <circle cx="255" cy="56" r="10" fill="rgba(52,211,153,.4)" stroke="#34d399" stroke-width="1"/>
-  <line x1="243" y1="108" x2="222" y2="126" stroke="#22d3ee" stroke-width="2"/>
-  <circle cx="216" cy="130" r="10" fill="rgba(52,211,153,.4)" stroke="#34d399" stroke-width="1"/>
-  <line x1="267" y1="108" x2="288" y2="126" stroke="#22d3ee" stroke-width="2"/>
-  <circle cx="294" cy="130" r="10" fill="rgba(52,211,153,.4)" stroke="#34d399" stroke-width="1"/>
-  <text x="255" y="158" text-anchor="middle" fill="#e6edf3" font-size="10" font-family="JetBrains Mono">Trig. planar</text>
-  <text x="255" y="171" text-anchor="middle" fill="#8b949e" font-size="9" font-family="JetBrains Mono">BF&#x2083; 120&deg;</text>
-  <!-- Tetrahedral CH4 -->
-  <circle cx="420" cy="100" r="14" fill="rgba(34,211,238,.3)" stroke="#22d3ee" stroke-width="1.5"/>
-  <line x1="420" y1="86" x2="420" y2="62" stroke="#22d3ee" stroke-width="2"/>
-  <circle cx="420" cy="56" r="10" fill="rgba(245,158,11,.4)" stroke="#f59e0b" stroke-width="1"/>
-  <line x1="408" y1="108" x2="387" y2="128" stroke="#22d3ee" stroke-width="2"/>
-  <circle cx="381" cy="134" r="10" fill="rgba(245,158,11,.4)" stroke="#f59e0b" stroke-width="1"/>
-  <line x1="432" y1="108" x2="453" y2="128" stroke="#22d3ee" stroke-width="2"/>
-  <circle cx="459" cy="134" r="10" fill="rgba(245,158,11,.4)" stroke="#f59e0b" stroke-width="1"/>
-  <line x1="420" y1="114" x2="420" y2="148" stroke="#22d3ee" stroke-width="2" stroke-dasharray="4,2"/>
-  <circle cx="420" cy="154" r="10" fill="rgba(245,158,11,.4)" stroke="#f59e0b" stroke-width="1"/>
-  <text x="420" y="175" text-anchor="middle" fill="#e6edf3" font-size="10" font-family="JetBrains Mono">Tetrahedral</text>
-  <text x="420" y="188" text-anchor="middle" fill="#8b949e" font-size="9" font-family="JetBrains Mono">CH&#x2084; 109.5&deg;</text>
-  <!-- Bent H2O -->
-  <circle cx="555" cy="100" r="14" fill="rgba(34,211,238,.3)" stroke="#22d3ee" stroke-width="1.5"/>
-  <line x1="543" y1="108" x2="524" y2="126" stroke="#22d3ee" stroke-width="2"/>
-  <circle cx="518" cy="132" r="10" fill="rgba(245,158,11,.4)" stroke="#f59e0b" stroke-width="1"/>
-  <line x1="567" y1="108" x2="586" y2="126" stroke="#22d3ee" stroke-width="2"/>
-  <circle cx="592" cy="132" r="10" fill="rgba(245,158,11,.4)" stroke="#f59e0b" stroke-width="1"/>
-  <!-- lone pairs -->
-  <ellipse cx="548" cy="82" rx="8" ry="5" fill="rgba(167,139,250,.4)" stroke="#a78bfa" stroke-width="1"/>
-  <ellipse cx="562" cy="82" rx="8" ry="5" fill="rgba(167,139,250,.4)" stroke="#a78bfa" stroke-width="1"/>
-  <text x="555" y="158" text-anchor="middle" fill="#e6edf3" font-size="10" font-family="JetBrains Mono">Bent</text>
-  <text x="555" y="171" text-anchor="middle" fill="#8b949e" font-size="9" font-family="JetBrains Mono">H&#x2082;O 104.5&deg;</text>
-</svg></div>
-<div class="example-box">
-  <div class="example-header"><span class="tag">WORKED EXAMPLE</span><h4>Predicting Shape of NH&#x2083;</h4></div>
-  <div class="example-body">
-    <div class="step"><div class="step-num">1</div><div class="step-text">N has 5 valence electrons. NH&#x2083;: 3 bonds with H + 1 lone pair on N = <strong>4 electron pairs</strong> around N.</div></div>
-    <div class="step"><div class="step-num">2</div><div class="step-text">4 pairs &rarr; tetrahedral <em>electron pair</em> geometry, but one is a lone pair &rarr; <strong>trigonal pyramidal</strong> molecular shape.</div></div>
-    <div class="step"><div class="step-num">3</div><div class="step-text">Bond angle: lp&ndash;bp repulsion is greater than bp&ndash;bp, so the bond angle is compressed from 109.5&deg; to approximately <strong>107&deg;</strong>.</div></div>
+    <div class="qi"><div class="qn">A5 <span class="mk">[4]</span></div>
+    <p>Give four industrial or everyday uses of substances from this unit, explaining the property that makes each suitable.</p>
+    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
+    <div class="ans">[1 each] Refer to the uses table in section 5 or 6. Must link use to property (e.g. low density → aircraft; corrosion resistance → packaging).</div></div>
   </div>
-</div>
-
-<!-- 4.6 -->
-<div class="section-header" id="s46"><span class="section-number">4.6</span><h2>Hybridisation</h2></div>
-<div class="def-box"><strong>Hybridisation</strong>The mixing of atomic orbitals of similar energy on the same atom to form new hybrid orbitals with identical energy and shape. Hybridisation explains why carbon forms 4 equivalent bonds in CH&#x2084; (not 2 bonds as predicted by the 2 half-filled p orbitals).</div>
-<div class="tbl-wrap"><table>
-  <thead><tr><th>Hybrid type</th><th>Orbitals mixed</th><th>No. hybrid orbitals</th><th>Geometry</th><th>Bond angle</th><th>Example</th></tr></thead>
-  <tbody>
-    <tr><td>sp</td><td>1s + 1p</td><td>2</td><td>Linear</td><td>180&deg;</td><td>BeCl&#x2082;, C&#x2082;H&#x2082; (ethyne)</td></tr>
-    <tr><td>sp&#xB2;</td><td>1s + 2p</td><td>3</td><td>Trigonal planar</td><td>120&deg;</td><td>BF&#x2083;, C&#x2082;H&#x2084; (ethene), graphite</td></tr>
-    <tr><td>sp&#xB3;</td><td>1s + 3p</td><td>4</td><td>Tetrahedral</td><td>109.5&deg;</td><td>CH&#x2084;, NH&#x2083;, H&#x2082;O, diamond</td></tr>
-    <tr><td>sp&#xB3;d</td><td>1s + 3p + 1d</td><td>5</td><td>Trigonal bipyramidal</td><td>90&deg;/120&deg;</td><td>PCl&#x2085;</td></tr>
-    <tr><td>sp&#xB3;d&#xB2;</td><td>1s + 3p + 2d</td><td>6</td><td>Octahedral</td><td>90&deg;</td><td>SF&#x2086;</td></tr>
-  </tbody>
-</table></div>
-<div class="example-box">
-  <div class="example-header"><span class="tag">WORKED EXAMPLE</span><h4>Hybridisation of Carbon in CH&#x2084;, C&#x2082;H&#x2084; and C&#x2082;H&#x2082;</h4></div>
-  <div class="example-body">
-    <div class="step"><div class="step-num">1</div><div class="step-text"><strong>CH&#x2084; (methane):</strong> C forms 4 single bonds &rarr; no &pi; bonds &rarr; sp&#xB3; hybridised. One 2s and three 2p orbitals mix to give four sp&#xB3; hybrids arranged tetrahedrally (109.5&deg;). Each forms a &sigma; bond with H.</div></div>
-    <div class="step"><div class="step-num">2</div><div class="step-text"><strong>C&#x2082;H&#x2084; (ethene):</strong> Each C forms one double bond (= one &sigma; + one &pi;) and two single bonds. C is sp&#xB2; hybridised: 2s + 2p&#x2099; + 2p&#x2122; mix to form three sp&#xB2; hybrids (trigonal planar, 120&deg;). The remaining unhybridised p&#x1D467; orbital on each C overlaps sideways to form the &pi; bond. Molecule is <strong>planar</strong>.</div></div>
-    <div class="step"><div class="step-num">3</div><div class="step-text"><strong>C&#x2082;H&#x2082; (ethyne):</strong> Each C forms one triple bond (= one &sigma; + two &pi;) and one single bond. C is sp hybridised: 2s + 2p&#x2099; mix to form two sp hybrids (linear, 180&deg;). Two remaining unhybridised p orbitals each form a &pi; bond. Linear molecule.</div></div>
+  <div class="qcard" style="margin-top:1rem;"><h3>Section B — Application (20 marks)</h3>
+    <div class="qi"><div class="qn">B1–B4 <span class="mk">[5 each]</span></div>
+    <p>Application and calculation questions covering reactions, trends and quantitative chemistry from this unit. Full question papers are available through the teacher admin portal.</p>
+    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show guidance</button>
+    <div class="ans">For application questions: (1) identify the relevant concept from your notes, (2) write balanced equations with state symbols, (3) explain trends using atomic structure reasoning, (4) show full working for any calculations.</div></div>
   </div>
-</div>
-
-<!-- 4.7 -->
-<div class="section-header" id="s47"><span class="section-number">4.7</span><h2>Polar Covalent Bonds &amp; Molecular Polarity</h2></div>
-<div class="def-box"><strong>Polar Covalent Bond</strong>A covalent bond in which the shared electrons are unequally distributed due to a difference in electronegativity between the two atoms. The more electronegative atom carries a partial negative charge (&delta;&minus;) and the less electronegative atom carries a partial positive charge (&delta;&#x207A;). This creates a <strong>bond dipole</strong>.</div>
-<div class="card"><h3>Bond Polarity vs Molecular Polarity</h3>
-<p>A molecule can have polar bonds and still be <strong>non-polar overall</strong> if the bond dipoles are symmetrically arranged and cancel out. Molecular polarity depends on:</p>
-<ul style="margin:10px 0 0 20px;line-height:2.1;">
-  <li>The polarity of individual bonds (&Delta;EN)</li>
-  <li>The geometry of the molecule (whether dipoles cancel)</li>
-</ul>
-</div>
-<div class="tbl-wrap"><table>
-  <thead><tr><th>Molecule</th><th>Polar bonds?</th><th>Shape</th><th>Molecular polarity</th></tr></thead>
-  <tbody>
-    <tr><td>CO&#x2082;</td><td>Yes (C=O)</td><td>Linear (symmetric)</td><td>Non-polar &mdash; dipoles cancel</td></tr>
-    <tr><td>H&#x2082;O</td><td>Yes (O&ndash;H)</td><td>Bent (asymmetric)</td><td>Polar &mdash; net dipole</td></tr>
-    <tr><td>CCl&#x2084;</td><td>Yes (C&ndash;Cl)</td><td>Tetrahedral (symmetric)</td><td>Non-polar &mdash; dipoles cancel</td></tr>
-    <tr><td>CHCl&#x2083;</td><td>Yes (C&ndash;Cl, C&ndash;H)</td><td>Tetrahedral (asymmetric)</td><td>Polar &mdash; net dipole</td></tr>
-    <tr><td>NH&#x2083;</td><td>Yes (N&ndash;H)</td><td>Trigonal pyramidal</td><td>Polar &mdash; net dipole</td></tr>
-    <tr><td>BF&#x2083;</td><td>Yes (B&ndash;F)</td><td>Trigonal planar (symmetric)</td><td>Non-polar &mdash; dipoles cancel</td></tr>
-  </tbody>
-</table></div>
-<div class="callout tip"><span class="callout-icon">&#x1F4A1;</span><div class="callout-body"><strong>Quick rule for molecular polarity</strong>If all atoms attached to the central atom are identical AND the molecule has no lone pairs on the central atom, the dipoles cancel &rarr; non-polar. Any asymmetry (different atoms or lone pairs on central atom) usually gives a polar molecule.</div></div>
-
-<!-- 4.8 -->
-<div class="section-header" id="s48"><span class="section-number">4.8</span><h2>Simple and Giant Covalent Structures</h2></div>
-<div class="two-col">
-  <div class="def-box"><strong>Simple Molecular (Covalent) Structures</strong>Consist of discrete molecules held together by weak intermolecular forces (van der Waals, dipole-dipole, or hydrogen bonds). The covalent bonds within each molecule are strong, but the forces between molecules are weak. Examples: H&#x2082;, Cl&#x2082;, CO&#x2082;, H&#x2082;O, CH&#x2084;, iodine.</div>
-  <div class="def-box"><strong>Giant Covalent Structures</strong>Atoms are covalently bonded in a continuous, infinite 3D (or 2D) lattice. All bonds in the structure are strong covalent bonds. Very high melting points. Examples: diamond, graphite, silicon dioxide (SiO&#x2082;), silicon.</div>
-</div>
-<div class="tbl-wrap"><table>
-  <thead><tr><th>Property</th><th>Simple molecular</th><th>Giant covalent</th></tr></thead>
-  <tbody>
-    <tr><td>Melting point</td><td>Low (weak IMF between molecules)</td><td>Very high (strong covalent bonds throughout)</td></tr>
-    <tr><td>Electrical conductivity</td><td>Non-conductor</td><td>Non-conductor (except graphite)</td></tr>
-    <tr><td>Solubility in water</td><td>Varies; polar dissolves in polar</td><td>Generally insoluble</td></tr>
-    <tr><td>Examples</td><td>I&#x2082;, CO&#x2082;, NH&#x2083;</td><td>Diamond, SiO&#x2082;, Si</td></tr>
-  </tbody>
-</table></div>
-<h3 class="sub">Diamond vs Graphite</h3>
-<div class="tbl-wrap"><table>
-  <thead><tr><th>Property</th><th>Diamond</th><th>Graphite</th></tr></thead>
-  <tbody>
-    <tr><td>Structure</td><td>3D lattice; each C bonded to 4 others</td><td>2D layers; each C bonded to 3 others in hexagonal rings</td></tr>
-    <tr><td>Hybridisation</td><td>sp&#xB3;</td><td>sp&#xB2; (one unhybridised p per C)</td></tr>
-    <tr><td>Bond angle</td><td>109.5&deg;</td><td>120&deg;</td></tr>
-    <tr><td>Conductivity</td><td>Non-conductor</td><td>Conductor (delocalised &pi; electrons between layers)</td></tr>
-    <tr><td>Hardness</td><td>Hardest natural substance (all bonds strong, 3D)</td><td>Soft/slippery (layers slide &mdash; weak forces between layers)</td></tr>
-    <tr><td>Uses</td><td>Cutting tools, jewellery</td><td>Lubricant, electrodes, pencil</td></tr>
-  </tbody>
-</table></div>
-<div class="callout info"><span class="callout-icon">&#x2139;&#xFE0F;</span><div class="callout-body"><strong>Silicon dioxide (SiO&#x2082;)</strong>Giant covalent structure; each Si bonded to 4 O atoms and each O to 2 Si atoms. Very high m.p. (1713&deg;C). Insoluble in water. Used in glass and semiconductor manufacture. Similar to diamond in having a 3D covalent network.</div></div>
-
-<!-- 4.9 -->
-<div class="section-header" id="s49"><span class="section-number">4.9</span><h2>Intermolecular Forces</h2></div>
-<div class="card"><h3>Overview</h3>
-<p>Intermolecular forces (IMF) are the forces of attraction <em>between</em> molecules (not within them). They are much weaker than covalent or ionic bonds. IMF determine physical properties of molecular compounds: melting/boiling points, viscosity, surface tension, and solubility.</p>
-</div>
-<h3 class="sub">1. London Dispersion Forces (Induced Dipole-Induced Dipole)</h3>
-<div class="card">
-<p>Present in <strong>all</strong> molecules &mdash; both polar and non-polar. Arise from <strong>temporary/instantaneous dipoles</strong> caused by random fluctuations in electron distribution. One molecule develops a brief dipole which induces a dipole in a neighbouring molecule &rarr; weak, transient attraction.</p>
-<p><strong>Factors increasing LDF strength:</strong></p>
-<ul style="margin:8px 0 0 20px;line-height:2;">
-  <li>More electrons (higher molar mass) &rarr; more polarisable electron cloud &rarr; stronger instantaneous dipoles</li>
-  <li>Larger surface area (longer chains) &rarr; more contact between molecules &rarr; greater total LDF</li>
-</ul>
-<p style="margin-top:10px;"><em>Trend:</em> boiling points of noble gases increase down the group (He &lt; Ne &lt; Ar &lt; Kr &lt; Xe) because molar mass increases &rarr; stronger LDF.</p>
-</div>
-<h3 class="sub">2. Permanent Dipole&ndash;Dipole Forces</h3>
-<div class="card">
-<p>Present in polar molecules. The &delta;&#x207A; end of one molecule is attracted to the &delta;&minus; end of a neighbouring molecule. Stronger than LDF for molecules of similar size. Present alongside LDF.</p>
-<p>Example: HCl, SO&#x2082;, CHCl&#x2083;. Their higher b.p. compared to non-polar molecules of similar mass is due to these additional attractions.</p>
-</div>
-<h3 class="sub">3. Hydrogen Bonding</h3>
-<div class="def-box"><strong>Hydrogen Bond</strong>A special, relatively strong type of dipole-dipole interaction between a hydrogen atom bonded to a highly electronegative atom (N, O, or F) and a lone pair on another electronegative atom (N, O, or F) of a neighbouring molecule.<br>Condition: H must be directly bonded to N, O, or F &mdash; these are the only atoms electronegative and small enough to make the bond dipole strong enough and the H atom accessible enough for hydrogen bonding.</div>
-<div class="card"><h3>Effects of Hydrogen Bonding</h3>
-<ul style="margin:0 0 0 20px;line-height:2.2;">
-  <li><strong>Anomalously high boiling point of water</strong> (100&deg;C) vs H&#x2082;S (&minus;60&deg;C): water molecules form up to 4 H-bonds each &rarr; much more energy needed to separate &rarr; high b.p.</li>
-  <li><strong>Ice floats on water</strong>: in ice, H-bonds hold molecules in an open hexagonal lattice (less dense than liquid water where H-bonds are more dynamic). Ice is less dense &rarr; floats.</li>
-  <li><strong>High surface tension &amp; viscosity of water</strong>: strong H-bonds hold surface molecules together.</li>
-  <li><strong>DNA double helix</strong>: base pairing held together by H-bonds between base pairs (A&ndash;T: 2 H-bonds; G&ndash;C: 3 H-bonds).</li>
-  <li><strong>Protein secondary structure</strong>: &alpha;-helices and &beta;-sheets stabilised by H-bonds within polypeptide chains.</li>
-</ul>
-</div>
-<div class="diagram-wrap"><svg viewBox="0 0 560 190" width="560" height="190" xmlns="http://www.w3.org/2000/svg">
-  <text x="280" y="17" text-anchor="middle" fill="#e6edf3" font-size="12" font-family="Playfair Display" font-weight="bold">Intermolecular Forces &mdash; Relative Strength</text>
-  <!-- Bars -->
-  <text x="55" y="148" text-anchor="end" fill="#8b949e" font-size="9" font-family="JetBrains Mono">0</text>
-  <text x="55" y="88" text-anchor="end" fill="#8b949e" font-size="9" font-family="JetBrains Mono">10</text>
-  <text x="55" y="43" text-anchor="end" fill="#8b949e" font-size="9" font-family="JetBrains Mono">40</text>
-  <!-- LDF ~3 kJ/mol -->
-  <rect x="80" y="136" width="80" height="12" fill="rgba(167,139,250,.5)" stroke="#a78bfa" stroke-width="1" rx="2"/>
-  <text x="120" y="175" text-anchor="middle" fill="#a78bfa" font-size="10" font-family="JetBrains Mono">LDF</text>
-  <text x="120" y="187" text-anchor="middle" fill="#8b949e" font-size="9" font-family="JetBrains Mono">~0.1&ndash;5 kJ/mol</text>
-  <!-- Dipole-dipole ~5 kJ/mol -->
-  <rect x="230" y="125" width="80" height="23" fill="rgba(34,211,238,.5)" stroke="#22d3ee" stroke-width="1" rx="2"/>
-  <text x="270" y="175" text-anchor="middle" fill="#22d3ee" font-size="10" font-family="JetBrains Mono">Dipole-dipole</text>
-  <text x="270" y="187" text-anchor="middle" fill="#8b949e" font-size="9" font-family="JetBrains Mono">~5&ndash;20 kJ/mol</text>
-  <!-- H-bond ~20 kJ/mol -->
-  <rect x="380" y="55" width="80" height="93" fill="rgba(52,211,153,.5)" stroke="#34d399" stroke-width="1" rx="2"/>
-  <text x="420" y="175" text-anchor="middle" fill="#34d399" font-size="10" font-family="JetBrains Mono">H-bond</text>
-  <text x="420" y="187" text-anchor="middle" fill="#8b949e" font-size="9" font-family="JetBrains Mono">~10&ndash;40 kJ/mol</text>
-  <!-- Axes -->
-  <line x1="60" y1="148" x2="510" y2="148" stroke="#30363d" stroke-width="1.5"/>
-  <line x1="60" y1="30" x2="60" y2="148" stroke="#30363d" stroke-width="1.5"/>
-  <text x="15" y="95" fill="#8b949e" font-size="9" font-family="JetBrains Mono" transform="rotate(-90,15,95)">Strength (kJ/mol)</text>
-  <text x="280" y="163" text-anchor="middle" fill="#8b949e" font-size="9" font-family="JetBrains Mono">IMF strength is still much weaker than covalent/ionic bonds (200&ndash;1000 kJ/mol)</text>
-</svg></div>
-<div class="tbl-wrap"><table>
-  <thead><tr><th>Force</th><th>Present in</th><th>Strength</th><th>Condition</th></tr></thead>
-  <tbody>
-    <tr><td>London dispersion (LDF)</td><td>All molecules</td><td>Weakest (increases with molar mass)</td><td>Always present; increases with electron count</td></tr>
-    <tr><td>Permanent dipole&ndash;dipole</td><td>Polar molecules</td><td>Moderate</td><td>Molecule must have a net dipole moment</td></tr>
-    <tr><td>Hydrogen bond</td><td>Molecules with N&ndash;H, O&ndash;H, or F&ndash;H bonds</td><td>Strongest IMF</td><td>H must be bonded to N, O, or F</td></tr>
-  </tbody>
-</table></div>
-
-<!-- EXERCISES -->
-<div class="section-header" id="exercises"><span class="section-number">&#x270F;&#xFE0F;</span><h2>Exercises</h2></div>
-<ul class="exercise-list">
-  <li>Use VSEPR theory to predict the shape and bond angles of: (a) PCl&#x2083;, (b) SF&#x2082;, (c) BCl&#x2083;, (d) XeF&#x2084; (hint: Xe has 2 lone pairs + 4 bonds).
-    <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
-    <div class="answer">(a) PCl&#x2083;: P has 3 bonds + 1 lone pair = 4 pairs &rarr; trigonal pyramidal, ~107&deg;.<br>(b) SF&#x2082;: S has 2 bonds + 2 lone pairs = 4 pairs &rarr; bent/V-shaped, ~103&deg; (2 lone pairs compress angle further).<br>(c) BCl&#x2083;: B has 3 bonds + 0 lone pairs = 3 pairs &rarr; trigonal planar, 120&deg;.<br>(d) XeF&#x2084;: 4 bonds + 2 lone pairs = 6 pairs &rarr; octahedral electron geometry; 2 lone pairs are opposite each other &rarr; <strong>square planar</strong> molecular shape, 90&deg;.</div>
-  </li>
-  <li>Explain why H&#x2082;O has a bond angle of 104.5&deg; rather than 109.5&deg;, and why this differs from the angle in NH&#x2083; (107&deg;).
-    <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
-    <div class="answer">Both have 4 electron pairs around the central atom (tetrahedral electron geometry, ideal 109.5&deg;). In NH&#x2083;: 3 bonds + 1 lone pair. The one lone pair compresses bond angles by ~2.5&deg; &rarr; 107&deg;. In H&#x2082;O: 2 bonds + 2 lone pairs. Two lone pairs cause greater repulsion (lp&ndash;lp &gt; lp&ndash;bp &gt; bp&ndash;bp), compressing angles by ~5&deg; total &rarr; 104.5&deg;. H&#x2082;O has two lone pairs vs one in NH&#x2083; &rarr; greater compression &rarr; smaller bond angle.</div>
-  </li>
-  <li>Explain the hybridisation of carbon in (a) diamond and (b) graphite, and relate this to their different physical properties.
-    <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
-    <div class="answer">(a) Diamond: each C is sp&#xB3; hybridised &rarr; forms 4 &sigma; bonds in a 3D tetrahedral network. All outer electrons used in bonding &rarr; no free electrons &rarr; non-conductor. All bonds are strong &rarr; extremely high m.p. and hardness. (b) Graphite: each C is sp&#xB2; hybridised &rarr; forms 3 &sigma; bonds in planar hexagonal layers. The remaining unhybridised p&#x1D467; electron on each C forms a delocalised &pi; system across each layer &rarr; conducts electricity. Layers are held together only by weak London dispersion forces &rarr; layers slide easily &rarr; soft/lubricant.</div>
-  </li>
-  <li>State which type of intermolecular force is present in each: (a) I&#x2082;, (b) HCl, (c) NH&#x2083;, (d) H&#x2082;O. Explain why the boiling point of H&#x2082;O (100&deg;C) is much higher than H&#x2082;S (&minus;60&deg;C) despite S being in a higher period.
-    <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
-    <div class="answer">(a) I&#x2082;: London dispersion only. (b) HCl: LDF + permanent dipole-dipole. (c) NH&#x2083;: LDF + dipole-dipole + hydrogen bonds (N&ndash;H). (d) H&#x2082;O: LDF + dipole-dipole + hydrogen bonds (O&ndash;H). <br>H&#x2082;O vs H&#x2082;S: S is less electronegative than O and larger, so S&ndash;H bonds are not polar enough and H is not accessible enough for H-bonding. H&#x2082;S has only LDF and weak dipole-dipole &rarr; low b.p. H&#x2082;O forms strong O&ndash;H&middot;&middot;&middot;O hydrogen bonds (up to 4 per molecule) that require much more energy to overcome &rarr; much higher b.p.</div>
-  </li>
-  <li>CO&#x2082; has polar C=O bonds yet is a non-polar molecule. Explain, with a diagram, why this is the case.
-    <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
-    <div class="answer">CO&#x2082; is linear (sp hybridised C, no lone pairs on C). The two C=O bond dipoles point in opposite directions (each O pulls electrons towards itself). Because the molecule is symmetric and linear, the two dipole vectors are equal in magnitude and exactly opposite in direction &rarr; they cancel to give zero net dipole moment. Diagram: O(&delta;&minus;)=C=O(&delta;&minus;) with arrows pointing towards each O, cancelling. Overall the molecule is non-polar despite having polar bonds.</div>
-  </li>
-  <li>Distinguish between a covalent bond and a dative (coordinate) bond. Give one example of a dative bond and explain how it forms.
-    <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
-    <div class="answer">Covalent bond: formed when each atom contributes one electron to the shared pair. Dative (coordinate) bond: formed when one atom (donor) contributes both electrons of the shared pair to an atom with an empty orbital (acceptor). Once formed, both bonds are identical in strength and length &mdash; the distinction is only in how they formed. Example: NH&#x2083; + H&#x207A; &rarr; NH&#x2084;&#x207A;. The nitrogen in NH&#x2083; has a lone pair; H&#x207A; has an empty 1s orbital. N donates both electrons of its lone pair to H&#x207A; &rarr; dative bond forms &rarr; all four N&ndash;H bonds in NH&#x2084;&#x207A; are equivalent.</div>
-  </li>
-</ul>
-
-<!-- QUIZ -->
-<div class="section-header" id="quiz"><span class="section-number">&#x1F9EA;</span><h2>Multiple Choice Quiz &mdash; 25 Questions</h2></div>
-<div class="quiz-wrap">
-  <div class="quiz-header"><h3>Unit 4 Quiz</h3><span style="font-family:'JetBrains Mono',monospace;font-size:.82rem;color:var(--muted);">Select one answer per question</span></div>
-  <div class="quiz-body">
-
-  <div class="q-block"><span class="q-num">Q1</span><div class="q-text">A covalent bond forms by:</div><div class="options">
-    <label class="opt"><input type="radio" name="q1" value="A"/>Transfer of electrons from one atom to another</label>
-    <label class="opt"><input type="radio" name="q1" value="B"/>Mutual sharing of one or more electron pairs between atoms</label>
-    <label class="opt"><input type="radio" name="q1" value="C"/>Delocalisation of electrons across a lattice</label>
-    <label class="opt"><input type="radio" name="q1" value="D"/>Attraction between opposite ions</label>
-  </div><div class="q-exp" id="eq1">Covalent bond: mutual sharing of electron pair(s). Both atoms contribute one electron each (or both from donor in dative bond). Attraction to both nuclei holds atoms together.</div></div>
-
-  <div class="q-block"><span class="q-num">Q2</span><div class="q-text">A dative bond differs from a normal covalent bond because:</div><div class="options">
-    <label class="opt"><input type="radio" name="q2" value="A"/>It is weaker than a covalent bond</label>
-    <label class="opt"><input type="radio" name="q2" value="B"/>Both electrons in the shared pair are donated by the same atom</label>
-    <label class="opt"><input type="radio" name="q2" value="C"/>It involves transfer of electrons permanently</label>
-    <label class="opt"><input type="radio" name="q2" value="D"/>Only one atom is involved</label>
-  </div><div class="q-exp" id="eq2">Dative bond: one atom (donor) donates both electrons. Once formed, it is identical in strength/length to a regular covalent bond.</div></div>
-
-  <div class="q-block"><span class="q-num">Q3</span><div class="q-text">The shape of H&#x2082;O is:</div><div class="options">
-    <label class="opt"><input type="radio" name="q3" value="A"/>Linear</label>
-    <label class="opt"><input type="radio" name="q3" value="B"/>Trigonal planar</label>
-    <label class="opt"><input type="radio" name="q3" value="C"/>Bent/V-shaped</label>
-    <label class="opt"><input type="radio" name="q3" value="D"/>Tetrahedral</label>
-  </div><div class="q-exp" id="eq3">O has 2 bonds + 2 lone pairs = 4 electron pairs &rarr; tetrahedral electron geometry &rarr; bent molecular shape, angle 104.5&deg;.</div></div>
-
-  <div class="q-block"><span class="q-num">Q4</span><div class="q-text">The bond angle in CH&#x2084; is:</div><div class="options">
-    <label class="opt"><input type="radio" name="q4" value="A"/>90&deg;</label>
-    <label class="opt"><input type="radio" name="q4" value="B"/>120&deg;</label>
-    <label class="opt"><input type="radio" name="q4" value="C"/>109.5&deg;</label>
-    <label class="opt"><input type="radio" name="q4" value="D"/>104.5&deg;</label>
-  </div><div class="q-exp" id="eq4">CH&#x2084;: C has 4 bonds, 0 lone pairs &rarr; tetrahedral &rarr; bond angle 109.5&deg;. No lone pairs to compress angle.</div></div>
-
-  <div class="q-block"><span class="q-num">Q5</span><div class="q-text">Which molecule has a trigonal pyramidal shape?</div><div class="options">
-    <label class="opt"><input type="radio" name="q5" value="A"/>BF&#x2083;</label>
-    <label class="opt"><input type="radio" name="q5" value="B"/>CO&#x2082;</label>
-    <label class="opt"><input type="radio" name="q5" value="C"/>NH&#x2083;</label>
-    <label class="opt"><input type="radio" name="q5" value="D"/>H&#x2082;O</label>
-  </div><div class="q-exp" id="eq5">NH&#x2083;: N has 3 bonds + 1 lone pair &rarr; trigonal pyramidal shape (~107&deg;). BF&#x2083; = trigonal planar; CO&#x2082; = linear; H&#x2082;O = bent.</div></div>
-
-  <div class="q-block"><span class="q-num">Q6</span><div class="q-text">sp&#xB3; hybridised carbon forms:</div><div class="options">
-    <label class="opt"><input type="radio" name="q6" value="A"/>Linear geometry; 180&deg;</label>
-    <label class="opt"><input type="radio" name="q6" value="B"/>Trigonal planar geometry; 120&deg;</label>
-    <label class="opt"><input type="radio" name="q6" value="C"/>Tetrahedral geometry; 109.5&deg;</label>
-    <label class="opt"><input type="radio" name="q6" value="D"/>Octahedral geometry; 90&deg;</label>
-  </div><div class="q-exp" id="eq6">sp&#xB3;: 4 hybrid orbitals &rarr; tetrahedral geometry, bond angles 109.5&deg;. Examples: CH&#x2084;, diamond.</div></div>
-
-  <div class="q-block"><span class="q-num">Q7</span><div class="q-text">A double bond consists of:</div><div class="options">
-    <label class="opt"><input type="radio" name="q7" value="A"/>Two &sigma; bonds</label>
-    <label class="opt"><input type="radio" name="q7" value="B"/>One &sigma; + one &pi; bond</label>
-    <label class="opt"><input type="radio" name="q7" value="C"/>Two &pi; bonds</label>
-    <label class="opt"><input type="radio" name="q7" value="D"/>One &sigma; + two &pi; bonds</label>
-  </div><div class="q-exp" id="eq7">Double bond = one &sigma; (end-on overlap, stronger) + one &pi; (side-on overlap, weaker). Triple bond = one &sigma; + two &pi;.</div></div>
-
-  <div class="q-block"><span class="q-num">Q8</span><div class="q-text">Which has the strongest intermolecular forces?</div><div class="options">
-    <label class="opt"><input type="radio" name="q8" value="A"/>CH&#x2084;</label>
-    <label class="opt"><input type="radio" name="q8" value="B"/>HCl</label>
-    <label class="opt"><input type="radio" name="q8" value="C"/>H&#x2082;O</label>
-    <label class="opt"><input type="radio" name="q8" value="D"/>Ar</label>
-  </div><div class="q-exp" id="eq8">H&#x2082;O has hydrogen bonds (O&ndash;H) &mdash; the strongest type of intermolecular force. CH&#x2084; and Ar have only LDF; HCl has LDF + dipole-dipole.</div></div>
-
-  <div class="q-block"><span class="q-num">Q9</span><div class="q-text">Why does CO&#x2082; have polar bonds but is a non-polar molecule?</div><div class="options">
-    <label class="opt"><input type="radio" name="q9" value="A"/>The C&ndash;O bonds are non-polar because C and O have the same electronegativity</label>
-    <label class="opt"><input type="radio" name="q9" value="B"/>The two bond dipoles cancel because CO&#x2082; is linear and symmetric</label>
-    <label class="opt"><input type="radio" name="q9" value="C"/>CO&#x2082; has no lone pairs anywhere</label>
-    <label class="opt"><input type="radio" name="q9" value="D"/>The molecule has a very low molar mass</label>
-  </div><div class="q-exp" id="eq9">CO&#x2082; is linear (sp C, no lone pairs on C). The two C=O dipoles point in exactly opposite directions &rarr; vector sum = zero &rarr; no net dipole &rarr; non-polar molecule.</div></div>
-
-  <div class="q-block"><span class="q-num">Q10</span><div class="q-text">Hydrogen bonds can form between molecules containing:</div><div class="options">
-    <label class="opt"><input type="radio" name="q10" value="A"/>H bonded to any electronegative atom</label>
-    <label class="opt"><input type="radio" name="q10" value="B"/>H bonded to N, O, or F only</label>
-    <label class="opt"><input type="radio" name="q10" value="C"/>H bonded to Cl, Br, or I</label>
-    <label class="opt"><input type="radio" name="q10" value="D"/>Any molecule containing hydrogen</label>
-  </div><div class="q-exp" id="eq10">H-bond requirement: H directly bonded to N, O, or F (the only atoms electronegative and small enough). Cl is electronegative but too large; H&ndash;Cl forms only dipole-dipole, not true H-bonds.</div></div>
-
-  <div class="q-block"><span class="q-num">Q11</span><div class="q-text">The hybridisation of carbon in ethene (C&#x2082;H&#x2084;) is:</div><div class="options">
-    <label class="opt"><input type="radio" name="q11" value="A"/>sp</label>
-    <label class="opt"><input type="radio" name="q11" value="B"/>sp&#xB2;</label>
-    <label class="opt"><input type="radio" name="q11" value="C"/>sp&#xB3;</label>
-    <label class="opt"><input type="radio" name="q11" value="D"/>sp&#xB3;d</label>
-  </div><div class="q-exp" id="eq11">In ethene, each C makes 3 &sigma; bonds (1 to other C, 2 to H) + 1 &pi; bond. &rarr; sp&#xB2;: 3 hybrid orbitals (trigonal planar, 120&deg;) + unhybridised p forms &pi; bond.</div></div>
-
-  <div class="q-block"><span class="q-num">Q12</span><div class="q-text">Which property does graphite have that diamond does not?</div><div class="options">
-    <label class="opt"><input type="radio" name="q12" value="A"/>High melting point</label>
-    <label class="opt"><input type="radio" name="q12" value="B"/>Giant covalent structure</label>
-    <label class="opt"><input type="radio" name="q12" value="C"/>Electrical conductivity</label>
-    <label class="opt"><input type="radio" name="q12" value="D"/>Insolubility in water</label>
-  </div><div class="q-exp" id="eq12">Graphite conducts electricity due to delocalised &pi; electrons between layers. Diamond: all 4 valence electrons in &sigma; bonds &rarr; no free electrons &rarr; non-conductor.</div></div>
-
-  <div class="q-block"><span class="q-num">Q13</span><div class="q-text">VSEPR theory predicts bond angles by:</div><div class="options">
-    <label class="opt"><input type="radio" name="q13" value="A"/>Maximising electron pair repulsion</label>
-    <label class="opt"><input type="radio" name="q13" value="B"/>Minimising repulsion between all electron pairs around the central atom</label>
-    <label class="opt"><input type="radio" name="q13" value="C"/>Counting only bonding electron pairs</label>
-    <label class="opt"><input type="radio" name="q13" value="D"/>Minimising the number of bonds</label>
-  </div><div class="q-exp" id="eq13">VSEPR: electron pairs (bonding + lone) repel each other and adopt positions of minimum repulsion &rarr; determines the geometry and bond angles.</div></div>
-
-  <div class="q-block"><span class="q-num">Q14</span><div class="q-text">Why does the boiling point of noble gases increase from He to Xe?</div><div class="options">
-    <label class="opt"><input type="radio" name="q14" value="A"/>Xe forms hydrogen bonds</label>
-    <label class="opt"><input type="radio" name="q14" value="B"/>Increasing molar mass &rarr; more electrons &rarr; stronger London dispersion forces</label>
-    <label class="opt"><input type="radio" name="q14" value="C"/>Xe has a permanent dipole</label>
-    <label class="opt"><input type="radio" name="q14" value="D"/>Noble gases become ionic down the group</label>
-  </div><div class="q-exp" id="eq14">Noble gases are non-polar &rarr; only LDF. Larger atoms (more electrons) develop stronger instantaneous dipoles &rarr; stronger LDF &rarr; higher b.p. going down the group.</div></div>
-
-  <div class="q-block"><span class="q-num">Q15</span><div class="q-text">Simple molecular substances have low melting points because:</div><div class="options">
-    <label class="opt"><input type="radio" name="q15" value="A"/>Their covalent bonds are weak</label>
-    <label class="opt"><input type="radio" name="q15" value="B"/>The intermolecular forces between molecules are weak</label>
-    <label class="opt"><input type="radio" name="q15" value="C"/>They are composed of ions</label>
-    <label class="opt"><input type="radio" name="q15" value="D"/>They have delocalised electrons</label>
-  </div><div class="q-exp" id="eq15">Melting a molecular substance only requires overcoming the weak IMF between molecules, not the strong covalent bonds within each molecule.</div></div>
-
-  <div class="q-block"><span class="q-num">Q16</span><div class="q-text">The bond angle in NH&#x2083; (&approx;107&deg;) is less than the tetrahedral angle (109.5&deg;) because:</div><div class="options">
-    <label class="opt"><input type="radio" name="q16" value="A"/>N is more electronegative than H</label>
-    <label class="opt"><input type="radio" name="q16" value="B"/>The lone pair on N exerts greater repulsion than a bonding pair, compressing the bond angles</label>
-    <label class="opt"><input type="radio" name="q16" value="C"/>NH&#x2083; has only 3 bonds instead of 4</label>
-    <label class="opt"><input type="radio" name="q16" value="D"/>N&ndash;H bonds are shorter than predicted</label>
-  </div><div class="q-exp" id="eq16">A lone pair occupies more space than a bonding pair (concentrated closer to N, less directed). lp&ndash;bp repulsion &gt; bp&ndash;bp &rarr; bond angles compressed below 109.5&deg;.</div></div>
-
-  <div class="q-block"><span class="q-num">Q17</span><div class="q-text">Which molecule is polar?</div><div class="options">
-    <label class="opt"><input type="radio" name="q17" value="A"/>CCl&#x2084;</label>
-    <label class="opt"><input type="radio" name="q17" value="B"/>CO&#x2082;</label>
-    <label class="opt"><input type="radio" name="q17" value="C"/>BF&#x2083;</label>
-    <label class="opt"><input type="radio" name="q17" value="D"/>CHCl&#x2083;</label>
-  </div><div class="q-exp" id="eq17">CHCl&#x2083; (chloroform): tetrahedral but asymmetric (one H, three Cl) &rarr; dipoles do not cancel &rarr; net dipole &rarr; polar. CCl&#x2084;, CO&#x2082;, BF&#x2083; are all symmetric &rarr; dipoles cancel &rarr; non-polar.</div></div>
-
-  <div class="q-block"><span class="q-num">Q18</span><div class="q-text">Which species contains a dative covalent bond?</div><div class="options">
-    <label class="opt"><input type="radio" name="q18" value="A"/>NaCl</label>
-    <label class="opt"><input type="radio" name="q18" value="B"/>H&#x2082;</label>
-    <label class="opt"><input type="radio" name="q18" value="C"/>NH&#x2084;&#x207A;</label>
-    <label class="opt"><input type="radio" name="q18" value="D"/>Cl&#x2082;</label>
-  </div><div class="q-exp" id="eq18">NH&#x2084;&#x207A; forms when NH&#x2083; donates its lone pair to H&#x207A; via a dative bond. H&#x2082; and Cl&#x2082; are normal covalent; NaCl is ionic.</div></div>
-
-  <div class="q-block"><span class="q-num">Q19</span><div class="q-text">Diamond has a very high melting point because:</div><div class="options">
-    <label class="opt"><input type="radio" name="q19" value="A"/>It has strong London dispersion forces</label>
-    <label class="opt"><input type="radio" name="q19" value="B"/>It is an ionic compound</label>
-    <label class="opt"><input type="radio" name="q19" value="C"/>Each carbon is covalently bonded to 4 others in a giant 3D lattice requiring enormous energy to break</label>
-    <label class="opt"><input type="radio" name="q19" value="D"/>It contains hydrogen bonds</label>
-  </div><div class="q-exp" id="eq19">Diamond: giant covalent 3D lattice; every C forms 4 strong &sigma; bonds (sp&#xB3;). All bonds must be broken to melt &rarr; extremely high m.p. (~3550&deg;C).</div></div>
-
-  <div class="q-block"><span class="q-num">Q20</span><div class="q-text">The hybridisation of carbon in ethyne (HC&equiv;CH) is:</div><div class="options">
-    <label class="opt"><input type="radio" name="q20" value="A"/>sp&#xB3;</label>
-    <label class="opt"><input type="radio" name="q20" value="B"/>sp&#xB2;</label>
-    <label class="opt"><input type="radio" name="q20" value="C"/>sp</label>
-    <label class="opt"><input type="radio" name="q20" value="D"/>sp&#xB3;d</label>
-  </div><div class="q-exp" id="eq20">Ethyne: each C makes 2 &sigma; bonds (triple bond has one &sigma;; other single bond to H) &rarr; 2 hybrid orbitals &rarr; sp. Linear, 180&deg;. Two unhybridised p orbitals form 2 &pi; bonds.</div></div>
-
-  <div class="q-block"><span class="q-num">Q21</span><div class="q-text">Which correctly orders the repulsion strength?</div><div class="options">
-    <label class="opt"><input type="radio" name="q21" value="A"/>bp&ndash;bp &gt; lp&ndash;bp &gt; lp&ndash;lp</label>
-    <label class="opt"><input type="radio" name="q21" value="B"/>lp&ndash;lp &gt; lp&ndash;bp &gt; bp&ndash;bp</label>
-    <label class="opt"><input type="radio" name="q21" value="C"/>lp&ndash;bp &gt; lp&ndash;lp &gt; bp&ndash;bp</label>
-    <label class="opt"><input type="radio" name="q21" value="D"/>All equal</label>
-  </div><div class="q-exp" id="eq21">Lone pairs are more concentrated (not shared between two nuclei) &rarr; exert greater repulsion. Order: lp&ndash;lp &gt; lp&ndash;bp &gt; bp&ndash;bp.</div></div>
-
-  <div class="q-block"><span class="q-num">Q22</span><div class="q-text">Ice is less dense than liquid water because:</div><div class="options">
-    <label class="opt"><input type="radio" name="q22" value="A"/>Ice has fewer hydrogen bonds</label>
-    <label class="opt"><input type="radio" name="q22" value="B"/>In ice, H-bonds create an open hexagonal lattice with more space than liquid water</label>
-    <label class="opt"><input type="radio" name="q22" value="C"/>Ice molecules move faster</label>
-    <label class="opt"><input type="radio" name="q22" value="D"/>Covalent bonds in ice are longer</label>
-  </div><div class="q-exp" id="eq22">In ice, every H&#x2082;O forms 4 H-bonds in a rigid, open hexagonal lattice. In liquid water, H-bonds are dynamic and molecules pack more closely &rarr; liquid water is denser &rarr; ice floats.</div></div>
-
-  <div class="q-block"><span class="q-num">Q23</span><div class="q-text">Which substance has the highest boiling point?</div><div class="options">
-    <label class="opt"><input type="radio" name="q23" value="A"/>CH&#x2084; (M = 16)</label>
-    <label class="opt"><input type="radio" name="q23" value="B"/>HF (M = 20)</label>
-    <label class="opt"><input type="radio" name="q23" value="C"/>NH&#x2083; (M = 17)</label>
-    <label class="opt"><input type="radio" name="q23" value="D"/>H&#x2082;O (M = 18)</label>
-  </div><div class="q-exp" id="eq23">H&#x2082;O: each molecule can form up to 4 hydrogen bonds (2 donor O&ndash;H, 2 acceptor lone pairs). More H-bonds per molecule than HF (1 donor) or NH&#x2083; (1 acceptor + limited donors) &rarr; highest b.p. (100&deg;C).</div></div>
-
-  <div class="q-block"><span class="q-num">Q24</span><div class="q-text">Silicon dioxide (SiO&#x2082;) is best described as:</div><div class="options">
-    <label class="opt"><input type="radio" name="q24" value="A"/>A simple molecular compound</label>
-    <label class="opt"><input type="radio" name="q24" value="B"/>An ionic compound</label>
-    <label class="opt"><input type="radio" name="q24" value="C"/>A giant covalent compound</label>
-    <label class="opt"><input type="radio" name="q24" value="D"/>A metallic compound</label>
-  </div><div class="q-exp" id="eq24">SiO&#x2082; forms a giant 3D covalent lattice (similar to diamond) with each Si bonded to 4 O atoms. Very high m.p., hard, insoluble. Giant covalent structure.</div></div>
-
-  <div class="q-block"><span class="q-num">Q25</span><div class="q-text">A &pi; bond is weaker than a &sigma; bond because:</div><div class="options">
-    <label class="opt"><input type="radio" name="q25" value="A"/>It involves more electrons</label>
-    <label class="opt"><input type="radio" name="q25" value="B"/>It has less orbital overlap (side-on) than the end-on overlap of a &sigma; bond</label>
-    <label class="opt"><input type="radio" name="q25" value="C"/>It is a dative bond</label>
-    <label class="opt"><input type="radio" name="q25" value="D"/>It connects atoms further apart</label>
-  </div><div class="q-exp" id="eq25">&pi; bond: side-on overlap of p orbitals above and below the axis &rarr; less overlap than &sigma; (direct end-on). Less overlap &rarr; weaker bond. &pi; bonds are also more reactive (accessible to electrophiles).</div></div>
-
-  <div style="margin-top:28px;text-align:center;"><button class="qs" onclick="submitQuiz()">Submit Quiz</button><div id="qR"></div></div>
+  <div class="qcard" style="margin-top:1rem;"><h3>Section C — Extended Response (10 marks)</h3>
+    <div class="qi"><div class="qn">C1–C2 <span class="mk">[5 each]</span></div>
+    <p>Write extended answers comparing two topics from this unit, or evaluating trends and anomalies.</p>
+    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show guidance</button>
+    <div class="ans">Extended answers should: define key terms, give equations, explain using atomic theory, make comparisons, and conclude clearly. Aim for 6–8 marking points per question for full marks.</div></div>
   </div>
-</div>
+</section>
 
-<!-- TEST -->
-<div class="section-header" id="test"><span class="section-number">&#x1F4DD;</span><h2>Unit Test &mdash; 50 Marks</h2></div>
-<div class="test-wrap">
-  <div class="test-section">
-    <div class="test-sh"><h3>Section A &mdash; Short Answer</h3><span class="mb">20 marks</span></div>
-    <div class="test-body">
-      <div class="tq"><span class="tqn">Q1 [4 marks]</span><p>Use VSEPR theory to predict the shape and bond angle of each molecule: (a) BCl&#x2083; [1]; (b) PCl&#x2085; [1]; (c) SF&#x2086; [1]; (d) SO&#x2082; [1].</p>
-      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
-      <div class="ans">(a) BCl&#x2083;: B has 3 bonds, 0 lone pairs &rarr; 3 electron pairs &rarr; <strong>trigonal planar</strong>, 120&deg;. [1]<br>(b) PCl&#x2085;: P has 5 bonds, 0 lone pairs &rarr; 5 electron pairs &rarr; <strong>trigonal bipyramidal</strong>, 90&deg; and 120&deg;. [1]<br>(c) SF&#x2086;: S has 6 bonds, 0 lone pairs &rarr; 6 electron pairs &rarr; <strong>octahedral</strong>, 90&deg;. [1]<br>(d) SO&#x2082;: S has 2 bonds + 1 lone pair = 3 electron pairs &rarr; <strong>bent/V-shaped</strong>, &lt;120&deg; (~119&deg;). [1]</div></div>
-
-      <div class="tq"><span class="tqn">Q2 [4 marks]</span><p>Explain the hybridisation of carbon in diamond and graphite. Relate each to the electrical conductivity of the two allotropes. [4]</p>
-      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
-      <div class="ans">Diamond: each C is <strong>sp&#xB3;</strong> hybridised; four sp&#xB3; hybrid orbitals form four &sigma; bonds to neighbouring C atoms in a giant 3D tetrahedral lattice. All four outer electrons are used in &sigma; bonds &rarr; no delocalised electrons &rarr; <strong>non-conductor</strong>. [2]<br>Graphite: each C is <strong>sp&#xB2;</strong> hybridised; three sp&#xB2; hybrid orbitals form &sigma; bonds in planar hexagonal layers. Each C has one remaining unhybridised p&#x1D467; orbital that overlaps with adjacent p&#x1D467; orbitals &rarr; delocalised &pi; electron system throughout each layer. These mobile &pi; electrons carry charge &rarr; <strong>conducts electricity</strong>. [2]</div></div>
-
-      <div class="tq"><span class="tqn">Q3 [4 marks]</span><p>For each pair, state which has the higher boiling point and explain why in terms of intermolecular forces: (a) CH&#x2084; vs CCl&#x2084; [2]; (b) HF vs HCl [2].</p>
-      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
-      <div class="ans">(a) CCl&#x2084; (b.p. 77&deg;C) &gt; CH&#x2084; (b.p. &minus;162&deg;C). Both are non-polar &rarr; only London dispersion forces. CCl&#x2084; (M = 154 g/mol) has far more electrons than CH&#x2084; (M = 16 g/mol) &rarr; more polarisable &rarr; stronger LDF &rarr; more energy to overcome &rarr; higher b.p. [2]<br>(b) HF (b.p. 19.5&deg;C) &gt; HCl (b.p. &minus;85&deg;C). Despite HCl having more electrons (higher M), HF forms strong <strong>hydrogen bonds</strong> (F is highly electronegative, small, H is accessible). HCl forms only LDF + dipole-dipole (Cl too large for H-bonds). H-bonds are much stronger than LDF/dipole-dipole &rarr; HF has higher b.p. [2]</div></div>
-
-      <div class="tq"><span class="tqn">Q4 [4 marks]</span><p>Explain, using the concept of dipole moments and molecular geometry, why: (a) CCl&#x2084; is non-polar [2]; (b) CHCl&#x2083; is polar [2].</p>
-      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
-      <div class="ans">(a) CCl&#x2084;: four C&ndash;Cl bonds, each polar (&delta;&#x207A;C&ndash;Cl&delta;&minus;). The molecule is perfectly tetrahedral (all 4 substituents identical). The four bond dipole vectors are equal in magnitude and point symmetrically outward &rarr; they cancel completely &rarr; <strong>zero net dipole moment</strong> &rarr; non-polar. [2]<br>(b) CHCl&#x2083;: three C&ndash;Cl and one C&ndash;H bond. C&ndash;Cl dipoles point towards Cl; C&ndash;H dipole is smaller and points in a different direction. The geometry is tetrahedral but asymmetric (mixed substituents) &rarr; dipoles do not cancel &rarr; <strong>net dipole towards Cl end</strong> &rarr; polar molecule. [2]</div></div>
-
-      <div class="tq"><span class="tqn">Q5 [4 marks]</span><p>State and explain two anomalous properties of water that arise directly from its ability to form hydrogen bonds. [4]</p>
-      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
-      <div class="ans">(1) <strong>Anomalously high boiling point [2]:</strong> Expected b.p. of H&#x2082;O from the H&#x2082;S/H&#x2082;Se/H&#x2082;Te trend would be approximately &minus;80&deg;C. Actual b.p. is 100&deg;C. Each H&#x2082;O can form up to 4 H-bonds. These bonds require much more energy to break than LDF alone &rarr; much higher b.p. than predicted. [2]<br>(2) <strong>Ice less dense than liquid water (ice floats) [2]:</strong> In ice, H-bonds lock molecules into a rigid, open hexagonal lattice where each molecule is tetrahedrally bonded to 4 neighbours &rarr; large spaces in the lattice &rarr; lower density than liquid water. In liquid water, H-bonds are more dynamic and molecules pack more closely &rarr; higher density &rarr; ice floats. This is ecologically vital (aquatic life survives under ice). [2]</div></div>
-    </div>
-  </div>
-
-  <div class="test-section">
-    <div class="test-sh"><h3>Section B &mdash; Extended Answer</h3><span class="mb">30 marks</span></div>
-    <div class="test-body">
-      <div class="tq"><span class="tqn">Q6 [8 marks]</span><p>Compare simple molecular structures and giant covalent structures in terms of: bonding, melting point, electrical conductivity, and solubility. Illustrate with specific examples. Use the structures of ice (H&#x2082;O) and silicon dioxide (SiO&#x2082;) to explain the difference in their melting points. [8]</p>
-      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
-      <div class="ans"><strong>Simple molecular [3]:</strong> Discrete molecules held together by weak intermolecular forces (LDF, dipole-dipole, H-bonds). Covalent bonds within molecules are strong. Melting: only IMF must be overcome &rarr; low m.p. (e.g. I&#x2082; 114&deg;C, CH&#x2084; &minus;182&deg;C). Conductivity: no charged particles free to move &rarr; non-conductor (except some dissolved in water, e.g. HCl). Solubility: &ldquo;like dissolves like&rdquo; &mdash; polar dissolves in polar (NH&#x2083; in H&#x2082;O), non-polar in non-polar (I&#x2082; in CCl&#x2084;). [3]<br><strong>Giant covalent [3]:</strong> All atoms covalently bonded in an infinite 3D (or 2D) network. Every bond is a strong covalent bond. Melting: must break many strong covalent bonds &rarr; very high m.p. (diamond ~3550&deg;C, SiO&#x2082; ~1710&deg;C). Conductivity: no free electrons or ions &rarr; non-conductor (except graphite which has delocalised &pi; electrons). Solubility: generally insoluble in water. [3]<br><strong>Ice vs SiO&#x2082; [2]:</strong> Ice (H&#x2082;O) is a simple molecular solid. In ice, molecules are held by H-bonds (relatively weak, ~20&ndash;40 kJ/mol) &rarr; low m.p. (0&deg;C). SiO&#x2082; is a giant covalent network; each Si is covalently bonded to 4 O atoms and each O to 2 Si atoms with strong Si&ndash;O covalent bonds (~450 kJ/mol) throughout the lattice &rarr; very high m.p. (~1710&deg;C). The difference arises because ice must overcome only weak H-bonds, while SiO&#x2082; requires breaking a vast number of strong covalent bonds. [2]</div></div>
-
-      <div class="tq"><span class="tqn">Q7 [8 marks]</span><p>Describe and explain, using intermolecular force theory, the following trends: (a) boiling points of the halogens: F&#x2082; (&minus;188&deg;C) &lt; Cl&#x2082; (&minus;34&deg;C) &lt; Br&#x2082; (59&deg;C) &lt; I&#x2082; (184&deg;C) [3]; (b) boiling points across Group 16 hydrides: H&#x2082;O (100&deg;C) &gt;&gt; H&#x2082;Te (&minus;2&deg;C) &gt; H&#x2082;Se (&minus;41&deg;C) &gt; H&#x2082;S (&minus;60&deg;C) [3]; (c) why ethanol (C&#x2082;H&#x2085;OH, b.p. 78&deg;C) has a much higher b.p. than dimethyl ether (CH&#x2083;OCH&#x2083;, b.p. &minus;23&deg;C) despite having the same molecular formula. [2]</p>
-      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
-      <div class="ans">(a) Halogens [3]: All are non-polar diatomic molecules &rarr; only London dispersion forces act between molecules. Going down the group: molar mass increases (F&#x2082; 38, Cl&#x2082; 71, Br&#x2082; 160, I&#x2082; 254 g/mol) &rarr; more electrons &rarr; larger, more polarisable electron clouds &rarr; stronger instantaneous dipoles &rarr; stronger LDF &rarr; more energy needed to vaporise &rarr; boiling points increase progressively. [3]<br>(b) Group 16 hydrides [3]: H&#x2082;Te, H&#x2082;Se, H&#x2082;S follow expected trend: increasing molar mass going down &rarr; stronger LDF &rarr; rising b.p. (H&#x2082;S &lt; H&#x2082;Se &lt; H&#x2082;Te). H&#x2082;O is the anomaly: O is highly electronegative and small, so O&ndash;H bonds are very polar and H is accessible &rarr; each H&#x2082;O forms up to 4 strong <strong>hydrogen bonds</strong>. H-bonds require much more energy to overcome than the LDF/dipole-dipole in H&#x2082;S/H&#x2082;Se/H&#x2082;Te &rarr; H&#x2082;O has anomalously high b.p. (100&deg;C vs expected ~&minus;80&deg;C). S, Se, Te are too large for H-bonds despite being electronegative. [3]<br>(c) Ethanol vs DME [2]: Same molecular formula (C&#x2082;H&#x2076;O) but different connectivity. Ethanol has an O&ndash;H group &rarr; forms <strong>hydrogen bonds</strong> (O&ndash;H&middot;&middot;&middot;O). DME has no O&ndash;H group (O bonded to two C atoms) &rarr; cannot form H-bonds; has only LDF + dipole-dipole forces. H-bonds in ethanol are much stronger than dipole-dipole in DME &rarr; ethanol has much higher b.p. (+101&deg;C difference). [2]</div></div>
-
-      <div class="tq"><span class="tqn">Q8 [6 marks]</span><p>Using VSEPR and hybridisation theory, fully describe the bonding and geometry of: (a) ethene (C&#x2082;H&#x2084;) [3]; (b) water (H&#x2082;O) [3]. In each case state: hybridisation, bond angles, shape, number of &sigma; and &pi; bonds, and whether the molecule is polar. [6]</p>
-      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
-      <div class="ans">(a) Ethene [3]: Each C has 3 groups around it (1 double bond counts as one electron group) + 0 lone pairs &rarr; 3 electron pairs &rarr; <strong>sp&#xB2; hybridised</strong>. Each C forms three sp&#xB2; &sigma; bonds: one C&ndash;C and two C&ndash;H. Each C has one unhybridised p&#x1D467; orbital perpendicular to the molecular plane; these overlap side-on to form one C&ndash;C &pi; bond. Bond count: 5 &sigma; bonds (1 C&ndash;C, 4 C&ndash;H) + 1 &pi; bond (C=C). Bond angles: ~120&deg; (H&ndash;C&ndash;H and H&ndash;C&ndash;C). Shape: planar (all atoms in one plane, rigid due to &pi; bond). Polarity: C&ndash;H bonds slightly polar, but molecule is symmetric &rarr; <strong>non-polar overall</strong>. [3]<br>(b) Water [3]: O has 2 bonds + 2 lone pairs = 4 electron pairs &rarr; <strong>sp&#xB3; hybridised</strong>. O forms 2 &sigma; bonds (O&ndash;H) using two sp&#xB3; hybrid orbitals; two sp&#xB3; orbitals hold lone pairs. Bond count: 2 &sigma; bonds, 0 &pi; bonds. Electron pair geometry: tetrahedral. Molecular shape: <strong>bent/V-shaped</strong>. Bond angle: 104.5&deg; (reduced from 109.5&deg; due to 2 lone pairs exerting greater repulsion than bonding pairs). Polarity: O is more electronegative than H &rarr; O&ndash;H bonds are polar; bent shape means dipoles do not cancel &rarr; <strong>polar molecule</strong> (net dipole towards O). [3]</div></div>
-
-      <div class="tq"><span class="tqn">Q9 [8 marks]</span><p>Define and give an example of each type of intermolecular force. Explain why London dispersion forces exist in all molecules. Compare the magnitudes of the three types and explain how each contributes to boiling point. Use specific examples to illustrate. Explain why HF has a higher b.p. than HI despite HI having more electrons. [8]</p>
-      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
-      <div class="ans"><strong>Three IMF types [3]:</strong><br>(1) London dispersion forces (LDF): present in all molecules. Arise from instantaneous dipoles caused by random electron movement creating a brief uneven charge distribution; this induces a dipole in an adjacent molecule &rarr; transient attraction. Example: Ar, I&#x2082;, CH&#x2084;. [1]<br>(2) Permanent dipole-dipole: present in polar molecules. &delta;&#x207A; end of one molecule attracted to &delta;&minus; end of neighbour. Example: HCl, SO&#x2082;. Present alongside LDF. [1]<br>(3) Hydrogen bonds: strongest IMF; between H bonded to N/O/F and a lone pair on N/O/F of adjacent molecule. Example: H&#x2082;O, NH&#x2083;, HF. [1]<br><strong>Why LDF in all molecules [1]:</strong> All molecules have electrons, which are in constant motion. At any instant, electron distribution is uneven &rarr; temporary dipole. This induces an opposite dipole in a neighbouring molecule &rarr; brief attraction. These fluctuations are present regardless of whether the molecule has a permanent dipole. [1]<br><strong>Magnitudes and b.p. contribution [2]:</strong> LDF: smallest (0.1&ndash;10 kJ/mol per interaction); increases with electron count/molar mass and molecular surface area. Dipole-dipole: 5&ndash;20 kJ/mol; adds to LDF in polar molecules. H-bonds: 10&ndash;40 kJ/mol per H-bond; much stronger than other IMF &rarr; significantly raises b.p. Examples: noble gas b.p. series (LDF only); HCl b.p. (&minus;85&deg;C) vs H&#x2082;S (&minus;60&deg;C) shows LDF effect; H&#x2082;O (100&deg;C) shows H-bond effect. [2]<br><strong>HF vs HI [2]:</strong> HI (M=128) has far more electrons than HF (M=20) &rarr; stronger LDF. Yet HF (b.p. +19.5&deg;C) &gt; HI (b.p. &minus;35.4&deg;C). This is because F is the most electronegative element and is very small &rarr; the H&ndash;F bond is strongly polar and H is accessible &rarr; HF molecules form strong <strong>hydrogen bonds</strong> (F&ndash;H&middot;&middot;&middot;F). I is large and insufficiently electronegative for H-bond formation &rarr; HI has only LDF + weak dipole-dipole. H-bonds in HF outweigh the LDF advantage of HI &rarr; HF has the higher b.p. [2]</div></div>
-    </div>
-  </div>
-</div>
-
-<div class="nav">
-  <a class="nb p" href="s4_unit3_ionic_metallic_bonds.html">&larr; Unit 3: Ionic &amp; Metallic Bonds</a>
-  <a class="nb n" href="s4_unit5_periodic_trends.html">Unit 5: Periodic Trends &rarr;</a>
+<div class="unit-nav">
+  <a href="s4_unit3_ionic_metallic_bonds.html">← Unit 3: Ionic &amp; Metallic</a>
+  <a href="s4-chemistry.html">S4 Course Home</a>
+  <a href="s4_unit5_periodic_trends.html">Unit 5: Periodic Trends →</a>
 </div>
 </main>
-
-
-
-
-<!-- ═══════════════════════════ UNIT QUIZ GATE ═══════════════════════════ -->
-<script>
-(function(){
-  const CK='quiz_access_code', SK='quiz_access_granted';
-  const code=localStorage.getItem(CK);
-  if(!code) return;
-  if(sessionStorage.getItem(SK)) return;
-  const qw=document.querySelector('.quiz-wrap');
-  if(!qw) return;
-  function showGate(){
-    if(document.getElementById('_ugate')) return;
-    const g=document.createElement('div');
-    g.id='_ugate';
-    g.style.cssText='position:fixed;inset:0;background:#0d1117;z-index:99999;display:flex;align-items:center;justify-content:center;padding:24px;';
-    g.innerHTML=`
-      <div style="background:#161b22;border:2px solid rgba(245,158,11,.4);border-radius:16px;padding:44px 36px;max-width:440px;width:100%;text-align:center;">
-        <div style="font-size:3.5rem;margin-bottom:14px;">🔒</div>
-        <h2 style="font-family:'Playfair Display',serif;font-size:1.8rem;color:#fff;margin-bottom:10px;">Quiz Locked</h2>
-        <p style="color:#8b949e;font-size:.92rem;margin-bottom:20px;line-height:1.7;">Enter your teacher&#39;s access code to attempt this quiz.</p>
-        <input id="_ugate_inp" type="text" placeholder="Enter Code" maxlength="20" autocomplete="off"
-          style="width:100%;background:#1c2333;border:2px solid #30363d;border-radius:8px;color:#e6edf3;padding:13px 16px;font-family:'JetBrains Mono',monospace;font-size:1.4rem;text-align:center;letter-spacing:.2em;text-transform:uppercase;margin-bottom:10px;box-sizing:border-box;"
-          onkeydown="if(event.key==='Enter')window._ugateCheck()"/>
-        <div id="_ugate_err" style="font-family:'JetBrains Mono',monospace;font-size:.82rem;color:#f87171;min-height:20px;margin:6px 0 10px;"></div>
-        <button onclick="window._ugateCheck()" style="width:100%;background:#f59e0b;color:#000;border:none;padding:12px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.9rem;font-weight:700;cursor:pointer;margin-bottom:8px;">🔓 Unlock Quiz</button>
-        <button onclick="document.getElementById('_ugate').remove();document.body.style.overflow='';" style="width:100%;background:transparent;border:1px solid #30363d;color:#8b949e;padding:8px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.78rem;cursor:pointer;">✕ Cancel</button>
-      </div>`;
-    document.body.appendChild(g);
-    document.body.style.overflow='hidden';
-    setTimeout(()=>{const i=document.getElementById('_ugate_inp');if(i)i.focus();},100);
-  }
-  window._ugateCheck=function(){
-    const val=(document.getElementById('_ugate_inp')||{}).value;
-    if(!val) return;
-    const v=val.trim().toUpperCase();
-    const stored=localStorage.getItem(CK);
-    if(v===stored){
-      sessionStorage.setItem(SK,'1');
-      const g=document.getElementById('_ugate');
-      if(g) g.remove();
-      document.body.style.overflow='';
-    } else {
-      const err=document.getElementById('_ugate_err');
-      if(err) err.textContent='❌ Wrong code — try again.';
-      const inp=document.getElementById('_ugate_inp');
-      if(inp){inp.value='';inp.focus();}
-    }
-  };
-  qw.addEventListener('click',function(e){
-    if(!localStorage.getItem(CK)) return;
-    if(sessionStorage.getItem(SK)) return;
-    e.stopPropagation();e.preventDefault();
-    showGate();
-  },true);
-})();
-</script>
-
-<script>
-// ── PER-UNIT QUIZ ACCESS GATE ── ID: s4_unit4 ──
-(function(){
-  const ITEM_ID='s4_unit4';
-  const SESS_KEY='unlocked_'+ITEM_ID;
-  const CODE_KEY='quiz_access_code';
-  const LOCKS_KEY='assessment_locks';
-  
-  function isLocked(){return JSON.parse(localStorage.getItem(LOCKS_KEY)||'{}')[ITEM_ID]===true;}
-  function isGranted(){const c=localStorage.getItem(CODE_KEY)||'OPEN';return sessionStorage.getItem(SESS_KEY)===c||sessionStorage.getItem(SESS_KEY)==='OPEN';}
-  
-  const gate=document.createElement('div');
-  gate.id='unit-quiz-gate-s4_unit4';
-  gate.style.cssText='position:fixed;inset:0;background:#0d1117;z-index:99999;display:none;align-items:center;justify-content:center;padding:24px;';
-  gate.innerHTML=`<div style="background:#161b22;border:2px solid rgba(245,158,11,.4);border-radius:16px;padding:44px 38px;max-width:460px;width:100%;text-align:center;">
-    <div style="font-size:3.5rem;margin-bottom:14px;">🔒</div>
-    <h2 style="font-family:Playfair Display,serif;font-size:1.8rem;color:#fff;margin-bottom:10px;">Quiz Locked</h2>
-    <p style="color:#8b949e;font-size:.92rem;margin-bottom:22px;line-height:1.7;">Your teacher has locked this quiz. Enter the access code to unlock it.</p>
-    <input id="ugi-s4_unit4" type="text" placeholder="Enter Code" maxlength="20"
-      style="width:100%;background:#1c2333;border:2px solid #30363d;border-radius:8px;color:#e6edf3;padding:13px 16px;font-family:JetBrains Mono,monospace;font-size:1.3rem;text-align:center;letter-spacing:.2em;text-transform:uppercase;margin-bottom:10px;box-sizing:border-box;"
-      onkeydown="if(event.key==='Enter')unlockUnit_s4_unit4()"
-      oninput="this.value=this.value.toUpperCase()"/>
-    <div id="uge-s4_unit4" style="font-family:JetBrains Mono,monospace;font-size:.8rem;color:#f87171;min-height:18px;margin-bottom:10px;"></div>
-    <button onclick="unlockUnit_s4_unit4()" style="width:100%;background:#f59e0b;color:#000;border:none;padding:13px;border-radius:8px;font-family:JetBrains Mono,monospace;font-size:.88rem;font-weight:700;cursor:pointer;margin-bottom:8px;">🔓 Unlock Quiz</button>
-    <button onclick="document.getElementById('unit-quiz-gate-s4_unit4').style.display='none';document.body.style.overflow='';" style="width:100%;background:transparent;border:1px solid #30363d;color:#8b949e;padding:8px;border-radius:7px;font-family:JetBrains Mono,monospace;font-size:.78rem;cursor:pointer;">✕ Cancel — Go back</button>
-    <div style="font-family:JetBrains Mono,monospace;font-size:.7rem;color:#8b949e;margin-top:10px;">Ask your teacher for the access code.</div>
-  </div>`;
-  document.body.appendChild(gate);
-  
-  window.unlockUnit_s4_unit4=function(){
-    const entered=document.getElementById('ugi-s4_unit4').value.trim().toUpperCase();
-    const correct=localStorage.getItem(CODE_KEY)||'';
-    if(!entered){document.getElementById('uge-s4_unit4').textContent='Enter the code.';return;}
-    if(!correct||entered===correct){
-      sessionStorage.setItem(SESS_KEY,correct||'OPEN');
-      gate.style.display='none';document.body.style.overflow='';
-      if(window._pendingAction_s4_unit4) window._pendingAction_s4_unit4();
-    } else {
-      document.getElementById('uge-s4_unit4').textContent='❌ Wrong code. Ask your teacher.';
-      document.getElementById('ugi-s4_unit4').value='';
-    }
-  };
-  
-  window.addEventListener('DOMContentLoaded',function(){
-    if(!isLocked()) return;
-    const qw=document.querySelector('.quiz-wrap');
-    if(!qw) return;
-    qw.addEventListener('click',function(e){
-      if(!isLocked()||isGranted()) return;
-      e.stopPropagation();e.preventDefault();
-      gate.style.display='flex';document.body.style.overflow='hidden';
-    },true);
-  });
-})();
-</script>
-</body>
-</html>
+<footer>⚗ Jackson Habimana — Chemistry Education Portal &bull; <a href="s4-chemistry.html">S4 Course</a> &bull; <a href="index.html">Home</a></footer>
+<script src="quiz-fix.js"></script>
+<script src="fix-answers.js"></script></body></html>

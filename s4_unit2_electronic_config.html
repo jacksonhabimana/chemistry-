@@ -1,717 +1,356 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>S4 Chemistry – Unit 2: Electronic Configuration of Atoms &amp; Ions</title>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>S4 Chemistry – Unit 2: Electronic Configuration | Jackson Habimana</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Serif+4:wght@300;400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
 <style>
-  :root{--bg:#0d1117;--surface:#161b22;--surface2:#1c2333;--border:#30363d;--accent:#a78bfa;--accent2:#f97316;--gold:#e8c547;--green:#34d399;--red:#f87171;--text:#e6edf3;--muted:#8b949e;--radius:10px;}
-  *{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
-  body{background:var(--bg);color:var(--text);font-family:'Source Serif 4',Georgia,serif;font-size:17px;line-height:1.75;overflow-x:hidden;}
-  .hero{position:relative;padding:80px 40px 60px;text-align:center;overflow:hidden;background:radial-gradient(ellipse 80% 60% at 50% 0%,#110a28 0%,var(--bg) 70%);border-bottom:1px solid var(--border);}
-  .hero::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(167,139,250,.04) 40px),repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(167,139,250,.04) 40px);pointer-events:none;}
-  .badge{display:inline-block;background:rgba(167,139,250,.12);border:1px solid rgba(167,139,250,.3);color:var(--accent);padding:4px 16px;border-radius:50px;font-size:.78rem;font-family:'JetBrains Mono',monospace;letter-spacing:.12em;text-transform:uppercase;margin-bottom:22px;}
-  .hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.4rem);line-height:1.15;color:#fff;max-width:820px;margin:0 auto 18px;}
-  .hero h1 em{color:var(--accent);font-style:italic;}
-  .hero p.sub{color:var(--muted);font-size:1rem;max-width:640px;margin:0 auto 32px;}
-  .toc-grid{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:860px;margin:0 auto;}
-  .toc-grid a{background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:8px 18px;border-radius:50px;text-decoration:none;font-size:.85rem;transition:all .2s;font-family:'JetBrains Mono',monospace;}
-  .toc-grid a:hover{background:var(--accent);color:#000;border-color:var(--accent);}
-  .page{max-width:960px;margin:0 auto;padding:0 28px 80px;}
-  .section-header{display:flex;align-items:center;gap:16px;margin:64px 0 28px;padding-bottom:14px;border-bottom:2px solid var(--border);}
-  .section-number{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--accent);background:rgba(167,139,250,.1);border:1px solid rgba(167,139,250,.25);padding:4px 12px;border-radius:4px;white-space:nowrap;}
-  .section-header h2{font-family:'Playfair Display',serif;font-size:1.75rem;color:#fff;}
-  .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:26px 30px;margin-bottom:22px;}
-  .card h3{font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--gold);margin-bottom:12px;}
-  .card p+p{margin-top:12px;}
-  .def-box{border-left:4px solid var(--accent);background:rgba(167,139,250,.07);border-radius:0 var(--radius) var(--radius) 0;padding:18px 22px;margin:20px 0;}
-  .def-box strong{color:var(--accent);display:block;font-size:.78rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;}
-  .callout{border-radius:var(--radius);padding:18px 22px;margin:20px 0;display:flex;gap:14px;align-items:flex-start;}
-  .callout.info{background:rgba(167,139,250,.08);border:1px solid rgba(167,139,250,.25);}
-  .callout.warn{background:rgba(249,115,22,.08);border:1px solid rgba(249,115,22,.25);}
-  .callout.tip{background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.25);}
-  .callout-icon{font-size:1.3rem;margin-top:2px;flex-shrink:0;}
-  .callout-body strong{display:block;margin-bottom:4px;font-size:.9rem;color:#fff;}
-  .tbl-wrap{overflow-x:auto;margin:20px 0;border-radius:var(--radius);border:1px solid var(--border);}
-  table{width:100%;border-collapse:collapse;}
-  thead tr{background:var(--surface2);}
-  th{padding:13px 16px;text-align:left;font-size:.82rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);white-space:nowrap;}
-  td{padding:12px 16px;border-top:1px solid var(--border);font-size:.9rem;}
-  tr:hover td{background:rgba(255,255,255,.02);}
-  .formula-block{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:20px 26px;margin:16px 0;font-family:'JetBrains Mono',monospace;font-size:.93rem;color:var(--accent);overflow-x:auto;white-space:pre-wrap;}
-  .example-box{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin:26px 0;}
-  .example-header{background:rgba(232,197,71,.1);border-bottom:1px solid rgba(232,197,71,.2);padding:14px 22px;display:flex;align-items:center;gap:12px;}
-  .example-header span.tag{font-family:'JetBrains Mono',monospace;font-size:.72rem;background:var(--gold);color:#000;padding:3px 10px;border-radius:4px;font-weight:600;}
-  .example-header h4{color:var(--gold);font-family:'Playfair Display',serif;font-size:1rem;}
-  .example-body{padding:22px 26px;}
-  .example-body .q{margin-bottom:14px;font-weight:600;}
-  .example-body .step{display:flex;gap:14px;margin:10px 0;}
-  .step-num{min-width:28px;height:28px;background:rgba(167,139,250,.15);border:1px solid rgba(167,139,250,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--accent);flex-shrink:0;margin-top:3px;}
-  .step-text{flex:1;}
-  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:20px 0;}
-  @media(max-width:640px){.two-col{grid-template-columns:1fr;}}
-  .diagram-wrap{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin:20px 0;overflow-x:auto;}
-  .diagram-wrap svg{display:block;margin:0 auto;}
-  .exercise-list{list-style:none;counter-reset:ex;}
-  .exercise-list li{counter-increment:ex;margin-bottom:16px;padding:16px 20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);}
-  .exercise-list li::before{content:'Q' counter(ex) '.';font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--accent);display:block;margin-bottom:6px;}
-  .reveal-btn{margin-top:10px;background:rgba(167,139,250,.1);border:1px solid rgba(167,139,250,.3);color:var(--accent);padding:6px 16px;border-radius:6px;cursor:pointer;font-size:.82rem;font-family:'JetBrains Mono',monospace;transition:all .2s;}
-  .reveal-btn:hover{background:var(--accent);color:#000;}
-  .answer{display:none;margin-top:12px;padding:12px 16px;background:rgba(167,139,250,.06);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-size:.9rem;}
-  .answer.open{display:block;}
-  .quiz-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-top:32px;}
-  .quiz-header{background:rgba(167,139,250,.1);border-bottom:1px solid rgba(167,139,250,.2);padding:16px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
-  .quiz-header h3{font-family:'Playfair Display',serif;color:var(--accent);font-size:1.2rem;}
-  .quiz-body{padding:24px;}
-  .q-block{margin-bottom:26px;padding-bottom:26px;border-bottom:1px solid var(--border);}
-  .q-block:last-of-type{border-bottom:none;}
-  .q-text{font-weight:600;margin-bottom:12px;color:#fff;}
-  .q-num{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--accent);display:block;margin-bottom:4px;}
-  .options{display:flex;flex-direction:column;gap:8px;}
-  .opt{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:all .18s;font-size:.92rem;}
-  .opt:hover{border-color:var(--accent);}
-  .opt input{margin-top:3px;accent-color:var(--accent);}
-  .opt.correct{background:rgba(52,211,153,.12);border-color:var(--green)!important;color:var(--green);}
-  .opt.wrong{background:rgba(248,113,113,.1);border-color:var(--red)!important;color:var(--red);}
-  .q-exp{display:none;margin-top:10px;padding:10px 14px;background:rgba(167,139,250,.07);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-size:.88rem;}
-  .qs{background:var(--accent);color:#000;border:none;padding:12px 32px;border-radius:8px;font-size:1rem;font-family:'JetBrains Mono',monospace;cursor:pointer;font-weight:700;transition:opacity .2s;}
-  .qs:hover{opacity:.85;}
-  #qR{display:none;margin-top:18px;padding:16px 22px;border-radius:var(--radius);font-family:'JetBrains Mono',monospace;font-weight:700;font-size:1rem;text-align:center;}
-  .test-wrap{margin-top:40px;}
-  .test-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:28px;}
-  .test-sh{background:rgba(249,115,22,.1);border-bottom:1px solid rgba(249,115,22,.2);padding:14px 24px;display:flex;justify-content:space-between;align-items:center;}
-  .test-sh h3{font-family:'Playfair Display',serif;color:var(--accent2);font-size:1.1rem;}
-  .mb{font-family:'JetBrains Mono',monospace;font-size:.75rem;background:rgba(249,115,22,.2);color:var(--accent2);padding:4px 12px;border-radius:50px;}
-  .test-body{padding:24px;}
-  .tq{margin-bottom:20px;padding:16px 18px;background:var(--surface2);border-radius:8px;border:1px solid var(--border);}
-  .tqn{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--accent2);margin-bottom:6px;display:block;}
-  .rb{margin-top:12px;background:rgba(249,115,22,.1);border:1px solid rgba(249,115,22,.3);color:var(--accent2);padding:6px 16px;border-radius:6px;cursor:pointer;font-size:.82rem;font-family:'JetBrains Mono',monospace;transition:all .2s;}
-  .rb:hover{background:var(--accent2);color:#000;}
-  .ans{display:none;margin-top:12px;padding:12px 16px;background:rgba(249,115,22,.06);border-left:3px solid var(--accent2);border-radius:0 6px 6px 0;font-size:.9rem;line-height:1.7;}
-  .ans.open{display:block;}
-  .nav{display:flex;justify-content:space-between;align-items:center;margin-top:72px;padding-top:32px;border-top:1px solid var(--border);flex-wrap:wrap;gap:16px;}
-  .nb{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:8px;text-decoration:none;font-family:'JetBrains Mono',monospace;font-size:.85rem;transition:all .2s;}
-  .nb.p{background:var(--surface);border:1px solid var(--border);color:var(--muted);}
-  .nb.p:hover{border-color:var(--accent);color:var(--accent);}
-  .nb.n{background:var(--accent);color:#000;font-weight:700;}
-  .nb.n:hover{opacity:.88;}
-  h3.sub{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--gold);margin:28px 0 10px;}
-  sub,sup{font-size:.72em;}
-  .ec{font-family:'JetBrains Mono',monospace;background:rgba(167,139,250,.1);border:1px solid rgba(167,139,250,.2);border-radius:4px;padding:2px 8px;font-size:.88rem;color:var(--accent);}
-  @media(max-width:600px){.hero{padding:50px 20px 40px;}.page{padding:0 16px 60px;}}
+:root{--bg:#0d1117;--surface:#161b22;--surface2:#1c2333;--border:#30363d;--accent:#a78bfa;--green:#34d399;--red:#f87171;--text:#e6edf3;--muted:#8b949e;--radius:10px;}
+*{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Source Serif 4',Georgia,serif;font-size:17px;line-height:1.75;}
+nav{position:sticky;top:0;z-index:200;background:rgba(13,17,23,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+.nav-inner{max-width:1060px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:.7rem 1.5rem;}
+.nav-brand{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--accent);text-decoration:none;}
+.nav-links{display:flex;gap:1.2rem;}.nav-links a{color:var(--muted);text-decoration:none;font-size:.85rem;}.nav-links a:hover{color:var(--accent);}
+.hero{background:linear-gradient(135deg,#100a2e,#0d1117);border-bottom:1px solid var(--border);padding:3rem 1.5rem 2rem;}
+.hero-inner{max-width:1060px;margin:0 auto;}
+.badge{display:inline-block;background:rgba(167,139,250,.12);color:var(--accent);border:1px solid rgba(167,139,250,.3);border-radius:20px;padding:.3rem 1rem;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:1rem;}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.2;margin-bottom:.6rem;}
+.hero h1 span{color:var(--accent);}
+.hero-meta{display:flex;gap:1rem;flex-wrap:wrap;font-size:.84rem;color:var(--muted);margin-top:1rem;}
+.toc{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:var(--radius);padding:1.2rem 1.5rem;max-width:1060px;margin:1.5rem auto;width:calc(100% - 3rem);}
+.toc h3{font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:.8rem;}
+.toc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.3rem .8rem;}
+.toc-grid a{color:var(--muted);text-decoration:none;font-size:.88rem;}.toc-grid a:hover{color:var(--accent);}
+main{max-width:1060px;margin:0 auto;padding:1rem 1.5rem 4rem;}
+section{margin-bottom:3rem;scroll-margin-top:80px;}
+.sec-head{display:flex;align-items:baseline;gap:.8rem;margin-bottom:1.2rem;padding-bottom:.5rem;border-bottom:1px solid var(--border);}
+.sec-num{font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--accent);background:rgba(167,139,250,.1);border:1px solid rgba(167,139,250,.2);border-radius:5px;padding:.2rem .6rem;}
+.sec-head h2{font-family:'Playfair Display',serif;font-size:1.45rem;}
+p{margin-bottom:.9rem;}
+.key{background:rgba(167,139,250,.07);border:1px solid rgba(167,139,250,.2);border-left:4px solid var(--accent);border-radius:var(--radius);padding:1.1rem 1.4rem;margin:1.2rem 0;}
+.key .kl{font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:.4rem;}
+.note{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.1rem 1.4rem;margin:1.2rem 0;}
+.eq{font-family:'JetBrains Mono',monospace;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:.8rem 1.1rem;margin:.8rem 0;font-size:.93rem;overflow-x:auto;}
+table{width:100%;border-collapse:collapse;margin:1.2rem 0;font-size:.9rem;}
+th{background:var(--surface2);color:var(--accent);padding:.65rem .9rem;text-align:left;border:1px solid var(--border);}
+td{padding:.6rem .9rem;border:1px solid var(--border);vertical-align:top;}
+tr:nth-child(even) td{background:rgba(255,255,255,.02);}
+.worked{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.3rem;margin:1.2rem 0;}
+.worked .wt{font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--green);margin-bottom:.7rem;}
+.step{display:flex;gap:.7rem;margin:.4rem 0;}
+.sn{flex-shrink:0;width:1.5rem;height:1.5rem;background:var(--accent);color:#0d1117;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;margin-top:.2rem;}
+.qcard{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin-top:1rem;}
+.qcard h3{font-family:'Playfair Display',serif;color:var(--accent);margin-bottom:1rem;}
+.qi{margin:.9rem 0;padding-left:1.1rem;border-left:2px solid var(--border);}
+.qi:hover{border-left-color:var(--accent);}
+.qn{font-size:.74rem;color:var(--accent);font-family:'JetBrains Mono',monospace;}
+.ans{display:none;margin-top:.4rem;font-size:.88rem;color:var(--green);font-style:italic;}
+.sa{background:none;border:1px solid var(--border);color:var(--muted);font-size:.74rem;border-radius:4px;padding:.15rem .5rem;cursor:pointer;margin-top:.3rem;}
+.sa:hover{border-color:var(--accent);color:var(--accent);}
+.mk{float:right;font-size:.74rem;color:var(--muted);font-family:'JetBrains Mono',monospace;}
+.unit-nav{display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--border);}
+.unit-nav a{color:var(--accent);text-decoration:none;font-size:.9rem;}
+footer{background:var(--surface);border-top:1px solid var(--border);text-align:center;padding:1.2rem;font-size:.8rem;color:var(--muted);}
+footer a{color:var(--accent);text-decoration:none;}
 </style>
 </head>
 <body>
-<div id="sitenav" style="position:sticky;top:0;z-index:200;background:rgba(13,17,23,.95);backdrop-filter:blur(12px);border-bottom:1px solid #30363d;padding:0 28px;font-family:JetBrains Mono,monospace;"><div style="max-width:960px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:52px;gap:12px;"><a href="index.html" style="font-size:.78rem;color:#38bdf8;text-decoration:none;letter-spacing:.06em;white-space:nowrap;">&#9883; Habimana</a><div style="display:flex;gap:4px;flex-wrap:wrap;"><a href="index.html" style="font-size:.72rem;color:#8b949e;text-decoration:none;padding:4px 12px;border-radius:5px;border:1px solid transparent;">Home</a><a href="s4-chemistry.html" style="font-size:.72rem;color:#38bdf8;text-decoration:none;padding:4px 12px;border-radius:5px;background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.25);">S4</a><a href="s5-chemistry.html" style="font-size:.72rem;color:#8b949e;text-decoration:none;padding:4px 12px;border-radius:5px;border:1px solid transparent;">S5</a><a href="s6-chemistry.html" style="font-size:.72rem;color:#8b949e;text-decoration:none;padding:4px 12px;border-radius:5px;border:1px solid transparent;">S6</a></div></div></div>
+<nav><div class="nav-inner">
+  <a class="nav-brand" href="index.html">⚗ Jackson Habimana</a>
+  <div class="nav-links"><a href="s4-chemistry.html">S4 Course</a><a href="s5-chemistry.html">S5</a><a href="s6-chemistry.html">S6</a></div>
+</div></nav>
 
-<div class="hero">
-  <div class="badge">S4 Chemistry &middot; Unit 2</div>
-  <h1>Electronic Configuration<br>of <em>Atoms &amp; Ions</em></h1>
-  <p class="sub">Bohr's model, hydrogen spectrum, atomic spectra, orbitals and quantum numbers, electron configurations, and ionisation energy.</p>
-  <div class="toc-grid">
-    <a href="#s21">2.1 Bohr's Model</a>
-    <a href="#s22">2.2 Hydrogen Spectrum</a>
-    <a href="#s23">2.3 Atomic Spectra</a>
-    <a href="#s24">2.4 Orbitals &amp; Quantum Numbers</a>
-    <a href="#s25">2.5 Electron Configurations</a>
-    <a href="#s26">2.6 Ionisation Energy</a>
-    <a href="#exercises">Exercises</a>
-    <a href="#quiz">Quiz</a>
-    <a href="#test">Unit Test</a>
+<header class="hero"><div class="hero-inner">
+  <div class="badge">S4 · Unit 2</div>
+  <h1>Electronic Configuration<br><span>of Atoms &amp; Ions</span></h1>
+  <p style="color:var(--muted);max-width:580px;margin-top:.5rem;">Bohr's model, emission spectra, orbitals, quantum numbers, electron configurations, and ionisation energies.</p>
+  <div class="hero-meta"><span>📚 6 Sections</span><span>🧪 25 Quiz Questions</span><span>📝 50-Mark Test</span></div>
+</div></header>
+
+<div class="toc"><h3>Contents</h3><div class="toc-grid">
+  <a href="#s1">2.1 Bohr's Model &amp; Emission Spectra</a>
+  <a href="#s2">2.2 Orbitals &amp; Quantum Numbers</a>
+  <a href="#s3">2.3 Rules for Filling Orbitals</a>
+  <a href="#s4">2.4 Electron Configurations</a>
+  <a href="#s5">2.5 Ionisation Energies</a>
+  <a href="#s6">2.6 Evidence from Ionisation Energy</a>
+  <a href="#quiz">Quiz (25 Qs)</a><a href="#test">50-Mark Test</a>
+</div></div>
+
+<main>
+<section id="s1">
+  <div class="sec-head"><span class="sec-num">2.1</span><h2>Bohr's Model and Emission Spectra</h2></div>
+  <p>Niels Bohr (1913) proposed that electrons orbit the nucleus in fixed circular energy levels (shells). Electrons can only exist in these discrete energy levels, not between them.</p>
+  <div class="key"><div class="kl">How emission spectra are produced</div>
+  <p>When electrons absorb energy (heat or electricity), they jump to a higher energy level (<strong>excitation</strong>). When they fall back to a lower level, they release energy as a <strong>photon of light</strong>. The energy of the photon corresponds to the difference between the two levels: ΔE = hf.</p></div>
+  <table>
+    <tr><th>Series</th><th>Electrons fall to level</th><th>Region of spectrum</th></tr>
+    <tr><td>Lyman</td><td>n=1 (ground state)</td><td>Ultraviolet</td></tr>
+    <tr><td>Balmer</td><td>n=2</td><td>Visible (hydrogen gives red, blue-green, blue, violet lines)</td></tr>
+    <tr><td>Paschen</td><td>n=3</td><td>Infrared</td></tr>
+  </table>
+  <p>The visible emission spectrum of hydrogen shows four coloured lines — the <strong>Balmer series</strong>. Each line corresponds to electrons falling from a higher level to n=2.</p>
+</section>
+
+<section id="s2">
+  <div class="sec-head"><span class="sec-num">2.2</span><h2>Orbitals and Quantum Numbers</h2></div>
+  <p>The modern model replaced Bohr's circular orbits with <strong>atomic orbitals</strong> — regions of space where there is a high probability of finding an electron.</p>
+  <div class="key"><div class="kl">Types of Orbitals</div>
+  <table>
+    <tr><th>Sub-shell</th><th>Shape</th><th>Number of orbitals</th><th>Max electrons</th></tr>
+    <tr><td>s</td><td>Spherical</td><td>1</td><td>2</td></tr>
+    <tr><td>p</td><td>Dumbbell (3 orientations: px, py, pz)</td><td>3</td><td>6</td></tr>
+    <tr><td>d</td><td>Complex (5 orientations)</td><td>5</td><td>10</td></tr>
+    <tr><td>f</td><td>Very complex (7 orientations)</td><td>7</td><td>14</td></tr>
+  </table></div>
+  <p>Each orbital can hold a maximum of <strong>2 electrons</strong> (with opposite spins — Pauli exclusion principle).</p>
+  <table>
+    <tr><th>Shell (n)</th><th>Sub-shells available</th><th>Max electrons</th></tr>
+    <tr><td>1</td><td>1s</td><td>2</td></tr>
+    <tr><td>2</td><td>2s, 2p</td><td>8</td></tr>
+    <tr><td>3</td><td>3s, 3p, 3d</td><td>18</td></tr>
+    <tr><td>4</td><td>4s, 4p, 4d, 4f</td><td>32</td></tr>
+  </table>
+</section>
+
+<section id="s3">
+  <div class="sec-head"><span class="sec-num">2.3</span><h2>Rules for Filling Orbitals</h2></div>
+  <div class="key"><div class="kl">Three Key Rules</div>
+  <p><strong>1. Aufbau principle</strong> — electrons fill orbitals in order of increasing energy: 1s → 2s → 2p → 3s → 3p → 4s → 3d → 4p → 5s → 4d …</p>
+  <p><strong>2. Pauli exclusion principle</strong> — each orbital holds maximum 2 electrons with opposite spins (↑↓).</p>
+  <p><strong>3. Hund's rule</strong> — when filling orbitals of equal energy (degenerate), electrons occupy separate orbitals with parallel spins before pairing up. This minimises electron-electron repulsion.</p></div>
+  <p>Energy order to remember: 1s &lt; 2s &lt; 2p &lt; 3s &lt; 3p &lt; <strong>4s &lt; 3d</strong> &lt; 4p (note: 4s fills before 3d but 3d is emptied before 4s in ions)</p>
+</section>
+
+<section id="s4">
+  <div class="sec-head"><span class="sec-num">2.4</span><h2>Electron Configurations</h2></div>
+  <table>
+    <tr><th>Element</th><th>Z</th><th>Full configuration</th><th>Noble gas shorthand</th></tr>
+    <tr><td>Hydrogen H</td><td>1</td><td>1s¹</td><td>—</td></tr>
+    <tr><td>Carbon C</td><td>6</td><td>1s² 2s² 2p²</td><td>[He] 2s² 2p²</td></tr>
+    <tr><td>Sodium Na</td><td>11</td><td>1s² 2s² 2p⁶ 3s¹</td><td>[Ne] 3s¹</td></tr>
+    <tr><td>Chlorine Cl</td><td>17</td><td>1s² 2s² 2p⁶ 3s² 3p⁵</td><td>[Ne] 3s² 3p⁵</td></tr>
+    <tr><td>Calcium Ca</td><td>20</td><td>1s² 2s² 2p⁶ 3s² 3p⁶ 4s²</td><td>[Ar] 4s²</td></tr>
+    <tr><td>Iron Fe</td><td>26</td><td>1s² 2s² 2p⁶ 3s² 3p⁶ 3d⁶ 4s²</td><td>[Ar] 3d⁶ 4s²</td></tr>
+    <tr><td>Copper Cu</td><td>29</td><td>1s² 2s² 2p⁶ 3s² 3p⁶ 3d¹⁰ 4s¹</td><td>[Ar] 3d¹⁰ 4s¹ (anomalous)</td></tr>
+    <tr><td>Chromium Cr</td><td>24</td><td>1s² 2s² 2p⁶ 3s² 3p⁶ 3d⁵ 4s¹</td><td>[Ar] 3d⁵ 4s¹ (anomalous)</td></tr>
+  </table>
+  <div class="key"><div class="kl">Ionic configurations — remove from outermost shell</div>
+  <p>For ions, remove electrons from the highest energy sub-shell first. For transition metals, remove 4s electrons before 3d electrons when forming cations.</p>
+  <p>Fe²⁺: [Ar] 3d⁶ (lost both 4s electrons) &nbsp;|&nbsp; Fe³⁺: [Ar] 3d⁵ (lost both 4s + one 3d)</p>
+  <p>Cl⁻: [Ne] 3s² 3p⁶ = [Ar] (gained one electron into 3p)</p></div>
+</section>
+
+<section id="s5">
+  <div class="sec-head"><span class="sec-num">2.5</span><h2>Ionisation Energies</h2></div>
+  <div class="key"><div class="kl">Definition</div>
+  <p><strong>First ionisation energy (IE₁)</strong> is the energy required to remove one mole of electrons from one mole of gaseous atoms to form one mole of gaseous 1+ ions.</p>
+  <div class="eq">X(g) → X⁺(g) + e⁻ &nbsp; ΔH = IE₁ (always positive)</div></div>
+  <p>Successive ionisation energies (IE₁, IE₂, IE₃ …) always increase because you are removing electrons from an increasingly positive ion.</p>
+  <p><strong>Large jumps</strong> in successive IEs indicate a change of shell — this is used to determine the group of an element.</p>
+  <div class="worked"><div class="wt">Example — Identifying group from IE data</div>
+    <p>Successive IEs of element X (kJ mol⁻¹): 578, 1820, 2750, 11600, 14800</p>
+    <div class="step"><div class="sn">1</div><div>Large jump between IE₃ and IE₄ (2750 → 11600)</div></div>
+    <div class="step"><div class="sn">2</div><div>3 electrons removed easily before the jump → element is in <strong>Group 3</strong></div></div>
   </div>
-</div>
-<main class="page">
+</section>
 
-<div class="section-header" id="s21"><span class="section-number">2.1</span><h2>Bohr's Atomic Model &amp; Energy Levels</h2></div>
-<div class="card"><h3>Limitations of Rutherford's Model</h3><p>Rutherford's nuclear model could not explain why electrons don't radiate energy and spiral into the nucleus, nor why atoms emit light only at specific wavelengths. Niels Bohr (1913) proposed a modified model to address these issues.</p></div>
-<h3 class="sub">Bohr's Postulates</h3>
-<div class="card"><ul style="margin:0 0 0 20px;line-height:2.1;">
-  <li>Electrons orbit the nucleus in fixed circular paths called <strong>shells</strong> (energy levels), labelled n = 1, 2, 3, 4&hellip;</li>
-  <li>While in an allowed orbit, an electron does <strong>not radiate energy</strong> &mdash; it stays at constant energy.</li>
-  <li>Each shell has a fixed energy. Higher n = higher energy = further from nucleus.</li>
-  <li>An electron moves between shells by <strong>absorbing</strong> or <strong>emitting</strong> a photon of energy exactly equal to the energy difference: &Delta;E = hf.</li>
-</ul></div>
-<div class="formula-block">E = hf = hc/&lambda;
-h = 6.626 &times; 10&#x207B;&#xB3;&#x2074; J s &nbsp; c = 3.00 &times; 10&#x2078; m s&#x207B;&#xB9; &nbsp; &lambda; = wavelength (m)</div>
-<div class="diagram-wrap"><svg viewBox="0 0 500 260" width="500" height="260" xmlns="http://www.w3.org/2000/svg">
-  <text x="250" y="17" text-anchor="middle" fill="#e6edf3" font-size="13" font-family="Playfair Display" font-weight="bold">Bohr Energy Level Diagram</text>
-  <circle cx="250" cy="140" r="11" fill="#f87171" opacity=".85"/>
-  <text x="250" y="144" text-anchor="middle" fill="#fff" font-size="9" font-family="JetBrains Mono">+</text>
-  <circle cx="250" cy="140" r="36" fill="none" stroke="rgba(167,139,250,.35)" stroke-width="1.2" stroke-dasharray="4,3"/>
-  <circle cx="250" cy="140" r="66" fill="none" stroke="rgba(167,139,250,.35)" stroke-width="1.2" stroke-dasharray="4,3"/>
-  <circle cx="250" cy="140" r="98" fill="none" stroke="rgba(167,139,250,.3)" stroke-width="1" stroke-dasharray="4,3"/>
-  <circle cx="250" cy="140" r="126" fill="none" stroke="rgba(167,139,250,.2)" stroke-width="1" stroke-dasharray="4,3"/>
-  <text x="290" y="106" fill="#a78bfa" font-size="11" font-family="JetBrains Mono">n=1</text>
-  <text x="320" y="78" fill="#a78bfa" font-size="11" font-family="JetBrains Mono">n=2</text>
-  <text x="352" y="46" fill="#a78bfa" font-size="11" font-family="JetBrains Mono">n=3</text>
-  <text x="380" y="20" fill="#a78bfa" font-size="10" font-family="JetBrains Mono">n=4</text>
-  <circle cx="250" cy="104" r="5" fill="#a78bfa"/>
-  <circle cx="184" cy="140" r="5" fill="#a78bfa"/>
-  <circle cx="250" cy="206" r="5" fill="#a78bfa"/>
-  <path d="M 250 206 Q 190 178 250 111" fill="none" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#ha)"/>
-  <text x="178" y="165" fill="#f59e0b" font-size="9" font-family="JetBrains Mono">emission</text>
-  <text x="172" y="177" fill="#f59e0b" font-size="9" font-family="JetBrains Mono">&Delta;E = hf</text>
-  <path d="M 250 104 Q 300 122 318 140" fill="none" stroke="#34d399" stroke-width="1.5" marker-end="url(#ga)"/>
-  <text x="288" y="118" fill="#34d399" font-size="9" font-family="JetBrains Mono">absorption</text>
-  <defs>
-    <marker id="ha" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3z" fill="#f59e0b"/></marker>
-    <marker id="ga" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3z" fill="#34d399"/></marker>
-  </defs>
-  <text x="250" y="252" text-anchor="middle" fill="#8b949e" font-size="10" font-family="JetBrains Mono">Electrons jump between levels by absorbing or emitting photons</text>
-</svg></div>
-<div class="callout info"><span class="callout-icon">&#x2139;&#xFE0F;</span><div class="callout-body"><strong>Ground state vs excited state</strong>Ground state = lowest energy arrangement (electrons in lowest available shells). Excited state = electron has absorbed energy and jumped to a higher shell. It rapidly falls back, emitting a photon.</div></div>
-<div class="callout warn"><span class="callout-icon">&#x26A0;&#xFE0F;</span><div class="callout-body"><strong>Limitation of Bohr's model</strong>Works well for hydrogen but fails for multi-electron atoms. Replaced by the quantum mechanical orbital model, but the concept of quantised energy levels remains valid.</div></div>
+<section id="s6">
+  <div class="sec-head"><span class="sec-num">2.6</span><h2>Trends in First Ionisation Energy</h2></div>
+  <table>
+    <tr><th>Trend</th><th>Direction</th><th>Reason</th></tr>
+    <tr><td>Down a group</td><td>IE₁ decreases</td><td>More electron shells → greater shielding → outer electron further from nucleus and less attracted</td></tr>
+    <tr><td>Across a period</td><td>IE₁ generally increases</td><td>Nuclear charge increases → stronger attraction on outer electrons at similar distance</td></tr>
+  </table>
+  <div class="key"><div class="kl">Two anomalies across Period 2</div>
+  <p><strong>Be → B</strong>: IE₁ drops. B (2s²2p¹) removes electron from 2p — higher energy, further from nucleus, easier to remove than Be's 2s².</p>
+  <p><strong>N → O</strong>: IE₁ drops. N has 2p³ (half-filled, extra stable). O has 2p⁴ — the paired electrons in one 2p repel each other, making the 4th 2p electron easier to remove.</p></div>
+</section>
 
-<div class="section-header" id="s22"><span class="section-number">2.2</span><h2>Hydrogen Spectrum &amp; Spectral Lines</h2></div>
-<div class="card"><h3>Emission Spectrum of Hydrogen</h3><p>When hydrogen is excited (electrical discharge or heat), electrons are promoted to higher levels. As they fall back, they emit photons of specific frequencies producing a <strong>line emission spectrum</strong> &mdash; bright coloured lines on a dark background. Each line corresponds to electrons falling from n&#x2082; to n&#x2081;.</p></div>
-<div class="tbl-wrap"><table>
-  <thead><tr><th>Series</th><th>Transition</th><th>Region</th></tr></thead>
-  <tbody>
-    <tr><td>Lyman</td><td>n &ge; 2 &rarr; n=1</td><td>Ultraviolet (UV)</td></tr>
-    <tr><td>Balmer</td><td>n &ge; 3 &rarr; n=2</td><td>Visible light</td></tr>
-    <tr><td>Paschen</td><td>n &ge; 4 &rarr; n=3</td><td>Infrared (IR)</td></tr>
-    <tr><td>Brackett</td><td>n &ge; 5 &rarr; n=4</td><td>Infrared (IR)</td></tr>
-  </tbody>
-</table></div>
-<div class="diagram-wrap"><svg viewBox="0 0 580 285" width="580" height="285" xmlns="http://www.w3.org/2000/svg">
-  <text x="290" y="17" text-anchor="middle" fill="#e6edf3" font-size="13" font-family="Playfair Display" font-weight="bold">Hydrogen Energy Level Transitions</text>
-  <line x1="55" y1="255" x2="220" y2="255" stroke="#e6edf3" stroke-width="1.5"/>
-  <line x1="55" y1="198" x2="220" y2="198" stroke="#e6edf3" stroke-width="1.5"/>
-  <line x1="55" y1="152" x2="220" y2="152" stroke="#e6edf3" stroke-width="1.5"/>
-  <line x1="55" y1="116" x2="220" y2="116" stroke="#e6edf3" stroke-width="1.5"/>
-  <line x1="55" y1="90" x2="220" y2="90" stroke="#e6edf3" stroke-width="1.5"/>
-  <line x1="55" y1="38" x2="220" y2="38" stroke="#e6edf3" stroke-width=".8" stroke-dasharray="4,3"/>
-  <text x="50" y="258" text-anchor="end" fill="#a78bfa" font-size="10" font-family="JetBrains Mono">n=1</text>
-  <text x="50" y="201" text-anchor="end" fill="#a78bfa" font-size="10" font-family="JetBrains Mono">n=2</text>
-  <text x="50" y="155" text-anchor="end" fill="#a78bfa" font-size="10" font-family="JetBrains Mono">n=3</text>
-  <text x="50" y="119" text-anchor="end" fill="#a78bfa" font-size="10" font-family="JetBrains Mono">n=4</text>
-  <text x="50" y="93" text-anchor="end" fill="#a78bfa" font-size="10" font-family="JetBrains Mono">n=5</text>
-  <text x="50" y="41" text-anchor="end" fill="#8b949e" font-size="9" font-family="JetBrains Mono">n=&#x221E;</text>
-  <line x1="95" y1="198" x2="95" y2="256" stroke="#c084fc" stroke-width="2" marker-end="url(#ly)"/>
-  <line x1="110" y1="152" x2="110" y2="256" stroke="#c084fc" stroke-width="2" marker-end="url(#ly)"/>
-  <line x1="125" y1="116" x2="125" y2="256" stroke="#c084fc" stroke-width="1.5" marker-end="url(#ly)"/>
-  <text x="110" y="278" text-anchor="middle" fill="#c084fc" font-size="10" font-family="JetBrains Mono">Lyman (UV)</text>
-  <line x1="290" y1="152" x2="290" y2="199" stroke="#f87171" stroke-width="2.5" marker-end="url(#ba)"/>
-  <line x1="306" y1="116" x2="306" y2="199" stroke="#22d3ee" stroke-width="2" marker-end="url(#ba)"/>
-  <line x1="322" y1="90" x2="322" y2="199" stroke="#a78bfa" stroke-width="1.5" marker-end="url(#ba)"/>
-  <text x="306" y="278" text-anchor="middle" fill="#e6edf3" font-size="10" font-family="JetBrains Mono">Balmer (visible)</text>
-  <line x1="455" y1="116" x2="455" y2="153" stroke="#f59e0b" stroke-width="2" marker-end="url(#pa)"/>
-  <line x1="471" y1="90" x2="471" y2="153" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#pa)"/>
-  <text x="463" y="278" text-anchor="middle" fill="#f59e0b" font-size="10" font-family="JetBrains Mono">Paschen (IR)</text>
-  <defs>
-    <marker id="ly" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3z" fill="#c084fc"/></marker>
-    <marker id="ba" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3z" fill="#f87171"/></marker>
-    <marker id="pa" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3z" fill="#f59e0b"/></marker>
-  </defs>
-</svg></div>
-<div class="card"><h3>Convergence and Ionisation Energy</h3><p>As n increases, energy levels get closer together &mdash; spectral lines converge. At the convergence limit (n &rarr; &infin;), the electron is completely removed. The frequency at convergence gives the ionisation energy directly:</p>
-<div class="formula-block">IE&#x2081;(H) = hf_convergence = hc/&lambda;_convergence</div></div>
+<!-- QUIZ -->
+<section id="quiz">
+  <div class="sec-head"><span class="sec-num">QUIZ</span><h2>25-Question Quiz</h2></div>
+  <div class="qcard"><h3>Questions — Click "Show" for each answer</h3>
 
-<div class="section-header" id="s23"><span class="section-number">2.3</span><h2>Atomic Spectra</h2></div>
-<div class="two-col">
-  <div class="def-box"><strong>Emission Spectrum</strong>Excited atoms release energy &mdash; electrons fall to lower levels, emitting photons. Bright coloured lines on a dark background. Unique to each element ("fingerprint").</div>
-  <div class="def-box"><strong>Absorption Spectrum</strong>White light passes through a cool gas. Atoms absorb photons at exact frequencies to promote electrons. Dark lines on a continuous spectrum &mdash; same positions as emission lines.</div>
-</div>
-<div class="card"><h3>Evidence for Quantised Energy Levels</h3><p>Discrete spectral lines (not a continuous spectrum) are direct evidence that electrons can only exist at specific, quantised energy levels. If energy were continuous, a continuous spectrum would result. Only certain wavelengths being emitted proves energy levels are discrete.</p></div>
-<div class="callout tip"><span class="callout-icon">&#x1F4A1;</span><div class="callout-body"><strong>Flame tests and emission</strong>Metal salts heated in a flame emit characteristic colours: Li = crimson, Na = yellow, K = lilac, Ca = orange-red, Ba = green, Cu = blue-green. Each corresponds to specific emission lines in the visible region.</div></div>
+    <div class="qi"><div class="qn">Q1</div><p>State Bohr's model of the atom. What is a key limitation?</p>
+    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button>
+    <div class="ans">Electrons orbit the nucleus in fixed circular energy levels (shells). Key limitation: it only works well for hydrogen; fails for multi-electron atoms.</div></div>
 
-<div class="section-header" id="s24"><span class="section-number">2.4</span><h2>Orbitals &amp; Quantum Numbers</h2></div>
-<div class="card"><h3>Quantum Mechanical Model</h3><p>Bohr's circular orbits were replaced by the quantum mechanical model. Electrons do not follow defined paths &mdash; instead we describe regions of space where there is high probability of finding an electron: <strong>atomic orbitals</strong>. Each orbital holds a maximum of <strong>2 electrons</strong> (opposite spins).</p></div>
-<div class="tbl-wrap"><table>
-  <thead><tr><th>Quantum Number</th><th>Symbol</th><th>Describes</th><th>Values</th></tr></thead>
-  <tbody>
-    <tr><td>Principal</td><td>n</td><td>Shell (energy level), distance from nucleus</td><td>1, 2, 3, 4&hellip;</td></tr>
-    <tr><td>Angular momentum</td><td>l</td><td>Subshell (orbital shape)</td><td>0 to (n&minus;1)</td></tr>
-    <tr><td>Magnetic</td><td>m&#x2097;</td><td>Orbital orientation in space</td><td>&minus;l to +l</td></tr>
-    <tr><td>Spin</td><td>m&#x209B;</td><td>Electron spin direction</td><td>+&frac12; or &minus;&frac12;</td></tr>
-  </tbody>
-</table></div>
-<div class="tbl-wrap"><table>
-  <thead><tr><th>l value</th><th>Subshell</th><th>Shape</th><th>Orbitals</th><th>Max e&#x207B;</th></tr></thead>
-  <tbody>
-    <tr><td>0</td><td>s</td><td>Spherical</td><td>1</td><td>2</td></tr>
-    <tr><td>1</td><td>p</td><td>Dumbbell (3 orientations)</td><td>3</td><td>6</td></tr>
-    <tr><td>2</td><td>d</td><td>Double dumbbell (5 orientations)</td><td>5</td><td>10</td></tr>
-    <tr><td>3</td><td>f</td><td>Complex (7 orientations)</td><td>7</td><td>14</td></tr>
-  </tbody>
-</table></div>
-<div class="tbl-wrap"><table>
-  <thead><tr><th>Shell (n)</th><th>Subshells</th><th>Total orbitals</th><th>Max electrons (2n&#xB2;)</th></tr></thead>
-  <tbody>
-    <tr><td>n=1</td><td>1s</td><td>1</td><td>2</td></tr>
-    <tr><td>n=2</td><td>2s, 2p</td><td>4</td><td>8</td></tr>
-    <tr><td>n=3</td><td>3s, 3p, 3d</td><td>9</td><td>18</td></tr>
-    <tr><td>n=4</td><td>4s, 4p, 4d, 4f</td><td>16</td><td>32</td></tr>
-  </tbody>
-</table></div>
-<h3 class="sub">Three Rules for Filling Orbitals</h3>
-<div class="card">
-  <p><strong>1. Aufbau Principle</strong> &mdash; fill in order of increasing energy:</p>
-  <div class="formula-block">1s &rarr; 2s &rarr; 2p &rarr; 3s &rarr; 3p &rarr; 4s &rarr; 3d &rarr; 4p &rarr; 5s &rarr; 4d &rarr; 5p&hellip;</div>
-  <p style="margin-top:12px;"><strong>2. Pauli Exclusion Principle</strong> &mdash; no two electrons in the same atom can have identical quantum numbers. Each orbital holds max 2 electrons with opposite spins (&uarr;&darr;).</p>
-  <p style="margin-top:12px;"><strong>3. Hund's Rule</strong> &mdash; electrons fill degenerate orbitals singly with parallel spins before any pairing occurs. Minimises repulsion.</p>
-</div>
-<div class="callout tip"><span class="callout-icon">&#x1F4A1;</span><div class="callout-body"><strong>4s fills before 3d</strong>In neutral atoms, 4s has lower energy than 3d due to penetration. So K = [Ar]4s&#xB9;, Ca = [Ar]4s&#xB2;. When transition metal ions form, the 4s electrons are removed first.</div></div>
+    <div class="qi"><div class="qn">Q2</div><p>What causes the emission spectrum of hydrogen?</p>
+    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button>
+    <div class="ans">Electrons are excited to higher energy levels, then fall back to lower levels, releasing photons of specific energy (ΔE = hf). Each transition produces a specific wavelength of light.</div></div>
 
-<div class="section-header" id="s25"><span class="section-number">2.5</span><h2>Electronic Configuration of Atoms &amp; Ions</h2></div>
-<div class="card"><h3>Writing Electron Configurations</h3><p>List each subshell and its electron count: e.g., <span class="ec">1s&#xB2;2s&#xB2;2p&#x2076;</span>. Shorthand uses the previous noble gas: Na = <span class="ec">[Ne]3s&#xB9;</span>.</p></div>
-<div class="tbl-wrap"><table>
-  <thead><tr><th>Element</th><th>Z</th><th>Configuration</th><th>Shorthand</th></tr></thead>
-  <tbody>
-    <tr><td>H</td><td>1</td><td>1s&#xB9;</td><td>&mdash;</td></tr>
-    <tr><td>He</td><td>2</td><td>1s&#xB2;</td><td>&mdash;</td></tr>
-    <tr><td>Li</td><td>3</td><td>1s&#xB2;2s&#xB9;</td><td>[He]2s&#xB9;</td></tr>
-    <tr><td>C</td><td>6</td><td>1s&#xB2;2s&#xB2;2p&#xB2;</td><td>[He]2s&#xB2;2p&#xB2;</td></tr>
-    <tr><td>N</td><td>7</td><td>1s&#xB2;2s&#xB2;2p&#xB3;</td><td>[He]2s&#xB2;2p&#xB3;</td></tr>
-    <tr><td>O</td><td>8</td><td>1s&#xB2;2s&#xB2;2p&#x2074;</td><td>[He]2s&#xB2;2p&#x2074;</td></tr>
-    <tr><td>Ne</td><td>10</td><td>1s&#xB2;2s&#xB2;2p&#x2076;</td><td>&mdash;</td></tr>
-    <tr><td>Na</td><td>11</td><td>1s&#xB2;2s&#xB2;2p&#x2076;3s&#xB9;</td><td>[Ne]3s&#xB9;</td></tr>
-    <tr><td>Mg</td><td>12</td><td>1s&#xB2;2s&#xB2;2p&#x2076;3s&#xB2;</td><td>[Ne]3s&#xB2;</td></tr>
-    <tr><td>Al</td><td>13</td><td>1s&#xB2;2s&#xB2;2p&#x2076;3s&#xB2;3p&#xB9;</td><td>[Ne]3s&#xB2;3p&#xB9;</td></tr>
-    <tr><td>P</td><td>15</td><td>1s&#xB2;2s&#xB2;2p&#x2076;3s&#xB2;3p&#xB3;</td><td>[Ne]3s&#xB2;3p&#xB3;</td></tr>
-    <tr><td>S</td><td>16</td><td>1s&#xB2;2s&#xB2;2p&#x2076;3s&#xB2;3p&#x2074;</td><td>[Ne]3s&#xB2;3p&#x2074;</td></tr>
-    <tr><td>Ar</td><td>18</td><td>1s&#xB2;2s&#xB2;2p&#x2076;3s&#xB2;3p&#x2076;</td><td>&mdash;</td></tr>
-    <tr><td>K</td><td>19</td><td>&hellip;3p&#x2076;4s&#xB9;</td><td>[Ar]4s&#xB9;</td></tr>
-    <tr><td>Ca</td><td>20</td><td>&hellip;3p&#x2076;4s&#xB2;</td><td>[Ar]4s&#xB2;</td></tr>
-    <tr><td>Fe</td><td>26</td><td>&hellip;3d&#x2076;4s&#xB2;</td><td>[Ar]3d&#x2076;4s&#xB2;</td></tr>
-    <tr><td>Cr*</td><td>24</td><td>&hellip;3d&#x2075;4s&#xB9;</td><td>[Ar]3d&#x2075;4s&#xB9;</td></tr>
-    <tr><td>Cu*</td><td>29</td><td>&hellip;3d&#xB9;&#x2070;4s&#xB9;</td><td>[Ar]3d&#xB9;&#x2070;4s&#xB9;</td></tr>
-    <tr><td>Zn</td><td>30</td><td>&hellip;3d&#xB9;&#x2070;4s&#xB2;</td><td>[Ar]3d&#xB9;&#x2070;4s&#xB2;</td></tr>
-  </tbody>
-</table></div>
-<div class="callout warn"><span class="callout-icon">&#x26A0;&#xFE0F;</span><div class="callout-body"><strong>Chromium &amp; Copper exceptions (*)</strong>Cr: [Ar]3d&#x2075;4s&#xB9; (not 3d&#x2074;4s&#xB2;) &mdash; half-filled 3d has extra stability. Cu: [Ar]3d&#xB9;&#x2070;4s&#xB9; (not 3d&#x2079;4s&#xB2;) &mdash; fully-filled 3d has extra stability. One 4s electron promotes to 3d in each case.</div></div>
-<div class="card"><h3>Ion Electron Configurations</h3><p><strong>Cations</strong>: remove electrons from the highest energy subshell first. For transition metals, remove 4s before 3d.<br><strong>Anions</strong>: add electrons to the next available subshell.</p></div>
-<div class="example-box">
-  <div class="example-header"><span class="tag">WORKED EXAMPLE</span><h4>Ion Configurations</h4></div>
-  <div class="example-body">
-    <div class="step"><div class="step-num">1</div><div class="step-text"><strong>Fe (Z=26):</strong> [Ar]3d&#x2076;4s&#xB2;<br>Fe&#xB2;&#x207A;: remove 2&times;4s &rarr; [Ar]3d&#x2076;<br>Fe&#xB3;&#x207A;: remove 2&times;4s + 1&times;3d &rarr; [Ar]3d&#x2075;</div></div>
-    <div class="step"><div class="step-num">2</div><div class="step-text"><strong>O (Z=8):</strong> 1s&#xB2;2s&#xB2;2p&#x2074;<br>O&#xB2;&#x207B;: add 2e&#x207B; to 2p &rarr; 1s&#xB2;2s&#xB2;2p&#x2076; (isoelectronic with Ne)</div></div>
-    <div class="step"><div class="step-num">3</div><div class="step-text"><strong>Cu (Z=29):</strong> [Ar]3d&#xB9;&#x2070;4s&#xB9;<br>Cu&#xB2;&#x207A;: remove 4s&#xB9; + one 3d &rarr; [Ar]3d&#x2079;</div></div>
+    <div class="qi"><div class="qn">Q3</div><p>What is an atomic orbital?</p>
+    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button>
+    <div class="ans">A region of space where there is a high probability (90–95%) of finding an electron. Each orbital holds a maximum of 2 electrons with opposite spins.</div></div>
+
+    <div class="qi"><div class="qn">Q4</div><p>How many orbitals are in the 3d sub-shell? How many electrons can it hold?</p>
+    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button>
+    <div class="ans">5 orbitals in the 3d sub-shell, holding a maximum of 10 electrons.</div></div>
+
+    <div class="qi"><div class="qn">Q5</div><p>State the Aufbau principle.</p>
+    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button>
+    <div class="ans">Electrons fill orbitals in order of increasing energy, starting with the lowest energy orbital available.</div></div>
+
+    <div class="qi"><div class="qn">Q6</div><p>State Hund's rule.</p>
+    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button>
+    <div class="ans">When filling degenerate (equal energy) orbitals, electrons occupy separate orbitals with parallel spins before pairing up. This minimises electron-electron repulsion.</div></div>
+
+    <div class="qi"><div class="qn">Q7</div><p>Write the full electron configuration of phosphorus (Z=15).</p>
+    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button>
+    <div class="ans">1s² 2s² 2p⁶ 3s² 3p³</div></div>
+
+    <div class="qi"><div class="qn">Q8</div><p>Write the electron configuration of Fe²⁺ (Z=26).</p>
+    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button>
+    <div class="ans">Fe: [Ar] 3d⁶ 4s². Fe²⁺ loses the two 4s electrons first: [Ar] 3d⁶</div></div>
+
+    <div class="qi"><div class="qn">Q9</div><p>Why does 4s fill before 3d even though 3d is in a lower principal shell?</p>
+    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button>
+    <div class="ans">4s has lower energy than 3d due to the effect of electron penetration and shielding. The 4s orbital is closer to the nucleus on average for neutral atoms, so electrons occupy it first.</div></div>
+
+    <div class="qi"><div class="qn">Q10</div><p>Write the electron configuration of Cl⁻ (Z=17).</p>
+    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button>
+    <div class="ans">Cl: 1s² 2s² 2p⁶ 3s² 3p⁵. Cl⁻ gains one electron: 1s² 2s² 2p⁶ 3s² 3p⁶ = [Ar]</div></div>
+
+    <div class="qi"><div class="qn">Q11</div><p>Define first ionisation energy. Write the equation for the first IE of sodium.</p>
+    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button>
+    <div class="ans">Energy required to remove one mole of electrons from one mole of gaseous atoms. Na(g) → Na⁺(g) + e⁻ &nbsp; ΔH = IE₁</div></div>
+
+    <div class="qi"><div class="qn">Q12</div><p>Why do successive ionisation energies always increase?</p>
+    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button>
+    <div class="ans">Each successive electron is removed from a more positively charged ion. The remaining electrons are more strongly attracted to the nucleus and harder to remove.</div></div>
+
+    <div class="qi"><div class="qn">Q13</div><p>The successive IEs of an element are: 496, 4563, 6913, 9543, 13354 kJ mol⁻¹. Which group is this element in?</p>
+    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button>
+    <div class="ans">Large jump between IE₁ (496) and IE₂ (4563) → only 1 electron removed easily → Group 1. This is sodium.</div></div>
+
+    <div class="qi"><div class="qn">Q14</div><p>Why does IE₁ generally increase across Period 2 from Li to Ne?</p>
+    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button>
+    <div class="ans">Nuclear charge increases from Li (Z=3) to Ne (Z=10) while electrons are added to the same shell (2), so shielding is similar. Increased nuclear charge pulls outer electrons more strongly, requiring more energy to remove them.</div></div>
+
+    <div class="qi"><div class="qn">Q15</div><p>Explain why the IE₁ of boron is less than that of beryllium.</p>
+    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button>
+    <div class="ans">Be removes from 2s² (lower energy); B removes from 2p¹ (higher energy sub-shell, slightly further from nucleus, more shielded by 2s electrons). The 2p electron is easier to remove.</div></div>
+
+    <div class="qi"><div class="qn">Q16</div><p>Explain why the IE₁ of oxygen is less than that of nitrogen.</p>
+    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button>
+    <div class="ans">N has a half-filled 2p³ configuration — extra stable (no paired electrons). O has 2p⁴ — one pair of electrons repel each other, making the 4th 2p electron easier to remove.</div></div>
+
+    <div class="qi"><div class="qn">Q17</div><p>Write the anomalous electron configuration of copper (Z=29) and explain why it is anomalous.</p>
+    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button>
+    <div class="ans">[Ar] 3d¹⁰ 4s¹. Expected: [Ar] 3d⁹ 4s². A fully filled 3d¹⁰ sub-shell is extra stable, so one electron moves from 4s to 3d.</div></div>
+
+    <div class="qi"><div class="qn">Q18</div><p>How many electrons are in the 3rd shell of a sulphur atom (Z=16)?</p>
+    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button>
+    <div class="ans">S: 1s² 2s² 2p⁶ 3s² 3p⁴. Third shell (n=3): 3s² + 3p⁴ = 6 electrons.</div></div>
+
+    <div class="qi"><div class="qn">Q19</div><p>State the Pauli exclusion principle.</p>
+    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button>
+    <div class="ans">No two electrons in an atom can have the same four quantum numbers. In practice: each orbital can hold a maximum of 2 electrons, and they must have opposite spins (↑↓).</div></div>
+
+    <div class="qi"><div class="qn">Q20</div><p>Write the electron configuration of Cr (Z=24).</p>
+    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button>
+    <div class="ans">[Ar] 3d⁵ 4s¹ (anomalous — half-filled 3d is extra stable)</div></div>
+
+    <div class="qi"><div class="qn">Q21</div><p>What is meant by "shielding" in atomic structure?</p>
+    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button>
+    <div class="ans">Inner electrons repel outer electrons and partially shield them from the full nuclear charge. The effective nuclear charge felt by an outer electron is less than the actual nuclear charge.</div></div>
+
+    <div class="qi"><div class="qn">Q22</div><p>Why does IE₁ decrease down Group 1?</p>
+    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button>
+    <div class="ans">Down Group 1, each element has more electron shells, increasing shielding and distance of the outer electron from the nucleus. Despite increasing nuclear charge, the outer electron is much less attracted and easier to remove.</div></div>
+
+    <div class="qi"><div class="qn">Q23</div><p>The Balmer series in hydrogen's emission spectrum is in the visible region. What level do electrons fall to?</p>
+    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button>
+    <div class="ans">n=2 (second energy level). Electrons fall from higher levels (n=3,4,5,6) down to n=2, releasing visible light.</div></div>
+
+    <div class="qi"><div class="qn">Q24</div><p>Write the electron configuration of Mn²⁺ (Z=25).</p>
+    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button>
+    <div class="ans">Mn: [Ar] 3d⁵ 4s². Mn²⁺ loses both 4s electrons: [Ar] 3d⁵</div></div>
+
+    <div class="qi"><div class="qn">Q25</div><p>How can successive ionisation energies be used to determine how many electrons an atom has in its outer shell?</p>
+    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show</button>
+    <div class="ans">A large jump in successive IE values indicates moving from the outer shell to the next inner shell. The number of electrons removed before the large jump = the number of outer shell electrons = the group number.</div></div>
   </div>
-</div>
-<div class="card"><h3>Box Notation (Orbital Diagrams)</h3><p>Arrows (&uarr; = spin up, &darr; = spin down) in boxes represent electrons in orbitals. Demonstrates Hund's rule clearly.</p>
-<div class="formula-block">Carbon (1s&#xB2;2s&#xB2;2p&#xB2;):
-  1s[&#x2191;&#x2193;]  2s[&#x2191;&#x2193;]  2p[&#x2191;][ &#x2191;][  ]  &larr; Hund: unpaired in separate orbitals
+</section>
 
-Nitrogen (1s&#xB2;2s&#xB2;2p&#xB3;):
-  1s[&#x2191;&#x2193;]  2s[&#x2191;&#x2193;]  2p[&#x2191;][&#x2191;][&#x2191;]  &larr; all 3 p orbitals singly occupied</div></div>
+<!-- TEST -->
+<section id="test">
+  <div class="sec-head"><span class="sec-num">TEST</span><h2>50-Mark Test</h2></div>
+  <p style="color:var(--muted);font-size:.88rem;margin-bottom:1rem;">Time: 60 minutes. Show all working.</p>
+  <div class="qcard"><h3>Section A — Short Answer (20 marks)</h3>
+    <div class="qi"><div class="qn">A1 <span class="mk">[3]</span></div>
+    <p>Explain using an energy level diagram how the line emission spectrum of hydrogen is produced.</p>
+    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
+    <div class="ans">[1] Electrons absorb energy and move to higher energy levels (excitation). [1] When they fall back to lower levels, they release energy as photons of specific frequency/wavelength. [1] Each specific transition corresponds to a specific line in the spectrum; ΔE = hf.</div></div>
 
-<div class="section-header" id="s26"><span class="section-number">2.6</span><h2>Ionisation Energy, Energy Levels &amp; Influencing Factors</h2></div>
-<div class="def-box"><strong>First Ionisation Energy (IE&#x2081;)</strong>Energy to remove 1 mol of electrons from 1 mol of gaseous atoms in their ground state.<br>X(g) &rarr; X&#x207A;(g) + e&#x207B; &nbsp; &Delta;H = IE&#x2081; (always positive &mdash; endothermic)</div>
-<div class="def-box"><strong>Successive Ionisation Energies</strong>Energy to remove the 1st, 2nd, 3rd&hellip; electrons in sequence. Each successive IE is always greater than the previous (removing from a more positive ion).</div>
-<div class="tbl-wrap"><table>
-  <thead><tr><th>Factor</th><th>Effect</th><th>Explanation</th></tr></thead>
-  <tbody>
-    <tr><td>Nuclear charge (Z)</td><td>&uarr;Z &rarr; &uarr;IE</td><td>More protons attract electrons more strongly.</td></tr>
-    <tr><td>Distance from nucleus</td><td>&uarr;distance &rarr; &darr;IE</td><td>Outer electrons further away feel weaker attraction.</td></tr>
-    <tr><td>Shielding</td><td>&uarr;shielding &rarr; &darr;IE</td><td>Inner electrons reduce effective nuclear charge felt by outer electrons.</td></tr>
-    <tr><td>Paired electron repulsion</td><td>Paired &rarr; &darr;IE</td><td>Electrons paired in the same orbital repel each other &mdash; easier to remove one.</td></tr>
-  </tbody>
-</table></div>
-<div class="card"><h3>Trends in First Ionisation Energy</h3>
-  <p><strong>Across a period (left &rarr; right):</strong> IE&#x2081; generally increases &mdash; Z increases while shielding stays roughly constant &rarr; greater effective nuclear charge &rarr; stronger hold on outer electrons.</p>
-  <p style="margin-top:12px;"><strong>Anomalous dips across Period 2/3:</strong></p>
-  <ul style="margin:8px 0 0 20px;line-height:2.1;">
-    <li><strong>Group 2 &rarr; Group 13 dip (Be&rarr;B, Mg&rarr;Al):</strong> Group 13 outer electron is in a higher-energy p subshell, shielded by the s electrons &rarr; easier to remove despite higher Z.</li>
-    <li><strong>Group 15 &rarr; Group 16 dip (N&rarr;O, P&rarr;S):</strong> Group 16 has a paired p electron; repulsion between paired electrons makes it easier to remove one &rarr; IE&#x2081;(O) &lt; IE&#x2081;(N).</li>
-  </ul>
-  <p style="margin-top:12px;"><strong>Down a group:</strong> IE&#x2081; decreases &mdash; each new period adds a shell, increasing distance and shielding &rarr; outer electron easier to remove.</p>
-</div>
-<div class="diagram-wrap"><svg viewBox="0 0 600 210" width="600" height="210" xmlns="http://www.w3.org/2000/svg">
-  <text x="300" y="17" text-anchor="middle" fill="#e6edf3" font-size="12" font-family="Playfair Display" font-weight="bold">First Ionisation Energies &mdash; Period 2</text>
-  <line x1="55" y1="172" x2="565" y2="172" stroke="#30363d" stroke-width="1.5"/>
-  <line x1="55" y1="28" x2="55" y2="172" stroke="#30363d" stroke-width="1.5"/>
-  <line x1="55" y1="122" x2="565" y2="122" stroke="#30363d" stroke-width=".5" stroke-dasharray="3,4"/>
-  <line x1="55" y1="72" x2="565" y2="72" stroke="#30363d" stroke-width=".5" stroke-dasharray="3,4"/>
-  <text x="49" y="176" text-anchor="end" fill="#8b949e" font-size="8" font-family="JetBrains Mono">0</text>
-  <text x="49" y="126" text-anchor="end" fill="#8b949e" font-size="8" font-family="JetBrains Mono">1000</text>
-  <text x="49" y="76" text-anchor="end" fill="#8b949e" font-size="8" font-family="JetBrains Mono">2000</text>
-  <!-- Li=520, Be=900, B=800, C=1090, N=1400, O=1310, F=1680, Ne=2080 -->
-  <!-- scale: 0=172, 2200=28 -> dy = 144/2200 = 0.0655 per kJ -->
-  <rect x="70" y="138" width="32" height="34" fill="rgba(167,139,250,.5)" stroke="#a78bfa" stroke-width="1" rx="2"/>
-  <rect x="132" y="113" width="32" height="59" fill="rgba(167,139,250,.5)" stroke="#a78bfa" stroke-width="1" rx="2"/>
-  <rect x="194" y="120" width="32" height="52" fill="rgba(248,113,113,.5)" stroke="#f87171" stroke-width="1" rx="2"/>
-  <rect x="256" y="101" width="32" height="71" fill="rgba(167,139,250,.5)" stroke="#a78bfa" stroke-width="1" rx="2"/>
-  <rect x="318" y="80" width="32" height="92" fill="rgba(167,139,250,.5)" stroke="#a78bfa" stroke-width="1" rx="2"/>
-  <rect x="380" y="86" width="32" height="86" fill="rgba(248,113,113,.5)" stroke="#f87171" stroke-width="1" rx="2"/>
-  <rect x="442" y="62" width="32" height="110" fill="rgba(167,139,250,.5)" stroke="#a78bfa" stroke-width="1" rx="2"/>
-  <rect x="504" y="36" width="32" height="136" fill="rgba(167,139,250,.5)" stroke="#a78bfa" stroke-width="1" rx="2"/>
-  <text x="86" y="188" text-anchor="middle" fill="#e6edf3" font-size="10" font-family="JetBrains Mono">Li</text>
-  <text x="148" y="188" text-anchor="middle" fill="#e6edf3" font-size="10" font-family="JetBrains Mono">Be</text>
-  <text x="210" y="188" text-anchor="middle" fill="#f87171" font-size="10" font-family="JetBrains Mono">B</text>
-  <text x="272" y="188" text-anchor="middle" fill="#e6edf3" font-size="10" font-family="JetBrains Mono">C</text>
-  <text x="334" y="188" text-anchor="middle" fill="#e6edf3" font-size="10" font-family="JetBrains Mono">N</text>
-  <text x="396" y="188" text-anchor="middle" fill="#f87171" font-size="10" font-family="JetBrains Mono">O</text>
-  <text x="458" y="188" text-anchor="middle" fill="#e6edf3" font-size="10" font-family="JetBrains Mono">F</text>
-  <text x="520" y="188" text-anchor="middle" fill="#e6edf3" font-size="10" font-family="JetBrains Mono">Ne</text>
-  <text x="210" y="112" text-anchor="middle" fill="#f87171" font-size="8" font-family="JetBrains Mono">&#x2193; p subshell</text>
-  <text x="396" y="78" text-anchor="middle" fill="#f87171" font-size="8" font-family="JetBrains Mono">&#x2193; paired e&#x207B;</text>
-  <text x="300" y="203" text-anchor="middle" fill="#8b949e" font-size="9" font-family="JetBrains Mono">Element (Period 2)</text>
-  <text x="12" y="102" text-anchor="middle" fill="#8b949e" font-size="8" font-family="JetBrains Mono" transform="rotate(-90,12,102)">IE&#x2081; / kJ mol&#x207B;&#xB9;</text>
-</svg></div>
-<div class="card"><h3>Successive IEs and Shell Structure</h3><p>A plot of log(IE) vs ionisation number shows <strong>large jumps</strong> when removal crosses into an inner shell. These jumps confirm the number of electrons in each shell.</p>
-<p style="margin-top:10px;">Sodium (Na, Z=11, config 2,8,1):</p>
-<div class="formula-block">IE&#x2081; low: remove 3s&#xB9; (lone outer electron)
-IE&#x2082;&ndash;IE&#x2079; moderate, rising: removing n=2 electrons (8 electrons)
-Large jump IE&#x2079; &rarr; IE&#x2081;&#x2080;: crossing into n=1 shell (core)
-IE&#x2081;&#x2080;, IE&#x2081;&#x2081; very high: n=1 electrons, closest to nucleus</div></div>
-<div class="example-box">
-  <div class="example-header"><span class="tag">WORKED EXAMPLE</span><h4>Identifying an Element from Successive IEs</h4></div>
-  <div class="example-body">
-    <div class="q">Successive IEs (kJ mol&#x207B;&#xB9;): 738, 1451, 7733, 10540, 13630, 17995, 21703. Identify element X and its group.</div>
-    <div class="step"><div class="step-num">1</div><div class="step-text">Large jump between IE&#x2082; (1451) and IE&#x2083; (7733) &mdash; a ~5&times; increase.</div></div>
-    <div class="step"><div class="step-num">2</div><div class="step-text">2 electrons removed easily before jump &rarr; 2 outer shell electrons &rarr; <strong>Group 2</strong>.</div></div>
-    <div class="step"><div class="step-num">3</div><div class="step-text">IE&#x2081; = 738 kJ mol&#x207B;&#xB9; &rarr; <strong>Magnesium (Mg, Z=12)</strong>.</div></div>
+    <div class="qi"><div class="qn">A2 <span class="mk">[4]</span></div>
+    <p>State the three rules for filling orbitals. For each rule, give its name and a brief description.</p>
+    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
+    <div class="ans">[1 each] (1) Aufbau — fill lowest energy orbitals first. (2) Pauli exclusion — max 2 electrons per orbital, opposite spins. (3) Hund's rule — fill degenerate orbitals singly before pairing.</div></div>
+
+    <div class="qi"><div class="qn">A3 <span class="mk">[4]</span></div>
+    <p>Write the full electron configurations of: (a) Ar (Z=18), (b) K⁺ (Z=19), (c) Fe³⁺ (Z=26), (d) O²⁻ (Z=8).</p>
+    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
+    <div class="ans">(a) 1s² 2s² 2p⁶ 3s² 3p⁶ [1] (b) K loses 1e⁻: same as Ar: 1s² 2s² 2p⁶ 3s² 3p⁶ [1] (c) Fe: [Ar]3d⁶4s², loses 4s² then one 3d: [Ar] 3d⁵ [1] (d) O gains 2e⁻: 1s² 2s² 2p⁶ [1]</div></div>
+
+    <div class="qi"><div class="qn">A4 <span class="mk">[3]</span></div>
+    <p>Explain why there is a large jump in ionisation energy between IE₂ and IE₃ for magnesium (Z=12).</p>
+    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
+    <div class="ans">[1] Mg has configuration [Ne] 3s². IE₁ and IE₂ remove the 2 electrons in 3s. [1] IE₃ requires removing an electron from the 2p sub-shell of the inner shell (n=2). [1] These electrons are much closer to the nucleus, experience much greater nuclear attraction, and are much harder to remove.</div></div>
+
+    <div class="qi"><div class="qn">A5 <span class="mk">[3]</span></div>
+    <p>Describe the trend in first ionisation energies across Period 3 (Na to Ar). Explain two anomalies.</p>
+    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
+    <div class="ans">[1] Generally increases across the period due to increasing nuclear charge. [1] Mg→Al drop: Al removes from higher-energy 3p sub-shell, which is more shielded than Mg's 3s. [1] P→S drop: P has half-filled 3p³ (extra stable); S has 3p⁴ with a paired electron — repulsion makes it easier to remove.</div></div>
+
+    <div class="qi"><div class="qn">A6 <span class="mk">[3]</span></div>
+    <p>Explain the anomalous electron configurations of Cu and Cr.</p>
+    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
+    <div class="ans">[1] Cr: [Ar] 3d⁵ 4s¹ — a half-filled 3d sub-shell has extra stability, so one 4s electron moves to 3d. [1] Cu: [Ar] 3d¹⁰ 4s¹ — a fully filled 3d sub-shell has extra stability, so one 4s electron moves to 3d. [1] Both cases: the stability gained by completing/half-filling the 3d sub-shell outweighs the energy cost.</div></div>
   </div>
-</div>
 
-<div class="section-header" id="exercises"><span class="section-number">&#x270F;&#xFE0F;</span><h2>Exercises</h2></div>
-<ul class="exercise-list">
-  <li>State Bohr's three postulates about electron behaviour. What evidence from atomic spectra supports quantised energy levels?
-    <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
-    <div class="answer">(1) Electrons orbit in fixed shells (n=1,2,3&hellip;) without radiating energy. (2) Each shell has a fixed energy; higher n = higher energy. (3) Electrons move between levels by absorbing/emitting photons of energy &Delta;E=hf. <strong>Evidence:</strong> Only specific wavelengths are observed (line spectrum, not continuous). This proves electrons occupy discrete energy levels &mdash; only certain transitions are possible, each producing one specific photon frequency.</div>
-  </li>
-  <li>Write the full electron configurations for: (a) S (Z=16), (b) Fe (Z=26), (c) Br (Z=35).
-    <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
-    <div class="answer">(a) S: 1s&#xB2;2s&#xB2;2p&#x2076;3s&#xB2;3p&#x2074;<br>(b) Fe: 1s&#xB2;2s&#xB2;2p&#x2076;3s&#xB2;3p&#x2076;3d&#x2076;4s&#xB2;<br>(c) Br: 1s&#xB2;2s&#xB2;2p&#x2076;3s&#xB2;3p&#x2076;3d&#xB9;&#x2070;4s&#xB2;4p&#x2075;</div>
-  </li>
-  <li>Write the electron configurations for: (a) Fe&#xB2;&#x207A;, (b) Fe&#xB3;&#x207A;, (c) Cl&#x207B;, (d) Cu&#xB2;&#x207A;.
-    <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
-    <div class="answer">(a) Fe&#xB2;&#x207A;: [Ar]3d&#x2076; &nbsp; (b) Fe&#xB3;&#x207A;: [Ar]3d&#x2075;<br>(c) Cl&#x207B;: 1s&#xB2;2s&#xB2;2p&#x2076;3s&#xB2;3p&#x2076; (isoelectronic with Ar)<br>(d) Cu&#xB2;&#x207A;: [Ar]3d&#x2079;</div>
-  </li>
-  <li>State and explain why IE&#x2081;(B) &lt; IE&#x2081;(Be) and IE&#x2081;(O) &lt; IE&#x2081;(N).
-    <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
-    <div class="answer"><strong>B &lt; Be:</strong> B has its outer electron in 2p (higher energy, shielded by 2s electrons). Be's outer electron is in 2s. The 2p electron is easier to remove despite higher Z. <strong>O &lt; N:</strong> O (2p&#x2074;) has one doubly-occupied 2p orbital. Electron-electron repulsion in the paired orbital makes it easier to remove one electron, lowering IE&#x2081; below N (2p&#xB3;, all singly occupied, no such repulsion).</div>
-  </li>
-  <li>The successive IEs (kJ mol&#x207B;&#xB9;) of element Y are: 578, 1817, 2745, 11578, 14831, 18378. Determine Y's group and suggest its identity.
-    <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
-    <div class="answer">Large jump between IE&#x2083; (2745) and IE&#x2084; (11578). Three outer electrons &rarr; <strong>Group 13</strong>. IE&#x2081; = 578 kJ mol&#x207B;&#xB9; &rarr; <strong>Aluminium (Al, Z=13)</strong>.</div>
-  </li>
-  <li>Draw the orbital (box) diagrams for (a) carbon and (b) phosphorus, showing Hund's rule.
-    <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
-    <div class="answer">(a) C (1s&#xB2;2s&#xB2;2p&#xB2;): 1s[&#x2191;&#x2193;] 2s[&#x2191;&#x2193;] 2p[&#x2191;][&#x2191;][ ] &mdash; two unpaired electrons in separate 2p orbitals.<br>(b) P (1s&#xB2;2s&#xB2;2p&#x2076;3s&#xB2;3p&#xB3;): &hellip;3s[&#x2191;&#x2193;] 3p[&#x2191;][&#x2191;][&#x2191;] &mdash; all three 3p orbitals singly occupied, all spins parallel.</div>
-  </li>
-</ul>
+  <div class="qcard" style="margin-top:1rem;"><h3>Section B — Calculations (20 marks)</h3>
+    <div class="qi"><div class="qn">B1 <span class="mk">[5]</span></div>
+    <p>The successive ionisation energies (kJ mol⁻¹) of an element X are: 738, 1451, 7733, 10541, 13628, 17995, 21703. (a) Identify the group of X. (b) Write the electron configuration of X. (c) Explain the large jump between IE₂ and IE₃.</p>
+    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
+    <div class="ans">[1] (a) Jump after IE₂ → Group 2. [1] (b) Element is Mg (Z=12): 1s² 2s² 2p⁶ 3s². [1] (c) IE₁ and IE₂ remove the two outer 3s electrons. [1] IE₃ removes from the 2p inner shell (n=2), much closer to nucleus. [1] Greater nuclear attraction on inner electrons → much larger energy required.</div></div>
 
-<div class="section-header" id="quiz"><span class="section-number">&#x1F9EA;</span><h2>Multiple Choice Quiz &mdash; 25 Questions</h2></div>
-<div class="quiz-wrap">
-  <div class="quiz-header"><h3>Unit 2 Quiz</h3><span style="font-family:'JetBrains Mono',monospace;font-size:.82rem;color:var(--muted);">Select one answer per question</span></div>
-  <div class="quiz-body">
-  <div class="q-block"><span class="q-num">Q1</span><div class="q-text">In Bohr's model, an electron emits a photon when it:</div><div class="options">
-    <label class="opt"><input type="radio" name="q1" value="A"/>Absorbs energy from the nucleus</label>
-    <label class="opt"><input type="radio" name="q1" value="B"/>Falls from a higher to a lower energy level</label>
-    <label class="opt"><input type="radio" name="q1" value="C"/>Moves to a higher energy level</label>
-    <label class="opt"><input type="radio" name="q1" value="D"/>Orbits at constant speed</label>
-  </div><div class="q-exp" id="eq1">Emission: electron falls from higher to lower energy level, releasing a photon of energy &Delta;E = hf.</div></div>
-  <div class="q-block"><span class="q-num">Q2</span><div class="q-text">The Balmer series appears in the:</div><div class="options">
-    <label class="opt"><input type="radio" name="q2" value="A"/>Ultraviolet region</label>
-    <label class="opt"><input type="radio" name="q2" value="B"/>Visible light region</label>
-    <label class="opt"><input type="radio" name="q2" value="C"/>Infrared region</label>
-    <label class="opt"><input type="radio" name="q2" value="D"/>X-ray region</label>
-  </div><div class="q-exp" id="eq2">Balmer series (n&ge;3 &rarr; n=2) produces visible light. Lyman &rarr; UV; Paschen &rarr; IR.</div></div>
-  <div class="q-block"><span class="q-num">Q3</span><div class="q-text">Atomic emission spectra consist of:</div><div class="options">
-    <label class="opt"><input type="radio" name="q3" value="A"/>A continuous rainbow</label>
-    <label class="opt"><input type="radio" name="q3" value="B"/>Dark lines on a white background</label>
-    <label class="opt"><input type="radio" name="q3" value="C"/>Bright coloured lines on a dark background</label>
-    <label class="opt"><input type="radio" name="q3" value="D"/>A single colour</label>
-  </div><div class="q-exp" id="eq3">Emission spectra: bright lines on dark background. Absorption spectra: dark lines on a continuous spectrum.</div></div>
-  <div class="q-block"><span class="q-num">Q4</span><div class="q-text">Maximum electrons in shell n=3:</div><div class="options">
-    <label class="opt"><input type="radio" name="q4" value="A"/>8</label>
-    <label class="opt"><input type="radio" name="q4" value="B"/>18</label>
-    <label class="opt"><input type="radio" name="q4" value="C"/>32</label>
-    <label class="opt"><input type="radio" name="q4" value="D"/>6</label>
-  </div><div class="q-exp" id="eq4">2n&#xB2; = 2&times;9 = 18. Shell 3 has s,p,d subshells: 2+6+10=18.</div></div>
-  <div class="q-block"><span class="q-num">Q5</span><div class="q-text">Which quantum number describes orbital shape?</div><div class="options">
-    <label class="opt"><input type="radio" name="q5" value="A"/>n (principal)</label>
-    <label class="opt"><input type="radio" name="q5" value="B"/>m&#x209B; (spin)</label>
-    <label class="opt"><input type="radio" name="q5" value="C"/>l (angular momentum)</label>
-    <label class="opt"><input type="radio" name="q5" value="D"/>m&#x2097; (magnetic)</label>
-  </div><div class="q-exp" id="eq5">l = angular momentum quantum number: l=0(s,spherical), l=1(p,dumbbell), l=2(d), l=3(f).</div></div>
-  <div class="q-block"><span class="q-num">Q6</span><div class="q-text">The electron configuration of Cr (Z=24) is:</div><div class="options">
-    <label class="opt"><input type="radio" name="q6" value="A"/>[Ar]3d&#x2074;4s&#xB2;</label>
-    <label class="opt"><input type="radio" name="q6" value="B"/>[Ar]3d&#x2075;4s&#xB9;</label>
-    <label class="opt"><input type="radio" name="q6" value="C"/>[Ar]3d&#x2076;4s&#x2070;</label>
-    <label class="opt"><input type="radio" name="q6" value="D"/>[Ar]3d&#xB3;4s&#xB2;</label>
-  </div><div class="q-exp" id="eq6">Cr: anomalous [Ar]3d&#x2075;4s&#xB9; &mdash; half-filled 3d has extra stability, so one 4s electron promotes to 3d.</div></div>
-  <div class="q-block"><span class="q-num">Q7</span><div class="q-text">Hund's rule states that:</div><div class="options">
-    <label class="opt"><input type="radio" name="q7" value="A"/>Electrons fill orbitals in increasing energy order</label>
-    <label class="opt"><input type="radio" name="q7" value="B"/>No two electrons have the same four quantum numbers</label>
-    <label class="opt"><input type="radio" name="q7" value="C"/>Electrons occupy degenerate orbitals singly before pairing</label>
-    <label class="opt"><input type="radio" name="q7" value="D"/>Each orbital holds exactly 2 electrons</label>
-  </div><div class="q-exp" id="eq7">Hund's: fill singly with parallel spins before pairing. A = Aufbau; B = Pauli; D = Pauli maximum.</div></div>
-  <div class="q-block"><span class="q-num">Q8</span><div class="q-text">Which species has configuration [Ar]3d&#x2076;?</div><div class="options">
-    <label class="opt"><input type="radio" name="q8" value="A"/>Fe atom</label>
-    <label class="opt"><input type="radio" name="q8" value="B"/>Fe&#xB2;&#x207A;</label>
-    <label class="opt"><input type="radio" name="q8" value="C"/>Fe&#xB3;&#x207A;</label>
-    <label class="opt"><input type="radio" name="q8" value="D"/>Co&#xB2;&#x207A;</label>
-  </div><div class="q-exp" id="eq8">Fe=[Ar]3d&#x2076;4s&#xB2;. Fe&#xB2;&#x207A; loses both 4s electrons &rarr; [Ar]3d&#x2076;. Fe&#xB3;&#x207A; = [Ar]3d&#x2075;.</div></div>
-  <div class="q-block"><span class="q-num">Q9</span><div class="q-text">First ionisation energy is defined as:</div><div class="options">
-    <label class="opt"><input type="radio" name="q9" value="A"/>Energy to remove all electrons from 1 mol of atoms</label>
-    <label class="opt"><input type="radio" name="q9" value="B"/>Energy to remove 1 mol of electrons from 1 mol of gaseous atoms</label>
-    <label class="opt"><input type="radio" name="q9" value="C"/>Energy released when an atom gains an electron</label>
-    <label class="opt"><input type="radio" name="q9" value="D"/>Energy to convert a solid to a gas</label>
-  </div><div class="q-exp" id="eq9">IE&#x2081;: X(g) &rarr; X&#x207A;(g) + e&#x207B;. Key: ONE mole electrons, GASEOUS atoms, GROUND STATE.</div></div>
-  <div class="q-block"><span class="q-num">Q10</span><div class="q-text">Why does IE&#x2081; decrease down Group 1?</div><div class="options">
-    <label class="opt"><input type="radio" name="q10" value="A"/>Nuclear charge decreases</label>
-    <label class="opt"><input type="radio" name="q10" value="B"/>Outer electron is in a higher shell, further from nucleus and more shielded</label>
-    <label class="opt"><input type="radio" name="q10" value="C"/>More protons attract the electron less</label>
-    <label class="opt"><input type="radio" name="q10" value="D"/>Electronegativity increases</label>
-  </div><div class="q-exp" id="eq10">Down the group: outer electrons are in successively higher shells (greater distance, more shielding) &rarr; weaker nuclear attraction &rarr; lower IE&#x2081;.</div></div>
-  <div class="q-block"><span class="q-num">Q11</span><div class="q-text">Number of orbitals in the 3d subshell:</div><div class="options">
-    <label class="opt"><input type="radio" name="q11" value="A"/>3</label>
-    <label class="opt"><input type="radio" name="q11" value="B"/>5</label>
-    <label class="opt"><input type="radio" name="q11" value="C"/>7</label>
-    <label class="opt"><input type="radio" name="q11" value="D"/>10</label>
-  </div><div class="q-exp" id="eq11">d subshell: l=2, m&#x2097;=&minus;2,&minus;1,0,+1,+2 &rarr; 5 orbitals (max 10 electrons).</div></div>
-  <div class="q-block"><span class="q-num">Q12</span><div class="q-text">Successive IEs: 496, 4562, 6912, 9544, 13353. Which group?</div><div class="options">
-    <label class="opt"><input type="radio" name="q12" value="A"/>Group 1</label>
-    <label class="opt"><input type="radio" name="q12" value="B"/>Group 2</label>
-    <label class="opt"><input type="radio" name="q12" value="C"/>Group 3</label>
-    <label class="opt"><input type="radio" name="q12" value="D"/>Group 4</label>
-  </div><div class="q-exp" id="eq12">Large jump between IE&#x2081; (496) and IE&#x2082; (4562) &rarr; 1 outer electron &rarr; Group 1. (Na: IE&#x2081;=496.)</div></div>
-  <div class="q-block"><span class="q-num">Q13</span><div class="q-text">Why does IE&#x2081;(O) &lt; IE&#x2081;(N)?</div><div class="options">
-    <label class="opt"><input type="radio" name="q13" value="A"/>O has a larger atomic radius</label>
-    <label class="opt"><input type="radio" name="q13" value="B"/>O has a paired 2p electron with greater repulsion, making it easier to remove</label>
-    <label class="opt"><input type="radio" name="q13" value="C"/>O has more shielding electrons</label>
-    <label class="opt"><input type="radio" name="q13" value="D"/>O is in a different period</label>
-  </div><div class="q-exp" id="eq13">O: 2p&#x2074; has one doubly-occupied 2p orbital. Paired electron repulsion reduces the energy required to remove it, giving IE&#x2081;(O) &lt; IE&#x2081;(N).</div></div>
-  <div class="q-block"><span class="q-num">Q14</span><div class="q-text">The Pauli Exclusion Principle states:</div><div class="options">
-    <label class="opt"><input type="radio" name="q14" value="A"/>Electrons fill lowest energy orbitals first</label>
-    <label class="opt"><input type="radio" name="q14" value="B"/>Electrons in degenerate orbitals must be parallel</label>
-    <label class="opt"><input type="radio" name="q14" value="C"/>No two electrons in an atom can have the same four quantum numbers</label>
-    <label class="opt"><input type="radio" name="q14" value="D"/>Electrons must pair before filling new orbitals</label>
-  </div><div class="q-exp" id="eq14">Pauli: no two electrons share all four quantum numbers &rarr; each orbital holds max 2 electrons with opposite spins.</div></div>
-  <div class="q-block"><span class="q-num">Q15</span><div class="q-text">Convergence of spectral lines indicates:</div><div class="options">
-    <label class="opt"><input type="radio" name="q15" value="A"/>All wavelengths become equal</label>
-    <label class="opt"><input type="radio" name="q15" value="B"/>Energy levels get closer; the limit gives the ionisation energy</label>
-    <label class="opt"><input type="radio" name="q15" value="C"/>Electrons are slowing down</label>
-    <label class="opt"><input type="radio" name="q15" value="D"/>The nucleus repels electrons</label>
-  </div><div class="q-exp" id="eq15">Lines converge because energy levels get closer at higher n. At convergence (n&rarr;&infin;), spacing&rarr;0, which corresponds to ionisation.</div></div>
-  <div class="q-block"><span class="q-num">Q16</span><div class="q-text">The electron configuration of Cu&#xB2;&#x207A; (Z=29) is:</div><div class="options">
-    <label class="opt"><input type="radio" name="q16" value="A"/>[Ar]3d&#x2079;4s&#xB2;</label>
-    <label class="opt"><input type="radio" name="q16" value="B"/>[Ar]3d&#x2079;</label>
-    <label class="opt"><input type="radio" name="q16" value="C"/>[Ar]3d&#xB9;&#x2070;</label>
-    <label class="opt"><input type="radio" name="q16" value="D"/>[Ar]3d&#x2078;4s&#xB9;</label>
-  </div><div class="q-exp" id="eq16">Cu=[Ar]3d&#xB9;&#x2070;4s&#xB9;. Cu&#xB2;&#x207A; loses 2e: first 4s&#xB9;, then one 3d &rarr; [Ar]3d&#x2079;.</div></div>
-  <div class="q-block"><span class="q-num">Q17</span><div class="q-text">An s orbital has shape:</div><div class="options">
-    <label class="opt"><input type="radio" name="q17" value="A"/>Dumbbell</label>
-    <label class="opt"><input type="radio" name="q17" value="B"/>Spherical</label>
-    <label class="opt"><input type="radio" name="q17" value="C"/>Double dumbbell</label>
-    <label class="opt"><input type="radio" name="q17" value="D"/>Ring</label>
-  </div><div class="q-exp" id="eq17">s orbital (l=0): spherically symmetric. p: dumbbell. d: double dumbbell/cloverleaf.</div></div>
-  <div class="q-block"><span class="q-num">Q18</span><div class="q-text">Which equation correctly represents first ionisation energy?</div><div class="options">
-    <label class="opt"><input type="radio" name="q18" value="A"/>X(g) + e&#x207B; &rarr; X&#x207B;(g)</label>
-    <label class="opt"><input type="radio" name="q18" value="B"/>X(s) &rarr; X&#x207A;(g) + e&#x207B;</label>
-    <label class="opt"><input type="radio" name="q18" value="C"/>X(g) &rarr; X&#x207A;(g) + e&#x207B;</label>
-    <label class="opt"><input type="radio" name="q18" value="D"/>X&#xB2;&#x207A;(g) + e&#x207B; &rarr; X&#x207A;(g)</label>
-  </div><div class="q-exp" id="eq18">IE&#x2081;: X(g) &rarr; X&#x207A;(g) + e&#x207B;. Must start from gaseous atoms. Starting from solid includes atomisation enthalpy.</div></div>
-  <div class="q-block"><span class="q-num">Q19</span><div class="q-text">4s fills before 3d because:</div><div class="options">
-    <label class="opt"><input type="radio" name="q19" value="A"/>4s has lower principal quantum number</label>
-    <label class="opt"><input type="radio" name="q19" value="B"/>4s has lower energy than 3d in neutral atoms</label>
-    <label class="opt"><input type="radio" name="q19" value="C"/>4s holds more electrons</label>
-    <label class="opt"><input type="radio" name="q19" value="D"/>3d is in a different period</label>
-  </div><div class="q-exp" id="eq19">In neutral atoms, 4s has lower energy than 3d due to penetration. Aufbau: fill lowest energy first.</div></div>
-  <div class="q-block"><span class="q-num">Q20</span><div class="q-text">How many unpaired electrons does N (1s&#xB2;2s&#xB2;2p&#xB3;) have?</div><div class="options">
-    <label class="opt"><input type="radio" name="q20" value="A"/>0</label>
-    <label class="opt"><input type="radio" name="q20" value="B"/>1</label>
-    <label class="opt"><input type="radio" name="q20" value="C"/>2</label>
-    <label class="opt"><input type="radio" name="q20" value="D"/>3</label>
-  </div><div class="q-exp" id="eq20">N: 2p&#xB3; &mdash; by Hund's rule each of the three 2p orbitals holds one electron &rarr; 3 unpaired electrons.</div></div>
-  <div class="q-block"><span class="q-num">Q21</span><div class="q-text">Which ion is isoelectronic with Ne (Z=10)?</div><div class="options">
-    <label class="opt"><input type="radio" name="q21" value="A"/>Na&#x207A; only</label>
-    <label class="opt"><input type="radio" name="q21" value="B"/>Al&#xB3;&#x207A; only</label>
-    <label class="opt"><input type="radio" name="q21" value="C"/>Both Na&#x207A; and Al&#xB3;&#x207A;</label>
-    <label class="opt"><input type="radio" name="q21" value="D"/>F&#xB2;&#x207B;</label>
-  </div><div class="q-exp" id="eq21">Ne=10e&#x207B;. Na&#x207A; (Z=11, &minus;1e)=10e&#x207B; &#x2713;. Al&#xB3;&#x207A; (Z=13, &minus;3e)=10e&#x207B; &#x2713;. Both isoelectronic with Ne.</div></div>
-  <div class="q-block"><span class="q-num">Q22</span><div class="q-text">The convergence limit of the Lyman series corresponds to:</div><div class="options">
-    <label class="opt"><input type="radio" name="q22" value="A"/>The n=1&rarr;n=2 transition energy</label>
-    <label class="opt"><input type="radio" name="q22" value="B"/>The ionisation energy of hydrogen</label>
-    <label class="opt"><input type="radio" name="q22" value="C"/>The ground state energy of hydrogen</label>
-    <label class="opt"><input type="radio" name="q22" value="D"/>The energy of the n=2 level</label>
-  </div><div class="q-exp" id="eq22">Lyman convergence = n=&infin;&rarr;n=1 = complete removal of electron from n=1 = ionisation energy of H.</div></div>
-  <div class="q-block"><span class="q-num">Q23</span><div class="q-text">Shielding by inner electrons causes outer electrons to experience:</div><div class="options">
-    <label class="opt"><input type="radio" name="q23" value="A"/>Increased nuclear charge</label>
-    <label class="opt"><input type="radio" name="q23" value="B"/>Reduced effective nuclear charge</label>
-    <label class="opt"><input type="radio" name="q23" value="C"/>No change in nuclear attraction</label>
-    <label class="opt"><input type="radio" name="q23" value="D"/>Greater attraction to nucleus</label>
-  </div><div class="q-exp" id="eq23">Inner electrons partially cancel the nuclear attraction. Outer electrons feel Z&#x1D452;&#x1D453;&#x1D453; &lt; actual Z.</div></div>
-  <div class="q-block"><span class="q-num">Q24</span><div class="q-text">The electron configuration of Fe&#xB3;&#x207A; is:</div><div class="options">
-    <label class="opt"><input type="radio" name="q24" value="A"/>[Ar]3d&#x2076;</label>
-    <label class="opt"><input type="radio" name="q24" value="B"/>[Ar]3d&#x2075;</label>
-    <label class="opt"><input type="radio" name="q24" value="C"/>[Ar]3d&#x2074;4s&#xB9;</label>
-    <label class="opt"><input type="radio" name="q24" value="D"/>[Ar]3d&#xB3;4s&#xB2;</label>
-  </div><div class="q-exp" id="eq24">Fe=[Ar]3d&#x2076;4s&#xB2;. Fe&#xB3;&#x207A;: remove 2&times;4s, then 1&times;3d &rarr; [Ar]3d&#x2075;.</div></div>
-  <div class="q-block"><span class="q-num">Q25</span><div class="q-text">Which statement about absorption spectra is correct?</div><div class="options">
-    <label class="opt"><input type="radio" name="q25" value="A"/>Bright lines on a dark background</label>
-    <label class="opt"><input type="radio" name="q25" value="B"/>Lines at different wavelengths to emission lines</label>
-    <label class="opt"><input type="radio" name="q25" value="C"/>Dark lines on a continuous spectrum, at the same wavelengths as emission lines</label>
-    <label class="opt"><input type="radio" name="q25" value="D"/>Produced when electrons fall to lower energy levels</label>
-  </div><div class="q-exp" id="eq25">Absorption: dark lines on a continuous (rainbow) background. Same wavelengths as emission lines &mdash; same transitions, now absorbing not emitting.</div></div>
-  <div style="margin-top:28px;text-align:center;"><button class="qs" onclick="submitQuiz()">Submit Quiz</button><div id="qR"></div></div>
+    <div class="qi"><div class="qn">B2 <span class="mk">[5]</span></div>
+    <p>A photon of light has frequency 6.9 × 10¹⁴ Hz. (a) Calculate its energy using E = hf (h = 6.63 × 10⁻³⁴ J s). (b) Convert to kJ mol⁻¹ (multiply by Avogadro's number 6.02 × 10²³). (c) Which series of hydrogen's spectrum does this fall in?</p>
+    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
+    <div class="ans">[1] E = 6.63×10⁻³⁴ × 6.9×10¹⁴ = 4.575×10⁻¹⁹ J [1] E per mole = 4.575×10⁻¹⁹ × 6.02×10²³ = 275,415 J mol⁻¹ ≈ 275 kJ mol⁻¹ [1] This corresponds to visible light (λ ≈ 434 nm, blue-violet) [1] Balmer series (electrons falling to n=2) [1 for correct identification]</div></div>
+
+    <div class="qi"><div class="qn">B3 <span class="mk">[5]</span></div>
+    <p>Write the electron configurations (using noble gas shorthand) for: Ni (Z=28), Ni²⁺, Co³⁺ (Z=27), Zn²⁺ (Z=30). State the number of unpaired electrons in each.</p>
+    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
+    <div class="ans">Ni: [Ar]3d⁸4s² → 2 unpaired [1]. Ni²⁺: [Ar]3d⁸ → 2 unpaired [1]. Co: [Ar]3d⁷4s², Co³⁺: [Ar]3d⁶ → 4 unpaired [1]. Zn: [Ar]3d¹⁰4s², Zn²⁺: [Ar]3d¹⁰ → 0 unpaired [1]. [1 for applying Hund's rule correctly throughout]</div></div>
+
+    <div class="qi"><div class="qn">B4 <span class="mk">[5]</span></div>
+    <p>The first ionisation energies (kJ mol⁻¹) for the elements Li to Ne are: 520, 900, 800, 1086, 1402, 1314, 1681, 2081. (a) Plot a sketch graph. (b) Identify the two anomalies and explain each. (c) Which element has IE₁ = 800 kJ mol⁻¹?</p>
+    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
+    <div class="ans">[1] Graph: generally increasing trend with two dips. [1] Anomaly 1 (Be→B, 900→800): B removes 2p¹ electron (higher energy than Be's 2s²). [1] Anomaly 2 (N→O, 1402→1314): O has paired 3p electron — repulsion makes it easier to remove. [1] Element with 800 kJ mol⁻¹ is B (boron, 3rd element = position 3). [1 for correct reasoning]</div></div>
   </div>
-</div>
 
-<div class="section-header" id="test"><span class="section-number">&#x1F4DD;</span><h2>Unit Test &mdash; 50 Marks</h2></div>
-<div class="test-wrap">
-  <div class="test-section">
-    <div class="test-sh"><h3>Section A &mdash; Short Answer</h3><span class="mb">20 marks</span></div>
-    <div class="test-body">
-      <div class="tq"><span class="tqn">Q1 [4 marks]</span><p>State the three rules used to determine the electron configuration of an atom. Name each rule and state what it requires, with one example. [4]</p>
-      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
-      <div class="ans">(1) Aufbau Principle: electrons fill orbitals in order of increasing energy (1s&rarr;2s&rarr;2p&rarr;3s&rarr;3p&rarr;4s&rarr;3d&hellip;). [1] (2) Pauli Exclusion Principle: no two electrons can share all four quantum numbers; each orbital holds max 2 electrons with opposite spins. [1] (3) Hund's Rule: in degenerate orbitals, electrons occupy each singly with parallel spins before pairing to minimise repulsion. [1] Example: N (2p&#xB3;) &mdash; the three 2p electrons occupy three separate p orbitals, all with the same spin direction, before any pairing. [1]</div></div>
-      <div class="tq"><span class="tqn">Q2 [4 marks]</span><p>Write electron configurations for: (a) Cl&#x207B; [1]; (b) Mn (Z=25) [1]; (c) Mn&#xB2;&#x207A; [1]; (d) Zn&#xB2;&#x207A; (Z=30) [1].</p>
-      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
-      <div class="ans">(a) Cl&#x207B;: 1s&#xB2;2s&#xB2;2p&#x2076;3s&#xB2;3p&#x2076; (18e, isoelectronic with Ar). [1] (b) Mn: [Ar]3d&#x2075;4s&#xB2;. [1] (c) Mn&#xB2;&#x207A;: remove 2&times;4s &rarr; [Ar]3d&#x2075;. [1] (d) Zn: [Ar]3d&#xB9;&#x2070;4s&#xB2;; Zn&#xB2;&#x207A;: remove 4s&#xB2; &rarr; [Ar]3d&#xB9;&#x2070;. [1]</div></div>
-      <div class="tq"><span class="tqn">Q3 [4 marks]</span><p>Explain why: (a) IE&#x2081;(B) &lt; IE&#x2081;(Be) [2]; (b) IE&#x2081;(S) &lt; IE&#x2081;(P) [2].</p>
-      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
-      <div class="ans">(a) Be: outer electron in 2s. B: outer electron in 2p, which is higher energy and shielded by 2s electrons &rarr; requires less energy to remove despite higher Z. IE&#x2081;(B) &lt; IE&#x2081;(Be). [2] (b) P: 3p&#xB3; &mdash; all three 3p orbitals singly occupied, no pairing. S: 3p&#x2074; &mdash; one 3p orbital doubly occupied. Repulsion between paired electrons makes one easier to remove. IE&#x2081;(S) &lt; IE&#x2081;(P). [2]</div></div>
-      <div class="tq"><span class="tqn">Q4 [4 marks]</span><p>Successive IEs (kJ mol&#x207B;&#xB9;) of element Z: 590, 1145, 4912, 6474, 8144, 10496, 12270&hellip; (a) How many outer shell electrons does Z have? [1] (b) State Z's group. [1] (c) Suggest the identity of Z. [1] (d) Explain why successive IEs always increase. [1]</p>
-      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
-      <div class="ans">(a) Large jump between IE&#x2082; (1145) and IE&#x2083; (4912) &rarr; 2 outer electrons. [1] (b) Group 2. [1] (c) IE&#x2081;=590 &rarr; Calcium (Ca, Z=20). [1] (d) After each ionisation, the ion has fewer electrons but the same nuclear charge &rarr; higher effective nuclear charge per electron &rarr; each subsequent electron is more strongly attracted and requires more energy to remove. [1]</div></div>
-      <div class="tq"><span class="tqn">Q5 [4 marks]</span><p>Describe the Lyman, Balmer, and Paschen series of the hydrogen emission spectrum (transitions + spectral regions) [3]. Explain how the Lyman convergence limit gives the ionisation energy of hydrogen. [1]</p>
-      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
-      <div class="ans">Lyman: n&ge;2 &rarr; n=1; UV. [1] Balmer: n&ge;3 &rarr; n=2; visible. [1] Paschen: n&ge;4 &rarr; n=3; IR. [1] Lyman convergence: as n&rarr;&infin;, the transition n=&infin;&rarr;n=1 corresponds to complete removal of the electron from n=1 (the ground state). The frequency at convergence gives E=hf = IE&#x2081; of hydrogen directly, since it represents the energy to fully remove the electron from the atom. [1]</div></div>
-    </div>
-  </div>
-  <div class="test-section">
-    <div class="test-sh"><h3>Section B &mdash; Extended Answer</h3><span class="mb">30 marks</span></div>
-    <div class="test-body">
-      <div class="tq"><span class="tqn">Q6 [8 marks]</span><p>Explain what is meant by an emission spectrum. Using Bohr's model, explain how the line emission spectrum of hydrogen is produced. Why does the spectrum provide evidence for quantised energy levels? Describe the Balmer series including why lines converge. [8]</p>
-      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
-      <div class="ans"><strong>Emission spectrum [1]:</strong> Produced when excited atoms release energy as light. Electrons fall from higher to lower energy levels, emitting photons. Appears as bright coloured lines on a dark background.<br><strong>Hydrogen emission by Bohr model [3]:</strong> At ground state, H&#x2019;s electron is in n=1. When energy is supplied (electrical discharge), the electron is promoted to n=2,3,4&hellip; (excited state). The excited state is unstable &mdash; the electron rapidly falls to a lower level, emitting a photon of energy &Delta;E = E_upper &minus; E_lower = hf. Since only specific energy levels are allowed, only specific photon frequencies are emitted &rarr; line spectrum.<br><strong>Evidence for quantisation [2]:</strong> A continuous range of energies would give a continuous spectrum (rainbow). Only discrete wavelengths are observed &rarr; electrons can only exist at specific, discrete energy levels. Each line proves one specific transition &mdash; direct evidence for quantised energy levels.<br><strong>Balmer series [2]:</strong> Transitions n&ge;3 &rarr; n=2; produces 4 visible lines (red n=3&rarr;2, blue-green n=4&rarr;2, violet n=5&rarr;2, etc.). Lines converge at shorter wavelengths/higher frequencies because energy levels get closer together as n increases &mdash; the energy gap between consecutive levels decreases, so photons emitted become more similar in energy/frequency until they merge at the convergence limit (n=&infin;&rarr;n=2).</div></div>
-      <div class="tq"><span class="tqn">Q7 [8 marks]</span><p>Define quantum number and describe all four quantum numbers. Explain Aufbau, Pauli, and Hund's principles. Write full orbital box diagrams for (a) oxygen and (b) silicon. [8]</p>
-      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
-      <div class="ans"><strong>Quantum numbers [2]:</strong> Numbers describing the state of an electron in an atom. (1) n (principal): shell number (1,2,3&hellip;); energy and distance from nucleus. (2) l (angular momentum, 0 to n&minus;1): subshell and orbital shape (0=s sphere, 1=p dumbbell, 2=d, 3=f). (3) m&#x2097; (&minus;l to +l): orbital orientation in space. (4) m&#x209B; (+&frac12; or &minus;&frac12;): spin direction of electron.<br><strong>Three principles [3]:</strong> Aufbau: fill orbitals starting from lowest energy (1s&rarr;2s&rarr;2p&rarr;3s&rarr;3p&rarr;4s&rarr;3d&hellip;). Pauli: no two electrons share all four quantum numbers; max 2 per orbital with opposite spins. Hund: fill degenerate orbitals singly with parallel spins before pairing to minimise electron repulsion.<br><strong>Orbital diagrams [3]:</strong><br>(a) O (Z=8, 1s&#xB2;2s&#xB2;2p&#x2074;):<br>1s[&#x2191;&#x2193;] 2s[&#x2191;&#x2193;] 2p[&#x2191;&#x2193;][&#x2191;][&#x2191;] &mdash; first two 2p electrons fill separately (Hund), then third 2p must pair up because all three orbitals are singly filled. [1.5]<br>(b) Si (Z=14, 1s&#xB2;2s&#xB2;2p&#x2076;3s&#xB2;3p&#xB2;):<br>1s[&#x2191;&#x2193;] 2s[&#x2191;&#x2193;] 2p[&#x2191;&#x2193;][&#x2191;&#x2193;][&#x2191;&#x2193;] 3s[&#x2191;&#x2193;] 3p[&#x2191;][&#x2191;][ ] &mdash; two 3p electrons fill separately (Hund's rule). [1.5]</div></div>
-      <div class="tq"><span class="tqn">Q8 [6 marks]</span><p>Define first ionisation energy. State the four main factors that influence IE. Use these to explain the general increase in IE&#x2081; across Period 3 and the two anomalous dips. [6]</p>
-      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
-      <div class="ans"><strong>IE&#x2081; [1]:</strong> Energy to remove 1 mol of electrons from 1 mol of gaseous atoms in their ground state: X(g) &rarr; X&#x207A;(g) + e&#x207B;. Always endothermic.<br><strong>Four factors [2]:</strong> (1) Nuclear charge Z: higher Z &rarr; greater attraction &rarr; higher IE. (2) Distance/shell: outer electrons in higher shells &rarr; weaker attraction &rarr; lower IE. (3) Shielding: inner electrons reduce effective nuclear charge felt by outer electrons; more inner electrons = more shielding = lower IE. (4) Paired electron repulsion: electrons paired in the same orbital repel each other, making one easier to remove &rarr; lower IE than expected.<br><strong>General increase across Period 3 [2]:</strong> From Na to Ar, Z increases by 1 each step. All outer electrons are added to the same shell (n=3), so distance and shielding change only slightly. Increasing Z provides greater effective nuclear charge &rarr; stronger nuclear attraction on outer electrons &rarr; IE&#x2081; generally increases.<br><strong>Two dips [1]:</strong> Mg&rarr;Al: Al&#x2019;s outer electron is in 3p (higher energy, shielded by 3s), while Mg&#x2019;s is in 3s &rarr; easier to remove despite higher Z. P&rarr;S: S has a paired 3p electron causing repulsion &rarr; one electron is easier to remove; P (3p&#xB3;) has no paired 3p electrons.</div></div>
-      <div class="tq"><span class="tqn">Q9 [8 marks]</span><p>Successive IEs (kJ mol&#x207B;&#xB9;) of Q: 738, 1451, 7733, 10540, 13630, 17995, 21703, 25656. (a) Identify Q's group and element. [2] (b) Sketch a log(IE) vs ionisation number graph, marking the large jump. [2] (c) Explain what successive IEs reveal about Q's electronic structure. [2] (d) Write equations for the first three IEs of Q. [2]</p>
-      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
-      <div class="ans">(a) Large jump between IE&#x2082; (1451) and IE&#x2083; (7733) &rarr; 2 outer electrons &rarr; <strong>Group 2</strong>. IE&#x2081;=738 kJ mol&#x207B;&#xB9; &rarr; <strong>Magnesium (Mg, Z=12)</strong>. [2]<br>(b) x-axis: ionisation number 1&ndash;8; y-axis: log(IE). Two low points (IE&#x2081;, IE&#x2082;) at left, large upward step between points 2 and 3 marked clearly, then gradually rising plateau for IE&#x2083;&ndash;IE&#x2081;&#x2070; (n=2 shell), then another very large jump at IE&#x2081;&#x2081;/IE&#x2081;&#x2082; (n=1 shell). [2]<br>(c) IE&#x2081;&ndash;IE&#x2082; relatively low and close: 2 electrons in n=3 outer shell (3s&#xB2;) &mdash; well-shielded, far from nucleus. IE&#x2083;&ndash;IE&#x2081;&#x2070; much higher, rise gradually: 8 electrons in n=2 shell (closer to nucleus, stronger attraction). IE&#x2081;&#x2081;&ndash;IE&#x2081;&#x2082; extremely high: 2 electrons in n=1 (maximum attraction, no shielding). The two jumps confirm Mg&#x2019;s electron structure: 2,8,2 across shells n=1,2,3. [2]<br>(d) Mg(g) &rarr; Mg&#x207A;(g) + e&#x207B; &nbsp;&Delta;H = +738 kJ mol&#x207B;&#xB9; [1]<br>Mg&#x207A;(g) &rarr; Mg&#xB2;&#x207A;(g) + e&#x207B; &nbsp;&Delta;H = +1451 kJ mol&#x207B;&#xB9; [0.5]<br>Mg&#xB2;&#x207A;(g) &rarr; Mg&#xB3;&#x207A;(g) + e&#x207B; &nbsp;&Delta;H = +7733 kJ mol&#x207B;&#xB9; [0.5]</div></div>
-    </div>
-  </div>
-</div>
+  <div class="qcard" style="margin-top:1rem;"><h3>Section C — Extended (10 marks)</h3>
+    <div class="qi"><div class="qn">C1 <span class="mk">[5]</span></div>
+    <p>Explain how the first ionisation energies of the elements provide evidence for the existence of electron shells and sub-shells.</p>
+    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
+    <div class="ans">[1] Large jumps in successive IEs for one element show electrons in different shells — inner electrons much harder to remove. [1] Gradual increase in IE₁ across a period shows electrons being added to the same shell, with increasing nuclear charge. [1] Dips at the start of each period (e.g. Li, Na) confirm new shell begins (electron further from nucleus, more shielded). [1] Anomalies at B and O confirm sub-shells — removal from a higher-energy sub-shell (2p) is easier than from 2s. [1] The specific pattern of IE₁ values across periods repeats, confirming the periodic filling of shells and sub-shells.</div></div>
 
-<div class="nav">
-  <a class="nb p" href="s4_unit1_atomic_structure.html">&larr; Unit 1: Structure of Atom</a>
-  <a class="nb n" href="s4_unit3_ionic_metallic_bonds.html">Unit 3: Ionic &amp; Metallic Bonds &rarr;</a>
+    <div class="qi"><div class="qn">C2 <span class="mk">[5]</span></div>
+    <p>Compare Bohr's model of the atom with the modern orbital model. Describe what each can and cannot explain.</p>
+    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
+    <div class="ans">[1] Bohr: electrons in fixed circular orbits at set distances. Modern: electrons in orbitals (probability regions) of defined shapes (s,p,d,f). [1] Bohr successfully explains hydrogen's line spectrum (specific energy transitions). [1] Bohr fails for multi-electron atoms and cannot explain fine structure. [1] Modern model explains sub-shells, Hund's rule, anomalous configurations, and complex spectra. [1] Modern model based on wave mechanics — electron described by wavefunction; its position is probabilistic, not fixed.</div></div>
+  </div>
+</section>
+
+<div class="unit-nav">
+  <a href="s4_unit1_atomic_structure.html">← Unit 1: Atomic Structure</a>
+  <a href="s4_unit3_ionic_metallic_bonds.html">Unit 3: Ionic &amp; Metallic Bonds →</a>
 </div>
 </main>
-
-
-
-
-<!-- ═══════════════════════════ UNIT QUIZ GATE ═══════════════════════════ -->
-<script>
-(function(){
-  const CK='quiz_access_code', SK='quiz_access_granted';
-  const code=localStorage.getItem(CK);
-  if(!code) return;
-  if(sessionStorage.getItem(SK)) return;
-  const qw=document.querySelector('.quiz-wrap');
-  if(!qw) return;
-  function showGate(){
-    if(document.getElementById('_ugate')) return;
-    const g=document.createElement('div');
-    g.id='_ugate';
-    g.style.cssText='position:fixed;inset:0;background:#0d1117;z-index:99999;display:flex;align-items:center;justify-content:center;padding:24px;';
-    g.innerHTML=`
-      <div style="background:#161b22;border:2px solid rgba(245,158,11,.4);border-radius:16px;padding:44px 36px;max-width:440px;width:100%;text-align:center;">
-        <div style="font-size:3.5rem;margin-bottom:14px;">🔒</div>
-        <h2 style="font-family:'Playfair Display',serif;font-size:1.8rem;color:#fff;margin-bottom:10px;">Quiz Locked</h2>
-        <p style="color:#8b949e;font-size:.92rem;margin-bottom:20px;line-height:1.7;">Enter your teacher&#39;s access code to attempt this quiz.</p>
-        <input id="_ugate_inp" type="text" placeholder="Enter Code" maxlength="20" autocomplete="off"
-          style="width:100%;background:#1c2333;border:2px solid #30363d;border-radius:8px;color:#e6edf3;padding:13px 16px;font-family:'JetBrains Mono',monospace;font-size:1.4rem;text-align:center;letter-spacing:.2em;text-transform:uppercase;margin-bottom:10px;box-sizing:border-box;"
-          onkeydown="if(event.key==='Enter')window._ugateCheck()"/>
-        <div id="_ugate_err" style="font-family:'JetBrains Mono',monospace;font-size:.82rem;color:#f87171;min-height:20px;margin:6px 0 10px;"></div>
-        <button onclick="window._ugateCheck()" style="width:100%;background:#f59e0b;color:#000;border:none;padding:12px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.9rem;font-weight:700;cursor:pointer;margin-bottom:8px;">🔓 Unlock Quiz</button>
-        <button onclick="document.getElementById('_ugate').remove();document.body.style.overflow='';" style="width:100%;background:transparent;border:1px solid #30363d;color:#8b949e;padding:8px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.78rem;cursor:pointer;">✕ Cancel</button>
-      </div>`;
-    document.body.appendChild(g);
-    document.body.style.overflow='hidden';
-    setTimeout(()=>{const i=document.getElementById('_ugate_inp');if(i)i.focus();},100);
-  }
-  window._ugateCheck=function(){
-    const val=(document.getElementById('_ugate_inp')||{}).value;
-    if(!val) return;
-    const v=val.trim().toUpperCase();
-    const stored=localStorage.getItem(CK);
-    if(v===stored){
-      sessionStorage.setItem(SK,'1');
-      const g=document.getElementById('_ugate');
-      if(g) g.remove();
-      document.body.style.overflow='';
-    } else {
-      const err=document.getElementById('_ugate_err');
-      if(err) err.textContent='❌ Wrong code — try again.';
-      const inp=document.getElementById('_ugate_inp');
-      if(inp){inp.value='';inp.focus();}
-    }
-  };
-  qw.addEventListener('click',function(e){
-    if(!localStorage.getItem(CK)) return;
-    if(sessionStorage.getItem(SK)) return;
-    e.stopPropagation();e.preventDefault();
-    showGate();
-  },true);
-})();
-</script>
-
-<script>
-// ── PER-UNIT QUIZ ACCESS GATE ── ID: s4_unit2 ──
-(function(){
-  const ITEM_ID='s4_unit2';
-  const SESS_KEY='unlocked_'+ITEM_ID;
-  const CODE_KEY='quiz_access_code';
-  const LOCKS_KEY='assessment_locks';
-  
-  function isLocked(){return JSON.parse(localStorage.getItem(LOCKS_KEY)||'{}')[ITEM_ID]===true;}
-  function isGranted(){const c=localStorage.getItem(CODE_KEY)||'OPEN';return sessionStorage.getItem(SESS_KEY)===c||sessionStorage.getItem(SESS_KEY)==='OPEN';}
-  
-  const gate=document.createElement('div');
-  gate.id='unit-quiz-gate-s4_unit2';
-  gate.style.cssText='position:fixed;inset:0;background:#0d1117;z-index:99999;display:none;align-items:center;justify-content:center;padding:24px;';
-  gate.innerHTML=`<div style="background:#161b22;border:2px solid rgba(245,158,11,.4);border-radius:16px;padding:44px 38px;max-width:460px;width:100%;text-align:center;">
-    <div style="font-size:3.5rem;margin-bottom:14px;">🔒</div>
-    <h2 style="font-family:Playfair Display,serif;font-size:1.8rem;color:#fff;margin-bottom:10px;">Quiz Locked</h2>
-    <p style="color:#8b949e;font-size:.92rem;margin-bottom:22px;line-height:1.7;">Your teacher has locked this quiz. Enter the access code to unlock it.</p>
-    <input id="ugi-s4_unit2" type="text" placeholder="Enter Code" maxlength="20"
-      style="width:100%;background:#1c2333;border:2px solid #30363d;border-radius:8px;color:#e6edf3;padding:13px 16px;font-family:JetBrains Mono,monospace;font-size:1.3rem;text-align:center;letter-spacing:.2em;text-transform:uppercase;margin-bottom:10px;box-sizing:border-box;"
-      onkeydown="if(event.key==='Enter')unlockUnit_s4_unit2()"
-      oninput="this.value=this.value.toUpperCase()"/>
-    <div id="uge-s4_unit2" style="font-family:JetBrains Mono,monospace;font-size:.8rem;color:#f87171;min-height:18px;margin-bottom:10px;"></div>
-    <button onclick="unlockUnit_s4_unit2()" style="width:100%;background:#f59e0b;color:#000;border:none;padding:13px;border-radius:8px;font-family:JetBrains Mono,monospace;font-size:.88rem;font-weight:700;cursor:pointer;margin-bottom:8px;">🔓 Unlock Quiz</button>
-    <button onclick="document.getElementById('unit-quiz-gate-s4_unit2').style.display='none';document.body.style.overflow='';" style="width:100%;background:transparent;border:1px solid #30363d;color:#8b949e;padding:8px;border-radius:7px;font-family:JetBrains Mono,monospace;font-size:.78rem;cursor:pointer;">✕ Cancel — Go back</button>
-    <div style="font-family:JetBrains Mono,monospace;font-size:.7rem;color:#8b949e;margin-top:10px;">Ask your teacher for the access code.</div>
-  </div>`;
-  document.body.appendChild(gate);
-  
-  window.unlockUnit_s4_unit2=function(){
-    const entered=document.getElementById('ugi-s4_unit2').value.trim().toUpperCase();
-    const correct=localStorage.getItem(CODE_KEY)||'';
-    if(!entered){document.getElementById('uge-s4_unit2').textContent='Enter the code.';return;}
-    if(!correct||entered===correct){
-      sessionStorage.setItem(SESS_KEY,correct||'OPEN');
-      gate.style.display='none';document.body.style.overflow='';
-      if(window._pendingAction_s4_unit2) window._pendingAction_s4_unit2();
-    } else {
-      document.getElementById('uge-s4_unit2').textContent='❌ Wrong code. Ask your teacher.';
-      document.getElementById('ugi-s4_unit2').value='';
-    }
-  };
-  
-  window.addEventListener('DOMContentLoaded',function(){
-    if(!isLocked()) return;
-    const qw=document.querySelector('.quiz-wrap');
-    if(!qw) return;
-    qw.addEventListener('click',function(e){
-      if(!isLocked()||isGranted()) return;
-      e.stopPropagation();e.preventDefault();
-      gate.style.display='flex';document.body.style.overflow='hidden';
-    },true);
-  });
-})();
-</script>
-</body>
-</html>
+<footer>⚗ Jackson Habimana — Chemistry Education Portal &bull; <a href="s4-chemistry.html">S4 Course</a> &bull; <a href="index.html">Home</a></footer>
+<script src="quiz-fix.js"></script>
+<script src="fix-answers.js"></script></body></html>

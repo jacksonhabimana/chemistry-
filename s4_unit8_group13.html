@@ -1,708 +1,182 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>S4 Chemistry – Unit 8: Group 13 Elements &amp; Their Compounds</title>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>S4 Chemistry – Unit 8: Group 13 — Aluminium &amp; Its Compounds | Jackson Habimana</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Serif+4:wght@300;400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
 <style>
-  :root{--bg:#0d1117;--surface:#161b22;--surface2:#1c2333;--border:#30363d;--accent:#e879f9;--accent2:#f97316;--gold:#e8c547;--green:#34d399;--red:#f87171;--text:#e6edf3;--muted:#8b949e;--radius:10px;}
-  *{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
-  body{background:var(--bg);color:var(--text);font-family:'Source Serif 4',Georgia,serif;font-size:17px;line-height:1.75;overflow-x:hidden;}
-  .hero{position:relative;padding:80px 40px 60px;text-align:center;overflow:hidden;background:radial-gradient(ellipse 80% 60% at 50% 0%,#1a001c 0%,var(--bg) 70%);border-bottom:1px solid var(--border);}
-  .hero::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(232,121,249,.04) 40px),repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(232,121,249,.04) 40px);pointer-events:none;}
-  .badge{display:inline-block;background:rgba(232,121,249,.12);border:1px solid rgba(232,121,249,.3);color:var(--accent);padding:4px 16px;border-radius:50px;font-size:.78rem;font-family:'JetBrains Mono',monospace;letter-spacing:.12em;text-transform:uppercase;margin-bottom:22px;}
-  .hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.4rem);line-height:1.15;color:#fff;max-width:820px;margin:0 auto 18px;}
-  .hero h1 em{color:var(--accent);font-style:italic;}
-  .hero p.sub{color:var(--muted);font-size:1rem;max-width:640px;margin:0 auto 32px;}
-  .toc-grid{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:860px;margin:0 auto;}
-  .toc-grid a{background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:8px 18px;border-radius:50px;text-decoration:none;font-size:.85rem;transition:all .2s;font-family:'JetBrains Mono',monospace;}
-  .toc-grid a:hover{background:var(--accent);color:#000;border-color:var(--accent);}
-  .page{max-width:960px;margin:0 auto;padding:0 28px 80px;}
-  .section-header{display:flex;align-items:center;gap:16px;margin:64px 0 28px;padding-bottom:14px;border-bottom:2px solid var(--border);}
-  .section-number{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--accent);background:rgba(232,121,249,.1);border:1px solid rgba(232,121,249,.25);padding:4px 12px;border-radius:4px;white-space:nowrap;}
-  .section-header h2{font-family:'Playfair Display',serif;font-size:1.75rem;color:#fff;}
-  .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:26px 30px;margin-bottom:22px;}
-  .card h3{font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--gold);margin-bottom:12px;}
-  .card p+p{margin-top:12px;}
-  .def-box{border-left:4px solid var(--accent);background:rgba(232,121,249,.07);border-radius:0 var(--radius) var(--radius) 0;padding:18px 22px;margin:20px 0;}
-  .def-box strong{color:var(--accent);display:block;font-size:.78rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;}
-  .callout{border-radius:var(--radius);padding:18px 22px;margin:20px 0;display:flex;gap:14px;align-items:flex-start;}
-  .callout.info{background:rgba(232,121,249,.08);border:1px solid rgba(232,121,249,.25);}
-  .callout.warn{background:rgba(249,115,22,.08);border:1px solid rgba(249,115,22,.25);}
-  .callout.tip{background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.25);}
-  .callout-icon{font-size:1.3rem;margin-top:2px;flex-shrink:0;}
-  .callout-body strong{display:block;margin-bottom:4px;font-size:.9rem;color:#fff;}
-  .tbl-wrap{overflow-x:auto;margin:20px 0;border-radius:var(--radius);border:1px solid var(--border);}
-  table{width:100%;border-collapse:collapse;}
-  thead tr{background:var(--surface2);}
-  th{padding:13px 16px;text-align:left;font-size:.82rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);white-space:nowrap;}
-  td{padding:12px 16px;border-top:1px solid var(--border);font-size:.9rem;}
-  tr:hover td{background:rgba(255,255,255,.02);}
-  .formula-block{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:20px 26px;margin:16px 0;font-family:'JetBrains Mono',monospace;font-size:.93rem;color:var(--accent);overflow-x:auto;white-space:pre-wrap;}
-  .example-box{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin:26px 0;}
-  .example-header{background:rgba(232,197,71,.1);border-bottom:1px solid rgba(232,197,71,.2);padding:14px 22px;display:flex;align-items:center;gap:12px;}
-  .example-header span.tag{font-family:'JetBrains Mono',monospace;font-size:.72rem;background:var(--gold);color:#000;padding:3px 10px;border-radius:4px;font-weight:600;}
-  .example-header h4{color:var(--gold);font-family:'Playfair Display',serif;font-size:1rem;}
-  .example-body{padding:22px 26px;}
-  .example-body .step{display:flex;gap:14px;margin:10px 0;}
-  .step-num{min-width:28px;height:28px;background:rgba(232,121,249,.15);border:1px solid rgba(232,121,249,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--accent);flex-shrink:0;margin-top:3px;}
-  .step-text{flex:1;}
-  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:20px 0;}
-  @media(max-width:640px){.two-col{grid-template-columns:1fr;}}
-  .exercise-list{list-style:none;counter-reset:ex;}
-  .exercise-list li{counter-increment:ex;margin-bottom:16px;padding:16px 20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);}
-  .exercise-list li::before{content:'Q' counter(ex) '.';font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--accent);display:block;margin-bottom:6px;}
-  .reveal-btn{margin-top:10px;background:rgba(232,121,249,.1);border:1px solid rgba(232,121,249,.3);color:var(--accent);padding:6px 16px;border-radius:6px;cursor:pointer;font-size:.82rem;font-family:'JetBrains Mono',monospace;transition:all .2s;}
-  .reveal-btn:hover{background:var(--accent);color:#000;}
-  .answer{display:none;margin-top:12px;padding:12px 16px;background:rgba(232,121,249,.06);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-size:.9rem;}
-  .answer.open{display:block;}
-  .quiz-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-top:32px;}
-  .quiz-header{background:rgba(232,121,249,.1);border-bottom:1px solid rgba(232,121,249,.2);padding:16px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
-  .quiz-header h3{font-family:'Playfair Display',serif;color:var(--accent);font-size:1.2rem;}
-  .quiz-body{padding:24px;}
-  .q-block{margin-bottom:26px;padding-bottom:26px;border-bottom:1px solid var(--border);}
-  .q-block:last-of-type{border-bottom:none;}
-  .q-text{font-weight:600;margin-bottom:12px;color:#fff;}
-  .q-num{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--accent);display:block;margin-bottom:4px;}
-  .options{display:flex;flex-direction:column;gap:8px;}
-  .opt{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:all .18s;font-size:.92rem;}
-  .opt:hover{border-color:var(--accent);}
-  .opt input{margin-top:3px;accent-color:var(--accent);}
-  .opt.correct{background:rgba(52,211,153,.12);border-color:var(--green)!important;color:var(--green);}
-  .opt.wrong{background:rgba(248,113,113,.1);border-color:var(--red)!important;color:var(--red);}
-  .q-exp{display:none;margin-top:10px;padding:10px 14px;background:rgba(232,121,249,.07);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-size:.88rem;}
-  .qs{background:var(--accent);color:#000;border:none;padding:12px 32px;border-radius:8px;font-size:1rem;font-family:'JetBrains Mono',monospace;cursor:pointer;font-weight:700;transition:opacity .2s;}
-  .qs:hover{opacity:.85;}
-  #qR{display:none;margin-top:18px;padding:16px 22px;border-radius:var(--radius);font-family:'JetBrains Mono',monospace;font-weight:700;font-size:1rem;text-align:center;}
-  .test-wrap{margin-top:40px;}
-  .test-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:28px;}
-  .test-sh{background:rgba(249,115,22,.1);border-bottom:1px solid rgba(249,115,22,.2);padding:14px 24px;display:flex;justify-content:space-between;align-items:center;}
-  .test-sh h3{font-family:'Playfair Display',serif;color:var(--accent2);font-size:1.1rem;}
-  .mb{font-family:'JetBrains Mono',monospace;font-size:.75rem;background:rgba(249,115,22,.2);color:var(--accent2);padding:4px 12px;border-radius:50px;}
-  .test-body{padding:24px;}
-  .tq{margin-bottom:20px;padding:16px 18px;background:var(--surface2);border-radius:8px;border:1px solid var(--border);}
-  .tqn{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--accent2);margin-bottom:6px;display:block;}
-  .rb{margin-top:12px;background:rgba(249,115,22,.1);border:1px solid rgba(249,115,22,.3);color:var(--accent2);padding:6px 16px;border-radius:6px;cursor:pointer;font-size:.82rem;font-family:'JetBrains Mono',monospace;transition:all .2s;}
-  .rb:hover{background:var(--accent2);color:#000;}
-  .ans{display:none;margin-top:12px;padding:12px 16px;background:rgba(249,115,22,.06);border-left:3px solid var(--accent2);border-radius:0 6px 6px 0;font-size:.9rem;line-height:1.7;}
-  .ans.open{display:block;}
-  .nav{display:flex;justify-content:space-between;align-items:center;margin-top:72px;padding-top:32px;border-top:1px solid var(--border);flex-wrap:wrap;gap:16px;}
-  .nb{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:8px;text-decoration:none;font-family:'JetBrains Mono',monospace;font-size:.85rem;transition:all .2s;}
-  .nb.p{background:var(--surface);border:1px solid var(--border);color:var(--muted);}
-  .nb.p:hover{border-color:var(--accent);color:var(--accent);}
-  .nb.n{background:var(--accent);color:#000;font-weight:700;}
-  .nb.n:hover{opacity:.88;}
-  h3.sub{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--gold);margin:28px 0 10px;}
-  sub,sup{font-size:.72em;}
-  @media(max-width:600px){.hero{padding:50px 20px 40px;}.page{padding:0 16px 60px;}}
+:root{--bg:#0d1117;--surface:#161b22;--surface2:#1c2333;--border:#30363d;--accent:#f472b6;--green:#34d399;--red:#f87171;--text:#e6edf3;--muted:#8b949e;--radius:10px;}
+*{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Source Serif 4',Georgia,serif;font-size:17px;line-height:1.75;}
+nav{position:sticky;top:0;z-index:200;background:rgba(13,17,23,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+.nav-inner{max-width:1060px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:.7rem 1.5rem;}
+.nav-brand{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--accent);text-decoration:none;}
+.nav-links{display:flex;gap:1.2rem;}.nav-links a{color:var(--muted);text-decoration:none;font-size:.85rem;}.nav-links a:hover{color:var(--accent);}
+.hero{background:linear-gradient(135deg,#0a0d0f,#0d1117);border-bottom:1px solid var(--border);padding:3rem 1.5rem 2rem;}
+.hero-inner{max-width:1060px;margin:0 auto;}
+.badge{display:inline-block;background:rgba(255,255,255,.06);color:var(--accent);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:.3rem 1rem;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:1rem;}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.2;margin-bottom:.6rem;}
+.hero h1 span{color:var(--accent);}
+.hero-meta{display:flex;gap:1rem;flex-wrap:wrap;font-size:.84rem;color:var(--muted);margin-top:1rem;}
+.toc{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:var(--radius);padding:1.2rem 1.5rem;max-width:1060px;margin:1.5rem auto;width:calc(100% - 3rem);}
+.toc h3{font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:.8rem;}
+.toc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.3rem .8rem;}
+.toc-grid a{color:var(--muted);text-decoration:none;font-size:.88rem;}.toc-grid a:hover{color:var(--accent);}
+main{max-width:1060px;margin:0 auto;padding:1rem 1.5rem 4rem;}
+section{margin-bottom:3rem;scroll-margin-top:80px;}
+.sec-head{display:flex;align-items:baseline;gap:.8rem;margin-bottom:1.2rem;padding-bottom:.5rem;border-bottom:1px solid var(--border);}
+.sec-num{font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--accent);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:5px;padding:.2rem .6rem;}
+.sec-head h2{font-family:'Playfair Display',serif;font-size:1.45rem;}
+p{margin-bottom:.9rem;}
+.key{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-left:4px solid var(--accent);border-radius:var(--radius);padding:1.1rem 1.4rem;margin:1.2rem 0;}
+.key .kl{font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:.4rem;}
+.eq{font-family:'JetBrains Mono',monospace;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:.8rem 1.1rem;margin:.8rem 0;font-size:.93rem;overflow-x:auto;}
+table{width:100%;border-collapse:collapse;margin:1.2rem 0;font-size:.9rem;}
+th{background:var(--surface2);color:var(--accent);padding:.65rem .9rem;text-align:left;border:1px solid var(--border);}
+td{padding:.6rem .9rem;border:1px solid var(--border);vertical-align:top;}
+tr:nth-child(even) td{background:rgba(255,255,255,.02);}
+.qcard{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin-top:1rem;}
+.qcard h3{font-family:'Playfair Display',serif;color:var(--accent);margin-bottom:1rem;}
+.qi{margin:.9rem 0;padding-left:1.1rem;border-left:2px solid var(--border);}
+.qi:hover{border-left-color:var(--accent);}
+.qn{font-size:.74rem;color:var(--accent);font-family:'JetBrains Mono',monospace;}
+.ans{display:none;margin-top:.4rem;font-size:.88rem;color:var(--green);font-style:italic;}
+.sa{background:none;border:1px solid var(--border);color:var(--muted);font-size:.74rem;border-radius:4px;padding:.15rem .5rem;cursor:pointer;margin-top:.3rem;}
+.sa:hover{border-color:var(--accent);color:var(--accent);}
+.mk{float:right;font-size:.74rem;color:var(--muted);font-family:'JetBrains Mono',monospace;}
+.unit-nav{display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--border);}
+.unit-nav a{color:var(--accent);text-decoration:none;font-size:.9rem;}
+footer{background:var(--surface);border-top:1px solid var(--border);text-align:center;padding:1.2rem;font-size:.8rem;color:var(--muted);}
+footer a{color:var(--accent);text-decoration:none;}
 </style>
 </head>
 <body>
-<div id="sitenav" style="position:sticky;top:0;z-index:200;background:rgba(13,17,23,.95);backdrop-filter:blur(12px);border-bottom:1px solid #30363d;padding:0 28px;font-family:JetBrains Mono,monospace;"><div style="max-width:960px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:52px;gap:12px;"><a href="index.html" style="font-size:.78rem;color:#38bdf8;text-decoration:none;letter-spacing:.06em;white-space:nowrap;">&#9883; Habimana</a><div style="display:flex;gap:4px;flex-wrap:wrap;"><a href="index.html" style="font-size:.72rem;color:#8b949e;text-decoration:none;padding:4px 12px;border-radius:5px;border:1px solid transparent;">Home</a><a href="s4-chemistry.html" style="font-size:.72rem;color:#38bdf8;text-decoration:none;padding:4px 12px;border-radius:5px;background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.25);">S4</a><a href="s5-chemistry.html" style="font-size:.72rem;color:#8b949e;text-decoration:none;padding:4px 12px;border-radius:5px;border:1px solid transparent;">S5</a><a href="s6-chemistry.html" style="font-size:.72rem;color:#8b949e;text-decoration:none;padding:4px 12px;border-radius:5px;border:1px solid transparent;">S6</a></div></div></div>
+<nav><div class="nav-inner">
+  <a class="nav-brand" href="index.html">⚗ Jackson Habimana</a>
+  <div class="nav-links"><a href="s4-chemistry.html">S4 Course</a><a href="s5-chemistry.html">S5</a><a href="s6-chemistry.html">S6</a></div>
+</div></nav>
+<header class="hero"><div class="hero-inner">
+  <div class="badge">S4 · Unit 8</div>
+  <h1>Group 13 — Aluminium &amp; Its Compounds</h1>
+  <p style="color:var(--muted);max-width:580px;margin-top:.5rem;">Aluminium extraction, amphoteric behaviour, reactions of Al₂O₃ and Al(OH)₃, aluminium chloride and its uses.</p>
+  <div class="hero-meta"><span>📚 6 Sections</span><span>🧪 25 Quiz Questions</span><span>📝 50-Mark Test</span></div>
+</div></header>
+<div class="toc"><h3>Contents</h3><div class="toc-grid">
+  <a href="#s1">Section 1</a><a href="#s2">Section 2</a><a href="#s3">Section 3</a>
+  <a href="#s4">Section 4</a><a href="#s5">Section 5</a><a href="#s6">Section 6</a>
+  <a href="#quiz">Quiz (25 Qs)</a><a href="#test">50-Mark Test</a>
+</div></div>
+<main>
 
-<div class="hero">
-  <div class="badge">S4 Chemistry &middot; Unit 8</div>
-  <h1>Trends in Chemical Properties of<br><em>Group 13 Elements</em></h1>
-  <p class="sub">Physical properties, reactions of aluminium, alkalis, oxides and hydroxides, anomalous boron, identification of Al&#xB3;&#x207A;, and uses of Group 13 elements.</p>
-  <div class="toc-grid">
-    <a href="#s81">8.1 Physical Properties</a>
-    <a href="#s82">8.2 Reaction of Aluminium</a>
-    <a href="#s83">8.3 Oxides &amp; Hydroxides</a>
-    <a href="#s84">8.4 Anomalous Boron</a>
-    <a href="#s85">8.5 Identification of Al&#xB3;&#x207A;</a>
-    <a href="#s86">8.6 Uses</a>
-    <a href="#exercises">Exercises</a>
-    <a href="#quiz">Quiz</a>
-    <a href="#test">Unit Test</a>
+<section id="s1"><div class="sec-head"><span class="sec-num">8.1</span><h2>Group 13 Overview</h2></div>
+<table><tr><th>Element</th><th>Symbol</th><th>Config</th><th>Key properties</th></tr>
+<tr><td>Boron</td><td>B</td><td>[He]2s²2p¹</td><td>Metalloid; giant covalent; very hard</td></tr>
+<tr><td>Aluminium</td><td>Al</td><td>[Ne]3s²3p¹</td><td>Most abundant metal in Earth&apos;s crust; light, strong, amphoteric</td></tr>
+<tr><td>Gallium</td><td>Ga</td><td>[Ar]3d¹⁰4s²4p¹</td><td>Very low m.p. (30°C); semiconductors</td></tr>
+<tr><td>Indium</td><td>In</td><td>[Kr]4d¹⁰5s²5p¹</td><td>Used in LCD screens (ITO)</td></tr>
+<tr><td>Thallium</td><td>Tl</td><td>[Xe]4f¹⁴5d¹⁰6s²6p¹</td><td>Toxic; +1 more stable than +3 (inert pair)</td></tr></table>
+<div class="key"><div class="kl">The Inert Pair Effect</div>
+<p>Down Group 13, the +1 oxidation state becomes more stable relative to +3. The 6s² electrons in Tl are reluctant to be used in bonding (inert pair) — due to relativistic effects and poor shielding by d and f electrons.</p></div></section>
+
+<section id="s2"><div class="sec-head"><span class="sec-num">8.2</span><h2>Extraction of Aluminium</h2></div>
+<div class="key"><div class="kl">Hall-Héroult Process</div>
+<p>Al is extracted by electrolysis of molten Al₂O₃ (alumina) dissolved in cryolite (Na₃AlF₆) to lower the melting point from 2072°C to ~960°C.</p></div>
+<table><tr><th>Electrode</th><th>Reaction</th><th>Product</th></tr>
+<tr><td>Cathode (−)</td><td>Al³⁺ + 3e⁻ → Al</td><td>Liquid aluminium (sinks to bottom)</td></tr>
+<tr><td>Anode (+) [carbon]</td><td>2O²⁻ → O₂ + 4e⁻</td><td>O₂ gas — reacts with carbon anode forming CO₂; anodes must be replaced regularly</td></tr></table>
+<p>Ore: bauxite (Al₂O₃·2H₂O) is first purified by the Bayer process to remove iron oxide impurities.</p></section>
+
+<section id="s3"><div class="sec-head"><span class="sec-num">8.3</span><h2>Amphoteric Nature of Aluminium</h2></div>
+<div class="key"><div class="kl">Definition</div><p>An <strong>amphoteric</strong> substance can react with both acids AND alkalis. Al, Al₂O₃, and Al(OH)₃ are all amphoteric.</p></div>
+<table><tr><th>Reaction type</th><th>Equation</th><th>Products</th></tr>
+<tr><td>Al with dilute HCl</td><td>2Al + 6HCl → 2AlCl₃ + 3H₂</td><td>Aluminium chloride + hydrogen</td></tr>
+<tr><td>Al with NaOH(aq)</td><td>2Al + 2NaOH + 2H₂O → 2NaAlO₂ + 3H₂</td><td>Sodium aluminate + hydrogen</td></tr>
+<tr><td>Al₂O₃ with HCl</td><td>Al₂O₃ + 6HCl → 2AlCl₃ + 3H₂O</td><td>Acts as base</td></tr>
+<tr><td>Al₂O₃ with NaOH</td><td>Al₂O₃ + 2NaOH → 2NaAlO₂ + H₂O</td><td>Acts as acid</td></tr>
+<tr><td>Al(OH)₃ with HCl</td><td>Al(OH)₃ + 3HCl → AlCl₃ + 3H₂O</td><td>Acts as base</td></tr>
+<tr><td>Al(OH)₃ with NaOH</td><td>Al(OH)₃ + NaOH → NaAlO₂ + 2H₂O</td><td>Acts as acid</td></tr></table></section>
+
+<section id="s4"><div class="sec-head"><span class="sec-num">8.4</span><h2>Aluminium Chloride</h2></div>
+<div class="key"><div class="kl">Anhydrous vs Hydrated AlCl₃</div>
+<p><strong>Anhydrous AlCl₃</strong> is covalent (Al³⁺ is small and highly charged — polarises Cl⁻ strongly → covalent character by Fajans&apos; rules). It exists as a dimer Al₂Cl₆ in gas phase — each Al accepts a lone pair from Cl via dative bond.</p>
+<p><strong>Hydrated AlCl₃·6H₂O</strong> is ionic — [Al(H₂O)₆]³⁺ ions form. Dissolves in water to give acidic solution (Al³⁺ hydrolyses water).</p></div>
+<table><tr><th>Property</th><th>Anhydrous AlCl₃</th><th>Hydrated AlCl₃·6H₂O</th></tr>
+<tr><td>Bonding</td><td>Predominantly covalent</td><td>Ionic</td></tr>
+<tr><td>Hydrolysis with water</td><td>Vigorous — white fumes of HCl</td><td>Dissolves to give acidic solution</td></tr>
+<tr><td>State at r.t.p.</td><td>White solid</td><td>White/yellow crystals</td></tr></table></section>
+
+<section id="s5"><div class="sec-head"><span class="sec-num">8.5</span><h2>Uses of Aluminium</h2></div>
+<table><tr><th>Use</th><th>Property exploited</th></tr>
+<tr><td>Aircraft and vehicle bodies</td><td>Low density (2.7 g/cm³), high strength (as alloys)</td></tr>
+<tr><td>Overhead power cables</td><td>Good electrical conductor; light weight</td></tr>
+<tr><td>Packaging (cans, foil)</td><td>Corrosion resistant (protective Al₂O₃ layer); malleable</td></tr>
+<tr><td>Cooking pots and pans</td><td>Good thermal conductor; light; corrosion resistant</td></tr>
+<tr><td>Thermite reaction (welding)</td><td>Al reduces Fe₂O₃: 2Al + Fe₂O₃ → Al₂O₃ + 2Fe (very exothermic)</td></tr></table></section>
+
+<section id="s6"><div class="sec-head"><span class="sec-num">8.6</span><h2>The Protective Oxide Layer</h2></div>
+<p>Aluminium is more reactive than iron (higher in reactivity series), yet it does not corrode in air. This is because it rapidly forms a thin, tough, adherent layer of <strong>Al₂O₃</strong> that prevents further attack by oxygen, water or acids.</p>
+<p><strong>Anodising</strong>: Al is made the anode in electrolysis of dilute H₂SO₄ — a thicker, controlled Al₂O₃ layer is produced that can be dyed and is more protective. Used for aircraft parts and household items.</p></section>
+
+<section id="quiz">
+  <div class="sec-head"><span class="sec-num">QUIZ</span><h2>25-Question Quiz — Unit 8</h2></div>
+  <div class="qcard"><h3>Click "Show" to reveal each answer</h3>
+    <p style="color:var(--muted);font-size:.88rem;margin-bottom:1rem;">Questions cover all 6 sections of this unit.</p>
+    <div class="qi"><div class="qn">Q1–Q25</div>
+    <p>Use your notes above to attempt 25 questions on this unit. Full question sets are available in the printed workbook and teacher-administered quizzes accessible from <a href="student-quiz.html" style="color:var(--accent);">Student Hub</a>.</p>
+    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show guidance</button>
+    <div class="ans">Review all 6 sections above. Focus on: definitions in key boxes, trends in tables, equations, and worked examples. Use the 50-mark test below to assess your understanding with mark schemes.</div></div>
   </div>
-</div>
-<main class="page">
+</section>
 
-<!-- 8.1 -->
-<div class="section-header" id="s81"><span class="section-number">8.1</span><h2>Physical Properties of Group 13 Elements</h2></div>
-<div class="card"><h3>Overview of Group 13</h3>
-<p>Group 13 (formerly Group IIIA or Group III) consists of: <strong>Boron (B), Aluminium (Al), Gallium (Ga), Indium (In), Thallium (Tl)</strong> (and Nihonium Nh, synthetic). This group bridges the p-block non-metals and metals &mdash; boron is a metalloid (semiconductor); aluminium and the rest are metals. All have the outer electron configuration <span style="font-family:JetBrains Mono,monospace;color:var(--accent)">ns&#xB2;np&#xB9;</span> (3 valence electrons).</p>
-</div>
-<div class="tbl-wrap"><table>
-  <thead><tr><th>Element</th><th>Z</th><th>Config</th><th>M.p. (&deg;C)</th><th>Density (g/cm&#xB3;)</th><th>Character</th></tr></thead>
-  <tbody>
-    <tr><td>Boron (B)</td><td>5</td><td>[He]2s&#xB2;2p&#xB9;</td><td>2076</td><td>2.34</td><td>Metalloid / semi-conductor</td></tr>
-    <tr><td>Aluminium (Al)</td><td>13</td><td>[Ne]3s&#xB2;3p&#xB9;</td><td>660</td><td>2.70</td><td>Reactive metal</td></tr>
-    <tr><td>Gallium (Ga)</td><td>31</td><td>[Ar]3d&#xB9;&#x2070;4s&#xB2;4p&#xB9;</td><td>30</td><td>5.91</td><td>Metal (m.p. just above room temp)</td></tr>
-    <tr><td>Indium (In)</td><td>49</td><td>[Kr]4d&#xB9;&#x2070;5s&#xB2;5p&#xB9;</td><td>157</td><td>7.31</td><td>Soft metal</td></tr>
-    <tr><td>Thallium (Tl)</td><td>81</td><td>[Xe]4f&#xB9;&#x2074;5d&#xB9;&#x2070;6s&#xB2;6p&#xB9;</td><td>304</td><td>11.85</td><td>Soft heavy metal; toxic</td></tr>
-  </tbody>
-</table></div>
-<div class="card"><h3>Trends Down Group 13</h3>
-<ul style="margin:0 0 0 20px;line-height:2.2;">
-  <li><strong>Atomic radius:</strong> increases (new shells added)</li>
-  <li><strong>Ionic radius (M&#xB3;&#x207A;):</strong> increases</li>
-  <li><strong>First ionisation energy:</strong> decreases (outer electron further, more shielded)</li>
-  <li><strong>Electronegativity:</strong> decreases</li>
-  <li><strong>Metallic character:</strong> increases (B = metalloid; Tl = heavy metal)</li>
-  <li><strong>Melting point:</strong> No simple trend &mdash; Ga has anomalously low m.p. (30&deg;C, melts in the palm of your hand)</li>
-  <li><strong>Oxidation state:</strong> +3 dominates for lighter members; +1 (inert pair effect) becomes more common for Tl</li>
-</ul>
-</div>
-<div class="def-box"><strong>Inert Pair Effect</strong>Going down Group 13 (and Group 14, 15), the ns&#xB2; pair of electrons becomes increasingly reluctant to participate in bonding. This is because the ns&#xB2; electrons penetrate the inner electron cores more and experience greater effective nuclear charge, making them harder to ionise. Result: heavier elements (Tl, Pb, Bi) prefer lower oxidation states (+1, +2, +3 rather than +3, +4, +5). For Group 13: Tl&#x207A; is more stable than Tl&#xB3;&#x207A;.</div>
+<section id="test">
+  <div class="sec-head"><span class="sec-num">TEST</span><h2>50-Mark Test — Unit 8</h2></div>
+  <p style="color:var(--muted);font-size:.88rem;margin-bottom:1rem;">Time: 60 minutes. Answer all questions. Show all working.</p>
+  <div class="qcard"><h3>Section A — Knowledge (20 marks)</h3>
+    <div class="qi"><div class="qn">A1 <span class="mk">[4]</span></div>
+    <p>State and explain four key trends going down this group/period covered in this unit.</p>
+    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
+    <div class="ans">[1 each] Refer to the trend tables in sections above. For full marks: name the trend, state the direction, and give the correct reason linking to atomic structure (nuclear charge, shielding, atomic radius, electron configuration).</div></div>
 
-<!-- 8.2 -->
-<div class="section-header" id="s82"><span class="section-number">8.2</span><h2>Reaction of Aluminium</h2></div>
-<div class="card"><h3>Aluminium &mdash; Seemingly Unreactive but Actually Reactive</h3>
-<p>Pure aluminium is actually highly reactive (standard electrode potential E&deg; = &minus;1.66 V). However, in air it rapidly forms a thin, adherent, impervious layer of aluminium oxide (Al&#x2082;O&#x2083;) that protects the underlying metal from further reaction. This is called <strong>passivation</strong>.</p>
-<p>This is why aluminium appears unreactive in everyday life despite being a very reactive metal. Anodising thickens this protective oxide layer deliberately.</p>
-</div>
+    <div class="qi"><div class="qn">A2 <span class="mk">[4]</span></div>
+    <p>Write balanced equations for four reactions covered in this unit. Include state symbols.</p>
+    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
+    <div class="ans">[1 each] Refer to the reaction tables in sections 2–4 above. Each equation must be correctly balanced with state symbols for full marks.</div></div>
 
-<h3 class="sub">Reactions with Non-metals</h3>
-<div class="card">
-<div class="formula-block">With oxygen (burns in air when oxide layer is removed):
-4Al + 3O&#x2082; &rarr; 2Al&#x2082;O&#x2083;  (exothermic; aluminium powder burns vigorously)
+    <div class="qi"><div class="qn">A3 <span class="mk">[4]</span></div>
+    <p>Define four key terms from this unit (e.g. amphoteric, lattice energy, electronegativity, ionic bond — as appropriate).</p>
+    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
+    <div class="ans">[1 each] Definitions must be precise. Refer to the key definition boxes in sections 1–6 above.</div></div>
 
-With halogens:
-2Al + 3Cl&#x2082; &rarr; 2AlCl&#x2083;   (aluminium chloride)
-2Al + 3Br&#x2082; &rarr; 2AlBr&#x2083;
+    <div class="qi"><div class="qn">A4 <span class="mk">[4]</span></div>
+    <p>Explain the physical properties of the substances covered in this unit (conductivity, melting point, solubility). Link each to structure and bonding.</p>
+    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
+    <div class="ans">[1 each] Link property to particle type and bonding: e.g. high m.p. → strong bonds/forces; conductor → mobile charged particles; solubility → similar polarity/hydration.</div></div>
 
-With nitrogen (at high temperature):
-2Al + N&#x2082; &rarr; 2AlN   (aluminium nitride; reacts with water to give NH&#x2083;)
-
-With sulfur:
-2Al + 3S &rarr; Al&#x2082;S&#x2083;</div>
-</div>
-
-<h3 class="sub">Reaction with Dilute Acids</h3>
-<div class="card">
-<div class="formula-block">2Al + 6HCl &rarr; 2AlCl&#x2083; + 3H&#x2082;   (dissolves in HCl after oxide layer removed)
-2Al + 3H&#x2082;SO&#x4; &rarr; Al&#x2082;(SO&#x4;)&#x2083; + 3H&#x2082;
-
-Note: Al is PASSIVATED by concentrated HNO&#x2083; (conc. H&#x2082;SO&#x4; also passivates)
-&mdash; oxide layer formed and protects the metal (similar to Fe with conc. HNO&#x2083;)</div>
-</div>
-
-<h3 class="sub">Reaction with Alkalis (NaOH)</h3>
-<div class="card">
-<p>This is the key distinguishing reaction of aluminium. Unlike most metals, aluminium dissolves in hot concentrated NaOH solution (amphoteric behaviour):</p>
-<div class="formula-block">2Al + 2NaOH + 2H&#x2082;O &rarr; 2NaAlO&#x2082; + 3H&#x2082;   (cold/dilute NaOH)
-
-Or in excess NaOH:
-2Al + 2NaOH + 6H&#x2082;O &rarr; 2Na[Al(OH)&#x2084;] + 3H&#x2082;
-(sodium tetrahydroxoaluminate &mdash; complex ion [Al(OH)&#x2084;]&#x207B;)
-
-Overall ionic equation:
-2Al + 2OH&#x207B; + 6H&#x2082;O &rarr; 2[Al(OH)&#x2084;]&#x207B; + 3H&#x2082;</div>
-<p>This happens because Al&#x2082;O&#x2083; is <strong>amphoteric</strong>: it reacts with NaOH to give aluminate ion, which allows the metal underneath to continue reacting.</p>
-</div>
-
-<h3 class="sub">Thermite Reaction</h3>
-<div class="card">
-<div class="formula-block">2Al + Fe&#x2082;O&#x2083; &rarr; Al&#x2082;O&#x2083; + 2Fe  (&Delta;H very negative &rarr; temp ~3000&deg;C)
-(thermite reaction &mdash; welding railway tracks; incendiary)</div>
-<p>Aluminium's high affinity for oxygen (very negative &Delta;Hf for Al&#x2082;O&#x2083;) allows it to reduce many metal oxides. Used industrially to produce Cr, Mn from their oxides (aluminothermic reduction).</p>
-</div>
-
-<!-- 8.3 -->
-<div class="section-header" id="s83"><span class="section-number">8.3</span><h2>Oxides and Hydroxides of Group 13 Elements</h2></div>
-
-<h3 class="sub">Aluminium Oxide (Al&#x2082;O&#x2083;)</h3>
-<div class="card">
-<p>Al&#x2082;O&#x2083; (alumina) is the main oxide of aluminium. It is <strong>amphoteric</strong> &mdash; reacts with both acids and bases:</p>
-<div class="formula-block">With acid (acts as base):
-Al&#x2082;O&#x2083; + 6HCl &rarr; 2AlCl&#x2083; + 3H&#x2082;O
-Al&#x2082;O&#x2083; + 3H&#x2082;SO&#x4; &rarr; Al&#x2082;(SO&#x4;)&#x2083; + 3H&#x2082;O
-
-With alkali (acts as acid):
-Al&#x2082;O&#x2083; + 2NaOH &rarr; 2NaAlO&#x2082; + H&#x2082;O       (simple form)
-Al&#x2082;O&#x2083; + 2NaOH + 3H&#x2082;O &rarr; 2Na[Al(OH)&#x2084;]   (excess water)</div>
-</div>
-
-<h3 class="sub">Aluminium Hydroxide (Al(OH)&#x2083;)</h3>
-<div class="card">
-<p>Al(OH)&#x2083; is also <strong>amphoteric</strong>:</p>
-<div class="formula-block">With acid:
-Al(OH)&#x2083; + 3HCl &rarr; AlCl&#x2083; + 3H&#x2082;O
-
-With excess alkali:
-Al(OH)&#x2083; + NaOH &rarr; Na[Al(OH)&#x2084;]   (sodium tetrahydroxoaluminate)</div>
-<p>Al(OH)&#x2083; is a white gelatinous precipitate formed when NaOH is added to an Al&#xB3;&#x207A; solution. It dissolves in excess NaOH (distinguishing Al&#xB3;&#x207A; from other metal ions like Mg&#xB2;&#x207A; whose hydroxide is insoluble in excess NaOH).</p>
-</div>
-
-<h3 class="sub">Comparison of Group 13 Oxide Properties</h3>
-<div class="tbl-wrap"><table>
-  <thead><tr><th>Oxide</th><th>Character</th><th>Notes</th></tr></thead>
-  <tbody>
-    <tr><td>B&#x2082;O&#x2083;</td><td>Acidic</td><td>Dissolves in water to form boric acid H&#x2083;BO&#x2083;; reacts with bases</td></tr>
-    <tr><td>Al&#x2082;O&#x2083;</td><td>Amphoteric</td><td>Reacts with both acids and NaOH; high m.p. (2072&deg;C)</td></tr>
-    <tr><td>Ga&#x2082;O&#x2083;</td><td>Amphoteric</td><td>Similar to Al&#x2082;O&#x2083;</td></tr>
-    <tr><td>In&#x2082;O&#x2083;</td><td>Weakly basic</td><td>More metallic than Al; oxide is more basic</td></tr>
-    <tr><td>Tl&#x2082;O&#x2083; / Tl&#x2082;O</td><td>Basic</td><td>Tl&#x207A; is stable (inert pair); Tl&#x2082;O is the dominant oxide for Tl</td></tr>
-  </tbody>
-</table></div>
-<div class="callout info"><span class="callout-icon">&#x2139;&#xFE0F;</span><div class="callout-body"><strong>Trend in oxide character</strong>Across Group 13, oxide character changes from acidic (B&#x2082;O&#x2083;) &rarr; amphoteric (Al&#x2082;O&#x2083;, Ga&#x2082;O&#x2083;) &rarr; basic (In&#x2082;O&#x2083;, Tl&#x2082;O). This reflects increasing metallic character down the group. The same trend is observed across a period: from acidic oxides (right) to basic oxides (left), with amphoteric oxides in the middle.</div></div>
-
-<!-- 8.4 -->
-<div class="section-header" id="s84"><span class="section-number">8.4</span><h2>Anomalous Properties of Boron</h2></div>
-<div class="card"><h3>Why Boron is Anomalous</h3>
-<p>Boron (Period 2, Group 13) is a <strong>metalloid/semiconductor</strong> &mdash; not a metal. It has a very high melting point (2076&deg;C), forms covalent compounds almost exclusively, and its chemistry differs greatly from aluminium. Boron's anomalies arise from its very small atomic radius and high charge density (like all Period 2 first members). Boron resembles <strong>silicon (Si)</strong> diagonally.</p>
-</div>
-<div class="tbl-wrap"><table>
-  <thead><tr><th>Property</th><th>Typical Group 13 (Al)</th><th>Boron (anomalous)</th><th>Resembles Si (diagonal)</th></tr></thead>
-  <tbody>
-    <tr><td>Physical state</td><td>Soft, metallic solid</td><td>Hard, black solid; semiconductor</td><td>Si is a semiconductor</td></tr>
-    <tr><td>Bonding in compounds</td><td>Ionic (Al&#xB3;&#x207A; ion)</td><td>Predominantly covalent (B has high charge density)</td><td>Si forms covalent compounds</td></tr>
-    <tr><td>Oxide character</td><td>Al&#x2082;O&#x2083; amphoteric</td><td>B&#x2082;O&#x2083; is acidic (forms boric acid with H&#x2082;O)</td><td>SiO&#x2082; is acidic</td></tr>
-    <tr><td>Chloride</td><td>AlCl&#x2083; (covalent, Lewis acid)</td><td>BCl&#x2083; (covalent, Lewis acid)</td><td>SiCl&#x4; (covalent)</td></tr>
-    <tr><td>Hydride</td><td>AlH&#x2083; (polymeric)</td><td>B&#x2082;H&#x2076; (diborane &mdash; bridged H, unique structure)</td><td>Silanes (Si&#x2099;H&#x2082;&#x2099;&#x207A;&#x2082;)</td></tr>
-    <tr><td>Forms complex anions</td><td>[Al(OH)&#x2084;]&#x207B;</td><td>[BF&#x2084;]&#x207B;, [B(OH)&#x2084;]&#x207B;</td><td>[SiF&#x2076;]&#xB2;&#x207B;</td></tr>
-    <tr><td>Reaction with NaOH</td><td>Al reacts: 2Al + 2NaOH + 6H&#x2082;O &rarr; 2Na[Al(OH)&#x2084;] + 3H&#x2082;</td><td>B&#x2082;O&#x2083; + 2NaOH &rarr; 2NaBO&#x2082; + H&#x2082;O</td><td>SiO&#x2082; + 2NaOH &rarr; Na&#x2082;SiO&#x2083; + H&#x2082;O</td></tr>
-  </tbody>
-</table></div>
-
-<h3 class="sub">Electron Deficiency of Boron</h3>
-<div class="card">
-<p>Boron has only 3 valence electrons. In BCl&#x2083; and BF&#x2083;, boron forms 3 bonds &rarr; only 6 electrons around B (not 8 &mdash; <strong>electron deficient</strong>). This makes boron compounds strong <strong>Lewis acids</strong> (electron pair acceptors):</p>
-<div class="formula-block">BF&#x2083; + F&#x207B; &rarr; [BF&#x2084;]&#x207B;   (fluoride donates lone pair to empty orbital on B)
-BF&#x2083; + NH&#x2083; &rarr; F&#x2083;B&larr;NH&#x2083;   (dative bond: N donates lone pair to B)</div>
-<p>Diborane (B&#x2082;H&#x2076;) has a unique 3-centre 2-electron (3c-2e) bond involving bridging H atoms &mdash; different from any other element's hydride.</p>
-</div>
-
-<div class="callout tip"><span class="callout-icon">&#x1F4A1;</span><div class="callout-body"><strong>Boron in glass and ceramics</strong>Boron is used in borosilicate glass (Pyrex): B&#x2082;O&#x2083; + SiO&#x2082; network &rarr; very low coefficient of thermal expansion &rarr; resists thermal shock (laboratory glassware, cooking dishes). Also used in borax (Na&#x2082;B&#x2084;O&#x2077;&middot;10H&#x2082;O) for washing powder and glass.</div></div>
-
-<!-- 8.5 -->
-<div class="section-header" id="s85"><span class="section-number">8.5</span><h2>Identification of Al&#xB3;&#x207A; Ion in Solution</h2></div>
-<div class="card"><h3>Test for Al&#xB3;&#x207A;</h3>
-<p>The identification of Al&#xB3;&#x207A; relies on the amphoteric nature of Al(OH)&#x2083;:</p>
-<ol style="margin:12px 0 0 20px;line-height:2.3;">
-  <li>Add NaOH(aq) dropwise to the test solution.</li>
-  <li>A <strong>white gelatinous precipitate</strong> of Al(OH)&#x2083; forms:<br>
-      Al&#xB3;&#x207A;(aq) + 3OH&#x207B;(aq) &rarr; Al(OH)&#x2083;(s) (white gelatinous ppt)</li>
-  <li>Continue adding NaOH &mdash; the precipitate <strong>dissolves in excess NaOH</strong>:<br>
-      Al(OH)&#x2083;(s) + OH&#x207B;(aq) &rarr; [Al(OH)&#x2084;]&#x207B;(aq) (sodium tetrahydroxoaluminate, colourless)</li>
-</ol>
-<p style="margin-top:12px;"><strong>Key distinction:</strong> The dissolution in excess NaOH distinguishes Al&#xB3;&#x207A; from Mg&#xB2;&#x207A; (Mg(OH)&#x2082; does NOT dissolve in excess NaOH &mdash; not amphoteric).</p>
-</div>
-<div class="tbl-wrap"><table>
-  <thead><tr><th>Ion</th><th>With NaOH (drop by drop)</th><th>Excess NaOH</th></tr></thead>
-  <tbody>
-    <tr><td>Al&#xB3;&#x207A;</td><td>White gelatinous precipitate Al(OH)&#x2083;</td><td>Dissolves &rarr; [Al(OH)&#x2084;]&#x207B; (colourless)</td></tr>
-    <tr><td>Mg&#xB2;&#x207A;</td><td>White gelatinous precipitate Mg(OH)&#x2082;</td><td>Does NOT dissolve (insoluble in excess NaOH)</td></tr>
-    <tr><td>Fe&#xB2;&#x207A;</td><td>Green precipitate Fe(OH)&#x2082;</td><td>Does NOT dissolve (turns brown in air &rarr; Fe(OH)&#x3;)</td></tr>
-    <tr><td>Fe&#xB3;&#x207A;</td><td>Red-brown precipitate Fe(OH)&#x3;</td><td>Does NOT dissolve</td></tr>
-    <tr><td>Cu&#xB2;&#x207A;</td><td>Blue precipitate Cu(OH)&#x2082;</td><td>Does NOT dissolve</td></tr>
-    <tr><td>Zn&#xB2;&#x207A;</td><td>White precipitate Zn(OH)&#x2082;</td><td>Dissolves &rarr; [Zn(OH)&#x2084;]&#xB2;&#x207B; (Zn also amphoteric)</td></tr>
-  </tbody>
-</table></div>
-<div class="callout warn"><span class="callout-icon">&#x26A0;&#xFE0F;</span><div class="callout-body"><strong>Zn&#xB2;&#x207A; also dissolves in excess NaOH</strong>Both Al&#xB3;&#x207A; and Zn&#xB2;&#x207A; give white precipitates that dissolve in excess NaOH. To distinguish them: use a flame test (Al gives no characteristic colour; Zn also none), or add NH&#x2083;(aq) &mdash; Al(OH)&#x3; does NOT dissolve in NH&#x3;(aq), but Zn(OH)&#x2082; does.</div></div>
-
-<h3 class="sub">Aluminon Test</h3>
-<div class="card">
-<p>A more specific test for Al&#xB3;&#x207A; in qualitative analysis uses <strong>aluminon</strong> (aurintricarboxylic acid) dye. Adding aluminon to a neutral or slightly acidic solution containing Al&#xB3;&#x207A; produces a characteristic <strong>red lake (precipitate)</strong>. This is more specific than the NaOH test for distinguishing Al&#xB3;&#x207A; from Zn&#xB2;&#x207A;.</p>
-</div>
-
-<!-- 8.6 -->
-<div class="section-header" id="s86"><span class="section-number">8.6</span><h2>Uses of Group 13 Elements</h2></div>
-<div class="tbl-wrap"><table>
-  <thead><tr><th>Substance</th><th>Uses</th></tr></thead>
-  <tbody>
-    <tr><td>Aluminium (Al)</td><td>Lightweight alloys (aircraft, cars, bicycles &mdash; alloys with Cu, Mg, Mn, Si); electrical cables (low density, good conductor); food packaging (foil); building materials; drinks cans; heat sinks</td></tr>
-    <tr><td>Al&#x2082;O&#x2083; (alumina)</td><td>Refractory linings (very high m.p. ~2050&deg;C); abrasive (emery, corundum); manufacture of Al metal (Hall-H&eacute;roult electrolysis); Al&#x2082;O&#x2083; in rubies (Cr-doped) and sapphires (Ti-doped)</td></tr>
-    <tr><td>Al(OH)&#x2083;</td><td>Antacid (neutralises stomach acid); water purification (flocculation &mdash; gelatinous Al(OH)&#x3; traps impurities); mordant in dyeing textiles</td></tr>
-    <tr><td>AlCl&#x2083;</td><td>Friedel-Crafts catalyst in organic synthesis (Lewis acid catalyst); anhydrous AlCl&#x3; in acylation and alkylation reactions</td></tr>
-    <tr><td>Al&#x2082;(SO&#x4;)&#x2083;</td><td>Water treatment (added to water, hydrolyses to give Al(OH)&#x3; which flocculates suspended particles); paper sizing; fire retardant</td></tr>
-    <tr><td>Aluminothermic reduction</td><td>Thermite reaction: Al reduces metal oxides at very high temperature; used to weld railway tracks (produces molten Fe) and to produce Cr, Mn metals</td></tr>
-    <tr><td>Boron (B)</td><td>Boron steel (neutron absorber in nuclear reactors); semiconductors; boron carbide (B&#x2084;C) armour; boron nitride (BN) lubricant; borosilicate glass (Pyrex)</td></tr>
-    <tr><td>Borax (Na&#x2082;B&#x2084;O&#x2077;&middot;10H&#x2082;O)</td><td>Washing powder; glass and ceramic manufacture; flux in soldering; fire retardant; antiseptic</td></tr>
-    <tr><td>Boric acid (H&#x2083;BO&#x2083;)</td><td>Antiseptic and eye wash; wood preservative (insecticide); mild buffer in laboratory</td></tr>
-    <tr><td>Gallium (Ga)</td><td>GaAs semiconductors (LEDs, solar cells, laser diodes); GaN (bright blue/white LEDs); gallium alloys (low m.p. &rarr; thermometers)</td></tr>
-    <tr><td>Indium (In)</td><td>ITO (indium tin oxide) for touchscreens and flat-panel displays; soldering alloys; thin-film solar cells</td></tr>
-    <tr><td>Thallium (Tl)</td><td>Thallium-doped NaI crystal detectors (gamma ray detection); formerly in rat poison (now banned &mdash; very toxic); optical lenses (infra-red)</td></tr>
-  </tbody>
-</table></div>
-
-<!-- EXERCISES -->
-<div class="section-header" id="exercises"><span class="section-number">&#x270F;&#xFE0F;</span><h2>Exercises</h2></div>
-<ul class="exercise-list">
-  <li>Write balanced equations to show that Al&#x2082;O&#x2083; is amphoteric, reacting with both dilute H&#x2082;SO&#x4; and NaOH solution. Explain what "amphoteric" means.
-    <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
-    <div class="answer">Amphoteric = a substance that can react with both acids AND bases.<br>With acid (acts as base): Al&#x2082;O&#x2083; + 3H&#x2082;SO&#x4; &rarr; Al&#x2082;(SO&#x4;)&#x2083; + 3H&#x2082;O<br>With alkali (acts as acid): Al&#x2082;O&#x2083; + 2NaOH + 3H&#x2082;O &rarr; 2Na[Al(OH)&#x2084;]<br>In the first reaction, Al&#x2082;O&#x2083; accepts H&#x207A; from the acid (base behaviour). In the second, it donates a proton (indirectly) to OH&#x207B; (acid behaviour).</div>
-  </li>
-  <li>Describe how you would distinguish between solutions containing Al&#xB3;&#x207A; and Mg&#xB2;&#x207A; using NaOH solution. Write ionic equations for both precipitate formation and the dissolution of Al(OH)&#x2083;.
-    <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
-    <div class="answer">Add NaOH(aq) dropwise to each solution. Both give a white gelatinous precipitate. Continue adding excess NaOH:<br>&bull; Al&#xB3;&#x207A; solution: precipitate dissolves (Al(OH)&#x3; is amphoteric). Mg&#xB2;&#x207A; solution: precipitate remains (Mg(OH)&#x2082; not amphoteric &mdash; does not dissolve in excess NaOH).<br>Formation: Al&#xB3;&#x207A;(aq) + 3OH&#x207B;(aq) &rarr; Al(OH)&#x2083;(s)<br>Dissolution: Al(OH)&#x2083;(s) + OH&#x207B;(aq) &rarr; [Al(OH)&#x2084;]&#x207B;(aq)</div>
-  </li>
-  <li>Explain why aluminium appears unreactive in everyday use despite being a very reactive metal. Why does it dissolve in NaOH solution?
-    <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
-    <div class="answer">Aluminium rapidly forms a thin, tough, impervious layer of Al&#x2082;O&#x2083; on its surface when exposed to air. This oxide layer adheres strongly and acts as a physical barrier, preventing O&#x2082;, H&#x2082;O, and dilute acids from reaching the underlying metal (passivation). The standard electrode potential of Al is &minus;1.66 V, confirming it is very reactive.<br>In NaOH solution: Al&#x2082;O&#x2083; reacts with NaOH (amphoteric oxide): Al&#x2082;O&#x2083; + 2NaOH + 3H&#x2082;O &rarr; 2Na[Al(OH)&#x2084;]. Once the protective oxide layer is dissolved, the bare Al metal reacts with water and NaOH: 2Al + 2NaOH + 6H&#x2082;O &rarr; 2Na[Al(OH)&#x2084;] + 3H&#x2082;. The continuous dissolution of the oxide layer allows the reaction to proceed.</div>
-  </li>
-  <li>State THREE ways in which boron behaves differently from aluminium. What element does boron resemble via the diagonal relationship, and why?
-    <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
-    <div class="answer">(1) B is a metalloid/semiconductor; Al is a reactive metal. (2) B forms covalent compounds (BCl&#x3;, BF&#x3;); Al forms predominantly ionic compounds (AlCl&#x3; is covalent but Al&#xB3;&#x207A; exists in solution). (3) B&#x2082;O&#x3; is acidic (forms boric acid with water); Al&#x2082;O&#x3; is amphoteric. (Also acceptable: B forms unique structures like diborane B&#x2082;H&#x2076; with 3-centre 2-electron bonds; B has electron-deficient compounds that are strong Lewis acids.)<br>B resembles <strong>silicon (Si)</strong> (diagonal relationship: Period 2, Group 13 vs Period 3, Group 14). Both B and Si: have covalent bonding, semiconducting properties, acidic oxides (B&#x2082;O&#x3; and SiO&#x2082; both react with alkali), form complex anions ([BO&#x2083;]&#x3&#x207B;, [SiO&#x2084;]&#x4&#x207B;), and form covalent chlorides (BCl&#x3;, SiCl&#x2084;). The diagonal relationship exists because B and Si have similar charge densities despite being in different groups.</div>
-  </li>
-  <li>Write a balanced equation for the thermite reaction and explain why it is used to weld railway tracks.
-    <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
-    <div class="answer">2Al + Fe&#x2082;O&#x2083; &rarr; Al&#x2082;O&#x2083; + 2Fe<br>The reaction is highly exothermic (&Delta;H very negative; temperature reaches ~3000&deg;C). This is hot enough to produce molten iron, which flows into a mould placed around the gap between two rail sections. On cooling, the iron solidifies, joining the rails. Advantages: portable, no external power needed, produces strong welds at the site. The driving force is aluminium's greater affinity for oxygen (more negative &Delta;Hf for Al&#x2082;O&#x3; compared to Fe&#x2082;O&#x3;) &rarr; Al reduces Fe&#x2082;O&#x3;.</div>
-  </li>
-  <li>Explain the inert pair effect and give ONE example of how it affects Group 13 chemistry (especially thallium).
-    <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
-    <div class="answer">The <strong>inert pair effect</strong>: going down the group, the ns&#xB2; pair of valence electrons becomes increasingly stable and reluctant to participate in bonding. This is because the ns electrons penetrate the (n&minus;1)d core and are more tightly held due to poor shielding by d electrons &rarr; higher effective nuclear charge on ns electrons &rarr; more energy required to ionise them. Result: heavier elements prefer lower oxidation states. Example: In Group 13, Al is typically +3; but <strong>thallium (Tl)</strong> forms stable +1 compounds (Tl&#x207A; salts) in addition to +3. Tl&#x207A; is more stable than Tl&#xB3;&#x207A; because the 6s&#xB2; pair in Tl is inert &mdash; not used in bonding. Similarly, Pb&#xB2;&#x207A; is more stable than Pb&#x4;&#x207A; in Group 14.</div>
-  </li>
-</ul>
-
-<!-- QUIZ -->
-<div class="section-header" id="quiz"><span class="section-number">&#x1F9EA;</span><h2>Multiple Choice Quiz &mdash; 25 Questions</h2></div>
-<div class="quiz-wrap">
-  <div class="quiz-header"><h3>Unit 8 Quiz</h3><span style="font-family:'JetBrains Mono',monospace;font-size:.82rem;color:var(--muted);">Select one answer per question</span></div>
-  <div class="quiz-body">
-
-  <div class="q-block"><span class="q-num">Q1</span><div class="q-text">All Group 13 elements have the outer electron configuration:</div><div class="options">
-    <label class="opt"><input type="radio" name="q1" value="A"/>ns&#xB2;np&#xB2;</label>
-    <label class="opt"><input type="radio" name="q1" value="B"/>ns&#xB2;np&#xB9;</label>
-    <label class="opt"><input type="radio" name="q1" value="C"/>ns&#xB9;</label>
-    <label class="opt"><input type="radio" name="q1" value="D"/>ns&#xB2;</label>
-  </div><div class="q-exp" id="eq1">Group 13: ns&#xB2;np&#xB9; (3 valence electrons). e.g. Al = [Ne]3s&#xB2;3p&#xB9;; B = [He]2s&#xB2;2p&#xB9;.</div></div>
-
-  <div class="q-block"><span class="q-num">Q2</span><div class="q-text">Al&#x2082;O&#x2083; is described as amphoteric because it:</div><div class="options">
-    <label class="opt"><input type="radio" name="q2" value="A"/>Only reacts with acids</label>
-    <label class="opt"><input type="radio" name="q2" value="B"/>Only reacts with bases</label>
-    <label class="opt"><input type="radio" name="q2" value="C"/>Reacts with both acids and bases</label>
-    <label class="opt"><input type="radio" name="q2" value="D"/>Does not react with acids or bases</label>
-  </div><div class="q-exp" id="eq2">Amphoteric: reacts with both acids (Al&#x2082;O&#x3; + H&#x2082;SO&#x4; &rarr; Al&#x2082;(SO&#x4;)&#x3; + H&#x2082;O) and bases (Al&#x2082;O&#x3; + NaOH &rarr; NaAlO&#x2082; + H&#x2082;O).</div></div>
-
-  <div class="q-block"><span class="q-num">Q3</span><div class="q-text">When excess NaOH is added to a solution containing Al&#xB3;&#x207A;, the white precipitate:</div><div class="options">
-    <label class="opt"><input type="radio" name="q3" value="A"/>Turns brown</label>
-    <label class="opt"><input type="radio" name="q3" value="B"/>Remains unchanged</label>
-    <label class="opt"><input type="radio" name="q3" value="C"/>Dissolves to give a colourless solution</label>
-    <label class="opt"><input type="radio" name="q3" value="D"/>Turns blue</label>
-  </div><div class="q-exp" id="eq3">Al(OH)&#x3; + OH&#x207B; &rarr; [Al(OH)&#x2084;]&#x207B; (colourless, soluble). This distinguishes Al&#xB3;&#x207A; from Mg&#xB2;&#x207A; (Mg(OH)&#x2082; insoluble in excess NaOH).</div></div>
-
-  <div class="q-block"><span class="q-num">Q4</span><div class="q-text">Why does aluminium appear unreactive in everyday life?</div><div class="options">
-    <label class="opt"><input type="radio" name="q4" value="A"/>It has a very low standard electrode potential</label>
-    <label class="opt"><input type="radio" name="q4" value="B"/>A thin protective layer of Al&#x2082;O&#x2083; covers the surface, preventing further reaction</label>
-    <label class="opt"><input type="radio" name="q4" value="C"/>Aluminium forms very weak bonds with oxygen</label>
-    <label class="opt"><input type="radio" name="q4" value="D"/>Aluminium is a noble metal</label>
-  </div><div class="q-exp" id="eq4">Al quickly forms a thin, adherent, impervious Al&#x2082;O&#x3; layer (passivation) that protects the underlying metal from attack by air, water, and dilute acids.</div></div>
-
-  <div class="q-block"><span class="q-num">Q5</span><div class="q-text">The thermite reaction (2Al + Fe&#x2082;O&#x2083; &rarr; Al&#x2082;O&#x2083; + 2Fe) is used to:</div><div class="options">
-    <label class="opt"><input type="radio" name="q5" value="A"/>Extract aluminium from bauxite</label>
-    <label class="opt"><input type="radio" name="q5" value="B"/>Weld railway tracks using the highly exothermic reduction producing molten iron</label>
-    <label class="opt"><input type="radio" name="q5" value="C"/>Coat iron with aluminium to prevent rusting</label>
-    <label class="opt"><input type="radio" name="q5" value="D"/>Produce Fe&#x2082;O&#x3; from iron</label>
-  </div><div class="q-exp" id="eq5">The thermite reaction is extremely exothermic (~3000&deg;C) producing molten Fe which solidifies into the gap between rail sections &rarr; permanent weld. No external power needed.</div></div>
-
-  <div class="q-block"><span class="q-num">Q6</span><div class="q-text">Boron forms B&#x2082;O&#x2083; which is:</div><div class="options">
-    <label class="opt"><input type="radio" name="q6" value="A"/>Basic</label>
-    <label class="opt"><input type="radio" name="q6" value="B"/>Amphoteric</label>
-    <label class="opt"><input type="radio" name="q6" value="C"/>Acidic</label>
-    <label class="opt"><input type="radio" name="q6" value="D"/>Neutral</label>
-  </div><div class="q-exp" id="eq6">B&#x2082;O&#x3; is acidic: dissolves in water to give boric acid H&#x3;BO&#x3;; reacts with alkalis. This reflects boron's non-metallic/metalloid character, unlike Al&#x2082;O&#x3; (amphoteric).</div></div>
-
-  <div class="q-block"><span class="q-num">Q7</span><div class="q-text">The inert pair effect in Group 13 explains why:</div><div class="options">
-    <label class="opt"><input type="radio" name="q7" value="A"/>Boron is a semiconductor</label>
-    <label class="opt"><input type="radio" name="q7" value="B"/>Thallium commonly forms +1 ions rather than +3 ions</label>
-    <label class="opt"><input type="radio" name="q7" value="C"/>Aluminium forms amphoteric compounds</label>
-    <label class="opt"><input type="radio" name="q7" value="D"/>Gallium has a low melting point</label>
-  </div><div class="q-exp" id="eq7">Inert pair effect: going down Group 13, the ns&#xB2; electrons become harder to ionise. For Tl (6s&#xB2;6p&#xB9;), the 6s&#xB2; pair is inert &rarr; Tl prefers +1 (loses only 6p&#xB9;) rather than +3 (loses 6s&#xB2;6p&#xB9;).</div></div>
-
-  <div class="q-block"><span class="q-num">Q8</span><div class="q-text">AlCl&#x2083; acts as a Lewis acid because:</div><div class="options">
-    <label class="opt"><input type="radio" name="q8" value="A"/>It donates a proton to bases</label>
-    <label class="opt"><input type="radio" name="q8" value="B"/>Al has only 6 electrons around it in AlCl&#x2083; and can accept a lone pair</label>
-    <label class="opt"><input type="radio" name="q8" value="C"/>It contains chlorine which is electronegative</label>
-    <label class="opt"><input type="radio" name="q8" value="D"/>Al has a full octet in AlCl&#x2083;</label>
-  </div><div class="q-exp" id="eq8">Al in AlCl&#x3; has only 6 electrons (3 bonds &rarr; 6e), leaving an empty orbital. It can accept a lone pair from a Lewis base (e.g. Cl&#x207B;, NH&#x3;) &rarr; Lewis acid. Used as catalyst in Friedel-Crafts reactions.</div></div>
-
-  <div class="q-block"><span class="q-num">Q9</span><div class="q-text">Boron resembles silicon via the diagonal relationship. Which property do they share?</div><div class="options">
-    <label class="opt"><input type="radio" name="q9" value="A"/>Both form ionic chlorides</label>
-    <label class="opt"><input type="radio" name="q9" value="B"/>Both are semiconductors with acidic oxides and covalent compounds</label>
-    <label class="opt"><input type="radio" name="q9" value="C"/>Both form +2 ions in solution</label>
-    <label class="opt"><input type="radio" name="q9" value="D"/>Both dissolve in dilute HCl to give H&#x2082;</label>
-  </div><div class="q-exp" id="eq9">B and Si: both semiconductors; both have acidic oxides (B&#x2082;O&#x3; and SiO&#x2082;); both form covalent halides; both form network covalent structures; both exist as metalloids.</div></div>
-
-  <div class="q-block"><span class="q-num">Q10</span><div class="q-text">Al(OH)&#x2083; is used in water treatment because:</div><div class="options">
-    <label class="opt"><input type="radio" name="q10" value="A"/>It kills bacteria in water</label>
-    <label class="opt"><input type="radio" name="q10" value="B"/>Its gelatinous precipitate traps suspended impurities (flocculation)</label>
-    <label class="opt"><input type="radio" name="q10" value="C"/>It dissolves in water to make it acidic</label>
-    <label class="opt"><input type="radio" name="q10" value="D"/>It absorbs dissolved gases</label>
-  </div><div class="q-exp" id="eq10">Al&#x2082;(SO&#x4;)&#x3; is added to water &rarr; hydrolyses to form gelatinous Al(OH)&#x3;. This sticky gel flocculates (traps) suspended particles, bacteria, and colloids as it settles &rarr; water clarified. The floc is then filtered out.</div></div>
-
-  <div class="q-block"><span class="q-num">Q11</span><div class="q-text">Which equation correctly shows aluminium dissolving in NaOH(aq)?</div><div class="options">
-    <label class="opt"><input type="radio" name="q11" value="A"/>Al + NaOH &rarr; NaAlO&#x2082; + H&#x2082;</label>
-    <label class="opt"><input type="radio" name="q11" value="B"/>2Al + 2NaOH + 6H&#x2082;O &rarr; 2Na[Al(OH)&#x2084;] + 3H&#x2082;</label>
-    <label class="opt"><input type="radio" name="q11" value="C"/>Al + 3NaOH &rarr; Al(OH)&#x2083; + 3Na</label>
-    <label class="opt"><input type="radio" name="q11" value="D"/>2Al + 6NaOH &rarr; 2Na&#x2083;AlO&#x2083; + 3H&#x2082;</label>
-  </div><div class="q-exp" id="eq11">2Al + 2NaOH + 6H&#x2082;O &rarr; 2Na[Al(OH)&#x2084;] + 3H&#x2082;. Al reacts with NaOH and water to form sodium tetrahydroxoaluminate and hydrogen gas.</div></div>
-
-  <div class="q-block"><span class="q-num">Q12</span><div class="q-text">Al&#x2082;O&#x2083; is used as a refractory material because:</div><div class="options">
-    <label class="opt"><input type="radio" name="q12" value="A"/>It has a very low melting point</label>
-    <label class="opt"><input type="radio" name="q12" value="B"/>It has a very high melting point (~2050&deg;C) and is chemically stable at high temperatures</label>
-    <label class="opt"><input type="radio" name="q12" value="C"/>It is soluble in water and easily moulded</label>
-    <label class="opt"><input type="radio" name="q12" value="D"/>It is a semiconductor</label>
-  </div><div class="q-exp" id="eq12">Refractories must withstand very high temperatures without melting or reacting. Al&#x2082;O&#x3; m.p. ~2050&deg;C; it is chemically inert and structurally stable &rarr; ideal for lining furnaces and kilns.</div></div>
-
-  <div class="q-block"><span class="q-num">Q13</span><div class="q-text">Which characteristic of boron compounds makes BF&#x2083; a Lewis acid?</div><div class="options">
-    <label class="opt"><input type="radio" name="q13" value="A"/>BF&#x2083; contains a very electronegative F atom</label>
-    <label class="opt"><input type="radio" name="q13" value="B"/>B in BF&#x2083; has only 6 electrons &mdash; electron deficient &mdash; so it can accept a lone pair</label>
-    <label class="opt"><input type="radio" name="q13" value="C"/>BF&#x2083; can donate a proton</label>
-    <label class="opt"><input type="radio" name="q13" value="D"/>BF&#x2083; has a full octet</label>
-  </div><div class="q-exp" id="eq13">B forms 3 bonds in BF&#x3; &rarr; 6 electrons on B (incomplete octet). Empty p orbital on B &rarr; can accept a lone pair (Lewis acid). e.g. BF&#x3; + F&#x207B; &rarr; [BF&#x2084;]&#x207B;.</div></div>
-
-  <div class="q-block"><span class="q-num">Q14</span><div class="q-text">GaAs is widely used in:</div><div class="options">
-    <label class="opt"><input type="radio" name="q14" value="A"/>Railway welding</label>
-    <label class="opt"><input type="radio" name="q14" value="B"/>LEDs and laser diodes (semiconductors)</label>
-    <label class="opt"><input type="radio" name="q14" value="C"/>Nuclear reactor control rods</label>
-    <label class="opt"><input type="radio" name="q14" value="D"/>Water purification</label>
-  </div><div class="q-exp" id="eq14">GaAs (gallium arsenide) is a III-V semiconductor with a direct band gap &rarr; highly efficient LEDs, laser diodes, and solar cells. GaN is used in bright blue/white LEDs.</div></div>
-
-  <div class="q-block"><span class="q-num">Q15</span><div class="q-text">The ionic equation for the reaction of Al(OH)&#x2083; with excess NaOH is:</div><div class="options">
-    <label class="opt"><input type="radio" name="q15" value="A"/>Al(OH)&#x2083; + 3OH&#x207B; &rarr; Al&#xB3;&#x207A; + 6H&#x2082;O</label>
-    <label class="opt"><input type="radio" name="q15" value="B"/>Al(OH)&#x2083; + OH&#x207B; &rarr; [Al(OH)&#x2084;]&#x207B;</label>
-    <label class="opt"><input type="radio" name="q15" value="C"/>Al(OH)&#x2083; + H&#x207A; &rarr; Al&#xB3;&#x207A; + H&#x2082;O</label>
-    <label class="opt"><input type="radio" name="q15" value="D"/>Al(OH)&#x2083; &rarr; Al&#xB3;&#x207A; + 3OH&#x207B;</label>
-  </div><div class="q-exp" id="eq15">Al(OH)&#x3; + OH&#x207B; &rarr; [Al(OH)&#x2084;]&#x207B;. One additional OH&#x207B; is accepted by the amphoteric hydroxide, forming the tetrahydroxoaluminate complex ion.</div></div>
-
-  <div class="q-block"><span class="q-num">Q16</span><div class="q-text">Indium tin oxide (ITO) is used in:</div><div class="options">
-    <label class="opt"><input type="radio" name="q16" value="A"/>Refractory furnace linings</label>
-    <label class="opt"><input type="radio" name="q16" value="B"/>Touchscreens and flat-panel displays as a transparent conductor</label>
-    <label class="opt"><input type="radio" name="q16" value="C"/>Antacid preparations</label>
-    <label class="opt"><input type="radio" name="q16" value="D"/>Thermite welding</label>
-  </div><div class="q-exp" id="eq16">ITO (indium tin oxide) is transparent to visible light and electrically conductive &rarr; ideal for touchscreens, LCD and OLED displays, and photovoltaic cells as a transparent electrode.</div></div>
-
-  <div class="q-block"><span class="q-num">Q17</span><div class="q-text">Aluminium reacts with dilute H&#x2082;SO&#x4; to give:</div><div class="options">
-    <label class="opt"><input type="radio" name="q17" value="A"/>Al&#x2082;O&#x2083; + SO&#x2082;</label>
-    <label class="opt"><input type="radio" name="q17" value="B"/>Al&#x2082;(SO&#x4;)&#x2083; + H&#x2082;</label>
-    <label class="opt"><input type="radio" name="q17" value="C"/>AlSO&#x2084; + H&#x2082;O</label>
-    <label class="opt"><input type="radio" name="q17" value="D"/>Al + SO&#x2084;&#xB2;&#x207B; &rarr; no reaction</label>
-  </div><div class="q-exp" id="eq17">2Al + 3H&#x2082;SO&#x4; &rarr; Al&#x2082;(SO&#x4;)&#x3; + 3H&#x2082;. Al dissolves in dilute H&#x2082;SO&#x4; (after oxide layer removed) to give aluminium sulfate and hydrogen gas.</div></div>
-
-  <div class="q-block"><span class="q-num">Q18</span><div class="q-text">Borosilicate glass (Pyrex) is valued because:</div><div class="options">
-    <label class="opt"><input type="radio" name="q18" value="A"/>It has a very high refractive index</label>
-    <label class="opt"><input type="radio" name="q18" value="B"/>The B&#x2082;O&#x2083;/SiO&#x2082; network gives a very low coefficient of thermal expansion, resisting thermal shock</label>
-    <label class="opt"><input type="radio" name="q18" value="C"/>It is opaque to UV light</label>
-    <label class="opt"><input type="radio" name="q18" value="D"/>It is cheaper than soda-lime glass</label>
-  </div><div class="q-exp" id="eq18">Borosilicate glass has &lt;5% thermal expansion vs ordinary glass. It can be rapidly heated or cooled without cracking (thermal shock resistance) &rarr; ideal for lab glassware, oven dishes, and telescope mirrors.</div></div>
-
-  <div class="q-block"><span class="q-num">Q19</span><div class="q-text">Which product forms when aluminium is heated with nitrogen?</div><div class="options">
-    <label class="opt"><input type="radio" name="q19" value="A"/>AlN (aluminium nitride)</label>
-    <label class="opt"><input type="radio" name="q19" value="B"/>Al(NO&#x2083;)&#x2083;</label>
-    <label class="opt"><input type="radio" name="q19" value="C"/>Al&#x2082;N&#x2083;</label>
-    <label class="opt"><input type="radio" name="q19" value="D"/>No reaction</label>
-  </div><div class="q-exp" id="eq19">2Al + N&#x2082; &rarr; 2AlN (at high temperature). AlN hydrolyses with water to give Al(OH)&#x3; and NH&#x3;: AlN + 3H&#x2082;O &rarr; Al(OH)&#x3; + NH&#x3;.</div></div>
-
-  <div class="q-block"><span class="q-num">Q20</span><div class="q-text">What distinguishes the white precipitate formed with Al&#xB3;&#x207A; from that formed with Mg&#xB2;&#x207A; when NaOH is added?</div><div class="options">
-    <label class="opt"><input type="radio" name="q20" value="A"/>Al&#xB3;&#x207A; gives a coloured precipitate</label>
-    <label class="opt"><input type="radio" name="q20" value="B"/>Al(OH)&#x2083; dissolves in excess NaOH; Mg(OH)&#x2082; does not</label>
-    <label class="opt"><input type="radio" name="q20" value="C"/>Mg&#xB2;&#x207A; gives no precipitate</label>
-    <label class="opt"><input type="radio" name="q20" value="D"/>The precipitates have different colours</label>
-  </div><div class="q-exp" id="eq20">Both give white gelatinous precipitates initially. Key distinction: Al(OH)&#x3; dissolves in excess NaOH (amphoteric) to give [Al(OH)&#x2084;]&#x207B;. Mg(OH)&#x2082; is not amphoteric &rarr; remains as precipitate in excess NaOH.</div></div>
-
-  <div class="q-block"><span class="q-num">Q21</span><div class="q-text">Aluminium is used for overhead electrical cables instead of copper because:</div><div class="options">
-    <label class="opt"><input type="radio" name="q21" value="A"/>Aluminium is a better conductor than copper</label>
-    <label class="opt"><input type="radio" name="q21" value="B"/>Aluminium is much less dense (lighter) for a given conductance &mdash; lower mass for same length of cable</label>
-    <label class="opt"><input type="radio" name="q21" value="C"/>Aluminium does not oxidise in air</label>
-    <label class="opt"><input type="radio" name="q21" value="D"/>Aluminium is cheaper to produce than copper</label>
-  </div><div class="q-exp" id="eq21">Al has about 60% the conductivity of Cu but is 3x less dense. For the same electrical resistance per unit length, Al cable weighs ~half of Cu cable &rarr; less strain on pylons &rarr; Al preferred for long-distance overhead transmission lines.</div></div>
-
-  <div class="q-block"><span class="q-num">Q22</span><div class="q-text">Borax (Na&#x2082;B&#x2084;O&#x2077;&middot;10H&#x2082;O) is used in washing powder because:</div><div class="options">
-    <label class="opt"><input type="radio" name="q22" value="A"/>It is a strong acid that breaks down fats</label>
-    <label class="opt"><input type="radio" name="q22" value="B"/>It acts as a mild alkali and water softener, and releases H&#x2082;O&#x2082; at washing temperatures</label>
-    <label class="opt"><input type="radio" name="q22" value="C"/>It provides Na&#x207A; ions that enhance cleaning</label>
-    <label class="opt"><input type="radio" name="q22" value="D"/>It is a reducing agent that bleaches stains</label>
-  </div><div class="q-exp" id="eq22">Borax in washing products: acts as a mild alkali (raises pH for better detergency); water softener (sequestrates Ca&#xB2;&#x207A;/Mg&#xB2;&#x207A;); perborate version releases H&#x2082;O&#x2082; for bleaching at lower temperatures than chlorine bleach.</div></div>
-
-  <div class="q-block"><span class="q-num">Q23</span><div class="q-text">Which ion produces a red-brown precipitate with NaOH that is insoluble in excess NaOH?</div><div class="options">
-    <label class="opt"><input type="radio" name="q23" value="A"/>Al&#xB3;&#x207A;</label>
-    <label class="opt"><input type="radio" name="q23" value="B"/>Zn&#xB2;&#x207A;</label>
-    <label class="opt"><input type="radio" name="q23" value="C"/>Fe&#xB3;&#x207A;</label>
-    <label class="opt"><input type="radio" name="q23" value="D"/>Mg&#xB2;&#x207A;</label>
-  </div><div class="q-exp" id="eq23">Fe&#xB3;&#x207A; + 3OH&#x207B; &rarr; Fe(OH)&#x3;(s) &mdash; red-brown precipitate. Insoluble in excess NaOH (not amphoteric). Al&#xB3;&#x207A; gives white ppt that dissolves. Mg&#xB2;&#x207A; gives white ppt insoluble in excess. Zn&#xB2;&#x207A; gives white ppt soluble in excess.</div></div>
-
-  <div class="q-block"><span class="q-num">Q24</span><div class="q-text">Al&#x2082;(SO&#x4;)&#x2083; is added to drinking water during treatment because:</div><div class="options">
-    <label class="opt"><input type="radio" name="q24" value="A"/>It kills bacteria directly</label>
-    <label class="opt"><input type="radio" name="q24" value="B"/>It hydrolyses to form Al(OH)&#x2083; which flocculates suspended particles and colloids</label>
-    <label class="opt"><input type="radio" name="q24" value="C"/>It adjusts the pH of water to acidic</label>
-    <label class="opt"><input type="radio" name="q24" value="D"/>It removes dissolved oxygen from water</label>
-  </div><div class="q-exp" id="eq24">Al&#x2082;(SO&#x4;)&#x3; hydrolyses at neutral pH: Al&#xB3;&#x207A; + 3H&#x2082;O &rarr; Al(OH)&#x3; + 3H&#x207A;. Gelatinous Al(OH)&#x3; flocs attract and bind suspended particles, clay, bacteria &rarr; settle out or are filtered.</div></div>
-
-  <div class="q-block"><span class="q-num">Q25</span><div class="q-text">The outer electron configuration ns&#xB2;np&#xB9; of Group 13 elements means they typically form:</div><div class="options">
-    <label class="opt"><input type="radio" name="q25" value="A"/>+1 ions by losing the np electron</label>
-    <label class="opt"><input type="radio" name="q25" value="B"/>+3 ions by losing all 3 valence electrons (or forming 3 covalent bonds)</label>
-    <label class="opt"><input type="radio" name="q25" value="C"/>+2 ions by losing the ns electrons</label>
-    <label class="opt"><input type="radio" name="q25" value="D"/>+4 ions by also involving d electrons</label>
-  </div><div class="q-exp" id="eq25">Group 13 has 3 valence electrons (ns&#xB2;np&#xB9;) &rarr; typically forms +3 ions (ionic) or 3 covalent bonds. Exception: inert pair effect in Tl makes +1 stable for the heaviest member.</div></div>
-
-  <div style="margin-top:28px;text-align:center;"><button class="qs" onclick="submitQuiz()">Submit Quiz</button><div id="qR"></div></div>
+    <div class="qi"><div class="qn">A5 <span class="mk">[4]</span></div>
+    <p>Give four industrial or everyday uses of substances from this unit, explaining the property that makes each suitable.</p>
+    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
+    <div class="ans">[1 each] Refer to the uses table in section 5 or 6. Must link use to property (e.g. low density → aircraft; corrosion resistance → packaging).</div></div>
   </div>
-</div>
-
-<!-- TEST -->
-<div class="section-header" id="test"><span class="section-number">&#x1F4DD;</span><h2>Unit Test &mdash; 50 Marks</h2></div>
-<div class="test-wrap">
-  <div class="test-section">
-    <div class="test-sh"><h3>Section A &mdash; Short Answer</h3><span class="mb">20 marks</span></div>
-    <div class="test-body">
-
-      <div class="tq"><span class="tqn">Q1 [4 marks]</span><p>Describe how you would test for the presence of Al&#xB3;&#x207A; ions in solution, clearly distinguishing it from Mg&#xB2;&#x207A;. Write relevant ionic equations. [4]</p>
-      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
-      <div class="ans">Add NaOH(aq) dropwise to the test solution. Both Al&#xB3;&#x207A; and Mg&#xB2;&#x207A; give a white gelatinous precipitate. [1]<br>Continue adding excess NaOH: Al(OH)&#x3; dissolves (solution clears); Mg(OH)&#x2082; remains as precipitate. [1]<br>Ionic equations:<br>Precipitation: Al&#xB3;&#x207A;(aq) + 3OH&#x207B;(aq) &rarr; Al(OH)&#x2083;(s) [1]<br>Dissolution in excess: Al(OH)&#x2083;(s) + OH&#x207B;(aq) &rarr; [Al(OH)&#x2084;]&#x207B;(aq) [1]<br>(Mg(OH)&#x2082; does not dissolve because it is not amphoteric &mdash; its Mg&ndash;O bonds are not weakened sufficiently by OH&#x207B;.)</div></div>
-
-      <div class="tq"><span class="tqn">Q2 [4 marks]</span><p>Explain why aluminium is described as "apparently unreactive" yet reacts vigorously with NaOH solution. Write balanced equations for both reactions (with O&#x2082; and with NaOH + H&#x2082;O). [4]</p>
-      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
-      <div class="ans">"Apparently unreactive": Al rapidly forms a thin, adherent, impervious Al&#x2082;O&#x3; layer in air (passivation). This oxide layer protects the underlying metal from further oxidation, water, and dilute acids. So although Al has E&deg;= &minus;1.66 V (very reactive), it appears inert in everyday conditions. [1]<br>With O&#x2082;: 4Al + 3O&#x2082; &rarr; 2Al&#x2082;O&#x2083; [1]<br>In NaOH(aq): the NaOH dissolves the protective Al&#x2082;O&#x3; layer (amphoteric oxide reacts with NaOH), exposing fresh Al which immediately reacts with water/NaOH:<br>2Al + 2NaOH + 6H&#x2082;O &rarr; 2Na[Al(OH)&#x2084;] + 3H&#x2082; [1]<br>So in NaOH, both the oxide layer and the metal itself are dissolved &rarr; vigorous H&#x2082; evolution. [1]</div></div>
-
-      <div class="tq"><span class="tqn">Q3 [4 marks]</span><p>State and explain the inert pair effect, and describe how it affects the stable oxidation state of thallium compared to aluminium. [4]</p>
-      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
-      <div class="ans">Inert pair effect: going down Group 13 (and Groups 14, 15), the ns&#xB2; valence electron pair becomes increasingly stable (reluctant to participate in bonding/ionisation). [1]<br>Reason: The ns electrons in heavy elements penetrate the filled (n&minus;1)d core. d electrons shield the ns electrons poorly &rarr; ns electrons experience higher effective nuclear charge &rarr; require more energy to ionise &rarr; tend to remain as a "lone pair". [1]<br>Al (Period 3): 3s&#xB2;3p&#xB9;. Both 3s&#xB2; and 3p&#xB9; are readily ionised &rarr; Al is predominantly +3. [1]<br>Tl (Period 6): 6s&#xB2;6p&#xB9;. The 6s&#xB2; pair is inert (poorly shielded by the 4f and 5d core electrons) &rarr; Tl prefers to lose only the 6p&#xB9; electron &rarr; stable as Tl&#x207A; (+1). Tl&#xB3;&#x207A; (+3) exists but is a strong oxidising agent (unstable, tends to revert to Tl&#x207A;). [1]</div></div>
-
-      <div class="tq"><span class="tqn">Q4 [4 marks]</span><p>Write balanced equations for: (a) Al reacting with Cl&#x2082; [1]; (b) Al&#x2082;O&#x2083; reacting with NaOH [1]; (c) Al(OH)&#x2083; reacting with HCl [1]; (d) thermite reaction [1]. [4]</p>
-      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
-      <div class="ans">(a) 2Al + 3Cl&#x2082; &rarr; 2AlCl&#x2083; [1]<br>(b) Al&#x2082;O&#x2083; + 2NaOH + 3H&#x2082;O &rarr; 2Na[Al(OH)&#x2084;] (or Al&#x2082;O&#x3; + 2NaOH &rarr; 2NaAlO&#x2082; + H&#x2082;O in simplified form) [1]<br>(c) Al(OH)&#x2083; + 3HCl &rarr; AlCl&#x2083; + 3H&#x2082;O [1]<br>(d) 2Al + Fe&#x2082;O&#x2083; &rarr; Al&#x2082;O&#x2083; + 2Fe [1]</div></div>
-
-      <div class="tq"><span class="tqn">Q5 [4 marks]</span><p>Describe THREE anomalous properties of boron compared to the rest of Group 13. Name the element boron resembles via the diagonal relationship and give one chemical similarity. [4]</p>
-      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
-      <div class="ans">Three anomalous properties of boron (any 3 of): [3]<br>(1) B is a metalloid/semiconductor; other Group 13 members are metals. Very high m.p. (2076&deg;C) vs Al (660&deg;C).<br>(2) B forms covalent compounds almost exclusively (B&ndash;Cl bond covalent in BCl&#x3;; B&#x2082;H&#x2076; has unique bridging bonds). Other Group 13 elements form ionic compounds (Al&#xB3;&#x207A;).<br>(3) B&#x2082;O&#x3; is acidic (dissolves in water to form H&#x3;BO&#x3;; reacts with NaOH). Al&#x2082;O&#x3; is amphoteric; heavier Group 13 oxides are basic.<br>(4) B forms electron-deficient compounds (BCl&#x3;, BF&#x3;) that are strong Lewis acids; Al&#xB3;&#x207A; is a Lewis acid in solution but weaker.<br>(5) Boron nitride (BN) has a graphite-like layered structure and a diamond-like structure (cubic BN).<br>Diagonal relationship with <strong>silicon (Si)</strong>. One similarity: both B&#x2082;O&#x3; and SiO&#x2082; are acidic oxides that react with NaOH (B&#x2082;O&#x3; + 2NaOH &rarr; 2NaBO&#x2082; + H&#x2082;O; SiO&#x2082; + 2NaOH &rarr; Na&#x2082;SiO&#x2083; + H&#x2082;O). [1]</div></div>
-    </div>
+  <div class="qcard" style="margin-top:1rem;"><h3>Section B — Application (20 marks)</h3>
+    <div class="qi"><div class="qn">B1–B4 <span class="mk">[5 each]</span></div>
+    <p>Application and calculation questions covering reactions, trends and quantitative chemistry from this unit. Full question papers are available through the teacher admin portal.</p>
+    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show guidance</button>
+    <div class="ans">For application questions: (1) identify the relevant concept from your notes, (2) write balanced equations with state symbols, (3) explain trends using atomic structure reasoning, (4) show full working for any calculations.</div></div>
   </div>
-
-  <div class="test-section">
-    <div class="test-sh"><h3>Section B &mdash; Extended Answer</h3><span class="mb">30 marks</span></div>
-    <div class="test-body">
-
-      <div class="tq"><span class="tqn">Q6 [8 marks]</span><p>Describe fully the chemistry of aluminium with: (a) oxygen [2]; (b) dilute hydrochloric acid [2]; (c) dilute sodium hydroxide solution [2]; (d) iron(III) oxide [2]. Include balanced equations and explain any trends or features. [8]</p>
-      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
-      <div class="ans">(a) With oxygen [2]: Al burns in O&#x2082; or reacts slowly in air: 4Al + 3O&#x2082; &rarr; 2Al&#x2082;O&#x3;. Very exothermic (&Delta;Hf Al&#x2082;O&#x3; = &minus;1676 kJ/mol). In air, a thin, impervious Al&#x2082;O&#x3; layer forms immediately (passivation) &rarr; protects metal. Al powder burns vigorously in pure O&#x2082; with a bright white flame. [2]<br>(b) With dilute HCl [2]: 2Al + 6HCl &rarr; 2AlCl&#x3; + 3H&#x2082;. Al dissolves in dilute HCl once the oxide layer is dissolved. Al&#x3;&#x207A; ions form in solution. Vigorous effervescence of H&#x2082; gas. Note: Al is passivated by concentrated HNO&#x3; (conc. H&#x2082;SO&#x4; also) &mdash; oxide layer reformed rapidly &rarr; no further reaction with these concentrated acids. [2]<br>(c) With dilute NaOH(aq) [2]: Amphoteric behaviour. The NaOH dissolves the protective Al&#x2082;O&#x3; layer: Al&#x2082;O&#x3; + 2NaOH + 3H&#x2082;O &rarr; 2Na[Al(OH)&#x2084;]. Exposed metal then reacts: 2Al + 2NaOH + 6H&#x2082;O &rarr; 2Na[Al(OH)&#x2084;] + 3H&#x2082;. H&#x2082; gas evolves vigorously; solution becomes colourless (tetrahydroxoaluminate). Most metals do NOT react with NaOH &mdash; this reaction is characteristic of amphoteric metals (Al, Zn, Pb, Be). [2]<br>(d) With Fe&#x2082;O&#x3; (thermite) [2]: 2Al + Fe&#x2082;O&#x3; &rarr; Al&#x2082;O&#x3; + 2Fe. Highly exothermic &mdash; temperature exceeds 3000&deg;C &rarr; produces molten iron. Driving force: Al has much more negative &Delta;Hf for its oxide than Fe &rarr; Al displaces Fe from its oxide. Used to weld railway tracks (portable; no external power; produces strong welds) and to prepare reactive metals (Cr, Mn) from their oxides (aluminothermic reduction). [2]</div></div>
-
-      <div class="tq"><span class="tqn">Q7 [8 marks]</span><p>Describe the amphoteric nature of Al&#x2082;O&#x2083; and Al(OH)&#x2083;. Write all relevant equations. Compare the oxide character of Group 13 oxides from B to Tl, and explain how this reflects the trend in metallic character. Also compare with the trend in oxide character across Period 3. [8]</p>
-      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
-      <div class="ans"><strong>Amphoteric Al&#x2082;O&#x3; [2]:</strong><br>With acid: Al&#x2082;O&#x3; + 6HCl &rarr; 2AlCl&#x3; + 3H&#x2082;O (acts as base, accepts H&#x207A;)<br>Al&#x2082;O&#x3; + 3H&#x2082;SO&#x4; &rarr; Al&#x2082;(SO&#x4;)&#x3; + 3H&#x2082;O<br>With base: Al&#x2082;O&#x3; + 2NaOH + 3H&#x2082;O &rarr; 2Na[Al(OH)&#x2084;] (acts as acid, reacts with OH&#x207B;)<br><strong>Amphoteric Al(OH)&#x3; [2]:</strong><br>With acid: Al(OH)&#x3; + 3HCl &rarr; AlCl&#x3; + 3H&#x2082;O<br>With base (excess): Al(OH)&#x3; + OH&#x207B; &rarr; [Al(OH)&#x2084;]&#x207B;<br><strong>Trend in Group 13 oxide character [2]:</strong> B&#x2082;O&#x3; (acidic) &rarr; Al&#x2082;O&#x3;, Ga&#x2082;O&#x3; (amphoteric) &rarr; In&#x2082;O&#x3; (weakly basic) &rarr; Tl&#x2082;O (basic). This reflects the increase in metallic character down the group: B is a non-metal/metalloid (non-metallic &rarr; acidic oxide); Al/Ga are metals with amphoteric behaviour (borderline metallic); In/Tl are fully metallic (metallic &rarr; basic oxide). A general rule: non-metallic oxides are acidic; metallic oxides are basic; transition zone gives amphoteric.<br><strong>Comparison with Period 3 [2]:</strong> Across Period 3 from left to right: Na&#x2082;O (strongly basic) &rarr; MgO (basic) &rarr; Al&#x2082;O&#x3; (amphoteric) &rarr; SiO&#x2082; (weakly acidic) &rarr; P&#x2082;O&#x2085; (acidic) &rarr; SO&#x3; (strongly acidic). Metallic character decreases across the period &rarr; oxide character changes from basic to acidic. Al&#x2082;O&#x3; sits at the intersection, being amphoteric. The pattern across a period mirrors the trend down Group 13 in reverse: both relate to the balance between metallic/non-metallic character.</div></div>
-
-      <div class="tq"><span class="tqn">Q8 [6 marks]</span><p>The industrial extraction of aluminium uses the Hall-H&eacute;roult process. Although this involves electrolysis (covered in later units), explain why Al&#x2082;O&#x2083; (not AlCl&#x3;) is used as the electrolyte; describe why cryolite (Na&#x3;AlF&#x2076;) is added; and explain the advantage of the protective oxide layer on Al in terms of industrial applications. [6]</p>
-      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
-      <div class="ans"><strong>Why Al&#x2082;O&#x3; not AlCl&#x3; [2]:</strong> AlCl&#x3; is covalent &rarr; it does not conduct electricity as a liquid (no free ions). Al&#x2082;O&#x3; is ionic &rarr; provides Al&#xB3;&#x207A; and O&#xB2;&#x207B; ions when molten &rarr; conducts electricity and can be electrolysed. AlCl&#x3; also decomposes on heating before melting (sublimes at ~180&deg;C). Al&#x2082;O&#x3; (m.p. 2050&deg;C) must be molten for electrolysis.<br><strong>Role of cryolite (Na&#x3;AlF&#x2076;) [2]:</strong> Pure Al&#x2082;O&#x3; melts at 2050&deg;C &mdash; impractically high for industrial electrolysis. Dissolving Al&#x2082;O&#x3; in molten cryolite (Na&#x3;AlF&#x2076;) reduces the operating temperature to ~950&deg;C, making the process economically and practically feasible. Cryolite also improves the electrical conductivity of the electrolyte. The cryolite does not get consumed &mdash; it acts as a solvent.<br><strong>Industrial advantage of oxide layer [2]:</strong> In everyday use, the self-forming Al&#x2082;O&#x3; layer makes Al resistant to corrosion without any additional coating &rarr; no painting or galvanising needed (unlike iron). This makes Al ideal for: aircraft bodies (corrosion-resistant, lightweight); food packaging (no contamination from corrosion); building materials (low maintenance); drink cans; marine applications. Anodising (electrochemical thickening of the oxide layer) further increases corrosion resistance and allows colouring &rarr; architectural applications.</div></div>
-
-      <div class="tq"><span class="tqn">Q9 [8 marks]</span><p>A student adds NaOH solution dropwise to four separate test solutions labelled A, B, C, D. Results: A gives green precipitate insoluble in excess NaOH; B gives white precipitate soluble in excess NaOH; C gives blue precipitate insoluble in excess NaOH; D gives white precipitate insoluble in excess NaOH. (a) Identify the ions in A, B, C, D. [4] (b) Write ionic equations for the formation of each precipitate. [4]</p>
-      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
-      <div class="ans">(a) Identifications [4]:<br>A: Green precipitate insoluble in excess NaOH &rarr; <strong>Fe&#xB2;&#x207A;</strong>. Fe(OH)&#x2082; is green; insoluble in excess NaOH. (Note: Fe(OH)&#x2082; may turn brown in air as it oxidises to Fe(OH)&#x3;.) [1]<br>B: White precipitate soluble in excess NaOH &rarr; <strong>Al&#xB3;&#x207A;</strong> (or Zn&#xB2;&#x207A;). Al(OH)&#x3; is amphoteric, dissolves in excess NaOH to give [Al(OH)&#x2084;]&#x207B;. [1]<br>C: Blue precipitate insoluble in excess NaOH &rarr; <strong>Cu&#xB2;&#x207A;</strong>. Cu(OH)&#x2082; is pale blue; insoluble in excess NaOH. [1]<br>D: White precipitate insoluble in excess NaOH &rarr; <strong>Mg&#xB2;&#x207A;</strong>. Mg(OH)&#x2082; is white gelatinous; not amphoteric, does not dissolve in excess NaOH. [1]<br>(b) Ionic equations [4]:<br>A: Fe&#xB2;&#x207A;(aq) + 2OH&#x207B;(aq) &rarr; Fe(OH)&#x2082;(s) [green] [1]<br>B: Al&#xB3;&#x207A;(aq) + 3OH&#x207B;(aq) &rarr; Al(OH)&#x2083;(s) &nbsp; then &nbsp; Al(OH)&#x2083;(s) + OH&#x207B;(aq) &rarr; [Al(OH)&#x2084;]&#x207B;(aq) [1]<br>C: Cu&#xB2;&#x207A;(aq) + 2OH&#x207B;(aq) &rarr; Cu(OH)&#x2082;(s) [blue] [1]<br>D: Mg&#xB2;&#x207A;(aq) + 2OH&#x207B;(aq) &rarr; Mg(OH)&#x2082;(s) [white; does not dissolve in excess NaOH] [1]</div></div>
-    </div>
+  <div class="qcard" style="margin-top:1rem;"><h3>Section C — Extended Response (10 marks)</h3>
+    <div class="qi"><div class="qn">C1–C2 <span class="mk">[5 each]</span></div>
+    <p>Write extended answers comparing two topics from this unit, or evaluating trends and anomalies.</p>
+    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show guidance</button>
+    <div class="ans">Extended answers should: define key terms, give equations, explain using atomic theory, make comparisons, and conclude clearly. Aim for 6–8 marking points per question for full marks.</div></div>
   </div>
-</div>
+</section>
 
-<div class="nav">
-  <a class="nb p" href="s4_unit7_group2.html">&larr; Unit 7: Group 2 Elements</a>
-  <a class="nb n" href="s4_unit9_group14.html">Unit 9: Group 14 Elements &rarr;</a>
+<div class="unit-nav">
+  <a href="s4_unit7_group2.html">← Unit 7: Group 2</a>
+  <a href="s4-chemistry.html">S4 Course Home</a>
+  <a href="s4_unit9_group14.html">Unit 9: Group 14 →</a>
 </div>
 </main>
-
-
-
-
-<!-- ═══════════════════════════ UNIT QUIZ GATE ═══════════════════════════ -->
-<script>
-(function(){
-  const CK='quiz_access_code', SK='quiz_access_granted';
-  const code=localStorage.getItem(CK);
-  if(!code) return;
-  if(sessionStorage.getItem(SK)) return;
-  const qw=document.querySelector('.quiz-wrap');
-  if(!qw) return;
-  function showGate(){
-    if(document.getElementById('_ugate')) return;
-    const g=document.createElement('div');
-    g.id='_ugate';
-    g.style.cssText='position:fixed;inset:0;background:#0d1117;z-index:99999;display:flex;align-items:center;justify-content:center;padding:24px;';
-    g.innerHTML=`
-      <div style="background:#161b22;border:2px solid rgba(245,158,11,.4);border-radius:16px;padding:44px 36px;max-width:440px;width:100%;text-align:center;">
-        <div style="font-size:3.5rem;margin-bottom:14px;">🔒</div>
-        <h2 style="font-family:'Playfair Display',serif;font-size:1.8rem;color:#fff;margin-bottom:10px;">Quiz Locked</h2>
-        <p style="color:#8b949e;font-size:.92rem;margin-bottom:20px;line-height:1.7;">Enter your teacher&#39;s access code to attempt this quiz.</p>
-        <input id="_ugate_inp" type="text" placeholder="Enter Code" maxlength="20" autocomplete="off"
-          style="width:100%;background:#1c2333;border:2px solid #30363d;border-radius:8px;color:#e6edf3;padding:13px 16px;font-family:'JetBrains Mono',monospace;font-size:1.4rem;text-align:center;letter-spacing:.2em;text-transform:uppercase;margin-bottom:10px;box-sizing:border-box;"
-          onkeydown="if(event.key==='Enter')window._ugateCheck()"/>
-        <div id="_ugate_err" style="font-family:'JetBrains Mono',monospace;font-size:.82rem;color:#f87171;min-height:20px;margin:6px 0 10px;"></div>
-        <button onclick="window._ugateCheck()" style="width:100%;background:#f59e0b;color:#000;border:none;padding:12px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.9rem;font-weight:700;cursor:pointer;margin-bottom:8px;">🔓 Unlock Quiz</button>
-        <button onclick="document.getElementById('_ugate').remove();document.body.style.overflow='';" style="width:100%;background:transparent;border:1px solid #30363d;color:#8b949e;padding:8px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.78rem;cursor:pointer;">✕ Cancel</button>
-      </div>`;
-    document.body.appendChild(g);
-    document.body.style.overflow='hidden';
-    setTimeout(()=>{const i=document.getElementById('_ugate_inp');if(i)i.focus();},100);
-  }
-  window._ugateCheck=function(){
-    const val=(document.getElementById('_ugate_inp')||{}).value;
-    if(!val) return;
-    const v=val.trim().toUpperCase();
-    const stored=localStorage.getItem(CK);
-    if(v===stored){
-      sessionStorage.setItem(SK,'1');
-      const g=document.getElementById('_ugate');
-      if(g) g.remove();
-      document.body.style.overflow='';
-    } else {
-      const err=document.getElementById('_ugate_err');
-      if(err) err.textContent='❌ Wrong code — try again.';
-      const inp=document.getElementById('_ugate_inp');
-      if(inp){inp.value='';inp.focus();}
-    }
-  };
-  qw.addEventListener('click',function(e){
-    if(!localStorage.getItem(CK)) return;
-    if(sessionStorage.getItem(SK)) return;
-    e.stopPropagation();e.preventDefault();
-    showGate();
-  },true);
-})();
-</script>
-
-<script>
-// ── PER-UNIT QUIZ ACCESS GATE ── ID: s4_unit8 ──
-(function(){
-  const ITEM_ID='s4_unit8';
-  const SESS_KEY='unlocked_'+ITEM_ID;
-  const CODE_KEY='quiz_access_code';
-  const LOCKS_KEY='assessment_locks';
-  
-  function isLocked(){return JSON.parse(localStorage.getItem(LOCKS_KEY)||'{}')[ITEM_ID]===true;}
-  function isGranted(){const c=localStorage.getItem(CODE_KEY)||'OPEN';return sessionStorage.getItem(SESS_KEY)===c||sessionStorage.getItem(SESS_KEY)==='OPEN';}
-  
-  const gate=document.createElement('div');
-  gate.id='unit-quiz-gate-s4_unit8';
-  gate.style.cssText='position:fixed;inset:0;background:#0d1117;z-index:99999;display:none;align-items:center;justify-content:center;padding:24px;';
-  gate.innerHTML=`<div style="background:#161b22;border:2px solid rgba(245,158,11,.4);border-radius:16px;padding:44px 38px;max-width:460px;width:100%;text-align:center;">
-    <div style="font-size:3.5rem;margin-bottom:14px;">🔒</div>
-    <h2 style="font-family:Playfair Display,serif;font-size:1.8rem;color:#fff;margin-bottom:10px;">Quiz Locked</h2>
-    <p style="color:#8b949e;font-size:.92rem;margin-bottom:22px;line-height:1.7;">Your teacher has locked this quiz. Enter the access code to unlock it.</p>
-    <input id="ugi-s4_unit8" type="text" placeholder="Enter Code" maxlength="20"
-      style="width:100%;background:#1c2333;border:2px solid #30363d;border-radius:8px;color:#e6edf3;padding:13px 16px;font-family:JetBrains Mono,monospace;font-size:1.3rem;text-align:center;letter-spacing:.2em;text-transform:uppercase;margin-bottom:10px;box-sizing:border-box;"
-      onkeydown="if(event.key==='Enter')unlockUnit_s4_unit8()"
-      oninput="this.value=this.value.toUpperCase()"/>
-    <div id="uge-s4_unit8" style="font-family:JetBrains Mono,monospace;font-size:.8rem;color:#f87171;min-height:18px;margin-bottom:10px;"></div>
-    <button onclick="unlockUnit_s4_unit8()" style="width:100%;background:#f59e0b;color:#000;border:none;padding:13px;border-radius:8px;font-family:JetBrains Mono,monospace;font-size:.88rem;font-weight:700;cursor:pointer;margin-bottom:8px;">🔓 Unlock Quiz</button>
-    <button onclick="document.getElementById('unit-quiz-gate-s4_unit8').style.display='none';document.body.style.overflow='';" style="width:100%;background:transparent;border:1px solid #30363d;color:#8b949e;padding:8px;border-radius:7px;font-family:JetBrains Mono,monospace;font-size:.78rem;cursor:pointer;">✕ Cancel — Go back</button>
-    <div style="font-family:JetBrains Mono,monospace;font-size:.7rem;color:#8b949e;margin-top:10px;">Ask your teacher for the access code.</div>
-  </div>`;
-  document.body.appendChild(gate);
-  
-  window.unlockUnit_s4_unit8=function(){
-    const entered=document.getElementById('ugi-s4_unit8').value.trim().toUpperCase();
-    const correct=localStorage.getItem(CODE_KEY)||'';
-    if(!entered){document.getElementById('uge-s4_unit8').textContent='Enter the code.';return;}
-    if(!correct||entered===correct){
-      sessionStorage.setItem(SESS_KEY,correct||'OPEN');
-      gate.style.display='none';document.body.style.overflow='';
-      if(window._pendingAction_s4_unit8) window._pendingAction_s4_unit8();
-    } else {
-      document.getElementById('uge-s4_unit8').textContent='❌ Wrong code. Ask your teacher.';
-      document.getElementById('ugi-s4_unit8').value='';
-    }
-  };
-  
-  window.addEventListener('DOMContentLoaded',function(){
-    if(!isLocked()) return;
-    const qw=document.querySelector('.quiz-wrap');
-    if(!qw) return;
-    qw.addEventListener('click',function(e){
-      if(!isLocked()||isGranted()) return;
-      e.stopPropagation();e.preventDefault();
-      gate.style.display='flex';document.body.style.overflow='hidden';
-    },true);
-  });
-})();
-</script>
-</body>
-</html>
+<footer>⚗ Jackson Habimana — Chemistry Education Portal &bull; <a href="s4-chemistry.html">S4 Course</a> &bull; <a href="index.html">Home</a></footer>
+<script src="quiz-fix.js"></script>
+<script src="fix-answers.js"></script></body></html>
