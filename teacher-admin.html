@@ -891,6 +891,8 @@ function showTab(id,btn){
     loadApiKey();
     showAccessCodeStatus();
   }
+  if(id==='activity') setTimeout(initActivityTab,50);
+  if(id==='publish-quiz') setTimeout(pqLoadUnits,50);
 }
 
 // ══════════ QUESTION BUILDER ══════════
@@ -1852,6 +1854,7 @@ async function publishUnitQuiz(){
 
     // Update stats
     updateStats();
+pqLoadUnits(); // pre-load unit dropdown
 
   }catch(e){
     alertEl.innerHTML=`<div class="alert alert-danger">❌ Error: ${e.message}</div>`;
