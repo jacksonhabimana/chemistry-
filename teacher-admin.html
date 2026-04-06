@@ -372,7 +372,7 @@ table.results tr:hover td{background:rgba(255,255,255,.02);}
           <label>Course</label>
           <select id="pq-course" onchange="pqLoadUnits()" style="margin-bottom:0;">
             <option value="S4">S4 Chemistry</option>
-            <option value="S5" disabled>S5 Chemistry (coming soon)</option>
+            <option value="S5">S5 Chemistry</option>
             <option value="S6" disabled>S6 Chemistry (coming soon)</option>
           </select>
         </div>
@@ -415,7 +415,7 @@ table.results tr:hover td{background:rgba(255,255,255,.02);}
         <button class="btn" onclick="pqPreview()">👁 Preview Questions</button>
       </div>
 
-      <div id="pq-alert" style="margin-top:14px;"></div>
+      <div id="pq-alert" class="alert" style="margin-top:14px;"></div>
 
       <div id="pq-code-box" style="display:none;margin-top:20px;background:var(--bg);border:2px solid var(--green);border-radius:10px;padding:20px;">
         <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--green);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;">✅ Quiz Published! Share this code with students:</div>
@@ -1757,13 +1757,296 @@ const UNIT_QUIZ_DB = [
   ]},
 ];
 
+const S5_QUIZ_DB = [
+  {num:"Unit 1",title:`Organic Chemistry`,questions:[
+  ]},
+  {num:"Unit 2",title:`Alkanes`,questions:[
+    {text:`What is the general molecular formula for alkanes?`,options:[`CnH2n`,`CnH2n+2`,`CnH2n-2`,`CnHn+2`],correct:0,marks:1},
+    {text:`How many structural isomers does C4H10 have?`,options:[`1`,`2`,`3`,`5`],correct:1,marks:1},
+    {text:`What process is used to separate petroleum into fractions?`,options:[`Chromatography`,`Recrystallisation`,`Fractional distillation`,`Electrolysis`],correct:2,marks:1},
+    {text:`The IUPAC name of (CH3)3CH is:`,options:[`trimethylmethane`,`2-methylbutane`,`2-methylpropane`,`isobutane`],correct:2,marks:1},
+    {text:`Halogenation of alkanes requires:`,options:[`Aqueous acid catalyst`,`UV light or high temperature`,`Alkaline conditions`,`Iron filings catalyst`],correct:1,marks:1},
+    {text:`Which termination step produces ethane during chlorination of methane?`,options:[`Cl&bull; + Cl&bull; &rarr; Cl2`,`&bull;CH3 + Cl&bull; &rarr; CH3Cl`,`&bull;CH3 + &bull;CH3 &rarr; C2H6`,`CH4 + Cl2 &rarr; CH3Cl + HCl`],correct:2,marks:1},
+    {text:`Decarboxylation of sodium propanoate (CH3CH2COONa) with NaOH/CaO produces:`,options:[`Methane`,`Ethane`,`Propane`,`Butane`],correct:1,marks:1},
+    {text:`Why are alkanes relatively unreactive with most chemical reagents?`,options:[`They are gases at room temperature`,`C-C and C-H bonds are strong and non-polar`,`They contain no hydrogen`,`They dissolve in water`],correct:1,marks:1},
+    {text:`Which petroleum fraction is used as jet fuel?`,options:[`Refinery gas`,`Gasoline`,`Kerosene`,`Bitumen`],correct:2,marks:1},
+    {text:`The purpose of catalytic cracking in petroleum refining is:`,options:[`To increase the boiling points of fractions`,`To convert long-chain alkanes into more useful shorter-chain hydrocarbons and alkenes`,`To remove sulfur from crude oil`,`To separate different fractions by boiling point`],correct:1,marks:1},
+  ]},
+  {num:"Unit 3",title:`Alkenes & Alkynes`,questions:[
+    {text:`What is the general formula for alkenes (one double bond)?`,options:[`CnH2n+2`,`CnH2n`,`CnH2n-2`,`CnHn`],correct:1,marks:1},
+    {text:`The hybridisation of each carbon in a C=C double bond is:`,options:[`sp3`,`sp`,`sp2`,`sp4`],correct:1,marks:1},
+    {text:`Which compound shows geometric (cis/trans) isomerism?`,options:[`Ethene (CH2=CH2)`,`Propene (CH3CH=CH2)`,`But-2-ene (CH3CH=CHCH3)`,`2-methylpropene (CH2=C(CH3)2)`],correct:0,marks:1},
+    {text:`What is the major product when HBr adds to propene (CH3CH=CH2)?`,options:[`1-bromopropane`,`2-bromopropane`,`1,2-dibromopropane`,`3-bromopropane`],correct:1,marks:1},
+    {text:`Bromine water is decolourised by an alkene because:`,options:[`The alkene reduces Br2 to Br- ions`,`Br2 adds across the C=C double bond (electrophilic addition)`,`Bromine substitutes a hydrogen atom`,`The alkene is oxidised by Br2`],correct:1,marks:1},
+    {text:`Which conditions are used to dehydrate ethanol to ethene?`,options:[`Dilute H2SO4, room temperature`,`Concentrated H2SO4, ~170°C`,`Alcoholic KOH, heat`,`NaOH(aq), heat`],correct:1,marks:1},
+    {text:`How is ethyne (acetylene) prepared from calcium carbide?`,options:[`CaC2 + 2HCl &rarr; Ca + HC&equiv;CH + Cl2`,`CaC2 + 2H2O &rarr; Ca(OH)2 + HC&equiv;CH`,`2CaC2 + O2 &rarr; 2CaO + HC&equiv;CH`,`CaC2 + H2SO4 &rarr; CaSO4 + HC&equiv;CH`],correct:1,marks:1},
+    {text:`The bond angle around each carbon of a C&equiv;C triple bond is:`,options:[`109.5°`,`120°`,`180°`,`90°`],correct:2,marks:1},
+    {text:`Which of the following is NOT a use of ethene?`,options:[`Manufacture of polyethylene`,`Ripening of fruit`,`Oxy-acetylene welding`,`Production of ethanol`],correct:2,marks:1},
+    {text:`A compound decolourises bromine water AND reacts with 2 moles of Br2 per mole of compound. It is most likely:`,options:[`An alkane`,`An alkene`,`An alkyne`,`An alcohol`],correct:1,marks:1},
+  ]},
+  {num:"Unit 4",title:`Halogenoalkanes`,questions:[
+    {text:`(CH3)2CHBr is classified as:`,options:[`Primary`,`Secondary`,`Tertiary`,`Quaternary`],correct:1,marks:1},
+    {text:`Which reagent and conditions convert a halogenoalkane into an alcohol?`,options:[`Alcoholic KOH, heat`,`Aqueous NaOH, heat under reflux`,`KCN in ethanol, heat`,`Concentrated NH3, heat`],correct:0,marks:1},
+    {text:`The colour of the AgBr precipitate formed in the AgNO3 test is:`,options:[`White`,`Yellow`,`Cream`,`Orange`],correct:0,marks:1},
+    {text:`Reaction of a halogenoalkane with KCN in alcohol extends the carbon chain because:`,options:[`K+ adds to the chain`,`CN- replaces X and introduces one new carbon atom`,`HCN is added across a double bond`,`The halogen is converted to a carbon atom`],correct:1,marks:1},
+    {text:`Which halogenoalkane reacts FASTEST with ethanolic AgNO3?`,options:[`1-chlorobutane`,`1-fluorobutane`,`1-bromobutane`,`1-iodobutane`],correct:3,marks:1},
+    {text:`CFCs damage the ozone layer primarily because:`,options:[`They are heavier than air and accumulate in the stratosphere`,`UV radiation in the stratosphere cleaves C-Cl bonds to form Cl radicals that catalytically destroy O3`,`They react with ozone directly at ground level`,`They absorb infrared radiation and heat up the ozone layer`],correct:1,marks:1},
+    {text:`The reaction of a halogenoalkane with alcoholic KOH produces:`,options:[`An alcohol`,`A nitrile`,`An alkene`,`An amine`],correct:0,marks:1},
+    {text:`Which of the following is used to prepare an iodoalkane from an alcohol?`,options:[`PCl5`,`HI + conc. H2SO4`,`Red phosphorus + I2`,`SOCl2`],correct:0,marks:1},
+    {text:`SN2 reactions are favoured by:`,options:[`Tertiary halogenoalkanes`,`Primary halogenoalkanes`,`All halogenoalkanes equally`,`Fluoroalkanes only`],correct:0,marks:1},
+    {text:`The ozone layer is important because it:`,options:[`Keeps Earth warm by absorbing infrared radiation`,`Absorbs harmful UV-B radiation, protecting life on Earth`,`Provides oxygen for breathing`,`Reflects visible light back to space`],correct:1,marks:1},
+  ]},
+  {num:"Unit 5",title:`Alcohols & Ethers`,questions:[
+    {text:`The correct IUPAC name for (CH3)2CHOH is:`,options:[`Propan-1-ol`,`Propan-2-ol`,`Isopropyl alcohol`,`2-methylethanol`],correct:2,marks:1},
+    {text:`Why do alcohols have much higher boiling points than alkanes of similar molecular mass?`,options:[`Alcohols have stronger van der Waals forces`,`Alcohols form intermolecular hydrogen bonds via the -OH group`,`Alcohols are ionic compounds`,`Alcohols are less volatile`],correct:1,marks:1},
+    {text:`Fermentation of glucose produces:`,options:[`Methanol and CO2`,`Ethanol and H2O`,`Ethanol and CO2`,`Ethanol and O2`],correct:1,marks:1},
+    {text:`Which alcohol is NOT oxidised by acidified K2Cr2O7?`,options:[`Ethanol`,`Propan-2-ol`,`2-methylpropan-2-ol`,`Butan-1-ol`],correct:1,marks:1},
+    {text:`The product of oxidising a secondary alcohol is:`,options:[`A primary alcohol`,`An aldehyde`,`A ketone`,`A carboxylic acid`],correct:0,marks:1},
+    {text:`What is the major product when ethanol is heated with concentrated H2SO4 at 170°C?`,options:[`Diethyl ether`,`Ethene`,`Ethanoic acid`,`Ethanal`],correct:0,marks:1},
+    {text:`Ethanol reacts with ethanoic acid to form ethyl ethanoate. This reaction is:`,options:[`Irreversible with 100% yield`,`A reversible equilibrium reaction catalysed by conc. H2SO4`,`An addition reaction`,`A substitution reaction using a halogen`],correct:1,marks:1},
+    {text:`Ethoxyethane (diethyl ether) has a much lower boiling point than butan-1-ol because:`,options:[`It has a lower molecular mass`,`It cannot form H-bonds between its own molecules (no O-H group)`,`It is ionic`,`It has a longer carbon chain`],correct:1,marks:1},
+    {text:`What is produced when ethanol reacts with sodium metal?`,options:[`Sodium hydroxide and hydrogen`,`Sodium ethoxide and hydrogen`,`Ethene and sodium hydroxide`,`Sodium carbonate and water`],correct:1,marks:1},
+    {text:`Which statement about fermentation vs hydration of ethene is CORRECT?`,options:[`Fermentation uses a higher temperature and gives a purer product`,`Hydration of ethene uses a renewable raw material`,`Fermentation uses a renewable raw material and is more sustainable but gives a less pure product`,`Both processes are carried out at the same temperature`],correct:2,marks:1},
+  ]},
+  {num:"Unit 6",title:`Carbonyl Compounds`,questions:[
+    {text:`What is the IUPAC name for CH3CH2COCH3?`,options:[`Butanal`,`Butan-2-one`,`Butan-3-one`,`Pentan-2-one`],correct:1,marks:1},
+    {text:`Which reagent is used to test for the presence of ANY carbonyl group (aldehyde or ketone)?`,options:[`Tollens&rsquo; reagent`,`Fehling&rsquo;s solution`,`2,4-Dinitrophenylhydrazine (2,4-DNPH)`,`Iodine/NaOH`],correct:0,marks:1},
+    {text:`Tollens&rsquo; reagent gives a silver mirror with:`,options:[`Propanone only`,`Aldehydes only`,`All carbonyl compounds`,`Ketones only`],correct:1,marks:1},
+    {text:`The product of reducing ethanal (CH3CHO) with NaBH4 is:`,options:[`Methanol`,`Propan-2-ol`,`Ethanol`,`Ethanoic acid`],correct:2,marks:1},
+    {text:`Which compound gives a positive iodoform test?`,options:[`Propanal`,`Pentan-3-one`,`Propanone`,`Butanal`],correct:0,marks:1},
+    {text:`Fehling&rsquo;s solution is reduced (gives brick-red precipitate) by:`,options:[`Propanone`,`Butan-2-one`,`Propanal`,`Pentan-3-one`],correct:2,marks:1},
+    {text:`The reaction of an aldehyde or ketone with HCN is classified as:`,options:[`Electrophilic addition`,`Nucleophilic substitution`,`Nucleophilic addition`,`Free-radical addition`],correct:2,marks:1},
+    {text:`Why are aldehydes more reactive than ketones towards nucleophilic addition?`,options:[`Aldehydes have a higher boiling point`,`Aldehydes have one alkyl group (less steric and electronic shielding of C=O)`,`Aldehydes are stronger acids`,`Aldehydes cannot be oxidised`],correct:1,marks:1},
+    {text:`Propanone has a lower boiling point than propan-1-ol (both C3) because:`,options:[`Propanone has a lower molecular mass`,`Propanone cannot form hydrogen bonds between its own molecules`,`Propanone is an ionic compound`,`Propanone has stronger van der Waals forces`],correct:1,marks:1},
+    {text:`The main industrial use of methanal (formaldehyde) is:`,options:[`As an anaesthetic`,`As a fuel`,`Manufacture of phenol-formaldehyde resins (Bakelite) and as a preservative`,`As a solvent for paints`],correct:2,marks:1},
+  ]},
+  {num:"Unit 7",title:`Carboxylic Acids`,questions:[
+    {text:`The IUPAC name of (CH3)2CHCOOH is:`,options:[`Butanoic acid`,`2-methylpropanoic acid`,`3-methylbutanoic acid`,`Isobutyric acid`],correct:1,marks:1},
+    {text:`Which reagent is used to distinguish a carboxylic acid from a phenol?`,options:[`Litmus paper`,`NaOH solution`,`NaHCO3 solution`,`Acidified K2Cr2O7`],correct:0,marks:1},
+    {text:`Why is chloroacetic acid (ClCH2COOH) stronger than ethanoic acid (CH3COOH)?`,options:[`Cl makes the molecule larger`,`Cl is electron-withdrawing, further stabilising the carboxylate anion`,`Cl weakens the O-H bond directly`,`CH3 donates electrons to strengthen the O-H bond`],correct:3,marks:1},
+    {text:`The product of reducing propanoic acid with LiAlH4 is:`,options:[`Propanal`,`Propan-1-ol`,`Propan-2-ol`,`Propanone`],correct:1,marks:1},
+    {text:`The reaction of an acyl chloride with ammonia gives:`,options:[`A carboxylic acid`,`An ester`,`A primary amide`,`An amine`],correct:2,marks:1},
+    {text:`Why does ethanoic acid have an unusually high boiling point (118°C) compared to other organic compounds of similar Mr?`,options:[`It is ionic`,`It forms hydrogen-bonded dimers, doubling the effective molecular mass`,`It has strong covalent bonds between molecules`,`It has a very high density`],correct:1,marks:1},
+    {text:`Acyl chlorides react with water to produce:`,options:[`An ester and NaOH`,`A carboxylic acid and HCl`,`An amide and H2`,`An alcohol and CO2`],correct:1,marks:1},
+    {text:`Which method is preferred for preparing an acyl chloride from a carboxylic acid?`,options:[`PCl3`,`PCl5`,`SOCl2 (thionyl chloride)`,`Cl2 under UV light`],correct:1,marks:1},
+    {text:`Hydrolysis of a nitrile (R-CN) gives:`,options:[`An alcohol with the same number of carbons`,`A carboxylic acid with one more carbon than the original halogenoalkane used to make the nitrile`,`A ketone`,`An aldehyde`],correct:1,marks:1},
+    {text:`Which of the following is a use of ethanoic acid?`,options:[`Oxy-acetylene welding`,`As the monomer for polyethylene`,`As vinegar and in the manufacture of cellulose acetate`,`As an anaesthetic`],correct:2,marks:1},
+  ]},
+  {num:"Unit 8",title:`Esters & Amides`,questions:[
+    {text:`The IUPAC name of CH3CH2COOCH3 is:`,options:[`Methyl ethanoate`,`Ethyl propanoate`,`Methyl propanoate`,`Propyl methanoate`],correct:1,marks:1},
+    {text:`Base hydrolysis of an ester is called saponification. It is irreversible because:`,options:[`The ester is too stable to react further`,`The carboxylate salt produced does not react with the alcohol`,`NaOH is a catalyst, not a reactant`,`The reaction produces a gas that escapes`],correct:1,marks:1},
+    {text:`Why is ethanoic anhydride preferred over ethanoyl chloride for making aspirin industrially?`,options:[`It is cheaper to buy`,`It produces no corrosive HCl by-product; only ethanoic acid which is recyclable`,`It reacts faster than ethanoyl chloride`,`It gives a higher percentage yield`],correct:1,marks:1},
+    {text:`The product of reducing ethanenitrile (CH3CN) with LiAlH4 is:`,options:[`Ethanol`,`Ethanoic acid`,`Ethylamine`,`Ethanamide`],correct:2,marks:1},
+    {text:`Soap molecules form micelles because:`,options:[`They are ionic compounds`,`Their hydrophobic tails dissolve in grease while hydrophilic heads face the water`,`They react chemically with grease`,`They lower the surface tension permanently`],correct:1,marks:1},
+    {text:`Amides have very high boiling points compared to esters of similar molecular mass because:`,options:[`Amides are ionic`,`N-H&middot;&middot;&middot;O=C hydrogen bonds form between amide molecules`,`Amides have larger molecular masses`,`Amides contain double bonds`],correct:1,marks:1},
+    {text:`Which statement about synthetic detergents is correct?`,options:[`They form scum in hard water just like soaps`,`Their calcium and magnesium salts are soluble, so they work in hard water`,`They are made from natural fats`,`They are always anionic`],correct:1,marks:1},
+    {text:`The gas produced when an amide is hydrolysed with NaOH(aq) is:`,options:[`CO2`,`H2`,`NH3`,`HCl`],correct:1,marks:1},
+    {text:`What type of compound is formed when a nitrile is hydrolysed?`,options:[`An alcohol`,`A carboxylic acid (and ammonia)`,`An aldehyde`,`An ester`],correct:1,marks:1},
+    {text:`Fats are solid at room temperature while oils are liquid because:`,options:[`Fats have higher molecular masses than oils`,`Fats have saturated chains that pack closely; oils have unsaturated chains (C=C) that cannot pack as tightly`,`Fats contain more oxygen than oils`,`Oils are not triglycerides`],correct:1,marks:1},
+  ]},
+  {num:"Unit 9",title:`Amines & Amino Acids`,questions:[
+    {text:`(CH3)2CHNH2 is classified as:`,options:[`Secondary amine`,`Primary amine`,`Tertiary amine`,`Quaternary ammonium salt`],correct:1,marks:1},
+    {text:`Which amine is the strongest base?`,options:[`Phenylamine (C6H5NH2)`,`Ammonia (NH3)`,`Dimethylamine ((CH3)2NH)`,`Methylamine (CH3NH2)`],correct:2,marks:1},
+    {text:`Why is phenylamine a weaker base than methylamine?`,options:[`Phenylamine has a larger molecular mass`,`The lone pair on N is delocalised into the benzene ring, reducing availability for protonation`,`The benzene ring donates electrons to N`,`Phenylamine is not soluble in water`],correct:1,marks:1},
+    {text:`The product of reacting ethylamine with ethanoyl chloride is:`,options:[`A salt`,`A secondary amine`,`N-ethylethanamide (a secondary amide)`,`Ethyl ethanoate`],correct:2,marks:1},
+    {text:`Reduction of ethanenitrile (CH3CN) with LiAlH4 gives:`,options:[`Methylamine`,`Ethylamine`,`Ethanol`,`Ethanoic acid`],correct:1,marks:1},
+    {text:`The diazotisation of phenylamine requires what conditions?`,options:[`NaNO2 + HCl at 0-5°C`,`NaNO2 + HCl at room temperature`,`NaNO3 + H2SO4 at 60°C`,`NaNO2 + NaOH`],correct:0,marks:1},
+    {text:`A zwitterion is best described as:`,options:[`A neutral molecule with no charges anywhere`,`A molecule bearing both a positive and a negative charge with no net charge`,`A molecule with only a positive charge`,`An ion with multiple negative charges`],correct:1,marks:1},
+    {text:`Which amino acid has NO chiral centre?`,options:[`Alanine (H2N-CH(CH3)-COOH)`,`Glycine (H2N-CH2-COOH)`,`Serine (H2N-CH(CH2OH)-COOH)`,`Valine`],correct:1,marks:1},
+    {text:`The bond between amino acids in a peptide is called:`,options:[`Ester bond`,`Peptide bond (amide bond)`,`Glycosidic bond`,`Disulfide bond`],correct:1,marks:1},
+    {text:`How many different dipeptides can be formed from two different amino acids A and B?`,options:[`1`,`2`,`4`,`3`],correct:1,marks:1},
+    {text:`The primary structure of a protein is maintained by:`,options:[`Hydrogen bonds`,`Peptide (covalent amide) bonds`,`Disulfide bridges`,`Ionic interactions`],correct:2,marks:1},
+    {text:`Which reagent reduces nitrobenzene to phenylamine?`,options:[`NaBH4`,`Sn/HCl followed by NaOH`,`LiAlH4 alone`,`H2/Pt`],correct:1,marks:1},
+    {text:`Amines act as nucleophiles because:`,options:[`They are positively charged`,`The nitrogen atom has a lone pair of electrons that can be donated`,`They have very high boiling points`,`They are soluble in water`],correct:1,marks:1},
+    {text:`The reaction of phenylamine with HCl produces:`,options:[`A diazonium salt`,`Phenylammonium chloride (C6H5NH3+Cl-)`,`Chlorobenzene`,`N-phenylethanamide`],correct:1,marks:1},
+    {text:`An amino acid in an alkaline solution exists predominantly as:`,options:[`+H3N-CHR-COOH (cation)`,`H2N-CHR-COOH (neutral)`,`H2N-CHR-COO- (anion)`,`+H3N-CHR-COO- (zwitterion)`],correct:2,marks:1},
+    {text:`The secondary structure of a protein (&alpha;-helix) is held by:`,options:[`Covalent peptide bonds`,`Disulfide bridges between cysteine residues`,`Hydrogen bonds between backbone C=O and N-H groups`,`Ionic bonds between R groups`],correct:2,marks:1},
+    {text:`Optical isomers differ in:`,options:[`Their molecular formula`,`The direction they rotate plane-polarised light`,`The number of carbon atoms`,`Their boiling points`],correct:1,marks:1},
+    {text:`The preparation of phenylamine from nitrobenzene is classified as:`,options:[`Oxidation`,`Substitution`,`Reduction`,`Elimination`],correct:0,marks:1},
+    {text:`The racemic mixture of an amino acid:`,options:[`Rotates plane-polarised light strongly clockwise`,`Has no net optical activity`,`Is the same as the L-form`,`Cannot be prepared in the laboratory`],correct:1,marks:1},
+    {text:`An azo dye is formed when a diazonium salt undergoes:`,options:[`Reduction`,`Coupling with an activated aromatic compound (e.g. phenol)`,`Hydrolysis with water`,`Acylation with an acyl chloride`],correct:1,marks:1},
+    {text:`Which statement about the reaction of excess NH3 with halogenoalkanes is correct?`,options:[`Only the primary amine is formed`,`A mixture of primary, secondary, tertiary amines and quaternary salt is formed`,`Only the quaternary salt is formed`,`No reaction occurs`],correct:1,marks:1},
+    {text:`Hydrolysis of a polypeptide with 6M HCl at 110°C gives:`,options:[`Fatty acids and glycerol`,`Nucleotides`,`A mixture of amino acids`,`Glucose monomers`],correct:2,marks:1},
+    {text:`The tertiary structure of a protein is held by all of the following EXCEPT:`,options:[`Disulfide bridges`,`Hydrogen bonds between R groups`,`Covalent peptide bonds between all amino acids in the chain`,`Hydrophobic interactions`],correct:2,marks:1},
+    {text:`2-aminopropanoic acid (alanine, CH3CH(NH2)COOH) is optically active because:`,options:[`It contains a carbon-nitrogen bond`,`Its &alpha;-carbon carries four different groups (H, NH2, CH3, COOH)`,`It has a C=O group`,`It is soluble in water`],correct:1,marks:1},
+    {text:`Paracetamol is synthesised by acylation of 4-aminophenol. The most suitable acylating agent and reason for its use is:`,options:[`Ethanoyl chloride — because it reacts fastest`,`Ethanoic anhydride — because it produces no corrosive HCl; by-product (ethanoic acid) is safe and recyclable`,`Ethanoic acid — because it is cheapest`,`Acetic acid with H2SO4 catalyst — because it is reversible`],correct:1,marks:1},
+  ]},
+  {num:"Unit 10",title:`Phase Diagrams`,questions:[
+    {text:`A phase is defined as:`,options:[`Any single chemical compound`,`A physically distinct, homogeneous region with uniform composition and properties`,`Only solid, liquid, or gas states of matter`,`A mixture of two or more substances`],correct:1,marks:1},
+    {text:`The Gibbs phase rule is F = C - P + 2. For a pure substance at its triple point, F equals:`,options:[`3`,`1`,`2`,`0`],correct:0,marks:1},
+    {text:`What is the triple point of water?`,options:[`0°C, 1 atm`,`100°C, 1 atm`,`0.0098°C, 611 Pa (0.006 atm)`,`374°C, 218 atm`],correct:2,marks:1},
+    {text:`The fusion curve of water has a negative slope because:`,options:[`Water has a high boiling point`,`Ice is less dense than liquid water, so increasing pressure favours the liquid phase`,`Ice has a higher heat capacity than water`,`Water has anomalously high surface tension`],correct:1,marks:1},
+    {text:`Why does dry ice (solid CO2) sublime at atmospheric pressure rather than melting?`,options:[`CO2 is a gas at room temperature`,`The triple point of CO2 (5.11 atm) is above atmospheric pressure, so liquid CO2 cannot exist at 1 atm`,`CO2 has no liquid phase at any pressure`,`The critical point is below room temperature`],correct:1,marks:1},
+    {text:`Above the critical point, a substance exists as:`,options:[`Only a gas`,`Only a liquid`,`A supercritical fluid`,`A solid`],correct:2,marks:1},
+    {text:`For a one-component system along the vapour pressure curve (liquid + vapour equilibrium), F equals:`,options:[`0`,`1`,`2`,`3`],correct:1,marks:1},
+    {text:`The normal boiling point of a liquid is defined as the temperature at which:`,options:[`The vapour pressure equals the triple point pressure`,`The vapour pressure equals 1 atm (101.325 kPa)`,`The liquid and solid phases are in equilibrium`,`The critical pressure is reached`],correct:0,marks:1},
+    {text:`In a heterogeneous equilibrium such as CaCO3(s) &rightleftharpoons; CaO(s) + CO2(g), the equilibrium expression Kp is:`,options:[`Kp = p(CO2) &times; [CaO] / [CaCO3]`,`Kp = p(CO2)`,`Kp = 1/p(CO2)`,`Kp = [CaO][CO2]/[CaCO3]`],correct:1,marks:1},
+    {text:`Raoult's Law states that the partial vapour pressure of a component equals:`,options:[`The total pressure of the mixture`,`The mole fraction in the vapour phase times the total pressure`,`The mole fraction in the liquid phase times the vapour pressure of the pure component`,`The vapour pressure of pure component minus the mole fraction`],correct:2,marks:1},
+    {text:`In the T-x diagram for a binary mixture, the area between the liquid and vapour curves represents:`,options:[`Pure liquid only`,`Pure vapour only`,`A two-phase region with liquid and vapour in equilibrium`,`The supercritical region`],correct:2,marks:1},
+    {text:`The ethanol-water azeotrope at 95.6% ethanol is an example of:`,options:[`A maximum-boiling azeotrope`,`An ideal mixture following Raoult's Law exactly`,`A minimum-boiling azeotrope (positive deviation)`,`A eutectic mixture`],correct:2,marks:1},
+    {text:`Water boils at a lower temperature on a mountain than at sea level because:`,options:[`The air is colder at altitude`,`The atmospheric pressure is lower, so the vapour pressure equals external pressure at a lower temperature`,`Water is purer at altitude`,`Gravity is weaker at altitude`],correct:1,marks:1},
+    {text:`Freeze-drying works by:`,options:[`Heating food above 100°C to evaporate water`,`Freezing food then reducing pressure below the triple point so ice sublimates directly to vapour`,`Adding salt to lower the freezing point`,`Using supercritical CO2 to extract water`],correct:1,marks:1},
+    {text:`Supercritical CO2 is used in coffee decaffeination because:`,options:[`It reacts chemically with caffeine`,`It has low viscosity and good solvating ability above 31.1°C and 73.8 atm, and leaves no toxic residue`,`It converts caffeine to a harmless compound`,`It is the cheapest solvent available`],correct:1,marks:1},
+    {text:`At the triple point of water, F = 0. This means:`,options:[`T and P can both be freely varied`,`T and P are both uniquely fixed and cannot be independently changed`,`Only temperature is fixed`,`Only pressure is fixed`],correct:1,marks:1},
+    {text:`For a binary mixture of two components in a single liquid phase, F equals:`,options:[`1`,`2`,`3`,`0`],correct:0,marks:1},
+    {text:`In a T-x diagram, a tie line connects:`,options:[`The boiling points of the two pure components`,`The composition of the liquid phase and the composition of the vapour phase at the same temperature`,`The critical points of the two components`,`Two azeotropic compositions`],correct:1,marks:1},
+    {text:`A pressure cooker works because:`,options:[`Steam at high pressure is cooler than steam at 1 atm`,`Increasing pressure raises the boiling point of water, allowing cooking at temperatures above 100°C`,`The sealed container prevents evaporation`,`High pressure denatures proteins faster`],correct:1,marks:1},
+    {text:`The critical temperature is the temperature above which:`,options:[`A substance can only exist as a solid`,`A substance cannot be liquefied regardless of applied pressure`,`Boiling becomes impossible`,`The substance sublimes`],correct:1,marks:1},
+    {text:`The equilibrium H2O(l) &rightleftharpoons; H2O(g) is an example of:`,options:[`Homogeneous equilibrium`,`Heterogeneous equilibrium`,`A redox equilibrium`,`A decomposition reaction`],correct:1,marks:1},
+    {text:`For the ideal binary mixture of A and B, if xA = 0.6, PA* = 80 kPa and PB* = 40 kPa, the total vapour pressure is:`,options:[`120 kPa`,`64 kPa`,`80 kPa`,`40 kPa`],correct:1,marks:1},
+    {text:`What does it mean if a binary mixture shows positive deviation from Raoult's Law?`,options:[`The actual total vapour pressure is lower than predicted by Raoult's Law`,`The actual total vapour pressure is higher than predicted by Raoult's Law`,`The mixture is ideal`,`The mixture has a maximum-boiling azeotrope`],correct:1,marks:1},
+    {text:`Along the sublimation curve of a substance, the equilibrium is between:`,options:[`Liquid and gas`,`Solid and liquid`,`Solid and gas`,`Two different solid phases`],correct:1,marks:1},
+    {text:`The lever rule in a two-phase region gives the:`,options:[`Total vapour pressure of the mixture`,`Relative amounts (mole fractions) of liquid and vapour phases at a given overall composition and temperature`,`Boiling point of the pure components`,`The azeotropic composition`],correct:1,marks:1},
+  ]},
+  {num:"Unit 11",title:`Solutions & Titration`,questions:[
+    {text:`How many moles of solute are in 250 cm3 of 0.400 mol/L solution?`,options:[`0.0400 mol`,`0.100 mol`,`1.60 mol`,`0.400 mol`],correct:1,marks:1},
+    {text:`Which of the following is a primary standard?`,options:[`NaOH`,`HCl`,`K2Cr2O7`,`KMnO4`],correct:0,marks:1},
+    {text:`At the equivalence point of a strong acid-strong base titration, the pH is:`,options:[`Below 7`,`Exactly 7`,`Above 7`,`Cannot be determined`],correct:0,marks:1},
+    {text:`For the titration of ethanoic acid with NaOH, the best indicator is:`,options:[`Methyl orange`,`Litmus`,`Phenolphthalein`,`Methyl red`],correct:0,marks:1},
+    {text:`In a KMnO4 titration, the endpoint is indicated by:`,options:[`A permanent blue colour`,`Discharge of the purple colour to colourless`,`The first permanent faint pink/purple colour that persists for 30 seconds`,`A yellow precipitate`],correct:2,marks:1},
+    {text:`In the reaction: 2KMnO4 + 5H2C2O4 + 3H2SO4 &rarr; 2MnSO4 + 10CO2 + 8H2O + K2SO4,if 0.0100 mol KMnO4 is used, how many moles of oxalic acid react?`,options:[`0.0100 mol`,`0.0200 mol`,`0.0250 mol`,`0.0500 mol`],correct:2,marks:1},
+    {text:`What is a back titration and when is it used?`,options:[`A titration done in reverse order (base into acid)`,`A method where excess reagent is added to the analyte, then the unreacted excess is titrated with a standard solution`,`A titration using two indicators simultaneously`,`A method to measure colour changes without a burette`],correct:1,marks:1},
+    {text:`In iodometric titrations, starch indicator turns:`,options:[`Red in the presence of I2`,`Blue-black in the presence of I2`,`Yellow in the presence of I2`,`Green in the presence of I-`],correct:1,marks:1},
+    {text:`A colligative property depends on:`,options:[`The chemical nature of the solute`,`The colour of the solution`,`The number of solute particles dissolved, regardless of their identity`,`The viscosity of the solvent`],correct:2,marks:1},
+    {text:`The freezing point of water is depressed more by 0.1 mol/kg NaCl than by 0.1 mol/kg glucose because:`,options:[`NaCl has a higher molar mass`,`NaCl dissociates into two ions (Na+ and Cl-), doubling the particle count`,`Glucose is sweeter and dissolves faster`,`NaCl is more soluble in water`],correct:1,marks:1},
+    {text:`What is the molarity of a solution made by dissolving 5.30 g of Na2CO3 (Mr=106) in water to give 500 cm3 of solution?`,options:[`0.0500 mol/L`,`0.100 mol/L`,`0.200 mol/L`,`1.00 mol/L`],correct:1,marks:1},
+    {text:`In a titration, 20.00 cm3 of 0.150 mol/L HCl reacts with NaOH. How many cm3 of 0.100 mol/L NaOH is needed?`,options:[`20.00 cm3`,`13.33 cm3`,`30.00 cm3`,`33.33 cm3`],correct:2,marks:1},
+    {text:`Why is KMnO4 classified as a secondary standard, not a primary standard?`,options:[`It is too expensive to use as a primary standard`,`It slowly decomposes and oxidises organic impurities, so its concentration changes over time`,`It is not soluble in water`,`It requires a catalyst to react`],correct:1,marks:1},
+    {text:`The van&rsquo;t Hoff factor (i) for Ca(NO3)2 (fully dissociated) is:`,options:[`1`,`2`,`3`,`4`],correct:1,marks:1},
+    {text:`Osmotic pressure (&pi;) of a solution is given by:`,options:[`&pi; = nRT/V = cRT`,`&pi; = Kf &times; m`,`&pi; = ΔP/ΔT`,`&pi; = xsolute &times; P°`],correct:1,marks:1},
+    {text:`In a back titration of CaCO3 with HCl (excess), the formula used to find moles of CaCO3 is:`,options:[`n(CaCO3) = n(HCl) added`,`n(CaCO3) = [n(HCl) added - n(HCl) remaining] / 2`,`n(CaCO3) = n(HCl) remaining`,`n(CaCO3) = n(HCl) added + n(NaOH) used`],correct:1,marks:1},
+    {text:`Antifreeze (ethylene glycol) works by:`,options:[`Reacting chemically with ice to melt it`,`Boiling point elevation of the water`,`Freezing point depression — the solute lowers the freezing point below 0°C`,`Increasing the viscosity so water cannot flow and freeze`],correct:2,marks:1},
+    {text:`The colour of methyl orange indicator at pH = 5 is:`,options:[`Red`,`Orange/yellow`,`Blue`,`Colourless`],correct:0,marks:1},
+    {text:`Dilution formula c1V1 = c2V2 is valid because:`,options:[`Volume is always conserved when mixing solutions`,`The number of moles of solute is unchanged by dilution with solvent`,`Density remains constant on dilution`,`Molarity is independent of volume`],correct:1,marks:1},
+    {text:`In the dichromate titration, K2Cr2O7 is preferred over KMnO4 for Fe2+ because:`,options:[`K2Cr2O7 is a stronger oxidising agent`,`K2Cr2O7 is a primary standard (stable, pure) while KMnO4 is not`,`K2Cr2O7 is self-indicating`,`K2Cr2O7 does not require acidic conditions`],correct:1,marks:1},
+    {text:`The molality (m) of a solution differs from molarity (c) in that:`,options:[`Molality uses volume of solvent, molarity uses volume of solution`,`Molality uses mass (kg) of solvent, making it temperature-independent; molarity uses volume of solution, which varies with temperature`,`They are identical for dilute solutions`,`Molality includes the solute mass in the denominator`],correct:1,marks:1},
+    {text:`20.00 cm3 of 0.0500 mol/L KMnO4 reacts with Fe2+ (ratio 1:5). How many moles of Fe2+ were present?`,options:[`1.00&times;10-3 mol`,`2.00&times;10-3 mol`,`5.00&times;10-3 mol`,`0.500&times;10-3 mol`],correct:0,marks:1},
+    {text:`The endpoint of an iodometric titration with starch indicator is when:`,options:[`The solution turns blue-black`,`The solution turns from blue-black to colourless (I2 all consumed)`,`The solution turns pink`,`The solution turns orange`],correct:1,marks:1},
+    {text:`3.72 g of an unknown metal carbonate MCO3 reacted with excess HCl. By back titration, 0.0400 mol of MCO3 was found. What is the Mr of MCO3?`,options:[`148.8 g/mol`,`93.0 g/mol`,`186 g/mol`,`37.2 g/mol`],correct:1,marks:1},
+    {text:`Which statement about osmosis is correct?`,options:[`Water moves from high concentration solute to low concentration solute through a semipermeable membrane`,`Water moves from the solution of lower solute concentration (higher water activity) to higher solute concentration (lower water activity)`,`Solute particles move through the membrane to equalise concentration`,`Osmosis requires energy input (active transport)`],correct:1,marks:1},
+  ]},
+  {num:"Unit 12",title:`Conductivity`,questions:[
+    {text:`Which of the following is a strong electrolyte?`,options:[`Acetic acid (CH3COOH)`,`Ammonia (NH3)`,`Sodium chloride (NaCl)`,`Glucose (C6H12O6)`],correct:0,marks:1},
+    {text:`The unit of specific conductivity &kappa; is:`,options:[`S&middot;cm2/mol`,`S/cm`,`&Omega;&middot;cm`,`mol/(S&middot;cm)`],correct:0,marks:1},
+    {text:`The relationship between molar conductivity &Lambda;m, specific conductivity &kappa;, and concentration c (mol/L) is:`,options:[`&Lambda;m = &kappa; &times; c`,`&Lambda;m = &kappa; / c`,`&Lambda;m = (&kappa; &times; 1000) / c`,`&Lambda;m = &kappa; &times; c / 1000`],correct:2,marks:1},
+    {text:`Kohlrausch's law of independent migration states:`,options:[`The conductance of a solution decreases linearly with concentration`,`At infinite dilution, each ion contributes independently and additively to the total molar conductivity`,`The conductance of a weak electrolyte equals that of a strong electrolyte at the same concentration`,`All ions have the same molar conductivity at infinite dilution`],correct:1,marks:1},
+    {text:`H+ has an abnormally high molar ionic conductivity because:`,options:[`It is the smallest ion`,`It moves by the Grotthuss (proton hopping) mechanism along hydrogen-bond chains`,`It has the highest charge-to-mass ratio`,`It forms strong covalent bonds with water`],correct:1,marks:1},
+    {text:`For a weak electrolyte, the degree of dissociation &alpha; at concentration c is given by:`,options:[`&alpha; = &Lambda;m° / &Lambda;m`,`&alpha; = &Lambda;m / &Lambda;m°`,`&alpha; = &Lambda;m &times; c`,`&alpha; = &kappa; / c`],correct:0,marks:1},
+    {text:`On dilution of a strong electrolyte solution, the specific conductivity &kappa;:`,options:[`Increases`,`Decreases`,`Remains constant`,`First increases then decreases`],correct:0,marks:1},
+    {text:`On dilution of a weak electrolyte, the molar conductivity &Lambda;m:`,options:[`Decreases slowly`,`Remains constant`,`Increases steeply, approaching &Lambda;m°`,`Increases linearly`],correct:2,marks:1},
+    {text:`The Debye-H&uuml;ckel-Onsager equation &Lambda;m = &Lambda;m° - A&radic;c describes:`,options:[`Weak electrolytes only`,`The linear variation of &Lambda;m with &radic;c for strong electrolytes at low concentration`,`The variation of &kappa; with temperature`,`The relationship between osmotic pressure and conductivity`],correct:1,marks:1},
+    {text:`&Lambda;m° for CH3COOH cannot be obtained by direct extrapolation of the &Lambda;m vs &radic;c plot because:`,options:[`It is insoluble in water`,`The plot is not linear (curve is very steep near c=0 due to large change in &alpha;)`,`The molar conductivity becomes negative at high dilution`,`All weak electrolytes have zero molar conductivity`],correct:1,marks:1},
+    {text:`The Ostwald dilution law Ka = &alpha;&sup2;c/(1-&alpha;) relates:`,options:[`The dissociation constant to the molar conductivity directly`,`The acid dissociation constant to the degree of dissociation and concentration`,`Molar conductivity to temperature`,`Specific conductivity to resistance`],correct:0,marks:1},
+    {text:`AC current (not DC) is used to measure conductance of solutions because:`,options:[`AC gives more accurate resistance readings`,`DC would cause electrolysis, changing solution composition and polarising the electrodes`,`AC is safer to use in the laboratory`,`DC cannot pass through aqueous solutions`],correct:1,marks:1},
+    {text:`&Lambda;m° for CaCl2 using Kohlrausch's law with &lambda;°(Ca2+)=119.0 and &lambda;°(Cl-)=76.4 S&middot;cm2/mol is:`,options:[`195.4 S&middot;cm2/mol`,`271.8 S&middot;cm2/mol`,`119.0 S&middot;cm2/mol`,`314.4 S&middot;cm2/mol`],correct:1,marks:1},
+    {text:`In a conductimetric titration of strong acid + strong base (HCl + NaOH), the conductance reaches a minimum at the equivalence point because:`,options:[`All salt precipitates at the equivalence point`,`The fast H+ ions are all replaced by slower Na+, giving minimum ionic conductance`,`Water is formed, which is a non-electrolyte`,`The temperature drops at the equivalence point`],correct:1,marks:1},
+    {text:`Which property of a solution can be determined from its conductivity combined with Kohlrausch's law?`,options:[`Its boiling point`,`The degree of dissociation and dissociation constant of a weak electrolyte`,`Its density`,`Its pH directly without calculation`],correct:1,marks:1},
+    {text:`The cell constant Kcell of a conductance cell is:`,options:[`Equal to the conductance at 1 mol/L`,`The ratio L/A (distance between electrodes / area) — a geometric property`,`The temperature coefficient of conductance`,`Equal to 1/&Lambda;m°`],correct:0,marks:1},
+    {text:`The solubility of a sparingly soluble salt can be determined from conductivity because:`,options:[`The salt changes colour on dissolving`,`At very low concentration (like a saturated solution of a sparingly soluble salt), &Lambda;m &asymp; &Lambda;m°, so c = &kappa;/&Lambda;m°`,`Solubility equals molar conductivity at all concentrations`,`The specific conductivity is proportional to density`],correct:1,marks:1},
+    {text:`Which of the following CANNOT conduct electricity in aqueous solution?`,options:[`HCl`,`NaOH`,`Sucrose (C12H22O11)`,`K2SO4`],correct:1,marks:1},
+    {text:`The specific conductivity of 0.100 mol/L KCl is 0.01289 S/cm. Its molar conductivity is:`,options:[`12.89 S&middot;cm2/mol`,`128.9 S&middot;cm2/mol`,`1289 S&middot;cm2/mol`,`0.1289 S&middot;cm2/mol`],correct:1,marks:1},
+    {text:`The &Lambda;m° of CH3COOH using Kohlrausch combination is &Lambda;m°(HCl) + &Lambda;m°(CH3COONa) - &Lambda;m°(NaCl). This works because:`,options:[`Chemical reactions occur between these salts in solution`,`Each ion's contribution is independent, so appropriate combinations add/cancel correctly to give H+ + CH3COO-`,`All three salts have the same molar conductivity`,`This is an empirical rule with no theoretical basis`],correct:1,marks:1},
+    {text:`In a conductimetric titration of CH3COOH with NaOH, before the equivalence point the conductance:`,options:[`Decreases steeply`,`Increases slowly (buffer region, Na+ and CH3COO- accumulate)`,`Remains constant`,`Reaches a maximum then decreases`],correct:1,marks:1},
+    {text:`The conductivity of drinking water is measured to assess:`,options:[`Its pH`,`Its total dissolved ionic content (total dissolved solids)`,`Its temperature`,`The presence of organic pollutants`],correct:1,marks:1},
+    {text:`Platinum black is used to coat the electrodes in a conductance cell because:`,options:[`It is a better electrical conductor than platinum`,`It increases the effective surface area, reducing electrode polarisation and capacitance effects`,`It prevents the electrode from reacting with acid solutions`,`It absorbs all light, improving visual observation`],correct:1,marks:1},
+    {text:`If the specific conductivity of a saturated AgCl solution is 3.41&times;10-6 S/cm (after subtracting water conductance) and &Lambda;m°(AgCl) = 138.3 S&middot;cm2/mol, the solubility of AgCl is:`,options:[`2.47&times;10-5 mol/L`,`3.41&times;10-3 mol/L`,`4.08&times;10-7 mol/L`,`1.38&times;10-4 mol/L`],correct:0,marks:1},
+    {text:`Which statement correctly compares the molar conductivity of strong vs weak electrolytes as concentration approaches zero?`,options:[`Strong electrolytes have a higher &Lambda;m° than weak electrolytes in all cases`,`Strong electrolytes reach &Lambda;m° linearly (small change); weak electrolytes reach &Lambda;m° steeply (large change due to &alpha; increasing)`,`Weak electrolytes always have higher &Lambda;m° than strong electrolytes`,`Both strong and weak electrolytes show identical &Lambda;m vs &radic;c behaviour`],correct:1,marks:1},
+  ]},
+  {num:"Unit 13",title:`Electrolysis`,questions:[
+    {text:`In an electrolytic cell, oxidation occurs at the:`,options:[`Cathode (negative electrode)`,`Anode (positive electrode)`,`Both electrodes simultaneously`,`Neither electrode`],correct:0,marks:1},
+    {text:`The Faraday constant (96,500 C/mol) represents:`,options:[`The charge on one electron`,`The charge carried by one mole of electrons`,`The current needed to deposit 1 g of metal`,`The voltage needed for electrolysis`],correct:1,marks:1},
+    {text:`When dilute H₂SO₄ is electrolysed, which gas is produced at the cathode?`,options:[`Oxygen`,`Sulfur dioxide`,`Hydrogen`,`Sulfur trioxide`],correct:2,marks:1},
+    {text:`Faraday's First Law states that the mass deposited at an electrode is proportional to:`,options:[`The voltage applied`,`The quantity of charge (Q = I×t) passed`,`The molar mass of the substance`,`The temperature of the electrolyte`],correct:1,marks:1},
+    {text:`A current of 2A passes for 1930 seconds through CuSO₄. Moles of Cu deposited (z=2, F=96500):`,options:[`0.0200 mol`,`0.0400 mol`,`0.0100 mol`,`0.0800 mol`],correct:0,marks:1},
+    {text:`In the electrolysis of concentrated NaCl solution, the product at the anode is:`,options:[`Sodium metal`,`Oxygen gas`,`Chlorine gas`,`Hydrogen gas`],correct:0,marks:1},
+    {text:`When copper electrodes are used in the electrolysis of CuSO₄, the concentration of Cu²⁺ in solution:`,options:[`Decreases steadily`,`Increases steadily`,`Remains constant`,`First increases then decreases`],correct:2,marks:1},
+    {text:`Faraday's Second Law states that for the same quantity of electricity, the masses of different substances deposited are proportional to:`,options:[`Their molar masses`,`Their equivalent masses (Mr/z)`,`Their ionic radii`,`Their concentrations in solution`],correct:1,marks:1},
+    {text:`The Hall-Héroult process extracts aluminium from:`,options:[`Aqueous AlCl₃ solution`,`Al₂O₃ dissolved in molten cryolite (Na₃AlF₆)`,`Molten AlCl₃`,`Bauxite ore directly without electrolysis`],correct:1,marks:1},
+    {text:`Why is AC current not suitable for electrolysis?`,options:[`AC is too expensive`,`AC reverses direction, re-dissolving deposits and producing no net chemical change`,`AC cannot pass through electrolyte solutions`,`AC produces too high a temperature`],correct:1,marks:1},
+    {text:`The volume ratio of H₂:O₂ produced in the electrolysis of water (dilute H₂SO₄) is:`,options:[`1:1`,`1:2`,`2:1`,`4:1`],correct:2,marks:1},
+    {text:`In copper electrorefining: impure copper is used as the:`,options:[`Cathode`,`Electrolyte`,`Anode`,`Power supply`],correct:0,marks:1},
+    {text:`How much charge is needed to deposit 3.175 g of copper (Mr=63.5, z=2, F=96500)?`,options:[`4825 C`,`9650 C`,`2413 C`,`19300 C`],correct:1,marks:1},
+    {text:`Why must cryolite be added to Al₂O₃ in the Hall-Héroult process?`,options:[`It provides extra Al³⁺ ions`,`It lowers the melting point of Al₂O₃ from ~2050°C to ~960°C, making the process economically feasible`,`It prevents oxidation of aluminium`,`It acts as a reducing agent`],correct:1,marks:1},
+    {text:`The electrochemical equivalent Z (g/C) for silver (Mr=108, z=1, F=96500) is:`,options:[`1.118×10⁻³ g/C`,`108 g/C`,`0.0108 g/C`,`89.4 g/C`],correct:0,marks:1},
+    {text:`During electrolysis of dilute CuSO₄ with platinum electrodes, the solution gradually:`,options:[`Turns more blue as more Cu²⁺ forms`,`Becomes less blue and more acidic as Cu²⁺ is removed and H⁺ accumulates`,`Remains unchanged throughout`,`Turns brown due to copper deposits in solution`],correct:1,marks:1},
+    {text:`Electroplating a steel spoon with silver uses the spoon as:`,options:[`The anode`,`The electrolyte`,`The cathode`,`The power supply`],correct:0,marks:1},
+    {text:`In the electrolysis of molten NaCl, sodium is produced at the cathode because:`,options:[`Na⁺ is the only cation present, so it must be reduced`,`Cl⁻ migrates to the cathode`,`There is no water to produce H₂ instead`,`Sodium has a low melting point`],correct:2,marks:1},
+    {text:`The test for chlorine gas involves:`,options:[`A squeaky pop with a lit splint`,`Relighting a glowing splint`,`Turning damp starch-iodide paper blue, and bleaching damp litmus paper`,`Turning limewater milky`],correct:2,marks:1},
+    {text:`The equivalent mass of Al (Mr=27, z=3) is:`,options:[`27 g/mol`,`81 g/mol`,`9 g/mol`,`13.5 g/mol`],correct:2,marks:1},
+    {text:`Which ion is preferentially discharged at the cathode from a solution containing both Cu²⁺ and Zn²⁺?`,options:[`Zn²⁺ (E° = −0.76 V)`,`Cu²⁺ (E° = +0.34 V)`,`Both are deposited simultaneously`,`Neither is deposited`],correct:0,marks:1},
+    {text:`Anodising aluminium uses H₂SO₄ as electrolyte and aluminium as the:`,options:[`Cathode — to deposit Al₂O₃`,`Anode — Al is oxidised to form a thick Al₂O₃ layer`,`Electrolyte`,`Neither electrode`],correct:1,marks:1},
+    {text:`A current of 3A deposits 1.98 g of metal X (z=2) in 30 minutes. The molar mass of X is:`,options:[`42.1 g/mol`,`63.5 g/mol`,`27.0 g/mol`,`108 g/mol`],correct:1,marks:1},
+    {text:`The three products of the industrial electrolysis of brine are:`,options:[`H₂, O₂, HCl`,`Cl₂, H₂, NaOH`,`Na, Cl₂, H₂O`,`NaCl, H₂, O₂`],correct:1,marks:1},
+    {text:`Which of the following correctly states Faraday's Second Law?`,options:[`Greater current → more mass deposited`,`For the same charge, masses deposited are proportional to equivalent masses (Mr/z)`,`Heavier ions are always deposited in greater quantity`,`The total mass deposited equals the total mass dissolved`],correct:1,marks:1},
+  ]},
+  {num:"Unit 14",title:`Enthalpy`,questions:[
+    {text:`An exothermic reaction has:`,options:[`ΔH > 0 and products at higher energy than reactants`,`ΔH < 0 and products at lower energy than reactants`,`ΔH > 0 and the surroundings get warmer`,`ΔH = 0 and no energy change`],correct:1,marks:1},
+    {text:`The standard enthalpy of formation of O₂(g) is:`,options:[`+498 kJ/mol (bond dissociation energy)`,`−249 kJ/mol`,`0 kJ/mol`,`+249 kJ/mol`],correct:2,marks:1},
+    {text:`The formula q = mcΔT is used in calorimetry. What does 'c' represent?`,options:[`Concentration of solution (mol/L)`,`Specific heat capacity of the solution (J/g·°C)`,`Number of moles of reactant`,`Speed of the reaction`],correct:1,marks:1},
+    {text:`Hess's Law states:`,options:[`ΔH is always negative for spontaneous reactions`,`The total enthalpy change is independent of the pathway — it depends only on initial and final states`,`Enthalpy change equals the bond energy of reactants`,`The faster the reaction, the greater the enthalpy change`],correct:1,marks:1},
+    {text:`ΔH°rxn from enthalpies of formation is calculated as:`,options:[`Σ ΔH°f(reactants) − Σ ΔH°f(products)`,`Σ ΔH°f(products) − Σ ΔH°f(reactants)`,`Σ ΔH°f(products) + Σ ΔH°f(reactants)`,`Σ ΔH°f(reactants) / Σ ΔH°f(products)`],correct:1,marks:1},
+    {text:`When using bond energies: ΔH = Σ BE(reactants) − Σ BE(products). If ΔH = −200 kJ, the reaction is:`,options:[`Endothermic — more energy in breaking bonds than forming them`,`Exothermic — more energy released in forming bonds than absorbed in breaking them`,`Neither exothermic nor endothermic`,`Endothermic — energy is always absorbed in reactions`],correct:1,marks:1},
+    {text:`The standard enthalpy of neutralisation of a strong acid with a strong base is approximately −57.1 kJ/mol because:`,options:[`All strong acids release 57.1 kJ per mole of acid`,`The net ionic reaction is always H⁺(aq) + OH⁻(aq) → H₂O(l) regardless of which strong acid/base is used`,`All ionic compounds release the same energy when dissolved`,`The spectator ions contribute 57.1 kJ/mol`],correct:1,marks:1},
+    {text:`Kirchhoff's law relates:`,options:[`Enthalpy to entropy`,`The variation of ΔH with temperature, using ΔCp`,`Bond energy to reaction enthalpy`,`Enthalpy to equilibrium constant`],correct:1,marks:1},
+    {text:`The Born-Haber cycle is used to calculate:`,options:[`Enthalpy of combustion of ionic compounds`,`Lattice enthalpy of ionic solids`,`Bond energy of covalent molecules`,`Standard enthalpy of formation of all elements`],correct:1,marks:1},
+    {text:`The enthalpy change for: H₂ + Cl₂ → 2HCl using bond energies (H–H=436, Cl–Cl=243, H–Cl=432 kJ/mol) is:`,options:[`−185 kJ/mol`,`+185 kJ/mol`,`−432 kJ/mol`,`−679 kJ/mol`],correct:0,marks:1},
+    {text:`50 cm³ of water absorbs 1045 J of heat. If ΔT = 5.0°C, the specific heat capacity used is approximately:`,options:[`4.18 J/g·°C`,`2.09 J/g·°C`,`20.9 J/g·°C`,`418 J/g·°C`],correct:0,marks:1},
+    {text:`Bond breaking is always:`,options:[`Exothermic (releases energy)`,`Endothermic (requires energy input)`,`Neither — energy change depends on the bond type`,`Only exothermic for weak bonds`],correct:0,marks:1},
+    {text:`ΔH°rxn for: C₂H₄(g) + H₂(g) → C₂H₆(g), given ΔH°f: C₂H₄=+52.5, H₂=0, C₂H₆=−84.7 kJ/mol, is:`,options:[`+137.2 kJ/mol`,`−32.2 kJ/mol`,`−137.2 kJ/mol`,`+32.2 kJ/mol`],correct:2,marks:1},
+    {text:`The lattice enthalpy of NaCl is −788 kJ/mol. This means:`,options:[`788 kJ is absorbed when 1 mol NaCl dissolves in water`,`788 kJ is released when 1 mol NaCl(s) forms from Na⁺(g) and Cl⁻(g)`,`788 kJ is needed to burn 1 mol NaCl`,`NaCl has a low melting point of 788°C`],correct:1,marks:1},
+    {text:`Which of the following processes is exothermic?`,options:[`Atomisation of Na(s) → Na(g)`,`Ionisation: Na(g) → Na⁺(g) + e⁻`,`Electron affinity: Cl(g) + e⁻ → Cl⁻(g)`,`Vaporisation: H₂O(l) → H₂O(g)`],correct:2,marks:1},
+    {text:`The standard state of carbon used in thermochemical calculations is:`,options:[`Diamond`,`Carbon black (amorphous carbon)`,`Graphite`,`Buckminsterfullerene (C₆₀)`],correct:0,marks:1},
+    {text:`ΔH°rxn from combustion enthalpies uses: ΔH°rxn = Σ ΔH°c(reactants) − Σ ΔH°c(products). Why are the signs reversed compared to the formation equation?`,options:[`Combustion enthalpies are always positive`,`In combustion cycles, the route goes through CO₂/H₂O as the "bottom" of the cycle, so reactants go down and products go up`,`This is a definition with no physical meaning`,`Products are always at higher energy than reactants when combustion data is used`],correct:1,marks:1},
+    {text:`The enthalpy of neutralisation of CH₃COOH (weak acid) with NaOH is less negative than −57.1 kJ/mol because:`,options:[`Acetic acid releases more heat than hydrochloric acid`,`Energy is required to dissociate the weak acid before neutralisation, making the overall process less exothermic`,`NaOH is a weak base with lower reactivity`,`The reaction does not produce water`],correct:1,marks:1},
+    {text:`Which bond has the highest bond energy (hardest to break)?`,options:[`C–C (347 kJ/mol)`,`N≡N (945 kJ/mol)`,`O=O (498 kJ/mol)`,`H–H (436 kJ/mol)`],correct:1,marks:1},
+    {text:`ΔCp in Kirchhoff's law is defined as:`,options:[`Cp(reactants) − Cp(products)`,`Cp(products) − Cp(reactants)`,`Cp(products) × Cp(reactants)`,`Cp(products) / Cp(reactants)`],correct:0,marks:1},
+    {text:`In the Born-Haber cycle for NaCl, the ionisation energy (IE₁) of Na is:`,options:[`Exothermic (Na easily releases an electron)`,`Endothermic (energy is required to remove an electron from Na(g))`,`Zero (Na is a metal)`,`The same as the lattice enthalpy`],correct:1,marks:1},
+    {text:`An experiment in a polystyrene coffee cup measures ΔH for a reaction. The main source of error is:`,options:[`The solution density not being exactly 1.00 g/cm³`,`Heat loss to the surroundings through the cup`,`The reaction not reaching equilibrium`,`The specific heat capacity of the products being unknown`],correct:1,marks:1},
+    {text:`Enthalpy of atomisation ΔH°at is defined as the enthalpy change when 1 mol of gaseous atoms forms from an element in its standard state. It is always:`,options:[`Negative (formation is always exothermic)`,`Zero (atoms are the standard state)`,`Positive (bonds must be broken to form gaseous atoms)`,`Negative for metals and positive for non-metals`],correct:2,marks:1},
+    {text:`The standard enthalpy of formation of CO(g) cannot be measured directly by burning carbon because:`,options:[`CO is too dangerous to measure`,`Burning carbon always produces a mixture of CO and CO₂ — pure CO₂ cannot be guaranteed to form without CO forming too`,`Graphite doesn't burn in oxygen`,`CO₂ is always the product of combustion`],correct:1,marks:1},
+    {text:`The ΔH°f(KCl) from Born-Haber cycle data [ΔH°at(K)=+89, IE₁(K)=+419, ΔH°at(Cl)=+122, EA₁(Cl)=−349, ΔH°latt(KCl)=−717 kJ/mol] is:`,options:[`−436 kJ/mol`,`−717 kJ/mol`,`+436 kJ/mol`,`+281 kJ/mol`],correct:0,marks:1},
+  ]},
+  {num:"Unit 15",title:`Entropy & Free Energy`,questions:[
+    {text:`Entropy is best defined as a measure of:`,options:[`Heat content of a system`,`The number of accessible microstates &#8212; the degree of disorder or randomness`,`The useful work available from a reaction`,`The enthalpy change at constant pressure`],correct:1,marks:1},
+    {text:`The Second Law states that in any spontaneous process:`,options:[`Energy is conserved`,`The entropy of the universe increases (&#916;S_univ > 0)`,`The entropy of the system decreases`,`The enthalpy of the system decreases`],correct:1,marks:1},
+    {text:`The Third Law states that the entropy of a perfect crystal at 0 K is:`,options:[`Infinite`,`Equal to its enthalpy`,`Zero`,`Equal to the Boltzmann constant`],correct:1,marks:1},
+    {text:`A reaction is spontaneous when:`,options:[`&#916;G > 0`,`&#916;G < 0`,`&#916;G = 0`,`&#916;H < 0 always`],correct:0,marks:1},
+    {text:`For &#916;H > 0 and &#916;S > 0, the reaction is spontaneous:`,options:[`At all temperatures`,`Never`,`Only at high T (above T_cross = &#916;H/&#916;S)`,`Only at low temperatures`],correct:2,marks:1},
+    {text:`&#916;S&#176; for: 2H&#8322;(g) + O&#8322;(g) &#8594; 2H&#8322;O(l) is expected to be:`,options:[`Positive (gases form)`,`Negative (3 mol gas &#8594; 2 mol liquid)`,`Zero`,`Positive only at high T`],correct:1,marks:1},
+    {text:`The relationship between &#916;G&#176; and K is:`,options:[`&#916;G&#176; = RT ln K`,`&#916;G&#176; = &#8722;RT ln K`,`&#916;G&#176; = &#8722;nRT`,`K = &#916;G&#176;/RT`],correct:1,marks:1},
+    {text:`For an exothermic reaction (&#916;H&#176; < 0), increasing temperature:`,options:[`Increases K`,`Decreases K (equilibrium shifts left)`,`Has no effect on K`,`Doubles K for every 10 K rise`],correct:1,marks:1},
+    {text:`T_cross where &#916;G changes sign equals:`,options:[`&#916;S&#176;/&#916;H&#176;`,`&#916;H&#176;/&#916;S&#176;`,`R/&#916;G&#176;`,`&#916;H&#176; &#215; &#916;S&#176;`],correct:0,marks:1},
+    {text:`If &#916;G&#176; = &#8722;41.2 kJ/mol at 298 K, K equals approximately:`,options:[`2.1&#215;10&#8315;&#8312;`,`1.66&#215;10&#8311;`,`1.00`,`0.60`],correct:1,marks:1},
+    {text:`Which has the highest entropy at 298 K?`,options:[`H&#8322;O(s)`,`H&#8322;O(l)`,`H&#8322;O(g)`,`All the same`],correct:2,marks:1},
+    {text:`The Boltzmann equation S = k ln W relates entropy to:`,options:[`Temperature and pressure`,`Number of microstates W available to the system`,`Molar mass`,`Heat capacity at constant volume`],correct:1,marks:1},
+    {text:`For &#916;H < 0 and &#916;S < 0, the reaction is spontaneous:`,options:[`At all temperatures`,`Never`,`Only at low temperatures`,`Only at high temperatures`],correct:3,marks:1},
+    {text:`A ln K vs 1/T plot has slope &#8722;6940 K. &#916;H&#176; equals:`,options:[`&#8722;6940 kJ/mol`,`+57.7 kJ/mol`,`&#8722;57.7 kJ/mol`,`+6940 kJ/mol`],correct:1,marks:1},
+    {text:`&#916;G&#176; = &#8722;nFE&#176;cell connects free energy to:`,options:[`Bond energy`,`Electrochemical cell voltage`,`Calorimetric heat`,`Lattice enthalpy`],correct:1,marks:1},
+    {text:`Standard entropy values S&#176; are absolute because:`,options:[`They are measured directly by calorimetry`,`The Third Law gives S = 0 at 0 K as an absolute reference`,`Elements have zero entropy by convention`,`Entropy is always positive`],correct:1,marks:1},
+    {text:`For an endothermic reaction (&#916;H = +100 kJ/mol) at 298 K, &#916;S_surr equals:`,options:[`+336 J/K`,`&#8722;336 J/K`,`0`,`+298 J/K`],correct:1,marks:1},
+    {text:`Condition for spontaneous coupled reaction (&#916;G&#8321; > 0 coupled with &#916;G&#8322; < 0):`,options:[`&#916;G&#8321; + &#916;G&#8322; > 0`,`&#916;G&#8321; + &#916;G&#8322; < 0 (|&#916;G&#8322;| > |&#916;G&#8321;|)`,`&#916;G&#8322; = &#8722;&#916;G&#8321;`,`&#916;G&#8321; &#215; &#916;G&#8322; < 0`],correct:1,marks:1},
+    {text:`Trouton&#39;s rule (&#916;S_vap &#8776; 88 J/mol&#183;K for most liquids) holds because:`,options:[`All liquids boil at the same temperature`,`The degree of disorder gained on vaporisation is similar for most non-associated liquids`,`All vapours have the same molar mass`,`&#916;H_vap is constant for all liquids`],correct:1,marks:1},
+    {text:`At equilibrium, &#916;G equals:`,options:[`&#8722;RT`,`&#916;G&#176;`,`Zero`,`RT ln K`],correct:1,marks:1},
+    {text:`&#916;G&#176;f of any element in its standard state is:`,options:[`Positive`,`Equal to its standard entropy`,`Zero`,`Equal to its ionisation energy`],correct:1,marks:1},
+    {text:`When Q < K (reaction not yet at equilibrium):`,options:[`&#916;G > 0 (reaction goes in reverse)`,`&#916;G < 0 (reaction proceeds forward spontaneously)`,`&#916;G = 0 (already at equilibrium)`,`&#916;G = &#916;G&#176;`],correct:0,marks:1},
+    {text:`K at 298 K for 2SO&#8322; + O&#8322; &#8594; 2SO&#8323; with &#916;G&#176; = &#8722;141.8 kJ/mol is approximately:`,options:[`1.0`,`7.1&#215;10&#178;&#8308;`,`141.8`,`2.7&#215;10&#8315;&#178;&#8309;`],correct:1,marks:1},
+    {text:`A van&#39;t Hoff plot of ln K vs 1/T gives a straight line with:`,options:[`Slope = +&#916;H&#176;/R; intercept = &#8722;&#916;S&#176;/R`,`Slope = &#8722;&#916;H&#176;/R; intercept = +&#916;S&#176;/R`,`A curved line`,`Horizontal line if &#916;G&#176; is constant`],correct:1,marks:1},
+    {text:`ATP hydrolysis drives biological reactions because:`,options:[`ATP raises cell temperature`,`Free energy released (&#916;G&#176; &#8776; &#8722;30.5 kJ/mol) couples to drive non-spontaneous biosynthetic reactions`,`ATP increases reactant concentrations`,`ATP acts as an enzyme catalyst`],correct:1,marks:1},
+  ]},
+];
 let _pqLastBinId = '';
 
+function pqGetDB(){
+  const course = (document.getElementById('pq-course')||{}).value||'S4';
+  return course==='S5' ? S5_QUIZ_DB : UNIT_QUIZ_DB;
+}
 function pqLoadUnits(){
   const sel = document.getElementById('pq-unit');
   sel.innerHTML = '<option value="">— Select a unit —</option>';
-  UNIT_QUIZ_DB.forEach((u,i)=>{
-    sel.innerHTML += `<option value="${i}">${u.num} — ${u.title} (${u.questions.length} questions)</option>`;
+  const db = pqGetDB();
+  db.forEach((u,i)=>{
+    const n = u.questions.length;
+    sel.innerHTML += `<option value="${i}" ${n===0?'disabled':''}>${u.num} — ${u.title}${n>0?' ('+n+' questions)':' (coming soon)'}</option>`;
   });
   document.getElementById('pq-preview').style.display='none';
   document.getElementById('pq-code-box').style.display='none';
@@ -1773,7 +2056,7 @@ function pqLoadUnits(){
 function pqPreview(){
   const idx = document.getElementById('pq-unit').value;
   if(idx===''){alert('Please select a unit first.');return;}
-  const unit = UNIT_QUIZ_DB[parseInt(idx)];
+  const unit = pqGetDB()[parseInt(idx)];
   const prev = document.getElementById('pq-preview');
   prev.style.display='';
   document.getElementById('pq-preview-title').textContent = `S4 ${unit.num} — ${unit.title}`;
@@ -1799,17 +2082,17 @@ async function publishUnitQuiz(){
   const key = localStorage.getItem('jsonbin_key');
   const alertEl = document.getElementById('pq-alert');
   if(!key){
-    alertEl.innerHTML='<div class="alert alert-danger">⚠️ No JSONBin API key set. Go to Settings tab first.</div>';
+    showAlert(alertEl,'danger','⚠️ No JSONBin API key set. Go to Settings tab first.');
     return;
   }
 
-  const unit = UNIT_QUIZ_DB[parseInt(idx)];
+  const unit = pqGetDB()[parseInt(idx)];
   const time = parseInt(document.getElementById('pq-time').value)||30;
   const pass = parseInt(document.getElementById('pq-pass').value)||50;
   const warn = parseInt(document.getElementById('pq-warn').value)||3;
   const instructions = document.getElementById('pq-instructions').value.trim();
 
-  alertEl.innerHTML='<div class="alert alert-success">Publishing...</div>';
+  showAlert(alertEl,'success','⏳ Publishing...');
   document.getElementById('pq-code-box').style.display='none';
 
   // Build exam object in exact format student-exam.html expects
@@ -1848,8 +2131,8 @@ async function publishUnitQuiz(){
     exams.push(examObj);
     localStorage.setItem('exams', JSON.stringify(exams));
 
-    alertEl.innerHTML='<div class="alert alert-success">✅ Published successfully!</div>';
-    document.getElementById('pq-code-box').style.display='';
+    showAlert(alertEl,'success','✅ Published successfully!');
+    document.getElementById('pq-code-box').style.display='block';
     document.getElementById('pq-code-text').textContent = binId;
 
     // Update stats
@@ -1857,7 +2140,7 @@ async function publishUnitQuiz(){
 pqLoadUnits(); // pre-load unit dropdown
 
   }catch(e){
-    alertEl.innerHTML=`<div class="alert alert-danger">❌ Error: ${e.message}</div>`;
+    showAlert(alertEl,'danger','❌ Error: '+e.message);
   }
 }
 
