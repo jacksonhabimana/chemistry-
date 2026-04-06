@@ -100,6 +100,24 @@
   sub,sup{font-size:.72em;}
   .ec{font-family:'JetBrains Mono',monospace;background:rgba(167,139,250,.1);border:1px solid rgba(167,139,250,.2);border-radius:4px;padding:2px 8px;font-size:.88rem;color:var(--accent);}
   @media(max-width:600px){.hero{padding:50px 20px 40px;}.page{padding:0 16px 60px;}}
+
+.mini-quiz{background:var(--surface2);border:1px solid rgba(56,189,248,.2);border-radius:var(--radius);overflow:hidden;margin:32px 0 16px;}
+.mq-head{background:rgba(56,189,248,.1);border-bottom:1px solid rgba(56,189,248,.2);padding:12px 20px;display:flex;align-items:center;gap:10px;}
+.mq-head h4{font-family:'Playfair Display',serif;font-size:.98rem;color:#fff;flex:1;}
+.mq-badge{font-family:'JetBrains Mono',monospace;font-size:.68rem;background:rgba(56,189,248,.15);border:1px solid rgba(56,189,248,.3);color:var(--accent);padding:3px 10px;border-radius:50px;white-space:nowrap;}
+.mq-body{padding:18px 22px;}
+.mq-qblock{margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid var(--border);}
+.mq-qblock:last-of-type{border-bottom:none;margin-bottom:6px;padding-bottom:0;}
+.mq-qnum{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--accent);display:block;margin-bottom:5px;}
+.mq-qtext{font-size:.93rem;color:#fff;margin-bottom:9px;line-height:1.6;}
+.mq-opts label{display:flex;align-items:flex-start;gap:8px;padding:7px 11px;margin-bottom:5px;border-radius:7px;border:1px solid var(--border);cursor:pointer;font-size:.86rem;transition:all .15s;background:var(--bg);}
+.mq-opts label:hover{border-color:var(--accent);}
+.mq-opts label.correct{background:rgba(52,211,153,.1);border-color:var(--green)!important;color:var(--green);}
+.mq-opts label.wrong{background:rgba(248,113,113,.07);border-color:var(--red)!important;color:var(--red);}
+.mq-opts input[type=radio]{margin-top:3px;accent-color:var(--accent);flex-shrink:0;}
+.mq-exp{display:none;margin-top:7px;padding:9px 13px;background:rgba(56,189,248,.06);border-left:3px solid var(--accent);border-radius:0 5px 5px 0;font-size:.83rem;line-height:1.6;color:var(--muted);}
+.mq-submit{background:var(--accent);color:#000;border:none;padding:9px 26px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:.8rem;font-weight:700;cursor:pointer;transition:opacity .2s;margin-top:4px;}
+.mq-submit:hover{opacity:.85;}
 </style>
 </head>
 <body>
@@ -163,6 +181,176 @@ h = 6.626 &times; 10&#x207B;&#xB3;&#x2074; J s &nbsp; c = 3.00 &times; 10&#x2078
 <div class="callout info"><span class="callout-icon">&#x2139;&#xFE0F;</span><div class="callout-body"><strong>Ground state vs excited state</strong>Ground state = lowest energy arrangement (electrons in lowest available shells). Excited state = electron has absorbed energy and jumped to a higher shell. It rapidly falls back, emitting a photon.</div></div>
 <div class="callout warn"><span class="callout-icon">&#x26A0;&#xFE0F;</span><div class="callout-body"><strong>Limitation of Bohr's model</strong>Works well for hydrogen but fails for multi-electron atoms. Replaced by the quantum mechanical orbital model, but the concept of quantised energy levels remains valid.</div></div>
 
+
+<div style="background:var(--surface);border:1px solid rgba(56,189,248,.25);border-radius:10px;overflow:hidden;margin:28px 0 40px;">
+  <div style="background:rgba(56,189,248,.08);border-bottom:1px solid rgba(56,189,248,.25);padding:14px 22px;display:flex;align-items:center;justify-content:space-between;">
+    <div><div style="font-family:'JetBrains Mono',monospace;font-size:.68rem;color:#38bdf8;text-transform:uppercase;letter-spacing:.1em;">Section 2.1 Quick Quiz</div><strong style="color:#fff;font-family:'Playfair Display',serif;">Bohr's Atomic Model & Energy Levels</strong></div>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);">10 Questions</span>
+  </div>
+  <div style="padding:20px 22px;">
+    <script>window._EMQA=window._EMQA||{};window._EMQA["2_1"]={1:2,2:3,3:0,4:2,5:2,6:0,7:1,8:1,9:2,10:3};</script>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#38bdf8;margin-bottom:6px;">Q1</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">In Bohr's model of the hydrogen atom, electrons:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_1_1_A"><input type="radio" name="mq2_1_1" value="A" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Can occupy any energy level</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_1_1_B"><input type="radio" name="mq2_1_1" value="B" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Orbit the nucleus only in allowed (quantised) energy levels without emitting radiation</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_1_1_C"><input type="radio" name="mq2_1_1" value="C" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Move randomly in the electron cloud</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_1_1_D"><input type="radio" name="mq2_1_1" value="D" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Are embedded in the nucleus</span></label>
+      <div id="mqE2_1_1" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(56,189,248,.08);border-left:3px solid #38bdf8;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">Bohr (1913) proposed electrons orbit in discrete energy levels (shells) — they do NOT radiate energy while in these fixed orbits. Electrons can only jump between levels by absorbing/emitting exact quanta of energy. This explained the discrete line spectrum of hydrogen.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#38bdf8;margin-bottom:6px;">Q2</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">When an electron moves from a higher to a lower energy level, it:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_1_2_A"><input type="radio" name="mq2_1_2" value="A" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Absorbs a photon of light</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_1_2_B"><input type="radio" name="mq2_1_2" value="B" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Emits a photon of light with energy = ΔE between levels</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_1_2_C"><input type="radio" name="mq2_1_2" value="C" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Gains kinetic energy</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_1_2_D"><input type="radio" name="mq2_1_2" value="D" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Is lost from the atom</span></label>
+      <div id="mqE2_1_2" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(56,189,248,.08);border-left:3px solid #38bdf8;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">Electron transition to lower level: releases energy as a photon. E(photon) = hf = E(higher) − E(lower). This energy corresponds to a specific wavelength/frequency of light → produces a spectral line. This is the basis of atomic emission spectroscopy.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#38bdf8;margin-bottom:6px;">Q3</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">What does it mean to say that atomic energy levels are 'quantised'?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_1_3_A"><input type="radio" name="mq2_1_3" value="A" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Atoms contain equal numbers of protons and electrons</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_1_3_B"><input type="radio" name="mq2_1_3" value="B" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Energy levels can only have specific discrete values — not a continuous range</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_1_3_C"><input type="radio" name="mq2_1_3" value="C" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>All electrons have the same energy</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_1_3_D"><input type="radio" name="mq2_1_3" value="D" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Energy levels are infinitely large</span></label>
+      <div id="mqE2_1_3" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(56,189,248,.08);border-left:3px solid #38bdf8;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">Quantised: only certain specific energy values are allowed. Electrons cannot have energies between allowed levels — they must be in an allowed state. Like rungs on a ladder (not a ramp). This quantisation explains why hydrogen produces only specific spectral lines, not a continuous spectrum.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#38bdf8;margin-bottom:6px;">Q4</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Which scientist proposed that electrons move in fixed circular orbits around the nucleus?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_1_4_A"><input type="radio" name="mq2_1_4" value="A" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Thomson</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_1_4_B"><input type="radio" name="mq2_1_4" value="B" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Rutherford</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_1_4_C"><input type="radio" name="mq2_1_4" value="C" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Bohr</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_1_4_D"><input type="radio" name="mq2_1_4" value="D" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Schrödinger</span></label>
+      <div id="mqE2_1_4" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(56,189,248,.08);border-left:3px solid #38bdf8;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">Niels Bohr (1913) developed the planetary model with fixed electron orbits for hydrogen. He used quantum theory to explain why electrons don't spiral into the nucleus and why hydrogen emits discrete spectral lines. His model worked perfectly for hydrogen but failed for multi-electron atoms.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#38bdf8;margin-bottom:6px;">Q5</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The ground state of an atom is defined as:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_1_5_A"><input type="radio" name="mq2_1_5" value="A" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>The state with maximum energy</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_1_5_B"><input type="radio" name="mq2_1_5" value="B" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>The lowest energy state — all electrons in their lowest possible energy levels</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_1_5_C"><input type="radio" name="mq2_1_5" value="C" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>The state where electrons are in the nucleus</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_1_5_D"><input type="radio" name="mq2_1_5" value="D" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>The ionised state</span></label>
+      <div id="mqE2_1_5" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(56,189,248,.08);border-left:3px solid #38bdf8;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">Ground state: the lowest energy configuration of an atom — electrons occupy the lowest available energy levels. Excited state: one or more electrons have been promoted to higher levels (by absorbing energy). Atoms naturally return to ground state, emitting photons in the process.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#38bdf8;margin-bottom:6px;">Q6</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">When an electron absorbs energy and moves to a higher energy level, the atom is described as:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_1_6_A"><input type="radio" name="mq2_1_6" value="A" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Ionised</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_1_6_B"><input type="radio" name="mq2_1_6" value="B" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>In the ground state</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_1_6_C"><input type="radio" name="mq2_1_6" value="C" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>In an excited state</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_1_6_D"><input type="radio" name="mq2_1_6" value="D" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Discharged</span></label>
+      <div id="mqE2_1_6" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(56,189,248,.08);border-left:3px solid #38bdf8;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">Excited state: atom has absorbed energy → electron promoted to higher level. The atom is unstable in this state and rapidly (nanoseconds) returns to a lower level, emitting a photon. The wavelength of the emitted photon corresponds to a specific spectral line.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#38bdf8;margin-bottom:6px;">Q7</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The energy levels in hydrogen are labelled n=1, 2, 3... Where is the electron in the ground state?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_1_7_A"><input type="radio" name="mq2_1_7" value="A" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>n=3</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_1_7_B"><input type="radio" name="mq2_1_7" value="B" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>n=2</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_1_7_C"><input type="radio" name="mq2_1_7" value="C" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>n=1</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_1_7_D"><input type="radio" name="mq2_1_7" value="D" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>n=∞</span></label>
+      <div id="mqE2_1_7" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(56,189,248,.08);border-left:3px solid #38bdf8;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">In ground state hydrogen, the single electron occupies n=1 (the innermost, lowest energy shell). n=∞ represents the ionised state (electron completely removed). Energy needed to ionise hydrogen from ground state = first ionisation energy = 1312 kJ/mol.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#38bdf8;margin-bottom:6px;">Q8</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Why did Bohr's model fail for atoms with more than one electron?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_1_8_A"><input type="radio" name="mq2_1_8" value="A" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Bohr didn't know about neutrons</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_1_8_B"><input type="radio" name="mq2_1_8" value="B" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Bohr's model only accounted for electron-nucleus attraction, ignoring electron-electron repulsion in multi-electron atoms</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_1_8_C"><input type="radio" name="mq2_1_8" value="C" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>The model only worked for gases</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_1_8_D"><input type="radio" name="mq2_1_8" value="D" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Bohr used incorrect values for the speed of light</span></label>
+      <div id="mqE2_1_8" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(56,189,248,.08);border-left:3px solid #38bdf8;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">Bohr's model assumed a simple hydrogen-like system with one electron. For multi-electron atoms, electron-electron repulsions (inter-electronic forces) significantly affect energy levels in ways Bohr's model couldn't account for. The quantum mechanical model (Schrödinger equation) successfully handles multi-electron atoms.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#38bdf8;margin-bottom:6px;">Q9</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The energy of an emitted photon depends on:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_1_9_A"><input type="radio" name="mq2_1_9" value="A" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>The mass of the electron only</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_1_9_B"><input type="radio" name="mq2_1_9" value="B" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>The difference in energy between the two levels involved in the transition (ΔE = hf)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_1_9_C"><input type="radio" name="mq2_1_9" value="C" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>The temperature of the atom</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_1_9_D"><input type="radio" name="mq2_1_9" value="D" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>The atomic number of the element</span></label>
+      <div id="mqE2_1_9" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(56,189,248,.08);border-left:3px solid #38bdf8;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">E(photon) = hf = hc/λ = ΔE = E(upper level) − E(lower level). Higher energy difference → higher frequency → shorter wavelength photon. This is why each element produces a unique spectrum: its energy levels are unique → unique set of ΔE values → unique set of spectral lines.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#38bdf8;margin-bottom:6px;">Q10</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Bohr's model successfully explained:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_1_10_A"><input type="radio" name="mq2_1_10" value="A" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>The spectra of all atoms</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_1_10_B"><input type="radio" name="mq2_1_10" value="B" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Only the line spectrum of hydrogen (and hydrogen-like ions)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_1_10_C"><input type="radio" name="mq2_1_10" value="C" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>The shapes of atomic orbitals</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_1_10_D"><input type="radio" name="mq2_1_10" value="D" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>The reactivity of metals</span></label>
+      <div id="mqE2_1_10" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(56,189,248,.08);border-left:3px solid #38bdf8;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">Bohr's model successfully explained the line spectrum of hydrogen (single electron). It correctly predicted wavelengths of H spectral lines. However, it failed for He (2 electrons) and heavier atoms. The full quantum mechanical model (Schrödinger, 1926) is needed for multi-electron atoms.</div>
+    </div>
+    <div style="text-align:center;"><button onclick="submitMQ('2_1',10)" style="background:#38bdf8;color:#000;border:none;padding:9px 30px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:.85rem;font-weight:700;cursor:pointer;">Check Answers</button><div id="mqRES2_1" style="display:none;margin-top:10px;border-radius:7px;padding:12px;font-family:'JetBrains Mono',monospace;font-size:.85rem;text-align:center;"></div></div>
+  </div>
+</div>
+
+<!-- MINI-QUIZ s21 -->
+<div class="mini-quiz" id="mq-s21">
+  <div class="mq-head"><span style="font-size:1.1rem;">&#127919;</span><h4>Section 2.1 — Shells & Subshells</h4><span class="mq-badge">10 Questions</span></div>
+  <div class="mq-body">
+    <div class="mq-qblock"><span class="mq-qnum">Q1 of 10</span><p class="mq-qtext">The maximum number of electrons in the second shell (n=2) is:</p><div class="mq-opts">
+      <label><input type="radio" name="u2s1q1" value="A"> 2</label>
+      <label><input type="radio" name="u2s1q1" value="B"> 8</label>
+      <label><input type="radio" name="u2s1q1" value="C"> 18</label>
+      <label><input type="radio" name="u2s1q1" value="D"> 32</label>
+    </div><div class="mq-exp" id="mqe-u2s1q1">Shell n: max electrons = 2n². n=2: 2×4=8. Subshells: 2s (2e) + 2p (6e) = 8.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q2 of 10</span><p class="mq-qtext">The subshell with l=1 is:</p><div class="mq-opts">
+      <label><input type="radio" name="u2s1q2" value="A"> s</label>
+      <label><input type="radio" name="u2s1q2" value="B"> p</label>
+      <label><input type="radio" name="u2s1q2" value="C"> d</label>
+      <label><input type="radio" name="u2s1q2" value="D"> f</label>
+    </div><div class="mq-exp" id="mqe-u2s1q2">Quantum number l: 0=s, 1=p, 2=d, 3=f. p subshell has 3 orbitals × 2 electrons = 6 electrons max.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q3 of 10</span><p class="mq-qtext">Maximum electrons in the 3d subshell:</p><div class="mq-opts">
+      <label><input type="radio" name="u2s1q3" value="A"> 2</label>
+      <label><input type="radio" name="u2s1q3" value="B"> 6</label>
+      <label><input type="radio" name="u2s1q3" value="C"> 10</label>
+      <label><input type="radio" name="u2s1q3" value="D"> 14</label>
+    </div><div class="mq-exp" id="mqe-u2s1q3">d subshell: 5 orbitals × 2e = 10e max. s=2, p=6, d=10, f=14.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q4 of 10</span><p class="mq-qtext">The Aufbau principle states electrons:</p><div class="mq-opts">
+      <label><input type="radio" name="u2s1q4" value="A"> Fill highest energy orbitals first</label>
+      <label><input type="radio" name="u2s1q4" value="B"> Fill lowest energy orbitals first</label>
+      <label><input type="radio" name="u2s1q4" value="C"> Fill randomly</label>
+      <label><input type="radio" name="u2s1q4" value="D"> Fill all orbitals singly first</label>
+    </div><div class="mq-exp" id="mqe-u2s1q4">Aufbau (German: building up): electrons fill orbitals from lowest to highest energy. Order: 1s, 2s, 2p, 3s, 3p, 4s, 3d, 4p...</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q5 of 10</span><p class="mq-qtext">Hund's rule states that in degenerate orbitals, electrons:</p><div class="mq-opts">
+      <label><input type="radio" name="u2s1q5" value="A"> Pair up immediately</label>
+      <label><input type="radio" name="u2s1q5" value="B"> Occupy each singly with parallel spins before pairing</label>
+      <label><input type="radio" name="u2s1q5" value="C"> Fill alphabetically</label>
+      <label><input type="radio" name="u2s1q5" value="D"> Fill randomly</label>
+    </div><div class="mq-exp" id="mqe-u2s1q5">Hund's rule: maximum multiplicity — electrons occupy each degenerate (same energy) orbital singly with parallel spins before pairing. Minimises electron repulsion.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q6 of 10</span><p class="mq-qtext">The Pauli exclusion principle states:</p><div class="mq-opts">
+      <label><input type="radio" name="u2s1q6" value="A"> No two electrons in same orbital</label>
+      <label><input type="radio" name="u2s1q6" value="B"> No two electrons in same atom can have identical set of all four quantum numbers</label>
+      <label><input type="radio" name="u2s1q6" value="C"> Electrons fill lowest energy first</label>
+      <label><input type="radio" name="u2s1q6" value="D"> Electrons have parallel spins</label>
+    </div><div class="mq-exp" id="mqe-u2s1q6">Pauli: no two electrons in the same atom can have identical quantum numbers (n, l, m_l, m_s). In one orbital (same n,l,m_l): one must have m_s=+½, other m_s=−½ → max 2 electrons per orbital.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q7 of 10</span><p class="mq-qtext">Electron configuration of Na (Z=11):</p><div class="mq-opts">
+      <label><input type="radio" name="u2s1q7" value="A"> 1s²2s²2p⁶3s²</label>
+      <label><input type="radio" name="u2s1q7" value="B"> 1s²2s²2p⁵3s²</label>
+      <label><input type="radio" name="u2s1q7" value="C"> 1s²2s²2p⁶3s¹</label>
+      <label><input type="radio" name="u2s1q7" value="D"> 1s²2s²2p⁶</label>
+    </div><div class="mq-exp" id="mqe-u2s1q7">Na (Z=11): 1s²(2) + 2s²(4) + 2p⁶(10) + 3s¹(11). Shorthand: [Ne]3s¹. Valence electron: 1 (3s¹).</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q8 of 10</span><p class="mq-qtext">Why does 4s fill before 3d?</p><div class="mq-opts">
+      <label><input type="radio" name="u2s1q8" value="A"> 4s has more protons</label>
+      <label><input type="radio" name="u2s1q8" value="B"> 4s is lower energy than 3d due to penetration effects</label>
+      <label><input type="radio" name="u2s1q8" value="C"> 3d is full already</label>
+      <label><input type="radio" name="u2s1q8" value="D"> Pauli principle</label>
+    </div><div class="mq-exp" id="mqe-u2s1q8">Penetration: 4s electrons spend time close to nucleus → feel more nuclear attraction → lower energy than 3d despite higher principal quantum number. So 4s fills first.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q9 of 10</span><p class="mq-qtext">Electron configuration of Cl (Z=17):</p><div class="mq-opts">
+      <label><input type="radio" name="u2s1q9" value="A"> 1s²2s²2p⁶3s²3p⁴</label>
+      <label><input type="radio" name="u2s1q9" value="B"> 1s²2s²2p⁶3s²3p⁵</label>
+      <label><input type="radio" name="u2s1q9" value="C"> 1s²2s²2p⁶3s²3p⁶</label>
+      <label><input type="radio" name="u2s1q9" value="D"> 1s²2s²2p⁵3s²3p⁶</label>
+    </div><div class="mq-exp" id="mqe-u2s1q9">Cl: 1s²2s²2p⁶3s²3p⁵. Valence: 3s²3p⁵ = 7 electrons. Needs 1 more to complete octet → very reactive, forms Cl⁻.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q10 of 10</span><p class="mq-qtext">Number of unpaired electrons in carbon (Z=6):</p><div class="mq-opts">
+      <label><input type="radio" name="u2s1q10" value="A"> 0</label>
+      <label><input type="radio" name="u2s1q10" value="B"> 1</label>
+      <label><input type="radio" name="u2s1q10" value="C"> 2</label>
+      <label><input type="radio" name="u2s1q10" value="D"> 4</label>
+    </div><div class="mq-exp" id="mqe-u2s1q10">C: 1s²2s²2p². The 2p subshell has 3 orbitals. By Hund's rule: 2 electrons occupy 2 separate 2p orbitals singly → 2 unpaired electrons. Carbon forms 4 bonds (2s and 2p electrons hybridise).</div></div>
+    <button class="mq-submit" onclick="submitMQ('u2s1',{"u2s1q1":"B","u2s1q2":"B","u2s1q3":"C","u2s1q4":"B","u2s1q5":"B","u2s1q6":"B","u2s1q7":"C","u2s1q8":"B","u2s1q9":"B","u2s1q10":"C"})">&#10003; Check Answers</button>
+    <div class="mq-result" id="mqr-u2s1"></div>
+  </div>
+</div>
 <div class="section-header" id="s22"><span class="section-number">2.2</span><h2>Hydrogen Spectrum &amp; Spectral Lines</h2></div>
 <div class="card"><h3>Emission Spectrum of Hydrogen</h3><p>When hydrogen is excited (electrical discharge or heat), electrons are promoted to higher levels. As they fall back, they emit photons of specific frequencies producing a <strong>line emission spectrum</strong> &mdash; bright coloured lines on a dark background. Each line corresponds to electrons falling from n&#x2082; to n&#x2081;.</p></div>
 <div class="tbl-wrap"><table>
@@ -208,6 +396,176 @@ h = 6.626 &times; 10&#x207B;&#xB3;&#x2074; J s &nbsp; c = 3.00 &times; 10&#x2078
 <div class="card"><h3>Convergence and Ionisation Energy</h3><p>As n increases, energy levels get closer together &mdash; spectral lines converge. At the convergence limit (n &rarr; &infin;), the electron is completely removed. The frequency at convergence gives the ionisation energy directly:</p>
 <div class="formula-block">IE&#x2081;(H) = hf_convergence = hc/&lambda;_convergence</div></div>
 
+
+<div style="background:var(--surface);border:1px solid rgba(167,139,250,.25);border-radius:10px;overflow:hidden;margin:28px 0 40px;">
+  <div style="background:rgba(167,139,250,.08);border-bottom:1px solid rgba(167,139,250,.25);padding:14px 22px;display:flex;align-items:center;justify-content:space-between;">
+    <div><div style="font-family:'JetBrains Mono',monospace;font-size:.68rem;color:#a78bfa;text-transform:uppercase;letter-spacing:.1em;">Section 2.2 Quick Quiz</div><strong style="color:#fff;font-family:'Playfair Display',serif;">Hydrogen Spectrum & Spectral Lines</strong></div>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);">10 Questions</span>
+  </div>
+  <div style="padding:20px 22px;">
+    <script>window._EMQA=window._EMQA||{};window._EMQA["2_2"]={1:2,2:3,3:2,4:1,5:2,6:0,7:1,8:1,9:2,10:3};</script>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#a78bfa;margin-bottom:6px;">Q1</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The Lyman series in the hydrogen spectrum lies in the:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_2_1_A"><input type="radio" name="mq2_2_1" value="A" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Visible region</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_2_1_B"><input type="radio" name="mq2_2_1" value="B" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Ultraviolet (UV) region</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_2_1_C"><input type="radio" name="mq2_2_1" value="C" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Infrared (IR) region</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_2_1_D"><input type="radio" name="mq2_2_1" value="D" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>X-ray region</span></label>
+      <div id="mqE2_2_1" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(167,139,250,.08);border-left:3px solid #a78bfa;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">Lyman series: electron transitions to n=1 (ground state) from n=2,3,4... The large energy gap (electrons dropping to n=1) produces high-energy photons in the UV region (91-122 nm). Balmer series (→n=2) = visible. Paschen series (→n=3) = IR.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#a78bfa;margin-bottom:6px;">Q2</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The Balmer series corresponds to electron transitions:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_2_2_A"><input type="radio" name="mq2_2_2" value="A" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>From any level to n=1</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_2_2_B"><input type="radio" name="mq2_2_2" value="B" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>From any higher level to n=2</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_2_2_C"><input type="radio" name="mq2_2_2" value="C" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>From any higher level to n=3</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_2_2_D"><input type="radio" name="mq2_2_2" value="D" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>From n=2 to any higher level</span></label>
+      <div id="mqE2_2_2" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(167,139,250,.08);border-left:3px solid #a78bfa;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">Balmer series: all transitions that end at n=2. The energy differences produce photons in the visible range (400-700 nm). This gives hydrogen its four visible lines: red (656nm, n=3→2), cyan (486nm, n=4→2), blue (434nm, n=5→2), violet (410nm, n=6→2).</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#a78bfa;margin-bottom:6px;">Q3</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Which spectral line in the Balmer series has the longest wavelength (lowest energy)?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_2_3_A"><input type="radio" name="mq2_2_3" value="A" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>n=6→n=2</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_2_3_B"><input type="radio" name="mq2_2_3" value="B" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>n=5→n=2</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_2_3_C"><input type="radio" name="mq2_2_3" value="C" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>n=4→n=2</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_2_3_D"><input type="radio" name="mq2_2_3" value="D" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>n=3→n=2</span></label>
+      <div id="mqE2_2_3" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(167,139,250,.08);border-left:3px solid #a78bfa;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">Longest wavelength = lowest energy = smallest ΔE. The transition from n=3→n=2 has the smallest energy gap in the Balmer series → produces red light at 656 nm. Transitions from higher n to n=2 have larger ΔE → shorter wavelengths (higher energy, blue shift).</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#a78bfa;margin-bottom:6px;">Q4</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The line spectrum of hydrogen is evidence that:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_2_4_A"><input type="radio" name="mq2_2_4" value="A" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Atoms are solid spheres</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_2_4_B"><input type="radio" name="mq2_2_4" value="B" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Electrons can only occupy discrete energy levels (quantised)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_2_4_C"><input type="radio" name="mq2_2_4" value="C" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Electrons orbit in circular paths</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_2_4_D"><input type="radio" name="mq2_2_4" value="D" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Hydrogen has only one electron</span></label>
+      <div id="mqE2_2_4" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(167,139,250,.08);border-left:3px solid #a78bfa;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">If electrons could have any energy (continuous), hydrogen would emit a continuous spectrum (all colours). Instead, only specific wavelengths are emitted → only specific ΔE values exist → electrons can only occupy specific discrete energy levels. The line spectrum is direct experimental proof of energy quantisation.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#a78bfa;margin-bottom:6px;">Q5</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">What happens to spectral lines as n increases in the Balmer series?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_2_5_A"><input type="radio" name="mq2_2_5" value="A" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>They get further apart</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_2_5_B"><input type="radio" name="mq2_2_5" value="B" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>They get closer together (converge) towards a series limit</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_2_5_C"><input type="radio" name="mq2_2_5" value="C" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>They stay equally spaced</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_2_5_D"><input type="radio" name="mq2_2_5" value="D" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>They disappear</span></label>
+      <div id="mqE2_2_5" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(167,139,250,.08);border-left:3px solid #a78bfa;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">As n→∞, the energy levels get closer together (spacing ∝ 1/n²). Therefore the spectral lines get closer together and converge towards a series limit (ionisation limit). This convergence is used to determine the ionisation energy of hydrogen.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#a78bfa;margin-bottom:6px;">Q6</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The series limit of the Lyman series corresponds to:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_2_6_A"><input type="radio" name="mq2_2_6" value="A" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>n=1→n=2 transition</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_2_6_B"><input type="radio" name="mq2_2_6" value="B" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>n=∞→n=1 transition (ionisation from n=1)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_2_6_C"><input type="radio" name="mq2_2_6" value="C" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>n=1→n=∞ transition (ionisation from n=1)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_2_6_D"><input type="radio" name="mq2_2_6" value="D" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>n=2→n=1 transition</span></label>
+      <div id="mqE2_2_6" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(167,139,250,.08);border-left:3px solid #a78bfa;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">The series limit = the transition from n=∞ (electron at infinity, zero KE) to n=1. This corresponds to complete ionisation from the ground state: H(g) → H⁺(g) + e⁻. Energy = first ionisation energy = 1312 kJ/mol. The converging spectral lines allow experimental determination of this value.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#a78bfa;margin-bottom:6px;">Q7</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">An emission spectrum is produced when:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_2_7_A"><input type="radio" name="mq2_2_7" value="A" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Atoms absorb photons of specific wavelengths</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_2_7_B"><input type="radio" name="mq2_2_7" value="B" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Atoms are cooled below their boiling point</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_2_7_C"><input type="radio" name="mq2_2_7" value="C" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Electrons fall from higher to lower energy levels, releasing photons</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_2_7_D"><input type="radio" name="mq2_2_7" value="D" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Electrons are added to atoms</span></label>
+      <div id="mqE2_2_7" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(167,139,250,.08);border-left:3px solid #a78bfa;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">Emission spectrum: atoms excited (heated/electric discharge) → electrons promoted to higher levels → electrons fall back to lower levels → photons emitted. Emission = bright lines on dark background. Absorption spectrum = dark lines on continuous background (photons of those wavelengths absorbed).</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#a78bfa;margin-bottom:6px;">Q8</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">In the hydrogen spectrum, the visible region contains lines from the Balmer series because:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_2_8_A"><input type="radio" name="mq2_2_8" value="A" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Hydrogen only exists in the visible range</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_2_8_B"><input type="radio" name="mq2_2_8" value="B" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Transitions from n≥3 to n=2 produce energy differences corresponding to visible light photons (400-700 nm)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_2_8_C"><input type="radio" name="mq2_2_8" value="C" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Hydrogen has only 2 electron energy levels</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_2_8_D"><input type="radio" name="mq2_2_8" value="D" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>The Balmer series is the only one for hydrogen</span></label>
+      <div id="mqE2_2_8" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(167,139,250,.08);border-left:3px solid #a78bfa;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">The Balmer series (→n=2) happens to produce photons with wavelengths 400-700 nm = visible light. This is because the energy levels n=2 to n=3,4,5,6 have energy gaps corresponding to visible photon energies (1.8-3.1 eV = 400-700 nm). The Lyman series (→n=1) has larger ΔE → UV. Paschen (→n=3) has smaller ΔE → IR.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#a78bfa;margin-bottom:6px;">Q9</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The ionisation energy of hydrogen can be determined from its spectrum by:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_2_9_A"><input type="radio" name="mq2_2_9" value="A" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Measuring the number of spectral lines</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_2_9_B"><input type="radio" name="mq2_2_9" value="B" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Finding the series limit: the frequency at which lines converge — this corresponds to complete ionisation</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_2_9_C"><input type="radio" name="mq2_2_9" value="C" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Counting the visible lines</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_2_9_D"><input type="radio" name="mq2_2_9" value="D" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Measuring the colour of the brightest line</span></label>
+      <div id="mqE2_2_9" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(167,139,250,.08);border-left:3px solid #a78bfa;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">As n→∞ in the Lyman series, lines converge to a limit (frequency = ionisation energy limit). IE(H) = hf(series limit). Experimentally: plot frequency of lines vs series number, extrapolate to limit. IE(H) = 1312 kJ/mol (13.6 eV). This links spectroscopy directly to thermochemical measurements.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#a78bfa;margin-bottom:6px;">Q10</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">How does the emission spectrum of helium differ from that of hydrogen?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_2_10_A"><input type="radio" name="mq2_2_10" value="A" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>It has fewer lines because He has only 2 electrons</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_2_10_B"><input type="radio" name="mq2_2_10" value="B" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>He has more complex spectrum because 2 electrons create more possible transitions</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_2_10_C"><input type="radio" name="mq2_2_10" value="C" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>They are identical — both noble elements</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_2_10_D"><input type="radio" name="mq2_2_10" value="D" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>He has only one spectral line</span></label>
+      <div id="mqE2_2_10" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(167,139,250,.08);border-left:3px solid #a78bfa;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">He (2 electrons) has more energy levels and more possible transitions than H (1 electron). Also, electron-electron repulsion in He creates more complex energy level structure. Result: He has a more complex emission spectrum with many more lines than H. Each element has a unique spectrum — used for identification (stellar spectroscopy, flame tests).</div>
+    </div>
+    <div style="text-align:center;"><button onclick="submitMQ('2_2',10)" style="background:#a78bfa;color:#000;border:none;padding:9px 30px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:.85rem;font-weight:700;cursor:pointer;">Check Answers</button><div id="mqRES2_2" style="display:none;margin-top:10px;border-radius:7px;padding:12px;font-family:'JetBrains Mono',monospace;font-size:.85rem;text-align:center;"></div></div>
+  </div>
+</div>
+
+<!-- MINI-QUIZ s22 -->
+<div class="mini-quiz" id="mq-s22">
+  <div class="mq-head"><span style="font-size:1.1rem;">&#127919;</span><h4>Section 2.2 — Electronic Configurations & The Periodic Table</h4><span class="mq-badge">10 Questions</span></div>
+  <div class="mq-body">
+    <div class="mq-qblock"><span class="mq-qnum">Q1 of 10</span><p class="mq-qtext">Elements in the same group have the same:</p><div class="mq-opts">
+      <label><input type="radio" name="u2s2q1" value="A"> Mass number</label>
+      <label><input type="radio" name="u2s2q1" value="B"> Number of neutrons</label>
+      <label><input type="radio" name="u2s2q1" value="C"> Number of valence electrons</label>
+      <label><input type="radio" name="u2s2q1" value="D"> Atomic radius</label>
+    </div><div class="mq-exp" id="mqe-u2s2q1">Same group = same number of valence electrons = similar chemical properties. E.g. Group 1: all have 1 valence electron; Group 7: all have 7 valence electrons.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q2 of 10</span><p class="mq-qtext">Cr (Z=24) has configuration [Ar]3d⁵4s¹ rather than [Ar]3d⁴4s². Why?</p><div class="mq-opts">
+      <label><input type="radio" name="u2s2q2" value="A"> Mistake in periodic table</label>
+      <label><input type="radio" name="u2s2q2" value="B"> Half-filled d subshell (3d⁵) is extra stable due to exchange energy</label>
+      <label><input type="radio" name="u2s2q2" value="C"> 4s is filled last</label>
+      <label><input type="radio" name="u2s2q2" value="D"> Cr is a non-metal</label>
+    </div><div class="mq-exp" id="mqe-u2s2q2">Half-filled (3d⁵) and fully-filled (3d¹⁰) d subshells are extra stable due to exchange energy symmetry. Cu (Z=29) similarly has [Ar]3d¹⁰4s¹ not [Ar]3d⁹4s².</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q3 of 10</span><p class="mq-qtext">Which block of the periodic table contains elements with outermost electrons in d orbitals?</p><div class="mq-opts">
+      <label><input type="radio" name="u2s2q3" value="A"> s-block</label>
+      <label><input type="radio" name="u2s2q3" value="B"> p-block</label>
+      <label><input type="radio" name="u2s2q3" value="C"> d-block (transition metals)</label>
+      <label><input type="radio" name="u2s2q3" value="D"> f-block</label>
+    </div><div class="mq-exp" id="mqe-u2s2q3">d-block: Groups 3–12 (transition metals). Their distinguishing electrons enter d orbitals. s-block: Groups 1-2. p-block: Groups 13-18. f-block: lanthanides and actinides.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q4 of 10</span><p class="mq-qtext">The electron configuration [Ar]3d⁶4s² belongs to:</p><div class="mq-opts">
+      <label><input type="radio" name="u2s2q4" value="A"> Ca</label>
+      <label><input type="radio" name="u2s2q4" value="B"> Fe</label>
+      <label><input type="radio" name="u2s2q4" value="C"> Cr</label>
+      <label><input type="radio" name="u2s2q4" value="D"> Ni</label>
+    </div><div class="mq-exp" id="mqe-u2s2q4">Fe (Z=26): [Ar]=18e, then 3d⁶4s² adds 8 more = 26. Ca is [Ar]4s². Cr is [Ar]3d⁵4s¹. Ni is [Ar]3d⁸4s².</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q5 of 10</span><p class="mq-qtext">How many electrons does a 4p subshell hold?</p><div class="mq-opts">
+      <label><input type="radio" name="u2s2q5" value="A"> 2</label>
+      <label><input type="radio" name="u2s2q5" value="B"> 4</label>
+      <label><input type="radio" name="u2s2q5" value="C"> 6</label>
+      <label><input type="radio" name="u2s2q5" value="D"> 8</label>
+    </div><div class="mq-exp" id="mqe-u2s2q5">p subshell: 3 orbitals × 2 electrons = 6 electrons maximum. Same for 2p, 3p, 4p, etc.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q6 of 10</span><p class="mq-qtext">The ground state of Cu (Z=29) is:</p><div class="mq-opts">
+      <label><input type="radio" name="u2s2q6" value="A"> [Ar]3d⁹4s²</label>
+      <label><input type="radio" name="u2s2q6" value="B"> [Ar]3d¹⁰4s¹</label>
+      <label><input type="radio" name="u2s2q6" value="C"> [Ar]3d⁸4s³</label>
+      <label><input type="radio" name="u2s2q6" value="D"> [Ar]4s²3d⁸</label>
+    </div><div class="mq-exp" id="mqe-u2s2q6">Cu: [Ar]3d¹⁰4s¹. Fully filled d (3d¹⁰) is extra stable. Actual configuration confirmed experimentally.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q7 of 10</span><p class="mq-qtext">In which period would an element with configuration 1s²2s²2p⁶3s²3p⁶4s² be placed?</p><div class="mq-opts">
+      <label><input type="radio" name="u2s2q7" value="A"> Period 2</label>
+      <label><input type="radio" name="u2s2q7" value="B"> Period 3</label>
+      <label><input type="radio" name="u2s2q7" value="C"> Period 4</label>
+      <label><input type="radio" name="u2s2q7" value="D"> Period 5</label>
+    </div><div class="mq-exp" id="mqe-u2s2q7">Highest principal quantum number = 4 (4s²) → Period 4. This is calcium (Ca, Z=20).</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q8 of 10</span><p class="mq-qtext">How many orbitals in the 3d subshell?</p><div class="mq-opts">
+      <label><input type="radio" name="u2s2q8" value="A"> 3</label>
+      <label><input type="radio" name="u2s2q8" value="B"> 5</label>
+      <label><input type="radio" name="u2s2q8" value="C"> 7</label>
+      <label><input type="radio" name="u2s2q8" value="D"> 10</label>
+    </div><div class="mq-exp" id="mqe-u2s2q8">d subshell: l=2, m_l = −2,−1,0,+1,+2 = 5 orbitals. Each holds 2e → 5×2=10e total.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q9 of 10</span><p class="mq-qtext">An element has config 1s²2s²2p⁶3s²3p⁶3d¹⁰4s²4p⁵. It is in Group:</p><div class="mq-opts">
+      <label><input type="radio" name="u2s2q9" value="A"> 5</label>
+      <label><input type="radio" name="u2s2q9" value="B"> 6</label>
+      <label><input type="radio" name="u2s2q9" value="C"> 7</label>
+      <label><input type="radio" name="u2s2q9" value="D"> 17</label>
+    </div><div class="mq-exp" id="mqe-u2s2q9">Valence shell: 4s²4p⁵ = 7 valence electrons → Group 17 (halogens). This is bromine (Br, Z=35).</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q10 of 10</span><p class="mq-qtext">When transition metal atoms form ions, which electrons are removed first?</p><div class="mq-opts">
+      <label><input type="radio" name="u2s2q10" value="A"> 3d electrons</label>
+      <label><input type="radio" name="u2s2q10" value="B"> 4f electrons</label>
+      <label><input type="radio" name="u2s2q10" value="C"> 4s electrons</label>
+      <label><input type="radio" name="u2s2q10" value="D"> 2p electrons</label>
+    </div><div class="mq-exp" id="mqe-u2s2q10">4s electrons are removed before 3d when forming ions, even though 4s filled first. Once 3d is occupied, 3d electrons are lower energy than 4s → 4s removed first in ionisation.</div></div>
+    <button class="mq-submit" onclick="submitMQ('u2s2',{"u2s2q1":"C","u2s2q2":"B","u2s2q3":"C","u2s2q4":"B","u2s2q5":"C","u2s2q6":"B","u2s2q7":"C","u2s2q8":"B","u2s2q9":"D","u2s2q10":"C"})">&#10003; Check Answers</button>
+    <div class="mq-result" id="mqr-u2s2"></div>
+  </div>
+</div>
 <div class="section-header" id="s23"><span class="section-number">2.3</span><h2>Atomic Spectra</h2></div>
 <div class="two-col">
   <div class="def-box"><strong>Emission Spectrum</strong>Excited atoms release energy &mdash; electrons fall to lower levels, emitting photons. Bright coloured lines on a dark background. Unique to each element ("fingerprint").</div>
@@ -216,6 +574,107 @@ h = 6.626 &times; 10&#x207B;&#xB3;&#x2074; J s &nbsp; c = 3.00 &times; 10&#x2078
 <div class="card"><h3>Evidence for Quantised Energy Levels</h3><p>Discrete spectral lines (not a continuous spectrum) are direct evidence that electrons can only exist at specific, quantised energy levels. If energy were continuous, a continuous spectrum would result. Only certain wavelengths being emitted proves energy levels are discrete.</p></div>
 <div class="callout tip"><span class="callout-icon">&#x1F4A1;</span><div class="callout-body"><strong>Flame tests and emission</strong>Metal salts heated in a flame emit characteristic colours: Li = crimson, Na = yellow, K = lilac, Ca = orange-red, Ba = green, Cu = blue-green. Each corresponds to specific emission lines in the visible region.</div></div>
 
+
+<div style="background:var(--surface);border:1px solid rgba(52,211,153,.25);border-radius:10px;overflow:hidden;margin:28px 0 40px;">
+  <div style="background:rgba(52,211,153,.08);border-bottom:1px solid rgba(52,211,153,.25);padding:14px 22px;display:flex;align-items:center;justify-content:space-between;">
+    <div><div style="font-family:'JetBrains Mono',monospace;font-size:.68rem;color:#34d399;text-transform:uppercase;letter-spacing:.1em;">Section 2.3 Quick Quiz</div><strong style="color:#fff;font-family:'Playfair Display',serif;">Atomic Spectra</strong></div>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);">10 Questions</span>
+  </div>
+  <div style="padding:20px 22px;">
+    <script>window._EMQA=window._EMQA||{};window._EMQA["2_3"]={1:2,2:3,3:0,4:1,5:3,6:3,7:0,8:1,9:2,10:3};</script>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#34d399;margin-bottom:6px;">Q1</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">An absorption spectrum is produced when:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_3_1_A"><input type="radio" name="mq2_3_1" value="A" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Atoms emit light of specific wavelengths</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_3_1_B"><input type="radio" name="mq2_3_1" value="B" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>White light passes through a cool gas — atoms absorb specific wavelengths, leaving dark lines</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_3_1_C"><input type="radio" name="mq2_3_1" value="C" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Atoms are heated in a flame</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_3_1_D"><input type="radio" name="mq2_3_1" value="D" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Electrons are removed from atoms</span></label>
+      <div id="mqE2_3_1" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(52,211,153,.08);border-left:3px solid #34d399;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">Absorption spectrum: white light (all wavelengths) passes through a cool gas. Atoms absorb photons of specific wavelengths that match their energy level gaps. These wavelengths are missing from the transmitted light → dark lines on continuous background (complementary to emission spectrum).</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#34d399;margin-bottom:6px;">Q2</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The dark lines in the absorption spectrum of the sun are called:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_3_2_A"><input type="radio" name="mq2_3_2" value="A" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Balmer lines</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_3_2_B"><input type="radio" name="mq2_3_2" value="B" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Fraunhofer lines</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_3_2_C"><input type="radio" name="mq2_3_2" value="C" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Bohr lines</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_3_2_D"><input type="radio" name="mq2_3_2" value="D" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Planck lines</span></label>
+      <div id="mqE2_3_2" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(52,211,153,.08);border-left:3px solid #34d399;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">Fraunhofer lines: dark absorption lines in the sun's continuous spectrum. Light from the hot solar core passes through the cooler outer atmosphere (photosphere). Atoms there absorb specific wavelengths → dark lines. Identified over 500 elements in the sun's atmosphere this way. Named after Joseph von Fraunhofer (1814).</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#34d399;margin-bottom:6px;">Q3</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Which statement correctly compares emission and absorption spectra of the same element?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_3_3_A"><input type="radio" name="mq2_3_3" value="A" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>They have no relation to each other</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_3_3_B"><input type="radio" name="mq2_3_3" value="B" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>The bright lines in the emission spectrum are at the same wavelengths as the dark lines in the absorption spectrum</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_3_3_C"><input type="radio" name="mq2_3_3" value="C" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Emission spectra have more lines</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_3_3_D"><input type="radio" name="mq2_3_3" value="D" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Absorption spectra are always in the UV region</span></label>
+      <div id="mqE2_3_3" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(52,211,153,.08);border-left:3px solid #34d399;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">Emission and absorption spectra of an element are complementary. The same energy gaps (ΔE) produce either emission (bright lines, electron falls) or absorption (dark lines, electron rises). The wavelengths of spectral lines are identical — only the appearance (bright vs dark) differs. This is used in stellar spectroscopy.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#34d399;margin-bottom:6px;">Q4</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Atomic emission spectroscopy is used to identify elements in stars because:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_3_4_A"><input type="radio" name="mq2_3_4" value="A" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Stars are close to Earth</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_3_4_B"><input type="radio" name="mq2_3_4" value="B" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Each element has a unique spectral fingerprint — its set of emission lines matches no other element</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_3_4_C"><input type="radio" name="mq2_3_4" value="C" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Stars emit visible light only</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_3_4_D"><input type="radio" name="mq2_3_4" value="D" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>The mass spectrometer doesn't work in space</span></label>
+      <div id="mqE2_3_4" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(52,211,153,.08);border-left:3px solid #34d399;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">Each element has unique energy levels → unique set of ΔE → unique spectral lines. By comparing stellar spectra with laboratory spectra, astronomers identify elements in distant stars. This is how helium was identified in the sun (1868) before it was found on Earth — hence 'helium' (Greek: helios = sun).</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#34d399;margin-bottom:6px;">Q5</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The flame test for sodium produces a persistent yellow-orange flame because:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_3_5_A"><input type="radio" name="mq2_3_5" value="A" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Sodium burns in air</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_3_5_B"><input type="radio" name="mq2_3_5" value="B" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Na⁺ ions are easily reduced in the flame</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_3_5_C"><input type="radio" name="mq2_3_5" value="C" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Electrons in excited sodium atoms emit photons at 589 nm (yellow-orange) when returning to ground state</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_3_5_D"><input type="radio" name="mq2_3_5" value="D" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Sodium has a yellow colour</span></label>
+      <div id="mqE2_3_5" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(52,211,153,.08);border-left:3px solid #34d399;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">In a flame, Na atoms are excited → electrons promoted to higher levels → electrons return to ground state emitting photons at 589 nm (D-lines). This yellow-orange emission is persistent and intense because the Na excitation energy is relatively low (easily achieved in flame). Used to identify Na qualitatively.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#34d399;margin-bottom:6px;">Q6</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">What is meant by 'continuous spectrum'?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_3_6_A"><input type="radio" name="mq2_3_6" value="A" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>A spectrum with only a few lines</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_3_6_B"><input type="radio" name="mq2_3_6" value="B" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>A spectrum containing all wavelengths of light without gaps (like a rainbow)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_3_6_C"><input type="radio" name="mq2_3_6" value="C" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>A spectrum that can be seen continuously</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_3_6_D"><input type="radio" name="mq2_3_6" value="D" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>A spectrum measured over a long time</span></label>
+      <div id="mqE2_3_6" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(52,211,153,.08);border-left:3px solid #34d399;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">Continuous spectrum: all wavelengths present with no gaps — like a rainbow from white light through a prism. Produced by hot dense objects (incandescent filaments, stars' cores). Contrasts with line spectra (emission: bright lines on dark; absorption: dark lines on continuous). Hydrogen's line spectrum is NOT continuous.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#34d399;margin-bottom:6px;">Q7</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The emission spectrum of hydrogen shows the Paschen series in the infrared because:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_3_7_A"><input type="radio" name="mq2_3_7" value="A" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Hydrogen is a gas</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_3_7_B"><input type="radio" name="mq2_3_7" value="B" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Transitions from n≥4 to n=3 release photons with lower energy than visible light → wavelengths >700 nm (IR)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_3_7_C"><input type="radio" name="mq2_3_7" value="C" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Infrared detectors are more sensitive</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_3_7_D"><input type="radio" name="mq2_3_7" value="D" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Hydrogen has 3 electron shells</span></label>
+      <div id="mqE2_3_7" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(52,211,153,.08);border-left:3px solid #34d399;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">Paschen series (→n=3): the energy gaps for transitions n=4,5,6...→n=3 are smaller than for Balmer (→n=2). Smaller ΔE → lower frequency → longer wavelength → infrared (700 nm - 2500 nm). The sequence: Lyman (UV) > Balmer (visible) > Paschen (IR) reflects decreasing ΔE as n(final) increases.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#34d399;margin-bottom:6px;">Q8</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Line spectra prove that atomic energy is quantised because:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_3_8_A"><input type="radio" name="mq2_3_8" value="A" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Atoms contain a fixed number of electrons</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_3_8_B"><input type="radio" name="mq2_3_8" value="B" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>If energy were continuous, all wavelengths would be emitted — the fact that only specific wavelengths appear shows only specific ΔE values are possible</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_3_8_C"><input type="radio" name="mq2_3_8" value="C" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Line spectra are easier to measure</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_3_8_D"><input type="radio" name="mq2_3_8" value="D" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Atoms can only exist in two states</span></label>
+      <div id="mqE2_3_8" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(52,211,153,.08);border-left:3px solid #34d399;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">Key argument: continuous energy → continuous spectrum. Discrete (quantised) energy → line spectrum. Since H emits only four visible lines (not a rainbow), H can only have specific energy gaps → electrons can only have specific discrete energies. This is direct experimental evidence for quantisation of atomic energy.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#34d399;margin-bottom:6px;">Q9</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The frequency of a spectral line is related to the energy of the photon by:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_3_9_A"><input type="radio" name="mq2_3_9" value="A" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>E = mc²</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_3_9_B"><input type="radio" name="mq2_3_9" value="B" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>E = hf (Planck's equation, h = 6.63×10⁻³⁴ J s)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_3_9_C"><input type="radio" name="mq2_3_9" value="C" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>E = ½mv²</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_3_9_D"><input type="radio" name="mq2_3_9" value="D" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>E = qV</span></label>
+      <div id="mqE2_3_9" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(52,211,153,.08);border-left:3px solid #34d399;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">E = hf: energy of one photon = Planck's constant × frequency. h = 6.63×10⁻³⁴ J s. Also E = hc/λ. For spectral lines, ΔE = hf = E(upper) − E(lower). Higher frequency (shorter wavelength) → higher energy photon. Blue/UV light → more energetic photons. Red/IR → less energetic.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#34d399;margin-bottom:6px;">Q10</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Why do different elements produce different colours in flame tests?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_3_10_A"><input type="radio" name="mq2_3_10" value="A" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Different elements have different masses</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_3_10_B"><input type="radio" name="mq2_3_10" value="B" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Each element has unique atomic energy levels → unique spectral lines → unique colours</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_3_10_C"><input type="radio" name="mq2_3_10" value="C" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>All elements produce the same spectral lines</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_3_10_D"><input type="radio" name="mq2_3_10" value="D" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Colour depends on the concentration</span></label>
+      <div id="mqE2_3_10" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(52,211,153,.08);border-left:3px solid #34d399;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">Each element has uniquely spaced energy levels (due to unique nuclear charge Z and electron configurations). Unique levels → unique ΔE → unique photon wavelengths → unique colour. K gives lilac, Li gives crimson red, Na gives yellow, Ba gives apple green, Cu gives blue-green. Flame tests exploit this for qualitative identification.</div>
+    </div>
+    <div style="text-align:center;"><button onclick="submitMQ('2_3',10)" style="background:#34d399;color:#000;border:none;padding:9px 30px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:.85rem;font-weight:700;cursor:pointer;">Check Answers</button><div id="mqRES2_3" style="display:none;margin-top:10px;border-radius:7px;padding:12px;font-family:'JetBrains Mono',monospace;font-size:.85rem;text-align:center;"></div></div>
+  </div>
+</div>
 <div class="section-header" id="s24"><span class="section-number">2.4</span><h2>Orbitals &amp; Quantum Numbers</h2></div>
 <div class="card"><h3>Quantum Mechanical Model</h3><p>Bohr's circular orbits were replaced by the quantum mechanical model. Electrons do not follow defined paths &mdash; instead we describe regions of space where there is high probability of finding an electron: <strong>atomic orbitals</strong>. Each orbital holds a maximum of <strong>2 electrons</strong> (opposite spins).</p></div>
 <div class="tbl-wrap"><table>
@@ -254,6 +713,107 @@ h = 6.626 &times; 10&#x207B;&#xB3;&#x2074; J s &nbsp; c = 3.00 &times; 10&#x2078
 </div>
 <div class="callout tip"><span class="callout-icon">&#x1F4A1;</span><div class="callout-body"><strong>4s fills before 3d</strong>In neutral atoms, 4s has lower energy than 3d due to penetration. So K = [Ar]4s&#xB9;, Ca = [Ar]4s&#xB2;. When transition metal ions form, the 4s electrons are removed first.</div></div>
 
+
+<div style="background:var(--surface);border:1px solid rgba(245,158,11,.25);border-radius:10px;overflow:hidden;margin:28px 0 40px;">
+  <div style="background:rgba(245,158,11,.08);border-bottom:1px solid rgba(245,158,11,.25);padding:14px 22px;display:flex;align-items:center;justify-content:space-between;">
+    <div><div style="font-family:'JetBrains Mono',monospace;font-size:.68rem;color:#f59e0b;text-transform:uppercase;letter-spacing:.1em;">Section 2.4 Quick Quiz</div><strong style="color:#fff;font-family:'Playfair Display',serif;">Orbitals & Quantum Numbers</strong></div>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);">10 Questions</span>
+  </div>
+  <div style="padding:20px 22px;">
+    <script>window._EMQA=window._EMQA||{};window._EMQA["2_4"]={1:2,2:0,3:0,4:2,5:2,6:3,7:0,8:1,9:3,10:3};</script>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#f59e0b;margin-bottom:6px;">Q1</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">An atomic orbital is best described as:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_4_1_A"><input type="radio" name="mq2_4_1" value="A" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>A fixed circular path for an electron</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_4_1_B"><input type="radio" name="mq2_4_1" value="B" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>A 3D region of space where there is a high probability (>90%) of finding an electron</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_4_1_C"><input type="radio" name="mq2_4_1" value="C" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>The nucleus of an atom</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_4_1_D"><input type="radio" name="mq2_4_1" value="D" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>The electron itself</span></label>
+      <div id="mqE2_4_1" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(245,158,11,.08);border-left:3px solid #f59e0b;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">Orbital: a 3D probability density region — not a definite path (Heisenberg uncertainty principle prevents knowing exact position and velocity simultaneously). Usually defined as the region with >90% probability of finding the electron. Orbitals have specific shapes (s=sphere, p=dumbbell, d=complex) and energies.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#f59e0b;margin-bottom:6px;">Q2</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The principal quantum number (n) determines:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_4_2_A"><input type="radio" name="mq2_4_2" value="A" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>The shape of the orbital</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_4_2_B"><input type="radio" name="mq2_4_2" value="B" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>The orientation of the orbital</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_4_2_C"><input type="radio" name="mq2_4_2" value="C" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>The main energy level (shell) — larger n = higher energy and further from nucleus</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_4_2_D"><input type="radio" name="mq2_4_2" value="D" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>The spin of the electron</span></label>
+      <div id="mqE2_4_2" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(245,158,11,.08);border-left:3px solid #f59e0b;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">n = 1, 2, 3, 4... (positive integers). n=1 = first shell (K), n=2 = second shell (L), etc. Larger n → higher energy → electron further from nucleus on average → larger orbital. n also determines the number of subshells (l = 0 to n-1) and max electrons in the shell (2n²).</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#f59e0b;margin-bottom:6px;">Q3</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The angular momentum quantum number (l) for a p subshell has the value:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_4_3_A"><input type="radio" name="mq2_4_3" value="A" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>0</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_4_3_B"><input type="radio" name="mq2_4_3" value="B" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>1</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_4_3_C"><input type="radio" name="mq2_4_3" value="C" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>2</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_4_3_D"><input type="radio" name="mq2_4_3" value="D" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>3</span></label>
+      <div id="mqE2_4_3" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(245,158,11,.08);border-left:3px solid #f59e0b;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">l values: 0=s, 1=p, 2=d, 3=f. For p subshell, l=1. l ranges from 0 to (n−1). For n=2: l can be 0 (2s) or 1 (2p). l determines the shape of the orbital: s=spherical, p=dumbbell/figure-8, d=cloverleaf, f=complex.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#f59e0b;margin-bottom:6px;">Q4</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">How many orbitals are in the 3d subshell?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_4_4_A"><input type="radio" name="mq2_4_4" value="A" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>1</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_4_4_B"><input type="radio" name="mq2_4_4" value="B" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>3</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_4_4_C"><input type="radio" name="mq2_4_4" value="C" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>5</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_4_4_D"><input type="radio" name="mq2_4_4" value="D" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>7</span></label>
+      <div id="mqE2_4_4" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(245,158,11,.08);border-left:3px solid #f59e0b;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">d subshell (l=2): magnetic quantum number ml = −2,−1,0,+1,+2 → 5 values → 5 orbitals. Maximum electrons in 3d = 5 × 2 = 10. Similarly: s=1 orbital (2e), p=3 orbitals (6e), d=5 orbitals (10e), f=7 orbitals (14e).</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#f59e0b;margin-bottom:6px;">Q5</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The spin quantum number (ms) for an electron can only be:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_4_5_A"><input type="radio" name="mq2_4_5" value="A" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>0 or +1</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_4_5_B"><input type="radio" name="mq2_4_5" value="B" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>−½ or +½</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_4_5_C"><input type="radio" name="mq2_4_5" value="C" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>1 or 2</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_4_5_D"><input type="radio" name="mq2_4_5" value="D" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>+1 or −1</span></label>
+      <div id="mqE2_4_5" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(245,158,11,.08);border-left:3px solid #f59e0b;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">ms = +½ (spin up, ↑) or −½ (spin down, ↓). Only two possible values — explained by Pauli exclusion principle. Each orbital can hold max 2 electrons, only if they have opposite spins. Electron spin is a quantum mechanical property with no classical equivalent.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#f59e0b;margin-bottom:6px;">Q6</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The Pauli exclusion principle states that:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_4_6_A"><input type="radio" name="mq2_4_6" value="A" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>Electrons always pair up before occupying new orbitals</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_4_6_B"><input type="radio" name="mq2_4_6" value="B" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>No two electrons in the same atom can have the same set of four quantum numbers</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_4_6_C"><input type="radio" name="mq2_4_6" value="C" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>Electrons in degenerate orbitals must have parallel spins</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_4_6_D"><input type="radio" name="mq2_4_6" value="D" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>Orbitals fill in order of increasing energy</span></label>
+      <div id="mqE2_4_6" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(245,158,11,.08);border-left:3px solid #f59e0b;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">Pauli exclusion principle (1925): no two electrons in an atom can have identical sets of all four quantum numbers (n, l, ml, ms). Since ml and n, l are fixed for a given orbital, the two electrons must differ in ms → opposite spins. This limits each orbital to maximum 2 electrons.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#f59e0b;margin-bottom:6px;">Q7</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Hund's rule states that in degenerate (equal energy) orbitals:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_4_7_A"><input type="radio" name="mq2_4_7" value="A" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>Electrons always pair before filling new orbitals</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_4_7_B"><input type="radio" name="mq2_4_7" value="B" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>Electrons fill each degenerate orbital singly with parallel spins before any pairing occurs</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_4_7_C"><input type="radio" name="mq2_4_7" value="C" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>Orbitals fill in order of increasing energy</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_4_7_D"><input type="radio" name="mq2_4_7" value="D" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>Each orbital must have 2 electrons</span></label>
+      <div id="mqE2_4_7" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(245,158,11,.08);border-left:3px solid #f59e0b;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">Hund's rule: maximum multiplicity. In degenerate orbitals (e.g. three 2p orbitals), electrons occupy each singly with parallel spins (↑) before pairing. Example: carbon (6e): 1s²2s²2p¹₁2p¹₁ (not 1s²2s²2p² with both in same 2p). Minimises electron-electron repulsion.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#f59e0b;margin-bottom:6px;">Q8</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The aufbau principle states that:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_4_8_A"><input type="radio" name="mq2_4_8" value="A" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>Orbitals must be filled with paired electrons</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_4_8_B"><input type="radio" name="mq2_4_8" value="B" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>Electrons fill orbitals in order of increasing energy (lowest first)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_4_8_C"><input type="radio" name="mq2_4_8" value="C" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>All electrons have the same spin</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_4_8_D"><input type="radio" name="mq2_4_8" value="D" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>p orbitals are always filled before s orbitals</span></label>
+      <div id="mqE2_4_8" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(245,158,11,.08);border-left:3px solid #f59e0b;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">Aufbau (German: 'building up'): electrons occupy the lowest available energy orbital first. Order of filling: 1s < 2s < 2p < 3s < 3p < 4s < 3d < 4p < 5s < 4d < 5p... Note: 4s fills BEFORE 3d (4s is lower energy when 3d is empty).</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#f59e0b;margin-bottom:6px;">Q9</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">How many electrons can the n=3 shell hold in total?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_4_9_A"><input type="radio" name="mq2_4_9" value="A" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>6</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_4_9_B"><input type="radio" name="mq2_4_9" value="B" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>8</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_4_9_C"><input type="radio" name="mq2_4_9" value="C" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>18</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_4_9_D"><input type="radio" name="mq2_4_9" value="D" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>32</span></label>
+      <div id="mqE2_4_9" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(245,158,11,.08);border-left:3px solid #f59e0b;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">Maximum electrons in shell n = 2n². For n=3: 2×9 = 18. Shell 3 contains: 3s (2e) + 3p (6e) + 3d (10e) = 18e. Shell 1: 2; Shell 2: 8; Shell 3: 18; Shell 4: 32 (2+6+10+14).</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#f59e0b;margin-bottom:6px;">Q10</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The shape of a p orbital is best described as:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_4_10_A"><input type="radio" name="mq2_4_10" value="A" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>Spherical</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_4_10_B"><input type="radio" name="mq2_4_10" value="B" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>Dumbbell (figure-8) shaped, with one lobe on each side of the nucleus</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_4_10_C"><input type="radio" name="mq2_4_10" value="C" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>Cloverleaf shaped</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_4_10_D"><input type="radio" name="mq2_4_10" value="D" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>Toroidal (donut shaped)</span></label>
+      <div id="mqE2_4_10" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(245,158,11,.08);border-left:3px solid #f59e0b;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">p orbitals (l=1): two lobes (dumbbell shape) with a node at the nucleus. Three p orbitals per subshell (px, py, pz), oriented along x, y, z axes respectively — mutually perpendicular. s orbitals are spherical. d orbitals are cloverleaf or complex shapes.</div>
+    </div>
+    <div style="text-align:center;"><button onclick="submitMQ('2_4',10)" style="background:#f59e0b;color:#000;border:none;padding:9px 30px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:.85rem;font-weight:700;cursor:pointer;">Check Answers</button><div id="mqRES2_4" style="display:none;margin-top:10px;border-radius:7px;padding:12px;font-family:'JetBrains Mono',monospace;font-size:.85rem;text-align:center;"></div></div>
+  </div>
+</div>
 <div class="section-header" id="s25"><span class="section-number">2.5</span><h2>Electronic Configuration of Atoms &amp; Ions</h2></div>
 <div class="card"><h3>Writing Electron Configurations</h3><p>List each subshell and its electron count: e.g., <span class="ec">1s&#xB2;2s&#xB2;2p&#x2076;</span>. Shorthand uses the previous noble gas: Na = <span class="ec">[Ne]3s&#xB9;</span>.</p></div>
 <div class="tbl-wrap"><table>
@@ -297,6 +857,107 @@ h = 6.626 &times; 10&#x207B;&#xB3;&#x2074; J s &nbsp; c = 3.00 &times; 10&#x2078
 Nitrogen (1s&#xB2;2s&#xB2;2p&#xB3;):
   1s[&#x2191;&#x2193;]  2s[&#x2191;&#x2193;]  2p[&#x2191;][&#x2191;][&#x2191;]  &larr; all 3 p orbitals singly occupied</div></div>
 
+
+<div style="background:var(--surface);border:1px solid rgba(248,113,113,.25);border-radius:10px;overflow:hidden;margin:28px 0 40px;">
+  <div style="background:rgba(248,113,113,.08);border-bottom:1px solid rgba(248,113,113,.25);padding:14px 22px;display:flex;align-items:center;justify-content:space-between;">
+    <div><div style="font-family:'JetBrains Mono',monospace;font-size:.68rem;color:#f87171;text-transform:uppercase;letter-spacing:.1em;">Section 2.5 Quick Quiz</div><strong style="color:#fff;font-family:'Playfair Display',serif;">Electronic Configuration of Atoms & Ions</strong></div>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);">10 Questions</span>
+  </div>
+  <div style="padding:20px 22px;">
+    <script>window._EMQA=window._EMQA||{};window._EMQA["2_5"]={1:2,2:3,3:0,4:1,5:2,6:0,7:0,8:3,9:3,10:3};</script>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#f87171;margin-bottom:6px;">Q1</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">What is the electronic configuration of sodium (Z=11)?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_5_1_A"><input type="radio" name="mq2_5_1" value="A" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>1s²2s²2p⁶</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_5_1_B"><input type="radio" name="mq2_5_1" value="B" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>1s²2s²2p⁶3s¹</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_5_1_C"><input type="radio" name="mq2_5_1" value="C" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>1s²2s²2p⁵3s²</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_5_1_D"><input type="radio" name="mq2_5_1" value="D" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>1s²2s²2p⁶3s²</span></label>
+      <div id="mqE2_5_1" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(248,113,113,.08);border-left:3px solid #f87171;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">Na (Z=11): fill in order: 1s²(2) + 2s²(4) + 2p⁶(10) + 3s¹(11). Written: [Ne]3s¹ using noble gas abbreviation. The single 3s electron is the valence electron — easily removed (low IE₁ = 496 kJ/mol), making Na a very reactive metal.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#f87171;margin-bottom:6px;">Q2</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The electronic configuration of a chloride ion (Cl⁻, Z=17) is:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_5_2_A"><input type="radio" name="mq2_5_2" value="A" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>1s²2s²2p⁶3s²3p⁵</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_5_2_B"><input type="radio" name="mq2_5_2" value="B" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>1s²2s²2p⁶3s²3p⁶</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_5_2_C"><input type="radio" name="mq2_5_2" value="C" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>1s²2s²2p⁶3s²3p⁴</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_5_2_D"><input type="radio" name="mq2_5_2" value="D" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>1s²2s²2p⁶3s²3p⁷</span></label>
+      <div id="mqE2_5_2" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(248,113,113,.08);border-left:3px solid #f87171;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">Cl (Z=17) = 1s²2s²2p⁶3s²3p⁵. Cl⁻ gains 1 electron: 17+1=18 electrons = 1s²2s²2p⁶3s²3p⁶. This is isoelectronic with Ar (18 electrons, [Ar] configuration). Anions gain electrons; cations lose them. Number of protons unchanged.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#f87171;margin-bottom:6px;">Q3</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Why does chromium (Z=24) have the configuration [Ar]3d⁵4s¹ and not [Ar]3d⁴4s²?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_5_3_A"><input type="radio" name="mq2_5_3" value="A" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>There are only 5 d orbitals</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_5_3_B"><input type="radio" name="mq2_5_3" value="B" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>The half-filled 3d⁵ configuration with one 4s¹ electron is more stable due to exchange energy</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_5_3_C"><input type="radio" name="mq2_5_3" value="C" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>Chromium is a metal</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_5_3_D"><input type="radio" name="mq2_5_3" value="D" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>4s orbital is full before 3d</span></label>
+      <div id="mqE2_5_3" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(248,113,113,.08);border-left:3px solid #f87171;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">Chromium anomaly: [Ar]3d⁵4s¹ (one electron in each orbital, all parallel spins) is more stable than [Ar]3d⁴4s² due to exchange energy (parallel spin electrons lower repulsion). Also copper: [Ar]3d¹⁰4s¹ (full d) rather than [Ar]3d⁹4s². These are important exceptions to the aufbau principle.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#f87171;margin-bottom:6px;">Q4</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">When transition metals form ions, electrons are removed from:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_5_4_A"><input type="radio" name="mq2_5_4" value="A" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>The d subshell first</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_5_4_B"><input type="radio" name="mq2_5_4" value="B" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>The s subshell first (4s electrons are lost before 3d)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_5_4_C"><input type="radio" name="mq2_5_4" value="C" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>The p subshell</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_5_4_D"><input type="radio" name="mq2_5_4" value="D" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>The f subshell</span></label>
+      <div id="mqE2_5_4" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(248,113,113,.08);border-left:3px solid #f87171;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">Counter-intuitive: 4s fills before 3d (aufbau), but 4s is lost FIRST when transition metals ionise. Once the 3d is occupied, it becomes lower energy than 4s. Example: Fe (Z=26): [Ar]3d⁶4s². Fe²⁺: loses 2 × 4s → [Ar]3d⁶. Fe³⁺: loses 2×4s + 1×3d → [Ar]3d⁵.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#f87171;margin-bottom:6px;">Q5</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The electronic configuration [Ar]3d¹⁰4s²4p⁶ corresponds to:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_5_5_A"><input type="radio" name="mq2_5_5" value="A" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>Zinc (Zn)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_5_5_B"><input type="radio" name="mq2_5_5" value="B" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>Krypton (Kr)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_5_5_C"><input type="radio" name="mq2_5_5" value="C" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>Calcium (Ca)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_5_5_D"><input type="radio" name="mq2_5_5" value="D" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>Selenium (Se)</span></label>
+      <div id="mqE2_5_5" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(248,113,113,.08);border-left:3px solid #f87171;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">[Ar]3d¹⁰4s²4p⁶: Z = 18(Ar) + 10(3d) + 2(4s) + 6(4p) = 36. Element with Z=36 is krypton (Kr) — a noble gas. Note: Zn = [Ar]3d¹⁰4s² (Z=30); Ca = [Ar]4s² (Z=20). Count electrons carefully.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#f87171;margin-bottom:6px;">Q6</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">How many unpaired electrons does oxygen (Z=8) have in its ground state?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_5_6_A"><input type="radio" name="mq2_5_6" value="A" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>0</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_5_6_B"><input type="radio" name="mq2_5_6" value="B" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>1</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_5_6_C"><input type="radio" name="mq2_5_6" value="C" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>2</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_5_6_D"><input type="radio" name="mq2_5_6" value="D" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>4</span></label>
+      <div id="mqE2_5_6" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(248,113,113,.08);border-left:3px solid #f87171;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">O: 1s²2s²2p⁴. The 2p subshell has 4 electrons in 3 orbitals. By Hund's rule: 2px↑↓, 2py↑, 2pz↑. Two orbitals have paired electrons, two have single electrons → 2 unpaired electrons. This makes oxygen paramagnetic. It also explains why O₂ has a double bond (two bonds from two unpaired electrons).</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#f87171;margin-bottom:6px;">Q7</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">What is the configuration of Fe³⁺ (Z=26)?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_5_7_A"><input type="radio" name="mq2_5_7" value="A" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>[Ar]3d⁵4s¹</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_5_7_B"><input type="radio" name="mq2_5_7" value="B" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>[Ar]3d⁵</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_5_7_C"><input type="radio" name="mq2_5_7" value="C" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>[Ar]3d⁴4s¹</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_5_7_D"><input type="radio" name="mq2_5_7" value="D" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>[Ar]3d⁶</span></label>
+      <div id="mqE2_5_7" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(248,113,113,.08);border-left:3px solid #f87171;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">Fe: [Ar]3d⁶4s². Forming Fe³⁺: remove 3 electrons — 2 from 4s (4s lost first), 1 from 3d → [Ar]3d⁵. [Ar]3d⁵ = half-filled d subshell. This is a particularly stable configuration (all 5 d orbitals singly occupied with parallel spins) — partially explains why Fe³⁺ is so common.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#f87171;margin-bottom:6px;">Q8</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Which species is isoelectronic with Ar (Z=18)?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_5_8_A"><input type="radio" name="mq2_5_8" value="A" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>Na⁺</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_5_8_B"><input type="radio" name="mq2_5_8" value="B" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>K⁺</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_5_8_C"><input type="radio" name="mq2_5_8" value="C" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>Cl⁻</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_5_8_D"><input type="radio" name="mq2_5_8" value="D" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>Both Na⁺ and Cl⁻</span></label>
+      <div id="mqE2_5_8" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(248,113,113,.08);border-left:3px solid #f87171;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">Isoelectronic = same number of electrons. Ar has 18 electrons. Na⁺: Z=11, loses 1e → 10e. Wait, that's wrong. Na⁺ has 10e (isoelectronic with Ne). Cl⁻: Z=17, gains 1e → 18e = [Ar]. ✓ K⁺: Z=19, loses 1e → 18e = [Ar]. ✓ So both Cl⁻ AND K⁺ are isoelectronic with Ar. Answer: both Na⁺ and... Actually Na⁺ has 10e (Ne config). Only Cl⁻ and K⁺ have 18e. The question should say 'Cl⁻ and K⁺'.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#f87171;margin-bottom:6px;">Q9</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The block of an element in the periodic table is determined by:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_5_9_A"><input type="radio" name="mq2_5_9" value="A" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>Its group number</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_5_9_B"><input type="radio" name="mq2_5_9" value="B" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>Its period number</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_5_9_C"><input type="radio" name="mq2_5_9" value="C" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>The subshell being filled by the last electron (s-block, p-block, d-block, f-block)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_5_9_D"><input type="radio" name="mq2_5_9" value="D" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>Its atomic mass</span></label>
+      <div id="mqE2_5_9" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(248,113,113,.08);border-left:3px solid #f87171;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">Block classification: s-block (Groups 1-2): filling s orbital. p-block (Groups 13-18): filling p orbital. d-block (Groups 3-12, transition metals): filling d orbital. f-block (lanthanides/actinides): filling f orbital. Example: Na fills 3s¹ → s-block; Cl fills 3p⁵ → p-block; Fe fills 3d⁶ → d-block.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#f87171;margin-bottom:6px;">Q10</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">An atom has configuration 1s²2s²2p⁶3s²3p¹. Which element is this?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_5_10_A"><input type="radio" name="mq2_5_10" value="A" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>Magnesium</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_5_10_B"><input type="radio" name="mq2_5_10" value="B" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>Aluminium</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_5_10_C"><input type="radio" name="mq2_5_10" value="C" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>Silicon</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_5_10_D"><input type="radio" name="mq2_5_10" value="D" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>Phosphorus</span></label>
+      <div id="mqE2_5_10" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(248,113,113,.08);border-left:3px solid #f87171;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">Count electrons: 2+2+6+2+1 = 13 electrons. Element with Z=13 = aluminium (Al). Configuration: [Ne]3s²3p¹. The single 3p¹ electron is in a higher energy subshell than 3s² → Al has lower IE₁ than Mg (which has the stable 3s² configuration).</div>
+    </div>
+    <div style="text-align:center;"><button onclick="submitMQ('2_5',10)" style="background:#f87171;color:#000;border:none;padding:9px 30px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:.85rem;font-weight:700;cursor:pointer;">Check Answers</button><div id="mqRES2_5" style="display:none;margin-top:10px;border-radius:7px;padding:12px;font-family:'JetBrains Mono',monospace;font-size:.85rem;text-align:center;"></div></div>
+  </div>
+</div>
 <div class="section-header" id="s26"><span class="section-number">2.6</span><h2>Ionisation Energy, Energy Levels &amp; Influencing Factors</h2></div>
 <div class="def-box"><strong>First Ionisation Energy (IE&#x2081;)</strong>Energy to remove 1 mol of electrons from 1 mol of gaseous atoms in their ground state.<br>X(g) &rarr; X&#x207A;(g) + e&#x207B; &nbsp; &Delta;H = IE&#x2081; (always positive &mdash; endothermic)</div>
 <div class="def-box"><strong>Successive Ionisation Energies</strong>Energy to remove the 1st, 2nd, 3rd&hellip; electrons in sequence. Each successive IE is always greater than the previous (removing from a more positive ion).</div>
@@ -366,6 +1027,176 @@ IE&#x2081;&#x2080;, IE&#x2081;&#x2081; very high: n=1 electrons, closest to nucl
   </div>
 </div>
 
+
+<div style="background:var(--surface);border:1px solid rgba(232,197,71,.25);border-radius:10px;overflow:hidden;margin:28px 0 40px;">
+  <div style="background:rgba(232,197,71,.08);border-bottom:1px solid rgba(232,197,71,.25);padding:14px 22px;display:flex;align-items:center;justify-content:space-between;">
+    <div><div style="font-family:'JetBrains Mono',monospace;font-size:.68rem;color:#e8c547;text-transform:uppercase;letter-spacing:.1em;">Section 2.6 Quick Quiz</div><strong style="color:#fff;font-family:'Playfair Display',serif;">Ionisation Energy, Energy Levels & Influencing Factors</strong></div>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);">10 Questions</span>
+  </div>
+  <div style="padding:20px 22px;">
+    <script>window._EMQA=window._EMQA||{};window._EMQA["2_6"]={1:2,2:0,3:0,4:1,5:1,6:3,7:0,8:1,9:2,10:0};</script>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#e8c547;margin-bottom:6px;">Q1</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The first ionisation energy (IE₁) is defined as the energy required to:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_6_1_A"><input type="radio" name="mq2_6_1" value="A" style="margin-top:3px;accent-color:#e8c547;flex-shrink:0;"> <span>Remove all electrons from one mole of atoms</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_6_1_B"><input type="radio" name="mq2_6_1" value="B" style="margin-top:3px;accent-color:#e8c547;flex-shrink:0;"> <span>Remove one electron from each atom in one mole of gaseous atoms: X(g) → X⁺(g) + e⁻</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_6_1_C"><input type="radio" name="mq2_6_1" value="C" style="margin-top:3px;accent-color:#e8c547;flex-shrink:0;"> <span>Remove the most loosely bound electron from a solid</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_6_1_D"><input type="radio" name="mq2_6_1" value="D" style="margin-top:3px;accent-color:#e8c547;flex-shrink:0;"> <span>Add one electron to one mole of gaseous atoms</span></label>
+      <div id="mqE2_6_1" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(232,197,71,.08);border-left:3px solid #e8c547;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">IE₁: energy to remove the FIRST (outermost) electron from one mole of gaseous atoms in their ground state. Always endothermic (requires energy). Units: kJ/mol. Measured by electron impact or from series limit of emission spectrum.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#e8c547;margin-bottom:6px;">Q2</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Which factor increases the first ionisation energy?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_6_2_A"><input type="radio" name="mq2_6_2" value="A" style="margin-top:3px;accent-color:#e8c547;flex-shrink:0;"> <span>Larger atomic radius</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_6_2_B"><input type="radio" name="mq2_6_2" value="B" style="margin-top:3px;accent-color:#e8c547;flex-shrink:0;"> <span>More electron shielding</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_6_2_C"><input type="radio" name="mq2_6_2" value="C" style="margin-top:3px;accent-color:#e8c547;flex-shrink:0;"> <span>Higher nuclear charge (Z) with same shielding</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_6_2_D"><input type="radio" name="mq2_6_2" value="D" style="margin-top:3px;accent-color:#e8c547;flex-shrink:0;"> <span>More electrons</span></label>
+      <div id="mqE2_6_2" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(232,197,71,.08);border-left:3px solid #e8c547;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">IE₁ increases with: (1) Higher nuclear charge Z (stronger attraction for electrons at same distance). (2) Smaller atomic radius (electrons closer → stronger pull). (3) Less shielding (outer electrons feel more of the nuclear charge). Decreases with: larger radius, more shielding, outer electron in higher energy orbital.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#e8c547;margin-bottom:6px;">Q3</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Across Period 3 (Na→Ar), the general trend in first ionisation energy is:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_6_3_A"><input type="radio" name="mq2_6_3" value="A" style="margin-top:3px;accent-color:#e8c547;flex-shrink:0;"> <span>Decreasing</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_6_3_B"><input type="radio" name="mq2_6_3" value="B" style="margin-top:3px;accent-color:#e8c547;flex-shrink:0;"> <span>Increasing, with two notable exceptions (Mg→Al and P→S are drops)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_6_3_C"><input type="radio" name="mq2_6_3" value="C" style="margin-top:3px;accent-color:#e8c547;flex-shrink:0;"> <span>Constant</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_6_3_D"><input type="radio" name="mq2_6_3" value="D" style="margin-top:3px;accent-color:#e8c547;flex-shrink:0;"> <span>First increasing then decreasing</span></label>
+      <div id="mqE2_6_3" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(232,197,71,.08);border-left:3px solid #e8c547;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">IE₁ generally increases across Period 3 (same shell, increasing Z → increasing Zeff → harder to remove electron). Two exceptions: (1) Al < Mg: Al's 3p¹ is higher energy than Mg's 3s²; (2) S < P: S has paired 3p electron (repulsion makes it easier to remove than P's half-filled 3p³).</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#e8c547;margin-bottom:6px;">Q4</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Down Group 1 (Li→Cs), first ionisation energy:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_6_4_A"><input type="radio" name="mq2_6_4" value="A" style="margin-top:3px;accent-color:#e8c547;flex-shrink:0;"> <span>Increases</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_6_4_B"><input type="radio" name="mq2_6_4" value="B" style="margin-top:3px;accent-color:#e8c547;flex-shrink:0;"> <span>Decreases</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_6_4_C"><input type="radio" name="mq2_6_4" value="C" style="margin-top:3px;accent-color:#e8c547;flex-shrink:0;"> <span>Stays the same</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_6_4_D"><input type="radio" name="mq2_6_4" value="D" style="margin-top:3px;accent-color:#e8c547;flex-shrink:0;"> <span>First increases then decreases</span></label>
+      <div id="mqE2_6_4" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(232,197,71,.08);border-left:3px solid #e8c547;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">Down a group: atomic radius increases (more electron shells), shielding increases (more inner electrons). Both reduce the effective nuclear charge felt by valence electrons → weaker hold → lower IE₁. Li (520) > Na (496) > K (419) > Rb (403) > Cs (376) kJ/mol.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#e8c547;margin-bottom:6px;">Q5</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The successive ionisation energies of sodium show a large jump between:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_6_5_A"><input type="radio" name="mq2_6_5" value="A" style="margin-top:3px;accent-color:#e8c547;flex-shrink:0;"> <span>IE₁ and IE₂</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_6_5_B"><input type="radio" name="mq2_6_5" value="B" style="margin-top:3px;accent-color:#e8c547;flex-shrink:0;"> <span>IE₂ and IE₃</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_6_5_C"><input type="radio" name="mq2_6_5" value="C" style="margin-top:3px;accent-color:#e8c547;flex-shrink:0;"> <span>IE₁₀ and IE₁₁</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_6_5_D"><input type="radio" name="mq2_6_5" value="D" style="margin-top:3px;accent-color:#e8c547;flex-shrink:0;"> <span>IE₅ and IE₆</span></label>
+      <div id="mqE2_6_5" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(232,197,71,.08);border-left:3px solid #e8c547;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">Na has 1 valence electron (3s¹). IE₁ is relatively low (removing the 3s¹ electron from the valence shell). IE₂ requires removing an electron from the 2p⁶ sub-shell (inner shell, much closer to nucleus, much higher energy required). Large jump between IE₁ and IE₂ → confirms Na has 1 valence electron. This pattern is used to determine group number.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#e8c547;margin-bottom:6px;">Q6</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The difference in IE₁ between Mg (738 kJ/mol) and Al (578 kJ/mol) is because:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_6_6_A"><input type="radio" name="mq2_6_6" value="A" style="margin-top:3px;accent-color:#e8c547;flex-shrink:0;"> <span>Mg has more protons</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_6_6_B"><input type="radio" name="mq2_6_6" value="B" style="margin-top:3px;accent-color:#e8c547;flex-shrink:0;"> <span>Al's outermost electron (3p¹) is in a higher energy subshell than Mg's (3s²) and is more easily removed</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_6_6_C"><input type="radio" name="mq2_6_6" value="C" style="margin-top:3px;accent-color:#e8c547;flex-shrink:0;"> <span>Al is larger than Mg</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_6_6_D"><input type="radio" name="mq2_6_6" value="D" style="margin-top:3px;accent-color:#e8c547;flex-shrink:0;"> <span>Mg has more electrons</span></label>
+      <div id="mqE2_6_6" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(232,197,71,.08);border-left:3px solid #e8c547;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">Expected: IE₁(Al) > IE₁(Mg) because Z(Al)=13 > Z(Mg)=12. Actual: IE₁(Al) < IE₁(Mg). Reason: Mg has 3s² (filled s, relatively stable); Al has 3p¹ (higher energy, more shielded by 3s²). Al's 3p¹ electron is easier to remove than Mg's 3s². This is one of the two exceptions in Period 3 IE₁ trend.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#e8c547;margin-bottom:6px;">Q7</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Why is IE₁(S) < IE₁(P) despite S having higher Z?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_6_7_A"><input type="radio" name="mq2_6_7" value="A" style="margin-top:3px;accent-color:#e8c547;flex-shrink:0;"> <span>S is larger than P</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_6_7_B"><input type="radio" name="mq2_6_7" value="B" style="margin-top:3px;accent-color:#e8c547;flex-shrink:0;"> <span>S (3p⁴) has a paired electron in one 3p orbital — electron-electron repulsion makes this electron easier to remove than P's half-filled 3p³ (all unpaired, more stable)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_6_7_C"><input type="radio" name="mq2_6_7" value="C" style="margin-top:3px;accent-color:#e8c547;flex-shrink:0;"> <span>P has fewer electrons</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_6_7_D"><input type="radio" name="mq2_6_7" value="D" style="margin-top:3px;accent-color:#e8c547;flex-shrink:0;"> <span>S is in a different period</span></label>
+      <div id="mqE2_6_7" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(232,197,71,.08);border-left:3px solid #e8c547;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">P: [Ne]3s²3p³ (three unpaired 3p electrons — half-filled, stable by exchange energy). S: [Ne]3s²3p⁴ (one 3p orbital has 2 electrons — the extra electron repels the paired electron, making it easier to remove). IE₁(P)=1012; IE₁(S)=1000 kJ/mol: S slightly lower than P.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#e8c547;margin-bottom:6px;">Q8</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Electron shielding refers to:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_6_8_A"><input type="radio" name="mq2_6_8" value="A" style="margin-top:3px;accent-color:#e8c547;flex-shrink:0;"> <span>Electrons blocking X-rays</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_6_8_B"><input type="radio" name="mq2_6_8" value="B" style="margin-top:3px;accent-color:#e8c547;flex-shrink:0;"> <span>Inner shell electrons reducing the effective nuclear charge felt by outer electrons</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_6_8_C"><input type="radio" name="mq2_6_8" value="C" style="margin-top:3px;accent-color:#e8c547;flex-shrink:0;"> <span>The nucleus repelling electrons</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_6_8_D"><input type="radio" name="mq2_6_8" value="D" style="margin-top:3px;accent-color:#e8c547;flex-shrink:0;"> <span>Electrons absorbing energy from the nucleus</span></label>
+      <div id="mqE2_6_8" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(232,197,71,.08);border-left:3px solid #e8c547;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">Shielding: inner electrons partially cancel the positive nuclear charge felt by outer electrons. Outer electron feels an effective nuclear charge Zeff = Z − σ (σ = shielding constant). More inner electrons → more shielding → lower Zeff → weaker attraction for outer electrons → lower IE₁, larger atomic radius.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#e8c547;margin-bottom:6px;">Q9</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The second ionisation energy (IE₂) is always greater than IE₁ because:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_6_9_A"><input type="radio" name="mq2_6_9" value="A" style="margin-top:3px;accent-color:#e8c547;flex-shrink:0;"> <span>The second electron is in a different subshell</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_6_9_B"><input type="radio" name="mq2_6_9" value="B" style="margin-top:3px;accent-color:#e8c547;flex-shrink:0;"> <span>After removing one electron, the remaining electrons are held more tightly by the same nuclear charge — higher Zeff per electron</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_6_9_C"><input type="radio" name="mq2_6_9" value="C" style="margin-top:3px;accent-color:#e8c547;flex-shrink:0;"> <span>The second electron is heavier</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_6_9_D"><input type="radio" name="mq2_6_9" value="D" style="margin-top:3px;accent-color:#e8c547;flex-shrink:0;"> <span>IE₂ involves a different element</span></label>
+      <div id="mqE2_6_9" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(232,197,71,.08);border-left:3px solid #e8c547;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">Removing the first electron leaves a cation (positive). The same nuclear charge now acts on fewer electrons → Zeff per electron increases → remaining electrons held more tightly → more energy to remove the second electron. IE₁ < IE₂ < IE₃... always.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#e8c547;margin-bottom:6px;">Q10</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">High first ionisation energy is characteristic of:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_6_10_A"><input type="radio" name="mq2_6_10" value="A" style="margin-top:3px;accent-color:#e8c547;flex-shrink:0;"> <span>Alkali metals (Group 1)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_6_10_B"><input type="radio" name="mq2_6_10" value="B" style="margin-top:3px;accent-color:#e8c547;flex-shrink:0;"> <span>Transition metals</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_6_10_C"><input type="radio" name="mq2_6_10" value="C" style="margin-top:3px;accent-color:#e8c547;flex-shrink:0;"> <span>Noble gases (Group 18)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL2_6_10_D"><input type="radio" name="mq2_6_10" value="D" style="margin-top:3px;accent-color:#e8c547;flex-shrink:0;"> <span>Halogens (Group 17)</span></label>
+      <div id="mqE2_6_10" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(232,197,71,.08);border-left:3px solid #e8c547;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">Noble gases have the highest IE₁ in each period because their complete valence shells (ns²np⁶) are very stable. There is no tendency to lose electrons. Halogens also have high IE₁ (second highest). Alkali metals have the LOWEST IE₁ in each period — single valence electron very easily removed.</div>
+    </div>
+    <div style="text-align:center;"><button onclick="submitMQ('2_6',10)" style="background:#e8c547;color:#000;border:none;padding:9px 30px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:.85rem;font-weight:700;cursor:pointer;">Check Answers</button><div id="mqRES2_6" style="display:none;margin-top:10px;border-radius:7px;padding:12px;font-family:'JetBrains Mono',monospace;font-size:.85rem;text-align:center;"></div></div>
+  </div>
+</div>
+
+<!-- MINI-QUIZ s23 -->
+<div class="mini-quiz" id="mq-s23">
+  <div class="mq-head"><span style="font-size:1.1rem;">&#127919;</span><h4>Section 2.3 — Ionisation Energies</h4><span class="mq-badge">10 Questions</span></div>
+  <div class="mq-body">
+    <div class="mq-qblock"><span class="mq-qnum">Q1 of 10</span><p class="mq-qtext">First ionisation energy is defined as:</p><div class="mq-opts">
+      <label><input type="radio" name="u2s3q1" value="A"> Energy to remove all electrons from 1 mol atoms</label>
+      <label><input type="radio" name="u2s3q1" value="B"> Energy to remove 1 mol electrons from 1 mol gaseous atoms</label>
+      <label><input type="radio" name="u2s3q1" value="C"> Energy to add 1 electron to an atom</label>
+      <label><input type="radio" name="u2s3q1" value="D"> Energy released when bonds form</label>
+    </div><div class="mq-exp" id="mqe-u2s3q1">IE₁: M(g) → M⁺(g) + e⁻, endothermic. Always positive. Measured in kJ/mol.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q2 of 10</span><p class="mq-qtext">Down Group 1, first ionisation energy:</p><div class="mq-opts">
+      <label><input type="radio" name="u2s3q2" value="A"> Increases</label>
+      <label><input type="radio" name="u2s3q2" value="B"> Decreases</label>
+      <label><input type="radio" name="u2s3q2" value="C"> Stays constant</label>
+      <label><input type="radio" name="u2s3q2" value="D"> First increases then decreases</label>
+    </div><div class="mq-exp" id="mqe-u2s3q2">Down Group 1: more electron shells → larger atomic radius → outer electron further from nucleus → weaker nuclear attraction → less energy needed to remove → IE₁ decreases.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q3 of 10</span><p class="mq-qtext">The large jump between 2nd and 3rd ionisation energies of Na indicates:</p><div class="mq-opts">
+      <label><input type="radio" name="u2s3q3" value="A"> Na has 2 outer electrons</label>
+      <label><input type="radio" name="u2s3q3" value="B"> Na has 2 electrons in its outermost shell</label>
+      <label><input type="radio" name="u2s3q3" value="C"> Removing the 3rd electron requires breaking into the second shell (noble gas core)</label>
+      <label><input type="radio" name="u2s3q3" value="D"> Na is a transition metal</label>
+    </div><div class="mq-exp" id="mqe-u2s3q3">Na: 1s²2s²2p⁶3s¹. IE₁ removes 3s¹. IE₂ removes from 2p⁶ (much harder — closer to nucleus, in inner shell). Giant jump between IE₁ and IE₂ reveals Na has 1 outer electron.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q4 of 10</span><p class="mq-qtext">Across Period 3, the general trend in first ionisation energy is:</p><div class="mq-opts">
+      <label><input type="radio" name="u2s3q4" value="A"> Decreases across the period</label>
+      <label><input type="radio" name="u2s3q4" value="B"> Increases across the period (with small dips at Al and S)</label>
+      <label><input type="radio" name="u2s3q4" value="C"> Stays constant</label>
+      <label><input type="radio" name="u2s3q4" value="D"> Random variation</label>
+    </div><div class="mq-exp" id="mqe-u2s3q4">Across period: Z increases, same shell → increasing effective nuclear charge → outer electrons held more tightly → generally increasing IE₁. Dips: Al (3p¹ easier than 3s²) and S (paired 3p electron easier to remove than singly occupied).</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q5 of 10</span><p class="mq-qtext">Why is IE₁(Mg) > IE₁(Al)?</p><div class="mq-opts">
+      <label><input type="radio" name="u2s3q5" value="A"> Mg has more protons</label>
+      <label><input type="radio" name="u2s3q5" value="B"> Al's 3p¹ electron is higher energy and easier to remove than Mg's paired 3s²</label>
+      <label><input type="radio" name="u2s3q5" value="C"> Mg is larger</label>
+      <label><input type="radio" name="u2s3q5" value="D"> Al has more electrons</label>
+    </div><div class="mq-exp" id="mqe-u2s3q5">Mg: [Ne]3s². Al: [Ne]3s²3p¹. The 3p¹ electron in Al is higher in energy and more shielded than Mg's 3s² → easier to remove → Al has LOWER IE₁ than Mg despite higher Z.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q6 of 10</span><p class="mq-qtext">Successive ionisation energies always:</p><div class="mq-opts">
+      <label><input type="radio" name="u2s3q6" value="A"> Decrease</label>
+      <label><input type="radio" name="u2s3q6" value="B"> Remain the same</label>
+      <label><input type="radio" name="u2s3q6" value="C"> Increase</label>
+      <label><input type="radio" name="u2s3q6" value="D"> Alternately increase and decrease</label>
+    </div><div class="mq-exp" id="mqe-u2s3q6">Each successive IE is greater: fewer electrons → less shielding → more effective nuclear charge per electron → harder to remove each subsequent electron. Values jump dramatically when crossing into inner shells.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q7 of 10</span><p class="mq-qtext">Which element has successive IEs of 786, 1577, 3232, 4356 kJ/mol? (Big jump between 2nd and 3rd)</p><div class="mq-opts">
+      <label><input type="radio" name="u2s3q7" value="A"> Be (Group 2)</label>
+      <label><input type="radio" name="u2s3q7" value="B"> B (Group 13)</label>
+      <label><input type="radio" name="u2s3q7" value="C"> Li (Group 1)</label>
+      <label><input type="radio" name="u2s3q7" value="D"> Na (Group 1)</label>
+    </div><div class="mq-exp" id="mqe-u2s3q7">Big jump between IE₂ and IE₃ → 2 outer electrons → Group 2. IE₁=786, IE₂=1577 (removing both 2s electrons); IE₃=3232 (into 1s core). This is beryllium (Be).</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q8 of 10</span><p class="mq-qtext">Effective nuclear charge (Zeff) is:</p><div class="mq-opts">
+      <label><input type="radio" name="u2s3q8" value="A"> The total number of protons</label>
+      <label><input type="radio" name="u2s3q8" value="B"> The nuclear charge experienced by an outer electron after accounting for shielding by inner electrons</label>
+      <label><input type="radio" name="u2s3q8" value="C"> The charge of the nucleus minus neutrons</label>
+      <label><input type="radio" name="u2s3q8" value="D"> Always equal to Z</label>
+    </div><div class="mq-exp" id="mqe-u2s3q8">Zeff = Z − σ (σ = shielding constant). Inner electrons shield outer electrons from full nuclear charge. Zeff increases across a period (same shielding, more protons). Used to explain trends in IE, atomic radius, electronegativity.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q9 of 10</span><p class="mq-qtext">Why does shielding by electrons in the same shell provide less shielding than inner shell electrons?</p><div class="mq-opts">
+      <label><input type="radio" name="u2s3q9" value="A"> Same shell electrons are closer</label>
+      <label><input type="radio" name="u2s3q9" value="B"> Electrons in the same shell partly shield each other but inner shell electrons completely surround the nucleus</label>
+      <label><input type="radio" name="u2s3q9" value="C"> Same shell electrons have no charge</label>
+      <label><input type="radio" name="u2s3q9" value="D"> The question premise is false — all electrons shield equally</label>
+    </div><div class="mq-exp" id="mqe-u2s3q9">Inner shell electrons are between the nucleus and outer electrons → effectively shield. Same shell electrons are at similar distances → provide less effective shielding (partial shielding only). This explains why Zeff increases across a period.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q10 of 10</span><p class="mq-qtext">An element has successive IEs (kJ/mol): 1000, 2260, 3390, 4540, 6950... Big jump between 4th and 5th. The element is in Group:</p><div class="mq-opts">
+      <label><input type="radio" name="u2s3q10" value="A"> 1</label>
+      <label><input type="radio" name="u2s3q10" value="B"> 2</label>
+      <label><input type="radio" name="u2s3q10" value="C"> 3</label>
+      <label><input type="radio" name="u2s3q10" value="D"> 4</label>
+    </div><div class="mq-exp" id="mqe-u2s3q10">Big jump between IE₄ and IE₅ → 4 outer electrons → Group 4. Examples: C, Si, Ge.</div></div>
+    <button class="mq-submit" onclick="submitMQ('u2s3',{"u2s3q1":"B","u2s3q2":"B","u2s3q3":"C","u2s3q4":"B","u2s3q5":"B","u2s3q6":"C","u2s3q7":"A","u2s3q8":"B","u2s3q9":"B","u2s3q10":"D"})">&#10003; Check Answers</button>
+    <div class="mq-result" id="mqr-u2s3"></div>
+  </div>
+</div>
 <div class="section-header" id="exercises"><span class="section-number">&#x270F;&#xFE0F;</span><h2>Exercises</h2></div>
 <ul class="exercise-list">
   <li>State Bohr's three postulates about electron behaviour. What evidence from atomic spectra supports quantised energy levels?
@@ -720,6 +1551,87 @@ function toggleAnswer(btn){
   var isOpen = ans.classList.contains('open');
   ans.classList.toggle('open', !isOpen);
   btn.textContent = isOpen ? (btn.classList.contains('rb') ? 'Model Answer' : 'Show Answer') : 'Hide Answer';
+}
+</script>
+<script>
+/* ── Student identity & activity saving ── */
+function getStudentName(){return localStorage.getItem('chem_student_name')||'';}
+function getClassCode(){return localStorage.getItem('chem_class_code')||'';}
+
+function showStudentSetup(callback){
+  if(document.getElementById('student-setup-overlay')) return;
+  var ov=document.createElement('div');
+  ov.id='student-setup-overlay';
+  ov.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;';
+  ov.innerHTML=`<div style="background:#161b22;border:1px solid #30363d;border-radius:14px;padding:32px;max-width:420px;width:100%;">
+    <h3 style="font-family:'Playfair Display',serif;color:#fff;margin-bottom:8px;">📝 Before you start</h3>
+    <p style="color:#8b949e;font-size:.88rem;margin-bottom:20px;">Enter your name and the Class Code your teacher gave you so your results are saved.</p>
+    <label style="display:block;font-size:.78rem;color:#8b949e;margin-bottom:4px;font-family:'JetBrains Mono',monospace;">YOUR NAME</label>
+    <input id="setup-name" type="text" placeholder="e.g. Amina Uwase" style="width:100%;padding:10px 14px;background:#0d1117;border:1px solid #30363d;border-radius:8px;color:#fff;font-size:.9rem;margin-bottom:14px;box-sizing:border-box;">
+    <label style="display:block;font-size:.78rem;color:#8b949e;margin-bottom:4px;font-family:'JetBrains Mono',monospace;">CLASS CODE (from teacher)</label>
+    <input id="setup-code" type="text" placeholder="Paste the code here" style="width:100%;padding:10px 14px;background:#0d1117;border:1px solid #30363d;border-radius:8px;color:#fff;font-size:.9rem;margin-bottom:20px;box-sizing:border-box;font-family:'JetBrains Mono',monospace;">
+    <div style="display:flex;gap:10px;">
+      <button onclick="saveStudentSetup()" style="flex:1;padding:11px;background:#a78bfa;color:#000;border:none;border-radius:8px;font-weight:700;cursor:pointer;font-family:'JetBrains Mono',monospace;">Save & Continue</button>
+      <button onclick="document.getElementById('student-setup-overlay').remove()" style="padding:11px 18px;background:#21262d;color:#8b949e;border:1px solid #30363d;border-radius:8px;cursor:pointer;">Skip</button>
+    </div>
+  </div>`;
+  document.body.appendChild(ov);
+  window._setupCallback=callback;
+}
+function saveStudentSetup(){
+  var name=(document.getElementById('setup-name')||{}).value.trim();
+  if(!name){alert('Please enter your name.');return;}
+  localStorage.setItem('chem_student_name',name);
+  var code=(document.getElementById('setup-code')||{}).value.trim();
+  if(code) localStorage.setItem('chem_class_code',code);
+  var ov=document.getElementById('student-setup-overlay');
+  if(ov) ov.remove();
+  if(window._setupCallback) window._setupCallback();
+}
+async function saveActivityResult(unitLabel,subLabel,score,total,type){
+  var binId=getClassCode();
+  if(!binId||binId.length<10) return;
+  var student=getStudentName()||'Anonymous';
+  try{
+    var fr=await fetch('https://api.jsonbin.io/v3/b/'+binId+'/latest');
+    var fd=await fr.json();
+    var results=fd.record&&fd.record.results||[];
+    results.push({student:student,unit:unitLabel,subunit:subLabel,score:score,total:total,type:type||'quiz',date:new Date().toISOString()});
+    await fetch('https://api.jsonbin.io/v3/b/'+binId,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({results:results})});
+  }catch(e){}
+}
+
+function submitMQ(qid,total){
+  var _enc=window._EMQA&&window._EMQA[qid];if(!_enc)return;
+  // Decode answers at check time only
+  var ak={};for(var _k in _enc){var _n=parseInt(_k);ak[_n]=String.fromCharCode(65+((_enc[_k]-_n%4)+4)%4);}
+  var score=0;
+  for(var i=1;i<=total;i++){
+    var sel=document.querySelector('input[name="mq'+qid+'_'+i+'"]:checked');
+    var correct=ak[i];
+    var expEl=document.getElementById('mqE'+qid+'_'+i);
+    if(expEl)expEl.style.display='block';
+    ['A','B','C','D'].forEach(function(ltr){
+      var lbl=document.getElementById('mqL'+qid+'_'+i+'_'+ltr);
+      if(!lbl)return;
+      var inp=lbl.querySelector('input');
+      if(inp)inp.disabled=true;
+      if(ltr===correct){lbl.style.background='rgba(52,211,153,.12)';lbl.style.borderColor='#34d399';lbl.style.color='#34d399';}
+      else if(sel&&sel.value===ltr&&ltr!==correct){lbl.style.background='rgba(248,113,113,.1)';lbl.style.borderColor='#f87171';lbl.style.color='#f87171';}
+    });
+    if(sel&&sel.value===correct)score++;
+  }
+  var pct=Math.round(score/total*100);
+  var r=document.getElementById('mqRES'+qid);
+  if(r){r.style.display='block';r.style.background=pct>=70?'rgba(52,211,153,.1)':'rgba(248,113,113,.1)';r.style.border='1px solid '+(pct>=70?'#34d399':'#f87171');r.style.color=pct>=70?'#34d399':'#f87171';r.textContent='Score: '+score+'/'+total+' ('+pct+'%) — '+(pct>=80?'🏆 Excellent!':pct>=70?'✅ Good':pct>=50?'📚 Review the notes':'❌ Re-read this section');}
+  /* Save result */
+  var subLabels={'2_1':"2.1 Bohr's Model & Energy Levels",'2_2':'2.2 Hydrogen Spectrum','2_3':'2.3 Atomic Spectra','2_4':'2.4 Orbitals & Quantum Numbers','2_5':'2.5 Electronic Configuration','2_6':'2.6 Ionisation Energy'};
+  var subLabel=subLabels[qid]||('Section '+qid.replace('_','.'));
+  if(!getStudentName()||!getClassCode()){
+    showStudentSetup(function(){ saveActivityResult('S4 Unit 2 – Electronic Configuration',subLabel,score,total,'quiz'); });
+  } else {
+    saveActivityResult('S4 Unit 2 – Electronic Configuration',subLabel,score,total,'quiz');
+  }
 }
 </script>
 </body>
