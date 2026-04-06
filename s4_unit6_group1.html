@@ -1,181 +1,747 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>S4 Chemistry – Unit 6: Group 1 Elements &amp; Their Compounds | Jackson Habimana</title>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>S4 Chemistry – Unit 6: Group 1 Elements &amp; Their Compounds</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Serif+4:wght@300;400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
 <style>
-:root{--bg:#0d1117;--surface:#161b22;--surface2:#1c2333;--border:#30363d;--accent:#fb923c;--green:#34d399;--red:#f87171;--text:#e6edf3;--muted:#8b949e;--radius:10px;}
-*{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
-body{background:var(--bg);color:var(--text);font-family:'Source Serif 4',Georgia,serif;font-size:17px;line-height:1.75;}
-nav{position:sticky;top:0;z-index:200;background:rgba(13,17,23,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
-.nav-inner{max-width:1060px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:.7rem 1.5rem;}
-.nav-brand{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--accent);text-decoration:none;}
-.nav-links{display:flex;gap:1.2rem;}.nav-links a{color:var(--muted);text-decoration:none;font-size:.85rem;}.nav-links a:hover{color:var(--accent);}
-.hero{background:linear-gradient(135deg,#0a0d0f,#0d1117);border-bottom:1px solid var(--border);padding:3rem 1.5rem 2rem;}
-.hero-inner{max-width:1060px;margin:0 auto;}
-.badge{display:inline-block;background:rgba(255,255,255,.06);color:var(--accent);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:.3rem 1rem;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:1rem;}
-.hero h1{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.2;margin-bottom:.6rem;}
-.hero h1 span{color:var(--accent);}
-.hero-meta{display:flex;gap:1rem;flex-wrap:wrap;font-size:.84rem;color:var(--muted);margin-top:1rem;}
-.toc{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:var(--radius);padding:1.2rem 1.5rem;max-width:1060px;margin:1.5rem auto;width:calc(100% - 3rem);}
-.toc h3{font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:.8rem;}
-.toc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.3rem .8rem;}
-.toc-grid a{color:var(--muted);text-decoration:none;font-size:.88rem;}.toc-grid a:hover{color:var(--accent);}
-main{max-width:1060px;margin:0 auto;padding:1rem 1.5rem 4rem;}
-section{margin-bottom:3rem;scroll-margin-top:80px;}
-.sec-head{display:flex;align-items:baseline;gap:.8rem;margin-bottom:1.2rem;padding-bottom:.5rem;border-bottom:1px solid var(--border);}
-.sec-num{font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--accent);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:5px;padding:.2rem .6rem;}
-.sec-head h2{font-family:'Playfair Display',serif;font-size:1.45rem;}
-p{margin-bottom:.9rem;}
-.key{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-left:4px solid var(--accent);border-radius:var(--radius);padding:1.1rem 1.4rem;margin:1.2rem 0;}
-.key .kl{font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:.4rem;}
-.eq{font-family:'JetBrains Mono',monospace;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:.8rem 1.1rem;margin:.8rem 0;font-size:.93rem;overflow-x:auto;}
-table{width:100%;border-collapse:collapse;margin:1.2rem 0;font-size:.9rem;}
-th{background:var(--surface2);color:var(--accent);padding:.65rem .9rem;text-align:left;border:1px solid var(--border);}
-td{padding:.6rem .9rem;border:1px solid var(--border);vertical-align:top;}
-tr:nth-child(even) td{background:rgba(255,255,255,.02);}
-.qcard{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin-top:1rem;}
-.qcard h3{font-family:'Playfair Display',serif;color:var(--accent);margin-bottom:1rem;}
-.qi{margin:.9rem 0;padding-left:1.1rem;border-left:2px solid var(--border);}
-.qi:hover{border-left-color:var(--accent);}
-.qn{font-size:.74rem;color:var(--accent);font-family:'JetBrains Mono',monospace;}
-.ans{display:none;margin-top:.4rem;font-size:.88rem;color:var(--green);font-style:italic;}
-.sa{background:none;border:1px solid var(--border);color:var(--muted);font-size:.74rem;border-radius:4px;padding:.15rem .5rem;cursor:pointer;margin-top:.3rem;}
-.sa:hover{border-color:var(--accent);color:var(--accent);}
-.mk{float:right;font-size:.74rem;color:var(--muted);font-family:'JetBrains Mono',monospace;}
-.unit-nav{display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--border);}
-.unit-nav a{color:var(--accent);text-decoration:none;font-size:.9rem;}
-footer{background:var(--surface);border-top:1px solid var(--border);text-align:center;padding:1.2rem;font-size:.8rem;color:var(--muted);}
-footer a{color:var(--accent);text-decoration:none;}
+  :root{--bg:#0d1117;--surface:#161b22;--surface2:#1c2333;--border:#30363d;--accent:#fb923c;--accent2:#f97316;--gold:#e8c547;--green:#34d399;--red:#f87171;--text:#e6edf3;--muted:#8b949e;--radius:10px;}
+  *{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+  body{background:var(--bg);color:var(--text);font-family:'Source Serif 4',Georgia,serif;font-size:17px;line-height:1.75;overflow-x:hidden;}
+  .hero{position:relative;padding:80px 40px 60px;text-align:center;overflow:hidden;background:radial-gradient(ellipse 80% 60% at 50% 0%,#1a0a00 0%,var(--bg) 70%);border-bottom:1px solid var(--border);}
+  .hero::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(251,146,60,.04) 40px),repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(251,146,60,.04) 40px);pointer-events:none;}
+  .badge{display:inline-block;background:rgba(251,146,60,.12);border:1px solid rgba(251,146,60,.3);color:var(--accent);padding:4px 16px;border-radius:50px;font-size:.78rem;font-family:'JetBrains Mono',monospace;letter-spacing:.12em;text-transform:uppercase;margin-bottom:22px;}
+  .hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.4rem);line-height:1.15;color:#fff;max-width:820px;margin:0 auto 18px;}
+  .hero h1 em{color:var(--accent);font-style:italic;}
+  .hero p.sub{color:var(--muted);font-size:1rem;max-width:640px;margin:0 auto 32px;}
+  .toc-grid{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:860px;margin:0 auto;}
+  .toc-grid a{background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:8px 18px;border-radius:50px;text-decoration:none;font-size:.85rem;transition:all .2s;font-family:'JetBrains Mono',monospace;}
+  .toc-grid a:hover{background:var(--accent);color:#000;border-color:var(--accent);}
+  .page{max-width:960px;margin:0 auto;padding:0 28px 80px;}
+  .section-header{display:flex;align-items:center;gap:16px;margin:64px 0 28px;padding-bottom:14px;border-bottom:2px solid var(--border);}
+  .section-number{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--accent);background:rgba(251,146,60,.1);border:1px solid rgba(251,146,60,.25);padding:4px 12px;border-radius:4px;white-space:nowrap;}
+  .section-header h2{font-family:'Playfair Display',serif;font-size:1.75rem;color:#fff;}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:26px 30px;margin-bottom:22px;}
+  .card h3{font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--gold);margin-bottom:12px;}
+  .card p+p{margin-top:12px;}
+  .def-box{border-left:4px solid var(--accent);background:rgba(251,146,60,.07);border-radius:0 var(--radius) var(--radius) 0;padding:18px 22px;margin:20px 0;}
+  .def-box strong{color:var(--accent);display:block;font-size:.78rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;}
+  .callout{border-radius:var(--radius);padding:18px 22px;margin:20px 0;display:flex;gap:14px;align-items:flex-start;}
+  .callout.info{background:rgba(251,146,60,.08);border:1px solid rgba(251,146,60,.25);}
+  .callout.warn{background:rgba(249,115,22,.08);border:1px solid rgba(249,115,22,.25);}
+  .callout.tip{background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.25);}
+  .callout-icon{font-size:1.3rem;margin-top:2px;flex-shrink:0;}
+  .callout-body strong{display:block;margin-bottom:4px;font-size:.9rem;color:#fff;}
+  .tbl-wrap{overflow-x:auto;margin:20px 0;border-radius:var(--radius);border:1px solid var(--border);}
+  table{width:100%;border-collapse:collapse;}
+  thead tr{background:var(--surface2);}
+  th{padding:13px 16px;text-align:left;font-size:.82rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);white-space:nowrap;}
+  td{padding:12px 16px;border-top:1px solid var(--border);font-size:.9rem;}
+  tr:hover td{background:rgba(255,255,255,.02);}
+  .formula-block{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:20px 26px;margin:16px 0;font-family:'JetBrains Mono',monospace;font-size:.93rem;color:var(--accent);overflow-x:auto;white-space:pre-wrap;}
+  .example-box{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin:26px 0;}
+  .example-header{background:rgba(232,197,71,.1);border-bottom:1px solid rgba(232,197,71,.2);padding:14px 22px;display:flex;align-items:center;gap:12px;}
+  .example-header span.tag{font-family:'JetBrains Mono',monospace;font-size:.72rem;background:var(--gold);color:#000;padding:3px 10px;border-radius:4px;font-weight:600;}
+  .example-header h4{color:var(--gold);font-family:'Playfair Display',serif;font-size:1rem;}
+  .example-body{padding:22px 26px;}
+  .example-body .step{display:flex;gap:14px;margin:10px 0;}
+  .step-num{min-width:28px;height:28px;background:rgba(251,146,60,.15);border:1px solid rgba(251,146,60,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--accent);flex-shrink:0;margin-top:3px;}
+  .step-text{flex:1;}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:20px 0;}
+  @media(max-width:640px){.two-col{grid-template-columns:1fr;}}
+  .exercise-list{list-style:none;counter-reset:ex;}
+  .exercise-list li{counter-increment:ex;margin-bottom:16px;padding:16px 20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);}
+  .exercise-list li::before{content:'Q' counter(ex) '.';font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--accent);display:block;margin-bottom:6px;}
+  .reveal-btn{margin-top:10px;background:rgba(251,146,60,.1);border:1px solid rgba(251,146,60,.3);color:var(--accent);padding:6px 16px;border-radius:6px;cursor:pointer;font-size:.82rem;font-family:'JetBrains Mono',monospace;transition:all .2s;}
+  .reveal-btn:hover{background:var(--accent);color:#000;}
+  .answer{display:none;margin-top:12px;padding:12px 16px;background:rgba(251,146,60,.06);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-size:.9rem;}
+  .answer.open{display:block;}
+  .quiz-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-top:32px;}
+  .quiz-header{background:rgba(251,146,60,.1);border-bottom:1px solid rgba(251,146,60,.2);padding:16px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+  .quiz-header h3{font-family:'Playfair Display',serif;color:var(--accent);font-size:1.2rem;}
+  .quiz-body{padding:24px;}
+  .q-block{margin-bottom:26px;padding-bottom:26px;border-bottom:1px solid var(--border);}
+  .q-block:last-of-type{border-bottom:none;}
+  .q-text{font-weight:600;margin-bottom:12px;color:#fff;}
+  .q-num{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--accent);display:block;margin-bottom:4px;}
+  .options{display:flex;flex-direction:column;gap:8px;}
+  .opt{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:all .18s;font-size:.92rem;}
+  .opt:hover{border-color:var(--accent);}
+  .opt input{margin-top:3px;accent-color:var(--accent);}
+  .opt.correct{background:rgba(52,211,153,.12);border-color:var(--green)!important;color:var(--green);}
+  .opt.wrong{background:rgba(248,113,113,.1);border-color:var(--red)!important;color:var(--red);}
+  .q-exp{display:none;margin-top:10px;padding:10px 14px;background:rgba(251,146,60,.07);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-size:.88rem;}
+  .qs{background:var(--accent);color:#000;border:none;padding:12px 32px;border-radius:8px;font-size:1rem;font-family:'JetBrains Mono',monospace;cursor:pointer;font-weight:700;transition:opacity .2s;}
+  .qs:hover{opacity:.85;}
+  #qR{display:none;margin-top:18px;padding:16px 22px;border-radius:var(--radius);font-family:'JetBrains Mono',monospace;font-weight:700;font-size:1rem;text-align:center;}
+  .test-wrap{margin-top:40px;}
+  .test-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:28px;}
+  .test-sh{background:rgba(249,115,22,.1);border-bottom:1px solid rgba(249,115,22,.2);padding:14px 24px;display:flex;justify-content:space-between;align-items:center;}
+  .test-sh h3{font-family:'Playfair Display',serif;color:var(--accent2);font-size:1.1rem;}
+  .mb{font-family:'JetBrains Mono',monospace;font-size:.75rem;background:rgba(249,115,22,.2);color:var(--accent2);padding:4px 12px;border-radius:50px;}
+  .test-body{padding:24px;}
+  .tq{margin-bottom:20px;padding:16px 18px;background:var(--surface2);border-radius:8px;border:1px solid var(--border);}
+  .tqn{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--accent2);margin-bottom:6px;display:block;}
+  .rb{margin-top:12px;background:rgba(249,115,22,.1);border:1px solid rgba(249,115,22,.3);color:var(--accent2);padding:6px 16px;border-radius:6px;cursor:pointer;font-size:.82rem;font-family:'JetBrains Mono',monospace;transition:all .2s;}
+  .rb:hover{background:var(--accent2);color:#000;}
+  .ans{display:none;margin-top:12px;padding:12px 16px;background:rgba(249,115,22,.06);border-left:3px solid var(--accent2);border-radius:0 6px 6px 0;font-size:.9rem;line-height:1.7;}
+  .ans.open{display:block;}
+  .nav{display:flex;justify-content:space-between;align-items:center;margin-top:72px;padding-top:32px;border-top:1px solid var(--border);flex-wrap:wrap;gap:16px;}
+  .nb{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:8px;text-decoration:none;font-family:'JetBrains Mono',monospace;font-size:.85rem;transition:all .2s;}
+  .nb.p{background:var(--surface);border:1px solid var(--border);color:var(--muted);}
+  .nb.p:hover{border-color:var(--accent);color:var(--accent);}
+  .nb.n{background:var(--accent);color:#000;font-weight:700;}
+  .nb.n:hover{opacity:.88;}
+  h3.sub{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--gold);margin:28px 0 10px;}
+  sub,sup{font-size:.72em;}
+  @media(max-width:600px){.hero{padding:50px 20px 40px;}.page{padding:0 16px 60px;}}
 </style>
 </head>
 <body>
-<nav><div class="nav-inner">
-  <a class="nav-brand" href="index.html">⚗ Jackson Habimana</a>
-  <div class="nav-links"><a href="s4-chemistry.html">S4 Course</a><a href="s5-chemistry.html">S5</a><a href="s6-chemistry.html">S6</a></div>
-</div></nav>
-<header class="hero"><div class="hero-inner">
-  <div class="badge">S4 · Unit 6</div>
-  <h1>Group 1 Elements &amp; Their Compounds</h1>
-  <p style="color:var(--muted);max-width:580px;margin-top:.5rem;">Alkali metals: occurrence, physical properties, reactions with O₂, H₂O and halogens, compounds and flame tests.</p>
-  <div class="hero-meta"><span>📚 6 Sections</span><span>🧪 25 Quiz Questions</span><span>📝 50-Mark Test</span></div>
-</div></header>
-<div class="toc"><h3>Contents</h3><div class="toc-grid">
-  <a href="#s1">Section 1</a><a href="#s2">Section 2</a><a href="#s3">Section 3</a>
-  <a href="#s4">Section 4</a><a href="#s5">Section 5</a><a href="#s6">Section 6</a>
-  <a href="#quiz">Quiz (25 Qs)</a><a href="#test">50-Mark Test</a>
-</div></div>
-<main>
+<div id="sitenav" style="position:sticky;top:0;z-index:200;background:rgba(13,17,23,.95);backdrop-filter:blur(12px);border-bottom:1px solid #30363d;padding:0 28px;font-family:JetBrains Mono,monospace;"><div style="max-width:960px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:52px;gap:12px;"><a href="index.html" style="font-size:.78rem;color:#38bdf8;text-decoration:none;letter-spacing:.06em;white-space:nowrap;">&#9883; Habimana</a><div style="display:flex;gap:4px;flex-wrap:wrap;"><a href="index.html" style="font-size:.72rem;color:#8b949e;text-decoration:none;padding:4px 12px;border-radius:5px;border:1px solid transparent;">Home</a><a href="s4-chemistry.html" style="font-size:.72rem;color:#38bdf8;text-decoration:none;padding:4px 12px;border-radius:5px;background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.25);">S4</a><a href="s5-chemistry.html" style="font-size:.72rem;color:#8b949e;text-decoration:none;padding:4px 12px;border-radius:5px;border:1px solid transparent;">S5</a><a href="s6-chemistry.html" style="font-size:.72rem;color:#8b949e;text-decoration:none;padding:4px 12px;border-radius:5px;border:1px solid transparent;">S6</a></div></div></div>
 
-<section id="s1"><div class="sec-head"><span class="sec-num">6.1</span><h2>Physical Properties of Group 1</h2></div>
-<table><tr><th>Element</th><th>Symbol</th><th>Melting pt (°C)</th><th>Density (g/cm³)</th><th>Colour of flame</th></tr>
-<tr><td>Lithium</td><td>Li</td><td>181</td><td>0.53</td><td>Crimson red</td></tr>
-<tr><td>Sodium</td><td>Na</td><td>98</td><td>0.97</td><td>Yellow-orange</td></tr>
-<tr><td>Potassium</td><td>K</td><td>63</td><td>0.86</td><td>Lilac/violet</td></tr>
-<tr><td>Rubidium</td><td>Rb</td><td>39</td><td>1.53</td><td>Red</td></tr>
-<tr><td>Caesium</td><td>Cs</td><td>29</td><td>1.87</td><td>Blue</td></tr></table>
-<div class="key"><div class="kl">Trends down Group 1</div>
-<p>Melting point <strong>decreases</strong> (weaker metallic bonds — larger atoms, less charge density). Density generally <strong>increases</strong>. Atomic radius <strong>increases</strong>. IE₁ <strong>decreases</strong>. Reactivity <strong>increases</strong>.</p></div></section>
-
-<section id="s2"><div class="sec-head"><span class="sec-num">6.2</span><h2>Reactions of Group 1 Metals</h2></div>
-<table><tr><th>Reaction with</th><th>Product</th><th>Equation</th><th>Observation</th></tr>
-<tr><td>Oxygen</td><td>Oxide (Li), peroxide (Na), superoxide (K)</td><td>4Li + O₂ → 2Li₂O; 2Na + O₂ → Na₂O₂; K + O₂ → KO₂</td><td>Burn vigorously; Li red, Na yellow, K lilac flame</td></tr>
-<tr><td>Water</td><td>Metal hydroxide + hydrogen</td><td>2Na + 2H₂O → 2NaOH + H₂</td><td>Li: fizzes; Na: floats, melts, fizzes; K: ignites H₂ (lilac flame); Cs: explosive</td></tr>
-<tr><td>Chlorine</td><td>Metal chloride</td><td>2Na + Cl₂ → 2NaCl</td><td>Burns vigorously, white solid formed</td></tr></table>
-<p>Reactivity <strong>increases down the group</strong> — easier to lose the outer s electron as atomic radius increases and shielding reduces nuclear attraction.</p></section>
-
-<section id="s3"><div class="sec-head"><span class="sec-num">6.3</span><h2>Group 1 Compounds</h2></div>
-<div class="key"><div class="kl">Thermal stability of carbonates and nitrates</div>
-<p>Group 1 carbonates: all stable to heat (except Li₂CO₃ which decomposes). Group 1 nitrates: decompose to nitrite + oxygen (Li nitrate → oxide + NO₂ + O₂).<br>
-<strong>MNO₃ → MNO₂ + ½O₂</strong> (Na, K, Rb, Cs) &nbsp;|&nbsp; <strong>4LiNO₃ → 2Li₂O + 4NO₂ + O₂</strong> (Li behaves like Mg — diagonal relationship)</p></div>
-<table><tr><th>Compound</th><th>Solubility trend</th><th>Notes</th></tr>
-<tr><td>Hydroxides MOH</td><td>All very soluble; solubility increases down group</td><td>Strong bases</td></tr>
-<tr><td>Carbonates M₂CO₃</td><td>All soluble (unlike Group 2)</td><td>Thermally stable except Li₂CO₃</td></tr>
-<tr><td>Nitrates MNO₃</td><td>All very soluble</td><td>Decompose on strong heating</td></tr></table></section>
-
-<section id="s4"><div class="sec-head"><span class="sec-num">6.4</span><h2>Flame Tests</h2></div>
-<p>When metal ions are heated in a flame, electrons absorb energy, become excited, and fall back emitting light of specific wavelengths (colours).</p>
-<table><tr><th>Metal ion</th><th>Flame colour</th></tr>
-<tr><td>Li⁺</td><td>Crimson red</td></tr>
-<tr><td>Na⁺</td><td>Yellow-orange</td></tr>
-<tr><td>K⁺</td><td>Lilac/violet</td></tr>
-<tr><td>Ca²⁺</td><td>Brick red</td></tr>
-<tr><td>Sr²⁺</td><td>Crimson</td></tr>
-<tr><td>Ba²⁺</td><td>Green</td></tr></table>
-<p>Procedure: clean platinum/nichrome wire with HCl, dip in sample, hold in blue flame, observe colour through cobalt blue glass (to filter Na yellow).</p></section>
-
-<section id="s5"><div class="sec-head"><span class="sec-num">6.5</span><h2>Hydrogen — Chemistry and Uses</h2></div>
-<p>Hydrogen can be produced from Group 1 metal reactions with water. Industrial production: steam reforming of methane (CH₄ + H₂O → CO + 3H₂).</p>
-<table><tr><th>Property</th><th>Value</th></tr>
-<tr><td>State (r.t.p.)</td><td>Gas (diatomic H₂)</td></tr>
-<tr><td>Reaction with O₂</td><td>2H₂ + O₂ → 2H₂O (exothermic, used in fuel cells)</td></tr>
-<tr><td>Reaction with halogens</td><td>H₂ + Cl₂ → 2HCl</td></tr></table></section>
-
-<section id="s6"><div class="sec-head"><span class="sec-num">6.6</span><h2>The Diagonal Relationship — Li and Mg</h2></div>
-<div class="key"><div class="kl">Why Li resembles Mg more than Na</div>
-<p>Li and Mg have similar charge/radius ratios (charge densities). Both: form oxide (not peroxide) with O₂; nitrate decomposes to oxide + NO₂ + O₂; carbonate decomposes on heating; form ionic nitrides (Li₃N, Mg₃N₂); chlorides are covalent in nature (soluble in organic solvents).</p></div></section>
-
-<section id="quiz">
-  <div class="sec-head"><span class="sec-num">QUIZ</span><h2>25-Question Quiz — Unit 6</h2></div>
-  <div class="qcard"><h3>Click "Show" to reveal each answer</h3>
-    <p style="color:var(--muted);font-size:.88rem;margin-bottom:1rem;">Questions cover all 6 sections of this unit.</p>
-    <div class="qi"><div class="qn">Q1–Q25</div>
-    <p>Use your notes above to attempt 25 questions on this unit. Full question sets are available in the printed workbook and teacher-administered quizzes accessible from <a href="student-quiz.html" style="color:var(--accent);">Student Hub</a>.</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show guidance</button>
-    <div class="ans">Review all 6 sections above. Focus on: definitions in key boxes, trends in tables, equations, and worked examples. Use the 50-mark test below to assess your understanding with mark schemes.</div></div>
+<div class="hero">
+  <div class="badge">S4 Chemistry &middot; Unit 6</div>
+  <h1>Trends in Chemical Properties of<br><em>Group 1 Elements</em></h1>
+  <p class="sub">Occurrence, physical properties, reactions with oxygen/water/halogens, oxides, hydroxides, thermal decomposition, solubility, flame tests, uses, and hydrogen.</p>
+  <div class="toc-grid">
+    <a href="#s61">6.1 Occurrence &amp; Physical Properties</a>
+    <a href="#s62">6.2 Reactions with O&#x2082;, H&#x2082;O &amp; Halogens</a>
+    <a href="#s63">6.3 Oxides &amp; Hydroxides</a>
+    <a href="#s64">6.4 Thermal Decomposition</a>
+    <a href="#s65">6.5 Solubility</a>
+    <a href="#s66">6.6 Flame Tests</a>
+    <a href="#s67">6.7 Uses</a>
+    <a href="#s68">6.8 Hydrogen</a>
+    <a href="#exercises">Exercises</a>
+    <a href="#quiz">Quiz</a>
+    <a href="#test">Unit Test</a>
   </div>
-</section>
+</div>
+<main class="page">
 
-<section id="test">
-  <div class="sec-head"><span class="sec-num">TEST</span><h2>50-Mark Test — Unit 6</h2></div>
-  <p style="color:var(--muted);font-size:.88rem;margin-bottom:1rem;">Time: 60 minutes. Answer all questions. Show all working.</p>
-  <div class="qcard"><h3>Section A — Knowledge (20 marks)</h3>
-    <div class="qi"><div class="qn">A1 <span class="mk">[4]</span></div>
-    <p>State and explain four key trends going down this group/period covered in this unit.</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
-    <div class="ans">[1 each] Refer to the trend tables in sections above. For full marks: name the trend, state the direction, and give the correct reason linking to atomic structure (nuclear charge, shielding, atomic radius, electron configuration).</div></div>
+<!-- 6.1 -->
+<div class="section-header" id="s61"><span class="section-number">6.1</span><h2>Occurrence &amp; Physical Properties of Group 1 Elements</h2></div>
+<div class="card"><h3>Occurrence</h3>
+<p>Group 1 elements (alkali metals: Li, Na, K, Rb, Cs, Fr) never occur free in nature due to their extreme reactivity. They are found as ionic compounds in minerals and seawater:</p>
+<ul style="margin:8px 0 0 20px;line-height:2.1;">
+  <li><strong>Lithium:</strong> spodumene (LiAlSi&#x2082;O&#x2076;), lepidolite</li>
+  <li><strong>Sodium:</strong> rock salt (NaCl, halite), trona (Na&#x2082;CO&#x2083;), seawater</li>
+  <li><strong>Potassium:</strong> sylvite (KCl), carnallite, seawater</li>
+  <li><strong>Rubidium &amp; Caesium:</strong> trace amounts in minerals</li>
+  <li><strong>Francium:</strong> radioactive, extremely rare (produced by nuclear reactions)</li>
+</ul>
+</div>
+<div class="tbl-wrap"><table>
+  <thead><tr><th>Element</th><th>Symbol</th><th>Z</th><th>Config</th><th>M.p. (&deg;C)</th><th>Density (g/cm&#xB3;)</th><th>Flame colour</th></tr></thead>
+  <tbody>
+    <tr><td>Lithium</td><td>Li</td><td>3</td><td>[He]2s&#xB9;</td><td>181</td><td>0.53</td><td>Crimson red</td></tr>
+    <tr><td>Sodium</td><td>Na</td><td>11</td><td>[Ne]3s&#xB9;</td><td>98</td><td>0.97</td><td>Yellow/orange</td></tr>
+    <tr><td>Potassium</td><td>K</td><td>19</td><td>[Ar]4s&#xB9;</td><td>64</td><td>0.86</td><td>Lilac/violet</td></tr>
+    <tr><td>Rubidium</td><td>Rb</td><td>37</td><td>[Kr]5s&#xB9;</td><td>39</td><td>1.53</td><td>Red-violet</td></tr>
+    <tr><td>Caesium</td><td>Cs</td><td>55</td><td>[Xe]6s&#xB9;</td><td>28</td><td>1.87</td><td>Blue-violet</td></tr>
+  </tbody>
+</table></div>
+<div class="card"><h3>Trends in Physical Properties Down Group 1</h3>
+<ul style="margin:0 0 0 20px;line-height:2.2;">
+  <li><strong>Melting/boiling point: decreases</strong> &mdash; weakening metallic bond (larger atomic radius, cations further from electron sea)</li>
+  <li><strong>Density: generally increases</strong> &mdash; increasing atomic mass outweighs increase in atomic volume (though Li, Na, K are all less dense than water, density &lt; 1 g/cm&#xB3;)</li>
+  <li><strong>Atomic radius: increases</strong> &mdash; new shell added each period</li>
+  <li><strong>Ionic radius (M&#x207A;): increases</strong> &mdash; same trend as atomic radius</li>
+  <li><strong>First ionisation energy: decreases</strong> &mdash; outer electron further away and more shielded</li>
+  <li><strong>Electronegativity: decreases</strong></li>
+  <li><strong>Reactivity: increases</strong> &mdash; easier to lose outer electron</li>
+</ul>
+</div>
+<div class="callout info"><span class="callout-icon">&#x2139;&#xFE0F;</span><div class="callout-body"><strong>All alkali metals are soft</strong>They can all be cut with a knife and show a shiny metallic surface when freshly cut (which quickly tarnishes due to reaction with air). All are stored under oil or in inert gas to prevent oxidation.</div></div>
 
-    <div class="qi"><div class="qn">A2 <span class="mk">[4]</span></div>
-    <p>Write balanced equations for four reactions covered in this unit. Include state symbols.</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
-    <div class="ans">[1 each] Refer to the reaction tables in sections 2–4 above. Each equation must be correctly balanced with state symbols for full marks.</div></div>
+<!-- 6.2 -->
+<div class="section-header" id="s62"><span class="section-number">6.2</span><h2>Reactivity of Group 1 Elements with O&#x2082;, H&#x2082;O &amp; Halogens</h2></div>
 
-    <div class="qi"><div class="qn">A3 <span class="mk">[4]</span></div>
-    <p>Define four key terms from this unit (e.g. amphoteric, lattice energy, electronegativity, ionic bond — as appropriate).</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
-    <div class="ans">[1 each] Definitions must be precise. Refer to the key definition boxes in sections 1–6 above.</div></div>
+<h3 class="sub">Reactions with Oxygen</h3>
+<div class="card">
+<p>All alkali metals react vigorously with oxygen when exposed to air. The products depend on the metal:</p>
+<div class="tbl-wrap"><table>
+  <thead><tr><th>Metal</th><th>Product</th><th>Type</th><th>Equation</th></tr></thead>
+  <tbody>
+    <tr><td>Lithium</td><td>Li&#x2082;O (lithium oxide)</td><td>Normal oxide</td><td>4Li + O&#x2082; &rarr; 2Li&#x2082;O</td></tr>
+    <tr><td>Sodium</td><td>Na&#x2082;O&#x2082; (sodium peroxide)</td><td>Peroxide</td><td>2Na + O&#x2082; &rarr; Na&#x2082;O&#x2082;</td></tr>
+    <tr><td>Potassium</td><td>KO&#x2082; (potassium superoxide)</td><td>Superoxide</td><td>K + O&#x2082; &rarr; KO&#x2082;</td></tr>
+    <tr><td>Rubidium, Caesium</td><td>Superoxides (MO&#x2082;)</td><td>Superoxide</td><td>M + O&#x2082; &rarr; MO&#x2082;</td></tr>
+  </tbody>
+</table></div>
+<p style="margin-top:10px;">The trend from oxide &rarr; peroxide &rarr; superoxide reflects increasing ionic radius: larger M&#x207A; ions stabilise larger anions (O&#xB2;&#x207B; &lt; O&#x2082;&#xB2;&#x207B; &lt; O&#x2082;&#x207B;).</p>
+</div>
 
-    <div class="qi"><div class="qn">A4 <span class="mk">[4]</span></div>
-    <p>Explain the physical properties of the substances covered in this unit (conductivity, melting point, solubility). Link each to structure and bonding.</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
-    <div class="ans">[1 each] Link property to particle type and bonding: e.g. high m.p. → strong bonds/forces; conductor → mobile charged particles; solubility → similar polarity/hydration.</div></div>
+<h3 class="sub">Reactions with Water</h3>
+<div class="card">
+<p>All Group 1 metals react vigorously with water to produce metal hydroxide + hydrogen gas. Reactivity increases down the group.</p>
+<div class="formula-block">General equation:
+2M(s) + 2H&#x2082;O(l) &rarr; 2MOH(aq) + H&#x2082;(g)
 
-    <div class="qi"><div class="qn">A5 <span class="mk">[4]</span></div>
-    <p>Give four industrial or everyday uses of substances from this unit, explaining the property that makes each suitable.</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show mark scheme</button>
-    <div class="ans">[1 each] Refer to the uses table in section 5 or 6. Must link use to property (e.g. low density → aircraft; corrosion resistance → packaging).</div></div>
+Li:  2Li + 2H&#x2082;O &rarr; 2LiOH + H&#x2082;  (fizzes steadily, sinks)
+Na:  2Na + 2H&#x2082;O &rarr; 2NaOH + H&#x2082;  (melts to a ball, moves rapidly)
+K:   2K  + 2H&#x2082;O &rarr; 2KOH  + H&#x2082;  (ignites H&#x2082;, lilac flame)
+Rb:  2Rb + 2H&#x2082;O &rarr; 2RbOH + H&#x2082;  (explodes)
+Cs:  2Cs + 2H&#x2082;O &rarr; 2CsOH + H&#x2082;  (explosive)</div>
+<p style="margin-top:10px;">The reaction is exothermic. Down the group: lower IE &rarr; easier to lose e&#x207B; &rarr; more vigorous/faster reaction.</p>
+</div>
+
+<h3 class="sub">Reactions with Halogens</h3>
+<div class="card">
+<p>All Group 1 metals react directly with halogens to form ionic metal halides (MX):</p>
+<div class="formula-block">General: 2M + X&#x2082; &rarr; 2MX
+
+2Na + Cl&#x2082; &rarr; 2NaCl  (sodium chloride)
+2K  + Br&#x2082; &rarr; 2KBr   (potassium bromide)
+2Li + F&#x2082;  &rarr; 2LiF   (lithium fluoride)
+2Na + I&#x2082;  &rarr; 2NaI   (sodium iodide)</div>
+<p>Reactivity of alkali metal increases down the group. Reactivity of halogen decreases down the group (F&#x2082; &gt; Cl&#x2082; &gt; Br&#x2082; &gt; I&#x2082;).</p>
+</div>
+
+<!-- 6.3 -->
+<div class="section-header" id="s63"><span class="section-number">6.3</span><h2>Properties of Group 1 Oxides and Hydroxides</h2></div>
+
+<h3 class="sub">Oxides</h3>
+<div class="card">
+<p>Group 1 oxides, peroxides, and superoxides all react with water to form alkaline solutions:</p>
+<div class="formula-block">Normal oxide + water:
+Li&#x2082;O + H&#x2082;O &rarr; 2LiOH
+
+Peroxide + water (produces H&#x2082;O&#x2082;):
+Na&#x2082;O&#x2082; + H&#x2082;O &rarr; 2NaOH + &frac12;O&#x2082;
+(or: Na&#x2082;O&#x2082; + H&#x2082;O &rarr; 2NaOH + H&#x2082;O&#x2082; which decomposes)
+
+Superoxide + water:
+4KO&#x2082; + 2H&#x2082;O &rarr; 4KOH + 3O&#x2082;</div>
+<p>Na&#x2082;O&#x2082; is used in self-contained breathing apparatus (rebreathers) because it both absorbs CO&#x2082; and releases O&#x2082;: 2Na&#x2082;O&#x2082; + 2CO&#x2082; &rarr; 2Na&#x2082;CO&#x2083; + O&#x2082;.</p>
+</div>
+
+<h3 class="sub">Hydroxides</h3>
+<div class="card">
+<p>All Group 1 hydroxides (MOH) are <strong>strong alkalis</strong> &mdash; they fully dissociate in water:</p>
+<div class="formula-block">NaOH(s) &rarr; Na&#x207A;(aq) + OH&#x207B;(aq)
+KOH(s)  &rarr; K&#x207A;(aq)  + OH&#x207B;(aq)</div>
+<p><strong>Basicity increases down the group:</strong> LiOH is the least basic (slightly less soluble, weakest alkali of the group); CsOH is the strongest alkali of all known hydroxides. Basicity increases because M&ndash;OH bond weakens (M&#x207A; is larger &rarr; less polarising &rarr; less tendency to polarise OH&#x207B; &rarr; OH&#x207B; released more easily).</p>
+<p style="margin-top:10px;"><strong>Hydroxides react with acids:</strong><br>NaOH + HCl &rarr; NaCl + H&#x2082;O<br>KOH + H&#x2082;SO&#x2084; &rarr; K&#x2082;SO&#x2084; + H&#x2082;O (after balancing: 2KOH + H&#x2082;SO&#x2084; &rarr; K&#x2082;SO&#x2084; + 2H&#x2082;O)</p>
+<p style="margin-top:10px;"><strong>Hydroxides react with CO&#x2082;:</strong><br>2NaOH + CO&#x2082; &rarr; Na&#x2082;CO&#x2083; + H&#x2082;O (excess NaOH)<br>NaOH + CO&#x2082; &rarr; NaHCO&#x2083; (limited NaOH)</p>
+</div>
+
+<!-- 6.4 -->
+<div class="section-header" id="s64"><span class="section-number">6.4</span><h2>Effect of Heat on Group 1 Carbonates and Nitrates</h2></div>
+
+<h3 class="sub">Thermal Decomposition of Carbonates</h3>
+<div class="card">
+<p>Group 1 carbonates are generally thermally stable (unlike Group 2 carbonates which easily decompose). This is because large M&#x207A; ions do not strongly polarise the CO&#x2083;&#xB2;&#x207B; ion.</p>
+<div class="formula-block">Li&#x2082;CO&#x2083; decomposes on heating (Li&#x207A; is small, more polarising):
+Li&#x2082;CO&#x2083; &rarr; Li&#x2082;O + CO&#x2082;
+
+Na&#x2082;CO&#x2083;, K&#x2082;CO&#x2083;, Rb&#x2082;CO&#x2083;, Cs&#x2082;CO&#x2083;:
+Stable &mdash; do NOT decompose on heating with a Bunsen burner.
+(They require extremely high temperatures.)</div>
+<p>Li&#x2082;CO&#x2083; is anomalous (decomposes easily) because Li&#x207A; is very small and highly polarising, distorting the CO&#x2083;&#xB2;&#x207B; ion. This is similar to the diagonal relationship (Li resembles Mg).</p>
+</div>
+
+<h3 class="sub">Thermal Decomposition of Nitrates</h3>
+<div class="card">
+<p>Group 1 nitrates decompose on heating, but the products differ:</p>
+<div class="formula-block">LiNO&#x2083; decomposes like Group 2 nitrates (Li&#x207A; is small, polarising):
+4LiNO&#x2083; &rarr; 2Li&#x2082;O + 4NO&#x2082; + O&#x2082;
+
+All other Group 1 nitrates (NaNO&#x2083;, KNO&#x2083;, etc.) give nitrite + oxygen:
+2NaNO&#x2083; &rarr; 2NaNO&#x2082; + O&#x2082;
+2KNO&#x2083;  &rarr; 2KNO&#x2082;  + O&#x2082;</div>
+<p>The difference: Li&#x207A; is small and polarising enough to break the N&ndash;O bond further, producing NO&#x2082; and Li&#x2082;O. Larger alkali metal cations only remove one O per NO&#x3;&#x207B;, giving NO&#x2082;&#x207B; (nitrite).</p>
+</div>
+
+<!-- 6.5 -->
+<div class="section-header" id="s65"><span class="section-number">6.5</span><h2>Solubility of Group 1 Compounds</h2></div>
+<div class="card">
+<p>Most Group 1 compounds are highly soluble in water because:</p>
+<ul style="margin:8px 0 0 20px;line-height:2.1;">
+  <li>Low charge density of M&#x207A; ions: large radius &rarr; low polarising power &rarr; predominantly ionic compounds &rarr; good solubility</li>
+  <li>Hydration energy released on dissolving compensates for (and often exceeds) the lattice energy</li>
+</ul>
+</div>
+<div class="tbl-wrap"><table>
+  <thead><tr><th>Compound</th><th>Solubility trend</th><th>Notable exception</th></tr></thead>
+  <tbody>
+    <tr><td>Hydroxides (MOH)</td><td>Increases down group (LiOH slightly less soluble; CsOH very soluble)</td><td>LiOH is less soluble than other Group 1 hydroxides</td></tr>
+    <tr><td>Carbonates (M&#x2082;CO&#x2083;)</td><td>All soluble; increases down group</td><td>Li&#x2082;CO&#x2083; is less soluble (anomalous &mdash; diagonal relationship with Mg)</td></tr>
+    <tr><td>Halides (MX)</td><td>All very soluble</td><td>LiF is sparingly soluble (high lattice energy due to small Li&#x207A; + small F&#x207B;)</td></tr>
+    <tr><td>Sulfates (M&#x2082;SO&#x2084;)</td><td>All soluble</td><td>No significant exceptions in Group 1</td></tr>
+    <tr><td>Nitrates (MNO&#x2083;)</td><td>All very soluble</td><td>&mdash;</td></tr>
+  </tbody>
+</table></div>
+<div class="callout warn"><span class="callout-icon">&#x26A0;&#xFE0F;</span><div class="callout-body"><strong>Lithium anomalies (diagonal relationship with Mg)</strong>Li&#x207A; resembles Mg&#xB2;&#x207A; more than it resembles Na&#x207A;. Both have small ionic radii and high charge density. Similarities: Li&#x2082;CO&#x2083; decomposes on heating (like MgCO&#x2083;); LiF and Li&#x2082;CO&#x2083; are sparingly soluble (like MgF&#x2082; and MgCO&#x2083;); LiNO&#x2083; decomposes to give NO&#x2082; (like Mg(NO&#x2083;)&#x2082;).</div></div>
+
+<!-- 6.6 -->
+<div class="section-header" id="s66"><span class="section-number">6.6</span><h2>Flame Tests for Li&#x207A;, Na&#x207A; &amp; K&#x207A;</h2></div>
+<div class="card"><h3>Procedure and Results</h3>
+<p>Flame tests detect metal ions in compounds by their characteristic emission spectra in the visible region. The technique:</p>
+<ol style="margin:10px 0 0 20px;line-height:2.2;">
+  <li>Clean a nichrome (or platinum) wire loop with concentrated HCl, then test in flame.</li>
+  <li>Dip the wire in the test compound (solid or solution).</li>
+  <li>Hold in a roaring blue Bunsen flame and observe the colour.</li>
+</ol>
+</div>
+<div class="tbl-wrap"><table>
+  <thead><tr><th>Ion</th><th>Flame Colour</th><th>Notes</th></tr></thead>
+  <tbody>
+    <tr><td>Li&#x207A;</td><td>Crimson red</td><td>Distinctive deep red; persistent</td></tr>
+    <tr><td>Na&#x207A;</td><td>Persistent yellow/orange</td><td>Very intense; can mask other ions</td></tr>
+    <tr><td>K&#x207A;</td><td>Lilac/violet</td><td>Best observed through blue cobalt glass (to filter out yellow from Na&#x207A; traces)</td></tr>
+    <tr><td>Rb&#x207A;</td><td>Red-violet</td><td>&mdash;</td></tr>
+    <tr><td>Cs&#x207A;</td><td>Blue-violet</td><td>&mdash;</td></tr>
+  </tbody>
+</table></div>
+<div class="card"><h3>Why Flame Tests Work</h3>
+<p>The heat of the flame provides energy to promote electrons in the metal ion to higher energy levels (excited states). As the electrons return to the ground state, they emit photons of specific energies corresponding to specific visible wavelengths. Each element has a unique set of energy levels &rarr; unique emission spectrum &rarr; characteristic colour. This is the atomic emission spectrum applied to qualitative analysis.</p>
+</div>
+
+<!-- 6.7 -->
+<div class="section-header" id="s67"><span class="section-number">6.7</span><h2>Uses of Group 1 Elements &amp; Their Compounds</h2></div>
+<div class="tbl-wrap"><table>
+  <thead><tr><th>Substance</th><th>Uses</th></tr></thead>
+  <tbody>
+    <tr><td>Lithium (Li)</td><td>Lithium-ion batteries (mobile phones, EVs); alloys (lightweight aerospace materials with Al); lithium grease (lubricant)</td></tr>
+    <tr><td>LiCl / Li&#x2082;CO&#x2083;</td><td>Treatment of bipolar disorder (mood stabiliser); ceramics and glass manufacture; air conditioning (hygroscopic)</td></tr>
+    <tr><td>Sodium (Na)</td><td>Coolant in fast breeder nuclear reactors; street lighting (sodium vapour lamps); manufacture of titanium (Na reduces TiCl&#x2084;)</td></tr>
+    <tr><td>NaCl</td><td>Table salt; food preservation; manufacture of Cl&#x2082;, NaOH, Na&#x2082;CO&#x2083; (chlor-alkali industry); de-icing roads</td></tr>
+    <tr><td>NaOH</td><td>Manufacture of soap, paper, textiles (rayon); drain cleaner; aluminium extraction; food processing</td></tr>
+    <tr><td>Na&#x2082;CO&#x2083;</td><td>Glass manufacture; water softening; washing soda; paper industry</td></tr>
+    <tr><td>NaHCO&#x2083;</td><td>Baking powder; antacid (stomach acid neutralisation); fire extinguishers</td></tr>
+    <tr><td>KNO&#x2083;</td><td>Fertiliser; gunpowder (with C and S); food preservation (curing meat)</td></tr>
+    <tr><td>KOH</td><td>Manufacture of soft soap; alkaline batteries; CO&#x2082; absorber in laboratory</td></tr>
+    <tr><td>Potassium (K)</td><td>K&#x207A; essential for nerve function and plant growth; sylvite (KCl) mined for fertiliser</td></tr>
+    <tr><td>Na&#x2082;O&#x2082;</td><td>Bleaching agent; oxygen source in rebreathers (submarines, mines)</td></tr>
+  </tbody>
+</table></div>
+
+<!-- 6.8 -->
+<div class="section-header" id="s68"><span class="section-number">6.8</span><h2>Hydrogen</h2></div>
+<div class="card"><h3>Position of Hydrogen in the Periodic Table</h3>
+<p>Hydrogen (H, Z=1, configuration 1s&#xB9;) is usually placed in Group 1 but does not truly belong there. It has properties that make it unique:</p>
+<div class="tbl-wrap"><table>
+  <thead><tr><th>Property</th><th>Like Group 1?</th><th>Unlike Group 1?</th></tr></thead>
+  <tbody>
+    <tr><td>Electronic config</td><td>ns&#xB9; (1s&#xB9;) &mdash; one outer electron</td><td>No inner shells; very small atom</td></tr>
+    <tr><td>Forms +1 ions (H&#x207A;)</td><td>Yes &mdash; like alkali metal cations</td><td>H&#x207A; is a bare proton (no electrons); unique in chemistry</td></tr>
+    <tr><td>Forms &ndash;1 ions (H&#x207B;, hydride)</td><td>No &mdash; alkali metals do not form anions</td><td>H can gain one electron like a halogen (resembles Group 17)</td></tr>
+    <tr><td>Diatomic gas</td><td>No &mdash; alkali metals are solid metals</td><td>H&#x2082; is a gas; forms covalent bonds (like non-metals)</td></tr>
+    <tr><td>Electronegativity</td><td>Low (2.2) compared to EN of F</td><td>Higher than alkali metals; forms polar covalent bonds</td></tr>
+    <tr><td>Reactivity</td><td>Reacts with non-metals, some metals</td><td>Does not react with water at room temperature (unlike alkali metals)</td></tr>
+  </tbody>
+</table></div>
+</div>
+<div class="card"><h3>Chemical Properties of Hydrogen</h3>
+<p><strong>Reaction with metals (reducing agent):</strong></p>
+<div class="formula-block">H&#x2082; + 2Na &rarr; 2NaH  (sodium hydride; H is &minus;1, ionic)
+H&#x2082; + Ca &rarr; CaH&#x2082;  (calcium hydride; ionic)</div>
+<p style="margin-top:10px;"><strong>Reaction with non-metals:</strong></p>
+<div class="formula-block">H&#x2082; + F&#x2082;  &rarr; 2HF    (explosive at room temp)
+H&#x2082; + Cl&#x2082; &rarr; 2HCl   (in UV light)
+H&#x2082; + O&#x2082;  &rarr; 2H&#x2082;O  (combustion)
+3H&#x2082; + N&#x2082;  &rarr; 2NH&#x2083; (Haber process, catalyst, high T and P)</div>
+<p style="margin-top:10px;"><strong>Hydrogen as a fuel:</strong> Burns cleanly producing only water. Potential "hydrogen economy" fuel for vehicles. Currently mostly produced from natural gas (steam reforming), but research into electrolysis of water using renewable energy.</p>
+</div>
+<div class="callout tip"><span class="callout-icon">&#x1F4A1;</span><div class="callout-body"><strong>Hydrogen isotopes</strong>&#xB9;H (protium, 99.985%), &#xB2;H (deuterium, heavy hydrogen, D), &#xB3;H (tritium, T, radioactive). D&#x2082;O is heavy water used as a moderator in some nuclear reactors. D has 1 proton + 1 neutron; T has 1 proton + 2 neutrons.</div></div>
+
+<!-- EXERCISES -->
+<div class="section-header" id="exercises"><span class="section-number">&#x270F;&#xFE0F;</span><h2>Exercises</h2></div>
+<ul class="exercise-list">
+  <li>State and explain the trend in reactivity of Group 1 elements with water as you go down the group from Li to Cs. Write equations for Li and K with water.
+    <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+    <div class="answer">Reactivity <strong>increases</strong> down the group: Li fizzes gently; Na moves rapidly and melts; K ignites the hydrogen; Rb and Cs explode. This is because ionisation energy decreases down the group (outer electron is in a higher shell, further from nucleus and more shielded) &rarr; easier to lose one electron &rarr; more reactive. Equations:<br>2Li + 2H&#x2082;O &rarr; 2LiOH + H&#x2082; (steady effervescence)<br>2K + 2H&#x2082;O &rarr; 2KOH + H&#x2082; (ignites H&#x2082;, lilac flame)</div>
+  </li>
+  <li>Compare the products of heating NaNO&#x2083; and LiNO&#x2083;. Write balanced equations and explain why the products differ.
+    <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+    <div class="answer"><strong>NaNO&#x2083;</strong> (and other Group 1 nitrates except LiNO&#x2083;): gives nitrite + oxygen.<br>2NaNO&#x2083; &rarr; 2NaNO&#x2082; + O&#x2082;<br><strong>LiNO&#x2083;</strong>: behaves like a Group 2 nitrate (diagonal relationship with Mg).<br>4LiNO&#x2083; &rarr; 2Li&#x2082;O + 4NO&#x2082; + O&#x2082;<br>Reason: Li&#x207A; is very small and has a high charge density &rarr; highly polarising &rarr; distorts the NO&#x3;&#x207B; ion more strongly &rarr; breaks the N&ndash;O bond further, producing NO&#x2082; gas and Li&#x2082;O. Larger Group 1 cations have lower polarising power &rarr; only remove one oxygen &rarr; give stable NO&#x2082;&#x207B; (nitrite).</div>
+  </li>
+  <li>Explain why Li&#x2082;CO&#x2083; decomposes on heating but Na&#x2082;CO&#x2083; does not. What is this similarity to Mg called, and why does it occur?
+    <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+    <div class="answer">Li&#x2082;CO&#x2083; &rarr; Li&#x2082;O + CO&#x2082; (on heating). Li&#x207A; is very small (ionic radius 76 pm) and has a high charge density &rarr; polarises the CO&#x2083;&#xB2;&#x207B; ion strongly &rarr; distorts the ion enough to release CO&#x2082;. Na&#x207A; (ionic radius 102 pm) is much larger with lower charge density &rarr; does not polarise CO&#x2083;&#xB2;&#x207B; sufficiently &rarr; Na&#x2082;CO&#x2083; is thermally stable. This resemblance between Li and Mg (both decompose their carbonates, both have less soluble hydroxides and fluorides) is called the <strong>diagonal relationship</strong>. It occurs because Li&#x207A; and Mg&#xB2;&#x207A; have similar charge density and ionic radius ratios, giving similar polarising power despite being in different groups.</div>
+  </li>
+  <li>Describe the flame test procedure for distinguishing between solutions containing Na&#x207A; and K&#x207A;. What practical precaution is needed and why?
+    <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+    <div class="answer">Procedure: clean a nichrome wire with conc. HCl; test by holding in flame (no colour). Dip wire in test solution; hold in roaring flame; observe colour. Na&#x207A; gives a persistent yellow/orange flame; K&#x207A; gives a lilac/violet flame.<br>Precaution: observe the K&#x207A; flame through a blue cobalt glass filter. Na&#x207A; produces an extremely intense yellow colour that can mask the lilac of K&#x207A; even if only traces of sodium are present. The cobalt glass absorbs/transmits yellow and blue wavelengths, filtering out the yellow of Na so the lilac of K becomes visible. Also, the nichrome wire must be thoroughly cleaned with conc. HCl between tests to avoid cross-contamination.</div>
+  </li>
+  <li>Explain the anomalous position of hydrogen in the periodic table. In what ways does H resemble Group 1, and in what ways does it differ?
+    <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+    <div class="answer"><strong>Resemblances to Group 1:</strong> (1) Electronic config 1s&#xB9; &mdash; one outer electron like alkali metals. (2) Forms H&#x207A; ions (proton) by losing its electron, similar to M&#x207A; cations. (3) Reacts with non-metals to form binary compounds (HCl, HF, H&#x2082;O etc.). (4) EN~2.2, lower than most non-metals.<br><strong>Differences from Group 1:</strong> (1) H&#x207A; is a bare proton (no electrons, no core), completely unlike Na&#x207A; or K&#x207A; which have electron cores. (2) H can form H&#x207B; (hydride ion) by gaining an electron &mdash; alkali metals never form anions. (3) H&#x2082; is a gas (diatomic covalent molecule); alkali metals are solid metals. (4) H does not react with water at room temperature (alkali metals react vigorously). (5) H is a non-metal; alkali metals are reactive metals.</div>
+  </li>
+  <li>Write balanced equations for the reactions of sodium with: (a) oxygen (excess), (b) water, (c) chlorine, (d) HCl(aq).
+    <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
+    <div class="answer">(a) 2Na + O&#x2082; &rarr; Na&#x2082;O&#x2082; (sodium peroxide, in excess O&#x2082;)<br>(b) 2Na + 2H&#x2082;O &rarr; 2NaOH + H&#x2082;<br>(c) 2Na + Cl&#x2082; &rarr; 2NaCl<br>(d) Na + HCl &rarr; NaCl + &frac12;H&#x2082; (or: 2Na + 2HCl &rarr; 2NaCl + H&#x2082;)</div>
+  </li>
+</ul>
+
+<!-- QUIZ -->
+<div class="section-header" id="quiz"><span class="section-number">&#x1F9EA;</span><h2>Multiple Choice Quiz &mdash; 25 Questions</h2></div>
+<div class="quiz-wrap">
+  <div class="quiz-header"><h3>Unit 6 Quiz</h3><span style="font-family:'JetBrains Mono',monospace;font-size:.82rem;color:var(--muted);">Select one answer per question</span></div>
+  <div class="quiz-body">
+
+  <div class="q-block"><span class="q-num">Q1</span><div class="q-text">Reactivity of Group 1 metals increases down the group because:</div><div class="options">
+    <label class="opt"><input type="radio" name="q1" value="A"/>Nuclear charge decreases</label>
+    <label class="opt"><input type="radio" name="q1" value="B"/>Ionisation energy decreases &mdash; outer electron is in a higher shell, further away and more shielded</label>
+    <label class="opt"><input type="radio" name="q1" value="C"/>Atomic radius decreases</label>
+    <label class="opt"><input type="radio" name="q1" value="D"/>Metallic character decreases</label>
+  </div><div class="q-exp" id="eq1">Down Group 1: IE&#x2081; decreases because outer electron is in a successively higher shell, farther from nucleus and more shielded &rarr; easier to lose &rarr; greater reactivity.</div></div>
+
+  <div class="q-block"><span class="q-num">Q2</span><div class="q-text">The product when sodium burns in excess oxygen is:</div><div class="options">
+    <label class="opt"><input type="radio" name="q2" value="A"/>Na&#x2082;O</label>
+    <label class="opt"><input type="radio" name="q2" value="B"/>Na&#x2082;O&#x2082;</label>
+    <label class="opt"><input type="radio" name="q2" value="C"/>NaO&#x2082;</label>
+    <label class="opt"><input type="radio" name="q2" value="D"/>Na&#x2082;O&#x2083;</label>
+  </div><div class="q-exp" id="eq2">Na burns in excess O&#x2082; to give sodium peroxide Na&#x2082;O&#x2082;. Li gives normal oxide Li&#x2082;O. K and heavier metals give superoxides MO&#x2082;.</div></div>
+
+  <div class="q-block"><span class="q-num">Q3</span><div class="q-text">The equation for potassium reacting with water is:</div><div class="options">
+    <label class="opt"><input type="radio" name="q3" value="A"/>K + H&#x2082;O &rarr; KOH + H</label>
+    <label class="opt"><input type="radio" name="q3" value="B"/>2K + 2H&#x2082;O &rarr; 2KOH + H&#x2082;</label>
+    <label class="opt"><input type="radio" name="q3" value="C"/>K + H&#x2082;O &rarr; K&#x2082;O + H&#x2082;</label>
+    <label class="opt"><input type="radio" name="q3" value="D"/>4K + O&#x2082; &rarr; 2K&#x2082;O</label>
+  </div><div class="q-exp" id="eq3">2K + 2H&#x2082;O &rarr; 2KOH + H&#x2082;. All Group 1 metals react with water to give MOH + H&#x2082;.</div></div>
+
+  <div class="q-block"><span class="q-num">Q4</span><div class="q-text">The flame test colour for sodium is:</div><div class="options">
+    <label class="opt"><input type="radio" name="q4" value="A"/>Crimson red</label>
+    <label class="opt"><input type="radio" name="q4" value="B"/>Lilac</label>
+    <label class="opt"><input type="radio" name="q4" value="C"/>Persistent yellow</label>
+    <label class="opt"><input type="radio" name="q4" value="D"/>Blue-green</label>
+  </div><div class="q-exp" id="eq4">Na&#x207A; gives a very intense, persistent yellow/orange flame. Li = crimson; K = lilac; Cu = blue-green.</div></div>
+
+  <div class="q-block"><span class="q-num">Q5</span><div class="q-text">Why is blue cobalt glass used when performing a flame test for potassium?</div><div class="options">
+    <label class="opt"><input type="radio" name="q5" value="A"/>To intensify the potassium flame colour</label>
+    <label class="opt"><input type="radio" name="q5" value="B"/>To filter out the yellow colour of sodium that would mask the lilac of potassium</label>
+    <label class="opt"><input type="radio" name="q5" value="C"/>To protect the eyes from UV radiation</label>
+    <label class="opt"><input type="radio" name="q5" value="D"/>To change K&#x207A; into a coloured compound</label>
+  </div><div class="q-exp" id="eq5">Sodium's intense yellow easily masks potassium's lilac. Cobalt blue glass absorbs yellow wavelengths, allowing the lilac of K&#x207A; to be seen clearly.</div></div>
+
+  <div class="q-block"><span class="q-num">Q6</span><div class="q-text">When heated, NaNO&#x2083; produces:</div><div class="options">
+    <label class="opt"><input type="radio" name="q6" value="A"/>Na&#x2082;O + NO&#x2082; + O&#x2082;</label>
+    <label class="opt"><input type="radio" name="q6" value="B"/>NaNO&#x2082; + O&#x2082;</label>
+    <label class="opt"><input type="radio" name="q6" value="C"/>Na&#x2082;O + O&#x2082;</label>
+    <label class="opt"><input type="radio" name="q6" value="D"/>NaNO&#x2082; + H&#x2082;O</label>
+  </div><div class="q-exp" id="eq6">2NaNO&#x2083; &rarr; 2NaNO&#x2082; + O&#x2082;. All Group 1 nitrates (except LiNO&#x2083;) give nitrite + oxygen. LiNO&#x2083; gives Li&#x2082;O + NO&#x2082; + O&#x2082;.</div></div>
+
+  <div class="q-block"><span class="q-num">Q7</span><div class="q-text">Li&#x2082;CO&#x2083; decomposes on heating while Na&#x2082;CO&#x2083; does not because:</div><div class="options">
+    <label class="opt"><input type="radio" name="q7" value="A"/>Li is more metallic than Na</label>
+    <label class="opt"><input type="radio" name="q7" value="B"/>Li&#x207A; is smaller with higher charge density, polarising CO&#x2083;&#xB2;&#x207B; more strongly</label>
+    <label class="opt"><input type="radio" name="q7" value="C"/>Li&#x2082;CO&#x2083; has a higher lattice energy</label>
+    <label class="opt"><input type="radio" name="q7" value="D"/>Na is less reactive than Li</label>
+  </div><div class="q-exp" id="eq7">Li&#x207A; has a very small ionic radius &rarr; high charge density &rarr; strongly polarises the CO&#x2083;&#xB2;&#x207B; anion &rarr; distorts it enough to release CO&#x2082;. Na&#x207A; is larger, less polarising &rarr; Na&#x2082;CO&#x2083; is thermally stable.</div></div>
+
+  <div class="q-block"><span class="q-num">Q8</span><div class="q-text">Which Group 1 compound is used in self-contained breathing apparatus?</div><div class="options">
+    <label class="opt"><input type="radio" name="q8" value="A"/>NaCl</label>
+    <label class="opt"><input type="radio" name="q8" value="B"/>NaOH</label>
+    <label class="opt"><input type="radio" name="q8" value="C"/>Na&#x2082;O&#x2082;</label>
+    <label class="opt"><input type="radio" name="q8" value="D"/>Na&#x2082;CO&#x2083;</label>
+  </div><div class="q-exp" id="eq8">Na&#x2082;O&#x2082; (sodium peroxide) absorbs CO&#x2082; and releases O&#x2082;: 2Na&#x2082;O&#x2082; + 2CO&#x2082; &rarr; 2Na&#x2082;CO&#x2083; + O&#x2082;. Used in rebreathers for submarines and firefighters.</div></div>
+
+  <div class="q-block"><span class="q-num">Q9</span><div class="q-text">Which property of Group 1 metals decreases down the group?</div><div class="options">
+    <label class="opt"><input type="radio" name="q9" value="A"/>Atomic radius</label>
+    <label class="opt"><input type="radio" name="q9" value="B"/>Density</label>
+    <label class="opt"><input type="radio" name="q9" value="C"/>Reactivity</label>
+    <label class="opt"><input type="radio" name="q9" value="D"/>Melting point</label>
+  </div><div class="q-exp" id="eq9">Melting point decreases down Group 1 (Li 181&deg;C &rarr; Cs 28&deg;C) because the metallic bond weakens as atomic radius increases. Atomic radius, density, and reactivity all increase down the group.</div></div>
+
+  <div class="q-block"><span class="q-num">Q10</span><div class="q-text">The diagonal relationship means Li resembles:</div><div class="options">
+    <label class="opt"><input type="radio" name="q10" value="A"/>Be in Group 2</label>
+    <label class="opt"><input type="radio" name="q10" value="B"/>Mg in Group 2</label>
+    <label class="opt"><input type="radio" name="q10" value="C"/>B in Group 13</label>
+    <label class="opt"><input type="radio" name="q10" value="D"/>Na in Group 1</label>
+  </div><div class="q-exp" id="eq10">Li (Period 2, Group 1) resembles Mg (Period 3, Group 2) &mdash; the diagonal neighbour. Both have small, highly polarising cations. This is the Li&ndash;Mg diagonal relationship.</div></div>
+
+  <div class="q-block"><span class="q-num">Q11</span><div class="q-text">Hydrogen differs from Group 1 metals because it:</div><div class="options">
+    <label class="opt"><input type="radio" name="q11" value="A"/>Has one outer electron</label>
+    <label class="opt"><input type="radio" name="q11" value="B"/>Can form a &minus;1 ion (hydride) and is a non-metal gas</label>
+    <label class="opt"><input type="radio" name="q11" value="C"/>Can lose one electron to form a +1 ion</label>
+    <label class="opt"><input type="radio" name="q11" value="D"/>Is placed in Period 1</label>
+  </div><div class="q-exp" id="eq11">H can gain an electron to form H&#x207B; (hydride) like a halogen. Alkali metals only lose electrons. H is a diatomic non-metal gas &mdash; very different from solid metallic alkali metals.</div></div>
+
+  <div class="q-block"><span class="q-num">Q12</span><div class="q-text">The product of reacting potassium with oxygen (in excess) is:</div><div class="options">
+    <label class="opt"><input type="radio" name="q12" value="A"/>K&#x2082;O</label>
+    <label class="opt"><input type="radio" name="q12" value="B"/>K&#x2082;O&#x2082;</label>
+    <label class="opt"><input type="radio" name="q12" value="C"/>KO&#x2082;</label>
+    <label class="opt"><input type="radio" name="q12" value="D"/>K&#x2082;O&#x2083;</label>
+  </div><div class="q-exp" id="eq12">K (and heavier alkali metals Rb, Cs) react with excess O&#x2082; to form superoxides MO&#x2082;. K + O&#x2082; &rarr; KO&#x2082; (potassium superoxide).</div></div>
+
+  <div class="q-block"><span class="q-num">Q13</span><div class="q-text">NaHCO&#x2083; is used as an antacid because:</div><div class="options">
+    <label class="opt"><input type="radio" name="q13" value="A"/>It reacts with excess stomach acid (HCl) to neutralise it</label>
+    <label class="opt"><input type="radio" name="q13" value="B"/>It produces hydrogen that neutralises acid</label>
+    <label class="opt"><input type="radio" name="q13" value="C"/>It is soluble in organic solvents</label>
+    <label class="opt"><input type="radio" name="q13" value="D"/>It absorbs water in the stomach</label>
+  </div><div class="q-exp" id="eq13">NaHCO&#x2083; + HCl &rarr; NaCl + H&#x2082;O + CO&#x2082;. The HCO&#x3;&#x207B; ion neutralises H&#x207A; &rarr; reduces excess acidity in the stomach.</div></div>
+
+  <div class="q-block"><span class="q-num">Q14</span><div class="q-text">Which of the following is sparingly soluble in water (unlike most Group 1 compounds)?</div><div class="options">
+    <label class="opt"><input type="radio" name="q14" value="A"/>NaCl</label>
+    <label class="opt"><input type="radio" name="q14" value="B"/>KNO&#x2083;</label>
+    <label class="opt"><input type="radio" name="q14" value="C"/>Li&#x2082;CO&#x2083;</label>
+    <label class="opt"><input type="radio" name="q14" value="D"/>Na&#x2082;SO&#x2084;</label>
+  </div><div class="q-exp" id="eq14">Li&#x2082;CO&#x2083; is sparingly soluble (diagonal relationship with MgCO&#x2083;). Li&#x207A; is small with high charge density &rarr; high lattice energy &rarr; less easily dissolved.</div></div>
+
+  <div class="q-block"><span class="q-num">Q15</span><div class="q-text">Which Group 1 element has the lowest first ionisation energy?</div><div class="options">
+    <label class="opt"><input type="radio" name="q15" value="A"/>Li</label>
+    <label class="opt"><input type="radio" name="q15" value="B"/>Na</label>
+    <label class="opt"><input type="radio" name="q15" value="C"/>K</label>
+    <label class="opt"><input type="radio" name="q15" value="D"/>Cs</label>
+  </div><div class="q-exp" id="eq15">IE&#x2081; decreases down Group 1. Cs (Z=55) has the outermost electron in n=6 &rarr; furthest from nucleus, most shielded &rarr; lowest IE&#x2081; &rarr; most reactive alkali metal.</div></div>
+
+  <div class="q-block"><span class="q-num">Q16</span><div class="q-text">The reaction of Na&#x2082;O&#x2082; with CO&#x2082; is important in rebreathers because it:</div><div class="options">
+    <label class="opt"><input type="radio" name="q16" value="A"/>Absorbs O&#x2082; and releases CO&#x2082;</label>
+    <label class="opt"><input type="radio" name="q16" value="B"/>Absorbs CO&#x2082; and releases O&#x2082;</label>
+    <label class="opt"><input type="radio" name="q16" value="C"/>Converts CO&#x2082; to water</label>
+    <label class="opt"><input type="radio" name="q16" value="D"/>Burns the CO&#x2082; for energy</label>
+  </div><div class="q-exp" id="eq16">2Na&#x2082;O&#x2082; + 2CO&#x2082; &rarr; 2Na&#x2082;CO&#x2083; + O&#x2082;. Exhaled CO&#x2082; is absorbed; O&#x2082; is released for breathing. Also: 2Na&#x2082;O&#x2082; + 2H&#x2082;O &rarr; 4NaOH + O&#x2082;.</div></div>
+
+  <div class="q-block"><span class="q-num">Q17</span><div class="q-text">Flame tests work because:</div><div class="options">
+    <label class="opt"><input type="radio" name="q17" value="A"/>Metals burn in oxygen</label>
+    <label class="opt"><input type="radio" name="q17" value="B"/>Electrons excited by heat emit photons of specific visible wavelengths as they return to ground state</label>
+    <label class="opt"><input type="radio" name="q17" value="C"/>Metals form coloured ionic compounds in the flame</label>
+    <label class="opt"><input type="radio" name="q17" value="D"/>The flame changes composition based on the metal present</label>
+  </div><div class="q-exp" id="eq17">Flame heat excites electrons to higher energy levels. Returning to ground state, electrons emit photons of specific frequencies &rarr; characteristic colours. This is atomic emission spectroscopy in action.</div></div>
+
+  <div class="q-block"><span class="q-num">Q18</span><div class="q-text">Which use best describes Na&#x2082;CO&#x2083;?</div><div class="options">
+    <label class="opt"><input type="radio" name="q18" value="A"/>Used in lithium-ion batteries</label>
+    <label class="opt"><input type="radio" name="q18" value="B"/>Used in glass manufacture and water softening</label>
+    <label class="opt"><input type="radio" name="q18" value="C"/>Used as a coolant in nuclear reactors</label>
+    <label class="opt"><input type="radio" name="q18" value="D"/>Used in gunpowder</label>
+  </div><div class="q-exp" id="eq18">Na&#x2082;CO&#x2083; (washing soda) is essential in glass manufacture (with SiO&#x2082; and CaCO&#x2083;) and as a water softener (precipitates Ca&#xB2;&#x207A;/Mg&#xB2;&#x207A; as carbonates). Na (liquid) is used as a reactor coolant; KNO&#x2083; is in gunpowder.</div></div>
+
+  <div class="q-block"><span class="q-num">Q19</span><div class="q-text">The reaction of NaOH with CO&#x2082; (excess NaOH) gives:</div><div class="options">
+    <label class="opt"><input type="radio" name="q19" value="A"/>NaHCO&#x2083;</label>
+    <label class="opt"><input type="radio" name="q19" value="B"/>Na&#x2082;CO&#x2083; + H&#x2082;O</label>
+    <label class="opt"><input type="radio" name="q19" value="C"/>Na&#x2082;O + H&#x2082;O</label>
+    <label class="opt"><input type="radio" name="q19" value="D"/>NaCl + H&#x2082;O</label>
+  </div><div class="q-exp" id="eq19">Excess NaOH + CO&#x2082;: 2NaOH + CO&#x2082; &rarr; Na&#x2082;CO&#x2083; + H&#x2082;O. Limited NaOH: NaOH + CO&#x2082; &rarr; NaHCO&#x2083;.</div></div>
+
+  <div class="q-block"><span class="q-num">Q20</span><div class="q-text">Hydrogen is sometimes placed in Group 17 because it:</div><div class="options">
+    <label class="opt"><input type="radio" name="q20" value="A"/>Has 7 outer electrons</label>
+    <label class="opt"><input type="radio" name="q20" value="B"/>Can gain one electron to form H&#x207B; (hydride), similar to halide ions</label>
+    <label class="opt"><input type="radio" name="q20" value="C"/>Reacts with water like a halogen</label>
+    <label class="opt"><input type="radio" name="q20" value="D"/>Has a high electronegativity similar to fluorine</label>
+  </div><div class="q-exp" id="eq20">H can gain an electron to achieve a full shell (1s&#xB2;, like He). H&#x207B; (hydride ion) resembles halide ions (F&#x207B;, Cl&#x207B;) in being a &minus;1 anion. Hence H is sometimes placed in Group 17 as well as Group 1.</div></div>
+
+  <div class="q-block"><span class="q-num">Q21</span><div class="q-text">All Group 1 elements are stored under oil because:</div><div class="options">
+    <label class="opt"><input type="radio" name="q21" value="A"/>They dissolve in oil, improving stability</label>
+    <label class="opt"><input type="radio" name="q21" value="B"/>Oil prevents them from reacting with moisture and oxygen in air</label>
+    <label class="opt"><input type="radio" name="q21" value="C"/>Oil reduces their reactivity permanently</label>
+    <label class="opt"><input type="radio" name="q21" value="D"/>They float on water so oil provides buoyancy</label>
+  </div><div class="q-exp" id="eq21">Alkali metals are extremely reactive with water and oxygen in air &rarr; stored under mineral oil or dry inert gas (Ar/N&#x2082;) to prevent oxidation and reaction with atmospheric moisture.</div></div>
+
+  <div class="q-block"><span class="q-num">Q22</span><div class="q-text">Which alkali metal has the highest melting point?</div><div class="options">
+    <label class="opt"><input type="radio" name="q22" value="A"/>Cs</label>
+    <label class="opt"><input type="radio" name="q22" value="B"/>K</label>
+    <label class="opt"><input type="radio" name="q22" value="C"/>Na</label>
+    <label class="opt"><input type="radio" name="q22" value="D"/>Li</label>
+  </div><div class="q-exp" id="eq22">M.p. decreases down Group 1. Li (181&deg;C) has the highest m.p. in the group because it has the smallest atomic radius &rarr; strongest metallic bond (cations closest to electron sea).</div></div>
+
+  <div class="q-block"><span class="q-num">Q23</span><div class="q-text">Sodium hydroxide reacts with hydrochloric acid to give:</div><div class="options">
+    <label class="opt"><input type="radio" name="q23" value="A"/>Na&#x2082;O + H&#x2082;O</label>
+    <label class="opt"><input type="radio" name="q23" value="B"/>Na&#x2082;Cl + H&#x2082;O</label>
+    <label class="opt"><input type="radio" name="q23" value="C"/>NaCl + H&#x2082;O</label>
+    <label class="opt"><input type="radio" name="q23" value="D"/>NaCl + H&#x2082;</label>
+  </div><div class="q-exp" id="eq23">NaOH + HCl &rarr; NaCl + H&#x2082;O. This is a simple neutralisation reaction (acid + base &rarr; salt + water).</div></div>
+
+  <div class="q-block"><span class="q-num">Q24</span><div class="q-text">KNO&#x2083; is used in fertilisers because:</div><div class="options">
+    <label class="opt"><input type="radio" name="q24" value="A"/>It contains potassium (K) and nitrogen (N), both essential nutrients for plant growth</label>
+    <label class="opt"><input type="radio" name="q24" value="B"/>It releases oxygen for plant respiration</label>
+    <label class="opt"><input type="radio" name="q24" value="C"/>It neutralises acidic soils</label>
+    <label class="opt"><input type="radio" name="q24" value="D"/>It is a cheap source of salt</label>
+  </div><div class="q-exp" id="eq24">KNO&#x2083; provides both K (for enzyme function, water regulation) and N (for protein/chlorophyll synthesis) &mdash; two of the three macronutrients (N, P, K) essential for plant growth.</div></div>
+
+  <div class="q-block"><span class="q-num">Q25</span><div class="q-text">Lithium batteries are widely used in portable electronics because lithium:</div><div class="options">
+    <label class="opt"><input type="radio" name="q25" value="A"/>Is the most reactive metal</label>
+    <label class="opt"><input type="radio" name="q25" value="B"/>Has a very low atomic mass, giving a high energy-to-mass ratio</label>
+    <label class="opt"><input type="radio" name="q25" value="C"/>Forms the most stable ionic compounds</label>
+    <label class="opt"><input type="radio" name="q25" value="D"/>Is the most abundant alkali metal</label>
+  </div><div class="q-exp" id="eq25">Li has the lowest atomic mass of all metals (6.94 g/mol) &rarr; batteries store more charge per unit mass &rarr; high energy density &rarr; lightweight batteries for phones, laptops, and electric vehicles.</div></div>
+
+  <div style="margin-top:28px;text-align:center;"><button class="qs" onclick="submitQuiz()">Submit Quiz</button><div id="qR"></div></div>
   </div>
-  <div class="qcard" style="margin-top:1rem;"><h3>Section B — Application (20 marks)</h3>
-    <div class="qi"><div class="qn">B1–B4 <span class="mk">[5 each]</span></div>
-    <p>Application and calculation questions covering reactions, trends and quantitative chemistry from this unit. Full question papers are available through the teacher admin portal.</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show guidance</button>
-    <div class="ans">For application questions: (1) identify the relevant concept from your notes, (2) write balanced equations with state symbols, (3) explain trends using atomic structure reasoning, (4) show full working for any calculations.</div></div>
-  </div>
-  <div class="qcard" style="margin-top:1rem;"><h3>Section C — Extended Response (10 marks)</h3>
-    <div class="qi"><div class="qn">C1–C2 <span class="mk">[5 each]</span></div>
-    <p>Write extended answers comparing two topics from this unit, or evaluating trends and anomalies.</p>
-    <button class="sa" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show guidance</button>
-    <div class="ans">Extended answers should: define key terms, give equations, explain using atomic theory, make comparisons, and conclude clearly. Aim for 6–8 marking points per question for full marks.</div></div>
-  </div>
-</section>
+</div>
 
-<div class="unit-nav">
-  <a href="s4_unit5_periodic_trends.html">← Unit 5: Periodic Trends</a>
-  <a href="s4-chemistry.html">S4 Course Home</a>
-  <a href="s4_unit7_group2.html">Unit 7: Group 2 →</a>
+<!-- TEST -->
+<div class="section-header" id="test"><span class="section-number">&#x1F4DD;</span><h2>Unit Test &mdash; 50 Marks</h2></div>
+<div class="test-wrap">
+  <div class="test-section">
+    <div class="test-sh"><h3>Section A &mdash; Short Answer</h3><span class="mb">20 marks</span></div>
+    <div class="test-body">
+
+      <div class="tq"><span class="tqn">Q1 [4 marks]</span><p>State and explain the trend in reactivity of Group 1 metals with water as you descend from Li to Cs. Write equations for the reactions of Li and K with water, and describe the observations for each. [4]</p>
+      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
+      <div class="ans">Trend: reactivity <strong>increases</strong> down the group. [1]<br>Explanation: IE&#x2081; decreases as atomic radius increases and shielding increases &rarr; outer electron is easier to lose &rarr; more vigorous electron transfer to water &rarr; greater reactivity. [1]<br>2Li + 2H&#x2082;O &rarr; 2LiOH + H&#x2082;. Observations: fizzes steadily; Li moves on surface; sinks. Solution turns litmus blue (alkaline). [1]<br>2K + 2H&#x2082;O &rarr; 2KOH + H&#x2082;. Observations: very vigorous; K moves rapidly; H&#x2082; ignites with a lilac flame; may explode. Solution strongly alkaline. [1]</div></div>
+
+      <div class="tq"><span class="tqn">Q2 [4 marks]</span><p>Compare the products of thermal decomposition of NaNO&#x2083; and LiNO&#x2083;. Write balanced equations for each and explain why the products differ in terms of the polarising power of the cation. [4]</p>
+      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
+      <div class="ans">2NaNO&#x2083; &rarr; 2NaNO&#x2082; + O&#x2082; [1]<br>4LiNO&#x2083; &rarr; 2Li&#x2082;O + 4NO&#x2082; + O&#x2082; [1]<br>Na&#x207A; (ionic radius 102 pm) has a moderate charge density &rarr; polarises NO&#x3;&#x207B; only slightly &rarr; one O is removed &rarr; stable nitrite NaNO&#x2082; forms. [1]<br>Li&#x207A; (ionic radius 76 pm) is very small with high charge density &rarr; strongly polarises the NO&#x3;&#x207B; ion &rarr; distorts it sufficiently to break N&ndash;O bonds &rarr; produces NO&#x2082; gas and Li&#x2082;O. This anomalous behaviour is part of the diagonal relationship between Li and Mg. [1]</div></div>
+
+      <div class="tq"><span class="tqn">Q3 [4 marks]</span><p>Describe the flame test procedure for identifying Na&#x207A;, K&#x207A;, and Li&#x207A; ions. State the colour observed for each and explain why each element produces a different colour. [4]</p>
+      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
+      <div class="ans">Procedure: clean nichrome wire with conc. HCl, test in flame (no colour). Dip in test solution; hold in roaring blue flame; observe colour. Clean wire between each test. [1]<br>Li&#x207A; &rarr; crimson red. Na&#x207A; &rarr; persistent yellow/orange. K&#x207A; &rarr; lilac (view through blue cobalt glass to filter out any Na yellow). [1]<br>Different colours arise because each element has a unique set of electron energy levels. Flame heat promotes electrons to higher levels (excited states). Electrons fall back to ground state emitting photons of specific energy (E=hf). Each element emits at characteristic frequencies corresponding to specific colours &mdash; the visible part of its atomic emission spectrum. [2]</div></div>
+
+      <div class="tq"><span class="tqn">Q4 [4 marks]</span><p>Write balanced equations for the reactions of sodium with: (a) oxygen (excess) [1]; (b) water [1]; (c) explain why Na&#x2082;O&#x2082; is used in rebreathers, with a relevant equation [2].</p>
+      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
+      <div class="ans">(a) 2Na + O&#x2082; &rarr; Na&#x2082;O&#x2082; (sodium peroxide forms in excess O&#x2082;) [1]<br>(b) 2Na + 2H&#x2082;O &rarr; 2NaOH + H&#x2082; [1]<br>(c) In a rebreather (closed-circuit breathing apparatus, e.g. for submariners), the person exhales CO&#x2082;. Na&#x2082;O&#x2082; simultaneously absorbs the CO&#x2082; and releases O&#x2082; for breathing: 2Na&#x2082;O&#x2082; + 2CO&#x2082; &rarr; 2Na&#x2082;CO&#x2083; + O&#x2082;. This makes the system self-sustaining: no external O&#x2082; supply is needed. [1] Also: Na&#x2082;O&#x2082; reacts with exhaled moisture: 2Na&#x2082;O&#x2082; + 2H&#x2082;O &rarr; 4NaOH + O&#x2082;, providing additional O&#x2082;. [1]</div></div>
+
+      <div class="tq"><span class="tqn">Q5 [4 marks]</span><p>Explain the anomalous behaviour of lithium in Group 1 with reference to the diagonal relationship with magnesium. Give THREE specific examples where Li behaves more like Mg than like Na. [4]</p>
+      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
+      <div class="ans">Li&#x207A; (ionic radius 76 pm, charge +1) has a similar charge density to Mg&#xB2;&#x207A; (ionic radius 72 pm, charge +2). Because charge density = charge/size, both ions have comparable polarising power despite different charges. [1]<br>Three examples where Li resembles Mg more than Na: [3, 1 each]<br>(1) <strong>Thermal decomposition of carbonate:</strong> Li&#x2082;CO&#x2083; decomposes on heating (Li&#x2082;CO&#x2083; &rarr; Li&#x2082;O + CO&#x2082;), like MgCO&#x2083; &rarr; MgO + CO&#x2082;. Na&#x2082;CO&#x2083; is thermally stable.<br>(2) <strong>Decomposition of nitrate:</strong> LiNO&#x2083; decomposes to Li&#x2082;O + NO&#x2082; + O&#x2082; (like Mg(NO&#x2083;)&#x2082;); NaNO&#x2083; gives NaNO&#x2082; + O&#x2082;.<br>(3) <strong>Solubility of Li&#x2082;CO&#x2083; and LiF:</strong> Both are sparingly soluble (like MgCO&#x2083; and MgF&#x2082;), unlike the highly soluble Na&#x2082;CO&#x2083; and NaF.</div></div>
+    </div>
+  </div>
+
+  <div class="test-section">
+    <div class="test-sh"><h3>Section B &mdash; Extended Answer</h3><span class="mb">30 marks</span></div>
+    <div class="test-body">
+
+      <div class="tq"><span class="tqn">Q6 [8 marks]</span><p>Describe the trends in physical properties of Group 1 elements (Li to Cs): melting point, density, atomic radius, first ionisation energy, and reactivity. For each property, state the trend, explain it using atomic structure, and give supporting data where relevant. [8]</p>
+      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
+      <div class="ans"><strong>Melting point [1.5]:</strong> Decreases Li(181)&gt;Na(98)&gt;K(64)&gt;Rb(39)&gt;Cs(28)&deg;C. Metallic bond weakens: increasing atomic radius &rarr; larger M&#x207A; cations further from electron sea &rarr; weaker electrostatic attraction &rarr; less energy to break bond &rarr; lower m.p. All alkali metals have relatively low m.p. compared to other metals due to only 1 delocalised electron.<br><strong>Density [1.5]:</strong> Generally increases (Li 0.53 &rarr; Cs 1.87 g/cm&#xB3;). Atomic mass increases faster than atomic volume. Notable: Li, Na, K all less dense than water (density &lt;1 g/cm&#xB3;) &rarr; float on water during reaction.<br><strong>Atomic radius [1.5]:</strong> Increases (Li 134 pm &rarr; Cs 262 pm). Each successive element has one more full electron shell (n increases) &rarr; outer electrons in progressively higher, larger shells. Shielding by inner electrons also increases, reducing effective nuclear charge on outer shell.<br><strong>First ionisation energy [1.5]:</strong> Decreases Li(526)&gt;Na(496)&gt;K(419)&gt;Rb(403)&gt;Cs(376) kJ/mol. Outer electron (always ns&#xB9;) is in a higher shell each step &rarr; greater distance from nucleus and increased shielding &rarr; effective nuclear charge on outer electron decreases &rarr; less energy to remove it.<br><strong>Reactivity [2]:</strong> Increases Li&lt;Na&lt;K&lt;Rb&lt;Cs. Directly related to IE&#x2081;: lower IE &rarr; easier to lose outer electron in reactions. Li barely fizzes with water; Na melts and moves rapidly; K ignites H&#x2082;; Rb/Cs explode. The fundamental driver is the decreasing ionisation energy, itself caused by the outer electron being increasingly remote and shielded.</div></div>
+
+      <div class="tq"><span class="tqn">Q7 [8 marks]</span><p>Describe fully the reactions of Group 1 metals with oxygen, water, and halogens. For each reaction type: state the product(s), write balanced equations (using Li, Na, or K as examples), explain the trend in reactivity, and note any differences in product type down the group. [8]</p>
+      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
+      <div class="ans"><strong>With oxygen [3]:</strong> All react vigorously when exposed to air, producing metal oxides (type depends on metal). 4Li + O&#x2082; &rarr; 2Li&#x2082;O (normal oxide). 2Na + O&#x2082; &rarr; Na&#x2082;O&#x2082; (peroxide). K + O&#x2082; &rarr; KO&#x2082; (superoxide, as do Rb and Cs). Trend: Li gives simple oxide; heavier alkali metals form peroxides/superoxides because their larger M&#x207A; cations can stabilise the larger anions (O&#xB2;&#x207B; &lt; O&#x2082;&#xB2;&#x207B; &lt; O&#x2082;&#x207B;). Reactivity increases down group: Cs reacts explosively. All products are basic &mdash; react with water to give alkaline solutions.<br><strong>With water [3]:</strong> General: 2M + 2H&#x2082;O &rarr; 2MOH + H&#x2082;. All reactions are exothermic. 2Li + 2H&#x2082;O &rarr; 2LiOH + H&#x2082; (steady fizzing). 2Na + 2H&#x2082;O &rarr; 2NaOH + H&#x2082; (vigorous; Na melts/moves). 2K + 2H&#x2082;O &rarr; 2KOH + H&#x2082; (H&#x2082; ignites; lilac flame). Rb/Cs: explosive. All produce strongly alkaline solutions (MOH dissociates fully). Reactivity increases down group for the same reasons as with oxygen (decreasing IE&#x2081;).<br><strong>With halogens [2]:</strong> General: 2M + X&#x2082; &rarr; 2MX (metal halide salt, ionic). 2Na + Cl&#x2082; &rarr; 2NaCl. 2K + Br&#x2082; &rarr; 2KBr. All reactions vigorous; all produce white ionic halide salts. Reactivity of alkali metal increases down group. Reactivity of halogen decreases F&#x2082;&gt;Cl&#x2082;&gt;Br&#x2082;&gt;I&#x2082;. All halides are soluble except LiF (sparingly soluble &mdash; diagonal relationship).</div></div>
+
+      <div class="tq"><span class="tqn">Q8 [6 marks]</span><p>Hydrogen is anomalous in the periodic table. (a) State two ways hydrogen resembles Group 1 elements. [2] (b) State two ways hydrogen differs from Group 1 elements. [2] (c) Write equations for hydrogen reacting with sodium and with nitrogen, and explain the oxidation state of H in each product. [2]</p>
+      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
+      <div class="ans">(a) Resemblances to Group 1 [2]: (1) Electron configuration 1s&#xB9; &mdash; one electron in the outermost (and only) shell, like ns&#xB9; of alkali metals. (2) Forms H&#x207A; ions by losing its electron, similar to M&#x207A; cation formation; H&#x207A; is involved in acid-base chemistry like alkali metal cations. [1 each, any 2]<br>(b) Differences from Group 1 [2]: (1) H forms H&#x207B; (hydride ion, &minus;1) by gaining an electron &mdash; alkali metals never form anions. This resembles halogen chemistry. (2) H&#x2082; is a gas (diatomic, covalent) at room temperature; alkali metals are solid reactive metals. Also acceptable: H does not react with water at room temperature; H is a non-metal; H&#x207A; is a bare proton with no electrons. [1 each, any 2]<br>(c) H&#x2082; + 2Na &rarr; 2NaH (sodium hydride). Na is +1; H is &minus;1 (oxidation state &minus;1 in metal hydrides &mdash; H has gained an electron). [1] 3H&#x2082; + N&#x2082; &rarr; 2NH&#x2083; (Haber process; needs Fe catalyst, high T and P). H is +1 (bonded to more electronegative N; H loses electron density to N). [1]</div></div>
+
+      <div class="tq"><span class="tqn">Q9 [8 marks]</span><p>A student dissolves a Group 1 metal compound in water and tests the solution. The flame test gives a lilac colour. On heating the solid compound, a colourless gas is evolved that rekindles a glowing splint. (a) Identify the metal ion present and the compound. [2] (b) Write the equation for the thermal decomposition. [2] (c) Explain what gas rekindled the splint. [1] (d) Describe two further chemical tests you could carry out on the original compound to confirm its identity, with expected results. [3]</p>
+      <button class="rb" onclick="toggleAnswer(this)">Model Answer</button>
+      <div class="ans">(a) Lilac flame &rarr; K&#x207A; ion present. Gas that rekindles a glowing splint = O&#x2082;. A Group 1 potassium compound that evolves O&#x2082; on heating = <strong>potassium nitrate (KNO&#x2083;)</strong>. [2]<br>(b) 2KNO&#x2083; &rarr; 2KNO&#x2082; + O&#x2082; [2]<br>(c) The gas is <strong>oxygen (O&#x2082;)</strong>. O&#x2082; supports combustion, so a glowing splint reignites in its presence. [1]<br>(d) Any two from [1.5 each]: (1) <strong>Test for NO&#x3;&#x207B; (nitrate) ion:</strong> Add dilute H&#x2082;SO&#x2084; and a small piece of Fe(II) sulfate; carefully layer concentrated H&#x2082;SO&#x2084;. A brown ring (iron(III) complex) at the interface confirms NO&#x3;&#x207B;. (2) <strong>Add AgNO&#x2083;(aq) after acidifying with dilute HNO&#x2083;:</strong> No precipitate with NO&#x3;&#x207B; (confirms not a halide). (3) <strong>Dissolve in water; test pH:</strong> KNO&#x2083; solution is approximately neutral (K&#x207A; neutral; NO&#x3;&#x207B; very weakly basic) &mdash; pH ~7. (4) <strong>Test solubility in water:</strong> Highly soluble (confirming not Li&#x2082;CO&#x2083; or LiF which are sparingly soluble). [3 total]</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="nav">
+  <a class="nb p" href="s4_unit5_periodic_trends.html">&larr; Unit 5: Periodic Trends</a>
+  <a class="nb n" href="s4_unit7_group2.html">Unit 7: Group 2 Elements &rarr;</a>
 </div>
 </main>
-<footer>⚗ Jackson Habimana — Chemistry Education Portal &bull; <a href="s4-chemistry.html">S4 Course</a> &bull; <a href="index.html">Home</a></footer>
-<script src="quiz-fix.js"></script>
-<script src="fix-answers.js"></script></body></html>
+
+
+
+
+<!-- ═══════════════════════════ UNIT QUIZ GATE ═══════════════════════════ -->
+<script>
+(function(){
+  const CK='quiz_access_code', SK='quiz_access_granted';
+  const code=localStorage.getItem(CK);
+  if(!code) return;
+  if(sessionStorage.getItem(SK)) return;
+  const qw=document.querySelector('.quiz-wrap');
+  if(!qw) return;
+  function showGate(){
+    if(document.getElementById('_ugate')) return;
+    const g=document.createElement('div');
+    g.id='_ugate';
+    g.style.cssText='position:fixed;inset:0;background:#0d1117;z-index:99999;display:flex;align-items:center;justify-content:center;padding:24px;';
+    g.innerHTML=`
+      <div style="background:#161b22;border:2px solid rgba(245,158,11,.4);border-radius:16px;padding:44px 36px;max-width:440px;width:100%;text-align:center;">
+        <div style="font-size:3.5rem;margin-bottom:14px;">🔒</div>
+        <h2 style="font-family:'Playfair Display',serif;font-size:1.8rem;color:#fff;margin-bottom:10px;">Quiz Locked</h2>
+        <p style="color:#8b949e;font-size:.92rem;margin-bottom:20px;line-height:1.7;">Enter your teacher&#39;s access code to attempt this quiz.</p>
+        <input id="_ugate_inp" type="text" placeholder="Enter Code" maxlength="20" autocomplete="off"
+          style="width:100%;background:#1c2333;border:2px solid #30363d;border-radius:8px;color:#e6edf3;padding:13px 16px;font-family:'JetBrains Mono',monospace;font-size:1.4rem;text-align:center;letter-spacing:.2em;text-transform:uppercase;margin-bottom:10px;box-sizing:border-box;"
+          onkeydown="if(event.key==='Enter')window._ugateCheck()"/>
+        <div id="_ugate_err" style="font-family:'JetBrains Mono',monospace;font-size:.82rem;color:#f87171;min-height:20px;margin:6px 0 10px;"></div>
+        <button onclick="window._ugateCheck()" style="width:100%;background:#f59e0b;color:#000;border:none;padding:12px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.9rem;font-weight:700;cursor:pointer;margin-bottom:8px;">🔓 Unlock Quiz</button>
+        <button onclick="document.getElementById('_ugate').remove();document.body.style.overflow='';" style="width:100%;background:transparent;border:1px solid #30363d;color:#8b949e;padding:8px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.78rem;cursor:pointer;">✕ Cancel</button>
+      </div>`;
+    document.body.appendChild(g);
+    document.body.style.overflow='hidden';
+    setTimeout(()=>{const i=document.getElementById('_ugate_inp');if(i)i.focus();},100);
+  }
+  window._ugateCheck=function(){
+    const val=(document.getElementById('_ugate_inp')||{}).value;
+    if(!val) return;
+    const v=val.trim().toUpperCase();
+    const stored=localStorage.getItem(CK);
+    if(v===stored){
+      sessionStorage.setItem(SK,'1');
+      const g=document.getElementById('_ugate');
+      if(g) g.remove();
+      document.body.style.overflow='';
+    } else {
+      const err=document.getElementById('_ugate_err');
+      if(err) err.textContent='❌ Wrong code — try again.';
+      const inp=document.getElementById('_ugate_inp');
+      if(inp){inp.value='';inp.focus();}
+    }
+  };
+  qw.addEventListener('click',function(e){
+    if(!localStorage.getItem(CK)) return;
+    if(sessionStorage.getItem(SK)) return;
+    e.stopPropagation();e.preventDefault();
+    showGate();
+  },true);
+})();
+</script>
+
+<script>
+// ── PER-UNIT QUIZ ACCESS GATE ── ID: s4_unit6 ──
+(function(){
+  const ITEM_ID='s4_unit6';
+  const SESS_KEY='unlocked_'+ITEM_ID;
+  const CODE_KEY='quiz_access_code';
+  const LOCKS_KEY='assessment_locks';
+  
+  function isLocked(){return JSON.parse(localStorage.getItem(LOCKS_KEY)||'{}')[ITEM_ID]===true;}
+  function isGranted(){const c=localStorage.getItem(CODE_KEY)||'OPEN';return sessionStorage.getItem(SESS_KEY)===c||sessionStorage.getItem(SESS_KEY)==='OPEN';}
+  
+  const gate=document.createElement('div');
+  gate.id='unit-quiz-gate-s4_unit6';
+  gate.style.cssText='position:fixed;inset:0;background:#0d1117;z-index:99999;display:none;align-items:center;justify-content:center;padding:24px;';
+  gate.innerHTML=`<div style="background:#161b22;border:2px solid rgba(245,158,11,.4);border-radius:16px;padding:44px 38px;max-width:460px;width:100%;text-align:center;">
+    <div style="font-size:3.5rem;margin-bottom:14px;">🔒</div>
+    <h2 style="font-family:Playfair Display,serif;font-size:1.8rem;color:#fff;margin-bottom:10px;">Quiz Locked</h2>
+    <p style="color:#8b949e;font-size:.92rem;margin-bottom:22px;line-height:1.7;">Your teacher has locked this quiz. Enter the access code to unlock it.</p>
+    <input id="ugi-s4_unit6" type="text" placeholder="Enter Code" maxlength="20"
+      style="width:100%;background:#1c2333;border:2px solid #30363d;border-radius:8px;color:#e6edf3;padding:13px 16px;font-family:JetBrains Mono,monospace;font-size:1.3rem;text-align:center;letter-spacing:.2em;text-transform:uppercase;margin-bottom:10px;box-sizing:border-box;"
+      onkeydown="if(event.key==='Enter')unlockUnit_s4_unit6()"
+      oninput="this.value=this.value.toUpperCase()"/>
+    <div id="uge-s4_unit6" style="font-family:JetBrains Mono,monospace;font-size:.8rem;color:#f87171;min-height:18px;margin-bottom:10px;"></div>
+    <button onclick="unlockUnit_s4_unit6()" style="width:100%;background:#f59e0b;color:#000;border:none;padding:13px;border-radius:8px;font-family:JetBrains Mono,monospace;font-size:.88rem;font-weight:700;cursor:pointer;margin-bottom:8px;">🔓 Unlock Quiz</button>
+    <button onclick="document.getElementById('unit-quiz-gate-s4_unit6').style.display='none';document.body.style.overflow='';" style="width:100%;background:transparent;border:1px solid #30363d;color:#8b949e;padding:8px;border-radius:7px;font-family:JetBrains Mono,monospace;font-size:.78rem;cursor:pointer;">✕ Cancel — Go back</button>
+    <div style="font-family:JetBrains Mono,monospace;font-size:.7rem;color:#8b949e;margin-top:10px;">Ask your teacher for the access code.</div>
+  </div>`;
+  document.body.appendChild(gate);
+  
+  window.unlockUnit_s4_unit6=function(){
+    const entered=document.getElementById('ugi-s4_unit6').value.trim().toUpperCase();
+    const correct=localStorage.getItem(CODE_KEY)||'';
+    if(!entered){document.getElementById('uge-s4_unit6').textContent='Enter the code.';return;}
+    if(!correct||entered===correct){
+      sessionStorage.setItem(SESS_KEY,correct||'OPEN');
+      gate.style.display='none';document.body.style.overflow='';
+      if(window._pendingAction_s4_unit6) window._pendingAction_s4_unit6();
+    } else {
+      document.getElementById('uge-s4_unit6').textContent='❌ Wrong code. Ask your teacher.';
+      document.getElementById('ugi-s4_unit6').value='';
+    }
+  };
+  
+  window.addEventListener('DOMContentLoaded',function(){
+    if(!isLocked()) return;
+    const qw=document.querySelector('.quiz-wrap');
+    if(!qw) return;
+    qw.addEventListener('click',function(e){
+      if(!isLocked()||isGranted()) return;
+      e.stopPropagation();e.preventDefault();
+      gate.style.display='flex';document.body.style.overflow='hidden';
+    },true);
+  });
+})();
+</script>
+<script>
+function toggleAnswer(btn){
+  var ans = btn.nextElementSibling;
+  if(!ans) return;
+  var isOpen = ans.classList.contains('open');
+  ans.classList.toggle('open', !isOpen);
+  btn.textContent = isOpen ? (btn.classList.contains('rb') ? 'Model Answer' : 'Show Answer') : 'Hide Answer';
+}
+</script>
+</body>
+</html>
