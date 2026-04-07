@@ -993,7 +993,7 @@ async function publishExam(){
     // Store exam in JSONBin
     const r=await fetch('https://api.jsonbin.io/v3/b',{
       method:'POST',
-      headers:{'Content-Type':'application/json','X-Master-Key':key,'X-Bin-Private':'false','X-Bin-Name':exam.title.slice(0,30)},
+      headers:{'Content-Type':'application/json','X-Master-Key':key,'X-Bin-Private':'false','X-Bin-Name':exam.title.slice(0,30).replace(/[^\x00-\x7F]/g,'')||'ChemExam'},
       body:JSON.stringify(exam)
     });
     const d=await r.json();
@@ -2524,7 +2524,7 @@ async function publishUnitQuiz(){
   try{
     const r = await fetch('https://api.jsonbin.io/v3/b',{
       method:'POST',
-      headers:{'Content-Type':'application/json','X-Master-Key':key,'X-Bin-Private':'false','X-Bin-Name':examObj.title.slice(0,30)},
+      headers:{'Content-Type':'application/json','X-Master-Key':key,'X-Bin-Private':'false','X-Bin-Name':examObj.title.slice(0,30).replace(/[^\x00-\x7F]/g,'')||'ChemQuiz'},
       body: JSON.stringify(examObj)
     });
     const d = await r.json();
