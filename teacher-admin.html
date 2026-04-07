@@ -828,7 +828,12 @@ table.results tr:hover td{background:rgba(255,255,255,.02);}
           <p style="margin-top:8px;">⚠️ Without a PawaPay key, the Downloads page falls back to MTN MoMo manual payment + WhatsApp confirmation.</p>
         </div>
         <label>PawaPay API Token</label>
-        <input type="password" id="pawapay-key" placeholder="Paste your PawaPay API token here" oninput="saveNotifSettings()" style="font-family:'JetBrains Mono',monospace;"/>
+        <input type="password" id="pawapay-key" placeholder="Paste your PawaPay API token here" style="font-family:'JetBrains Mono',monospace;"/>
+        <div style="display:flex;gap:8px;align-items:center;margin-top:8px;flex-wrap:wrap;">
+          <button onclick="savePawaPay()" style="background:var(--gold);color:#000;border:none;padding:9px 20px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:.82rem;font-weight:700;cursor:pointer;">💾 Save Token</button>
+          <button onclick="testPawaPay()" style="background:var(--surface);color:var(--muted);border:1px solid var(--border);padding:9px 16px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:.8rem;cursor:pointer;">🧪 Test Connection</button>
+          <span id="pp-msg" style="font-family:'JetBrains Mono',monospace;font-size:.76rem;"></span>
+        </div>
       </div>
 
       <!-- TELEGRAM (optional) -->
@@ -3156,6 +3161,61 @@ function saveMomoNumber(){
   alert('✅ MTN MoMo number saved!');
 }
 
+function savePawaPay(){
+  const key = document.getElementById('pawapay-key').value.trim();
+  const m = document.getElementById('pp-msg');
+  if(!key){m.style.color='var(--red)';m.textContent='❌ Paste your token first.';return;}
+  const s = JSON.parse(localStorage.getItem('notif_settings')||'{}');
+  s.pawapayKey = key;
+  localStorage.setItem('notif_settings', JSON.stringify(s));
+  m.style.color='var(--green)';
+  m.textContent='✅ Token saved!';
+}
+async function testPawaPay(){
+  const key = document.getElementById('pawapay-key').value.trim() || 
+              (JSON.parse(localStorage.getItem('notif_settings')||'{}')).pawapayKey||'';
+  const m = document.getElementById('pp-msg');
+  if(!key){m.style.color='var(--red)';m.textContent='❌ Enter and save your token first.';return;}
+  m.style.color='var(--muted)';m.textContent='Testing...';
+  try{
+    const r = await fetch('https://api.pawapay.io/deposits/paging?pageSize=1',{
+      headers:{'Authorization':'Bearer '+key}
+    });
+    if(r.ok||r.status===200){
+      m.style.color='var(--green)';m.textContent='✅ Connected! PawaPay is working.';
+    } else if(r.status===401){
+      m.style.color='var(--red)';m.textContent='❌ Invalid token — check your PawaPay API token.';
+    } else {
+      m.style.color='var(--orange)';m.textContent='⚠️ Status '+r.status+' — try the sandbox token or check your account.';
+    }
+  }catch(e){
+    m.style.color='var(--orange)';m.textContent='⚠️ Could not connect (CORS). Token is likely saved correctly — try a test payment.';
+  }
+}
+
+function quickGenCode(){
+  const student = (document.getElementById('quick-student').value||'').trim()||'Student';
+  const item = document.getElementById('quick-item').value;
+  if(!item){alert('Select the item they paid for.');return;}
+  const rand = Math.random().toString(36).substr(2,6).toUpperCase();
+  const code = 'CHEM-'+item.replace(/[^A-Z0-9]/gi,'').toUpperCase().substr(0,8)+'-'+rand;
+  const codes = JSON.parse(localStorage.getItem('download_codes')||'{}');
+  codes[code] = item;
+  localStorage.setItem('download_codes', JSON.stringify(codes));
+  const records = JSON.parse(localStorage.getItem('dl_records')||'[]');
+  records.unshift({code,item,student,date:new Date().toISOString()});
+  localStorage.setItem('dl_records', JSON.stringify(records));
+  document.getElementById('quick-code').textContent = code;
+  document.getElementById('quick-result').style.display = 'block';
+  const waText = encodeURIComponent('🔑 ACCESS CODE\n\nHello '+student+',\nThank you for your payment!\n\nYour access code is:\n*'+code+'*\n\nHow to use:\n1. Go to: jacksonhabimana.github.io/downloads.html\n2. Enter this code in the box at the top\n3. Click Unlock → download button appears\n\n— Mr Habimana');
+  document.getElementById('quick-wa').href = 'https://wa.me/?text='+waText;
+  renderDlCodes();
+}
+function copyQuickCode(){
+  const code = document.getElementById('quick-code').textContent;
+  navigator.clipboard.writeText(code).then(()=>alert('✅ Copied: '+code));
+}
+
 function generateCode(){
   const item = document.getElementById('dl-item').value;
   const student = document.getElementById('dl-student').value.trim()||'Student';
@@ -3557,7 +3617,62 @@ function deletePE(id){
 </html>
   <div class="tab-panel" id="tab-downloads">
     <h2 style="font-family:'Playfair Display',serif;margin-bottom:6px;">⬇ Downloads Manager</h2>
-    <p style="color:var(--muted);font-size:.88rem;margin-bottom:24px;">Generate access codes for students who have paid. Each code unlocks specific content on the Downloads page.</p>
+    <p style="color:var(--muted);font-size:.88rem;margin-bottom:20px;">Generate access codes for students who have paid. Each code unlocks specific content on the Downloads page.</p>
+
+    <!-- HOW TO CHECK PAYMENTS -->
+    <div style="background:var(--surface2);border:1px solid rgba(56,189,248,.2);border-radius:10px;padding:18px 20px;margin-bottom:20px;">
+      <strong style="color:#fff;display:block;margin-bottom:10px;">💡 How to verify a student has paid</strong>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:.84rem;color:var(--muted);">
+        <div style="background:rgba(52,211,153,.06);border:1px solid rgba(52,211,153,.15);border-radius:8px;padding:12px;">
+          <strong style="color:var(--green);display:block;margin-bottom:6px;">📱 MTN MoMo check</strong>
+          Open your phone → check MTN MoMo SMS or dial <strong style="color:#fff;">*182#</strong> → check recent transactions → confirm the amount and sender match what the student told you.
+        </div>
+        <div style="background:rgba(56,189,248,.06);border:1px solid rgba(56,189,248,.15);border-radius:8px;padding:12px;">
+          <strong style="color:var(--accent);display:block;margin-bottom:6px;">💳 PawaPay check</strong>
+          If using PawaPay, log into <a href="https://dashboard.pawapay.io" target="_blank" style="color:var(--accent);">dashboard.pawapay.io</a> → Payments → see all confirmed payments with student phone number and amount.
+        </div>
+      </div>
+      <div style="margin-top:12px;font-size:.83rem;color:var(--muted);">
+        Once confirmed → use the <strong style="color:#fff;">Generate Access Code</strong> section below → send the code to the student via WhatsApp → they enter it on the Downloads page to unlock.
+      </div>
+    </div>
+
+    <!-- PENDING WHATSAPP PAYMENTS -->
+    <div style="background:var(--surface2);border:1px solid rgba(245,158,11,.2);border-radius:10px;padding:18px 20px;margin-bottom:20px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
+        <strong style="color:#fff;">📥 Students Who Requested Payment Confirmation</strong>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--muted);">(sent to you via WhatsApp)</span>
+      </div>
+      <div style="font-size:.83rem;color:var(--muted);margin-bottom:12px;">
+        When a student clicks "Pay via WhatsApp" on the Downloads page, they send you a WhatsApp message. 
+        After you verify payment on your phone, quickly generate their code here:
+      </div>
+      <div style="background:rgba(13,17,23,.5);border:1px solid var(--border);border-radius:8px;padding:14px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--muted);margin-bottom:10px;">QUICK GENERATE — enter student name and select what they paid for:</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+          <input type="text" id="quick-student" placeholder="Student name (from WhatsApp)" 
+                 style="flex:1;min-width:160px;background:var(--surface);border:1px solid var(--border);border-radius:6px;color:#fff;padding:8px 12px;font-family:'JetBrains Mono',monospace;font-size:.8rem;"/>
+          <select id="quick-item" style="flex:1;min-width:160px;background:var(--surface);border:1px solid var(--border);border-radius:6px;color:#fff;padding:8px 10px;font-family:'JetBrains Mono',monospace;font-size:.78rem;">
+            <option value="BUNDLE-S4">S4 Complete Course — 1,000 RWF</option>
+            <option value="BUNDLE-S5">S5 Complete Course — 1,000 RWF</option>
+            <option value="BUNDLE-S6">S6 Complete Course — 1,000 RWF</option>
+            <option value="ALL">All S4+S5+S6 — 3,000 RWF</option>
+            <option value="S4-U1">S4 Unit 1 — 300 RWF</option>
+            <option value="S5-U1">S5 Unit 1 — 300 RWF</option>
+            <option value="S6-U1">S6 Unit 1 — 300 RWF</option>
+          </select>
+          <button onclick="quickGenCode()" style="background:var(--orange);color:#000;border:none;padding:8px 16px;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:.78rem;font-weight:700;cursor:pointer;white-space:nowrap;">⚡ Generate & Send</button>
+        </div>
+        <div id="quick-result" style="display:none;margin-top:12px;background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.2);border-radius:7px;padding:12px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--muted);margin-bottom:4px;">ACCESS CODE:</div>
+          <div id="quick-code" style="font-family:'JetBrains Mono',monospace;font-size:1.3rem;color:var(--green);font-weight:700;margin-bottom:10px;"></div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <button onclick="copyQuickCode()" style="background:var(--green);color:#000;border:none;padding:6px 14px;border-radius:5px;font-family:'JetBrains Mono',monospace;font-size:.75rem;font-weight:700;cursor:pointer;">📋 Copy</button>
+            <a id="quick-wa" href="#" target="_blank" style="background:#25D366;color:#fff;padding:6px 14px;border-radius:5px;font-family:'JetBrains Mono',monospace;font-size:.75rem;font-weight:700;text-decoration:none;">📱 Send via WhatsApp</a>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- MTN MoMo Number -->
     <div style="background:var(--surface2);border:1px solid rgba(232,197,71,.25);border-radius:10px;padding:18px 20px;margin-bottom:20px;">
