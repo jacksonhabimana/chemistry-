@@ -811,6 +811,26 @@ table.results tr:hover td{background:rgba(255,255,255,.02);}
         </div>
       </div>
 
+      <!-- PAWAPAY PAYMENT GATEWAY -->
+      <div style="background:var(--surface2);border:1px solid rgba(232,197,71,.25);border-radius:10px;padding:20px;margin-bottom:16px;">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+          <span style="font-size:1.4rem;">💳</span>
+          <strong style="color:#fff;font-size:1rem;">PawaPay — Automatic Mobile Money</strong>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:.68rem;background:rgba(232,197,71,.1);color:var(--gold);border:1px solid rgba(232,197,71,.2);padding:2px 10px;border-radius:50px;">For Downloads Page</span>
+        </div>
+        <div style="background:rgba(232,197,71,.06);border:1px solid rgba(232,197,71,.15);border-radius:8px;padding:14px 16px;margin-bottom:14px;font-size:.84rem;color:var(--muted);">
+          <strong style="color:var(--gold);display:block;margin-bottom:8px;">⚡ Setup (one time):</strong>
+          <ol style="margin-left:18px;line-height:2.2;">
+            <li>Go to <a href="https://dashboard.pawapay.io" target="_blank" style="color:var(--accent);">dashboard.pawapay.io</a> → Sign up for a merchant account</li>
+            <li>After approval, go to <strong style="color:#fff;">Settings → API Keys</strong> → copy your <strong style="color:var(--gold);">API Token</strong></li>
+            <li>Paste it below → Save → Students on the Downloads page can now pay automatically and download immediately</li>
+          </ol>
+          <p style="margin-top:8px;">⚠️ Without a PawaPay key, the Downloads page falls back to MTN MoMo manual payment + WhatsApp confirmation.</p>
+        </div>
+        <label>PawaPay API Token</label>
+        <input type="password" id="pawapay-key" placeholder="Paste your PawaPay API token here" oninput="saveNotifSettings()" style="font-family:'JetBrains Mono',monospace;"/>
+      </div>
+
       <!-- TELEGRAM (optional) -->
       <div style="background:var(--surface2);border:1px solid rgba(56,189,248,.2);border-radius:10px;padding:20px;margin-bottom:16px;">
         <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
@@ -2942,6 +2962,7 @@ function loadNotifSettings(){
   if(s.waApiKey) document.getElementById('wa-apikey').value=s.waApiKey;
   if(s.waInstance) document.getElementById('wa-instance').value=s.waInstance;
   if(s.waToken) document.getElementById('wa-token').value=s.waToken;
+  if(s.pawapayKey) document.getElementById('pawapay-key').value=s.pawapayKey;
   if(s.tgToken) document.getElementById('tg-token').value=s.tgToken;
   if(s.tgChatId) document.getElementById('tg-chatid').value=s.tgChatId;
   if(s.ejPubKey) document.getElementById('ej-pubkey').value=s.ejPubKey;
@@ -3125,8 +3146,81 @@ async function refreshFromCloud(){
   else alert('✅ Already up to date.');
 }
 
+
+// ══ DOWNLOADS MANAGER ══
+function saveMomoNumber(){
+  const num = document.getElementById('dl-momo').value.trim();
+  const s = JSON.parse(localStorage.getItem('notif_settings')||'{}');
+  s.momoNumber = num;
+  localStorage.setItem('notif_settings', JSON.stringify(s));
+  alert('✅ MTN MoMo number saved!');
+}
+
+function generateCode(){
+  const item = document.getElementById('dl-item').value;
+  const student = document.getElementById('dl-student').value.trim()||'Student';
+  if(!item){alert('Please select content to unlock.');return;}
+
+  // Generate unique code: CHEM-[ITEM]-[RANDOM]
+  const rand = Math.random().toString(36).substr(2,6).toUpperCase();
+  const code = 'CHEM-'+item.replace(/[^A-Z0-9]/gi,'').toUpperCase().substr(0,8)+'-'+rand;
+
+  // Save code → item mapping
+  const codes = JSON.parse(localStorage.getItem('download_codes')||'{}');
+  codes[code] = item;
+  localStorage.setItem('download_codes', JSON.stringify(codes));
+
+  // Save record
+  const records = JSON.parse(localStorage.getItem('dl_records')||'[]');
+  records.unshift({code, item, student, date:new Date().toISOString()});
+  localStorage.setItem('dl_records', JSON.stringify(records));
+
+  // Show result
+  document.getElementById('dl-code-text').textContent = code;
+  document.getElementById('dl-code-result').style.display='block';
+
+  // WhatsApp link
+  const waText = encodeURIComponent(
+    '🔑 ACCESS CODE\n\nHello '+student+',\n'+
+    'Thank you for your payment!\n\n'+
+    'Your access code is:\n*'+code+'*\n\n'+
+    'Steps to use it:\n'+
+    '1. Go to: jacksonhabimana.github.io/downloads.html\n'+
+    '2. Enter this code in the box at the top\n'+
+    '3. Click Unlock → your download button will appear\n\n'+
+    'Thank you — Mr Habimana'
+  );
+  document.getElementById('dl-wa-send').href = 'https://wa.me/?text='+waText;
+
+  renderDlCodes();
+}
+
+function copyDlCode(){
+  const code = document.getElementById('dl-code-text').textContent;
+  navigator.clipboard.writeText(code).then(()=>alert('✅ Code copied: '+code));
+}
+
+function renderDlCodes(){
+  const records = JSON.parse(localStorage.getItem('dl_records')||'[]');
+  const list = document.getElementById('dl-codes-list');
+  if(!records.length){list.innerHTML='<div style="color:var(--muted);">No codes generated yet.</div>';return;}
+  list.innerHTML = '<table style="width:100%;border-collapse:collapse;">'+
+    '<tr style="color:var(--muted);font-size:.7rem;border-bottom:1px solid var(--border);">'+
+    '<th style="text-align:left;padding:6px 8px;">Code</th>'+
+    '<th style="text-align:left;padding:6px 8px;">Item</th>'+
+    '<th style="text-align:left;padding:6px 8px;">Student</th>'+
+    '<th style="text-align:left;padding:6px 8px;">Date</th></tr>'+
+    records.map(r=>'<tr style="border-bottom:1px solid rgba(48,54,61,.5);">'+
+      '<td style="padding:7px 8px;color:var(--green);">'+r.code+'</td>'+
+      '<td style="padding:7px 8px;color:#fff;">'+r.item+'</td>'+
+      '<td style="padding:7px 8px;color:var(--muted);">'+r.student+'</td>'+
+      '<td style="padding:7px 8px;color:var(--muted);">'+new Date(r.date).toLocaleDateString()+'</td>'+
+    '</tr>').join('')+'</table>';
+}
+
 function init(){
   if(!document.getElementById('questions-container').children.length) addQuestion();
+  renderDlCodes();
   document.getElementById('student-link').textContent=window.location.href.replace('teacher-admin.html','student-exam.html');
   loadNotifSettings();loadApiKey();
   showAccessCodeStatus();
@@ -3461,3 +3555,111 @@ function deletePE(id){
 </script>
 </body>
 </html>
+  <div class="tab-panel" id="tab-downloads">
+    <h2 style="font-family:'Playfair Display',serif;margin-bottom:6px;">⬇ Downloads Manager</h2>
+    <p style="color:var(--muted);font-size:.88rem;margin-bottom:24px;">Generate access codes for students who have paid. Each code unlocks specific content on the Downloads page.</p>
+
+    <!-- MTN MoMo Number -->
+    <div style="background:var(--surface2);border:1px solid rgba(232,197,71,.25);border-radius:10px;padding:18px 20px;margin-bottom:20px;">
+      <label style="color:var(--gold);font-size:.78rem;">YOUR MTN MOMO NUMBER (shown to students on payment page)</label>
+      <input type="text" id="dl-momo" placeholder="+250 788 800 375" value="+250 788 800 375"
+             style="margin-top:6px;background:var(--surface);border:1px solid var(--border);border-radius:7px;color:#fff;padding:10px 14px;font-family:'JetBrains Mono',monospace;font-size:.9rem;width:100%;"/>
+      <button onclick="saveMomoNumber()" style="margin-top:10px;background:var(--gold);color:#000;border:none;padding:8px 18px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:.8rem;font-weight:700;cursor:pointer;">💾 Save Number</button>
+    </div>
+
+    <!-- Generate Access Code -->
+    <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:20px;">
+      <h3 style="color:#fff;margin-bottom:14px;font-size:1rem;">🔑 Generate Access Code for a Student</h3>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+        <div>
+          <label>Content to Unlock</label>
+          <select id="dl-item" style="width:100%;background:var(--surface);border:1px solid var(--border);border-radius:6px;color:#fff;padding:9px 12px;font-family:'JetBrains Mono',monospace;font-size:.82rem;">
+            <optgroup label="── Bundles ──">
+              <option value="BUNDLE-S4">S4 Complete Bundle (all 18 units)</option>
+              <option value="BUNDLE-S5">S5 Complete Bundle (all 15 units)</option>
+              <option value="BUNDLE-S6">S6 Complete Bundle (all 15 units)</option>
+              <option value="ALL">Ultimate Bundle (S4 + S5 + S6 everything)</option>
+            </optgroup>
+            <optgroup label="── S4 Individual Units ──">
+              <option value="S4-Unit1">S4 Unit 1 — Atomic Structure</option>
+              <option value="S4-Unit2">S4 Unit 2 — Electronic Configuration</option>
+              <option value="S4-Unit3">S4 Unit 3 — Chemical Bonding</option>
+              <option value="S4-Unit4">S4 Unit 4 — The Mole Concept</option>
+              <option value="S4-Unit5">S4 Unit 5 — Acids, Bases & Salts</option>
+              <option value="S4-Unit6">S4 Unit 6 — Redox Reactions</option>
+              <option value="S4-Unit7">S4 Unit 7 — Periodic Table</option>
+              <option value="S4-Unit8">S4 Unit 8 — Chemical Kinetics</option>
+              <option value="S4-Unit9">S4 Unit 9 — Thermochemistry</option>
+              <option value="S4-Unit10">S4 Unit 10 — Electrochemistry</option>
+              <option value="S4-Unit11">S4 Unit 11 — Organic Intro</option>
+              <option value="S4-Unit12">S4 Unit 12 — Hydrocarbons</option>
+              <option value="S4-Unit13">S4 Unit 13 — Functional Groups</option>
+              <option value="S4-Unit14">S4 Unit 14 — Polymers</option>
+              <option value="S4-Unit15">S4 Unit 15 — Industrial Chemistry</option>
+              <option value="S4-Unit16">S4 Unit 16 — Environmental Chemistry</option>
+              <option value="S4-Unit17">S4 Unit 17 — Analytical Chemistry</option>
+              <option value="S4-Unit18">S4 Unit 18 — Energy Changes</option>
+            </optgroup>
+            <optgroup label="── S5 Individual Units ──">
+              <option value="S5-Unit1">S5 Unit 1 — Organic Chemistry Intro</option>
+              <option value="S5-Unit2">S5 Unit 2 — Alkanes</option>
+              <option value="S5-Unit3">S5 Unit 3 — Alkenes & Alkynes</option>
+              <option value="S5-Unit4">S5 Unit 4 — Halogenoalkanes</option>
+              <option value="S5-Unit5">S5 Unit 5 — Alcohols & Ethers</option>
+              <option value="S5-Unit6">S5 Unit 6 — Carbonyl Compounds</option>
+              <option value="S5-Unit7">S5 Unit 7 — Carboxylic Acids</option>
+              <option value="S5-Unit8">S5 Unit 8 — Esters & Amides</option>
+              <option value="S5-Unit9">S5 Unit 9 — Amines & Amino Acids</option>
+              <option value="S5-Unit10">S5 Unit 10 — Phase Diagrams</option>
+              <option value="S5-Unit11">S5 Unit 11 — Solutions & Titration</option>
+              <option value="S5-Unit12">S5 Unit 12 — Conductivity</option>
+              <option value="S5-Unit13">S5 Unit 13 — Electrolysis</option>
+              <option value="S5-Unit14">S5 Unit 14 — Enthalpy</option>
+              <option value="S5-Unit15">S5 Unit 15 — Entropy & Free Energy</option>
+            </optgroup>
+            <optgroup label="── S6 Individual Units ──">
+              <option value="S6-Unit1">S6 Unit 1 — Transition Metals</option>
+              <option value="S6-Unit2">S6 Unit 2 — Extraction of Metals</option>
+              <option value="S6-Unit3">S6 Unit 3 — Fertilisers</option>
+              <option value="S6-Unit4">S6 Unit 4 — Benzene</option>
+              <option value="S6-Unit5">S6 Unit 5 — Benzene Derivatives</option>
+              <option value="S6-Unit6">S6 Unit 6 — Polymers</option>
+              <option value="S6-Unit7">S6 Unit 7 — Colligative Properties</option>
+              <option value="S6-Unit8">S6 Unit 8 — Chemical Equilibrium</option>
+              <option value="S6-Unit9">S6 Unit 9 — pH & Buffers</option>
+              <option value="S6-Unit10">S6 Unit 10 — Indicators & Titration</option>
+              <option value="S6-Unit11">S6 Unit 11 — Solubility Product</option>
+              <option value="S6-Unit12">S6 Unit 12 — Electrochemical Cells</option>
+              <option value="S6-Unit13">S6 Unit 13 — Reaction Rates</option>
+              <option value="S6-Unit14">S6 Unit 14 — Rate Laws</option>
+              <option value="S6-Unit15">S6 Unit 15 — Radioactivity</option>
+            </optgroup>
+          </select>
+        </div>
+        <div>
+          <label>Student Name (for your records)</label>
+          <input type="text" id="dl-student" placeholder="e.g. Amina Uwase"
+                 style="width:100%;background:var(--surface);border:1px solid var(--border);border-radius:6px;color:#fff;padding:9px 12px;font-family:'JetBrains Mono',monospace;font-size:.82rem;"/>
+        </div>
+      </div>
+      <button onclick="generateCode()" style="background:var(--green);color:#000;border:none;padding:10px 24px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:.85rem;font-weight:700;cursor:pointer;">🔑 Generate Access Code</button>
+
+      <div id="dl-code-result" style="display:none;margin-top:16px;background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.25);border-radius:8px;padding:16px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);margin-bottom:6px;">ACCESS CODE TO SEND TO STUDENT:</div>
+        <div id="dl-code-text" style="font-family:'JetBrains Mono',monospace;font-size:1.4rem;color:var(--green);font-weight:700;letter-spacing:.05em;margin-bottom:12px;"></div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <button onclick="copyDlCode()" style="background:var(--green);color:#000;border:none;padding:7px 16px;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:.78rem;font-weight:700;cursor:pointer;">📋 Copy Code</button>
+          <a id="dl-wa-send" href="#" target="_blank" style="background:#25D366;color:#fff;padding:7px 16px;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:.78rem;font-weight:700;text-decoration:none;">📱 Send via WhatsApp</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- All Generated Codes -->
+    <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:20px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+        <h3 style="color:#fff;font-size:1rem;">📋 All Generated Codes</h3>
+        <button onclick="renderDlCodes()" style="background:var(--surface);border:1px solid var(--border);color:var(--muted);padding:5px 12px;border-radius:5px;font-family:'JetBrains Mono',monospace;font-size:.72rem;cursor:pointer;">🔄 Refresh</button>
+      </div>
+      <div id="dl-codes-list" style="font-family:'JetBrains Mono',monospace;font-size:.8rem;"></div>
+    </div>
+  </div>
