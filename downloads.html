@@ -246,9 +246,19 @@ main{max-width:1100px;margin:0 auto;padding:40px 28px 100px;}
     <!-- Success -->
     <div class="status-box" id="stSuccess">
       <div style="font-size:3rem;margin-bottom:10px;">✅</div>
-      <div style="font-family:'JetBrains Mono',monospace;color:var(--green);font-size:.95rem;margin-bottom:6px;">Payment Confirmed!</div>
-      <div style="color:var(--muted);font-size:.82rem;margin-bottom:18px;">Your content is now unlocked.</div>
-      <button class="btn-download" onclick="doDownload()">⬇ Download Now</button>
+      <div style="font-family:'JetBrains Mono',monospace;color:var(--green);font-size:1rem;margin-bottom:6px;">Payment Confirmed!</div>
+      <div style="color:var(--muted);font-size:.83rem;margin-bottom:6px;" id="successLabel"></div>
+      <div style="background:rgba(52,211,153,.06);border:1px solid rgba(52,211,153,.2);border-radius:8px;padding:14px;margin-bottom:18px;text-align:left;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--green);margin-bottom:8px;">YOUR CONTENT IS UNLOCKED ✓</div>
+        <div style="font-size:.82rem;color:var(--muted);line-height:1.9;">
+          • Click <strong style="color:#fff;">⬇ Download Now</strong> to open your notes<br>
+          • The page opens in a new tab<br>
+          • Press <strong style="color:#fff;">Ctrl+P</strong> → select <strong style="color:#fff;">"Save as PDF"</strong> → Save<br>
+          • Your notes are saved to your device permanently<br>
+          • Next time you visit this page, your content is still unlocked
+        </div>
+      </div>
+      <button class="btn-download" onclick="doDownload()" style="width:100%;padding:13px;font-size:.9rem;">⬇ Download Now</button>
     </div>
     <!-- Failed -->
     <div class="status-box" id="stFailed">
@@ -558,7 +568,226 @@ async function initPay(){
         const pr=await fetch('https://api.pawapay.io/deposits/'+depositId,{headers:{'Authorization':'Bearer '+ppKey}});
         const pd=await pr.json();
         const st=((pd.status||pd[0]?.status)||''). toUpperCase();
-        if(st==='COMPLETED'){clearInterval(pollTimer);markPaid(curItem.bid||curItem.uid);document.getElementById('stProcessing').style.display='none';document.getElementById('stSuccess').style.display='block';renderAll();}
+        if(st==='COMPLETED'){clearInterval(pollTimer);markPaid(curItem.bid||curItem.uid);document.getElementById('stProcessing').style.display='none';var sl=document.getElementById('successLabel');if(sl)sl.textContent='You now have access to: '+curItem.label;document.getElementById('stSuccess').style.display='block';renderAll();}
+        else if(st==='FAILED'||st==='EXPIRED'){clearInterval(pollTimer);document.getElementById('stProcessing').style.display='none';document.getElementById('failTxt').textContent=pd.correspondentIds?.reason||'Payment not completed.';document.getElementById('stFailed').style.display='block';}
+      },3000);
+      setTimeout(()=>{if(pollTimer){clearInterval(pollTimer);document.getElementById('stProcessing').style.display='none';document.getElementById('failTxt').textContent='Payment timed out. If you paid, contact Mr Habimana via WhatsApp.';document.getElementById('stFailed').style.display='block';}},180000);
+    }else{throw new Error(d.errorCode||'Failed');}
+  }catch(e){
+    document.getElementById('stProcessing').style.display='none';
+    const waText=encodeURIComponent('💳 PAYMENT\nItem: '+curItem.label+'\nAmount: '+amount+' RWF\nPhone: '+code+num);
+    document.getElementById('waPayLink').href='https://wa.me/250788800375?text='+waText;
+    document.getElementById('failTxt').innerHTML='Could not process automatically. Pay to: <strong style="color:var(--gold);">+250 788 800 375</strong> ('+amount.toLocaleString()+' RWF) then use WhatsApp below.';
+    document.getElementById('stFailed').style.display='block';
+  }
+}
+
+function switchTab(t,b){document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active'));document.getElementById('tab-'+t).classList.add('active');b.classList.add('active');}
+document.getElementById('payModal').addEventListener('click',function(e){if(e.target===this)closeModal();});
+renderAll();
+</script>
+<!-- DOWNLOAD MODAL -->
+<div class="modal-overlay" id="dlModal">
+  <div class="modal" style="max-width:400px;">
+    <div class="modal-hd">
+      <h2>⬇ Download</h2>
+      <p id="dlModalSub" style="color:var(--gold);font-family:'JetBrains Mono',monospace;font-size:.82rem;"></p>
+    </div>
+    <div class="modal-bd" id="dlModalBody">
+
+      <!-- Ready to download -->
+      <div id="dlReady">
+        <div style="text-align:center;padding:8px 0 20px;">
+          <div style="font-size:3rem;margin-bottom:10px;">📥</div>
+          <p style="color:var(--muted);font-size:.86rem;margin-bottom:20px;">Click the button below — your PDF will download immediately to your device.</p>
+          <button id="dlStartBtn" onclick="startDownload()" 
+            style="width:100%;background:var(--green);color:#000;border:none;padding:14px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.92rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;">
+            <span>⬇</span> <span id="dlBtnLabel">Download PDF</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Generating -->
+      <div id="dlGenerating" style="display:none;text-align:center;padding:20px 0;">
+        <div style="width:44px;height:44px;border:3px solid var(--border);border-top-color:var(--green);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 14px;"></div>
+        <div style="font-family:'JetBrains Mono',monospace;color:#fff;font-size:.88rem;margin-bottom:6px;" id="dlProgress">Generating PDF...</div>
+        <div style="color:var(--muted);font-size:.78rem;">Please wait — this takes a few seconds</div>
+      </div>
+
+      <!-- Done -->
+      <div id="dlDone" style="display:none;text-align:center;padding:8px 0 20px;">
+        <div style="font-size:3rem;margin-bottom:10px;">✅</div>
+        <div style="font-family:'JetBrains Mono',monospace;color:var(--green);font-size:.9rem;margin-bottom:6px;">PDF Downloaded!</div>
+        <div style="color:var(--muted);font-size:.82rem;margin-bottom:16px;">Check your Downloads folder.</div>
+        <button onclick="closeDlModal()" style="background:var(--surface2);color:var(--muted);border:1px solid var(--border);padding:9px 20px;border-radius:7px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:.8rem;">Close</button>
+      </div>
+
+      <!-- Bundle -->
+      <div id="dlBundle" style="display:none;">
+        <div style="background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:8px;padding:12px 14px;margin-bottom:14px;font-size:.82rem;color:var(--muted);">
+          <div style="color:var(--orange);font-family:'JetBrains Mono',monospace;font-size:.7rem;margin-bottom:6px;">📦 BUNDLE</div>
+          <span id="dlBundleInfo"></span>
+        </div>
+        <button id="dlBundleBtn" onclick="startBundleDownload()" 
+          style="width:100%;background:var(--green);color:#000;border:none;padding:14px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.88rem;font-weight:700;cursor:pointer;">
+          ⬇ Download All as PDFs
+        </button>
+        <div id="dlBundleProgress" style="display:none;margin-top:14px;">
+          <div style="background:var(--surface2);border-radius:6px;height:6px;margin-bottom:8px;overflow:hidden;">
+            <div id="dlProgressBar" style="background:var(--green);height:100%;width:0%;transition:width .3s;border-radius:6px;"></div>
+          </div>
+          <div id="dlProgressText" style="font-family:'JetBrains Mono',monospace;font-size:.76rem;color:var(--muted);text-align:center;"></div>
+        </div>
+      </div>
+
+    </div>
+    <div class="modal-ft" style="justify-content:flex-end;">
+      <button class="cancel-btn" onclick="closeDlModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+// ── Download Center ──
+let dlCurFile=null,dlCurBundle=null;
+
+function dlFile(file,title){
+  dlCurFile=file; dlCurBundle=null;
+  document.getElementById('dlModalSub').textContent=title||file;
+  document.getElementById('dlSingleOpts').style.display='block';
+  document.getElementById('dlBundleOpts').style.display='none';
+  document.getElementById('dlModal').classList.add('open');
+}
+
+function dlBundle(id){
+  dlCurBundle=id; dlCurFile=null;
+  const bundle=BUNDLES[id];
+  const files=id==='ALL'
+    ?[...BUNDLES['BUNDLE-S4'].files,...BUNDLES['BUNDLE-S5'].files,...BUNDLES['BUNDLE-S6'].files]
+    :bundle.files;
+  const label=id==='ALL'?'All S4+S5+S6':bundle.label;
+  document.getElementById('dlModalSub').textContent=label;
+
+  // Build file list for bundle
+  const listEl=document.getElementById('bundleFileList');
+  listEl.innerHTML='';
+  const prefix=id==='BUNDLE-S4'?'S4':id==='BUNDLE-S5'?'S5':id==='BUNDLE-S6'?'S6':'';
+  files.forEach((f,i)=>{
+    const name=f.replace('.html','').replace(/_/g,' ').replace(/^(s4|unit)/i,'').trim();
+    const li=document.createElement('div');
+    li.style.cssText='display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;margin-bottom:6px;';
+    li.innerHTML='<span style="font-size:.83rem;color:#fff;">'+( i+1)+'. '+name+'</span>'+
+      '<button onclick="openAndPrint(\''+f+'\')" style="background:var(--green);color:#000;border:none;padding:5px 12px;border-radius:5px;font-family:JetBrains Mono,monospace;font-size:.72rem;font-weight:700;cursor:pointer;white-space:nowrap;">🖨 Save PDF</button>';
+    listEl.appendChild(li);
+  });
+  document.getElementById('dlBundleCount').textContent='Open each unit → press Ctrl+P → Save as PDF';
+  document.getElementById('dlSingleOpts').style.display='none';
+  document.getElementById('dlBundleOpts').style.display='block';
+  document.getElementById('dlModal').classList.add('open');
+}
+
+function openAndPrint(file){
+  const w=window.open(file,'_blank');
+  if(w){
+    w.onload=function(){
+      setTimeout(()=>{
+        try{
+          // Add print banner
+          const bar=w.document.createElement('div');
+          bar.style.cssText='position:fixed;top:0;left:0;right:0;background:#38bdf8;color:#000;padding:12px 20px;z-index:99999;display:flex;align-items:center;justify-content:space-between;font-family:JetBrains Mono,monospace;font-size:.8rem;font-weight:700;';
+          bar.innerHTML='<span>📥 Press <kbd style="background:rgba(0,0,0,.2);padding:2px 8px;border-radius:4px;">Ctrl+P</kbd> → Destination → <strong>Save as PDF</strong> → Save</span><button onclick="window.print()" style="background:#000;color:#38bdf8;border:none;padding:7px 16px;border-radius:5px;cursor:pointer;font-family:JetBrains Mono,monospace;">🖨 Print Now</button>';
+          w.document.body.style.paddingTop='52px';
+          w.document.body.insertBefore(bar,w.document.body.firstChild);
+          w.focus();
+          w.print();
+        }catch(e){}
+      },1200);
+    };
+  }
+}
+
+function openInBrowser(){
+  if(dlCurFile) openAndPrint(dlCurFile);
+  closeDlModal();
+}
+
+function printDirect(){
+  if(dlCurFile) openAndPrint(dlCurFile);
+  closeDlModal();
+}
+
+function openBundleFiles(){closeDlModal();}
+
+function closeDlModal(){document.getElementById('dlModal').classList.remove('open');}
+
+function doDownload(){
+  closeModal();
+  if(!curItem)return;
+  if(curItem.bid) dlBundle(curItem.bid);
+  else dlFile(curItem.file, curItem.label);
+}
+function closeModal(){document.getElementById('payModal').classList.remove('open');if(pollTimer){clearInterval(pollTimer);pollTimer=null;}curItem=null;}
+function showForm(){document.getElementById('payFormWrap').style.display='block';['stProcessing','stSuccess','stFailed'].forEach(id=>{document.getElementById(id).style.display='none';});document.getElementById('payErr').style.display='none';}
+function selNet(el,n){selNetwork=n;document.querySelectorAll('.net-btn').forEach(b=>b.classList.remove('sel'));el.classList.add('sel');}
+function updateHint(){
+  const sel=document.getElementById('cCode');
+  const opt=sel.options[sel.selectedIndex];
+  document.getElementById('phHint').textContent=opt.text+' — '+(opt.dataset.net||'Mobile Money');
+}
+function valPhone(){
+  const p=document.getElementById('phNum').value.replace(/\D/g,'');
+  document.getElementById('payBtn').disabled=p.length<8;
+}
+
+async function initPay(){
+  const code=document.getElementById('cCode').value;
+  const num=document.getElementById('phNum').value.replace(/\D/g,'');
+  if(num.length<8){const e=document.getElementById('payErr');e.style.display='block';e.textContent='❌ Enter a valid phone number.';return;}
+  const fullPhone=code.replace('+','')+num.replace(/^0/,'');
+  document.getElementById('payFormWrap').style.display='none';
+  document.getElementById('stProcessing').style.display='block';
+
+  const s=JSON.parse(localStorage.getItem('notif_settings')||'{}');
+  const ppKey=s.pawapayKey||'';
+  const amount=curItem.price;
+
+  if(!ppKey){
+    // No PawaPay key — show manual MTN MoMo + WhatsApp fallback
+    document.getElementById('stProcessing').style.display='none';
+    const waText=encodeURIComponent('💳 PAYMENT REQUEST\nItem: '+curItem.label+'\nAmount: '+amount+' RWF\nMy number: '+code+num+'\nPlease confirm and unlock my download.');
+    document.getElementById('waPayLink').href='https://wa.me/250788800375?text='+waText;
+    document.getElementById('failTxt').innerHTML=
+      '<strong style="color:#fff;">Pay manually via MTN MoMo:</strong><br>'+
+      'Number: <strong style="color:var(--gold);">+250 788 800 375</strong><br>'+
+      'Amount: <strong style="color:var(--gold);">'+amount.toLocaleString()+' RWF</strong><br><br>'+
+      'Then click the WhatsApp button below to send your payment reference.';
+    document.getElementById('stFailed').style.display='block';
+    document.querySelector('#stFailed .btn-buy').style.display='none';
+    return;
+  }
+
+  // PawaPay integration
+  const depositId='dep_'+Date.now()+'_'+Math.random().toString(36).substr(2,5);
+  const cMap={'250':'RW','256':'UG','255':'TZ','254':'KE','234':'NG','233':'GH','237':'CM','260':'ZM','27':'ZA'};
+  const cCode2=code.replace('+','');
+  const countryIso=cMap[cCode2]||'RW';
+  const corrMap={MTN:{RW:'MTNRW',UG:'MTNUG',GH:'MTNGHS',CM:'MTNCM',ZM:'MTNZM',ZA:'MTNZA',NG:'MTNNG',CI:'MTNCI'},AIRTEL:{RW:'AIRTELRW',UG:'AIRTELUG',TZ:'AIRTELTANZANIA',NG:'AIRTELNG'},OTHER:{RW:'MTNRW',UG:'MTNUG'}};
+  const curMap={RW:'RWF',UG:'UGX',TZ:'TZS',KE:'KES',NG:'NGN',GH:'GHS',CM:'XAF',ZM:'ZMW',ZA:'ZAR'};
+  const correspondent=(corrMap[selNetwork]||corrMap.MTN)[countryIso]||'MTNRW';
+  const currency=curMap[countryIso]||'RWF';
+
+  try{
+    const r=await fetch('https://api.pawapay.io/deposits',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer '+ppKey},
+      body:JSON.stringify({depositId,amount:String(amount),currency,correspondent,payer:{type:'MSISDN',address:{value:fullPhone}},statementDescription:'ChemNotes'})
+    });
+    const d=await r.json();
+    if(d.depositId||r.ok){
+      pollTimer=setInterval(async()=>{
+        const pr=await fetch('https://api.pawapay.io/deposits/'+depositId,{headers:{'Authorization':'Bearer '+ppKey}});
+        const pd=await pr.json();
+        const st=((pd.status||pd[0]?.status)||''). toUpperCase();
+        if(st==='COMPLETED'){clearInterval(pollTimer);markPaid(curItem.bid||curItem.uid);document.getElementById('stProcessing').style.display='none';var sl=document.getElementById('successLabel');if(sl)sl.textContent='You now have access to: '+curItem.label;document.getElementById('stSuccess').style.display='block';renderAll();}
         else if(st==='FAILED'||st==='EXPIRED'){clearInterval(pollTimer);document.getElementById('stProcessing').style.display='none';document.getElementById('failTxt').textContent=pd.correspondentIds?.reason||'Payment not completed.';document.getElementById('stFailed').style.display='block';}
       },3000);
       setTimeout(()=>{if(pollTimer){clearInterval(pollTimer);document.getElementById('stProcessing').style.display='none';document.getElementById('failTxt').textContent='Payment timed out. If you paid, contact Mr Habimana via WhatsApp.';document.getElementById('stFailed').style.display='block';}},180000);
