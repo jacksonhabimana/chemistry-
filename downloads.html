@@ -95,6 +95,7 @@ main{max-width:1100px;margin:0 auto;padding:40px 28px 100px;}
 @keyframes spin{to{transform:rotate(360deg)}}
 .err-box{display:none;font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--red);margin-bottom:10px;padding:8px 12px;background:rgba(248,113,113,.08);border-radius:6px;border:1px solid rgba(248,113,113,.2);}
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
 <nav>
@@ -333,92 +334,167 @@ function renderAll(){
   buildCatalog(S4,'s4-catalog');buildCatalog(S5,'s5-catalog');buildCatalog(S6,'s6-catalog');
 }
 
-// ── Download Modal ──
-let dlCurFile=null,dlCurBundle=null;
+// ── Download Functions ──
+let dlCurFile=null, dlCurBundle=null;
 
 function dlFile(file,title){
-  dlCurFile=file;dlCurBundle=null;
+  dlCurFile=file; dlCurBundle=null;
   document.getElementById('dlModalSub').textContent=title||file;
-  document.getElementById('dlSingleOpts').style.display='block';
-  document.getElementById('dlBundleOpts').style.display='none';
+  document.getElementById('dlBtnLabel').textContent='Download PDF — '+title;
+  document.getElementById('dlReady').style.display='block';
+  document.getElementById('dlGenerating').style.display='none';
+  document.getElementById('dlDone').style.display='none';
+  document.getElementById('dlBundle').style.display='none';
   document.getElementById('dlModal').classList.add('open');
 }
+
 function dlBundle(id){
-  dlCurBundle=id;dlCurFile=null;
+  dlCurBundle=id; dlCurFile=null;
   const files=id==='ALL'
     ?[...BUNDLES['BUNDLE-S4'].files,...BUNDLES['BUNDLE-S5'].files,...BUNDLES['BUNDLE-S6'].files]
     :BUNDLES[id].files;
-  document.getElementById('dlModalSub').textContent=(id==='ALL'?'All S4+S5+S6':BUNDLES[id].label);
-  document.getElementById('dlBundleCount').textContent='This bundle has '+files.length+' unit pages. Each opens in a new tab — save as PDF using Ctrl+P.';
-  document.getElementById('dlSingleOpts').style.display='none';
-  document.getElementById('dlBundleOpts').style.display='block';
+  const label=id==='ALL'?'All S4+S5+S6':BUNDLES[id].label;
+  document.getElementById('dlModalSub').textContent=label;
+  document.getElementById('dlBundleInfo').textContent=
+    files.length+' unit PDFs will download to your device one by one.';
+  document.getElementById('dlBundle').style.display='block';
+  document.getElementById('dlReady').style.display='none';
+  document.getElementById('dlGenerating').style.display='none';
+  document.getElementById('dlDone').style.display='none';
+  document.getElementById('dlBundleProgress').style.display='none';
   document.getElementById('dlModal').classList.add('open');
 }
-function openInBrowser(){if(dlCurFile)window.open(dlCurFile,'_blank');closeDlModal();}
-function printDirect(){
+
+async function startDownload(){
   if(!dlCurFile)return;
-  closeDlModal();
-  // Show instruction first
-  const overlay=document.createElement('div');
-  overlay.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;';
-  overlay.innerHTML=`<div style="background:#161b22;border:1px solid #30363d;border-radius:14px;padding:32px;max-width:440px;width:100%;text-align:center;">
-    <div style="font-size:2.5rem;margin-bottom:12px;">🖨️</div>
-    <h3 style="font-family:'Playfair Display',serif;color:#fff;margin-bottom:8px;">Save as PDF</h3>
-    <p style="color:#8b949e;font-size:.88rem;margin-bottom:20px;">The page will open. When it does, the print dialog will appear automatically.</p>
-    <div style="background:rgba(56,189,248,.06);border:1px solid rgba(56,189,248,.2);border-radius:8px;padding:14px;margin-bottom:20px;text-align:left;">
-      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#38bdf8;margin-bottom:8px;">HOW TO SAVE AS PDF</div>
-      <div style="font-size:.84rem;color:#e6edf3;line-height:1.9;">
-        1. A print dialog opens<br>
-        2. Find <strong>"Destination"</strong> or <strong>"Printer"</strong><br>
-        3. Select <strong>"Save as PDF"</strong><br>
-        4. Click <strong>Save</strong> — done!
-      </div>
-    </div>
-    <button onclick="this.closest('div[style]').parentElement.remove();_doPrint();" 
-            style="background:#38bdf8;color:#000;border:none;padding:11px 28px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.85rem;font-weight:700;cursor:pointer;width:100%;">
-      Open &amp; Print Now
-    </button>
-  </div>`;
-  document.body.appendChild(overlay);
-  window._doPrint=function(){
-    const w=window.open(dlCurFile,'_blank');
-    if(w){
-      w.onload=function(){
-        setTimeout(()=>{
-          try{
-            // Add a prominent save button to the opened page
-            const btn=w.document.createElement('div');
-            btn.style.cssText='position:fixed;top:0;left:0;right:0;background:#38bdf8;color:#000;padding:14px 20px;z-index:99999;display:flex;align-items:center;justify-content:space-between;font-family:JetBrains Mono,monospace;font-size:.85rem;font-weight:700;box-shadow:0 2px 12px rgba(0,0,0,.4);';
-            btn.innerHTML='<span>📥 To save as PDF: Press <kbd style="background:rgba(0,0,0,.15);padding:2px 8px;border-radius:4px;">Ctrl + P</kbd> (Windows) or <kbd style="background:rgba(0,0,0,.15);padding:2px 8px;border-radius:4px;">⌘ + P</kbd> (Mac) → Select "Save as PDF"</span><button onclick="window.print()" style="background:#000;color:#38bdf8;border:none;padding:8px 18px;border-radius:6px;cursor:pointer;font-family:JetBrains Mono,monospace;font-size:.82rem;font-weight:700;">🖨 Print / Save PDF</button>';
-            w.document.body.insertBefore(btn,w.document.body.firstChild);
-            w.focus();
-            w.print();
-          }catch(e){console.log(e);}
-        },1000);
-      };
-    }
-  };
+  document.getElementById('dlReady').style.display='none';
+  document.getElementById('dlGenerating').style.display='block';
+  document.getElementById('dlProgress').textContent='Loading page...';
+
+  try{
+    // Fetch the page HTML
+    const resp = await fetch(dlCurFile);
+    const html = await resp.text();
+
+    document.getElementById('dlProgress').textContent='Generating PDF...';
+
+    // Parse the HTML
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html,'text/html');
+
+    // Remove nav, footer, buttons, scripts from the downloaded version
+    ['nav','footer','.quiz-submit','.quiz-wrap','.submit-btn','script'].forEach(sel=>{
+      doc.querySelectorAll(sel).forEach(el=>el.remove());
+    });
+
+    // Add print styles
+    const style = doc.createElement('style');
+    style.textContent='body{background:#fff!important;color:#000!important;font-family:Georgia,serif;}h1,h2,h3{color:#000!important;}*{border-color:#ccc!important;}';
+    doc.head.appendChild(style);
+
+    const el = doc.body;
+    el.style.background='#fff';
+    el.style.color='#000';
+    el.style.padding='20px';
+
+    // Use html2pdf to generate
+    const fname = dlCurFile.replace('.html','').replace(/[_-]/g,' ');
+
+    const opt = {
+      margin:      [10,10,10,10],
+      filename:    fname+'.pdf',
+      image:       {type:'jpeg', quality:0.92},
+      html2canvas: {scale:1.5, useCORS:true, backgroundColor:'#ffffff'},
+      jsPDF:       {unit:'mm', format:'a4', orientation:'portrait'}
+    };
+
+    // Create temp element
+    const temp = document.createElement('div');
+    temp.style.cssText='position:fixed;left:-9999px;top:0;width:210mm;background:#fff;color:#000;';
+    temp.innerHTML = el.innerHTML;
+    document.body.appendChild(temp);
+
+    document.getElementById('dlProgress').textContent='Building PDF...';
+
+    await html2pdf().set(opt).from(temp).save();
+
+    document.body.removeChild(temp);
+
+    document.getElementById('dlGenerating').style.display='none';
+    document.getElementById('dlDone').style.display='block';
+
+  }catch(err){
+    console.error(err);
+    // Fallback to print
+    document.getElementById('dlGenerating').style.display='none';
+    document.getElementById('dlReady').style.display='block';
+    document.getElementById('dlBtnLabel').textContent='Could not auto-download — Click to Print';
+    document.getElementById('dlStartBtn').onclick=()=>{
+      const w=window.open(dlCurFile,'_blank');
+      if(w){w.onload=()=>setTimeout(()=>w.print(),800);}
+      closeDlModal();
+    };
+  }
 }
-function openBundleFiles(){
+
+async function startBundleDownload(){
   const id=dlCurBundle;if(!id)return;
   const files=id==='ALL'
     ?[...BUNDLES['BUNDLE-S4'].files,...BUNDLES['BUNDLE-S5'].files,...BUNDLES['BUNDLE-S6'].files]
     :BUNDLES[id].files;
-  closeDlModal();
-  if(confirm('📥 This will open '+files.length+' files.\n\nFor each: press Ctrl+P → Save as PDF\n\nReady?')){
-    files.forEach((f,i)=>setTimeout(()=>window.open(f,'_blank'),i*700));
+
+  document.getElementById('dlBundleBtn').disabled=true;
+  document.getElementById('dlBundleProgress').style.display='block';
+
+  for(let i=0;i<files.length;i++){
+    const f=files[i];
+    const pct=Math.round((i/files.length)*100);
+    document.getElementById('dlProgressBar').style.width=pct+'%';
+    document.getElementById('dlProgressText').textContent=
+      'Downloading '+(i+1)+' of '+files.length+': '+f.replace('.html','').replace(/[_-]/g,' ');
+
+    try{
+      const resp=await fetch(f);
+      const html=await resp.text();
+      const parser=new DOMParser();
+      const doc=parser.parseFromString(html,'text/html');
+      ['nav','footer','.quiz-submit','.quiz-wrap','script'].forEach(sel=>{
+        doc.querySelectorAll(sel).forEach(el=>el.remove());
+      });
+      const style=doc.createElement('style');
+      style.textContent='body{background:#fff!important;color:#000!important;}';
+      doc.head.appendChild(style);
+
+      const temp=document.createElement('div');
+      temp.style.cssText='position:fixed;left:-9999px;top:0;width:210mm;background:#fff;color:#000;';
+      temp.innerHTML=doc.body.innerHTML;
+      document.body.appendChild(temp);
+
+      const fname=f.replace('.html','').replace(/[_-]/g,' ');
+      await html2pdf().set({
+        margin:[10,10,10,10],filename:fname+'.pdf',
+        image:{type:'jpeg',quality:0.85},
+        html2canvas:{scale:1.2,useCORS:true,backgroundColor:'#ffffff'},
+        jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}
+      }).from(temp).save();
+
+      document.body.removeChild(temp);
+      await new Promise(r=>setTimeout(r,800)); // small pause between files
+    }catch(e){console.error('Failed:',f,e);}
   }
+
+  document.getElementById('dlProgressBar').style.width='100%';
+  document.getElementById('dlProgressText').textContent='✅ All '+files.length+' PDFs downloaded!';
+  document.getElementById('dlBundleBtn').disabled=false;
 }
+
 function closeDlModal(){document.getElementById('dlModal').classList.remove('open');}
 
-function doDownload(){closeModal();if(!curItem)return;if(curItem.bid)dlBundle(curItem.bid);else dlFile(curItem.file,curItem.label);}
-
-function openPay(id,label,price,file){
-  if(BUNDLES[id]){curItem={bid:id,label:BUNDLES[id].label,price:BUNDLES[id].price};}
-  else{curItem={uid:id,label:label||id,price:price||300,file:file};}
-  document.getElementById('payModalSub').textContent=curItem.label;
-  document.getElementById('payAmt').textContent=curItem.price.toLocaleString()+' RWF';
-  showForm();document.getElementById('payModal').classList.add('open');
+function doDownload(){
+  closeModal();
+  if(!curItem)return;
+  if(curItem.bid) dlBundle(curItem.bid);
+  else dlFile(curItem.file, curItem.label);
 }
 function closeModal(){document.getElementById('payModal').classList.remove('open');if(pollTimer){clearInterval(pollTimer);pollTimer=null;}curItem=null;}
 function showForm(){document.getElementById('payFormWrap').style.display='block';['stProcessing','stSuccess','stFailed'].forEach(id=>{document.getElementById(id).style.display='none';});document.getElementById('payErr').style.display='none';}
@@ -500,58 +576,65 @@ function switchTab(t,b){document.querySelectorAll('.tab-panel').forEach(p=>p.cla
 document.getElementById('payModal').addEventListener('click',function(e){if(e.target===this)closeModal();});
 renderAll();
 </script>
-<!-- DOWNLOAD OPTIONS MODAL -->
+<!-- DOWNLOAD MODAL -->
 <div class="modal-overlay" id="dlModal">
-  <div class="modal" style="max-width:480px;">
+  <div class="modal" style="max-width:400px;">
     <div class="modal-hd">
-      <h2>⬇ Download Options</h2>
-      <p id="dlModalSub">Choose how to get your notes</p>
+      <h2>⬇ Download</h2>
+      <p id="dlModalSub" style="color:var(--gold);font-family:'JetBrains Mono',monospace;font-size:.82rem;"></p>
     </div>
-    <div class="modal-bd">
-      <!-- Single file options -->
-      <div id="dlSingleOpts">
-        <div style="display:flex;flex-direction:column;gap:10px;">
-          <button onclick="openInBrowser()" style="background:var(--accent);color:#000;border:none;padding:14px 20px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.85rem;font-weight:700;cursor:pointer;text-align:left;display:flex;align-items:center;gap:12px;">
-            <span style="font-size:1.4rem;">🌐</span>
-            <div><div style="font-size:.88rem;">Open in Browser</div><div style="font-size:.72rem;opacity:.7;font-weight:400;margin-top:2px;">Opens the page → press Ctrl+P → Save as PDF</div></div>
+    <div class="modal-bd" id="dlModalBody">
+
+      <!-- Ready to download -->
+      <div id="dlReady">
+        <div style="text-align:center;padding:8px 0 20px;">
+          <div style="font-size:3rem;margin-bottom:10px;">📥</div>
+          <p style="color:var(--muted);font-size:.86rem;margin-bottom:20px;">Click the button below — your PDF will download immediately to your device.</p>
+          <button id="dlStartBtn" onclick="startDownload()" 
+            style="width:100%;background:var(--green);color:#000;border:none;padding:14px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.92rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;">
+            <span>⬇</span> <span id="dlBtnLabel">Download PDF</span>
           </button>
-          <button onclick="printDirect()" style="background:var(--green);color:#000;border:none;padding:14px 20px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.85rem;font-weight:700;cursor:pointer;text-align:left;display:flex;align-items:center;gap:12px;">
-            <span style="font-size:1.4rem;">🖨️</span>
-            <div><div style="font-size:.88rem;">Print / Save as PDF</div><div style="font-size:.72rem;opacity:.7;font-weight:400;margin-top:2px;">Opens print dialog immediately — choose "Save as PDF"</div></div>
-          </button>
-        </div>
-        <div style="margin-top:14px;background:rgba(56,189,248,.06);border:1px solid rgba(56,189,248,.15);border-radius:8px;padding:12px 14px;">
-          <div style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--accent);margin-bottom:6px;">💡 HOW TO SAVE AS PDF</div>
-          <div style="font-size:.8rem;color:var(--muted);line-height:1.8;">
-            <strong style="color:#fff;">Windows:</strong> Press <kbd style="background:var(--surface2);padding:2px 6px;border-radius:3px;font-family:'JetBrains Mono',monospace;">Ctrl + P</kbd> → Destination → <strong style="color:#fff;">Save as PDF</strong><br>
-            <strong style="color:#fff;">Mac:</strong> Press <kbd style="background:var(--surface2);padding:2px 6px;border-radius:3px;font-family:'JetBrains Mono',monospace;">⌘ + P</kbd> → PDF → <strong style="color:#fff;">Save as PDF</strong><br>
-            <strong style="color:#fff;">Phone:</strong> Tap <strong style="color:#fff;">⋮ menu → Print → Save as PDF</strong>
-          </div>
         </div>
       </div>
 
-      <!-- Bundle options -->
-      <div id="dlBundleOpts" style="display:none;">
-        <div style="background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:8px;padding:14px;margin-bottom:14px;">
-          <div style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--orange);margin-bottom:6px;">📦 BUNDLE DOWNLOAD</div>
-          <div id="dlBundleCount" style="font-size:.84rem;color:var(--muted);"></div>
+      <!-- Generating -->
+      <div id="dlGenerating" style="display:none;text-align:center;padding:20px 0;">
+        <div style="width:44px;height:44px;border:3px solid var(--border);border-top-color:var(--green);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 14px;"></div>
+        <div style="font-family:'JetBrains Mono',monospace;color:#fff;font-size:.88rem;margin-bottom:6px;" id="dlProgress">Generating PDF...</div>
+        <div style="color:var(--muted);font-size:.78rem;">Please wait — this takes a few seconds</div>
+      </div>
+
+      <!-- Done -->
+      <div id="dlDone" style="display:none;text-align:center;padding:8px 0 20px;">
+        <div style="font-size:3rem;margin-bottom:10px;">✅</div>
+        <div style="font-family:'JetBrains Mono',monospace;color:var(--green);font-size:.9rem;margin-bottom:6px;">PDF Downloaded!</div>
+        <div style="color:var(--muted);font-size:.82rem;margin-bottom:16px;">Check your Downloads folder.</div>
+        <button onclick="closeDlModal()" style="background:var(--surface2);color:var(--muted);border:1px solid var(--border);padding:9px 20px;border-radius:7px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:.8rem;">Close</button>
+      </div>
+
+      <!-- Bundle -->
+      <div id="dlBundle" style="display:none;">
+        <div style="background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:8px;padding:12px 14px;margin-bottom:14px;font-size:.82rem;color:var(--muted);">
+          <div style="color:var(--orange);font-family:'JetBrains Mono',monospace;font-size:.7rem;margin-bottom:6px;">📦 BUNDLE</div>
+          <span id="dlBundleInfo"></span>
         </div>
-        <div style="display:flex;flex-direction:column;gap:10px;">
-          <button onclick="openBundleFiles()" style="background:var(--green);color:#000;border:none;padding:14px 20px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.85rem;font-weight:700;cursor:pointer;text-align:left;display:flex;align-items:center;gap:12px;">
-            <span style="font-size:1.4rem;">🖨️</span>
-            <div><div style="font-size:.88rem;">Open All Files (Save as PDF)</div><div style="font-size:.72rem;opacity:.7;font-weight:400;margin-top:2px;">Opens all unit pages — save each as PDF using Ctrl+P</div></div>
-          </button>
-        </div>
-        <div style="margin-top:14px;background:rgba(56,189,248,.06);border:1px solid rgba(56,189,248,.15);border-radius:8px;padding:12px 14px;">
-          <div style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--accent);margin-bottom:6px;">💡 TIP</div>
-          <div style="font-size:.8rem;color:var(--muted);line-height:1.8;">Files will open one by one. For each: press <kbd style="background:var(--surface2);padding:2px 6px;border-radius:3px;font-family:'JetBrains Mono',monospace;">Ctrl+P</kbd> → Save as PDF. They will appear in your Downloads folder.</div>
+        <button id="dlBundleBtn" onclick="startBundleDownload()" 
+          style="width:100%;background:var(--green);color:#000;border:none;padding:14px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.88rem;font-weight:700;cursor:pointer;">
+          ⬇ Download All as PDFs
+        </button>
+        <div id="dlBundleProgress" style="display:none;margin-top:14px;">
+          <div style="background:var(--surface2);border-radius:6px;height:6px;margin-bottom:8px;overflow:hidden;">
+            <div id="dlProgressBar" style="background:var(--green);height:100%;width:0%;transition:width .3s;border-radius:6px;"></div>
+          </div>
+          <div id="dlProgressText" style="font-family:'JetBrains Mono',monospace;font-size:.76rem;color:var(--muted);text-align:center;"></div>
         </div>
       </div>
+
     </div>
-    <div class="modal-ft">
-      <button class="cancel-btn" onclick="closeDlModal()">Close</button>
+    <div class="modal-ft" style="justify-content:flex-end;">
+      <button class="cancel-btn" onclick="closeDlModal()">Cancel</button>
     </div>
   </div>
 </div>
-</body>
-</html>
+
+>
