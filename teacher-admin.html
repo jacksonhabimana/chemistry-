@@ -1154,7 +1154,21 @@ function getGrade(pct){
 }
 
 function renderResults(){
-  const results=JSON.parse(localStorage.getItem('student_results')||'[]');
+  // Merge exam results + quiz activity results
+  const examResults=JSON.parse(localStorage.getItem('student_results')||'[]');
+  const activityResults=JSON.parse(localStorage.getItem('activity_results')||'[]').map(r=>({
+    studentName: r.student||'Unknown',
+    studentId: '',
+    examTitle: (r.unit||'')+(r.subunit?' – '+r.subunit:''),
+    examSubject: (r.unit||'').split(' ')[0]+' Chemistry',
+    score: r.score||0,
+    totalMarks: r.total||10,
+    percent: r.total ? Math.round((r.score/r.total)*100) : 0,
+    passed: r.total ? (r.score/r.total)>=0.5 : false,
+    submittedAt: r.date||new Date().toISOString(),
+    type: r.type||'quiz'
+  }));
+  const results=[...examResults, ...activityResults];
   const filterExam=document.getElementById('filter-exam')?document.getElementById('filter-exam').value:'';
   const filterScore=document.getElementById('filter-score')?document.getElementById('filter-score').value:'';
   const filterName=document.getElementById('filter-name')?document.getElementById('filter-name').value.trim().toLowerCase():'';
@@ -2895,11 +2909,26 @@ function showAccessCodeStatus(){
 async function refreshFromCloud(){
   const btn=event.target;
   btn.textContent='⏳ Loading...';btn.disabled=true;
+  // Pull exam results from results bin
   const added=await fetchCloudResults();
+  // Also pull quiz activity from activity bin
+  const key=localStorage.getItem('jsonbin_key');
+  const actBinId=localStorage.getItem('activity_bin_id');
+  let actAdded=0;
+  if(key&&actBinId){
+    try{
+      const r=await fetch('https://api.jsonbin.io/v3/b/'+actBinId+'/latest',{headers:{'X-Master-Key':key}});
+      const d=await r.json();
+      const results=d.record?.results||[];
+      localStorage.setItem('activity_results',JSON.stringify(results));
+      actAdded=results.length;
+    }catch(e){}
+  }
   renderResults();
   btn.textContent='☁️ Refresh from Cloud';btn.disabled=false;
-  if(added>0) alert('✅ '+added+' new result(s) loaded from cloud.');
-  else alert('✅ Already up to date. No new results found.');
+  const total=added+actAdded;
+  if(total>0) alert('✅ Refreshed! '+added+' exam result(s) + '+actAdded+' quiz result(s) loaded.');
+  else alert('✅ Already up to date.');
 }
 
 function init(){
