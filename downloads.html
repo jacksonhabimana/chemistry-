@@ -96,6 +96,7 @@ main{max-width:1100px;margin:0 auto;padding:40px 28px 100px;}
 .err-box{display:none;font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--red);margin-bottom:10px;padding:8px 12px;background:rgba(248,113,113,.08);border-radius:6px;border:1px solid rgba(248,113,113,.2);}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 </head>
 <body>
 <nav>
@@ -284,12 +285,31 @@ main{max-width:1100px;margin:0 auto;padding:40px 28px 100px;}
 
 <script>
 const BUNDLES={
-  'BUNDLE-S4':{label:'S4 Complete Course',price:1000,files:['s4_unit1_atomic_structure.html','s4_unit2_electronic_config.html','s4_unit3_chemical_bonding.html','s4_unit4_mole_concept.html','s4_unit5_acids_bases_salts.html','s4_unit6_redox.html','s4_unit7_periodic_table.html','s4_unit8_kinetics.html','s4_unit9_thermochemistry.html','s4_unit10_electrochemistry.html','s4_unit11_organic_intro.html','s4_unit12_hydrocarbons.html','s4_unit13_functional_groups.html','s4_unit14_polymers.html','s4_unit15_industrial.html','s4_unit16_environmental.html','s4_unit17_analytical.html','s4_unit18_energy_changes.html']},
+  'BUNDLE-S4':{label:'S4 Complete Course',price:1000,files:['s4_unit1_atomic_structure.html','s4_unit2_electronic_config.html','s4_unit3_ionic_metallic_bonds.html','s4_unit4_covalent_bond.html','s4_unit5_periodic_trends.html','s4_unit6_group1.html','s4_unit7_group2.html','s4_unit8_group13.html','s4_unit9_group14.html','s4_unit10_group15.html','s4_unit11_group16.html','s4_unit12_group17.html','s4_unit13_group18.html','s4_unit14_period3.html','s4_unit15_equilibrium.html','s4_unit16_acids_bases.html','s4_unit17_redox.html','s4_unit18_energy_changes.html']},
   'BUNDLE-S5':{label:'S5 Complete Course',price:1000,files:['unit1_organic_chemistry.html','unit2_alkanes.html','unit3_alkenes_alkynes.html','unit4_halogenoalkanes.html','unit5_alcohols_ethers.html','unit6_carbonyl.html','unit7_carboxylic_acids.html','unit8_esters_amides.html','unit9_amines_amino_acids.html','unit10_phase_diagrams.html','unit11_solutions_titration.html','unit12_conductivity.html','unit13_electrolysis.html','unit14_enthalpy.html','unit15_entropy_free_energy.html']},
   'BUNDLE-S6':{label:'S6 Complete Course',price:1000,files:['unit1_transition_metals.html','unit2_extraction_metals.html','unit3_fertilisers.html','unit4_benzene.html','unit5_benzene_derivatives.html','unit6_polymers.html','unit7_solvent_colligative.html','unit8_equilibrium.html','unit9_pH.html','unit10_indicators_titration.html','unit11_solubility_product.html','unit12_electrochemical_cells.html','unit13_reaction_rates.html','unit14_rate_laws.html','unit15_radioactivity.html']},
   'ALL':{label:'All S4+S5+S6',price:3000,files:['*']}
 };
-const S4=[{id:'S4-U1',n:'Unit 1',t:'Atomic Structure',f:'s4_unit1_atomic_structure.html'},{id:'S4-U2',n:'Unit 2',t:'Electronic Configuration',f:'s4_unit2_electronic_config.html'},{id:'S4-U3',n:'Unit 3',t:'Chemical Bonding',f:'s4_unit3_chemical_bonding.html'},{id:'S4-U4',n:'Unit 4',t:'The Mole Concept',f:'s4_unit4_mole_concept.html'},{id:'S4-U5',n:'Unit 5',t:'Acids, Bases & Salts',f:'s4_unit5_acids_bases_salts.html'},{id:'S4-U6',n:'Unit 6',t:'Redox Reactions',f:'s4_unit6_redox.html'},{id:'S4-U7',n:'Unit 7',t:'The Periodic Table',f:'s4_unit7_periodic_table.html'},{id:'S4-U8',n:'Unit 8',t:'Chemical Kinetics',f:'s4_unit8_kinetics.html'},{id:'S4-U9',n:'Unit 9',t:'Thermochemistry',f:'s4_unit9_thermochemistry.html'},{id:'S4-U10',n:'Unit 10',t:'Electrochemistry',f:'s4_unit10_electrochemistry.html'},{id:'S4-U11',n:'Unit 11',t:'Organic Chemistry Intro',f:'s4_unit11_organic_intro.html'},{id:'S4-U12',n:'Unit 12',t:'Hydrocarbons',f:'s4_unit12_hydrocarbons.html'},{id:'S4-U13',n:'Unit 13',t:'Functional Groups',f:'s4_unit13_functional_groups.html'},{id:'S4-U14',n:'Unit 14',t:'Polymers',f:'s4_unit14_polymers.html'},{id:'S4-U15',n:'Unit 15',t:'Industrial Chemistry',f:'s4_unit15_industrial.html'},{id:'S4-U16',n:'Unit 16',t:'Environmental Chemistry',f:'s4_unit16_environmental.html'},{id:'S4-U17',n:'Unit 17',t:'Analytical Chemistry',f:'s4_unit17_analytical.html'},{id:'S4-U18',n:'Unit 18',t:'Energy Changes',f:'s4_unit18_energy_changes.html'}];
+const S4=[
+  {id:'S4-U1', n:'Unit 1', t:'Structure of an Atom & Mass Spectrum',          f:'s4_unit1_atomic_structure.html'},
+  {id:'S4-U2', n:'Unit 2', t:'Electronic Configuration of Atoms & Ions',      f:'s4_unit2_electronic_config.html'},
+  {id:'S4-U3', n:'Unit 3', t:'Ionic & Metallic Bonds',                        f:'s4_unit3_ionic_metallic_bonds.html'},
+  {id:'S4-U4', n:'Unit 4', t:'Covalent Bond & Molecular Structure',            f:'s4_unit4_covalent_bond.html'},
+  {id:'S4-U5', n:'Unit 5', t:'Variation in Trends of Physical Properties',    f:'s4_unit5_periodic_trends.html'},
+  {id:'S4-U6', n:'Unit 6', t:'Group 1 Elements & Their Compounds',             f:'s4_unit6_group1.html'},
+  {id:'S4-U7', n:'Unit 7', t:'Group 2 Elements & Their Compounds',             f:'s4_unit7_group2.html'},
+  {id:'S4-U8', n:'Unit 8', t:'Group 13 Elements & Their Compounds',            f:'s4_unit8_group13.html'},
+  {id:'S4-U9', n:'Unit 9', t:'Group 14 Elements & Their Compounds',            f:'s4_unit9_group14.html'},
+  {id:'S4-U10',n:'Unit 10',t:'Group 15 Elements & Their Compounds',            f:'s4_unit10_group15.html'},
+  {id:'S4-U11',n:'Unit 11',t:'Group 16 Elements & Their Compounds',            f:'s4_unit11_group16.html'},
+  {id:'S4-U12',n:'Unit 12',t:'Group 17 — Halogens',                            f:'s4_unit12_group17.html'},
+  {id:'S4-U13',n:'Unit 13',t:'Group 18 — Noble Gases',                         f:'s4_unit13_group18.html'},
+  {id:'S4-U14',n:'Unit 14',t:'Period 3 Elements',                              f:'s4_unit14_period3.html'},
+  {id:'S4-U15',n:'Unit 15',t:'Chemical Equilibrium',                           f:'s4_unit15_equilibrium.html'},
+  {id:'S4-U16',n:'Unit 16',t:'Acids and Bases',                                f:'s4_unit16_acids_bases.html'},
+  {id:'S4-U17',n:'Unit 17',t:'Redox Reactions',                                f:'s4_unit17_redox.html'},
+  {id:'S4-U18',n:'Unit 18',t:'Energy Changes',                                 f:'s4_unit18_energy_changes.html'},
+];
 const S5=[{id:'S5-U1',n:'Unit 1',t:'Organic Chemistry Intro',f:'unit1_organic_chemistry.html'},{id:'S5-U2',n:'Unit 2',t:'Alkanes',f:'unit2_alkanes.html'},{id:'S5-U3',n:'Unit 3',t:'Alkenes & Alkynes',f:'unit3_alkenes_alkynes.html'},{id:'S5-U4',n:'Unit 4',t:'Halogenoalkanes',f:'unit4_halogenoalkanes.html'},{id:'S5-U5',n:'Unit 5',t:'Alcohols & Ethers',f:'unit5_alcohols_ethers.html'},{id:'S5-U6',n:'Unit 6',t:'Carbonyl Compounds',f:'unit6_carbonyl.html'},{id:'S5-U7',n:'Unit 7',t:'Carboxylic Acids',f:'unit7_carboxylic_acids.html'},{id:'S5-U8',n:'Unit 8',t:'Esters & Amides',f:'unit8_esters_amides.html'},{id:'S5-U9',n:'Unit 9',t:'Amines & Amino Acids',f:'unit9_amines_amino_acids.html'},{id:'S5-U10',n:'Unit 10',t:'Phase Diagrams',f:'unit10_phase_diagrams.html'},{id:'S5-U11',n:'Unit 11',t:'Solutions & Titration',f:'unit11_solutions_titration.html'},{id:'S5-U12',n:'Unit 12',t:'Conductivity',f:'unit12_conductivity.html'},{id:'S5-U13',n:'Unit 13',t:'Electrolysis',f:'unit13_electrolysis.html'},{id:'S5-U14',n:'Unit 14',t:'Enthalpy',f:'unit14_enthalpy.html'},{id:'S5-U15',n:'Unit 15',t:'Entropy & Free Energy',f:'unit15_entropy_free_energy.html'}];
 const S6=[{id:'S6-U1',n:'Unit 1',t:'Transition Metals',f:'unit1_transition_metals.html'},{id:'S6-U2',n:'Unit 2',t:'Extraction of Metals',f:'unit2_extraction_metals.html'},{id:'S6-U3',n:'Unit 3',t:'Fertilisers & NPK',f:'unit3_fertilisers.html'},{id:'S6-U4',n:'Unit 4',t:'Benzene',f:'unit4_benzene.html'},{id:'S6-U5',n:'Unit 5',t:'Benzene Derivatives',f:'unit5_benzene_derivatives.html'},{id:'S6-U6',n:'Unit 6',t:'Polymers',f:'unit6_polymers.html'},{id:'S6-U7',n:'Unit 7',t:'Colligative Properties',f:'unit7_solvent_colligative.html'},{id:'S6-U8',n:'Unit 8',t:'Chemical Equilibrium',f:'unit8_equilibrium.html'},{id:'S6-U9',n:'Unit 9',t:'pH & Buffers',f:'unit9_pH.html'},{id:'S6-U10',n:'Unit 10',t:'Indicators & Titration',f:'unit10_indicators_titration.html'},{id:'S6-U11',n:'Unit 11',t:'Solubility Product',f:'unit11_solubility_product.html'},{id:'S6-U12',n:'Unit 12',t:'Electrochemical Cells',f:'unit12_electrochemical_cells.html'},{id:'S6-U13',n:'Unit 13',t:'Reaction Rates',f:'unit13_reaction_rates.html'},{id:'S6-U14',n:'Unit 14',t:'Rate Laws',f:'unit14_rate_laws.html'},{id:'S6-U15',n:'Unit 15',t:'Radioactivity',f:'unit15_radioactivity.html'}];
 
@@ -350,309 +370,6 @@ let dlCurFile=null, dlCurBundle=null;
 function dlFile(file,title){
   dlCurFile=file; dlCurBundle=null;
   document.getElementById('dlModalSub').textContent=title||file;
-  document.getElementById('dlBtnLabel').textContent='Download PDF — '+title;
-  document.getElementById('dlReady').style.display='block';
-  document.getElementById('dlGenerating').style.display='none';
-  document.getElementById('dlDone').style.display='none';
-  document.getElementById('dlBundle').style.display='none';
-  document.getElementById('dlModal').classList.add('open');
-}
-
-function dlBundle(id){
-  dlCurBundle=id; dlCurFile=null;
-  const files=id==='ALL'
-    ?[...BUNDLES['BUNDLE-S4'].files,...BUNDLES['BUNDLE-S5'].files,...BUNDLES['BUNDLE-S6'].files]
-    :BUNDLES[id].files;
-  const label=id==='ALL'?'All S4+S5+S6':BUNDLES[id].label;
-  document.getElementById('dlModalSub').textContent=label;
-  document.getElementById('dlBundleInfo').textContent=
-    files.length+' unit PDFs will download to your device one by one.';
-  document.getElementById('dlBundle').style.display='block';
-  document.getElementById('dlReady').style.display='none';
-  document.getElementById('dlGenerating').style.display='none';
-  document.getElementById('dlDone').style.display='none';
-  document.getElementById('dlBundleProgress').style.display='none';
-  document.getElementById('dlModal').classList.add('open');
-}
-
-async function startDownload(){
-  if(!dlCurFile)return;
-  document.getElementById('dlReady').style.display='none';
-  document.getElementById('dlGenerating').style.display='block';
-  document.getElementById('dlProgress').textContent='Loading page...';
-
-  try{
-    // Fetch the page HTML
-    const resp = await fetch(dlCurFile);
-    const html = await resp.text();
-
-    document.getElementById('dlProgress').textContent='Generating PDF...';
-
-    // Parse the HTML
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html,'text/html');
-
-    // Remove nav, footer, buttons, scripts from the downloaded version
-    ['nav','footer','.quiz-submit','.quiz-wrap','.submit-btn','script'].forEach(sel=>{
-      doc.querySelectorAll(sel).forEach(el=>el.remove());
-    });
-
-    // Add print styles
-    const style = doc.createElement('style');
-    style.textContent='body{background:#fff!important;color:#000!important;font-family:Georgia,serif;}h1,h2,h3{color:#000!important;}*{border-color:#ccc!important;}';
-    doc.head.appendChild(style);
-
-    const el = doc.body;
-    el.style.background='#fff';
-    el.style.color='#000';
-    el.style.padding='20px';
-
-    // Use html2pdf to generate
-    const fname = dlCurFile.replace('.html','').replace(/[_-]/g,' ');
-
-    const opt = {
-      margin:      [10,10,10,10],
-      filename:    fname+'.pdf',
-      image:       {type:'jpeg', quality:0.92},
-      html2canvas: {scale:1.5, useCORS:true, backgroundColor:'#ffffff'},
-      jsPDF:       {unit:'mm', format:'a4', orientation:'portrait'}
-    };
-
-    // Create temp element
-    const temp = document.createElement('div');
-    temp.style.cssText='position:fixed;left:-9999px;top:0;width:210mm;background:#fff;color:#000;';
-    temp.innerHTML = el.innerHTML;
-    document.body.appendChild(temp);
-
-    document.getElementById('dlProgress').textContent='Building PDF...';
-
-    await html2pdf().set(opt).from(temp).save();
-
-    document.body.removeChild(temp);
-
-    document.getElementById('dlGenerating').style.display='none';
-    document.getElementById('dlDone').style.display='block';
-
-  }catch(err){
-    console.error(err);
-    // Fallback to print
-    document.getElementById('dlGenerating').style.display='none';
-    document.getElementById('dlReady').style.display='block';
-    document.getElementById('dlBtnLabel').textContent='Could not auto-download — Click to Print';
-    document.getElementById('dlStartBtn').onclick=()=>{
-      const w=window.open(dlCurFile,'_blank');
-      if(w){w.onload=()=>setTimeout(()=>w.print(),800);}
-      closeDlModal();
-    };
-  }
-}
-
-async function startBundleDownload(){
-  const id=dlCurBundle;if(!id)return;
-  const files=id==='ALL'
-    ?[...BUNDLES['BUNDLE-S4'].files,...BUNDLES['BUNDLE-S5'].files,...BUNDLES['BUNDLE-S6'].files]
-    :BUNDLES[id].files;
-
-  document.getElementById('dlBundleBtn').disabled=true;
-  document.getElementById('dlBundleProgress').style.display='block';
-
-  for(let i=0;i<files.length;i++){
-    const f=files[i];
-    const pct=Math.round((i/files.length)*100);
-    document.getElementById('dlProgressBar').style.width=pct+'%';
-    document.getElementById('dlProgressText').textContent=
-      'Downloading '+(i+1)+' of '+files.length+': '+f.replace('.html','').replace(/[_-]/g,' ');
-
-    try{
-      const resp=await fetch(f);
-      const html=await resp.text();
-      const parser=new DOMParser();
-      const doc=parser.parseFromString(html,'text/html');
-      ['nav','footer','.quiz-submit','.quiz-wrap','script'].forEach(sel=>{
-        doc.querySelectorAll(sel).forEach(el=>el.remove());
-      });
-      const style=doc.createElement('style');
-      style.textContent='body{background:#fff!important;color:#000!important;}';
-      doc.head.appendChild(style);
-
-      const temp=document.createElement('div');
-      temp.style.cssText='position:fixed;left:-9999px;top:0;width:210mm;background:#fff;color:#000;';
-      temp.innerHTML=doc.body.innerHTML;
-      document.body.appendChild(temp);
-
-      const fname=f.replace('.html','').replace(/[_-]/g,' ');
-      await html2pdf().set({
-        margin:[10,10,10,10],filename:fname+'.pdf',
-        image:{type:'jpeg',quality:0.85},
-        html2canvas:{scale:1.2,useCORS:true,backgroundColor:'#ffffff'},
-        jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}
-      }).from(temp).save();
-
-      document.body.removeChild(temp);
-      await new Promise(r=>setTimeout(r,800)); // small pause between files
-    }catch(e){console.error('Failed:',f,e);}
-  }
-
-  document.getElementById('dlProgressBar').style.width='100%';
-  document.getElementById('dlProgressText').textContent='✅ All '+files.length+' PDFs downloaded!';
-  document.getElementById('dlBundleBtn').disabled=false;
-}
-
-function closeDlModal(){document.getElementById('dlModal').classList.remove('open');}
-
-function doDownload(){
-  closeModal();
-  if(!curItem)return;
-  if(curItem.bid) dlBundle(curItem.bid);
-  else dlFile(curItem.file, curItem.label);
-}
-function closeModal(){document.getElementById('payModal').classList.remove('open');if(pollTimer){clearInterval(pollTimer);pollTimer=null;}curItem=null;}
-function showForm(){document.getElementById('payFormWrap').style.display='block';['stProcessing','stSuccess','stFailed'].forEach(id=>{document.getElementById(id).style.display='none';});document.getElementById('payErr').style.display='none';}
-function selNet(el,n){selNetwork=n;document.querySelectorAll('.net-btn').forEach(b=>b.classList.remove('sel'));el.classList.add('sel');}
-function updateHint(){
-  const sel=document.getElementById('cCode');
-  const opt=sel.options[sel.selectedIndex];
-  document.getElementById('phHint').textContent=opt.text+' — '+(opt.dataset.net||'Mobile Money');
-}
-function valPhone(){
-  const p=document.getElementById('phNum').value.replace(/\D/g,'');
-  document.getElementById('payBtn').disabled=p.length<8;
-}
-
-async function initPay(){
-  const code=document.getElementById('cCode').value;
-  const num=document.getElementById('phNum').value.replace(/\D/g,'');
-  if(num.length<8){const e=document.getElementById('payErr');e.style.display='block';e.textContent='❌ Enter a valid phone number.';return;}
-  const fullPhone=code.replace('+','')+num.replace(/^0/,'');
-  document.getElementById('payFormWrap').style.display='none';
-  document.getElementById('stProcessing').style.display='block';
-
-  const s=JSON.parse(localStorage.getItem('notif_settings')||'{}');
-  const ppKey=s.pawapayKey||'';
-  const amount=curItem.price;
-
-  if(!ppKey){
-    // No PawaPay key — show manual MTN MoMo + WhatsApp fallback
-    document.getElementById('stProcessing').style.display='none';
-    const waText=encodeURIComponent('💳 PAYMENT REQUEST\nItem: '+curItem.label+'\nAmount: '+amount+' RWF\nMy number: '+code+num+'\nPlease confirm and unlock my download.');
-    document.getElementById('waPayLink').href='https://wa.me/250788800375?text='+waText;
-    document.getElementById('failTxt').innerHTML=
-      '<strong style="color:#fff;">Pay manually via MTN MoMo:</strong><br>'+
-      'Number: <strong style="color:var(--gold);">+250 788 800 375</strong><br>'+
-      'Amount: <strong style="color:var(--gold);">'+amount.toLocaleString()+' RWF</strong><br><br>'+
-      'Then click the WhatsApp button below to send your payment reference.';
-    document.getElementById('stFailed').style.display='block';
-    document.querySelector('#stFailed .btn-buy').style.display='none';
-    return;
-  }
-
-  // PawaPay integration
-  const depositId='dep_'+Date.now()+'_'+Math.random().toString(36).substr(2,5);
-  const cMap={'250':'RW','256':'UG','255':'TZ','254':'KE','234':'NG','233':'GH','237':'CM','260':'ZM','27':'ZA'};
-  const cCode2=code.replace('+','');
-  const countryIso=cMap[cCode2]||'RW';
-  const corrMap={MTN:{RW:'MTNRW',UG:'MTNUG',GH:'MTNGHS',CM:'MTNCM',ZM:'MTNZM',ZA:'MTNZA',NG:'MTNNG',CI:'MTNCI'},AIRTEL:{RW:'AIRTELRW',UG:'AIRTELUG',TZ:'AIRTELTANZANIA',NG:'AIRTELNG'},OTHER:{RW:'MTNRW',UG:'MTNUG'}};
-  const curMap={RW:'RWF',UG:'UGX',TZ:'TZS',KE:'KES',NG:'NGN',GH:'GHS',CM:'XAF',ZM:'ZMW',ZA:'ZAR'};
-  const correspondent=(corrMap[selNetwork]||corrMap.MTN)[countryIso]||'MTNRW';
-  const currency=curMap[countryIso]||'RWF';
-
-  try{
-    const r=await fetch('https://api.pawapay.io/deposits',{
-      method:'POST',
-      headers:{'Content-Type':'application/json','Authorization':'Bearer '+ppKey},
-      body:JSON.stringify({depositId,amount:String(amount),currency,correspondent,payer:{type:'MSISDN',address:{value:fullPhone}},statementDescription:'ChemNotes'})
-    });
-    const d=await r.json();
-    if(d.depositId||r.ok){
-      pollTimer=setInterval(async()=>{
-        const pr=await fetch('https://api.pawapay.io/deposits/'+depositId,{headers:{'Authorization':'Bearer '+ppKey}});
-        const pd=await pr.json();
-        const st=((pd.status||pd[0]?.status)||''). toUpperCase();
-        if(st==='COMPLETED'){clearInterval(pollTimer);markPaid(curItem.bid||curItem.uid);document.getElementById('stProcessing').style.display='none';var sl=document.getElementById('successLabel');if(sl)sl.textContent='You now have access to: '+curItem.label;document.getElementById('stSuccess').style.display='block';renderAll();}
-        else if(st==='FAILED'||st==='EXPIRED'){clearInterval(pollTimer);document.getElementById('stProcessing').style.display='none';document.getElementById('failTxt').textContent=pd.correspondentIds?.reason||'Payment not completed.';document.getElementById('stFailed').style.display='block';}
-      },3000);
-      setTimeout(()=>{if(pollTimer){clearInterval(pollTimer);document.getElementById('stProcessing').style.display='none';document.getElementById('failTxt').textContent='Payment timed out. If you paid, contact Mr Habimana via WhatsApp.';document.getElementById('stFailed').style.display='block';}},180000);
-    }else{throw new Error(d.errorCode||'Failed');}
-  }catch(e){
-    document.getElementById('stProcessing').style.display='none';
-    const waText=encodeURIComponent('💳 PAYMENT\nItem: '+curItem.label+'\nAmount: '+amount+' RWF\nPhone: '+code+num);
-    document.getElementById('waPayLink').href='https://wa.me/250788800375?text='+waText;
-    document.getElementById('failTxt').innerHTML='Could not process automatically. Pay to: <strong style="color:var(--gold);">+250 788 800 375</strong> ('+amount.toLocaleString()+' RWF) then use WhatsApp below.';
-    document.getElementById('stFailed').style.display='block';
-  }
-}
-
-function switchTab(t,b){document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active'));document.getElementById('tab-'+t).classList.add('active');b.classList.add('active');}
-document.getElementById('payModal').addEventListener('click',function(e){if(e.target===this)closeModal();});
-renderAll();
-</script>
-<!-- DOWNLOAD MODAL -->
-<div class="modal-overlay" id="dlModal">
-  <div class="modal" style="max-width:400px;">
-    <div class="modal-hd">
-      <h2>⬇ Download</h2>
-      <p id="dlModalSub" style="color:var(--gold);font-family:'JetBrains Mono',monospace;font-size:.82rem;"></p>
-    </div>
-    <div class="modal-bd" id="dlModalBody">
-
-      <!-- Ready to download -->
-      <div id="dlReady">
-        <div style="text-align:center;padding:8px 0 20px;">
-          <div style="font-size:3rem;margin-bottom:10px;">📥</div>
-          <p style="color:var(--muted);font-size:.86rem;margin-bottom:20px;">Click the button below — your PDF will download immediately to your device.</p>
-          <button id="dlStartBtn" onclick="startDownload()" 
-            style="width:100%;background:var(--green);color:#000;border:none;padding:14px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.92rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;">
-            <span>⬇</span> <span id="dlBtnLabel">Download PDF</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- Generating -->
-      <div id="dlGenerating" style="display:none;text-align:center;padding:20px 0;">
-        <div style="width:44px;height:44px;border:3px solid var(--border);border-top-color:var(--green);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 14px;"></div>
-        <div style="font-family:'JetBrains Mono',monospace;color:#fff;font-size:.88rem;margin-bottom:6px;" id="dlProgress">Generating PDF...</div>
-        <div style="color:var(--muted);font-size:.78rem;">Please wait — this takes a few seconds</div>
-      </div>
-
-      <!-- Done -->
-      <div id="dlDone" style="display:none;text-align:center;padding:8px 0 20px;">
-        <div style="font-size:3rem;margin-bottom:10px;">✅</div>
-        <div style="font-family:'JetBrains Mono',monospace;color:var(--green);font-size:.9rem;margin-bottom:6px;">PDF Downloaded!</div>
-        <div style="color:var(--muted);font-size:.82rem;margin-bottom:16px;">Check your Downloads folder.</div>
-        <button onclick="closeDlModal()" style="background:var(--surface2);color:var(--muted);border:1px solid var(--border);padding:9px 20px;border-radius:7px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:.8rem;">Close</button>
-      </div>
-
-      <!-- Bundle -->
-      <div id="dlBundle" style="display:none;">
-        <div style="background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:8px;padding:12px 14px;margin-bottom:14px;font-size:.82rem;color:var(--muted);">
-          <div style="color:var(--orange);font-family:'JetBrains Mono',monospace;font-size:.7rem;margin-bottom:6px;">📦 BUNDLE</div>
-          <span id="dlBundleInfo"></span>
-        </div>
-        <button id="dlBundleBtn" onclick="startBundleDownload()" 
-          style="width:100%;background:var(--green);color:#000;border:none;padding:14px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.88rem;font-weight:700;cursor:pointer;">
-          ⬇ Download All as PDFs
-        </button>
-        <div id="dlBundleProgress" style="display:none;margin-top:14px;">
-          <div style="background:var(--surface2);border-radius:6px;height:6px;margin-bottom:8px;overflow:hidden;">
-            <div id="dlProgressBar" style="background:var(--green);height:100%;width:0%;transition:width .3s;border-radius:6px;"></div>
-          </div>
-          <div id="dlProgressText" style="font-family:'JetBrains Mono',monospace;font-size:.76rem;color:var(--muted);text-align:center;"></div>
-        </div>
-      </div>
-
-    </div>
-    <div class="modal-ft" style="justify-content:flex-end;">
-      <button class="cancel-btn" onclick="closeDlModal()">Cancel</button>
-    </div>
-  </div>
-</div>
-
-// ── Download Center ──
-let dlCurFile=null,dlCurBundle=null;
-
-function dlFile(file,title){
-  dlCurFile=file; dlCurBundle=null;
-  document.getElementById('dlModalSub').textContent=title||file;
   document.getElementById('dlSingleOpts').style.display='block';
   document.getElementById('dlBundleOpts').style.display='none';
   document.getElementById('dlModal').classList.add('open');
@@ -666,20 +383,29 @@ function dlBundle(id){
     :bundle.files;
   const label=id==='ALL'?'All S4+S5+S6':bundle.label;
   document.getElementById('dlModalSub').textContent=label;
+  document.getElementById('dlBundleCount').textContent=files.length+' units — download as one ZIP file';
 
-  // Build file list for bundle
-  const listEl=document.getElementById('bundleFileList');
-  listEl.innerHTML='';
-  const prefix=id==='BUNDLE-S4'?'S4':id==='BUNDLE-S5'?'S5':id==='BUNDLE-S6'?'S6':'';
+  // Build individual file list
+  const list=document.getElementById('bundleFileList');
+  list.innerHTML='';
+  const allUnits=[...S4,...S5,...S6];
   files.forEach((f,i)=>{
-    const name=f.replace('.html','').replace(/_/g,' ').replace(/^(s4|unit)/i,'').trim();
-    const li=document.createElement('div');
-    li.style.cssText='display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;margin-bottom:6px;';
-    li.innerHTML='<span style="font-size:.83rem;color:#fff;">'+( i+1)+'. '+name+'</span>'+
-      '<button onclick="openAndPrint(\''+f+'\')" style="background:var(--green);color:#000;border:none;padding:5px 12px;border-radius:5px;font-family:JetBrains Mono,monospace;font-size:.72rem;font-weight:700;cursor:pointer;white-space:nowrap;">🖨 Save PDF</button>';
-    listEl.appendChild(li);
+    const unit=allUnits.find(u=>u.f===f);
+    const name=unit?unit.n+' — '+unit.t:f.replace('.html','').replace(/_/g,' ');
+    const row=document.createElement('div');
+    row.style.cssText='display:flex;align-items:center;justify-content:space-between;padding:7px 10px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;';
+    row.innerHTML='<span style="font-size:.8rem;color:#fff;">'+name+'</span>'+
+      '<button onclick="openAndPrint(''+f+'')" style="background:var(--green);color:#000;border:none;padding:4px 10px;border-radius:5px;font-family:JetBrains Mono,monospace;font-size:.7rem;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0;margin-left:8px;">🖨 PDF</button>';
+    list.appendChild(row);
   });
-  document.getElementById('dlBundleCount').textContent='Open each unit → press Ctrl+P → Save as PDF';
+
+  // Reset ZIP button
+  const btn=document.getElementById('zipBtn');
+  btn.disabled=false;
+  btn.style.background='var(--gold)';
+  btn.innerHTML='<span style="font-size:1.2rem;">📦</span> Download All as ZIP';
+  document.getElementById('zipProgress').style.display='none';
+
   document.getElementById('dlSingleOpts').style.display='none';
   document.getElementById('dlBundleOpts').style.display='block';
   document.getElementById('dlModal').classList.add('open');
@@ -691,11 +417,11 @@ function openAndPrint(file){
     w.onload=function(){
       setTimeout(()=>{
         try{
-          // Add print banner
           const bar=w.document.createElement('div');
-          bar.style.cssText='position:fixed;top:0;left:0;right:0;background:#38bdf8;color:#000;padding:12px 20px;z-index:99999;display:flex;align-items:center;justify-content:space-between;font-family:JetBrains Mono,monospace;font-size:.8rem;font-weight:700;';
-          bar.innerHTML='<span>📥 Press <kbd style="background:rgba(0,0,0,.2);padding:2px 8px;border-radius:4px;">Ctrl+P</kbd> → Destination → <strong>Save as PDF</strong> → Save</span><button onclick="window.print()" style="background:#000;color:#38bdf8;border:none;padding:7px 16px;border-radius:5px;cursor:pointer;font-family:JetBrains Mono,monospace;">🖨 Print Now</button>';
-          w.document.body.style.paddingTop='52px';
+          bar.style.cssText='position:fixed;top:0;left:0;right:0;background:#38bdf8;color:#000;padding:11px 20px;z-index:99999;display:flex;align-items:center;justify-content:space-between;font-family:JetBrains Mono,monospace;font-size:.8rem;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,.3);';
+          bar.innerHTML='<span>📥 Press <kbd style="background:rgba(0,0,0,.2);padding:2px 7px;border-radius:3px;">Ctrl+P</kbd> → Destination → <strong>Save as PDF</strong> → Save</span>'+
+            '<button onclick="window.print()" style="background:#000;color:#38bdf8;border:none;padding:6px 14px;border-radius:5px;cursor:pointer;font-family:JetBrains Mono,monospace;font-weight:700;">🖨 Print Now</button>';
+          w.document.body.style.paddingTop='50px';
           w.document.body.insertBefore(bar,w.document.body.firstChild);
           w.focus();
           w.print();
@@ -705,19 +431,84 @@ function openAndPrint(file){
   }
 }
 
-function openInBrowser(){
-  if(dlCurFile) openAndPrint(dlCurFile);
-  closeDlModal();
-}
-
-function printDirect(){
-  if(dlCurFile) openAndPrint(dlCurFile);
-  closeDlModal();
-}
-
-function openBundleFiles(){closeDlModal();}
-
 function closeDlModal(){document.getElementById('dlModal').classList.remove('open');}
+
+
+async function downloadZip(){
+  const id=dlCurBundle;
+  if(!id) return;
+  const bundle=BUNDLES[id];
+  let files=id==='ALL'
+    ?[...BUNDLES['BUNDLE-S4'].files,...BUNDLES['BUNDLE-S5'].files,...BUNDLES['BUNDLE-S6'].files]
+    :bundle.files;
+  const label=(id==='ALL'?'All_S4_S5_S6':bundle.label).replace(/[^a-zA-Z0-9]/g,'_');
+
+  const btn=document.getElementById('zipBtn');
+  const prog=document.getElementById('zipProgress');
+  const progBar=document.getElementById('zipProgressBar');
+  const progLabel=document.getElementById('zipProgressLabel');
+
+  btn.disabled=true;
+  btn.innerHTML='<span>⏳</span> Preparing ZIP...';
+  prog.style.display='block';
+
+  try{
+    const zip=new JSZip();
+    const folder=zip.folder(label);
+
+    for(let i=0;i<files.length;i++){
+      const f=files[i];
+      const pct=Math.round((i/files.length)*100);
+      progBar.style.width=pct+'%';
+      progLabel.textContent='Adding file '+(i+1)+' of '+files.length+': '+f.replace('.html','').replace(/_/g,' ');
+
+      try{
+        const resp=await fetch(f);
+        if(resp.ok){
+          const html=await resp.text();
+          // Add a print banner to each file in the ZIP
+          const enhanced=html.replace('<body>',
+            '<body><div style="position:fixed;top:0;left:0;right:0;background:#38bdf8;color:#000;padding:10px 20px;z-index:99999;font-family:sans-serif;font-size:14px;font-weight:bold;display:flex;align-items:center;justify-content:space-between;">' +
+            '<span>📥 Press Ctrl+P → Save as PDF to save this file</span>' +
+            '<button onclick="window.print()" style="background:#000;color:#38bdf8;border:none;padding:6px 14px;border-radius:5px;cursor:pointer;font-weight:bold;">🖨 Print / Save PDF</button>' +
+            '</div><div style="height:48px;"></div>'
+          );
+          folder.file(f, enhanced);
+        }
+      }catch(e){
+        folder.file(f+'.txt','Could not load: '+f);
+      }
+    }
+
+    progBar.style.width='100%';
+    progLabel.textContent='Creating ZIP file...';
+
+    const blob=await zip.generateAsync({type:'blob',compression:'DEFLATE',compressionOptions:{level:6}},
+      (meta)=>{progBar.style.width=meta.percent.toFixed(0)+'%';}
+    );
+
+    // Download the ZIP
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');
+    a.href=url;
+    a.download=label+'_Chemistry_Notes.zip';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+
+    btn.disabled=false;
+    btn.innerHTML='<span style="font-size:1.2rem;">✅</span> ZIP Downloaded! Check your Downloads folder.';
+    btn.style.background='var(--green)';
+    progLabel.textContent='✅ Done! Extract the ZIP and open any file in your browser, then press Ctrl+P → Save as PDF.';
+
+  }catch(err){
+    btn.disabled=false;
+    btn.innerHTML='<span style="font-size:1.2rem;">📦</span> Download as ZIP';
+    progLabel.textContent='❌ Error: '+err.message;
+    progLabel.style.color='var(--red)';
+  }
+}
 
 function doDownload(){
   closeModal();
@@ -807,61 +598,58 @@ renderAll();
 </script>
 <!-- DOWNLOAD MODAL -->
 <div class="modal-overlay" id="dlModal">
-  <div class="modal" style="max-width:400px;">
+  <div class="modal" style="max-width:500px;">
     <div class="modal-hd">
       <h2>⬇ Download</h2>
       <p id="dlModalSub" style="color:var(--gold);font-family:'JetBrains Mono',monospace;font-size:.82rem;"></p>
     </div>
-    <div class="modal-bd" id="dlModalBody">
+    <div class="modal-bd">
 
-      <!-- Ready to download -->
-      <div id="dlReady">
-        <div style="text-align:center;padding:8px 0 20px;">
-          <div style="font-size:3rem;margin-bottom:10px;">📥</div>
-          <p style="color:var(--muted);font-size:.86rem;margin-bottom:20px;">Click the button below — your PDF will download immediately to your device.</p>
-          <button id="dlStartBtn" onclick="startDownload()" 
-            style="width:100%;background:var(--green);color:#000;border:none;padding:14px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.92rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;">
-            <span>⬇</span> <span id="dlBtnLabel">Download PDF</span>
+      <!-- Single file -->
+      <div id="dlSingleOpts">
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <button onclick="openAndPrint(dlCurFile)" style="background:var(--green);color:#000;border:none;padding:14px 20px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.85rem;font-weight:700;cursor:pointer;text-align:left;display:flex;align-items:center;gap:12px;">
+            <span style="font-size:1.4rem;">🖨️</span>
+            <div><div>Open & Save as PDF</div><div style="font-size:.72rem;opacity:.7;font-weight:400;margin-top:2px;">Opens the page → press Ctrl+P → Save as PDF</div></div>
           </button>
         </div>
-      </div>
-
-      <!-- Generating -->
-      <div id="dlGenerating" style="display:none;text-align:center;padding:20px 0;">
-        <div style="width:44px;height:44px;border:3px solid var(--border);border-top-color:var(--green);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 14px;"></div>
-        <div style="font-family:'JetBrains Mono',monospace;color:#fff;font-size:.88rem;margin-bottom:6px;" id="dlProgress">Generating PDF...</div>
-        <div style="color:var(--muted);font-size:.78rem;">Please wait — this takes a few seconds</div>
-      </div>
-
-      <!-- Done -->
-      <div id="dlDone" style="display:none;text-align:center;padding:8px 0 20px;">
-        <div style="font-size:3rem;margin-bottom:10px;">✅</div>
-        <div style="font-family:'JetBrains Mono',monospace;color:var(--green);font-size:.9rem;margin-bottom:6px;">PDF Downloaded!</div>
-        <div style="color:var(--muted);font-size:.82rem;margin-bottom:16px;">Check your Downloads folder.</div>
-        <button onclick="closeDlModal()" style="background:var(--surface2);color:var(--muted);border:1px solid var(--border);padding:9px 20px;border-radius:7px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:.8rem;">Close</button>
-      </div>
-
-      <!-- Bundle -->
-      <div id="dlBundle" style="display:none;">
-        <div style="background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:8px;padding:12px 14px;margin-bottom:14px;font-size:.82rem;color:var(--muted);">
-          <div style="color:var(--orange);font-family:'JetBrains Mono',monospace;font-size:.7rem;margin-bottom:6px;">📦 BUNDLE</div>
-          <span id="dlBundleInfo"></span>
+        <div style="margin-top:12px;background:rgba(56,189,248,.06);border:1px solid rgba(56,189,248,.15);border-radius:8px;padding:12px 14px;font-size:.8rem;color:var(--muted);line-height:1.9;">
+          <strong style="color:#fff;">Windows:</strong> Ctrl+P → Save as PDF<br>
+          <strong style="color:#fff;">Mac:</strong> ⌘+P → Save as PDF<br>
+          <strong style="color:#fff;">Phone:</strong> ⋮ Menu → Print → Save as PDF
         </div>
-        <button id="dlBundleBtn" onclick="startBundleDownload()" 
-          style="width:100%;background:var(--green);color:#000;border:none;padding:14px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.88rem;font-weight:700;cursor:pointer;">
-          ⬇ Download All as PDFs
+      </div>
+
+      <!-- Bundle - ZIP download -->
+      <div id="dlBundleOpts" style="display:none;">
+        <div style="background:rgba(232,197,71,.06);border:1px solid rgba(232,197,71,.2);border-radius:8px;padding:12px 14px;margin-bottom:14px;">
+          <div id="dlBundleCount" style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--gold);margin-bottom:4px;"></div>
+          <div style="font-size:.8rem;color:var(--muted);">All files download as one ZIP folder. Extract it and open any file in your browser, then press Ctrl+P → Save as PDF.</div>
+        </div>
+
+        <!-- ZIP button -->
+        <button id="zipBtn" onclick="downloadZip()" style="width:100%;background:var(--gold);color:#000;border:none;padding:14px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.88rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:12px;">
+          <span style="font-size:1.2rem;">📦</span> Download All as ZIP
         </button>
-        <div id="dlBundleProgress" style="display:none;margin-top:14px;">
-          <div style="background:var(--surface2);border-radius:6px;height:6px;margin-bottom:8px;overflow:hidden;">
-            <div id="dlProgressBar" style="background:var(--green);height:100%;width:0%;transition:width .3s;border-radius:6px;"></div>
+
+        <!-- Progress -->
+        <div id="zipProgress" style="display:none;margin-bottom:14px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);margin-bottom:6px;" id="zipProgressLabel">Preparing files...</div>
+          <div style="background:var(--surface2);border-radius:50px;height:8px;overflow:hidden;">
+            <div id="zipProgressBar" style="background:var(--gold);height:100%;width:0%;transition:width .3s;border-radius:50px;"></div>
           </div>
-          <div id="dlProgressText" style="font-family:'JetBrains Mono',monospace;font-size:.76rem;color:var(--muted);text-align:center;"></div>
+        </div>
+
+        <!-- Individual files list -->
+        <div style="border-top:1px solid var(--border);padding-top:12px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;">Or save individual units:</div>
+          <div id="bundleFileList" style="max-height:220px;overflow-y:auto;display:flex;flex-direction:column;gap:5px;"></div>
         </div>
       </div>
 
     </div>
-    <div class="modal-ft" style="justify-content:flex-end;">
-      <button class="cancel-btn" onclick="closeDlModal()">Cancel</button>
+    <div class="modal-ft">
+      <button class="cancel-btn" onclick="closeDlModal()">Close</button>
     </div>
   </div>
 </div>
