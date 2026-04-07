@@ -104,6 +104,8 @@
 </style>
 </head>
 <body>
+<div id="sitenav" style="position:sticky;top:0;z-index:200;background:rgba(13,17,23,.95);backdrop-filter:blur(12px);border-bottom:1px solid #30363d;padding:0 28px;font-family:JetBrains Mono,monospace;"><div style="max-width:960px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:52px;gap:12px;"><a href="index.html" style="font-size:.78rem;color:#38bdf8;text-decoration:none;letter-spacing:.06em;white-space:nowrap;">&#9883; Habimana</a><div style="display:flex;gap:4px;flex-wrap:wrap;"><a href="index.html" style="font-size:.72rem;color:#8b949e;text-decoration:none;padding:4px 12px;border-radius:5px;border:1px solid transparent;">Home</a><a href="s4-chemistry.html" style="font-size:.72rem;color:#8b949e;text-decoration:none;padding:4px 12px;border-radius:5px;border:1px solid transparent;">S4</a><a href="s5-chemistry.html" style="font-size:.72rem;color:#34d399;text-decoration:none;padding:4px 12px;border-radius:5px;background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.25);">S5</a><a href="s6-chemistry.html" style="font-size:.72rem;color:#8b949e;text-decoration:none;padding:4px 12px;border-radius:5px;border:1px solid transparent;">S6</a></div></div></div>
+
 
 <header class="hero">
   <div class="badge">Unit 8 &middot; Organic Chemistry</div>
@@ -626,139 +628,269 @@ R-OSO3-Na+        (sodium alkyl sulfate -- e.g. sodium lauryl sulfate in shampoo
 <section id="quiz">
   <div class="section-header">
     <span class="section-number">&#129504;</span>
-    <h2>Interactive Quiz</h2>
+    <h2>Multiple Choice Quiz &mdash; 25 Questions</h2>
   </div>
   <div class="quiz-wrap">
-    <div class="quiz-header"><h3>Unit 8 Quiz &mdash; Esters, Anhydrides, Amides &amp; Nitriles (10 Questions)</h3></div>
-    <div class="quiz-body">
-
-      <div class="q-block">
-        <span class="q-num">Q1</span>
-        <p class="q-text">The IUPAC name of CH<sub>3</sub>CH<sub>2</sub>COOCH<sub>3</sub> is:</p>
-        <div class="options">
-          <label class="opt"><input type="radio" name="q1" value="a"> Methyl ethanoate</label>
-          <label class="opt"><input type="radio" name="q1" value="b"> Ethyl propanoate</label>
-          <label class="opt"><input type="radio" name="q1" value="c"> Methyl propanoate</label>
-          <label class="opt"><input type="radio" name="q1" value="d"> Propyl methanoate</label>
-        </div>
-        <div class="q-exp" id="exp1">CH<sub>3</sub>CH<sub>2</sub>COO&ndash; = propanoate (from propanoic acid). &ndash;OCH<sub>3</sub> = methyl (from methanol). &rarr; <b>methyl propanoate</b>.</div>
+    <div class="quiz-header"><h3>Unit 8 Quiz &mdash; Esters & Amides</h3><span style="font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--muted);">25 Questions &middot; Select one answer each</span></div>
+    <div class="quiz-body" id="quizBody">
+      <div class="q-block"><span class="q-num">Q1</span>
+      <p class="q-text">The IUPAC name of CH3CH2COOCH3 is:</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q1" value="a"> Methyl ethanoate</label>
+        <label class="opt"><input type="radio" name="q1" value="b"> Ethyl propanoate</label>
+        <label class="opt"><input type="radio" name="q1" value="c"> Methyl propanoate</label>
+        <label class="opt"><input type="radio" name="q1" value="d"> Propyl methanoate</label>
       </div>
+      <div class="qexplain" id="e1">CH3CH2COO&amp;ndash; = propanoate (from propanoic acid). &amp;ndash;OCH3 = methyl (from methanol). &amp;rarr; methyl propanoate.</div></div>
 
-      <div class="q-block">
-        <span class="q-num">Q2</span>
-        <p class="q-text">Base hydrolysis of an ester is called saponification. It is irreversible because:</p>
-        <div class="options">
-          <label class="opt"><input type="radio" name="q2" value="a"> The ester is too stable to react further</label>
-          <label class="opt"><input type="radio" name="q2" value="b"> The carboxylate salt produced does not react with the alcohol</label>
-          <label class="opt"><input type="radio" name="q2" value="c"> NaOH is a catalyst, not a reactant</label>
-          <label class="opt"><input type="radio" name="q2" value="d"> The reaction produces a gas that escapes</label>
-        </div>
-        <div class="q-exp" id="exp2">Base hydrolysis is irreversible because the product is a <b>carboxylate salt</b> (RCOO<sup>&minus;</sup>), which is stabilised by resonance and does not react back with the alcohol under these conditions &mdash; unlike acid hydrolysis which is reversible.</div>
+      <div class="q-block"><span class="q-num">Q2</span>
+      <p class="q-text">Base hydrolysis of an ester is called saponification. It is irreversible because:</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q2" value="a"> The ester is too stable to react further</label>
+        <label class="opt"><input type="radio" name="q2" value="b"> The carboxylate salt produced does not react with the alcohol</label>
+        <label class="opt"><input type="radio" name="q2" value="c"> NaOH is a catalyst, not a reactant</label>
+        <label class="opt"><input type="radio" name="q2" value="d"> The reaction produces a gas that escapes</label>
       </div>
+      <div class="qexplain" id="e2">Base hydrolysis is irreversible because the product is a carboxylate salt (RCOO&amp;minus;), which is stabilised by resonance and does not react back with the alcohol under these conditions &amp;mdash; unlike acid hydrolysis which is reversible.</div></div>
 
-      <div class="q-block">
-        <span class="q-num">Q3</span>
-        <p class="q-text">Why is ethanoic anhydride preferred over ethanoyl chloride for making aspirin industrially?</p>
-        <div class="options">
-          <label class="opt"><input type="radio" name="q3" value="a"> It is cheaper to buy</label>
-          <label class="opt"><input type="radio" name="q3" value="b"> It produces no corrosive HCl by-product; only ethanoic acid which is recyclable</label>
-          <label class="opt"><input type="radio" name="q3" value="c"> It reacts faster than ethanoyl chloride</label>
-          <label class="opt"><input type="radio" name="q3" value="d"> It gives a higher percentage yield</label>
-        </div>
-        <div class="q-exp" id="exp3">Ethanoic anhydride is preferred because its by-product is <b>ethanoic acid</b> (non-corrosive, recyclable). Ethanoyl chloride produces corrosive HCl fumes which are hazardous and require costly handling/neutralisation.</div>
+      <div class="q-block"><span class="q-num">Q3</span>
+      <p class="q-text">Why is ethanoic anhydride preferred over ethanoyl chloride for making aspirin industrially?</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q3" value="a"> It is cheaper to buy</label>
+        <label class="opt"><input type="radio" name="q3" value="b"> It produces no corrosive HCl by-product; only ethanoic acid which is recyclable</label>
+        <label class="opt"><input type="radio" name="q3" value="c"> It reacts faster than ethanoyl chloride</label>
+        <label class="opt"><input type="radio" name="q3" value="d"> It gives a higher percentage yield</label>
       </div>
+      <div class="qexplain" id="e3">Ethanoic anhydride is preferred because its by-product is ethanoic acid (non-corrosive, recyclable). Ethanoyl chloride produces corrosive HCl fumes which are hazardous and require costly handling/neutralisation.</div></div>
 
-      <div class="q-block">
-        <span class="q-num">Q4</span>
-        <p class="q-text">The product of reducing ethanenitrile (CH<sub>3</sub>CN) with LiAlH<sub>4</sub> is:</p>
-        <div class="options">
-          <label class="opt"><input type="radio" name="q4" value="a"> Ethanol</label>
-          <label class="opt"><input type="radio" name="q4" value="b"> Ethanoic acid</label>
-          <label class="opt"><input type="radio" name="q4" value="c"> Ethylamine</label>
-          <label class="opt"><input type="radio" name="q4" value="d"> Ethanamide</label>
-        </div>
-        <div class="q-exp" id="exp4">CH<sub>3</sub>CN + 4[H] &rarr; CH<sub>3</sub>CH<sub>2</sub>NH<sub>2</sub> (<b>ethylamine</b>). LiAlH<sub>4</sub> reduces nitriles to primary amines. The carbon count stays the same (2C in &rarr; 2C out).</div>
+      <div class="q-block"><span class="q-num">Q4</span>
+      <p class="q-text">The product of reducing ethanenitrile (CH3CN) with LiAlH4 is:</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q4" value="a"> Ethanol</label>
+        <label class="opt"><input type="radio" name="q4" value="b"> Ethanoic acid</label>
+        <label class="opt"><input type="radio" name="q4" value="c"> Ethylamine</label>
+        <label class="opt"><input type="radio" name="q4" value="d"> Ethanamide</label>
       </div>
+      <div class="qexplain" id="e4">CH3CN + 4[H] &amp;rarr; CH3CH2NH2 (ethylamine). LiAlH4 reduces nitriles to primary amines. The carbon count stays the same (2C in &amp;rarr; 2C out).</div></div>
 
-      <div class="q-block">
-        <span class="q-num">Q5</span>
-        <p class="q-text">Soap molecules form micelles because:</p>
-        <div class="options">
-          <label class="opt"><input type="radio" name="q5" value="a"> They are ionic compounds</label>
-          <label class="opt"><input type="radio" name="q5" value="b"> Their hydrophobic tails dissolve in grease while hydrophilic heads face the water</label>
-          <label class="opt"><input type="radio" name="q5" value="c"> They react chemically with grease</label>
-          <label class="opt"><input type="radio" name="q5" value="d"> They lower the surface tension permanently</label>
-        </div>
-        <div class="q-exp" id="exp5">Soap molecules are amphiphilic: <b>hydrophobic tails</b> (alkyl chain) dissolve in the grease/oil and <b>hydrophilic heads</b> (&ndash;COO<sup>&minus;</sup>) point into water &rarr; spherical micelle with grease inside, charged surface outside &rarr; grease emulsified and rinsed away.</div>
+      <div class="q-block"><span class="q-num">Q5</span>
+      <p class="q-text">Soap molecules form micelles because:</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q5" value="a"> They are ionic compounds</label>
+        <label class="opt"><input type="radio" name="q5" value="b"> Their hydrophobic tails dissolve in grease while hydrophilic heads face the water</label>
+        <label class="opt"><input type="radio" name="q5" value="c"> They react chemically with grease</label>
+        <label class="opt"><input type="radio" name="q5" value="d"> They lower the surface tension permanently</label>
       </div>
+      <div class="qexplain" id="e5">Soap molecules are amphiphilic: hydrophobic tails (alkyl chain) dissolve in the grease/oil and hydrophilic heads (&amp;ndash;COO&amp;minus;) point into water &amp;rarr; spherical micelle with grease inside, charged surface outside &amp;rarr; grease emulsified and rinsed away.</div></div>
 
-      <div class="q-block">
-        <span class="q-num">Q6</span>
-        <p class="q-text">Amides have very high boiling points compared to esters of similar molecular mass because:</p>
-        <div class="options">
-          <label class="opt"><input type="radio" name="q6" value="a"> Amides are ionic</label>
-          <label class="opt"><input type="radio" name="q6" value="b"> N&ndash;H&middot;&middot;&middot;O=C hydrogen bonds form between amide molecules</label>
-          <label class="opt"><input type="radio" name="q6" value="c"> Amides have larger molecular masses</label>
-          <label class="opt"><input type="radio" name="q6" value="d"> Amides contain double bonds</label>
-        </div>
-        <div class="q-exp" id="exp6">Primary and secondary amides form strong <b>N&ndash;H&middot;&middot;&middot;O=C hydrogen bonds</b> between molecules. These require substantial energy to break &rarr; very high boiling points. Esters have no N&ndash;H or O&ndash;H and cannot H-bond with each other.</div>
+      <div class="q-block"><span class="q-num">Q6</span>
+      <p class="q-text">Amides have very high boiling points compared to esters of similar molecular mass because:</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q6" value="a"> Amides are ionic</label>
+        <label class="opt"><input type="radio" name="q6" value="b"> N&amp;ndash;H&amp;middot;&amp;middot;&amp;middot;O=C hydrogen bonds form between amide molecules</label>
+        <label class="opt"><input type="radio" name="q6" value="c"> Amides have larger molecular masses</label>
+        <label class="opt"><input type="radio" name="q6" value="d"> Amides contain double bonds</label>
       </div>
+      <div class="qexplain" id="e6">Primary and secondary amides form strong N&amp;ndash;H&amp;middot;&amp;middot;&amp;middot;O=C hydrogen bonds between molecules. These require substantial energy to break &amp;rarr; very high boiling points. Esters have no N&amp;ndash;H or O&amp;ndash;H and cannot H-bond with each other.</div></div>
 
-      <div class="q-block">
-        <span class="q-num">Q7</span>
-        <p class="q-text">Which statement about synthetic detergents is correct?</p>
-        <div class="options">
-          <label class="opt"><input type="radio" name="q7" value="a"> They form scum in hard water just like soaps</label>
-          <label class="opt"><input type="radio" name="q7" value="b"> Their calcium and magnesium salts are soluble, so they work in hard water</label>
-          <label class="opt"><input type="radio" name="q7" value="c"> They are made from natural fats</label>
-          <label class="opt"><input type="radio" name="q7" value="d"> They are always anionic</label>
-        </div>
-        <div class="q-exp" id="exp7">Synthetic detergents (e.g. alkylbenzenesulfonates) form <b>soluble calcium/magnesium salts</b> in hard water &rarr; no scum. Soaps form insoluble Ca/Mg scum. Detergents can be anionic, cationic, or non-ionic.</div>
+      <div class="q-block"><span class="q-num">Q7</span>
+      <p class="q-text">Which statement about synthetic detergents is correct?</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q7" value="a"> They form scum in hard water just like soaps</label>
+        <label class="opt"><input type="radio" name="q7" value="b"> Their calcium and magnesium salts are soluble, so they work in hard water</label>
+        <label class="opt"><input type="radio" name="q7" value="c"> They are made from natural fats</label>
+        <label class="opt"><input type="radio" name="q7" value="d"> They are always anionic</label>
       </div>
+      <div class="qexplain" id="e7">Synthetic detergents (e.g. alkylbenzenesulfonates) form soluble calcium/magnesium salts in hard water &amp;rarr; no scum. Soaps form insoluble Ca/Mg scum. Detergents can be anionic, cationic, or non-ionic.</div></div>
 
-      <div class="q-block">
-        <span class="q-num">Q8</span>
-        <p class="q-text">The gas produced when an amide is hydrolysed with NaOH(aq) is:</p>
-        <div class="options">
-          <label class="opt"><input type="radio" name="q8" value="a"> CO<sub>2</sub></label>
-          <label class="opt"><input type="radio" name="q8" value="b"> H<sub>2</sub></label>
-          <label class="opt"><input type="radio" name="q8" value="c"> NH<sub>3</sub></label>
-          <label class="opt"><input type="radio" name="q8" value="d"> HCl</label>
-        </div>
-        <div class="q-exp" id="exp8">RCONH<sub>2</sub> + NaOH &rarr; RCOONa + <b>NH<sub>3</sub></b>. Ammonia is released as a gas on base hydrolysis of an amide. It turns damp red litmus paper blue.</div>
+      <div class="q-block"><span class="q-num">Q8</span>
+      <p class="q-text">The gas produced when an amide is hydrolysed with NaOH(aq) is:</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q8" value="a"> CO2</label>
+        <label class="opt"><input type="radio" name="q8" value="b"> H2</label>
+        <label class="opt"><input type="radio" name="q8" value="c"> NH3</label>
+        <label class="opt"><input type="radio" name="q8" value="d"> HCl</label>
       </div>
+      <div class="qexplain" id="e8">RCONH2 + NaOH &amp;rarr; RCOONa + NH3. Ammonia is released as a gas on base hydrolysis of an amide. It turns damp red litmus paper blue.</div></div>
 
-      <div class="q-block">
-        <span class="q-num">Q9</span>
-        <p class="q-text">What type of compound is formed when a nitrile is hydrolysed?</p>
-        <div class="options">
-          <label class="opt"><input type="radio" name="q9" value="a"> An alcohol</label>
-          <label class="opt"><input type="radio" name="q9" value="b"> A carboxylic acid (and ammonia)</label>
-          <label class="opt"><input type="radio" name="q9" value="c"> An aldehyde</label>
-          <label class="opt"><input type="radio" name="q9" value="d"> An ester</label>
-        </div>
-        <div class="q-exp" id="exp9">R&ndash;CN + H<sub>2</sub>O &rarr;<sup>H<sup>+</sup>, heat</sup> R&ndash;COOH + NH<sub>3</sub>. Hydrolysis of a nitrile gives a <b>carboxylic acid</b> with the same number of carbons as the nitrile, plus ammonia.</div>
+      <div class="q-block"><span class="q-num">Q9</span>
+      <p class="q-text">What type of compound is formed when a nitrile is hydrolysed?</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q9" value="a"> An alcohol</label>
+        <label class="opt"><input type="radio" name="q9" value="b"> A carboxylic acid (and ammonia)</label>
+        <label class="opt"><input type="radio" name="q9" value="c"> An aldehyde</label>
+        <label class="opt"><input type="radio" name="q9" value="d"> An ester</label>
       </div>
+      <div class="qexplain" id="e9">R&amp;ndash;CN + H2O &amp;rarr;H+, heat R&amp;ndash;COOH + NH3. Hydrolysis of a nitrile gives a carboxylic acid with the same number of carbons as the nitrile, plus ammonia.</div></div>
 
-      <div class="q-block">
-        <span class="q-num">Q10</span>
-        <p class="q-text">Fats are solid at room temperature while oils are liquid because:</p>
-        <div class="options">
-          <label class="opt"><input type="radio" name="q10" value="a"> Fats have higher molecular masses than oils</label>
-          <label class="opt"><input type="radio" name="q10" value="b"> Fats have saturated chains that pack closely; oils have unsaturated chains (C=C) that cannot pack as tightly</label>
-          <label class="opt"><input type="radio" name="q10" value="c"> Fats contain more oxygen than oils</label>
-          <label class="opt"><input type="radio" name="q10" value="d"> Oils are not triglycerides</label>
-        </div>
-        <div class="q-exp" id="exp10">Fats have mainly <b>saturated</b> fatty acid chains (all C&ndash;C single bonds, straight chains) that can pack closely together &rarr; stronger van der Waals forces &rarr; solid. Oils have <b>unsaturated</b> chains (C=C double bonds create kinks) that cannot pack as tightly &rarr; weaker forces &rarr; liquid.</div>
+      <div class="q-block"><span class="q-num">Q10</span>
+      <p class="q-text">Fats are solid at room temperature while oils are liquid because:</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q10" value="a"> Fats have higher molecular masses than oils</label>
+        <label class="opt"><input type="radio" name="q10" value="b"> Fats have saturated chains that pack closely; oils have unsaturated chains (C=C) that cannot pack as tightly</label>
+        <label class="opt"><input type="radio" name="q10" value="c"> Fats contain more oxygen than oils</label>
+        <label class="opt"><input type="radio" name="q10" value="d"> Oils are not triglycerides</label>
       </div>
+      <div class="qexplain" id="e10">Fats have mainly saturated fatty acid chains (all C&amp;ndash;C single bonds, straight chains) that can pack closely together &amp;rarr; stronger van der Waals forces &amp;rarr; solid. Oils have unsaturated chains (C=C double bonds create kinks) that cannot pack as tightly &amp;rarr; weaker forces &amp;rarr; liquid.</div></div>
 
     </div>
-    <div style="padding:0 24px 24px;">
+    
+      <div class="q-block"><span class="q-num">Q11</span>
+      <p class="q-text">Esters are formed by the reaction of a carboxylic acid with an alcohol. This reaction is called:</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q11" value="a"> Saponification</label>
+        <label class="opt"><input type="radio" name="q11" value="b"> Esterification — a condensation reaction that releases water</label>
+        <label class="opt"><input type="radio" name="q11" value="c"> Hydrolysis</label>
+        <label class="opt"><input type="radio" name="q11" value="d"> Addition</label>
+      </div>
+      <div class="qexplain" id="e11">RCOOH + HO–R' → RCOO–R' + H₂O. Condensation (water eliminated). Reversible equilibrium catalysed by conc. H₂SO₄. Yield improved by excess of one reactant or removing water.</div></div>
+
+      <div class="q-block"><span class="q-num">Q12</span>
+      <p class="q-text">Hydrolysis of an ester in acidic conditions gives:</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q12" value="a"> An amide and water</label>
+        <label class="opt"><input type="radio" name="q12" value="b"> A carboxylic acid and an alcohol — reverse of esterification</label>
+        <label class="opt"><input type="radio" name="q12" value="c"> A salt of carboxylate</label>
+        <label class="opt"><input type="radio" name="q12" value="d"> An aldehyde</label>
+      </div>
+      <div class="qexplain" id="e12">RCOOR' + H₂O ⇌ RCOOH + R'OH (acid catalyst). This is the reverse of esterification and is also an equilibrium. Dilute H₂SO₄ or HCl catalyst. Used to determine ester structure.</div></div>
+
+      <div class="q-block"><span class="q-num">Q13</span>
+      <p class="q-text">Alkaline hydrolysis (saponification) of an ester with NaOH gives:</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q13" value="a"> The carboxylic acid and alcohol</label>
+        <label class="opt"><input type="radio" name="q13" value="b"> The carboxylate salt and alcohol — irreversible (salt cannot re-esterify)</label>
+        <label class="opt"><input type="radio" name="q13" value="c"> A ketone</label>
+        <label class="opt"><input type="radio" name="q13" value="d"> An amide</label>
+      </div>
+      <div class="qexplain" id="e13">RCOOR' + NaOH → RCOONa + R'OH. The carboxylate salt is formed, not the free acid → reaction is irreversible. This drives the equilibrium completely to products. Basis of soap-making.</div></div>
+
+      <div class="q-block"><span class="q-num">Q14</span>
+      <p class="q-text">Soap is made from animal fats/vegetable oils by:</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q14" value="a"> Acid hydrolysis with H₂SO₄</label>
+        <label class="opt"><input type="radio" name="q14" value="b"> Alkaline hydrolysis (saponification) with NaOH — triglyceride ester → 3 fatty acid salts + glycerol</label>
+        <label class="opt"><input type="radio" name="q14" value="c"> Fermentation</label>
+        <label class="opt"><input type="radio" name="q14" value="d"> Esterification with long-chain acids</label>
+      </div>
+      <div class="qexplain" id="e14">Fats: triglycerides (glycerol + 3 fatty acids joined by ester bonds). NaOH hydrolyses the 3 ester bonds → 3 sodium carboxylate salts (soap) + glycerol. Potassium soap: softer, liquid.</div></div>
+
+      <div class="q-block"><span class="q-num">Q15</span>
+      <p class="q-text">The pleasant smell of most esters is exploited in:</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q15" value="a"> Pharmaceutical synthesis only</label>
+        <label class="opt"><input type="radio" name="q15" value="b"> Food flavourings, perfumes, and solvents — e.g. ethyl ethanoate (nail varnish remover), isoamyl acetate (banana flavouring)</label>
+        <label class="opt"><input type="radio" name="q15" value="c"> Soap-making</label>
+        <label class="opt"><input type="radio" name="q15" value="d"> Battery acids</label>
+      </div>
+      <div class="qexplain" id="e15">Esters have characteristic fruity/floral smells. Uses: perfumes (naturally occurring esters in flowers), food flavourings (artificial fruit essences), solvents (ethyl ethanoate).</div></div>
+
+      <div class="q-block"><span class="q-num">Q16</span>
+      <p class="q-text">The general formula for a primary amide is:</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q16" value="a"> R–NH₂</label>
+        <label class="opt"><input type="radio" name="q16" value="b"> R–CO–NH₂ (an acyl group + amino group)</label>
+        <label class="opt"><input type="radio" name="q16" value="c"> R–CO–NHR'</label>
+        <label class="opt"><input type="radio" name="q16" value="d"> R–CO–O–NH₂</label>
+      </div>
+      <div class="qexplain" id="e16">Primary amide: the N has two H atoms (–CONH₂). Secondary amide: one H on N (–CONHR'). Tertiary: no H on N (–CONR'₂). The amide bond –CO–NH– is the peptide bond in proteins.</div></div>
+
+      <div class="q-block"><span class="q-num">Q17</span>
+      <p class="q-text">Amides are less basic than amines because:</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q17" value="a"> N is larger in amides</label>
+        <label class="opt"><input type="radio" name="q17" value="b"> The lone pair on N is delocalised into the C=O group (resonance) — less available to accept H⁺</label>
+        <label class="opt"><input type="radio" name="q17" value="c"> Amides have no lone pair</label>
+        <label class="opt"><input type="radio" name="q17" value="d"> Amides contain oxygen</label>
+      </div>
+      <div class="qexplain" id="e17">In amides, N lone pair overlaps with carbonyl π system → delocalised. This makes N less basic (pKa of amide conjugate acid ~0) vs amines (pKa ~10). The amide bond is planar and rigid.</div></div>
+
+      <div class="q-block"><span class="q-num">Q18</span>
+      <p class="q-text">Hydrolysis of an amide with dilute HCl gives:</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q18" value="a"> An amine only</label>
+        <label class="opt"><input type="radio" name="q18" value="b"> A carboxylic acid and an ammonium salt (or amine salt): RCONH₂ + H₂O + HCl → RCOOH + NH₄Cl</label>
+        <label class="opt"><input type="radio" name="q18" value="c"> An ester</label>
+        <label class="opt"><input type="radio" name="q18" value="d"> An alcohol</label>
+      </div>
+      <div class="qexplain" id="e18">Acid hydrolysis: RCONH₂ + H₂O → RCOOH + NH₃ → NH₃ + HCl → NH₄Cl. Under alkaline conditions: RCONH₂ + NaOH → RCOONa + NH₃.</div></div>
+
+      <div class="q-block"><span class="q-num">Q19</span>
+      <p class="q-text">Nylon-6,6 is formed by condensation polymerisation between:</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q19" value="a"> A diacid and an alcohol</label>
+        <label class="opt"><input type="radio" name="q19" value="b"> Hexanedioic acid (adipic acid) and hexane-1,6-diamine — forming amide bonds –CO–NH– between monomers</label>
+        <label class="opt"><input type="radio" name="q19" value="c"> Glucose units</label>
+        <label class="opt"><input type="radio" name="q19" value="d"> Amino acids only</label>
+      </div>
+      <div class="qexplain" id="e19">H₂N(CH₂)₆NH₂ + HOOC(CH₂)₄COOH → nylon-6,6 + H₂O. Each monomer has 2 functional groups → long chain. The –CO–NH– bond (amide/peptide bond) links each pair.</div></div>
+
+      <div class="q-block"><span class="q-num">Q20</span>
+      <p class="q-text">The reaction of an acyl chloride (RCOCl) with ammonia (NH₃) gives:</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q20" value="a"> A carboxylic acid</label>
+        <label class="opt"><input type="radio" name="q20" value="b"> A primary amide (RCONH₂) and HCl — fast, vigorous reaction</label>
+        <label class="opt"><input type="radio" name="q20" value="c"> A secondary amine</label>
+        <label class="opt"><input type="radio" name="q20" value="d"> An ester</label>
+      </div>
+      <div class="qexplain" id="e20">RCOCl + 2NH₃ → RCONH₂ + NH₄Cl. Acyl chlorides react rapidly with nucleophiles. The first NH₃ acts as nucleophile; the second neutralises HCl produced.</div></div>
+
+      <div class="q-block"><span class="q-num">Q21</span>
+      <p class="q-text">The amide bond in proteins (peptide bond) has partial double bond character because:</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q21" value="a"> It contains sulfur</label>
+        <label class="opt"><input type="radio" name="q21" value="b"> The N lone pair delocalises into C=O → resonance → C–N bond has partial double bond character → restricted rotation → cis and trans (Z and E) isomers of peptide bond</label>
+        <label class="opt"><input type="radio" name="q21" value="c"> It forms disulfide bridges</label>
+        <label class="opt"><input type="radio" name="q21" value="d"> It is always an ionic bond</label>
+      </div>
+      <div class="qexplain" id="e21">Peptide bond –CO–NH– is planar due to resonance. This rigidity is fundamental to protein secondary structure (alpha helix, beta sheet). Trans peptide bond (E) is more stable.</div></div>
+
+      <div class="q-block"><span class="q-num">Q22</span>
+      <p class="q-text">Waxes are esters of:</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q22" value="a"> Short-chain acids and short-chain alcohols</label>
+        <label class="opt"><input type="radio" name="q22" value="b"> Long-chain carboxylic acids with long-chain alcohols — solid at room temperature, used as protective coatings</label>
+        <label class="opt"><input type="radio" name="q22" value="c"> Glycerol with fatty acids</label>
+        <label class="opt"><input type="radio" name="q22" value="d"> Lactic acid only</label>
+      </div>
+      <div class="qexplain" id="e22">Waxes: e.g. beeswax (myricyl palmitate), carnauba wax. Long alkyl chains → strong London forces → solid. Water-repellent (non-polar). Used in candles, polishes, cosmetics.</div></div>
+
+      <div class="q-block"><span class="q-num">Q23</span>
+      <p class="q-text">Polyesters (e.g. Dacron/Terylene/PET) are made from:</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q23" value="a"> One type of monomer only</label>
+        <label class="opt"><input type="radio" name="q23" value="b"> A diacid (terephthalic acid) and a diol (ethylene glycol) — ester bonds form between –COOH and –OH groups</label>
+        <label class="opt"><input type="radio" name="q23" value="c"> Amino acids</label>
+        <label class="opt"><input type="radio" name="q23" value="d"> Alkenes only</label>
+      </div>
+      <div class="qexplain" id="e23">PET: terephthalic acid + ethane-1,2-diol → polyester + H₂O. Used for clothing fibres and PET bottles. Recycled by hydrolysis back to monomers. Strong, lightweight, flexible.</div></div>
+
+      <div class="q-block"><span class="q-num">Q24</span>
+      <p class="q-text">The dehydration of an ammonium carboxylate salt on heating gives:</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q24" value="a"> An ether and NH₃</label>
+        <label class="opt"><input type="radio" name="q24" value="b"> An amide + water — RCOONH₄ → RCONH₂ + H₂O</label>
+        <label class="opt"><input type="radio" name="q24" value="c"> A nitrile directly</label>
+        <label class="opt"><input type="radio" name="q24" value="d"> An alcohol</label>
+      </div>
+      <div class="qexplain" id="e24">CH₃COONH₄ → CH₃CONH₂ + H₂O on heating. The ammonium carboxylate salt loses water → amide. Industrial synthesis route for simple amides. Further dehydration of amide → nitrile.</div></div>
+
+      <div class="q-block"><span class="q-num">Q25</span>
+      <p class="q-text">The fragrance compound ethyl butanoate (found in pineapple) has the structure:</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q25" value="a"> CH₃COOC₂H₅</label>
+        <label class="opt"><input type="radio" name="q25" value="b"> CH₃CH₂CH₂COOC₂H₅ — butanoic acid esterified with ethanol</label>
+        <label class="opt"><input type="radio" name="q25" value="c"> C₂H₅COOCH₃</label>
+        <label class="opt"><input type="radio" name="q25" value="d"> CH₃COOCH₂CH₂CH₃</label>
+      </div>
+      <div class="qexplain" id="e25">Ethyl butanoate = ethyl ester of butanoic acid. Butanoic acid: CH₃CH₂CH₂COOH; ethanol: C₂H₅OH → CH₃CH₂CH₂COO–C₂H₅. Named: alkyl (from alcohol) + -oate (from acid).</div></div>
+<div style="padding:0 24px 24px;">
       <button class="quiz-submit" onclick="submitQuiz()">Submit Answers</button>
       <div id="quizResult" style="display:none;margin-top:16px;padding:16px 20px;border-radius:var(--radius);font-family:'JetBrains Mono',monospace;"></div>
     </div>
   </div>
 </section>
+
 
 <!-- UNIT TEST -->
 <section id="test">
@@ -951,35 +1083,151 @@ R-OSO3-Na+        (sodium alkyl sulfate -- e.g. sodium lauryl sulfate in shampoo
 
 </main>
 
+
+
+
+
+<!-- ═══════════════════════════ UNIT QUIZ GATE ═══════════════════════════ -->
+<script>
+(function(){
+  const CK='quiz_access_code', SK='quiz_access_granted';
+  const code=localStorage.getItem(CK);
+  if(!code) return;
+  if(sessionStorage.getItem(SK)) return;
+  const qw=document.querySelector('.quiz-wrap');
+  if(!qw) return;
+  function showGate(){
+    if(document.getElementById('_ugate')) return;
+    const g=document.createElement('div');
+    g.id='_ugate';
+    g.style.cssText='position:fixed;inset:0;background:#0d1117;z-index:99999;display:flex;align-items:center;justify-content:center;padding:24px;';
+    g.innerHTML=`
+      <div style="background:#161b22;border:2px solid rgba(245,158,11,.4);border-radius:16px;padding:44px 36px;max-width:440px;width:100%;text-align:center;">
+        <div style="font-size:3.5rem;margin-bottom:14px;">🔒</div>
+        <h2 style="font-family:'Playfair Display',serif;font-size:1.8rem;color:#fff;margin-bottom:10px;">Quiz Locked</h2>
+        <p style="color:#8b949e;font-size:.92rem;margin-bottom:20px;line-height:1.7;">Enter your teacher&#39;s access code to attempt this quiz.</p>
+        <input id="_ugate_inp" type="text" placeholder="Enter Code" maxlength="20" autocomplete="off"
+          style="width:100%;background:#1c2333;border:2px solid #30363d;border-radius:8px;color:#e6edf3;padding:13px 16px;font-family:'JetBrains Mono',monospace;font-size:1.4rem;text-align:center;letter-spacing:.2em;text-transform:uppercase;margin-bottom:10px;box-sizing:border-box;"
+          onkeydown="if(event.key==='Enter')window._ugateCheck()"/>
+        <div id="_ugate_err" style="font-family:'JetBrains Mono',monospace;font-size:.82rem;color:#f87171;min-height:20px;margin:6px 0 10px;"></div>
+        <button onclick="window._ugateCheck()" style="width:100%;background:#f59e0b;color:#000;border:none;padding:12px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.9rem;font-weight:700;cursor:pointer;margin-bottom:8px;">🔓 Unlock Quiz</button>
+        <button onclick="document.getElementById('_ugate').remove();document.body.style.overflow='';" style="width:100%;background:transparent;border:1px solid #30363d;color:#8b949e;padding:8px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.78rem;cursor:pointer;">✕ Cancel</button>
+      </div>`;
+    document.body.appendChild(g);
+    document.body.style.overflow='hidden';
+    setTimeout(()=>{const i=document.getElementById('_ugate_inp');if(i)i.focus();},100);
+  }
+  window._ugateCheck=function(){
+    const val=(document.getElementById('_ugate_inp')||{}).value;
+    if(!val) return;
+    const v=val.trim().toUpperCase();
+    const stored=localStorage.getItem(CK);
+    if(v===stored){
+      sessionStorage.setItem(SK,'1');
+      const g=document.getElementById('_ugate');
+      if(g) g.remove();
+      document.body.style.overflow='';
+    } else {
+      const err=document.getElementById('_ugate_err');
+      if(err) err.textContent='❌ Wrong code — try again.';
+      const inp=document.getElementById('_ugate_inp');
+      if(inp){inp.value='';inp.focus();}
+    }
+  };
+  qw.addEventListener('click',function(e){
+    if(!localStorage.getItem(CK)) return;
+    if(sessionStorage.getItem(SK)) return;
+    e.stopPropagation();e.preventDefault();
+    showGate();
+  },true);
+})();
+</script>
+
+<script>
+// ── PER-UNIT QUIZ ACCESS GATE ── ID: s5_unit8 ──
+(function(){
+  const ITEM_ID='s5_unit8';
+  const SESS_KEY='unlocked_'+ITEM_ID;
+  const CODE_KEY='quiz_access_code';
+  const LOCKS_KEY='assessment_locks';
+  
+  function isLocked(){return JSON.parse(localStorage.getItem(LOCKS_KEY)||'{}')[ITEM_ID]===true;}
+  function isGranted(){const c=localStorage.getItem(CODE_KEY)||'OPEN';return sessionStorage.getItem(SESS_KEY)===c||sessionStorage.getItem(SESS_KEY)==='OPEN';}
+  
+  const gate=document.createElement('div');
+  gate.id='unit-quiz-gate-s5_unit8';
+  gate.style.cssText='position:fixed;inset:0;background:#0d1117;z-index:99999;display:none;align-items:center;justify-content:center;padding:24px;';
+  gate.innerHTML=`<div style="background:#161b22;border:2px solid rgba(245,158,11,.4);border-radius:16px;padding:44px 38px;max-width:460px;width:100%;text-align:center;">
+    <div style="font-size:3.5rem;margin-bottom:14px;">🔒</div>
+    <h2 style="font-family:Playfair Display,serif;font-size:1.8rem;color:#fff;margin-bottom:10px;">Quiz Locked</h2>
+    <p style="color:#8b949e;font-size:.92rem;margin-bottom:22px;line-height:1.7;">Your teacher has locked this quiz. Enter the access code to unlock it.</p>
+    <input id="ugi-s5_unit8" type="text" placeholder="Enter Code" maxlength="20"
+      style="width:100%;background:#1c2333;border:2px solid #30363d;border-radius:8px;color:#e6edf3;padding:13px 16px;font-family:JetBrains Mono,monospace;font-size:1.3rem;text-align:center;letter-spacing:.2em;text-transform:uppercase;margin-bottom:10px;box-sizing:border-box;"
+      onkeydown="if(event.key==='Enter')unlockUnit_s5_unit8()"
+      oninput="this.value=this.value.toUpperCase()"/>
+    <div id="uge-s5_unit8" style="font-family:JetBrains Mono,monospace;font-size:.8rem;color:#f87171;min-height:18px;margin-bottom:10px;"></div>
+    <button onclick="unlockUnit_s5_unit8()" style="width:100%;background:#f59e0b;color:#000;border:none;padding:13px;border-radius:8px;font-family:JetBrains Mono,monospace;font-size:.88rem;font-weight:700;cursor:pointer;margin-bottom:8px;">🔓 Unlock Quiz</button>
+    <button onclick="document.getElementById('unit-quiz-gate-s5_unit8').style.display='none';document.body.style.overflow='';" style="width:100%;background:transparent;border:1px solid #30363d;color:#8b949e;padding:8px;border-radius:7px;font-family:JetBrains Mono,monospace;font-size:.78rem;cursor:pointer;">✕ Cancel — Go back</button>
+    <div style="font-family:JetBrains Mono,monospace;font-size:.7rem;color:#8b949e;margin-top:10px;">Ask your teacher for the access code.</div>
+  </div>`;
+  document.body.appendChild(gate);
+  
+  window.unlockUnit_s5_unit8=function(){
+    const entered=document.getElementById('ugi-s5_unit8').value.trim().toUpperCase();
+    const correct=localStorage.getItem(CODE_KEY)||'';
+    if(!entered){document.getElementById('uge-s5_unit8').textContent='Enter the code.';return;}
+    if(!correct||entered===correct){
+      sessionStorage.setItem(SESS_KEY,correct||'OPEN');
+      gate.style.display='none';document.body.style.overflow='';
+      if(window._pendingAction_s5_unit8) window._pendingAction_s5_unit8();
+    } else {
+      document.getElementById('uge-s5_unit8').textContent='❌ Wrong code. Ask your teacher.';
+      document.getElementById('ugi-s5_unit8').value='';
+    }
+  };
+  
+  window.addEventListener('DOMContentLoaded',function(){
+    if(!isLocked()) return;
+    const qw=document.querySelector('.quiz-wrap');
+    if(!qw) return;
+    qw.addEventListener('click',function(e){
+      if(!isLocked()||isGranted()) return;
+      e.stopPropagation();e.preventDefault();
+      gate.style.display='flex';document.body.style.overflow='hidden';
+    },true);
+  });
+})();
+</script>
+<script>
+const _CA={q1:'B',q2:'B',q3:'B',q4:'C',q5:'B',q6:'B',q7:'B',q8:'B',q9:'B',q10:'B'};
+function submitQuiz(){
+  let s=0,t=Object.keys(_CA).length;
+  Object.entries(_CA).forEach(([q,c])=>{
+    const sel=document.querySelector('input[name="'+q+'"]:checked');
+    const e=document.getElementById('e'+q.slice(1));if(e)e.style.display='block';
+    document.querySelectorAll('input[name="'+q+'"]').forEach(o=>{
+      if(o.value===c)o.closest('label').classList.add('correct');
+      else if(sel&&o.value===sel.value&&o.value!==c)o.closest('label').classList.add('wrong');
+      o.disabled=true;
+    });
+    if(sel&&sel.value===c)s++;
+  });
+  const p=Math.round(s/t*100);
+  const r=document.getElementById('quizResult');r.style.display='block';
+  r.style.cssText='display:block;margin-top:16px;padding:16px 20px;border-radius:8px;font-family:JetBrains Mono,monospace;font-size:.88rem;text-align:center;background:'+(p>=70?'rgba(52,211,153,.1)':'rgba(248,113,113,.1)')+';border:1px solid '+(p>=70?'var(--green)':'var(--red)')+';color:'+(p>=70?'var(--green)':'var(--red)');
+  r.innerHTML='Score: '+s+'/'+t+' ('+p+'%) &mdash; '+(p>=80?'&#127942; Excellent!':p>=70?'&#10003; Good':p>=50?'&#128218; Review':'&#10007; Re-read');
+  document.querySelector('.quiz-submit').disabled=true;document.querySelector('.quiz-submit').style.opacity='.5';
+}
+</script>
 <script>
 function toggleAnswer(btn){
-  const ans=btn.nextElementSibling;
-  ans.classList.toggle('open');
-  btn.textContent=ans.classList.contains('open')?'Hide Answer':'Show Answer';
-}
-const correctAnswers={q1:'c',q2:'b',q3:'b',q4:'c',q5:'b',q6:'b',q7:'b',q8:'c',q9:'b',q10:'b'};
-function submitQuiz(){
-  let score=0;
-  const total=Object.keys(correctAnswers).length;
-  Object.entries(correctAnswers).forEach(([q,correct])=>{
-    const sel=document.querySelector('input[name="'+q+'"]:checked');
-    document.querySelectorAll('input[name="'+q+'"]').forEach(o=>{
-      if(o.value===correct)o.parentElement.classList.add('correct');
-    });
-    if(sel){if(sel.value===correct)score++;else sel.parentElement.classList.add('wrong');}
-    const exp=document.getElementById('exp'+q.slice(1));
-    if(exp)exp.style.display='block';
-    document.querySelectorAll('input[name="'+q+'"]').forEach(o=>o.disabled=true);
-  });
-  const pct=Math.round(score/total*100);
-  const res=document.getElementById('quizResult');
-  res.style.display='block';
-  res.style.background=pct>=70?'rgba(52,211,153,.1)':'rgba(248,113,113,.1)';
-  res.style.border='1px solid '+(pct>=70?'var(--green)':'var(--red)');
-  res.style.color=pct>=70?'var(--green)':'var(--red)';
-  res.innerHTML='Score: '+score+' / '+total+' ('+pct+'%) — '+(pct>=80?'Excellent! 🎉':pct>=60?'Good effort — review marked questions.':'Keep studying — re-read the notes and try again.');
-  document.querySelector('.quiz-submit').disabled=true;
-  document.querySelector('.quiz-submit').style.opacity='0.5';
+  var ans = btn.nextElementSibling;
+  if(!ans) return;
+  var isOpen = ans.classList.contains('open');
+  ans.classList.toggle('open', !isOpen);
+  btn.textContent = isOpen ? 'Show Answer' : 'Hide Answer';
+  if(btn.classList.contains('rb')||btn.classList.contains('reveal-btn'))
+    btn.textContent = isOpen ? 'Model Answer' : 'Hide Answer';
 }
 </script>
 </body>

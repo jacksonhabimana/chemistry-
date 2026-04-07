@@ -91,6 +91,8 @@
 </style>
 </head>
 <body>
+<div id="sitenav" style="position:sticky;top:0;z-index:200;background:rgba(13,17,23,.95);backdrop-filter:blur(12px);border-bottom:1px solid #30363d;padding:0 28px;font-family:JetBrains Mono,monospace;"><div style="max-width:960px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:52px;gap:12px;"><a href="index.html" style="font-size:.78rem;color:#38bdf8;text-decoration:none;letter-spacing:.06em;white-space:nowrap;">&#9883; Habimana</a><div style="display:flex;gap:4px;flex-wrap:wrap;"><a href="index.html" style="font-size:.72rem;color:#8b949e;text-decoration:none;padding:4px 12px;border-radius:5px;border:1px solid transparent;">Home</a><a href="s4-chemistry.html" style="font-size:.72rem;color:#8b949e;text-decoration:none;padding:4px 12px;border-radius:5px;border:1px solid transparent;">S4</a><a href="s5-chemistry.html" style="font-size:.72rem;color:#8b949e;text-decoration:none;padding:4px 12px;border-radius:5px;border:1px solid transparent;">S5</a><a href="s6-chemistry.html" style="font-size:.72rem;color:#a78bfa;text-decoration:none;padding:4px 12px;border-radius:5px;background:rgba(167,139,250,.1);border:1px solid rgba(167,139,250,.25);">S6</a></div></div></div>
+
 
 <a href="s6-chemistry.html" class="back-link">&#8592; Back to S6 Course</a>
 
@@ -535,17 +537,261 @@ Overall:  2Al₂O₃(l) → 4Al(l) + 3O₂(g)</div>
   <h2>25-Question Multiple Choice Quiz</h2>
 </div>
 
-<div class="quiz-wrap">
-  <div class="quiz-header">
-    <h3>Unit 2 — Extraction of Metals</h3>
-    <span style="font-family:'JetBrains Mono',monospace;font-size:.82rem;color:var(--muted);">25 Questions</span>
+<div class="quiz-wrap" id="quiz">
+  <div class="quiz-header"><h3>Unit 2 Quiz &mdash; Extraction of Metals (25 Questions)</h3><span style="font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--muted);">Select one answer each</span></div>
+  <div class="quiz-body" id="quizBody">
+    <div class="q-block"><span class="q-num">Q1</span>
+    <p class="q-text">In the blast furnace, coke serves primarily as:</p>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q1" value="a"> An ore of iron</label>
+      <label class="opt"><input type="radio" name="q1" value="b"> A flux to remove impurities</label>
+      <label class="opt"><input type="radio" name="q1" value="c"> A fuel and reducing agent</label>
+      <label class="opt"><input type="radio" name="q1" value="d"> A catalyst</label>
+    </div>
+    <div class="qexplain" id="e1">Coke (carbon) burns to form CO₂ then CO, which reduces iron ore Fe₂O₃ to Fe. It also provides heat.</div></div>
+    <div class="q-block"><span class="q-num">Q2</span>
+    <p class="q-text">Which reaction produces carbon monoxide in the blast furnace?</p>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q2" value="a"> C + O₂ → CO₂</label>
+      <label class="opt"><input type="radio" name="q2" value="b"> CO₂ + C → 2CO</label>
+      <label class="opt"><input type="radio" name="q2" value="c"> Fe₂O₃ + 3CO → 2Fe + 3CO₂</label>
+      <label class="opt"><input type="radio" name="q2" value="d"> CaCO₃ → CaO + CO₂</label>
+    </div>
+    <div class="qexplain" id="e2">CO₂ produced by burning coke reacts with more coke: CO₂ + C → 2CO. CO is the main reducing agent.</div></div>
+    <div class="q-block"><span class="q-num">Q3</span>
+    <p class="q-text">Limestone is added to the blast furnace to:</p>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q3" value="a"> Increase the temperature</label>
+      <label class="opt"><input type="radio" name="q3" value="b"> Remove acidic silica impurities as slag</label>
+      <label class="opt"><input type="radio" name="q3" value="c"> Provide iron ore</label>
+      <label class="opt"><input type="radio" name="q3" value="d"> Act as a catalyst</label>
+    </div>
+    <div class="qexplain" id="e3">CaCO₃ → CaO + CO₂. CaO reacts with SiO₂: CaO + SiO₂ → CaSiO₃ (slag). Slag floats on molten iron.</div></div>
+    <div class="q-block"><span class="q-num">Q4</span>
+    <p class="q-text">The main reducing agent in the blast furnace is:</p>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q4" value="a"> Carbon</label>
+      <label class="opt"><input type="radio" name="q4" value="b"> Carbon dioxide</label>
+      <label class="opt"><input type="radio" name="q4" value="c"> Carbon monoxide</label>
+      <label class="opt"><input type="radio" name="q4" value="d"> Calcium oxide</label>
+    </div>
+    <div class="qexplain" id="e4">CO reduces Fe₂O₃: Fe₂O₃ + 3CO → 2Fe + 3CO₂. CO is the principal reducing agent.</div></div>
+    <div class="q-block"><span class="q-num">Q5</span>
+    <p class="q-text">Pig iron from the blast furnace contains approximately:</p>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q5" value="a"> 0% carbon</label>
+      <label class="opt"><input type="radio" name="q5" value="b"> 0.1% carbon</label>
+      <label class="opt"><input type="radio" name="q5" value="c"> 4% carbon</label>
+      <label class="opt"><input type="radio" name="q5" value="d"> 50% carbon</label>
+    </div>
+    <div class="qexplain" id="e5">Pig iron contains ~4% carbon plus other impurities (Si, Mn, S, P), making it brittle.</div></div>
+    <div class="q-block"><span class="q-num">Q6</span>
+    <p class="q-text">Steel differs from pig iron because steel:</p>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q6" value="a"> Contains no iron</label>
+      <label class="opt"><input type="radio" name="q6" value="b"> Has a higher carbon content</label>
+      <label class="opt"><input type="radio" name="q6" value="c"> Has a controlled low carbon content (0.1–1.5%)</label>
+      <label class="opt"><input type="radio" name="q6" value="d"> Contains only carbon and iron</label>
+    </div>
+    <div class="qexplain" id="e6">Steel has 0.1–1.5% C (pig iron ~4%). Lower carbon makes steel stronger and less brittle.</div></div>
+    <div class="q-block"><span class="q-num">Q7</span>
+    <p class="q-text">Electrolysis is used to extract metals that are:</p>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q7" value="a"> Low in the reactivity series</label>
+      <label class="opt"><input type="radio" name="q7" value="b"> Above carbon in the reactivity series</label>
+      <label class="opt"><input type="radio" name="q7" value="c"> Below zinc in the reactivity series</label>
+      <label class="opt"><input type="radio" name="q7" value="d"> Transition metals only</label>
+    </div>
+    <div class="qexplain" id="e7">Very reactive metals (Na, Al, Ca, Mg) cannot be reduced by carbon — electrolysis of molten compounds is used.</div></div>
+    <div class="q-block"><span class="q-num">Q8</span>
+    <p class="q-text">Aluminium is extracted from molten aluminium oxide (Al₂O₃) by electrolysis. Why must it be molten?</p>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q8" value="a"> To make Al more reactive</label>
+      <label class="opt"><input type="radio" name="q8" value="b"> So ions are free to move and carry charge</label>
+      <label class="opt"><input type="radio" name="q8" value="c"> To reduce costs</label>
+      <label class="opt"><input type="radio" name="q8" value="d"> To speed up the reaction</label>
+    </div>
+    <div class="qexplain" id="e8">In solid Al₂O₃, ions are fixed. Melting liberates Al³⁺ and O²⁻ ions to move to the electrodes.</div></div>
+    <div class="q-block"><span class="q-num">Q9</span>
+    <p class="q-text">In the electrolytic extraction of aluminium, the cathode reaction is:</p>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q9" value="a"> Al³⁺ + 3e⁻ → Al</label>
+      <label class="opt"><input type="radio" name="q9" value="b"> Al → Al³⁺ + 3e⁻</label>
+      <label class="opt"><input type="radio" name="q9" value="c"> 2O²⁻ → O₂ + 4e⁻</label>
+      <label class="opt"><input type="radio" name="q9" value="d"> O₂ + 4e⁻ → 2O²⁻</label>
+    </div>
+    <div class="qexplain" id="e9">Al³⁺ ions move to the negative cathode where they gain 3 electrons to form molten aluminium.</div></div>
+    <div class="q-block"><span class="q-num">Q10</span>
+    <p class="q-text">Carbon anodes in the Hall–Héroult process are replaced frequently because:</p>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q10" value="a"> They become too cold</label>
+      <label class="opt"><input type="radio" name="q10" value="b"> They react with O₂ produced and burn away</label>
+      <label class="opt"><input type="radio" name="q10" value="c"> They dissolve in aluminium</label>
+      <label class="opt"><input type="radio" name="q10" value="d"> They conduct too much electricity</label>
+    </div>
+    <div class="qexplain" id="e10">O₂ at the anode oxidises the carbon: C + O₂ → CO₂. Anodes erode and must be replaced regularly.</div></div>
+    <div class="q-block"><span class="q-num">Q11</span>
+    <p class="q-text">Cryolite (Na₃AlF₆) is added in aluminium extraction to:</p>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q11" value="a"> Act as a reducing agent</label>
+      <label class="opt"><input type="radio" name="q11" value="b"> Lower the melting point of Al₂O₃ from ~2050°C to ~950°C</label>
+      <label class="opt"><input type="radio" name="q11" value="c"> Increase the purity of aluminium</label>
+      <label class="opt"><input type="radio" name="q11" value="d"> Speed up the cathode reaction</label>
+    </div>
+    <div class="qexplain" id="e11">Pure Al₂O₃ melts at ~2050°C — too energy-intensive. Dissolved in cryolite, it melts at ~950°C.</div></div>
+    <div class="q-block"><span class="q-num">Q12</span>
+    <p class="q-text">Zinc is extracted from zinc sulfide (ZnS) by first:</p>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q12" value="a"> Direct electrolysis</label>
+      <label class="opt"><input type="radio" name="q12" value="b"> Roasting in air to form ZnO, then reducing with carbon</label>
+      <label class="opt"><input type="radio" name="q12" value="c"> Heating with coke only</label>
+      <label class="opt"><input type="radio" name="q12" value="d"> Dissolving in acid</label>
+    </div>
+    <div class="qexplain" id="e12">2ZnS + 3O₂ → 2ZnO + 2SO₂ (roasting), then ZnO + C → Zn + CO at high temperature.</div></div>
+    <div class="q-block"><span class="q-num">Q13</span>
+    <p class="q-text">Copper can be purified by electrolysis using:</p>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q13" value="a"> Molten copper sulfate</label>
+      <label class="opt"><input type="radio" name="q13" value="b"> Aqueous copper sulfate solution with impure Cu anode and pure Cu cathode</label>
+      <label class="opt"><input type="radio" name="q13" value="c"> Hydrochloric acid</label>
+      <label class="opt"><input type="radio" name="q13" value="d"> Sodium hydroxide solution</label>
+    </div>
+    <div class="qexplain" id="e13">Impure Cu anode dissolves; pure Cu deposits at cathode. Impurities fall as anode sludge.</div></div>
+    <div class="q-block"><span class="q-num">Q14</span>
+    <p class="q-text">The thermite reaction (2Al + Fe₂O₃ → Al₂O₃ + 2Fe) is an example of:</p>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q14" value="a"> Electrolysis</label>
+      <label class="opt"><input type="radio" name="q14" value="b"> Displacement — Al reduces Fe because Al is more reactive</label>
+      <label class="opt"><input type="radio" name="q14" value="c"> Acid-base reaction</label>
+      <label class="opt"><input type="radio" name="q14" value="d"> Catalytic reduction</label>
+    </div>
+    <div class="qexplain" id="e14">More reactive Al displaces less reactive Fe from its oxide, releasing Fe metal and heat.</div></div>
+    <div class="q-block"><span class="q-num">Q15</span>
+    <p class="q-text">Which metal is used as a sacrificial anode to protect iron from rusting?</p>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q15" value="a"> Copper</label>
+      <label class="opt"><input type="radio" name="q15" value="b"> Silver</label>
+      <label class="opt"><input type="radio" name="q15" value="c"> Zinc</label>
+      <label class="opt"><input type="radio" name="q15" value="d"> Lead</label>
+    </div>
+    <div class="qexplain" id="e15">Zinc is more reactive than iron. As a sacrificial anode, Zn oxidises preferentially, protecting Fe.</div></div>
+    <div class="q-block"><span class="q-num">Q16</span>
+    <p class="q-text">Tin is used to coat steel food cans because:</p>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q16" value="a"> Tin reacts with food</label>
+      <label class="opt"><input type="radio" name="q16" value="b"> Tin is cheaper than steel</label>
+      <label class="opt"><input type="radio" name="q16" value="c"> Tin is less reactive and resists corrosion</label>
+      <label class="opt"><input type="radio" name="q16" value="d"> Tin is magnetic</label>
+    </div>
+    <div class="qexplain" id="e16">Sn forms a non-reactive oxide layer — resists corrosion in contact with food and air.</div></div>
+    <div class="q-block"><span class="q-num">Q17</span>
+    <p class="q-text">In the extraction of tin, cassiterite (SnO₂) is reduced by:</p>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q17" value="a"> Electrolysis</label>
+      <label class="opt"><input type="radio" name="q17" value="b"> Carbon (coke) in a smelting furnace</label>
+      <label class="opt"><input type="radio" name="q17" value="c"> Hydrogen gas</label>
+      <label class="opt"><input type="radio" name="q17" value="d"> Sodium</label>
+    </div>
+    <div class="qexplain" id="e17">SnO₂ + 2C → Sn + 2CO. Carbon is a sufficient reducing agent because Sn is not very reactive.</div></div>
+    <div class="q-block"><span class="q-num">Q18</span>
+    <p class="q-text">The overall equation for the blast furnace reduction of iron(III) oxide is:</p>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q18" value="a"> Fe₂O₃ + 3C → 2Fe + 3CO</label>
+      <label class="opt"><input type="radio" name="q18" value="b"> Fe₂O₃ + 3CO → 2Fe + 3CO₂</label>
+      <label class="opt"><input type="radio" name="q18" value="c"> 2Fe + 3CO₂ → Fe₂O₃ + 3CO</label>
+      <label class="opt"><input type="radio" name="q18" value="d"> Fe₂O₃ + 3H₂ → 2Fe + 3H₂O</label>
+    </div>
+    <div class="qexplain" id="e18">CO reduces Fe₂O₃: Fe₂O₃ + 3CO → 2Fe + 3CO₂. This occurs in the upper-middle zone of the blast furnace.</div></div>
+    <div class="q-block"><span class="q-num">Q19</span>
+    <p class="q-text">Slag produced in the blast furnace has the formula:</p>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q19" value="a"> CaSO₄</label>
+      <label class="opt"><input type="radio" name="q19" value="b"> CaSiO₃</label>
+      <label class="opt"><input type="radio" name="q19" value="c"> Ca₃(PO₄)₂</label>
+      <label class="opt"><input type="radio" name="q19" value="d"> CaCO₃</label>
+    </div>
+    <div class="qexplain" id="e19">CaO + SiO₂ → CaSiO₃ (calcium silicate). Slag is less dense than iron and floats on top.</div></div>
+    <div class="q-block"><span class="q-num">Q20</span>
+    <p class="q-text">Which process is used to convert pig iron into mild steel?</p>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q20" value="a"> Basic oxygen furnace (BOF)</label>
+      <label class="opt"><input type="radio" name="q20" value="b"> Hall–Héroult process</label>
+      <label class="opt"><input type="radio" name="q20" value="c"> Smelting</label>
+      <label class="opt"><input type="radio" name="q20" value="d"> Electrolysis</label>
+    </div>
+    <div class="qexplain" id="e20">In the BOF, oxygen is blown through molten pig iron at high speed, oxidising excess carbon and impurities.</div></div>
+    <div class="q-block"><span class="q-num">Q21</span>
+    <p class="q-text">Bioleaching uses microorganisms to extract metals by:</p>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q21" value="a"> Burning the ore</label>
+      <label class="opt"><input type="radio" name="q21" value="b"> Using bacteria to oxidise metal sulfides, forming soluble metal ions leached by acid</label>
+      <label class="opt"><input type="radio" name="q21" value="c"> Electrolysing the ore</label>
+      <label class="opt"><input type="radio" name="q21" value="d"> Reducing the ore with hydrogen</label>
+    </div>
+    <div class="qexplain" id="e21">Acidophilic bacteria (e.g. Acidithiobacillus) oxidise metal sulfides → soluble sulfates, then metal is recovered.</div></div>
+    <div class="q-block"><span class="q-num">Q22</span>
+    <p class="q-text">Phytoremediation refers to:</p>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q22" value="a"> Purifying metals by electrolysis</label>
+      <label class="opt"><input type="radio" name="q22" value="b"> Using plants that absorb heavy metals from contaminated soil</label>
+      <label class="opt"><input type="radio" name="q22" value="c"> Using fungi to mine metals</label>
+      <label class="opt"><input type="radio" name="q22" value="d"> Heating ores in a furnace</label>
+    </div>
+    <div class="qexplain" id="e22">Hyperaccumulator plants (e.g. Thlaspi caerulescens for zinc) absorb metals — harvested and smelted.</div></div>
+    <div class="q-block"><span class="q-num">Q23</span>
+    <p class="q-text">The main environmental problem with the extraction of aluminium is:</p>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q23" value="a"> Water pollution</label>
+      <label class="opt"><input type="radio" name="q23" value="b"> Very high energy consumption (electrolysis)</label>
+      <label class="opt"><input type="radio" name="q23" value="c"> Toxic gas emissions</label>
+      <label class="opt"><input type="radio" name="q23" value="d"> Radioactive waste</label>
+    </div>
+    <div class="qexplain" id="e23">Electrolysis of molten Al₂O₃ requires enormous electrical energy — major carbon footprint.</div></div>
+    <div class="q-block"><span class="q-num">Q24</span>
+    <p class="q-text">Wrought iron differs from steel in that it:</p>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q24" value="a"> Contains more carbon than steel</label>
+      <label class="opt"><input type="radio" name="q24" value="b"> Contains almost no carbon and is very pure</label>
+      <label class="opt"><input type="radio" name="q24" value="c"> Is made by electrolysis</label>
+      <label class="opt"><input type="radio" name="q24" value="d"> Is an alloy of iron and aluminium</label>
+    </div>
+    <div class="qexplain" id="e24">Wrought iron is nearly pure iron (&lt;0.1% C). It is malleable and ductile but softer than steel.</div></div>
+    <div class="q-block"><span class="q-num">Q25</span>
+    <p class="q-text">In electrolytic purification of copper, which electrode gains mass?</p>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q25" value="a"> The anode (impure copper)</label>
+      <label class="opt"><input type="radio" name="q25" value="b"> The cathode (pure copper)</label>
+      <label class="opt"><input type="radio" name="q25" value="c"> Both electrodes gain mass</label>
+      <label class="opt"><input type="radio" name="q25" value="d"> Neither electrode changes mass</label>
+    </div>
+    <div class="qexplain" id="e25">Pure Cu²⁺ ions from solution deposit at the cathode: Cu²⁺ + 2e⁻ → Cu. The cathode grows in mass.</div></div>
   </div>
-  <div class="quiz-body" id="quizBody"></div>
   <div style="padding:0 24px 24px;">
     <button class="quiz-submit" onclick="submitQuiz()">Submit Quiz</button>
-    <div id="quizResult" style="margin-top:16px;font-family:'JetBrains Mono',monospace;font-size:1rem;"></div>
+    <div id="quizResult" style="display:none;margin-top:16px;padding:16px 20px;border-radius:8px;font-family:JetBrains Mono,monospace;font-size:.88rem;text-align:center;"></div>
   </div>
 </div>
+<script>
+const _CA={q1:'C',q2:'B',q3:'B',q4:'C',q5:'C',q6:'C',q7:'B',q8:'B',q9:'A',q10:'B',q11:'B',q12:'B',q13:'B',q14:'B',q15:'C',q16:'C',q17:'B',q18:'B',q19:'B',q20:'A',q21:'B',q22:'B',q23:'B',q24:'B',q25:'B'};
+function submitQuiz(){
+  let s=0,t=Object.keys(_CA).length;
+  Object.entries(_CA).forEach(([q,c])=>{
+    const sel=document.querySelector('input[name="'+q+'"]:checked');
+    const e=document.getElementById('e'+q.slice(1));if(e)e.style.display='block';
+    document.querySelectorAll('input[name="'+q+'"]').forEach(o=>{
+      if(o.value===c)o.closest('label').classList.add('correct');
+      else if(sel&&o.value===sel.value&&o.value!==c)o.closest('label').classList.add('wrong');
+      o.disabled=true;
+    });
+    if(sel&&sel.value===c)s++;
+  });
+  const p=Math.round(s/t*100);
+  const r=document.getElementById('quizResult');r.style.display='block';
+  r.style.cssText='display:block;margin-top:16px;padding:16px 20px;border-radius:8px;font-family:JetBrains Mono,monospace;font-size:.88rem;text-align:center;background:'+(p>=70?'rgba(52,211,153,.1)':'rgba(248,113,113,.1)')+';border:1px solid '+(p>=70?'var(--green)':'var(--red)')+';color:'+(p>=70?'var(--green)':'var(--red)');
+  r.innerHTML='Score: '+s+'/'+t+' ('+p+'%) &mdash; '+(p>=80?'&#127942; Excellent!':p>=70?'&#10003; Good':p>=50?'&#128218; Review notes':'&#10007; Re-read unit');
+  document.querySelector('.quiz-submit').disabled=true;document.querySelector('.quiz-submit').style.opacity='.5';
+}
+</script>
 
 <!-- ===== TEST ===== -->
 <div id="test" class="section-header">
@@ -658,88 +904,131 @@ Overall:  2Al₂O₃(l) → 4Al(l) + 3O₂(g)</div>
 
 </main>
 
+
+
+
+
+<!-- ═══════════════════════════ UNIT QUIZ GATE ═══════════════════════════ -->
 <script>
-function toggleAns(btn){
-  const ans=btn.nextElementSibling;
-  ans.classList.toggle('open');
-  btn.textContent=ans.classList.contains('open')?'Hide Answer':'Show Answer';
-}
-function toggleTest(btn){
-  const ans=btn.nextElementSibling;
-  ans.classList.toggle('open');
-  btn.textContent=ans.classList.contains('open')?'Hide Answer':'Show Model Answer';
-}
-
-const questions=[
-  {q:"Which ore is the primary source of iron in the blast furnace?",opts:["Bauxite","Cassiterite","Haematite","Sphalerite"],ans:2,exp:"Haematite (Fe₂O₃) is the main iron ore used in the blast furnace."},
-  {q:"What is the role of coke in the blast furnace?",opts:["To remove silica impurities","To form slag","As fuel and reducing agent","As a flux"],ans:2,exp:"Coke burns to provide heat and forms CO which reduces iron oxides."},
-  {q:"The reaction CO₂(g) + C(s) → 2CO(g) in the blast furnace is:",opts:["Exothermic reduction","Endothermic and produces the main reducing agent","The slag-forming reaction","The combustion of iron"],ans:1,exp:"This endothermic reaction produces CO, which is the actual reducing agent that reduces Fe₂O₃."},
-  {q:"Why is limestone added to the blast furnace?",opts:["To provide extra carbon","To lower the melting point of iron","To react with silica and form slag","To act as a reducing agent"],ans:2,exp:"Limestone decomposes to CaO which reacts with SiO₂ (an acidic impurity) to form CaSiO₃ (slag)."},
-  {q:"In the Downs cell, which electrode does sodium form at?",opts:["Anode","Carbon electrode","Graphite plate","Cathode"],ans:3,exp:"Na⁺ ions are reduced at the cathode: Na⁺ + e⁻ → Na."},
-  {q:"What is the purpose of CaCl₂ in the Downs cell?",opts:["To provide extra chloride ions","To lower the melting point of NaCl","To oxidise sodium","To reduce chlorine"],ans:1,exp:"CaCl₂ lowers the melting point of NaCl from 801°C to ~600°C, saving energy."},
-  {q:"The overall reaction in the Downs cell is:",opts:["2NaCl → 2Na + Cl₂","NaCl → Na + Cl","2Na + Cl₂ → 2NaCl","Na + Cl → NaCl"],ans:0,exp:"Electrolysis of molten NaCl gives sodium metal and chlorine gas: 2NaCl → 2Na + Cl₂."},
-  {q:"Which process is used to purify bauxite before aluminium extraction?",opts:["Froth flotation","Hall-Héroult process","Downs process","Bayer process"],ans:3,exp:"The Bayer process uses hot NaOH to dissolve Al₂O₃ selectively, leaving iron oxide impurities behind."},
-  {q:"Why is cryolite used in the Hall-Héroult process?",opts:["It is a better conductor than Al₂O₃","It dissolves Al₂O₃ and lowers the operating temperature","It reacts with Al₂O₃ to form aluminium","It acts as a reducing agent"],ans:1,exp:"Cryolite (Na₃AlF₆) acts as a solvent for Al₂O₃, reducing the operating temperature from 2072°C to ~950°C."},
-  {q:"The carbon anodes in the Hall-Héroult cell must be replaced regularly because:",opts:["They melt at 950°C","They react with the aluminium product","They are oxidised by oxygen produced at the anode","They dissolve in cryolite"],ans:2,exp:"O₂ produced at the anode reacts with the hot carbon: C + O₂ → CO₂, burning the anodes away."},
-  {q:"Which gas is produced at the anode during electrolysis of Al₂O₃?",opts:["Chlorine","Fluorine","Carbon dioxide","Oxygen"],ans:3,exp:"O²⁻ ions are oxidised at the anode: 2O²⁻ → O₂ + 4e⁻."},
-  {q:"The main ore of zinc is:",opts:["Wolframite","Cassiterite","Sphalerite","Haematite"],ans:2,exp:"Sphalerite (ZnS), also called zinc blende, is the main zinc ore."},
-  {q:"Why does zinc vapour form during reduction with carbon?",opts:["Because zinc reacts with carbon","Because zinc's boiling point (907°C) is below the reaction temperature","Because ZnO is more stable than Fe₂O₃","Because zinc is more reactive than carbon"],ans:1,exp:"At ~1200°C, the reaction temperature exceeds zinc's boiling point (907°C), so zinc forms as vapour."},
-  {q:"Roasting ZnS in air produces:",opts:["Zn and SO₂","ZnO and S","ZnO and SO₂","Zn and SO₃"],ans:2,exp:"2ZnS + 3O₂ → 2ZnO + 2SO₂. The SO₂ can be used to make H₂SO₄."},
-  {q:"Tin is extracted from the ore:",opts:["Cassiterite (SnO₂)","Sphalerite (ZnS)","Galena (PbS)","Wolframite"],ans:0,exp:"Cassiterite (SnO₂) is the main tin ore."},
-  {q:"In the extraction of tin, which method is used to concentrate the ore?",opts:["Froth flotation","Magnetic separation","Gravity separation","Electrostatic separation"],ans:2,exp:"SnO₂ is denser than gangue, so gravity separation (shaking tables) is used."},
-  {q:"Tungsten is reduced from WO₃ using:",opts:["Carbon monoxide","Carbon","Hydrogen gas","Sodium"],ans:2,exp:"WO₃ + 3H₂ → W + 3H₂O. H₂ is used because the high melting point of tungsten makes carbon reduction impractical."},
-  {q:"What is coltan, and why is it important?",opts:["An iron-nickel alloy used in batteries","A columbite-tantalite mineral from which tantalum and niobium are extracted","A copper ore found in Rwanda","A tungsten compound used in light bulbs"],ans:1,exp:"Coltan (columbite-tantalite) is the main source of tantalum, used in electronics capacitors. Rwanda and DRC are major producers."},
-  {q:"In tantalum extraction, solvent extraction separates Ta from Nb because:",opts:["Ta has a lower melting point","H₂TaF₇ preferentially extracts into an organic solvent (MIBK) under specific HF concentration conditions","Nb is denser","Ta reacts with water"],ans:1,exp:"The different chemical behaviours of H₂TaF₇ and H₂NbF₇ towards MIBK at specific HF concentrations allow selective separation."},
-  {q:"Which reagent reduces Ta₂O₅ to tantalum metal?",opts:["Carbon","Hydrogen","Sodium","Aluminium"],ans:2,exp:"Ta₂O₅ + 10Na → 2Ta + 5Na₂O. Sodium metallothermic reduction is used for tantalum."},
-  {q:"In a Hall-Héroult cell, a current of 1000 A flows for 1 hour. How many moles of electrons are transferred? (F = 96500 C/mol)",opts:["0.037 mol","37.3 mol","0.373 mol","3.73 mol"],ans:0,exp:"Q = 1000 × 3600 = 3,600,000 C; mol e⁻ = 3,600,000 ÷ 96,500 ≈ 37.3 mol. Wait — correct answer is 37.3 mol, which is option B."},
-  {q:"A current of 1000 A flows for 1 hour in a Hall-Héroult cell. How many moles of Al are deposited? (F = 96500 C/mol, Al³⁺ + 3e⁻ → Al)",opts:["37.3 mol","12.4 mol","111.9 mol","3.73 mol"],ans:1,exp:"mol e⁻ = 3,600,000 ÷ 96,500 = 37.3 mol; mol Al = 37.3 ÷ 3 = 12.4 mol."},
-  {q:"Which environmental problem is caused by roasting sulphide ores?",opts:["Acid mine drainage","SO₂ emissions causing acid rain","Radioactive contamination","CO poisoning"],ans:1,exp:"SO₂ released during roasting reacts with water in the atmosphere to form acid rain (H₂SO₃/H₂SO₄)."},
-  {q:"What is acid mine drainage (AMD)?",opts:["Drainage of acid used in ore processing into rivers","Water reacting with exposed sulphide ores to form sulphuric acid which contaminates waterways","The collection of acid produced in the Bayer process","Acid produced by CO₂ dissolving in groundwater near mines"],ans:1,exp:"When sulphide ores are exposed to air and water, they oxidise to produce H₂SO₄ which runs into rivers and groundwater."},
-  {q:"Why is recycling aluminium much more energy-efficient than primary production?",opts:["Recycled Al is purer","The Bayer process is not needed and no electrolysis is required — melting uses only ~5% of the energy of electrolysis","Recycling uses carbon reduction instead of electrolysis","Recycled Al has a lower melting point"],ans:1,exp:"Primary production requires energy-intensive electrolysis. Recycling only requires melting, using about 5% of the energy — making it highly cost-effective and environmentally beneficial."},
-];
-
-// Fix question 21 (index 20) - the answer explanation was wrong, correct answer is index 1 (37.3 mol)
-questions[20]={q:"A current of 1000 A flows for 1 hour in a Hall-Héroult cell. How many moles of electrons are transferred? (F = 96500 C/mol)",opts:["0.037 mol","37.3 mol","3730 mol","373 mol"],ans:1,exp:"Q = 1000 × 3600 = 3,600,000 C; mol e⁻ = 3,600,000 ÷ 96,500 ≈ 37.3 mol."};
-
-function buildQuiz(){
-  const body=document.getElementById('quizBody');
-  body.innerHTML=questions.map((q,i)=>`
-    <div class="q-block" id="qb${i}">
-      <span class="q-num">Question ${i+1} of ${questions.length}</span>
-      <div class="q-text">${q.q}</div>
-      <div class="options">
-        ${q.opts.map((o,j)=>`
-          <label class="opt" id="opt${i}_${j}">
-            <input type="radio" name="q${i}" value="${j}" onchange="selectOpt(${i},${j})"/>
-            <span>${String.fromCharCode(65+j)}. ${o}</span>
-          </label>`).join('')}
-      </div>
-      <div class="q-exp" id="exp${i}">${q.exp}</div>
-    </div>`).join('');
-}
-function selectOpt(qi,oi){}
-function submitQuiz(){
-  let score=0;
-  questions.forEach((q,i)=>{
-    const sel=document.querySelector(`input[name="q${i}"]:checked`);
-    const exp=document.getElementById(`exp${i}`);
-    exp.style.display='block';
-    q.opts.forEach((_,j)=>{
-      const el=document.getElementById(`opt${i}_${j}`);
-      el.classList.remove('correct','wrong');
-      if(j===q.ans) el.classList.add('correct');
-    });
-    if(sel){
-      const v=parseInt(sel.value);
-      if(v===q.ans) score++;
-      else document.getElementById(`opt${i}_${v}`).classList.add('wrong');
+(function(){
+  const CK='quiz_access_code', SK='quiz_access_granted';
+  const code=localStorage.getItem(CK);
+  if(!code) return;
+  if(sessionStorage.getItem(SK)) return;
+  const qw=document.querySelector('.quiz-wrap');
+  if(!qw) return;
+  function showGate(){
+    if(document.getElementById('_ugate')) return;
+    const g=document.createElement('div');
+    g.id='_ugate';
+    g.style.cssText='position:fixed;inset:0;background:#0d1117;z-index:99999;display:flex;align-items:center;justify-content:center;padding:24px;';
+    g.innerHTML=`
+      <div style="background:#161b22;border:2px solid rgba(245,158,11,.4);border-radius:16px;padding:44px 36px;max-width:440px;width:100%;text-align:center;">
+        <div style="font-size:3.5rem;margin-bottom:14px;">🔒</div>
+        <h2 style="font-family:'Playfair Display',serif;font-size:1.8rem;color:#fff;margin-bottom:10px;">Quiz Locked</h2>
+        <p style="color:#8b949e;font-size:.92rem;margin-bottom:20px;line-height:1.7;">Enter your teacher&#39;s access code to attempt this quiz.</p>
+        <input id="_ugate_inp" type="text" placeholder="Enter Code" maxlength="20" autocomplete="off"
+          style="width:100%;background:#1c2333;border:2px solid #30363d;border-radius:8px;color:#e6edf3;padding:13px 16px;font-family:'JetBrains Mono',monospace;font-size:1.4rem;text-align:center;letter-spacing:.2em;text-transform:uppercase;margin-bottom:10px;box-sizing:border-box;"
+          onkeydown="if(event.key==='Enter')window._ugateCheck()"/>
+        <div id="_ugate_err" style="font-family:'JetBrains Mono',monospace;font-size:.82rem;color:#f87171;min-height:20px;margin:6px 0 10px;"></div>
+        <button onclick="window._ugateCheck()" style="width:100%;background:#f59e0b;color:#000;border:none;padding:12px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.9rem;font-weight:700;cursor:pointer;margin-bottom:8px;">🔓 Unlock Quiz</button>
+        <button onclick="document.getElementById('_ugate').remove();document.body.style.overflow='';" style="width:100%;background:transparent;border:1px solid #30363d;color:#8b949e;padding:8px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.78rem;cursor:pointer;">✕ Cancel</button>
+      </div>`;
+    document.body.appendChild(g);
+    document.body.style.overflow='hidden';
+    setTimeout(()=>{const i=document.getElementById('_ugate_inp');if(i)i.focus();},100);
+  }
+  window._ugateCheck=function(){
+    const val=(document.getElementById('_ugate_inp')||{}).value;
+    if(!val) return;
+    const v=val.trim().toUpperCase();
+    const stored=localStorage.getItem(CK);
+    if(v===stored){
+      sessionStorage.setItem(SK,'1');
+      const g=document.getElementById('_ugate');
+      if(g) g.remove();
+      document.body.style.overflow='';
+    } else {
+      const err=document.getElementById('_ugate_err');
+      if(err) err.textContent='❌ Wrong code — try again.';
+      const inp=document.getElementById('_ugate_inp');
+      if(inp){inp.value='';inp.focus();}
     }
+  };
+  qw.addEventListener('click',function(e){
+    if(!localStorage.getItem(CK)) return;
+    if(sessionStorage.getItem(SK)) return;
+    e.stopPropagation();e.preventDefault();
+    showGate();
+  },true);
+})();
+</script>
+
+<script>
+// ── PER-UNIT QUIZ ACCESS GATE ── ID: s6_unit2 ──
+(function(){
+  const ITEM_ID='s6_unit2';
+  const SESS_KEY='unlocked_'+ITEM_ID;
+  const CODE_KEY='quiz_access_code';
+  const LOCKS_KEY='assessment_locks';
+  
+  function isLocked(){return JSON.parse(localStorage.getItem(LOCKS_KEY)||'{}')[ITEM_ID]===true;}
+  function isGranted(){const c=localStorage.getItem(CODE_KEY)||'OPEN';return sessionStorage.getItem(SESS_KEY)===c||sessionStorage.getItem(SESS_KEY)==='OPEN';}
+  
+  const gate=document.createElement('div');
+  gate.id='unit-quiz-gate-s6_unit2';
+  gate.style.cssText='position:fixed;inset:0;background:#0d1117;z-index:99999;display:none;align-items:center;justify-content:center;padding:24px;';
+  gate.innerHTML=`<div style="background:#161b22;border:2px solid rgba(245,158,11,.4);border-radius:16px;padding:44px 38px;max-width:460px;width:100%;text-align:center;">
+    <div style="font-size:3.5rem;margin-bottom:14px;">🔒</div>
+    <h2 style="font-family:Playfair Display,serif;font-size:1.8rem;color:#fff;margin-bottom:10px;">Quiz Locked</h2>
+    <p style="color:#8b949e;font-size:.92rem;margin-bottom:22px;line-height:1.7;">Your teacher has locked this quiz. Enter the access code to unlock it.</p>
+    <input id="ugi-s6_unit2" type="text" placeholder="Enter Code" maxlength="20"
+      style="width:100%;background:#1c2333;border:2px solid #30363d;border-radius:8px;color:#e6edf3;padding:13px 16px;font-family:JetBrains Mono,monospace;font-size:1.3rem;text-align:center;letter-spacing:.2em;text-transform:uppercase;margin-bottom:10px;box-sizing:border-box;"
+      onkeydown="if(event.key==='Enter')unlockUnit_s6_unit2()"
+      oninput="this.value=this.value.toUpperCase()"/>
+    <div id="uge-s6_unit2" style="font-family:JetBrains Mono,monospace;font-size:.8rem;color:#f87171;min-height:18px;margin-bottom:10px;"></div>
+    <button onclick="unlockUnit_s6_unit2()" style="width:100%;background:#f59e0b;color:#000;border:none;padding:13px;border-radius:8px;font-family:JetBrains Mono,monospace;font-size:.88rem;font-weight:700;cursor:pointer;margin-bottom:8px;">🔓 Unlock Quiz</button>
+    <button onclick="document.getElementById('unit-quiz-gate-s6_unit2').style.display='none';document.body.style.overflow='';" style="width:100%;background:transparent;border:1px solid #30363d;color:#8b949e;padding:8px;border-radius:7px;font-family:JetBrains Mono,monospace;font-size:.78rem;cursor:pointer;">✕ Cancel — Go back</button>
+    <div style="font-family:JetBrains Mono,monospace;font-size:.7rem;color:#8b949e;margin-top:10px;">Ask your teacher for the access code.</div>
+  </div>`;
+  document.body.appendChild(gate);
+  
+  window.unlockUnit_s6_unit2=function(){
+    const entered=document.getElementById('ugi-s6_unit2').value.trim().toUpperCase();
+    const correct=localStorage.getItem(CODE_KEY)||'';
+    if(!entered){document.getElementById('uge-s6_unit2').textContent='Enter the code.';return;}
+    if(!correct||entered===correct){
+      sessionStorage.setItem(SESS_KEY,correct||'OPEN');
+      gate.style.display='none';document.body.style.overflow='';
+      if(window._pendingAction_s6_unit2) window._pendingAction_s6_unit2();
+    } else {
+      document.getElementById('uge-s6_unit2').textContent='❌ Wrong code. Ask your teacher.';
+      document.getElementById('ugi-s6_unit2').value='';
+    }
+  };
+  
+  window.addEventListener('DOMContentLoaded',function(){
+    if(!isLocked()) return;
+    const qw=document.querySelector('.quiz-wrap');
+    if(!qw) return;
+    qw.addEventListener('click',function(e){
+      if(!isLocked()||isGranted()) return;
+      e.stopPropagation();e.preventDefault();
+      gate.style.display='flex';document.body.style.overflow='hidden';
+    },true);
   });
-  const r=document.getElementById('quizResult');
-  const pct=Math.round(score/questions.length*100);
-  r.innerHTML=`Score: <span style="color:var(--accent)">${score}/${questions.length}</span> (${pct}%) — ${pct>=80?'Excellent!':pct>=60?'Good effort!':'Keep practising!'}`;
+})();
+</script>
+<script>
+function toggleAnswer(btn){
+  var ans = btn.nextElementSibling;
+  if(!ans) return;
+  var isOpen = ans.classList.contains('open');
+  ans.classList.toggle('open', !isOpen);
+  btn.textContent = isOpen ? 'Show Answer' : 'Hide Answer';
+  if(btn.classList.contains('rb')||btn.classList.contains('reveal-btn'))
+    btn.textContent = isOpen ? 'Model Answer' : 'Hide Answer';
 }
-buildQuiz();
 </script>
 </body>
 </html>

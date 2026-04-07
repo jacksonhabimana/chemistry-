@@ -73,13 +73,24 @@ h3.sub{font-family:'Playfair Display',serif;font-size:1.02rem;color:var(--gold);
 sub,sup{font-size:.72em;}
 .svg-wrap{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:20px;margin:16px 0;text-align:center;}
 .svg-wrap p{font-size:.84rem;color:var(--muted);margin-top:10px;}
+.toc-grid{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:800px;margin:0 auto;}.toc-grid a{background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:8px 18px;border-radius:50px;text-decoration:none;font-size:.85rem;transition:all .2s;font-family:'JetBrains Mono',monospace;}.toc-grid a:hover{background:var(--accent);color:#000;border-color:var(--accent);}
 </style>
 </head>
 <body>
+<div id="sitenav" style="position:sticky;top:0;z-index:200;background:rgba(13,17,23,.95);backdrop-filter:blur(12px);border-bottom:1px solid #30363d;padding:0 28px;font-family:JetBrains Mono,monospace;"><div style="max-width:960px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:52px;gap:12px;"><a href="index.html" style="font-size:.78rem;color:#38bdf8;text-decoration:none;letter-spacing:.06em;white-space:nowrap;">&#9883; Habimana</a><div style="display:flex;gap:4px;flex-wrap:wrap;"><a href="index.html" style="font-size:.72rem;color:#8b949e;text-decoration:none;padding:4px 12px;border-radius:5px;border:1px solid transparent;">Home</a><a href="s4-chemistry.html" style="font-size:.72rem;color:#8b949e;text-decoration:none;padding:4px 12px;border-radius:5px;border:1px solid transparent;">S4</a><a href="s5-chemistry.html" style="font-size:.72rem;color:#8b949e;text-decoration:none;padding:4px 12px;border-radius:5px;border:1px solid transparent;">S5</a><a href="s6-chemistry.html" style="font-size:.72rem;color:#a78bfa;text-decoration:none;padding:4px 12px;border-radius:5px;background:rgba(167,139,250,.1);border:1px solid rgba(167,139,250,.25);">S6</a></div></div></div>
+
 <header class="hero">
   <div class="badge">Unit 4 · Organic Chemistry</div>
   <h1><em>Benzene &amp; Aromaticity</em></h1>
   <p class="sub">Kekulé vs delocalised model, Hückel aromaticity, electrophilic aromatic substitution, nomenclature, and positional isomerism.</p>
+  <nav class="toc-grid">
+    <a href="#structure">4.1 Structure &amp; Bonding</a>
+    <a href="#aromaticity">4.2 Aromaticity</a>
+    <a href="#eas">4.3 Electrophilic Substitution</a>
+    <a href="#nomenclature">4.4 Nomenclature</a>
+    <a href="#exercises">Exercises</a>
+    <a href="#quiz">Quiz</a>
+  </nav>
 </header>
 <main class="page">
 
@@ -432,6 +443,217 @@ Application: manufacture of detergents, dyes, saccharin</div>
 </div>
 </section>
 
+
+<section id="quiz">
+<div class="quiz-wrap" id="quiz">
+  <div class="quiz-header"><h3>Unit 4 Quiz &mdash; Benzene (25 Questions)</h3><span style="font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--muted);">Select one answer each</span></div>
+  <div class="quiz-body" id="quizBody">
+    <div class="q-block"><span class="q-num">Q1</span>
+    <p class="q-text">The molecular formula of benzene is:</p>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q1" value="a"> C₆H₁₂</label>
+      <label class="opt"><input type="radio" name="q1" value="b"> C₆H₆</label>
+      <label class="opt"><input type="radio" name="q1" value="c"> C₆H₅</label>
+      <label class="opt"><input type="radio" name="q1" value="d"> C₅H₅</label>
+    </div>
+    <div class="qexplain" id="e1">Benzene C₆H₆ — six carbons, six hydrogens. Cyclic structure with alternating (delocalised) electrons.</div></div>
+    <div class="q-block"><span class="q-num">Q2</span>
+    <p class="q-text">The Kekulé structure of benzene proposed alternating single and double bonds. This was disproved because:</p>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q2" value="a"> Benzene doesn't react</label>
+      <label class="opt"><input type="radio" name="q2" value="b"> All C–C bonds in benzene are equal length (139 pm), intermediate between C–C (154 pm) and C=C (134 pm)</label>
+    </div>
+    <div class="qexplain" id="e2">If Kekulé were correct, there would be two different C–C bond lengths. X-ray diffraction shows all six C–C bonds are identical.</div></div>
+    <div class="q-block"><span class="q-num">Q3</span>
+    <p class="q-text">The delocalisation of electrons in benzene is shown by:</p>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q3" value="a"> Its high reactivity toward addition</label>
+      <label class="opt"><input type="radio" name="q3" value="b"> Its stability and resistance to addition reactions — thermodynamic stabilisation (delocalisation energy ~150 kJ/mol)</label>
+    </div>
+    <div class="qexplain" id="e3">Benzene's enthalpy of hydrogenation is ~208 kJ/mol less exothermic than expected for 3 isolated double bonds → extra stability from delocalisation.</div></div>
+    <div class="q-block"><span class="q-num">Q4</span>
+    <p class="q-text">Electrophilic substitution is the characteristic reaction of benzene because:</p>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q4" value="a"> Benzene has no double bonds</label>
+      <label class="opt"><input type="radio" name="q4" value="b"> Substitution preserves the stable delocalised ring; addition would destroy it and release much less energy</label>
+    </div>
+    <div class="qexplain" id="e4">Addition would give a cyclohexadiene (less stable). Substitution regenerates the aromatic ring — thermodynamically favoured.</div></div>
+    <div class="q-block"><span class="q-num">Q5</span>
+    <p class="q-text">In the nitration of benzene, the electrophile NO₂⁺ is generated by:</p>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q5" value="a"> Dissolving NO₂ in water</label>
+      <label class="opt"><input type="radio" name="q5" value="b"> H₂SO₄ + HNO₃ → H₂NO₃⁺ + HSO₄⁻ → NO₂⁺ + H₂O</label>
+    </div>
+    <div class="qexplain" id="e5">Concentrated H₂SO₄ acts as acid to protonate HNO₃, generating the nitronium ion NO₂⁺ which attacks the benzene ring.</div></div>
+    <div class="q-block"><span class="q-num">Q6</span>
+    <p class="q-text">Nitration of benzene is carried out at approximately:</p>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q6" value="a"> 0°C</label>
+      <label class="opt"><input type="radio" name="q6" value="b"> 55°C — higher temperatures increase polynitration</label>
+    </div>
+    <div class="qexplain" id="e6">~55°C with mixed HNO₃/H₂SO₄ gives mainly mononitrobenzene. Above 55°C, dinitration becomes significant.</div></div>
+    <div class="q-block"><span class="q-num">Q7</span>
+    <p class="q-text">The mechanism of electrophilic aromatic substitution (EAS) proceeds via:</p>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q7" value="a"> A carbocation intermediate</label>
+      <label class="opt"><input type="radio" name="q7" value="b"> A sigma complex (arenium ion/Wheland intermediate) — the ring temporarily loses aromaticity</label>
+    </div>
+    <div class="qexplain" id="e7">Step 1: Electrophile attacks ring → σ complex (positive charge delocalised over ring, one sp³ carbon). Step 2: H⁺ lost → aromaticity restored.</div></div>
+    <div class="q-block"><span class="q-num">Q8</span>
+    <p class="q-text">Halogenation of benzene requires a Lewis acid catalyst (FeBr₃ or AlCl₃) because:</p>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q8" value="a"> Benzene reacts with Br₂ directly</label>
+      <label class="opt"><input type="radio" name="q8" value="b"> The catalyst activates Br₂ by making it a stronger electrophile: FeBr₃ + Br₂ → FeBr₄⁻ + Br⁺</label>
+    </div>
+    <div class="qexplain" id="e8">Unlike alkenes, benzene's ring is not nucleophilic enough to attack Br₂ directly. The Lewis acid generates a stronger electrophile.</div></div>
+    <div class="q-block"><span class="q-num">Q9</span>
+    <p class="q-text">Benzene reacts with chlorine in ultraviolet light to give:</p>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q9" value="a"> Chlorobenzene (EAS)</label>
+      <label class="opt"><input type="radio" name="q9" value="b"> 1,2,3,4,5,6-hexachlorocyclohexane (BHC/lindane) by addition — UV initiates radical chain reaction</label>
+    </div>
+    <div class="qexplain" id="e9">UV light gives radical addition: C₆H₆ + 3Cl₂ → C₆H₆Cl₆. This is addition, not substitution — UV changes mechanism.</div></div>
+    <div class="q-block"><span class="q-num">Q10</span>
+    <p class="q-text">Friedel-Crafts alkylation limitation: rearrangement occurs because:</p>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q10" value="a"> Benzene is unstable</label>
+      <label class="opt"><input type="radio" name="q10" value="b"> The initially formed carbocation can rearrange to a more stable tertiary carbocation before attacking benzene</label>
+    </div>
+    <div class="qexplain" id="e10">CH₃CH₂CH₂⁺ → (CH₃)₂CH⁺ (secondary → more stable). The rearranged carbocation reacts — giving unexpected product.</div></div>
+    <div class="q-block"><span class="q-num">Q11</span>
+    <p class="q-text">Benzene is oxidised by hot concentrated KMnO₄ to give:</p>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q11" value="a"> Cyclohexane</label>
+      <label class="opt"><input type="radio" name="q11" value="b"> Benzene carboxylic acid (but ring is usually broken — attached alkyl groups give COOH)</label>
+    </div>
+    <div class="qexplain" id="e11">Benzene ring itself is resistant to oxidation. Side chains (alkyl groups) attached to benzene are oxidised to –COOH (e.g. toluene → benzoic acid).</div></div>
+    <div class="q-block"><span class="q-num">Q12</span>
+    <p class="q-text">The heat of formation of benzene is less negative than expected for cyclohexatriene because:</p>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q12" value="a"> Benzene is unstable</label>
+      <label class="opt"><input type="radio" name="q12" value="b"> Delocalisation energy stabilises benzene — it is ~150 kJ/mol more stable than hypothetical cyclohexatriene</label>
+    </div>
+    <div class="qexplain" id="e12">Resonance/delocalisation energy = difference between actual and theoretical (Kekulé) enthalpy of formation or hydrogenation.</div></div>
+    <div class="q-block"><span class="q-num">Q13</span>
+    <p class="q-text">Sulfonation of benzene with fuming H₂SO₄ is reversible. This is useful because:</p>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q13" value="a"> It makes benzene soluble</label>
+      <label class="opt"><input type="radio" name="q13" value="b"> The –SO₃H group can be removed (steam distillation in dilute acid) — used as a 'blocking group' in synthesis</label>
+    </div>
+    <div class="qexplain" id="e13">–SO₃H blocks a position temporarily, directs electrophile to unblocked positions, then is removed. Useful in regioselective synthesis.</div></div>
+    <div class="q-block"><span class="q-num">Q14</span>
+    <p class="q-text">The resonance structures of benzene contribute equally to the actual structure because:</p>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q14" value="a"> They have different energies</label>
+      <label class="opt"><input type="radio" name="q14" value="b"> They are identical structures with the same energy — equal contribution gives truly delocalised ring</label>
+    </div>
+    <div class="qexplain" id="e14">For resonance contributors to be equivalent, they must have the same energy. The actual benzene is a hybrid — not alternating between structures.</div></div>
+    <div class="q-block"><span class="q-num">Q15</span>
+    <p class="q-text">π electrons in benzene occupy:</p>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q15" value="a"> σ bonds</label>
+      <label class="opt"><input type="radio" name="q15" value="b"> Deocalised molecular orbitals spread over all 6 carbons — 3 bonding MOs containing 6 electrons</label>
+    </div>
+    <div class="qexplain" id="e15">6 p orbitals (one per C) overlap laterally to form 6 π MOs. The 3 lowest energy (bonding) MOs are filled → 6 π electrons.</div></div>
+    <div class="q-block"><span class="q-num">Q16</span>
+    <p class="q-text">Hückel's rule states that aromatic compounds have:</p>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q16" value="a"> 6 electrons always</label>
+      <label class="opt"><input type="radio" name="q16" value="b"> 4n+2 π electrons (n = 0, 1, 2...) in a planar cyclic conjugated system</label>
+    </div>
+    <div class="qexplain" id="e16">Benzene: n=1, 4(1)+2 = 6 π electrons ✓. Naphthalene: n=2, 10 π electrons ✓. Cyclobutadiene: 4 π electrons — antiaromatic.</div></div>
+    <div class="q-block"><span class="q-num">Q17</span>
+    <p class="q-text">Naphthalene (C₁₀H₈) is:</p>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q17" value="a"> Non-aromatic</label>
+      <label class="opt"><input type="radio" name="q17" value="b"> Aromatic — two fused benzene rings with 10 π electrons (Hückel: 4×2+2=10)</label>
+    </div>
+    <div class="qexplain" id="e17">Naphthalene is a polycyclic aromatic hydrocarbon. Used in mothballs; shows typical EAS reactions (easier to nitrate than benzene).</div></div>
+    <div class="q-block"><span class="q-num">Q18</span>
+    <p class="q-text">Cyclopentadienyl anion (C₅H₅⁻) is aromatic because:</p>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q18" value="a"> It has 5 carbons</label>
+      <label class="opt"><input type="radio" name="q18" value="b"> It has 6 π electrons in a planar ring (5 C, one lone pair donated from carbanion = 6 π electrons, n=1)</label>
+    </div>
+    <div class="qexplain" id="e18">The carbanion provides 2 electrons to the π system: 4+2 = 6 π electrons. Exceptionally stable — aromatic.</div></div>
+    <div class="q-block"><span class="q-num">Q19</span>
+    <p class="q-text">The first step in EAS (attack of electrophile E⁺ on benzene) gives:</p>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q19" value="a"> A stable aromatic product</label>
+      <label class="opt"><input type="radio" name="q19" value="b"> An unstable arenium ion (σ complex) — ring has lost aromaticity; driving force to restore it is strong</label>
+    </div>
+    <div class="qexplain" id="e19">σ complex has one sp³ carbon — disrupts ring. Loss of H⁺ in step 2 regenerates aromatic ring — the driving force for substitution.</div></div>
+    <div class="q-block"><span class="q-num">Q20</span>
+    <p class="q-text">Activated benzene rings undergo EAS:</p>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q20" value="a"> More slowly than benzene</label>
+      <label class="opt"><input type="radio" name="q20" value="b"> Faster than benzene — electron-donating groups increase ring electron density → more reactive toward electrophiles</label>
+    </div>
+    <div class="qexplain" id="e20">Groups like -OH, -NH₂, -CH₃ donate electrons → ring is more nucleophilic → reacts faster with electrophiles.</div></div>
+    <div class="q-block"><span class="q-num">Q21</span>
+    <p class="q-text">Deactivated benzene rings (e.g. nitrobenzene) undergo EAS:</p>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q21" value="a"> Faster</label>
+      <label class="opt"><input type="radio" name="q21" value="b"> Slower and require harsher conditions — EWG reduces ring electron density</label>
+    </div>
+    <div class="qexplain" id="e21">-NO₂ withdraws electrons by resonance and induction → ring less nucleophilic → slower EAS → harder conditions needed.</div></div>
+    <div class="q-block"><span class="q-num">Q22</span>
+    <p class="q-text">Benzene is used as a starting material for aniline via:</p>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q22" value="a"> Direct reaction with NH₃</label>
+      <label class="opt"><input type="radio" name="q22" value="b"> Nitration → nitrobenzene, then reduction (Fe/HCl or catalytic H₂) → aniline (C₆H₅NH₂)</label>
+    </div>
+    <div class="qexplain" id="e22">C₆H₆ → C₆H₅NO₂ (HNO₃/H₂SO₄) → C₆H₅NH₂ (Fe+HCl or H₂/Pt). Aniline is key for dyes and pharmaceuticals.</div></div>
+    <div class="q-block"><span class="q-num">Q23</span>
+    <p class="q-text">The Born-Haber explanation of benzene's stability uses the concept of:</p>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q23" value="a"> Covalent bond energy only</label>
+      <label class="opt"><input type="radio" name="q23" value="b"> Resonance energy (delocalisation energy) — extra stabilisation beyond any Kekulé structure</label>
+    </div>
+    <div class="qexplain" id="e23">Resonance energy ≈ 150 kJ/mol for benzene. This makes addition reactions less favourable than for simple alkenes.</div></div>
+    <div class="q-block"><span class="q-num">Q24</span>
+    <p class="q-text">Benzene reacts with CH₃COCl + AlCl₃ to give:</p>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q24" value="a"> Methylbenzene (toluene)</label>
+      <label class="opt"><input type="radio" name="q24" value="b"> Phenylethanone (acetophenone, C₆H₅COCH₃) — Friedel-Crafts acylation</label>
+    </div>
+    <div class="qexplain" id="e24">Acylium ion CH₃CO⁺ attacks benzene ring → C₆H₅COCH₃ (ketone). No rearrangement (unlike Friedel-Crafts alkylation).</div></div>
+    <div class="q-block"><span class="q-num">Q25</span>
+    <p class="q-text">The stability of benzene compared to cyclohexatriene is best demonstrated by:</p>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q25" value="a"> Its boiling point</label>
+      <label class="opt"><input type="radio" name="q25" value="b"> Comparing experimental vs theoretical (from bond energies) enthalpy of hydrogenation — experimental is ~150 kJ/mol less exothermic</label>
+    </div>
+    <div class="qexplain" id="e25">Cyclohexene: ΔH_hyd = –120 kJ/mol. Expected for 3 double bonds: –360 kJ/mol. Actual benzene: –208 kJ/mol. Difference = 152 kJ/mol delocalisation energy.</div></div>
+  </div>
+  <div style="padding:0 24px 24px;">
+    <button class="quiz-submit" onclick="submitQuiz()">Submit Quiz</button>
+    <div id="quizResult" style="display:none;margin-top:16px;padding:16px 20px;border-radius:8px;font-family:JetBrains Mono,monospace;font-size:.88rem;text-align:center;"></div>
+  </div>
+</div>
+<script>
+const _CA={q1:'B',q2:'B',q3:'B',q4:'B',q5:'B',q6:'B',q7:'B',q8:'B',q9:'B',q10:'B',q11:'A',q12:'B',q13:'B',q14:'B',q15:'B',q16:'B',q17:'B',q18:'B',q19:'B',q20:'B',q21:'B',q22:'B',q23:'B',q24:'B',q25:'B'};
+function submitQuiz(){
+  let s=0,t=Object.keys(_CA).length;
+  Object.entries(_CA).forEach(([q,c])=>{
+    const sel=document.querySelector('input[name="'+q+'"]:checked');
+    const e=document.getElementById('e'+q.slice(1));if(e)e.style.display='block';
+    document.querySelectorAll('input[name="'+q+'"]').forEach(o=>{
+      if(o.value===c)o.closest('label').classList.add('correct');
+      else if(sel&&o.value===sel.value&&o.value!==c)o.closest('label').classList.add('wrong');
+      o.disabled=true;
+    });
+    if(sel&&sel.value===c)s++;
+  });
+  const p=Math.round(s/t*100);
+  const r=document.getElementById('quizResult');r.style.display='block';
+  r.style.cssText='display:block;margin-top:16px;padding:16px 20px;border-radius:8px;font-family:JetBrains Mono,monospace;font-size:.88rem;text-align:center;background:'+(p>=70?'rgba(52,211,153,.1)':'rgba(248,113,113,.1)')+';border:1px solid '+(p>=70?'var(--green)':'var(--red)')+';color:'+(p>=70?'var(--green)':'var(--red)');
+  r.innerHTML='Score: '+s+'/'+t+' ('+p+'%) &mdash; '+(p>=80?'&#127942; Excellent!':p>=70?'&#10003; Good':p>=50?'&#128218; Review notes':'&#10007; Re-read unit');
+  document.querySelector('.quiz-submit').disabled=true;document.querySelector('.quiz-submit').style.opacity='.5';
+}
+</script>
+</section>
+
 <section id="test">
 <div class="sh"><span class="sn">📝</span><h2>Unit Test — 50 marks</h2></div>
 <div class="ts"><div class="tsh"><h3>Section A — Short Answer</h3><span class="mb">30 marks</span></div><div class="tb">
@@ -453,9 +675,131 @@ Application: manufacture of detergents, dyes, saccharin</div>
 <a class="nb n" href="unit5_benzene_derivatives.html">Unit 5: Benzene Derivatives →</a>
 </div>
 </main>
+
+
+
+
+<!-- ═══════════════════════════ UNIT QUIZ GATE ═══════════════════════════ -->
 <script>
-function toggleAnswer(b){const a=b.nextElementSibling;a.classList.toggle('open');b.textContent=a.classList.contains('open')?'Hide Answer':'Show Answer';}
-function submitQuiz(){const CA=window._CA||{};let s=0,t=Object.keys(CA).length;Object.entries(CA).forEach(([q,c])=>{const sel=document.querySelector('input[name="'+q+'"]:checked');document.querySelectorAll('input[name="'+q+'"]').forEach(o=>{if(o.value===c)o.parentElement.classList.add('correct');});if(sel){if(sel.value===c)s++;else sel.parentElement.classList.add('wrong');}const e=document.getElementById('e'+q.slice(1));if(e)e.style.display='block';document.querySelectorAll('input[name="'+q+'"]').forEach(o=>o.disabled=true);});const p=Math.round(s/t*100);const r=document.getElementById('qR');r.style.display='block';r.style.background=p>=70?'rgba(52,211,153,.1)':'rgba(248,113,113,.1)';r.style.border='1px solid '+(p>=70?'var(--green)':'var(--red)');r.style.color=p>=70?'var(--green)':'var(--red)';r.innerHTML='Score: '+s+'/'+t+' ('+p+'%) — '+(p>=80?'Excellent!':p>=60?'Good — review marked.':'Keep studying!');document.querySelector('.qs').disabled=true;document.querySelector('.qs').style.opacity='.5';}
+(function(){
+  const CK='quiz_access_code', SK='quiz_access_granted';
+  const code=localStorage.getItem(CK);
+  if(!code) return;
+  if(sessionStorage.getItem(SK)) return;
+  const qw=document.querySelector('.quiz-wrap');
+  if(!qw) return;
+  function showGate(){
+    if(document.getElementById('_ugate')) return;
+    const g=document.createElement('div');
+    g.id='_ugate';
+    g.style.cssText='position:fixed;inset:0;background:#0d1117;z-index:99999;display:flex;align-items:center;justify-content:center;padding:24px;';
+    g.innerHTML=`
+      <div style="background:#161b22;border:2px solid rgba(245,158,11,.4);border-radius:16px;padding:44px 36px;max-width:440px;width:100%;text-align:center;">
+        <div style="font-size:3.5rem;margin-bottom:14px;">🔒</div>
+        <h2 style="font-family:'Playfair Display',serif;font-size:1.8rem;color:#fff;margin-bottom:10px;">Quiz Locked</h2>
+        <p style="color:#8b949e;font-size:.92rem;margin-bottom:20px;line-height:1.7;">Enter your teacher&#39;s access code to attempt this quiz.</p>
+        <input id="_ugate_inp" type="text" placeholder="Enter Code" maxlength="20" autocomplete="off"
+          style="width:100%;background:#1c2333;border:2px solid #30363d;border-radius:8px;color:#e6edf3;padding:13px 16px;font-family:'JetBrains Mono',monospace;font-size:1.4rem;text-align:center;letter-spacing:.2em;text-transform:uppercase;margin-bottom:10px;box-sizing:border-box;"
+          onkeydown="if(event.key==='Enter')window._ugateCheck()"/>
+        <div id="_ugate_err" style="font-family:'JetBrains Mono',monospace;font-size:.82rem;color:#f87171;min-height:20px;margin:6px 0 10px;"></div>
+        <button onclick="window._ugateCheck()" style="width:100%;background:#f59e0b;color:#000;border:none;padding:12px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.9rem;font-weight:700;cursor:pointer;margin-bottom:8px;">🔓 Unlock Quiz</button>
+        <button onclick="document.getElementById('_ugate').remove();document.body.style.overflow='';" style="width:100%;background:transparent;border:1px solid #30363d;color:#8b949e;padding:8px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.78rem;cursor:pointer;">✕ Cancel</button>
+      </div>`;
+    document.body.appendChild(g);
+    document.body.style.overflow='hidden';
+    setTimeout(()=>{const i=document.getElementById('_ugate_inp');if(i)i.focus();},100);
+  }
+  window._ugateCheck=function(){
+    const val=(document.getElementById('_ugate_inp')||{}).value;
+    if(!val) return;
+    const v=val.trim().toUpperCase();
+    const stored=localStorage.getItem(CK);
+    if(v===stored){
+      sessionStorage.setItem(SK,'1');
+      const g=document.getElementById('_ugate');
+      if(g) g.remove();
+      document.body.style.overflow='';
+    } else {
+      const err=document.getElementById('_ugate_err');
+      if(err) err.textContent='❌ Wrong code — try again.';
+      const inp=document.getElementById('_ugate_inp');
+      if(inp){inp.value='';inp.focus();}
+    }
+  };
+  qw.addEventListener('click',function(e){
+    if(!localStorage.getItem(CK)) return;
+    if(sessionStorage.getItem(SK)) return;
+    e.stopPropagation();e.preventDefault();
+    showGate();
+  },true);
+})();
+</script>
+
+<script>
+// ── PER-UNIT QUIZ ACCESS GATE ── ID: s6_unit4 ──
+(function(){
+  const ITEM_ID='s6_unit4';
+  const SESS_KEY='unlocked_'+ITEM_ID;
+  const CODE_KEY='quiz_access_code';
+  const LOCKS_KEY='assessment_locks';
+  
+  function isLocked(){return JSON.parse(localStorage.getItem(LOCKS_KEY)||'{}')[ITEM_ID]===true;}
+  function isGranted(){const c=localStorage.getItem(CODE_KEY)||'OPEN';return sessionStorage.getItem(SESS_KEY)===c||sessionStorage.getItem(SESS_KEY)==='OPEN';}
+  
+  const gate=document.createElement('div');
+  gate.id='unit-quiz-gate-s6_unit4';
+  gate.style.cssText='position:fixed;inset:0;background:#0d1117;z-index:99999;display:none;align-items:center;justify-content:center;padding:24px;';
+  gate.innerHTML=`<div style="background:#161b22;border:2px solid rgba(245,158,11,.4);border-radius:16px;padding:44px 38px;max-width:460px;width:100%;text-align:center;">
+    <div style="font-size:3.5rem;margin-bottom:14px;">🔒</div>
+    <h2 style="font-family:Playfair Display,serif;font-size:1.8rem;color:#fff;margin-bottom:10px;">Quiz Locked</h2>
+    <p style="color:#8b949e;font-size:.92rem;margin-bottom:22px;line-height:1.7;">Your teacher has locked this quiz. Enter the access code to unlock it.</p>
+    <input id="ugi-s6_unit4" type="text" placeholder="Enter Code" maxlength="20"
+      style="width:100%;background:#1c2333;border:2px solid #30363d;border-radius:8px;color:#e6edf3;padding:13px 16px;font-family:JetBrains Mono,monospace;font-size:1.3rem;text-align:center;letter-spacing:.2em;text-transform:uppercase;margin-bottom:10px;box-sizing:border-box;"
+      onkeydown="if(event.key==='Enter')unlockUnit_s6_unit4()"
+      oninput="this.value=this.value.toUpperCase()"/>
+    <div id="uge-s6_unit4" style="font-family:JetBrains Mono,monospace;font-size:.8rem;color:#f87171;min-height:18px;margin-bottom:10px;"></div>
+    <button onclick="unlockUnit_s6_unit4()" style="width:100%;background:#f59e0b;color:#000;border:none;padding:13px;border-radius:8px;font-family:JetBrains Mono,monospace;font-size:.88rem;font-weight:700;cursor:pointer;margin-bottom:8px;">🔓 Unlock Quiz</button>
+    <button onclick="document.getElementById('unit-quiz-gate-s6_unit4').style.display='none';document.body.style.overflow='';" style="width:100%;background:transparent;border:1px solid #30363d;color:#8b949e;padding:8px;border-radius:7px;font-family:JetBrains Mono,monospace;font-size:.78rem;cursor:pointer;">✕ Cancel — Go back</button>
+    <div style="font-family:JetBrains Mono,monospace;font-size:.7rem;color:#8b949e;margin-top:10px;">Ask your teacher for the access code.</div>
+  </div>`;
+  document.body.appendChild(gate);
+  
+  window.unlockUnit_s6_unit4=function(){
+    const entered=document.getElementById('ugi-s6_unit4').value.trim().toUpperCase();
+    const correct=localStorage.getItem(CODE_KEY)||'';
+    if(!entered){document.getElementById('uge-s6_unit4').textContent='Enter the code.';return;}
+    if(!correct||entered===correct){
+      sessionStorage.setItem(SESS_KEY,correct||'OPEN');
+      gate.style.display='none';document.body.style.overflow='';
+      if(window._pendingAction_s6_unit4) window._pendingAction_s6_unit4();
+    } else {
+      document.getElementById('uge-s6_unit4').textContent='❌ Wrong code. Ask your teacher.';
+      document.getElementById('ugi-s6_unit4').value='';
+    }
+  };
+  
+  window.addEventListener('DOMContentLoaded',function(){
+    if(!isLocked()) return;
+    const qw=document.querySelector('.quiz-wrap');
+    if(!qw) return;
+    qw.addEventListener('click',function(e){
+      if(!isLocked()||isGranted()) return;
+      e.stopPropagation();e.preventDefault();
+      gate.style.display='flex';document.body.style.overflow='hidden';
+    },true);
+  });
+})();
+</script>
+<script>
+function toggleAnswer(btn){
+  var ans = btn.nextElementSibling;
+  if(!ans) return;
+  var isOpen = ans.classList.contains('open');
+  ans.classList.toggle('open', !isOpen);
+  btn.textContent = isOpen ? 'Show Answer' : 'Hide Answer';
+  if(btn.classList.contains('rb')||btn.classList.contains('reveal-btn'))
+    btn.textContent = isOpen ? 'Model Answer' : 'Hide Answer';
+}
 </script>
 </body>
 </html>

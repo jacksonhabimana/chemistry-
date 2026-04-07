@@ -94,6 +94,8 @@ sub,sup{font-size:.72em;}
 </style>
 </head>
 <body>
+<div id="sitenav" style="position:sticky;top:0;z-index:200;background:rgba(13,17,23,.95);backdrop-filter:blur(12px);border-bottom:1px solid #30363d;padding:0 28px;font-family:JetBrains Mono,monospace;"><div style="max-width:960px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:52px;gap:12px;"><a href="index.html" style="font-size:.78rem;color:#38bdf8;text-decoration:none;letter-spacing:.06em;white-space:nowrap;">&#9883; Habimana</a><div style="display:flex;gap:4px;flex-wrap:wrap;"><a href="index.html" style="font-size:.72rem;color:#8b949e;text-decoration:none;padding:4px 12px;border-radius:5px;border:1px solid transparent;">Home</a><a href="s4-chemistry.html" style="font-size:.72rem;color:#8b949e;text-decoration:none;padding:4px 12px;border-radius:5px;border:1px solid transparent;">S4</a><a href="s5-chemistry.html" style="font-size:.72rem;color:#8b949e;text-decoration:none;padding:4px 12px;border-radius:5px;border:1px solid transparent;">S5</a><a href="s6-chemistry.html" style="font-size:.72rem;color:#a78bfa;text-decoration:none;padding:4px 12px;border-radius:5px;background:rgba(167,139,250,.1);border:1px solid rgba(167,139,250,.25);">S6</a></div></div></div>
+
 <header class="hero">
   <div class="badge">Unit 3 &middot; S6 Chemistry</div>
   <h1><em>NPK & Fertilisers</em></h1>
@@ -175,138 +177,261 @@ Superphosphate manufacture:
 </section>
 <section id="quiz">
   <div class="section-header"><span class="section-number">&#129504;</span><h2>Interactive Quiz</h2></div>
-  <div class="quiz-wrap">
-    <div class="quiz-header"><h3>Unit 3 Quiz &mdash; NPK & Fertilisers</h3><span style="font-family:'JetBrains Mono',monospace;font-size:.82rem;color:var(--muted);">25 Questions</span></div>
-    <div class="quiz-body"><div class="q-block"><span class="q-num">Q1</span>
+  <div class="quiz-wrap" id="quiz">
+  <div class="quiz-header"><h3>Unit 3 Quiz &mdash; Fertilisers & NPK (25 Questions)</h3><span style="font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--muted);">Select one answer each</span></div>
+  <div class="quiz-body" id="quizBody">
+    <div class="q-block"><span class="q-num">Q1</span>
     <p class="q-text">The Haber process produces:</p>
-    <div class="options"><label class="opt"><input type="radio" name="q1" value="a"> Nitric acid</label><label class="opt"><input type="radio" name="q1" value="b"> Ammonia</label><label class="opt"><input type="radio" name="q1" value="c"> Ammonium nitrate</label><label class="opt"><input type="radio" name="q1" value="d"> Urea</label></div>
-    <div class="q-exp" id="exp1">N₂ + 3H₂ ⇌ 2NH₃. The Haber process synthesises ammonia. This is then used as a raw material for other nitrogen-containing fertilisers (ammonium nitrate via Ostwald/neutralisation, urea, etc.).</div>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q1" value="a"> Nitric acid</label>
+      <label class="opt"><input type="radio" name="q1" value="b"> Ammonia</label>
+      <label class="opt"><input type="radio" name="q1" value="c"> Ammonium nitrate</label>
+      <label class="opt"><input type="radio" name="q1" value="d"> Urea</label>
     </div>
-<div class="q-block"><span class="q-num">Q2</span>
+    <div class="qexplain" id="e1">N₂ + 3H₂ ⇌ 2NH₃. The Haber process synthesises ammonia. This is then used as a raw material for other nitrogen-containing fertilisers (ammonium nitrate via Ostwald/neutralisation, urea, etc.).</div></div>
+    <div class="q-block"><span class="q-num">Q2</span>
     <p class="q-text">Which macronutrient is most responsible for leaf and shoot growth in plants?</p>
-    <div class="options"><label class="opt"><input type="radio" name="q2" value="a"> Phosphorus (P)</label><label class="opt"><input type="radio" name="q2" value="b"> Potassium (K)</label><label class="opt"><input type="radio" name="q2" value="c"> Nitrogen (N)</label><label class="opt"><input type="radio" name="q2" value="d"> Calcium (Ca)</label></div>
-    <div class="q-exp" id="exp2">Nitrogen is essential for proteins, chlorophyll (green pigment), and nucleic acids — all needed for rapid vegetative (leaf and shoot) growth. N deficiency causes chlorosis (yellowing of leaves).</div>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q2" value="a"> Phosphorus (P)</label>
+      <label class="opt"><input type="radio" name="q2" value="b"> Potassium (K)</label>
+      <label class="opt"><input type="radio" name="q2" value="c"> Nitrogen (N)</label>
+      <label class="opt"><input type="radio" name="q2" value="d"> Calcium (Ca)</label>
     </div>
-<div class="q-block"><span class="q-num">Q3</span>
+    <div class="qexplain" id="e2">Nitrogen is essential for proteins, chlorophyll (green pigment), and nucleic acids — all needed for rapid vegetative (leaf and shoot) growth. N deficiency causes chlorosis (yellowing of leaves).</div></div>
+    <div class="q-block"><span class="q-num">Q3</span>
     <p class="q-text">The catalyst used in the Haber process is:</p>
-    <div class="options"><label class="opt"><input type="radio" name="q3" value="a"> V₂O₅</label><label class="opt"><input type="radio" name="q3" value="b"> Platinum</label><label class="opt"><input type="radio" name="q3" value="c"> Iron with promoters (Al₂O₃, K₂O)</label><label class="opt"><input type="radio" name="q3" value="d"> Nickel</label></div>
-    <div class="q-exp" id="exp3">Iron (Fe) with promoters Al₂O₃ (structural promoter) and K₂O (electronic promoter) is the catalyst. V₂O₅ is for the Contact process; Pt/Rh is for the Ostwald process; Ni is for alkene hydrogenation.</div>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q3" value="a"> V₂O₅</label>
+      <label class="opt"><input type="radio" name="q3" value="b"> Platinum</label>
+      <label class="opt"><input type="radio" name="q3" value="c"> Iron with promoters (Al₂O₃, K₂O)</label>
+      <label class="opt"><input type="radio" name="q3" value="d"> Nickel</label>
     </div>
-<div class="q-block"><span class="q-num">Q4</span>
+    <div class="qexplain" id="e3">Iron (Fe) with promoters Al₂O₃ (structural promoter) and K₂O (electronic promoter) is the catalyst. V₂O₅ is for the Contact process; Pt/Rh is for the Ostwald process; Ni is for alkene hydrogenation.</div></div>
+    <div class="q-block"><span class="q-num">Q4</span>
     <p class="q-text">The Contact process manufactures:</p>
-    <div class="options"><label class="opt"><input type="radio" name="q4" value="a"> Ammonia</label><label class="opt"><input type="radio" name="q4" value="b"> Nitric acid</label><label class="opt"><input type="radio" name="q4" value="c"> Sulfuric acid</label><label class="opt"><input type="radio" name="q4" value="d"> Phosphoric acid</label></div>
-    <div class="q-exp" id="exp4">The Contact process: S→SO₂→SO₃→H₂SO₄. H₂SO₄ is then used to make superphosphate fertiliser from rock phosphate. Step 2 (2SO₂+O₂→2SO₃) uses V₂O₅ catalyst at ~450°C.</div>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q4" value="a"> Ammonia</label>
+      <label class="opt"><input type="radio" name="q4" value="b"> Nitric acid</label>
+      <label class="opt"><input type="radio" name="q4" value="c"> Sulfuric acid</label>
+      <label class="opt"><input type="radio" name="q4" value="d"> Phosphoric acid</label>
     </div>
-<div class="q-block"><span class="q-num">Q5</span>
+    <div class="qexplain" id="e4">The Contact process: S→SO₂→SO₃→H₂SO₄. H₂SO₄ is then used to make superphosphate fertiliser from rock phosphate. Step 2 (2SO₂+O₂→2SO₃) uses V₂O₅ catalyst at ~450°C.</div></div>
+    <div class="q-block"><span class="q-num">Q5</span>
     <p class="q-text">Eutrophication of water bodies is caused by:</p>
-    <div class="options"><label class="opt"><input type="radio" name="q5" value="a"> Acid rain from power stations</label><label class="opt"><input type="radio" name="q5" value="b"> Excess nitrates and phosphates running off fertilised fields</label><label class="opt"><input type="radio" name="q5" value="c"> Heavy metals from industrial discharge</label><label class="opt"><input type="radio" name="q5" value="d"> Depletion of dissolved CO₂</label></div>
-    <div class="q-exp" id="exp5">Excess NO₃⁻ and PO₄³⁻ from over-applied fertilisers enter rivers/lakes, causing algal blooms. When algae die and decompose, O₂ is consumed, causing death of fish and aquatic organisms.</div>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q5" value="a"> Acid rain from power stations</label>
+      <label class="opt"><input type="radio" name="q5" value="b"> Excess nitrates and phosphates running off fertilised fields</label>
+      <label class="opt"><input type="radio" name="q5" value="c"> Heavy metals from industrial discharge</label>
+      <label class="opt"><input type="radio" name="q5" value="d"> Depletion of dissolved CO₂</label>
     </div>
-<div class="q-block"><span class="q-num">Q6</span>
+    <div class="qexplain" id="e5">Excess NO₃⁻ and PO₄³⁻ from over-applied fertilisers enter rivers/lakes, causing algal blooms. When algae die and decompose, O₂ is consumed, causing death of fish and aquatic organisms.</div></div>
+    <div class="q-block"><span class="q-num">Q6</span>
     <p class="q-text">The nitrogen content (%N) of urea CO(NH₂)₂ is:</p>
-    <div class="options"><label class="opt"><input type="radio" name="q6" value="a"> 35%</label><label class="opt"><input type="radio" name="q6" value="b"> 21%</label><label class="opt"><input type="radio" name="q6" value="c"> 46.7%</label><label class="opt"><input type="radio" name="q6" value="d"> 33%</label></div>
-    <div class="q-exp" id="exp6">M(urea) = 12+16+2(14+2×1) = 60 g/mol; mass of 2N = 28. %N = 28/60 × 100 = 46.7%. Urea has the highest N% of common fertilisers.</div>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q6" value="a"> 35%</label>
+      <label class="opt"><input type="radio" name="q6" value="b"> 21%</label>
+      <label class="opt"><input type="radio" name="q6" value="c"> 46.7%</label>
+      <label class="opt"><input type="radio" name="q6" value="d"> 33%</label>
     </div>
-<div class="q-block"><span class="q-num">Q7</span>
+    <div class="qexplain" id="e6">M(urea) = 12+16+2(14+2×1) = 60 g/mol; mass of 2N = 28. %N = 28/60 × 100 = 46.7%. Urea has the highest N% of common fertilisers.</div></div>
+    <div class="q-block"><span class="q-num">Q7</span>
     <p class="q-text">Single superphosphate is made by reacting:</p>
-    <div class="options"><label class="opt"><input type="radio" name="q7" value="a"> NH₃ with HNO₃</label><label class="opt"><input type="radio" name="q7" value="b"> Rock phosphate Ca₃(PO₄)₂ with H₂SO₄</label><label class="opt"><input type="radio" name="q7" value="c"> Potash KCl with H₃PO₄</label><label class="opt"><input type="radio" name="q7" value="d"> P₄ with H₂O</label></div>
-    <div class="q-exp" id="exp7">Ca₃(PO₄)₂ + 2H₂SO₄ → Ca(H₂PO₄)₂ + 2CaSO₄. Ca(H₂PO₄)₂ is soluble and available to plants. Triple superphosphate uses H₃PO₄ instead, giving higher P content without the CaSO₄ filler.</div>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q7" value="a"> NH₃ with HNO₃</label>
+      <label class="opt"><input type="radio" name="q7" value="b"> Rock phosphate Ca₃(PO₄)₂ with H₂SO₄</label>
+      <label class="opt"><input type="radio" name="q7" value="c"> Potash KCl with H₃PO₄</label>
+      <label class="opt"><input type="radio" name="q7" value="d"> P₄ with H₂O</label>
     </div>
-<div class="q-block"><span class="q-num">Q8</span>
+    <div class="qexplain" id="e7">Ca₃(PO₄)₂ + 2H₂SO₄ → Ca(H₂PO₄)₂ + 2CaSO₄. Ca(H₂PO₄)₂ is soluble and available to plants. Triple superphosphate uses H₃PO₄ instead, giving higher P content without the CaSO₄ filler.</div></div>
+    <div class="q-block"><span class="q-num">Q8</span>
     <p class="q-text">In the Ostwald process, the catalyst used in step 1 (oxidation of NH₃) is:</p>
-    <div class="options"><label class="opt"><input type="radio" name="q8" value="a"> Fe</label><label class="opt"><input type="radio" name="q8" value="b"> V₂O₅</label><label class="opt"><input type="radio" name="q8" value="c"> Pt/Rh gauze</label><label class="opt"><input type="radio" name="q8" value="d"> Ni</label></div>
-    <div class="q-exp" id="exp8">4NH₃ + 5O₂ → 4NO + 6H₂O uses a Pt/Rh (platinum-rhodium) gauze catalyst at ~900°C. This is a short-contact-time reactor to prevent over-oxidation of NO. V₂O₅ is for the Contact process.</div>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q8" value="a"> Fe</label>
+      <label class="opt"><input type="radio" name="q8" value="b"> V₂O₅</label>
+      <label class="opt"><input type="radio" name="q8" value="c"> Pt/Rh gauze</label>
+      <label class="opt"><input type="radio" name="q8" value="d"> Ni</label>
     </div>
-<div class="q-block"><span class="q-num">Q9</span>
+    <div class="qexplain" id="e8">4NH₃ + 5O₂ → 4NO + 6H₂O uses a Pt/Rh (platinum-rhodium) gauze catalyst at ~900°C. This is a short-contact-time reactor to prevent over-oxidation of NO. V₂O₅ is for the Contact process.</div></div>
+    <div class="q-block"><span class="q-num">Q9</span>
     <p class="q-text">A fertiliser labelled 15-15-15 is called:</p>
-    <div class="options"><label class="opt"><input type="radio" name="q9" value="a"> Single-nutrient fertiliser</label><label class="opt"><input type="radio" name="q9" value="b"> Balanced/complete NPK fertiliser</label><label class="opt"><input type="radio" name="q9" value="c"> Organic fertiliser</label><label class="opt"><input type="radio" name="q9" value="d"> Biofertiliser</label></div>
-    <div class="q-exp" id="exp9">15-15-15 means equal proportions of N:P:K — a balanced/complete fertiliser. It provides all three macronutrients in equal amounts, suitable for general application where soil analysis is not available.</div>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q9" value="a"> Single-nutrient fertiliser</label>
+      <label class="opt"><input type="radio" name="q9" value="b"> Balanced/complete NPK fertiliser</label>
+      <label class="opt"><input type="radio" name="q9" value="c"> Organic fertiliser</label>
+      <label class="opt"><input type="radio" name="q9" value="d"> Biofertiliser</label>
     </div>
-<div class="q-block"><span class="q-num">Q10</span>
+    <div class="qexplain" id="e9">15-15-15 means equal proportions of N:P:K — a balanced/complete fertiliser. It provides all three macronutrients in equal amounts, suitable for general application where soil analysis is not available.</div></div>
+    <div class="q-block"><span class="q-num">Q10</span>
     <p class="q-text">The main advantage of organic fertilisers over inorganic fertilisers is:</p>
-    <div class="options"><label class="opt"><input type="radio" name="q10" value="a"> Higher N content</label><label class="opt"><input type="radio" name="q10" value="b"> Faster nutrient release</label><label class="opt"><input type="radio" name="q10" value="c"> Improves soil structure and supports microbial life</label><label class="opt"><input type="radio" name="q10" value="d"> Cheaper to produce</label></div>
-    <div class="q-exp" id="exp10">Organic fertilisers (manure, compost) add humus to soil, improving structure (aeration, water retention) and feeding soil microbiota. This improves long-term soil health. Inorganic fertilisers are faster-acting but do not improve soil structure.</div>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q10" value="a"> Higher N content</label>
+      <label class="opt"><input type="radio" name="q10" value="b"> Faster nutrient release</label>
+      <label class="opt"><input type="radio" name="q10" value="c"> Improves soil structure and supports microbial life</label>
+      <label class="opt"><input type="radio" name="q10" value="d"> Cheaper to produce</label>
     </div>
-<div class="q-block"><span class="q-num">Q11</span>
+    <div class="qexplain" id="e10">Organic fertilisers (manure, compost) add humus to soil, improving structure (aeration, water retention) and feeding soil microbiota. This improves long-term soil health. Inorganic fertilisers are faster-acting but do not improve soil structure.</div></div>
+    <div class="q-block"><span class="q-num">Q11</span>
     <p class="q-text">Biuret contamination in urea fertiliser is harmful because:</p>
-    <div class="options"><label class="opt"><input type="radio" name="q11" value="a"> It contains heavy metals</label><label class="opt"><input type="radio" name="q11" value="b"> It inhibits seed germination and protein synthesis in plants</label><label class="opt"><input type="radio" name="q11" value="c"> It reacts with soil water to produce acid</label><label class="opt"><input type="radio" name="q11" value="d"> It increases soil pH excessively</label></div>
-    <div class="q-exp" id="exp11">Biuret [NH₂CONHCONH₂] is formed when urea is overheated during manufacture. It is absorbed by plant roots and inhibits enzymes involved in protein synthesis, causing leaf damage and reduced growth. Urea fertiliser must meet biuret content standards (<1.2%).</div>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q11" value="a"> It contains heavy metals</label>
+      <label class="opt"><input type="radio" name="q11" value="b"> It inhibits seed germination and protein synthesis in plants</label>
+      <label class="opt"><input type="radio" name="q11" value="c"> It reacts with soil water to produce acid</label>
+      <label class="opt"><input type="radio" name="q11" value="d"> It increases soil pH excessively</label>
     </div>
-<div class="q-block"><span class="q-num">Q12</span>
+    <div class="qexplain" id="e11">Biuret [NH₂CONHCONH₂] is formed when urea is overheated during manufacture. It is absorbed by plant roots and inhibits enzymes involved in protein synthesis, causing leaf damage and reduced growth. Urea fertiliser must meet biuret content standards (&lt;1.2%).</div></div>
+    <div class="q-block"><span class="q-num">Q12</span>
     <p class="q-text">The pressure used in the Haber process (200 atm) favours ammonia production because:</p>
-    <div class="options"><label class="opt"><input type="radio" name="q12" value="a"> High pressure increases the reaction temperature</label><label class="opt"><input type="radio" name="q12" value="b"> The forward reaction reduces the number of moles of gas (4→2), so high pressure shifts equilibrium right</label><label class="opt"><input type="radio" name="q12" value="c"> High pressure activates the iron catalyst</label><label class="opt"><input type="radio" name="q12" value="d"> The reaction has a positive ΔS</label></div>
-    <div class="q-exp" id="exp12">N₂+3H₂→2NH₃: 4 moles of gas reactants → 2 moles of gas products. By Le Chatelier's principle, high pressure shifts equilibrium toward fewer moles of gas — favouring NH₃ formation.</div>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q12" value="a"> High pressure increases the reaction temperature</label>
+      <label class="opt"><input type="radio" name="q12" value="b"> The forward reaction reduces the number of moles of gas (4→2), so high pressure shifts equilibrium right</label>
+      <label class="opt"><input type="radio" name="q12" value="c"> High pressure activates the iron catalyst</label>
+      <label class="opt"><input type="radio" name="q12" value="d"> The reaction has a positive ΔS</label>
     </div>
-<div class="q-block"><span class="q-num">Q13</span>
+    <div class="qexplain" id="e12">N₂+3H₂→2NH₃: 4 moles of gas reactants → 2 moles of gas products. By Le Chatelier's principle, high pressure shifts equilibrium toward fewer moles of gas — favouring NH₃ formation.</div></div>
+    <div class="q-block"><span class="q-num">Q13</span>
     <p class="q-text">Which process is used to convert N₂ into NH₃ industrially?</p>
-    <div class="options"><label class="opt"><input type="radio" name="q13" value="a"> Contact process</label><label class="opt"><input type="radio" name="q13" value="b"> Haber process</label><label class="opt"><input type="radio" name="q13" value="c"> Ostwald process</label><label class="opt"><input type="radio" name="q13" value="d"> Bayer process</label></div>
-    <div class="q-exp" id="exp13">The Haber process (Fritz Haber/Carl Bosch): N₂ + 3H₂ ⇌ 2NH₃. Fe catalyst, 400–450°C, 200 atm. NH₃ is the starting material for most N-fertilisers. The Contact, Ostwald, and Bayer processes produce H₂SO₄, HNO₃, and Al₂O₃ respectively.</div>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q13" value="a"> Contact process</label>
+      <label class="opt"><input type="radio" name="q13" value="b"> Haber process</label>
+      <label class="opt"><input type="radio" name="q13" value="c"> Ostwald process</label>
+      <label class="opt"><input type="radio" name="q13" value="d"> Bayer process</label>
     </div>
-<div class="q-block"><span class="q-num">Q14</span>
+    <div class="qexplain" id="e13">The Haber process (Fritz Haber/Carl Bosch): N₂ + 3H₂ ⇌ 2NH₃. Fe catalyst, 400–450°C, 200 atm. NH₃ is the starting material for most N-fertilisers. The Contact, Ostwald, and Bayer processes produce H₂SO₄, HNO₃, and Al₂O₃ respectively.</div></div>
+    <div class="q-block"><span class="q-num">Q14</span>
     <p class="q-text">Potassium deficiency in plants causes:</p>
-    <div class="options"><label class="opt"><input type="radio" name="q14" value="a"> Yellowing of leaves (chlorosis)</label><label class="opt"><input type="radio" name="q14" value="b"> Purple discolouration and poor root growth</label><label class="opt"><input type="radio" name="q14" value="c"> Brown leaf edges, wilting, and reduced disease resistance</label><label class="opt"><input type="radio" name="q14" value="d"> Stunted stem growth</label></div>
-    <div class="q-exp" id="exp14">K deficiency: brown/scorched leaf margins, wilting (K controls stomata), reduced disease resistance. N deficiency: chlorosis (yellowing). P deficiency: purple leaves and poor roots. K is essential for enzyme activation, osmoregulation, and phloem loading.</div>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q14" value="a"> Yellowing of leaves (chlorosis)</label>
+      <label class="opt"><input type="radio" name="q14" value="b"> Purple discolouration and poor root growth</label>
+      <label class="opt"><input type="radio" name="q14" value="c"> Brown leaf edges, wilting, and reduced disease resistance</label>
+      <label class="opt"><input type="radio" name="q14" value="d"> Stunted stem growth</label>
     </div>
-<div class="q-block"><span class="q-num">Q15</span>
+    <div class="qexplain" id="e14">K deficiency: brown/scorched leaf margins, wilting (K controls stomata), reduced disease resistance. N deficiency: chlorosis (yellowing). P deficiency: purple leaves and poor roots. K is essential for enzyme activation, osmoregulation, and phloem loading.</div></div>
+    <div class="q-block"><span class="q-num">Q15</span>
     <p class="q-text">The formula of ammonium nitrate is:</p>
-    <div class="options"><label class="opt"><input type="radio" name="q15" value="a"> (NH₄)₂SO₄</label><label class="opt"><input type="radio" name="q15" value="b"> NH₄NO₃</label><label class="opt"><input type="radio" name="q15" value="c"> CO(NH₂)₂</label><label class="opt"><input type="radio" name="q15" value="d"> NH₄H₂PO₄</label></div>
-    <div class="q-exp" id="exp15">NH₄NO₃ — ammonium nitrate. (NH₄)₂SO₄ is ammonium sulfate; CO(NH₂)₂ is urea; NH₄H₂PO₄ is monoammonium phosphate (MAP). NH₄NO₃ has 35%N and is a common N fertiliser.</div>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q15" value="a"> (NH₄)₂SO₄</label>
+      <label class="opt"><input type="radio" name="q15" value="b"> NH₄NO₃</label>
+      <label class="opt"><input type="radio" name="q15" value="c"> CO(NH₂)₂</label>
+      <label class="opt"><input type="radio" name="q15" value="d"> NH₄H₂PO₄</label>
     </div>
-<div class="q-block"><span class="q-num">Q16</span>
+    <div class="qexplain" id="e15">NH₄NO₃ — ammonium nitrate. (NH₄)₂SO₄ is ammonium sulfate; CO(NH₂)₂ is urea; NH₄H₂PO₄ is monoammonium phosphate (MAP). NH₄NO₃ has 35%N and is a common N fertiliser.</div></div>
+    <div class="q-block"><span class="q-num">Q16</span>
     <p class="q-text">Rhizobium bacteria are used as biofertilisers because they:</p>
-    <div class="options"><label class="opt"><input type="radio" name="q16" value="a"> Produce H₂SO₄ to acidify soil</label><label class="opt"><input type="radio" name="q16" value="b"> Fix atmospheric N₂ into NH₄⁺ in root nodules of legumes</label><label class="opt"><input type="radio" name="q16" value="c"> Decompose organic matter to release P</label><label class="opt"><input type="radio" name="q16" value="d"> Produce IAA to stimulate root growth</label></div>
-    <div class="q-exp" id="exp16">Rhizobium live symbiotically in root nodules of legumes (beans, peas, clover). They fix N₂ using nitrogenase enzyme: N₂ + 8H⁺ + 8e⁻ → 2NH₃ + H₂. The plant supplies carbohydrates; Rhizobium supplies fixed N. This reduces the need for synthetic N fertilisers.</div>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q16" value="a"> Produce H₂SO₄ to acidify soil</label>
+      <label class="opt"><input type="radio" name="q16" value="b"> Fix atmospheric N₂ into NH₄⁺ in root nodules of legumes</label>
+      <label class="opt"><input type="radio" name="q16" value="c"> Decompose organic matter to release P</label>
+      <label class="opt"><input type="radio" name="q16" value="d"> Produce IAA to stimulate root growth</label>
     </div>
-<div class="q-block"><span class="q-num">Q17</span>
+    <div class="qexplain" id="e16">Rhizobium live symbiotically in root nodules of legumes (beans, peas, clover). They fix N₂ using nitrogenase enzyme: N₂ + 8H⁺ + 8e⁻ → 2NH₃ + H₂. The plant supplies carbohydrates; Rhizobium supplies fixed N. This reduces the need for synthetic N fertilisers.</div></div>
+    <div class="q-block"><span class="q-num">Q17</span>
     <p class="q-text">Triple superphosphate has a higher P content than single superphosphate because:</p>
-    <div class="options"><label class="opt"><input type="radio" name="q17" value="a"> It contains three different phosphate salts</label><label class="opt"><input type="radio" name="q17" value="b"> It is made with H₃PO₄ instead of H₂SO₄, giving Ca(H₂PO₄)₂ without the CaSO₄ filler</label><label class="opt"><input type="radio" name="q17" value="c"> It is produced at higher temperature</label><label class="opt"><input type="radio" name="q17" value="d"> It contains potassium as well as phosphorus</label></div>
-    <div class="q-exp" id="exp17">Single superphosphate: Ca₃(PO₄)₂ + 2H₂SO₄ → Ca(H₂PO₄)₂ + 2CaSO₄. ~18% P₂O₅.<br>Triple superphosphate: Ca₃(PO₄)₂ + 4H₃PO₄ → 3Ca(H₂PO₄)₂. No CaSO₄ filler → ~46% P₂O₅. Higher P content per kg.</div>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q17" value="a"> It contains three different phosphate salts</label>
+      <label class="opt"><input type="radio" name="q17" value="b"> It is made with H₃PO₄ instead of H₂SO₄, giving Ca(H₂PO₄)₂ without the CaSO₄ filler</label>
+      <label class="opt"><input type="radio" name="q17" value="c"> It is produced at higher temperature</label>
+      <label class="opt"><input type="radio" name="q17" value="d"> It contains potassium as well as phosphorus</label>
     </div>
-<div class="q-block"><span class="q-num">Q18</span>
+    <div class="qexplain" id="e17">Single superphosphate: Ca₃(PO₄)₂ + 2H₂SO₄ → Ca(H₂PO₄)₂ + 2CaSO₄. ~18% P₂O₅.Triple superphosphate: Ca₃(PO₄)₂ + 4H₃PO₄ → 3Ca(H₂PO₄)₂. No CaSO₄ filler → ~46% P₂O₅. Higher P content per kg.</div></div>
+    <div class="q-block"><span class="q-num">Q18</span>
     <p class="q-text">The main environmental concern with the Haber process is:</p>
-    <div class="options"><label class="opt"><input type="radio" name="q18" value="a"> Production of toxic SO₂ gas</label><label class="opt"><input type="radio" name="q18" value="b"> Large consumption of natural gas (CH₄) — a fossil fuel — for H₂ production and energy</label><label class="opt"><input type="radio" name="q18" value="c"> Release of Cl₂ gas</label><label class="opt"><input type="radio" name="q18" value="d"> Heavy metal contamination of soil</label></div>
-    <div class="q-exp" id="exp18">The Haber process requires H₂ (from steam reforming of CH₄: a fossil fuel) and is energy-intensive. It contributes ~1–2% of global CO₂ emissions. Green hydrogen (from electrolysis using renewable energy) could make it carbon-neutral. Green ammonia is an active area of research.</div>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q18" value="a"> Production of toxic SO₂ gas</label>
+      <label class="opt"><input type="radio" name="q18" value="b"> Large consumption of natural gas (CH₄) — a fossil fuel — for H₂ production and energy</label>
+      <label class="opt"><input type="radio" name="q18" value="c"> Release of Cl₂ gas</label>
+      <label class="opt"><input type="radio" name="q18" value="d"> Heavy metal contamination of soil</label>
     </div>
-<div class="q-block"><span class="q-num">Q19</span>
+    <div class="qexplain" id="e18">The Haber process requires H₂ (from steam reforming of CH₄: a fossil fuel) and is energy-intensive. It contributes ~1–2% of global CO₂ emissions. Green hydrogen (from electrolysis using renewable energy) could make it carbon-neutral. Green ammonia is an active area of research.</div></div>
+    <div class="q-block"><span class="q-num">Q19</span>
     <p class="q-text">Why is ammonium nitrate (NH₄NO₃) considered hazardous?</p>
-    <div class="options"><label class="opt"><input type="radio" name="q19" value="a"> It produces toxic SO₂ gas on decomposition</label><label class="opt"><input type="radio" name="q19" value="b"> It is an oxidising agent that can decompose explosively if contaminated or heated strongly</label><label class="opt"><input type="radio" name="q19" value="c"> It is highly acidic and corrodes metals</label><label class="opt"><input type="radio" name="q19" value="d"> It is radioactive</label></div>
-    <div class="q-exp" id="exp19">NH₄NO₃ is a powerful oxidiser. Pure dry NH₄NO₄ at >200°C or contaminated NH₄NO₃ can decompose explosively: NH₄NO₃ → N₂O + 2H₂O, or in larger amounts → N₂ + O₂ + H₂O. Several major industrial accidents (Beirut 2020, Texas City 1947) involved NH₄NO₃.</div>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q19" value="a"> It produces toxic SO₂ gas on decomposition</label>
+      <label class="opt"><input type="radio" name="q19" value="b"> It is an oxidising agent that can decompose explosively if contaminated or heated strongly</label>
+      <label class="opt"><input type="radio" name="q19" value="c"> It is highly acidic and corrodes metals</label>
+      <label class="opt"><input type="radio" name="q19" value="d"> It is radioactive</label>
     </div>
-<div class="q-block"><span class="q-num">Q20</span>
+    <div class="qexplain" id="e19">NH₄NO₃ is a powerful oxidiser. Pure dry NH₄NO₄ at &gt;200°C or contaminated NH₄NO₃ can decompose explosively: NH₄NO₃ → N₂O + 2H₂O, or in larger amounts → N₂ + O₂ + H₂O. Several major industrial accidents (Beirut 2020, Texas City 1947) involved NH₄NO₃.</div></div>
+    <div class="q-block"><span class="q-num">Q20</span>
     <p class="q-text">What is the NPK grade of a fertiliser containing 46% N, 0% P, 0% K?</p>
-    <div class="options"><label class="opt"><input type="radio" name="q20" value="a"> 0-46-0</label><label class="opt"><input type="radio" name="q20" value="b"> 46-0-0</label><label class="opt"><input type="radio" name="q20" value="c"> 0-0-46</label><label class="opt"><input type="radio" name="q20" value="d"> 46-46-46</label></div>
-    <div class="q-exp" id="exp20">NPK is stated in order N-P-K. 46% N, 0% P, 0% K = <b>46-0-0</b>. This is consistent with urea (CO(NH₂)₂) which has ~46.7% N and no P or K. It is a straight N fertiliser.</div>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q20" value="a"> 0-46-0</label>
+      <label class="opt"><input type="radio" name="q20" value="b"> 46-0-0</label>
+      <label class="opt"><input type="radio" name="q20" value="c"> 0-0-46</label>
+      <label class="opt"><input type="radio" name="q20" value="d"> 46-46-46</label>
     </div>
-<div class="q-block"><span class="q-num">Q21</span>
+    <div class="qexplain" id="e20">NPK is stated in order N-P-K. 46% N, 0% P, 0% K = 46-0-0. This is consistent with urea (CO(NH₂)₂) which has ~46.7% N and no P or K. It is a straight N fertiliser.</div></div>
+    <div class="q-block"><span class="q-num">Q21</span>
     <p class="q-text">Buffer strips near agricultural fields help reduce fertiliser runoff by:</p>
-    <div class="options"><label class="opt"><input type="radio" name="q21" value="a"> Absorbing fertilisers through roots before they reach waterways</label><label class="opt"><input type="radio" name="q21" value="b"> Increasing the slope of the land</label><label class="opt"><input type="radio" name="q21" value="c"> Producing more N₂ from the soil</label><label class="opt"><input type="radio" name="q21" value="d"> Reducing rainfall</label></div>
-    <div class="q-exp" id="exp21">Buffer strips are bands of permanent vegetation (grasses, trees) between fields and water bodies. They trap sediment, absorb nutrients (NO₃⁻, PO₄³⁻) through plant uptake, and allow microbial denitrification, preventing these nutrients from reaching rivers and causing eutrophication.</div>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q21" value="a"> Absorbing fertilisers through roots before they reach waterways</label>
+      <label class="opt"><input type="radio" name="q21" value="b"> Increasing the slope of the land</label>
+      <label class="opt"><input type="radio" name="q21" value="c"> Producing more N₂ from the soil</label>
+      <label class="opt"><input type="radio" name="q21" value="d"> Reducing rainfall</label>
     </div>
-<div class="q-block"><span class="q-num">Q22</span>
+    <div class="qexplain" id="e21">Buffer strips are bands of permanent vegetation (grasses, trees) between fields and water bodies. They trap sediment, absorb nutrients (NO₃⁻, PO₄³⁻) through plant uptake, and allow microbial denitrification, preventing these nutrients from reaching rivers and causing eutrophication.</div></div>
+    <div class="q-block"><span class="q-num">Q22</span>
     <p class="q-text">Phosphorus deficiency in plants typically causes:</p>
-    <div class="options"><label class="opt"><input type="radio" name="q22" value="a"> Yellow leaves</label><label class="opt"><input type="radio" name="q22" value="b"> Purple/red discolouration of leaves and poor root growth</label><label class="opt"><input type="radio" name="q22" value="c"> Brown leaf edges</label><label class="opt"><input type="radio" name="q22" value="d"> Wilting in hot weather</label></div>
-    <div class="q-exp" id="exp22">P is needed for ATP, DNA, phospholipids, and root development. P deficiency: dark green then reddish-purple leaves (anthocyanin accumulates), slow root growth, delayed maturity. The purple colouration distinguishes P deficiency from N deficiency (yellowing).</div>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q22" value="a"> Yellow leaves</label>
+      <label class="opt"><input type="radio" name="q22" value="b"> Purple/red discolouration of leaves and poor root growth</label>
+      <label class="opt"><input type="radio" name="q22" value="c"> Brown leaf edges</label>
+      <label class="opt"><input type="radio" name="q22" value="d"> Wilting in hot weather</label>
     </div>
-<div class="q-block"><span class="q-num">Q23</span>
+    <div class="qexplain" id="e22">P is needed for ATP, DNA, phospholipids, and root development. P deficiency: dark green then reddish-purple leaves (anthocyanin accumulates), slow root growth, delayed maturity. The purple colouration distinguishes P deficiency from N deficiency (yellowing).</div></div>
+    <div class="q-block"><span class="q-num">Q23</span>
     <p class="q-text">In the equation Ca₃(PO₄)₂ + 2H₂SO₄ → Ca(H₂PO₄)₂ + 2CaSO₄, the Ca(H₂PO₄)₂ is beneficial because:</p>
-    <div class="options"><label class="opt"><input type="radio" name="q23" value="a"> It is insoluble and stays in soil longer</label><label class="opt"><input type="radio" name="q23" value="b"> It is soluble in soil water and directly available for plant uptake</label><label class="opt"><input type="radio" name="q23" value="c"> It reacts with N in the soil to form proteins</label><label class="opt"><input type="radio" name="q23" value="d"> It neutralises soil acidity</label></div>
-    <div class="q-exp" id="exp23">Ca(H₂PO₄)₂ (calcium dihydrogen phosphate) is water-soluble, making P available to plant roots. Ca₃(PO₄)₂ (rock phosphate) is very insoluble and unavailable. The reaction with H₂SO₄ converts insoluble phosphate to a soluble, plant-available form.</div>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q23" value="a"> It is insoluble and stays in soil longer</label>
+      <label class="opt"><input type="radio" name="q23" value="b"> It is soluble in soil water and directly available for plant uptake</label>
+      <label class="opt"><input type="radio" name="q23" value="c"> It reacts with N in the soil to form proteins</label>
+      <label class="opt"><input type="radio" name="q23" value="d"> It neutralises soil acidity</label>
     </div>
-<div class="q-block"><span class="q-num">Q24</span>
+    <div class="qexplain" id="e23">Ca(H₂PO₄)₂ (calcium dihydrogen phosphate) is water-soluble, making P available to plant roots. Ca₃(PO₄)₂ (rock phosphate) is very insoluble and unavailable. The reaction with H₂SO₄ converts insoluble phosphate to a soluble, plant-available form.</div></div>
+    <div class="q-block"><span class="q-num">Q24</span>
     <p class="q-text">Cadmium (Cd) contamination of soils from fertilisers comes mainly from:</p>
-    <div class="options"><label class="opt"><input type="radio" name="q24" value="a"> Ammonium nitrate</label><label class="opt"><input type="radio" name="q24" value="b"> Urea</label><label class="opt"><input type="radio" name="q24" value="c"> Phosphate rock containing trace Cd impurities</label><label class="opt"><input type="radio" name="q24" value="d"> Potassium chloride</label></div>
-    <div class="q-exp" id="exp24">Phosphate rock (used to make superphosphate) often contains trace cadmium (Cd) impurities. Repeated application can cause Cd to accumulate in soil and be taken up by crops, entering the food chain. This is why low-Cd phosphate rock sources and Cd limits in fertilisers are regulated.</div>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q24" value="a"> Ammonium nitrate</label>
+      <label class="opt"><input type="radio" name="q24" value="b"> Urea</label>
+      <label class="opt"><input type="radio" name="q24" value="c"> Phosphate rock containing trace Cd impurities</label>
+      <label class="opt"><input type="radio" name="q24" value="d"> Potassium chloride</label>
     </div>
-<div class="q-block"><span class="q-num">Q25</span>
+    <div class="qexplain" id="e24">Phosphate rock (used to make superphosphate) often contains trace cadmium (Cd) impurities. Repeated application can cause Cd to accumulate in soil and be taken up by crops, entering the food chain. This is why low-Cd phosphate rock sources and Cd limits in fertilisers are regulated.</div></div>
+    <div class="q-block"><span class="q-num">Q25</span>
     <p class="q-text">Which gas produced in the Ostwald process is also an air pollutant contributing to smog and acid rain?</p>
-    <div class="options"><label class="opt"><input type="radio" name="q25" value="a"> NH₃</label><label class="opt"><input type="radio" name="q25" value="b"> NO₂</label><label class="opt"><input type="radio" name="q25" value="c"> CO₂</label><label class="opt"><input type="radio" name="q25" value="d"> N₂</label></div>
-    <div class="q-exp" id="exp25">NO₂ (nitrogen dioxide) is produced in step 2: 2NO + O₂ → 2NO₂. In the atmosphere, NOₓ (NO + NO₂) contributes to smog formation and acid rain (4NO₂ + O₂ + 2H₂O → 4HNO₃). Industrial plants must minimise NOₓ emissions.</div>
-    </div></div>
-    <div style="padding:0 24px 24px;">
-      <button class="quiz-submit" onclick="submitQuiz()">Submit All 25 Answers</button>
-      <div id="quizResult" style="display:none;margin-top:16px;border-radius:var(--radius);padding:16px 20px;font-family:'JetBrains Mono',monospace;"></div>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="q25" value="a"> NH₃</label>
+      <label class="opt"><input type="radio" name="q25" value="b"> NO₂</label>
+      <label class="opt"><input type="radio" name="q25" value="c"> CO₂</label>
+      <label class="opt"><input type="radio" name="q25" value="d"> N₂</label>
     </div>
+    <div class="qexplain" id="e25">NO₂ (nitrogen dioxide) is produced in step 2: 2NO + O₂ → 2NO₂. In the atmosphere, NOₓ (NO + NO₂) contributes to smog formation and acid rain (4NO₂ + O₂ + 2H₂O → 4HNO₃). Industrial plants must minimise NOₓ emissions.</div></div>
   </div>
+  <div style="padding:0 24px 24px;">
+    <button class="quiz-submit" onclick="submitQuiz()">Submit Quiz</button>
+    <div id="quizResult" style="display:none;margin-top:16px;padding:16px 20px;border-radius:8px;font-family:JetBrains Mono,monospace;font-size:.88rem;text-align:center;"></div>
+  </div>
+</div>
+<script>
+const _CA={q1:'C',q2:'C',q3:'C',q4:'A',q5:'A',q6:'C',q7:'B',q8:'B',q9:'B',q10:'C',q11:'B',q12:'B',q13:'B',q14:'C',q15:'A',q16:'B',q17:'B',q18:'B',q19:'B',q20:'B',q21:'A',q22:'B',q23:'B',q24:'C',q25:'B'};
+function submitQuiz(){
+  let s=0,t=Object.keys(_CA).length;
+  Object.entries(_CA).forEach(([q,c])=>{
+    const sel=document.querySelector('input[name="'+q+'"]:checked');
+    const e=document.getElementById('e'+q.slice(1));if(e)e.style.display='block';
+    document.querySelectorAll('input[name="'+q+'"]').forEach(o=>{
+      if(o.value===c)o.closest('label').classList.add('correct');
+      else if(sel&&o.value===sel.value&&o.value!==c)o.closest('label').classList.add('wrong');
+      o.disabled=true;
+    });
+    if(sel&&sel.value===c)s++;
+  });
+  const p=Math.round(s/t*100);
+  const r=document.getElementById('quizResult');r.style.display='block';
+  r.style.cssText='display:block;margin-top:16px;padding:16px 20px;border-radius:8px;font-family:JetBrains Mono,monospace;font-size:.88rem;text-align:center;background:'+(p>=70?'rgba(52,211,153,.1)':'rgba(248,113,113,.1)')+';border:1px solid '+(p>=70?'var(--green)':'var(--red)')+';color:'+(p>=70?'var(--green)':'var(--red)');
+  r.innerHTML='Score: '+s+'/'+t+' ('+p+'%) &mdash; '+(p>=80?'&#127942; Excellent!':p>=70?'&#10003; Good':p>=50?'&#128218; Review notes':'&#10007; Re-read unit');
+  document.querySelector('.quiz-submit').disabled=true;document.querySelector('.quiz-submit').style.opacity='.5';
+}
+</script>
 </section>
 <section id="test">
   <div class="section-header"><span class="section-number">&#128221;</span><h2>Unit Test</h2></div>
@@ -367,27 +492,130 @@ Superphosphate manufacture:
   <a class="nav-btn next" href="unit4_benzene.html">Unit 4: Benzene &rarr;</a>
 </div>
 </main>
+
+
+
+
+<!-- ═══════════════════════════ UNIT QUIZ GATE ═══════════════════════════ -->
 <script>
-function toggleAnswer(btn){var a=btn.nextElementSibling;a.classList.toggle('open');btn.textContent=a.classList.contains('open')?'Hide Answer':'Show Answer';}
-var CA={"q1": "b", "q2": "c", "q3": "c", "q4": "c", "q5": "b", "q6": "c", "q7": "b", "q8": "c", "q9": "b", "q10": "c", "q11": "b", "q12": "b", "q13": "b", "q14": "c", "q15": "b", "q16": "b", "q17": "b", "q18": "b", "q19": "b", "q20": "b", "q21": "a", "q22": "b", "q23": "b", "q24": "c", "q25": "b"};
-function submitQuiz(){
-  var score=0,total=Object.keys(CA).length;
-  Object.entries(CA).forEach(function([q,c]){
-    var sel=document.querySelector('input[name="'+q+'"]:checked');
-    document.querySelectorAll('input[name="'+q+'"]').forEach(function(o){if(o.value===c)o.parentElement.classList.add('correct');});
-    if(sel){if(sel.value===c)score++;else sel.parentElement.classList.add('wrong');}
-    var exp=document.getElementById('exp'+q.replace('q',''));
-    if(exp)exp.style.display='block';
-    document.querySelectorAll('input[name="'+q+'"]').forEach(function(o){o.disabled=true;});
+(function(){
+  const CK='quiz_access_code', SK='quiz_access_granted';
+  const code=localStorage.getItem(CK);
+  if(!code) return;
+  if(sessionStorage.getItem(SK)) return;
+  const qw=document.querySelector('.quiz-wrap');
+  if(!qw) return;
+  function showGate(){
+    if(document.getElementById('_ugate')) return;
+    const g=document.createElement('div');
+    g.id='_ugate';
+    g.style.cssText='position:fixed;inset:0;background:#0d1117;z-index:99999;display:flex;align-items:center;justify-content:center;padding:24px;';
+    g.innerHTML=`
+      <div style="background:#161b22;border:2px solid rgba(245,158,11,.4);border-radius:16px;padding:44px 36px;max-width:440px;width:100%;text-align:center;">
+        <div style="font-size:3.5rem;margin-bottom:14px;">🔒</div>
+        <h2 style="font-family:'Playfair Display',serif;font-size:1.8rem;color:#fff;margin-bottom:10px;">Quiz Locked</h2>
+        <p style="color:#8b949e;font-size:.92rem;margin-bottom:20px;line-height:1.7;">Enter your teacher&#39;s access code to attempt this quiz.</p>
+        <input id="_ugate_inp" type="text" placeholder="Enter Code" maxlength="20" autocomplete="off"
+          style="width:100%;background:#1c2333;border:2px solid #30363d;border-radius:8px;color:#e6edf3;padding:13px 16px;font-family:'JetBrains Mono',monospace;font-size:1.4rem;text-align:center;letter-spacing:.2em;text-transform:uppercase;margin-bottom:10px;box-sizing:border-box;"
+          onkeydown="if(event.key==='Enter')window._ugateCheck()"/>
+        <div id="_ugate_err" style="font-family:'JetBrains Mono',monospace;font-size:.82rem;color:#f87171;min-height:20px;margin:6px 0 10px;"></div>
+        <button onclick="window._ugateCheck()" style="width:100%;background:#f59e0b;color:#000;border:none;padding:12px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.9rem;font-weight:700;cursor:pointer;margin-bottom:8px;">🔓 Unlock Quiz</button>
+        <button onclick="document.getElementById('_ugate').remove();document.body.style.overflow='';" style="width:100%;background:transparent;border:1px solid #30363d;color:#8b949e;padding:8px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.78rem;cursor:pointer;">✕ Cancel</button>
+      </div>`;
+    document.body.appendChild(g);
+    document.body.style.overflow='hidden';
+    setTimeout(()=>{const i=document.getElementById('_ugate_inp');if(i)i.focus();},100);
+  }
+  window._ugateCheck=function(){
+    const val=(document.getElementById('_ugate_inp')||{}).value;
+    if(!val) return;
+    const v=val.trim().toUpperCase();
+    const stored=localStorage.getItem(CK);
+    if(v===stored){
+      sessionStorage.setItem(SK,'1');
+      const g=document.getElementById('_ugate');
+      if(g) g.remove();
+      document.body.style.overflow='';
+    } else {
+      const err=document.getElementById('_ugate_err');
+      if(err) err.textContent='❌ Wrong code — try again.';
+      const inp=document.getElementById('_ugate_inp');
+      if(inp){inp.value='';inp.focus();}
+    }
+  };
+  qw.addEventListener('click',function(e){
+    if(!localStorage.getItem(CK)) return;
+    if(sessionStorage.getItem(SK)) return;
+    e.stopPropagation();e.preventDefault();
+    showGate();
+  },true);
+})();
+</script>
+
+<script>
+// ── PER-UNIT QUIZ ACCESS GATE ── ID: s6_unit3 ──
+(function(){
+  const ITEM_ID='s6_unit3';
+  const SESS_KEY='unlocked_'+ITEM_ID;
+  const CODE_KEY='quiz_access_code';
+  const LOCKS_KEY='assessment_locks';
+  
+  function isLocked(){return JSON.parse(localStorage.getItem(LOCKS_KEY)||'{}')[ITEM_ID]===true;}
+  function isGranted(){const c=localStorage.getItem(CODE_KEY)||'OPEN';return sessionStorage.getItem(SESS_KEY)===c||sessionStorage.getItem(SESS_KEY)==='OPEN';}
+  
+  const gate=document.createElement('div');
+  gate.id='unit-quiz-gate-s6_unit3';
+  gate.style.cssText='position:fixed;inset:0;background:#0d1117;z-index:99999;display:none;align-items:center;justify-content:center;padding:24px;';
+  gate.innerHTML=`<div style="background:#161b22;border:2px solid rgba(245,158,11,.4);border-radius:16px;padding:44px 38px;max-width:460px;width:100%;text-align:center;">
+    <div style="font-size:3.5rem;margin-bottom:14px;">🔒</div>
+    <h2 style="font-family:Playfair Display,serif;font-size:1.8rem;color:#fff;margin-bottom:10px;">Quiz Locked</h2>
+    <p style="color:#8b949e;font-size:.92rem;margin-bottom:22px;line-height:1.7;">Your teacher has locked this quiz. Enter the access code to unlock it.</p>
+    <input id="ugi-s6_unit3" type="text" placeholder="Enter Code" maxlength="20"
+      style="width:100%;background:#1c2333;border:2px solid #30363d;border-radius:8px;color:#e6edf3;padding:13px 16px;font-family:JetBrains Mono,monospace;font-size:1.3rem;text-align:center;letter-spacing:.2em;text-transform:uppercase;margin-bottom:10px;box-sizing:border-box;"
+      onkeydown="if(event.key==='Enter')unlockUnit_s6_unit3()"
+      oninput="this.value=this.value.toUpperCase()"/>
+    <div id="uge-s6_unit3" style="font-family:JetBrains Mono,monospace;font-size:.8rem;color:#f87171;min-height:18px;margin-bottom:10px;"></div>
+    <button onclick="unlockUnit_s6_unit3()" style="width:100%;background:#f59e0b;color:#000;border:none;padding:13px;border-radius:8px;font-family:JetBrains Mono,monospace;font-size:.88rem;font-weight:700;cursor:pointer;margin-bottom:8px;">🔓 Unlock Quiz</button>
+    <button onclick="document.getElementById('unit-quiz-gate-s6_unit3').style.display='none';document.body.style.overflow='';" style="width:100%;background:transparent;border:1px solid #30363d;color:#8b949e;padding:8px;border-radius:7px;font-family:JetBrains Mono,monospace;font-size:.78rem;cursor:pointer;">✕ Cancel — Go back</button>
+    <div style="font-family:JetBrains Mono,monospace;font-size:.7rem;color:#8b949e;margin-top:10px;">Ask your teacher for the access code.</div>
+  </div>`;
+  document.body.appendChild(gate);
+  
+  window.unlockUnit_s6_unit3=function(){
+    const entered=document.getElementById('ugi-s6_unit3').value.trim().toUpperCase();
+    const correct=localStorage.getItem(CODE_KEY)||'';
+    if(!entered){document.getElementById('uge-s6_unit3').textContent='Enter the code.';return;}
+    if(!correct||entered===correct){
+      sessionStorage.setItem(SESS_KEY,correct||'OPEN');
+      gate.style.display='none';document.body.style.overflow='';
+      if(window._pendingAction_s6_unit3) window._pendingAction_s6_unit3();
+    } else {
+      document.getElementById('uge-s6_unit3').textContent='❌ Wrong code. Ask your teacher.';
+      document.getElementById('ugi-s6_unit3').value='';
+    }
+  };
+  
+  window.addEventListener('DOMContentLoaded',function(){
+    if(!isLocked()) return;
+    const qw=document.querySelector('.quiz-wrap');
+    if(!qw) return;
+    qw.addEventListener('click',function(e){
+      if(!isLocked()||isGranted()) return;
+      e.stopPropagation();e.preventDefault();
+      gate.style.display='flex';document.body.style.overflow='hidden';
+    },true);
   });
-  var pct=Math.round(score/total*100),res=document.getElementById('quizResult');
-  res.style.display='block';
-  res.style.background=pct>=70?'rgba(52,211,153,.1)':'rgba(248,113,113,.1)';
-  res.style.border='1px solid '+(pct>=70?'var(--green)':'var(--red)');
-  res.style.color=pct>=70?'var(--green)':'var(--red)';
-  res.innerHTML='Score: '+score+' / '+total+' ('+pct+'%) &mdash; '+(pct>=80?'Excellent! &#127881;':pct>=60?'Good effort &mdash; review marked questions.':'Keep studying &mdash; re-read notes and try again.');
-  document.querySelector('.quiz-submit').disabled=true;
-  document.querySelector('.quiz-submit').style.opacity='0.5';
+})();
+</script>
+<script>
+function toggleAnswer(btn){
+  var ans = btn.nextElementSibling;
+  if(!ans) return;
+  var isOpen = ans.classList.contains('open');
+  ans.classList.toggle('open', !isOpen);
+  btn.textContent = isOpen ? 'Show Answer' : 'Hide Answer';
+  if(btn.classList.contains('rb')||btn.classList.contains('reveal-btn'))
+    btn.textContent = isOpen ? 'Model Answer' : 'Hide Answer';
 }
 </script>
 </body>

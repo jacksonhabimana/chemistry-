@@ -104,6 +104,8 @@
 </style>
 </head>
 <body>
+<div id="sitenav" style="position:sticky;top:0;z-index:200;background:rgba(13,17,23,.95);backdrop-filter:blur(12px);border-bottom:1px solid #30363d;padding:0 28px;font-family:JetBrains Mono,monospace;"><div style="max-width:960px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:52px;gap:12px;"><a href="index.html" style="font-size:.78rem;color:#38bdf8;text-decoration:none;letter-spacing:.06em;white-space:nowrap;">&#9883; Habimana</a><div style="display:flex;gap:4px;flex-wrap:wrap;"><a href="index.html" style="font-size:.72rem;color:#8b949e;text-decoration:none;padding:4px 12px;border-radius:5px;border:1px solid transparent;">Home</a><a href="s4-chemistry.html" style="font-size:.72rem;color:#8b949e;text-decoration:none;padding:4px 12px;border-radius:5px;border:1px solid transparent;">S4</a><a href="s5-chemistry.html" style="font-size:.72rem;color:#34d399;text-decoration:none;padding:4px 12px;border-radius:5px;background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.25);">S5</a><a href="s6-chemistry.html" style="font-size:.72rem;color:#8b949e;text-decoration:none;padding:4px 12px;border-radius:5px;border:1px solid transparent;">S6</a></div></div></div>
+
 
 <header class="hero">
   <div class="badge">Unit 6 &middot; Organic Chemistry</div>
@@ -594,139 +596,269 @@ CH3COCH3 + 4O2    -->  3CO2  +  3H2O</div>
 <section id="quiz">
   <div class="section-header">
     <span class="section-number">&#129504;</span>
-    <h2>Interactive Quiz</h2>
+    <h2>Multiple Choice Quiz &mdash; 25 Questions</h2>
   </div>
   <div class="quiz-wrap">
-    <div class="quiz-header"><h3>Unit 6 Quiz &mdash; Aldehydes &amp; Ketones (10 Questions)</h3></div>
-    <div class="quiz-body">
-
-      <div class="q-block">
-        <span class="q-num">Q1</span>
-        <p class="q-text">What is the IUPAC name for CH<sub>3</sub>CH<sub>2</sub>COCH<sub>3</sub>?</p>
-        <div class="options">
-          <label class="opt"><input type="radio" name="q1" value="a"> Butanal</label>
-          <label class="opt"><input type="radio" name="q1" value="b"> Butan-2-one</label>
-          <label class="opt"><input type="radio" name="q1" value="c"> Butan-3-one</label>
-          <label class="opt"><input type="radio" name="q1" value="d"> Pentan-2-one</label>
-        </div>
-        <div class="q-exp" id="exp1">CH<sub>3</sub>CH<sub>2</sub>COCH<sub>3</sub> = 4-carbon chain with C=O. Numbering from the CH<sub>3</sub>CO end gives C=O at C2 (lower than C3 from other end) &rarr; <b>butan-2-one</b>.</div>
+    <div class="quiz-header"><h3>Unit 6 Quiz &mdash; Carbonyl Compounds</h3><span style="font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--muted);">25 Questions &middot; Select one answer each</span></div>
+    <div class="quiz-body" id="quizBody">
+      <div class="q-block"><span class="q-num">Q1</span>
+      <p class="q-text">What is the IUPAC name for CH3CH2COCH3?</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q1" value="a"> Butanal</label>
+        <label class="opt"><input type="radio" name="q1" value="b"> Butan-2-one</label>
+        <label class="opt"><input type="radio" name="q1" value="c"> Butan-3-one</label>
+        <label class="opt"><input type="radio" name="q1" value="d"> Pentan-2-one</label>
       </div>
+      <div class="qexplain" id="e1">CH3CH2COCH3 = 4-carbon chain with C=O. Numbering from the CH3CO end gives C=O at C2 (lower than C3 from other end) &amp;rarr; butan-2-one.</div></div>
 
-      <div class="q-block">
-        <span class="q-num">Q2</span>
-        <p class="q-text">Which reagent is used to test for the presence of ANY carbonyl group (aldehyde or ketone)?</p>
-        <div class="options">
-          <label class="opt"><input type="radio" name="q2" value="a"> Tollens&rsquo; reagent</label>
-          <label class="opt"><input type="radio" name="q2" value="b"> Fehling&rsquo;s solution</label>
-          <label class="opt"><input type="radio" name="q2" value="c"> 2,4-Dinitrophenylhydrazine (2,4-DNPH)</label>
-          <label class="opt"><input type="radio" name="q2" value="d"> Iodine/NaOH</label>
-        </div>
-        <div class="q-exp" id="exp2"><b>2,4-DNPH (Brady&rsquo;s reagent)</b> reacts with both aldehydes and ketones to give a yellow or orange precipitate &mdash; it is a general test for the C=O group. Tollens&rsquo; and Fehling&rsquo;s are specific for aldehydes.</div>
+      <div class="q-block"><span class="q-num">Q2</span>
+      <p class="q-text">Which reagent is used to test for the presence of ANY carbonyl group (aldehyde or ketone)?</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q2" value="a"> Tollens&amp;rsquo; reagent</label>
+        <label class="opt"><input type="radio" name="q2" value="b"> Fehling&amp;rsquo;s solution</label>
+        <label class="opt"><input type="radio" name="q2" value="c"> 2,4-Dinitrophenylhydrazine (2,4-DNPH)</label>
+        <label class="opt"><input type="radio" name="q2" value="d"> Iodine/NaOH</label>
       </div>
+      <div class="qexplain" id="e2">2,4-DNPH (Brady&amp;rsquo;s reagent) reacts with both aldehydes and ketones to give a yellow or orange precipitate &amp;mdash; it is a general test for the C=O group. Tollens&amp;rsquo; and Fehling&amp;rsquo;s are specific for aldehydes.</div></div>
 
-      <div class="q-block">
-        <span class="q-num">Q3</span>
-        <p class="q-text">Tollens&rsquo; reagent gives a silver mirror with:</p>
-        <div class="options">
-          <label class="opt"><input type="radio" name="q3" value="a"> Propanone only</label>
-          <label class="opt"><input type="radio" name="q3" value="b"> Aldehydes only</label>
-          <label class="opt"><input type="radio" name="q3" value="c"> All carbonyl compounds</label>
-          <label class="opt"><input type="radio" name="q3" value="d"> Ketones only</label>
-        </div>
-        <div class="q-exp" id="exp3"><b>Aldehydes only</b>: they are oxidised by Ag(NH<sub>3</sub>)<sub>2</sub><sup>+</sup> to carboxylates, reducing Ag<sup>+</sup> to Ag metal (silver mirror). Ketones cannot be easily oxidised and give no reaction.</div>
+      <div class="q-block"><span class="q-num">Q3</span>
+      <p class="q-text">Tollens&amp;rsquo; reagent gives a silver mirror with:</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q3" value="a"> Propanone only</label>
+        <label class="opt"><input type="radio" name="q3" value="b"> Aldehydes only</label>
+        <label class="opt"><input type="radio" name="q3" value="c"> All carbonyl compounds</label>
+        <label class="opt"><input type="radio" name="q3" value="d"> Ketones only</label>
       </div>
+      <div class="qexplain" id="e3">Aldehydes only: they are oxidised by Ag(NH3)2+ to carboxylates, reducing Ag+ to Ag metal (silver mirror). Ketones cannot be easily oxidised and give no reaction.</div></div>
 
-      <div class="q-block">
-        <span class="q-num">Q4</span>
-        <p class="q-text">The product of reducing ethanal (CH<sub>3</sub>CHO) with NaBH<sub>4</sub> is:</p>
-        <div class="options">
-          <label class="opt"><input type="radio" name="q4" value="a"> Methanol</label>
-          <label class="opt"><input type="radio" name="q4" value="b"> Propan-2-ol</label>
-          <label class="opt"><input type="radio" name="q4" value="c"> Ethanol</label>
-          <label class="opt"><input type="radio" name="q4" value="d"> Ethanoic acid</label>
-        </div>
-        <div class="q-exp" id="exp4">CH<sub>3</sub>CHO + 2[H] &rarr; CH<sub>3</sub>CH<sub>2</sub>OH. Reduction of an aldehyde gives a <b>primary alcohol</b>. Ethanal &rarr; <b>ethanol</b>.</div>
+      <div class="q-block"><span class="q-num">Q4</span>
+      <p class="q-text">The product of reducing ethanal (CH3CHO) with NaBH4 is:</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q4" value="a"> Methanol</label>
+        <label class="opt"><input type="radio" name="q4" value="b"> Propan-2-ol</label>
+        <label class="opt"><input type="radio" name="q4" value="c"> Ethanol</label>
+        <label class="opt"><input type="radio" name="q4" value="d"> Ethanoic acid</label>
       </div>
+      <div class="qexplain" id="e4">CH3CHO + 2[H] &amp;rarr; CH3CH2OH. Reduction of an aldehyde gives a primary alcohol. Ethanal &amp;rarr; ethanol.</div></div>
 
-      <div class="q-block">
-        <span class="q-num">Q5</span>
-        <p class="q-text">Which compound gives a positive iodoform test?</p>
-        <div class="options">
-          <label class="opt"><input type="radio" name="q5" value="a"> Propanal</label>
-          <label class="opt"><input type="radio" name="q5" value="b"> Pentan-3-one</label>
-          <label class="opt"><input type="radio" name="q5" value="c"> Propanone</label>
-          <label class="opt"><input type="radio" name="q5" value="d"> Butanal</label>
-        </div>
-        <div class="q-exp" id="exp5"><b>Propanone</b> (CH<sub>3</sub>COCH<sub>3</sub>) is a methyl ketone and gives a positive iodoform test (yellow CHI<sub>3</sub> precipitate). Pentan-3-one (C<sub>2</sub>H<sub>5</sub>COC<sub>2</sub>H<sub>5</sub>) and propanal/butanal have no CH<sub>3</sub>CO&ndash; group.</div>
+      <div class="q-block"><span class="q-num">Q5</span>
+      <p class="q-text">Which compound gives a positive iodoform test?</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q5" value="a"> Propanal</label>
+        <label class="opt"><input type="radio" name="q5" value="b"> Pentan-3-one</label>
+        <label class="opt"><input type="radio" name="q5" value="c"> Propanone</label>
+        <label class="opt"><input type="radio" name="q5" value="d"> Butanal</label>
       </div>
+      <div class="qexplain" id="e5">Propanone (CH3COCH3) is a methyl ketone and gives a positive iodoform test (yellow CHI3 precipitate). Pentan-3-one (C2H5COC2H5) and propanal/butanal have no CH3CO&amp;ndash; group.</div></div>
 
-      <div class="q-block">
-        <span class="q-num">Q6</span>
-        <p class="q-text">Fehling&rsquo;s solution is reduced (gives brick-red precipitate) by:</p>
-        <div class="options">
-          <label class="opt"><input type="radio" name="q6" value="a"> Propanone</label>
-          <label class="opt"><input type="radio" name="q6" value="b"> Butan-2-one</label>
-          <label class="opt"><input type="radio" name="q6" value="c"> Propanal</label>
-          <label class="opt"><input type="radio" name="q6" value="d"> Pentan-3-one</label>
-        </div>
-        <div class="q-exp" id="exp6"><b>Propanal</b> (an aldehyde) reduces Fehling&rsquo;s solution: Cu<sup>2+</sup> is reduced to Cu<sub>2</sub>O (brick-red). Ketones do not reduce Fehling&rsquo;s solution.</div>
+      <div class="q-block"><span class="q-num">Q6</span>
+      <p class="q-text">Fehling&amp;rsquo;s solution is reduced (gives brick-red precipitate) by:</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q6" value="a"> Propanone</label>
+        <label class="opt"><input type="radio" name="q6" value="b"> Butan-2-one</label>
+        <label class="opt"><input type="radio" name="q6" value="c"> Propanal</label>
+        <label class="opt"><input type="radio" name="q6" value="d"> Pentan-3-one</label>
       </div>
+      <div class="qexplain" id="e6">Propanal (an aldehyde) reduces Fehling&amp;rsquo;s solution: Cu2+ is reduced to Cu2O (brick-red). Ketones do not reduce Fehling&amp;rsquo;s solution.</div></div>
 
-      <div class="q-block">
-        <span class="q-num">Q7</span>
-        <p class="q-text">The reaction of an aldehyde or ketone with HCN is classified as:</p>
-        <div class="options">
-          <label class="opt"><input type="radio" name="q7" value="a"> Electrophilic addition</label>
-          <label class="opt"><input type="radio" name="q7" value="b"> Nucleophilic substitution</label>
-          <label class="opt"><input type="radio" name="q7" value="c"> Nucleophilic addition</label>
-          <label class="opt"><input type="radio" name="q7" value="d"> Free-radical addition</label>
-        </div>
-        <div class="q-exp" id="exp7"><b>Nucleophilic addition</b>: CN<sup>&minus;</sup> (nucleophile) attacks the electron-deficient (&delta;+) carbonyl carbon. The &pi; bond of C=O breaks, and CN<sup>&minus;</sup> and H<sup>+</sup> add across it to give a hydroxynitrile.</div>
+      <div class="q-block"><span class="q-num">Q7</span>
+      <p class="q-text">The reaction of an aldehyde or ketone with HCN is classified as:</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q7" value="a"> Electrophilic addition</label>
+        <label class="opt"><input type="radio" name="q7" value="b"> Nucleophilic substitution</label>
+        <label class="opt"><input type="radio" name="q7" value="c"> Nucleophilic addition</label>
+        <label class="opt"><input type="radio" name="q7" value="d"> Free-radical addition</label>
       </div>
+      <div class="qexplain" id="e7">Nucleophilic addition: CN&amp;minus; (nucleophile) attacks the electron-deficient (&amp;delta;+) carbonyl carbon. The &amp;pi; bond of C=O breaks, and CN&amp;minus; and H+ add across it to give a hydroxynitrile.</div></div>
 
-      <div class="q-block">
-        <span class="q-num">Q8</span>
-        <p class="q-text">Why are aldehydes more reactive than ketones towards nucleophilic addition?</p>
-        <div class="options">
-          <label class="opt"><input type="radio" name="q8" value="a"> Aldehydes have a higher boiling point</label>
-          <label class="opt"><input type="radio" name="q8" value="b"> Aldehydes have one alkyl group (less steric and electronic shielding of C=O)</label>
-          <label class="opt"><input type="radio" name="q8" value="c"> Aldehydes are stronger acids</label>
-          <label class="opt"><input type="radio" name="q8" value="d"> Aldehydes cannot be oxidised</label>
-        </div>
-        <div class="q-exp" id="exp8">Aldehydes have only <b>one alkyl group</b>: less steric hindrance and less electron donation to the C=O carbon &rarr; more &delta;+ character on carbon &rarr; more susceptible to nucleophilic attack. Ketones have two alkyl groups providing more shielding and electron donation.</div>
+      <div class="q-block"><span class="q-num">Q8</span>
+      <p class="q-text">Why are aldehydes more reactive than ketones towards nucleophilic addition?</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q8" value="a"> Aldehydes have a higher boiling point</label>
+        <label class="opt"><input type="radio" name="q8" value="b"> Aldehydes have one alkyl group (less steric and electronic shielding of C=O)</label>
+        <label class="opt"><input type="radio" name="q8" value="c"> Aldehydes are stronger acids</label>
+        <label class="opt"><input type="radio" name="q8" value="d"> Aldehydes cannot be oxidised</label>
       </div>
+      <div class="qexplain" id="e8">Aldehydes have only one alkyl group: less steric hindrance and less electron donation to the C=O carbon &amp;rarr; more &amp;delta;+ character on carbon &amp;rarr; more susceptible to nucleophilic attack. Ketones have two alkyl groups providing more shielding and electron donation.</div></div>
 
-      <div class="q-block">
-        <span class="q-num">Q9</span>
-        <p class="q-text">Propanone has a lower boiling point than propan-1-ol (both C<sub>3</sub>) because:</p>
-        <div class="options">
-          <label class="opt"><input type="radio" name="q9" value="a"> Propanone has a lower molecular mass</label>
-          <label class="opt"><input type="radio" name="q9" value="b"> Propanone cannot form hydrogen bonds between its own molecules</label>
-          <label class="opt"><input type="radio" name="q9" value="c"> Propanone is an ionic compound</label>
-          <label class="opt"><input type="radio" name="q9" value="d"> Propanone has stronger van der Waals forces</label>
-        </div>
-        <div class="q-exp" id="exp9">Propanone has no O&ndash;H group &rarr; <b>cannot H-bond with itself</b> (only dipole-dipole + London forces). Propan-1-ol has O&ndash;H and forms strong H-bonds &rarr; higher B.P. (97&deg;C vs 56&deg;C for propanone). Both have similar M<sub>r</sub>.</div>
+      <div class="q-block"><span class="q-num">Q9</span>
+      <p class="q-text">Propanone has a lower boiling point than propan-1-ol (both C3) because:</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q9" value="a"> Propanone has a lower molecular mass</label>
+        <label class="opt"><input type="radio" name="q9" value="b"> Propanone cannot form hydrogen bonds between its own molecules</label>
+        <label class="opt"><input type="radio" name="q9" value="c"> Propanone is an ionic compound</label>
+        <label class="opt"><input type="radio" name="q9" value="d"> Propanone has stronger van der Waals forces</label>
       </div>
+      <div class="qexplain" id="e9">Propanone has no O&amp;ndash;H group &amp;rarr; cannot H-bond with itself (only dipole-dipole + London forces). Propan-1-ol has O&amp;ndash;H and forms strong H-bonds &amp;rarr; higher B.P. (97&amp;deg;C vs 56&amp;deg;C for propanone). Both have similar Mr.</div></div>
 
-      <div class="q-block">
-        <span class="q-num">Q10</span>
-        <p class="q-text">The main industrial use of methanal (formaldehyde) is:</p>
-        <div class="options">
-          <label class="opt"><input type="radio" name="q10" value="a"> As an anaesthetic</label>
-          <label class="opt"><input type="radio" name="q10" value="b"> As a fuel</label>
-          <label class="opt"><input type="radio" name="q10" value="c"> Manufacture of phenol-formaldehyde resins (Bakelite) and as a preservative</label>
-          <label class="opt"><input type="radio" name="q10" value="d"> As a solvent for paints</label>
-        </div>
-        <div class="q-exp" id="exp10">Methanal&rsquo;s main uses: <b>manufacture of phenol-formaldehyde resins (Bakelite)</b> (thermosetting plastic); <b>formalin</b> (40% aqueous solution) as a preservative and disinfectant. Propanone (acetone) is the paint solvent.</div>
+      <div class="q-block"><span class="q-num">Q10</span>
+      <p class="q-text">The main industrial use of methanal (formaldehyde) is:</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q10" value="a"> As an anaesthetic</label>
+        <label class="opt"><input type="radio" name="q10" value="b"> As a fuel</label>
+        <label class="opt"><input type="radio" name="q10" value="c"> Manufacture of phenol-formaldehyde resins (Bakelite) and as a preservative</label>
+        <label class="opt"><input type="radio" name="q10" value="d"> As a solvent for paints</label>
       </div>
+      <div class="qexplain" id="e10">Methanal&amp;rsquo;s main uses: manufacture of phenol-formaldehyde resins (Bakelite) (thermosetting plastic); formalin (40% aqueous solution) as a preservative and disinfectant. Propanone (acetone) is the paint solvent.</div></div>
 
     </div>
-    <div style="padding:0 24px 24px;">
+    
+      <div class="q-block"><span class="q-num">Q11</span>
+      <p class="q-text">Aldehydes and ketones both contain a carbonyl group (C=O). They differ in that:</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q11" value="a"> Aldehydes have two alkyl groups on C=O</label>
+        <label class="opt"><input type="radio" name="q11" value="b"> Aldehydes have at least one H on the carbonyl carbon (R–CHO); ketones have two alkyl groups (R–CO–R')</label>
+        <label class="opt"><input type="radio" name="q11" value="c"> Ketones have lower boiling points</label>
+        <label class="opt"><input type="radio" name="q11" value="d"> Aldehydes cannot be oxidised</label>
+      </div>
+      <div class="qexplain" id="e11">Aldehyde: H–C=O with at least one H. Ketone: no H on carbonyl carbon (two C groups). This structural difference causes different reactivity toward oxidising agents.</div></div>
+
+      <div class="q-block"><span class="q-num">Q12</span>
+      <p class="q-text">The Tollens' reagent test for aldehydes gives:</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q12" value="a"> A blue precipitate</label>
+        <label class="opt"><input type="radio" name="q12" value="b"> A silver mirror (Ag deposited on glass) — aldehyde reduces Ag⁺ to Ag⁰</label>
+        <label class="opt"><input type="radio" name="q12" value="c"> A brick-red precipitate</label>
+        <label class="opt"><input type="radio" name="q12" value="d"> A yellow precipitate</label>
+      </div>
+      <div class="qexplain" id="e12">RCHO + 2[Ag(NH₃)₂]⁺ + 2OH⁻ → RCOO⁻ + 2Ag↓ + 4NH₃ + H₂O. The silver mirror test. Ketones do NOT produce a silver mirror with Tollens'.</div></div>
+
+      <div class="q-block"><span class="q-num">Q13</span>
+      <p class="q-text">Fehling's solution is reduced by aldehydes but NOT ketones because:</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q13" value="a"> Ketones are larger molecules</label>
+        <label class="opt"><input type="radio" name="q13" value="b"> Aldehydes can be further oxidised (RCHO → RCOOH); ketones cannot be oxidised without breaking C–C bonds</label>
+        <label class="opt"><input type="radio" name="q13" value="c"> Fehling's contains copper only</label>
+        <label class="opt"><input type="radio" name="q13" value="d"> Temperature difference</label>
+      </div>
+      <div class="qexplain" id="e13">Fehling's: blue Cu²⁺ → brick-red Cu₂O. Aldehydes donate electrons (reduce Cu²⁺) while being oxidised to carboxylates. Ketones have no oxidisable H on C=O.</div></div>
+
+      <div class="q-block"><span class="q-num">Q14</span>
+      <p class="q-text">Nucleophilic addition of HCN to ethanal gives:</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q14" value="a"> Ethanol</label>
+        <label class="opt"><input type="radio" name="q14" value="b"> 2-hydroxypropionitrile (a cyanohydrin — CN⁻ attacks carbonyl carbon, H⁺ adds to O)</label>
+        <label class="opt"><input type="radio" name="q14" value="c"> Propanal</label>
+        <label class="opt"><input type="radio" name="q14" value="d"> Ethanoic acid</label>
+      </div>
+      <div class="qexplain" id="e14">CH₃CHO + HCN → CH₃CH(OH)CN (2-hydroxypropionitrile). CN⁻ (nucleophile) attacks δ+ C of C=O → alkoxide → H⁺ from HCN adds to O. Chain extended by 1 carbon.</div></div>
+
+      <div class="q-block"><span class="q-num">Q15</span>
+      <p class="q-text">The reaction of carbonyl compounds with 2,4-DNPH (Brady's reagent) is used to:</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q15" value="a"> Determine if a compound contains C=C</label>
+        <label class="opt"><input type="radio" name="q15" value="b"> Identify aldehydes and ketones — orange/yellow precipitate of 2,4-dinitrophenylhydrazone forms</label>
+        <label class="opt"><input type="radio" name="q15" value="c"> Measure melting point only</label>
+        <label class="opt"><input type="radio" name="q15" value="d"> Test for carboxylic acids</label>
+      </div>
+      <div class="qexplain" id="e15">2,4-DNPH reacts with C=O to give orange/yellow crystalline precipitate. Melting point of precipitate identifies specific aldehyde or ketone. Both aldehydes AND ketones react.</div></div>
+
+      <div class="q-block"><span class="q-num">Q16</span>
+      <p class="q-text">Reduction of an aldehyde with NaBH₄ or LiAlH₄ gives:</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q16" value="a"> A carboxylic acid</label>
+        <label class="opt"><input type="radio" name="q16" value="b"> A primary alcohol (R–CHO + 2[H] → R–CH₂OH)</label>
+        <label class="opt"><input type="radio" name="q16" value="c"> A secondary alcohol</label>
+        <label class="opt"><input type="radio" name="q16" value="d"> A ketone</label>
+      </div>
+      <div class="qexplain" id="e16">RCHO + 2H → RCH₂OH (primary alcohol). NaBH₄ in aqueous ethanol: mild, safe. LiAlH₄ in dry ether: stronger. Both provide H⁻ (hydride) to the carbonyl carbon.</div></div>
+
+      <div class="q-block"><span class="q-num">Q17</span>
+      <p class="q-text">Reduction of a ketone with NaBH₄ gives:</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q17" value="a"> A primary alcohol</label>
+        <label class="opt"><input type="radio" name="q17" value="b"> A secondary alcohol (R–CO–R' + 2[H] → R–CHOHR')</label>
+        <label class="opt"><input type="radio" name="q17" value="c"> A carboxylic acid</label>
+        <label class="opt"><input type="radio" name="q17" value="d"> An aldehyde</label>
+      </div>
+      <div class="qexplain" id="e17">R–CO–R' + 2H → R–CH(OH)–R' (secondary alcohol). The hydride (H⁻) attacks the electrophilic carbonyl carbon; protonation of O gives –OH.</div></div>
+
+      <div class="q-block"><span class="q-num">Q18</span>
+      <p class="q-text">The iodoform test (I₂/NaOH) gives a yellow precipitate of CHI₃ with:</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q18" value="a"> All aldehydes</label>
+        <label class="opt"><input type="radio" name="q18" value="b"> Methyl ketones (CH₃COR) and ethanol (CH₃CH₂OH) and ethanal (CH₃CHO)</label>
+        <label class="opt"><input type="radio" name="q18" value="c"> Carboxylic acids</label>
+        <label class="opt"><input type="radio" name="q18" value="d"> Primary alcohols only</label>
+      </div>
+      <div class="qexplain" id="e18">Iodoform (CHI₃) forms from CH₃CO– groups: methyl ketones (CH₃COR), ethanal (CH₃CHO), ethanol (oxidised to CH₃CHO first). Yellow precipitate with antiseptic smell.</div></div>
+
+      <div class="q-block"><span class="q-num">Q19</span>
+      <p class="q-text">The condensation reaction between an aldehyde and hydroxylamine (NH₂OH) gives:</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q19" value="a"> An alcohol</label>
+        <label class="opt"><input type="radio" name="q19" value="b"> An oxime (R–CH=N–OH) + water — N of NH₂OH attacks C=O</label>
+        <label class="opt"><input type="radio" name="q19" value="c"> A nitrile</label>
+        <label class="opt"><input type="radio" name="q19" value="d"> An amide</label>
+      </div>
+      <div class="qexplain" id="e19">RCHO + NH₂OH → R–CH=NOH + H₂O. The nitrogen of hydroxylamine attacks the carbonyl carbon (nucleophilic addition), then loss of water (condensation) gives oxime.</div></div>
+
+      <div class="q-block"><span class="q-num">Q20</span>
+      <p class="q-text">Propanone (acetone) can be distinguished from propanal by:</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q20" value="a"> Both react identically with all reagents</label>
+        <label class="opt"><input type="radio" name="q20" value="b"> Tollens' test — propanal gives silver mirror (aldehyde); propanone gives no reaction (ketone)</label>
+        <label class="opt"><input type="radio" name="q20" value="c"> Smell only</label>
+        <label class="opt"><input type="radio" name="q20" value="d"> Colour</label>
+      </div>
+      <div class="qexplain" id="e20">Key distinction: aldehydes are oxidised by Tollens' and Fehling's; ketones are not. 2,4-DNPH tests positive for BOTH. Tollens' / Fehling's identify aldehydes specifically.</div></div>
+
+      <div class="q-block"><span class="q-num">Q21</span>
+      <p class="q-text">Nucleophilic addition to carbonyl compounds occurs because:</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q21" value="a"> The oxygen is electronegative making carbon δ+</label>
+        <label class="opt"><input type="radio" name="q21" value="b"> The carbonyl carbon (δ+) is attacked by nucleophiles — the electronegative O withdraws electrons from C, making it electron-deficient</label>
+        <label class="opt"><input type="radio" name="q21" value="c"> The double bond has π electrons available for electrophiles</label>
+        <label class="opt"><input type="radio" name="q21" value="d"> Carbon is always positive</label>
+      </div>
+      <div class="qexplain" id="e21">C=O polarised: δ+C=Oδ⁻. The δ+ C is electrophilic → attacked by nucleophiles (CN⁻, H⁻, RMgX). Contrast with alkenes (electron-rich C=C) which undergo electrophilic addition.</div></div>
+
+      <div class="q-block"><span class="q-num">Q22</span>
+      <p class="q-text">The reaction of propanone with HCN gives:</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q22" value="a"> Propanol</label>
+        <label class="opt"><input type="radio" name="q22" value="b"> 2-methylpropan-2-ol-2-carbonitrile (a cyanohydrin) — CN⁻ adds to C=O of ketone</label>
+        <label class="opt"><input type="radio" name="q22" value="c"> Propanoic acid</label>
+        <label class="opt"><input type="radio" name="q22" value="d"> An acetal</label>
+      </div>
+      <div class="qexplain" id="e22">(CH₃)₂C=O + HCN → (CH₃)₂C(OH)CN. CN⁻ attacks the carbonyl C of propanone → cyanohydrin product. Useful for extending carbon chains with a –CN group.</div></div>
+
+      <div class="q-block"><span class="q-num">Q23</span>
+      <p class="q-text">Methanal (HCHO) is the simplest aldehyde and is unusual because:</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q23" value="a"> It has no carbonyl group</label>
+        <label class="opt"><input type="radio" name="q23" value="b"> Both substituents on C=O are H (not alkyl groups) — it is the most reactive carbonyl compound toward nucleophiles</label>
+        <label class="opt"><input type="radio" name="q23" value="c"> It cannot be oxidised</label>
+        <label class="opt"><input type="radio" name="q23" value="d"> It is a solid at room temperature</label>
+      </div>
+      <div class="qexplain" id="e23">HCHO: two H atoms on C=O (no electron-donating alkyl groups). Carbonyl C is most electrophilic → most reactive toward nucleophilic addition. Formalin = 40% aqueous HCHO solution.</div></div>
+
+      <div class="q-block"><span class="q-num">Q24</span>
+      <p class="q-text">The oxidation state of carbon in methanal (HCHO) compared to methanol (CH₃OH) is:</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q24" value="a"> The same</label>
+        <label class="opt"><input type="radio" name="q24" value="b"> Higher in HCHO — carbon has lost electrons relative to methanol (O.S. in HCHO = 0; in CH₃OH = –2)</label>
+        <label class="opt"><input type="radio" name="q24" value="c"> Lower in HCHO</label>
+        <label class="opt"><input type="radio" name="q24" value="d"> Cannot be determined</label>
+      </div>
+      <div class="qexplain" id="e24">O.S. of C: CH₃OH = –2; HCHO = 0; HCOOH = +2; CO₂ = +4. Each oxidation increases the O.S. of carbon by 2. Aldehydes are intermediate in the oxidation series.</div></div>
+
+      <div class="q-block"><span class="q-num">Q25</span>
+      <p class="q-text">Condensation of an aldehyde with an alcohol gives an acetal by:</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q25" value="a"> Direct addition only</label>
+        <label class="opt"><input type="radio" name="q25" value="b"> Nucleophilic addition of first –OH then elimination of water, then addition of second –OH → R–CH(OR')₂</label>
+        <label class="opt"><input type="radio" name="q25" value="c"> Esterification</label>
+        <label class="opt"><input type="radio" name="q25" value="d"> Free radical mechanism</label>
+      </div>
+      <div class="qexplain" id="e25">RCHO + 2R'OH → R–CH(OR')₂ + H₂O (acetal). Two steps: hemiacetal formation, then dehydration + addition of second alcohol. Acid-catalysed. Reversible hydrolysis in water.</div></div>
+<div style="padding:0 24px 24px;">
       <button class="quiz-submit" onclick="submitQuiz()">Submit Answers</button>
       <div id="quizResult" style="display:none;margin-top:16px;padding:16px 20px;border-radius:var(--radius);font-family:'JetBrains Mono',monospace;"></div>
     </div>
   </div>
 </section>
+
 
 <!-- UNIT TEST -->
 <section id="test">
@@ -920,35 +1052,151 @@ CH3COCH3 + 4O2    -->  3CO2  +  3H2O</div>
 
 </main>
 
+
+
+
+
+<!-- ═══════════════════════════ UNIT QUIZ GATE ═══════════════════════════ -->
+<script>
+(function(){
+  const CK='quiz_access_code', SK='quiz_access_granted';
+  const code=localStorage.getItem(CK);
+  if(!code) return;
+  if(sessionStorage.getItem(SK)) return;
+  const qw=document.querySelector('.quiz-wrap');
+  if(!qw) return;
+  function showGate(){
+    if(document.getElementById('_ugate')) return;
+    const g=document.createElement('div');
+    g.id='_ugate';
+    g.style.cssText='position:fixed;inset:0;background:#0d1117;z-index:99999;display:flex;align-items:center;justify-content:center;padding:24px;';
+    g.innerHTML=`
+      <div style="background:#161b22;border:2px solid rgba(245,158,11,.4);border-radius:16px;padding:44px 36px;max-width:440px;width:100%;text-align:center;">
+        <div style="font-size:3.5rem;margin-bottom:14px;">🔒</div>
+        <h2 style="font-family:'Playfair Display',serif;font-size:1.8rem;color:#fff;margin-bottom:10px;">Quiz Locked</h2>
+        <p style="color:#8b949e;font-size:.92rem;margin-bottom:20px;line-height:1.7;">Enter your teacher&#39;s access code to attempt this quiz.</p>
+        <input id="_ugate_inp" type="text" placeholder="Enter Code" maxlength="20" autocomplete="off"
+          style="width:100%;background:#1c2333;border:2px solid #30363d;border-radius:8px;color:#e6edf3;padding:13px 16px;font-family:'JetBrains Mono',monospace;font-size:1.4rem;text-align:center;letter-spacing:.2em;text-transform:uppercase;margin-bottom:10px;box-sizing:border-box;"
+          onkeydown="if(event.key==='Enter')window._ugateCheck()"/>
+        <div id="_ugate_err" style="font-family:'JetBrains Mono',monospace;font-size:.82rem;color:#f87171;min-height:20px;margin:6px 0 10px;"></div>
+        <button onclick="window._ugateCheck()" style="width:100%;background:#f59e0b;color:#000;border:none;padding:12px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.9rem;font-weight:700;cursor:pointer;margin-bottom:8px;">🔓 Unlock Quiz</button>
+        <button onclick="document.getElementById('_ugate').remove();document.body.style.overflow='';" style="width:100%;background:transparent;border:1px solid #30363d;color:#8b949e;padding:8px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.78rem;cursor:pointer;">✕ Cancel</button>
+      </div>`;
+    document.body.appendChild(g);
+    document.body.style.overflow='hidden';
+    setTimeout(()=>{const i=document.getElementById('_ugate_inp');if(i)i.focus();},100);
+  }
+  window._ugateCheck=function(){
+    const val=(document.getElementById('_ugate_inp')||{}).value;
+    if(!val) return;
+    const v=val.trim().toUpperCase();
+    const stored=localStorage.getItem(CK);
+    if(v===stored){
+      sessionStorage.setItem(SK,'1');
+      const g=document.getElementById('_ugate');
+      if(g) g.remove();
+      document.body.style.overflow='';
+    } else {
+      const err=document.getElementById('_ugate_err');
+      if(err) err.textContent='❌ Wrong code — try again.';
+      const inp=document.getElementById('_ugate_inp');
+      if(inp){inp.value='';inp.focus();}
+    }
+  };
+  qw.addEventListener('click',function(e){
+    if(!localStorage.getItem(CK)) return;
+    if(sessionStorage.getItem(SK)) return;
+    e.stopPropagation();e.preventDefault();
+    showGate();
+  },true);
+})();
+</script>
+
+<script>
+// ── PER-UNIT QUIZ ACCESS GATE ── ID: s5_unit6 ──
+(function(){
+  const ITEM_ID='s5_unit6';
+  const SESS_KEY='unlocked_'+ITEM_ID;
+  const CODE_KEY='quiz_access_code';
+  const LOCKS_KEY='assessment_locks';
+  
+  function isLocked(){return JSON.parse(localStorage.getItem(LOCKS_KEY)||'{}')[ITEM_ID]===true;}
+  function isGranted(){const c=localStorage.getItem(CODE_KEY)||'OPEN';return sessionStorage.getItem(SESS_KEY)===c||sessionStorage.getItem(SESS_KEY)==='OPEN';}
+  
+  const gate=document.createElement('div');
+  gate.id='unit-quiz-gate-s5_unit6';
+  gate.style.cssText='position:fixed;inset:0;background:#0d1117;z-index:99999;display:none;align-items:center;justify-content:center;padding:24px;';
+  gate.innerHTML=`<div style="background:#161b22;border:2px solid rgba(245,158,11,.4);border-radius:16px;padding:44px 38px;max-width:460px;width:100%;text-align:center;">
+    <div style="font-size:3.5rem;margin-bottom:14px;">🔒</div>
+    <h2 style="font-family:Playfair Display,serif;font-size:1.8rem;color:#fff;margin-bottom:10px;">Quiz Locked</h2>
+    <p style="color:#8b949e;font-size:.92rem;margin-bottom:22px;line-height:1.7;">Your teacher has locked this quiz. Enter the access code to unlock it.</p>
+    <input id="ugi-s5_unit6" type="text" placeholder="Enter Code" maxlength="20"
+      style="width:100%;background:#1c2333;border:2px solid #30363d;border-radius:8px;color:#e6edf3;padding:13px 16px;font-family:JetBrains Mono,monospace;font-size:1.3rem;text-align:center;letter-spacing:.2em;text-transform:uppercase;margin-bottom:10px;box-sizing:border-box;"
+      onkeydown="if(event.key==='Enter')unlockUnit_s5_unit6()"
+      oninput="this.value=this.value.toUpperCase()"/>
+    <div id="uge-s5_unit6" style="font-family:JetBrains Mono,monospace;font-size:.8rem;color:#f87171;min-height:18px;margin-bottom:10px;"></div>
+    <button onclick="unlockUnit_s5_unit6()" style="width:100%;background:#f59e0b;color:#000;border:none;padding:13px;border-radius:8px;font-family:JetBrains Mono,monospace;font-size:.88rem;font-weight:700;cursor:pointer;margin-bottom:8px;">🔓 Unlock Quiz</button>
+    <button onclick="document.getElementById('unit-quiz-gate-s5_unit6').style.display='none';document.body.style.overflow='';" style="width:100%;background:transparent;border:1px solid #30363d;color:#8b949e;padding:8px;border-radius:7px;font-family:JetBrains Mono,monospace;font-size:.78rem;cursor:pointer;">✕ Cancel — Go back</button>
+    <div style="font-family:JetBrains Mono,monospace;font-size:.7rem;color:#8b949e;margin-top:10px;">Ask your teacher for the access code.</div>
+  </div>`;
+  document.body.appendChild(gate);
+  
+  window.unlockUnit_s5_unit6=function(){
+    const entered=document.getElementById('ugi-s5_unit6').value.trim().toUpperCase();
+    const correct=localStorage.getItem(CODE_KEY)||'';
+    if(!entered){document.getElementById('uge-s5_unit6').textContent='Enter the code.';return;}
+    if(!correct||entered===correct){
+      sessionStorage.setItem(SESS_KEY,correct||'OPEN');
+      gate.style.display='none';document.body.style.overflow='';
+      if(window._pendingAction_s5_unit6) window._pendingAction_s5_unit6();
+    } else {
+      document.getElementById('uge-s5_unit6').textContent='❌ Wrong code. Ask your teacher.';
+      document.getElementById('ugi-s5_unit6').value='';
+    }
+  };
+  
+  window.addEventListener('DOMContentLoaded',function(){
+    if(!isLocked()) return;
+    const qw=document.querySelector('.quiz-wrap');
+    if(!qw) return;
+    qw.addEventListener('click',function(e){
+      if(!isLocked()||isGranted()) return;
+      e.stopPropagation();e.preventDefault();
+      gate.style.display='flex';document.body.style.overflow='hidden';
+    },true);
+  });
+})();
+</script>
+<script>
+const _CA={q1:'B',q2:'A',q3:'B',q4:'C',q5:'A',q6:'C',q7:'C',q8:'B',q9:'B',q10:'C'};
+function submitQuiz(){
+  let s=0,t=Object.keys(_CA).length;
+  Object.entries(_CA).forEach(([q,c])=>{
+    const sel=document.querySelector('input[name="'+q+'"]:checked');
+    const e=document.getElementById('e'+q.slice(1));if(e)e.style.display='block';
+    document.querySelectorAll('input[name="'+q+'"]').forEach(o=>{
+      if(o.value===c)o.closest('label').classList.add('correct');
+      else if(sel&&o.value===sel.value&&o.value!==c)o.closest('label').classList.add('wrong');
+      o.disabled=true;
+    });
+    if(sel&&sel.value===c)s++;
+  });
+  const p=Math.round(s/t*100);
+  const r=document.getElementById('quizResult');r.style.display='block';
+  r.style.cssText='display:block;margin-top:16px;padding:16px 20px;border-radius:8px;font-family:JetBrains Mono,monospace;font-size:.88rem;text-align:center;background:'+(p>=70?'rgba(52,211,153,.1)':'rgba(248,113,113,.1)')+';border:1px solid '+(p>=70?'var(--green)':'var(--red)')+';color:'+(p>=70?'var(--green)':'var(--red)');
+  r.innerHTML='Score: '+s+'/'+t+' ('+p+'%) &mdash; '+(p>=80?'&#127942; Excellent!':p>=70?'&#10003; Good':p>=50?'&#128218; Review':'&#10007; Re-read');
+  document.querySelector('.quiz-submit').disabled=true;document.querySelector('.quiz-submit').style.opacity='.5';
+}
+</script>
 <script>
 function toggleAnswer(btn){
-  const ans=btn.nextElementSibling;
-  ans.classList.toggle('open');
-  btn.textContent=ans.classList.contains('open')?'Hide Answer':'Show Answer';
-}
-const correctAnswers={q1:'b',q2:'c',q3:'b',q4:'c',q5:'c',q6:'c',q7:'c',q8:'b',q9:'b',q10:'c'};
-function submitQuiz(){
-  let score=0;
-  const total=Object.keys(correctAnswers).length;
-  Object.entries(correctAnswers).forEach(([q,correct])=>{
-    const sel=document.querySelector('input[name="'+q+'"]:checked');
-    document.querySelectorAll('input[name="'+q+'"]').forEach(o=>{
-      if(o.value===correct)o.parentElement.classList.add('correct');
-    });
-    if(sel){if(sel.value===correct)score++;else sel.parentElement.classList.add('wrong');}
-    const exp=document.getElementById('exp'+q.slice(1));
-    if(exp)exp.style.display='block';
-    document.querySelectorAll('input[name="'+q+'"]').forEach(o=>o.disabled=true);
-  });
-  const pct=Math.round(score/total*100);
-  const res=document.getElementById('quizResult');
-  res.style.display='block';
-  res.style.background=pct>=70?'rgba(52,211,153,.1)':'rgba(248,113,113,.1)';
-  res.style.border='1px solid '+(pct>=70?'var(--green)':'var(--red)');
-  res.style.color=pct>=70?'var(--green)':'var(--red)';
-  res.innerHTML='Score: '+score+' / '+total+' ('+pct+'%) — '+(pct>=80?'Excellent! 🎉':pct>=60?'Good effort — review marked questions.':'Keep studying — re-read the notes and try again.');
-  document.querySelector('.quiz-submit').disabled=true;
-  document.querySelector('.quiz-submit').style.opacity='0.5';
+  var ans = btn.nextElementSibling;
+  if(!ans) return;
+  var isOpen = ans.classList.contains('open');
+  ans.classList.toggle('open', !isOpen);
+  btn.textContent = isOpen ? 'Show Answer' : 'Hide Answer';
+  if(btn.classList.contains('rb')||btn.classList.contains('reveal-btn'))
+    btn.textContent = isOpen ? 'Model Answer' : 'Hide Answer';
 }
 </script>
 </body>
