@@ -2647,18 +2647,35 @@ async function publishUnitQuiz(){
   showAlert(alertEl,'success','⏳ Publishing...');
   document.getElementById('pq-code-box').style.display='none';
 
+  // Ensure results bin exists before publishing
+  let resultsBinId = localStorage.getItem('results_bin_id');
+  if(!resultsBinId){
+    try{
+      const rb=await fetch('https://api.jsonbin.io/v3/b',{
+        method:'POST',
+        headers:{'Content-Type':'application/json','X-Master-Key':key,'X-Bin-Private':'false','X-Bin-Name':'ChemResults'},
+        body:JSON.stringify([])
+      });
+      const rd=await rb.json();
+      if(rd.metadata?.id){resultsBinId=rd.metadata.id;localStorage.setItem('results_bin_id',resultsBinId);}
+    }catch(e){}
+  }
+
+  // Get selected course for correct label
+  const selectedCourse = (document.getElementById('pq-course')||{}).value||'S4';
+
   // Build exam object in exact format student-exam.html expects
   const examObj = {
     id: 'exam_' + Date.now(),
-    title: `S4 ${unit.num} Quiz — ${unit.title}`,
-    subject: 'S4 Chemistry',
+    title: `${selectedCourse} ${unit.num} Quiz — ${unit.title}`.replace(/[^\x00-\x7F]/g,'').trim()||`${selectedCourse} ${unit.num} Quiz`,
+    subject: `${selectedCourse} Chemistry`,
     type: 'quiz',
     time, pass, warnings: warn, instructions,
     questions: unit.questions,
     totalMarks: unit.questions.length,
     created: new Date().toISOString(),
     _apiKey: key,
-    _resultsBin: localStorage.getItem('results_bin_id')||'',
+    _resultsBin: resultsBinId||'',
     _notif: (()=>{
       const s=JSON.parse(localStorage.getItem('notif_settings')||'{}');
       return {waPhone:s.waPhone||'',waApiKey:s.waApiKey||'',ejPubKey:s.ejPubKey||'',ejService:s.ejService||'',ejTemplate:s.ejTemplate||'',ejEmail:s.ejEmail||'hajackson2020@gmail.com',notifCheat:s.notifCheat!==false,notifSubmit:s.notifSubmit!==false};
