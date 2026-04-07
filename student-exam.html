@@ -490,13 +490,25 @@ async function sendNotification(eventType, textMsg){
     if(eventType==='CHEAT' && s.notifCheat === false) return;
     if(eventType==='SUBMIT' && s.notifSubmit === false) return;
 
-    // 1. WhatsApp via CallMeBot — sends to teacher's phone instantly
-    if(s.waPhone && s.waApiKey){
+    // 1. WhatsApp — try Green API first (works in Rwanda), fallback to CallMeBot
+    if(s.waPhone){
       const phone = s.waPhone.replace(/[^0-9]/g,'');
-      const msg = encodeURIComponent(textMsg.substring(0,400));
-      // Use no-cors to avoid CORS errors — message still gets delivered
-      fetch(`https://api.callmebot.com/whatsapp.php?phone=${phone}&text=${msg}&apikey=${s.waApiKey}`,
-        {mode:'no-cors'}).catch(()=>{});
+      const msgText = textMsg.substring(0,400);
+
+      // Green API (primary — works in Rwanda)
+      if(s.waInstance && s.waToken){
+        fetch(`https://api.green-api.com/waInstance${s.waInstance}/sendMessage/${s.waToken}`,{
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({chatId: phone+'@c.us', message: msgText})
+        }).catch(()=>{});
+      }
+
+      // CallMeBot (backup)
+      if(s.waApiKey){
+        fetch(`https://api.callmebot.com/whatsapp.php?phone=${phone}&text=${encodeURIComponent(msgText)}&apikey=${s.waApiKey}`,
+          {mode:'no-cors'}).catch(()=>{});
+      }
     }
 
     // 2. Telegram

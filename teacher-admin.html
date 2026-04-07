@@ -765,30 +765,44 @@ table.results tr:hover td{background:rgba(255,255,255,.02);}
         </div>
       </div>
 
-      <!-- WHATSAPP SETUP -->
+      <!-- WHATSAPP SETUP — Green API (works in Rwanda) -->
       <div style="background:var(--surface2);border:1px solid rgba(52,211,153,.25);border-radius:10px;padding:20px;margin-bottom:16px;">
         <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
           <span style="font-size:1.4rem;">📱</span>
-          <strong style="color:#fff;font-size:1rem;">WhatsApp Alerts (CallMeBot)</strong>
-          <span style="font-family:'JetBrains Mono',monospace;font-size:.68rem;background:rgba(52,211,153,.12);color:var(--green);border:1px solid rgba(52,211,153,.25);padding:2px 10px;border-radius:50px;">FREE</span>
+          <strong style="color:#fff;font-size:1rem;">WhatsApp Alerts (Green API)</strong>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:.68rem;background:rgba(52,211,153,.12);color:var(--green);border:1px solid rgba(52,211,153,.25);padding:2px 10px;border-radius:50px;">FREE · Works in Rwanda</span>
         </div>
-        <div style="background:rgba(52,211,153,.06);border:1px solid rgba(52,211,153,.15);border-radius:8px;padding:14px 16px;margin-bottom:14px;font-size:.85rem;">
-          <strong style="color:var(--green);display:block;margin-bottom:8px;">⚡ Quick Setup (2 minutes — one time only):</strong>
-          <ol style="margin-left:18px;line-height:2.1;color:var(--muted);">
-            <li>Open WhatsApp on your phone → Add contact: <strong style="color:#fff;">+34 644 44 91 94</strong> (CallMeBot)</li>
-            <li>Send this message to that contact: <code style="background:rgba(52,211,153,.1);padding:2px 6px;border-radius:4px;">I allow callmebot to send me messages</code></li>
-            <li>Wait ~1 minute → they will reply with your <strong style="color:var(--orange);">API Key</strong></li>
-            <li>Enter your phone number (with country code) and that API key below</li>
+
+        <div style="background:rgba(52,211,153,.06);border:1px solid rgba(52,211,153,.15);border-radius:8px;padding:16px;margin-bottom:16px;font-size:.85rem;">
+          <strong style="color:var(--green);display:block;margin-bottom:10px;">⚡ Setup (5 minutes — one time only):</strong>
+          <ol style="margin-left:18px;line-height:2.4;color:var(--muted);">
+            <li>Go to <a href="https://green-api.com" target="_blank" style="color:var(--accent);">green-api.com</a> → click <strong style="color:#fff;">Get Started Free</strong> → Sign up with Google</li>
+            <li>After login → click <strong style="color:#fff;">Create Instance</strong> → choose <strong style="color:#fff;">Developer (Free)</strong></li>
+            <li>A QR code appears → open WhatsApp on your phone → tap <strong style="color:#fff;">⋮ Menu → Linked Devices → Link a Device</strong> → scan the QR code</li>
+            <li>Your instance status turns <strong style="color:var(--green);">green (Authorized)</strong></li>
+            <li>Copy your <strong style="color:var(--orange);">Instance ID</strong> (e.g. <code style="background:rgba(255,255,255,.06);padding:1px 6px;border-radius:3px;">1101234567</code>) and <strong style="color:var(--orange);">API Token</strong> (long string)</li>
+            <li>Paste them below → click <strong style="color:#fff;">💾 Save</strong> → click <strong style="color:#fff;">📤 Send Test</strong></li>
           </ol>
         </div>
+
         <div class="form-row">
+          <div>
+            <label>Green API Instance ID</label>
+            <input type="text" id="wa-instance" placeholder="e.g. 1101234567" oninput="saveNotifSettings()"/>
+          </div>
+          <div>
+            <label>Green API Token</label>
+            <input type="text" id="wa-token" placeholder="Paste your API token here" oninput="saveNotifSettings()"/>
+          </div>
+        </div>
+        <div class="form-row" style="margin-top:-8px;">
           <div>
             <label>Your WhatsApp Number (with country code)</label>
             <input type="text" id="wa-phone" placeholder="+250788800375" oninput="saveNotifSettings()"/>
           </div>
           <div>
-            <label>CallMeBot API Key (received via WhatsApp)</label>
-            <input type="text" id="wa-apikey" placeholder="1234567" oninput="saveNotifSettings()"/>
+            <label>CallMeBot API Key (optional backup)</label>
+            <input type="text" id="wa-apikey" placeholder="If you have it from CallMeBot" oninput="saveNotifSettings()"/>
           </div>
         </div>
         <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
@@ -1092,7 +1106,7 @@ async function republishExam(id){
   // Re-embed notification settings in case they changed
   if(exam){
     const _ns2=JSON.parse(localStorage.getItem('notif_settings')||'{}');
-    exam._notif={waPhone:_ns2.waPhone||'',waApiKey:_ns2.waApiKey||'',ejPubKey:_ns2.ejPubKey||'',ejService:_ns2.ejService||'',ejTemplate:_ns2.ejTemplate||'',ejEmail:_ns2.ejEmail||'hajackson2020@gmail.com',notifCheat:_ns2.notifCheat!==false,notifSubmit:_ns2.notifSubmit!==false};
+    exam._notif={waPhone:_ns2.waPhone||'',waApiKey:_ns2.waApiKey||'',waInstance:_ns2.waInstance||'',waToken:_ns2.waToken||'',ejPubKey:_ns2.ejPubKey||'',ejService:_ns2.ejService||'',ejTemplate:_ns2.ejTemplate||'',ejEmail:_ns2.ejEmail||'hajackson2020@gmail.com',notifCheat:_ns2.notifCheat!==false,notifSubmit:_ns2.notifSubmit!==false};
   }
   if(!exam) return;
   try{
@@ -2678,7 +2692,7 @@ async function publishUnitQuiz(){
     _resultsBin: resultsBinId||'',
     _notif: (()=>{
       const s=JSON.parse(localStorage.getItem('notif_settings')||'{}');
-      return {waPhone:s.waPhone||'',waApiKey:s.waApiKey||'',ejPubKey:s.ejPubKey||'',ejService:s.ejService||'',ejTemplate:s.ejTemplate||'',ejEmail:s.ejEmail||'hajackson2020@gmail.com',notifCheat:s.notifCheat!==false,notifSubmit:s.notifSubmit!==false};
+      return {waPhone:s.waPhone||'',waApiKey:s.waApiKey||'',waInstance:s.waInstance||'',waToken:s.waToken||'',ejPubKey:s.ejPubKey||'',ejService:s.ejService||'',ejTemplate:s.ejTemplate||'',ejEmail:s.ejEmail||'hajackson2020@gmail.com',notifCheat:s.notifCheat!==false,notifSubmit:s.notifSubmit!==false};
     })()
   };
 
@@ -2907,6 +2921,8 @@ function saveNotifSettings(){
   const s={
     waPhone:document.getElementById('wa-phone').value.trim(),
     waApiKey:document.getElementById('wa-apikey').value.trim(),
+    waInstance:document.getElementById('wa-instance').value.trim(),
+    waToken:document.getElementById('wa-token').value.trim(),
     tgToken:document.getElementById('tg-token').value.trim(),
     tgChatId:document.getElementById('tg-chatid').value.trim(),
     ejPubKey:document.getElementById('ej-pubkey').value.trim(),
@@ -2924,6 +2940,8 @@ function loadNotifSettings(){
   const s=JSON.parse(localStorage.getItem('notif_settings')||'{}');
   if(s.waPhone) document.getElementById('wa-phone').value=s.waPhone;
   if(s.waApiKey) document.getElementById('wa-apikey').value=s.waApiKey;
+  if(s.waInstance) document.getElementById('wa-instance').value=s.waInstance;
+  if(s.waToken) document.getElementById('wa-token').value=s.waToken;
   if(s.tgToken) document.getElementById('tg-token').value=s.tgToken;
   if(s.tgChatId) document.getElementById('tg-chatid').value=s.tgChatId;
   if(s.ejPubKey) document.getElementById('ej-pubkey').value=s.ejPubKey;
@@ -2934,20 +2952,49 @@ function loadNotifSettings(){
   if(s.notifSubmit!==undefined) document.getElementById('notif-submit').checked=s.notifSubmit;
 }
 async function testWhatsApp(){
-  const phone=document.getElementById('wa-phone').value.trim().replace(/[^0-9]/g,'');
-  const apikey=document.getElementById('wa-apikey').value.trim();
-  const m=document.getElementById('wa-test-msg');
-  if(!phone||!apikey){m.style.color='var(--red)';m.textContent='❌ Enter phone number and API key first.';return;}
+  const phone   = document.getElementById('wa-phone').value.trim().replace(/[^0-9]/g,'');
+  const instance= document.getElementById('wa-instance').value.trim();
+  const token   = document.getElementById('wa-token').value.trim();
+  const apikey  = document.getElementById('wa-apikey').value.trim();
+  const m = document.getElementById('wa-test-msg');
+
+  if(!phone){m.style.color='var(--red)';m.textContent='❌ Enter your WhatsApp number first.';return;}
+  if(!instance && !token && !apikey){m.style.color='var(--red)';m.textContent='❌ Enter Green API credentials or CallMeBot key.';return;}
+
   m.style.color='var(--muted)';m.textContent='Sending test...';
-  const msg=encodeURIComponent('✅ TEST from Chemistry Portal — cheat alerts are working! You will receive messages like this when a student cheats.');
-  try{
-    await fetch(`https://api.callmebot.com/whatsapp.php?phone=${phone}&text=${msg}&apikey=${apikey}`);
-    m.style.color='var(--green)';
-    m.textContent='✅ Sent! Check your WhatsApp now.';
-  }catch(e){
-    m.style.color='var(--orange)';
-    m.textContent='⚠️ Request sent — check WhatsApp. (CORS errors are normal — the message still arrives)';
+  const testMsg = '✅ Chemistry Portal Test — alerts are working! Student cheat and submission alerts will appear here.';
+
+  // Try Green API first (works in Rwanda)
+  if(instance && token){
+    try{
+      const chatId = phone+'@c.us';
+      const url = `https://api.green-api.com/waInstance${instance}/sendMessage/${token}`;
+      const r = await fetch(url,{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({chatId, message: testMsg})
+      });
+      const d = await r.json();
+      if(d.idMessage){
+        m.style.color='var(--green)';
+        m.textContent='✅ Sent via Green API! Check your WhatsApp now.';
+        return;
+      }
+    }catch(e){}
   }
+
+  // Fallback: CallMeBot
+  if(apikey){
+    try{
+      await fetch(`https://api.callmebot.com/whatsapp.php?phone=${phone}&text=${encodeURIComponent(testMsg)}&apikey=${apikey}`,{mode:'no-cors'});
+      m.style.color='var(--green)';
+      m.textContent='✅ Sent via CallMeBot! Check your WhatsApp now.';
+      return;
+    }catch(e){}
+  }
+
+  m.style.color='var(--red)';
+  m.textContent='❌ Failed. Check your Instance ID and Token from green-api.com';
 }
 
 async function testTelegram(){
