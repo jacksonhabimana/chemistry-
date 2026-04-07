@@ -289,6 +289,7 @@ function teacherUnlock(){
   const m=document.getElementById('teacherMsg');
   if(p==='chemistry2024'||p==='CHEM2026'){
     isTeacher=true;m.style.color='var(--green)';m.textContent='✅ Teacher mode — all downloads unlocked.';renderAll();
+document.getElementById('dlModal').addEventListener('click',function(e){if(e.target===this)closeDlModal();});
   }else{m.style.color='var(--red)';m.textContent='❌ Incorrect password.';}
 }
 
@@ -332,15 +333,46 @@ function renderAll(){
   buildCatalog(S4,'s4-catalog');buildCatalog(S5,'s5-catalog');buildCatalog(S6,'s6-catalog');
 }
 
+// ── Download Modal ──
+let dlCurFile=null,dlCurBundle=null;
+
 function dlFile(file,title){
-  const w=window.open(file,'_blank');
-  if(w){setTimeout(()=>{try{const d=w.document.createElement('div');d.style.cssText='position:fixed;bottom:20px;right:20px;background:#34d399;color:#000;padding:10px 18px;border-radius:8px;font-family:JetBrains Mono,monospace;font-size:.8rem;font-weight:700;z-index:9999;cursor:pointer;';d.innerHTML='🖨 Print → Save as PDF';d.onclick=()=>w.print();w.document.body.appendChild(d);}catch(e){}},1800);}
+  dlCurFile=file;dlCurBundle=null;
+  document.getElementById('dlModalSub').textContent=title||file;
+  document.getElementById('dlSingleOpts').style.display='block';
+  document.getElementById('dlBundleOpts').style.display='none';
+  document.getElementById('dlModal').classList.add('open');
 }
 function dlBundle(id){
-  let files=id==='ALL'?[...BUNDLES['BUNDLE-S4'].files,...BUNDLES['BUNDLE-S5'].files,...BUNDLES['BUNDLE-S6'].files]:BUNDLES[id].files;
-  alert('📥 Opening '+files.length+' files.\nFor each: press Ctrl+P → Save as PDF.');
-  files.forEach((f,i)=>setTimeout(()=>window.open(f,'_blank'),i*600));
+  dlCurBundle=id;dlCurFile=null;
+  const files=id==='ALL'
+    ?[...BUNDLES['BUNDLE-S4'].files,...BUNDLES['BUNDLE-S5'].files,...BUNDLES['BUNDLE-S6'].files]
+    :BUNDLES[id].files;
+  document.getElementById('dlModalSub').textContent=(id==='ALL'?'All S4+S5+S6':BUNDLES[id].label);
+  document.getElementById('dlBundleCount').textContent='This bundle has '+files.length+' unit pages. Each opens in a new tab — save as PDF using Ctrl+P.';
+  document.getElementById('dlSingleOpts').style.display='none';
+  document.getElementById('dlBundleOpts').style.display='block';
+  document.getElementById('dlModal').classList.add('open');
 }
+function openInBrowser(){if(dlCurFile)window.open(dlCurFile,'_blank');closeDlModal();}
+function printDirect(){
+  if(!dlCurFile)return;
+  const w=window.open(dlCurFile,'_blank');
+  if(w){w.onload=function(){setTimeout(()=>{try{w.focus();w.print();}catch(e){}},1200);};}
+  closeDlModal();
+}
+function openBundleFiles(){
+  const id=dlCurBundle;if(!id)return;
+  const files=id==='ALL'
+    ?[...BUNDLES['BUNDLE-S4'].files,...BUNDLES['BUNDLE-S5'].files,...BUNDLES['BUNDLE-S6'].files]
+    :BUNDLES[id].files;
+  closeDlModal();
+  if(confirm('📥 This will open '+files.length+' files.\n\nFor each: press Ctrl+P → Save as PDF\n\nReady?')){
+    files.forEach((f,i)=>setTimeout(()=>window.open(f,'_blank'),i*700));
+  }
+}
+function closeDlModal(){document.getElementById('dlModal').classList.remove('open');}
+
 function doDownload(){closeModal();if(!curItem)return;if(curItem.bid)dlBundle(curItem.bid);else dlFile(curItem.file,curItem.label);}
 
 function openPay(id,label,price,file){
@@ -430,5 +462,58 @@ function switchTab(t,b){document.querySelectorAll('.tab-panel').forEach(p=>p.cla
 document.getElementById('payModal').addEventListener('click',function(e){if(e.target===this)closeModal();});
 renderAll();
 </script>
+<!-- DOWNLOAD OPTIONS MODAL -->
+<div class="modal-overlay" id="dlModal">
+  <div class="modal" style="max-width:480px;">
+    <div class="modal-hd">
+      <h2>⬇ Download Options</h2>
+      <p id="dlModalSub">Choose how to get your notes</p>
+    </div>
+    <div class="modal-bd">
+      <!-- Single file options -->
+      <div id="dlSingleOpts">
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <button onclick="openInBrowser()" style="background:var(--accent);color:#000;border:none;padding:14px 20px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.85rem;font-weight:700;cursor:pointer;text-align:left;display:flex;align-items:center;gap:12px;">
+            <span style="font-size:1.4rem;">🌐</span>
+            <div><div style="font-size:.88rem;">Open in Browser</div><div style="font-size:.72rem;opacity:.7;font-weight:400;margin-top:2px;">Opens the page → press Ctrl+P → Save as PDF</div></div>
+          </button>
+          <button onclick="printDirect()" style="background:var(--green);color:#000;border:none;padding:14px 20px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.85rem;font-weight:700;cursor:pointer;text-align:left;display:flex;align-items:center;gap:12px;">
+            <span style="font-size:1.4rem;">🖨️</span>
+            <div><div style="font-size:.88rem;">Print / Save as PDF</div><div style="font-size:.72rem;opacity:.7;font-weight:400;margin-top:2px;">Opens print dialog immediately — choose "Save as PDF"</div></div>
+          </button>
+        </div>
+        <div style="margin-top:14px;background:rgba(56,189,248,.06);border:1px solid rgba(56,189,248,.15);border-radius:8px;padding:12px 14px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--accent);margin-bottom:6px;">💡 HOW TO SAVE AS PDF</div>
+          <div style="font-size:.8rem;color:var(--muted);line-height:1.8;">
+            <strong style="color:#fff;">Windows:</strong> Press <kbd style="background:var(--surface2);padding:2px 6px;border-radius:3px;font-family:'JetBrains Mono',monospace;">Ctrl + P</kbd> → Destination → <strong style="color:#fff;">Save as PDF</strong><br>
+            <strong style="color:#fff;">Mac:</strong> Press <kbd style="background:var(--surface2);padding:2px 6px;border-radius:3px;font-family:'JetBrains Mono',monospace;">⌘ + P</kbd> → PDF → <strong style="color:#fff;">Save as PDF</strong><br>
+            <strong style="color:#fff;">Phone:</strong> Tap <strong style="color:#fff;">⋮ menu → Print → Save as PDF</strong>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bundle options -->
+      <div id="dlBundleOpts" style="display:none;">
+        <div style="background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:8px;padding:14px;margin-bottom:14px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--orange);margin-bottom:6px;">📦 BUNDLE DOWNLOAD</div>
+          <div id="dlBundleCount" style="font-size:.84rem;color:var(--muted);"></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <button onclick="openBundleFiles()" style="background:var(--green);color:#000;border:none;padding:14px 20px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.85rem;font-weight:700;cursor:pointer;text-align:left;display:flex;align-items:center;gap:12px;">
+            <span style="font-size:1.4rem;">🖨️</span>
+            <div><div style="font-size:.88rem;">Open All Files (Save as PDF)</div><div style="font-size:.72rem;opacity:.7;font-weight:400;margin-top:2px;">Opens all unit pages — save each as PDF using Ctrl+P</div></div>
+          </button>
+        </div>
+        <div style="margin-top:14px;background:rgba(56,189,248,.06);border:1px solid rgba(56,189,248,.15);border-radius:8px;padding:12px 14px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--accent);margin-bottom:6px;">💡 TIP</div>
+          <div style="font-size:.8rem;color:var(--muted);line-height:1.8;">Files will open one by one. For each: press <kbd style="background:var(--surface2);padding:2px 6px;border-radius:3px;font-family:'JetBrains Mono',monospace;">Ctrl+P</kbd> → Save as PDF. They will appear in your Downloads folder.</div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-ft">
+      <button class="cancel-btn" onclick="closeDlModal()">Close</button>
+    </div>
+  </div>
+</div>
 </body>
 </html>
