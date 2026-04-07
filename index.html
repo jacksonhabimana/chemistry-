@@ -12,7 +12,16 @@
 
   /* NAV */
   nav{position:sticky;top:0;z-index:100;background:rgba(13,17,23,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 32px;}
-  .nav-inner{max-width:1080px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:58px;}
+  
+  /* Assessment dropdown */
+  .nav-dropdown{position:relative;}
+  .nav-dropdown > a{display:flex;align-items:center;gap:4px;}
+  .nav-dropdown > a::after{content:'▾';font-size:.6rem;opacity:.7;}
+  .dropdown-menu{display:none;position:absolute;top:100%;left:0;background:rgba(13,17,23,.98);border:1px solid var(--border);border-radius:8px;min-width:160px;padding:6px;z-index:999;backdrop-filter:blur(12px);box-shadow:0 8px 24px rgba(0,0,0,.4);}
+  .nav-dropdown:hover .dropdown-menu{display:block;}
+  .dropdown-menu a{display:block;font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:6px;transition:all .15s;white-space:nowrap;}
+  .dropdown-menu a:hover{color:var(--accent);background:rgba(56,189,248,.08);}
+.nav-inner{max-width:1080px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:58px;}
   .nav-brand{font-family:'JetBrains Mono',monospace;font-size:.82rem;color:var(--accent);text-decoration:none;letter-spacing:.06em;}
   .nav-links{display:flex;gap:6px;}
   .nav-links a{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--muted);text-decoration:none;padding:5px 14px;border-radius:6px;border:1px solid transparent;transition:all .18s;}
@@ -107,11 +116,16 @@
           <a href="s6-chemistry.html">S6 Chemistry</a>
         </div>
       </div>
-      <a href="quizzes.html">Quizzes</a><a href="student-quiz.html" style="font-family:JetBrains Mono,monospace;font-size:.72rem;color:var(--muted);text-decoration:none;padding:4px 10px;border-radius:5px;border:1px solid transparent;transition:all .15s;">Take Quiz</a>
-      <a href="tests.html">Tests</a>
-      <a href="exams.html">Exams</a>
+      <div class="nav-dropdown">
+        <a href="#">Assessment</a>
+        <div class="dropdown-menu">
+          <a href="quiz-hub.html">📝 Take Quiz</a>
+          <a href="quizzes.html">📊 Quizzes</a>
+          <a href="tests.html">📋 Tests</a>
+          <a href="exams.html">🎓 Exams</a>
+        </div>
+      </div>
       <a href="periodic-table.html">Periodic Table</a>
-      <a href="quiz-hub.html" style="color:#34d399;">📝 Take Quiz</a>
       <a href="student-hub.html" style="color:var(--accent);border-color:rgba(56,189,248,.3);background:rgba(56,189,248,.06);">Student Hub</a>
       <a href="teacher-admin.html">Admin</a>
       <a href="contact.html">Contact</a>
