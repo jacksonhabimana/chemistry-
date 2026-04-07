@@ -357,9 +357,47 @@ function dlBundle(id){
 function openInBrowser(){if(dlCurFile)window.open(dlCurFile,'_blank');closeDlModal();}
 function printDirect(){
   if(!dlCurFile)return;
-  const w=window.open(dlCurFile,'_blank');
-  if(w){w.onload=function(){setTimeout(()=>{try{w.focus();w.print();}catch(e){}},1200);};}
   closeDlModal();
+  // Show instruction first
+  const overlay=document.createElement('div');
+  overlay.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;';
+  overlay.innerHTML=`<div style="background:#161b22;border:1px solid #30363d;border-radius:14px;padding:32px;max-width:440px;width:100%;text-align:center;">
+    <div style="font-size:2.5rem;margin-bottom:12px;">🖨️</div>
+    <h3 style="font-family:'Playfair Display',serif;color:#fff;margin-bottom:8px;">Save as PDF</h3>
+    <p style="color:#8b949e;font-size:.88rem;margin-bottom:20px;">The page will open. When it does, the print dialog will appear automatically.</p>
+    <div style="background:rgba(56,189,248,.06);border:1px solid rgba(56,189,248,.2);border-radius:8px;padding:14px;margin-bottom:20px;text-align:left;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#38bdf8;margin-bottom:8px;">HOW TO SAVE AS PDF</div>
+      <div style="font-size:.84rem;color:#e6edf3;line-height:1.9;">
+        1. A print dialog opens<br>
+        2. Find <strong>"Destination"</strong> or <strong>"Printer"</strong><br>
+        3. Select <strong>"Save as PDF"</strong><br>
+        4. Click <strong>Save</strong> — done!
+      </div>
+    </div>
+    <button onclick="this.closest('div[style]').parentElement.remove();_doPrint();" 
+            style="background:#38bdf8;color:#000;border:none;padding:11px 28px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.85rem;font-weight:700;cursor:pointer;width:100%;">
+      Open &amp; Print Now
+    </button>
+  </div>`;
+  document.body.appendChild(overlay);
+  window._doPrint=function(){
+    const w=window.open(dlCurFile,'_blank');
+    if(w){
+      w.onload=function(){
+        setTimeout(()=>{
+          try{
+            // Add a prominent save button to the opened page
+            const btn=w.document.createElement('div');
+            btn.style.cssText='position:fixed;top:0;left:0;right:0;background:#38bdf8;color:#000;padding:14px 20px;z-index:99999;display:flex;align-items:center;justify-content:space-between;font-family:JetBrains Mono,monospace;font-size:.85rem;font-weight:700;box-shadow:0 2px 12px rgba(0,0,0,.4);';
+            btn.innerHTML='<span>📥 To save as PDF: Press <kbd style="background:rgba(0,0,0,.15);padding:2px 8px;border-radius:4px;">Ctrl + P</kbd> (Windows) or <kbd style="background:rgba(0,0,0,.15);padding:2px 8px;border-radius:4px;">⌘ + P</kbd> (Mac) → Select "Save as PDF"</span><button onclick="window.print()" style="background:#000;color:#38bdf8;border:none;padding:8px 18px;border-radius:6px;cursor:pointer;font-family:JetBrains Mono,monospace;font-size:.82rem;font-weight:700;">🖨 Print / Save PDF</button>';
+            w.document.body.insertBefore(btn,w.document.body.firstChild);
+            w.focus();
+            w.print();
+          }catch(e){console.log(e);}
+        },1000);
+      };
+    }
+  };
 }
 function openBundleFiles(){
   const id=dlCurBundle;if(!id)return;
