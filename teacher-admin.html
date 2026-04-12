@@ -3155,6 +3155,13 @@ async function refreshFromCloud(){
 
 
 // ══ DOWNLOADS MANAGER ══
+function teacherLockDownloads(){
+  localStorage.removeItem('teacher_downloads_unlocked');
+  const m=document.getElementById('dl-unlock-msg');
+  m.style.color='var(--red)';
+  m.textContent='🔒 Downloads page locked. Students see Buy buttons only.';
+}
+
 function teacherUnlockDownloads(){
   localStorage.setItem('teacher_downloads_unlocked','true');
   const m=document.getElementById('dl-unlock-msg');
@@ -3647,7 +3654,10 @@ function deletePE(id){
         <div id="dl-unlock-msg" style="font-family:'JetBrains Mono',monospace;font-size:.75rem;margin-top:6px;"></div>
       </div>
       <div style="display:flex;gap:10px;flex-direction:column;align-items:flex-end;">
-        <button onclick="teacherUnlockDownloads()" style="background:var(--green);color:#000;border:none;padding:10px 22px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.82rem;font-weight:700;cursor:pointer;white-space:nowrap;">🔓 Unlock Downloads Page</button>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button onclick="teacherUnlockDownloads()" style="background:var(--green);color:#000;border:none;padding:10px 18px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.82rem;font-weight:700;cursor:pointer;white-space:nowrap;">🔓 Unlock</button>
+          <button onclick="teacherLockDownloads()" style="background:var(--red);color:#fff;border:none;padding:10px 18px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.82rem;font-weight:700;cursor:pointer;white-space:nowrap;">🔒 Lock</button>
+        </div>
         <a href="downloads.html" target="_blank" style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--accent);text-decoration:none;">→ Open Downloads Page ↗</a>
       </div>
     </div>
