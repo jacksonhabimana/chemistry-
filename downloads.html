@@ -701,5 +701,20 @@ async function doZip(){
     console.error(err);
   }
 }
+// ─── TABS ───
+function switchTab(t,b){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active'));
+  document.getElementById('tab-'+t).classList.add('active');
+  b.classList.add('active');
+}
 
+// ─── INIT ───
+renderAll();
+tUnlock();
+document.getElementById('payModal').addEventListener('click',function(e){if(e.target===this)closePay();});
+document.getElementById('dlModal').addEventListener('click',function(e){if(e.target===this)closeDl();});
 
+</script>
+</body>
+</html>
