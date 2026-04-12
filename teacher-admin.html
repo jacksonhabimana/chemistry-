@@ -3154,6 +3154,24 @@ async function refreshFromCloud(){
 
 
 // ══ DOWNLOADS MANAGER ══
+function teacherUnlockDownloads(){
+  localStorage.setItem('teacher_downloads_unlocked','true');
+  const m=document.getElementById('dl-unlock-msg');
+  m.style.color='var(--green)';
+  m.textContent='✅ Downloads page unlocked! Click "Open Downloads Page" to verify.';
+}
+function checkDownloadUnlockStatus(){
+  const m=document.getElementById('dl-unlock-msg');
+  if(!m) return;
+  if(localStorage.getItem('teacher_downloads_unlocked')==='true'){
+    m.style.color='var(--green)';
+    m.textContent='✅ Currently unlocked on this browser.';
+  } else {
+    m.style.color='var(--muted)';
+    m.textContent='⚠️ Not yet unlocked on this browser.';
+  }
+}
+
 function saveMomoNumber(){
   const num = document.getElementById('dl-momo').value.trim();
   const s = JSON.parse(localStorage.getItem('notif_settings')||'{}');
@@ -3618,7 +3636,20 @@ function deletePE(id){
 </html>
   <div class="tab-panel" id="tab-downloads">
     <h2 style="font-family:'Playfair Display',serif;margin-bottom:6px;">⬇ Downloads Manager</h2>
-    <p style="color:var(--muted);font-size:.88rem;margin-bottom:20px;">Generate access codes for students who have paid. Each code unlocks specific content on the Downloads page.</p>
+    <p style="color:var(--muted);font-size:.88rem;margin-bottom:16px;">Generate access codes for students who have paid. Each code unlocks specific content on the Downloads page.</p>
+
+    <!-- TEACHER UNLOCK DOWNLOADS -->
+    <div style="background:rgba(52,211,153,.07);border:1px solid rgba(52,211,153,.25);border-radius:10px;padding:18px 20px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+      <div>
+        <strong style="color:#fff;display:block;margin-bottom:4px;">🔓 Teacher Download Access</strong>
+        <p style="color:var(--muted);font-size:.84rem;">Click this button to unlock all downloads on the Downloads page for your browser. Students still need to pay.</p>
+        <div id="dl-unlock-msg" style="font-family:'JetBrains Mono',monospace;font-size:.75rem;margin-top:6px;"></div>
+      </div>
+      <div style="display:flex;gap:10px;flex-direction:column;align-items:flex-end;">
+        <button onclick="teacherUnlockDownloads()" style="background:var(--green);color:#000;border:none;padding:10px 22px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.82rem;font-weight:700;cursor:pointer;white-space:nowrap;">🔓 Unlock Downloads Page</button>
+        <a href="downloads.html" target="_blank" style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--accent);text-decoration:none;">→ Open Downloads Page ↗</a>
+      </div>
+    </div>
 
     <!-- HOW TO CHECK PAYMENTS -->
     <div style="background:var(--surface2);border:1px solid rgba(56,189,248,.2);border-radius:10px;padding:18px 20px;margin-bottom:20px;">
