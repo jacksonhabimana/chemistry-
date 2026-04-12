@@ -902,6 +902,7 @@ function checkPwd(){
   const s=localStorage.getItem('admin_pwd')||DEFAULT_PWD;
   if(v===s||v===DEFAULT_PWD){
     localStorage.removeItem('admin_pwd'); // always reset to default
+    localStorage.setItem('teacher_downloads_unlocked','true'); // unlock downloads page
     document.getElementById('lock-screen').style.display='none';
     init();
   }

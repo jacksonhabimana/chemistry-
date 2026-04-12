@@ -136,12 +136,7 @@ main{max-width:1100px;margin:0 auto;padding:36px 28px 100px;}
 <div class="hero">
   <h1>Download <em>Chemistry</em> Notes</h1>
   <p>Pay with Mobile Money — download immediately as a ZIP file or open each unit as PDF.</p>
-  <div class="teacher-bar">
-    <span style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--purple);">🔑 Teacher:</span>
-    <input type="password" id="tPwd" placeholder="Teacher password" onkeydown="if(event.key==='Enter')tUnlock()"/>
-    <button onclick="tUnlock()">Unlock All</button>
-  </div>
-  <div id="teacherMsg"></div>
+  <div id="teacherMsg" style="font-family:'JetBrains Mono',monospace;font-size:.74rem;margin-top:4px;text-align:center;"></div>
 </div>
 
 <main>
@@ -371,11 +366,16 @@ let isTeacher=false, curItem=null, selNet2='MTN', pollTimer=null;
 
 // ─── TEACHER ───
 function tUnlock(){
-  const p=document.getElementById('tPwd').value;
-  const m=document.getElementById('teacherMsg');
-  if(p==='chemistry2024'||p==='CHEM2026'){
-    isTeacher=true; m.style.color='var(--green)'; m.textContent='✅ Teacher mode — all content unlocked.'; renderAll();
-  } else { m.style.color='var(--red)'; m.textContent='❌ Wrong password.'; }
+  // Check if teacher is logged in via teacher-admin localStorage
+  const adminUnlocked = localStorage.getItem('teacher_downloads_unlocked') === 'true';
+  const m = document.getElementById('teacherMsg');
+  if(adminUnlocked){
+    isTeacher = true;
+    m.style.color = 'var(--green)';
+    m.textContent = '✅ Teacher mode active — all downloads unlocked.';
+    renderAll();
+tUnlock();
+  }
 }
 
 // ─── PAID CHECK ───
