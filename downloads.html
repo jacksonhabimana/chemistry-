@@ -4,99 +4,106 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>Downloads — Jackson Habimana Chemistry</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Source+Serif+4:wght@300;400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <style>
-:root{--bg:#0d1117;--surface:#161b22;--surface2:#1c2333;--border:#30363d;--accent:#38bdf8;--green:#34d399;--red:#f87171;--orange:#f59e0b;--purple:#a78bfa;--gold:#e8c547;--text:#e6edf3;--muted:#8b949e;--radius:10px;}
+:root{--bg:#0d1117;--surface:#161b22;--surface2:#1c2333;--border:#30363d;--accent:#38bdf8;--green:#34d399;--red:#f87171;--gold:#e8c547;--text:#e6edf3;--muted:#8b949e;--purple:#a78bfa;}
 *{box-sizing:border-box;margin:0;padding:0;}
-body{background:var(--bg);color:var(--text);font-family:'Source Serif 4',serif;line-height:1.75;}
-nav{position:sticky;top:0;z-index:200;background:rgba(13,17,23,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 28px;}
+body{background:var(--bg);color:var(--text);font-family:'Source Serif 4',serif;line-height:1.7;}
+nav{position:sticky;top:0;z-index:200;background:rgba(13,17,23,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 28px;}
 .nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:54px;}
 .nav-brand{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--accent);text-decoration:none;}
 .nav-links{display:flex;align-items:center;gap:4px;}
 .nav-links a{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);text-decoration:none;padding:4px 10px;border-radius:5px;}
 .nav-links a:hover{color:var(--accent);}
-.nav-dropdown{position:relative;}
-.nav-dropdown>a{display:flex;align-items:center;gap:4px;}
-.nav-dropdown>a::after{content:"▾";font-size:.6rem;opacity:.7;}
-.dropdown-menu{display:none;position:absolute;top:100%;left:0;background:rgba(13,17,23,.98);border:1px solid var(--border);border-radius:8px;min-width:160px;padding:6px;z-index:999;backdrop-filter:blur(12px);}
-.nav-dropdown:hover .dropdown-menu{display:block;}
-.dropdown-menu a{display:block;padding:8px 12px;border-radius:6px;white-space:nowrap;font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);text-decoration:none;}
-.dropdown-menu a:hover{color:var(--accent);background:rgba(56,189,248,.08);}
-.hero{background:linear-gradient(135deg,rgba(232,197,71,.08),rgba(167,139,250,.05));border-bottom:1px solid var(--border);padding:48px 28px 36px;text-align:center;}
-.hero-eyebrow{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--gold);text-transform:uppercase;letter-spacing:.15em;margin-bottom:12px;}
-.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:900;color:#fff;margin-bottom:10px;}
+.nav-dd{position:relative;}
+.nav-dd>a::after{content:'▾';font-size:.6rem;opacity:.7;margin-left:3px;}
+.dd-menu{display:none;position:absolute;top:100%;left:0;background:rgba(13,17,23,.98);border:1px solid var(--border);border-radius:8px;min-width:160px;padding:6px;z-index:999;}
+.nav-dd:hover .dd-menu{display:block;}
+.dd-menu a{display:block;padding:8px 12px;border-radius:6px;white-space:nowrap;}
+.hero{background:linear-gradient(135deg,rgba(232,197,71,.07),rgba(167,139,250,.04));border-bottom:1px solid var(--border);padding:44px 28px 32px;text-align:center;}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(1.9rem,4vw,3rem);color:#fff;margin-bottom:8px;}
 .hero h1 em{color:var(--gold);font-style:italic;}
-.hero p{color:var(--muted);font-size:.95rem;max-width:560px;margin:0 auto 20px;}
-.teacher-bar{background:rgba(167,139,250,.08);border:1px solid rgba(167,139,250,.2);border-radius:8px;padding:10px 16px;max-width:480px;margin:0 auto;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
-.teacher-bar span{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--purple);}
-.teacher-bar input{flex:1;min-width:140px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:#fff;padding:7px 12px;font-family:'JetBrains Mono',monospace;font-size:.82rem;}
+.hero p{color:var(--muted);font-size:.92rem;max-width:520px;margin:0 auto 18px;}
+.teacher-bar{background:rgba(167,139,250,.08);border:1px solid rgba(167,139,250,.2);border-radius:8px;padding:10px 16px;max-width:440px;margin:0 auto;display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+.teacher-bar input{flex:1;min-width:130px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:#fff;padding:7px 12px;font-family:'JetBrains Mono',monospace;font-size:.82rem;}
 .teacher-bar button{background:var(--purple);color:#000;border:none;padding:7px 14px;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:.78rem;font-weight:700;cursor:pointer;}
-#teacherMsg{font-family:'JetBrains Mono',monospace;font-size:.74rem;margin-top:6px;text-align:center;}
-main{max-width:1100px;margin:0 auto;padding:40px 28px 100px;}
-.tabs{display:flex;gap:4px;margin-bottom:28px;background:var(--surface);border:1px solid var(--border);border-radius:9px;padding:5px;flex-wrap:wrap;}
-.tab-btn{flex:1;min-width:90px;background:none;border:none;color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:.72rem;padding:8px 6px;border-radius:6px;cursor:pointer;transition:all .2s;}
+#teacherMsg{font-family:'JetBrains Mono',monospace;font-size:.73rem;margin-top:5px;text-align:center;}
+main{max-width:1100px;margin:0 auto;padding:36px 28px 100px;}
+.tabs{display:flex;gap:4px;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:4px;margin-bottom:26px;flex-wrap:wrap;}
+.tab-btn{flex:1;min-width:80px;background:none;border:none;color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:.72rem;padding:8px 6px;border-radius:5px;cursor:pointer;}
 .tab-btn.active{background:var(--surface2);color:#fff;border:1px solid var(--border);}
 .tab-panel{display:none;}
 .tab-panel.active{display:block;}
-.bundle-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-bottom:20px;}
-.bundle-card{background:var(--surface);border:2px solid rgba(232,197,71,.25);border-radius:12px;padding:22px;transition:border-color .2s,transform .2s;}
-.bundle-card:hover{border-color:rgba(232,197,71,.5);transform:translateY(-2px);}
-.bundle-card.featured{border-color:rgba(232,197,71,.45);background:linear-gradient(135deg,rgba(232,197,71,.05),rgba(167,139,250,.03));}
-.badge{font-family:'JetBrains Mono',monospace;font-size:.6rem;text-transform:uppercase;letter-spacing:.08em;padding:3px 10px;border-radius:50px;margin-bottom:10px;display:inline-block;}
-.badge-course{background:rgba(56,189,248,.1);color:var(--accent);border:1px solid rgba(56,189,248,.2);}
-.badge-ultimate{background:rgba(232,197,71,.12);color:var(--gold);border:1px solid rgba(232,197,71,.3);}
-.bundle-title{font-family:'Playfair Display',serif;font-size:1.1rem;color:#fff;margin-bottom:6px;}
-.bundle-desc{font-size:.82rem;color:var(--muted);margin-bottom:12px;}
-.bundle-features{list-style:none;margin-bottom:16px;}
-.bundle-features li{font-size:.81rem;color:var(--muted);padding:2px 0;display:flex;align-items:center;gap:7px;}
-.bundle-features li::before{content:"✓";color:var(--green);font-family:'JetBrains Mono',monospace;font-size:.75rem;flex-shrink:0;}
-.bundle-footer{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
-.bundle-price{font-family:'JetBrains Mono',monospace;font-size:1.5rem;color:var(--gold);font-weight:700;}
-.bundle-price span{font-size:.7rem;color:var(--muted);display:block;font-weight:400;}
-.catalog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px;}
-.unit-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
-.unit-card:hover{border-color:rgba(232,197,71,.3);}
-.unit-card-header{padding:13px 15px 9px;}
-.unit-num{font-family:'JetBrains Mono',monospace;font-size:.62rem;color:var(--gold);text-transform:uppercase;margin-bottom:3px;}
-.unit-title{font-size:.9rem;color:#fff;font-weight:600;}
-.unit-card-footer{padding:9px 15px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
-.unit-price{font-family:'JetBrains Mono',monospace;font-size:.82rem;color:var(--gold);}
-.btn-buy{background:var(--gold);color:#000;border:none;padding:8px 16px;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:.76rem;font-weight:700;cursor:pointer;}
-.btn-buy:hover{opacity:.85;}
-.btn-download{background:var(--green);color:#000;border:none;padding:8px 16px;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:.76rem;font-weight:700;cursor:pointer;}
 .section-hd{margin-bottom:16px;}
-.section-hd h2{font-family:'Playfair Display',serif;font-size:1.35rem;color:#fff;}
+.section-hd h2{font-family:'Playfair Display',serif;font-size:1.3rem;color:#fff;}
 .section-hd p{color:var(--muted);font-size:.84rem;margin-top:3px;}
-/* MODAL */
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:1000;align-items:center;justify-content:center;padding:16px;}
-.modal-overlay.open{display:flex;}
-.modal{background:#161b22;border:1px solid var(--border);border-radius:16px;width:100%;max-width:420px;max-height:92vh;overflow-y:auto;}
-.modal-hd{padding:22px 22px 14px;border-bottom:1px solid var(--border);}
-.modal-hd h2{font-family:'Playfair Display',serif;color:#fff;font-size:1.15rem;margin-bottom:2px;}
-.modal-hd p{color:var(--muted);font-size:.8rem;}
+/* bundle cards */
+.bundle-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-bottom:20px;}
+.bcard{background:var(--surface);border:2px solid rgba(232,197,71,.22);border-radius:12px;padding:20px;}
+.bcard.top{border-color:rgba(232,197,71,.45);}
+.bcard:hover{border-color:rgba(232,197,71,.5);}
+.bcard-badge{font-family:'JetBrains Mono',monospace;font-size:.6rem;text-transform:uppercase;letter-spacing:.08em;padding:2px 9px;border-radius:50px;margin-bottom:9px;display:inline-block;background:rgba(56,189,248,.1);color:var(--accent);border:1px solid rgba(56,189,248,.2);}
+.bcard-badge.gold{background:rgba(232,197,71,.1);color:var(--gold);border-color:rgba(232,197,71,.25);}
+.bcard h3{font-family:'Playfair Display',serif;font-size:1rem;color:#fff;margin-bottom:5px;}
+.bcard p{font-size:.81rem;color:var(--muted);margin-bottom:11px;}
+.bcard ul{list-style:none;margin-bottom:14px;}
+.bcard ul li{font-size:.79rem;color:var(--muted);padding:2px 0;display:flex;align-items:center;gap:6px;}
+.bcard ul li::before{content:"✓";color:var(--green);font-size:.75rem;flex-shrink:0;}
+.bcard-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;}
+.bprice{font-family:'JetBrains Mono',monospace;font-size:1.4rem;color:var(--gold);font-weight:700;}
+.bprice span{font-size:.68rem;color:var(--muted);display:block;font-weight:400;}
+/* unit catalog */
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;}
+.ucard{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.ucard:hover{border-color:rgba(232,197,71,.3);}
+.ucard-hd{padding:12px 14px 8px;}
+.unum{font-family:'JetBrains Mono',monospace;font-size:.6rem;color:var(--gold);text-transform:uppercase;margin-bottom:3px;}
+.utitle{font-size:.88rem;color:#fff;font-weight:600;}
+.ucard-ft{padding:8px 14px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.uprice{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--gold);}
+/* buttons */
+.btn-buy{background:var(--gold);color:#000;border:none;padding:8px 16px;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:.75rem;font-weight:700;cursor:pointer;}
+.btn-buy:hover{opacity:.85;}
+.btn-dl{background:var(--green);color:#000;border:none;padding:8px 16px;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:.75rem;font-weight:700;cursor:pointer;}
+/* payment modal */
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:1000;align-items:center;justify-content:center;padding:16px;}
+.overlay.open{display:flex;}
+.modal{background:#161b22;border:1px solid var(--border);border-radius:14px;width:100%;max-width:420px;max-height:90vh;overflow-y:auto;}
+.modal-hd{padding:20px 22px 14px;border-bottom:1px solid var(--border);}
+.modal-hd h2{font-family:'Playfair Display',serif;color:#fff;font-size:1.1rem;}
+.modal-hd p{color:var(--muted);font-size:.8rem;margin-top:2px;}
 .modal-bd{padding:18px 22px;}
-.modal-ft{padding:14px 22px;border-top:1px solid var(--border);display:flex;gap:10px;}
-.amt-box{background:rgba(232,197,71,.08);border:1px solid rgba(232,197,71,.2);border-radius:10px;padding:14px;text-align:center;margin-bottom:16px;}
-.amt-label{font-family:'JetBrains Mono',monospace;font-size:.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:3px;}
-.amt-main{font-family:'JetBrains Mono',monospace;font-size:1.9rem;color:var(--gold);font-weight:700;}
-.phone-row{display:flex;gap:8px;margin-bottom:8px;}
-.country-sel{background:var(--surface2);border:1px solid var(--border);border-radius:7px;color:#fff;padding:10px 8px;font-family:'JetBrains Mono',monospace;font-size:.8rem;width:130px;cursor:pointer;}
-.phone-inp{flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:7px;color:#fff;padding:10px 12px;font-family:'JetBrains Mono',monospace;font-size:.88rem;}
+.modal-ft{padding:14px 22px;border-top:1px solid var(--border);display:flex;gap:8px;}
+.amt-box{background:rgba(232,197,71,.07);border:1px solid rgba(232,197,71,.2);border-radius:9px;padding:13px;text-align:center;margin-bottom:16px;}
+.amt-lbl{font-family:'JetBrains Mono',monospace;font-size:.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:3px;}
+.amt-main{font-family:'JetBrains Mono',monospace;font-size:1.8rem;color:var(--gold);font-weight:700;}
+.phone-row{display:flex;gap:7px;margin-bottom:7px;}
+.country-sel{background:var(--surface2);border:1px solid var(--border);border-radius:7px;color:#fff;padding:9px 7px;font-family:'JetBrains Mono',monospace;font-size:.78rem;width:120px;}
+.phone-inp{flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:7px;color:#fff;padding:9px 12px;font-family:'JetBrains Mono',monospace;font-size:.86rem;}
 .phone-inp:focus,.country-sel:focus{outline:none;border-color:var(--gold);}
-.phone-hint{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--muted);margin-bottom:14px;}
-.net-row{display:flex;gap:8px;margin-bottom:14px;}
-.net-btn{flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:7px;color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:.7rem;padding:8px;cursor:pointer;text-align:center;}
+.ph-hint{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--muted);margin-bottom:12px;}
+.net-row{display:flex;gap:7px;margin-bottom:14px;}
+.net-btn{flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:.7rem;padding:7px;cursor:pointer;text-align:center;}
 .net-btn.sel{background:rgba(52,211,153,.1);border-color:var(--green);color:var(--green);}
-.pay-btn{flex:1;background:var(--gold);color:#000;border:none;padding:12px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.85rem;font-weight:700;cursor:pointer;}
+.pay-btn{flex:1;background:var(--gold);color:#000;border:none;padding:11px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:.85rem;font-weight:700;cursor:pointer;}
 .pay-btn:disabled{opacity:.5;cursor:not-allowed;}
-.cancel-btn{background:var(--surface2);color:var(--muted);border:1px solid var(--border);padding:10px 16px;border-radius:8px;cursor:pointer;font-size:.83rem;}
-.status-box{display:none;text-align:center;padding:24px 22px;}
-.spinner{width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 14px;}
+.cancel-btn{background:var(--surface2);color:var(--muted);border:1px solid var(--border);padding:10px 16px;border-radius:7px;cursor:pointer;font-size:.83rem;}
+.err-box{display:none;font-family:'JetBrains Mono',monospace;font-size:.74rem;color:var(--red);padding:8px 12px;background:rgba(248,113,113,.07);border-radius:6px;border:1px solid rgba(248,113,113,.2);margin-bottom:10px;}
+/* states */
+.st{display:none;text-align:center;padding:22px 22px;}
+.spinner{width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 12px;}
 @keyframes spin{to{transform:rotate(360deg)}}
-.err-box{display:none;font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--red);margin-bottom:10px;padding:8px 12px;background:rgba(248,113,113,.08);border-radius:6px;border:1px solid rgba(248,113,113,.2);}
+/* download modal */
+.dl-modal-bd{padding:18px 22px;}
+.dl-list{max-height:320px;overflow-y:auto;display:flex;flex-direction:column;gap:5px;margin-top:10px;}
+.dl-row{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;}
+.dl-row span{font-size:.82rem;color:#fff;}
+.zip-progress{display:none;margin-top:12px;}
+.zip-bar-wrap{background:var(--surface2);border-radius:50px;height:7px;overflow:hidden;margin-top:5px;}
+.zip-bar{background:var(--gold);height:100%;width:0%;transition:width .3s;border-radius:50px;}
+.zip-lbl{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--muted);}
 </style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 </head>
 <body>
 <nav>
@@ -104,15 +111,15 @@ main{max-width:1100px;margin:0 auto;padding:40px 28px 100px;}
     <a href="index.html" class="nav-brand">⚗ Habimana</a>
     <div class="nav-links">
       <a href="index.html">Home</a>
-      <div class="nav-dropdown"><a href="#">Courses</a>
-        <div class="dropdown-menu">
+      <div class="nav-dd"><a href="#">Courses</a>
+        <div class="dd-menu">
           <a href="s4-chemistry.html">S4 Chemistry</a>
           <a href="s5-chemistry.html">S5 Chemistry</a>
           <a href="s6-chemistry.html">S6 Chemistry</a>
         </div>
       </div>
-      <div class="nav-dropdown"><a href="#">Assessment</a>
-        <div class="dropdown-menu">
+      <div class="nav-dd"><a href="#">Assessment</a>
+        <div class="dd-menu">
           <a href="quiz-hub.html">📝 Take Quiz</a>
           <a href="quizzes.html">📊 Quizzes</a>
           <a href="tests.html">📋 Tests</a>
@@ -127,13 +134,12 @@ main{max-width:1100px;margin:0 auto;padding:40px 28px 100px;}
 </nav>
 
 <div class="hero">
-  <div class="hero-eyebrow">⬇ Premium Downloads</div>
   <h1>Download <em>Chemistry</em> Notes</h1>
-  <p>Full unit notes, quizzes and tests as PDFs. Pay via Mobile Money — download immediately after payment.</p>
+  <p>Pay with Mobile Money — download immediately as a ZIP file or open each unit as PDF.</p>
   <div class="teacher-bar">
-    <span>🔑 Teacher:</span>
-    <input type="password" id="teacherPwd" placeholder="Teacher password" onkeydown="if(event.key==='Enter')teacherUnlock()"/>
-    <button onclick="teacherUnlock()">Unlock All</button>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--purple);">🔑 Teacher:</span>
+    <input type="password" id="tPwd" placeholder="Teacher password" onkeydown="if(event.key==='Enter')tUnlock()"/>
+    <button onclick="tUnlock()">Unlock All</button>
   </div>
   <div id="teacherMsg"></div>
 </div>
@@ -146,69 +152,66 @@ main{max-width:1100px;margin:0 auto;padding:40px 28px 100px;}
     <button class="tab-btn" onclick="switchTab('s6',this)">S6 Units</button>
   </div>
 
+  <!-- BUNDLES -->
   <div class="tab-panel active" id="tab-bundles">
-    <div class="section-hd"><h2>📦 Complete Courses</h2><p>Get all notes, quizzes and tests for an entire course at the best price.</p></div>
+    <div class="section-hd"><h2>📦 Complete Courses</h2><p>Best value — get all units for an entire course in one ZIP download.</p></div>
     <div class="bundle-grid">
-      <div class="bundle-card" id="card-BUNDLE-S4">
-        <span class="badge badge-course">📚 Complete Course</span>
-        <div class="bundle-title">S4 Chemistry — Complete Course</div>
-        <div class="bundle-desc">Everything for Senior Four — all 18 units in one purchase.</div>
-        <ul class="bundle-features"><li>18 full unit notes (PDF)</li><li>18 quizzes — 25 questions each</li><li>18 unit tests with answers</li><li>Download immediately after payment</li></ul>
-        <div class="bundle-footer"><div class="bundle-price">1,000<span>RWF</span></div><div id="btn-BUNDLE-S4"></div></div>
+      <div class="bcard" id="bc-S4">
+        <span class="bcard-badge">📚 Complete Course</span>
+        <h3>S4 Chemistry</h3>
+        <p>All 18 units — notes, quizzes and tests.</p>
+        <ul><li>18 full unit notes</li><li>18 quizzes (25 questions each)</li><li>18 unit tests with answers</li><li>Download as ZIP immediately</li></ul>
+        <div class="bcard-foot"><div class="bprice">1,000<span>RWF</span></div><div id="bb-S4"></div></div>
       </div>
-      <div class="bundle-card" id="card-BUNDLE-S5">
-        <span class="badge badge-course">📚 Complete Course</span>
-        <div class="bundle-title">S5 Chemistry — Complete Course</div>
-        <div class="bundle-desc">Everything for Senior Five — all 15 units in one purchase.</div>
-        <ul class="bundle-features"><li>15 full unit notes (PDF)</li><li>15 quizzes — 25 questions each</li><li>15 unit tests with answers</li><li>Download immediately after payment</li></ul>
-        <div class="bundle-footer"><div class="bundle-price">1,000<span>RWF</span></div><div id="btn-BUNDLE-S5"></div></div>
+      <div class="bcard" id="bc-S5">
+        <span class="bcard-badge">📚 Complete Course</span>
+        <h3>S5 Chemistry</h3>
+        <p>All 15 units — notes, quizzes and tests.</p>
+        <ul><li>15 full unit notes</li><li>15 quizzes (25 questions each)</li><li>15 unit tests with answers</li><li>Download as ZIP immediately</li></ul>
+        <div class="bcard-foot"><div class="bprice">1,000<span>RWF</span></div><div id="bb-S5"></div></div>
       </div>
-      <div class="bundle-card" id="card-BUNDLE-S6">
-        <span class="badge badge-course">📚 Complete Course</span>
-        <div class="bundle-title">S6 Chemistry — Complete Course</div>
-        <div class="bundle-desc">Everything for Senior Six — all 15 units in one purchase.</div>
-        <ul class="bundle-features"><li>15 full unit notes (PDF)</li><li>15 quizzes — 25 questions each</li><li>15 unit tests with answers</li><li>Download immediately after payment</li></ul>
-        <div class="bundle-footer"><div class="bundle-price">1,000<span>RWF</span></div><div id="btn-BUNDLE-S6"></div></div>
+      <div class="bcard" id="bc-S6">
+        <span class="bcard-badge">📚 Complete Course</span>
+        <h3>S6 Chemistry</h3>
+        <p>All 15 units — notes, quizzes and tests.</p>
+        <ul><li>15 full unit notes</li><li>15 quizzes (25 questions each)</li><li>15 unit tests with answers</li><li>Download as ZIP immediately</li></ul>
+        <div class="bcard-foot"><div class="bprice">1,000<span>RWF</span></div><div id="bb-S6"></div></div>
       </div>
-      <div class="bundle-card featured" id="card-ALL">
-        <span class="badge badge-ultimate">🏆 Best Value</span>
-        <div class="bundle-title">All S4 + S5 + S6 — Everything</div>
-        <div class="bundle-desc">The complete chemistry package — all three years, all 48 units.</div>
-        <ul class="bundle-features"><li>48 units — S4, S5 and S6</li><li>1,095+ quiz questions</li><li>All notes, quizzes and tests</li><li>Save 1,000 RWF vs buying separately</li><li>Download immediately after payment</li></ul>
-        <div class="bundle-footer"><div class="bundle-price">3,000<span>RWF</span></div><div id="btn-ALL"></div></div>
+      <div class="bcard top" id="bc-ALL">
+        <span class="bcard-badge gold">🏆 Best Value</span>
+        <h3>All S4 + S5 + S6</h3>
+        <p>Every unit from all three years in one ZIP.</p>
+        <ul><li>48 units — S4, S5 and S6</li><li>1,095+ quiz questions</li><li>All notes, quizzes and tests</li><li>Save 1,000 RWF vs buying separately</li><li>Download as ZIP immediately</li></ul>
+        <div class="bcard-foot"><div class="bprice">3,000<span>RWF</span></div><div id="bb-ALL"></div></div>
       </div>
     </div>
   </div>
 
+  <!-- S4 -->
   <div class="tab-panel" id="tab-s4">
-    <div class="section-hd"><h2>S4 Chemistry — 18 Units</h2><p>Buy individual units at 300 RWF each. Includes notes + quiz + test.</p></div>
-    <div class="catalog-grid" id="s4-catalog"></div>
+    <div class="section-hd"><h2>S4 Chemistry — 18 Units</h2><p>300 RWF per unit. Includes notes + quiz + test.</p></div>
+    <div class="cat-grid" id="cat-s4"></div>
   </div>
+  <!-- S5 -->
   <div class="tab-panel" id="tab-s5">
-    <div class="section-hd"><h2>S5 Chemistry — 15 Units</h2><p>Buy individual units at 300 RWF each. Includes notes + quiz + test.</p></div>
-    <div class="catalog-grid" id="s5-catalog"></div>
+    <div class="section-hd"><h2>S5 Chemistry — 15 Units</h2><p>300 RWF per unit. Includes notes + quiz + test.</p></div>
+    <div class="cat-grid" id="cat-s5"></div>
   </div>
+  <!-- S6 -->
   <div class="tab-panel" id="tab-s6">
-    <div class="section-hd"><h2>S6 Chemistry — 15 Units</h2><p>Buy individual units at 300 RWF each. Includes notes + quiz + test.</p></div>
-    <div class="catalog-grid" id="s6-catalog"></div>
+    <div class="section-hd"><h2>S6 Chemistry — 15 Units</h2><p>300 RWF per unit. Includes notes + quiz + test.</p></div>
+    <div class="cat-grid" id="cat-s6"></div>
   </div>
 </main>
 
 <!-- PAYMENT MODAL -->
-<div class="modal-overlay" id="payModal">
+<div class="overlay" id="payModal">
   <div class="modal">
-    <div class="modal-hd">
-      <h2>📱 Pay with Mobile Money</h2>
-      <p id="payModalSub">Purchase chemistry notes</p>
-    </div>
-    <div id="payFormWrap">
+    <div class="modal-hd"><h2>📱 Pay with Mobile Money</h2><p id="pSub"></p></div>
+    <div id="pForm">
       <div class="modal-bd">
-        <div class="amt-box">
-          <div class="amt-label">Total Amount</div>
-          <div class="amt-main" id="payAmt">1,000 RWF</div>
-          <div style="font-size:.72rem;color:var(--muted);margin-top:2px;">Mobile Money · Rwanda &amp; East Africa</div>
-        </div>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;">Phone Number</div>
+        <div class="amt-box"><div class="amt-lbl">Total Amount</div><div class="amt-main" id="pAmt">1,000 RWF</div></div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.67rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;">Phone Number</div>
         <div class="phone-row">
           <select class="country-sel" id="cCode" onchange="updateHint()">
             <option value="+250" data-net="MTN / Airtel">🇷🇼 +250</option>
@@ -222,60 +225,74 @@ main{max-width:1100px;margin:0 auto;padding:40px 28px 100px;}
             <option value="+260" data-net="MTN / Airtel">🇿🇲 +260</option>
             <option value="+27"  data-net="MTN / Vodacom">🇿🇦 +27</option>
           </select>
-          <input class="phone-inp" type="tel" id="phNum" placeholder="0788000000" oninput="valPhone()" maxlength="12"/>
+          <input class="phone-inp" type="tel" id="phNum" placeholder="07XXXXXXXX" oninput="valPhone()" maxlength="12"/>
         </div>
-        <div class="phone-hint" id="phHint">🇷🇼 Rwanda — MTN MoMo or Airtel Money</div>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:7px;">Network</div>
-        <div class="net-row" id="netRow">
+        <div class="ph-hint" id="phHint">🇷🇼 Rwanda — MTN MoMo or Airtel Money</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.67rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;">Network</div>
+        <div class="net-row">
           <div class="net-btn sel" onclick="selNet(this,'MTN')">📶 MTN MoMo</div>
           <div class="net-btn" onclick="selNet(this,'AIRTEL')">📶 Airtel Money</div>
           <div class="net-btn" onclick="selNet(this,'OTHER')">📶 Other</div>
         </div>
-        <div class="err-box" id="payErr"></div>
+        <div class="err-box" id="pErr"></div>
       </div>
       <div class="modal-ft">
         <button class="pay-btn" id="payBtn" onclick="initPay()" disabled>💳 Confirm &amp; Pay</button>
-        <button class="cancel-btn" onclick="closeModal()">Cancel</button>
+        <button class="cancel-btn" onclick="closePay()">Cancel</button>
       </div>
     </div>
     <!-- Processing -->
-    <div class="status-box" id="stProcessing">
+    <div class="st" id="stProc">
       <div class="spinner"></div>
-      <div style="font-family:'JetBrains Mono',monospace;color:#fff;font-size:.88rem;margin-bottom:6px;">Processing Payment...</div>
-      <div style="color:var(--muted);font-size:.8rem;">Check your phone for a payment prompt.<br>Enter your Mobile Money PIN to confirm.</div>
+      <div style="font-family:'JetBrains Mono',monospace;color:#fff;font-size:.88rem;margin-bottom:5px;">Processing...</div>
+      <div style="color:var(--muted);font-size:.8rem;">Check your phone for payment prompt. Enter your PIN.</div>
     </div>
     <!-- Success -->
-    <div class="status-box" id="stSuccess">
+    <div class="st" id="stOk">
       <div style="font-size:3rem;margin-bottom:10px;">✅</div>
-      <div style="font-family:'JetBrains Mono',monospace;color:var(--green);font-size:1rem;margin-bottom:6px;">Payment Confirmed!</div>
-      <div style="color:var(--muted);font-size:.83rem;margin-bottom:6px;" id="successLabel"></div>
-      <div style="background:rgba(52,211,153,.06);border:1px solid rgba(52,211,153,.2);border-radius:8px;padding:14px;margin-bottom:18px;text-align:left;">
-        <div style="font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--green);margin-bottom:8px;">YOUR CONTENT IS UNLOCKED ✓</div>
-        <div style="font-size:.82rem;color:var(--muted);line-height:1.9;">
-          • Click <strong style="color:#fff;">⬇ Download Now</strong> to open your notes<br>
-          • The page opens in a new tab<br>
-          • Press <strong style="color:#fff;">Ctrl+P</strong> → select <strong style="color:#fff;">"Save as PDF"</strong> → Save<br>
-          • Your notes are saved to your device permanently<br>
-          • Next time you visit this page, your content is still unlocked
-        </div>
-      </div>
-      <button class="btn-download" onclick="doDownload()" style="width:100%;padding:13px;font-size:.9rem;">⬇ Download Now</button>
+      <div style="font-family:'JetBrains Mono',monospace;color:var(--green);font-size:.95rem;margin-bottom:5px;">Payment Confirmed!</div>
+      <div style="color:var(--muted);font-size:.82rem;margin-bottom:18px;" id="stOkLabel"></div>
+      <button class="btn-dl" onclick="closePay();openDlModal(curItem);" style="padding:11px 24px;font-size:.88rem;">⬇ Download Now</button>
     </div>
     <!-- Failed -->
-    <div class="status-box" id="stFailed">
+    <div class="st" id="stFail">
       <div style="font-size:3rem;margin-bottom:10px;">❌</div>
-      <div style="font-family:'JetBrains Mono',monospace;color:var(--red);font-size:.88rem;margin-bottom:6px;">Payment Not Completed</div>
-      <div style="color:var(--muted);font-size:.8rem;margin-bottom:16px;" id="failTxt"></div>
-      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
-        <button class="btn-buy" onclick="showForm()">Try Again</button>
-        <a id="waPayLink" href="#" target="_blank" style="background:#25D366;color:#fff;padding:8px 16px;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:.76rem;font-weight:700;text-decoration:none;">📱 Pay via WhatsApp</a>
-        <button class="cancel-btn" onclick="closeModal()">Cancel</button>
+      <div style="font-family:'JetBrains Mono',monospace;color:var(--red);font-size:.88rem;margin-bottom:5px;">Payment Not Completed</div>
+      <div style="color:var(--muted);font-size:.8rem;margin-bottom:14px;" id="stFailTxt"></div>
+      <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+        <button class="btn-buy" onclick="showPForm()">Try Again</button>
+        <a id="waFallback" href="#" target="_blank" style="background:#25D366;color:#fff;padding:8px 16px;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:.75rem;font-weight:700;text-decoration:none;">📱 Pay via WhatsApp</a>
+        <button class="cancel-btn" onclick="closePay()">Cancel</button>
       </div>
     </div>
   </div>
 </div>
 
-<footer style="text-align:center;padding:24px;color:var(--muted);font-size:.78rem;border-top:1px solid var(--border);">
+<!-- DOWNLOAD MODAL -->
+<div class="overlay" id="dlModal">
+  <div class="modal" style="max-width:500px;">
+    <div class="modal-hd"><h2>⬇ Download</h2><p id="dlSub" style="color:var(--gold);font-family:'JetBrains Mono',monospace;font-size:.8rem;"></p></div>
+    <div class="dl-modal-bd">
+      <!-- ZIP section -->
+      <button id="zipBtn" onclick="doZip()" style="width:100%;background:var(--gold);color:#000;border:none;padding:13px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.88rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:6px;">
+        <span>📦</span> Download as ZIP
+      </button>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--muted);text-align:center;margin-bottom:14px;">One ZIP file — extract and open each HTML file, then press Ctrl+P → Save as PDF</div>
+      <div class="zip-progress" id="zipProg">
+        <div class="zip-lbl" id="zipLbl">Preparing...</div>
+        <div class="zip-bar-wrap"><div class="zip-bar" id="zipBar"></div></div>
+      </div>
+      <!-- Individual files -->
+      <div style="border-top:1px solid var(--border);padding-top:12px;margin-top:4px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.67rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;">Or open individual units in browser → Ctrl+P → Save as PDF:</div>
+        <div class="dl-list" id="dlList"></div>
+      </div>
+    </div>
+    <div class="modal-ft"><button class="cancel-btn" onclick="closeDl()">Close</button></div>
+  </div>
+</div>
+
+<footer style="text-align:center;padding:22px;color:var(--muted);font-size:.77rem;border-top:1px solid var(--border);">
   <a href="index.html" style="color:var(--muted);text-decoration:none;">Home</a> &bull;
   <a href="s4-chemistry.html" style="color:var(--muted);text-decoration:none;">S4</a> &bull;
   <a href="s5-chemistry.html" style="color:var(--muted);text-decoration:none;">S5</a> &bull;
@@ -284,373 +301,187 @@ main{max-width:1100px;margin:0 auto;padding:40px 28px 100px;}
 </footer>
 
 <script>
+// ─── DATA ───
 const BUNDLES={
-  'BUNDLE-S4':{label:'S4 Complete Course',price:1000,files:['s4_unit1_atomic_structure.html','s4_unit2_electronic_config.html','s4_unit3_ionic_metallic_bonds.html','s4_unit4_covalent_bond.html','s4_unit5_periodic_trends.html','s4_unit6_group1.html','s4_unit7_group2.html','s4_unit8_group13.html','s4_unit9_group14.html','s4_unit10_group15.html','s4_unit11_group16.html','s4_unit12_group17.html','s4_unit13_group18.html','s4_unit14_period3.html','s4_unit15_equilibrium.html','s4_unit16_acids_bases.html','s4_unit17_redox.html','s4_unit18_energy_changes.html']},
-  'BUNDLE-S5':{label:'S5 Complete Course',price:1000,files:['unit1_organic_chemistry.html','unit2_alkanes.html','unit3_alkenes_alkynes.html','unit4_halogenoalkanes.html','unit5_alcohols_ethers.html','unit6_carbonyl.html','unit7_carboxylic_acids.html','unit8_esters_amides.html','unit9_amines_amino_acids.html','unit10_phase_diagrams.html','unit11_solutions_titration.html','unit12_conductivity.html','unit13_electrolysis.html','unit14_enthalpy.html','unit15_entropy_free_energy.html']},
-  'BUNDLE-S6':{label:'S6 Complete Course',price:1000,files:['unit1_transition_metals.html','unit2_extraction_metals.html','unit3_fertilisers.html','unit4_benzene.html','unit5_benzene_derivatives.html','unit6_polymers.html','unit7_solvent_colligative.html','unit8_equilibrium.html','unit9_pH.html','unit10_indicators_titration.html','unit11_solubility_product.html','unit12_electrochemical_cells.html','unit13_reaction_rates.html','unit14_rate_laws.html','unit15_radioactivity.html']},
-  'ALL':{label:'All S4+S5+S6',price:3000,files:['*']}
+  S4:{label:'S4 Chemistry',price:1000,files:['s4_unit1_atomic_structure.html','s4_unit2_electronic_config.html','s4_unit3_ionic_metallic_bonds.html','s4_unit4_covalent_bond.html','s4_unit5_periodic_trends.html','s4_unit6_group1.html','s4_unit7_group2.html','s4_unit8_group13.html','s4_unit9_group14.html','s4_unit10_group15.html','s4_unit11_group16.html','s4_unit12_group17.html','s4_unit13_group18.html','s4_unit14_period3.html','s4_unit15_equilibrium.html','s4_unit16_acids_bases.html','s4_unit17_redox.html','s4_unit18_energy_changes.html']},
+  S5:{label:'S5 Chemistry',price:1000,files:['unit1_organic_chemistry.html','unit2_alkanes.html','unit3_alkenes_alkynes.html','unit4_halogenoalkanes.html','unit5_alcohols_ethers.html','unit6_carbonyl.html','unit7_carboxylic_acids.html','unit8_esters_amides.html','unit9_amines_amino_acids.html','unit10_phase_diagrams.html','unit11_solutions_titration.html','unit12_conductivity.html','unit13_electrolysis.html','unit14_enthalpy.html','unit15_entropy_free_energy.html']},
+  S6:{label:'S6 Chemistry',price:1000,files:['unit1_transition_metals.html','unit2_extraction_metals.html','unit3_fertilisers.html','unit4_benzene.html','unit5_benzene_derivatives.html','unit6_polymers.html','unit7_solvent_colligative.html','unit8_equilibrium.html','unit9_pH.html','unit10_indicators_titration.html','unit11_solubility_product.html','unit12_electrochemical_cells.html','unit13_reaction_rates.html','unit14_rate_laws.html','unit15_radioactivity.html']},
+  ALL:{label:'All S4+S5+S6',price:3000,files:[]}
 };
+BUNDLES.ALL.files=[...BUNDLES.S4.files,...BUNDLES.S5.files,...BUNDLES.S6.files];
+
 const S4=[
-  {id:'S4-U1', n:'Unit 1', t:'Structure of an Atom & Mass Spectrum',          f:'s4_unit1_atomic_structure.html'},
-  {id:'S4-U2', n:'Unit 2', t:'Electronic Configuration of Atoms & Ions',      f:'s4_unit2_electronic_config.html'},
-  {id:'S4-U3', n:'Unit 3', t:'Ionic & Metallic Bonds',                        f:'s4_unit3_ionic_metallic_bonds.html'},
-  {id:'S4-U4', n:'Unit 4', t:'Covalent Bond & Molecular Structure',            f:'s4_unit4_covalent_bond.html'},
-  {id:'S4-U5', n:'Unit 5', t:'Variation in Trends of Physical Properties',    f:'s4_unit5_periodic_trends.html'},
-  {id:'S4-U6', n:'Unit 6', t:'Group 1 Elements & Their Compounds',             f:'s4_unit6_group1.html'},
-  {id:'S4-U7', n:'Unit 7', t:'Group 2 Elements & Their Compounds',             f:'s4_unit7_group2.html'},
-  {id:'S4-U8', n:'Unit 8', t:'Group 13 Elements & Their Compounds',            f:'s4_unit8_group13.html'},
-  {id:'S4-U9', n:'Unit 9', t:'Group 14 Elements & Their Compounds',            f:'s4_unit9_group14.html'},
-  {id:'S4-U10',n:'Unit 10',t:'Group 15 Elements & Their Compounds',            f:'s4_unit10_group15.html'},
-  {id:'S4-U11',n:'Unit 11',t:'Group 16 Elements & Their Compounds',            f:'s4_unit11_group16.html'},
-  {id:'S4-U12',n:'Unit 12',t:'Group 17 — Halogens',                            f:'s4_unit12_group17.html'},
-  {id:'S4-U13',n:'Unit 13',t:'Group 18 — Noble Gases',                         f:'s4_unit13_group18.html'},
-  {id:'S4-U14',n:'Unit 14',t:'Period 3 Elements',                              f:'s4_unit14_period3.html'},
-  {id:'S4-U15',n:'Unit 15',t:'Chemical Equilibrium',                           f:'s4_unit15_equilibrium.html'},
-  {id:'S4-U16',n:'Unit 16',t:'Acids and Bases',                                f:'s4_unit16_acids_bases.html'},
-  {id:'S4-U17',n:'Unit 17',t:'Redox Reactions',                                f:'s4_unit17_redox.html'},
-  {id:'S4-U18',n:'Unit 18',t:'Energy Changes',                                 f:'s4_unit18_energy_changes.html'},
+  {id:'S4-1',n:'Unit 1',t:'Structure of an Atom & Mass Spectrum',f:'s4_unit1_atomic_structure.html'},
+  {id:'S4-2',n:'Unit 2',t:'Electronic Configuration of Atoms & Ions',f:'s4_unit2_electronic_config.html'},
+  {id:'S4-3',n:'Unit 3',t:'Ionic & Metallic Bonds',f:'s4_unit3_ionic_metallic_bonds.html'},
+  {id:'S4-4',n:'Unit 4',t:'Covalent Bond & Molecular Structure',f:'s4_unit4_covalent_bond.html'},
+  {id:'S4-5',n:'Unit 5',t:'Variation in Trends of Physical Properties',f:'s4_unit5_periodic_trends.html'},
+  {id:'S4-6',n:'Unit 6',t:'Group 1 Elements & Their Compounds',f:'s4_unit6_group1.html'},
+  {id:'S4-7',n:'Unit 7',t:'Group 2 Elements & Their Compounds',f:'s4_unit7_group2.html'},
+  {id:'S4-8',n:'Unit 8',t:'Group 13 Elements & Their Compounds',f:'s4_unit8_group13.html'},
+  {id:'S4-9',n:'Unit 9',t:'Group 14 Elements & Their Compounds',f:'s4_unit9_group14.html'},
+  {id:'S4-10',n:'Unit 10',t:'Group 15 Elements & Their Compounds',f:'s4_unit10_group15.html'},
+  {id:'S4-11',n:'Unit 11',t:'Group 16 Elements & Their Compounds',f:'s4_unit11_group16.html'},
+  {id:'S4-12',n:'Unit 12',t:'Group 17 — Halogens',f:'s4_unit12_group17.html'},
+  {id:'S4-13',n:'Unit 13',t:'Group 18 — Noble Gases',f:'s4_unit13_group18.html'},
+  {id:'S4-14',n:'Unit 14',t:'Period 3 Elements',f:'s4_unit14_period3.html'},
+  {id:'S4-15',n:'Unit 15',t:'Chemical Equilibrium',f:'s4_unit15_equilibrium.html'},
+  {id:'S4-16',n:'Unit 16',t:'Acids and Bases',f:'s4_unit16_acids_bases.html'},
+  {id:'S4-17',n:'Unit 17',t:'Redox Reactions',f:'s4_unit17_redox.html'},
+  {id:'S4-18',n:'Unit 18',t:'Energy Changes',f:'s4_unit18_energy_changes.html'},
 ];
-const S5=[{id:'S5-U1',n:'Unit 1',t:'Organic Chemistry Intro',f:'unit1_organic_chemistry.html'},{id:'S5-U2',n:'Unit 2',t:'Alkanes',f:'unit2_alkanes.html'},{id:'S5-U3',n:'Unit 3',t:'Alkenes & Alkynes',f:'unit3_alkenes_alkynes.html'},{id:'S5-U4',n:'Unit 4',t:'Halogenoalkanes',f:'unit4_halogenoalkanes.html'},{id:'S5-U5',n:'Unit 5',t:'Alcohols & Ethers',f:'unit5_alcohols_ethers.html'},{id:'S5-U6',n:'Unit 6',t:'Carbonyl Compounds',f:'unit6_carbonyl.html'},{id:'S5-U7',n:'Unit 7',t:'Carboxylic Acids',f:'unit7_carboxylic_acids.html'},{id:'S5-U8',n:'Unit 8',t:'Esters & Amides',f:'unit8_esters_amides.html'},{id:'S5-U9',n:'Unit 9',t:'Amines & Amino Acids',f:'unit9_amines_amino_acids.html'},{id:'S5-U10',n:'Unit 10',t:'Phase Diagrams',f:'unit10_phase_diagrams.html'},{id:'S5-U11',n:'Unit 11',t:'Solutions & Titration',f:'unit11_solutions_titration.html'},{id:'S5-U12',n:'Unit 12',t:'Conductivity',f:'unit12_conductivity.html'},{id:'S5-U13',n:'Unit 13',t:'Electrolysis',f:'unit13_electrolysis.html'},{id:'S5-U14',n:'Unit 14',t:'Enthalpy',f:'unit14_enthalpy.html'},{id:'S5-U15',n:'Unit 15',t:'Entropy & Free Energy',f:'unit15_entropy_free_energy.html'}];
-const S6=[{id:'S6-U1',n:'Unit 1',t:'Transition Metals',f:'unit1_transition_metals.html'},{id:'S6-U2',n:'Unit 2',t:'Extraction of Metals',f:'unit2_extraction_metals.html'},{id:'S6-U3',n:'Unit 3',t:'Fertilisers & NPK',f:'unit3_fertilisers.html'},{id:'S6-U4',n:'Unit 4',t:'Benzene',f:'unit4_benzene.html'},{id:'S6-U5',n:'Unit 5',t:'Benzene Derivatives',f:'unit5_benzene_derivatives.html'},{id:'S6-U6',n:'Unit 6',t:'Polymers',f:'unit6_polymers.html'},{id:'S6-U7',n:'Unit 7',t:'Colligative Properties',f:'unit7_solvent_colligative.html'},{id:'S6-U8',n:'Unit 8',t:'Chemical Equilibrium',f:'unit8_equilibrium.html'},{id:'S6-U9',n:'Unit 9',t:'pH & Buffers',f:'unit9_pH.html'},{id:'S6-U10',n:'Unit 10',t:'Indicators & Titration',f:'unit10_indicators_titration.html'},{id:'S6-U11',n:'Unit 11',t:'Solubility Product',f:'unit11_solubility_product.html'},{id:'S6-U12',n:'Unit 12',t:'Electrochemical Cells',f:'unit12_electrochemical_cells.html'},{id:'S6-U13',n:'Unit 13',t:'Reaction Rates',f:'unit13_reaction_rates.html'},{id:'S6-U14',n:'Unit 14',t:'Rate Laws',f:'unit14_rate_laws.html'},{id:'S6-U15',n:'Unit 15',t:'Radioactivity',f:'unit15_radioactivity.html'}];
+const S5=[
+  {id:'S5-1',n:'Unit 1',t:'Organic Chemistry Intro',f:'unit1_organic_chemistry.html'},
+  {id:'S5-2',n:'Unit 2',t:'Alkanes',f:'unit2_alkanes.html'},
+  {id:'S5-3',n:'Unit 3',t:'Alkenes & Alkynes',f:'unit3_alkenes_alkynes.html'},
+  {id:'S5-4',n:'Unit 4',t:'Halogenoalkanes',f:'unit4_halogenoalkanes.html'},
+  {id:'S5-5',n:'Unit 5',t:'Alcohols & Ethers',f:'unit5_alcohols_ethers.html'},
+  {id:'S5-6',n:'Unit 6',t:'Carbonyl Compounds',f:'unit6_carbonyl.html'},
+  {id:'S5-7',n:'Unit 7',t:'Carboxylic Acids',f:'unit7_carboxylic_acids.html'},
+  {id:'S5-8',n:'Unit 8',t:'Esters & Amides',f:'unit8_esters_amides.html'},
+  {id:'S5-9',n:'Unit 9',t:'Amines & Amino Acids',f:'unit9_amines_amino_acids.html'},
+  {id:'S5-10',n:'Unit 10',t:'Phase Diagrams',f:'unit10_phase_diagrams.html'},
+  {id:'S5-11',n:'Unit 11',t:'Solutions & Titration',f:'unit11_solutions_titration.html'},
+  {id:'S5-12',n:'Unit 12',t:'Conductivity',f:'unit12_conductivity.html'},
+  {id:'S5-13',n:'Unit 13',t:'Electrolysis',f:'unit13_electrolysis.html'},
+  {id:'S5-14',n:'Unit 14',t:'Enthalpy',f:'unit14_enthalpy.html'},
+  {id:'S5-15',n:'Unit 15',t:'Entropy & Free Energy',f:'unit15_entropy_free_energy.html'},
+];
+const S6=[
+  {id:'S6-1',n:'Unit 1',t:'Transition Metals',f:'unit1_transition_metals.html'},
+  {id:'S6-2',n:'Unit 2',t:'Extraction of Metals',f:'unit2_extraction_metals.html'},
+  {id:'S6-3',n:'Unit 3',t:'Fertilisers & NPK',f:'unit3_fertilisers.html'},
+  {id:'S6-4',n:'Unit 4',t:'Benzene',f:'unit4_benzene.html'},
+  {id:'S6-5',n:'Unit 5',t:'Benzene Derivatives',f:'unit5_benzene_derivatives.html'},
+  {id:'S6-6',n:'Unit 6',t:'Polymers',f:'unit6_polymers.html'},
+  {id:'S6-7',n:'Unit 7',t:'Colligative Properties',f:'unit7_solvent_colligative.html'},
+  {id:'S6-8',n:'Unit 8',t:'Chemical Equilibrium',f:'unit8_equilibrium.html'},
+  {id:'S6-9',n:'Unit 9',t:'pH & Buffers',f:'unit9_pH.html'},
+  {id:'S6-10',n:'Unit 10',t:'Indicators & Titration',f:'unit10_indicators_titration.html'},
+  {id:'S6-11',n:'Unit 11',t:'Solubility Product',f:'unit11_solubility_product.html'},
+  {id:'S6-12',n:'Unit 12',t:'Electrochemical Cells',f:'unit12_electrochemical_cells.html'},
+  {id:'S6-13',n:'Unit 13',t:'Reaction Rates',f:'unit13_reaction_rates.html'},
+  {id:'S6-14',n:'Unit 14',t:'Rate Laws',f:'unit14_rate_laws.html'},
+  {id:'S6-15',n:'Unit 15',t:'Radioactivity',f:'unit15_radioactivity.html'},
+];
+const ALL_UNITS=[...S4,...S5,...S6];
 
-let isTeacher=false,curItem=null,selNetwork='MTN',pollTimer=null;
+// ─── STATE ───
+let isTeacher=false, curItem=null, selNet2='MTN', pollTimer=null;
 
-function teacherUnlock(){
-  const p=document.getElementById('teacherPwd').value;
+// ─── TEACHER ───
+function tUnlock(){
+  const p=document.getElementById('tPwd').value;
   const m=document.getElementById('teacherMsg');
   if(p==='chemistry2024'||p==='CHEM2026'){
-    isTeacher=true;m.style.color='var(--green)';m.textContent='✅ Teacher mode — all downloads unlocked.';renderAll();
-document.getElementById('dlModal').addEventListener('click',function(e){if(e.target===this)closeDlModal();});
-  }else{m.style.color='var(--red)';m.textContent='❌ Incorrect password.';}
+    isTeacher=true; m.style.color='var(--green)'; m.textContent='✅ Teacher mode — all content unlocked.'; renderAll();
+  } else { m.style.color='var(--red)'; m.textContent='❌ Wrong password.'; }
 }
 
+// ─── PAID CHECK ───
 function isPaid(id){
   if(isTeacher) return true;
-  const paid=JSON.parse(localStorage.getItem('paid_items')||'[]');
-  return paid.includes(id)||paid.includes('ALL')||
-    (id.startsWith('S4')&&(paid.includes('BUNDLE-S4')||paid.includes('ALL')))||
-    (id.startsWith('S5')&&(paid.includes('BUNDLE-S5')||paid.includes('ALL')))||
-    (id.startsWith('S6')&&(paid.includes('BUNDLE-S6')||paid.includes('ALL')));
+  const p=JSON.parse(localStorage.getItem('paid_items')||'[]');
+  const bId=id.startsWith('S4')?'S4':id.startsWith('S5')?'S5':id.startsWith('S6')?'S6':null;
+  return p.includes(id)||p.includes('ALL')||(bId&&p.includes(bId));
 }
 function markPaid(id){
-  const paid=JSON.parse(localStorage.getItem('paid_items')||'[]');
-  if(!paid.includes(id))paid.push(id);
-  localStorage.setItem('paid_items',JSON.stringify(paid));
+  const p=JSON.parse(localStorage.getItem('paid_items')||'[]');
+  if(!p.includes(id)) p.push(id);
+  localStorage.setItem('paid_items',JSON.stringify(p));
 }
 
-function renderBundleBtn(id){
-  const el=document.getElementById('btn-'+id);if(!el)return;
-  const unlocked=isPaid(id);
-  el.innerHTML=unlocked
-    ?'<button class="btn-download" onclick="dlBundle(\''+id+'\')">⬇ Download All</button>'
-    :'<button class="btn-buy" onclick="openPay(\''+id+'\')">💳 Buy '+BUNDLES[id].price.toLocaleString()+' RWF</button>';
+// ─── RENDER ───
+function renderBundleBtn(bid){
+  const el=document.getElementById('bb-'+bid); if(!el) return;
+  const b=BUNDLES[bid]; const ok=isPaid(bid);
+  el.innerHTML='';
+  const btn=document.createElement('button');
+  if(ok){
+    btn.className='btn-dl'; btn.textContent='⬇ Download ZIP';
+    btn.onclick=function(){openDlModal(bid);};
+  } else {
+    btn.className='btn-buy'; btn.textContent='💳 Buy '+b.price.toLocaleString()+' RWF';
+    btn.onclick=function(){openPay(bid);};
+  }
+  el.appendChild(btn);
 }
 
-function buildCatalog(units,cid){
-  const c=document.getElementById(cid);if(!c)return;c.innerHTML='';
+function buildCat(units,cid){
+  const el=document.getElementById(cid); if(!el) return; el.innerHTML='';
   units.forEach(u=>{
     const ok=isPaid(u.id);
-    const d=document.createElement('div');d.className='unit-card';d.id='uc-'+u.id;
-    d.innerHTML='<div class="unit-card-header"><div class="unit-num">'+u.n+'</div><div class="unit-title">'+u.t+'</div></div>'+
-      '<div class="unit-card-footer"><span class="unit-price">'+( ok?'✓ Unlocked':'300 RWF')+'</span>'+
-      (ok?'<button class="btn-download" onclick="dlFile(\''+u.f+'\',\''+u.t+'\')">⬇ Download</button>'
-         :'<button class="btn-buy" onclick="openPay(\''+u.id+'\',\''+u.t+'\',300,\''+u.f+'\')">🔒 Buy</button>')+'</div>';
-    c.appendChild(d);
+    const d=document.createElement('div'); d.className='ucard';
+    const foot=document.createElement('div'); foot.className='ucard-ft';
+    const hd=document.createElement('div'); hd.className='ucard-hd';
+    hd.innerHTML='<div class="unum">'+u.n+'</div><div class="utitle">'+u.t+'</div>';
+    const price=document.createElement('span'); price.className='uprice';
+    price.textContent=ok?'✓ Unlocked':'300 RWF';
+    const btn=document.createElement('button');
+    if(ok){
+      btn.className='btn-dl'; btn.textContent='⬇ Open';
+      btn.onclick=function(){openDlModal(u.id,u.f,u.t);};
+    } else {
+      btn.className='btn-buy'; btn.textContent='🔒 Buy';
+      btn.onclick=function(){openPay(u.id,u.t,300,u.f);};
+    }
+    foot.appendChild(price); foot.appendChild(btn);
+    d.appendChild(hd); d.appendChild(foot);
+    el.appendChild(d);
   });
 }
 
 function renderAll(){
-  ['BUNDLE-S4','BUNDLE-S5','BUNDLE-S6','ALL'].forEach(id=>renderBundleBtn(id));
-  buildCatalog(S4,'s4-catalog');buildCatalog(S5,'s5-catalog');buildCatalog(S6,'s6-catalog');
+  ['S4','S5','S6','ALL'].forEach(id=>renderBundleBtn(id));
+  buildCat(S4,'cat-s4'); buildCat(S5,'cat-s5'); buildCat(S6,'cat-s6');
 }
 
-// ── Download Functions ──
-let dlCurFile=null, dlCurBundle=null;
-
-function dlFile(file,title){
-  dlCurFile=file; dlCurBundle=null;
-  document.getElementById('dlModalSub').textContent=title||file;
-  document.getElementById('dlBtnLabel').textContent='Download PDF — '+title;
-  document.getElementById('dlReady').style.display='block';
-  document.getElementById('dlGenerating').style.display='none';
-  document.getElementById('dlDone').style.display='none';
-  document.getElementById('dlBundle').style.display='none';
-  document.getElementById('dlModal').classList.add('open');
+// ─── PAYMENT ───
+function openPay(id,label,price,file){
+  if(BUNDLES[id]) curItem={bid:id,label:BUNDLES[id].label,price:BUNDLES[id].price};
+  else curItem={uid:id,label:label||id,price:price||300,file:file};
+  document.getElementById('pSub').textContent=curItem.label;
+  document.getElementById('pAmt').textContent=curItem.price.toLocaleString()+' RWF';
+  showPForm();
+  document.getElementById('payModal').classList.add('open');
 }
-
-function dlBundle(id){
-  dlCurBundle=id; dlCurFile=null;
-  const files=id==='ALL'
-    ?[...BUNDLES['BUNDLE-S4'].files,...BUNDLES['BUNDLE-S5'].files,...BUNDLES['BUNDLE-S6'].files]
-    :BUNDLES[id].files;
-  const label=id==='ALL'?'All S4+S5+S6':BUNDLES[id].label;
-  document.getElementById('dlModalSub').textContent=label;
-  document.getElementById('dlBundleInfo').textContent=
-    files.length+' unit PDFs will download to your device one by one.';
-  document.getElementById('dlBundle').style.display='block';
-  document.getElementById('dlReady').style.display='none';
-  document.getElementById('dlGenerating').style.display='none';
-  document.getElementById('dlDone').style.display='none';
-  document.getElementById('dlBundleProgress').style.display='none';
-  document.getElementById('dlModal').classList.add('open');
-}
-
-async function startDownload(){
-  if(!dlCurFile)return;
-  document.getElementById('dlReady').style.display='none';
-  document.getElementById('dlGenerating').style.display='block';
-  document.getElementById('dlProgress').textContent='Loading page...';
-
-  try{
-    // Fetch the page HTML
-    const resp = await fetch(dlCurFile);
-    const html = await resp.text();
-
-    document.getElementById('dlProgress').textContent='Generating PDF...';
-
-    // Parse the HTML
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html,'text/html');
-
-    // Remove nav, footer, buttons, scripts from the downloaded version
-    ['nav','footer','.quiz-submit','.quiz-wrap','.submit-btn','script'].forEach(sel=>{
-      doc.querySelectorAll(sel).forEach(el=>el.remove());
-    });
-
-    // Add print styles
-    const style = doc.createElement('style');
-    style.textContent='body{background:#fff!important;color:#000!important;font-family:Georgia,serif;}h1,h2,h3{color:#000!important;}*{border-color:#ccc!important;}';
-    doc.head.appendChild(style);
-
-    const el = doc.body;
-    el.style.background='#fff';
-    el.style.color='#000';
-    el.style.padding='20px';
-
-    // Use html2pdf to generate
-    const fname = dlCurFile.replace('.html','').replace(/[_-]/g,' ');
-
-    const opt = {
-      margin:      [10,10,10,10],
-      filename:    fname+'.pdf',
-      image:       {type:'jpeg', quality:0.92},
-      html2canvas: {scale:1.5, useCORS:true, backgroundColor:'#ffffff'},
-      jsPDF:       {unit:'mm', format:'a4', orientation:'portrait'}
-    };
-
-    // Create temp element
-    const temp = document.createElement('div');
-    temp.style.cssText='position:fixed;left:-9999px;top:0;width:210mm;background:#fff;color:#000;';
-    temp.innerHTML = el.innerHTML;
-    document.body.appendChild(temp);
-
-    document.getElementById('dlProgress').textContent='Building PDF...';
-
-    await html2pdf().set(opt).from(temp).save();
-
-    document.body.removeChild(temp);
-
-    document.getElementById('dlGenerating').style.display='none';
-    document.getElementById('dlDone').style.display='block';
-
-  }catch(err){
-    console.error(err);
-    // Fallback to print
-    document.getElementById('dlGenerating').style.display='none';
-    document.getElementById('dlReady').style.display='block';
-    document.getElementById('dlBtnLabel').textContent='Could not auto-download — Click to Print';
-    document.getElementById('dlStartBtn').onclick=()=>{
-      const w=window.open(dlCurFile,'_blank');
-      if(w){w.onload=()=>setTimeout(()=>w.print(),800);}
-      closeDlModal();
-    };
-  }
-}
-
-async function startBundleDownload(){
-  const id=dlCurBundle;if(!id)return;
-  const files=id==='ALL'
-    ?[...BUNDLES['BUNDLE-S4'].files,...BUNDLES['BUNDLE-S5'].files,...BUNDLES['BUNDLE-S6'].files]
-    :BUNDLES[id].files;
-
-  document.getElementById('dlBundleBtn').disabled=true;
-  document.getElementById('dlBundleProgress').style.display='block';
-
-  for(let i=0;i<files.length;i++){
-    const f=files[i];
-    const pct=Math.round((i/files.length)*100);
-    document.getElementById('dlProgressBar').style.width=pct+'%';
-    document.getElementById('dlProgressText').textContent=
-      'Downloading '+(i+1)+' of '+files.length+': '+f.replace('.html','').replace(/[_-]/g,' ');
-
-    try{
-      const resp=await fetch(f);
-      const html=await resp.text();
-      const parser=new DOMParser();
-      const doc=parser.parseFromString(html,'text/html');
-      ['nav','footer','.quiz-submit','.quiz-wrap','script'].forEach(sel=>{
-        doc.querySelectorAll(sel).forEach(el=>el.remove());
-      });
-      const style=doc.createElement('style');
-      style.textContent='body{background:#fff!important;color:#000!important;}';
-      doc.head.appendChild(style);
-
-      const temp=document.createElement('div');
-      temp.style.cssText='position:fixed;left:-9999px;top:0;width:210mm;background:#fff;color:#000;';
-      temp.innerHTML=doc.body.innerHTML;
-      document.body.appendChild(temp);
-
-      const fname=f.replace('.html','').replace(/[_-]/g,' ');
-      await html2pdf().set({
-        margin:[10,10,10,10],filename:fname+'.pdf',
-        image:{type:'jpeg',quality:0.85},
-        html2canvas:{scale:1.2,useCORS:true,backgroundColor:'#ffffff'},
-        jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}
-      }).from(temp).save();
-
-      document.body.removeChild(temp);
-      await new Promise(r=>setTimeout(r,800)); // small pause between files
-    }catch(e){console.error('Failed:',f,e);}
-  }
-
-  document.getElementById('dlProgressBar').style.width='100%';
-  document.getElementById('dlProgressText').textContent='✅ All '+files.length+' PDFs downloaded!';
-  document.getElementById('dlBundleBtn').disabled=false;
-}
-
-function closeDlModal(){document.getElementById('dlModal').classList.remove('open');}
-
-async function downloadZip(){
-  const id=dlCurBundle;
-  if(!id) return;
-  const bundle=BUNDLES[id];
-  let files=id==='ALL'
-    ?[...BUNDLES['BUNDLE-S4'].files,...BUNDLES['BUNDLE-S5'].files,...BUNDLES['BUNDLE-S6'].files]
-    :bundle.files;
-  const label=(id==='ALL'?'All_S4_S5_S6':bundle.label).replace(/[^a-zA-Z0-9]/g,'_');
-
-  const btn=document.getElementById('zipBtn');
-  const prog=document.getElementById('zipProgress');
-  const progBar=document.getElementById('zipProgressBar');
-  const progLabel=document.getElementById('zipProgressLabel');
-
-  btn.disabled=true;
-  btn.innerHTML='<span>⏳</span> Preparing ZIP...';
-  prog.style.display='block';
-
-  try{
-    const zip=new JSZip();
-    const folder=zip.folder(label);
-
-    for(let i=0;i<files.length;i++){
-      const f=files[i];
-      const pct=Math.round((i/files.length)*100);
-      progBar.style.width=pct+'%';
-      progLabel.textContent='Adding file '+(i+1)+' of '+files.length+': '+f.replace('.html','').replace(/_/g,' ');
-
-      try{
-        const resp=await fetch(f);
-        if(resp.ok){
-          const html=await resp.text();
-          // Add a print banner to each file in the ZIP
-          const enhanced=html.replace('<body>',
-            '<body><div style="position:fixed;top:0;left:0;right:0;background:#38bdf8;color:#000;padding:10px 20px;z-index:99999;font-family:sans-serif;font-size:14px;font-weight:bold;display:flex;align-items:center;justify-content:space-between;">' +
-            '<span>📥 Press Ctrl+P → Save as PDF to save this file</span>' +
-            '<button onclick="window.print()" style="background:#000;color:#38bdf8;border:none;padding:6px 14px;border-radius:5px;cursor:pointer;font-weight:bold;">🖨 Print / Save PDF</button>' +
-            '</div><div style="height:48px;"></div>'
-          );
-          folder.file(f, enhanced);
-        }
-      }catch(e){
-        folder.file(f+'.txt','Could not load: '+f);
-      }
-    }
-
-    progBar.style.width='100%';
-    progLabel.textContent='Creating ZIP file...';
-
-    const blob=await zip.generateAsync({type:'blob',compression:'DEFLATE',compressionOptions:{level:6}},
-      (meta)=>{progBar.style.width=meta.percent.toFixed(0)+'%';}
-    );
-
-    // Download the ZIP
-    const url=URL.createObjectURL(blob);
-    const a=document.createElement('a');
-    a.href=url;
-    a.download=label+'_Chemistry_Notes.zip';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-
-    btn.disabled=false;
-    btn.innerHTML='<span style="font-size:1.2rem;">✅</span> ZIP Downloaded! Check your Downloads folder.';
-    btn.style.background='var(--green)';
-    progLabel.textContent='✅ Done! Extract the ZIP and open any file in your browser, then press Ctrl+P → Save as PDF.';
-
-  }catch(err){
-    btn.disabled=false;
-    btn.innerHTML='<span style="font-size:1.2rem;">📦</span> Download as ZIP';
-    progLabel.textContent='❌ Error: '+err.message;
-    progLabel.style.color='var(--red)';
-  }
-}
-
-function doDownload(){
-  closeModal();
-  if(!curItem)return;
-  if(curItem.bid) dlBundle(curItem.bid);
-  else dlFile(curItem.file, curItem.label);
-}
-function closeModal(){document.getElementById('payModal').classList.remove('open');if(pollTimer){clearInterval(pollTimer);pollTimer=null;}curItem=null;}
-function showForm(){document.getElementById('payFormWrap').style.display='block';['stProcessing','stSuccess','stFailed'].forEach(id=>{document.getElementById(id).style.display='none';});document.getElementById('payErr').style.display='none';}
-function selNet(el,n){selNetwork=n;document.querySelectorAll('.net-btn').forEach(b=>b.classList.remove('sel'));el.classList.add('sel');}
-function updateHint(){
-  const sel=document.getElementById('cCode');
-  const opt=sel.options[sel.selectedIndex];
-  document.getElementById('phHint').textContent=opt.text+' — '+(opt.dataset.net||'Mobile Money');
-}
-function valPhone(){
-  const p=document.getElementById('phNum').value.replace(/\D/g,'');
-  document.getElementById('payBtn').disabled=p.length<8;
-}
+function closePay(){document.getElementById('payModal').classList.remove('open'); if(pollTimer){clearInterval(pollTimer);pollTimer=null;} }
+function showPForm(){document.getElementById('pForm').style.display='block'; ['stProc','stOk','stFail'].forEach(id=>document.getElementById(id).style.display='none'); document.getElementById('pErr').style.display='none';}
+function selNet(el,n){selNet2=n; document.querySelectorAll('.net-btn').forEach(b=>b.classList.remove('sel')); el.classList.add('sel');}
+function updateHint(){const o=document.getElementById('cCode').options[document.getElementById('cCode').selectedIndex]; document.getElementById('phHint').textContent=o.text+' — '+(o.dataset.net||'Mobile Money');}
+function valPhone(){document.getElementById('payBtn').disabled=document.getElementById('phNum').value.replace(/\D/g,'').length<8;}
 
 async function initPay(){
   const code=document.getElementById('cCode').value;
   const num=document.getElementById('phNum').value.replace(/\D/g,'');
-  if(num.length<8){const e=document.getElementById('payErr');e.style.display='block';e.textContent='❌ Enter a valid phone number.';return;}
+  if(num.length<8){const e=document.getElementById('pErr');e.style.display='block';e.textContent='❌ Enter a valid phone number.';return;}
   const fullPhone=code.replace('+','')+num.replace(/^0/,'');
-  document.getElementById('payFormWrap').style.display='none';
-  document.getElementById('stProcessing').style.display='block';
+  document.getElementById('pForm').style.display='none';
+  document.getElementById('stProc').style.display='block';
 
   const s=JSON.parse(localStorage.getItem('notif_settings')||'{}');
   const ppKey=s.pawapayKey||'';
   const amount=curItem.price;
 
   if(!ppKey){
-    // No PawaPay key — show manual MTN MoMo + WhatsApp fallback
-    document.getElementById('stProcessing').style.display='none';
-    const waText=encodeURIComponent('💳 PAYMENT REQUEST\nItem: '+curItem.label+'\nAmount: '+amount+' RWF\nMy number: '+code+num+'\nPlease confirm and unlock my download.');
-    document.getElementById('waPayLink').href='https://wa.me/250788800375?text='+waText;
-    document.getElementById('failTxt').innerHTML=
-      '<strong style="color:#fff;">Pay manually via MTN MoMo:</strong><br>'+
-      'Number: <strong style="color:var(--gold);">+250 788 800 375</strong><br>'+
-      'Amount: <strong style="color:var(--gold);">'+amount.toLocaleString()+' RWF</strong><br><br>'+
-      'Then click the WhatsApp button below to send your payment reference.';
-    document.getElementById('stFailed').style.display='block';
-    document.querySelector('#stFailed .btn-buy').style.display='none';
+    // No PawaPay → show MTN manual + WhatsApp
+    document.getElementById('stProc').style.display='none';
+    const wa=encodeURIComponent('💳 PAYMENT\nItem: '+curItem.label+'\nAmount: '+amount+' RWF\nMy number: '+code+num+'\nPlease confirm and send my download access.');
+    document.getElementById('waFallback').href='https://wa.me/250788800375?text='+wa;
+    document.getElementById('stFailTxt').innerHTML='<strong style="color:#fff;">Pay manually:</strong><br>MTN MoMo: <strong style="color:var(--gold);">+250 788 800 375</strong><br>Amount: <strong style="color:var(--gold);">'+amount.toLocaleString()+' RWF</strong><br><br>Then click WhatsApp to confirm.';
+    document.querySelector('#stFail .btn-buy').style.display='none';
+    document.getElementById('stFail').style.display='block';
     return;
   }
 
-  // PawaPay integration
+  // PawaPay
   const depositId='dep_'+Date.now()+'_'+Math.random().toString(36).substr(2,5);
   const cMap={'250':'RW','256':'UG','255':'TZ','254':'KE','234':'NG','233':'GH','237':'CM','260':'ZM','27':'ZA'};
-  const cCode2=code.replace('+','');
-  const countryIso=cMap[cCode2]||'RW';
-  const corrMap={MTN:{RW:'MTNRW',UG:'MTNUG',GH:'MTNGHS',CM:'MTNCM',ZM:'MTNZM',ZA:'MTNZA',NG:'MTNNG',CI:'MTNCI'},AIRTEL:{RW:'AIRTELRW',UG:'AIRTELUG',TZ:'AIRTELTANZANIA',NG:'AIRTELNG'},OTHER:{RW:'MTNRW',UG:'MTNUG'}};
+  const cc=code.replace('+',''); const ci=cMap[cc]||'RW';
+  const corrMap={MTN:{RW:'MTNRW',UG:'MTNUG',GH:'MTNGHS',CM:'MTNCM',ZM:'MTNZM',ZA:'MTNZA',NG:'MTNNG'},AIRTEL:{RW:'AIRTELRW',UG:'AIRTELUG',TZ:'AIRTELTANZANIA',NG:'AIRTELNG'},OTHER:{RW:'MTNRW'}};
   const curMap={RW:'RWF',UG:'UGX',TZ:'TZS',KE:'KES',NG:'NGN',GH:'GHS',CM:'XAF',ZM:'ZMW',ZA:'ZAR'};
-  const correspondent=(corrMap[selNetwork]||corrMap.MTN)[countryIso]||'MTNRW';
-  const currency=curMap[countryIso]||'RWF';
+  const correspondent=(corrMap[selNet2]||corrMap.MTN)[ci]||'MTNRW';
+  const currency=curMap[ci]||'RWF';
 
   try{
     const r=await fetch('https://api.pawapay.io/deposits',{
@@ -661,83 +492,152 @@ async function initPay(){
     const d=await r.json();
     if(d.depositId||r.ok){
       pollTimer=setInterval(async()=>{
-        const pr=await fetch('https://api.pawapay.io/deposits/'+depositId,{headers:{'Authorization':'Bearer '+ppKey}});
-        const pd=await pr.json();
-        const st=((pd.status||pd[0]?.status)||''). toUpperCase();
-        if(st==='COMPLETED'){clearInterval(pollTimer);markPaid(curItem.bid||curItem.uid);document.getElementById('stProcessing').style.display='none';var sl=document.getElementById('successLabel');if(sl)sl.textContent='You now have access to: '+curItem.label;document.getElementById('stSuccess').style.display='block';renderAll();}
-        else if(st==='FAILED'||st==='EXPIRED'){clearInterval(pollTimer);document.getElementById('stProcessing').style.display='none';document.getElementById('failTxt').textContent=pd.correspondentIds?.reason||'Payment not completed.';document.getElementById('stFailed').style.display='block';}
+        try{
+          const pr=await fetch('https://api.pawapay.io/deposits/'+depositId,{headers:{'Authorization':'Bearer '+ppKey}});
+          const pd=await pr.json();
+          const st=((pd.status||pd[0]?.status)||'').toUpperCase();
+          if(st==='COMPLETED'){
+            clearInterval(pollTimer); pollTimer=null;
+            markPaid(curItem.bid||curItem.uid);
+            document.getElementById('stOkLabel').textContent='Unlocked: '+curItem.label;
+            document.getElementById('stProc').style.display='none';
+            document.getElementById('stOk').style.display='block';
+            renderAll();
+          } else if(st==='FAILED'||st==='EXPIRED'){
+            clearInterval(pollTimer); pollTimer=null;
+            document.getElementById('stProc').style.display='none';
+            document.getElementById('stFailTxt').textContent=pd.correspondentIds?.reason||'Payment not completed.';
+            document.getElementById('stFail').style.display='block';
+          }
+        }catch(e){}
       },3000);
-      setTimeout(()=>{if(pollTimer){clearInterval(pollTimer);document.getElementById('stProcessing').style.display='none';document.getElementById('failTxt').textContent='Payment timed out. If you paid, contact Mr Habimana via WhatsApp.';document.getElementById('stFailed').style.display='block';}},180000);
-    }else{throw new Error(d.errorCode||'Failed');}
+      setTimeout(()=>{if(pollTimer){clearInterval(pollTimer);pollTimer=null;document.getElementById('stProc').style.display='none';document.getElementById('stFailTxt').textContent='Timed out. If you paid, contact Mr Habimana via WhatsApp.';document.getElementById('stFail').style.display='block';}},180000);
+    } else throw new Error(d.errorCode||'Failed');
   }catch(e){
-    document.getElementById('stProcessing').style.display='none';
-    const waText=encodeURIComponent('💳 PAYMENT\nItem: '+curItem.label+'\nAmount: '+amount+' RWF\nPhone: '+code+num);
-    document.getElementById('waPayLink').href='https://wa.me/250788800375?text='+waText;
-    document.getElementById('failTxt').innerHTML='Could not process automatically. Pay to: <strong style="color:var(--gold);">+250 788 800 375</strong> ('+amount.toLocaleString()+' RWF) then use WhatsApp below.';
-    document.getElementById('stFailed').style.display='block';
+    document.getElementById('stProc').style.display='none';
+    const wa=encodeURIComponent('💳 PAYMENT\nItem: '+curItem.label+'\nAmount: '+amount+' RWF\nPhone: '+code+num);
+    document.getElementById('waFallback').href='https://wa.me/250788800375?text='+wa;
+    document.getElementById('stFailTxt').innerHTML='Could not process automatically.<br>Pay to <strong style="color:var(--gold);">+250 788 800 375</strong> ('+amount.toLocaleString()+' RWF) then use WhatsApp below.';
+    document.getElementById('stFail').style.display='block';
   }
 }
 
-function switchTab(t,b){document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active'));document.getElementById('tab-'+t).classList.add('active');b.classList.add('active');}
-document.getElementById('payModal').addEventListener('click',function(e){if(e.target===this)closeModal();});
+// ─── DOWNLOAD MODAL ───
+let dlFiles=[], dlLabel='';
+
+function openDlModal(id, file, title){
+  if(BUNDLES[id]){
+    dlFiles=BUNDLES[id].files; dlLabel=BUNDLES[id].label;
+  } else {
+    dlFiles=[file]; dlLabel=title||id;
+  }
+  document.getElementById('dlSub').textContent=dlLabel;
+
+  // Build file list
+  const list=document.getElementById('dlList'); list.innerHTML='';
+  dlFiles.forEach(f=>{
+    const unit=ALL_UNITS.find(u=>u.f===f);
+    const name=unit?(unit.n+' — '+unit.t):f.replace('.html','').replace(/_/g,' ');
+    const row=document.createElement('div'); row.className='dl-row';
+    const nameEl=document.createElement('span'); nameEl.textContent=name;
+    const fileBtn=document.createElement('button');
+    fileBtn.textContent='🖨 Open & PDF';
+    fileBtn.style.cssText='background:var(--green);color:#000;border:none;padding:5px 12px;border-radius:5px;font-family:JetBrains Mono,monospace;font-size:.7rem;font-weight:700;cursor:pointer;white-space:nowrap;margin-left:8px;';
+    fileBtn.onclick=function(){openFile(f);};
+    row.appendChild(nameEl); row.appendChild(fileBtn);
+    list.appendChild(row);
+  });
+
+  // Reset ZIP
+  const zb=document.getElementById('zipBtn');
+  zb.disabled=false; zb.style.background='var(--gold)';
+  zb.innerHTML='<span>📦</span> Download as ZIP';
+  document.getElementById('zipProg').style.display='none';
+
+  document.getElementById('dlModal').classList.add('open');
+}
+
+function closeDl(){document.getElementById('dlModal').classList.remove('open');}
+
+function openFile(f){
+  const w=window.open(f,'_blank');
+  if(w){
+    w.onload=function(){
+      setTimeout(()=>{
+        try{
+          const bar=w.document.createElement('div');
+          bar.style.cssText='position:fixed;top:0;left:0;right:0;background:#38bdf8;color:#000;padding:11px 20px;z-index:99999;display:flex;align-items:center;justify-content:space-between;font-family:JetBrains Mono,monospace;font-size:.8rem;font-weight:700;';
+          bar.innerHTML='<span>📥 Press <kbd style="background:rgba(0,0,0,.2);padding:2px 7px;border-radius:3px;">Ctrl+P</kbd> → Destination → <strong>Save as PDF</strong> → Save</span>'+
+            '<button onclick="window.print()" style="background:#000;color:#38bdf8;border:none;padding:6px 14px;border-radius:5px;cursor:pointer;font-family:JetBrains Mono,monospace;font-weight:700;">🖨 Print Now</button>';
+          w.document.body.style.paddingTop='50px';
+          w.document.body.insertBefore(bar,w.document.body.firstChild);
+          w.focus(); w.print();
+        }catch(e){}
+      },1200);
+    };
+  }
+}
+
+async function doZip(){
+  const btn=document.getElementById('zipBtn');
+  const prog=document.getElementById('zipProg');
+  const bar=document.getElementById('zipBar');
+  const lbl=document.getElementById('zipLbl');
+
+  btn.disabled=true; btn.innerHTML='<span>⏳</span> Building ZIP...';
+  prog.style.display='block';
+
+  try{
+    const zip=new JSZip();
+    const folder=zip.folder(dlLabel.replace(/[^a-zA-Z0-9]/g,'_'));
+
+    for(let i=0;i<dlFiles.length;i++){
+      const f=dlFiles[i];
+      bar.style.width=Math.round(i/dlFiles.length*90)+'%';
+      const unit=ALL_UNITS.find(u=>u.f===f);
+      lbl.textContent='Adding '+(i+1)+'/'+dlFiles.length+': '+(unit?unit.t:f);
+      try{
+        const resp=await fetch(f);
+        if(resp.ok){
+          let html=await resp.text();
+          // Inject print banner
+          html=html.replace('<body>','<body><div style="position:fixed;top:0;left:0;right:0;background:#38bdf8;color:#000;padding:10px 20px;z-index:99999;font-family:sans-serif;font-size:13px;font-weight:bold;display:flex;align-items:center;justify-content:space-between;"><span>📥 Press Ctrl+P → Save as PDF</span><button onclick="window.print()" style="background:#000;color:#38bdf8;border:none;padding:5px 14px;border-radius:4px;cursor:pointer;">🖨 Print</button></div><div style="height:46px;"></div>');
+          folder.file(f,html);
+        }
+      }catch(e){ folder.file(f+'.txt','Could not load: '+f); }
+    }
+
+    bar.style.width='95%'; lbl.textContent='Compressing...';
+    const blob=await zip.generateAsync({type:'blob',compression:'DEFLATE',compressionOptions:{level:6}});
+    bar.style.width='100%';
+
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');
+    a.href=url; a.download=dlLabel.replace(/[^a-zA-Z0-9]/g,'_')+'_Chemistry.zip';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+
+    btn.style.background='var(--green)';
+    btn.innerHTML='<span>✅</span> ZIP Downloaded! Check your Downloads folder.';
+    lbl.textContent='✅ Done! Extract the ZIP, open any file, press Ctrl+P → Save as PDF.';
+  }catch(err){
+    btn.disabled=false; btn.style.background='var(--gold)'; btn.innerHTML='<span>📦</span> Download as ZIP';
+    lbl.textContent='❌ Error: '+err.message; lbl.style.color='var(--red)';
+  }
+}
+
+// ─── TABS ───
+function switchTab(t,b){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active'));
+  document.getElementById('tab-'+t).classList.add('active'); b.classList.add('active');
+}
+
+// close modals on outside click
+document.getElementById('payModal').addEventListener('click',function(e){if(e.target===this)closePay();});
+document.getElementById('dlModal').addEventListener('click',function(e){if(e.target===this)closeDl();});
+
 renderAll();
 </script>
-<!-- DOWNLOAD MODAL -->
-<div class="modal-overlay" id="dlModal">
-  <div class="modal" style="max-width:500px;">
-    <div class="modal-hd">
-      <h2>⬇ Download</h2>
-      <p id="dlModalSub" style="color:var(--gold);font-family:'JetBrains Mono',monospace;font-size:.82rem;"></p>
-    </div>
-    <div class="modal-bd">
-
-      <!-- Single file -->
-      <div id="dlSingleOpts">
-        <div style="display:flex;flex-direction:column;gap:10px;">
-          <button onclick="openAndPrint(dlCurFile)" style="background:var(--green);color:#000;border:none;padding:14px 20px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.85rem;font-weight:700;cursor:pointer;text-align:left;display:flex;align-items:center;gap:12px;">
-            <span style="font-size:1.4rem;">🖨️</span>
-            <div><div>Open & Save as PDF</div><div style="font-size:.72rem;opacity:.7;font-weight:400;margin-top:2px;">Opens the page → press Ctrl+P → Save as PDF</div></div>
-          </button>
-        </div>
-        <div style="margin-top:12px;background:rgba(56,189,248,.06);border:1px solid rgba(56,189,248,.15);border-radius:8px;padding:12px 14px;font-size:.8rem;color:var(--muted);line-height:1.9;">
-          <strong style="color:#fff;">Windows:</strong> Ctrl+P → Save as PDF<br>
-          <strong style="color:#fff;">Mac:</strong> ⌘+P → Save as PDF<br>
-          <strong style="color:#fff;">Phone:</strong> ⋮ Menu → Print → Save as PDF
-        </div>
-      </div>
-
-      <!-- Bundle - ZIP download -->
-      <div id="dlBundleOpts" style="display:none;">
-        <div style="background:rgba(232,197,71,.06);border:1px solid rgba(232,197,71,.2);border-radius:8px;padding:12px 14px;margin-bottom:14px;">
-          <div id="dlBundleCount" style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--gold);margin-bottom:4px;"></div>
-          <div style="font-size:.8rem;color:var(--muted);">All files download as one ZIP folder. Extract it and open any file in your browser, then press Ctrl+P → Save as PDF.</div>
-        </div>
-
-        <!-- ZIP button -->
-        <button id="zipBtn" onclick="downloadZip()" style="width:100%;background:var(--gold);color:#000;border:none;padding:14px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.88rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:12px;">
-          <span style="font-size:1.2rem;">📦</span> Download All as ZIP
-        </button>
-
-        <!-- Progress -->
-        <div id="zipProgress" style="display:none;margin-bottom:14px;">
-          <div style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);margin-bottom:6px;" id="zipProgressLabel">Preparing files...</div>
-          <div style="background:var(--surface2);border-radius:50px;height:8px;overflow:hidden;">
-            <div id="zipProgressBar" style="background:var(--gold);height:100%;width:0%;transition:width .3s;border-radius:50px;"></div>
-          </div>
-        </div>
-
-        <!-- Individual files list -->
-        <div style="border-top:1px solid var(--border);padding-top:12px;">
-          <div style="font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;">Or save individual units:</div>
-          <div id="bundleFileList" style="max-height:220px;overflow-y:auto;display:flex;flex-direction:column;gap:5px;"></div>
-        </div>
-      </div>
-
-    </div>
-    <div class="modal-ft">
-      <button class="cancel-btn" onclick="closeDlModal()">Close</button>
-    </div>
-  </div>
-</div>
-
->
+</body>
+</html>
