@@ -6,6 +6,7 @@
 <title>Downloads — Jackson Habimana Chemistry</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <style>
 :root{--bg:#0d1117;--surface:#161b22;--surface2:#1c2333;--border:#30363d;--accent:#38bdf8;--green:#34d399;--red:#f87171;--gold:#e8c547;--text:#e6edf3;--muted:#8b949e;--purple:#a78bfa;}
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -584,7 +585,7 @@ async function doZip(){
   const bar=document.getElementById('zipBar');
   const lbl=document.getElementById('zipLbl');
 
-  btn.disabled=true; btn.innerHTML='<span>⏳</span> Building ZIP...';
+  btn.disabled=true; btn.innerHTML='<span>⏳</span> Generating PDFs...';
   prog.style.display='block';
 
   try{
@@ -593,51 +594,112 @@ async function doZip(){
 
     for(let i=0;i<dlFiles.length;i++){
       const f=dlFiles[i];
-      bar.style.width=Math.round(i/dlFiles.length*90)+'%';
+      const pct=Math.round(i/dlFiles.length*88);
+      bar.style.width=pct+'%';
       const unit=ALL_UNITS.find(u=>u.f===f);
-      lbl.textContent='Adding '+(i+1)+'/'+dlFiles.length+': '+(unit?unit.t:f);
+      const unitName=unit?(unit.n+' - '+unit.t):f.replace('.html','').replace(/_/g,' ');
+      lbl.textContent='Converting '+(i+1)+'/'+dlFiles.length+': '+unitName;
+
       try{
+        // Fetch the HTML page
         const resp=await fetch(f);
-        if(resp.ok){
-          let html=await resp.text();
-          // Inject print banner
-          html=html.replace('<body>','<body><div style="position:fixed;top:0;left:0;right:0;background:#38bdf8;color:#000;padding:10px 20px;z-index:99999;font-family:sans-serif;font-size:13px;font-weight:bold;display:flex;align-items:center;justify-content:space-between;"><span>📥 Press Ctrl+P → Save as PDF</span><button onclick="window.print()" style="background:#000;color:#38bdf8;border:none;padding:5px 14px;border-radius:4px;cursor:pointer;">🖨 Print</button></div><div style="height:46px;"></div>');
-          folder.file(f,html);
-        }
-      }catch(e){ folder.file(f+'.txt','Could not load: '+f); }
+        if(!resp.ok) throw new Error('Failed to fetch '+f);
+        const html=await resp.text();
+
+        // Parse and clean for PDF
+        const parser=new DOMParser();
+        const doc=parser.parseFromString(html,'text/html');
+
+        // Remove non-printable elements
+        const toRemove=['nav','footer','.lock-bar','.lock-overlay',
+          '.quiz-wrap','#quiz','#test','.submit-btn','.quiz-submit',
+          'script','style[id]','.nav-dropdown','.toc-pills'];
+        toRemove.forEach(sel=>{
+          try{doc.querySelectorAll(sel).forEach(el=>el.remove());}catch(e){}
+        });
+
+        // Add clean print styles
+        const style=doc.createElement('style');
+        style.textContent=`
+          *{background:#fff!important;color:#000!important;border-color:#ccc!important;box-shadow:none!important;}
+          body{font-family:Arial,sans-serif;font-size:11pt;line-height:1.6;padding:10mm;margin:0;}
+          h1,h2,h3{color:#000!important;page-break-after:avoid;}
+          h1{font-size:18pt;border-bottom:2px solid #000;padding-bottom:6px;margin-bottom:12px;}
+          h2{font-size:14pt;border-bottom:1px solid #ccc;padding-bottom:4px;margin-top:20px;}
+          h3{font-size:12pt;margin-top:16px;}
+          table{width:100%;border-collapse:collapse;}
+          td,th{border:1px solid #ccc;padding:6px;font-size:10pt;}
+          .callout,.definition,.example,.note{background:#f5f5f5!important;border-left:3px solid #333!important;padding:8px 12px;margin:10px 0;}
+          img{max-width:100%;height:auto;}
+          a{color:#000;text-decoration:none;}
+          p{margin-bottom:8px;}
+          pre,code{background:#f5f5f5!important;padding:2px 4px;font-family:monospace;font-size:9pt;}
+          .section-number,.lesson-number{display:inline-block;background:#000!important;color:#fff!important;padding:2px 8px;border-radius:3px;font-size:9pt;}
+        `;
+        doc.head.appendChild(style);
+
+        // Add title header
+        const header=doc.createElement('div');
+        header.innerHTML='<h1 style="font-size:16pt;border-bottom:2px solid #000;padding-bottom:8px;">'+unitName+'</h1>';
+        if(doc.body.firstChild) doc.body.insertBefore(header,doc.body.firstChild);
+
+        // Create temp container for html2pdf
+        const container=document.createElement('div');
+        container.style.cssText='position:fixed;left:-9999px;top:0;width:794px;background:#fff;';
+        container.innerHTML=doc.body.innerHTML;
+        document.body.appendChild(container);
+
+        // Generate PDF blob
+        const pdfBlob=await html2pdf()
+          .set({
+            margin:[10,10,10,10],
+            filename:unitName+'.pdf',
+            image:{type:'jpeg',quality:0.85},
+            html2canvas:{scale:1.5,useCORS:true,backgroundColor:'#ffffff',logging:false},
+            jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}
+          })
+          .from(container)
+          .outputPdf('blob');
+
+        document.body.removeChild(container);
+
+        // Add PDF to ZIP
+        const pdfName=(unit?unit.n+' - '+unit.t:f.replace('.html','')).replace(/[^a-zA-Z0-9 \-]/g,'').trim()+'.pdf';
+        folder.file(pdfName, pdfBlob);
+
+      }catch(e){
+        lbl.textContent='⚠ Skipped: '+f+' ('+e.message+')';
+        await new Promise(r=>setTimeout(r,500));
+      }
+
+      // Small pause to let browser breathe
+      await new Promise(r=>setTimeout(r,200));
     }
 
-    bar.style.width='95%'; lbl.textContent='Compressing...';
-    const blob=await zip.generateAsync({type:'blob',compression:'DEFLATE',compressionOptions:{level:6}});
+    bar.style.width='96%'; lbl.textContent='Packaging ZIP...';
+    const blob=await zip.generateAsync({type:'blob'});
     bar.style.width='100%';
 
+    // Download
     const url=URL.createObjectURL(blob);
     const a=document.createElement('a');
-    a.href=url; a.download=dlLabel.replace(/[^a-zA-Z0-9]/g,'_')+'_Chemistry.zip';
-    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    a.href=url;
+    a.download=dlLabel.replace(/[^a-zA-Z0-9]/g,'_')+'_PDFs.zip';
+    document.body.appendChild(a); a.click();
+    document.body.removeChild(a);
     URL.revokeObjectURL(url);
 
     btn.style.background='var(--green)';
-    btn.innerHTML='<span>✅</span> ZIP Downloaded! Check your Downloads folder.';
-    lbl.textContent='✅ Done! Extract the ZIP, open any file, press Ctrl+P → Save as PDF.';
+    btn.innerHTML='<span>✅</span> ZIP Downloaded! Open it — all files are real PDFs.';
+    lbl.textContent='✅ Done! Your ZIP contains '+dlFiles.length+' PDF files.';
+
   }catch(err){
-    btn.disabled=false; btn.style.background='var(--gold)'; btn.innerHTML='<span>📦</span> Download as ZIP';
-    lbl.textContent='❌ Error: '+err.message; lbl.style.color='var(--red)';
+    btn.disabled=false; btn.style.background='var(--gold)';
+    btn.innerHTML='<span>📦</span> Download as ZIP';
+    lbl.textContent='❌ Error: '+err.message;
+    lbl.style.color='var(--red)';
+    console.error(err);
   }
 }
 
-// ─── TABS ───
-function switchTab(t,b){
-  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active'));
-  document.getElementById('tab-'+t).classList.add('active'); b.classList.add('active');
-}
 
-// close modals on outside click
-document.getElementById('payModal').addEventListener('click',function(e){if(e.target===this)closePay();});
-document.getElementById('dlModal').addEventListener('click',function(e){if(e.target===this)closeDl();});
-
-renderAll();
-</script>
-</body>
-</html>
