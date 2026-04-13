@@ -103,32 +103,6 @@ footer a{color:var(--accent);text-decoration:none;}
   .callout, .definition, .example, .worked-example { background: #f5f5f5 !important; border-color: #ccc !important; }
   .quiz-wrap, .quiz-header, .q-block, .opt { background: #fff !important; color: #000 !important; border-color: #ccc !important; }
 }
-  body { background: #fff !important; color: #000 !important; font-size: 11pt; line-height: 1.6; }
-  nav, footer, .quiz-wrap, .quiz-container, section#quiz, section#test,
-  .tab-btn, .reveal-btn, button, .answer-panel, .print-hide,
-  [id*="lock"], .modal-overlay { display: none !important; }
-  main { max-width: 100% !important; padding: 0 !important; margin: 0 !important; }
-  h1, h2, h3, h4 { color: #000 !important; page-break-after: avoid; }
-  h2 { border-bottom: 2px solid #000 !important; padding-bottom: 4pt; margin-top: 18pt; }
-  section { page-break-inside: avoid; margin-bottom: 16pt; }
-  .section-header { background: #f0f0f0 !important; color: #000 !important; padding: 6pt 10pt; border-radius: 0 !important; }
-  .callout, .definition, .example-box, .worked-example {
-    background: #f5f5f5 !important; color: #000 !important;
-    border: 1pt solid #ccc !important; border-left: 3pt solid #333 !important;
-    padding: 8pt !important; margin: 8pt 0 !important;
-  }
-  table { border-collapse: collapse !important; width: 100% !important; }
-  th, td { border: 1pt solid #999 !important; padding: 4pt 6pt !important; color: #000 !important; background: #fff !important; font-size: 10pt; }
-  th { background: #e0e0e0 !important; font-weight: bold; }
-  p, li { color: #000 !important; }
-  .hero, .hero-eyebrow, .hero h1, .hero p { display: none !important; }
-  .content-body, .unit-content, .notes-body { color: #000 !important; }
-  a { color: #000 !important; text-decoration: none; }
-  code, pre { background: #f0f0f0 !important; color: #000 !important; border: 1pt solid #ccc !important; }
-  .answer-panel.open { display: block !important; background: #f9f9f9 !important; color: #000 !important; }
-  strong { color: #000 !important; }
-  var(--text), var(--muted), var(--accent) { color: #000 !important; }
-}
 </style>
 </head>
 <body>
@@ -811,15 +785,7 @@ function submitQuiz(){
   r.innerHTML='Score: '+s+'/'+t+' ('+p+'%) — '+(p>=80?'🏆 Excellent!':p>=70?'✅ Good.':p>=50?'📚 Keep studying.':'❌ Review all material.');
   document.querySelector('.qs').disabled=true;document.querySelector('.qs').style.opacity='.5';
 }
-(function(){
-  const SK='quiz_access_granted',CK='quiz_access_code';
-  const gate=document.createElement('div');gate.id='unit-quiz-gate';
-  gate.style.cssText='position:fixed;inset:0;background:#0d1117;z-index:99999;display:none;align-items:center;justify-content:center;padding:24px;';
-  gate.innerHTML='<div style="background:#161b22;border:2px solid rgba(245,158,11,.4);border-radius:16px;padding:48px 40px;max-width:460px;width:100%;text-align:center;"><div style="font-size:3.5rem;margin-bottom:16px;">🔒</div><h2 style="font-family:Playfair Display,serif;font-size:1.8rem;color:#fff;margin-bottom:10px;">Quiz Locked</h2><p style="color:#8b949e;font-size:.93rem;margin-bottom:24px;">Enter the access code from your teacher.</p><input id="ugc-inp" type="text" placeholder="Enter Code" maxlength="20" style="width:100%;background:#1c2333;border:2px solid #30363d;border-radius:8px;color:#e6edf3;padding:14px 18px;font-family:JetBrains Mono,monospace;font-size:1.4rem;text-align:center;letter-spacing:.2em;text-transform:uppercase;margin-bottom:12px;box-sizing:border-box;" onkeydown="if(event.key===\'Enter\')unlockUnitQuiz()"/><div id="ugc-err" style="font-family:JetBrains Mono,monospace;font-size:.82rem;color:#f87171;min-height:20px;margin-bottom:10px;"></div><button onclick="unlockUnitQuiz()" style="width:100%;background:#f59e0b;color:#000;border:none;padding:13px;border-radius:8px;font-family:JetBrains Mono,monospace;font-size:.9rem;font-weight:700;cursor:pointer;margin-bottom:10px;">🔓 Unlock Quiz</button><button onclick="document.getElementById(\'unit-quiz-gate\').style.display=\'none\';document.body.style.overflow=\'\'" style="width:100%;background:transparent;border:1px solid #30363d;color:#8b949e;padding:9px;border-radius:8px;font-family:JetBrains Mono,monospace;font-size:.8rem;cursor:pointer;">✕ Cancel</button></div>';
-  document.body.appendChild(gate);
-  window.unlockUnitQuiz=function(){const v=document.getElementById('ugc-inp').value.trim().toUpperCase();const c=localStorage.getItem(CK);if(!v){document.getElementById('ugc-err').textContent='Enter the code.';return;}if(v===c||!c){sessionStorage.setItem(SK,c||'open');document.getElementById('unit-quiz-gate').style.display='none';document.body.style.overflow='';}else{document.getElementById('ugc-err').textContent='❌ Wrong code.';document.getElementById('ugc-inp').value='';}};
-  window.addEventListener('DOMContentLoaded',function(){const code=localStorage.getItem(CK);if(!code)return;const granted=sessionStorage.getItem(SK);if(granted)return;const qw=document.querySelector('.quiz-wrap');if(!qw)return;qw.addEventListener('click',function(e){if(!localStorage.getItem(CK))return;if(sessionStorage.getItem(SK))return;e.stopPropagation();e.preventDefault();document.getElementById('unit-quiz-gate').style.display='flex';document.body.style.overflow='hidden';},true);});
-})();
+
 </script>
 </body>
 </html>
