@@ -821,17 +821,24 @@ table.results tr:hover td{background:rgba(255,255,255,.02);}
         </div>
         <div style="background:rgba(232,197,71,.06);border:1px solid rgba(232,197,71,.15);border-radius:8px;padding:14px 16px;margin-bottom:14px;font-size:.84rem;color:var(--muted);">
           <strong style="color:var(--gold);display:block;margin-bottom:8px;">⚡ Setup (one time):</strong>
-          <ol style="margin-left:18px;line-height:2.2;">
-            <li>Go to <a href="https://dashboard.pawapay.io" target="_blank" style="color:var(--accent);">dashboard.pawapay.io</a> → Sign up for a merchant account</li>
-            <li>After approval, go to <strong style="color:#fff;">Settings → API Keys</strong> → copy your <strong style="color:var(--gold);">API Token</strong></li>
-            <li>Paste it below → Save → Students on the Downloads page can now pay automatically and download immediately</li>
+          <ol style="margin-left:18px;line-height:2.4;">
+            <li>Go to <a href="https://cloudflare.com" target="_blank" style="color:var(--accent);">cloudflare.com</a> → Sign up free → Dashboard → <strong style="color:#fff;">Workers &amp; Pages</strong> → <strong style="color:#fff;">Create</strong> → <strong style="color:#fff;">Create Worker</strong></li>
+            <li>Delete all the default code → paste the <strong style="color:var(--gold);">cloudflare-worker.js</strong> file contents → click <strong style="color:#fff;">Deploy</strong></li>
+            <li>Click <strong style="color:#fff;">Settings → Variables</strong> → Add variable: Name = <code style="background:rgba(0,0,0,.3);padding:2px 6px;border-radius:4px;">PAWAPAY_TOKEN</code> Value = your PawaPay API token → Save</li>
+            <li>Copy the Worker URL (e.g. <code style="background:rgba(0,0,0,.3);padding:2px 6px;border-radius:4px;">https://pawapay-proxy.yourname.workers.dev</code>) → paste below → Save</li>
           </ol>
-          <p style="margin-top:8px;">⚠️ Without a PawaPay key, the Downloads page falls back to MTN MoMo manual payment + WhatsApp confirmation.</p>
+          <p style="margin-top:8px;color:var(--green);">✅ Free plan: 100,000 requests/day — more than enough for students downloading.</p>
         </div>
-        <label>PawaPay API Token</label>
-        <input type="password" id="pawapay-key" placeholder="Paste your PawaPay API token here" style="font-family:'JetBrains Mono',monospace;"/>
-        <div style="display:flex;gap:8px;align-items:center;margin-top:8px;flex-wrap:wrap;">
-          <button onclick="savePawaPay()" style="background:var(--gold);color:#000;border:none;padding:9px 20px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:.82rem;font-weight:700;cursor:pointer;">💾 Save Token</button>
+        <label>Cloudflare Worker URL</label>
+        <input type="text" id="pawapay-key" placeholder="https://pawapay-proxy.YOUR-NAME.workers.dev" style="font-family:'JetBrains Mono',monospace;"/>
+
+        <div style="margin-top:14px;">
+          <label>Cloudflare Worker URL <span style="color:var(--muted);font-weight:400;text-transform:none;font-size:.75rem;">(from cloudflare.com → Workers)</span></label>
+          <input type="text" id="worker-url" placeholder="https://chem-payments.YOUR-NAME.workers.dev" style="font-family:'JetBrains Mono',monospace;font-size:.8rem;"/>
+        </div>
+
+        <div style="display:flex;gap:8px;align-items:center;margin-top:10px;flex-wrap:wrap;">
+          <button onclick="savePawaPay()" style="background:var(--gold);color:#000;border:none;padding:9px 20px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:.82rem;font-weight:700;cursor:pointer;">💾 Save All</button>
           <button onclick="testPawaPay()" style="background:var(--surface);color:var(--muted);border:1px solid var(--border);padding:9px 16px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:.8rem;cursor:pointer;">🧪 Test Connection</button>
           <span id="pp-msg" style="font-family:'JetBrains Mono',monospace;font-size:.76rem;"></span>
         </div>
@@ -2970,6 +2977,8 @@ function loadNotifSettings(){
   if(s.waInstance) document.getElementById('wa-instance').value=s.waInstance;
   if(s.waToken) document.getElementById('wa-token').value=s.waToken;
   if(s.pawapayKey) document.getElementById('pawapay-key').value=s.pawapayKey;
+  if(s.pawapayWorker) document.getElementById('pawapay-worker').value=s.pawapayWorker;
+  const wEl=document.getElementById('worker-url'); if(wEl&&s.workerUrl) wEl.value=s.workerUrl;
   if(s.tgToken) document.getElementById('tg-token').value=s.tgToken;
   if(s.tgChatId) document.getElementById('tg-chatid').value=s.tgChatId;
   if(s.ejPubKey) document.getElementById('ej-pubkey').value=s.ejPubKey;
@@ -3190,33 +3199,32 @@ function saveMomoNumber(){
 
 function savePawaPay(){
   const key = document.getElementById('pawapay-key').value.trim();
+  const workerUrl = (document.getElementById('worker-url')||{}).value||'';
   const m = document.getElementById('pp-msg');
-  if(!key){m.style.color='var(--red)';m.textContent='❌ Paste your token first.';return;}
   const s = JSON.parse(localStorage.getItem('notif_settings')||'{}');
-  s.pawapayKey = key;
+  if(key) s.pawapayKey = key;
+  if(workerUrl.trim()) s.workerUrl = workerUrl.trim();
   localStorage.setItem('notif_settings', JSON.stringify(s));
   m.style.color='var(--green)';
-  m.textContent='✅ Token saved!';
+  m.textContent='✅ Saved! Payments will now work automatically on the Downloads page.';
 }
 async function testPawaPay(){
-  const key = document.getElementById('pawapay-key').value.trim() || 
-              (JSON.parse(localStorage.getItem('notif_settings')||'{}')).pawapayKey||'';
+  const s = JSON.parse(localStorage.getItem('notif_settings')||'{}');
+  const workerUrl = document.getElementById('pawapay-worker').value.trim() || s.pawapayWorker || '';
   const m = document.getElementById('pp-msg');
-  if(!key){m.style.color='var(--red)';m.textContent='❌ Enter and save your token first.';return;}
-  m.style.color='var(--muted)';m.textContent='Testing...';
+  if(!workerUrl){m.style.color='var(--red)';m.textContent='❌ Enter Worker URL first.';return;}
+  m.style.color='var(--muted)';m.textContent='Testing worker...';
   try{
-    const r = await fetch('https://api.pawapay.io/deposits/paging?pageSize=1',{
-      headers:{'Authorization':'Bearer '+key}
-    });
-    if(r.ok||r.status===200){
-      m.style.color='var(--green)';m.textContent='✅ Connected! PawaPay is working.';
-    } else if(r.status===401){
-      m.style.color='var(--red)';m.textContent='❌ Invalid token — check your PawaPay API token.';
+    const r = await fetch(workerUrl+'/status/test-ping');
+    if(r.status===404){
+      m.style.color='var(--green)';m.textContent='✅ Worker is online and responding!';
+    } else if(r.ok){
+      m.style.color='var(--green)';m.textContent='✅ Worker connected!';
     } else {
-      m.style.color='var(--orange)';m.textContent='⚠️ Status '+r.status+' — try the sandbox token or check your account.';
+      m.style.color='var(--orange)';m.textContent='⚠️ Worker responded with status '+r.status+' — check your Worker URL.';
     }
   }catch(e){
-    m.style.color='var(--orange)';m.textContent='⚠️ Could not connect (CORS). Token is likely saved correctly — try a test payment.';
+    m.style.color='var(--red)';m.textContent='❌ Cannot reach Worker. Check URL is correct: '+workerUrl.substring(0,40);
   }
 }
 

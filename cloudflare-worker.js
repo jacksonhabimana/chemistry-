@@ -1,108 +1,62 @@
-// ═══════════════════════════════════════════════════════════
-// JACKSON HABIMANA CHEMISTRY PORTAL — PawaPay Proxy Worker
-// Deploy this on Cloudflare Workers (free plan)
-// ═══════════════════════════════════════════════════════════
-
-// PUT YOUR PAWAPAY API TOKEN HERE:
-const PAWAPAY_TOKEN = 'YOUR_PAWAPAY_API_TOKEN_HERE';
-const PAWAPAY_BASE  = 'https://api.pawapay.io';
-
-// Only allow requests from your GitHub Pages site
-const ALLOWED_ORIGINS = [
-  'https://jacksonhabimana.github.io',
-  'https://jacksonhabimana.github.io/chemistry',
-  'http://localhost',        // for local testing
-];
+// ═══════════════════════════════════════════════
+// Jackson Habimana Chemistry Portal
+// PawaPay Proxy Worker — Cloudflare Worker
+// ═══════════════════════════════════════════════
+// SETUP: Add your PawaPay token as environment
+// variable named: PAWAPAY_TOKEN
+// ═══════════════════════════════════════════════
 
 export default {
   async fetch(request, env) {
+    const ALLOWED_ORIGIN = 'https://jacksonhabimana.github.io';
+    const cors = {
+      'Access-Control-Allow-Origin': ALLOWED_ORIGIN,
+      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type',
+      'Content-Type': 'application/json',
+    };
 
-    const origin = request.headers.get('Origin') || '';
-
-    // ── CORS preflight ──
     if (request.method === 'OPTIONS') {
-      return corsResponse(null, 204, origin);
-    }
-
-    // ── Only allow POST and GET ──
-    if (!['POST','GET'].includes(request.method)) {
-      return corsResponse(JSON.stringify({error:'Method not allowed'}), 405, origin);
+      return new Response(null, { status: 204, headers: cors });
     }
 
     const url = new URL(request.url);
-    const path = url.pathname; // e.g. /deposit  or  /status/dep_123
+    const path = url.pathname;
 
-    // ── Route: POST /deposit — initiate payment ──
+    // POST /deposit — create payment
     if (request.method === 'POST' && path === '/deposit') {
       try {
         const body = await request.json();
-
-        // Validate required fields
-        if (!body.phone || !body.amount || !body.currency || !body.correspondent) {
-          return corsResponse(JSON.stringify({error:'Missing required fields'}), 400, origin);
-        }
-
-        const depositId = 'dep_' + Date.now() + '_' + Math.random().toString(36).substr(2,6);
-
-        const ppResp = await fetch(PAWAPAY_BASE + '/deposits', {
+        const response = await fetch('https://api.pawapay.io/deposits', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + PAWAPAY_TOKEN,
+            'Authorization': 'Bearer ' + env.PAWAPAY_TOKEN,
           },
-          body: JSON.stringify({
-            depositId,
-            amount:   String(body.amount),
-            currency: body.currency,
-            correspondent: body.correspondent,
-            payer: {
-              type: 'MSISDN',
-              address: { value: body.phone }
-            },
-            statementDescription: 'ChemNotes ' + (body.item || '').substring(0, 20),
-          }),
+          body: JSON.stringify(body),
         });
-
-        const data = await ppResp.json();
-        return corsResponse(JSON.stringify({ ...data, depositId }), ppResp.status, origin);
-
-      } catch(e) {
-        return corsResponse(JSON.stringify({error: e.message}), 500, origin);
+        const data = await response.json();
+        return new Response(JSON.stringify(data), { status: response.status, headers: cors });
+      } catch (err) {
+        return new Response(JSON.stringify({ error: err.message }), { status: 500, headers: cors });
       }
     }
 
-    // ── Route: GET /status/:depositId — check payment status ──
-    if (request.method === 'GET' && path.startsWith('/status/')) {
-      const depositId = path.replace('/status/', '');
-      if (!depositId) {
-        return corsResponse(JSON.stringify({error:'No deposit ID'}), 400, origin);
-      }
-
+    // GET /deposit?id=xxx — check status
+    if (request.method === 'GET' && path === '/deposit') {
+      const depositId = url.searchParams.get('id');
+      if (!depositId) return new Response(JSON.stringify({ error: 'Missing id' }), { status: 400, headers: cors });
       try {
-        const ppResp = await fetch(PAWAPAY_BASE + '/deposits/' + depositId, {
-          headers: { 'Authorization': 'Bearer ' + PAWAPAY_TOKEN },
+        const response = await fetch('https://api.pawapay.io/deposits/' + depositId, {
+          headers: { 'Authorization': 'Bearer ' + env.PAWAPAY_TOKEN },
         });
-        const data = await ppResp.json();
-        return corsResponse(JSON.stringify(data), ppResp.status, origin);
-
-      } catch(e) {
-        return corsResponse(JSON.stringify({error: e.message}), 500, origin);
+        const data = await response.json();
+        return new Response(JSON.stringify(data), { status: response.status, headers: cors });
+      } catch (err) {
+        return new Response(JSON.stringify({ error: err.message }), { status: 500, headers: cors });
       }
     }
 
-    // ── 404 for anything else ──
-    return corsResponse(JSON.stringify({error:'Not found'}), 404, origin);
+    return new Response(JSON.stringify({ error: 'Not found' }), { status: 404, headers: cors });
   }
 };
-
-// ── Helper: add CORS headers to every response ──
-function corsResponse(body, status, origin) {
-  const allowed = ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0];
-  const headers = {
-    'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': allowed,
-    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type',
-  };
-  return new Response(body, { status, headers });
-}
