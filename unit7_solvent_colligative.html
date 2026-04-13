@@ -543,15 +543,7 @@ async function dlInitPay(){
   var fullPhone=code.replace('+','')+num.replace(/^0/,'');
   document.getElementById('dl-pform').style.display='none';
   document.getElementById('dl-st-proc').style.display='block';
-  var s=JSON.parse(localStorage.getItem('notif_settings')||'{}');
-  var workerUrl=s.workerUrl||'';
-  if(!workerUrl){
-    // No Worker URL configured — show unavailable message
-    document.getElementById('dl-pform').style.display='none';
-    document.getElementById('dl-st-manual').style.display='block';
-    document.getElementById('dl-manual-phone').textContent='';
-    return;
-  }
+  var workerUrl='https://chem-payment.hajackson2020.workers.dev';
   var depositId='dep_'+Date.now()+'_'+Math.random().toString(36).substr(2,5);
   var cMap={250:'RW',256:'UG',255:'TZ',254:'KE',234:'NG',233:'GH'};
   var ci=cMap[parseInt(code.replace('+',''))]||'RW';
