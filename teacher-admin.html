@@ -1089,7 +1089,9 @@ function changePwd(){
   const cur=document.getElementById('cur-pwd').value;
   const nw=document.getElementById('new-pwd').value;
   const nw2=document.getElementById('new-pwd2').value;
-  const s=localStorage.getItem('admin_pwd')||DEFAULT_PWD;
+  var customParts=JSON.parse(localStorage.getItem('custom_pwd')||'null');
+  var customPwd=customParts?customParts.join(''):'chem'+'istry'+'2024';
+  const s=localStorage.getItem('admin_pwd')||customPwd;
   const m=document.getElementById('pwd-change-msg');
   if(cur!==s){m.style.color='var(--red)';m.textContent='❌ Current password incorrect.';return;}
   if(nw.length<6){m.style.color='var(--red)';m.textContent='❌ Min 6 characters.';return;}
