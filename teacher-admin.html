@@ -113,6 +113,17 @@ table.results tr:hover td{background:rgba(255,255,255,.02);}
 </style>
 </head>
 <body>
+<script>
+(function(){
+  if(sessionStorage.getItem('ta_unlocked')==='1'){
+    document.addEventListener('DOMContentLoaded',function(){
+      var ls=document.getElementById('lock-screen');
+      if(ls){ls.style.display='none';}
+      if(typeof init==='function'){try{init();}catch(e){console.error(e);}}
+    });
+  }
+})();
+</script>
 
 <!-- LOCK SCREEN -->
 <div id="lock-screen">
