@@ -488,8 +488,19 @@ async function initPay(){
   const correspondent = (corrMap[selNet2]||corrMap.MTN)[ci]||'MTNRW';
   const currency = curMap[ci]||'RWF';
 
-  // ── Cloudflare Worker URL — replace with yours after deploying ──
-  const WORKER_URL = 'https://chem-payments.YOUR-SUBDOMAIN.workers.dev';
+  // ── Cloudflare Worker URL — set in Teacher Admin → Settings ──
+  const s = JSON.parse(localStorage.getItem('notif_settings')||'{}');
+  const WORKER_URL = (s.workerUrl||'https://chem-payments.hajackson2020.workers.dev').trim();
+  if(!WORKER_URL){
+    // No worker configured — fall back to manual MTN MoMo
+    document.getElementById('stProc').style.display='none';
+    const wa=encodeURIComponent('💳 PAYMENT\nItem: '+curItem.label+'\nAmount: '+curItem.price+' RWF\nPhone: '+code+num+'\nPlease confirm and unlock my download.');
+    document.getElementById('waFallback').href='https://wa.me/250788800375?text='+wa;
+    document.getElementById('stFailTxt').innerHTML='<strong style="color:#fff;">Pay via MTN MoMo:</strong><br>Number: <strong style="color:var(--gold);">+250 788 800 375</strong><br>Amount: <strong style="color:var(--gold);">'+curItem.price.toLocaleString()+' RWF</strong><br><br>Then click WhatsApp to confirm.';
+    document.getElementById('stFail').style.display='block';
+    document.querySelector('#stFail .btn-buy').style.display='none';
+    return;
+  }
 
   try{
     // 1. Initiate deposit via Worker
@@ -698,6 +709,86 @@ function switchTab(t,b){
 }
 
 // ─── INIT ───
+// ── Download Modal Functions ──
+function openDlModal(id, file, title){
+  if(BUNDLES[id]){ dlBundle(id); return; }
+  document.getElementById('dlSub').textContent = title||id;
+  var list = document.getElementById('dlList');
+  list.innerHTML = '';
+  var row = document.createElement('div');
+  row.className = 'dl-row';
+  var nameSpan = document.createElement('span');
+  nameSpan.textContent = title||file||id;
+  var btn = document.createElement('button');
+  btn.textContent = '🖨 Save PDF';
+  btn.style.cssText = 'background:var(--green);color:#000;border:none;padding:5px 12px;border-radius:5px;font-family:JetBrains Mono,monospace;font-size:.7rem;font-weight:700;cursor:pointer;margin-left:8px;white-space:nowrap;';
+  btn.onclick = (function(f){ return function(){ openAndSavePDF(f); }; })(file);
+  row.appendChild(nameSpan); row.appendChild(btn); list.appendChild(row);
+  var zb = document.getElementById('zipBtn');
+  if(zb) zb.style.display='none';
+  document.getElementById('dlModal').classList.add('open');
+}
+
+function dlBundle(id){
+  var bundle = BUNDLES[id];
+  var files = id==='ALL'
+    ?[].concat(BUNDLES.S4.files, BUNDLES.S5.files, BUNDLES.S6.files)
+    :bundle.files;
+  document.getElementById('dlSub').textContent = id==='ALL'?'All S4+S5+S6':bundle.label;
+  var list = document.getElementById('dlList');
+  list.innerHTML = '';
+  var allUnits = [].concat(S4, S5, S6);
+  files.forEach(function(f){
+    var unit = allUnits.find(function(u){ return u.f===f; });
+    var name = unit?(unit.n+' — '+unit.t):f.replace('.html','').replace(/_/g,' ');
+    var row = document.createElement('div');
+    row.className = 'dl-row';
+    var nameSpan = document.createElement('span');
+    nameSpan.style.fontSize = '.8rem';
+    nameSpan.style.color = '#fff';
+    nameSpan.textContent = name;
+    var btn = document.createElement('button');
+    btn.textContent = '🖨 PDF';
+    btn.style.cssText = 'background:var(--green);color:#000;border:none;padding:5px 12px;border-radius:5px;font-family:JetBrains Mono,monospace;font-size:.7rem;font-weight:700;cursor:pointer;white-space:nowrap;margin-left:8px;flex-shrink:0;';
+    btn.onclick = (function(file){ return function(){ openAndSavePDF(file); }; })(f);
+    row.appendChild(nameSpan); row.appendChild(btn); list.appendChild(row);
+  });
+  var zb = document.getElementById('zipBtn');
+  if(zb){ zb.style.display='flex'; zb.disabled=false; zb.style.background='var(--gold)'; zb.innerHTML='<span>📦</span> Download All as ZIP'; }
+  document.getElementById('zipProgress').style.display='none';
+  document.getElementById('dlModal').classList.add('open');
+}
+
+function openAndSavePDF(file){
+  var w = window.open(file,'_blank');
+  if(w){
+    w.onload = function(){
+      setTimeout(function(){
+        try{
+          var bar = w.document.createElement('div');
+          bar.style.cssText = 'position:fixed;top:0;left:0;right:0;background:#38bdf8;color:#000;padding:11px 20px;z-index:99999;display:flex;align-items:center;justify-content:space-between;font-family:JetBrains Mono,monospace;font-size:.8rem;font-weight:700;';
+          var span = w.document.createElement('span');
+          span.textContent = 'Press Ctrl+P then Save as PDF';
+          var pbtn = w.document.createElement('button');
+          pbtn.textContent = 'Print Now';
+          pbtn.style.cssText = 'background:#000;color:#38bdf8;border:none;padding:6px 14px;border-radius:5px;cursor:pointer;font-family:JetBrains Mono,monospace;font-weight:700;';
+          pbtn.onclick = function(){ w.print(); };
+          bar.appendChild(span); bar.appendChild(pbtn);
+          w.document.body.style.paddingTop = '50px';
+          w.document.body.insertBefore(bar, w.document.body.firstChild);
+          w.focus(); w.print();
+        }catch(e){}
+      },1200);
+    };
+  }
+}
+
+
+function closeDl(){
+  document.getElementById('dlModal').classList.remove('open');
+}
+
+
 renderAll();
 tUnlock();
 document.getElementById('payModal').addEventListener('click',function(e){if(e.target===this)closePay();});
