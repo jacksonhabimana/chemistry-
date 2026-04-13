@@ -46,10 +46,10 @@ textarea{min-height:72px;}
 
 /* ── LESSON PLAN PREVIEW ── */
 #preview{display:none;margin-top:24px;}
-.lp{font-family:Arial,sans-serif;font-size:10pt;color:#000;background:#fff;padding:16mm 18mm;}
-.lp-title{text-align:center;font-size:13pt;font-weight:bold;text-decoration:underline;margin-bottom:12px;letter-spacing:1px;}
+.lp{font-family:'Times New Roman',Times,serif;font-size:10pt;color:#000;background:#fff;padding:16mm 18mm;}
+.lp-title{text-align:center;font-size:13pt;font-weight:bold;text-decoration:underline;margin-bottom:12px;letter-spacing:1px;font-family:'Times New Roman',Times,serif;}
 .lp table{width:100%;border-collapse:collapse;margin-bottom:0;}
-.lp td,.lp th{border:1px solid #000;padding:5px 8px;font-size:9.5pt;vertical-align:top;}
+.lp td,.lp th{border:1px solid #000;padding:5px 8px;font-size:9.5pt;vertical-align:top;font-family:'Times New Roman',Times,serif;}
 .lp .bold{font-weight:bold;}
 .lp .center{text-align:center;vertical-align:middle;}
 .lp .bg{background:#d9d9d9;}
@@ -298,7 +298,7 @@ function buildPreview(){
   '<tr><td colspan="3" class="bold">Unit title</td><td colspan="5" class="bold" style="text-transform:uppercase;" contenteditable="true">'+gv('unitTitle')+'</td></tr>'+
   '<tr><td colspan="3" class="bold">Key unit competence</td><td colspan="5" contenteditable="true">'+gv('keyComp')+'</td></tr>'+
   '<tr><td colspan="3" class="bold">Title of the lesson</td><td colspan="5" contenteditable="true">'+gv('lessonTitle')+'</td></tr>'+
-  '<tr><td colspan="3" class="bold">Instructional objectives</td><td colspan="5" style="white-space:pre-line;" contenteditable="true">'+(ai.objectives||'Click to edit objectives...')+'</td></tr>'+
+  '<tr><td colspan="3" class="bold">Instructional objectives</td><td colspan="5" style="white-space:pre-line;" contenteditable="true">'+(ai.objectives||'1. By the end of this lesson, students should be able to define key concepts.\n2. Students should be able to explain the main principles.\n3. Students should be able to apply knowledge to solve related problems.')+'</td></tr>'+
   '<tr><td colspan="3" class="bold">Plan of this class (Location)</td><td colspan="5" contenteditable="true">Classroom</td></tr>'+
   '<tr><td colspan="3" class="bold">Learning materials</td><td colspan="5" contenteditable="true">'+(ai.materials||'Chemistry Learner\'s Book, Laboratory equipment')+'</td></tr>'+
   '<tr><td colspan="3" class="bold">References</td><td colspan="5" contenteditable="true">'+(ai.references||'Rwanda Education Board. Chemistry Learner\'s Book.')+'</td></tr>'+
@@ -341,7 +341,7 @@ function buildPreview(){
     '<td colspan="4" contenteditable="true" style="white-space:pre-line;">'+(ai.conc_competences||'- Lifelong Learning.\n- Peace and Values Education.')+'</td>'+
   '</tr>'+
   // Self evaluation
-  '<tr class="self-eval"><td colspan="8" class="bold">Teacher\'s self-evaluation</td></tr>'+
+  '<tr class="self-eval"><td colspan="8" class="bold">Teacher\'s self-evaluation<br/><div contenteditable=\"true\" style=\"min-height:68px;font-weight:normal;font-family:Arial,sans-serif;font-size:10pt;margin-top:4px;outline:none;border-top:1px dashed #ccc;padding-top:4px;\"></div></td></tr>'+
   '</table>'+
   '</div>';
 
@@ -373,13 +373,19 @@ function downloadPDF(){
   var el=document.getElementById('lpContent');
   if(!el){alert('Generate lesson plan first.');return;}
   var title=(gv('lessonTitle')||'Lesson_Plan').replace(/\s+/g,'_');
+  var clone = el.cloneNode(true);
+  clone.style.fontSize = '8.5pt';
+  clone.style.fontFamily = "Arial, sans-serif";
+  // Scale tables to fit one page
+  var tables = clone.querySelectorAll('table');
+  tables.forEach(function(t){ t.style.fontSize='8pt'; t.style.width='100%'; });
   html2pdf().set({
-    margin:[8,8,8,8],
+    margin:[6,6,6,6],
     filename:title+'.pdf',
-    image:{type:'jpeg',quality:0.95},
-    html2canvas:{scale:2,useCORS:true,backgroundColor:'#ffffff'},
-    jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}
-  }).from(el).save();
+    image:{type:'jpeg',quality:0.98},
+    html2canvas:{scale:2.5,useCORS:true,backgroundColor:'#ffffff',logging:false},
+    jsPDF:{unit:'mm',format:'a4',orientation:'portrait',compress:true}
+  }).from(clone).save();
 }
 
 function getCell(el){
@@ -436,11 +442,11 @@ async function downloadWord(){
     var TW=9026; // A4 content width in DXA
 
     var doc=new docx.Document({
-      styles:{default:{document:{run:{font:'Arial',size:20}}}},
+      styles:{default:{document:{run:{font:'Times New Roman',size:20}}}},
       sections:[{
         properties:{page:{size:{width:11906,height:16838},margin:{top:720,bottom:720,left:900,right:900}}},
         children:[
-          new docx.Paragraph({alignment:docx.AlignmentType.CENTER,children:[new docx.TextRun({text:'LESSON PLAN',bold:true,underline:{},size:28,font:'Arial'})],spacing:{after:200}}),
+          new docx.Paragraph({alignment:docx.AlignmentType.CENTER,children:[new docx.TextRun({text:'LESSON PLAN',bold:true,underline:{},size:28,font:'Times New Roman'})],spacing:{after:200}}),
           new docx.Table({
             width:{size:TW,type:docx.WidthType.DXA},
             columnWidths:[TW/8,TW/8,TW/8,TW/8,TW/8,TW/8,TW/8,TW/8],
@@ -506,7 +512,7 @@ async function downloadWord(){
               ]}),
               // Self evaluation
               new docx.TableRow({children:[
-                new docx.TableCell({columnSpan:8,width:{size:TW,type:docx.WidthType.DXA},margins:{top:60,bottom:60,left:100,right:100},children:[new docx.Paragraph({children:[new docx.TextRun({text:"Teacher's self-evaluation",bold:true,size:18})]})],height:{value:800,rule:docx.HeightRule.ATLEAST}}),
+                new docx.TableCell({columnSpan:8,width:{size:TW,type:docx.WidthType.DXA},margins:{top:60,bottom:60,left:100,right:100},children:[new docx.Paragraph({children:[new docx.TextRun({text:"Teacher's self-evaluation",bold:true,size:18,font:"Times New Roman"})]})],height:{value:1200,rule:docx.HeightRule.ATLEAST}}),
               ]}),
             ]
           })
