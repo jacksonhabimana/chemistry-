@@ -114,7 +114,7 @@ table.results tr:hover td{background:rgba(255,255,255,.02);}
 </head>
 <body>
 <!-- LOCK SCREEN — hidden by default, shown only if not authenticated -->
-<div id="lock-screen" style="display:none;">
+<div id="lock-screen" style="display:flex;align-items:center;justify-content:center;min-height:100vh;background:var(--bg,#0d1117);">
   <div style="text-align:center;max-width:360px;margin:0 auto;padding:20px;">
     <div style="font-size:2.5rem;margin-bottom:8px;">🔐</div>
     <h2 style="margin-bottom:6px;">Teacher Admin Portal</h2>
@@ -122,9 +122,9 @@ table.results tr:hover td{background:rgba(255,255,255,.02);}
 
     <!-- Login view -->
     <div id="ls-login">
-      <input type="password" id="pwd-input" placeholder="Password" onkeydown="if(event.key==='Enter')checkPwd()" style="width:100%;"/>
+      <input type="password" id="pwd-input" placeholder="Password" onkeydown="if(event.key==='Enter')doLogin()" style="width:100%;"/>
       <br>
-      <button class="btn btn-primary" onclick="checkPwd()">🔓 Unlock</button>
+      <button class="btn btn-primary" onclick="doLogin()">🔓 Unlock</button>
       <p id="pwd-error" style="color:var(--red);margin-top:10px;font-size:.85rem;display:none;">Incorrect password.</p>
       <p id="pwd-attempts" style="display:none;margin-top:6px;font-size:.78rem;color:var(--muted);"></p>
       <p style="margin-top:16px;">
@@ -955,17 +955,15 @@ table.results tr:hover td{background:rgba(255,255,255,.02);}
 // ══════════ PASSWORD ══════════
 
 function doLogin(){
-  var v = (document.getElementById('pwd-input').value||'').trim();
-  var custom = localStorage.getItem('ta_custom_pwd')||'';
-  var correct = 'chem'+'istry'+'2024';
-  if(v === correct || v === 'CHEM2026' || (custom && v === custom)){
-    document.getElementById('lock-screen').style.display = 'none';
-    document.body.style.overflow = '';
-    try{ init(); } catch(e){ console.error(e); }
+  var v=(document.getElementById('pwd-input').value||'').trim();
+  if(v==='chemistry2024'||v==='CHEM2026'){
+    localStorage.setItem('teacher_downloads_unlocked','true');
+    document.getElementById('lock-screen').style.display='none';
+    document.body.style.overflow='';
+    try{init();}catch(e){console.warn(e);}
   } else {
-    var err = document.getElementById('pwd-error');
-    if(err) err.style.display = 'block';
-    document.getElementById('pwd-input').value = '';
+    document.getElementById('pwd-error').style.display='block';
+    document.getElementById('pwd-input').value='';
     document.getElementById('pwd-input').focus();
   }
 }
@@ -3867,41 +3865,20 @@ function deletePE(id){
       <div id="dl-codes-list" style="font-family:'JetBrains Mono',monospace;font-size:.8rem;"></div>
     </div>
   </div><!-- LOCK SCREEN -->
-<div id="lock-screen" style="position:fixed;inset:0;background:#0d1117;z-index:99999;display:flex;align-items:center;justify-content:center;">
-  <div style="background:#161b22;border:1px solid #30363d;border-radius:14px;padding:40px;max-width:360px;width:90%;text-align:center;">
+<div id="lock-screen" style="position:fixed;inset:0;background:#0d1117;z-index:99999;display:flex;align-items:center;justify-content:center;padding:20px;">
+  <div style="background:#161b22;border:1px solid #30363d;border-radius:14px;padding:40px;max-width:380px;width:100%;text-align:center;">
     <div style="font-size:2.5rem;margin-bottom:10px;">🔐</div>
-    <h2 style="color:#fff;margin-bottom:6px;font-family:'Playfair Display',serif;">Teacher Admin Portal</h2>
-    <p style="color:#8b949e;font-size:.9rem;margin-bottom:20px;">Enter your admin password</p>
-    <input type="password" id="pwd-input" placeholder="Password"
+    <h2 style="font-family:'Playfair Display',serif;color:#fff;margin-bottom:20px;">Teacher Admin Portal</h2>
+    <input type="password" id="pwd-input" placeholder="Enter password: chemistry2024"
       style="width:100%;background:#1c2333;border:2px solid #30363d;border-radius:8px;color:#fff;padding:12px 16px;font-size:1rem;margin-bottom:12px;box-sizing:border-box;"
       onkeydown="if(event.key==='Enter')doLogin()"/>
     <button onclick="doLogin()"
-      style="width:100%;background:#38bdf8;color:#000;border:none;padding:12px;border-radius:8px;font-size:.95rem;font-weight:700;cursor:pointer;">
+      style="width:100%;background:#38bdf8;color:#000;border:none;padding:13px;border-radius:8px;font-size:.95rem;font-weight:700;cursor:pointer;margin-bottom:8px;">
       🔓 Unlock
     </button>
-    <p id="pwd-error" style="color:#f87171;margin-top:10px;font-size:.85rem;display:none;">Incorrect password.</p>
+    <p id="pwd-error" style="color:#f87171;font-size:.85rem;display:none;margin-top:8px;">Wrong password</p>
   </div>
 </div>
-
-<script>
-function doLogin(){
-  var v = (document.getElementById('pwd-input').value||'').trim();
-  var saved = localStorage.getItem('ta_custom_pwd');
-  var ok = (v === 'chemistry2024' || v === 'CHEM2026' || (saved && v === saved));
-  if(ok){
-    document.getElementById('lock-screen').style.display = 'none';
-    document.body.style.overflow = '';
-    try{ init(); } catch(e){ location.reload(); }
-  } else {
-    document.getElementById('pwd-error').style.display = 'block';
-    document.getElementById('pwd-input').value = '';
-    document.getElementById('pwd-input').focus();
-  }
-}
-// Show lock screen
-document.body.style.overflow = 'hidden';
-document.getElementById('pwd-input').focus();
-</script>
 
 <script>
 (function(){
