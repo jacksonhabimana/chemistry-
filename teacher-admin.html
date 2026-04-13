@@ -113,20 +113,8 @@ table.results tr:hover td{background:rgba(255,255,255,.02);}
 </style>
 </head>
 <body>
-<script>
-(function(){
-  if(sessionStorage.getItem('ta_unlocked')==='1'){
-    document.addEventListener('DOMContentLoaded',function(){
-      var ls=document.getElementById('lock-screen');
-      if(ls){ls.style.display='none';}
-      if(typeof init==='function'){try{init();}catch(e){console.error(e);}}
-    });
-  }
-})();
-</script>
-
-<!-- LOCK SCREEN -->
-<div id="lock-screen">
+<!-- LOCK SCREEN — hidden by default, shown only if not authenticated -->
+<div id="lock-screen" style="display:none;">
   <div style="text-align:center;max-width:360px;margin:0 auto;padding:20px;">
     <div style="font-size:2.5rem;margin-bottom:8px;">🔐</div>
     <h2 style="margin-bottom:6px;">Teacher Admin Portal</h2>
@@ -171,6 +159,23 @@ table.results tr:hover td{background:rgba(255,255,255,.02);}
     </div>
   </div>
 </div>
+<script>
+(function(){
+  if(sessionStorage.getItem('ta_unlocked')!=='1'){
+    document.getElementById('lock-screen').style.display='flex';
+    document.getElementById('lock-screen').style.alignItems='center';
+    document.getElementById('lock-screen').style.justifyContent='center';
+    document.getElementById('lock-screen').style.minHeight='100vh';
+    document.getElementById('lock-screen').style.background='var(--bg,#0d1117)';
+  } else {
+    // Already authenticated - init the admin
+    document.addEventListener('DOMContentLoaded', function(){
+      try{ init(); } catch(e){ console.error('Admin init error:',e); }
+    });
+  }
+})();
+</script>
+
 
 <nav>
   <div class="nav-inner">
