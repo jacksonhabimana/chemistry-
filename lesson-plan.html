@@ -85,23 +85,6 @@ textarea{min-height:72px;}
 
 <div class="wrap" id="formWrap">
 
-<div class="card" style="border-color:rgba(232,197,71,.3);background:rgba(232,197,71,.04);">
-  <div class="card-hd" style="color:var(--gold);">🔑 AI Setup (One Time Only)</div>
-  <p style="font-size:.83rem;color:var(--muted);margin-bottom:12px;">
-    To use AI generation, enter your Anthropic API key below. 
-    Get a free key at <a href="https://console.anthropic.com" target="_blank" style="color:var(--accent);">console.anthropic.com</a> → API Keys → Create Key.
-    It is saved only in your browser.
-  </p>
-  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
-    <input type="password" id="apiKeyInput" placeholder="sk-ant-api03-..." 
-      style="flex:1;min-width:200px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:var(--text);padding:9px 12px;font-family:JetBrains Mono,monospace;font-size:.82rem;"/>
-    <button onclick="saveApiKey()" style="background:var(--gold);color:#000;border:none;padding:10px 18px;border-radius:6px;font-family:JetBrains Mono,monospace;font-size:.78rem;font-weight:700;cursor:pointer;white-space:nowrap;">💾 Save Key</button>
-    <button onclick="clearApiKey()" style="background:transparent;color:var(--red);border:1px solid var(--red);padding:10px 14px;border-radius:6px;font-family:JetBrains Mono,monospace;font-size:.78rem;cursor:pointer;white-space:nowrap;">🗑 Clear</button>
-  </div>
-  <p id="keyStatus" style="margin-top:8px;font-family:JetBrains Mono,monospace;font-size:.74rem;"></p>
-</div>
-
-
 <div class="card">
   <div class="card-hd">🏫 School & Teacher</div>
   <div class="g2">
@@ -165,7 +148,7 @@ textarea{min-height:72px;}
 <div class="ai-box">
   <div>
     <h3>✨ Generate with Jackson</h3>
-    <p>Generates objectives, materials, activities, competences <strong>and</strong> shows the complete lesson plan — all in one click.</p>
+    <p>AI will write: Instructional Objectives, Learning Materials, References, and all Teaching Activities.</p>
     <div class="ai-status" id="aiStatus"></div>
   </div>
   <button class="btn-ai" id="aiBtn" onclick="generateWithAI()">✨ BUILD</button>
@@ -256,16 +239,9 @@ async function generateWithAI(){
   ;
 
   try{
-    var apiKey = localStorage.getItem('lp_api_key')||'';
-    if(!apiKey){
-      st.style.color='var(--red)';
-      st.textContent='❌ No API key. Enter your Anthropic API key in the setup box above.';
-      btn.disabled=false; btn.innerHTML='✨ BUILD';
-      return;
-    }
     var r=await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',
-      headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+      headers:{'Content-Type':'application/json'},
       body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompt}]})
     });
     var d=await r.json();
@@ -273,15 +249,13 @@ async function generateWithAI(){
     text=text.replace(/```json/g,'').replace(/```/g,'').trim();
     _aiData=JSON.parse(text);
     st.style.color='var(--green)';
-    st.textContent='✅ Done! Building lesson plan...';
+    st.textContent='✅ Done! Click "Generate Lesson Plan" to see the result.';
   }catch(e){
     st.style.color='var(--red)';
-    st.textContent='⚠️ AI could not connect. Building with manual content...';
+    st.textContent='⚠️ AI error. You can still generate manually — click "Generate Lesson Plan".';
     _aiData={};
   }
   btn.disabled=false; btn.innerHTML='✨ REBUILD';
-  // Auto build preview immediately after AI finishes
-  buildPreview();
 }
 
 function nl(s){ return (s||'').split('\n').filter(function(l){return l.trim();}).map(function(l){return l.replace(/^[-•]\s*/,'');}).join('<br/>'); }
@@ -569,37 +543,6 @@ async function downloadWord(){
   btn.textContent='📄 Download Word'; btn.disabled=false;
 }
 
-// ── API Key Management ──
-function saveApiKey(){
-  var key = (document.getElementById('apiKeyInput').value||'').trim();
-  if(!key){ alert('Please enter your API key.'); return; }
-  if(!key.startsWith('sk-')){
-    document.getElementById('keyStatus').style.color='var(--red)';
-    document.getElementById('keyStatus').textContent='❌ Invalid key format. Should start with sk-ant-...';
-    return;
-  }
-  localStorage.setItem('lp_api_key', key);
-  document.getElementById('keyStatus').style.color='var(--green)';
-  document.getElementById('keyStatus').textContent='✅ API key saved! AI generation is now enabled.';
-  document.getElementById('apiKeyInput').value='';
-}
-function clearApiKey(){
-  localStorage.removeItem('lp_api_key');
-  document.getElementById('keyStatus').style.color='var(--red)';
-  document.getElementById('keyStatus').textContent='🗑 API key cleared.';
-}
-function checkKeyOnLoad(){
-  var key = localStorage.getItem('lp_api_key');
-  var st = document.getElementById('keyStatus');
-  if(key && key.startsWith('sk-')){
-    st.style.color='var(--green)';
-    st.textContent='✅ API key saved — AI generation ready.';
-  } else {
-    st.style.color='var(--gold)';
-    st.textContent='⚠ No API key saved yet. Enter your key above to enable AI.';
-  }
-}
-
 // ── Save & Load Plans ──
 function savePlan(){
   var plan = {
@@ -730,7 +673,6 @@ function showToast(msg){
 document.getElementById('lessonDate').value=new Date().toISOString().split('T')[0];
 // Load saved plans on startup
 renderSavedPlans();
-checkKeyOnLoad();
 document.getElementById('subject').addEventListener('change',function(){
   var otherField = document.getElementById('otherSubjectField');
   if(this.value==='Other'){
