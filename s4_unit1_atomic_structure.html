@@ -1988,7 +1988,7 @@ async function dlInitPay(){
   document.getElementById('dl-pform').style.display='none';
   document.getElementById('dl-st-proc').style.display='block';
   var s=JSON.parse(localStorage.getItem('notif_settings')||'{}');
-  var workerUrl=s.pawapayWorker||'';
+  var workerUrl=s.workerUrl||'';
   if(!workerUrl){
     // No Worker URL configured — show unavailable message
     document.getElementById('dl-pform').style.display='none';

@@ -1032,14 +1032,12 @@ async function dlInitPay(){
   document.getElementById('dl-pform').style.display='none';
   document.getElementById('dl-st-proc').style.display='block';
   var s=JSON.parse(localStorage.getItem('notif_settings')||'{}');
-  var ppKey=s.pawapayKey||'';
-  if(!ppKey){
-    // No PawaPay — show manual payment instructions screen
+  var workerUrl=s.workerUrl||'';
+  if(!workerUrl){
+    // No Worker URL configured — show unavailable message
     document.getElementById('dl-pform').style.display='none';
-    var wa=encodeURIComponent('PAYMENT\nUnit: '+document.title+'\nAmount: '+_DL_PRICE+' RWF\nPhone: '+code+num+'\nPlease confirm my download access.');
-    document.getElementById('dl-wa-link').href='https://wa.me/250788800375?text='+wa;
     document.getElementById('dl-st-manual').style.display='block';
-    document.getElementById('dl-manual-phone').textContent=code+' '+num;
+    document.getElementById('dl-manual-phone').textContent='';
     return;
   }
   var depositId='dep_'+Date.now()+'_'+Math.random().toString(36).substr(2,5);
@@ -1050,12 +1048,12 @@ async function dlInitPay(){
   var correspondent=(corrMap[_dlNet]||corrMap.MTN)[ci]||'MTNRW';
   var currency=curMap[ci]||'RWF';
   try{
-    var r=await fetch('https://api.pawapay.io/deposits',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+ppKey},body:JSON.stringify({depositId:depositId,amount:String(_DL_PRICE),currency:currency,correspondent:correspondent,payer:{type:'MSISDN',address:{value:fullPhone}},statementDescription:'ChemNotes'})});
+    var r=await fetch(workerUrl+'/deposit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({depositId:depositId,amount:String(_DL_PRICE),currency:currency,correspondent:correspondent,payer:{type:'MSISDN',address:{value:fullPhone}},statementDescription:'ChemNotes'})});
     var d=await r.json();
     if(d.depositId||r.ok){
       _dlPollTimer=setInterval(async function(){
         try{
-          var pr=await fetch('https://api.pawapay.io/deposits/'+depositId,{headers:{'Authorization':'Bearer '+ppKey}});
+          var pr=await fetch(workerUrl+'/status/'+depositId);
           var pd=await pr.json();
           var st=((pd.status||(pd[0]&&pd[0].status))||'').toUpperCase();
           if(st==='COMPLETED'){clearInterval(_dlPollTimer);_dlPollTimer=null;markPaidAndDownload();}
