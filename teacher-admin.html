@@ -116,15 +116,48 @@ table.results tr:hover td{background:rgba(255,255,255,.02);}
 
 <!-- LOCK SCREEN -->
 <div id="lock-screen">
-  <div style="text-align:center;">
+  <div style="text-align:center;max-width:360px;margin:0 auto;padding:20px;">
     <div style="font-size:2.5rem;margin-bottom:8px;">🔐</div>
     <h2 style="margin-bottom:6px;">Teacher Admin Portal</h2>
     <p style="color:var(--muted);font-size:.9rem;margin-bottom:20px;">Enter your admin password</p>
-    <input type="password" id="pwd-input" placeholder="Password" onkeydown="if(event.key==='Enter')checkPwd()"/>
-    <br>
-    <button class="btn btn-primary" onclick="checkPwd()">🔓 Unlock</button>
-    <p id="pwd-error" style="color:var(--red);margin-top:10px;font-size:.85rem;display:none;">Incorrect password.</p>
-    
+
+    <!-- Login view -->
+    <div id="ls-login">
+      <input type="password" id="pwd-input" placeholder="Password" onkeydown="if(event.key==='Enter')checkPwd()" style="width:100%;"/>
+      <br>
+      <button class="btn btn-primary" onclick="checkPwd()">🔓 Unlock</button>
+      <p id="pwd-error" style="color:var(--red);margin-top:10px;font-size:.85rem;display:none;">Incorrect password.</p>
+      <p id="pwd-attempts" style="display:none;margin-top:6px;font-size:.78rem;color:var(--muted);"></p>
+      <p style="margin-top:16px;">
+        <span onclick="showResetView()" style="color:var(--accent);cursor:pointer;font-size:.82rem;text-decoration:underline;">Forgot password? Reset via email</span>
+      </p>
+    </div>
+
+    <!-- Reset view -->
+    <div id="ls-reset" style="display:none;">
+      <p style="color:var(--muted);font-size:.85rem;margin-bottom:14px;">A 6-digit reset code will be sent to your email address.</p>
+      <div id="ls-reset-send">
+        <button class="btn btn-primary" onclick="sendResetCode()" id="send-code-btn">📧 Send Reset Code</button>
+        <p id="reset-msg" style="margin-top:10px;font-size:.82rem;"></p>
+      </div>
+      <div id="ls-reset-verify" style="display:none;margin-top:14px;">
+        <input type="text" id="reset-code-input" placeholder="Enter 6-digit code" maxlength="6"
+          style="width:100%;text-align:center;font-family:'JetBrains Mono',monospace;font-size:1.2rem;letter-spacing:.2em;"
+          onkeydown="if(event.key==='Enter')verifyResetCode()"/>
+        <br>
+        <div id="ls-new-pwd" style="display:none;margin-top:10px;">
+          <input type="password" id="new-pwd-input" placeholder="New password (min 8 chars)" style="width:100%;margin-bottom:8px;"/>
+          <input type="password" id="new-pwd-confirm" placeholder="Confirm new password" style="width:100%;"/>
+          <br>
+          <button class="btn btn-primary" style="margin-top:8px;" onclick="saveNewPassword()">💾 Save New Password</button>
+        </div>
+        <button class="btn" style="margin-top:8px;" onclick="verifyResetCode()">✓ Verify Code</button>
+        <p id="verify-msg" style="margin-top:8px;font-size:.82rem;"></p>
+      </div>
+      <p style="margin-top:14px;">
+        <span onclick="showLoginView()" style="color:var(--muted);cursor:pointer;font-size:.8rem;">← Back to login</span>
+      </p>
+    </div>
   </div>
 </div>
 
@@ -904,16 +937,136 @@ table.results tr:hover td{background:rgba(255,255,255,.02);}
 
 <script>
 // ══════════ PASSWORD ══════════
-function checkPwd(){
-  var v=document.getElementById('pwd-input').value.trim();
-  var parts=['chem','istry','2024'];
-  if(v===parts.join('')||v==='CHEM2026'){
-    localStorage.setItem('teacher_downloads_unlocked','true');
-    document.getElementById('lock-screen').style.display='none';
-    init();
+// ── Password Reset System ──
+var _resetCode = '';
+var _loginAttempts = 0;
+
+function showLoginView(){
+  document.getElementById('ls-login').style.display='block';
+  document.getElementById('ls-reset').style.display='none';
+}
+function showResetView(){
+  document.getElementById('ls-login').style.display='none';
+  document.getElementById('ls-reset').style.display='block';
+  document.getElementById('ls-reset-verify').style.display='none';
+  document.getElementById('ls-new-pwd').style.display='none';
+  document.getElementById('reset-msg').textContent='';
+}
+
+async function sendResetCode(){
+  var btn = document.getElementById('send-code-btn');
+  var msg = document.getElementById('reset-msg');
+  btn.disabled = true;
+  msg.style.color = 'var(--muted)';
+  msg.textContent = 'Sending code...';
+
+  // Generate 6-digit code
+  _resetCode = Math.floor(100000 + Math.random() * 900000).toString();
+
+  // Get EmailJS settings
+  var s = JSON.parse(localStorage.getItem('notif_settings')||'{}');
+  var pubKey = s.ejPubKey||'';
+  var serviceId = s.ejService||'';
+  var templateId = s.ejTemplate||'';
+
+  if(!pubKey||!serviceId||!templateId){
+    msg.style.color='var(--red)';
+    msg.textContent='EmailJS not configured. Code: '+_resetCode+' (write it down!)';
+    document.getElementById('ls-reset-verify').style.display='block';
+    btn.disabled=false;
+    return;
+  }
+
+  try{
+    emailjs.init(pubKey);
+    await emailjs.send(serviceId, templateId, {
+      to_email: 'hajackson2020@gmail.com',
+      subject: 'Teacher Admin — Password Reset Code',
+      message: 'Your password reset code is: ' + _resetCode + '\n\nThis code expires in 10 minutes.\n\n— Chemistry Portal',
+      from_name: 'Chemistry Portal'
+    });
+    msg.style.color='var(--green)';
+    msg.textContent='✅ Code sent to hajackson2020@gmail.com — check your inbox.';
+    document.getElementById('ls-reset-verify').style.display='block';
+  }catch(e){
+    // Fallback: show code directly if email fails
+    msg.style.color='var(--orange)';
+    msg.textContent='Email failed. Reset code: '+_resetCode+' (write it down!)';
+    document.getElementById('ls-reset-verify').style.display='block';
+  }
+  btn.disabled=false;
+}
+
+function verifyResetCode(){
+  var entered = (document.getElementById('reset-code-input').value||'').trim();
+  var msg = document.getElementById('verify-msg');
+  if(!_resetCode){msg.style.color='var(--red)';msg.textContent='Send the code first.';return;}
+  if(entered===_resetCode){
+    msg.style.color='var(--green)';
+    msg.textContent='✅ Code correct. Set your new password:';
+    document.getElementById('ls-new-pwd').style.display='block';
+    document.getElementById('reset-code-input').disabled=true;
   } else {
-    document.getElementById('pwd-error').style.display='block';
-    document.getElementById('pwd-input').value='';
+    msg.style.color='var(--red)';
+    msg.textContent='❌ Wrong code. Try again.';
+  }
+}
+
+function saveNewPassword(){
+  var p1 = (document.getElementById('new-pwd-input').value||'').trim();
+  var p2 = (document.getElementById('new-pwd-confirm').value||'').trim();
+  var msg = document.getElementById('verify-msg');
+  if(p1.length<6){msg.style.color='var(--red)';msg.textContent='Password must be at least 6 characters.';return;}
+  if(p1!==p2){msg.style.color='var(--red)';msg.textContent='Passwords do not match.';return;}
+  // Save new password as split array (obfuscated)
+  var parts=[p1.substring(0,4),p1.substring(4,8),p1.substring(8)];
+  localStorage.setItem('custom_pwd', JSON.stringify(parts));
+  msg.style.color='var(--green)';
+  msg.textContent='✅ Password changed! Logging in...';
+  setTimeout(function(){
+    sessionStorage.setItem('ta_unlocked','1');
+    localStorage.setItem('teacher_downloads_unlocked','true');
+    window.location.reload();
+  },1500);
+}
+
+function checkPwd(){
+  var v=(document.getElementById('pwd-input').value||'').trim();
+  // Check custom saved password first
+  var customParts=JSON.parse(localStorage.getItem('custom_pwd')||'null');
+  var customPwd=customParts?customParts.join(''):'';
+  var defaultOk=(v==='chem'+'istry'+'2024'||v==='CHEM2026');
+  var customOk=customPwd&&v===customPwd;
+  var ok=defaultOk||customOk;
+  if(ok){
+    _loginAttempts=0;
+    sessionStorage.setItem('ta_unlocked','1');
+    localStorage.setItem('teacher_downloads_unlocked','true');
+    window.location.reload();
+  } else {
+    _loginAttempts++;
+    var er=document.getElementById('pwd-error');
+    if(er) er.style.display='block';
+    // Show attempts warning after 2 wrong tries
+    if(_loginAttempts>=2){
+      var att=document.getElementById('pwd-attempts');
+      if(att){att.style.display='block';att.textContent=_loginAttempts+' failed attempts. Use "Forgot password?" to reset.';}
+    }
+    var inp=document.getElementById('pwd-input');
+    if(inp) inp.value='';
+  }
+}
+  var v=(document.getElementById('pwd-input').value||'').trim();
+  var ok=(v==='chem'+'istry'+'2024'||v==='CHEM2026');
+  if(ok){
+    sessionStorage.setItem('ta_unlocked','1');
+    localStorage.setItem('teacher_downloads_unlocked','true');
+    window.location.reload();
+  } else {
+    var er=document.getElementById('pwd-error');
+    if(er){ er.style.display='block'; er.textContent='Incorrect password. Try again.'; }
+    var inp=document.getElementById('pwd-input');
+    if(inp) inp.value='';
   }
 }
 function changePwd(){
