@@ -99,6 +99,23 @@
   h3.sub-heading{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--accent3);margin:24px 0 10px;}
   sub,sup{font-size:.72em;}
   @media(max-width:600px){.hero{padding:50px 20px 40px;}.page{padding:0 16px 60px;}}
+
+/* ── Video Section ── */
+.video-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-top:12px;}
+.video-card{background:var(--surface2);border:1px solid var(--border);border-radius:10px;overflow:hidden;cursor:pointer;transition:border-color .2s;}
+.video-card:hover{border-color:#f87171;}
+.video-thumb{position:relative;width:100%;aspect-ratio:16/9;background:#000;overflow:hidden;}
+.video-thumb img{width:100%;height:100%;object-fit:cover;}
+.video-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.35);}
+.video-play span{font-size:2.5rem;}
+.video-info{padding:10px 12px;}
+.video-info h4{color:#fff;font-size:.88rem;margin-bottom:3px;}
+.video-info p{color:var(--muted);font-size:.75rem;font-family:"JetBrains Mono",monospace;}
+.video-empty{color:var(--muted);font-size:.85rem;font-style:italic;padding:16px 0;}
+.video-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:9999;align-items:center;justify-content:center;flex-direction:column;}
+.video-modal.open{display:flex;}
+.video-modal iframe{width:min(860px,95vw);height:min(484px,54vw);border:none;border-radius:10px;}
+.video-modal-close{position:absolute;top:16px;right:20px;background:none;border:none;color:#fff;font-size:2rem;cursor:pointer;line-height:1;}
 </style>
 </head>
 <body>
@@ -115,6 +132,7 @@
     <a href="#properties">2.5 Properties</a>
     <a href="#reactions">2.6 Reactions</a>
     <a href="#uses">2.7 Uses</a>
+    <a href="#videos">📹 Videos</a>
     <a href="#exercises">Exercises</a>
     <a href="#quiz">Quiz</a>
     <a href="#test">Unit Test</a>
@@ -498,7 +516,24 @@ C10H22  -->  C4H10  +  C3H6  +  C3H6   (example)</div>
 
   <div class="callout warn">
     <span class="callout-icon">&#9888;&#65039;</span>
-    <div class="callout-body">
+    <!-- ═══ VIDEO SECTION ═══ -->
+<div class="section-header reveal" id="videos">
+  <span class="section-number">📹</span>
+  <h2>Video Resources</h2>
+</div>
+<div class="card reveal" id="videoSection">
+  <div id="videoGrid" class="video-grid">
+    <p class="video-empty" id="videoEmpty">No videos added yet for this unit.</p>
+  </div>
+</div>
+
+<!-- Video Modal -->
+<div class="video-modal" id="videoModal" onclick="if(event.target===this)closeVideo()">
+  <button class="video-modal-close" onclick="closeVideo()">✕</button>
+  <div id="videoFrame"></div>
+</div>
+
+<div class="callout-body">
       <strong>Environmental Impact</strong>
       Combustion of alkanes releases CO<sub>2</sub> (greenhouse gas) and, in limited oxygen, toxic CO and particulates. Methane itself is a potent greenhouse gas (~25&times; CO<sub>2</sub> over 100 years). Steps to reduce impact include catalytic converters, cleaner engine technology, and transition to renewable energy.
     </div>
@@ -573,139 +608,343 @@ C10H22  -->  C4H10  +  C3H6  +  C3H6   (example)</div>
 <section id="quiz">
   <div class="section-header">
     <span class="section-number">&#129504;</span>
-    <h2>Interactive Quiz</h2>
+    <h2>Multiple Choice Quiz &mdash; 25 Questions</h2>
   </div>
   <div class="quiz-wrap">
-    <div class="quiz-header"><h3>Unit 2 Quiz &mdash; Alkanes (10 Questions)</h3></div>
+    <div class="quiz-header"><h3>Unit 2 Quiz — Alkanes</h3><span style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--muted);">25 Questions · Select the best answer · Click Submit to see results</span></div>
     <div class="quiz-body" id="quizForm">
 
       <div class="q-block">
         <span class="q-num">Q1</span>
-        <p class="q-text">What is the general molecular formula for alkanes?</p>
-        <div class="options">
-          <label class="opt"><input type="radio" name="q1" value="a"> C<sub>n</sub>H<sub>2n</sub></label>
-          <label class="opt"><input type="radio" name="q1" value="b"> C<sub>n</sub>H<sub>2n+2</sub></label>
-          <label class="opt"><input type="radio" name="q1" value="c"> C<sub>n</sub>H<sub>2n&minus;2</sub></label>
-          <label class="opt"><input type="radio" name="q1" value="d"> C<sub>n</sub>H<sub>n+2</sub></label>
+        <p class="q-text">The general molecular formula for alkanes is:</p>
+        <div class="opts">
+        <label class="opt"><input type="radio" name="q1" value="A"> CₙH₂ₙ</label>
+        <label class="opt"><input type="radio" name="q1" value="B"> CₙH₂ₙ₊₂</label>
+        <label class="opt"><input type="radio" name="q1" value="C"> CₙH₂ₙ₋₂</label>
+        <label class="opt"><input type="radio" name="q1" value="D"> CₙHₙ₊₂</label>
         </div>
-        <div class="q-exp" id="exp1">Alkanes are saturated hydrocarbons with general formula <b>C<sub>n</sub>H<sub>2n+2</sub></b>. Each carbon forms 4 bonds; end carbons have 3 H and middle carbons 2 H.</div>
+        <div class="q-exp" id="eq1" style="display:none;background:rgba(56,189,248,.08);border-left:3px solid var(--accent);padding:8px 12px;margin-top:8px;border-radius:4px;font-size:.85rem;color:var(--muted);">Alkanes are saturated. Each carbon forms 4 bonds. General formula CₙH₂ₙ₊₂.</div>
       </div>
-
       <div class="q-block">
         <span class="q-num">Q2</span>
-        <p class="q-text">How many structural isomers does C<sub>4</sub>H<sub>10</sub> have?</p>
-        <div class="options">
-          <label class="opt"><input type="radio" name="q2" value="a"> 1</label>
-          <label class="opt"><input type="radio" name="q2" value="b"> 2</label>
-          <label class="opt"><input type="radio" name="q2" value="c"> 3</label>
-          <label class="opt"><input type="radio" name="q2" value="d"> 5</label>
+        <p class="q-text">How many structural isomers does C₄H₁₀ have?</p>
+        <div class="opts">
+        <label class="opt"><input type="radio" name="q2" value="A"> 1</label>
+        <label class="opt"><input type="radio" name="q2" value="B"> 2</label>
+        <label class="opt"><input type="radio" name="q2" value="C"> 3</label>
+        <label class="opt"><input type="radio" name="q2" value="D"> 5</label>
         </div>
-        <div class="q-exp" id="exp2"><b>2 isomers:</b> butane (straight chain) and 2-methylpropane (branched).</div>
+        <div class="q-exp" id="eq2" style="display:none;background:rgba(56,189,248,.08);border-left:3px solid var(--accent);padding:8px 12px;margin-top:8px;border-radius:4px;font-size:.85rem;color:var(--muted);">C₄H₁₀ has 2 isomers: n-butane and 2-methylpropane.</div>
       </div>
-
       <div class="q-block">
         <span class="q-num">Q3</span>
         <p class="q-text">What process is used to separate petroleum into fractions?</p>
-        <div class="options">
-          <label class="opt"><input type="radio" name="q3" value="a"> Chromatography</label>
-          <label class="opt"><input type="radio" name="q3" value="b"> Recrystallisation</label>
-          <label class="opt"><input type="radio" name="q3" value="c"> Fractional distillation</label>
-          <label class="opt"><input type="radio" name="q3" value="d"> Electrolysis</label>
+        <div class="opts">
+        <label class="opt"><input type="radio" name="q3" value="A"> Chromatography</label>
+        <label class="opt"><input type="radio" name="q3" value="B"> Recrystallisation</label>
+        <label class="opt"><input type="radio" name="q3" value="C"> Fractional distillation</label>
+        <label class="opt"><input type="radio" name="q3" value="D"> Electrolysis</label>
         </div>
-        <div class="q-exp" id="exp3"><b>Fractional distillation</b>. Crude oil is heated; vapours rise up a fractionating column and condense at different levels based on their boiling points.</div>
+        <div class="q-exp" id="eq3" style="display:none;background:rgba(56,189,248,.08);border-left:3px solid var(--accent);padding:8px 12px;margin-top:8px;border-radius:4px;font-size:.85rem;color:var(--muted);">Fractional distillation separates crude oil fractions based on boiling point differences.</div>
       </div>
-
       <div class="q-block">
         <span class="q-num">Q4</span>
-        <p class="q-text">The IUPAC name of (CH<sub>3</sub>)<sub>3</sub>CH is:</p>
-        <div class="options">
-          <label class="opt"><input type="radio" name="q4" value="a"> trimethylmethane</label>
-          <label class="opt"><input type="radio" name="q4" value="b"> 2-methylbutane</label>
-          <label class="opt"><input type="radio" name="q4" value="c"> 2-methylpropane</label>
-          <label class="opt"><input type="radio" name="q4" value="d"> isobutane</label>
+        <p class="q-text">The IUPAC name of (CH₃)₃CH is:</p>
+        <div class="opts">
+        <label class="opt"><input type="radio" name="q4" value="A"> trimethylmethane</label>
+        <label class="opt"><input type="radio" name="q4" value="B"> 2-methylbutane</label>
+        <label class="opt"><input type="radio" name="q4" value="C"> 2-methylpropane</label>
+        <label class="opt"><input type="radio" name="q4" value="D"> isobutane</label>
         </div>
-        <div class="q-exp" id="exp4">(CH<sub>3</sub>)<sub>3</sub>CH = CH<sub>3</sub>CH(CH<sub>3</sub>)CH<sub>3</sub>. Longest chain = 3 C (propane), methyl at C2 &rarr; <b>2-methylpropane</b>. &ldquo;Isobutane&rdquo; is only a common name.</div>
+        <div class="q-exp" id="eq4" style="display:none;background:rgba(56,189,248,.08);border-left:3px solid var(--accent);padding:8px 12px;margin-top:8px;border-radius:4px;font-size:.85rem;color:var(--muted);">Longest chain = 3C (propane). CH₃ branch on C2 → 2-methylpropane.</div>
       </div>
-
       <div class="q-block">
         <span class="q-num">Q5</span>
         <p class="q-text">Halogenation of alkanes requires:</p>
-        <div class="options">
-          <label class="opt"><input type="radio" name="q5" value="a"> Aqueous acid catalyst</label>
-          <label class="opt"><input type="radio" name="q5" value="b"> UV light or high temperature</label>
-          <label class="opt"><input type="radio" name="q5" value="c"> Alkaline conditions</label>
-          <label class="opt"><input type="radio" name="q5" value="d"> Iron filings catalyst</label>
+        <div class="opts">
+        <label class="opt"><input type="radio" name="q5" value="A"> Aqueous acid catalyst</label>
+        <label class="opt"><input type="radio" name="q5" value="B"> UV light or high temperature</label>
+        <label class="opt"><input type="radio" name="q5" value="C"> Alkaline conditions</label>
+        <label class="opt"><input type="radio" name="q5" value="D"> Iron filings catalyst</label>
         </div>
-        <div class="q-exp" id="exp5">Free-radical substitution requires <b>UV light or high temperature</b> to homolytically cleave Cl<sub>2</sub> into radicals that initiate the chain reaction.</div>
+        <div class="q-exp" id="eq5" style="display:none;background:rgba(56,189,248,.08);border-left:3px solid var(--accent);padding:8px 12px;margin-top:8px;border-radius:4px;font-size:.85rem;color:var(--muted);">Free-radical halogenation is initiated by UV light or high temperature (homolytic bond fission).</div>
       </div>
-
       <div class="q-block">
         <span class="q-num">Q6</span>
         <p class="q-text">Which termination step produces ethane during chlorination of methane?</p>
-        <div class="options">
-          <label class="opt"><input type="radio" name="q6" value="a"> Cl&bull; + Cl&bull; &rarr; Cl<sub>2</sub></label>
-          <label class="opt"><input type="radio" name="q6" value="b"> &bull;CH<sub>3</sub> + Cl&bull; &rarr; CH<sub>3</sub>Cl</label>
-          <label class="opt"><input type="radio" name="q6" value="c"> &bull;CH<sub>3</sub> + &bull;CH<sub>3</sub> &rarr; C<sub>2</sub>H<sub>6</sub></label>
-          <label class="opt"><input type="radio" name="q6" value="d"> CH<sub>4</sub> + Cl<sub>2</sub> &rarr; CH<sub>3</sub>Cl + HCl</label>
+        <div class="opts">
+        <label class="opt"><input type="radio" name="q6" value="A"> Cl• + Cl• → Cl₂</label>
+        <label class="opt"><input type="radio" name="q6" value="B"> •CH₃ + Cl• → CH₃Cl</label>
+        <label class="opt"><input type="radio" name="q6" value="C"> •CH₃ + •CH₃ → C₂H₆</label>
+        <label class="opt"><input type="radio" name="q6" value="D"> CH₄ + Cl₂ → CH₃Cl + HCl</label>
         </div>
-        <div class="q-exp" id="exp6"><b>&bull;CH<sub>3</sub> + &bull;CH<sub>3</sub> &rarr; C<sub>2</sub>H<sub>6</sub></b>. Two methyl radicals combine &mdash; a minor termination step that produces ethane as a by-product.</div>
+        <div class="q-exp" id="eq6" style="display:none;background:rgba(56,189,248,.08);border-left:3px solid var(--accent);padding:8px 12px;margin-top:8px;border-radius:4px;font-size:.85rem;color:var(--muted);">Two methyl radicals combine → ethane. This terminates the chain reaction.</div>
       </div>
-
       <div class="q-block">
         <span class="q-num">Q7</span>
-        <p class="q-text">Decarboxylation of sodium propanoate (CH<sub>3</sub>CH<sub>2</sub>COONa) with NaOH/CaO produces:</p>
-        <div class="options">
-          <label class="opt"><input type="radio" name="q7" value="a"> Methane</label>
-          <label class="opt"><input type="radio" name="q7" value="b"> Ethane</label>
-          <label class="opt"><input type="radio" name="q7" value="c"> Propane</label>
-          <label class="opt"><input type="radio" name="q7" value="d"> Butane</label>
+        <p class="q-text">Decarboxylation of sodium propanoate (CH₃CH₂COONa) with NaOH/CaO produces:</p>
+        <div class="opts">
+        <label class="opt"><input type="radio" name="q7" value="A"> Methane</label>
+        <label class="opt"><input type="radio" name="q7" value="B"> Ethane</label>
+        <label class="opt"><input type="radio" name="q7" value="C"> Propane</label>
+        <label class="opt"><input type="radio" name="q7" value="D"> Butane</label>
         </div>
-        <div class="q-exp" id="exp7">Sodium propanoate has 3 carbons. Decarboxylation removes &ndash;COO<sup>&minus;</sup>, giving a 2-carbon alkane: <b>ethane</b>.</div>
+        <div class="q-exp" id="eq7" style="display:none;background:rgba(56,189,248,.08);border-left:3px solid var(--accent);padding:8px 12px;margin-top:8px;border-radius:4px;font-size:.85rem;color:var(--muted);">RCOONa + NaOH/CaO → R–H + Na₂CO₃. CH₃CH₂COONa → C₂H₆ (ethane).</div>
       </div>
-
       <div class="q-block">
         <span class="q-num">Q8</span>
         <p class="q-text">Why are alkanes relatively unreactive with most chemical reagents?</p>
-        <div class="options">
-          <label class="opt"><input type="radio" name="q8" value="a"> They are gases at room temperature</label>
-          <label class="opt"><input type="radio" name="q8" value="b"> C&ndash;C and C&ndash;H bonds are strong and non-polar</label>
-          <label class="opt"><input type="radio" name="q8" value="c"> They contain no hydrogen</label>
-          <label class="opt"><input type="radio" name="q8" value="d"> They dissolve in water</label>
+        <div class="opts">
+        <label class="opt"><input type="radio" name="q8" value="A"> They are gases at room temperature</label>
+        <label class="opt"><input type="radio" name="q8" value="B"> C–C and C–H bonds are strong and non-polar</label>
+        <label class="opt"><input type="radio" name="q8" value="C"> They contain no hydrogen</label>
+        <label class="opt"><input type="radio" name="q8" value="D"> They dissolve in water</label>
         </div>
-        <div class="q-exp" id="exp8">C&ndash;C (347 kJ/mol) and C&ndash;H (413 kJ/mol) bonds are <b>strong and non-polar</b>. Non-polar bonds do not attract polar reagents (electrophiles or nucleophiles), so alkanes resist ionic attack.</div>
+        <div class="q-exp" id="eq8" style="display:none;background:rgba(56,189,248,.08);border-left:3px solid var(--accent);padding:8px 12px;margin-top:8px;border-radius:4px;font-size:.85rem;color:var(--muted);">C–C (347 kJ/mol) and C–H (413 kJ/mol) are strong non-polar bonds — no site for ionic attack.</div>
       </div>
-
       <div class="q-block">
         <span class="q-num">Q9</span>
         <p class="q-text">Which petroleum fraction is used as jet fuel?</p>
-        <div class="options">
-          <label class="opt"><input type="radio" name="q9" value="a"> Refinery gas</label>
-          <label class="opt"><input type="radio" name="q9" value="b"> Gasoline</label>
-          <label class="opt"><input type="radio" name="q9" value="c"> Kerosene</label>
-          <label class="opt"><input type="radio" name="q9" value="d"> Bitumen</label>
+        <div class="opts">
+        <label class="opt"><input type="radio" name="q9" value="A"> Refinery gas</label>
+        <label class="opt"><input type="radio" name="q9" value="B"> Gasoline</label>
+        <label class="opt"><input type="radio" name="q9" value="C"> Kerosene</label>
+        <label class="opt"><input type="radio" name="q9" value="D"> Bitumen</label>
         </div>
-        <div class="q-exp" id="exp9"><b>Kerosene</b> (C<sub>10</sub>&ndash;C<sub>16</sub>, B.P. 150&ndash;270&deg;C) is used as aviation turbine fuel (jet fuel).</div>
+        <div class="q-exp" id="eq9" style="display:none;background:rgba(56,189,248,.08);border-left:3px solid var(--accent);padding:8px 12px;margin-top:8px;border-radius:4px;font-size:.85rem;color:var(--muted);">Kerosene (C₁₁–C₁₅, bp 150–250°C) is used as jet fuel (aviation fuel).</div>
       </div>
-
       <div class="q-block">
         <span class="q-num">Q10</span>
         <p class="q-text">The purpose of catalytic cracking in petroleum refining is:</p>
-        <div class="options">
-          <label class="opt"><input type="radio" name="q10" value="a"> To increase the boiling points of fractions</label>
-          <label class="opt"><input type="radio" name="q10" value="b"> To convert long-chain alkanes into more useful shorter-chain hydrocarbons and alkenes</label>
-          <label class="opt"><input type="radio" name="q10" value="c"> To remove sulfur from crude oil</label>
-          <label class="opt"><input type="radio" name="q10" value="d"> To separate different fractions by boiling point</label>
+        <div class="opts">
+        <label class="opt"><input type="radio" name="q10" value="A"> To increase boiling points of fractions</label>
+        <label class="opt"><input type="radio" name="q10" value="B"> To convert long-chain alkanes into shorter, more useful molecules</label>
+        <label class="opt"><input type="radio" name="q10" value="C"> To remove sulfur from crude oil</label>
+        <label class="opt"><input type="radio" name="q10" value="D"> To separate fractions by boiling point</label>
         </div>
-        <div class="q-exp" id="exp10">Catalytic cracking <b>breaks large molecules into smaller, more useful ones</b> including petrol-range alkanes (higher demand) and alkenes (feedstock for plastics). It uses a zeolite catalyst at 450&ndash;550&deg;C.</div>
+        <div class="q-exp" id="eq10" style="display:none;background:rgba(56,189,248,.08);border-left:3px solid var(--accent);padding:8px 12px;margin-top:8px;border-radius:4px;font-size:.85rem;color:var(--muted);">Catalytic cracking (zeolite, ~500°C) breaks heavy fractions → lighter, more useful alkanes and alkenes.</div>
       </div>
-
+      <div class="q-block">
+        <span class="q-num">Q11</span>
+        <p class="q-text">The reaction of methane with excess chlorine under UV light gives as the final product:</p>
+        <div class="opts">
+        <label class="opt"><input type="radio" name="q11" value="A"> CH₃Cl</label>
+        <label class="opt"><input type="radio" name="q11" value="B"> CH₂Cl₂</label>
+        <label class="opt"><input type="radio" name="q11" value="C"> CHCl₃</label>
+        <label class="opt"><input type="radio" name="q11" value="D"> CCl₄</label>
+        </div>
+        <div class="q-exp" id="eq11" style="display:none;background:rgba(56,189,248,.08);border-left:3px solid var(--accent);padding:8px 12px;margin-top:8px;border-radius:4px;font-size:.85rem;color:var(--muted);">Excess Cl₂ → progressive substitution of all H atoms → CCl₄ (tetrachloromethane).</div>
+      </div>
+      <div class="q-block">
+        <span class="q-num">Q12</span>
+        <p class="q-text">Cyclohexane (C₆H₁₂) is a cycloalkane. Its general formula is:</p>
+        <div class="opts">
+        <label class="opt"><input type="radio" name="q12" value="A"> CₙH₂ₙ₊₂</label>
+        <label class="opt"><input type="radio" name="q12" value="B"> CₙH₂ₙ (same as alkenes)</label>
+        <label class="opt"><input type="radio" name="q12" value="C"> CₙH₂ₙ₋₂</label>
+        <label class="opt"><input type="radio" name="q12" value="D"> CₙH₂ₙ₊₁</label>
+        </div>
+        <div class="q-exp" id="eq12" style="display:none;background:rgba(56,189,248,.08);border-left:3px solid var(--accent);padding:8px 12px;margin-top:8px;border-radius:4px;font-size:.85rem;color:var(--muted);">Cycloalkanes form a ring — one degree of unsaturation. General formula CₙH₂ₙ.</div>
+      </div>
+      <div class="q-block">
+        <span class="q-num">Q13</span>
+        <p class="q-text">Which statement about the free-radical chain reaction of methane with chlorine is correct?</p>
+        <div class="opts">
+        <label class="opt"><input type="radio" name="q13" value="A"> It is started by heat only</label>
+        <label class="opt"><input type="radio" name="q13" value="B"> Termination stops the chain by combining two radicals</label>
+        <label class="opt"><input type="radio" name="q13" value="C"> Propagation produces HCl and CH₃• in one step</label>
+        <label class="opt"><input type="radio" name="q13" value="D"> Only one product forms</label>
+        </div>
+        <div class="q-exp" id="eq13" style="display:none;background:rgba(56,189,248,.08);border-left:3px solid var(--accent);padding:8px 12px;margin-top:8px;border-radius:4px;font-size:.85rem;color:var(--muted);">Termination: two radicals combine (Cl•+Cl•, CH₃•+Cl•, CH₃•+CH₃•) stopping the chain.</div>
+      </div>
+      <div class="q-block">
+        <span class="q-num">Q14</span>
+        <p class="q-text">Natural gas is a fossil fuel formed from:</p>
+        <div class="opts">
+        <label class="opt"><input type="radio" name="q14" value="A"> Recent plant material</label>
+        <label class="opt"><input type="radio" name="q14" value="B"> Ancient organic matter buried and transformed over millions of years</label>
+        <label class="opt"><input type="radio" name="q14" value="C"> Coal only</label>
+        <label class="opt"><input type="radio" name="q14" value="D"> Volcanic methane alone</label>
+        </div>
+        <div class="q-exp" id="eq14" style="display:none;background:rgba(56,189,248,.08);border-left:3px solid var(--accent);padding:8px 12px;margin-top:8px;border-radius:4px;font-size:.85rem;color:var(--muted);">Fossil fuels form from ancient marine organisms over millions of years under heat and pressure.</div>
+      </div>
+      <div class="q-block">
+        <span class="q-num">Q15</span>
+        <p class="q-text">The reason alkanes are immiscible with water is:</p>
+        <div class="opts">
+        <label class="opt"><input type="radio" name="q15" value="A"> They are too large to dissolve</label>
+        <label class="opt"><input type="radio" name="q15" value="B"> Alkanes are non-polar; water forms a strong H-bond network that alkanes cannot disrupt</label>
+        <label class="opt"><input type="radio" name="q15" value="C"> They react with water</label>
+        <label class="opt"><input type="radio" name="q15" value="D"> They are denser than water</label>
+        </div>
+        <div class="q-exp" id="eq15" style="display:none;background:rgba(56,189,248,.08);border-left:3px solid var(--accent);padding:8px 12px;margin-top:8px;border-radius:4px;font-size:.85rem;color:var(--muted);">"Like dissolves like." Non-polar alkanes cannot disrupt water's polar H-bond network.</div>
+      </div>
+      <div class="q-block">
+        <span class="q-num">Q16</span>
+        <p class="q-text">Reforming of naphtha using a platinum catalyst converts it to:</p>
+        <div class="opts">
+        <label class="opt"><input type="radio" name="q16" value="A"> Shorter alkanes only</label>
+        <label class="opt"><input type="radio" name="q16" value="B"> Aromatic compounds (benzene, toluene, xylenes) — increasing octane rating</label>
+        <label class="opt"><input type="radio" name="q16" value="C"> Methane only</label>
+        <label class="opt"><input type="radio" name="q16" value="D"> Hydrogen and carbon</label>
+        </div>
+        <div class="q-exp" id="eq16" style="display:none;background:rgba(56,189,248,.08);border-left:3px solid var(--accent);padding:8px 12px;margin-top:8px;border-radius:4px;font-size:.85rem;color:var(--muted);">Catalytic reforming (Pt, ~500°C): converts naphtha alkanes → aromatics + H₂.</div>
+      </div>
+      <div class="q-block">
+        <span class="q-num">Q17</span>
+        <p class="q-text">The boiling point of hexane (C₆H₁₄) compared to pentane (C₅H₁₂) is:</p>
+        <div class="opts">
+        <label class="opt"><input type="radio" name="q17" value="A"> Lower, because hexane has more carbons</label>
+        <label class="opt"><input type="radio" name="q17" value="B"> Higher, because longer chain = more surface area = stronger London forces</label>
+        <label class="opt"><input type="radio" name="q17" value="C"> The same</label>
+        <label class="opt"><input type="radio" name="q17" value="D"> Depends on pressure only</label>
+        </div>
+        <div class="q-exp" id="eq17" style="display:none;background:rgba(56,189,248,.08);border-left:3px solid var(--accent);padding:8px 12px;margin-top:8px;border-radius:4px;font-size:.85rem;color:var(--muted);">More carbons → larger molecule → stronger London dispersion forces → higher boiling point.</div>
+      </div>
+      <div class="q-block">
+        <span class="q-num">Q18</span>
+        <p class="q-text">Thermal cracking uses:</p>
+        <div class="opts">
+        <label class="opt"><input type="radio" name="q18" value="A"> A catalyst at low temperature</label>
+        <label class="opt"><input type="radio" name="q18" value="B"> Very high temperatures (400–900°C) without catalyst</label>
+        <label class="opt"><input type="radio" name="q18" value="C"> A platinum catalyst only</label>
+        <label class="opt"><input type="radio" name="q18" value="D"> Electrolysis</label>
+        </div>
+        <div class="q-exp" id="eq18" style="display:none;background:rgba(56,189,248,.08);border-left:3px solid var(--accent);padding:8px 12px;margin-top:8px;border-radius:4px;font-size:.85rem;color:var(--muted);">Thermal cracking: high T, no catalyst, free-radical mechanism → alkenes.</div>
+      </div>
+      <div class="q-block">
+        <span class="q-num">Q19</span>
+        <p class="q-text">Which best describes the empirical formula of alkanes with n > 1?</p>
+        <div class="opts">
+        <label class="opt"><input type="radio" name="q19" value="A"> CH₄</label>
+        <label class="opt"><input type="radio" name="q19" value="B"> CH₃</label>
+        <label class="opt"><input type="radio" name="q19" value="C"> CH₂</label>
+        <label class="opt"><input type="radio" name="q19" value="D"> CH</label>
+        </div>
+        <div class="q-exp" id="eq19" style="display:none;background:rgba(56,189,248,.08);border-left:3px solid var(--accent);padding:8px 12px;margin-top:8px;border-radius:4px;font-size:.85rem;color:var(--muted);">For alkanes CₙH₂ₙ₊₂, as n→∞ ratio approaches CH₂. For n=2 (ethane C₂H₆): empirical formula CH₃.</div>
+      </div>
+      <div class="q-block">
+        <span class="q-num">Q20</span>
+        <p class="q-text">Which alkane would be used as a component of diesel fuel?</p>
+        <div class="opts">
+        <label class="opt"><input type="radio" name="q20" value="A"> Methane (CH₄)</label>
+        <label class="opt"><input type="radio" name="q20" value="B"> Ethane (C₂H₆)</label>
+        <label class="opt"><input type="radio" name="q20" value="C"> Tetradecane (C₁₄H₃₀, a C₁₂–C₁₆ fraction)</label>
+        <label class="opt"><input type="radio" name="q20" value="D"> Propane (C₃H₈)</label>
+        </div>
+        <div class="q-exp" id="eq20" style="display:none;background:rgba(56,189,248,.08);border-left:3px solid var(--accent);padding:8px 12px;margin-top:8px;border-radius:4px;font-size:.85rem;color:var(--muted);">Diesel fuel = C₁₂–C₁₆ fraction (bp 200–350°C). Tetradecane (C₁₄H₃₀) is in this range.</div>
+      </div>
+      <div class="q-block">
+        <span class="q-num">Q21</span>
+        <p class="q-text">When propane burns in insufficient oxygen, which products can form?</p>
+        <div class="opts">
+        <label class="opt"><input type="radio" name="q21" value="A"> CO₂ and H₂O only</label>
+        <label class="opt"><input type="radio" name="q21" value="B"> Carbon monoxide (CO), water and possibly carbon (soot) — incomplete combustion</label>
+        <label class="opt"><input type="radio" name="q21" value="C"> Only water</label>
+        <label class="opt"><input type="radio" name="q21" value="D"> Propan-1-ol</label>
+        </div>
+        <div class="q-exp" id="eq21" style="display:none;background:rgba(56,189,248,.08);border-left:3px solid var(--accent);padding:8px 12px;margin-top:8px;border-radius:4px;font-size:.85rem;color:var(--muted);">Incomplete combustion (limited O₂) → CO, C (soot), H₂O instead of CO₂ + H₂O.</div>
+      </div>
+      <div class="q-block">
+        <span class="q-num">Q22</span>
+        <p class="q-text">Why does 2-methylbutane have a lower boiling point than n-pentane despite having the same molecular formula?</p>
+        <div class="opts">
+        <label class="opt"><input type="radio" name="q22" value="A"> They have different molecular formulas</label>
+        <label class="opt"><input type="radio" name="q22" value="B"> Branching makes 2-methylbutane more compact → less surface area → weaker London forces</label>
+        <label class="opt"><input type="radio" name="q22" value="C"> They have different chemical properties</label>
+        <label class="opt"><input type="radio" name="q22" value="D"> One is a gas at room temperature</label>
+        </div>
+        <div class="q-exp" id="eq22" style="display:none;background:rgba(56,189,248,.08);border-left:3px solid var(--accent);padding:8px 12px;margin-top:8px;border-radius:4px;font-size:.85rem;color:var(--muted);">Branching reduces surface area → weaker London dispersion forces → lower boiling point.</div>
+      </div>
+      <div class="q-block">
+        <span class="q-num">Q23</span>
+        <p class="q-text">The IUPAC name of CH₃CH₂CH(CH₃)CH₂CH₃ is:</p>
+        <div class="opts">
+        <label class="opt"><input type="radio" name="q23" value="A"> 2-methylbutane</label>
+        <label class="opt"><input type="radio" name="q23" value="B"> 3-methylpentane</label>
+        <label class="opt"><input type="radio" name="q23" value="C"> 2-ethylbutane</label>
+        <label class="opt"><input type="radio" name="q23" value="D"> 4-methylpentane</label>
+        </div>
+        <div class="q-exp" id="eq23" style="display:none;background:rgba(56,189,248,.08);border-left:3px solid var(--accent);padding:8px 12px;margin-top:8px;border-radius:4px;font-size:.85rem;color:var(--muted);">Longest chain = 5C (pentane). CH₃ on C3 → 3-methylpentane.</div>
+      </div>
+      <div class="q-block">
+        <span class="q-num">Q24</span>
+        <p class="q-text">A mixture of branched alkane isomers in petrol is preferable to n-hexane because:</p>
+        <div class="opts">
+        <label class="opt"><input type="radio" name="q24" value="A"> Isomers burn more slowly</label>
+        <label class="opt"><input type="radio" name="q24" value="B"> Branched isomers have higher octane ratings — resist premature ignition better</label>
+        <label class="opt"><input type="radio" name="q24" value="C"> Isomers are cheaper</label>
+        <label class="opt"><input type="radio" name="q24" value="D"> Isomers are safer to store</label>
+        </div>
+        <div class="q-exp" id="eq24" style="display:none;background:rgba(56,189,248,.08);border-left:3px solid var(--accent);padding:8px 12px;margin-top:8px;border-radius:4px;font-size:.85rem;color:var(--muted);">Branched alkanes have higher octane ratings than straight-chain isomers.</div>
+      </div>
+      <div class="q-block">
+        <span class="q-num">Q25</span>
+        <p class="q-text">Methane (CH₄) has a tetrahedral structure because:</p>
+        <div class="opts">
+        <label class="opt"><input type="radio" name="q25" value="A"> Carbon always forms 4 bonds in a line</label>
+        <label class="opt"><input type="radio" name="q25" value="B"> Carbon has 4 bonding pairs → VSEPR predicts tetrahedral geometry (109.5°)</label>
+        <label class="opt"><input type="radio" name="q25" value="C"> Hydrogen atoms repel each other</label>
+        <label class="opt"><input type="radio" name="q25" value="D"> It has sp² hybridisation</label>
+        </div>
+        <div class="q-exp" id="eq25" style="display:none;background:rgba(56,189,248,.08);border-left:3px solid var(--accent);padding:8px 12px;margin-top:8px;border-radius:4px;font-size:.85rem;color:var(--muted);">VSEPR: 4 bonding pairs, no lone pairs → tetrahedral, bond angle 109.5°, sp³ hybridisation.</div>
+      </div>
     </div>
-    <div style="padding:0 24px 24px;">
-      <button class="quiz-submit" onclick="submitQuiz()">Submit Answers</button>
-      <div id="quizResult" style="display:none;margin-top:16px;padding:16px 20px;border-radius:var(--radius);font-family:'JetBrains Mono',monospace;"></div>
+    <div class="quiz-footer">
+      <button class="quiz-submit" onclick="submitQuiz()">Submit Quiz</button>
+      <div id="quizResult" style="display:none;margin-top:16px;padding:14px;border-radius:8px;text-align:center;font-family:'JetBrains Mono',monospace;"></div>
+    </div>
+    <div style="text-align:center;margin-top:20px;">
+      <a href="#test" style="display:inline-block;background:var(--gold,#e8c547);color:#000;padding:11px 28px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.82rem;font-weight:700;text-decoration:none;">📝 Go to Unit Test →</a>
     </div>
   </div>
 </section>
+<script>
+const _CA={q1:'B',q2:'B',q3:'C',q4:'C',q5:'B',q6:'C',q7:'B',q8:'B',q9:'C',q10:'B',q11:'D',q12:'B',q13:'B',q14:'B',q15:'B',q16:'B',q17:'B',q18:'B',q19:'C',q20:'C',q21:'B',q22:'B',q23:'B',q24:'B',q25:'B'};
+function submitQuiz(){
+  let s=0,t=Object.keys(_CA).length;
+  Object.entries(_CA).forEach(([q,c])=>{
+    const sel=document.querySelector('input[name="'+q+'"]:checked');
+    const e=document.getElementById('e'+q.slice(1));if(e)e.style.display='block';
+    document.querySelectorAll('input[name="'+q+'"]').forEach(o=>{
+      if(o.value===c)o.closest('label').classList.add('correct');
+      else if(sel&&o.value===sel.value&&o.value!==c)o.closest('label').classList.add('wrong');
+      o.disabled=true;
+    });
+    if(sel&&sel.value===c)s++;
+  });
+  const p=Math.round(s/t*100);
+  const r=document.getElementById('quizResult');
+  r.style.display='block';
+  r.style.background=p>=60?'rgba(52,211,153,.1)':'rgba(248,113,113,.1)';
+  r.style.border='1px solid '+(p>=60?'var(--green)':'var(--red)');
+  r.innerHTML='<strong style="font-size:1.1rem;color:'+(p>=60?'var(--green)':'var(--red)')+'">'+s+'/'+t+' ('+p+'%)</strong><br/><span style="color:var(--muted);font-size:.82rem;">'+(p>=60?'Well done! Review any wrong answers above.':'Keep studying — review the notes and try again.')+'</span>';
+}
+</script>
+
+<script>
+const _CA={q1:'B',q2:'B',q3:'C',q4:'C',q5:'B',q6:'C',q7:'B',q8:'B',q9:'C',q10:'B',q11:'D',q12:'B',q13:'B',q14:'B',q15:'B',q16:'B',q17:'B',q18:'B',q19:'C',q20:'C',q21:'B',q22:'B',q23:'B',q24:'B',q25:'B'};
+function submitQuiz(){
+  let s=0,t=Object.keys(_CA).length;
+  Object.entries(_CA).forEach(([q,c])=>{
+    const sel=document.querySelector('input[name="'+q+'"]:checked');
+    const e=document.getElementById('e'+q.slice(1));if(e)e.style.display='block';
+    document.querySelectorAll('input[name="'+q+'"]').forEach(o=>{
+      if(o.value===c)o.closest('label').classList.add('correct');
+      else if(sel&&o.value===sel.value&&o.value!==c)o.closest('label').classList.add('wrong');
+      o.disabled=true;
+    });
+    if(sel&&sel.value===c)s++;
+  });
+  const p=Math.round(s/t*100);
+  const r=document.getElementById('quizResult');
+  r.style.display='block';
+  r.style.background=p>=60?'rgba(52,211,153,.1)':'rgba(248,113,113,.1)';
+  r.style.border='1px solid '+(p>=60?'var(--green)':'var(--red)');
+  r.innerHTML='<strong style="font-size:1.1rem;color:'+(p>=60?'var(--green)':'var(--red)')+'">'+s+'/'+t+' ('+p+'%)</strong><br/><span style="color:var(--muted);font-size:.82rem;">'+(p>=60?'Well done! Review any wrong answers above.':'Keep studying — review the notes and try again.')+'</span>';
+}
+</script>
+
 
 <!-- UNIT TEST -->
 <section id="test">
@@ -925,5 +1164,78 @@ function submitQuiz(){
   document.querySelector('.quiz-submit').style.opacity='0.5';
 }
 </script>
+<script>
+// ── Video Section ──
+(function(){
+  var fname = location.pathname.split("/").pop() || "index.html";
+  var key = "unit_videos_" + fname;
+  var videos = JSON.parse(localStorage.getItem(key)||"[]");
+
+  function getYtId(url){
+    var m = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))[\w-]{11}/);
+    if(!m) return null;
+    return m[0].split(/[\/=]/).pop();
+  }
+
+  function getThumb(url){
+    var ytId = getYtId(url);
+    if(ytId) return "https://img.youtube.com/vi/"+ytId+"/mqdefault.jpg";
+    return "";
+  }
+
+  function getEmbedUrl(url){
+    var ytId = getYtId(url);
+    if(ytId) return "https://www.youtube.com/embed/"+ytId+"?autoplay=1";
+    var vm = url.match(/vimeo\.com\/(\d+)/);
+    if(vm) return "https://player.vimeo.com/video/"+vm[1]+"?autoplay=1";
+    return url;
+  }
+
+  function renderVideos(){
+    var grid = document.getElementById("videoGrid");
+    var empty = document.getElementById("videoEmpty");
+    if(!grid) return;
+    if(videos.length===0){ if(empty) empty.style.display="block"; return; }
+    if(empty) empty.style.display="none";
+    grid.innerHTML = "";
+    videos.forEach(function(v){
+      var thumb = getThumb(v.url);
+      var card = document.createElement("div");
+      card.className = "video-card";
+      var thumbHtml = thumb
+        ? "<img src=""+thumb+"" alt=""+v.title+"" style="width:100%;height:100%;object-fit:cover;">"
+        : "<div style="width:100%;height:100%;background:linear-gradient(135deg,#1c2333,#0d1117);display:flex;align-items:center;justify-content:center;"><span style="font-size:2rem">🎬</span></div>";
+      card.innerHTML =
+        "<div class="video-thumb">"+thumbHtml+
+        "<div class="video-play"><span>▶</span></div></div>"+
+        "<div class="video-info"><h4>"+v.title+"</h4><p>"+v.source+"</p></div>";
+      card.onclick = (function(vid){ return function(){ openVideo(vid); }; })(v);
+      grid.appendChild(card);
+    });
+  }
+
+  window.openVideo = function(v){
+    var modal = document.getElementById("videoModal");
+    var frame = document.getElementById("videoFrame");
+    if(!modal||!frame) return;
+    var embedUrl = getEmbedUrl(v.url);
+    var isEmbed = embedUrl.includes("youtube.com/embed") || embedUrl.includes("vimeo.com/video");
+    frame.innerHTML = isEmbed
+      ? "<iframe src=""+embedUrl+"" allowfullscreen allow="autoplay"></iframe>"
+      : "<div style="text-align:center;"><a href=""+v.url+"" target="_blank" style="color:#38bdf8;font-size:1rem;">▶ Open Video →</a></div>";
+    modal.classList.add("open");
+  };
+
+  window.closeVideo = function(){
+    var modal = document.getElementById("videoModal");
+    var frame = document.getElementById("videoFrame");
+    if(modal) modal.classList.remove("open");
+    if(frame) frame.innerHTML = "";
+  };
+
+  renderVideos();
+})();
+</script>
+
 </body>
 </html>
