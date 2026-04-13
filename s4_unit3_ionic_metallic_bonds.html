@@ -1253,6 +1253,14 @@ function submitQuiz(){
         <a id="dl-wa-link" href="#" target="_blank" style="background:#25D366;color:#fff;padding:8px 14px;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:.76rem;font-weight:700;text-decoration:none;">WhatsApp</a>
         <button style="background:#1c2333;color:#8b949e;border:1px solid #30363d;padding:8px 14px;border-radius:6px;cursor:pointer;font-size:.8rem;" onclick="closeDlPay()">Cancel</button>
       </div>
+    <!-- Payment Unavailable (no PawaPay key) -->
+    <div class="pay-stb" id="dl-st-manual">
+      <div style="font-size:2.4rem;margin-bottom:10px;">⚙️</div>
+      <div style="font-family:'JetBrains Mono',monospace;color:#8b949e;font-size:.88rem;margin-bottom:12px;">Payment service is being set up.</div>
+      <div style="color:#8b949e;font-size:.82rem;margin-bottom:18px;line-height:1.8;">Online payment is not yet available for this unit.<br>Please contact your teacher to get access.</div>
+      <button style="background:#1c2333;color:#8b949e;border:1px solid #30363d;padding:10px 18px;border-radius:7px;cursor:pointer;font-size:.82rem;" onclick="dlShowForm()">&#8592; Back</button>
+      <div id="dl-manual-phone" style="display:none;"></div>
+      <a id="dl-wa-link" href="#" style="display:none;"></a>
     </div>
   </div>
 </div>
@@ -1272,7 +1280,7 @@ function checkPayAndDownload(){
   document.getElementById('dl-pay-overlay').classList.add('open');dlShowForm();
 }
 function closeDlPay(){document.getElementById('dl-pay-overlay').classList.remove('open');if(_dlPollTimer){clearInterval(_dlPollTimer);_dlPollTimer=null;}}
-function dlShowForm(){document.getElementById('dl-pform').style.display='block';['dl-st-proc','dl-st-ok','dl-st-fail'].forEach(function(id){document.getElementById(id).style.display='none';});document.getElementById('dl-err').style.display='none';}
+function dlShowForm(){document.getElementById('dl-pform').style.display='block';['dl-st-proc','dl-st-ok','dl-st-fail','dl-st-manual'].forEach(function(id){document.getElementById(id).style.display='none';});document.getElementById('dl-err').style.display='none';}
 function dlSelNet(el,n){_dlNet=n;document.querySelectorAll('.nbb').forEach(function(b){b.classList.remove('sel');});el.classList.add('sel');}
 function dlUpdateHint(){var o=document.getElementById('dl-ccode').options[document.getElementById('dl-ccode').selectedIndex];document.getElementById('dl-ph-hint').textContent=o.text+' - '+(o.dataset.net||'Mobile Money');}
 function dlValPhone(){document.getElementById('dl-pay-go').disabled=document.getElementById('dl-phone').value.replace(/\D/g,'').length<8;}
@@ -1286,11 +1294,12 @@ async function dlInitPay(){
   var s=JSON.parse(localStorage.getItem('notif_settings')||'{}');
   var ppKey=s.pawapayKey||'';
   if(!ppKey){
-    document.getElementById('dl-st-proc').style.display='none';
-    var wa=encodeURIComponent('PAYMENT\nUnit: '+document.title+'\nAmount: '+_DL_PRICE+' RWF\nPhone: '+code+num+'\nPlease confirm my download.');
+    // No PawaPay — show manual payment instructions screen
+    document.getElementById('dl-pform').style.display='none';
+    var wa=encodeURIComponent('PAYMENT\nUnit: '+document.title+'\nAmount: '+_DL_PRICE+' RWF\nPhone: '+code+num+'\nPlease confirm my download access.');
     document.getElementById('dl-wa-link').href='https://wa.me/250788800375?text='+wa;
-    document.getElementById('dl-fail-txt').innerHTML='Pay to MTN MoMo: <strong style="color:#fff;">+250 788 800 375</strong><br>Amount: <strong style="color:#e8c547;">'+_DL_PRICE+' RWF</strong><br><br>Then tap WhatsApp to confirm.';
-    document.getElementById('dl-st-fail').style.display='block';
+    document.getElementById('dl-st-manual').style.display='block';
+    document.getElementById('dl-manual-phone').textContent=code+' '+num;
     return;
   }
   var depositId='dep_'+Date.now()+'_'+Math.random().toString(36).substr(2,5);
@@ -1319,7 +1328,7 @@ async function dlInitPay(){
     document.getElementById('dl-st-proc').style.display='none';
     var wa2=encodeURIComponent('PAYMENT\nUnit: '+document.title+'\nAmount: '+_DL_PRICE+' RWF\nPhone: '+code+num);
     document.getElementById('dl-wa-link').href='https://wa.me/250788800375?text='+wa2;
-    document.getElementById('dl-fail-txt').innerHTML='Auto-payment failed. Pay to <strong style="color:#fff;">+250 788 800 375</strong> ('+_DL_PRICE+' RWF) then WhatsApp.';
+    document.getElementById('dl-fail-txt').innerHTML='Payment could not be processed. Please try again or contact your teacher.';
     document.getElementById('dl-st-fail').style.display='block';
   }
 }
