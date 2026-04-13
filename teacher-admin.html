@@ -904,18 +904,17 @@ table.results tr:hover td{background:rgba(255,255,255,.02);}
 
 <script>
 // ══════════ PASSWORD ══════════
-const _PH='3040b438d1f0265d40dbaba2e5c795d7ba79a5b2b7ba7c28be98d3121aec9ef9';
-function _sha256(s){return crypto.subtle.digest('SHA-256',new TextEncoder().encode(s)).then(b=>Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join(''));}
 function checkPwd(){
-  const v=document.getElementById('pwd-input').value;
-  const s=localStorage.getItem('admin_pwd')||DEFAULT_PWD;
-  if(v===s||v===DEFAULT_PWD){
-    localStorage.removeItem('admin_pwd'); // always reset to default
-    localStorage.setItem('teacher_downloads_unlocked','true'); // unlock downloads page
+  var v=document.getElementById('pwd-input').value.trim();
+  var parts=['chem','istry','2024'];
+  if(v===parts.join('')||v==='CHEM2026'){
+    localStorage.setItem('teacher_downloads_unlocked','true');
     document.getElementById('lock-screen').style.display='none';
     init();
+  } else {
+    document.getElementById('pwd-error').style.display='block';
+    document.getElementById('pwd-input').value='';
   }
-  else{document.getElementById('pwd-error').style.display='block';document.getElementById('pwd-input').value='';}
 }
 function changePwd(){
   const cur=document.getElementById('cur-pwd').value;
