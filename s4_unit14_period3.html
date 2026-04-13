@@ -967,7 +967,7 @@ async function dlInitPay(){
     if(d.depositId||r.ok){
       _dlPollTimer=setInterval(async function(){
         try{
-          var pr=await fetch(workerUrl+'/status/'+depositId);
+          var pr=await fetch(workerUrl+'/deposit?id='+depositId);
           var pd=await pr.json();
           var st=((pd.status||(pd[0]&&pd[0].status))||'').toUpperCase();
           if(st==='COMPLETED'){clearInterval(_dlPollTimer);_dlPollTimer=null;markPaidAndDownload();}
