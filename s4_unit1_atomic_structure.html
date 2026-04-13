@@ -72,7 +72,7 @@
   .opt{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:all .18s;font-size:.92rem;}
   .opt:hover{border-color:var(--accent);}
   .opt input{margin-top:3px;accent-color:var(--accent);}
-  .opt.correct{background:rgba(52,211,153,.12);border-color:var(--green)!important;color:var(--green);}
+  .opt.correct{background:rgba(52,211,153,.12);border-color:#34d399!important;color:#34d399;}
   .opt.wrong{background:rgba(248,113,113,.1);border-color:var(--red)!important;color:var(--red);}
   .q-exp{display:none;margin-top:10px;padding:10px 14px;background:rgba(56,189,248,.07);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-size:.88rem;}
   .qs{background:var(--accent);color:#000;border:none;padding:12px 32px;border-radius:8px;font-size:1rem;font-family:'JetBrains Mono',monospace;cursor:pointer;font-weight:700;transition:opacity .2s;}
@@ -111,7 +111,7 @@
 .mq-qtext{font-size:.93rem;color:#fff;margin-bottom:9px;line-height:1.6;}
 .mq-opts label{display:flex;align-items:flex-start;gap:8px;padding:7px 11px;margin-bottom:5px;border-radius:7px;border:1px solid var(--border);cursor:pointer;font-size:.86rem;transition:all .15s;background:var(--bg);}
 .mq-opts label:hover{border-color:var(--accent);}
-.mq-opts label.correct{background:rgba(52,211,153,.1);border-color:var(--green)!important;color:var(--green);}
+.mq-opts label.correct{background:rgba(52,211,153,.1);border-color:#34d399!important;color:#34d399;}
 .mq-opts label.wrong{background:rgba(248,113,113,.07);border-color:var(--red)!important;color:var(--red);}
 .mq-opts input[type=radio]{margin-top:3px;accent-color:var(--accent);flex-shrink:0;}
 .mq-exp{display:none;margin-top:7px;padding:9px 13px;background:rgba(56,189,248,.06);border-left:3px solid var(--accent);border-radius:0 5px 5px 0;font-size:.83rem;line-height:1.6;color:var(--muted);}
@@ -348,82 +348,82 @@
     <div class="mq-qblock"><span class="mq-qnum">Q1 of 10</span>
       <p class="mq-qtext">Which particle has relative charge +1?</p>
       <div class="mq-opts">
-        <label><input type="radio" name="u1s1q1" value="A"> Electron</label>
-        <label><input type="radio" name="u1s1q1" value="B"> Proton</label>
-        <label><input type="radio" name="u1s1q1" value="C"> Neutron</label>
-        <label><input type="radio" name="u1s1q1" value="D"> Photon</label>
+        <label class="opt"><input type="radio" name="u1s1q1" value="A"> Electron</label>
+        <label class="opt"><input type="radio" name="u1s1q1" value="B"> Proton</label>
+        <label class="opt"><input type="radio" name="u1s1q1" value="C"> Neutron</label>
+        <label class="opt"><input type="radio" name="u1s1q1" value="D"> Photon</label>
       </div><div class="mq-exp" id="mqe-u1s1q1">Proton: charge +1, mass 1 u. Electron: charge −1. Neutron: charge 0. Protons are in the nucleus.</div></div>
     <div class="mq-qblock"><span class="mq-qnum">Q2 of 10</span>
       <p class="mq-qtext">Relative mass of an electron compared to a proton is:</p>
       <div class="mq-opts">
-        <label><input type="radio" name="u1s1q2" value="A"> Equal (1)</label>
-        <label><input type="radio" name="u1s1q2" value="B"> ≈1/1836 — negligible</label>
-        <label><input type="radio" name="u1s1q2" value="C"> 2 — twice the proton</label>
-        <label><input type="radio" name="u1s1q2" value="D"> 1/2 — half the proton</label>
+        <label class="opt"><input type="radio" name="u1s1q2" value="A"> Equal (1)</label>
+        <label class="opt"><input type="radio" name="u1s1q2" value="B"> ≈1/1836 — negligible</label>
+        <label class="opt"><input type="radio" name="u1s1q2" value="C"> 2 — twice the proton</label>
+        <label class="opt"><input type="radio" name="u1s1q2" value="D"> 1/2 — half the proton</label>
       </div><div class="mq-exp" id="mqe-u1s1q2">Electron mass ≈ 1/1836 of proton. Treated as 0 for mass number purposes. Only protons + neutrons count toward mass number.</div></div>
     <div class="mq-qblock"><span class="mq-qnum">Q3 of 10</span>
       <p class="mq-qtext">The nucleus of an atom contains:</p>
       <div class="mq-opts">
-        <label><input type="radio" name="u1s1q3" value="A"> Electrons and protons</label>
-        <label><input type="radio" name="u1s1q3" value="B"> Protons and neutrons</label>
-        <label><input type="radio" name="u1s1q3" value="C"> Neutrons and electrons</label>
-        <label><input type="radio" name="u1s1q3" value="D"> Only protons</label>
+        <label class="opt"><input type="radio" name="u1s1q3" value="A"> Electrons and protons</label>
+        <label class="opt"><input type="radio" name="u1s1q3" value="B"> Protons and neutrons</label>
+        <label class="opt"><input type="radio" name="u1s1q3" value="C"> Neutrons and electrons</label>
+        <label class="opt"><input type="radio" name="u1s1q3" value="D"> Only protons</label>
       </div><div class="mq-exp" id="mqe-u1s1q3">Nucleus: protons (positive) + neutrons (neutral). Electrons orbit outside. Nucleus is tiny but very dense.</div></div>
     <div class="mq-qblock"><span class="mq-qnum">Q4 of 10</span>
       <p class="mq-qtext">Who proposed the nuclear model from the gold foil experiment?</p>
       <div class="mq-opts">
-        <label><input type="radio" name="u1s1q4" value="A"> J.J. Thomson</label>
-        <label><input type="radio" name="u1s1q4" value="B"> Niels Bohr</label>
-        <label><input type="radio" name="u1s1q4" value="C"> Ernest Rutherford</label>
-        <label><input type="radio" name="u1s1q4" value="D"> John Dalton</label>
+        <label class="opt"><input type="radio" name="u1s1q4" value="A"> J.J. Thomson</label>
+        <label class="opt"><input type="radio" name="u1s1q4" value="B"> Niels Bohr</label>
+        <label class="opt"><input type="radio" name="u1s1q4" value="C"> Ernest Rutherford</label>
+        <label class="opt"><input type="radio" name="u1s1q4" value="D"> John Dalton</label>
       </div><div class="mq-exp" id="mqe-u1s1q4">Rutherford (1911): most alpha particles passed through gold foil, some deflected sharply → small dense positive nucleus. Thomson had proposed the 'plum pudding' model earlier.</div></div>
     <div class="mq-qblock"><span class="mq-qnum">Q5 of 10</span>
       <p class="mq-qtext">A neutron has relative charge of:</p>
       <div class="mq-opts">
-        <label><input type="radio" name="u1s1q5" value="A"> + 1</label>
-        <label><input type="radio" name="u1s1q5" value="B"> −1</label>
-        <label><input type="radio" name="u1s1q5" value="C"> 0</label>
-        <label><input type="radio" name="u1s1q5" value="D"> +½</label>
+        <label class="opt"><input type="radio" name="u1s1q5" value="A"> + 1</label>
+        <label class="opt"><input type="radio" name="u1s1q5" value="B"> −1</label>
+        <label class="opt"><input type="radio" name="u1s1q5" value="C"> 0</label>
+        <label class="opt"><input type="radio" name="u1s1q5" value="D"> +½</label>
       </div><div class="mq-exp" id="mqe-u1s1q5">Neutron: mass = 1 u, charge = 0. Neutral — no charge. Contributes to mass number but not atomic number.</div></div>
     <div class="mq-qblock"><span class="mq-qnum">Q6 of 10</span>
       <p class="mq-qtext">Mass number A equals:</p>
       <div class="mq-opts">
-        <label><input type="radio" name="u1s1q6" value="A"> Protons only</label>
-        <label><input type="radio" name="u1s1q6" value="B"> Neutrons only</label>
-        <label><input type="radio" name="u1s1q6" value="C"> Protons + neutrons</label>
-        <label><input type="radio" name="u1s1q6" value="D"> Electrons + protons</label>
+        <label class="opt"><input type="radio" name="u1s1q6" value="A"> Protons only</label>
+        <label class="opt"><input type="radio" name="u1s1q6" value="B"> Neutrons only</label>
+        <label class="opt"><input type="radio" name="u1s1q6" value="C"> Protons + neutrons</label>
+        <label class="opt"><input type="radio" name="u1s1q6" value="D"> Electrons + protons</label>
       </div><div class="mq-exp" id="mqe-u1s1q6">A = protons + neutrons (nucleons). Example: ²³Na: 11 protons + 12 neutrons = A 23. Electrons have negligible mass.</div></div>
     <div class="mq-qblock"><span class="mq-qnum">Q7 of 10</span>
       <p class="mq-qtext">In a neutral atom, electrons equal:</p>
       <div class="mq-opts">
-        <label><input type="radio" name="u1s1q7" value="A"> Mass number</label>
-        <label><input type="radio" name="u1s1q7" value="B"> Neutron number</label>
-        <label><input type="radio" name="u1s1q7" value="C"> Atomic number (protons)</label>
-        <label><input type="radio" name="u1s1q7" value="D"> Half mass number</label>
+        <label class="opt"><input type="radio" name="u1s1q7" value="A"> Mass number</label>
+        <label class="opt"><input type="radio" name="u1s1q7" value="B"> Neutron number</label>
+        <label class="opt"><input type="radio" name="u1s1q7" value="C"> Atomic number (protons)</label>
+        <label class="opt"><input type="radio" name="u1s1q7" value="D"> Half mass number</label>
       </div><div class="mq-exp" id="mqe-u1s1q7">Neutral: no net charge → electrons = protons. Ions have gained/lost electrons so e⁻ ≠ protons.</div></div>
     <div class="mq-qblock"><span class="mq-qnum">Q8 of 10</span>
       <p class="mq-qtext">J.J. Thomson's cathode rays were identified as:</p>
       <div class="mq-opts">
-        <label><input type="radio" name="u1s1q8" value="A"> Protons</label>
-        <label><input type="radio" name="u1s1q8" value="B"> Alpha particles</label>
-        <label><input type="radio" name="u1s1q8" value="C"> Electrons</label>
-        <label><input type="radio" name="u1s1q8" value="D"> Neutrons</label>
+        <label class="opt"><input type="radio" name="u1s1q8" value="A"> Protons</label>
+        <label class="opt"><input type="radio" name="u1s1q8" value="B"> Alpha particles</label>
+        <label class="opt"><input type="radio" name="u1s1q8" value="C"> Electrons</label>
+        <label class="opt"><input type="radio" name="u1s1q8" value="D"> Neutrons</label>
       </div><div class="mq-exp" id="mqe-u1s1q8">Thomson (1897): same charge/mass ratio regardless of cathode material → electrons are universal. Led to discovery of the electron.</div></div>
     <div class="mq-qblock"><span class="mq-qnum">Q9 of 10</span>
       <p class="mq-qtext">Atomic number determines:</p>
       <div class="mq-opts">
-        <label><input type="radio" name="u1s1q9" value="A"> Mass of atom</label>
-        <label><input type="radio" name="u1s1q9" value="B"> Chemical identity of element</label>
-        <label><input type="radio" name="u1s1q9" value="C"> Neutron number</label>
-        <label><input type="radio" name="u1s1q9" value="D"> Isotopic abundance</label>
+        <label class="opt"><input type="radio" name="u1s1q9" value="A"> Mass of atom</label>
+        <label class="opt"><input type="radio" name="u1s1q9" value="B"> Chemical identity of element</label>
+        <label class="opt"><input type="radio" name="u1s1q9" value="C"> Neutron number</label>
+        <label class="opt"><input type="radio" name="u1s1q9" value="D"> Isotopic abundance</label>
       </div><div class="mq-exp" id="mqe-u1s1q9">Z = protons = chemical identity. All atoms of the same element have the same Z. Changing Z changes the element.</div></div>
     <div class="mq-qblock"><span class="mq-qnum">Q10 of 10</span>
       <p class="mq-qtext">Chemical bonding involves primarily:</p>
       <div class="mq-opts">
-        <label><input type="radio" name="u1s1q10" value="A"> Neutrons</label>
-        <label><input type="radio" name="u1s1q10" value="B"> Protons</label>
-        <label><input type="radio" name="u1s1q10" value="C"> Valence electrons</label>
-        <label><input type="radio" name="u1s1q10" value="D"> All three equally</label>
+        <label class="opt"><input type="radio" name="u1s1q10" value="A"> Neutrons</label>
+        <label class="opt"><input type="radio" name="u1s1q10" value="B"> Protons</label>
+        <label class="opt"><input type="radio" name="u1s1q10" value="C"> Valence electrons</label>
+        <label class="opt"><input type="radio" name="u1s1q10" value="D"> All three equally</label>
       </div><div class="mq-exp" id="mqe-u1s1q10">Bonding = sharing (covalent) or transfer (ionic) of outer/valence electrons. Protons and neutrons are locked in the nucleus.</div></div>
     <button class="mq-submit" onclick="submitMQ('u1s1',{"u1s1q1":"B","u1s1q2":"B","u1s1q3":"B","u1s1q4":"C","u1s1q5":"C","u1s1q6":"C","u1s1q7":"C","u1s1q8":"C","u1s1q9":"B","u1s1q10":"C"})">✓ Check Answers</button>
     <div class="mq-result" id="mqr-u1s1"></div>
@@ -580,82 +580,82 @@
     <div class="mq-qblock"><span class="mq-qnum">Q1 of 10</span>
       <p class="mq-qtext">Isotopes are atoms of the same element with:</p>
       <div class="mq-opts">
-        <label><input type="radio" name="u1s2q1" value="A"> Different proton numbers</label>
-        <label><input type="radio" name="u1s2q1" value="B"> Same neutrons different protons</label>
-        <label><input type="radio" name="u1s2q1" value="C"> Same protons different neutrons</label>
-        <label><input type="radio" name="u1s2q1" value="D"> Different chemical properties</label>
+        <label class="opt"><input type="radio" name="u1s2q1" value="A"> Different proton numbers</label>
+        <label class="opt"><input type="radio" name="u1s2q1" value="B"> Same neutrons different protons</label>
+        <label class="opt"><input type="radio" name="u1s2q1" value="C"> Same protons different neutrons</label>
+        <label class="opt"><input type="radio" name="u1s2q1" value="D"> Different chemical properties</label>
       </div><div class="mq-exp" id="mqe-u1s2q1">Isotopes: same Z (same element) but different neutron number → different A. Example: ¹²C, ¹³C, ¹⁴C all have 6 protons.</div></div>
     <div class="mq-qblock"><span class="mq-qnum">Q2 of 10</span>
       <p class="mq-qtext">²³Na has how many neutrons? (Z=11)</p>
       <div class="mq-opts">
-        <label><input type="radio" name="u1s2q2" value="A"> 23</label>
-        <label><input type="radio" name="u1s2q2" value="B"> 11</label>
-        <label><input type="radio" name="u1s2q2" value="C"> 12</label>
-        <label><input type="radio" name="u1s2q2" value="D"> 34</label>
+        <label class="opt"><input type="radio" name="u1s2q2" value="A"> 23</label>
+        <label class="opt"><input type="radio" name="u1s2q2" value="B"> 11</label>
+        <label class="opt"><input type="radio" name="u1s2q2" value="C"> 12</label>
+        <label class="opt"><input type="radio" name="u1s2q2" value="D"> 34</label>
       </div><div class="mq-exp" id="mqe-u1s2q2">Neutrons = A − Z = 23 − 11 = 12.</div></div>
     <div class="mq-qblock"><span class="mq-qnum">Q3 of 10</span>
       <p class="mq-qtext">²³⁵U and ²³⁸U (Z=92) differ in:</p>
       <div class="mq-opts">
-        <label><input type="radio" name="u1s2q3" value="A"> Protons</label>
-        <label><input type="radio" name="u1s2q3" value="B"> Electrons</label>
-        <label><input type="radio" name="u1s2q3" value="C"> Neutrons</label>
-        <label><input type="radio" name="u1s2q3" value="D"> Chemical reactivity</label>
+        <label class="opt"><input type="radio" name="u1s2q3" value="A"> Protons</label>
+        <label class="opt"><input type="radio" name="u1s2q3" value="B"> Electrons</label>
+        <label class="opt"><input type="radio" name="u1s2q3" value="C"> Neutrons</label>
+        <label class="opt"><input type="radio" name="u1s2q3" value="D"> Chemical reactivity</label>
       </div><div class="mq-exp" id="mqe-u1s2q3">Both uranium: same Z=92. Neutrons: ²³⁵U → 143; ²³⁸U → 146. Same chemistry, different nuclear properties.</div></div>
     <div class="mq-qblock"><span class="mq-qnum">Q4 of 10</span>
       <p class="mq-qtext">Isotopes have the same:</p>
       <div class="mq-opts">
-        <label><input type="radio" name="u1s2q4" value="A"> Physical properties</label>
-        <label><input type="radio" name="u1s2q4" value="B"> Mass number</label>
-        <label><input type="radio" name="u1s2q4" value="C"> Number of valence electrons</label>
-        <label><input type="radio" name="u1s2q4" value="D"> Number of neutrons</label>
+        <label class="opt"><input type="radio" name="u1s2q4" value="A"> Physical properties</label>
+        <label class="opt"><input type="radio" name="u1s2q4" value="B"> Mass number</label>
+        <label class="opt"><input type="radio" name="u1s2q4" value="C"> Number of valence electrons</label>
+        <label class="opt"><input type="radio" name="u1s2q4" value="D"> Number of neutrons</label>
       </div><div class="mq-exp" id="mqe-u1s2q4">Same Z → same electron configuration → same valence electrons → same chemical properties. Different neutrons → different physical properties.</div></div>
     <div class="mq-qblock"><span class="mq-qnum">Q5 of 10</span>
       <p class="mq-qtext">³⁵Cl (Z=17) has how many neutrons?</p>
       <div class="mq-opts">
-        <label><input type="radio" name="u1s2q5" value="A"> 17</label>
-        <label><input type="radio" name="u1s2q5" value="B"> 35</label>
-        <label><input type="radio" name="u1s2q5" value="C"> 18</label>
-        <label><input type="radio" name="u1s2q5" value="D"> 52</label>
+        <label class="opt"><input type="radio" name="u1s2q5" value="A"> 17</label>
+        <label class="opt"><input type="radio" name="u1s2q5" value="B"> 35</label>
+        <label class="opt"><input type="radio" name="u1s2q5" value="C"> 18</label>
+        <label class="opt"><input type="radio" name="u1s2q5" value="D"> 52</label>
       </div><div class="mq-exp" id="mqe-u1s2q5">Neutrons = 35 − 17 = 18. The other common isotope ³⁷Cl has 37−17 = 20 neutrons.</div></div>
     <div class="mq-qblock"><span class="mq-qnum">Q6 of 10</span>
       <p class="mq-qtext">Mass number is always:</p>
       <div class="mq-opts">
-        <label><input type="radio" name="u1s2q6" value="A"> Equal to atomic number</label>
-        <label><input type="radio" name="u1s2q6" value="B"> A decimal</label>
-        <label><input type="radio" name="u1s2q6" value="C"> A whole integer</label>
-        <label><input type="radio" name="u1s2q6" value="D"> Greater than 200</label>
+        <label class="opt"><input type="radio" name="u1s2q6" value="A"> Equal to atomic number</label>
+        <label class="opt"><input type="radio" name="u1s2q6" value="B"> A decimal</label>
+        <label class="opt"><input type="radio" name="u1s2q6" value="C"> A whole integer</label>
+        <label class="opt"><input type="radio" name="u1s2q6" value="D"> Greater than 200</label>
       </div><div class="mq-exp" id="mqe-u1s2q6">A = protons + neutrons — both integers → A is always an integer. Relative atomic mass IS decimal (weighted average).</div></div>
     <div class="mq-qblock"><span class="mq-qnum">Q7 of 10</span>
       <p class="mq-qtext">Which property do isotopes NOT share?</p>
       <div class="mq-opts">
-        <label><input type="radio" name="u1s2q7" value="A"> Atomic number</label>
-        <label><input type="radio" name="u1s2q7" value="B"> Valence electrons</label>
-        <label><input type="radio" name="u1s2q7" value="C"> Neutron number</label>
-        <label><input type="radio" name="u1s2q7" value="D"> Electron configuration</label>
+        <label class="opt"><input type="radio" name="u1s2q7" value="A"> Atomic number</label>
+        <label class="opt"><input type="radio" name="u1s2q7" value="B"> Valence electrons</label>
+        <label class="opt"><input type="radio" name="u1s2q7" value="C"> Neutron number</label>
+        <label class="opt"><input type="radio" name="u1s2q7" value="D"> Electron configuration</label>
       </div><div class="mq-exp" id="mqe-u1s2q7">Isotopes differ in NEUTRON number. They share: protons, electrons, chemical properties, electron configuration.</div></div>
     <div class="mq-qblock"><span class="mq-qnum">Q8 of 10</span>
       <p class="mq-qtext">¹⁴C (Z=6) has how many neutrons?</p>
       <div class="mq-opts">
-        <label><input type="radio" name="u1s2q8" value="A"> 14</label>
-        <label><input type="radio" name="u1s2q8" value="B"> 6</label>
-        <label><input type="radio" name="u1s2q8" value="C"> 8</label>
-        <label><input type="radio" name="u1s2q8" value="D"> 7</label>
+        <label class="opt"><input type="radio" name="u1s2q8" value="A"> 14</label>
+        <label class="opt"><input type="radio" name="u1s2q8" value="B"> 6</label>
+        <label class="opt"><input type="radio" name="u1s2q8" value="C"> 8</label>
+        <label class="opt"><input type="radio" name="u1s2q8" value="D"> 7</label>
       </div><div class="mq-exp" id="mqe-u1s2q8">Neutrons = 14 − 6 = 8. ¹⁴C is radioactive — used in carbon dating. ¹²C (most common) has 6 neutrons.</div></div>
     <div class="mq-qblock"><span class="mq-qnum">Q9 of 10</span>
       <p class="mq-qtext">Mg²⁺ ion (Z=12) has how many electrons?</p>
       <div class="mq-opts">
-        <label><input type="radio" name="u1s2q9" value="A"> 12</label>
-        <label><input type="radio" name="u1s2q9" value="B"> 14</label>
-        <label><input type="radio" name="u1s2q9" value="C"> 10</label>
-        <label><input type="radio" name="u1s2q9" value="D"> 2</label>
+        <label class="opt"><input type="radio" name="u1s2q9" value="A"> 12</label>
+        <label class="opt"><input type="radio" name="u1s2q9" value="B"> 14</label>
+        <label class="opt"><input type="radio" name="u1s2q9" value="C"> 10</label>
+        <label class="opt"><input type="radio" name="u1s2q9" value="D"> 2</label>
       </div><div class="mq-exp" id="mqe-u1s2q9">Mg: 12 electrons. Mg²⁺: lost 2 → 10 electrons. Isoelectronic with Ne.</div></div>
     <div class="mq-qblock"><span class="mq-qnum">Q10 of 10</span>
       <p class="mq-qtext">Oxygen (Z=8) with 10 neutrons has mass number:</p>
       <div class="mq-opts">
-        <label><input type="radio" name="u1s2q10" value="A"> 16</label>
-        <label><input type="radio" name="u1s2q10" value="B"> 18</label>
-        <label><input type="radio" name="u1s2q10" value="C"> 10</label>
-        <label><input type="radio" name="u1s2q10" value="D"> 8</label>
+        <label class="opt"><input type="radio" name="u1s2q10" value="A"> 16</label>
+        <label class="opt"><input type="radio" name="u1s2q10" value="B"> 18</label>
+        <label class="opt"><input type="radio" name="u1s2q10" value="C"> 10</label>
+        <label class="opt"><input type="radio" name="u1s2q10" value="D"> 8</label>
       </div><div class="mq-exp" id="mqe-u1s2q10">A = Z + neutrons = 8 + 10 = 18. This is ¹⁸O — a stable heavy isotope of oxygen.</div></div>
     <button class="mq-submit" onclick="submitMQ('u1s2',{"u1s2q1":"C","u1s2q2":"C","u1s2q3":"C","u1s2q4":"C","u1s2q5":"C","u1s2q6":"C","u1s2q7":"C","u1s2q8":"C","u1s2q9":"C","u1s2q10":"B"})">✓ Check Answers</button>
     <div class="mq-result" id="mqr-u1s2"></div>
@@ -815,82 +815,82 @@
     <div class="mq-qblock"><span class="mq-qnum">Q1 of 10</span>
       <p class="mq-qtext">Relative atomic mass is measured relative to:</p>
       <div class="mq-opts">
-        <label><input type="radio" name="u1s3q1" value="A"> Mass of a proton</label>
-        <label><input type="radio" name="u1s3q1" value="B"> 1/12 mass of carbon-12</label>
-        <label><input type="radio" name="u1s3q1" value="C"> Mass of hydrogen</label>
-        <label><input type="radio" name="u1s3q1" value="D"> Mass of an electron</label>
+        <label class="opt"><input type="radio" name="u1s3q1" value="A"> Mass of a proton</label>
+        <label class="opt"><input type="radio" name="u1s3q1" value="B"> 1/12 mass of carbon-12</label>
+        <label class="opt"><input type="radio" name="u1s3q1" value="C"> Mass of hydrogen</label>
+        <label class="opt"><input type="radio" name="u1s3q1" value="D"> Mass of an electron</label>
       </div><div class="mq-exp" id="mqe-u1s3q1">1 u = 1/12 mass of ¹²C atom. This is the IUPAC standard. Carbon-12 chosen for precision in mass spectrometry.</div></div>
     <div class="mq-qblock"><span class="mq-qnum">Q2 of 10</span>
       <p class="mq-qtext">³⁵Cl (75%) and ³⁷Cl (25%). Ar of Cl =</p>
       <div class="mq-opts">
-        <label><input type="radio" name="u1s3q2" value="A"> 36</label>
-        <label><input type="radio" name="u1s3q2" value="B"> 35.5</label>
-        <label><input type="radio" name="u1s3q2" value="C"> 36.5</label>
-        <label><input type="radio" name="u1s3q2" value="D"> 37</label>
+        <label class="opt"><input type="radio" name="u1s3q2" value="A"> 36</label>
+        <label class="opt"><input type="radio" name="u1s3q2" value="B"> 35.5</label>
+        <label class="opt"><input type="radio" name="u1s3q2" value="C"> 36.5</label>
+        <label class="opt"><input type="radio" name="u1s3q2" value="D"> 37</label>
       </div><div class="mq-exp" id="mqe-u1s3q2">Ar = (35×75 + 37×25)/100 = (2625+925)/100 = 35.5. Weighted average — no atom actually has mass 35.5.</div></div>
     <div class="mq-qblock"><span class="mq-qnum">Q3 of 10</span>
       <p class="mq-qtext">Formula for Ar from isotopic data:</p>
       <div class="mq-opts">
-        <label><input type="radio" name="u1s3q3" value="A"> Sum of isotopic masses</label>
-        <label><input type="radio" name="u1s3q3" value="B"> Σ(mass × % abundance)/100</label>
-        <label><input type="radio" name="u1s3q3" value="C"> Average mass number</label>
-        <label><input type="radio" name="u1s3q3" value="D"> Mass of most abundant isotope</label>
+        <label class="opt"><input type="radio" name="u1s3q3" value="A"> Sum of isotopic masses</label>
+        <label class="opt"><input type="radio" name="u1s3q3" value="B"> Σ(mass × % abundance)/100</label>
+        <label class="opt"><input type="radio" name="u1s3q3" value="C"> Average mass number</label>
+        <label class="opt"><input type="radio" name="u1s3q3" value="D"> Mass of most abundant isotope</label>
       </div><div class="mq-exp" id="mqe-u1s3q3">Ar = Σ(isotopic mass × fractional abundance). Must weight by abundance — most abundant contributes most.</div></div>
     <div class="mq-qblock"><span class="mq-qnum">Q4 of 10</span>
       <p class="mq-qtext">¹⁰B (20%) and ¹¹B (80%). Ar of B =</p>
       <div class="mq-opts">
-        <label><input type="radio" name="u1s3q4" value="A"> 10.2</label>
-        <label><input type="radio" name="u1s3q4" value="B"> 10.8</label>
-        <label><input type="radio" name="u1s3q4" value="C"> 10.5</label>
-        <label><input type="radio" name="u1s3q4" value="D"> 11.0</label>
+        <label class="opt"><input type="radio" name="u1s3q4" value="A"> 10.2</label>
+        <label class="opt"><input type="radio" name="u1s3q4" value="B"> 10.8</label>
+        <label class="opt"><input type="radio" name="u1s3q4" value="C"> 10.5</label>
+        <label class="opt"><input type="radio" name="u1s3q4" value="D"> 11.0</label>
       </div><div class="mq-exp" id="mqe-u1s3q4">Ar = (10×20 + 11×80)/100 = (200+880)/100 = 10.8. Closer to 11 because ¹¹B dominates.</div></div>
     <div class="mq-qblock"><span class="mq-qnum">Q5 of 10</span>
       <p class="mq-qtext">Ar of chlorine is not a whole number because:</p>
       <div class="mq-opts">
-        <label><input type="radio" name="u1s3q5" value="A"> Protons have non-integer mass</label>
-        <label><input type="radio" name="u1s3q5" value="B"> Electrons have fractional mass</label>
-        <label><input type="radio" name="u1s3q5" value="C"> It is a weighted average of ³⁵Cl and ³⁷Cl</label>
-        <label><input type="radio" name="u1s3q5" value="D"> Measurement error</label>
+        <label class="opt"><input type="radio" name="u1s3q5" value="A"> Protons have non-integer mass</label>
+        <label class="opt"><input type="radio" name="u1s3q5" value="B"> Electrons have fractional mass</label>
+        <label class="opt"><input type="radio" name="u1s3q5" value="C"> It is a weighted average of ³⁵Cl and ³⁷Cl</label>
+        <label class="opt"><input type="radio" name="u1s3q5" value="D"> Measurement error</label>
       </div><div class="mq-exp" id="mqe-u1s3q5">Weighted average of 35 and 37 with abundances 75% and 25% → 35.5. Individual atoms are 35 or 37 (integers).</div></div>
     <div class="mq-qblock"><span class="mq-qnum">Q6 of 10</span>
       <p class="mq-qtext">Ne isotopes: ²⁰Ne (90.5%), ²¹Ne (0.3%), ²²Ne (9.2%). Which contributes MOST to Ar?</p>
       <div class="mq-opts">
-        <label><input type="radio" name="u1s3q6" value="A"> ²¹Ne</label>
-        <label><input type="radio" name="u1s3q6" value="B"> ²²Ne</label>
-        <label><input type="radio" name="u1s3q6" value="C"> ²⁰Ne</label>
-        <label><input type="radio" name="u1s3q6" value="D"> All equally</label>
+        <label class="opt"><input type="radio" name="u1s3q6" value="A"> ²¹Ne</label>
+        <label class="opt"><input type="radio" name="u1s3q6" value="B"> ²²Ne</label>
+        <label class="opt"><input type="radio" name="u1s3q6" value="C"> ²⁰Ne</label>
+        <label class="opt"><input type="radio" name="u1s3q6" value="D"> All equally</label>
       </div><div class="mq-exp" id="mqe-u1s3q6">²⁰Ne at 90.5% dominates. Ar(Ne) ≈ 20.18 — very close to 20.</div></div>
     <div class="mq-qblock"><span class="mq-qnum">Q7 of 10</span>
       <p class="mq-qtext">Ar = 24.3 corresponds to which element?</p>
       <div class="mq-opts">
-        <label><input type="radio" name="u1s3q7" value="A"> Carbon</label>
-        <label><input type="radio" name="u1s3q7" value="B"> Sodium</label>
-        <label><input type="radio" name="u1s3q7" value="C"> Magnesium</label>
-        <label><input type="radio" name="u1s3q7" value="D"> Aluminium</label>
+        <label class="opt"><input type="radio" name="u1s3q7" value="A"> Carbon</label>
+        <label class="opt"><input type="radio" name="u1s3q7" value="B"> Sodium</label>
+        <label class="opt"><input type="radio" name="u1s3q7" value="C"> Magnesium</label>
+        <label class="opt"><input type="radio" name="u1s3q7" value="D"> Aluminium</label>
       </div><div class="mq-exp" id="mqe-u1s3q7">Mg (Z=12) has Ar = 24.3. Isotopes: ²⁴Mg (78.6%), ²⁵Mg (10.1%), ²⁶Mg (11.3%).</div></div>
     <div class="mq-qblock"><span class="mq-qnum">Q8 of 10</span>
       <p class="mq-qtext">50% ⁶³X + 50% ⁶⁵X. Ar =</p>
       <div class="mq-opts">
-        <label><input type="radio" name="u1s3q8" value="A"> 63</label>
-        <label><input type="radio" name="u1s3q8" value="B"> 65</label>
-        <label><input type="radio" name="u1s3q8" value="C"> 64</label>
-        <label><input type="radio" name="u1s3q8" value="D"> 128</label>
+        <label class="opt"><input type="radio" name="u1s3q8" value="A"> 63</label>
+        <label class="opt"><input type="radio" name="u1s3q8" value="B"> 65</label>
+        <label class="opt"><input type="radio" name="u1s3q8" value="C"> 64</label>
+        <label class="opt"><input type="radio" name="u1s3q8" value="D"> 128</label>
       </div><div class="mq-exp" id="mqe-u1s3q8">Ar = (63×50 + 65×50)/100 = 64. This reflects copper-like composition.</div></div>
     <div class="mq-qblock"><span class="mq-qnum">Q9 of 10</span>
       <p class="mq-qtext">Ar has no units because:</p>
       <div class="mq-opts">
-        <label><input type="radio" name="u1s3q9" value="A"> It is very small</label>
-        <label><input type="radio" name="u1s3q9" value="B"> It is a ratio (mass/reference mass), units cancel</label>
-        <label><input type="radio" name="u1s3q9" value="C"> Scientists omitted units</label>
-        <label><input type="radio" name="u1s3q9" value="D"> It is always integer</label>
+        <label class="opt"><input type="radio" name="u1s3q9" value="A"> It is very small</label>
+        <label class="opt"><input type="radio" name="u1s3q9" value="B"> It is a ratio (mass/reference mass), units cancel</label>
+        <label class="opt"><input type="radio" name="u1s3q9" value="C"> Scientists omitted units</label>
+        <label class="opt"><input type="radio" name="u1s3q9" value="D"> It is always integer</label>
       </div><div class="mq-exp" id="mqe-u1s3q9">Ar = (atom mass)/(1/12 × mass ¹²C). Both masses in same units → ratio is dimensionless.</div></div>
     <div class="mq-qblock"><span class="mq-qnum">Q10 of 10</span>
       <p class="mq-qtext">Si has Ar = 28.1. Its most abundant isotope is:</p>
       <div class="mq-opts">
-        <label><input type="radio" name="u1s3q10" value="A"> ²⁶Si</label>
-        <label><input type="radio" name="u1s3q10" value="B"> ²⁸Si</label>
-        <label><input type="radio" name="u1s3q10" value="C"> ³⁰Si</label>
-        <label><input type="radio" name="u1s3q10" value="D"> ²⁹Si</label>
+        <label class="opt"><input type="radio" name="u1s3q10" value="A"> ²⁶Si</label>
+        <label class="opt"><input type="radio" name="u1s3q10" value="B"> ²⁸Si</label>
+        <label class="opt"><input type="radio" name="u1s3q10" value="C"> ³⁰Si</label>
+        <label class="opt"><input type="radio" name="u1s3q10" value="D"> ²⁹Si</label>
       </div><div class="mq-exp" id="mqe-u1s3q10">Ar close to 28 → ²⁸Si most abundant (92.2%). ²⁹Si (4.7%) and ³⁰Si (3.1%) pull Ar slightly above 28.</div></div>
     <button class="mq-submit" onclick="submitMQ('u1s3',{"u1s3q1":"B","u1s3q2":"B","u1s3q3":"B","u1s3q4":"B","u1s3q5":"C","u1s3q6":"C","u1s3q7":"C","u1s3q8":"C","u1s3q9":"B","u1s3q10":"B"})">✓ Check Answers</button>
     <div class="mq-result" id="mqr-u1s3"></div>
@@ -1064,82 +1064,82 @@
     <div class="mq-qblock"><span class="mq-qnum">Q1 of 10</span>
       <p class="mq-qtext">In a mass spectrometer, the sample is first:</p>
       <div class="mq-opts">
-        <label><input type="radio" name="u1s4q1" value="A"> Accelerated</label>
-        <label><input type="radio" name="u1s4q1" value="B"> Deflected</label>
-        <label><input type="radio" name="u1s4q1" value="C"> Vaporised and ionised</label>
-        <label><input type="radio" name="u1s4q1" value="D"> Detected</label>
+        <label class="opt"><input type="radio" name="u1s4q1" value="A"> Accelerated</label>
+        <label class="opt"><input type="radio" name="u1s4q1" value="B"> Deflected</label>
+        <label class="opt"><input type="radio" name="u1s4q1" value="C"> Vaporised and ionised</label>
+        <label class="opt"><input type="radio" name="u1s4q1" value="D"> Detected</label>
       </div><div class="mq-exp" id="mqe-u1s4q1">Step 1: vaporisation (gaseous sample). Step 2: ionisation — electron bombardment removes electrons → positive ions. Then acceleration, deflection, detection.</div></div>
     <div class="mq-qblock"><span class="mq-qnum">Q2 of 10</span>
       <p class="mq-qtext">Ions in a mass spectrometer are deflected by:</p>
       <div class="mq-opts">
-        <label><input type="radio" name="u1s4q2" value="A"> Electric field only</label>
-        <label><input type="radio" name="u1s4q2" value="B"> Magnetic field (heavier ions deflected less)</label>
-        <label><input type="radio" name="u1s4q2" value="C"> Gravity</label>
-        <label><input type="radio" name="u1s4q2" value="D"> Pressure difference</label>
+        <label class="opt"><input type="radio" name="u1s4q2" value="A"> Electric field only</label>
+        <label class="opt"><input type="radio" name="u1s4q2" value="B"> Magnetic field (heavier ions deflected less)</label>
+        <label class="opt"><input type="radio" name="u1s4q2" value="C"> Gravity</label>
+        <label class="opt"><input type="radio" name="u1s4q2" value="D"> Pressure difference</label>
       </div><div class="mq-exp" id="mqe-u1s4q2">Magnetic field deflects moving charged particles. Heavier ions (greater m/z) are deflected less than lighter ions at the same charge. This separates ions by mass.</div></div>
     <div class="mq-qblock"><span class="mq-qnum">Q3 of 10</span>
       <p class="mq-qtext">The y-axis of a mass spectrum shows:</p>
       <div class="mq-opts">
-        <label><input type="radio" name="u1s4q3" value="A"> Mass number</label>
-        <label><input type="radio" name="u1s4q3" value="B"> Charge</label>
-        <label><input type="radio" name="u1s4q3" value="C"> Relative abundance (intensity)</label>
-        <label><input type="radio" name="u1s4q3" value="D"> Atomic number</label>
+        <label class="opt"><input type="radio" name="u1s4q3" value="A"> Mass number</label>
+        <label class="opt"><input type="radio" name="u1s4q3" value="B"> Charge</label>
+        <label class="opt"><input type="radio" name="u1s4q3" value="C"> Relative abundance (intensity)</label>
+        <label class="opt"><input type="radio" name="u1s4q3" value="D"> Atomic number</label>
       </div><div class="mq-exp" id="mqe-u1s4q3">y-axis = relative abundance (how many ions of that m/z reach the detector). x-axis = m/z ratio. Tallest peak = base peak (most abundant fragment or isotope).</div></div>
     <div class="mq-qblock"><span class="mq-qnum">Q4 of 10</span>
       <p class="mq-qtext">Ions are accelerated in the mass spectrometer by:</p>
       <div class="mq-opts">
-        <label><input type="radio" name="u1s4q4" value="A"> Magnetic field</label>
-        <label><input type="radio" name="u1s4q4" value="B"> Gravity</label>
-        <label><input type="radio" name="u1s4q4" value="C"> Electric field (high voltage)</label>
-        <label><input type="radio" name="u1s4q4" value="D"> Heat</label>
+        <label class="opt"><input type="radio" name="u1s4q4" value="A"> Magnetic field</label>
+        <label class="opt"><input type="radio" name="u1s4q4" value="B"> Gravity</label>
+        <label class="opt"><input type="radio" name="u1s4q4" value="C"> Electric field (high voltage)</label>
+        <label class="opt"><input type="radio" name="u1s4q4" value="D"> Heat</label>
       </div><div class="mq-exp" id="mqe-u1s4q4">High voltage electric field accelerates positive ions from ionisation chamber toward the analyser. All ions of same charge gain same kinetic energy: KE = qV = ½mv².</div></div>
     <div class="mq-qblock"><span class="mq-qnum">Q5 of 10</span>
       <p class="mq-qtext">The detector in a mass spectrometer measures:</p>
       <div class="mq-opts">
-        <label><input type="radio" name="u1s4q5" value="A"> Temperature of ions</label>
-        <label><input type="radio" name="u1s4q5" value="B"> Number of ions hitting detector (ion current)</label>
-        <label><input type="radio" name="u1s4q5" value="C"> Speed of ions</label>
-        <label><input type="radio" name="u1s4q5" value="D"> Charge of ions only</label>
+        <label class="opt"><input type="radio" name="u1s4q5" value="A"> Temperature of ions</label>
+        <label class="opt"><input type="radio" name="u1s4q5" value="B"> Number of ions hitting detector (ion current)</label>
+        <label class="opt"><input type="radio" name="u1s4q5" value="C"> Speed of ions</label>
+        <label class="opt"><input type="radio" name="u1s4q5" value="D"> Charge of ions only</label>
       </div><div class="mq-exp" id="mqe-u1s4q5">Detector collects ions and measures the current — more ions → larger current → higher peak on spectrum.</div></div>
     <div class="mq-qblock"><span class="mq-qnum">Q6 of 10</span>
       <p class="mq-qtext">m/z ratio in mass spectrometry stands for:</p>
       <div class="mq-opts">
-        <label><input type="radio" name="u1s4q6" value="A"> Mass × charge</label>
-        <label><input type="radio" name="u1s4q6" value="B"> Mass divided by charge number</label>
-        <label><input type="radio" name="u1s4q6" value="C"> Molecules per zone</label>
-        <label><input type="radio" name="u1s4q6" value="D"> Molar mass / zero point</label>
+        <label class="opt"><input type="radio" name="u1s4q6" value="A"> Mass × charge</label>
+        <label class="opt"><input type="radio" name="u1s4q6" value="B"> Mass divided by charge number</label>
+        <label class="opt"><input type="radio" name="u1s4q6" value="C"> Molecules per zone</label>
+        <label class="opt"><input type="radio" name="u1s4q6" value="D"> Molar mass / zero point</label>
       </div><div class="mq-exp" id="mqe-u1s4q6">m/z = mass of ion / charge number. For singly charged ions (z=1), m/z = mass number. Doubly charged ions have m/z = mass/2.</div></div>
     <div class="mq-qblock"><span class="mq-qnum">Q7 of 10</span>
       <p class="mq-qtext">In the mass spectrometer, why must a high vacuum be maintained?</p>
       <div class="mq-opts">
-        <label><input type="radio" name="u1s4q7" value="A"> To cool the sample</label>
-        <label><input type="radio" name="u1s4q7" value="B"> To prevent ions colliding with air molecules which would scatter them</label>
-        <label><input type="radio" name="u1s4q7" value="C"> To increase ionisation</label>
-        <label><input type="radio" name="u1s4q7" value="D"> To reduce cost</label>
+        <label class="opt"><input type="radio" name="u1s4q7" value="A"> To cool the sample</label>
+        <label class="opt"><input type="radio" name="u1s4q7" value="B"> To prevent ions colliding with air molecules which would scatter them</label>
+        <label class="opt"><input type="radio" name="u1s4q7" value="C"> To increase ionisation</label>
+        <label class="opt"><input type="radio" name="u1s4q7" value="D"> To reduce cost</label>
       </div><div class="mq-exp" id="mqe-u1s4q7">High vacuum: removes air molecules so ions travel in straight paths from ionisation to detector without collisions.</div></div>
     <div class="mq-qblock"><span class="mq-qnum">Q8 of 10</span>
       <p class="mq-qtext">Ionisation in a mass spectrometer removes:</p>
       <div class="mq-opts">
-        <label><input type="radio" name="u1s4q8" value="A"> Protons from nucleus</label>
-        <label><input type="radio" name="u1s4q8" value="B"> Neutrons from nucleus</label>
-        <label><input type="radio" name="u1s4q8" value="C"> Electrons from atoms/molecules → positive ions</label>
-        <label><input type="radio" name="u1s4q8" value="D"> Negative charge from nucleus</label>
+        <label class="opt"><input type="radio" name="u1s4q8" value="A"> Protons from nucleus</label>
+        <label class="opt"><input type="radio" name="u1s4q8" value="B"> Neutrons from nucleus</label>
+        <label class="opt"><input type="radio" name="u1s4q8" value="C"> Electrons from atoms/molecules → positive ions</label>
+        <label class="opt"><input type="radio" name="u1s4q8" value="D"> Negative charge from nucleus</label>
       </div><div class="mq-exp" id="mqe-u1s4q8">Electron bombardment: high-energy electrons knock electrons out of atoms/molecules → M⁺ ions (for atomic samples) or molecular ions/fragments.</div></div>
     <div class="mq-qblock"><span class="mq-qnum">Q9 of 10</span>
       <p class="mq-qtext">Which ion reaches the detector last (takes longest to deflect)?</p>
       <div class="mq-opts">
-        <label><input type="radio" name="u1s4q9" value="A"> Lightest ion</label>
-        <label><input type="radio" name="u1s4q9" value="B"> Most charged ion</label>
-        <label><input type="radio" name="u1s4q9" value="C"> Heaviest ion (highest m/z)</label>
-        <label><input type="radio" name="u1s4q9" value="D"> Most abundant ion</label>
+        <label class="opt"><input type="radio" name="u1s4q9" value="A"> Lightest ion</label>
+        <label class="opt"><input type="radio" name="u1s4q9" value="B"> Most charged ion</label>
+        <label class="opt"><input type="radio" name="u1s4q9" value="C"> Heaviest ion (highest m/z)</label>
+        <label class="opt"><input type="radio" name="u1s4q9" value="D"> Most abundant ion</label>
       </div><div class="mq-exp" id="mqe-u1s4q9">Heavier ions (higher m/z) are deflected less by the magnetic field → require stronger field to reach detector. Heaviest ions are detected last as magnetic field is swept.</div></div>
     <div class="mq-qblock"><span class="mq-qnum">Q10 of 10</span>
       <p class="mq-qtext">The mass spectrum of chlorine shows two molecular ion peaks at m/z 70, 72, 74. This is because:</p>
       <div class="mq-opts">
-        <label><input type="radio" name="u1s4q10" value="A"> Cl has three isotopes</label>
-        <label><input type="radio" name="u1s4q10" value="B"> Cl₂ molecule can have two Cl atoms each being ³⁵Cl or ³⁷Cl in combinations</label>
-        <label><input type="radio" name="u1s4q10" value="C"> The instrument is faulty</label>
-        <label><input type="radio" name="u1s4q10" value="D"> Cl₂ fragments differently</label>
+        <label class="opt"><input type="radio" name="u1s4q10" value="A"> Cl has three isotopes</label>
+        <label class="opt"><input type="radio" name="u1s4q10" value="B"> Cl₂ molecule can have two Cl atoms each being ³⁵Cl or ³⁷Cl in combinations</label>
+        <label class="opt"><input type="radio" name="u1s4q10" value="C"> The instrument is faulty</label>
+        <label class="opt"><input type="radio" name="u1s4q10" value="D"> Cl₂ fragments differently</label>
       </div><div class="mq-exp" id="mqe-u1s4q10">Cl₂ molecular ions: ³⁵Cl³⁵Cl (m/z 70), ³⁵Cl³⁷Cl (m/z 72), ³⁷Cl³⁷Cl (m/z 74). Ratio of peak heights reflects isotope abundances.</div></div>
     <button class="mq-submit" onclick="submitMQ('u1s4',{"u1s4q1":"C","u1s4q2":"B","u1s4q3":"C","u1s4q4":"C","u1s4q5":"B","u1s4q6":"B","u1s4q7":"B","u1s4q8":"C","u1s4q9":"C","u1s4q10":"B"})">✓ Check Answers</button>
     <div class="mq-result" id="mqr-u1s4"></div>
@@ -1457,82 +1457,82 @@
     <div class="mq-qblock"><span class="mq-qnum">Q1 of 10</span>
       <p class="mq-qtext">The base peak in a mass spectrum is:</p>
       <div class="mq-opts">
-        <label><input type="radio" name="u1s5q1" value="A"> The highest energy peak</label>
-        <label><input type="radio" name="u1s5q1" value="B"> The peak at the highest m/z</label>
-        <label><input type="radio" name="u1s5q1" value="C"> The most intense (tallest) peak, set to 100% relative abundance</label>
-        <label><input type="radio" name="u1s5q1" value="D"> The molecular ion peak</label>
+        <label class="opt"><input type="radio" name="u1s5q1" value="A"> The highest energy peak</label>
+        <label class="opt"><input type="radio" name="u1s5q1" value="B"> The peak at the highest m/z</label>
+        <label class="opt"><input type="radio" name="u1s5q1" value="C"> The most intense (tallest) peak, set to 100% relative abundance</label>
+        <label class="opt"><input type="radio" name="u1s5q1" value="D"> The molecular ion peak</label>
       </div><div class="mq-exp" id="mqe-u1s5q1">Base peak: most intense peak, assigned 100% relative abundance. All other peaks expressed relative to it. Often (but not always) the most abundant isotope or most stable fragment.</div></div>
     <div class="mq-qblock"><span class="mq-qnum">Q2 of 10</span>
       <p class="mq-qtext">The molecular ion peak (M⁺) appears at:</p>
       <div class="mq-opts">
-        <label><input type="radio" name="u1s5q2" value="A"> m/z = 1</label>
-        <label><input type="radio" name="u1s5q2" value="B"> The lowest m/z value</label>
-        <label><input type="radio" name="u1s5q2" value="C"> m/z equal to the molecular mass</label>
-        <label><input type="radio" name="u1s5q2" value="D"> The highest relative abundance</label>
+        <label class="opt"><input type="radio" name="u1s5q2" value="A"> m/z = 1</label>
+        <label class="opt"><input type="radio" name="u1s5q2" value="B"> The lowest m/z value</label>
+        <label class="opt"><input type="radio" name="u1s5q2" value="C"> m/z equal to the molecular mass</label>
+        <label class="opt"><input type="radio" name="u1s5q2" value="D"> The highest relative abundance</label>
       </div><div class="mq-exp" id="mqe-u1s5q2">M⁺ peak: the unfragmented ionised molecule. m/z = molecular mass (for z=1). Used to determine molecular mass. Often the rightmost peak before m/z = 0.</div></div>
     <div class="mq-qblock"><span class="mq-qnum">Q3 of 10</span>
       <p class="mq-qtext">In the mass spectrum of Zr (zirconium), 5 peaks are seen. This means:</p>
       <div class="mq-opts">
-        <label><input type="radio" name="u1s5q3" value="A"> Zr has 5 electrons</label>
-        <label><input type="radio" name="u1s5q3" value="B"> Zr has 5 isotopes</label>
-        <label><input type="radio" name="u1s5q3" value="C"> Zr has 5 protons</label>
-        <label><input type="radio" name="u1s5q3" value="D"> Zr weighs 5 u</label>
+        <label class="opt"><input type="radio" name="u1s5q3" value="A"> Zr has 5 electrons</label>
+        <label class="opt"><input type="radio" name="u1s5q3" value="B"> Zr has 5 isotopes</label>
+        <label class="opt"><input type="radio" name="u1s5q3" value="C"> Zr has 5 protons</label>
+        <label class="opt"><input type="radio" name="u1s5q3" value="D"> Zr weighs 5 u</label>
       </div><div class="mq-exp" id="mqe-u1s5q3">Number of peaks in elemental mass spectrum = number of stable isotopes. Zr has 5 stable isotopes: ⁹⁰Zr, ⁹¹Zr, ⁹²Zr, ⁹⁴Zr, ⁹⁶Zr.</div></div>
     <div class="mq-qblock"><span class="mq-qnum">Q4 of 10</span>
       <p class="mq-qtext">Using isotope peaks to calculate Ar: peaks at m/z 24 (79%), 25 (10%), 26 (11%). Ar ≈</p>
       <div class="mq-opts">
-        <label><input type="radio" name="u1s5q4" value="A"> 24</label>
-        <label><input type="radio" name="u1s5q4" value="B"> 24.3</label>
-        <label><input type="radio" name="u1s5q4" value="C"> 25</label>
-        <label><input type="radio" name="u1s5q4" value="D"> 26</label>
+        <label class="opt"><input type="radio" name="u1s5q4" value="A"> 24</label>
+        <label class="opt"><input type="radio" name="u1s5q4" value="B"> 24.3</label>
+        <label class="opt"><input type="radio" name="u1s5q4" value="C"> 25</label>
+        <label class="opt"><input type="radio" name="u1s5q4" value="D"> 26</label>
       </div><div class="mq-exp" id="mqe-u1s5q4">Ar = (24×79 + 25×10 + 26×11)/100 = (1896+250+286)/100 = 2432/100 = 24.32 ≈ 24.3. This is magnesium.</div></div>
     <div class="mq-qblock"><span class="mq-qnum">Q5 of 10</span>
       <p class="mq-qtext">A mass spectrum shows peaks at m/z 79 and 81 in ratio 1:1. The element is most likely:</p>
       <div class="mq-opts">
-        <label><input type="radio" name="u1s5q5" value="A"> Bromine (Br)</label>
-        <label><input type="radio" name="u1s5q5" value="B"> Iodine (I)</label>
-        <label><input type="radio" name="u1s5q5" value="C"> Fluorine (F)</label>
-        <label><input type="radio" name="u1s5q5" value="D"> Chlorine (Cl)</label>
+        <label class="opt"><input type="radio" name="u1s5q5" value="A"> Bromine (Br)</label>
+        <label class="opt"><input type="radio" name="u1s5q5" value="B"> Iodine (I)</label>
+        <label class="opt"><input type="radio" name="u1s5q5" value="C"> Fluorine (F)</label>
+        <label class="opt"><input type="radio" name="u1s5q5" value="D"> Chlorine (Cl)</label>
       </div><div class="mq-exp" id="mqe-u1s5q5">Br has two isotopes ⁷⁹Br and ⁸¹Br in approximately 50:50 ratio. Cl isotopes at 35 and 37, ratio 3:1. Iodine is essentially monoisotopic at 127.</div></div>
     <div class="mq-qblock"><span class="mq-qnum">Q6 of 10</span>
       <p class="mq-qtext">Fragment ions in a mass spectrum are formed by:</p>
       <div class="mq-opts">
-        <label><input type="radio" name="u1s5q6" value="A"> Gaining neutrons</label>
-        <label><input type="radio" name="u1s5q6" value="B"> Losing neutrons</label>
-        <label><input type="radio" name="u1s5q6" value="C"> Bonds breaking in the molecular ion giving smaller fragments</label>
-        <label><input type="radio" name="u1s5q6" value="D"> Gaining electrons</label>
+        <label class="opt"><input type="radio" name="u1s5q6" value="A"> Gaining neutrons</label>
+        <label class="opt"><input type="radio" name="u1s5q6" value="B"> Losing neutrons</label>
+        <label class="opt"><input type="radio" name="u1s5q6" value="C"> Bonds breaking in the molecular ion giving smaller fragments</label>
+        <label class="opt"><input type="radio" name="u1s5q6" value="D"> Gaining electrons</label>
       </div><div class="mq-exp" id="mqe-u1s5q6">After ionisation, molecular ions (M⁺) may fragment: bonds break → smaller ions detected at lower m/z values. Pattern of fragments gives structural information.</div></div>
     <div class="mq-qblock"><span class="mq-qnum">Q7 of 10</span>
       <p class="mq-qtext">The M+1 peak in organic spectra is mainly due to:</p>
       <div class="mq-opts">
-        <label><input type="radio" name="u1s5q7" value="A"> ³⁵Cl in the molecule</label>
-        <label><input type="radio" name="u1s5q7" value="B"> ¹³C (natural abundance 1.1%) in place of ¹²C</label>
-        <label><input type="radio" name="u1s5q7" value="C"> Instrument noise</label>
-        <label><input type="radio" name="u1s5q7" value="D"> Oxygen-17 content</label>
+        <label class="opt"><input type="radio" name="u1s5q7" value="A"> ³⁵Cl in the molecule</label>
+        <label class="opt"><input type="radio" name="u1s5q7" value="B"> ¹³C (natural abundance 1.1%) in place of ¹²C</label>
+        <label class="opt"><input type="radio" name="u1s5q7" value="C"> Instrument noise</label>
+        <label class="opt"><input type="radio" name="u1s5q7" value="D"> Oxygen-17 content</label>
       </div><div class="mq-exp" id="mqe-u1s5q7">¹³C has 1.1% natural abundance. Each carbon in the molecule gives ~1.1% chance of M+1 peak. M+1/M × 100 ≈ number of carbons × 1.1. Used to count carbon atoms.</div></div>
     <div class="mq-qblock"><span class="mq-qnum">Q8 of 10</span>
       <p class="mq-qtext">In a mass spectrum, why does the peak intensity at m/z 35 exceed that at m/z 37 for chlorine?</p>
       <div class="mq-opts">
-        <label><input type="radio" name="u1s5q8" value="A"> ³⁵Cl has more protons</label>
-        <label><input type="radio" name="u1s5q8" value="B"> ³⁵Cl is more abundant (75%) than ³⁷Cl (25%)</label>
-        <label><input type="radio" name="u1s5q8" value="C"> ³⁵Cl is lighter so detected first</label>
-        <label><input type="radio" name="u1s5q8" value="D"> ³⁷Cl is radioactive</label>
+        <label class="opt"><input type="radio" name="u1s5q8" value="A"> ³⁵Cl has more protons</label>
+        <label class="opt"><input type="radio" name="u1s5q8" value="B"> ³⁵Cl is more abundant (75%) than ³⁷Cl (25%)</label>
+        <label class="opt"><input type="radio" name="u1s5q8" value="C"> ³⁵Cl is lighter so detected first</label>
+        <label class="opt"><input type="radio" name="u1s5q8" value="D"> ³⁷Cl is radioactive</label>
       </div><div class="mq-exp" id="mqe-u1s5q8">Abundance: ³⁵Cl 75%, ³⁷Cl 25%. Ratio of peaks = ratio of abundances = 3:1. More ³⁵Cl ions reach detector → higher peak.</div></div>
     <div class="mq-qblock"><span class="mq-qnum">Q9 of 10</span>
       <p class="mq-qtext">A compound gives M⁺ at m/z 78 and a base peak at m/z 77. The loss of 1 unit suggests loss of:</p>
       <div class="mq-opts">
-        <label><input type="radio" name="u1s5q9" value="A"> CH₃ (mass 15)</label>
-        <label><input type="radio" name="u1s5q9" value="B"> H (mass 1)</label>
-        <label><input type="radio" name="u1s5q9" value="C"> Cl (mass 35)</label>
-        <label><input type="radio" name="u1s5q9" value="D"> O (mass 16)</label>
+        <label class="opt"><input type="radio" name="u1s5q9" value="A"> CH₃ (mass 15)</label>
+        <label class="opt"><input type="radio" name="u1s5q9" value="B"> H (mass 1)</label>
+        <label class="opt"><input type="radio" name="u1s5q9" value="C"> Cl (mass 35)</label>
+        <label class="opt"><input type="radio" name="u1s5q9" value="D"> O (mass 16)</label>
       </div><div class="mq-exp" id="mqe-u1s5q9">Loss of 1 mass unit = loss of one hydrogen atom (H, mass = 1). Very common fragmentation pattern in aromatic compounds (e.g. benzene C₆H₆: M⁺ = 78, [C₆H₅]⁺ = 77).</div></div>
     <div class="mq-qblock"><span class="mq-qnum">Q10 of 10</span>
       <p class="mq-qtext">To identify an unknown element from its mass spectrum, you would:</p>
       <div class="mq-opts">
-        <label><input type="radio" name="u1s5q10" value="A"> Count electrons</label>
-        <label><input type="radio" name="u1s5q10" value="B"> Identify the number of peaks (= isotopes) and calculate Ar from peak positions and heights</label>
-        <label><input type="radio" name="u1s5q10" value="C"> Measure temperature</label>
-        <label><input type="radio" name="u1s5q10" value="D"> Note the colour of the spectrum</label>
+        <label class="opt"><input type="radio" name="u1s5q10" value="A"> Count electrons</label>
+        <label class="opt"><input type="radio" name="u1s5q10" value="B"> Identify the number of peaks (= isotopes) and calculate Ar from peak positions and heights</label>
+        <label class="opt"><input type="radio" name="u1s5q10" value="C"> Measure temperature</label>
+        <label class="opt"><input type="radio" name="u1s5q10" value="D"> Note the colour of the spectrum</label>
       </div><div class="mq-exp" id="mqe-u1s5q10">From mass spectrum: positions of peaks → isotopic masses; heights → relative abundances → calculate Ar = Σ(mass × abundance)/100. Compare Ar to periodic table to identify element.</div></div>
     <button class="mq-submit" onclick="submitMQ('u1s5',{"u1s5q1":"C","u1s5q2":"C","u1s5q3":"B","u1s5q4":"B","u1s5q5":"A","u1s5q6":"C","u1s5q7":"B","u1s5q8":"B","u1s5q9":"B","u1s5q10":"B"})">✓ Check Answers</button>
     <div class="mq-result" id="mqr-u1s5"></div>
@@ -1855,6 +1855,195 @@ function submitQuiz(){
   document.querySelector('.qs').disabled=true;
   document.querySelector('.qs').style.opacity='.5';
 }
+</script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<style>
+#pdf-dl-bar{position:fixed;bottom:24px;right:24px;z-index:9000;}
+#pdf-dl-btn{background:#34d399;color:#000;border:none;padding:12px 22px;border-radius:9px;font-family:'JetBrains Mono',monospace;font-size:.84rem;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(52,211,153,.4);display:flex;align-items:center;gap:8px;}
+#pdf-dl-btn:hover{opacity:.88;}
+#pdf-dl-btn .spin{display:none;width:14px;height:14px;border:2px solid #000;border-top-color:transparent;border-radius:50%;animation:dlsp .7s linear infinite;}
+@keyframes dlsp{to{transform:rotate(360deg)}}
+#dl-pay-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:99990;align-items:center;justify-content:center;padding:16px;}
+#dl-pay-overlay.open{display:flex;}
+#dl-pay-box{background:#161b22;border:1px solid #30363d;border-radius:14px;width:100%;max-width:400px;max-height:92vh;overflow-y:auto;}
+#dl-pay-box .ph{padding:18px 20px 12px;border-bottom:1px solid #30363d;}
+#dl-pay-box .ph h2{font-family:'Playfair Display',serif;color:#fff;font-size:1.1rem;}
+#dl-pay-box .ph p{color:#8b949e;font-size:.78rem;margin-top:2px;}
+#dl-pay-box .pb{padding:16px 20px;}
+#dl-pay-box .pf{padding:12px 20px;border-top:1px solid #30363d;display:flex;gap:8px;}
+.amt-bb{background:rgba(232,197,71,.07);border:1px solid rgba(232,197,71,.2);border-radius:9px;padding:12px;text-align:center;margin-bottom:14px;}
+.amt-bb .al{font-family:'JetBrains Mono',monospace;font-size:.62rem;color:#8b949e;text-transform:uppercase;letter-spacing:.1em;margin-bottom:2px;}
+.amt-bb .av{font-family:'JetBrains Mono',monospace;font-size:1.7rem;color:#e8c547;font-weight:700;}
+.ph-rowb{display:flex;gap:7px;margin-bottom:6px;}
+.cc-selb{background:#1c2333;border:1px solid #30363d;border-radius:6px;color:#fff;padding:8px 6px;font-family:'JetBrains Mono',monospace;font-size:.78rem;width:110px;}
+.ph-inpb{flex:1;background:#1c2333;border:1px solid #30363d;border-radius:6px;color:#fff;padding:8px 11px;font-family:'JetBrains Mono',monospace;font-size:.86rem;}
+.ph-inpb:focus,.cc-selb:focus{outline:none;border-color:#e8c547;}
+.net-rb{display:flex;gap:6px;margin-bottom:12px;}
+.nbb{flex:1;background:#1c2333;border:1px solid #30363d;border-radius:6px;color:#8b949e;font-family:'JetBrains Mono',monospace;font-size:.68rem;padding:7px;cursor:pointer;text-align:center;}
+.nbb.sel{background:rgba(52,211,153,.1);border-color:#34d399;color:#34d399;}
+.pay-gob{flex:1;background:#e8c547;color:#000;border:none;padding:11px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:.84rem;font-weight:700;cursor:pointer;}
+.pay-gob:disabled{opacity:.5;cursor:not-allowed;}
+.cancel-bb{background:#1c2333;color:#8b949e;border:1px solid #30363d;padding:10px 14px;border-radius:7px;cursor:pointer;font-size:.82rem;}
+.pay-stb{display:none;text-align:center;padding:20px;}
+.dl-spinnerb{width:34px;height:34px;border:3px solid #30363d;border-top-color:#e8c547;border-radius:50%;animation:dlsp .8s linear infinite;margin:0 auto 12px;}
+</style>
+
+<div id="pdf-dl-bar">
+  <button id="pdf-dl-btn" onclick="checkPayAndDownload()">
+    <span class="spin" id="pdf-spin"></span>
+    <span id="pdf-btn-text">&#11015; Download PDF</span>
+  </button>
+</div>
+
+<div id="dl-pay-overlay">
+  <div id="dl-pay-box">
+    <div class="ph"><h2>&#128179; Pay to Download</h2><p>Unit notes &mdash; instant PDF download</p></div>
+    <div id="dl-pform">
+      <div class="pb">
+        <div class="amt-bb"><div class="al">Price</div><div class="av">300 RWF</div><div style="font-size:.72rem;color:#8b949e;margin-top:2px;">One-time &middot; Download immediately after payment</div></div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.67rem;color:#8b949e;text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px;">Phone Number</div>
+        <div class="ph-rowb">
+          <select class="cc-selb" id="dl-ccode" onchange="dlUpdateHint()">
+            <option value="+250" data-net="MTN / Airtel">&#127479;&#127484; +250</option>
+            <option value="+256" data-net="MTN / Airtel">&#127482;&#127468; +256</option>
+            <option value="+255" data-net="Vodacom / Tigo">&#127481;&#127487; +255</option>
+            <option value="+254" data-net="M-Pesa / Airtel">&#127472;&#127466; +254</option>
+            <option value="+234" data-net="MTN / Airtel">&#127475;&#127468; +234</option>
+            <option value="+233" data-net="MTN / Vodafone">&#127468;&#127469; +233</option>
+          </select>
+          <input class="ph-inpb" type="tel" id="dl-phone" placeholder="07XXXXXXXX" oninput="dlValPhone()" maxlength="12"/>
+        </div>
+        <div class="ph-hint" id="dl-ph-hint">Rwanda &mdash; MTN MoMo or Airtel Money</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.67rem;color:#8b949e;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;">Network</div>
+        <div class="net-rb">
+          <div class="nbb sel" onclick="dlSelNet(this,'MTN')">MTN MoMo</div>
+          <div class="nbb" onclick="dlSelNet(this,'AIRTEL')">Airtel Money</div>
+          <div class="nbb" onclick="dlSelNet(this,'OTHER')">Other</div>
+        </div>
+        <div id="dl-err" style="display:none;font-family:'JetBrains Mono',monospace;font-size:.74rem;color:#f87171;padding:7px 10px;background:rgba(248,113,113,.07);border-radius:5px;margin-bottom:8px;"></div>
+      </div>
+      <div class="pf">
+        <button class="pay-gob" id="dl-pay-go" onclick="dlInitPay()" disabled>Pay &amp; Download</button>
+        <button class="cancel-bb" onclick="closeDlPay()">Cancel</button>
+      </div>
+    </div>
+    <div class="pay-stb" id="dl-st-proc">
+      <div class="dl-spinnerb"></div>
+      <div style="font-family:'JetBrains Mono',monospace;color:#fff;font-size:.86rem;margin-bottom:5px;">Processing Payment...</div>
+      <div style="color:#8b949e;font-size:.79rem;">Check your phone &mdash; enter your PIN to confirm.</div>
+    </div>
+    <div class="pay-stb" id="dl-st-ok">
+      <div style="font-size:2.8rem;margin-bottom:10px;">&#9989;</div>
+      <div style="font-family:'JetBrains Mono',monospace;color:#34d399;font-size:.92rem;margin-bottom:5px;">Payment Confirmed!</div>
+      <div style="color:#8b949e;font-size:.8rem;margin-bottom:16px;">Generating your PDF...</div>
+      <div class="dl-spinnerb"></div>
+    </div>
+    <div class="pay-stb" id="dl-st-fail">
+      <div style="font-size:2.8rem;margin-bottom:10px;">&#10060;</div>
+      <div style="font-family:'JetBrains Mono',monospace;color:#f87171;font-size:.86rem;margin-bottom:5px;">Payment Not Completed</div>
+      <div style="color:#8b949e;font-size:.79rem;margin-bottom:14px;" id="dl-fail-txt"></div>
+      <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+        <button style="background:#e8c547;color:#000;border:none;padding:8px 16px;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:.76rem;font-weight:700;cursor:pointer;" onclick="dlShowForm()">Try Again</button>
+        <a id="dl-wa-link" href="#" target="_blank" style="background:#25D366;color:#fff;padding:8px 14px;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:.76rem;font-weight:700;text-decoration:none;">WhatsApp</a>
+        <button style="background:#1c2333;color:#8b949e;border:1px solid #30363d;padding:8px 14px;border-radius:6px;cursor:pointer;font-size:.8rem;" onclick="closeDlPay()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+var _DL_UNIT_ID='S4-1';
+var _DL_PRICE=300;
+var _dlNet='MTN',_dlPollTimer=null;
+function isPaidUnit(){
+  if(localStorage.getItem('teacher_dl_unlocked')==='true')return true;
+  var paid=JSON.parse(localStorage.getItem('paid_items')||'[]');
+  var lvl=_DL_UNIT_ID.split('-')[0];
+  return paid.indexOf(_DL_UNIT_ID)>=0||paid.indexOf('ALL')>=0||paid.indexOf(lvl)>=0||paid.indexOf('BUNDLE-'+lvl)>=0;
+}
+function checkPayAndDownload(){
+  if(localStorage.getItem('teacher_dl_unlocked')==='true'){doDownloadPDF();return;}
+  document.getElementById('dl-pay-overlay').classList.add('open');dlShowForm();
+}
+function closeDlPay(){document.getElementById('dl-pay-overlay').classList.remove('open');if(_dlPollTimer){clearInterval(_dlPollTimer);_dlPollTimer=null;}}
+function dlShowForm(){document.getElementById('dl-pform').style.display='block';['dl-st-proc','dl-st-ok','dl-st-fail'].forEach(function(id){document.getElementById(id).style.display='none';});document.getElementById('dl-err').style.display='none';}
+function dlSelNet(el,n){_dlNet=n;document.querySelectorAll('.nbb').forEach(function(b){b.classList.remove('sel');});el.classList.add('sel');}
+function dlUpdateHint(){var o=document.getElementById('dl-ccode').options[document.getElementById('dl-ccode').selectedIndex];document.getElementById('dl-ph-hint').textContent=o.text+' - '+(o.dataset.net||'Mobile Money');}
+function dlValPhone(){document.getElementById('dl-pay-go').disabled=document.getElementById('dl-phone').value.replace(/\D/g,'').length<8;}
+async function dlInitPay(){
+  var code=document.getElementById('dl-ccode').value;
+  var num=document.getElementById('dl-phone').value.replace(/\D/g,'');
+  if(num.length<8){var e=document.getElementById('dl-err');e.style.display='block';e.textContent='Enter a valid phone number.';return;}
+  var fullPhone=code.replace('+','')+num.replace(/^0/,'');
+  document.getElementById('dl-pform').style.display='none';
+  document.getElementById('dl-st-proc').style.display='block';
+  var s=JSON.parse(localStorage.getItem('notif_settings')||'{}');
+  var ppKey=s.pawapayKey||'';
+  if(!ppKey){
+    document.getElementById('dl-st-proc').style.display='none';
+    var wa=encodeURIComponent('PAYMENT\nUnit: '+document.title+'\nAmount: '+_DL_PRICE+' RWF\nPhone: '+code+num+'\nPlease confirm my download.');
+    document.getElementById('dl-wa-link').href='https://wa.me/250788800375?text='+wa;
+    document.getElementById('dl-fail-txt').innerHTML='Pay to MTN MoMo: <strong style="color:#fff;">+250 788 800 375</strong><br>Amount: <strong style="color:#e8c547;">'+_DL_PRICE+' RWF</strong><br><br>Then tap WhatsApp to confirm.';
+    document.getElementById('dl-st-fail').style.display='block';
+    return;
+  }
+  var depositId='dep_'+Date.now()+'_'+Math.random().toString(36).substr(2,5);
+  var cMap={250:'RW',256:'UG',255:'TZ',254:'KE',234:'NG',233:'GH'};
+  var ci=cMap[parseInt(code.replace('+',''))]||'RW';
+  var corrMap={MTN:{RW:'MTNRW',UG:'MTNUG',GH:'MTNGHS'},AIRTEL:{RW:'AIRTELRW',UG:'AIRTELUG'},OTHER:{RW:'MTNRW'}};
+  var curMap={RW:'RWF',UG:'UGX',TZ:'TZS',KE:'KES',NG:'NGN',GH:'GHS'};
+  var correspondent=(corrMap[_dlNet]||corrMap.MTN)[ci]||'MTNRW';
+  var currency=curMap[ci]||'RWF';
+  try{
+    var r=await fetch('https://api.pawapay.io/deposits',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+ppKey},body:JSON.stringify({depositId:depositId,amount:String(_DL_PRICE),currency:currency,correspondent:correspondent,payer:{type:'MSISDN',address:{value:fullPhone}},statementDescription:'ChemNotes'})});
+    var d=await r.json();
+    if(d.depositId||r.ok){
+      _dlPollTimer=setInterval(async function(){
+        try{
+          var pr=await fetch('https://api.pawapay.io/deposits/'+depositId,{headers:{'Authorization':'Bearer '+ppKey}});
+          var pd=await pr.json();
+          var st=((pd.status||(pd[0]&&pd[0].status))||'').toUpperCase();
+          if(st==='COMPLETED'){clearInterval(_dlPollTimer);_dlPollTimer=null;markPaidAndDownload();}
+          else if(st==='FAILED'||st==='EXPIRED'){clearInterval(_dlPollTimer);_dlPollTimer=null;document.getElementById('dl-st-proc').style.display='none';document.getElementById('dl-fail-txt').textContent=(pd.correspondentIds&&pd.correspondentIds.reason)||'Payment not completed.';document.getElementById('dl-st-fail').style.display='block';}
+        }catch(e){}
+      },3000);
+      setTimeout(function(){if(_dlPollTimer){clearInterval(_dlPollTimer);_dlPollTimer=null;document.getElementById('dl-st-proc').style.display='none';document.getElementById('dl-fail-txt').textContent='Timed out. Contact Mr Habimana via WhatsApp.';document.getElementById('dl-st-fail').style.display='block';}},180000);
+    }else{throw new Error(d.errorCode||'Failed');}
+  }catch(e){
+    document.getElementById('dl-st-proc').style.display='none';
+    var wa2=encodeURIComponent('PAYMENT\nUnit: '+document.title+'\nAmount: '+_DL_PRICE+' RWF\nPhone: '+code+num);
+    document.getElementById('dl-wa-link').href='https://wa.me/250788800375?text='+wa2;
+    document.getElementById('dl-fail-txt').innerHTML='Auto-payment failed. Pay to <strong style="color:#fff;">+250 788 800 375</strong> ('+_DL_PRICE+' RWF) then WhatsApp.';
+    document.getElementById('dl-st-fail').style.display='block';
+  }
+}
+function markPaidAndDownload(){
+  var paid=JSON.parse(localStorage.getItem('paid_items')||'[]');
+  if(paid.indexOf(_DL_UNIT_ID)<0)paid.push(_DL_UNIT_ID);
+  localStorage.setItem('paid_items',JSON.stringify(paid));
+  document.getElementById('dl-st-proc').style.display='none';
+  document.getElementById('dl-st-ok').style.display='block';
+  setTimeout(function(){closeDlPay();doDownloadPDF();},1500);
+}
+function doDownloadPDF(){
+  var btn=document.getElementById('pdf-dl-btn');
+  var spin=document.getElementById('pdf-spin');
+  var txt=document.getElementById('pdf-btn-text');
+  btn.disabled=true;spin.style.display='block';txt.textContent='Generating...';
+  var title=document.title.replace(/[^a-zA-Z0-9\s]/g,'').replace(/\s+/g,'_').substring(0,60)||'chemistry_notes';
+  var main=document.querySelector('main')||document.querySelector('.content')||document.body;
+  var clone=main.cloneNode(true);
+  clone.querySelectorAll('.quiz-wrap,#quiz,#test,.quiz-submit,.qs,button,#pdf-dl-bar,#dl-pay-overlay').forEach(function(el){el.remove();});
+  var wrapper=document.createElement('div');
+  wrapper.style.cssText='background:#fff;color:#000;font-family:Georgia,serif;font-size:11pt;line-height:1.7;padding:20px;';
+  wrapper.appendChild(clone);
+  wrapper.querySelectorAll('*').forEach(function(el){el.style.color='#000';el.style.background='transparent';el.style.borderColor='#ccc';});
+  wrapper.querySelectorAll('h1,h2,h3,h4').forEach(function(h){h.style.color='#000';h.style.fontWeight='bold';});
+  html2pdf().set({margin:[10,10,10,10],filename:title+'.pdf',image:{type:'jpeg',quality:0.92},html2canvas:{scale:1.5,useCORS:true,backgroundColor:'#ffffff',logging:false},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}}).from(wrapper).save().then(function(){btn.disabled=false;spin.style.display='none';txt.textContent='Downloaded!';setTimeout(function(){txt.textContent='Download PDF';},3000);}).catch(function(){btn.disabled=false;spin.style.display='none';txt.textContent='Download PDF';});
+}
+document.getElementById('dl-pay-overlay').addEventListener('click',function(e){if(e.target===this)closeDlPay();});
 </script>
 </body>
 </html>

@@ -80,7 +80,7 @@
   .opt{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:all .18s;font-size:.92rem;}
   .opt:hover{border-color:var(--orange);}
   .opt input{margin-top:3px;accent-color:var(--orange);}
-  .opt.correct{background:rgba(52,211,153,.12);border-color:var(--green)!important;color:var(--green);}
+  .opt.correct{background:rgba(52,211,153,.12);border-color:#34d399!important;color:#34d399;}
   .opt.wrong{background:rgba(248,113,113,.1);border-color:var(--red)!important;color:var(--red);}
   .q-exp{display:none;margin-top:10px;padding:10px 14px;background:rgba(251,146,60,.07);border-left:3px solid var(--orange);border-radius:0 6px 6px 0;font-size:.88rem;}
   .quiz-submit{background:var(--orange);color:#000;border:none;padding:12px 32px;border-radius:8px;font-size:1rem;font-family:'JetBrains Mono',monospace;cursor:pointer;font-weight:600;transition:opacity .2s;}
@@ -644,10 +644,10 @@ Ksp = c² (for 1:1 salts like AgCl)</div>
         <span class="q-num">Q1</span>
         <p class="q-text">Which of the following is a strong electrolyte?</p>
         <div class="options">
-          <label class="opt"><input type="radio" name="q1" value="a"> Acetic acid (CH<sub>3</sub>COOH)</label>
-          <label class="opt"><input type="radio" name="q1" value="b"> Ammonia (NH<sub>3</sub>)</label>
-          <label class="opt"><input type="radio" name="q1" value="c"> Sodium chloride (NaCl)</label>
-          <label class="opt"><input type="radio" name="q1" value="d"> Glucose (C<sub>6</sub>H<sub>12</sub>O<sub>6</sub>)</label>
+          <label class="opt"><input type="radio" name="q1" value="A"> Acetic acid (CH<sub>3</sub>COOH)</label>
+          <label class="opt"><input type="radio" name="q1" value="B"> Ammonia (NH<sub>3</sub>)</label>
+          <label class="opt"><input type="radio" name="q1" value="C"> Sodium chloride (NaCl)</label>
+          <label class="opt"><input type="radio" name="q1" value="D"> Glucose (C<sub>6</sub>H<sub>12</sub>O<sub>6</sub>)</label>
         </div>
         <div class="q-exp" id="exp1"><b>NaCl</b> is a strong electrolyte: it dissociates completely in water into Na<sup>+</sup> and Cl<sup>&minus;</sup>. Acetic acid and ammonia are weak electrolytes. Glucose is a non-electrolyte.</div>
       </div>
@@ -656,10 +656,10 @@ Ksp = c² (for 1:1 salts like AgCl)</div>
         <span class="q-num">Q2</span>
         <p class="q-text">The unit of specific conductivity &kappa; is:</p>
         <div class="options">
-          <label class="opt"><input type="radio" name="q2" value="a"> S&middot;cm<sup>2</sup>/mol</label>
-          <label class="opt"><input type="radio" name="q2" value="b"> S/cm</label>
-          <label class="opt"><input type="radio" name="q2" value="c"> &Omega;&middot;cm</label>
-          <label class="opt"><input type="radio" name="q2" value="d"> mol/(S&middot;cm)</label>
+          <label class="opt"><input type="radio" name="q2" value="A"> S&middot;cm<sup>2</sup>/mol</label>
+          <label class="opt"><input type="radio" name="q2" value="B"> S/cm</label>
+          <label class="opt"><input type="radio" name="q2" value="C"> &Omega;&middot;cm</label>
+          <label class="opt"><input type="radio" name="q2" value="D"> mol/(S&middot;cm)</label>
         </div>
         <div class="q-exp" id="exp2">Specific conductivity &kappa;: units are <b>S/cm</b> (or S/m). Molar conductivity &Lambda;<sub>m</sub> has units S&middot;cm<sup>2</sup>/mol. Resistivity has units &Omega;&middot;cm.</div>
       </div>
@@ -668,10 +668,10 @@ Ksp = c² (for 1:1 salts like AgCl)</div>
         <span class="q-num">Q3</span>
         <p class="q-text">The relationship between molar conductivity &Lambda;<sub>m</sub>, specific conductivity &kappa;, and concentration c (mol/L) is:</p>
         <div class="options">
-          <label class="opt"><input type="radio" name="q3" value="a"> &Lambda;<sub>m</sub> = &kappa; &times; c</label>
-          <label class="opt"><input type="radio" name="q3" value="b"> &Lambda;<sub>m</sub> = &kappa; / c</label>
-          <label class="opt"><input type="radio" name="q3" value="c"> &Lambda;<sub>m</sub> = (&kappa; &times; 1000) / c</label>
-          <label class="opt"><input type="radio" name="q3" value="d"> &Lambda;<sub>m</sub> = &kappa; &times; c / 1000</label>
+          <label class="opt"><input type="radio" name="q3" value="A"> &Lambda;<sub>m</sub> = &kappa; &times; c</label>
+          <label class="opt"><input type="radio" name="q3" value="B"> &Lambda;<sub>m</sub> = &kappa; / c</label>
+          <label class="opt"><input type="radio" name="q3" value="C"> &Lambda;<sub>m</sub> = (&kappa; &times; 1000) / c</label>
+          <label class="opt"><input type="radio" name="q3" value="D"> &Lambda;<sub>m</sub> = &kappa; &times; c / 1000</label>
         </div>
         <div class="q-exp" id="exp3">&Lambda;<sub>m</sub> = (&kappa; &times; 1000) / c when c is in mol/L and &kappa; in S/cm &rarr; &Lambda;<sub>m</sub> in S&middot;cm<sup>2</sup>/mol. The factor 1000 converts L to cm<sup>3</sup> (1 L = 1000 cm<sup>3</sup>).</div>
       </div>
@@ -680,10 +680,10 @@ Ksp = c² (for 1:1 salts like AgCl)</div>
         <span class="q-num">Q4</span>
         <p class="q-text">Kohlrausch's law of independent migration states:</p>
         <div class="options">
-          <label class="opt"><input type="radio" name="q4" value="a"> The conductance of a solution decreases linearly with concentration</label>
-          <label class="opt"><input type="radio" name="q4" value="b"> At infinite dilution, each ion contributes independently and additively to the total molar conductivity</label>
-          <label class="opt"><input type="radio" name="q4" value="c"> The conductance of a weak electrolyte equals that of a strong electrolyte at the same concentration</label>
-          <label class="opt"><input type="radio" name="q4" value="d"> All ions have the same molar conductivity at infinite dilution</label>
+          <label class="opt"><input type="radio" name="q4" value="A"> The conductance of a solution decreases linearly with concentration</label>
+          <label class="opt"><input type="radio" name="q4" value="B"> At infinite dilution, each ion contributes independently and additively to the total molar conductivity</label>
+          <label class="opt"><input type="radio" name="q4" value="C"> The conductance of a weak electrolyte equals that of a strong electrolyte at the same concentration</label>
+          <label class="opt"><input type="radio" name="q4" value="D"> All ions have the same molar conductivity at infinite dilution</label>
         </div>
         <div class="q-exp" id="exp4">Kohlrausch's law: at infinite dilution, each ion migrates independently and makes a <b>definite, additive contribution</b> to &Lambda;<sub>m</sub>&deg;. &Lambda;<sub>m</sub>&deg; = &nu;<sub>+</sub>&lambda;<sub>+</sub>&deg; + &nu;<sub>&minus;</sub>&lambda;<sub>&minus;</sub>&deg;.</div>
       </div>
@@ -692,10 +692,10 @@ Ksp = c² (for 1:1 salts like AgCl)</div>
         <span class="q-num">Q5</span>
         <p class="q-text">H<sup>+</sup> has an abnormally high molar ionic conductivity because:</p>
         <div class="options">
-          <label class="opt"><input type="radio" name="q5" value="a"> It is the smallest ion</label>
-          <label class="opt"><input type="radio" name="q5" value="b"> It moves by the Grotthuss (proton hopping) mechanism along hydrogen-bond chains</label>
-          <label class="opt"><input type="radio" name="q5" value="c"> It has the highest charge-to-mass ratio</label>
-          <label class="opt"><input type="radio" name="q5" value="d"> It forms strong covalent bonds with water</label>
+          <label class="opt"><input type="radio" name="q5" value="A"> It is the smallest ion</label>
+          <label class="opt"><input type="radio" name="q5" value="B"> It moves by the Grotthuss (proton hopping) mechanism along hydrogen-bond chains</label>
+          <label class="opt"><input type="radio" name="q5" value="C"> It has the highest charge-to-mass ratio</label>
+          <label class="opt"><input type="radio" name="q5" value="D"> It forms strong covalent bonds with water</label>
         </div>
         <div class="q-exp" id="exp5">H<sup>+</sup> uses the <b>Grotthuss mechanism</b>: protons hop along H-bond chains in water (H<sub>3</sub>O<sup>+</sup> + H<sub>2</sub>O &rarr; H<sub>2</sub>O + H<sub>3</sub>O<sup>+</sup>), making the charge move much faster than the ion physically could. This gives &lambda;&deg;(H<sup>+</sup>) = 349.8 S&middot;cm<sup>2</sup>/mol — about 5&times; faster than Na<sup>+</sup>.</div>
       </div>
@@ -704,10 +704,10 @@ Ksp = c² (for 1:1 salts like AgCl)</div>
         <span class="q-num">Q6</span>
         <p class="q-text">For a weak electrolyte, the degree of dissociation &alpha; at concentration c is given by:</p>
         <div class="options">
-          <label class="opt"><input type="radio" name="q6" value="a"> &alpha; = &Lambda;<sub>m</sub>&deg; / &Lambda;<sub>m</sub></label>
-          <label class="opt"><input type="radio" name="q6" value="b"> &alpha; = &Lambda;<sub>m</sub> / &Lambda;<sub>m</sub>&deg;</label>
-          <label class="opt"><input type="radio" name="q6" value="c"> &alpha; = &Lambda;<sub>m</sub> &times; c</label>
-          <label class="opt"><input type="radio" name="q6" value="d"> &alpha; = &kappa; / c</label>
+          <label class="opt"><input type="radio" name="q6" value="A"> &alpha; = &Lambda;<sub>m</sub>&deg; / &Lambda;<sub>m</sub></label>
+          <label class="opt"><input type="radio" name="q6" value="B"> &alpha; = &Lambda;<sub>m</sub> / &Lambda;<sub>m</sub>&deg;</label>
+          <label class="opt"><input type="radio" name="q6" value="C"> &alpha; = &Lambda;<sub>m</sub> &times; c</label>
+          <label class="opt"><input type="radio" name="q6" value="D"> &alpha; = &kappa; / c</label>
         </div>
         <div class="q-exp" id="exp6"><b>&alpha; = &Lambda;<sub>m</sub>/&Lambda;<sub>m</sub>&deg;</b>. At infinite dilution, all molecules are dissociated (&alpha;=1, &Lambda;<sub>m</sub>=&Lambda;<sub>m</sub>&deg;). At finite c, &alpha; &lt; 1, so &Lambda;<sub>m</sub> &lt; &Lambda;<sub>m</sub>&deg;. The ratio gives the fraction dissociated.</div>
       </div>
@@ -716,10 +716,10 @@ Ksp = c² (for 1:1 salts like AgCl)</div>
         <span class="q-num">Q7</span>
         <p class="q-text">On dilution of a strong electrolyte solution, the specific conductivity &kappa;:</p>
         <div class="options">
-          <label class="opt"><input type="radio" name="q7" value="a"> Increases</label>
-          <label class="opt"><input type="radio" name="q7" value="b"> Decreases</label>
-          <label class="opt"><input type="radio" name="q7" value="c"> Remains constant</label>
-          <label class="opt"><input type="radio" name="q7" value="d"> First increases then decreases</label>
+          <label class="opt"><input type="radio" name="q7" value="A"> Increases</label>
+          <label class="opt"><input type="radio" name="q7" value="B"> Decreases</label>
+          <label class="opt"><input type="radio" name="q7" value="C"> Remains constant</label>
+          <label class="opt"><input type="radio" name="q7" value="D"> First increases then decreases</label>
         </div>
         <div class="q-exp" id="exp7">On dilution, the number of ions per unit volume decreases &rarr; fewer charge carriers in a given volume &rarr; &kappa; <b>decreases</b>. Note: &Lambda;<sub>m</sub> increases on dilution (opposite trend) because it is &kappa; normalised by concentration.</div>
       </div>
@@ -728,10 +728,10 @@ Ksp = c² (for 1:1 salts like AgCl)</div>
         <span class="q-num">Q8</span>
         <p class="q-text">On dilution of a weak electrolyte, the molar conductivity &Lambda;<sub>m</sub>:</p>
         <div class="options">
-          <label class="opt"><input type="radio" name="q8" value="a"> Decreases slowly</label>
-          <label class="opt"><input type="radio" name="q8" value="b"> Remains constant</label>
-          <label class="opt"><input type="radio" name="q8" value="c"> Increases steeply, approaching &Lambda;<sub>m</sub>&deg;</label>
-          <label class="opt"><input type="radio" name="q8" value="d"> Increases linearly</label>
+          <label class="opt"><input type="radio" name="q8" value="A"> Decreases slowly</label>
+          <label class="opt"><input type="radio" name="q8" value="B"> Remains constant</label>
+          <label class="opt"><input type="radio" name="q8" value="C"> Increases steeply, approaching &Lambda;<sub>m</sub>&deg;</label>
+          <label class="opt"><input type="radio" name="q8" value="D"> Increases linearly</label>
         </div>
         <div class="q-exp" id="exp8">For weak electrolytes, dilution dramatically increases &alpha; (degree of dissociation). More ions are produced per mole of electrolyte &rarr; &Lambda;<sub>m</sub> <b>increases steeply</b> toward &Lambda;<sub>m</sub>&deg; at very low concentration. This behaviour cannot be extrapolated linearly &rarr; Kohlrausch's law must be used.</div>
       </div>
@@ -740,10 +740,10 @@ Ksp = c² (for 1:1 salts like AgCl)</div>
         <span class="q-num">Q9</span>
         <p class="q-text">The Debye&ndash;H&uuml;ckel&ndash;Onsager equation &Lambda;<sub>m</sub> = &Lambda;<sub>m</sub>&deg; &minus; A&radic;c describes:</p>
         <div class="options">
-          <label class="opt"><input type="radio" name="q9" value="a"> Weak electrolytes only</label>
-          <label class="opt"><input type="radio" name="q9" value="b"> The linear variation of &Lambda;<sub>m</sub> with &radic;c for strong electrolytes at low concentration</label>
-          <label class="opt"><input type="radio" name="q9" value="c"> The variation of &kappa; with temperature</label>
-          <label class="opt"><input type="radio" name="q9" value="d"> The relationship between osmotic pressure and conductivity</label>
+          <label class="opt"><input type="radio" name="q9" value="A"> Weak electrolytes only</label>
+          <label class="opt"><input type="radio" name="q9" value="B"> The linear variation of &Lambda;<sub>m</sub> with &radic;c for strong electrolytes at low concentration</label>
+          <label class="opt"><input type="radio" name="q9" value="C"> The variation of &kappa; with temperature</label>
+          <label class="opt"><input type="radio" name="q9" value="D"> The relationship between osmotic pressure and conductivity</label>
         </div>
         <div class="q-exp" id="exp9">For strong electrolytes, &Lambda;<sub>m</sub> varies <b>linearly with &radic;c</b> (Debye&ndash;H&uuml;ckel&ndash;Onsager). The slope A depends on the electrolyte type (1:1, 2:1 etc.), solvent, and T. Extrapolating the linear plot to c=0 gives &Lambda;<sub>m</sub>&deg;.</div>
       </div>
@@ -752,10 +752,10 @@ Ksp = c² (for 1:1 salts like AgCl)</div>
         <span class="q-num">Q10</span>
         <p class="q-text">&Lambda;<sub>m</sub>&deg; for CH<sub>3</sub>COOH cannot be obtained by direct extrapolation of the &Lambda;<sub>m</sub> vs &radic;c plot because:</p>
         <div class="options">
-          <label class="opt"><input type="radio" name="q10" value="a"> It is insoluble in water</label>
-          <label class="opt"><input type="radio" name="q10" value="b"> The plot is not linear (curve is very steep near c=0 due to large change in &alpha;)</label>
-          <label class="opt"><input type="radio" name="q10" value="c"> The molar conductivity becomes negative at high dilution</label>
-          <label class="opt"><input type="radio" name="q10" value="d"> All weak electrolytes have zero molar conductivity</label>
+          <label class="opt"><input type="radio" name="q10" value="A"> It is insoluble in water</label>
+          <label class="opt"><input type="radio" name="q10" value="B"> The plot is not linear (curve is very steep near c=0 due to large change in &alpha;)</label>
+          <label class="opt"><input type="radio" name="q10" value="C"> The molar conductivity becomes negative at high dilution</label>
+          <label class="opt"><input type="radio" name="q10" value="D"> All weak electrolytes have zero molar conductivity</label>
         </div>
         <div class="q-exp" id="exp10">For weak electrolytes like CH<sub>3</sub>COOH, &Lambda;<sub>m</sub> vs &radic;c is <b>not linear</b> — it curves very steeply near zero concentration due to the large increase in &alpha; on dilution. Cannot extrapolate accurately. Instead, &Lambda;<sub>m</sub>&deg; is calculated from Kohlrausch's law using strong electrolyte data.</div>
       </div>
@@ -764,10 +764,10 @@ Ksp = c² (for 1:1 salts like AgCl)</div>
         <span class="q-num">Q11</span>
         <p class="q-text">The Ostwald dilution law Ka = &alpha;&sup2;c/(1&minus;&alpha;) relates:</p>
         <div class="options">
-          <label class="opt"><input type="radio" name="q11" value="a"> The dissociation constant to the molar conductivity directly</label>
-          <label class="opt"><input type="radio" name="q11" value="b"> The acid dissociation constant to the degree of dissociation and concentration</label>
-          <label class="opt"><input type="radio" name="q11" value="c"> Molar conductivity to temperature</label>
-          <label class="opt"><input type="radio" name="q11" value="d"> Specific conductivity to resistance</label>
+          <label class="opt"><input type="radio" name="q11" value="A"> The dissociation constant to the molar conductivity directly</label>
+          <label class="opt"><input type="radio" name="q11" value="B"> The acid dissociation constant to the degree of dissociation and concentration</label>
+          <label class="opt"><input type="radio" name="q11" value="C"> Molar conductivity to temperature</label>
+          <label class="opt"><input type="radio" name="q11" value="D"> Specific conductivity to resistance</label>
         </div>
         <div class="q-exp" id="exp11">Ostwald dilution law: for HA &rightleftharpoons; H<sup>+</sup> + A<sup>&minus;</sup>, <b>K<sub>a</sub> = &alpha;&sup2;c/(1&minus;&alpha;)</b>. With &alpha; from conductivity (&alpha; = &Lambda;<sub>m</sub>/&Lambda;<sub>m</sub>&deg;), this gives K<sub>a</sub> from measurable quantities.</div>
       </div>
@@ -776,10 +776,10 @@ Ksp = c² (for 1:1 salts like AgCl)</div>
         <span class="q-num">Q12</span>
         <p class="q-text">AC current (not DC) is used to measure conductance of solutions because:</p>
         <div class="options">
-          <label class="opt"><input type="radio" name="q12" value="a"> AC gives more accurate resistance readings</label>
-          <label class="opt"><input type="radio" name="q12" value="b"> DC would cause electrolysis, changing solution composition and polarising the electrodes</label>
-          <label class="opt"><input type="radio" name="q12" value="c"> AC is safer to use in the laboratory</label>
-          <label class="opt"><input type="radio" name="q12" value="d"> DC cannot pass through aqueous solutions</label>
+          <label class="opt"><input type="radio" name="q12" value="A"> AC gives more accurate resistance readings</label>
+          <label class="opt"><input type="radio" name="q12" value="B"> DC would cause electrolysis, changing solution composition and polarising the electrodes</label>
+          <label class="opt"><input type="radio" name="q12" value="C"> AC is safer to use in the laboratory</label>
+          <label class="opt"><input type="radio" name="q12" value="D"> DC cannot pass through aqueous solutions</label>
         </div>
         <div class="q-exp" id="exp12">DC would cause <b>electrolysis</b> — ions would be discharged at the electrodes, changing the solution composition (e.g. H<sub>2</sub> and Cl<sub>2</sub> from HCl) and polarising the electrodes (back-EMF). AC reverses rapidly, preventing net electrolysis and giving accurate resistance measurement.</div>
       </div>
@@ -788,10 +788,10 @@ Ksp = c² (for 1:1 salts like AgCl)</div>
         <span class="q-num">Q13</span>
         <p class="q-text">&Lambda;<sub>m</sub>&deg; for CaCl<sub>2</sub> using Kohlrausch's law with &lambda;&deg;(Ca<sup>2+</sup>)=119.0 and &lambda;&deg;(Cl<sup>&minus;</sup>)=76.4 S&middot;cm<sup>2</sup>/mol is:</p>
         <div class="options">
-          <label class="opt"><input type="radio" name="q13" value="a"> 195.4 S&middot;cm<sup>2</sup>/mol</label>
-          <label class="opt"><input type="radio" name="q13" value="b"> 271.8 S&middot;cm<sup>2</sup>/mol</label>
-          <label class="opt"><input type="radio" name="q13" value="c"> 119.0 S&middot;cm<sup>2</sup>/mol</label>
-          <label class="opt"><input type="radio" name="q13" value="d"> 314.4 S&middot;cm<sup>2</sup>/mol</label>
+          <label class="opt"><input type="radio" name="q13" value="A"> 195.4 S&middot;cm<sup>2</sup>/mol</label>
+          <label class="opt"><input type="radio" name="q13" value="B"> 271.8 S&middot;cm<sup>2</sup>/mol</label>
+          <label class="opt"><input type="radio" name="q13" value="C"> 119.0 S&middot;cm<sup>2</sup>/mol</label>
+          <label class="opt"><input type="radio" name="q13" value="D"> 314.4 S&middot;cm<sup>2</sup>/mol</label>
         </div>
         <div class="q-exp" id="exp13">CaCl<sub>2</sub> &rarr; Ca<sup>2+</sup> + 2Cl<sup>&minus;</sup>. &Lambda;<sub>m</sub>&deg; = 1&times;119.0 + 2&times;76.4 = 119.0 + 152.8 = <b>271.8 S&middot;cm<sup>2</sup>/mol</b>.</div>
       </div>
@@ -800,10 +800,10 @@ Ksp = c² (for 1:1 salts like AgCl)</div>
         <span class="q-num">Q14</span>
         <p class="q-text">In a conductimetric titration of strong acid + strong base (HCl + NaOH), the conductance reaches a minimum at the equivalence point because:</p>
         <div class="options">
-          <label class="opt"><input type="radio" name="q14" value="a"> All salt precipitates at the equivalence point</label>
-          <label class="opt"><input type="radio" name="q14" value="b"> The fast H<sup>+</sup> ions are all replaced by slower Na<sup>+</sup>, giving minimum ionic conductance</label>
-          <label class="opt"><input type="radio" name="q14" value="c"> Water is formed, which is a non-electrolyte</label>
-          <label class="opt"><input type="radio" name="q14" value="d"> The temperature drops at the equivalence point</label>
+          <label class="opt"><input type="radio" name="q14" value="A"> All salt precipitates at the equivalence point</label>
+          <label class="opt"><input type="radio" name="q14" value="B"> The fast H<sup>+</sup> ions are all replaced by slower Na<sup>+</sup>, giving minimum ionic conductance</label>
+          <label class="opt"><input type="radio" name="q14" value="C"> Water is formed, which is a non-electrolyte</label>
+          <label class="opt"><input type="radio" name="q14" value="D"> The temperature drops at the equivalence point</label>
         </div>
         <div class="q-exp" id="exp14">Before EP: fast H<sup>+</sup> (349.8) replaced by slower Na<sup>+</sup> (50.1) &rarr; G decreases. At EP: only NaCl in solution — no H<sup>+</sup> or OH<sup>&minus;</sup>. <b>Minimum conductance</b>. After EP: excess OH<sup>&minus;</sup> (198.6) added &rarr; G increases.</div>
       </div>
@@ -812,10 +812,10 @@ Ksp = c² (for 1:1 salts like AgCl)</div>
         <span class="q-num">Q15</span>
         <p class="q-text">Which property of a solution can be determined from its conductivity combined with Kohlrausch's law?</p>
         <div class="options">
-          <label class="opt"><input type="radio" name="q15" value="a"> Its boiling point</label>
-          <label class="opt"><input type="radio" name="q15" value="b"> The degree of dissociation and dissociation constant of a weak electrolyte</label>
-          <label class="opt"><input type="radio" name="q15" value="c"> Its density</label>
-          <label class="opt"><input type="radio" name="q15" value="d"> Its pH directly without calculation</label>
+          <label class="opt"><input type="radio" name="q15" value="A"> Its boiling point</label>
+          <label class="opt"><input type="radio" name="q15" value="B"> The degree of dissociation and dissociation constant of a weak electrolyte</label>
+          <label class="opt"><input type="radio" name="q15" value="C"> Its density</label>
+          <label class="opt"><input type="radio" name="q15" value="D"> Its pH directly without calculation</label>
         </div>
         <div class="q-exp" id="exp15">From conductivity: &Lambda;<sub>m</sub> is measured; &Lambda;<sub>m</sub>&deg; from Kohlrausch; then <b>&alpha; = &Lambda;<sub>m</sub>/&Lambda;<sub>m</sub>&deg;</b> gives degree of dissociation. Substituting into Ostwald dilution law gives K<sub>a</sub> or K<sub>b</sub>. Also: solubility and K<sub>sp</sub> of sparingly soluble salts.</div>
       </div>
@@ -824,10 +824,10 @@ Ksp = c² (for 1:1 salts like AgCl)</div>
         <span class="q-num">Q16</span>
         <p class="q-text">The cell constant K<sub>cell</sub> of a conductance cell is:</p>
         <div class="options">
-          <label class="opt"><input type="radio" name="q16" value="a"> Equal to the conductance at 1 mol/L</label>
-          <label class="opt"><input type="radio" name="q16" value="b"> The ratio L/A (distance between electrodes / area) — a geometric property</label>
-          <label class="opt"><input type="radio" name="q16" value="c"> The temperature coefficient of conductance</label>
-          <label class="opt"><input type="radio" name="q16" value="d"> Equal to 1/&Lambda;<sub>m</sub>&deg;</label>
+          <label class="opt"><input type="radio" name="q16" value="A"> Equal to the conductance at 1 mol/L</label>
+          <label class="opt"><input type="radio" name="q16" value="B"> The ratio L/A (distance between electrodes / area) — a geometric property</label>
+          <label class="opt"><input type="radio" name="q16" value="C"> The temperature coefficient of conductance</label>
+          <label class="opt"><input type="radio" name="q16" value="D"> Equal to 1/&Lambda;<sub>m</sub>&deg;</label>
         </div>
         <div class="q-exp" id="exp16">The <b>cell constant K<sub>cell</sub> = L/A</b> characterises the geometry of the conductance cell. It is determined by calibrating with a KCl solution of known &kappa;. Then for any solution: &kappa; = G &times; K<sub>cell</sub>. Units: cm<sup>&minus;1</sup>.</div>
       </div>
@@ -836,10 +836,10 @@ Ksp = c² (for 1:1 salts like AgCl)</div>
         <span class="q-num">Q17</span>
         <p class="q-text">The solubility of a sparingly soluble salt can be determined from conductivity because:</p>
         <div class="options">
-          <label class="opt"><input type="radio" name="q17" value="a"> The salt changes colour on dissolving</label>
-          <label class="opt"><input type="radio" name="q17" value="b"> At very low concentration (like a saturated solution of a sparingly soluble salt), &Lambda;<sub>m</sub> &asymp; &Lambda;<sub>m</sub>&deg;, so c = &kappa;/&Lambda;<sub>m</sub>&deg;</label>
-          <label class="opt"><input type="radio" name="q17" value="c"> Solubility equals molar conductivity at all concentrations</label>
-          <label class="opt"><input type="radio" name="q17" value="d"> The specific conductivity is proportional to density</label>
+          <label class="opt"><input type="radio" name="q17" value="A"> The salt changes colour on dissolving</label>
+          <label class="opt"><input type="radio" name="q17" value="B"> At very low concentration (like a saturated solution of a sparingly soluble salt), &Lambda;<sub>m</sub> &asymp; &Lambda;<sub>m</sub>&deg;, so c = &kappa;/&Lambda;<sub>m</sub>&deg;</label>
+          <label class="opt"><input type="radio" name="q17" value="C"> Solubility equals molar conductivity at all concentrations</label>
+          <label class="opt"><input type="radio" name="q17" value="D"> The specific conductivity is proportional to density</label>
         </div>
         <div class="q-exp" id="exp17">For sparingly soluble salts (e.g. AgCl, c ~ 10<sup>&minus;5</sup> mol/L), the concentration is so low that interionic effects are negligible: <b>&Lambda;<sub>m</sub> &asymp; &Lambda;<sub>m</sub>&deg;</b>. So: c (solubility) = &kappa;<sub>net</sub> &times; 1000 / &Lambda;<sub>m</sub>&deg;. Then K<sub>sp</sub> = c<sup>n</sup> for the appropriate formula.</div>
       </div>
@@ -848,10 +848,10 @@ Ksp = c² (for 1:1 salts like AgCl)</div>
         <span class="q-num">Q18</span>
         <p class="q-text">Which of the following CANNOT conduct electricity in aqueous solution?</p>
         <div class="options">
-          <label class="opt"><input type="radio" name="q18" value="a"> HCl</label>
-          <label class="opt"><input type="radio" name="q18" value="b"> NaOH</label>
-          <label class="opt"><input type="radio" name="q18" value="c"> Sucrose (C<sub>12</sub>H<sub>22</sub>O<sub>11</sub>)</label>
-          <label class="opt"><input type="radio" name="q18" value="d"> K<sub>2</sub>SO<sub>4</sub></label>
+          <label class="opt"><input type="radio" name="q18" value="A"> HCl</label>
+          <label class="opt"><input type="radio" name="q18" value="B"> NaOH</label>
+          <label class="opt"><input type="radio" name="q18" value="C"> Sucrose (C<sub>12</sub>H<sub>22</sub>O<sub>11</sub>)</label>
+          <label class="opt"><input type="radio" name="q18" value="D"> K<sub>2</sub>SO<sub>4</sub></label>
         </div>
         <div class="q-exp" id="exp18"><b>Sucrose</b> is a <b>non-electrolyte</b>: it dissolves in water as intact molecules without ionisation &rarr; no ions &rarr; cannot conduct electricity. HCl, NaOH, and K<sub>2</sub>SO<sub>4</sub> are strong electrolytes with high conductance.</div>
       </div>
@@ -860,10 +860,10 @@ Ksp = c² (for 1:1 salts like AgCl)</div>
         <span class="q-num">Q19</span>
         <p class="q-text">The specific conductivity of 0.100 mol/L KCl is 0.01289 S/cm. Its molar conductivity is:</p>
         <div class="options">
-          <label class="opt"><input type="radio" name="q19" value="a"> 12.89 S&middot;cm<sup>2</sup>/mol</label>
-          <label class="opt"><input type="radio" name="q19" value="b"> 128.9 S&middot;cm<sup>2</sup>/mol</label>
-          <label class="opt"><input type="radio" name="q19" value="c"> 1289 S&middot;cm<sup>2</sup>/mol</label>
-          <label class="opt"><input type="radio" name="q19" value="d"> 0.1289 S&middot;cm<sup>2</sup>/mol</label>
+          <label class="opt"><input type="radio" name="q19" value="A"> 12.89 S&middot;cm<sup>2</sup>/mol</label>
+          <label class="opt"><input type="radio" name="q19" value="B"> 128.9 S&middot;cm<sup>2</sup>/mol</label>
+          <label class="opt"><input type="radio" name="q19" value="C"> 1289 S&middot;cm<sup>2</sup>/mol</label>
+          <label class="opt"><input type="radio" name="q19" value="D"> 0.1289 S&middot;cm<sup>2</sup>/mol</label>
         </div>
         <div class="q-exp" id="exp19">&Lambda;<sub>m</sub> = (&kappa; &times; 1000)/c = (0.01289 &times; 1000)/0.100 = 12.89/0.100 = <b>128.9 S&middot;cm<sup>2</sup>/mol</b>.</div>
       </div>
@@ -884,10 +884,10 @@ Ksp = c² (for 1:1 salts like AgCl)</div>
         <span class="q-num">Q21</span>
         <p class="q-text">In a conductimetric titration of CH<sub>3</sub>COOH with NaOH, before the equivalence point the conductance:</p>
         <div class="options">
-          <label class="opt"><input type="radio" name="q21" value="a"> Decreases steeply</label>
-          <label class="opt"><input type="radio" name="q21" value="b"> Increases slowly (buffer region, Na<sup>+</sup> and CH<sub>3</sub>COO<sup>&minus;</sup> accumulate)</label>
-          <label class="opt"><input type="radio" name="q21" value="c"> Remains constant</label>
-          <label class="opt"><input type="radio" name="q21" value="d"> Reaches a maximum then decreases</label>
+          <label class="opt"><input type="radio" name="q21" value="A"> Decreases steeply</label>
+          <label class="opt"><input type="radio" name="q21" value="B"> Increases slowly (buffer region, Na<sup>+</sup> and CH<sub>3</sub>COO<sup>&minus;</sup> accumulate)</label>
+          <label class="opt"><input type="radio" name="q21" value="C"> Remains constant</label>
+          <label class="opt"><input type="radio" name="q21" value="D"> Reaches a maximum then decreases</label>
         </div>
         <div class="q-exp" id="exp21">Weak acid + strong base: the weak acid contributes few ions initially. As NaOH is added, it reacts with CH<sub>3</sub>COOH to give CH<sub>3</sub>COONa — the Na<sup>+</sup> and CH<sub>3</sub>COO<sup>&minus;</sup> ions <b>slowly increase</b> conductance. The slope is gradual (not steep like excess OH<sup>&minus;</sup> after EP).</div>
       </div>
@@ -896,10 +896,10 @@ Ksp = c² (for 1:1 salts like AgCl)</div>
         <span class="q-num">Q22</span>
         <p class="q-text">The conductivity of drinking water is measured to assess:</p>
         <div class="options">
-          <label class="opt"><input type="radio" name="q22" value="a"> Its pH</label>
-          <label class="opt"><input type="radio" name="q22" value="b"> Its total dissolved ionic content (total dissolved solids)</label>
-          <label class="opt"><input type="radio" name="q22" value="c"> Its temperature</label>
-          <label class="opt"><input type="radio" name="q22" value="d"> The presence of organic pollutants</label>
+          <label class="opt"><input type="radio" name="q22" value="A"> Its pH</label>
+          <label class="opt"><input type="radio" name="q22" value="B"> Its total dissolved ionic content (total dissolved solids)</label>
+          <label class="opt"><input type="radio" name="q22" value="C"> Its temperature</label>
+          <label class="opt"><input type="radio" name="q22" value="D"> The presence of organic pollutants</label>
         </div>
         <div class="q-exp" id="exp22">Conductivity is a direct measure of the <b>total ionic content</b> (total dissolved solids, TDS) in water. WHO limit for drinking water is &lt;500 &mu;S/cm. High conductivity indicates excessive dissolved salts, potentially indicating contamination or hard water.</div>
       </div>
@@ -908,10 +908,10 @@ Ksp = c² (for 1:1 salts like AgCl)</div>
         <span class="q-num">Q23</span>
         <p class="q-text">Platinum black is used to coat the electrodes in a conductance cell because:</p>
         <div class="options">
-          <label class="opt"><input type="radio" name="q23" value="a"> It is a better electrical conductor than platinum</label>
-          <label class="opt"><input type="radio" name="q23" value="b"> It increases the effective surface area, reducing electrode polarisation and capacitance effects</label>
-          <label class="opt"><input type="radio" name="q23" value="c"> It prevents the electrode from reacting with acid solutions</label>
-          <label class="opt"><input type="radio" name="q23" value="d"> It absorbs all light, improving visual observation</label>
+          <label class="opt"><input type="radio" name="q23" value="A"> It is a better electrical conductor than platinum</label>
+          <label class="opt"><input type="radio" name="q23" value="B"> It increases the effective surface area, reducing electrode polarisation and capacitance effects</label>
+          <label class="opt"><input type="radio" name="q23" value="C"> It prevents the electrode from reacting with acid solutions</label>
+          <label class="opt"><input type="radio" name="q23" value="D"> It absorbs all light, improving visual observation</label>
         </div>
         <div class="q-exp" id="exp23">Platinum black (finely divided Pt) has a very large <b>effective surface area</b>. This reduces the impedance effects (electrode polarisation and double-layer capacitance) that can distort AC resistance measurements, giving more accurate conductance readings.</div>
       </div>
@@ -920,10 +920,10 @@ Ksp = c² (for 1:1 salts like AgCl)</div>
         <span class="q-num">Q24</span>
         <p class="q-text">If the specific conductivity of a saturated AgCl solution is 3.41&times;10<sup>&minus;6</sup> S/cm (after subtracting water conductance) and &Lambda;<sub>m</sub>&deg;(AgCl) = 138.3 S&middot;cm<sup>2</sup>/mol, the solubility of AgCl is:</p>
         <div class="options">
-          <label class="opt"><input type="radio" name="q24" value="a"> 2.47&times;10<sup>&minus;5</sup> mol/L</label>
-          <label class="opt"><input type="radio" name="q24" value="b"> 3.41&times;10<sup>&minus;3</sup> mol/L</label>
-          <label class="opt"><input type="radio" name="q24" value="c"> 4.08&times;10<sup>&minus;7</sup> mol/L</label>
-          <label class="opt"><input type="radio" name="q24" value="d"> 1.38&times;10<sup>&minus;4</sup> mol/L</label>
+          <label class="opt"><input type="radio" name="q24" value="A"> 2.47&times;10<sup>&minus;5</sup> mol/L</label>
+          <label class="opt"><input type="radio" name="q24" value="B"> 3.41&times;10<sup>&minus;3</sup> mol/L</label>
+          <label class="opt"><input type="radio" name="q24" value="C"> 4.08&times;10<sup>&minus;7</sup> mol/L</label>
+          <label class="opt"><input type="radio" name="q24" value="D"> 1.38&times;10<sup>&minus;4</sup> mol/L</label>
         </div>
         <div class="q-exp" id="exp24">c = &kappa;<sub>net</sub> &times; 1000 / &Lambda;<sub>m</sub>&deg; = (3.41&times;10<sup>&minus;6</sup> &times; 1000) / 138.3 = 3.41&times;10<sup>&minus;3</sup>/138.3 = <b>2.47&times;10<sup>&minus;5</sup> mol/L</b>.</div>
       </div>
@@ -932,10 +932,10 @@ Ksp = c² (for 1:1 salts like AgCl)</div>
         <span class="q-num">Q25</span>
         <p class="q-text">Which statement correctly compares the molar conductivity of strong vs weak electrolytes as concentration approaches zero?</p>
         <div class="options">
-          <label class="opt"><input type="radio" name="q25" value="a"> Strong electrolytes have a higher &Lambda;<sub>m</sub>&deg; than weak electrolytes in all cases</label>
-          <label class="opt"><input type="radio" name="q25" value="b"> Strong electrolytes reach &Lambda;<sub>m</sub>&deg; linearly (small change); weak electrolytes reach &Lambda;<sub>m</sub>&deg; steeply (large change due to &alpha; increasing)</label>
-          <label class="opt"><input type="radio" name="q25" value="c"> Weak electrolytes always have higher &Lambda;<sub>m</sub>&deg; than strong electrolytes</label>
-          <label class="opt"><input type="radio" name="q25" value="d"> Both strong and weak electrolytes show identical &Lambda;<sub>m</sub> vs &radic;c behaviour</label>
+          <label class="opt"><input type="radio" name="q25" value="A"> Strong electrolytes have a higher &Lambda;<sub>m</sub>&deg; than weak electrolytes in all cases</label>
+          <label class="opt"><input type="radio" name="q25" value="B"> Strong electrolytes reach &Lambda;<sub>m</sub>&deg; linearly (small change); weak electrolytes reach &Lambda;<sub>m</sub>&deg; steeply (large change due to &alpha; increasing)</label>
+          <label class="opt"><input type="radio" name="q25" value="C"> Weak electrolytes always have higher &Lambda;<sub>m</sub>&deg; than strong electrolytes</label>
+          <label class="opt"><input type="radio" name="q25" value="D"> Both strong and weak electrolytes show identical &Lambda;<sub>m</sub> vs &radic;c behaviour</label>
         </div>
         <div class="q-exp" id="exp25">Strong electrolytes: &Lambda;<sub>m</sub> increases <b>linearly and slightly</b> with dilution (&Lambda;<sub>m</sub> = &Lambda;<sub>m</sub>&deg; &minus; A&radic;c). Weak electrolytes: &Lambda;<sub>m</sub> increases <b>steeply</b> because &alpha; rapidly approaches 1 on dilution. &Lambda;<sub>m</sub>&deg; of a weak electrolyte like CH<sub>3</sub>COOH (390.7) can be higher than a strong electrolyte like NaCl (126.5) because it includes &lambda;&deg;(H<sup>+</sup>).</div>
       </div>
@@ -1183,6 +1183,195 @@ function submitQuiz(){
   r.innerHTML='Score: '+s+'/'+t+' ('+p+'%) &mdash; '+(p>=80?'&#127942; Excellent!':p>=70?'&#10003; Good':p>=50?'&#128218; Review':'&#10007; Re-read');
   document.querySelector('.quiz-submit').disabled=true;document.querySelector('.quiz-submit').style.opacity='.5';
 }
+</script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<style>
+#pdf-dl-bar{position:fixed;bottom:24px;right:24px;z-index:9000;}
+#pdf-dl-btn{background:#34d399;color:#000;border:none;padding:12px 22px;border-radius:9px;font-family:'JetBrains Mono',monospace;font-size:.84rem;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(52,211,153,.4);display:flex;align-items:center;gap:8px;}
+#pdf-dl-btn:hover{opacity:.88;}
+#pdf-dl-btn .spin{display:none;width:14px;height:14px;border:2px solid #000;border-top-color:transparent;border-radius:50%;animation:dlsp .7s linear infinite;}
+@keyframes dlsp{to{transform:rotate(360deg)}}
+#dl-pay-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:99990;align-items:center;justify-content:center;padding:16px;}
+#dl-pay-overlay.open{display:flex;}
+#dl-pay-box{background:#161b22;border:1px solid #30363d;border-radius:14px;width:100%;max-width:400px;max-height:92vh;overflow-y:auto;}
+#dl-pay-box .ph{padding:18px 20px 12px;border-bottom:1px solid #30363d;}
+#dl-pay-box .ph h2{font-family:'Playfair Display',serif;color:#fff;font-size:1.1rem;}
+#dl-pay-box .ph p{color:#8b949e;font-size:.78rem;margin-top:2px;}
+#dl-pay-box .pb{padding:16px 20px;}
+#dl-pay-box .pf{padding:12px 20px;border-top:1px solid #30363d;display:flex;gap:8px;}
+.amt-bb{background:rgba(232,197,71,.07);border:1px solid rgba(232,197,71,.2);border-radius:9px;padding:12px;text-align:center;margin-bottom:14px;}
+.amt-bb .al{font-family:'JetBrains Mono',monospace;font-size:.62rem;color:#8b949e;text-transform:uppercase;letter-spacing:.1em;margin-bottom:2px;}
+.amt-bb .av{font-family:'JetBrains Mono',monospace;font-size:1.7rem;color:#e8c547;font-weight:700;}
+.ph-rowb{display:flex;gap:7px;margin-bottom:6px;}
+.cc-selb{background:#1c2333;border:1px solid #30363d;border-radius:6px;color:#fff;padding:8px 6px;font-family:'JetBrains Mono',monospace;font-size:.78rem;width:110px;}
+.ph-inpb{flex:1;background:#1c2333;border:1px solid #30363d;border-radius:6px;color:#fff;padding:8px 11px;font-family:'JetBrains Mono',monospace;font-size:.86rem;}
+.ph-inpb:focus,.cc-selb:focus{outline:none;border-color:#e8c547;}
+.net-rb{display:flex;gap:6px;margin-bottom:12px;}
+.nbb{flex:1;background:#1c2333;border:1px solid #30363d;border-radius:6px;color:#8b949e;font-family:'JetBrains Mono',monospace;font-size:.68rem;padding:7px;cursor:pointer;text-align:center;}
+.nbb.sel{background:rgba(52,211,153,.1);border-color:#34d399;color:#34d399;}
+.pay-gob{flex:1;background:#e8c547;color:#000;border:none;padding:11px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:.84rem;font-weight:700;cursor:pointer;}
+.pay-gob:disabled{opacity:.5;cursor:not-allowed;}
+.cancel-bb{background:#1c2333;color:#8b949e;border:1px solid #30363d;padding:10px 14px;border-radius:7px;cursor:pointer;font-size:.82rem;}
+.pay-stb{display:none;text-align:center;padding:20px;}
+.dl-spinnerb{width:34px;height:34px;border:3px solid #30363d;border-top-color:#e8c547;border-radius:50%;animation:dlsp .8s linear infinite;margin:0 auto 12px;}
+</style>
+
+<div id="pdf-dl-bar">
+  <button id="pdf-dl-btn" onclick="checkPayAndDownload()">
+    <span class="spin" id="pdf-spin"></span>
+    <span id="pdf-btn-text">&#11015; Download PDF</span>
+  </button>
+</div>
+
+<div id="dl-pay-overlay">
+  <div id="dl-pay-box">
+    <div class="ph"><h2>&#128179; Pay to Download</h2><p>Unit notes &mdash; instant PDF download</p></div>
+    <div id="dl-pform">
+      <div class="pb">
+        <div class="amt-bb"><div class="al">Price</div><div class="av">300 RWF</div><div style="font-size:.72rem;color:#8b949e;margin-top:2px;">One-time &middot; Download immediately after payment</div></div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.67rem;color:#8b949e;text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px;">Phone Number</div>
+        <div class="ph-rowb">
+          <select class="cc-selb" id="dl-ccode" onchange="dlUpdateHint()">
+            <option value="+250" data-net="MTN / Airtel">&#127479;&#127484; +250</option>
+            <option value="+256" data-net="MTN / Airtel">&#127482;&#127468; +256</option>
+            <option value="+255" data-net="Vodacom / Tigo">&#127481;&#127487; +255</option>
+            <option value="+254" data-net="M-Pesa / Airtel">&#127472;&#127466; +254</option>
+            <option value="+234" data-net="MTN / Airtel">&#127475;&#127468; +234</option>
+            <option value="+233" data-net="MTN / Vodafone">&#127468;&#127469; +233</option>
+          </select>
+          <input class="ph-inpb" type="tel" id="dl-phone" placeholder="07XXXXXXXX" oninput="dlValPhone()" maxlength="12"/>
+        </div>
+        <div class="ph-hint" id="dl-ph-hint">Rwanda &mdash; MTN MoMo or Airtel Money</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.67rem;color:#8b949e;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;">Network</div>
+        <div class="net-rb">
+          <div class="nbb sel" onclick="dlSelNet(this,'MTN')">MTN MoMo</div>
+          <div class="nbb" onclick="dlSelNet(this,'AIRTEL')">Airtel Money</div>
+          <div class="nbb" onclick="dlSelNet(this,'OTHER')">Other</div>
+        </div>
+        <div id="dl-err" style="display:none;font-family:'JetBrains Mono',monospace;font-size:.74rem;color:#f87171;padding:7px 10px;background:rgba(248,113,113,.07);border-radius:5px;margin-bottom:8px;"></div>
+      </div>
+      <div class="pf">
+        <button class="pay-gob" id="dl-pay-go" onclick="dlInitPay()" disabled>Pay &amp; Download</button>
+        <button class="cancel-bb" onclick="closeDlPay()">Cancel</button>
+      </div>
+    </div>
+    <div class="pay-stb" id="dl-st-proc">
+      <div class="dl-spinnerb"></div>
+      <div style="font-family:'JetBrains Mono',monospace;color:#fff;font-size:.86rem;margin-bottom:5px;">Processing Payment...</div>
+      <div style="color:#8b949e;font-size:.79rem;">Check your phone &mdash; enter your PIN to confirm.</div>
+    </div>
+    <div class="pay-stb" id="dl-st-ok">
+      <div style="font-size:2.8rem;margin-bottom:10px;">&#9989;</div>
+      <div style="font-family:'JetBrains Mono',monospace;color:#34d399;font-size:.92rem;margin-bottom:5px;">Payment Confirmed!</div>
+      <div style="color:#8b949e;font-size:.8rem;margin-bottom:16px;">Generating your PDF...</div>
+      <div class="dl-spinnerb"></div>
+    </div>
+    <div class="pay-stb" id="dl-st-fail">
+      <div style="font-size:2.8rem;margin-bottom:10px;">&#10060;</div>
+      <div style="font-family:'JetBrains Mono',monospace;color:#f87171;font-size:.86rem;margin-bottom:5px;">Payment Not Completed</div>
+      <div style="color:#8b949e;font-size:.79rem;margin-bottom:14px;" id="dl-fail-txt"></div>
+      <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+        <button style="background:#e8c547;color:#000;border:none;padding:8px 16px;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:.76rem;font-weight:700;cursor:pointer;" onclick="dlShowForm()">Try Again</button>
+        <a id="dl-wa-link" href="#" target="_blank" style="background:#25D366;color:#fff;padding:8px 14px;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:.76rem;font-weight:700;text-decoration:none;">WhatsApp</a>
+        <button style="background:#1c2333;color:#8b949e;border:1px solid #30363d;padding:8px 14px;border-radius:6px;cursor:pointer;font-size:.8rem;" onclick="closeDlPay()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+var _DL_UNIT_ID='S5-12';
+var _DL_PRICE=300;
+var _dlNet='MTN',_dlPollTimer=null;
+function isPaidUnit(){
+  if(localStorage.getItem('teacher_dl_unlocked')==='true')return true;
+  var paid=JSON.parse(localStorage.getItem('paid_items')||'[]');
+  var lvl=_DL_UNIT_ID.split('-')[0];
+  return paid.indexOf(_DL_UNIT_ID)>=0||paid.indexOf('ALL')>=0||paid.indexOf(lvl)>=0||paid.indexOf('BUNDLE-'+lvl)>=0;
+}
+function checkPayAndDownload(){
+  if(localStorage.getItem('teacher_dl_unlocked')==='true'){doDownloadPDF();return;}
+  document.getElementById('dl-pay-overlay').classList.add('open');dlShowForm();
+}
+function closeDlPay(){document.getElementById('dl-pay-overlay').classList.remove('open');if(_dlPollTimer){clearInterval(_dlPollTimer);_dlPollTimer=null;}}
+function dlShowForm(){document.getElementById('dl-pform').style.display='block';['dl-st-proc','dl-st-ok','dl-st-fail'].forEach(function(id){document.getElementById(id).style.display='none';});document.getElementById('dl-err').style.display='none';}
+function dlSelNet(el,n){_dlNet=n;document.querySelectorAll('.nbb').forEach(function(b){b.classList.remove('sel');});el.classList.add('sel');}
+function dlUpdateHint(){var o=document.getElementById('dl-ccode').options[document.getElementById('dl-ccode').selectedIndex];document.getElementById('dl-ph-hint').textContent=o.text+' - '+(o.dataset.net||'Mobile Money');}
+function dlValPhone(){document.getElementById('dl-pay-go').disabled=document.getElementById('dl-phone').value.replace(/\D/g,'').length<8;}
+async function dlInitPay(){
+  var code=document.getElementById('dl-ccode').value;
+  var num=document.getElementById('dl-phone').value.replace(/\D/g,'');
+  if(num.length<8){var e=document.getElementById('dl-err');e.style.display='block';e.textContent='Enter a valid phone number.';return;}
+  var fullPhone=code.replace('+','')+num.replace(/^0/,'');
+  document.getElementById('dl-pform').style.display='none';
+  document.getElementById('dl-st-proc').style.display='block';
+  var s=JSON.parse(localStorage.getItem('notif_settings')||'{}');
+  var ppKey=s.pawapayKey||'';
+  if(!ppKey){
+    document.getElementById('dl-st-proc').style.display='none';
+    var wa=encodeURIComponent('PAYMENT\nUnit: '+document.title+'\nAmount: '+_DL_PRICE+' RWF\nPhone: '+code+num+'\nPlease confirm my download.');
+    document.getElementById('dl-wa-link').href='https://wa.me/250788800375?text='+wa;
+    document.getElementById('dl-fail-txt').innerHTML='Pay to MTN MoMo: <strong style="color:#fff;">+250 788 800 375</strong><br>Amount: <strong style="color:#e8c547;">'+_DL_PRICE+' RWF</strong><br><br>Then tap WhatsApp to confirm.';
+    document.getElementById('dl-st-fail').style.display='block';
+    return;
+  }
+  var depositId='dep_'+Date.now()+'_'+Math.random().toString(36).substr(2,5);
+  var cMap={250:'RW',256:'UG',255:'TZ',254:'KE',234:'NG',233:'GH'};
+  var ci=cMap[parseInt(code.replace('+',''))]||'RW';
+  var corrMap={MTN:{RW:'MTNRW',UG:'MTNUG',GH:'MTNGHS'},AIRTEL:{RW:'AIRTELRW',UG:'AIRTELUG'},OTHER:{RW:'MTNRW'}};
+  var curMap={RW:'RWF',UG:'UGX',TZ:'TZS',KE:'KES',NG:'NGN',GH:'GHS'};
+  var correspondent=(corrMap[_dlNet]||corrMap.MTN)[ci]||'MTNRW';
+  var currency=curMap[ci]||'RWF';
+  try{
+    var r=await fetch('https://api.pawapay.io/deposits',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+ppKey},body:JSON.stringify({depositId:depositId,amount:String(_DL_PRICE),currency:currency,correspondent:correspondent,payer:{type:'MSISDN',address:{value:fullPhone}},statementDescription:'ChemNotes'})});
+    var d=await r.json();
+    if(d.depositId||r.ok){
+      _dlPollTimer=setInterval(async function(){
+        try{
+          var pr=await fetch('https://api.pawapay.io/deposits/'+depositId,{headers:{'Authorization':'Bearer '+ppKey}});
+          var pd=await pr.json();
+          var st=((pd.status||(pd[0]&&pd[0].status))||'').toUpperCase();
+          if(st==='COMPLETED'){clearInterval(_dlPollTimer);_dlPollTimer=null;markPaidAndDownload();}
+          else if(st==='FAILED'||st==='EXPIRED'){clearInterval(_dlPollTimer);_dlPollTimer=null;document.getElementById('dl-st-proc').style.display='none';document.getElementById('dl-fail-txt').textContent=(pd.correspondentIds&&pd.correspondentIds.reason)||'Payment not completed.';document.getElementById('dl-st-fail').style.display='block';}
+        }catch(e){}
+      },3000);
+      setTimeout(function(){if(_dlPollTimer){clearInterval(_dlPollTimer);_dlPollTimer=null;document.getElementById('dl-st-proc').style.display='none';document.getElementById('dl-fail-txt').textContent='Timed out. Contact Mr Habimana via WhatsApp.';document.getElementById('dl-st-fail').style.display='block';}},180000);
+    }else{throw new Error(d.errorCode||'Failed');}
+  }catch(e){
+    document.getElementById('dl-st-proc').style.display='none';
+    var wa2=encodeURIComponent('PAYMENT\nUnit: '+document.title+'\nAmount: '+_DL_PRICE+' RWF\nPhone: '+code+num);
+    document.getElementById('dl-wa-link').href='https://wa.me/250788800375?text='+wa2;
+    document.getElementById('dl-fail-txt').innerHTML='Auto-payment failed. Pay to <strong style="color:#fff;">+250 788 800 375</strong> ('+_DL_PRICE+' RWF) then WhatsApp.';
+    document.getElementById('dl-st-fail').style.display='block';
+  }
+}
+function markPaidAndDownload(){
+  var paid=JSON.parse(localStorage.getItem('paid_items')||'[]');
+  if(paid.indexOf(_DL_UNIT_ID)<0)paid.push(_DL_UNIT_ID);
+  localStorage.setItem('paid_items',JSON.stringify(paid));
+  document.getElementById('dl-st-proc').style.display='none';
+  document.getElementById('dl-st-ok').style.display='block';
+  setTimeout(function(){closeDlPay();doDownloadPDF();},1500);
+}
+function doDownloadPDF(){
+  var btn=document.getElementById('pdf-dl-btn');
+  var spin=document.getElementById('pdf-spin');
+  var txt=document.getElementById('pdf-btn-text');
+  btn.disabled=true;spin.style.display='block';txt.textContent='Generating...';
+  var title=document.title.replace(/[^a-zA-Z0-9\s]/g,'').replace(/\s+/g,'_').substring(0,60)||'chemistry_notes';
+  var main=document.querySelector('main')||document.querySelector('.content')||document.body;
+  var clone=main.cloneNode(true);
+  clone.querySelectorAll('.quiz-wrap,#quiz,#test,.quiz-submit,.qs,button,#pdf-dl-bar,#dl-pay-overlay').forEach(function(el){el.remove();});
+  var wrapper=document.createElement('div');
+  wrapper.style.cssText='background:#fff;color:#000;font-family:Georgia,serif;font-size:11pt;line-height:1.7;padding:20px;';
+  wrapper.appendChild(clone);
+  wrapper.querySelectorAll('*').forEach(function(el){el.style.color='#000';el.style.background='transparent';el.style.borderColor='#ccc';});
+  wrapper.querySelectorAll('h1,h2,h3,h4').forEach(function(h){h.style.color='#000';h.style.fontWeight='bold';});
+  html2pdf().set({margin:[10,10,10,10],filename:title+'.pdf',image:{type:'jpeg',quality:0.92},html2canvas:{scale:1.5,useCORS:true,backgroundColor:'#ffffff',logging:false},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}}).from(wrapper).save().then(function(){btn.disabled=false;spin.style.display='none';txt.textContent='Downloaded!';setTimeout(function(){txt.textContent='Download PDF';},3000);}).catch(function(){btn.disabled=false;spin.style.display='none';txt.textContent='Download PDF';});
+}
+document.getElementById('dl-pay-overlay').addEventListener('click',function(e){if(e.target===this)closeDlPay();});
 </script>
 </body>
 </html>

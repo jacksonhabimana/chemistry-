@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>S6 Chemistry – Unit 5: Derivatives of Benzene</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Serif+4:wght@300;400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
-<style>:root{--bg:#0d1117;--surface:#161b22;--surface2:#1c2333;--border:#30363d;--ac:#f472b6;--a2:#f97316;--gold:#e8c547;--green:#34d399;--red:#f87171;--text:#e6edf3;--muted:#8b949e;--r:10px;}*{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}body{background:var(--bg);color:var(--text);font-family:'Source Serif 4',Georgia,serif;font-size:17px;line-height:1.75;overflow-x:hidden;}.hero{position:relative;padding:70px 40px 50px;text-align:center;overflow:hidden;background:radial-gradient(ellipse 80% 60% at 50% 0%,#1a0a12 0%,var(--bg) 70%);border-bottom:1px solid var(--border);}.hero::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(244,114,182,.04) 40px),repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(244,114,182,.04) 40px);pointer-events:none;}.badge{display:inline-block;background:rgba(244,114,182,.12);border:1px solid rgba(244,114,182,.3);color:var(--ac);padding:4px 16px;border-radius:50px;font-size:.78rem;font-family:'JetBrains Mono',monospace;letter-spacing:.12em;text-transform:uppercase;margin-bottom:20px;}.hero h1{font-family:'Playfair Display',serif;font-size:clamp(1.9rem,5vw,3.2rem);line-height:1.15;color:#fff;max-width:800px;margin:0 auto 16px;}.hero h1 em{color:var(--ac);font-style:italic;}.hero p.sub{color:var(--muted);font-size:1rem;max-width:640px;margin:0 auto 28px;}.page{max-width:960px;margin:0 auto;padding:0 28px 80px;}.sh{display:flex;align-items:center;gap:16px;margin:56px 0 24px;padding-bottom:12px;border-bottom:2px solid var(--border);}.sn{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--ac);background:rgba(244,114,182,.1);border:1px solid rgba(244,114,182,.25);padding:4px 12px;border-radius:4px;white-space:nowrap;}.sh h2{font-family:'Playfair Display',serif;font-size:1.65rem;color:#fff;}.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:22px 26px;margin-bottom:18px;}.card h3{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--gold);margin-bottom:10px;}.card p+p{margin-top:9px;}.def{border-left:4px solid var(--ac);background:rgba(244,114,182,.07);border-radius:0 var(--r) var(--r) 0;padding:16px 20px;margin:18px 0;}.def strong{color:var(--ac);display:block;font-size:.76rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.1em;margin-bottom:5px;}.fb{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:16px 22px;margin:12px 0;font-family:'JetBrains Mono',monospace;font-size:.88rem;color:var(--ac);overflow-x:auto;white-space:pre;}.c2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0;}@media(max-width:640px){.c2{grid-template-columns:1fr;}}.clo{border-radius:var(--r);padding:14px 18px;margin:16px 0;display:flex;gap:11px;align-items:flex-start;}.clo.w{background:rgba(249,115,22,.08);border:1px solid rgba(249,115,22,.25);}.clo.t{background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.25);}.clo.i{background:rgba(244,114,182,.08);border:1px solid rgba(244,114,182,.25);}.clo-i{font-size:1.1rem;flex-shrink:0;}.clo-b strong{display:block;margin-bottom:3px;font-size:.86rem;color:#fff;}.tw{overflow-x:auto;margin:16px 0;border-radius:var(--r);border:1px solid var(--border);}table{width:100%;border-collapse:collapse;}thead tr{background:var(--surface2);}th{padding:11px 14px;text-align:left;font-size:.8rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--ac);}td{padding:10px 14px;border-top:1px solid var(--border);font-size:.88rem;}tr:hover td{background:rgba(255,255,255,.02);}.el{list-style:none;counter-reset:e;}.el li{counter-increment:e;margin-bottom:12px;padding:12px 16px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);}.el li::before{content:'Q' counter(e) '.';font-family:'JetBrains Mono',monospace;font-size:.74rem;color:var(--ac);display:block;margin-bottom:4px;}.rb{margin-top:7px;background:rgba(244,114,182,.1);border:1px solid rgba(244,114,182,.3);color:var(--ac);padding:4px 12px;border-radius:5px;cursor:pointer;font-size:.78rem;font-family:'JetBrains Mono',monospace;}.rb:hover{background:var(--ac);color:#000;}.ans{display:none;margin-top:9px;padding:10px 13px;background:rgba(244,114,182,.06);border-left:3px solid var(--ac);border-radius:0 5px 5px 0;font-size:.87rem;}.ans.open{display:block;}.qw{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-top:24px;}.qh{background:rgba(244,114,182,.1);border-bottom:1px solid rgba(244,114,182,.2);padding:13px 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:7px;}.qh h3{font-family:'Playfair Display',serif;color:var(--ac);font-size:1.1rem;}.qb{padding:20px;}.qbl{margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);}.qbl:last-of-type{border-bottom:none;}.qt{font-weight:600;margin-bottom:9px;color:#fff;}.qn{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--ac);display:block;margin-bottom:3px;}.opts{display:flex;flex-direction:column;gap:6px;}.opt{display:flex;align-items:flex-start;gap:8px;padding:8px 12px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;cursor:pointer;transition:all .15s;font-size:.88rem;}.opt:hover{border-color:var(--ac);}.opt input{margin-top:3px;accent-color:var(--ac);}.opt.correct{background:rgba(52,211,153,.12);border-color:var(--green)!important;color:var(--green);}.opt.wrong{background:rgba(248,113,113,.1);border-color:var(--red)!important;color:var(--red);}.qe{display:none;margin-top:7px;padding:8px 12px;background:rgba(244,114,182,.07);border-left:3px solid var(--ac);border-radius:0 4px 4px 0;font-size:.84rem;}.qs{background:var(--ac);color:#000;border:none;padding:10px 26px;border-radius:7px;font-size:.9rem;font-family:'JetBrains Mono',monospace;cursor:pointer;font-weight:700;}.qs:hover{opacity:.85;}.ts{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:20px;}.tsh{background:rgba(249,115,22,.1);border-bottom:1px solid rgba(249,115,22,.2);padding:11px 20px;display:flex;justify-content:space-between;align-items:center;}.tsh h3{font-family:'Playfair Display',serif;color:var(--a2);font-size:1rem;}.mb{font-family:'JetBrains Mono',monospace;font-size:.7rem;background:rgba(249,115,22,.2);color:var(--a2);padding:3px 9px;border-radius:50px;}.tb{padding:20px;}.tq{margin-bottom:16px;padding:13px 15px;background:var(--surface2);border-radius:7px;border:1px solid var(--border);}.tqn{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--a2);margin-bottom:4px;display:block;}.nav{display:flex;justify-content:space-between;align-items:center;margin-top:50px;padding-top:24px;border-top:1px solid var(--border);flex-wrap:wrap;gap:12px;}.nb{display:inline-flex;align-items:center;gap:7px;padding:10px 20px;border-radius:7px;text-decoration:none;font-family:'JetBrains Mono',monospace;font-size:.81rem;transition:all .2s;}.nb.p{background:var(--surface);border:1px solid var(--border);color:var(--muted);}.nb.p:hover{border-color:var(--ac);color:var(--ac);}.nb.n{background:var(--ac);color:#000;font-weight:700;}.nb.n:hover{opacity:.88;}h3.sub{font-family:'Playfair Display',serif;font-size:1.02rem;color:var(--gold);margin:22px 0 9px;}sub,sup{font-size:.72em;}.toc-grid{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:800px;margin:0 auto;}.toc-grid a{background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:8px 18px;border-radius:50px;text-decoration:none;font-size:.85rem;transition:all .2s;font-family:'JetBrains Mono',monospace;}.toc-grid a:hover{background:var(--accent);color:#000;border-color:var(--accent);}
+<style>:root{--bg:#0d1117;--surface:#161b22;--surface2:#1c2333;--border:#30363d;--ac:#f472b6;--a2:#f97316;--gold:#e8c547;--green:#34d399;--red:#f87171;--text:#e6edf3;--muted:#8b949e;--r:10px;}*{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}body{background:var(--bg);color:var(--text);font-family:'Source Serif 4',Georgia,serif;font-size:17px;line-height:1.75;overflow-x:hidden;}.hero{position:relative;padding:70px 40px 50px;text-align:center;overflow:hidden;background:radial-gradient(ellipse 80% 60% at 50% 0%,#1a0a12 0%,var(--bg) 70%);border-bottom:1px solid var(--border);}.hero::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(244,114,182,.04) 40px),repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(244,114,182,.04) 40px);pointer-events:none;}.badge{display:inline-block;background:rgba(244,114,182,.12);border:1px solid rgba(244,114,182,.3);color:var(--ac);padding:4px 16px;border-radius:50px;font-size:.78rem;font-family:'JetBrains Mono',monospace;letter-spacing:.12em;text-transform:uppercase;margin-bottom:20px;}.hero h1{font-family:'Playfair Display',serif;font-size:clamp(1.9rem,5vw,3.2rem);line-height:1.15;color:#fff;max-width:800px;margin:0 auto 16px;}.hero h1 em{color:var(--ac);font-style:italic;}.hero p.sub{color:var(--muted);font-size:1rem;max-width:640px;margin:0 auto 28px;}.page{max-width:960px;margin:0 auto;padding:0 28px 80px;}.sh{display:flex;align-items:center;gap:16px;margin:56px 0 24px;padding-bottom:12px;border-bottom:2px solid var(--border);}.sn{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--ac);background:rgba(244,114,182,.1);border:1px solid rgba(244,114,182,.25);padding:4px 12px;border-radius:4px;white-space:nowrap;}.sh h2{font-family:'Playfair Display',serif;font-size:1.65rem;color:#fff;}.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:22px 26px;margin-bottom:18px;}.card h3{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--gold);margin-bottom:10px;}.card p+p{margin-top:9px;}.def{border-left:4px solid var(--ac);background:rgba(244,114,182,.07);border-radius:0 var(--r) var(--r) 0;padding:16px 20px;margin:18px 0;}.def strong{color:var(--ac);display:block;font-size:.76rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.1em;margin-bottom:5px;}.fb{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:16px 22px;margin:12px 0;font-family:'JetBrains Mono',monospace;font-size:.88rem;color:var(--ac);overflow-x:auto;white-space:pre;}.c2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0;}@media(max-width:640px){.c2{grid-template-columns:1fr;}}.clo{border-radius:var(--r);padding:14px 18px;margin:16px 0;display:flex;gap:11px;align-items:flex-start;}.clo.w{background:rgba(249,115,22,.08);border:1px solid rgba(249,115,22,.25);}.clo.t{background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.25);}.clo.i{background:rgba(244,114,182,.08);border:1px solid rgba(244,114,182,.25);}.clo-i{font-size:1.1rem;flex-shrink:0;}.clo-b strong{display:block;margin-bottom:3px;font-size:.86rem;color:#fff;}.tw{overflow-x:auto;margin:16px 0;border-radius:var(--r);border:1px solid var(--border);}table{width:100%;border-collapse:collapse;}thead tr{background:var(--surface2);}th{padding:11px 14px;text-align:left;font-size:.8rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--ac);}td{padding:10px 14px;border-top:1px solid var(--border);font-size:.88rem;}tr:hover td{background:rgba(255,255,255,.02);}.el{list-style:none;counter-reset:e;}.el li{counter-increment:e;margin-bottom:12px;padding:12px 16px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);}.el li::before{content:'Q' counter(e) '.';font-family:'JetBrains Mono',monospace;font-size:.74rem;color:var(--ac);display:block;margin-bottom:4px;}.rb{margin-top:7px;background:rgba(244,114,182,.1);border:1px solid rgba(244,114,182,.3);color:var(--ac);padding:4px 12px;border-radius:5px;cursor:pointer;font-size:.78rem;font-family:'JetBrains Mono',monospace;}.rb:hover{background:var(--ac);color:#000;}.ans{display:none;margin-top:9px;padding:10px 13px;background:rgba(244,114,182,.06);border-left:3px solid var(--ac);border-radius:0 5px 5px 0;font-size:.87rem;}.ans.open{display:block;}.qw{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-top:24px;}.qh{background:rgba(244,114,182,.1);border-bottom:1px solid rgba(244,114,182,.2);padding:13px 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:7px;}.qh h3{font-family:'Playfair Display',serif;color:var(--ac);font-size:1.1rem;}.qb{padding:20px;}.qbl{margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);}.qbl:last-of-type{border-bottom:none;}.qt{font-weight:600;margin-bottom:9px;color:#fff;}.qn{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--ac);display:block;margin-bottom:3px;}.opts{display:flex;flex-direction:column;gap:6px;}.opt{display:flex;align-items:flex-start;gap:8px;padding:8px 12px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;cursor:pointer;transition:all .15s;font-size:.88rem;}.opt:hover{border-color:var(--ac);}.opt input{margin-top:3px;accent-color:var(--ac);}.opt.correct{background:rgba(52,211,153,.12);border-color:#34d399!important;color:#34d399;}.opt.wrong{background:rgba(248,113,113,.1);border-color:var(--red)!important;color:var(--red);}.qe{display:none;margin-top:7px;padding:8px 12px;background:rgba(244,114,182,.07);border-left:3px solid var(--ac);border-radius:0 4px 4px 0;font-size:.84rem;}.qs{background:var(--ac);color:#000;border:none;padding:10px 26px;border-radius:7px;font-size:.9rem;font-family:'JetBrains Mono',monospace;cursor:pointer;font-weight:700;}.qs:hover{opacity:.85;}.ts{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:20px;}.tsh{background:rgba(249,115,22,.1);border-bottom:1px solid rgba(249,115,22,.2);padding:11px 20px;display:flex;justify-content:space-between;align-items:center;}.tsh h3{font-family:'Playfair Display',serif;color:var(--a2);font-size:1rem;}.mb{font-family:'JetBrains Mono',monospace;font-size:.7rem;background:rgba(249,115,22,.2);color:var(--a2);padding:3px 9px;border-radius:50px;}.tb{padding:20px;}.tq{margin-bottom:16px;padding:13px 15px;background:var(--surface2);border-radius:7px;border:1px solid var(--border);}.tqn{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--a2);margin-bottom:4px;display:block;}.nav{display:flex;justify-content:space-between;align-items:center;margin-top:50px;padding-top:24px;border-top:1px solid var(--border);flex-wrap:wrap;gap:12px;}.nb{display:inline-flex;align-items:center;gap:7px;padding:10px 20px;border-radius:7px;text-decoration:none;font-family:'JetBrains Mono',monospace;font-size:.81rem;transition:all .2s;}.nb.p{background:var(--surface);border:1px solid var(--border);color:var(--muted);}.nb.p:hover{border-color:var(--ac);color:var(--ac);}.nb.n{background:var(--ac);color:#000;font-weight:700;}.nb.n:hover{opacity:.88;}h3.sub{font-family:'Playfair Display',serif;font-size:1.02rem;color:var(--gold);margin:22px 0 9px;}sub,sup{font-size:.72em;}.toc-grid{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:800px;margin:0 auto;}.toc-grid a{background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:8px 18px;border-radius:50px;text-decoration:none;font-size:.85rem;transition:all .2s;font-family:'JetBrains Mono',monospace;}.toc-grid a:hover{background:var(--accent);color:#000;border-color:var(--accent);}
 </style>
 
 <style>
@@ -154,178 +154,178 @@ Azo dyes are used in textiles, food colouring, inks, and hair dye.</div></div>
 <script>window._CA={q1:'b',q2:'b',q3:'a',q4:'b',q5:'c',q6:'b',q7:'b',q8:'b',q9:'b',q10:'a',q11:'b',q12:'c',q13:'b',q14:'b',q15:'b',q16:'a',q17:'b',q18:'b',q19:'b',q20:'b',q21:'b',q22:'b',q23:'b',q24:'a',q25:'b'};</script>
 
 <div class="qbl"><span class="qn">Q1</span><p class="qt">An ortho/para director:</p><div class="opts">
-<label class="opt"><input type="radio" name="q1" value="a"> Withdraws electrons from the ring</label>
-<label class="opt"><input type="radio" name="q1" value="b"> Donates electrons into the ring, increasing density at ortho and para positions</label>
-<label class="opt"><input type="radio" name="q1" value="c"> Directs the next group to the meta position</label>
-<label class="opt"><input type="radio" name="q1" value="d"> Always activates the ring</label>
+<label class="opt"><input type="radio" name="q1" value="A"> Withdraws electrons from the ring</label>
+<label class="opt"><input type="radio" name="q1" value="B"> Donates electrons into the ring, increasing density at ortho and para positions</label>
+<label class="opt"><input type="radio" name="q1" value="C"> Directs the next group to the meta position</label>
+<label class="opt"><input type="radio" name="q1" value="D"> Always activates the ring</label>
 </div><div class="qe" id="e1">O/p directors donate electrons into the ring (&#43;M or &#43;I), increasing electron density at o and p positions. Note: halogens are o/p directors but DEACTIVATORS (&#8211;I &gt; &#43;M). &#8211;OH, &#8211;NH&#8322;, alkyl groups are both o/p directors and activators.</div></div>
 
 <div class="qbl"><span class="qn">Q2</span><p class="qt">The –NO₂ group is a meta director because:</p><div class="opts">
-<label class="opt"><input type="radio" name="q2" value="a"> It is too large to fit at ortho positions</label>
-<label class="opt"><input type="radio" name="q2" value="b"> It withdraws electrons by &#8211;M, destabilising the arenium ion at o and p positions; meta attack is least destabilised</label>
-<label class="opt"><input type="radio" name="q2" value="c"> It donates electrons to the meta positions</label>
-<label class="opt"><input type="radio" name="q2" value="d"> Meta positions are closer to the nitrogen</label>
+<label class="opt"><input type="radio" name="q2" value="A"> It is too large to fit at ortho positions</label>
+<label class="opt"><input type="radio" name="q2" value="B"> It withdraws electrons by &#8211;M, destabilising the arenium ion at o and p positions; meta attack is least destabilised</label>
+<label class="opt"><input type="radio" name="q2" value="C"> It donates electrons to the meta positions</label>
+<label class="opt"><input type="radio" name="q2" value="D"> Meta positions are closer to the nitrogen</label>
 </div><div class="qe" id="e2">EWG (–NO&#8322;) destabilises &#43; charge in arenium ion. &#43; charge is at o/p positions in arenium ion. EWG at ring is worst when &#43; charge is adjacent to it (o/p attack). Meta attack puts &#43; charge away from –NO&#8322; &#8594; least destabilised &#8594; meta product preferred.</div></div>
 
 <div class="qbl"><span class="qn">Q3</span><p class="qt">Phenol reacts with NaHCO₃:</p><div class="opts">
-<label class="opt"><input type="radio" name="q3" value="a"> No reaction — phenol is too weak an acid to react with NaHCO&#8323;</label>
-<label class="opt"><input type="radio" name="q3" value="b"> Gives CO&#8322; gas</label>
-<label class="opt"><input type="radio" name="q3" value="c"> Gives H&#8322; gas</label>
-<label class="opt"><input type="radio" name="q3" value="d"> Gives phenol sodium salt + CO</label>
+<label class="opt"><input type="radio" name="q3" value="A"> No reaction — phenol is too weak an acid to react with NaHCO&#8323;</label>
+<label class="opt"><input type="radio" name="q3" value="B"> Gives CO&#8322; gas</label>
+<label class="opt"><input type="radio" name="q3" value="C"> Gives H&#8322; gas</label>
+<label class="opt"><input type="radio" name="q3" value="D"> Gives phenol sodium salt + CO</label>
 </div><div class="qe" id="e3">Phenol pKa = 9.95. For an acid to react with HCO&#8323;&#8315; and give CO&#8322;, it must be stronger than H&#8322;CO&#8323; (pKa 6.35). Phenol (9.95) is too weak. <b>No reaction</b> with NaHCO&#8323;. Benzoic acid (pKa 4.19) DOES react. This is the key test distinguishing phenol from carboxylic acids.</div></div>
 
 <div class="qbl"><span class="qn">Q4</span><p class="qt">Phenol gives a white precipitate with bromine water because:</p><div class="opts">
-<label class="opt"><input type="radio" name="q4" value="a"> Phenol is reduced by Br&#8322;</label>
-<label class="opt"><input type="radio" name="q4" value="b"> &#8211;OH strongly activates the ring, allowing three brominations without a catalyst, giving 2,4,6-tribromophenol</label>
-<label class="opt"><input type="radio" name="q4" value="c"> Phenol forms an ionic salt with Br&#8322;</label>
-<label class="opt"><input type="radio" name="q4" value="d"> Bromine oxidises phenol</label>
+<label class="opt"><input type="radio" name="q4" value="A"> Phenol is reduced by Br&#8322;</label>
+<label class="opt"><input type="radio" name="q4" value="B"> &#8211;OH strongly activates the ring, allowing three brominations without a catalyst, giving 2,4,6-tribromophenol</label>
+<label class="opt"><input type="radio" name="q4" value="C"> Phenol forms an ionic salt with Br&#8322;</label>
+<label class="opt"><input type="radio" name="q4" value="D"> Bromine oxidises phenol</label>
 </div><div class="qe" id="e4">&#8211;OH donates lone pair into ring (&#43;M), greatly activating ortho and para positions. Br&#8322; can substitute without a Lewis acid catalyst. All three o/p positions (2, 4, 6) are substituted &#8594; <b>2,4,6-tribromophenol</b> (white ppt, poorly soluble). This is a specific qualitative test for phenol.</div></div>
 
 <div class="qbl"><span class="qn">Q5</span><p class="qt">Toluene is oxidised by hot acidic KMnO₄ to give:</p><div class="opts">
-<label class="opt"><input type="radio" name="q5" value="a"> Benzaldehyde</label>
-<label class="opt"><input type="radio" name="q5" value="b"> Benzyl alcohol</label>
-<label class="opt"><input type="radio" name="q5" value="c"> Benzoic acid</label>
-<label class="opt"><input type="radio" name="q5" value="d"> Cyclohexane</label>
+<label class="opt"><input type="radio" name="q5" value="A"> Benzaldehyde</label>
+<label class="opt"><input type="radio" name="q5" value="B"> Benzyl alcohol</label>
+<label class="opt"><input type="radio" name="q5" value="C"> Benzoic acid</label>
+<label class="opt"><input type="radio" name="q5" value="D"> Cyclohexane</label>
 </div><div class="qe" id="e5">Hot acidic KMnO&#8424; oxidises the entire side chain to <b>benzoic acid (C&#8326;H&#8325;COOH)</b> regardless of chain length. The benzene ring is resistant. This gives a convenient route to benzoic acid and is used to confirm the presence of an alkyl side chain on a benzene ring.</div></div>
 
 <div class="qbl"><span class="qn">Q6</span><p class="qt">In the diazotisation step of azo dye synthesis, the temperature must be kept at 0–5°C because:</p><div class="opts">
-<label class="opt"><input type="radio" name="q6" value="a"> NaNO&#8322; decomposes above 5°C</label>
-<label class="opt"><input type="radio" name="q6" value="b"> The diazonium salt (ArN&#8322;&#8314;) is unstable and decomposes to ArOH + N&#8322; above 5°C</label>
-<label class="opt"><input type="radio" name="q6" value="c"> Aniline freezes above 5°C</label>
-<label class="opt"><input type="radio" name="q6" value="d"> HCl evaporates above 5°C</label>
+<label class="opt"><input type="radio" name="q6" value="A"> NaNO&#8322; decomposes above 5°C</label>
+<label class="opt"><input type="radio" name="q6" value="B"> The diazonium salt (ArN&#8322;&#8314;) is unstable and decomposes to ArOH + N&#8322; above 5°C</label>
+<label class="opt"><input type="radio" name="q6" value="C"> Aniline freezes above 5°C</label>
+<label class="opt"><input type="radio" name="q6" value="D"> HCl evaporates above 5°C</label>
 </div><div class="qe" id="e6">Diazonium salts are thermally unstable. Above ~5°C: C&#8326;H&#8325;N&#8322;&#8314; + H&#8322;O &#8594; C&#8326;H&#8325;OH + N&#8322; + H&#8314;. Keeping ice-cold preserves the diazonium salt for the coupling reaction. The N&#8322; loss is irreversible and rapid at higher temperature.</div></div>
 
 <div class="qbl"><span class="qn">Q7</span><p class="qt">Aniline is less basic than methylamine because:</p><div class="opts">
-<label class="opt"><input type="radio" name="q7" value="a"> Aniline has more electrons</label>
-<label class="opt"><input type="radio" name="q7" value="b"> The N lone pair is delocalised into the benzene ring, reducing availability to accept H&#8314;</label>
-<label class="opt"><input type="radio" name="q7" value="c"> Methylamine is more polar</label>
-<label class="opt"><input type="radio" name="q7" value="d"> Aniline has a higher molecular weight</label>
+<label class="opt"><input type="radio" name="q7" value="A"> Aniline has more electrons</label>
+<label class="opt"><input type="radio" name="q7" value="B"> The N lone pair is delocalised into the benzene ring, reducing availability to accept H&#8314;</label>
+<label class="opt"><input type="radio" name="q7" value="C"> Methylamine is more polar</label>
+<label class="opt"><input type="radio" name="q7" value="D"> Aniline has a higher molecular weight</label>
 </div><div class="qe" id="e7">N lone pair &#43;M into ring: C&#8326;H&#8325;NH&#8322; resonance structures show partial positive charge on N. This reduces electron density on N, making it a poorer proton acceptor. pKb(aniline) ~9, pKb(methylamine) ~3.4 &#8594; aniline is ~10&#8309; times weaker base.</div></div>
 
 <div class="qbl"><span class="qn">Q8</span><p class="qt">The chromophore in an azo dye is:</p><div class="opts">
-<label class="opt"><input type="radio" name="q8" value="a"> The benzene ring</label>
-<label class="opt"><input type="radio" name="q8" value="b"> The N=N azo group</label>
-<label class="opt"><input type="radio" name="q8" value="c"> The &#8211;OH group</label>
-<label class="opt"><input type="radio" name="q8" value="d"> The amine group</label>
+<label class="opt"><input type="radio" name="q8" value="A"> The benzene ring</label>
+<label class="opt"><input type="radio" name="q8" value="B"> The N=N azo group</label>
+<label class="opt"><input type="radio" name="q8" value="C"> The &#8211;OH group</label>
+<label class="opt"><input type="radio" name="q8" value="D"> The amine group</label>
 </div><div class="qe" id="e8">The <b>N=N (azo) group</b> is the chromophore — it absorbs visible light, causing the compound to appear coloured. Extended conjugation through both aromatic rings and the N=N group shifts absorption into the visible spectrum (~400&#8211;700 nm).</div></div>
 
 <div class="qbl"><span class="qn">Q9</span><p class="qt">Which test distinguishes phenol from benzoic acid?</p><div class="opts">
-<label class="opt"><input type="radio" name="q9" value="a"> Both react with Na to give H&#8322;</label>
-<label class="opt"><input type="radio" name="q9" value="b"> Add NaHCO&#8323;: benzoic acid gives CO&#8322;; phenol gives no gas</label>
-<label class="opt"><input type="radio" name="q9" value="c"> Add litmus — benzoic acid is red, phenol is blue</label>
-<label class="opt"><input type="radio" name="q9" value="d"> Heat — phenol evaporates, benzoic acid does not</label>
+<label class="opt"><input type="radio" name="q9" value="A"> Both react with Na to give H&#8322;</label>
+<label class="opt"><input type="radio" name="q9" value="B"> Add NaHCO&#8323;: benzoic acid gives CO&#8322;; phenol gives no gas</label>
+<label class="opt"><input type="radio" name="q9" value="C"> Add litmus — benzoic acid is red, phenol is blue</label>
+<label class="opt"><input type="radio" name="q9" value="D"> Heat — phenol evaporates, benzoic acid does not</label>
 </div><div class="qe" id="e9"><b>NaHCO&#8323; test</b>: benzoic acid (pKa 4.19) reacts: C&#8326;H&#8325;COOH + NaHCO&#8323; &#8594; C&#8326;H&#8325;COONa + H&#8322;O + CO&#8322;↑ (effervescence). Phenol (pKa 9.95) is too weak to displace CO&#8322; from HCO&#8323;&#8315; — no reaction. Also: FeCl&#8323; gives violet with phenol, not benzoic acid.</div></div>
 
 <div class="qbl"><span class="qn">Q10</span><p class="qt">What major product forms when aniline is treated with excess Br₂(aq)?</p><div class="opts">
-<label class="opt"><input type="radio" name="q10" value="a"> 2,4,6-tribromoaniline (white precipitate)</label>
-<label class="opt"><input type="radio" name="q10" value="b"> Monobromination at para position only</label>
-<label class="opt"><input type="radio" name="q10" value="c"> N-bromoaniline</label>
-<label class="opt"><input type="radio" name="q10" value="d"> No reaction without catalyst</label>
+<label class="opt"><input type="radio" name="q10" value="A"> 2,4,6-tribromoaniline (white precipitate)</label>
+<label class="opt"><input type="radio" name="q10" value="B"> Monobromination at para position only</label>
+<label class="opt"><input type="radio" name="q10" value="C"> N-bromoaniline</label>
+<label class="opt"><input type="radio" name="q10" value="D"> No reaction without catalyst</label>
 </div><div class="qe" id="e10">Like phenol, aniline's &#8211;NH&#8322; group is a powerful o/p activator (lone pair donated into ring). With excess Br&#8322;(aq), all three o/p positions (2,4,6) are substituted without catalyst &#8594; <b>2,4,6-tribromoaniline</b> (white/pale precipitate). This confirms the strongly activating nature of &#8211;NH&#8322;.</div></div>
 
 <div class="qbl"><span class="qn">Q11</span><p class="qt">Halogens (–F, –Cl, –Br, –I) are unusual directing groups because they are:</p><div class="opts">
-<label class="opt"><input type="radio" name="q11" value="a"> Both activators and meta directors</label>
-<label class="opt"><input type="radio" name="q11" value="b"> Deactivators (via –I) but ortho/para directors (via +M of lone pair)</label>
-<label class="opt"><input type="radio" name="q11" value="c"> Activators and meta directors</label>
-<label class="opt"><input type="radio" name="q11" value="d"> Neither activators nor directors</label>
+<label class="opt"><input type="radio" name="q11" value="A"> Both activators and meta directors</label>
+<label class="opt"><input type="radio" name="q11" value="B"> Deactivators (via –I) but ortho/para directors (via +M of lone pair)</label>
+<label class="opt"><input type="radio" name="q11" value="C"> Activators and meta directors</label>
+<label class="opt"><input type="radio" name="q11" value="D"> Neither activators nor directors</label>
 </div><div class="qe" id="e11">Halogens: <b>–I effect</b> (electronegative, withdraws electrons inductively) makes ring less reactive (deactivator). BUT lone pairs on X donate into ring by <b>+M effect</b>, increasing electron density at o/p positions. Overall: deactivating o/p directors. Rate: slower than benzene, but substitution goes to ortho/para.</div></div>
 
 <div class="qbl"><span class="qn">Q12</span><p class="qt">Benzaldehyde gives a positive Tollens' test but not a positive Fehling's test because:</p><div class="opts">
-<label class="opt"><input type="radio" name="q12" value="a"> Benzaldehyde is not an aldehyde</label>
-<label class="opt"><input type="radio" name="q12" value="b"> Fehling's reagent decomposes benzaldehyde</label>
-<label class="opt"><input type="radio" name="q12" value="c"> Aromatic aldehydes are oxidised by Tollens' (Ag&#8314;) but not by Fehling's (Cu&#178;&#8314;); only aliphatic aldehydes reduce Fehling's</label>
-<label class="opt"><input type="radio" name="q12" value="d"> Benzaldehyde has no aldehyde group</label>
+<label class="opt"><input type="radio" name="q12" value="A"> Benzaldehyde is not an aldehyde</label>
+<label class="opt"><input type="radio" name="q12" value="B"> Fehling's reagent decomposes benzaldehyde</label>
+<label class="opt"><input type="radio" name="q12" value="C"> Aromatic aldehydes are oxidised by Tollens' (Ag&#8314;) but not by Fehling's (Cu&#178;&#8314;); only aliphatic aldehydes reduce Fehling's</label>
+<label class="opt"><input type="radio" name="q12" value="D"> Benzaldehyde has no aldehyde group</label>
 </div><div class="qe" id="e12">Tollens' is a milder, silver-based oxidant: Ag(NH&#8323;)&#8322;&#8314; oxidises both aliphatic and aromatic aldehydes &#8594; silver mirror. Fehling's (Cu&#178;&#8314; complex) is a stronger oxidant but only oxidises <b>aliphatic aldehydes</b>. Aromatic aldehydes (like benzaldehyde) are not oxidised by Fehling's. This selectivity distinguishes aromatic from aliphatic aldehydes.</div></div>
 
 <div class="qbl"><span class="qn">Q13</span><p class="qt">The product of coupling benzenediazonium chloride with phenol in alkaline solution is:</p><div class="opts">
-<label class="opt"><input type="radio" name="q13" value="a"> Phenol + benzoic acid</label>
-<label class="opt"><input type="radio" name="q13" value="b"> An orange azo compound with N=N group</label>
-<label class="opt"><input type="radio" name="q13" value="c"> Diphenyl ether</label>
-<label class="opt"><input type="radio" name="q13" value="d"> Aniline</label>
+<label class="opt"><input type="radio" name="q13" value="A"> Phenol + benzoic acid</label>
+<label class="opt"><input type="radio" name="q13" value="B"> An orange azo compound with N=N group</label>
+<label class="opt"><input type="radio" name="q13" value="C"> Diphenyl ether</label>
+<label class="opt"><input type="radio" name="q13" value="D"> Aniline</label>
 </div><div class="qe" id="e13"><b>Para-hydroxyazobenzene</b> (orange azo dye): C&#8326;H&#8325;&#8211;N=N&#8211;C&#8326;H&#8324;&#8211;OH. Alkaline conditions convert phenol to phenoxide ion (better nucleophile/coupling component). Diazonium ion (electrophile) attacks phenoxide at para position. The N=N (azo) group forms and is the chromophore.</div></div>
 
 <div class="qbl"><span class="qn">Q14</span><p class="qt">Benzoic acid is a stronger acid than phenol because:</p><div class="opts">
-<label class="opt"><input type="radio" name="q14" value="a"> The carboxyl group is larger</label>
-<label class="opt"><input type="radio" name="q14" value="b"> The benzoate ion (COO&#8315;) is more stable than phenoxide (O&#8315;) — negative charge is delocalised over two oxygens in carboxylate</label>
-<label class="opt"><input type="radio" name="q14" value="c"> Benzoic acid has higher molecular weight</label>
-<label class="opt"><input type="radio" name="q14" value="d"> Phenol is not an acid</label>
+<label class="opt"><input type="radio" name="q14" value="A"> The carboxyl group is larger</label>
+<label class="opt"><input type="radio" name="q14" value="B"> The benzoate ion (COO&#8315;) is more stable than phenoxide (O&#8315;) — negative charge is delocalised over two oxygens in carboxylate</label>
+<label class="opt"><input type="radio" name="q14" value="C"> Benzoic acid has higher molecular weight</label>
+<label class="opt"><input type="radio" name="q14" value="D"> Phenol is not an acid</label>
 </div><div class="qe" id="e14">In benzoate (C&#8326;H&#8325;COO&#8315;), the negative charge is equally delocalised over <b>two equivalent oxygen atoms</b> — very stable conjugate base. In phenoxide (C&#8326;H&#8325;O&#8315;), charge is on one O (with some delocalisation into ring). More stable conjugate base = stronger acid. Benzoic acid pKa = 4.19; phenol pKa = 9.95.</div></div>
 
 <div class="qbl"><span class="qn">Q15</span><p class="qt">The side-chain halogenation of toluene in UV light gives primarily:</p><div class="opts">
-<label class="opt"><input type="radio" name="q15" value="a"> Chlorobenzene (ring substitution)</label>
-<label class="opt"><input type="radio" name="q15" value="b"> Benzyl chloride (C&#8326;H&#8325;CH&#8322;Cl) — free radical substitution at the benzylic position</label>
-<label class="opt"><input type="radio" name="q15" value="c"> 1,2-dichlorotoluene</label>
-<label class="opt"><input type="radio" name="q15" value="d"> Benzyl chloride at the ring</label>
+<label class="opt"><input type="radio" name="q15" value="A"> Chlorobenzene (ring substitution)</label>
+<label class="opt"><input type="radio" name="q15" value="B"> Benzyl chloride (C&#8326;H&#8325;CH&#8322;Cl) — free radical substitution at the benzylic position</label>
+<label class="opt"><input type="radio" name="q15" value="C"> 1,2-dichlorotoluene</label>
+<label class="opt"><input type="radio" name="q15" value="D"> Benzyl chloride at the ring</label>
 </div><div class="qe" id="e15">UV light generates Cl• radicals &#8594; free radical chain reaction. Attack preferentially at the <b>benzylic CH&#8323;</b> (benzylic radical is stabilised by resonance with the ring). Product: C&#8326;H&#8325;CH&#8322;Cl (benzyl chloride). Contrast: Cl&#8322;/AlCl&#8323; (ring EAS in dark) gives 2-chloro and 4-chlorotoluene.</div></div>
 
 <div class="qbl"><span class="qn">Q16</span><p class="qt">Which compound reacts with FeCl₃(aq) to give a violet colour?</p><div class="opts">
-<label class="opt"><input type="radio" name="q16" value="a"> Phenol</label>
-<label class="opt"><input type="radio" name="q16" value="b"> Benzoic acid</label>
-<label class="opt"><input type="radio" name="q16" value="c"> Toluene</label>
-<label class="opt"><input type="radio" name="q16" value="d"> Aniline</label>
+<label class="opt"><input type="radio" name="q16" value="A"> Phenol</label>
+<label class="opt"><input type="radio" name="q16" value="B"> Benzoic acid</label>
+<label class="opt"><input type="radio" name="q16" value="C"> Toluene</label>
+<label class="opt"><input type="radio" name="q16" value="D"> Aniline</label>
 </div><div class="qe" id="e16"><b>Phenol</b> gives a characteristic violet/purple colour with FeCl&#8323;(aq). This is due to formation of an iron-phenolate complex. Used as a qualitative test for phenol (and other enols). Aniline gives a blue/green colour. Benzoic acid gives no characteristic colour.</div></div>
 
 <div class="qbl"><span class="qn">Q17</span><p class="qt">Phenol is a weaker acid than benzoic acid but stronger than ethanol. This is because:</p><div class="opts">
-<label class="opt"><input type="radio" name="q17" value="a"> Phenol has a lower molecular mass</label>
-<label class="opt"><input type="radio" name="q17" value="b"> Phenoxide ion is stabilised by resonance with the ring (more stable than ethoxide), but less stable than benzoate (charge on only one O)</label>
-<label class="opt"><input type="radio" name="q17" value="c"> Ethanol is not soluble in water</label>
-<label class="opt"><input type="radio" name="q17" value="d"> Benzoic acid has two OH groups</label>
+<label class="opt"><input type="radio" name="q17" value="A"> Phenol has a lower molecular mass</label>
+<label class="opt"><input type="radio" name="q17" value="B"> Phenoxide ion is stabilised by resonance with the ring (more stable than ethoxide), but less stable than benzoate (charge on only one O)</label>
+<label class="opt"><input type="radio" name="q17" value="C"> Ethanol is not soluble in water</label>
+<label class="opt"><input type="radio" name="q17" value="D"> Benzoic acid has two OH groups</label>
 </div><div class="qe" id="e17">Acid strength order: benzoic acid (pKa 4.19) &gt; phenol (9.95) &gt; ethanol (~16). Phenoxide: O&#8315; charge delocalised into benzene ring (five resonance structures) — more stable than ethoxide (localised O&#8315;). Benzoate: O&#8315; over two O atoms (even more stable). More stable conjugate base = stronger acid.</div></div>
 
 <div class="qbl"><span class="qn">Q18</span><p class="qt">Why does –COOH group direct incoming electrophiles to the meta position?</p><div class="opts">
-<label class="opt"><input type="radio" name="q18" value="a"> The –COOH group is too large for ortho</label>
-<label class="opt"><input type="radio" name="q18" value="b"> –COOH withdraws electrons by –M and –I; o/p attack on arenium ion places &#43; charge adjacent to the EWG (destabilising); meta attack is least destabilised</label>
-<label class="opt"><input type="radio" name="q18" value="c"> –COOH donates electrons to meta positions</label>
-<label class="opt"><input type="radio" name="q18" value="d"> Meta positions are always preferred for substituents with oxygen</label>
+<label class="opt"><input type="radio" name="q18" value="A"> The –COOH group is too large for ortho</label>
+<label class="opt"><input type="radio" name="q18" value="B"> –COOH withdraws electrons by –M and –I; o/p attack on arenium ion places &#43; charge adjacent to the EWG (destabilising); meta attack is least destabilised</label>
+<label class="opt"><input type="radio" name="q18" value="C"> –COOH donates electrons to meta positions</label>
+<label class="opt"><input type="radio" name="q18" value="D"> Meta positions are always preferred for substituents with oxygen</label>
 </div><div class="qe" id="e18">–COOH is an EWG (–M through C=O, –I through &#963;-bond). In EAS: arenium ion &#43; charge at o/p. EWG at ring destabilises &#43; charge particularly when it is adjacent. o/p attack puts &#43; charge next to –COOH &#8594; very destabilised. Meta attack: &#43; charge is never directly on C bearing –COOH &#8594; least destabilised &#8594; meta product preferred.</div></div>
 
 <div class="qbl"><span class="qn">Q19</span><p class="qt">TNT (2,4,6-trinitrotoluene) is made by:</p><div class="opts">
-<label class="opt"><input type="radio" name="q19" value="a"> Nitration of benzene with excess HNO&#8323;</label>
-<label class="opt"><input type="radio" name="q19" value="b"> Three successive nitrations of toluene with conc HNO&#8323;/H&#8322;SO&#8424;</label>
-<label class="opt"><input type="radio" name="q19" value="c"> Reaction of toluene with N&#8322;</label>
-<label class="opt"><input type="radio" name="q19" value="d"> Mixing TNT precursors under pressure</label>
+<label class="opt"><input type="radio" name="q19" value="A"> Nitration of benzene with excess HNO&#8323;</label>
+<label class="opt"><input type="radio" name="q19" value="B"> Three successive nitrations of toluene with conc HNO&#8323;/H&#8322;SO&#8424;</label>
+<label class="opt"><input type="radio" name="q19" value="C"> Reaction of toluene with N&#8322;</label>
+<label class="opt"><input type="radio" name="q19" value="D"> Mixing TNT precursors under pressure</label>
 </div><div class="qe" id="e19"><b>Three successive nitrations of toluene</b>. First gives mixture of 2-NT and 4-NT (methyl group = o/p director). Second nitration goes to 2,4-dinitrotoluene. Third gives 2,4,6-TNT (all activated o/p positions substituted). Requires progressively harsher conditions (higher T, fuming acids) as each –NO&#8322; deactivates the ring.</div></div>
 
 <div class="qbl"><span class="qn">Q20</span><p class="qt">The acetylation of aniline (with ethanoic anhydride) is useful in synthesis because:</p><div class="opts">
-<label class="opt"><input type="radio" name="q20" value="a"> It increases the solubility of aniline</label>
-<label class="opt"><input type="radio" name="q20" value="b"> It converts aniline to acetanilide, moderating the –NH&#8322; group's activating power to prevent over-substitution</label>
-<label class="opt"><input type="radio" name="q20" value="c"> It converts aniline to benzoic acid</label>
-<label class="opt"><input type="radio" name="q20" value="d"> It allows meta substitution</label>
+<label class="opt"><input type="radio" name="q20" value="A"> It increases the solubility of aniline</label>
+<label class="opt"><input type="radio" name="q20" value="B"> It converts aniline to acetanilide, moderating the –NH&#8322; group's activating power to prevent over-substitution</label>
+<label class="opt"><input type="radio" name="q20" value="C"> It converts aniline to benzoic acid</label>
+<label class="opt"><input type="radio" name="q20" value="D"> It allows meta substitution</label>
 </div><div class="qe" id="e20">–NH&#8322; is so strongly activating it causes polysubstitution and oxidation side reactions. Acetylation to –NHCOCH&#8323; (amide) <b>reduces activating power</b> (lone pair on N tied up in amide resonance with C=O). After ring substitution, the acetyl group can be removed by hydrolysis (acid/base) to regenerate –NH&#8322;. This is a <b>protecting group</b> strategy.</div></div>
 
 <div class="qbl"><span class="qn">Q21</span><p class="qt">Azo dyes are used in textiles because:</p><div class="opts">
-<label class="opt"><input type="radio" name="q21" value="a"> They are the only water-soluble dyes</label>
-<label class="opt"><input type="radio" name="q21" value="b"> They can be synthesised in a wide range of colours; are stable to washing; and can be attached (mordanted) to fabrics</label>
-<label class="opt"><input type="radio" name="q21" value="c"> They are naturally occurring and biodegradable</label>
-<label class="opt"><input type="radio" name="q21" value="d"> They have no environmental impact</label>
+<label class="opt"><input type="radio" name="q21" value="A"> They are the only water-soluble dyes</label>
+<label class="opt"><input type="radio" name="q21" value="B"> They can be synthesised in a wide range of colours; are stable to washing; and can be attached (mordanted) to fabrics</label>
+<label class="opt"><input type="radio" name="q21" value="C"> They are naturally occurring and biodegradable</label>
+<label class="opt"><input type="radio" name="q21" value="D"> They have no environmental impact</label>
 </div><div class="qe" id="e21">Azo dyes offer: wide colour range (colour depends on ring substituents, conjugation length); good wash/light fastness; can be engineered for specific fabric types (cotton, wool, polyester). However, some azo dyes break down to carcinogenic aromatic amines (e.g. benzidine) — regulatory concern in the EU.</div></div>
 
 <div class="qbl"><span class="qn">Q22</span><p class="qt">The correct order of acid strength is:</p><div class="opts">
-<label class="opt"><input type="radio" name="q22" value="a"> Phenol &gt; benzoic acid &gt; ethanol</label>
-<label class="opt"><input type="radio" name="q22" value="b"> Benzoic acid &gt; phenol &gt; ethanol</label>
-<label class="opt"><input type="radio" name="q22" value="c"> Ethanol &gt; phenol &gt; benzoic acid</label>
-<label class="opt"><input type="radio" name="q22" value="d"> Phenol &gt; ethanol &gt; benzoic acid</label>
+<label class="opt"><input type="radio" name="q22" value="A"> Phenol &gt; benzoic acid &gt; ethanol</label>
+<label class="opt"><input type="radio" name="q22" value="B"> Benzoic acid &gt; phenol &gt; ethanol</label>
+<label class="opt"><input type="radio" name="q22" value="C"> Ethanol &gt; phenol &gt; benzoic acid</label>
+<label class="opt"><input type="radio" name="q22" value="D"> Phenol &gt; ethanol &gt; benzoic acid</label>
 </div><div class="qe" id="e22"><b>Benzoic acid (pKa 4.19) &gt; phenol (9.95) &gt; ethanol (16)</b>. Lower pKa = stronger acid. Benzoate is most stabilised (2 O atoms); phenoxide is partially stabilised (ring resonance); ethoxide is least stabilised (localised O&#8315;).</div></div>
 
 <div class="qbl"><span class="qn">Q23</span><p class="qt">What is the structural feature common to all azo dyes?</p><div class="opts">
-<label class="opt"><input type="radio" name="q23" value="a"> They all contain one or more N=N (azo) groups linking aromatic rings</label>
-<label class="opt"><input type="radio" name="q23" value="b"> They all contain a benzene ring with a –COOH group</label>
-<label class="opt"><input type="radio" name="q23" value="c"> They all contain nitrogen in a ring</label>
-<label class="opt"><input type="radio" name="q23" value="d"> They all contain a phenol group</label>
+<label class="opt"><input type="radio" name="q23" value="A"> They all contain one or more N=N (azo) groups linking aromatic rings</label>
+<label class="opt"><input type="radio" name="q23" value="B"> They all contain a benzene ring with a –COOH group</label>
+<label class="opt"><input type="radio" name="q23" value="C"> They all contain nitrogen in a ring</label>
+<label class="opt"><input type="radio" name="q23" value="D"> They all contain a phenol group</label>
 </div><div class="qe" id="e23">All azo dyes contain at least one <b>&#8211;N=N&#8211; (azo) group</b> linking two aromatic (usually benzene) rings. The extended conjugation Ar&#8211;N=N&#8211;Ar absorbs visible light, producing colour. Modified by auxochrome groups (&#8211;OH, &#8211;NH&#8322;) that intensify and shift colour.</div></div>
 
 <div class="qbl"><span class="qn">Q24</span><p class="qt">When toluene undergoes side-chain halogenation with Cl₂/UV, the mechanism is:</p><div class="opts">
-<label class="opt"><input type="radio" name="q24" value="a"> Free radical chain: Cl&#8322; &#8594; 2Cl• (UV), then Cl• abstracts H from CH&#8323; to give benzyl radical, then Cl• adds to give benzyl chloride</label>
-<label class="opt"><input type="radio" name="q24" value="b"> Electrophilic aromatic substitution at the ring</label>
-<label class="opt"><input type="radio" name="q24" value="c"> Nucleophilic substitution at the ring</label>
-<label class="opt"><input type="radio" name="q24" value="d"> Ionic addition to the ring</label>
+<label class="opt"><input type="radio" name="q24" value="A"> Free radical chain: Cl&#8322; &#8594; 2Cl• (UV), then Cl• abstracts H from CH&#8323; to give benzyl radical, then Cl• adds to give benzyl chloride</label>
+<label class="opt"><input type="radio" name="q24" value="B"> Electrophilic aromatic substitution at the ring</label>
+<label class="opt"><input type="radio" name="q24" value="C"> Nucleophilic substitution at the ring</label>
+<label class="opt"><input type="radio" name="q24" value="D"> Ionic addition to the ring</label>
 </div><div class="qe" id="e24"><b>Free radical chain</b>: Initiation — UV: Cl&#8322; &#8594; 2Cl•. Propagation — Cl• + C&#8326;H&#8325;CH&#8323; &#8594; C&#8326;H&#8325;CH&#8322;• + HCl; C&#8326;H&#8325;CH&#8322;• + Cl&#8322; &#8594; C&#8326;H&#8325;CH&#8322;Cl + Cl•. Benzylic radical is stabilised by resonance with ring, making this position selectively attacked.</div></div>
 
 <div class="qbl"><span class="qn">Q25</span><p class="qt">Sodium benzoate is used as a food preservative because:</p><div class="opts">
-<label class="opt"><input type="radio" name="q25" value="a"> It adds a sweet taste to food</label>
-<label class="opt"><input type="radio" name="q25" value="b"> It inhibits microbial growth; is water-soluble; and considered safe at permitted levels (E211)</label>
-<label class="opt"><input type="radio" name="q25" value="c"> It prevents oxidation of fats</label>
-<label class="opt"><input type="radio" name="q25" value="d"> It is insoluble in water so does not affect taste</label>
+<label class="opt"><input type="radio" name="q25" value="A"> It adds a sweet taste to food</label>
+<label class="opt"><input type="radio" name="q25" value="B"> It inhibits microbial growth; is water-soluble; and considered safe at permitted levels (E211)</label>
+<label class="opt"><input type="radio" name="q25" value="C"> It prevents oxidation of fats</label>
+<label class="opt"><input type="radio" name="q25" value="D"> It is insoluble in water so does not affect taste</label>
 </div><div class="qe" id="e25">Sodium benzoate (C&#8326;H&#8325;COONa) is water-soluble, stable, and effective antimicrobial at ~0.1%. Active form is benzoic acid (in acidic environments — soft drinks). Inhibits growth of moulds and bacteria. Concerns: possible reaction with ascorbic acid (vitamin C) to form benzene (carcinogen) — subject to ongoing safety review.</div></div>
 
 </div>
@@ -341,226 +341,226 @@ Azo dyes are used in textiles, food colouring, inks, and hair dye.</div></div>
     <div class="q-block"><span class="q-num">Q1</span>
     <p class="q-text">The -OH group attached to a benzene ring makes the ring:</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q1" value="a"> Less reactive toward electrophilic substitution</label>
-      <label class="opt"><input type="radio" name="q1" value="b"> More reactive toward electrophilic substitution</label>
-      <label class="opt"><input type="radio" name="q1" value="c"> Unreactive</label>
-      <label class="opt"><input type="radio" name="q1" value="d"> Reactive only toward nucleophilic substitution</label>
+      <label class="opt"><input type="radio" name="q1" value="A"> Less reactive toward electrophilic substitution</label>
+      <label class="opt"><input type="radio" name="q1" value="B"> More reactive toward electrophilic substitution</label>
+      <label class="opt"><input type="radio" name="q1" value="C"> Unreactive</label>
+      <label class="opt"><input type="radio" name="q1" value="D"> Reactive only toward nucleophilic substitution</label>
     </div>
     <div class="qexplain" id="e1">The lone pair on O donates electron density into the ring (activating group), making it more reactive toward EAS.</div></div>
     <div class="q-block"><span class="q-num">Q2</span>
     <p class="q-text">Phenol is more acidic than ethanol because:</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q2" value="a"> Phenol has more carbon atoms</label>
-      <label class="opt"><input type="radio" name="q2" value="b"> The phenoxide ion (C₆H₅O⁻) is stabilised by delocalisation of the negative charge into the ring</label>
-      <label class="opt"><input type="radio" name="q2" value="c"> Ethanol contains an ethyl group</label>
-      <label class="opt"><input type="radio" name="q2" value="d"> Phenol contains a carbonyl group</label>
+      <label class="opt"><input type="radio" name="q2" value="A"> Phenol has more carbon atoms</label>
+      <label class="opt"><input type="radio" name="q2" value="B"> The phenoxide ion (C₆H₅O⁻) is stabilised by delocalisation of the negative charge into the ring</label>
+      <label class="opt"><input type="radio" name="q2" value="C"> Ethanol contains an ethyl group</label>
+      <label class="opt"><input type="radio" name="q2" value="D"> Phenol contains a carbonyl group</label>
     </div>
     <div class="qexplain" id="e2">C₆H₅O⁻ — the negative charge on O is delocalised into the π system, stabilising the anion. Ethoxide has no such stabilisation.</div></div>
     <div class="q-block"><span class="q-num">Q3</span>
     <p class="q-text">Phenol reacts with bromine water (no catalyst needed) to give:</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q3" value="a"> Monobromophenol</label>
-      <label class="opt"><input type="radio" name="q3" value="b"> 2,4,6-tribromophenol white precipitate</label>
-      <label class="opt"><input type="radio" name="q3" value="c"> Benzene + HBr</label>
-      <label class="opt"><input type="radio" name="q3" value="d"> A red dye</label>
+      <label class="opt"><input type="radio" name="q3" value="A"> Monobromophenol</label>
+      <label class="opt"><input type="radio" name="q3" value="B"> 2,4,6-tribromophenol white precipitate</label>
+      <label class="opt"><input type="radio" name="q3" value="C"> Benzene + HBr</label>
+      <label class="opt"><input type="radio" name="q3" value="D"> A red dye</label>
     </div>
     <div class="qexplain" id="e3">The -OH group activates positions 2, 4, 6. All three positions brominate immediately — white precipitate of 2,4,6-tribromophenol.</div></div>
     <div class="q-block"><span class="q-num">Q4</span>
     <p class="q-text">Nitration of methylbenzene (toluene) gives mainly:</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q4" value="a"> 2-nitrotoluene only</label>
-      <label class="opt"><input type="radio" name="q4" value="b"> 4-nitrotoluene only</label>
-      <label class="opt"><input type="radio" name="q4" value="c"> A mixture of 2-nitrotoluene and 4-nitrotoluene (ortho/para directors)</label>
-      <label class="opt"><input type="radio" name="q4" value="d"> 3-nitrotoluene (meta director)</label>
+      <label class="opt"><input type="radio" name="q4" value="A"> 2-nitrotoluene only</label>
+      <label class="opt"><input type="radio" name="q4" value="B"> 4-nitrotoluene only</label>
+      <label class="opt"><input type="radio" name="q4" value="C"> A mixture of 2-nitrotoluene and 4-nitrotoluene (ortho/para directors)</label>
+      <label class="opt"><input type="radio" name="q4" value="D"> 3-nitrotoluene (meta director)</label>
     </div>
     <div class="qexplain" id="e4">-CH₃ is an ortho/para director (electron-donating by hyperconjugation). Major products are 2- and 4-nitrotoluene.</div></div>
     <div class="q-block"><span class="q-num">Q5</span>
     <p class="q-text">The -NO₂ group on a benzene ring is a:</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q5" value="a"> Activating, ortho/para director</label>
-      <label class="opt"><input type="radio" name="q5" value="b"> Deactivating, meta director</label>
-      <label class="opt"><input type="radio" name="q5" value="c"> Activating, meta director</label>
-      <label class="opt"><input type="radio" name="q5" value="d"> Deactivating, ortho/para director</label>
+      <label class="opt"><input type="radio" name="q5" value="A"> Activating, ortho/para director</label>
+      <label class="opt"><input type="radio" name="q5" value="B"> Deactivating, meta director</label>
+      <label class="opt"><input type="radio" name="q5" value="C"> Activating, meta director</label>
+      <label class="opt"><input type="radio" name="q5" value="D"> Deactivating, ortho/para director</label>
     </div>
     <div class="qexplain" id="e5">-NO₂ withdraws electron density via resonance (−M effect). Deactivates the ring; directs to the meta position.</div></div>
     <div class="q-block"><span class="q-num">Q6</span>
     <p class="q-text">TNT (2,4,6-trinitrotoluene) is produced by:</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q6" value="a"> Reacting toluene with concentrated HNO₃/H₂SO₄ three times</label>
-      <label class="opt"><input type="radio" name="q6" value="b"> Oxidising toluene</label>
-      <label class="opt"><input type="radio" name="q6" value="c"> Reacting benzene with nitrogen gas</label>
-      <label class="opt"><input type="radio" name="q6" value="d"> Adding nitrogen to phenol</label>
+      <label class="opt"><input type="radio" name="q6" value="A"> Reacting toluene with concentrated HNO₃/H₂SO₄ three times</label>
+      <label class="opt"><input type="radio" name="q6" value="B"> Oxidising toluene</label>
+      <label class="opt"><input type="radio" name="q6" value="C"> Reacting benzene with nitrogen gas</label>
+      <label class="opt"><input type="radio" name="q6" value="D"> Adding nitrogen to phenol</label>
     </div>
     <div class="qexplain" id="e6">Stepwise nitration of toluene with HNO₃/H₂SO₄ at increasing temperatures introduces three -NO₂ groups at positions 2, 4, 6.</div></div>
     <div class="q-block"><span class="q-num">Q7</span>
     <p class="q-text">Chlorobenzene undergoes electrophilic substitution less readily than benzene because:</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q7" value="a"> Cl is an activating group</label>
-      <label class="opt"><input type="radio" name="q7" value="b"> Cl strongly withdraws electrons by induction (-I) but donates by resonance (+M) — net deactivating</label>
-      <label class="opt"><input type="radio" name="q7" value="c"> Cl blocks all positions</label>
-      <label class="opt"><input type="radio" name="q7" value="d"> Cl has no effect on the ring</label>
+      <label class="opt"><input type="radio" name="q7" value="A"> Cl is an activating group</label>
+      <label class="opt"><input type="radio" name="q7" value="B"> Cl strongly withdraws electrons by induction (-I) but donates by resonance (+M) — net deactivating</label>
+      <label class="opt"><input type="radio" name="q7" value="C"> Cl blocks all positions</label>
+      <label class="opt"><input type="radio" name="q7" value="D"> Cl has no effect on the ring</label>
     </div>
     <div class="qexplain" id="e7">Cl deactivates the ring by -I (withdraws σ electrons) but directs to ortho/para via +M (lone pair donation).</div></div>
     <div class="q-block"><span class="q-num">Q8</span>
     <p class="q-text">In the Friedel-Crafts acylation of benzene, the electrophile is:</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q8" value="a"> Cl⁻</label>
-      <label class="opt"><input type="radio" name="q8" value="b"> CH₃⁺</label>
-      <label class="opt"><input type="radio" name="q8" value="c"> Acylium ion (RCO⁺)</label>
-      <label class="opt"><input type="radio" name="q8" value="d"> Proton (H⁺)</label>
+      <label class="opt"><input type="radio" name="q8" value="A"> Cl⁻</label>
+      <label class="opt"><input type="radio" name="q8" value="B"> CH₃⁺</label>
+      <label class="opt"><input type="radio" name="q8" value="C"> Acylium ion (RCO⁺)</label>
+      <label class="opt"><input type="radio" name="q8" value="D"> Proton (H⁺)</label>
     </div>
     <div class="qexplain" id="e8">AlCl₃ abstracts Cl⁻ from RCOCl → RCO⁺ (acylium ion), which attacks the π system of benzene.</div></div>
     <div class="q-block"><span class="q-num">Q9</span>
     <p class="q-text">Which reagents convert benzene into phenylamine (aniline)?</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q9" value="a"> HNO₃/H₂SO₄ only</label>
-      <label class="opt"><input type="radio" name="q9" value="b"> First nitrate to nitrobenzene, then reduce with Fe/HCl</label>
-      <label class="opt"><input type="radio" name="q9" value="c"> Direct reaction with NH₃</label>
-      <label class="opt"><input type="radio" name="q9" value="d"> React with N₂</label>
+      <label class="opt"><input type="radio" name="q9" value="A"> HNO₃/H₂SO₄ only</label>
+      <label class="opt"><input type="radio" name="q9" value="B"> First nitrate to nitrobenzene, then reduce with Fe/HCl</label>
+      <label class="opt"><input type="radio" name="q9" value="C"> Direct reaction with NH₃</label>
+      <label class="opt"><input type="radio" name="q9" value="D"> React with N₂</label>
     </div>
     <div class="qexplain" id="e9">C₆H₆ → C₆H₅NO₂ (nitration), then C₆H₅NO₂ + 6[H] → C₆H₅NH₂ + 2H₂O (Fe/HCl reduction).</div></div>
     <div class="q-block"><span class="q-num">Q10</span>
     <p class="q-text">The amino group (-NH₂) attached to benzene ring is:</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q10" value="a"> Deactivating, meta director</label>
-      <label class="opt"><input type="radio" name="q10" value="b"> Activating, ortho/para director</label>
-      <label class="opt"><input type="radio" name="q10" value="c"> Deactivating, ortho/para director</label>
-      <label class="opt"><input type="radio" name="q10" value="d"> No effect</label>
+      <label class="opt"><input type="radio" name="q10" value="A"> Deactivating, meta director</label>
+      <label class="opt"><input type="radio" name="q10" value="B"> Activating, ortho/para director</label>
+      <label class="opt"><input type="radio" name="q10" value="C"> Deactivating, ortho/para director</label>
+      <label class="opt"><input type="radio" name="q10" value="D"> No effect</label>
     </div>
     <div class="qexplain" id="e10">N lone pair donates into ring (+M effect) — strongly activating, directs to ortho and para positions.</div></div>
     <div class="q-block"><span class="q-num">Q11</span>
     <p class="q-text">Phenylamine reacts with HCl to form:</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q11" value="a"> Phenol</label>
-      <label class="opt"><input type="radio" name="q11" value="b"> Phenylammonium chloride (C₆H₅NH₃⁺Cl⁻)</label>
-      <label class="opt"><input type="radio" name="q11" value="c"> Chlorobenzene</label>
-      <label class="opt"><input type="radio" name="q11" value="d"> Nitrobenzene</label>
+      <label class="opt"><input type="radio" name="q11" value="A"> Phenol</label>
+      <label class="opt"><input type="radio" name="q11" value="B"> Phenylammonium chloride (C₆H₅NH₃⁺Cl⁻)</label>
+      <label class="opt"><input type="radio" name="q11" value="C"> Chlorobenzene</label>
+      <label class="opt"><input type="radio" name="q11" value="D"> Nitrobenzene</label>
     </div>
     <div class="qexplain" id="e11">The basic -NH₂ accepts a proton from HCl: C₆H₅NH₂ + HCl → C₆H₅NH₃⁺Cl⁻.</div></div>
     <div class="q-block"><span class="q-num">Q12</span>
     <p class="q-text">Diazonium salts are formed by reacting phenylamine with:</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q12" value="a"> Warm concentrated H₂SO₄</label>
-      <label class="opt"><input type="radio" name="q12" value="b"> NaNO₂ and HCl at 0–5°C</label>
-      <label class="opt"><input type="radio" name="q12" value="c"> Bromine water</label>
-      <label class="opt"><input type="radio" name="q12" value="d"> Potassium permanganate</label>
+      <label class="opt"><input type="radio" name="q12" value="A"> Warm concentrated H₂SO₄</label>
+      <label class="opt"><input type="radio" name="q12" value="B"> NaNO₂ and HCl at 0–5°C</label>
+      <label class="opt"><input type="radio" name="q12" value="C"> Bromine water</label>
+      <label class="opt"><input type="radio" name="q12" value="D"> Potassium permanganate</label>
     </div>
     <div class="qexplain" id="e12">C₆H₅NH₂ + NaNO₂ + HCl (0–5°C) → C₆H₅N₂⁺Cl⁻. Low temperature prevents decomposition.</div></div>
     <div class="q-block"><span class="q-num">Q13</span>
     <p class="q-text">Coupling of diazonium salt with phenol in alkaline solution gives:</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q13" value="a"> A colourless product</label>
-      <label class="opt"><input type="radio" name="q13" value="b"> An azo dye with -N=N- group</label>
-      <label class="opt"><input type="radio" name="q13" value="c"> Chlorobenzene</label>
-      <label class="opt"><input type="radio" name="q13" value="d"> Nitrobenzene</label>
+      <label class="opt"><input type="radio" name="q13" value="A"> A colourless product</label>
+      <label class="opt"><input type="radio" name="q13" value="B"> An azo dye with -N=N- group</label>
+      <label class="opt"><input type="radio" name="q13" value="C"> Chlorobenzene</label>
+      <label class="opt"><input type="radio" name="q13" value="D"> Nitrobenzene</label>
     </div>
     <div class="qexplain" id="e13">C₆H₅N₂⁺ couples with phenol at para position → orange/red azo compound with -N=N- linkage.</div></div>
     <div class="q-block"><span class="q-num">Q14</span>
     <p class="q-text">The sulfonation of benzene uses:</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q14" value="a"> Dilute sulfuric acid</label>
-      <label class="opt"><input type="radio" name="q14" value="b"> Fuming sulfuric acid (oleum, H₂S₂O₇)</label>
-      <label class="opt"><input type="radio" name="q14" value="c"> Sulfur dioxide gas</label>
-      <label class="opt"><input type="radio" name="q14" value="d"> Sodium sulfate</label>
+      <label class="opt"><input type="radio" name="q14" value="A"> Dilute sulfuric acid</label>
+      <label class="opt"><input type="radio" name="q14" value="B"> Fuming sulfuric acid (oleum, H₂S₂O₇)</label>
+      <label class="opt"><input type="radio" name="q14" value="C"> Sulfur dioxide gas</label>
+      <label class="opt"><input type="radio" name="q14" value="D"> Sodium sulfate</label>
     </div>
     <div class="qexplain" id="e14">Fuming H₂SO₄ provides SO₃ as the electrophile: SO₃ + C₆H₆ → C₆H₅SO₃H (benzenesulfonic acid).</div></div>
     <div class="q-block"><span class="q-num">Q15</span>
     <p class="q-text">Which product forms when benzene reacts with CH₃Cl in the presence of AlCl₃?</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q15" value="a"> Chlorobenzene</label>
-      <label class="opt"><input type="radio" name="q15" value="b"> Methylbenzene (toluene)</label>
-      <label class="opt"><input type="radio" name="q15" value="c"> Phenol</label>
-      <label class="opt"><input type="radio" name="q15" value="d"> Cyclohexane</label>
+      <label class="opt"><input type="radio" name="q15" value="A"> Chlorobenzene</label>
+      <label class="opt"><input type="radio" name="q15" value="B"> Methylbenzene (toluene)</label>
+      <label class="opt"><input type="radio" name="q15" value="C"> Phenol</label>
+      <label class="opt"><input type="radio" name="q15" value="D"> Cyclohexane</label>
     </div>
     <div class="qexplain" id="e15">Friedel-Crafts alkylation: AlCl₃ generates CH₃⁺ from CH₃Cl; CH₃⁺ attacks benzene ring → toluene.</div></div>
     <div class="q-block"><span class="q-num">Q16</span>
     <p class="q-text">Aspirin is produced by reacting salicylic acid with:</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q16" value="a"> NaOH</label>
-      <label class="opt"><input type="radio" name="q16" value="b"> Acetic anhydride (ethanoic anhydride)</label>
-      <label class="opt"><input type="radio" name="q16" value="c"> HCl</label>
-      <label class="opt"><input type="radio" name="q16" value="d"> Bromine</label>
+      <label class="opt"><input type="radio" name="q16" value="A"> NaOH</label>
+      <label class="opt"><input type="radio" name="q16" value="B"> Acetic anhydride (ethanoic anhydride)</label>
+      <label class="opt"><input type="radio" name="q16" value="C"> HCl</label>
+      <label class="opt"><input type="radio" name="q16" value="D"> Bromine</label>
     </div>
     <div class="qexplain" id="e16">The -OH of salicylic acid reacts with (CH₃CO)₂O → aspirin (2-acetoxybenzoic acid) + ethanoic acid.</div></div>
     <div class="q-block"><span class="q-num">Q17</span>
     <p class="q-text">Which compound is used as an antiseptic and is a chlorinated phenol?</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q17" value="a"> Aspirin</label>
-      <label class="opt"><input type="radio" name="q17" value="b"> TCP (trichlorophenol) / Dettol (chloroxylenol)</label>
-      <label class="opt"><input type="radio" name="q17" value="c"> Paracetamol</label>
-      <label class="opt"><input type="radio" name="q17" value="d"> Aniline</label>
+      <label class="opt"><input type="radio" name="q17" value="A"> Aspirin</label>
+      <label class="opt"><input type="radio" name="q17" value="B"> TCP (trichlorophenol) / Dettol (chloroxylenol)</label>
+      <label class="opt"><input type="radio" name="q17" value="C"> Paracetamol</label>
+      <label class="opt"><input type="radio" name="q17" value="D"> Aniline</label>
     </div>
     <div class="qexplain" id="e17">TCP (2,4,6-trichlorophenol) and Dettol (4-chloro-3,5-dimethylphenol) are chlorinated phenols used as antiseptics.</div></div>
     <div class="q-block"><span class="q-num">Q18</span>
     <p class="q-text">The reaction of phenol with concentrated HNO₃/H₂SO₄ gives:</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q18" value="a"> No reaction</label>
-      <label class="opt"><input type="radio" name="q18" value="b"> 2,4,6-trinitrophenol (picric acid)</label>
-      <label class="opt"><input type="radio" name="q18" value="c"> Nitrobenzene</label>
-      <label class="opt"><input type="radio" name="q18" value="d"> Phenylamine</label>
+      <label class="opt"><input type="radio" name="q18" value="A"> No reaction</label>
+      <label class="opt"><input type="radio" name="q18" value="B"> 2,4,6-trinitrophenol (picric acid)</label>
+      <label class="opt"><input type="radio" name="q18" value="C"> Nitrobenzene</label>
+      <label class="opt"><input type="radio" name="q18" value="D"> Phenylamine</label>
     </div>
     <div class="qexplain" id="e18">Activated by -OH, phenol nitrates at 2,4,6 positions → picric acid (2,4,6-trinitrophenol), a yellow explosive.</div></div>
     <div class="q-block"><span class="q-num">Q19</span>
     <p class="q-text">Halogenation of benzene requires a halogen carrier catalyst (e.g. FeBr₃) because:</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q19" value="a"> Benzene is too reactive without it</label>
-      <label class="opt"><input type="radio" name="q19" value="b"> The catalyst polarises the Br₂ molecule to form Br⁺ electrophile</label>
-      <label class="opt"><input type="radio" name="q19" value="c"> The catalyst acts as a reducing agent</label>
-      <label class="opt"><input type="radio" name="q19" value="d"> The catalyst prevents substitution</label>
+      <label class="opt"><input type="radio" name="q19" value="A"> Benzene is too reactive without it</label>
+      <label class="opt"><input type="radio" name="q19" value="B"> The catalyst polarises the Br₂ molecule to form Br⁺ electrophile</label>
+      <label class="opt"><input type="radio" name="q19" value="C"> The catalyst acts as a reducing agent</label>
+      <label class="opt"><input type="radio" name="q19" value="D"> The catalyst prevents substitution</label>
     </div>
     <div class="qexplain" id="e19">FeBr₃ + Br₂ → FeBr₄⁻ + Br⁺. The electrophilic Br⁺ then attacks the benzene ring.</div></div>
     <div class="q-block"><span class="q-num">Q20</span>
     <p class="q-text">What is the role of concentrated H₂SO₄ in the nitration of benzene?</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q20" value="a"> It is the nitrating agent</label>
-      <label class="opt"><input type="radio" name="q20" value="b"> It acts as a catalyst/acid to protonate HNO₃, generating NO₂⁺ (nitronium ion)</label>
-      <label class="opt"><input type="radio" name="q20" value="c"> It dissolves benzene</label>
-      <label class="opt"><input type="radio" name="q20" value="d"> It prevents polynitration</label>
+      <label class="opt"><input type="radio" name="q20" value="A"> It is the nitrating agent</label>
+      <label class="opt"><input type="radio" name="q20" value="B"> It acts as a catalyst/acid to protonate HNO₃, generating NO₂⁺ (nitronium ion)</label>
+      <label class="opt"><input type="radio" name="q20" value="C"> It dissolves benzene</label>
+      <label class="opt"><input type="radio" name="q20" value="D"> It prevents polynitration</label>
     </div>
     <div class="qexplain" id="e20">H₂SO₄ + HNO₃ → H₂NO₃⁺ + HSO₄⁻ → NO₂⁺ + H₂O. NO₂⁺ is the electrophile in nitration.</div></div>
     <div class="q-block"><span class="q-num">Q21</span>
     <p class="q-text">Paracetamol is synthesised from:</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q21" value="a"> Benzene directly</label>
-      <label class="opt"><input type="radio" name="q21" value="b"> 4-aminophenol reacted with acetic anhydride</label>
-      <label class="opt"><input type="radio" name="q21" value="c"> Phenol reacted with HNO₃</label>
-      <label class="opt"><input type="radio" name="q21" value="d"> Aniline reacted with H₂SO₄</label>
+      <label class="opt"><input type="radio" name="q21" value="A"> Benzene directly</label>
+      <label class="opt"><input type="radio" name="q21" value="B"> 4-aminophenol reacted with acetic anhydride</label>
+      <label class="opt"><input type="radio" name="q21" value="C"> Phenol reacted with HNO₃</label>
+      <label class="opt"><input type="radio" name="q21" value="D"> Aniline reacted with H₂SO₄</label>
     </div>
     <div class="qexplain" id="e21">4-aminophenol + (CH₃CO)₂O → paracetamol (N-(4-hydroxyphenyl)acetamide) + CH₃COOH.</div></div>
     <div class="q-block"><span class="q-num">Q22</span>
     <p class="q-text">Which group on benzene ring directs electrophile to meta position?</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q22" value="a"> -OH</label>
-      <label class="opt"><input type="radio" name="q22" value="b"> -NH₂</label>
-      <label class="opt"><input type="radio" name="q22" value="c"> -NO₂</label>
-      <label class="opt"><input type="radio" name="q22" value="d"> -CH₃</label>
+      <label class="opt"><input type="radio" name="q22" value="A"> -OH</label>
+      <label class="opt"><input type="radio" name="q22" value="B"> -NH₂</label>
+      <label class="opt"><input type="radio" name="q22" value="C"> -NO₂</label>
+      <label class="opt"><input type="radio" name="q22" value="D"> -CH₃</label>
     </div>
     <div class="qexplain" id="e22">-NO₂ withdraws electrons by resonance and induction, depleting electron density most at ortho/para, making meta most electron-rich.</div></div>
     <div class="q-block"><span class="q-num">Q23</span>
     <p class="q-text">The reaction of a diazonium salt with CuCN gives:</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q23" value="a"> A phenol</label>
-      <label class="opt"><input type="radio" name="q23" value="b"> A nitrile (ArCN) — Sandmeyer reaction</label>
-      <label class="opt"><input type="radio" name="q23" value="c"> An azo dye</label>
-      <label class="opt"><input type="radio" name="q23" value="d"> An amine</label>
+      <label class="opt"><input type="radio" name="q23" value="A"> A phenol</label>
+      <label class="opt"><input type="radio" name="q23" value="B"> A nitrile (ArCN) — Sandmeyer reaction</label>
+      <label class="opt"><input type="radio" name="q23" value="C"> An azo dye</label>
+      <label class="opt"><input type="radio" name="q23" value="D"> An amine</label>
     </div>
     <div class="qexplain" id="e23">Sandmeyer reaction: ArN₂⁺ + CuCN → ArCN + N₂. Used to introduce -CN (then hydrolysable to -COOH).</div></div>
     <div class="q-block"><span class="q-num">Q24</span>
     <p class="q-text">Phenyl ethanoate (phenyl acetate) is formed by reacting phenol with:</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q24" value="a"> Ethanol</label>
-      <label class="opt"><input type="radio" name="q24" value="b"> Ethanoyl chloride (CH₃COCl) or ethanoic anhydride</label>
-      <label class="opt"><input type="radio" name="q24" value="c"> Ethanoic acid only (slow)</label>
-      <label class="opt"><input type="radio" name="q24" value="d"> NaOH then CH₃Cl</label>
+      <label class="opt"><input type="radio" name="q24" value="A"> Ethanol</label>
+      <label class="opt"><input type="radio" name="q24" value="B"> Ethanoyl chloride (CH₃COCl) or ethanoic anhydride</label>
+      <label class="opt"><input type="radio" name="q24" value="C"> Ethanoic acid only (slow)</label>
+      <label class="opt"><input type="radio" name="q24" value="D"> NaOH then CH₃Cl</label>
     </div>
     <div class="qexplain" id="e24">Phenol + CH₃COCl → CH₃COC₆H₅ + HCl. Acyl chlorides are more reactive acylating agents than carboxylic acids.</div></div>
     <div class="q-block"><span class="q-num">Q25</span>
     <p class="q-text">Sulfonamide drugs work because they structurally resemble:</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q25" value="a"> Aspirin</label>
-      <label class="opt"><input type="radio" name="q25" value="b"> Para-aminobenzoic acid (PABA), inhibiting bacterial folic acid synthesis</label>
-      <label class="opt"><input type="radio" name="q25" value="c"> Phenol</label>
-      <label class="opt"><input type="radio" name="q25" value="d"> Benzaldehyde</label>
+      <label class="opt"><input type="radio" name="q25" value="A"> Aspirin</label>
+      <label class="opt"><input type="radio" name="q25" value="B"> Para-aminobenzoic acid (PABA), inhibiting bacterial folic acid synthesis</label>
+      <label class="opt"><input type="radio" name="q25" value="C"> Phenol</label>
+      <label class="opt"><input type="radio" name="q25" value="D"> Benzaldehyde</label>
     </div>
     <div class="qexplain" id="e25">Sulfonamides are structural analogues of PABA — they competitively inhibit dihydropteroate synthase in bacteria.</div></div>
   </div>
@@ -628,6 +628,195 @@ function toggleAnswer(btn){
   if(btn.classList.contains('rb')||btn.classList.contains('reveal-btn'))
     btn.textContent = isOpen ? 'Model Answer' : 'Hide Answer';
 }
+</script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<style>
+#pdf-dl-bar{position:fixed;bottom:24px;right:24px;z-index:9000;}
+#pdf-dl-btn{background:#34d399;color:#000;border:none;padding:12px 22px;border-radius:9px;font-family:'JetBrains Mono',monospace;font-size:.84rem;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(52,211,153,.4);display:flex;align-items:center;gap:8px;}
+#pdf-dl-btn:hover{opacity:.88;}
+#pdf-dl-btn .spin{display:none;width:14px;height:14px;border:2px solid #000;border-top-color:transparent;border-radius:50%;animation:dlsp .7s linear infinite;}
+@keyframes dlsp{to{transform:rotate(360deg)}}
+#dl-pay-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:99990;align-items:center;justify-content:center;padding:16px;}
+#dl-pay-overlay.open{display:flex;}
+#dl-pay-box{background:#161b22;border:1px solid #30363d;border-radius:14px;width:100%;max-width:400px;max-height:92vh;overflow-y:auto;}
+#dl-pay-box .ph{padding:18px 20px 12px;border-bottom:1px solid #30363d;}
+#dl-pay-box .ph h2{font-family:'Playfair Display',serif;color:#fff;font-size:1.1rem;}
+#dl-pay-box .ph p{color:#8b949e;font-size:.78rem;margin-top:2px;}
+#dl-pay-box .pb{padding:16px 20px;}
+#dl-pay-box .pf{padding:12px 20px;border-top:1px solid #30363d;display:flex;gap:8px;}
+.amt-bb{background:rgba(232,197,71,.07);border:1px solid rgba(232,197,71,.2);border-radius:9px;padding:12px;text-align:center;margin-bottom:14px;}
+.amt-bb .al{font-family:'JetBrains Mono',monospace;font-size:.62rem;color:#8b949e;text-transform:uppercase;letter-spacing:.1em;margin-bottom:2px;}
+.amt-bb .av{font-family:'JetBrains Mono',monospace;font-size:1.7rem;color:#e8c547;font-weight:700;}
+.ph-rowb{display:flex;gap:7px;margin-bottom:6px;}
+.cc-selb{background:#1c2333;border:1px solid #30363d;border-radius:6px;color:#fff;padding:8px 6px;font-family:'JetBrains Mono',monospace;font-size:.78rem;width:110px;}
+.ph-inpb{flex:1;background:#1c2333;border:1px solid #30363d;border-radius:6px;color:#fff;padding:8px 11px;font-family:'JetBrains Mono',monospace;font-size:.86rem;}
+.ph-inpb:focus,.cc-selb:focus{outline:none;border-color:#e8c547;}
+.net-rb{display:flex;gap:6px;margin-bottom:12px;}
+.nbb{flex:1;background:#1c2333;border:1px solid #30363d;border-radius:6px;color:#8b949e;font-family:'JetBrains Mono',monospace;font-size:.68rem;padding:7px;cursor:pointer;text-align:center;}
+.nbb.sel{background:rgba(52,211,153,.1);border-color:#34d399;color:#34d399;}
+.pay-gob{flex:1;background:#e8c547;color:#000;border:none;padding:11px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:.84rem;font-weight:700;cursor:pointer;}
+.pay-gob:disabled{opacity:.5;cursor:not-allowed;}
+.cancel-bb{background:#1c2333;color:#8b949e;border:1px solid #30363d;padding:10px 14px;border-radius:7px;cursor:pointer;font-size:.82rem;}
+.pay-stb{display:none;text-align:center;padding:20px;}
+.dl-spinnerb{width:34px;height:34px;border:3px solid #30363d;border-top-color:#e8c547;border-radius:50%;animation:dlsp .8s linear infinite;margin:0 auto 12px;}
+</style>
+
+<div id="pdf-dl-bar">
+  <button id="pdf-dl-btn" onclick="checkPayAndDownload()">
+    <span class="spin" id="pdf-spin"></span>
+    <span id="pdf-btn-text">&#11015; Download PDF</span>
+  </button>
+</div>
+
+<div id="dl-pay-overlay">
+  <div id="dl-pay-box">
+    <div class="ph"><h2>&#128179; Pay to Download</h2><p>Unit notes &mdash; instant PDF download</p></div>
+    <div id="dl-pform">
+      <div class="pb">
+        <div class="amt-bb"><div class="al">Price</div><div class="av">300 RWF</div><div style="font-size:.72rem;color:#8b949e;margin-top:2px;">One-time &middot; Download immediately after payment</div></div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.67rem;color:#8b949e;text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px;">Phone Number</div>
+        <div class="ph-rowb">
+          <select class="cc-selb" id="dl-ccode" onchange="dlUpdateHint()">
+            <option value="+250" data-net="MTN / Airtel">&#127479;&#127484; +250</option>
+            <option value="+256" data-net="MTN / Airtel">&#127482;&#127468; +256</option>
+            <option value="+255" data-net="Vodacom / Tigo">&#127481;&#127487; +255</option>
+            <option value="+254" data-net="M-Pesa / Airtel">&#127472;&#127466; +254</option>
+            <option value="+234" data-net="MTN / Airtel">&#127475;&#127468; +234</option>
+            <option value="+233" data-net="MTN / Vodafone">&#127468;&#127469; +233</option>
+          </select>
+          <input class="ph-inpb" type="tel" id="dl-phone" placeholder="07XXXXXXXX" oninput="dlValPhone()" maxlength="12"/>
+        </div>
+        <div class="ph-hint" id="dl-ph-hint">Rwanda &mdash; MTN MoMo or Airtel Money</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.67rem;color:#8b949e;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;">Network</div>
+        <div class="net-rb">
+          <div class="nbb sel" onclick="dlSelNet(this,'MTN')">MTN MoMo</div>
+          <div class="nbb" onclick="dlSelNet(this,'AIRTEL')">Airtel Money</div>
+          <div class="nbb" onclick="dlSelNet(this,'OTHER')">Other</div>
+        </div>
+        <div id="dl-err" style="display:none;font-family:'JetBrains Mono',monospace;font-size:.74rem;color:#f87171;padding:7px 10px;background:rgba(248,113,113,.07);border-radius:5px;margin-bottom:8px;"></div>
+      </div>
+      <div class="pf">
+        <button class="pay-gob" id="dl-pay-go" onclick="dlInitPay()" disabled>Pay &amp; Download</button>
+        <button class="cancel-bb" onclick="closeDlPay()">Cancel</button>
+      </div>
+    </div>
+    <div class="pay-stb" id="dl-st-proc">
+      <div class="dl-spinnerb"></div>
+      <div style="font-family:'JetBrains Mono',monospace;color:#fff;font-size:.86rem;margin-bottom:5px;">Processing Payment...</div>
+      <div style="color:#8b949e;font-size:.79rem;">Check your phone &mdash; enter your PIN to confirm.</div>
+    </div>
+    <div class="pay-stb" id="dl-st-ok">
+      <div style="font-size:2.8rem;margin-bottom:10px;">&#9989;</div>
+      <div style="font-family:'JetBrains Mono',monospace;color:#34d399;font-size:.92rem;margin-bottom:5px;">Payment Confirmed!</div>
+      <div style="color:#8b949e;font-size:.8rem;margin-bottom:16px;">Generating your PDF...</div>
+      <div class="dl-spinnerb"></div>
+    </div>
+    <div class="pay-stb" id="dl-st-fail">
+      <div style="font-size:2.8rem;margin-bottom:10px;">&#10060;</div>
+      <div style="font-family:'JetBrains Mono',monospace;color:#f87171;font-size:.86rem;margin-bottom:5px;">Payment Not Completed</div>
+      <div style="color:#8b949e;font-size:.79rem;margin-bottom:14px;" id="dl-fail-txt"></div>
+      <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+        <button style="background:#e8c547;color:#000;border:none;padding:8px 16px;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:.76rem;font-weight:700;cursor:pointer;" onclick="dlShowForm()">Try Again</button>
+        <a id="dl-wa-link" href="#" target="_blank" style="background:#25D366;color:#fff;padding:8px 14px;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:.76rem;font-weight:700;text-decoration:none;">WhatsApp</a>
+        <button style="background:#1c2333;color:#8b949e;border:1px solid #30363d;padding:8px 14px;border-radius:6px;cursor:pointer;font-size:.8rem;" onclick="closeDlPay()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+var _DL_UNIT_ID='S6-5';
+var _DL_PRICE=300;
+var _dlNet='MTN',_dlPollTimer=null;
+function isPaidUnit(){
+  if(localStorage.getItem('teacher_dl_unlocked')==='true')return true;
+  var paid=JSON.parse(localStorage.getItem('paid_items')||'[]');
+  var lvl=_DL_UNIT_ID.split('-')[0];
+  return paid.indexOf(_DL_UNIT_ID)>=0||paid.indexOf('ALL')>=0||paid.indexOf(lvl)>=0||paid.indexOf('BUNDLE-'+lvl)>=0;
+}
+function checkPayAndDownload(){
+  if(localStorage.getItem('teacher_dl_unlocked')==='true'){doDownloadPDF();return;}
+  document.getElementById('dl-pay-overlay').classList.add('open');dlShowForm();
+}
+function closeDlPay(){document.getElementById('dl-pay-overlay').classList.remove('open');if(_dlPollTimer){clearInterval(_dlPollTimer);_dlPollTimer=null;}}
+function dlShowForm(){document.getElementById('dl-pform').style.display='block';['dl-st-proc','dl-st-ok','dl-st-fail'].forEach(function(id){document.getElementById(id).style.display='none';});document.getElementById('dl-err').style.display='none';}
+function dlSelNet(el,n){_dlNet=n;document.querySelectorAll('.nbb').forEach(function(b){b.classList.remove('sel');});el.classList.add('sel');}
+function dlUpdateHint(){var o=document.getElementById('dl-ccode').options[document.getElementById('dl-ccode').selectedIndex];document.getElementById('dl-ph-hint').textContent=o.text+' - '+(o.dataset.net||'Mobile Money');}
+function dlValPhone(){document.getElementById('dl-pay-go').disabled=document.getElementById('dl-phone').value.replace(/\D/g,'').length<8;}
+async function dlInitPay(){
+  var code=document.getElementById('dl-ccode').value;
+  var num=document.getElementById('dl-phone').value.replace(/\D/g,'');
+  if(num.length<8){var e=document.getElementById('dl-err');e.style.display='block';e.textContent='Enter a valid phone number.';return;}
+  var fullPhone=code.replace('+','')+num.replace(/^0/,'');
+  document.getElementById('dl-pform').style.display='none';
+  document.getElementById('dl-st-proc').style.display='block';
+  var s=JSON.parse(localStorage.getItem('notif_settings')||'{}');
+  var ppKey=s.pawapayKey||'';
+  if(!ppKey){
+    document.getElementById('dl-st-proc').style.display='none';
+    var wa=encodeURIComponent('PAYMENT\nUnit: '+document.title+'\nAmount: '+_DL_PRICE+' RWF\nPhone: '+code+num+'\nPlease confirm my download.');
+    document.getElementById('dl-wa-link').href='https://wa.me/250788800375?text='+wa;
+    document.getElementById('dl-fail-txt').innerHTML='Pay to MTN MoMo: <strong style="color:#fff;">+250 788 800 375</strong><br>Amount: <strong style="color:#e8c547;">'+_DL_PRICE+' RWF</strong><br><br>Then tap WhatsApp to confirm.';
+    document.getElementById('dl-st-fail').style.display='block';
+    return;
+  }
+  var depositId='dep_'+Date.now()+'_'+Math.random().toString(36).substr(2,5);
+  var cMap={250:'RW',256:'UG',255:'TZ',254:'KE',234:'NG',233:'GH'};
+  var ci=cMap[parseInt(code.replace('+',''))]||'RW';
+  var corrMap={MTN:{RW:'MTNRW',UG:'MTNUG',GH:'MTNGHS'},AIRTEL:{RW:'AIRTELRW',UG:'AIRTELUG'},OTHER:{RW:'MTNRW'}};
+  var curMap={RW:'RWF',UG:'UGX',TZ:'TZS',KE:'KES',NG:'NGN',GH:'GHS'};
+  var correspondent=(corrMap[_dlNet]||corrMap.MTN)[ci]||'MTNRW';
+  var currency=curMap[ci]||'RWF';
+  try{
+    var r=await fetch('https://api.pawapay.io/deposits',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+ppKey},body:JSON.stringify({depositId:depositId,amount:String(_DL_PRICE),currency:currency,correspondent:correspondent,payer:{type:'MSISDN',address:{value:fullPhone}},statementDescription:'ChemNotes'})});
+    var d=await r.json();
+    if(d.depositId||r.ok){
+      _dlPollTimer=setInterval(async function(){
+        try{
+          var pr=await fetch('https://api.pawapay.io/deposits/'+depositId,{headers:{'Authorization':'Bearer '+ppKey}});
+          var pd=await pr.json();
+          var st=((pd.status||(pd[0]&&pd[0].status))||'').toUpperCase();
+          if(st==='COMPLETED'){clearInterval(_dlPollTimer);_dlPollTimer=null;markPaidAndDownload();}
+          else if(st==='FAILED'||st==='EXPIRED'){clearInterval(_dlPollTimer);_dlPollTimer=null;document.getElementById('dl-st-proc').style.display='none';document.getElementById('dl-fail-txt').textContent=(pd.correspondentIds&&pd.correspondentIds.reason)||'Payment not completed.';document.getElementById('dl-st-fail').style.display='block';}
+        }catch(e){}
+      },3000);
+      setTimeout(function(){if(_dlPollTimer){clearInterval(_dlPollTimer);_dlPollTimer=null;document.getElementById('dl-st-proc').style.display='none';document.getElementById('dl-fail-txt').textContent='Timed out. Contact Mr Habimana via WhatsApp.';document.getElementById('dl-st-fail').style.display='block';}},180000);
+    }else{throw new Error(d.errorCode||'Failed');}
+  }catch(e){
+    document.getElementById('dl-st-proc').style.display='none';
+    var wa2=encodeURIComponent('PAYMENT\nUnit: '+document.title+'\nAmount: '+_DL_PRICE+' RWF\nPhone: '+code+num);
+    document.getElementById('dl-wa-link').href='https://wa.me/250788800375?text='+wa2;
+    document.getElementById('dl-fail-txt').innerHTML='Auto-payment failed. Pay to <strong style="color:#fff;">+250 788 800 375</strong> ('+_DL_PRICE+' RWF) then WhatsApp.';
+    document.getElementById('dl-st-fail').style.display='block';
+  }
+}
+function markPaidAndDownload(){
+  var paid=JSON.parse(localStorage.getItem('paid_items')||'[]');
+  if(paid.indexOf(_DL_UNIT_ID)<0)paid.push(_DL_UNIT_ID);
+  localStorage.setItem('paid_items',JSON.stringify(paid));
+  document.getElementById('dl-st-proc').style.display='none';
+  document.getElementById('dl-st-ok').style.display='block';
+  setTimeout(function(){closeDlPay();doDownloadPDF();},1500);
+}
+function doDownloadPDF(){
+  var btn=document.getElementById('pdf-dl-btn');
+  var spin=document.getElementById('pdf-spin');
+  var txt=document.getElementById('pdf-btn-text');
+  btn.disabled=true;spin.style.display='block';txt.textContent='Generating...';
+  var title=document.title.replace(/[^a-zA-Z0-9\s]/g,'').replace(/\s+/g,'_').substring(0,60)||'chemistry_notes';
+  var main=document.querySelector('main')||document.querySelector('.content')||document.body;
+  var clone=main.cloneNode(true);
+  clone.querySelectorAll('.quiz-wrap,#quiz,#test,.quiz-submit,.qs,button,#pdf-dl-bar,#dl-pay-overlay').forEach(function(el){el.remove();});
+  var wrapper=document.createElement('div');
+  wrapper.style.cssText='background:#fff;color:#000;font-family:Georgia,serif;font-size:11pt;line-height:1.7;padding:20px;';
+  wrapper.appendChild(clone);
+  wrapper.querySelectorAll('*').forEach(function(el){el.style.color='#000';el.style.background='transparent';el.style.borderColor='#ccc';});
+  wrapper.querySelectorAll('h1,h2,h3,h4').forEach(function(h){h.style.color='#000';h.style.fontWeight='bold';});
+  html2pdf().set({margin:[10,10,10,10],filename:title+'.pdf',image:{type:'jpeg',quality:0.92},html2canvas:{scale:1.5,useCORS:true,backgroundColor:'#ffffff',logging:false},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}}).from(wrapper).save().then(function(){btn.disabled=false;spin.style.display='none';txt.textContent='Downloaded!';setTimeout(function(){txt.textContent='Download PDF';},3000);}).catch(function(){btn.disabled=false;spin.style.display='none';txt.textContent='Download PDF';});
+}
+document.getElementById('dl-pay-overlay').addEventListener('click',function(e){if(e.target===this)closeDlPay();});
 </script>
 </body>
 </html>

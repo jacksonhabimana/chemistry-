@@ -79,7 +79,7 @@
   .opt{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:all .18s;font-size:.92rem;}
   .opt:hover{border-color:var(--lime);}
   .opt input{margin-top:3px;accent-color:var(--lime);}
-  .opt.correct{background:rgba(52,211,153,.12);border-color:var(--green)!important;color:var(--green);}
+  .opt.correct{background:rgba(52,211,153,.12);border-color:#34d399!important;color:#34d399;}
   .opt.wrong{background:rgba(248,113,113,.1);border-color:var(--red)!important;color:var(--red);}
   .q-exp{display:none;margin-top:10px;padding:10px 14px;background:rgba(132,204,22,.07);border-left:3px solid var(--lime);border-radius:0 6px 6px 0;font-size:.88rem;}
   .quiz-submit{background:var(--lime);color:#000;border:none;padding:12px 32px;border-radius:8px;font-size:1rem;font-family:'JetBrains Mono',monospace;cursor:pointer;font-weight:600;transition:opacity .2s;}
@@ -653,10 +653,10 @@ Trypsin, pepsin, etc. cleave specific peptide bonds selectively.</div>
         <span class="q-num">Q1</span>
         <p class="q-text">(CH<sub>3</sub>)<sub>2</sub>CHNH<sub>2</sub> is classified as:</p>
         <div class="options">
-          <label class="opt"><input type="radio" name="q1" value="a"> Secondary amine</label>
-          <label class="opt"><input type="radio" name="q1" value="b"> Primary amine</label>
-          <label class="opt"><input type="radio" name="q1" value="c"> Tertiary amine</label>
-          <label class="opt"><input type="radio" name="q1" value="d"> Quaternary ammonium salt</label>
+          <label class="opt"><input type="radio" name="q1" value="A"> Secondary amine</label>
+          <label class="opt"><input type="radio" name="q1" value="B"> Primary amine</label>
+          <label class="opt"><input type="radio" name="q1" value="C"> Tertiary amine</label>
+          <label class="opt"><input type="radio" name="q1" value="D"> Quaternary ammonium salt</label>
         </div>
         <div class="q-exp" id="exp1">(CH<sub>3</sub>)<sub>2</sub>CHNH<sub>2</sub>: the N is bonded to only <b>one carbon group</b> (the isopropyl group) &rarr; <b>primary amine</b>. Amine class is determined by the number of carbons on N, not on the carbon bearing N.</div>
       </div>
@@ -665,10 +665,10 @@ Trypsin, pepsin, etc. cleave specific peptide bonds selectively.</div>
         <span class="q-num">Q2</span>
         <p class="q-text">Which amine is the strongest base?</p>
         <div class="options">
-          <label class="opt"><input type="radio" name="q2" value="a"> Phenylamine (C<sub>6</sub>H<sub>5</sub>NH<sub>2</sub>)</label>
-          <label class="opt"><input type="radio" name="q2" value="b"> Ammonia (NH<sub>3</sub>)</label>
-          <label class="opt"><input type="radio" name="q2" value="c"> Dimethylamine ((CH<sub>3</sub>)<sub>2</sub>NH)</label>
-          <label class="opt"><input type="radio" name="q2" value="d"> Methylamine (CH<sub>3</sub>NH<sub>2</sub>)</label>
+          <label class="opt"><input type="radio" name="q2" value="A"> Phenylamine (C<sub>6</sub>H<sub>5</sub>NH<sub>2</sub>)</label>
+          <label class="opt"><input type="radio" name="q2" value="B"> Ammonia (NH<sub>3</sub>)</label>
+          <label class="opt"><input type="radio" name="q2" value="C"> Dimethylamine ((CH<sub>3</sub>)<sub>2</sub>NH)</label>
+          <label class="opt"><input type="radio" name="q2" value="D"> Methylamine (CH<sub>3</sub>NH<sub>2</sub>)</label>
         </div>
         <div class="q-exp" id="exp2"><b>Dimethylamine</b> is strongest: two methyl groups donate electrons to N, giving the highest electron density on N (pK<sub>b</sub> ≈ 3.3). Order: (CH<sub>3</sub>)<sub>2</sub>NH &gt; CH<sub>3</sub>NH<sub>2</sub> &gt; NH<sub>3</sub> &gt; C<sub>6</sub>H<sub>5</sub>NH<sub>2</sub>.</div>
       </div>
@@ -677,10 +677,10 @@ Trypsin, pepsin, etc. cleave specific peptide bonds selectively.</div>
         <span class="q-num">Q3</span>
         <p class="q-text">Why is phenylamine a weaker base than methylamine?</p>
         <div class="options">
-          <label class="opt"><input type="radio" name="q3" value="a"> Phenylamine has a larger molecular mass</label>
-          <label class="opt"><input type="radio" name="q3" value="b"> The lone pair on N is delocalised into the benzene ring, reducing availability for protonation</label>
-          <label class="opt"><input type="radio" name="q3" value="c"> The benzene ring donates electrons to N</label>
-          <label class="opt"><input type="radio" name="q3" value="d"> Phenylamine is not soluble in water</label>
+          <label class="opt"><input type="radio" name="q3" value="A"> Phenylamine has a larger molecular mass</label>
+          <label class="opt"><input type="radio" name="q3" value="B"> The lone pair on N is delocalised into the benzene ring, reducing availability for protonation</label>
+          <label class="opt"><input type="radio" name="q3" value="C"> The benzene ring donates electrons to N</label>
+          <label class="opt"><input type="radio" name="q3" value="D"> Phenylamine is not soluble in water</label>
         </div>
         <div class="q-exp" id="exp3">In phenylamine, the lone pair on N overlaps with the &pi; system of benzene &rarr; <b>delocalised into the ring</b> &rarr; lone pair less available for H<sup>+</sup> acceptance &rarr; weaker base.</div>
       </div>
@@ -689,10 +689,10 @@ Trypsin, pepsin, etc. cleave specific peptide bonds selectively.</div>
         <span class="q-num">Q4</span>
         <p class="q-text">The product of reacting ethylamine with ethanoyl chloride is:</p>
         <div class="options">
-          <label class="opt"><input type="radio" name="q4" value="a"> A salt</label>
-          <label class="opt"><input type="radio" name="q4" value="b"> A secondary amine</label>
-          <label class="opt"><input type="radio" name="q4" value="c"> N-ethylethanamide (a secondary amide)</label>
-          <label class="opt"><input type="radio" name="q4" value="d"> Ethyl ethanoate</label>
+          <label class="opt"><input type="radio" name="q4" value="A"> A salt</label>
+          <label class="opt"><input type="radio" name="q4" value="B"> A secondary amine</label>
+          <label class="opt"><input type="radio" name="q4" value="C"> N-ethylethanamide (a secondary amide)</label>
+          <label class="opt"><input type="radio" name="q4" value="D"> Ethyl ethanoate</label>
         </div>
         <div class="q-exp" id="exp4">C<sub>2</sub>H<sub>5</sub>NH<sub>2</sub> + CH<sub>3</sub>COCl &rarr; CH<sub>3</sub>CO&ndash;NH&ndash;C<sub>2</sub>H<sub>5</sub> + HCl. The product is <b>N-ethylethanamide</b>, a secondary amide (acylation reaction).</div>
       </div>
@@ -701,10 +701,10 @@ Trypsin, pepsin, etc. cleave specific peptide bonds selectively.</div>
         <span class="q-num">Q5</span>
         <p class="q-text">Reduction of ethanenitrile (CH<sub>3</sub>CN) with LiAlH<sub>4</sub> gives:</p>
         <div class="options">
-          <label class="opt"><input type="radio" name="q5" value="a"> Methylamine</label>
-          <label class="opt"><input type="radio" name="q5" value="b"> Ethylamine</label>
-          <label class="opt"><input type="radio" name="q5" value="c"> Ethanol</label>
-          <label class="opt"><input type="radio" name="q5" value="d"> Ethanoic acid</label>
+          <label class="opt"><input type="radio" name="q5" value="A"> Methylamine</label>
+          <label class="opt"><input type="radio" name="q5" value="B"> Ethylamine</label>
+          <label class="opt"><input type="radio" name="q5" value="C"> Ethanol</label>
+          <label class="opt"><input type="radio" name="q5" value="D"> Ethanoic acid</label>
         </div>
         <div class="q-exp" id="exp5">CH<sub>3</sub>CN + 4[H] &rarr; CH<sub>3</sub>CH<sub>2</sub>NH<sub>2</sub>. Reduction of a nitrile gives a primary amine with the same number of carbons as the nitrile. Ethanenitrile (2C) &rarr; <b>ethylamine</b> (2C).</div>
       </div>
@@ -713,10 +713,10 @@ Trypsin, pepsin, etc. cleave specific peptide bonds selectively.</div>
         <span class="q-num">Q6</span>
         <p class="q-text">The diazotisation of phenylamine requires what conditions?</p>
         <div class="options">
-          <label class="opt"><input type="radio" name="q6" value="a"> NaNO<sub>2</sub> + HCl at 0&ndash;5&deg;C</label>
-          <label class="opt"><input type="radio" name="q6" value="b"> NaNO<sub>2</sub> + HCl at room temperature</label>
-          <label class="opt"><input type="radio" name="q6" value="c"> NaNO<sub>3</sub> + H<sub>2</sub>SO<sub>4</sub> at 60&deg;C</label>
-          <label class="opt"><input type="radio" name="q6" value="d"> NaNO<sub>2</sub> + NaOH</label>
+          <label class="opt"><input type="radio" name="q6" value="A"> NaNO<sub>2</sub> + HCl at 0&ndash;5&deg;C</label>
+          <label class="opt"><input type="radio" name="q6" value="B"> NaNO<sub>2</sub> + HCl at room temperature</label>
+          <label class="opt"><input type="radio" name="q6" value="C"> NaNO<sub>3</sub> + H<sub>2</sub>SO<sub>4</sub> at 60&deg;C</label>
+          <label class="opt"><input type="radio" name="q6" value="D"> NaNO<sub>2</sub> + NaOH</label>
         </div>
         <div class="q-exp" id="exp6">Diazotisation: C<sub>6</sub>H<sub>5</sub>NH<sub>2</sub> + NaNO<sub>2</sub> + 2HCl &rarr; C<sub>6</sub>H<sub>5</sub>N<sub>2</sub><sup>+</sup>Cl<sup>&minus;</sup> + NaCl + 2H<sub>2</sub>O. Temperature must be kept at <b>0&ndash;5&deg;C</b> &mdash; diazonium salts decompose above 5&deg;C.</div>
       </div>
@@ -725,10 +725,10 @@ Trypsin, pepsin, etc. cleave specific peptide bonds selectively.</div>
         <span class="q-num">Q7</span>
         <p class="q-text">A zwitterion is best described as:</p>
         <div class="options">
-          <label class="opt"><input type="radio" name="q7" value="a"> A neutral molecule with no charges anywhere</label>
-          <label class="opt"><input type="radio" name="q7" value="b"> A molecule bearing both a positive and a negative charge with no net charge</label>
-          <label class="opt"><input type="radio" name="q7" value="c"> A molecule with only a positive charge</label>
-          <label class="opt"><input type="radio" name="q7" value="d"> An ion with multiple negative charges</label>
+          <label class="opt"><input type="radio" name="q7" value="A"> A neutral molecule with no charges anywhere</label>
+          <label class="opt"><input type="radio" name="q7" value="B"> A molecule bearing both a positive and a negative charge with no net charge</label>
+          <label class="opt"><input type="radio" name="q7" value="C"> A molecule with only a positive charge</label>
+          <label class="opt"><input type="radio" name="q7" value="D"> An ion with multiple negative charges</label>
         </div>
         <div class="q-exp" id="exp7">A <b>zwitterion</b> (dipolar ion) carries both a + and a &minus; charge simultaneously but has zero net charge. In amino acids: <sup>+</sup>H<sub>3</sub>N&ndash;CHR&ndash;COO<sup>&minus;</sup>. It is the predominant form at the isoelectric point.</div>
       </div>
@@ -737,10 +737,10 @@ Trypsin, pepsin, etc. cleave specific peptide bonds selectively.</div>
         <span class="q-num">Q8</span>
         <p class="q-text">Which amino acid has NO chiral centre?</p>
         <div class="options">
-          <label class="opt"><input type="radio" name="q8" value="a"> Alanine (H<sub>2</sub>N&ndash;CH(CH<sub>3</sub>)&ndash;COOH)</label>
-          <label class="opt"><input type="radio" name="q8" value="b"> Glycine (H<sub>2</sub>N&ndash;CH<sub>2</sub>&ndash;COOH)</label>
-          <label class="opt"><input type="radio" name="q8" value="c"> Serine (H<sub>2</sub>N&ndash;CH(CH<sub>2</sub>OH)&ndash;COOH)</label>
-          <label class="opt"><input type="radio" name="q8" value="d"> Valine</label>
+          <label class="opt"><input type="radio" name="q8" value="A"> Alanine (H<sub>2</sub>N&ndash;CH(CH<sub>3</sub>)&ndash;COOH)</label>
+          <label class="opt"><input type="radio" name="q8" value="B"> Glycine (H<sub>2</sub>N&ndash;CH<sub>2</sub>&ndash;COOH)</label>
+          <label class="opt"><input type="radio" name="q8" value="C"> Serine (H<sub>2</sub>N&ndash;CH(CH<sub>2</sub>OH)&ndash;COOH)</label>
+          <label class="opt"><input type="radio" name="q8" value="D"> Valine</label>
         </div>
         <div class="q-exp" id="exp8"><b>Glycine</b>: its &alpha;-carbon is bonded to H, H, NH<sub>2</sub>, and COOH &mdash; two identical H atoms &rarr; not a chiral centre. All other &alpha;-amino acids have four different groups on the &alpha;-carbon.</div>
       </div>
@@ -749,10 +749,10 @@ Trypsin, pepsin, etc. cleave specific peptide bonds selectively.</div>
         <span class="q-num">Q9</span>
         <p class="q-text">The bond between amino acids in a peptide is called:</p>
         <div class="options">
-          <label class="opt"><input type="radio" name="q9" value="a"> Ester bond</label>
-          <label class="opt"><input type="radio" name="q9" value="b"> Peptide bond (amide bond)</label>
-          <label class="opt"><input type="radio" name="q9" value="c"> Glycosidic bond</label>
-          <label class="opt"><input type="radio" name="q9" value="d"> Disulfide bond</label>
+          <label class="opt"><input type="radio" name="q9" value="A"> Ester bond</label>
+          <label class="opt"><input type="radio" name="q9" value="B"> Peptide bond (amide bond)</label>
+          <label class="opt"><input type="radio" name="q9" value="C"> Glycosidic bond</label>
+          <label class="opt"><input type="radio" name="q9" value="D"> Disulfide bond</label>
         </div>
         <div class="q-exp" id="exp9">The bond linking amino acids is the <b>peptide bond</b> (&ndash;CO&ndash;NH&ndash;), which is the same as an amide bond. It forms by condensation (loss of H<sub>2</sub>O) between &ndash;COOH of one amino acid and &ndash;NH<sub>2</sub> of another.</div>
       </div>
@@ -761,10 +761,10 @@ Trypsin, pepsin, etc. cleave specific peptide bonds selectively.</div>
         <span class="q-num">Q10</span>
         <p class="q-text">How many different dipeptides can be formed from two different amino acids A and B?</p>
         <div class="options">
-          <label class="opt"><input type="radio" name="q10" value="a"> 1</label>
-          <label class="opt"><input type="radio" name="q10" value="b"> 2</label>
-          <label class="opt"><input type="radio" name="q10" value="c"> 4</label>
-          <label class="opt"><input type="radio" name="q10" value="d"> 3</label>
+          <label class="opt"><input type="radio" name="q10" value="A"> 1</label>
+          <label class="opt"><input type="radio" name="q10" value="B"> 2</label>
+          <label class="opt"><input type="radio" name="q10" value="C"> 4</label>
+          <label class="opt"><input type="radio" name="q10" value="D"> 3</label>
         </div>
         <div class="q-exp" id="exp10"><b>2 dipeptides</b>: A&ndash;B (A at N-terminus) and B&ndash;A (B at N-terminus). These are different compounds because the sequence of amino acids matters &mdash; the N-terminus and C-terminus are different ends.</div>
       </div>
@@ -773,10 +773,10 @@ Trypsin, pepsin, etc. cleave specific peptide bonds selectively.</div>
         <span class="q-num">Q11</span>
         <p class="q-text">The primary structure of a protein is maintained by:</p>
         <div class="options">
-          <label class="opt"><input type="radio" name="q11" value="a"> Hydrogen bonds</label>
-          <label class="opt"><input type="radio" name="q11" value="b"> Peptide (covalent amide) bonds</label>
-          <label class="opt"><input type="radio" name="q11" value="c"> Disulfide bridges</label>
-          <label class="opt"><input type="radio" name="q11" value="d"> Ionic interactions</label>
+          <label class="opt"><input type="radio" name="q11" value="A"> Hydrogen bonds</label>
+          <label class="opt"><input type="radio" name="q11" value="B"> Peptide (covalent amide) bonds</label>
+          <label class="opt"><input type="radio" name="q11" value="C"> Disulfide bridges</label>
+          <label class="opt"><input type="radio" name="q11" value="D"> Ionic interactions</label>
         </div>
         <div class="q-exp" id="exp11">The <b>primary structure</b> (sequence of amino acids) is held together by <b>covalent peptide bonds</b> (&ndash;CO&ndash;NH&ndash;). Secondary structure uses H-bonds; tertiary uses H-bonds, disulfide bridges, and other interactions.</div>
       </div>
@@ -785,10 +785,10 @@ Trypsin, pepsin, etc. cleave specific peptide bonds selectively.</div>
         <span class="q-num">Q12</span>
         <p class="q-text">Which reagent reduces nitrobenzene to phenylamine?</p>
         <div class="options">
-          <label class="opt"><input type="radio" name="q12" value="a"> NaBH<sub>4</sub></label>
-          <label class="opt"><input type="radio" name="q12" value="b"> Sn/HCl followed by NaOH</label>
-          <label class="opt"><input type="radio" name="q12" value="c"> LiAlH<sub>4</sub> alone</label>
-          <label class="opt"><input type="radio" name="q12" value="d"> H<sub>2</sub>/Pt</label>
+          <label class="opt"><input type="radio" name="q12" value="A"> NaBH<sub>4</sub></label>
+          <label class="opt"><input type="radio" name="q12" value="B"> Sn/HCl followed by NaOH</label>
+          <label class="opt"><input type="radio" name="q12" value="C"> LiAlH<sub>4</sub> alone</label>
+          <label class="opt"><input type="radio" name="q12" value="D"> H<sub>2</sub>/Pt</label>
         </div>
         <div class="q-exp" id="exp12">C<sub>6</sub>H<sub>5</sub>NO<sub>2</sub> + 6[H] &rarr;<sup>Sn/HCl</sup> C<sub>6</sub>H<sub>5</sub>NH<sub>3</sub><sup>+</sup>Cl<sup>&minus;</sup> &rarr;<sup>NaOH</sup> C<sub>6</sub>H<sub>5</sub>NH<sub>2</sub>. <b>Tin (Sn) and concentrated HCl</b> reduces the nitro group; NaOH is then added to liberate free phenylamine from the salt.</div>
       </div>
@@ -797,10 +797,10 @@ Trypsin, pepsin, etc. cleave specific peptide bonds selectively.</div>
         <span class="q-num">Q13</span>
         <p class="q-text">Amines act as nucleophiles because:</p>
         <div class="options">
-          <label class="opt"><input type="radio" name="q13" value="a"> They are positively charged</label>
-          <label class="opt"><input type="radio" name="q13" value="b"> The nitrogen atom has a lone pair of electrons that can be donated</label>
-          <label class="opt"><input type="radio" name="q13" value="c"> They have very high boiling points</label>
-          <label class="opt"><input type="radio" name="q13" value="d"> They are soluble in water</label>
+          <label class="opt"><input type="radio" name="q13" value="A"> They are positively charged</label>
+          <label class="opt"><input type="radio" name="q13" value="B"> The nitrogen atom has a lone pair of electrons that can be donated</label>
+          <label class="opt"><input type="radio" name="q13" value="C"> They have very high boiling points</label>
+          <label class="opt"><input type="radio" name="q13" value="D"> They are soluble in water</label>
         </div>
         <div class="q-exp" id="exp13">Amines have a <b>lone pair on nitrogen</b> that is available for donation to electrophiles. This makes them nucleophiles (electron donors) as well as bases (H<sup>+</sup> acceptors). This lone pair is the key feature driving all amine reactions.</div>
       </div>
@@ -809,10 +809,10 @@ Trypsin, pepsin, etc. cleave specific peptide bonds selectively.</div>
         <span class="q-num">Q14</span>
         <p class="q-text">The reaction of phenylamine with HCl produces:</p>
         <div class="options">
-          <label class="opt"><input type="radio" name="q14" value="a"> A diazonium salt</label>
-          <label class="opt"><input type="radio" name="q14" value="b"> Phenylammonium chloride (C<sub>6</sub>H<sub>5</sub>NH<sub>3</sub><sup>+</sup>Cl<sup>&minus;</sup>)</label>
-          <label class="opt"><input type="radio" name="q14" value="c"> Chlorobenzene</label>
-          <label class="opt"><input type="radio" name="q14" value="d"> N-phenylethanamide</label>
+          <label class="opt"><input type="radio" name="q14" value="A"> A diazonium salt</label>
+          <label class="opt"><input type="radio" name="q14" value="B"> Phenylammonium chloride (C<sub>6</sub>H<sub>5</sub>NH<sub>3</sub><sup>+</sup>Cl<sup>&minus;</sup>)</label>
+          <label class="opt"><input type="radio" name="q14" value="C"> Chlorobenzene</label>
+          <label class="opt"><input type="radio" name="q14" value="D"> N-phenylethanamide</label>
         </div>
         <div class="q-exp" id="exp14">C<sub>6</sub>H<sub>5</sub>NH<sub>2</sub> + HCl &rarr; C<sub>6</sub>H<sub>5</sub>NH<sub>3</sub><sup>+</sup>Cl<sup>&minus;</sup> (<b>phenylammonium chloride</b>). All amines act as bases and form ammonium salts with acids.</div>
       </div>
@@ -821,10 +821,10 @@ Trypsin, pepsin, etc. cleave specific peptide bonds selectively.</div>
         <span class="q-num">Q15</span>
         <p class="q-text">An amino acid in an alkaline solution exists predominantly as:</p>
         <div class="options">
-          <label class="opt"><input type="radio" name="q15" value="a"> <sup>+</sup>H<sub>3</sub>N&ndash;CHR&ndash;COOH (cation)</label>
-          <label class="opt"><input type="radio" name="q15" value="b"> H<sub>2</sub>N&ndash;CHR&ndash;COOH (neutral)</label>
-          <label class="opt"><input type="radio" name="q15" value="c"> H<sub>2</sub>N&ndash;CHR&ndash;COO<sup>&minus;</sup> (anion)</label>
-          <label class="opt"><input type="radio" name="q15" value="d"> <sup>+</sup>H<sub>3</sub>N&ndash;CHR&ndash;COO<sup>&minus;</sup> (zwitterion)</label>
+          <label class="opt"><input type="radio" name="q15" value="A"> <sup>+</sup>H<sub>3</sub>N&ndash;CHR&ndash;COOH (cation)</label>
+          <label class="opt"><input type="radio" name="q15" value="B"> H<sub>2</sub>N&ndash;CHR&ndash;COOH (neutral)</label>
+          <label class="opt"><input type="radio" name="q15" value="C"> H<sub>2</sub>N&ndash;CHR&ndash;COO<sup>&minus;</sup> (anion)</label>
+          <label class="opt"><input type="radio" name="q15" value="D"> <sup>+</sup>H<sub>3</sub>N&ndash;CHR&ndash;COO<sup>&minus;</sup> (zwitterion)</label>
         </div>
         <div class="q-exp" id="exp15">In alkaline solution, OH<sup>&minus;</sup> removes H<sup>+</sup> from <sup>+</sup>NH<sub>3</sub>: <sup>+</sup>H<sub>3</sub>N&ndash;CHR&ndash;COO<sup>&minus;</sup> + OH<sup>&minus;</sup> &rarr; H<sub>2</sub>N&ndash;CHR&ndash;COO<sup>&minus;</sup>. The amino acid becomes an <b>anion</b> (negatively charged overall).</div>
       </div>
@@ -833,10 +833,10 @@ Trypsin, pepsin, etc. cleave specific peptide bonds selectively.</div>
         <span class="q-num">Q16</span>
         <p class="q-text">The secondary structure of a protein (&alpha;-helix) is held by:</p>
         <div class="options">
-          <label class="opt"><input type="radio" name="q16" value="a"> Covalent peptide bonds</label>
-          <label class="opt"><input type="radio" name="q16" value="b"> Disulfide bridges between cysteine residues</label>
-          <label class="opt"><input type="radio" name="q16" value="c"> Hydrogen bonds between backbone C=O and N&ndash;H groups</label>
-          <label class="opt"><input type="radio" name="q16" value="d"> Ionic bonds between R groups</label>
+          <label class="opt"><input type="radio" name="q16" value="A"> Covalent peptide bonds</label>
+          <label class="opt"><input type="radio" name="q16" value="B"> Disulfide bridges between cysteine residues</label>
+          <label class="opt"><input type="radio" name="q16" value="C"> Hydrogen bonds between backbone C=O and N&ndash;H groups</label>
+          <label class="opt"><input type="radio" name="q16" value="D"> Ionic bonds between R groups</label>
         </div>
         <div class="q-exp" id="exp16">The &alpha;-helix (secondary structure) is maintained by <b>hydrogen bonds between C=O of one peptide bond and the N&ndash;H of another</b> four residues along the chain. These are backbone H-bonds, not side chain interactions.</div>
       </div>
@@ -845,10 +845,10 @@ Trypsin, pepsin, etc. cleave specific peptide bonds selectively.</div>
         <span class="q-num">Q17</span>
         <p class="q-text">Optical isomers differ in:</p>
         <div class="options">
-          <label class="opt"><input type="radio" name="q17" value="a"> Their molecular formula</label>
-          <label class="opt"><input type="radio" name="q17" value="b"> The direction they rotate plane-polarised light</label>
-          <label class="opt"><input type="radio" name="q17" value="c"> The number of carbon atoms</label>
-          <label class="opt"><input type="radio" name="q17" value="d"> Their boiling points</label>
+          <label class="opt"><input type="radio" name="q17" value="A"> Their molecular formula</label>
+          <label class="opt"><input type="radio" name="q17" value="B"> The direction they rotate plane-polarised light</label>
+          <label class="opt"><input type="radio" name="q17" value="C"> The number of carbon atoms</label>
+          <label class="opt"><input type="radio" name="q17" value="D"> Their boiling points</label>
         </div>
         <div class="q-exp" id="exp17">Optical isomers (enantiomers) have identical physical properties (B.P., M.P., solubility) EXCEPT for <b>the direction they rotate plane-polarised light</b>: (+) form clockwise; (&minus;) form anticlockwise. They also have different biological activity.</div>
       </div>
@@ -857,10 +857,10 @@ Trypsin, pepsin, etc. cleave specific peptide bonds selectively.</div>
         <span class="q-num">Q18</span>
         <p class="q-text">The preparation of phenylamine from nitrobenzene is classified as:</p>
         <div class="options">
-          <label class="opt"><input type="radio" name="q18" value="a"> Oxidation</label>
-          <label class="opt"><input type="radio" name="q18" value="b"> Substitution</label>
-          <label class="opt"><input type="radio" name="q18" value="c"> Reduction</label>
-          <label class="opt"><input type="radio" name="q18" value="d"> Elimination</label>
+          <label class="opt"><input type="radio" name="q18" value="A"> Oxidation</label>
+          <label class="opt"><input type="radio" name="q18" value="B"> Substitution</label>
+          <label class="opt"><input type="radio" name="q18" value="C"> Reduction</label>
+          <label class="opt"><input type="radio" name="q18" value="D"> Elimination</label>
         </div>
         <div class="q-exp" id="exp18">C<sub>6</sub>H<sub>5</sub>NO<sub>2</sub> + 6[H] &rarr; C<sub>6</sub>H<sub>5</sub>NH<sub>2</sub> + 2H<sub>2</sub>O. The nitrogen is reduced from &ndash;NO<sub>2</sub> (oxidation state +3) to &ndash;NH<sub>2</sub> (oxidation state &minus;3) &rarr; <b>reduction</b>.</div>
       </div>
@@ -869,10 +869,10 @@ Trypsin, pepsin, etc. cleave specific peptide bonds selectively.</div>
         <span class="q-num">Q19</span>
         <p class="q-text">The racemic mixture of an amino acid:</p>
         <div class="options">
-          <label class="opt"><input type="radio" name="q19" value="a"> Rotates plane-polarised light strongly clockwise</label>
-          <label class="opt"><input type="radio" name="q19" value="b"> Has no net optical activity</label>
-          <label class="opt"><input type="radio" name="q19" value="c"> Is the same as the L-form</label>
-          <label class="opt"><input type="radio" name="q19" value="d"> Cannot be prepared in the laboratory</label>
+          <label class="opt"><input type="radio" name="q19" value="A"> Rotates plane-polarised light strongly clockwise</label>
+          <label class="opt"><input type="radio" name="q19" value="B"> Has no net optical activity</label>
+          <label class="opt"><input type="radio" name="q19" value="C"> Is the same as the L-form</label>
+          <label class="opt"><input type="radio" name="q19" value="D"> Cannot be prepared in the laboratory</label>
         </div>
         <div class="q-exp" id="exp19">A <b>racemic mixture</b> contains equal amounts of (+) and (&minus;) enantiomers. Their optical rotations are equal and opposite &rarr; they cancel &rarr; <b>no net optical activity</b>. Laboratory synthesis usually produces racemic mixtures.</div>
       </div>
@@ -881,10 +881,10 @@ Trypsin, pepsin, etc. cleave specific peptide bonds selectively.</div>
         <span class="q-num">Q20</span>
         <p class="q-text">An azo dye is formed when a diazonium salt undergoes:</p>
         <div class="options">
-          <label class="opt"><input type="radio" name="q20" value="a"> Reduction</label>
-          <label class="opt"><input type="radio" name="q20" value="b"> Coupling with an activated aromatic compound (e.g. phenol)</label>
-          <label class="opt"><input type="radio" name="q20" value="c"> Hydrolysis with water</label>
-          <label class="opt"><input type="radio" name="q20" value="d"> Acylation with an acyl chloride</label>
+          <label class="opt"><input type="radio" name="q20" value="A"> Reduction</label>
+          <label class="opt"><input type="radio" name="q20" value="B"> Coupling with an activated aromatic compound (e.g. phenol)</label>
+          <label class="opt"><input type="radio" name="q20" value="C"> Hydrolysis with water</label>
+          <label class="opt"><input type="radio" name="q20" value="D"> Acylation with an acyl chloride</label>
         </div>
         <div class="q-exp" id="exp20">Diazonium salts undergo <b>coupling reactions</b> with electron-rich aromatic compounds (phenols, naphthols, arylamines) in alkaline conditions to form <b>azo dyes</b> containing the &ndash;N=N&ndash; (azo) group. These are intensely coloured due to extended conjugation.</div>
       </div>
@@ -893,10 +893,10 @@ Trypsin, pepsin, etc. cleave specific peptide bonds selectively.</div>
         <span class="q-num">Q21</span>
         <p class="q-text">Which statement about the reaction of excess NH<sub>3</sub> with halogenoalkanes is correct?</p>
         <div class="options">
-          <label class="opt"><input type="radio" name="q21" value="a"> Only the primary amine is formed</label>
-          <label class="opt"><input type="radio" name="q21" value="b"> A mixture of primary, secondary, tertiary amines and quaternary salt is formed</label>
-          <label class="opt"><input type="radio" name="q21" value="c"> Only the quaternary salt is formed</label>
-          <label class="opt"><input type="radio" name="q21" value="d"> No reaction occurs</label>
+          <label class="opt"><input type="radio" name="q21" value="A"> Only the primary amine is formed</label>
+          <label class="opt"><input type="radio" name="q21" value="B"> A mixture of primary, secondary, tertiary amines and quaternary salt is formed</label>
+          <label class="opt"><input type="radio" name="q21" value="C"> Only the quaternary salt is formed</label>
+          <label class="opt"><input type="radio" name="q21" value="D"> No reaction occurs</label>
         </div>
         <div class="q-exp" id="exp21">Halogenoalkanes react with NH<sub>3</sub> to give a <b>mixture</b>: primary amine, secondary amine, tertiary amine, and quaternary ammonium salt. Excess NH<sub>3</sub> favours the primary amine but cannot prevent all further substitution.</div>
       </div>
@@ -905,10 +905,10 @@ Trypsin, pepsin, etc. cleave specific peptide bonds selectively.</div>
         <span class="q-num">Q22</span>
         <p class="q-text">Hydrolysis of a polypeptide with 6M HCl at 110&deg;C gives:</p>
         <div class="options">
-          <label class="opt"><input type="radio" name="q22" value="a"> Fatty acids and glycerol</label>
-          <label class="opt"><input type="radio" name="q22" value="b"> Nucleotides</label>
-          <label class="opt"><input type="radio" name="q22" value="c"> A mixture of amino acids</label>
-          <label class="opt"><input type="radio" name="q22" value="d"> Glucose monomers</label>
+          <label class="opt"><input type="radio" name="q22" value="A"> Fatty acids and glycerol</label>
+          <label class="opt"><input type="radio" name="q22" value="B"> Nucleotides</label>
+          <label class="opt"><input type="radio" name="q22" value="C"> A mixture of amino acids</label>
+          <label class="opt"><input type="radio" name="q22" value="D"> Glucose monomers</label>
         </div>
         <div class="q-exp" id="exp22">Acid hydrolysis (6M HCl, 110&deg;C, 24 hours) breaks all peptide bonds in a polypeptide, giving a <b>mixture of amino acids</b>. This is used in amino acid analysis to determine the composition of a protein.</div>
       </div>
@@ -917,10 +917,10 @@ Trypsin, pepsin, etc. cleave specific peptide bonds selectively.</div>
         <span class="q-num">Q23</span>
         <p class="q-text">The tertiary structure of a protein is held by all of the following EXCEPT:</p>
         <div class="options">
-          <label class="opt"><input type="radio" name="q23" value="a"> Disulfide bridges</label>
-          <label class="opt"><input type="radio" name="q23" value="b"> Hydrogen bonds between R groups</label>
-          <label class="opt"><input type="radio" name="q23" value="c"> Covalent peptide bonds between all amino acids in the chain</label>
-          <label class="opt"><input type="radio" name="q23" value="d"> Hydrophobic interactions</label>
+          <label class="opt"><input type="radio" name="q23" value="A"> Disulfide bridges</label>
+          <label class="opt"><input type="radio" name="q23" value="B"> Hydrogen bonds between R groups</label>
+          <label class="opt"><input type="radio" name="q23" value="C"> Covalent peptide bonds between all amino acids in the chain</label>
+          <label class="opt"><input type="radio" name="q23" value="D"> Hydrophobic interactions</label>
         </div>
         <div class="q-exp" id="exp23">Tertiary structure is held by non-covalent interactions (H-bonds, hydrophobic, ionic) <b>plus</b> disulfide bridges. Covalent peptide bonds define primary structure &mdash; they hold the whole chain together, not specifically the 3D fold. The question asks what does NOT contribute to tertiary folding specifically: <b>peptide bonds</b> are the primary structure bonds, not specifically tertiary folding forces.</div>
       </div>
@@ -929,10 +929,10 @@ Trypsin, pepsin, etc. cleave specific peptide bonds selectively.</div>
         <span class="q-num">Q24</span>
         <p class="q-text">2-aminopropanoic acid (alanine, CH<sub>3</sub>CH(NH<sub>2</sub>)COOH) is optically active because:</p>
         <div class="options">
-          <label class="opt"><input type="radio" name="q24" value="a"> It contains a carbon&ndash;nitrogen bond</label>
-          <label class="opt"><input type="radio" name="q24" value="b"> Its &alpha;-carbon carries four different groups (H, NH<sub>2</sub>, CH<sub>3</sub>, COOH)</label>
-          <label class="opt"><input type="radio" name="q24" value="c"> It has a C=O group</label>
-          <label class="opt"><input type="radio" name="q24" value="d"> It is soluble in water</label>
+          <label class="opt"><input type="radio" name="q24" value="A"> It contains a carbon&ndash;nitrogen bond</label>
+          <label class="opt"><input type="radio" name="q24" value="B"> Its &alpha;-carbon carries four different groups (H, NH<sub>2</sub>, CH<sub>3</sub>, COOH)</label>
+          <label class="opt"><input type="radio" name="q24" value="C"> It has a C=O group</label>
+          <label class="opt"><input type="radio" name="q24" value="D"> It is soluble in water</label>
         </div>
         <div class="q-exp" id="exp24">Alanine&rsquo;s &alpha;-carbon is bonded to <b>four different groups</b>: H, NH<sub>2</sub>, CH<sub>3</sub>, and COOH &rarr; chiral centre &rarr; two non-superimposable mirror images (enantiomers) that rotate plane-polarised light in opposite directions.</div>
       </div>
@@ -941,10 +941,10 @@ Trypsin, pepsin, etc. cleave specific peptide bonds selectively.</div>
         <span class="q-num">Q25</span>
         <p class="q-text">Paracetamol is synthesised by acylation of 4-aminophenol. The most suitable acylating agent and reason for its use is:</p>
         <div class="options">
-          <label class="opt"><input type="radio" name="q25" value="a"> Ethanoyl chloride — because it reacts fastest</label>
-          <label class="opt"><input type="radio" name="q25" value="b"> Ethanoic anhydride — because it produces no corrosive HCl; by-product (ethanoic acid) is safe and recyclable</label>
-          <label class="opt"><input type="radio" name="q25" value="c"> Ethanoic acid — because it is cheapest</label>
-          <label class="opt"><input type="radio" name="q25" value="d"> Acetic acid with H<sub>2</sub>SO<sub>4</sub> catalyst — because it is reversible</label>
+          <label class="opt"><input type="radio" name="q25" value="A"> Ethanoyl chloride — because it reacts fastest</label>
+          <label class="opt"><input type="radio" name="q25" value="B"> Ethanoic anhydride — because it produces no corrosive HCl; by-product (ethanoic acid) is safe and recyclable</label>
+          <label class="opt"><input type="radio" name="q25" value="C"> Ethanoic acid — because it is cheapest</label>
+          <label class="opt"><input type="radio" name="q25" value="D"> Acetic acid with H<sub>2</sub>SO<sub>4</sub> catalyst — because it is reversible</label>
         </div>
         <div class="q-exp" id="exp25"><b>Ethanoic anhydride</b> is preferred for paracetamol manufacture: by-product is ethanoic acid (non-toxic, recyclable), no corrosive HCl fumes produced, safer large-scale handling compared to ethanoyl chloride, yet still gives fast, essentially complete reaction.</div>
       </div>
@@ -1197,6 +1197,195 @@ function submitQuiz(){
   r.innerHTML='Score: '+s+'/'+t+' ('+p+'%) &mdash; '+(p>=80?'&#127942; Excellent!':p>=70?'&#10003; Good':p>=50?'&#128218; Review':'&#10007; Re-read');
   document.querySelector('.quiz-submit').disabled=true;document.querySelector('.quiz-submit').style.opacity='.5';
 }
+</script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<style>
+#pdf-dl-bar{position:fixed;bottom:24px;right:24px;z-index:9000;}
+#pdf-dl-btn{background:#34d399;color:#000;border:none;padding:12px 22px;border-radius:9px;font-family:'JetBrains Mono',monospace;font-size:.84rem;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(52,211,153,.4);display:flex;align-items:center;gap:8px;}
+#pdf-dl-btn:hover{opacity:.88;}
+#pdf-dl-btn .spin{display:none;width:14px;height:14px;border:2px solid #000;border-top-color:transparent;border-radius:50%;animation:dlsp .7s linear infinite;}
+@keyframes dlsp{to{transform:rotate(360deg)}}
+#dl-pay-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:99990;align-items:center;justify-content:center;padding:16px;}
+#dl-pay-overlay.open{display:flex;}
+#dl-pay-box{background:#161b22;border:1px solid #30363d;border-radius:14px;width:100%;max-width:400px;max-height:92vh;overflow-y:auto;}
+#dl-pay-box .ph{padding:18px 20px 12px;border-bottom:1px solid #30363d;}
+#dl-pay-box .ph h2{font-family:'Playfair Display',serif;color:#fff;font-size:1.1rem;}
+#dl-pay-box .ph p{color:#8b949e;font-size:.78rem;margin-top:2px;}
+#dl-pay-box .pb{padding:16px 20px;}
+#dl-pay-box .pf{padding:12px 20px;border-top:1px solid #30363d;display:flex;gap:8px;}
+.amt-bb{background:rgba(232,197,71,.07);border:1px solid rgba(232,197,71,.2);border-radius:9px;padding:12px;text-align:center;margin-bottom:14px;}
+.amt-bb .al{font-family:'JetBrains Mono',monospace;font-size:.62rem;color:#8b949e;text-transform:uppercase;letter-spacing:.1em;margin-bottom:2px;}
+.amt-bb .av{font-family:'JetBrains Mono',monospace;font-size:1.7rem;color:#e8c547;font-weight:700;}
+.ph-rowb{display:flex;gap:7px;margin-bottom:6px;}
+.cc-selb{background:#1c2333;border:1px solid #30363d;border-radius:6px;color:#fff;padding:8px 6px;font-family:'JetBrains Mono',monospace;font-size:.78rem;width:110px;}
+.ph-inpb{flex:1;background:#1c2333;border:1px solid #30363d;border-radius:6px;color:#fff;padding:8px 11px;font-family:'JetBrains Mono',monospace;font-size:.86rem;}
+.ph-inpb:focus,.cc-selb:focus{outline:none;border-color:#e8c547;}
+.net-rb{display:flex;gap:6px;margin-bottom:12px;}
+.nbb{flex:1;background:#1c2333;border:1px solid #30363d;border-radius:6px;color:#8b949e;font-family:'JetBrains Mono',monospace;font-size:.68rem;padding:7px;cursor:pointer;text-align:center;}
+.nbb.sel{background:rgba(52,211,153,.1);border-color:#34d399;color:#34d399;}
+.pay-gob{flex:1;background:#e8c547;color:#000;border:none;padding:11px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:.84rem;font-weight:700;cursor:pointer;}
+.pay-gob:disabled{opacity:.5;cursor:not-allowed;}
+.cancel-bb{background:#1c2333;color:#8b949e;border:1px solid #30363d;padding:10px 14px;border-radius:7px;cursor:pointer;font-size:.82rem;}
+.pay-stb{display:none;text-align:center;padding:20px;}
+.dl-spinnerb{width:34px;height:34px;border:3px solid #30363d;border-top-color:#e8c547;border-radius:50%;animation:dlsp .8s linear infinite;margin:0 auto 12px;}
+</style>
+
+<div id="pdf-dl-bar">
+  <button id="pdf-dl-btn" onclick="checkPayAndDownload()">
+    <span class="spin" id="pdf-spin"></span>
+    <span id="pdf-btn-text">&#11015; Download PDF</span>
+  </button>
+</div>
+
+<div id="dl-pay-overlay">
+  <div id="dl-pay-box">
+    <div class="ph"><h2>&#128179; Pay to Download</h2><p>Unit notes &mdash; instant PDF download</p></div>
+    <div id="dl-pform">
+      <div class="pb">
+        <div class="amt-bb"><div class="al">Price</div><div class="av">300 RWF</div><div style="font-size:.72rem;color:#8b949e;margin-top:2px;">One-time &middot; Download immediately after payment</div></div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.67rem;color:#8b949e;text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px;">Phone Number</div>
+        <div class="ph-rowb">
+          <select class="cc-selb" id="dl-ccode" onchange="dlUpdateHint()">
+            <option value="+250" data-net="MTN / Airtel">&#127479;&#127484; +250</option>
+            <option value="+256" data-net="MTN / Airtel">&#127482;&#127468; +256</option>
+            <option value="+255" data-net="Vodacom / Tigo">&#127481;&#127487; +255</option>
+            <option value="+254" data-net="M-Pesa / Airtel">&#127472;&#127466; +254</option>
+            <option value="+234" data-net="MTN / Airtel">&#127475;&#127468; +234</option>
+            <option value="+233" data-net="MTN / Vodafone">&#127468;&#127469; +233</option>
+          </select>
+          <input class="ph-inpb" type="tel" id="dl-phone" placeholder="07XXXXXXXX" oninput="dlValPhone()" maxlength="12"/>
+        </div>
+        <div class="ph-hint" id="dl-ph-hint">Rwanda &mdash; MTN MoMo or Airtel Money</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.67rem;color:#8b949e;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;">Network</div>
+        <div class="net-rb">
+          <div class="nbb sel" onclick="dlSelNet(this,'MTN')">MTN MoMo</div>
+          <div class="nbb" onclick="dlSelNet(this,'AIRTEL')">Airtel Money</div>
+          <div class="nbb" onclick="dlSelNet(this,'OTHER')">Other</div>
+        </div>
+        <div id="dl-err" style="display:none;font-family:'JetBrains Mono',monospace;font-size:.74rem;color:#f87171;padding:7px 10px;background:rgba(248,113,113,.07);border-radius:5px;margin-bottom:8px;"></div>
+      </div>
+      <div class="pf">
+        <button class="pay-gob" id="dl-pay-go" onclick="dlInitPay()" disabled>Pay &amp; Download</button>
+        <button class="cancel-bb" onclick="closeDlPay()">Cancel</button>
+      </div>
+    </div>
+    <div class="pay-stb" id="dl-st-proc">
+      <div class="dl-spinnerb"></div>
+      <div style="font-family:'JetBrains Mono',monospace;color:#fff;font-size:.86rem;margin-bottom:5px;">Processing Payment...</div>
+      <div style="color:#8b949e;font-size:.79rem;">Check your phone &mdash; enter your PIN to confirm.</div>
+    </div>
+    <div class="pay-stb" id="dl-st-ok">
+      <div style="font-size:2.8rem;margin-bottom:10px;">&#9989;</div>
+      <div style="font-family:'JetBrains Mono',monospace;color:#34d399;font-size:.92rem;margin-bottom:5px;">Payment Confirmed!</div>
+      <div style="color:#8b949e;font-size:.8rem;margin-bottom:16px;">Generating your PDF...</div>
+      <div class="dl-spinnerb"></div>
+    </div>
+    <div class="pay-stb" id="dl-st-fail">
+      <div style="font-size:2.8rem;margin-bottom:10px;">&#10060;</div>
+      <div style="font-family:'JetBrains Mono',monospace;color:#f87171;font-size:.86rem;margin-bottom:5px;">Payment Not Completed</div>
+      <div style="color:#8b949e;font-size:.79rem;margin-bottom:14px;" id="dl-fail-txt"></div>
+      <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+        <button style="background:#e8c547;color:#000;border:none;padding:8px 16px;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:.76rem;font-weight:700;cursor:pointer;" onclick="dlShowForm()">Try Again</button>
+        <a id="dl-wa-link" href="#" target="_blank" style="background:#25D366;color:#fff;padding:8px 14px;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:.76rem;font-weight:700;text-decoration:none;">WhatsApp</a>
+        <button style="background:#1c2333;color:#8b949e;border:1px solid #30363d;padding:8px 14px;border-radius:6px;cursor:pointer;font-size:.8rem;" onclick="closeDlPay()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+var _DL_UNIT_ID='S5-9';
+var _DL_PRICE=300;
+var _dlNet='MTN',_dlPollTimer=null;
+function isPaidUnit(){
+  if(localStorage.getItem('teacher_dl_unlocked')==='true')return true;
+  var paid=JSON.parse(localStorage.getItem('paid_items')||'[]');
+  var lvl=_DL_UNIT_ID.split('-')[0];
+  return paid.indexOf(_DL_UNIT_ID)>=0||paid.indexOf('ALL')>=0||paid.indexOf(lvl)>=0||paid.indexOf('BUNDLE-'+lvl)>=0;
+}
+function checkPayAndDownload(){
+  if(localStorage.getItem('teacher_dl_unlocked')==='true'){doDownloadPDF();return;}
+  document.getElementById('dl-pay-overlay').classList.add('open');dlShowForm();
+}
+function closeDlPay(){document.getElementById('dl-pay-overlay').classList.remove('open');if(_dlPollTimer){clearInterval(_dlPollTimer);_dlPollTimer=null;}}
+function dlShowForm(){document.getElementById('dl-pform').style.display='block';['dl-st-proc','dl-st-ok','dl-st-fail'].forEach(function(id){document.getElementById(id).style.display='none';});document.getElementById('dl-err').style.display='none';}
+function dlSelNet(el,n){_dlNet=n;document.querySelectorAll('.nbb').forEach(function(b){b.classList.remove('sel');});el.classList.add('sel');}
+function dlUpdateHint(){var o=document.getElementById('dl-ccode').options[document.getElementById('dl-ccode').selectedIndex];document.getElementById('dl-ph-hint').textContent=o.text+' - '+(o.dataset.net||'Mobile Money');}
+function dlValPhone(){document.getElementById('dl-pay-go').disabled=document.getElementById('dl-phone').value.replace(/\D/g,'').length<8;}
+async function dlInitPay(){
+  var code=document.getElementById('dl-ccode').value;
+  var num=document.getElementById('dl-phone').value.replace(/\D/g,'');
+  if(num.length<8){var e=document.getElementById('dl-err');e.style.display='block';e.textContent='Enter a valid phone number.';return;}
+  var fullPhone=code.replace('+','')+num.replace(/^0/,'');
+  document.getElementById('dl-pform').style.display='none';
+  document.getElementById('dl-st-proc').style.display='block';
+  var s=JSON.parse(localStorage.getItem('notif_settings')||'{}');
+  var ppKey=s.pawapayKey||'';
+  if(!ppKey){
+    document.getElementById('dl-st-proc').style.display='none';
+    var wa=encodeURIComponent('PAYMENT\nUnit: '+document.title+'\nAmount: '+_DL_PRICE+' RWF\nPhone: '+code+num+'\nPlease confirm my download.');
+    document.getElementById('dl-wa-link').href='https://wa.me/250788800375?text='+wa;
+    document.getElementById('dl-fail-txt').innerHTML='Pay to MTN MoMo: <strong style="color:#fff;">+250 788 800 375</strong><br>Amount: <strong style="color:#e8c547;">'+_DL_PRICE+' RWF</strong><br><br>Then tap WhatsApp to confirm.';
+    document.getElementById('dl-st-fail').style.display='block';
+    return;
+  }
+  var depositId='dep_'+Date.now()+'_'+Math.random().toString(36).substr(2,5);
+  var cMap={250:'RW',256:'UG',255:'TZ',254:'KE',234:'NG',233:'GH'};
+  var ci=cMap[parseInt(code.replace('+',''))]||'RW';
+  var corrMap={MTN:{RW:'MTNRW',UG:'MTNUG',GH:'MTNGHS'},AIRTEL:{RW:'AIRTELRW',UG:'AIRTELUG'},OTHER:{RW:'MTNRW'}};
+  var curMap={RW:'RWF',UG:'UGX',TZ:'TZS',KE:'KES',NG:'NGN',GH:'GHS'};
+  var correspondent=(corrMap[_dlNet]||corrMap.MTN)[ci]||'MTNRW';
+  var currency=curMap[ci]||'RWF';
+  try{
+    var r=await fetch('https://api.pawapay.io/deposits',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+ppKey},body:JSON.stringify({depositId:depositId,amount:String(_DL_PRICE),currency:currency,correspondent:correspondent,payer:{type:'MSISDN',address:{value:fullPhone}},statementDescription:'ChemNotes'})});
+    var d=await r.json();
+    if(d.depositId||r.ok){
+      _dlPollTimer=setInterval(async function(){
+        try{
+          var pr=await fetch('https://api.pawapay.io/deposits/'+depositId,{headers:{'Authorization':'Bearer '+ppKey}});
+          var pd=await pr.json();
+          var st=((pd.status||(pd[0]&&pd[0].status))||'').toUpperCase();
+          if(st==='COMPLETED'){clearInterval(_dlPollTimer);_dlPollTimer=null;markPaidAndDownload();}
+          else if(st==='FAILED'||st==='EXPIRED'){clearInterval(_dlPollTimer);_dlPollTimer=null;document.getElementById('dl-st-proc').style.display='none';document.getElementById('dl-fail-txt').textContent=(pd.correspondentIds&&pd.correspondentIds.reason)||'Payment not completed.';document.getElementById('dl-st-fail').style.display='block';}
+        }catch(e){}
+      },3000);
+      setTimeout(function(){if(_dlPollTimer){clearInterval(_dlPollTimer);_dlPollTimer=null;document.getElementById('dl-st-proc').style.display='none';document.getElementById('dl-fail-txt').textContent='Timed out. Contact Mr Habimana via WhatsApp.';document.getElementById('dl-st-fail').style.display='block';}},180000);
+    }else{throw new Error(d.errorCode||'Failed');}
+  }catch(e){
+    document.getElementById('dl-st-proc').style.display='none';
+    var wa2=encodeURIComponent('PAYMENT\nUnit: '+document.title+'\nAmount: '+_DL_PRICE+' RWF\nPhone: '+code+num);
+    document.getElementById('dl-wa-link').href='https://wa.me/250788800375?text='+wa2;
+    document.getElementById('dl-fail-txt').innerHTML='Auto-payment failed. Pay to <strong style="color:#fff;">+250 788 800 375</strong> ('+_DL_PRICE+' RWF) then WhatsApp.';
+    document.getElementById('dl-st-fail').style.display='block';
+  }
+}
+function markPaidAndDownload(){
+  var paid=JSON.parse(localStorage.getItem('paid_items')||'[]');
+  if(paid.indexOf(_DL_UNIT_ID)<0)paid.push(_DL_UNIT_ID);
+  localStorage.setItem('paid_items',JSON.stringify(paid));
+  document.getElementById('dl-st-proc').style.display='none';
+  document.getElementById('dl-st-ok').style.display='block';
+  setTimeout(function(){closeDlPay();doDownloadPDF();},1500);
+}
+function doDownloadPDF(){
+  var btn=document.getElementById('pdf-dl-btn');
+  var spin=document.getElementById('pdf-spin');
+  var txt=document.getElementById('pdf-btn-text');
+  btn.disabled=true;spin.style.display='block';txt.textContent='Generating...';
+  var title=document.title.replace(/[^a-zA-Z0-9\s]/g,'').replace(/\s+/g,'_').substring(0,60)||'chemistry_notes';
+  var main=document.querySelector('main')||document.querySelector('.content')||document.body;
+  var clone=main.cloneNode(true);
+  clone.querySelectorAll('.quiz-wrap,#quiz,#test,.quiz-submit,.qs,button,#pdf-dl-bar,#dl-pay-overlay').forEach(function(el){el.remove();});
+  var wrapper=document.createElement('div');
+  wrapper.style.cssText='background:#fff;color:#000;font-family:Georgia,serif;font-size:11pt;line-height:1.7;padding:20px;';
+  wrapper.appendChild(clone);
+  wrapper.querySelectorAll('*').forEach(function(el){el.style.color='#000';el.style.background='transparent';el.style.borderColor='#ccc';});
+  wrapper.querySelectorAll('h1,h2,h3,h4').forEach(function(h){h.style.color='#000';h.style.fontWeight='bold';});
+  html2pdf().set({margin:[10,10,10,10],filename:title+'.pdf',image:{type:'jpeg',quality:0.92},html2canvas:{scale:1.5,useCORS:true,backgroundColor:'#ffffff',logging:false},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}}).from(wrapper).save().then(function(){btn.disabled=false;spin.style.display='none';txt.textContent='Downloaded!';setTimeout(function(){txt.textContent='Download PDF';},3000);}).catch(function(){btn.disabled=false;spin.style.display='none';txt.textContent='Download PDF';});
+}
+document.getElementById('dl-pay-overlay').addEventListener('click',function(e){if(e.target===this)closeDlPay();});
 </script>
 </body>
 </html>

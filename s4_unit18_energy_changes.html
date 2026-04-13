@@ -72,7 +72,7 @@ h3.sub{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--gold);
 .qtext{font-size:1rem;color:#fff;margin-bottom:14px;line-height:1.7;}
 .opts label{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;margin-bottom:8px;border-radius:8px;border:1px solid var(--border);cursor:pointer;transition:all .15s;font-size:.93rem;}
 .opts label:hover{border-color:var(--accent);background:rgba(251,146,60,.04);}
-.opts label.correct{background:rgba(52,211,153,.12);border-color:var(--green);color:var(--green);}
+.opts label.correct{background:rgba(52,211,153,.12);border-color:#34d399;color:#34d399;}
 .opts label.wrong{background:rgba(248,113,113,.08);border-color:var(--red);color:var(--red);}
 .opts input[type=radio]{margin-top:3px;accent-color:var(--accent);flex-shrink:0;}
 .qexplain{display:none;margin-top:12px;padding:12px 16px;background:rgba(251,146,60,.07);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-size:.88rem;line-height:1.7;}
@@ -494,103 +494,103 @@ Negative sign: exothermic reaction raises T (q positive) → ΔH negative</div>
   <div class="quiz-body">
 
     <div class="qblock"><span class="qnum">Q1</span><p class="qtext">A reaction in which ΔH is negative is:</p>
-    <div class="opts"><label><input type="radio" name="q1" value="A"> Endothermic — heat absorbed from surroundings</label><label><input type="radio" name="q1" value="B"> Exothermic — heat released to surroundings</label><label><input type="radio" name="q1" value="C"> Neither — ΔH = 0 means no energy change</label><label><input type="radio" name="q1" value="D"> Endothermic — temperature of surroundings rises</label></div>
+    <div class="opts"><label class="opt"><input type="radio" name="q1" value="A"> Endothermic — heat absorbed from surroundings</label><label class="opt"><input type="radio" name="q1" value="B"> Exothermic — heat released to surroundings</label><label class="opt"><input type="radio" name="q1" value="C"> Neither — ΔH = 0 means no energy change</label><label class="opt"><input type="radio" name="q1" value="D"> Endothermic — temperature of surroundings rises</label></div>
     <div class="qexplain" id="e1">ΔH < 0 → exothermic. Products are at lower enthalpy than reactants. Energy is released to the surroundings → surroundings get warmer. Examples: combustion, neutralisation, respiration. Endothermic reactions have ΔH > 0.</div></div>
 
     <div class="qblock"><span class="qnum">Q2</span><p class="qtext">The standard enthalpy of formation of any element in its standard state is:</p>
-    <div class="opts"><label><input type="radio" name="q2" value="A"> +100 kJ/mol</label><label><input type="radio" name="q2" value="B"> −100 kJ/mol</label><label><input type="radio" name="q2" value="C"> Zero (0 kJ/mol) by definition</label><label><input type="radio" name="q2" value="D"> Variable — depends on the element</label></div>
+    <div class="opts"><label class="opt"><input type="radio" name="q2" value="A"> +100 kJ/mol</label><label class="opt"><input type="radio" name="q2" value="B"> −100 kJ/mol</label><label class="opt"><input type="radio" name="q2" value="C"> Zero (0 kJ/mol) by definition</label><label class="opt"><input type="radio" name="q2" value="D"> Variable — depends on the element</label></div>
     <div class="qexplain" id="e2">ΔH°f of any element in its standard state = 0 by definition. Examples: H₂(g), O₂(g), N₂(g), C(graphite), Na(s), Fe(s) all have ΔH°f = 0. This is because no "formation" is needed — they are already in their standard state.</div></div>
 
     <div class="qblock"><span class="qnum">Q3</span><p class="qtext">Hess's Law states that:</p>
-    <div class="opts"><label><input type="radio" name="q3" value="A"> Energy is always conserved in chemical reactions</label><label><input type="radio" name="q3" value="B"> The total enthalpy change is independent of the route taken between the same initial and final states</label><label><input type="radio" name="q3" value="C"> Exothermic reactions always go faster than endothermic ones</label><label><input type="radio" name="q3" value="D"> Bond breaking always releases energy</label></div>
+    <div class="opts"><label class="opt"><input type="radio" name="q3" value="A"> Energy is always conserved in chemical reactions</label><label class="opt"><input type="radio" name="q3" value="B"> The total enthalpy change is independent of the route taken between the same initial and final states</label><label class="opt"><input type="radio" name="q3" value="C"> Exothermic reactions always go faster than endothermic ones</label><label class="opt"><input type="radio" name="q3" value="D"> Bond breaking always releases energy</label></div>
     <div class="qexplain" id="e3">Hess's Law: ΔH depends only on start and end states, not the pathway. This makes enthalpy a STATE FUNCTION. It allows indirect calculation of enthalpy changes for reactions that cannot be measured directly (e.g. C + ½O₂ → CO, since CO₂ is always also formed).</div></div>
 
     <div class="qblock"><span class="qnum">Q4</span><p class="qtext">In an energy profile diagram for an exothermic reaction, the products are:</p>
-    <div class="opts"><label><input type="radio" name="q4" value="A"> At the same enthalpy level as reactants</label><label><input type="radio" name="q4" value="B"> At a higher enthalpy level than reactants</label><label><input type="radio" name="q4" value="C"> At a lower enthalpy level than reactants</label><label><input type="radio" name="q4" value="D"> At the transition state energy level</label></div>
+    <div class="opts"><label class="opt"><input type="radio" name="q4" value="A"> At the same enthalpy level as reactants</label><label class="opt"><input type="radio" name="q4" value="B"> At a higher enthalpy level than reactants</label><label class="opt"><input type="radio" name="q4" value="C"> At a lower enthalpy level than reactants</label><label class="opt"><input type="radio" name="q4" value="D"> At the transition state energy level</label></div>
     <div class="qexplain" id="e4">Exothermic: energy released → products at LOWER enthalpy than reactants. ΔH = H(products) − H(reactants) < 0. The profile shows reactants at a higher plateau, rising to the transition state peak, then falling to products at a lower plateau.</div></div>
 
     <div class="qblock"><span class="qnum">Q5</span><p class="qtext">Breaking a covalent bond is:</p>
-    <div class="opts"><label><input type="radio" name="q5" value="A"> Exothermic — energy is released</label><label><input type="radio" name="q5" value="B"> Endothermic — energy is required</label><label><input type="radio" name="q5" value="C"> Neither — bond breaking has no energy change</label><label><input type="radio" name="q5" value="D"> Exothermic for ionic bonds, endothermic for covalent</label></div>
+    <div class="opts"><label class="opt"><input type="radio" name="q5" value="A"> Exothermic — energy is released</label><label class="opt"><input type="radio" name="q5" value="B"> Endothermic — energy is required</label><label class="opt"><input type="radio" name="q5" value="C"> Neither — bond breaking has no energy change</label><label class="opt"><input type="radio" name="q5" value="D"> Exothermic for ionic bonds, endothermic for covalent</label></div>
     <div class="qexplain" id="e5">Breaking bonds ALWAYS requires energy (endothermic). You must put energy in to pull the bonded atoms apart. Forming bonds ALWAYS releases energy (exothermic). The overall ΔH = energy in (bonds broken) − energy out (bonds formed). Memory: "Break bonds — Break the bank (costs energy)".</div></div>
 
     <div class="qblock"><span class="qnum">Q6</span><p class="qtext">The formula q = mcΔT is used in calorimetry. What does 'c' represent?</p>
-    <div class="opts"><label><input type="radio" name="q6" value="A"> Concentration in mol/dm³</label><label><input type="radio" name="q6" value="B"> Specific heat capacity of the solution (J g⁻¹ °C⁻¹)</label><label><input type="radio" name="q6" value="C"> Calorimeter constant</label><label><input type="radio" name="q6" value="D"> Change in temperature</label></div>
+    <div class="opts"><label class="opt"><input type="radio" name="q6" value="A"> Concentration in mol/dm³</label><label class="opt"><input type="radio" name="q6" value="B"> Specific heat capacity of the solution (J g⁻¹ °C⁻¹)</label><label class="opt"><input type="radio" name="q6" value="C"> Calorimeter constant</label><label class="opt"><input type="radio" name="q6" value="D"> Change in temperature</label></div>
     <div class="qexplain" id="e6">c = specific heat capacity = 4.18 J g⁻¹ °C⁻¹ for water/dilute aqueous solutions. It represents the energy needed to raise 1 g of substance by 1°C. q = heat transferred (J); m = mass (g); ΔT = temperature change (°C).</div></div>
 
     <div class="qblock"><span class="qnum">Q7</span><p class="qtext">Given: ΔH°f(CO₂) = −394, ΔH°f(H₂O) = −286, ΔH°f(C₂H₆) = −85 kJ/mol. ΔH°c for ethane: C₂H₆ + 3½O₂ → 2CO₂ + 3H₂O is:</p>
-    <div class="opts"><label><input type="radio" name="q7" value="A"> −1428 kJ/mol</label><label><input type="radio" name="q7" value="B"> −1561 kJ/mol</label><label><input type="radio" name="q7" value="C"> +1561 kJ/mol</label><label><input type="radio" name="q7" value="D"> −765 kJ/mol</label></div>
+    <div class="opts"><label class="opt"><input type="radio" name="q7" value="A"> −1428 kJ/mol</label><label class="opt"><input type="radio" name="q7" value="B"> −1561 kJ/mol</label><label class="opt"><input type="radio" name="q7" value="C"> +1561 kJ/mol</label><label class="opt"><input type="radio" name="q7" value="D"> −765 kJ/mol</label></div>
     <div class="qexplain" id="e7">ΔH°c = ΣΔH°f(products) − ΣΔH°f(reactants). Products: 2(−394) + 3(−286) = −788 − 858 = −1646 kJ. Reactants: −85 + 3½(0) = −85 kJ. ΔH°c = −1646 − (−85) = −1646 + 85 = −1561 kJ/mol. Always negative for combustion.</div></div>
 
     <div class="qblock"><span class="qnum">Q8</span><p class="qtext">When a catalyst is added to a reaction at equilibrium, which quantity changes?</p>
-    <div class="opts"><label><input type="radio" name="q8" value="A"> ΔH of the reaction</label><label><input type="radio" name="q8" value="B"> The equilibrium constant Kc</label><label><input type="radio" name="q8" value="C"> The activation energy Ea</label><label><input type="radio" name="q8" value="D"> The enthalpy of reactants and products</label></div>
+    <div class="opts"><label class="opt"><input type="radio" name="q8" value="A"> ΔH of the reaction</label><label class="opt"><input type="radio" name="q8" value="B"> The equilibrium constant Kc</label><label class="opt"><input type="radio" name="q8" value="C"> The activation energy Ea</label><label class="opt"><input type="radio" name="q8" value="D"> The enthalpy of reactants and products</label></div>
     <div class="qexplain" id="e8">A catalyst lowers the ACTIVATION ENERGY (Ea) by providing an alternative pathway. It does NOT change ΔH, Kc, the enthalpy of reactants or products, or the equilibrium position. Only temperature changes Kc. A catalyst makes the reaction reach equilibrium faster, but at the same position.</div></div>
 
     <div class="qblock"><span class="qnum">Q9</span><p class="qtext">The enthalpy of neutralisation of a strong acid with a strong base (−57 kJ/mol) is always the same because:</p>
-    <div class="opts"><label><input type="radio" name="q9" value="A"> All acids have the same concentration</label><label><input type="radio" name="q9" value="B"> The net ionic equation is always H⁺ + OH⁻ → H₂O regardless of which strong acid or base is used</label><label><input type="radio" name="q9" value="C"> The reaction always produces the same salt</label><label><input type="radio" name="q9" value="D"> Temperature is always 25°C</label></div>
+    <div class="opts"><label class="opt"><input type="radio" name="q9" value="A"> All acids have the same concentration</label><label class="opt"><input type="radio" name="q9" value="B"> The net ionic equation is always H⁺ + OH⁻ → H₂O regardless of which strong acid or base is used</label><label class="opt"><input type="radio" name="q9" value="C"> The reaction always produces the same salt</label><label class="opt"><input type="radio" name="q9" value="D"> Temperature is always 25°C</label></div>
     <div class="qexplain" id="e9">Strong acid + strong base: both fully dissociated. The ONLY reaction is H⁺(aq) + OH⁻(aq) → H₂O(l), ΔH = −57.1 kJ/mol. The specific ions (Na⁺, Cl⁻, K⁺, NO₃⁻) are spectators and don't contribute to ΔH. For weak acids/bases, ΔH is less negative because energy is needed to ionise the weak electrolyte first.</div></div>
 
     <div class="qblock"><span class="qnum">Q10</span><p class="qtext">Bond enthalpy calculations give slightly different values from Hess's law calculations because:</p>
-    <div class="opts"><label><input type="radio" name="q10" value="A"> Bond enthalpies are measured at different temperatures</label><label><input type="radio" name="q10" value="B"> Bond enthalpies are AVERAGE values from many compounds — the actual bond strength varies with molecular environment</label><label><input type="radio" name="q10" value="C"> Hess's law does not apply to all reactions</label><label><input type="radio" name="q10" value="D"> Bond enthalpies include lattice energies</label></div>
+    <div class="opts"><label class="opt"><input type="radio" name="q10" value="A"> Bond enthalpies are measured at different temperatures</label><label class="opt"><input type="radio" name="q10" value="B"> Bond enthalpies are AVERAGE values from many compounds — the actual bond strength varies with molecular environment</label><label class="opt"><input type="radio" name="q10" value="C"> Hess's law does not apply to all reactions</label><label class="opt"><input type="radio" name="q10" value="D"> Bond enthalpies include lattice energies</label></div>
     <div class="qexplain" id="e10">Bond enthalpies are AVERAGE values taken from many different molecules. The actual C–H bond energy in methane differs slightly from the C–H bond in ethane or propane. Hess's law uses actual enthalpies of formation (measured precisely), so gives more accurate results. Bond enthalpy method is useful for estimation when formation data is not available.</div></div>
 
     <div class="qblock"><span class="qnum">Q11</span><p class="qtext">What is the activation energy (Ea) in an energy profile diagram?</p>
-    <div class="opts"><label><input type="radio" name="q11" value="A"> The energy of the products</label><label><input type="radio" name="q11" value="B"> The enthalpy change of the reaction</label><label><input type="radio" name="q11" value="C"> The minimum energy that reacting molecules must possess for a successful collision to occur</label><label><input type="radio" name="q11" value="D"> The energy released when bonds form</label></div>
+    <div class="opts"><label class="opt"><input type="radio" name="q11" value="A"> The energy of the products</label><label class="opt"><input type="radio" name="q11" value="B"> The enthalpy change of the reaction</label><label class="opt"><input type="radio" name="q11" value="C"> The minimum energy that reacting molecules must possess for a successful collision to occur</label><label class="opt"><input type="radio" name="q11" value="D"> The energy released when bonds form</label></div>
     <div class="qexplain" id="e11">Activation energy (Ea): the MINIMUM energy that colliding molecules must have for a reaction to occur. On the energy profile: Ea = energy of transition state − energy of reactants. A catalyst lowers Ea → more molecules exceed Ea → faster reaction. Ea is always positive (energy input needed to reach transition state).</div></div>
 
     <div class="qblock"><span class="qnum">Q12</span><p class="qtext">100 cm³ of 0.5 mol/dm³ HNO₃ is mixed with 100 cm³ of 0.5 mol/dm³ NaOH. Temperature rises by 3.35°C. Heat released (q) is:</p>
-    <div class="opts"><label><input type="radio" name="q12" value="A"> 1401 J</label><label><input type="radio" name="q12" value="B"> 2802 J</label><label><input type="radio" name="q12" value="C"> 3500 J</label><label><input type="radio" name="q12" value="D"> 700 J</label></div>
+    <div class="opts"><label class="opt"><input type="radio" name="q12" value="A"> 1401 J</label><label class="opt"><input type="radio" name="q12" value="B"> 2802 J</label><label class="opt"><input type="radio" name="q12" value="C"> 3500 J</label><label class="opt"><input type="radio" name="q12" value="D"> 700 J</label></div>
     <div class="qexplain" id="e12">q = mcΔT = (100+100) × 4.18 × 3.35 = 200 × 4.18 × 3.35 = 2800.6 J ≈ 2802 J. n(H₂O) = 0.100 × 0.5 = 0.050 mol. ΔH = −q/n = −2802/0.050 = −56,040 J/mol ≈ −56.0 kJ/mol (close to theoretical −57.1 kJ/mol).</div></div>
 
     <div class="qblock"><span class="qnum">Q13</span><p class="qtext">Which of these processes is endothermic?</p>
-    <div class="opts"><label><input type="radio" name="q13" value="A"> Combustion of methane</label><label><input type="radio" name="q13" value="B"> Neutralisation of HCl with NaOH</label><label><input type="radio" name="q13" value="C"> Thermal decomposition of calcium carbonate</label><label><input type="radio" name="q13" value="D"> Rusting of iron</label></div>
+    <div class="opts"><label class="opt"><input type="radio" name="q13" value="A"> Combustion of methane</label><label class="opt"><input type="radio" name="q13" value="B"> Neutralisation of HCl with NaOH</label><label class="opt"><input type="radio" name="q13" value="C"> Thermal decomposition of calcium carbonate</label><label class="opt"><input type="radio" name="q13" value="D"> Rusting of iron</label></div>
     <div class="qexplain" id="e13">CaCO₃ → CaO + CO₂: thermal decomposition is endothermic (ΔH = +178 kJ/mol). Energy must be supplied (high temperature in kilns). Combustion, neutralisation, and rusting are all exothermic (release energy). Test: endothermic reactions feel cold to touch or require continuous heating.</div></div>
 
     <div class="qblock"><span class="qnum">Q14</span><p class="qtext">Use bond enthalpies: N₂ + 3H₂ → 2NH₃. (N≡N = 945; H–H = 436; N–H = 391 kJ/mol). ΔH is:</p>
-    <div class="opts"><label><input type="radio" name="q14" value="A"> +92 kJ/mol</label><label><input type="radio" name="q14" value="B"> −92 kJ/mol</label><label><input type="radio" name="q14" value="C"> −105 kJ/mol</label><label><input type="radio" name="q14" value="D"> +46 kJ/mol</label></div>
+    <div class="opts"><label class="opt"><input type="radio" name="q14" value="A"> +92 kJ/mol</label><label class="opt"><input type="radio" name="q14" value="B"> −92 kJ/mol</label><label class="opt"><input type="radio" name="q14" value="C"> −105 kJ/mol</label><label class="opt"><input type="radio" name="q14" value="D"> +46 kJ/mol</label></div>
     <div class="qexplain" id="e14">Broken: 1×N≡N = 945; 3×H–H = 3×436 = 1308. Total = 2253 kJ. Formed: 2×NH₃ = 2×3×N–H = 6×391 = 2346 kJ. ΔH = 2253 − 2346 = −93 kJ/mol ≈ −92 kJ/mol (experimental −92 kJ/mol). Exothermic — more energy released forming N–H bonds than used breaking N≡N and H–H.</div></div>
 
     <div class="qblock"><span class="qnum">Q15</span><p class="qtext">The sign convention for ΔH is based on:</p>
-    <div class="opts"><label><input type="radio" name="q15" value="A"> The surroundings — positive if surroundings gain heat</label><label><input type="radio" name="q15" value="B"> The system — negative if system releases heat (exothermic)</label><label><input type="radio" name="q15" value="C"> The temperature change — positive if temperature rises</label><label><input type="radio" name="q15" value="D"> The products — negative if products have less mass</label></div>
+    <div class="opts"><label class="opt"><input type="radio" name="q15" value="A"> The surroundings — positive if surroundings gain heat</label><label class="opt"><input type="radio" name="q15" value="B"> The system — negative if system releases heat (exothermic)</label><label class="opt"><input type="radio" name="q15" value="C"> The temperature change — positive if temperature rises</label><label class="opt"><input type="radio" name="q15" value="D"> The products — negative if products have less mass</label></div>
     <div class="qexplain" id="e15">ΔH sign is from the SYSTEM's perspective. Exothermic: system loses heat → ΔH negative. Endothermic: system gains heat → ΔH positive. The surroundings do the opposite: if ΔH is negative, the surroundings gain heat (temperature rises). Note: ΔT positive ↑ means exothermic (surroundings gain heat), but ΔH is negative (system loses heat).</div></div>
 
     <div class="qblock"><span class="qnum">Q16</span><p class="qtext">Photosynthesis is an example of which type of reaction?</p>
-    <div class="opts"><label><input type="radio" name="q16" value="A"> Exothermic — glucose is a high-energy product</label><label><input type="radio" name="q16" value="B"> Endothermic — light energy is absorbed to drive the reaction</label><label><input type="radio" name="q16" value="C"> Thermoneutral — ΔH = 0</label><label><input type="radio" name="q16" value="D"> Exothermic — CO₂ is released</label></div>
+    <div class="opts"><label class="opt"><input type="radio" name="q16" value="A"> Exothermic — glucose is a high-energy product</label><label class="opt"><input type="radio" name="q16" value="B"> Endothermic — light energy is absorbed to drive the reaction</label><label class="opt"><input type="radio" name="q16" value="C"> Thermoneutral — ΔH = 0</label><label class="opt"><input type="radio" name="q16" value="D"> Exothermic — CO₂ is released</label></div>
     <div class="qexplain" id="e16">Photosynthesis: 6CO₂ + 6H₂O → C₆H₁₂O₆ + 6O₂, ΔH = +2803 kJ/mol. ENDOTHERMIC — absorbs light energy (from the sun) to convert low-energy CO₂ and H₂O into high-energy glucose. This is why plants need sunlight. Respiration (the reverse) is exothermic and releases the same energy.</div></div>
 
     <div class="qblock"><span class="qnum">Q17</span><p class="qtext">In Hess's Law, if you reverse a reaction equation, you must:</p>
-    <div class="opts"><label><input type="radio" name="q17" value="A"> Double ΔH</label><label><input type="radio" name="q17" value="B"> Change the sign of ΔH (multiply by −1)</label><label><input type="radio" name="q17" value="C"> Divide ΔH by 2</label><label><input type="radio" name="q17" value="D"> Leave ΔH unchanged</label></div>
+    <div class="opts"><label class="opt"><input type="radio" name="q17" value="A"> Double ΔH</label><label class="opt"><input type="radio" name="q17" value="B"> Change the sign of ΔH (multiply by −1)</label><label class="opt"><input type="radio" name="q17" value="C"> Divide ΔH by 2</label><label class="opt"><input type="radio" name="q17" value="D"> Leave ΔH unchanged</label></div>
     <div class="qexplain" id="e17">Reversing a reaction equation changes the sign of ΔH (multiply by −1). If A → B has ΔH = −100 kJ/mol, then B → A has ΔH = +100 kJ/mol. Scaling: if you multiply the equation by n, multiply ΔH by n too. This is the foundation of Hess's law algebra.</div></div>
 
     <div class="qblock"><span class="qnum">Q18</span><p class="qtext">Standard conditions for thermochemistry are:</p>
-    <div class="opts"><label><input type="radio" name="q18" value="A"> 273 K, 1 atm, all concentrations 1 mol/dm³</label><label><input type="radio" name="q18" value="B"> 298 K, 100 kPa, all species in standard states</label><label><input type="radio" name="q18" value="C"> 298 K, 1 atm, all gases at 1 mol/dm³</label><label><input type="radio" name="q18" value="D"> 25°C, 1 bar, only for gas-phase reactions</label></div>
+    <div class="opts"><label class="opt"><input type="radio" name="q18" value="A"> 273 K, 1 atm, all concentrations 1 mol/dm³</label><label class="opt"><input type="radio" name="q18" value="B"> 298 K, 100 kPa, all species in standard states</label><label class="opt"><input type="radio" name="q18" value="C"> 298 K, 1 atm, all gases at 1 mol/dm³</label><label class="opt"><input type="radio" name="q18" value="D"> 25°C, 1 bar, only for gas-phase reactions</label></div>
     <div class="qexplain" id="e18">Standard conditions (IUPAC): 298 K (25°C), 100 kPa pressure (1 bar), all substances in standard states (most stable physical form at 298 K and 100 kPa), solutions at 1 mol/dm³. Note: 100 kPa ≈ 1 bar (not 1 atm = 101.325 kPa). Standard conditions are marked with ° symbol: ΔH°.</div></div>
 
     <div class="qblock"><span class="qnum">Q19</span><p class="qtext">Which of the following has the largest activation energy?</p>
-    <div class="opts"><label><input type="radio" name="q19" value="A"> A reaction that occurs explosively at room temperature</label><label><input type="radio" name="q19" value="B"> A reaction that requires heating to 800°C to proceed</label><label><input type="radio" name="q19" value="C"> A reaction catalysed by an enzyme at 37°C</label><label><input type="radio" name="q19" value="D"> A reaction between two ions in solution (instantaneous)</label></div>
+    <div class="opts"><label class="opt"><input type="radio" name="q19" value="A"> A reaction that occurs explosively at room temperature</label><label class="opt"><input type="radio" name="q19" value="B"> A reaction that requires heating to 800°C to proceed</label><label class="opt"><input type="radio" name="q19" value="C"> A reaction catalysed by an enzyme at 37°C</label><label class="opt"><input type="radio" name="q19" value="D"> A reaction between two ions in solution (instantaneous)</label></div>
     <div class="qexplain" id="e19">High Ea → slow reaction requiring much energy to get started. A reaction needing 800°C has a very high Ea — most molecules don't have enough energy at room temperature. Explosive reactions have low Ea (once started, chain reaction proceeds rapidly). Enzyme-catalysed reactions have low Ea (enzyme lowers it). Ionic reactions in solution (e.g. precipitation) have virtually zero Ea.</div></div>
 
     <div class="qblock"><span class="qnum">Q20</span><p class="qtext">The enthalpy change calculated using bond enthalpies differs from Hess's law result because:</p>
-    <div class="opts"><label><input type="radio" name="q20" value="A"> Bond enthalpies apply only to ionic compounds</label><label><input type="radio" name="q20" value="B"> Bond enthalpies are average values; they also assume all species are gaseous</label><label><input type="radio" name="q20" value="C"> Hess's law is approximate</label><label><input type="radio" name="q20" value="D"> Bond enthalpies include electron affinity values</label></div>
+    <div class="opts"><label class="opt"><input type="radio" name="q20" value="A"> Bond enthalpies apply only to ionic compounds</label><label class="opt"><input type="radio" name="q20" value="B"> Bond enthalpies are average values; they also assume all species are gaseous</label><label class="opt"><input type="radio" name="q20" value="C"> Hess's law is approximate</label><label class="opt"><input type="radio" name="q20" value="D"> Bond enthalpies include electron affinity values</label></div>
     <div class="qexplain" id="e20">Two reasons: (1) Bond enthalpies are AVERAGE values from many different molecules — actual bond strength varies with molecular environment. (2) Bond enthalpy method assumes all species are in the GAS PHASE. If any reactants/products are liquid or solid, intermolecular forces must also be overcome/formed — but bond enthalpies ignore this. Hess's law uses precise experimental ΔHf° values.</div></div>
 
     <div class="qblock"><span class="qnum">Q21</span><p class="qtext">Which statement about the enthalpy of atomisation is correct?</p>
-    <div class="opts"><label><input type="radio" name="q21" value="A"> It can be negative for reactive metals</label><label><input type="radio" name="q21" value="B"> It is always positive (endothermic) — energy needed to separate atoms from their standard state</label><label><input type="radio" name="q21" value="C"> It equals the bond dissociation enthalpy for all elements</label><label><input type="radio" name="q21" value="D"> It applies only to diatomic molecules</label></div>
+    <div class="opts"><label class="opt"><input type="radio" name="q21" value="A"> It can be negative for reactive metals</label><label class="opt"><input type="radio" name="q21" value="B"> It is always positive (endothermic) — energy needed to separate atoms from their standard state</label><label class="opt"><input type="radio" name="q21" value="C"> It equals the bond dissociation enthalpy for all elements</label><label class="opt"><input type="radio" name="q21" value="D"> It applies only to diatomic molecules</label></div>
     <div class="qexplain" id="e21">Enthalpy of atomisation is ALWAYS positive (endothermic). Energy must be supplied to convert a substance in its standard state to isolated gaseous atoms. For metals (Na, Fe, etc.): atomisation = sublimation → endothermic. For Cl₂: ½Cl₂(g) → Cl(g), ΔH°at = +121 kJ/mol (half the Cl–Cl bond enthalpy). Used in Born-Haber cycles.</div></div>
 
     <div class="qblock"><span class="qnum">Q22</span><p class="qtext">A student measures ΔH for a reaction using a polystyrene cup. The value obtained is always less exothermic than the true value because:</p>
-    <div class="opts"><label><input type="radio" name="q22" value="A"> Polystyrene absorbs some of the heat</label><label><input type="radio" name="q22" value="B"> Heat is lost to the surroundings during the experiment — the measured ΔT is lower than the true ΔT</label><label><input type="radio" name="q22" value="C"> The specific heat capacity of the solution is higher than 4.18</label><label><input type="radio" name="q22" value="D"> The student uses the wrong formula</label></div>
+    <div class="opts"><label class="opt"><input type="radio" name="q22" value="A"> Polystyrene absorbs some of the heat</label><label class="opt"><input type="radio" name="q22" value="B"> Heat is lost to the surroundings during the experiment — the measured ΔT is lower than the true ΔT</label><label class="opt"><input type="radio" name="q22" value="C"> The specific heat capacity of the solution is higher than 4.18</label><label class="opt"><input type="radio" name="q22" value="D"> The student uses the wrong formula</label></div>
     <div class="qexplain" id="e22">Heat always leaks to the surroundings during a calorimetry experiment, even with a polystyrene cup (good insulator but not perfect). The measured ΔT is lower than the true ΔT → q calculated is smaller → ΔH is less negative than it should be. Ways to reduce this: use a lid, measure quickly, extrapolate the temperature-time graph to find the true maximum T.</div></div>
 
     <div class="qblock"><span class="qnum">Q23</span><p class="qtext">The standard enthalpy of combustion is always:</p>
-    <div class="opts"><label><input type="radio" name="q23" value="A"> Positive (endothermic)</label><label><input type="radio" name="q23" value="B"> Negative (exothermic)</label><label><input type="radio" name="q23" value="C"> Zero for elements</label><label><input type="radio" name="q23" value="D"> Variable — can be positive or negative</label></div>
+    <div class="opts"><label class="opt"><input type="radio" name="q23" value="A"> Positive (endothermic)</label><label class="opt"><input type="radio" name="q23" value="B"> Negative (exothermic)</label><label class="opt"><input type="radio" name="q23" value="C"> Zero for elements</label><label class="opt"><input type="radio" name="q23" value="D"> Variable — can be positive or negative</label></div>
     <div class="qexplain" id="e23">Combustion is ALWAYS exothermic — burning releases energy. Therefore ΔH°c is always NEGATIVE. The products (CO₂, H₂O) are at lower enthalpy than the reactants (fuel + O₂). This is why fuels are useful — they release energy on burning. No fuel has a positive enthalpy of combustion.</div></div>
 
     <div class="qblock"><span class="qnum">Q24</span><p class="qtext">What does the area under the Maxwell-Boltzmann distribution curve to the right of Ea represent?</p>
-    <div class="opts"><label><input type="radio" name="q24" value="A"> The total number of molecules</label><label><input type="radio" name="q24" value="B"> The fraction of molecules with enough energy to react (to overcome Ea)</label><label><input type="radio" name="q24" value="C"> The activation energy value</label><label><input type="radio" name="q24" value="D"> The enthalpy change of the reaction</label></div>
+    <div class="opts"><label class="opt"><input type="radio" name="q24" value="A"> The total number of molecules</label><label class="opt"><input type="radio" name="q24" value="B"> The fraction of molecules with enough energy to react (to overcome Ea)</label><label class="opt"><input type="radio" name="q24" value="C"> The activation energy value</label><label class="opt"><input type="radio" name="q24" value="D"> The enthalpy change of the reaction</label></div>
     <div class="qexplain" id="e24">The shaded area to the RIGHT of Ea on the Maxwell-Boltzmann distribution represents the fraction of molecules with energy ≥ Ea — these are the molecules that can successfully react when they collide. Higher temperature → the curve shifts right → larger area to the right of Ea → more successful collisions → faster rate. Catalyst lowers Ea → more of the curve is to the right of Ea → faster reaction at same temperature.</div></div>
 
     <div class="qblock"><span class="qnum">Q25</span><p class="qtext">ΔH°f for water is −286 kJ/mol. This means:</p>
-    <div class="opts"><label><input type="radio" name="q25" value="A"> 286 kJ/mol is released when 1 mol of H₂O decomposes</label><label><input type="radio" name="q25" value="B"> 286 kJ/mol is released when 1 mol of H₂O(l) is formed from H₂(g) and O₂(g) at standard conditions</label><label><input type="radio" name="q25" value="C"> 286 kJ/mol is required to form 2 mol of H₂O</label><label><input type="radio" name="q25" value="D"> The enthalpy of water vapour is −286 kJ/mol</label></div>
+    <div class="opts"><label class="opt"><input type="radio" name="q25" value="A"> 286 kJ/mol is released when 1 mol of H₂O decomposes</label><label class="opt"><input type="radio" name="q25" value="B"> 286 kJ/mol is released when 1 mol of H₂O(l) is formed from H₂(g) and O₂(g) at standard conditions</label><label class="opt"><input type="radio" name="q25" value="C"> 286 kJ/mol is required to form 2 mol of H₂O</label><label class="opt"><input type="radio" name="q25" value="D"> The enthalpy of water vapour is −286 kJ/mol</label></div>
     <div class="qexplain" id="e25">ΔH°f(H₂O,l) = −286 kJ/mol means: H₂(g) + ½O₂(g) → H₂O(l), ΔH° = −286 kJ/mol. This refers to LIQUID water at standard conditions. 286 kJ of energy are RELEASED (exothermic, negative sign) per mole of liquid water formed. Note: ΔH°f(H₂O,g) = −242 kJ/mol (less negative because energy needed for vaporisation not released).</div></div>
 
     <div style="text-align:center;margin-top:28px;">
@@ -693,6 +693,195 @@ function toggleAnswer(btn){
   btn.textContent=isOpen?'Model Answer':'Hide Answer';
 }
 
+</script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<style>
+#pdf-dl-bar{position:fixed;bottom:24px;right:24px;z-index:9000;}
+#pdf-dl-btn{background:#34d399;color:#000;border:none;padding:12px 22px;border-radius:9px;font-family:'JetBrains Mono',monospace;font-size:.84rem;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(52,211,153,.4);display:flex;align-items:center;gap:8px;}
+#pdf-dl-btn:hover{opacity:.88;}
+#pdf-dl-btn .spin{display:none;width:14px;height:14px;border:2px solid #000;border-top-color:transparent;border-radius:50%;animation:dlsp .7s linear infinite;}
+@keyframes dlsp{to{transform:rotate(360deg)}}
+#dl-pay-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:99990;align-items:center;justify-content:center;padding:16px;}
+#dl-pay-overlay.open{display:flex;}
+#dl-pay-box{background:#161b22;border:1px solid #30363d;border-radius:14px;width:100%;max-width:400px;max-height:92vh;overflow-y:auto;}
+#dl-pay-box .ph{padding:18px 20px 12px;border-bottom:1px solid #30363d;}
+#dl-pay-box .ph h2{font-family:'Playfair Display',serif;color:#fff;font-size:1.1rem;}
+#dl-pay-box .ph p{color:#8b949e;font-size:.78rem;margin-top:2px;}
+#dl-pay-box .pb{padding:16px 20px;}
+#dl-pay-box .pf{padding:12px 20px;border-top:1px solid #30363d;display:flex;gap:8px;}
+.amt-bb{background:rgba(232,197,71,.07);border:1px solid rgba(232,197,71,.2);border-radius:9px;padding:12px;text-align:center;margin-bottom:14px;}
+.amt-bb .al{font-family:'JetBrains Mono',monospace;font-size:.62rem;color:#8b949e;text-transform:uppercase;letter-spacing:.1em;margin-bottom:2px;}
+.amt-bb .av{font-family:'JetBrains Mono',monospace;font-size:1.7rem;color:#e8c547;font-weight:700;}
+.ph-rowb{display:flex;gap:7px;margin-bottom:6px;}
+.cc-selb{background:#1c2333;border:1px solid #30363d;border-radius:6px;color:#fff;padding:8px 6px;font-family:'JetBrains Mono',monospace;font-size:.78rem;width:110px;}
+.ph-inpb{flex:1;background:#1c2333;border:1px solid #30363d;border-radius:6px;color:#fff;padding:8px 11px;font-family:'JetBrains Mono',monospace;font-size:.86rem;}
+.ph-inpb:focus,.cc-selb:focus{outline:none;border-color:#e8c547;}
+.net-rb{display:flex;gap:6px;margin-bottom:12px;}
+.nbb{flex:1;background:#1c2333;border:1px solid #30363d;border-radius:6px;color:#8b949e;font-family:'JetBrains Mono',monospace;font-size:.68rem;padding:7px;cursor:pointer;text-align:center;}
+.nbb.sel{background:rgba(52,211,153,.1);border-color:#34d399;color:#34d399;}
+.pay-gob{flex:1;background:#e8c547;color:#000;border:none;padding:11px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:.84rem;font-weight:700;cursor:pointer;}
+.pay-gob:disabled{opacity:.5;cursor:not-allowed;}
+.cancel-bb{background:#1c2333;color:#8b949e;border:1px solid #30363d;padding:10px 14px;border-radius:7px;cursor:pointer;font-size:.82rem;}
+.pay-stb{display:none;text-align:center;padding:20px;}
+.dl-spinnerb{width:34px;height:34px;border:3px solid #30363d;border-top-color:#e8c547;border-radius:50%;animation:dlsp .8s linear infinite;margin:0 auto 12px;}
+</style>
+
+<div id="pdf-dl-bar">
+  <button id="pdf-dl-btn" onclick="checkPayAndDownload()">
+    <span class="spin" id="pdf-spin"></span>
+    <span id="pdf-btn-text">&#11015; Download PDF</span>
+  </button>
+</div>
+
+<div id="dl-pay-overlay">
+  <div id="dl-pay-box">
+    <div class="ph"><h2>&#128179; Pay to Download</h2><p>Unit notes &mdash; instant PDF download</p></div>
+    <div id="dl-pform">
+      <div class="pb">
+        <div class="amt-bb"><div class="al">Price</div><div class="av">300 RWF</div><div style="font-size:.72rem;color:#8b949e;margin-top:2px;">One-time &middot; Download immediately after payment</div></div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.67rem;color:#8b949e;text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px;">Phone Number</div>
+        <div class="ph-rowb">
+          <select class="cc-selb" id="dl-ccode" onchange="dlUpdateHint()">
+            <option value="+250" data-net="MTN / Airtel">&#127479;&#127484; +250</option>
+            <option value="+256" data-net="MTN / Airtel">&#127482;&#127468; +256</option>
+            <option value="+255" data-net="Vodacom / Tigo">&#127481;&#127487; +255</option>
+            <option value="+254" data-net="M-Pesa / Airtel">&#127472;&#127466; +254</option>
+            <option value="+234" data-net="MTN / Airtel">&#127475;&#127468; +234</option>
+            <option value="+233" data-net="MTN / Vodafone">&#127468;&#127469; +233</option>
+          </select>
+          <input class="ph-inpb" type="tel" id="dl-phone" placeholder="07XXXXXXXX" oninput="dlValPhone()" maxlength="12"/>
+        </div>
+        <div class="ph-hint" id="dl-ph-hint">Rwanda &mdash; MTN MoMo or Airtel Money</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.67rem;color:#8b949e;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;">Network</div>
+        <div class="net-rb">
+          <div class="nbb sel" onclick="dlSelNet(this,'MTN')">MTN MoMo</div>
+          <div class="nbb" onclick="dlSelNet(this,'AIRTEL')">Airtel Money</div>
+          <div class="nbb" onclick="dlSelNet(this,'OTHER')">Other</div>
+        </div>
+        <div id="dl-err" style="display:none;font-family:'JetBrains Mono',monospace;font-size:.74rem;color:#f87171;padding:7px 10px;background:rgba(248,113,113,.07);border-radius:5px;margin-bottom:8px;"></div>
+      </div>
+      <div class="pf">
+        <button class="pay-gob" id="dl-pay-go" onclick="dlInitPay()" disabled>Pay &amp; Download</button>
+        <button class="cancel-bb" onclick="closeDlPay()">Cancel</button>
+      </div>
+    </div>
+    <div class="pay-stb" id="dl-st-proc">
+      <div class="dl-spinnerb"></div>
+      <div style="font-family:'JetBrains Mono',monospace;color:#fff;font-size:.86rem;margin-bottom:5px;">Processing Payment...</div>
+      <div style="color:#8b949e;font-size:.79rem;">Check your phone &mdash; enter your PIN to confirm.</div>
+    </div>
+    <div class="pay-stb" id="dl-st-ok">
+      <div style="font-size:2.8rem;margin-bottom:10px;">&#9989;</div>
+      <div style="font-family:'JetBrains Mono',monospace;color:#34d399;font-size:.92rem;margin-bottom:5px;">Payment Confirmed!</div>
+      <div style="color:#8b949e;font-size:.8rem;margin-bottom:16px;">Generating your PDF...</div>
+      <div class="dl-spinnerb"></div>
+    </div>
+    <div class="pay-stb" id="dl-st-fail">
+      <div style="font-size:2.8rem;margin-bottom:10px;">&#10060;</div>
+      <div style="font-family:'JetBrains Mono',monospace;color:#f87171;font-size:.86rem;margin-bottom:5px;">Payment Not Completed</div>
+      <div style="color:#8b949e;font-size:.79rem;margin-bottom:14px;" id="dl-fail-txt"></div>
+      <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+        <button style="background:#e8c547;color:#000;border:none;padding:8px 16px;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:.76rem;font-weight:700;cursor:pointer;" onclick="dlShowForm()">Try Again</button>
+        <a id="dl-wa-link" href="#" target="_blank" style="background:#25D366;color:#fff;padding:8px 14px;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:.76rem;font-weight:700;text-decoration:none;">WhatsApp</a>
+        <button style="background:#1c2333;color:#8b949e;border:1px solid #30363d;padding:8px 14px;border-radius:6px;cursor:pointer;font-size:.8rem;" onclick="closeDlPay()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+var _DL_UNIT_ID='S4-18';
+var _DL_PRICE=300;
+var _dlNet='MTN',_dlPollTimer=null;
+function isPaidUnit(){
+  if(localStorage.getItem('teacher_dl_unlocked')==='true')return true;
+  var paid=JSON.parse(localStorage.getItem('paid_items')||'[]');
+  var lvl=_DL_UNIT_ID.split('-')[0];
+  return paid.indexOf(_DL_UNIT_ID)>=0||paid.indexOf('ALL')>=0||paid.indexOf(lvl)>=0||paid.indexOf('BUNDLE-'+lvl)>=0;
+}
+function checkPayAndDownload(){
+  if(localStorage.getItem('teacher_dl_unlocked')==='true'){doDownloadPDF();return;}
+  document.getElementById('dl-pay-overlay').classList.add('open');dlShowForm();
+}
+function closeDlPay(){document.getElementById('dl-pay-overlay').classList.remove('open');if(_dlPollTimer){clearInterval(_dlPollTimer);_dlPollTimer=null;}}
+function dlShowForm(){document.getElementById('dl-pform').style.display='block';['dl-st-proc','dl-st-ok','dl-st-fail'].forEach(function(id){document.getElementById(id).style.display='none';});document.getElementById('dl-err').style.display='none';}
+function dlSelNet(el,n){_dlNet=n;document.querySelectorAll('.nbb').forEach(function(b){b.classList.remove('sel');});el.classList.add('sel');}
+function dlUpdateHint(){var o=document.getElementById('dl-ccode').options[document.getElementById('dl-ccode').selectedIndex];document.getElementById('dl-ph-hint').textContent=o.text+' - '+(o.dataset.net||'Mobile Money');}
+function dlValPhone(){document.getElementById('dl-pay-go').disabled=document.getElementById('dl-phone').value.replace(/\D/g,'').length<8;}
+async function dlInitPay(){
+  var code=document.getElementById('dl-ccode').value;
+  var num=document.getElementById('dl-phone').value.replace(/\D/g,'');
+  if(num.length<8){var e=document.getElementById('dl-err');e.style.display='block';e.textContent='Enter a valid phone number.';return;}
+  var fullPhone=code.replace('+','')+num.replace(/^0/,'');
+  document.getElementById('dl-pform').style.display='none';
+  document.getElementById('dl-st-proc').style.display='block';
+  var s=JSON.parse(localStorage.getItem('notif_settings')||'{}');
+  var ppKey=s.pawapayKey||'';
+  if(!ppKey){
+    document.getElementById('dl-st-proc').style.display='none';
+    var wa=encodeURIComponent('PAYMENT\nUnit: '+document.title+'\nAmount: '+_DL_PRICE+' RWF\nPhone: '+code+num+'\nPlease confirm my download.');
+    document.getElementById('dl-wa-link').href='https://wa.me/250788800375?text='+wa;
+    document.getElementById('dl-fail-txt').innerHTML='Pay to MTN MoMo: <strong style="color:#fff;">+250 788 800 375</strong><br>Amount: <strong style="color:#e8c547;">'+_DL_PRICE+' RWF</strong><br><br>Then tap WhatsApp to confirm.';
+    document.getElementById('dl-st-fail').style.display='block';
+    return;
+  }
+  var depositId='dep_'+Date.now()+'_'+Math.random().toString(36).substr(2,5);
+  var cMap={250:'RW',256:'UG',255:'TZ',254:'KE',234:'NG',233:'GH'};
+  var ci=cMap[parseInt(code.replace('+',''))]||'RW';
+  var corrMap={MTN:{RW:'MTNRW',UG:'MTNUG',GH:'MTNGHS'},AIRTEL:{RW:'AIRTELRW',UG:'AIRTELUG'},OTHER:{RW:'MTNRW'}};
+  var curMap={RW:'RWF',UG:'UGX',TZ:'TZS',KE:'KES',NG:'NGN',GH:'GHS'};
+  var correspondent=(corrMap[_dlNet]||corrMap.MTN)[ci]||'MTNRW';
+  var currency=curMap[ci]||'RWF';
+  try{
+    var r=await fetch('https://api.pawapay.io/deposits',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+ppKey},body:JSON.stringify({depositId:depositId,amount:String(_DL_PRICE),currency:currency,correspondent:correspondent,payer:{type:'MSISDN',address:{value:fullPhone}},statementDescription:'ChemNotes'})});
+    var d=await r.json();
+    if(d.depositId||r.ok){
+      _dlPollTimer=setInterval(async function(){
+        try{
+          var pr=await fetch('https://api.pawapay.io/deposits/'+depositId,{headers:{'Authorization':'Bearer '+ppKey}});
+          var pd=await pr.json();
+          var st=((pd.status||(pd[0]&&pd[0].status))||'').toUpperCase();
+          if(st==='COMPLETED'){clearInterval(_dlPollTimer);_dlPollTimer=null;markPaidAndDownload();}
+          else if(st==='FAILED'||st==='EXPIRED'){clearInterval(_dlPollTimer);_dlPollTimer=null;document.getElementById('dl-st-proc').style.display='none';document.getElementById('dl-fail-txt').textContent=(pd.correspondentIds&&pd.correspondentIds.reason)||'Payment not completed.';document.getElementById('dl-st-fail').style.display='block';}
+        }catch(e){}
+      },3000);
+      setTimeout(function(){if(_dlPollTimer){clearInterval(_dlPollTimer);_dlPollTimer=null;document.getElementById('dl-st-proc').style.display='none';document.getElementById('dl-fail-txt').textContent='Timed out. Contact Mr Habimana via WhatsApp.';document.getElementById('dl-st-fail').style.display='block';}},180000);
+    }else{throw new Error(d.errorCode||'Failed');}
+  }catch(e){
+    document.getElementById('dl-st-proc').style.display='none';
+    var wa2=encodeURIComponent('PAYMENT\nUnit: '+document.title+'\nAmount: '+_DL_PRICE+' RWF\nPhone: '+code+num);
+    document.getElementById('dl-wa-link').href='https://wa.me/250788800375?text='+wa2;
+    document.getElementById('dl-fail-txt').innerHTML='Auto-payment failed. Pay to <strong style="color:#fff;">+250 788 800 375</strong> ('+_DL_PRICE+' RWF) then WhatsApp.';
+    document.getElementById('dl-st-fail').style.display='block';
+  }
+}
+function markPaidAndDownload(){
+  var paid=JSON.parse(localStorage.getItem('paid_items')||'[]');
+  if(paid.indexOf(_DL_UNIT_ID)<0)paid.push(_DL_UNIT_ID);
+  localStorage.setItem('paid_items',JSON.stringify(paid));
+  document.getElementById('dl-st-proc').style.display='none';
+  document.getElementById('dl-st-ok').style.display='block';
+  setTimeout(function(){closeDlPay();doDownloadPDF();},1500);
+}
+function doDownloadPDF(){
+  var btn=document.getElementById('pdf-dl-btn');
+  var spin=document.getElementById('pdf-spin');
+  var txt=document.getElementById('pdf-btn-text');
+  btn.disabled=true;spin.style.display='block';txt.textContent='Generating...';
+  var title=document.title.replace(/[^a-zA-Z0-9\s]/g,'').replace(/\s+/g,'_').substring(0,60)||'chemistry_notes';
+  var main=document.querySelector('main')||document.querySelector('.content')||document.body;
+  var clone=main.cloneNode(true);
+  clone.querySelectorAll('.quiz-wrap,#quiz,#test,.quiz-submit,.qs,button,#pdf-dl-bar,#dl-pay-overlay').forEach(function(el){el.remove();});
+  var wrapper=document.createElement('div');
+  wrapper.style.cssText='background:#fff;color:#000;font-family:Georgia,serif;font-size:11pt;line-height:1.7;padding:20px;';
+  wrapper.appendChild(clone);
+  wrapper.querySelectorAll('*').forEach(function(el){el.style.color='#000';el.style.background='transparent';el.style.borderColor='#ccc';});
+  wrapper.querySelectorAll('h1,h2,h3,h4').forEach(function(h){h.style.color='#000';h.style.fontWeight='bold';});
+  html2pdf().set({margin:[10,10,10,10],filename:title+'.pdf',image:{type:'jpeg',quality:0.92},html2canvas:{scale:1.5,useCORS:true,backgroundColor:'#ffffff',logging:false},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}}).from(wrapper).save().then(function(){btn.disabled=false;spin.style.display='none';txt.textContent='Downloaded!';setTimeout(function(){txt.textContent='Download PDF';},3000);}).catch(function(){btn.disabled=false;spin.style.display='none';txt.textContent='Download PDF';});
+}
+document.getElementById('dl-pay-overlay').addEventListener('click',function(e){if(e.target===this)closeDlPay();});
 </script>
 </body>
 </html>
