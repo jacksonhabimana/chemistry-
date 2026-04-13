@@ -96,6 +96,63 @@
   h3.sub{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--gold);margin:28px 0 10px;}
   sub,sup{font-size:.72em;}
   @media(max-width:600px){.hero{padding:50px 20px 40px;}.page{padding:0 16px 60px;}}
+
+.mini-quiz{background:var(--surface2);border:1px solid rgba(56,189,248,.2);border-radius:var(--radius);overflow:hidden;margin:32px 0 16px;}
+.mq-head{background:rgba(56,189,248,.1);border-bottom:1px solid rgba(56,189,248,.2);padding:12px 20px;display:flex;align-items:center;gap:10px;}
+.mq-head h4{font-family:'Playfair Display',serif;font-size:.98rem;color:#fff;flex:1;}
+.mq-badge{font-family:'JetBrains Mono',monospace;font-size:.68rem;background:rgba(56,189,248,.15);border:1px solid rgba(56,189,248,.3);color:var(--accent);padding:3px 10px;border-radius:50px;white-space:nowrap;}
+.mq-body{padding:18px 22px;}
+.mq-qblock{margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid var(--border);}
+.mq-qblock:last-of-type{border-bottom:none;margin-bottom:6px;padding-bottom:0;}
+.mq-qnum{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--accent);display:block;margin-bottom:5px;}
+.mq-qtext{font-size:.93rem;color:#fff;margin-bottom:9px;line-height:1.6;}
+.mq-opts label{display:flex;align-items:flex-start;gap:8px;padding:7px 11px;margin-bottom:5px;border-radius:7px;border:1px solid var(--border);cursor:pointer;font-size:.86rem;transition:all .15s;background:var(--bg);}
+.mq-opts label:hover{border-color:var(--accent);}
+.mq-opts label.correct{background:rgba(52,211,153,.1);border-color:var(--green)!important;color:var(--green);}
+.mq-opts label.wrong{background:rgba(248,113,113,.07);border-color:var(--red)!important;color:var(--red);}
+.mq-opts input[type=radio]{margin-top:3px;accent-color:var(--accent);flex-shrink:0;}
+.mq-exp{display:none;margin-top:7px;padding:9px 13px;background:rgba(56,189,248,.06);border-left:3px solid var(--accent);border-radius:0 5px 5px 0;font-size:.83rem;line-height:1.6;color:var(--muted);}
+.mq-submit{background:var(--accent);color:#000;border:none;padding:9px 26px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:.8rem;font-weight:700;cursor:pointer;transition:opacity .2s;margin-top:4px;}
+.mq-submit:hover{opacity:.85;}
+</style>
+
+<style>
+@media print {
+  body { background: #fff !important; color: #000 !important; }
+  * { background: transparent !important; color: #000 !important; border-color: #ccc !important; box-shadow: none !important; }
+  nav, footer, .quiz-wrap, .quiz-header, .quiz-body, .quiz-submit, .submit-btn, .btn, button:not(.print-btn), .lock-bar, .lock-overlay, .answer-panel { display: none !important; }
+  h1, h2, h3, h4 { color: #000 !important; }
+  a { color: #000 !important; text-decoration: none !important; }
+  .section-number { color: #000 !important; border-color: #000 !important; }
+  .callout, .definition, .example, .worked-example { background: #f5f5f5 !important; border-color: #000 !important; }
+  main, .content { max-width: 100% !important; padding: 0 !important; }
+}
+  body { background: #fff !important; color: #000 !important; font-size: 11pt; line-height: 1.6; }
+  nav, footer, .quiz-wrap, .quiz-container, section#quiz, section#test,
+  .tab-btn, .reveal-btn, button, .answer-panel, .print-hide,
+  [id*="lock"], .modal-overlay { display: none !important; }
+  main { max-width: 100% !important; padding: 0 !important; margin: 0 !important; }
+  h1, h2, h3, h4 { color: #000 !important; page-break-after: avoid; }
+  h2 { border-bottom: 2px solid #000 !important; padding-bottom: 4pt; margin-top: 18pt; }
+  section { page-break-inside: avoid; margin-bottom: 16pt; }
+  .section-header { background: #f0f0f0 !important; color: #000 !important; padding: 6pt 10pt; border-radius: 0 !important; }
+  .callout, .definition, .example-box, .worked-example {
+    background: #f5f5f5 !important; color: #000 !important;
+    border: 1pt solid #ccc !important; border-left: 3pt solid #333 !important;
+    padding: 8pt !important; margin: 8pt 0 !important;
+  }
+  table { border-collapse: collapse !important; width: 100% !important; }
+  th, td { border: 1pt solid #999 !important; padding: 4pt 6pt !important; color: #000 !important; background: #fff !important; font-size: 10pt; }
+  th { background: #e0e0e0 !important; font-weight: bold; }
+  p, li { color: #000 !important; }
+  .hero, .hero-eyebrow, .hero h1, .hero p { display: none !important; }
+  .content-body, .unit-content, .notes-body { color: #000 !important; }
+  a { color: #000 !important; text-decoration: none; }
+  code, pre { background: #f0f0f0 !important; color: #000 !important; border: 1pt solid #ccc !important; }
+  .answer-panel.open { display: block !important; background: #f9f9f9 !important; color: #000 !important; }
+  strong { color: #000 !important; }
+  var(--text), var(--muted), var(--accent) { color: #000 !important; }
+}
 </style>
 </head>
 <body>
@@ -157,6 +214,176 @@
 <div class="callout info"><span class="callout-icon">&#x2139;&#xFE0F;</span><div class="callout-body"><strong>All alkali metals are soft</strong>They can all be cut with a knife and show a shiny metallic surface when freshly cut (which quickly tarnishes due to reaction with air). All are stored under oil or in inert gas to prevent oxidation.</div></div>
 
 <!-- 6.2 -->
+
+<div style="background:var(--surface);border:1px solid rgba(251,146,60,.25);border-radius:10px;overflow:hidden;margin:28px 0 40px;">
+  <div style="background:rgba(251,146,60,.08);border-bottom:1px solid rgba(251,146,60,.25);padding:14px 22px;display:flex;align-items:center;justify-content:space-between;">
+    <div><div style="font-family:'JetBrains Mono',monospace;font-size:.68rem;color:#fb923c;text-transform:uppercase;letter-spacing:.1em;">Section 6.1 Quick Quiz</div><strong style="color:#fff;font-family:'Playfair Display',serif;">Occurrence & Physical Properties of Group 1 Elements</strong></div>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);">10 Questions</span>
+  </div>
+  <div style="padding:20px 22px;">
+    <script>window._MQA=window._MQA||{};window._MQA["6_1"]={1:"C",2:"B",3:"B",4:"B",5:"B",6:"B",7:"B",8:"B",9:"C",10:"C"};</script>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#fb923c;margin-bottom:6px;">Q1</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">What is the electronic configuration of potassium (K, Z=19)?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_1_1_A"><input type="radio" name="mq6_1_1" value="A" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>[He]2s¹</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_1_1_B"><input type="radio" name="mq6_1_1" value="B" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>[Ne]3s¹</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_1_1_C"><input type="radio" name="mq6_1_1" value="C" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>[Ar]4s¹</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_1_1_D"><input type="radio" name="mq6_1_1" value="D" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>[Kr]4s¹</span></label>
+      <div id="mqE6_1_1" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(251,146,60,.08);border-left:3px solid #fb923c;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#fb923c;">✓ Answer: C</strong><br>K: [Ar]4s¹. All Group 1 elements have 1 valence electron in an s orbital (ns¹). Li=[He]2s¹, Na=[Ne]3s¹, K=[Ar]4s¹, Rb=[Kr]5s¹, Cs=[Xe]6s¹. This single valence electron is easily lost → Group 1 are strongly reducing metals.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#fb923c;margin-bottom:6px;">Q2</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Down Group 1, the density of the metals:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_1_2_A"><input type="radio" name="mq6_1_2" value="A" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>Decreases</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_1_2_B"><input type="radio" name="mq6_1_2" value="B" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>Increases (generally — Li<Na<K<Rb<Cs, with K an exception)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_1_2_C"><input type="radio" name="mq6_1_2" value="C" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>Stays constant</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_1_2_D"><input type="radio" name="mq6_1_2" value="D" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>First increases then decreases</span></label>
+      <div id="mqE6_1_2" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(251,146,60,.08);border-left:3px solid #fb923c;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#fb923c;">✓ Answer: B</strong><br>Group 1 densities (g/cm³): Li=0.53, Na=0.97, K=0.86, Rb=1.53, Cs=1.87. Generally increases down the group as atomic mass increases more than atomic volume. K is less dense than Na (exception). All Group 1 metals are less dense than water (float on water — Li, Na, K all float!).</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#fb923c;margin-bottom:6px;">Q3</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Why do Group 1 metals have low melting points compared to other metals?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_1_3_A"><input type="radio" name="mq6_1_3" value="A" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>They are very reactive</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_1_3_B"><input type="radio" name="mq6_1_3" value="B" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>They have only 1 valence electron per atom contributing to weak metallic bonding (weak electron sea)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_1_3_C"><input type="radio" name="mq6_1_3" value="C" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>They are very light</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_1_3_D"><input type="radio" name="mq6_1_3" value="D" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>They are all gases</span></label>
+      <div id="mqE6_1_3" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(251,146,60,.08);border-left:3px solid #fb923c;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#fb923c;">✓ Answer: B</strong><br>Metallic bond strength ∝ number of delocalised electrons. Group 1 metals (1 electron each) have the weakest metallic bonds of all metals → lowest melting points. Li(180°C) is highest in group; Cs(29°C) is lowest. Compare to Fe(1538°C) or W(3422°C) — d-block metals with many electrons.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#fb923c;margin-bottom:6px;">Q4</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Group 1 metals are stored under oil because:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_1_4_A"><input type="radio" name="mq6_1_4" value="A" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>Oil makes them reactive</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_1_4_B"><input type="radio" name="mq6_1_4" value="B" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>They react rapidly with air (O₂) and water vapour → must be stored in anhydrous conditions without air contact</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_1_4_C"><input type="radio" name="mq6_1_4" value="C" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>Oil is a good conductor</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_1_4_D"><input type="radio" name="mq6_1_4" value="D" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>They dissolve in oil</span></label>
+      <div id="mqE6_1_4" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(251,146,60,.08);border-left:3px solid #fb923c;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#fb923c;">✓ Answer: B</strong><br>Na: 4Na + O₂ → 2Na₂O (and forms Na₂O₂ with excess O₂). 2Na + 2H₂O → 2NaOH + H₂. K reacts even more violently. Storing under mineral oil prevents contact with air and moisture. Li is sometimes stored in sealed containers under inert gas (Ar or N₂).</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#fb923c;margin-bottom:6px;">Q5</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The softness of Group 1 metals increases down the group because:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_1_5_A"><input type="radio" name="mq6_1_5" value="A" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>They get heavier</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_1_5_B"><input type="radio" name="mq6_1_5" value="B" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>Metallic bond strength decreases as atomic radius increases → bonds more easily broken → metals softer</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_1_5_C"><input type="radio" name="mq6_1_5" value="C" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>They become more reactive</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_1_5_D"><input type="radio" name="mq6_1_5" value="D" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>They have more electrons</span></label>
+      <div id="mqE6_1_5" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(251,146,60,.08);border-left:3px solid #fb923c;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#fb923c;">✓ Answer: B</strong><br>Softness ∝ weak metallic bonding. As atomic radius increases down Group 1, metallic bonds weaken → metals easier to cut/deform. Li is hardest (can just be cut with a knife); Cs is softest (cuts like butter). All are much softer than typical metals due to having only 1 valence electron.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#fb923c;margin-bottom:6px;">Q6</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The atomic radius increases down Group 1 because:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_1_6_A"><input type="radio" name="mq6_1_6" value="A" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>More protons are added</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_1_6_B"><input type="radio" name="mq6_1_6" value="B" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>More electron shells are added, increasing the distance of the valence electron from the nucleus</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_1_6_C"><input type="radio" name="mq6_1_6" value="C" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>The charge increases</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_1_6_D"><input type="radio" name="mq6_1_6" value="D" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>Electrons are further from protons</span></label>
+      <div id="mqE6_1_6" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(251,146,60,.08);border-left:3px solid #fb923c;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#fb923c;">✓ Answer: B</strong><br>Down Group 1: each new period adds a new electron shell (Li:2 shells, Na:3, K:4, etc.). More shells → outer electron further from nucleus → larger radius. Radius (pm): Li=152, Na=186, K=227, Rb=248, Cs=265. This increasing radius also explains decreasing IE₁ and increasing reactivity.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#fb923c;margin-bottom:6px;">Q7</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Which Group 1 element has the highest melting point?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_1_7_A"><input type="radio" name="mq6_1_7" value="A" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>Caesium (Cs)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_1_7_B"><input type="radio" name="mq6_1_7" value="B" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>Lithium (Li)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_1_7_C"><input type="radio" name="mq6_1_7" value="C" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>Sodium (Na)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_1_7_D"><input type="radio" name="mq6_1_7" value="D" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>Potassium (K)</span></label>
+      <div id="mqE6_1_7" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(251,146,60,.08);border-left:3px solid #fb923c;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#fb923c;">✓ Answer: B</strong><br>Melting points (°C): Li(181) > Na(98) > K(64) > Rb(39) > Cs(29). Li has the highest m.p. because it has the smallest radius → highest charge density → strongest metallic bond → hardest to melt. Decreasing m.p. down the group as bonds weaken.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#fb923c;margin-bottom:6px;">Q8</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">All Group 1 elements are in the s-block because:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_1_8_A"><input type="radio" name="mq6_1_8" value="A" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>They are all metals</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_1_8_B"><input type="radio" name="mq6_1_8" value="B" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>Their last electron enters an s orbital (ns¹ configuration)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_1_8_C"><input type="radio" name="mq6_1_8" value="C" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>They are all in the same period</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_1_8_D"><input type="radio" name="mq6_1_8" value="D" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>They react with water</span></label>
+      <div id="mqE6_1_8" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(251,146,60,.08);border-left:3px solid #fb923c;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#fb923c;">✓ Answer: B</strong><br>Block classification: determined by the subshell receiving the last electron. Group 1 elements all have ns¹ outer configuration → last electron goes into an s orbital → s-block. Similarly, Group 2 (ns²) = s-block; Groups 13-18 = p-block (np filling); Groups 3-12 = d-block (nd filling).</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#fb923c;margin-bottom:6px;">Q9</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The flame test colour for potassium is:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_1_9_A"><input type="radio" name="mq6_1_9" value="A" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>Yellow-orange</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_1_9_B"><input type="radio" name="mq6_1_9" value="B" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>Crimson red</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_1_9_C"><input type="radio" name="mq6_1_9" value="C" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>Lilac/violet</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_1_9_D"><input type="radio" name="mq6_1_9" value="D" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>Apple green</span></label>
+      <div id="mqE6_1_9" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(251,146,60,.08);border-left:3px solid #fb923c;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#fb923c;">✓ Answer: C</strong><br>K⁺ gives lilac/violet flame. Reason: electrons in K atoms excited in flame → return to ground state → emit photons at ~766 nm (close to red/violet boundary). Visible through cobalt blue glass (filters out Na yellow contamination which otherwise hides K's lilac colour).</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#fb923c;margin-bottom:6px;">Q10</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Which of the following properties of Group 1 elements DECREASES down the group?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_1_10_A"><input type="radio" name="mq6_1_10" value="A" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>Atomic radius</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_1_10_B"><input type="radio" name="mq6_1_10" value="B" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>Density</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_1_10_C"><input type="radio" name="mq6_1_10" value="C" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>First ionisation energy</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_1_10_D"><input type="radio" name="mq6_1_10" value="D" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>Reactivity with water</span></label>
+      <div id="mqE6_1_10" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(251,146,60,.08);border-left:3px solid #fb923c;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#fb923c;">✓ Answer: C</strong><br>IE₁ decreases down Group 1: Li(520) > Na(496) > K(419) > Rb(403) > Cs(376) kJ/mol. Reason: larger radius + more shielding → outer electron further from nucleus → easier to remove. Also: reactivity INCREASES down the group (easier to lose electron → more reactive). Density INCREASES (generally). Radius INCREASES.</div>
+    </div>
+    <div style="text-align:center;"><button onclick="submitMQ('6_1',10)" style="background:#fb923c;color:#000;border:none;padding:9px 30px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:.85rem;font-weight:700;cursor:pointer;">Check Answers</button><div id="mqRES6_1" style="display:none;margin-top:10px;border-radius:7px;padding:12px;font-family:'JetBrains Mono',monospace;font-size:.85rem;text-align:center;"></div></div>
+  </div>
+</div>
+
+<!-- MINI-QUIZ s61 -->
+<div class="mini-quiz" id="mq-s61">
+  <div class="mq-head"><span style="font-size:1.1rem;">&#127919;</span><h4>Section 6.1 — Group 1 Properties</h4><span class="mq-badge">10 Questions</span></div>
+  <div class="mq-body">
+    <div class="mq-qblock"><span class="mq-qnum">Q1 of 10</span><p class="mq-qtext">Group 1 metals are stored under oil because:</p><div class="mq-opts">
+      <label><input type="radio" name="u6s1q1" value="A"> They are magnetic</label>
+      <label><input type="radio" name="u6s1q1" value="B"> They react vigorously with water and oxygen in air</label>
+      <label><input type="radio" name="u6s1q1" value="C"> They are liquid</label>
+      <label><input type="radio" name="u6s1q1" value="D"> They are radioactive</label>
+    </div><div class="mq-exp" id="mqe-u6s1q1">Group 1 metals react with water vapour and O₂ in air. Oil prevents contact. Li is less reactive than Na or K.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q2 of 10</span><p class="mq-qtext">Down Group 1, reactivity with water:</p><div class="mq-opts">
+      <label><input type="radio" name="u6s1q2" value="A"> Decreases</label>
+      <label><input type="radio" name="u6s1q2" value="B"> Increases</label>
+      <label><input type="radio" name="u6s1q2" value="C"> Stays constant</label>
+      <label><input type="radio" name="u6s1q2" value="D"> Random order</label>
+    </div><div class="mq-exp" id="mqe-u6s1q2">Li: slow fizzing. Na: rapid, melts, moves. K: ignites (purple flame). Rb/Cs: explosive. Reactivity increases down group.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q3 of 10</span><p class="mq-qtext">The equation for Na reacting with water is:</p><div class="mq-opts">
+      <label><input type="radio" name="u6s1q3" value="A"> 2Na + H₂O → Na₂O + H₂</label>
+      <label><input type="radio" name="u6s1q3" value="B"> 2Na + 2H₂O → 2NaOH + H₂</label>
+      <label><input type="radio" name="u6s1q3" value="C"> Na + H₂O → NaH + OH</label>
+      <label><input type="radio" name="u6s1q3" value="D"> 4Na + O₂ → 2Na₂O</label>
+    </div><div class="mq-exp" id="mqe-u6s1q3">2Na + 2H₂O → 2NaOH + H₂↑. Product is strongly alkaline NaOH (pH 13-14) + H₂ gas (burns with pop).</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q4 of 10</span><p class="mq-qtext">Why does reactivity increase down Group 1?</p><div class="mq-opts">
+      <label><input type="radio" name="u6s1q4" value="A"> Electronegativity increases</label>
+      <label><input type="radio" name="u6s1q4" value="B"> Ionisation energy decreases — outer electron further from nucleus, easier to lose</label>
+      <label><input type="radio" name="u6s1q4" value="C"> Atomic radius decreases</label>
+      <label><input type="radio" name="u6s1q4" value="D"> They have more neutrons</label>
+    </div><div class="mq-exp" id="mqe-u6s1q4">Down group: extra shells → outer electron further → weaker attraction → lower IE → easier to lose → more reactive.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q5 of 10</span><p class="mq-qtext">When Li burns in excess O₂, the product is:</p><div class="mq-opts">
+      <label><input type="radio" name="u6s1q5" value="A"> Li₂O₂ (peroxide)</label>
+      <label><input type="radio" name="u6s1q5" value="B"> LiO₂ (superoxide)</label>
+      <label><input type="radio" name="u6s1q5" value="C"> Li₂O (normal oxide)</label>
+      <label><input type="radio" name="u6s1q5" value="D"> LiOH</label>
+    </div><div class="mq-exp" id="mqe-u6s1q5">Li forms normal oxide Li₂O. Na forms peroxide Na₂O₂. K, Rb, Cs form superoxides (MO₂). Li⁺ too small to stabilise larger peroxide/superoxide anions.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q6 of 10</span><p class="mq-qtext">The hydroxides of Group 1 are:</p><div class="mq-opts">
+      <label><input type="radio" name="u6s1q6" value="A"> Weakly alkaline</label>
+      <label><input type="radio" name="u6s1q6" value="B"> Strongly alkaline — fully ionised in water</label>
+      <label><input type="radio" name="u6s1q6" value="C"> Neutral</label>
+      <label><input type="radio" name="u6s1q6" value="D"> Acidic</label>
+    </div><div class="mq-exp" id="mqe-u6s1q6">MOH → M⁺ + OH⁻ (fully ionised). Strong bases. Solubility and basicity increase down group.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q7 of 10</span><p class="mq-qtext">Group 1 nitrates decompose on heating to give:</p><div class="mq-opts">
+      <label><input type="radio" name="u6s1q7" value="A"> Metal nitrite + O₂ (except LiNO₃ → Li₂O + NO₂ + O₂)</label>
+      <label><input type="radio" name="u6s1q7" value="B"> Metal oxide + N₂</label>
+      <label><input type="radio" name="u6s1q7" value="C"> Metal + NO₂</label>
+      <label><input type="radio" name="u6s1q7" value="D"> Metal carbonate + N₂O₄</label>
+    </div><div class="mq-exp" id="mqe-u6s1q7">Na/K/Rb/CsNO₃ → metal nitrite + O₂. LiNO₃ → Li₂O + NO₂ + O₂ (like Group 2 nitrates — Li⁺ behaves like Mg²⁺: diagonal relationship).</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q8 of 10</span><p class="mq-qtext">Which Group 1 flame colour is tested through cobalt blue glass?</p><div class="mq-opts">
+      <label><input type="radio" name="u6s1q8" value="A"> Li (crimson)</label>
+      <label><input type="radio" name="u6s1q8" value="B"> Na (yellow)</label>
+      <label><input type="radio" name="u6s1q8" value="C"> K (lilac)</label>
+      <label><input type="radio" name="u6s1q8" value="D"> Cs (blue)</label>
+    </div><div class="mq-exp" id="mqe-u6s1q8">K gives lilac flame but Na contamination (yellow) masks it. Cobalt blue glass absorbs yellow sodium light → K's lilac visible.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q9 of 10</span><p class="mq-qtext">The trend in melting points down Group 1:</p><div class="mq-opts">
+      <label><input type="radio" name="u6s1q9" value="A"> Increases</label>
+      <label><input type="radio" name="u6s1q9" value="B"> Decreases</label>
+      <label><input type="radio" name="u6s1q9" value="C"> Random</label>
+      <label><input type="radio" name="u6s1q9" value="D"> Stays constant</label>
+    </div><div class="mq-exp" id="mqe-u6s1q9">Down Group 1: metallic bond weakens (fewer valence electrons per larger atom, larger spacing) → lower melting points. Li (180°C) > Na (98°C) > K (63°C) > Rb (39°C) > Cs (28°C).</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q10 of 10</span><p class="mq-qtext">Group 1 carbonates: which is the most thermally stable?</p><div class="mq-opts">
+      <label><input type="radio" name="u6s1q10" value="A"> Li₂CO₃</label>
+      <label><input type="radio" name="u6s1q10" value="B"> Na₂CO₃</label>
+      <label><input type="radio" name="u6s1q10" value="C"> K₂CO₃</label>
+      <label><input type="radio" name="u6s1q10" value="D"> Cs₂CO₃</label>
+    </div><div class="mq-exp" id="mqe-u6s1q10">Thermal stability of carbonates increases down Group 1. Larger cations (lower charge density) polarise CO₃²⁻ less → more stable. Cs₂CO₃ most stable. Li₂CO₃ decomposes most easily.</div></div>
+    <button class="mq-submit" onclick="submitMQ('u6s1',{"u6s1q1":"B","u6s1q2":"B","u6s1q3":"B","u6s1q4":"B","u6s1q5":"C","u6s1q6":"B","u6s1q7":"A","u6s1q8":"C","u6s1q9":"B","u6s1q10":"D"})">&#10003; Check Answers</button>
+    <div class="mq-result" id="mqr-u6s1"></div>
+  </div>
+</div>
 <div class="section-header" id="s62"><span class="section-number">6.2</span><h2>Reactivity of Group 1 Elements with O&#x2082;, H&#x2082;O &amp; Halogens</h2></div>
 
 <h3 class="sub">Reactions with Oxygen</h3>
@@ -201,6 +428,107 @@ Cs:  2Cs + 2H&#x2082;O &rarr; 2CsOH + H&#x2082;  (explosive)</div>
 </div>
 
 <!-- 6.3 -->
+
+<div style="background:var(--surface);border:1px solid rgba(167,139,250,.25);border-radius:10px;overflow:hidden;margin:28px 0 40px;">
+  <div style="background:rgba(167,139,250,.08);border-bottom:1px solid rgba(167,139,250,.25);padding:14px 22px;display:flex;align-items:center;justify-content:space-between;">
+    <div><div style="font-family:'JetBrains Mono',monospace;font-size:.68rem;color:#a78bfa;text-transform:uppercase;letter-spacing:.1em;">Section 6.2 Quick Quiz</div><strong style="color:#fff;font-family:'Playfair Display',serif;">Reactivity of Group 1 Elements with O₂, H₂O & HCl</strong></div>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);">10 Questions</span>
+  </div>
+  <div style="padding:20px 22px;">
+    <script>window._MQA=window._MQA||{};window._MQA["6_2"]={1:"B",2:"B",3:"B",4:"B",5:"B",6:"B",7:"C",8:"C",9:"B",10:"B"};</script>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#a78bfa;margin-bottom:6px;">Q1</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The general equation for a Group 1 metal (M) reacting with water is:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_2_1_A"><input type="radio" name="mq6_2_1" value="A" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>M + H₂O → MOH</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_2_1_B"><input type="radio" name="mq6_2_1" value="B" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>2M + 2H₂O → 2MOH + H₂</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_2_1_C"><input type="radio" name="mq6_2_1" value="C" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>M + 2H₂O → M(OH)₂ + H₂</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_2_1_D"><input type="radio" name="mq6_2_1" value="D" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>M + H₂O → MO + H₂</span></label>
+      <div id="mqE6_2_1" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(167,139,250,.08);border-left:3px solid #a78bfa;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#a78bfa;">✓ Answer: B</strong><br>Group 1 + water: 2M + 2H₂O → 2MOH + H₂. Products: metal hydroxide (strongly alkaline solution) + hydrogen gas. Test: H₂ produces 'pop' with burning splint; solution turns indicator purple/blue. Reaction becomes more vigorous down the group (Li bubbles; Na melts, fizzes, moves; K ignites the H₂ with lilac flame).</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#a78bfa;margin-bottom:6px;">Q2</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Why does the reactivity of Group 1 metals with water increase down the group?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_2_2_A"><input type="radio" name="mq6_2_2" value="A" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>They become heavier</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_2_2_B"><input type="radio" name="mq6_2_2" value="B" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Larger atomic radius → lower IE₁ → electron more easily lost → more reactive</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_2_2_C"><input type="radio" name="mq6_2_2" value="C" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>They have more neutrons</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_2_2_D"><input type="radio" name="mq6_2_2" value="D" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>They are stored differently</span></label>
+      <div id="mqE6_2_2" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(167,139,250,.08);border-left:3px solid #a78bfa;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#a78bfa;">✓ Answer: B</strong><br>Down Group 1: atomic radius increases → outer electron (ns¹) further from nucleus, more shielded → lower IE₁ → electron lost more easily → metal is more reducing → reacts more vigorously. Li reacts gently; Na fizzes and melts; K bursts into lilac flame; Rb and Cs react explosively.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#a78bfa;margin-bottom:6px;">Q3</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">When sodium burns in excess oxygen, the main product is:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_2_3_A"><input type="radio" name="mq6_2_3" value="A" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Na₂O (sodium oxide)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_2_3_B"><input type="radio" name="mq6_2_3" value="B" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Na₂O₂ (sodium peroxide)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_2_3_C"><input type="radio" name="mq6_2_3" value="C" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>NaOH (sodium hydroxide)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_2_3_D"><input type="radio" name="mq6_2_3" value="D" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Na₂O₃</span></label>
+      <div id="mqE6_2_3" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(167,139,250,.08);border-left:3px solid #a78bfa;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#a78bfa;">✓ Answer: B</strong><br>Na in excess O₂: 2Na + O₂ → Na₂O₂ (sodium peroxide). Na reacts with limited O₂ to give Na₂O (normal oxide): 4Na + O₂ → 2Na₂O. Li gives only Li₂O (too small to stabilise peroxide). K (and Rb, Cs) give superoxide KO₂: K + O₂ → KO₂. The type of oxide formed reflects ion size — larger ions stabilise larger anions.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#a78bfa;margin-bottom:6px;">Q4</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The reaction of Group 1 metals with dilute HCl produces:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_2_4_A"><input type="radio" name="mq6_2_4" value="A" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Metal oxide and water</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_2_4_B"><input type="radio" name="mq6_2_4" value="B" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Metal chloride and hydrogen gas</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_2_4_C"><input type="radio" name="mq6_2_4" value="C" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Metal hydroxide and chlorine</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_2_4_D"><input type="radio" name="mq6_2_4" value="D" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Metal carbonate and CO₂</span></label>
+      <div id="mqE6_2_4" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(167,139,250,.08);border-left:3px solid #a78bfa;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#a78bfa;">✓ Answer: B</strong><br>M + HCl: 2M + 2HCl → 2MCl + H₂. Products: metal chloride (soluble ionic salt) + hydrogen gas. Same reaction pattern as with water but even more vigorous (acid vs water as proton source). All Group 1 chlorides are soluble in water (Li, Na, K, Rb, Cs chlorides all dissolve readily).</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#a78bfa;margin-bottom:6px;">Q5</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Lithium forms Li₂O (normal oxide) rather than Li₂O₂ (peroxide) when burned in oxygen because:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_2_5_A"><input type="radio" name="mq6_2_5" value="A" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Li is less reactive than Na</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_2_5_B"><input type="radio" name="mq6_2_5" value="B" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Li⁺ is too small to stabilise the larger O₂²⁻ peroxide ion — the charge-to-size ratio is too high for effective lattice formation with large anions</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_2_5_C"><input type="radio" name="mq6_2_5" value="C" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Li reacts faster</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_2_5_D"><input type="radio" name="mq6_2_5" value="D" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Li has different electronic configuration</span></label>
+      <div id="mqE6_2_5" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(167,139,250,.08);border-left:3px solid #a78bfa;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#a78bfa;">✓ Answer: B</strong><br>Smaller ions cannot effectively stabilise larger counterions (lattice energy consideration). Li⁺ (small) + O²⁻ (smaller) → stable Li₂O lattice. Li⁺ + O₂²⁻ (peroxide, larger) → less stable lattice. Na⁺ (larger) can stabilise O₂²⁻. K⁺ (even larger) can stabilise even larger O₂⁻ (superoxide).</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#a78bfa;margin-bottom:6px;">Q6</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Caesium (Cs) reacts with water explosively because:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_2_6_A"><input type="radio" name="mq6_2_6" value="A" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Cs is the smallest Group 1 element</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_2_6_B"><input type="radio" name="mq6_2_6" value="B" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Cs has the largest atomic radius and lowest IE₁ in the group → loses its electron most easily → fastest, most vigorous reaction</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_2_6_C"><input type="radio" name="mq6_2_6" value="C" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Cs has 2 valence electrons</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_2_6_D"><input type="radio" name="mq6_2_6" value="D" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Cs reacts with the oxygen in water</span></label>
+      <div id="mqE6_2_6" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(167,139,250,.08);border-left:3px solid #a78bfa;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#a78bfa;">✓ Answer: B</strong><br>Cs (bottom of Group 1): largest radius, lowest IE₁ (376 kJ/mol) → most easily oxidised → most reactive. The reaction with water is violent/explosive: 2Cs + 2H₂O → 2CsOH + H₂. The H₂ produced ignites spontaneously. Only handled with extreme care in labs — usually demonstrated in sealed containers or by video.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#a78bfa;margin-bottom:6px;">Q7</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">What is the pH of the solution formed when sodium reacts with water?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_2_7_A"><input type="radio" name="mq6_2_7" value="A" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>7 (neutral)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_2_7_B"><input type="radio" name="mq6_2_7" value="B" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Less than 7 (acidic)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_2_7_C"><input type="radio" name="mq6_2_7" value="C" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Greater than 7 (alkaline/basic)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_2_7_D"><input type="radio" name="mq6_2_7" value="D" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Variable</span></label>
+      <div id="mqE6_2_7" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(167,139,250,.08);border-left:3px solid #a78bfa;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#a78bfa;">✓ Answer: C</strong><br>2Na + 2H₂O → 2NaOH + H₂. NaOH is a strong base → fully dissociates in solution: NaOH → Na⁺ + OH⁻. Excess OH⁻ → pH > 7 (alkaline). Universal indicator turns purple/blue. The solution is strongly alkaline. This is why NaOH is called sodium hydroxide/caustic soda.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#a78bfa;margin-bottom:6px;">Q8</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Which equation correctly represents potassium reacting with oxygen to form the superoxide?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_2_8_A"><input type="radio" name="mq6_2_8" value="A" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>4K + O₂ → 2K₂O</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_2_8_B"><input type="radio" name="mq6_2_8" value="B" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>2K + O₂ → K₂O₂</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_2_8_C"><input type="radio" name="mq6_2_8" value="C" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>K + O₂ → KO₂</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_2_8_D"><input type="radio" name="mq6_2_8" value="D" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>2K + O₂ → 2KO</span></label>
+      <div id="mqE6_2_8" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(167,139,250,.08);border-left:3px solid #a78bfa;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#a78bfa;">✓ Answer: C</strong><br>K + O₂ → KO₂ (potassium superoxide). The superoxide ion is O₂⁻. K⁺ (larger than Na⁺) can stabilise the larger O₂⁻ ion. Used in breathing apparatus (spacecraft, submarines): 4KO₂ + 2CO₂ → 2K₂CO₃ + 3O₂ (absorbs CO₂, releases O₂).</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#a78bfa;margin-bottom:6px;">Q9</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The reaction 2Na + 2H₂O → 2NaOH + H₂ is an example of:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_2_9_A"><input type="radio" name="mq6_2_9" value="A" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Neutralisation</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_2_9_B"><input type="radio" name="mq6_2_9" value="B" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>A redox reaction — Na is oxidised (0→+1) and H is reduced (+1→0)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_2_9_C"><input type="radio" name="mq6_2_9" value="C" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>A precipitation reaction</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_2_9_D"><input type="radio" name="mq6_2_9" value="D" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>An acid-base reaction only</span></label>
+      <div id="mqE6_2_9" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(167,139,250,.08);border-left:3px solid #a78bfa;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#a78bfa;">✓ Answer: B</strong><br>Na: oxidation state 0 → +1 (OXIDISED — loses electron). H (in water): +1 → 0 (REDUCED — gains electron). H₂ is produced (H atoms gain electrons → form H₂ gas). This is a redox reaction. The OIL RIG mnemonic: Oxidation Is Loss, Reduction Is Gain. Group 1 metals are powerful reducing agents.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#a78bfa;margin-bottom:6px;">Q10</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">What observation confirms that hydrogen gas is produced when Na reacts with water?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_2_10_A"><input type="radio" name="mq6_2_10" value="A" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>The solution turns red litmus blue</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_2_10_B"><input type="radio" name="mq6_2_10" value="B" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>The gas burns with a squeaky pop when a burning splint is held near it</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_2_10_C"><input type="radio" name="mq6_2_10" value="C" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>The solution conducts electricity</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_2_10_D"><input type="radio" name="mq6_2_10" value="D" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>The reaction mixture becomes yellow</span></label>
+      <div id="mqE6_2_10" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(167,139,250,.08);border-left:3px solid #a78bfa;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#a78bfa;">✓ Answer: B</strong><br>Test for H₂: burning splint held at the mouth of a test tube → H₂ ignites with a characteristic 'squeaky pop' sound. Alternatively: H₂ burns quietly with a pale blue flame. H₂ is collected upward displacement of air (less dense than air). Litmus test confirms alkali (NaOH) — not the gas.</div>
+    </div>
+    <div style="text-align:center;"><button onclick="submitMQ('6_2',10)" style="background:#a78bfa;color:#000;border:none;padding:9px 30px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:.85rem;font-weight:700;cursor:pointer;">Check Answers</button><div id="mqRES6_2" style="display:none;margin-top:10px;border-radius:7px;padding:12px;font-family:'JetBrains Mono',monospace;font-size:.85rem;text-align:center;"></div></div>
+  </div>
+</div>
 <div class="section-header" id="s63"><span class="section-number">6.3</span><h2>Properties of Group 1 Oxides and Hydroxides</h2></div>
 
 <h3 class="sub">Oxides</h3>
@@ -229,6 +557,107 @@ KOH(s)  &rarr; K&#x207A;(aq)  + OH&#x207B;(aq)</div>
 </div>
 
 <!-- 6.4 -->
+
+<div style="background:var(--surface);border:1px solid rgba(52,211,153,.25);border-radius:10px;overflow:hidden;margin:28px 0 40px;">
+  <div style="background:rgba(52,211,153,.08);border-bottom:1px solid rgba(52,211,153,.25);padding:14px 22px;display:flex;align-items:center;justify-content:space-between;">
+    <div><div style="font-family:'JetBrains Mono',monospace;font-size:.68rem;color:#34d399;text-transform:uppercase;letter-spacing:.1em;">Section 6.3 Quick Quiz</div><strong style="color:#fff;font-family:'Playfair Display',serif;">Properties of Group 1 Oxides and Hydroxides</strong></div>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);">10 Questions</span>
+  </div>
+  <div style="padding:20px 22px;">
+    <script>window._MQA=window._MQA||{};window._MQA["6_3"]={1:"C",2:"B",3:"A",4:"B",5:"B",6:"B",7:"B",8:"B",9:"B",10:"B"};</script>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#34d399;margin-bottom:6px;">Q1</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Which Group 1 oxide reacts with water to form a strongly alkaline solution?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_3_1_A"><input type="radio" name="mq6_3_1" value="A" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Li₂O only</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_3_1_B"><input type="radio" name="mq6_3_1" value="B" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Na₂O only</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_3_1_C"><input type="radio" name="mq6_3_1" value="C" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>All Group 1 oxides (Li₂O, Na₂O, K₂O etc.) react with water to form MOH solutions</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_3_1_D"><input type="radio" name="mq6_3_1" value="D" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Only K₂O and above</span></label>
+      <div id="mqE6_3_1" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(52,211,153,.08);border-left:3px solid #34d399;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#34d399;">✓ Answer: C</strong><br>All Group 1 oxides are basic oxides: M₂O + H₂O → 2MOH. The resulting MOH solutions are strongly alkaline. Example: Na₂O + H₂O → 2NaOH. The hydroxides are strong bases that fully dissociate in water: NaOH → Na⁺ + OH⁻.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#34d399;margin-bottom:6px;">Q2</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The solubility of Group 1 hydroxides in water:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_3_2_A"><input type="radio" name="mq6_3_2" value="A" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Decreases down the group</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_3_2_B"><input type="radio" name="mq6_3_2" value="B" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Increases down the group — all are highly soluble, with solubility increasing</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_3_2_C"><input type="radio" name="mq6_3_2" value="C" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Stays constant</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_3_2_D"><input type="radio" name="mq6_3_2" value="D" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Is zero for all</span></label>
+      <div id="mqE6_3_2" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(52,211,153,.08);border-left:3px solid #34d399;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#34d399;">✓ Answer: B</strong><br>All Group 1 hydroxides are soluble (unlike Group 2 hydroxides which show a solubility trend). LiOH is least soluble in Group 1 (though still very soluble: ~12 g/100mL at 20°C). NaOH, KOH, CsOH are all highly soluble. LiOH is used in CO₂ scrubbers (spacecraft) because it's lightweight.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#34d399;margin-bottom:6px;">Q3</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Sodium hydroxide (NaOH) is used in industry for making:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_3_3_A"><input type="radio" name="mq6_3_3" value="A" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Soap and paper (saponification of fats; pulping wood — reacts with lignin)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_3_3_B"><input type="radio" name="mq6_3_3" value="B" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Explosives</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_3_3_C"><input type="radio" name="mq6_3_3" value="C" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Fuels</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_3_3_D"><input type="radio" name="mq6_3_3" value="D" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Plastics directly</span></label>
+      <div id="mqE6_3_3" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(52,211,153,.08);border-left:3px solid #34d399;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#34d399;">✓ Answer: A</strong><br>NaOH (caustic soda) major uses: (1) Soap making (saponification: NaOH + fat → soap + glycerol); (2) Paper industry (dissolves lignin in wood pulp); (3) Making other chemicals; (4) Petroleum refining; (5) Food preparation (e.g. making pretzels); (6) Drain cleaners. Annual world production: ~70 million tonnes.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#34d399;margin-bottom:6px;">Q4</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The thermal stability of Group 1 carbonates differs from Group 2 carbonates because:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_3_4_A"><input type="radio" name="mq6_3_4" value="A" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Group 1 metals are less reactive</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_3_4_B"><input type="radio" name="mq6_3_4" value="B" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Group 1 carbonates (Na₂CO₃, K₂CO₃, etc.) do NOT decompose on heating — they are thermally stable; only Li₂CO₃ decomposes</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_3_4_C"><input type="radio" name="mq6_3_4" value="C" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Group 1 carbonates are more soluble</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_3_4_D"><input type="radio" name="mq6_3_4" value="D" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Group 1 metals have more neutrons</span></label>
+      <div id="mqE6_3_4" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(52,211,153,.08);border-left:3px solid #34d399;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#34d399;">✓ Answer: B</strong><br>Group 1 carbonates (Na₂CO₃, K₂CO₃, Rb₂CO₃, Cs₂CO₃) are thermally stable — do NOT decompose on heating. Exception: Li₂CO₃ decomposes at 723°C: Li₂CO₃ → Li₂O + CO₂. Li⁺ is anomalously small, distorts CO₃²⁻ → lower stability. Group 2 carbonates (CaCO₃, MgCO₃) all decompose on heating.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#34d399;margin-bottom:6px;">Q5</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Group 1 hydroxides differ from Group 2 hydroxides in that:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_3_5_A"><input type="radio" name="mq6_3_5" value="A" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Group 1 hydroxides are all insoluble</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_3_5_B"><input type="radio" name="mq6_3_5" value="B" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Group 1 hydroxides are all highly soluble and strong bases; Group 2 hydroxides are sparingly soluble (except Ba(OH)₂)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_3_5_C"><input type="radio" name="mq6_3_5" value="C" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Group 1 hydroxides are acidic</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_3_5_D"><input type="radio" name="mq6_3_5" value="D" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Group 1 hydroxides have lower pH</span></label>
+      <div id="mqE6_3_5" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(52,211,153,.08);border-left:3px solid #34d399;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#34d399;">✓ Answer: B</strong><br>Group 1 MOH: all highly soluble, all strong bases (full dissociation). Group 2 M(OH)₂: solubility increases down the group but is much lower than Group 1. Be(OH)₂ is insoluble; Mg(OH)₂ sparingly soluble; Ca(OH)₂ slightly soluble (limewater); Sr(OH)₂ and Ba(OH)₂ moderately/highly soluble. Group 1 hydroxides are all more soluble than corresponding Group 2 hydroxides.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#34d399;margin-bottom:6px;">Q6</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Potassium hydroxide (KOH) is used as:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_3_6_A"><input type="radio" name="mq6_3_6" value="A" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>A weak acid</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_3_6_B"><input type="radio" name="mq6_3_6" value="B" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>A strong base in industry (e.g. soap making, alkaline batteries, CO₂ absorption)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_3_6_C"><input type="radio" name="mq6_3_6" value="C" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>A salt</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_3_6_D"><input type="radio" name="mq6_3_6" value="D" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>An oxidising agent</span></label>
+      <div id="mqE6_3_6" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(52,211,153,.08);border-left:3px solid #34d399;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#34d399;">✓ Answer: B</strong><br>KOH (potassium hydroxide, caustic potash) uses: (1) Soap making (potassium soaps are softer/liquid, unlike sodium soaps); (2) Alkaline batteries (electrolyte); (3) Absorbing CO₂ in gas analysis; (4) Making other K compounds; (5) Fuel cell electrolyte. KOH is a strong base like NaOH.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#34d399;margin-bottom:6px;">Q7</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Which equation correctly shows lithium carbonate decomposing on heating?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_3_7_A"><input type="radio" name="mq6_3_7" value="A" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Li₂CO₃ → 2Li + CO₂ + O₂</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_3_7_B"><input type="radio" name="mq6_3_7" value="B" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Li₂CO₃ → Li₂O + CO₂</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_3_7_C"><input type="radio" name="mq6_3_7" value="C" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Li₂CO₃ → 2LiOH + CO</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_3_7_D"><input type="radio" name="mq6_3_7" value="D" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Li₂CO₃ → Li₂O₂ + C</span></label>
+      <div id="mqE6_3_7" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(52,211,153,.08);border-left:3px solid #34d399;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#34d399;">✓ Answer: B</strong><br>Li₂CO₃ → Li₂O + CO₂ (on heating, ~723°C). This is the same reaction as CaCO₃ → CaO + CO₂ (limestone decomposition). Li behaves anomalously in Group 1 — its small Li⁺ ion makes Li₂CO₃ less thermally stable than Na₂CO₃, K₂CO₃ etc. (diagonal relationship: Li resembles Mg in some properties).</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#34d399;margin-bottom:6px;">Q8</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The reaction of sodium oxide with water is:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_3_8_A"><input type="radio" name="mq6_3_8" value="A" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Neutralisation</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_3_8_B"><input type="radio" name="mq6_3_8" value="B" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>A basic oxide reacting with water — Na₂O + H₂O → 2NaOH (exothermic, produces strongly alkaline solution)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_3_8_C"><input type="radio" name="mq6_3_8" value="C" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>A redox reaction</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_3_8_D"><input type="radio" name="mq6_3_8" value="D" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>An esterification</span></label>
+      <div id="mqE6_3_8" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(52,211,153,.08);border-left:3px solid #34d399;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#34d399;">✓ Answer: B</strong><br>Na₂O + H₂O → 2NaOH. This is an acid-base reaction where the basic oxide reacts with water (an amphoteric compound — acts as weak acid here). The product NaOH is strongly alkaline. This reaction is exothermic and can be dangerous with concentrated NaOH.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#34d399;margin-bottom:6px;">Q9</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Why is LiCl used in drying gases and removing moisture?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_3_9_A"><input type="radio" name="mq6_3_9" value="A" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>LiCl is insoluble in water</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_3_9_B"><input type="radio" name="mq6_3_9" value="B" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>LiCl is hygroscopic (absorbs water from the atmosphere) due to the small, highly polarising Li⁺ ion strongly attracting water molecules</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_3_9_C"><input type="radio" name="mq6_3_9" value="C" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>LiCl reacts with water to form gas</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_3_9_D"><input type="radio" name="mq6_3_9" value="D" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>LiCl has a very high melting point</span></label>
+      <div id="mqE6_3_9" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(52,211,153,.08);border-left:3px solid #34d399;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#34d399;">✓ Answer: B</strong><br>Li⁺ has very high charge density (small size + +1 charge). It strongly polarises surrounding water molecules → very high hydration enthalpy → LiCl is hygroscopic (absorbs moisture from air). This makes anhydrous LiCl useful as a desiccant. Anomalous behaviour of Li (resembles Mg — diagonal relationship in periodic table).</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#34d399;margin-bottom:6px;">Q10</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">All Group 1 hydroxides produce the same colour with universal indicator because:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_3_10_A"><input type="radio" name="mq6_3_10" value="A" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>They have the same formula</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_3_10_B"><input type="radio" name="mq6_3_10" value="B" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>They are all strong bases that fully dissociate to give OH⁻ — same pH effect regardless of which Group 1 metal</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_3_10_C"><input type="radio" name="mq6_3_10" value="C" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>They have the same concentration</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL6_3_10_D"><input type="radio" name="mq6_3_10" value="D" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>They react with the indicator</span></label>
+      <div id="mqE6_3_10" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(52,211,153,.08);border-left:3px solid #34d399;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#34d399;">✓ Answer: B</strong><br>NaOH, KOH, LiOH, RbOH, CsOH all produce OH⁻ in solution (strong bases, fully dissociated). Universal indicator turns purple (pH≈13-14) for all of them at the same concentration. Chemical colour reactions (flame tests) distinguish the metals, but their hydroxide solutions are chemically equivalent bases.</div>
+    </div>
+    <div style="text-align:center;"><button onclick="submitMQ('6_3',10)" style="background:#34d399;color:#000;border:none;padding:9px 30px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:.85rem;font-weight:700;cursor:pointer;">Check Answers</button><div id="mqRES6_3" style="display:none;margin-top:10px;border-radius:7px;padding:12px;font-family:'JetBrains Mono',monospace;font-size:.85rem;text-align:center;"></div></div>
+  </div>
+</div>
 <div class="section-header" id="s64"><span class="section-number">6.4</span><h2>Effect of Heat on Group 1 Carbonates and Nitrates</h2></div>
 
 <h3 class="sub">Thermal Decomposition of Carbonates</h3>
@@ -349,6 +778,75 @@ H&#x2082; + O&#x2082;  &rarr; 2H&#x2082;O  (combustion)
 <div class="callout tip"><span class="callout-icon">&#x1F4A1;</span><div class="callout-body"><strong>Hydrogen isotopes</strong>&#xB9;H (protium, 99.985%), &#xB2;H (deuterium, heavy hydrogen, D), &#xB3;H (tritium, T, radioactive). D&#x2082;O is heavy water used as a moderator in some nuclear reactors. D has 1 proton + 1 neutron; T has 1 proton + 2 neutrons.</div></div>
 
 <!-- EXERCISES -->
+
+<!-- MINI-QUIZ s62 -->
+<div class="mini-quiz" id="mq-s62">
+  <div class="mq-head"><span style="font-size:1.1rem;">&#127919;</span><h4>Section 6.2 — Group 1 Compounds</h4><span class="mq-badge">10 Questions</span></div>
+  <div class="mq-body">
+    <div class="mq-qblock"><span class="mq-qnum">Q1 of 10</span><p class="mq-qtext">NaCl is used in which industrial process?</p><div class="mq-opts">
+      <label><input type="radio" name="u6s2q1" value="A"> Contact process</label>
+      <label><input type="radio" name="u6s2q1" value="B"> Haber process</label>
+      <label><input type="radio" name="u6s2q1" value="C"> Chlor-alkali process (electrolysis of brine)</label>
+      <label><input type="radio" name="u6s2q1" value="D"> Ostwald process</label>
+    </div><div class="mq-exp" id="mqe-u6s2q1">Electrolysis of brine (NaCl(aq)) → Cl₂ (anode), H₂ (cathode), NaOH (solution). Chlor-alkali industry: major source of Cl₂ and NaOH.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q2 of 10</span><p class="mq-qtext">Na₂CO₃ (washing soda) is used for:</p><div class="mq-opts">
+      <label><input type="radio" name="u6s2q2" value="A"> Food preservation</label>
+      <label><input type="radio" name="u6s2q2" value="B"> Water softening and glass making</label>
+      <label><input type="radio" name="u6s2q2" value="C"> Bleaching</label>
+      <label><input type="radio" name="u6s2q2" value="D"> Fertilisers</label>
+    </div><div class="mq-exp" id="mqe-u6s2q2">Na₂CO₃ (washing soda): water softening (removes Ca²⁺/Mg²⁺ as insoluble carbonates), glass manufacture, cleaning.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q3 of 10</span><p class="mq-qtext">NaHCO₃ (baking soda) decomposes when heated to give:</p><div class="mq-opts">
+      <label><input type="radio" name="u6s2q3" value="A"> NaOH + CO₂</label>
+      <label><input type="radio" name="u6s2q3" value="B"> Na₂CO₃ + H₂O + CO₂</label>
+      <label><input type="radio" name="u6s2q3" value="C"> Na + H₂O + CO₂</label>
+      <label><input type="radio" name="u6s2q3" value="D"> Na₂O + CO₂</label>
+    </div><div class="mq-exp" id="mqe-u6s2q3">2NaHCO₃ → Na₂CO₃ + H₂O + CO₂. CO₂ causes baked goods to rise. Used in baking powder and as antacid.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q4 of 10</span><p class="mq-qtext">Which Group 1 ion gives a yellow/orange flame test?</p><div class="mq-opts">
+      <label><input type="radio" name="u6s2q4" value="A"> Li⁺</label>
+      <label><input type="radio" name="u6s2q4" value="B"> Na⁺</label>
+      <label><input type="radio" name="u6s2q4" value="C"> K⁺</label>
+      <label><input type="radio" name="u6s2q4" value="D"> Rb⁺</label>
+    </div><div class="mq-exp" id="mqe-u6s2q4">Na⁺: characteristic bright yellow-orange flame. Electron excitation in Na → emission at 589 nm (yellow). Very sensitive — even trace amounts visible.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q5 of 10</span><p class="mq-qtext">KNO₃ is used in:</p><div class="mq-opts">
+      <label><input type="radio" name="u6s2q5" value="A"> Water treatment</label>
+      <label><input type="radio" name="u6s2q5" value="B"> Food preservative (saltpetre) and gunpowder</label>
+      <label><input type="radio" name="u6s2q5" value="C"> Bleaching</label>
+      <label><input type="radio" name="u6s2q5" value="D"> Polymer manufacture</label>
+    </div><div class="mq-exp" id="mqe-u6s2q5">KNO₃ (saltpetre/nitre): food preservative (prevents Clostridium botulinum), gunpowder component (oxidising agent), fertiliser.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q6 of 10</span><p class="mq-qtext">LiOH is used in:</p><div class="mq-opts">
+      <label><input type="radio" name="u6s2q6" value="A"> Food preservation</label>
+      <label><input type="radio" name="u6s2q6" value="B"> CO₂ absorption in submarines and spacecraft (2LiOH + CO₂ → Li₂CO₃ + H₂O)</label>
+      <label><input type="radio" name="u6s2q6" value="C"> Water softening</label>
+      <label><input type="radio" name="u6s2q6" value="D"> Bleaching</label>
+    </div><div class="mq-exp" id="mqe-u6s2q6">LiOH: lightweight, absorbs CO₂ efficiently. Used in life-support systems. Li is lightest Group 1 metal — LiOH is lightest hydroxide.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q7 of 10</span><p class="mq-qtext">The 'diagonal relationship': Li resembles Mg because:</p><div class="mq-opts">
+      <label><input type="radio" name="u6s2q7" value="A"> Both are shiny</label>
+      <label><input type="radio" name="u6s2q7" value="B"> Similar charge density (Li⁺ is small with +1, Mg²⁺ larger with +2 → similar charge/radius ratio)</label>
+      <label><input type="radio" name="u6s2q7" value="C"> Both form peroxides</label>
+      <label><input type="radio" name="u6s2q7" value="D"> Both are liquids at room temperature</label>
+    </div><div class="mq-exp" id="mqe-u6s2q7">Diagonal relationship: elements diagonally adjacent in periods 2-3 often have similar properties. Li/Mg: both form normal oxides, both carbonates decompose on heating, LiNO₃ decomposes like Mg(NO₃)₂.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q8 of 10</span><p class="mq-qtext">Group 1 metals all have oxidation state +1 in compounds because:</p><div class="mq-opts">
+      <label><input type="radio" name="u6s2q8" value="A"> They have 1 proton</label>
+      <label><input type="radio" name="u6s2q8" value="B"> They have 1 outer electron which is easily lost to form M⁺ ion</label>
+      <label><input type="radio" name="u6s2q8" value="C"> They form covalent bonds</label>
+      <label><input type="radio" name="u6s2q8" value="D"> They are all shiny</label>
+    </div><div class="mq-exp" id="mqe-u6s2q8">Group 1: 1 valence electron. Very low IE₁. Lose 1 electron readily → M⁺. IE₂ is enormously high (inner shell) → +2 not formed.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q9 of 10</span><p class="mq-qtext">Which compound dissolves in water to give strongly alkaline solution?</p><div class="mq-opts">
+      <label><input type="radio" name="u6s2q9" value="A"> LiCl</label>
+      <label><input type="radio" name="u6s2q9" value="B"> Na₂SO₄</label>
+      <label><input type="radio" name="u6s2q9" value="C"> KOH</label>
+      <label><input type="radio" name="u6s2q9" value="D"> NaNO₃</label>
+    </div><div class="mq-exp" id="mqe-u6s2q9">KOH → K⁺ + OH⁻. Strong alkali. Metal hydroxides of Group 1 are strong bases. Other salts (LiCl, Na₂SO₄, NaNO₃) give neutral solutions.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q10 of 10</span><p class="mq-qtext">The reaction of Na with ethanol gives:</p><div class="mq-opts">
+      <label><input type="radio" name="u6s2q10" value="A"> NaOH + C₂H₅OH</label>
+      <label><input type="radio" name="u6s2q10" value="B"> C₂H₅ONa + H₂ (sodium ethoxide + hydrogen)</label>
+      <label><input type="radio" name="u6s2q10" value="C"> Na₂O + H₂</label>
+      <label><input type="radio" name="u6s2q10" value="D"> NaH + C₂H₅OH</label>
+    </div><div class="mq-exp" id="mqe-u6s2q10">Na + C₂H₅OH → C₂H₅ONa + ½H₂. Similar to Na + H₂O but slower (ethanol less polar, OH less acidic than water). Product is sodium ethoxide — a strong base.</div></div>
+    <button class="mq-submit" onclick="submitMQ('u6s2',{"u6s2q1":"C","u6s2q2":"B","u6s2q3":"B","u6s2q4":"B","u6s2q5":"B","u6s2q6":"B","u6s2q7":"B","u6s2q8":"B","u6s2q9":"C","u6s2q10":"B"})">&#10003; Check Answers</button>
+    <div class="mq-result" id="mqr-u6s2"></div>
+  </div>
+</div>
 <div class="section-header" id="exercises"><span class="section-number">&#x270F;&#xFE0F;</span><h2>Exercises</h2></div>
 <ul class="exercise-list">
   <li>State and explain the trend in reactivity of Group 1 elements with water as you go down the group from Li to Cs. Write equations for Li and K with water.
@@ -677,6 +1175,66 @@ H&#x2082; + O&#x2082;  &rarr; 2H&#x2082;O  (combustion)
     showGate();
   },true);
 })();
+const _CA={q1:'B',q2:'A',q3:'B',q4:'C',q5:'B',q6:'A',q7:'B',q8:'C',q9:'A',q10:'A',q11:'B',q12:'C',q13:'A',q14:'C',q15:'A',q16:'A',q17:'B',q18:'B',q19:'B',q20:'B',q21:'B',q22:'A',q23:'C',q24:'A',q25:'B'};
+function submitQuiz(){
+  let s=0,t=Object.keys(_CA).length;
+  Object.entries(_CA).forEach(([q,c])=>{
+    const sel=document.querySelector('input[name="'+q+'"]:checked');
+    document.querySelectorAll('input[name="'+q+'"]').forEach(o=>{
+      if(o.value===c) o.closest('label').classList.add('correct');
+    });
+    if(sel){
+      if(sel.value===c) s++;
+      else sel.closest('label').classList.add('wrong');
+    }
+    const e=document.getElementById('e'+q.slice(1));
+    if(e) e.style.display='block';
+    document.querySelectorAll('input[name="'+q+'"]').forEach(o=>o.disabled=true);
+  });
+  const p=Math.round(s/t*100);
+  const r=document.getElementById('qR');
+  r.style.display='block';
+  r.style.background=p>=70?'rgba(52,211,153,.1)':'rgba(248,113,113,.1)';
+  r.style.border='1px solid '+(p>=70?'var(--green)':'var(--red)');
+  r.style.color=p>=70?'var(--green)':'var(--red)';
+  r.style.padding='14px 18px';r.style.borderRadius='8px';r.style.fontFamily="'JetBrains Mono',monospace";
+  r.innerHTML='Score: '+s+'/'+t+' ('+p+'%) — '+(p>=80?'🏆 Excellent!':p>=70?'✅ Good — review marked answers.':p>=50?'📚 Keep going — study the explanations.':'❌ Review all material and try again.');
+  document.querySelector('.qs').disabled=true;
+  document.querySelector('.qs').style.opacity='.5';
+}
+// ── ACCESS GATE (unit quiz) ──
+(function(){
+  const SK='quiz_access_granted',CK='quiz_access_code';
+  const gate=document.createElement('div');
+  gate.id='unit-quiz-gate';
+  gate.style.cssText='position:fixed;inset:0;background:#0d1117;z-index:99999;display:none;align-items:center;justify-content:center;padding:24px;';
+  gate.innerHTML='<div style="background:#161b22;border:2px solid rgba(245,158,11,.4);border-radius:16px;padding:48px 40px;max-width:460px;width:100%;text-align:center;"><div style="font-size:3.5rem;margin-bottom:16px;">🔒</div><h2 style="font-family:Playfair Display,serif;font-size:1.8rem;color:#fff;margin-bottom:10px;">Quiz Locked</h2><p style="color:#8b949e;font-size:.93rem;margin-bottom:24px;line-height:1.7;">Enter the access code from your teacher to unlock this quiz.</p><input id="ugc-inp" type="text" placeholder="Enter Code" maxlength="20" style="width:100%;background:#1c2333;border:2px solid #30363d;border-radius:8px;color:#e6edf3;padding:14px 18px;font-family:JetBrains Mono,monospace;font-size:1.4rem;text-align:center;letter-spacing:.2em;text-transform:uppercase;margin-bottom:12px;box-sizing:border-box;" onkeydown="if(event.key===\'Enter\')unlockUnitQuiz()"/><div id="ugc-err" style="font-family:JetBrains Mono,monospace;font-size:.82rem;color:#f87171;min-height:20px;margin-bottom:10px;"></div><button onclick="unlockUnitQuiz()" style="width:100%;background:#f59e0b;color:#000;border:none;padding:13px;border-radius:8px;font-family:JetBrains Mono,monospace;font-size:.9rem;font-weight:700;cursor:pointer;margin-bottom:10px;">🔓 Unlock Quiz</button><button onclick="document.getElementById(\'unit-quiz-gate\').style.display=\'none\';document.body.style.overflow=\'\'" style="width:100%;background:transparent;border:1px solid #30363d;color:#8b949e;padding:9px;border-radius:8px;font-family:JetBrains Mono,monospace;font-size:.8rem;cursor:pointer;">✕ Cancel</button></div>';
+  document.body.appendChild(gate);
+  window.unlockUnitQuiz=function(){
+    const v=document.getElementById('ugc-inp').value.trim().toUpperCase();
+    const c=localStorage.getItem(CK);
+    if(!v){document.getElementById('ugc-err').textContent='Enter the code.';return;}
+    if(v===c||!c){sessionStorage.setItem(SK,c||'open');document.getElementById('unit-quiz-gate').style.display='none';document.body.style.overflow='';}
+    else{document.getElementById('ugc-err').textContent='❌ Wrong code.';document.getElementById('ugc-inp').value='';}
+  };
+  window.addEventListener('DOMContentLoaded',function(){
+    const code=localStorage.getItem(CK);if(!code)return;
+    const granted=sessionStorage.getItem(SK);if(granted)return;
+    const qw=document.querySelector('.quiz-wrap');if(!qw)return;
+    qw.addEventListener('click',function(e){
+      if(!localStorage.getItem(CK))return;
+      if(sessionStorage.getItem(SK))return;
+      if(e.target.tagName==='BUTTON'||e.target.classList.contains('qs')) return;
+      e.stopPropagation();e.preventDefault();
+      document.getElementById('unit-quiz-gate').style.display='flex';
+      document.body.style.overflow='hidden';
+    },true);
+  });
+})();
+</script>
+</body>
+</html>
+
 </script>
 
 <script>
@@ -728,6 +1286,7 @@ H&#x2082; + O&#x2082;  &rarr; 2H&#x2082;O  (combustion)
     if(!qw) return;
     qw.addEventListener('click',function(e){
       if(!isLocked()||isGranted()) return;
+      if(e.target.tagName==='BUTTON'||e.target.classList.contains('qs')) return;
       e.stopPropagation();e.preventDefault();
       gate.style.display='flex';document.body.style.overflow='hidden';
     },true);
@@ -742,6 +1301,9 @@ function toggleAnswer(btn){
   ans.classList.toggle('open', !isOpen);
   btn.textContent = isOpen ? (btn.classList.contains('rb') ? 'Model Answer' : 'Show Answer') : 'Hide Answer';
 }
+</script>
+<script>
+function submitMQ(qid,total){var ak=window._MQA&&window._MQA[qid];if(!ak)return;var score=0;for(var i=1;i<=total;i++){var sel=document.querySelector('input[name="mq'+qid+'_'+i+'"]:checked');var correct=ak[i];var expEl=document.getElementById('mqE'+qid+'_'+i);if(expEl)expEl.style.display='block';['A','B','C','D'].forEach(function(ltr){var lbl=document.getElementById('mqL'+qid+'_'+i+'_'+ltr);if(!lbl)return;var inp=lbl.querySelector('input');if(inp)inp.disabled=true;if(ltr===correct){lbl.style.background='rgba(52,211,153,.12)';lbl.style.borderColor='#34d399';lbl.style.color='#34d399';}else if(sel&&sel.value===ltr&&ltr!==correct){lbl.style.background='rgba(248,113,113,.1)';lbl.style.borderColor='#f87171';lbl.style.color='#f87171';}});if(sel&&sel.value===correct)score++;}var pct=Math.round(score/total*100);var r=document.getElementById('mqRES'+qid);if(r){r.style.display='block';r.style.background=pct>=70?'rgba(52,211,153,.1)':'rgba(248,113,113,.1)';r.style.border='1px solid '+(pct>=70?'#34d399':'#f87171');r.style.color=pct>=70?'#34d399':'#f87171';r.textContent='Score: '+score+'/'+total+' ('+pct+'%) — '+(pct>=80?'🏆 Excellent!':pct>=70?'✅ Good':pct>=50?'📚 Review the notes':'❌ Re-read this section');}}
 </script>
 </body>
 </html>

@@ -408,8 +408,49 @@
   .reveal{opacity:0;transform:translateY(24px);transition:opacity .5s ease,transform .5s ease;}
   .reveal.visible{opacity:1;transform:none;}
 </style>
+
+<style>
+@media print {
+  body { background: #fff !important; color: #000 !important; }
+  * { background: transparent !important; color: #000 !important; border-color: #ccc !important; box-shadow: none !important; }
+  nav, footer, .quiz-wrap, .quiz-header, .quiz-body, .quiz-submit, .submit-btn, .btn, button:not(.print-btn), .lock-bar, .lock-overlay, .answer-panel { display: none !important; }
+  h1, h2, h3, h4 { color: #000 !important; }
+  a { color: #000 !important; text-decoration: none !important; }
+  .section-number { color: #000 !important; border-color: #000 !important; }
+  .callout, .definition, .example, .worked-example { background: #f5f5f5 !important; border-color: #000 !important; }
+  main, .content { max-width: 100% !important; padding: 0 !important; }
+}
+  body { background: #fff !important; color: #000 !important; font-size: 11pt; line-height: 1.6; }
+  nav, footer, .quiz-wrap, .quiz-container, section#quiz, section#test,
+  .tab-btn, .reveal-btn, button, .answer-panel, .print-hide,
+  [id*="lock"], .modal-overlay { display: none !important; }
+  main { max-width: 100% !important; padding: 0 !important; margin: 0 !important; }
+  h1, h2, h3, h4 { color: #000 !important; page-break-after: avoid; }
+  h2 { border-bottom: 2px solid #000 !important; padding-bottom: 4pt; margin-top: 18pt; }
+  section { page-break-inside: avoid; margin-bottom: 16pt; }
+  .section-header { background: #f0f0f0 !important; color: #000 !important; padding: 6pt 10pt; border-radius: 0 !important; }
+  .callout, .definition, .example-box, .worked-example {
+    background: #f5f5f5 !important; color: #000 !important;
+    border: 1pt solid #ccc !important; border-left: 3pt solid #333 !important;
+    padding: 8pt !important; margin: 8pt 0 !important;
+  }
+  table { border-collapse: collapse !important; width: 100% !important; }
+  th, td { border: 1pt solid #999 !important; padding: 4pt 6pt !important; color: #000 !important; background: #fff !important; font-size: 10pt; }
+  th { background: #e0e0e0 !important; font-weight: bold; }
+  p, li { color: #000 !important; }
+  .hero, .hero-eyebrow, .hero h1, .hero p { display: none !important; }
+  .content-body, .unit-content, .notes-body { color: #000 !important; }
+  a { color: #000 !important; text-decoration: none; }
+  code, pre { background: #f0f0f0 !important; color: #000 !important; border: 1pt solid #ccc !important; }
+  .answer-panel.open { display: block !important; background: #f9f9f9 !important; color: #000 !important; }
+  strong { color: #000 !important; }
+  var(--text), var(--muted), var(--accent) { color: #000 !important; }
+}
+</style>
 </head>
 <body>
+<div id="sitenav" style="position:sticky;top:0;z-index:200;background:rgba(13,17,23,.95);backdrop-filter:blur(12px);border-bottom:1px solid #30363d;padding:0 28px;font-family:JetBrains Mono,monospace;"><div style="max-width:960px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:52px;gap:12px;"><a href="index.html" style="font-size:.78rem;color:#38bdf8;text-decoration:none;letter-spacing:.06em;white-space:nowrap;">&#9883; Habimana</a><div style="display:flex;gap:4px;flex-wrap:wrap;"><a href="index.html" style="font-size:.72rem;color:#8b949e;text-decoration:none;padding:4px 12px;border-radius:5px;border:1px solid transparent;">Home</a><a href="s4-chemistry.html" style="font-size:.72rem;color:#8b949e;text-decoration:none;padding:4px 12px;border-radius:5px;border:1px solid transparent;">S4</a><a href="s5-chemistry.html" style="font-size:.72rem;color:#34d399;text-decoration:none;padding:4px 12px;border-radius:5px;background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.25);">S5</a><a href="s6-chemistry.html" style="font-size:.72rem;color:#8b949e;text-decoration:none;padding:4px 12px;border-radius:5px;border:1px solid transparent;">S6</a></div></div></div>
+
 
 <!-- ═══════════════════════ HERO ═══════════════════════ -->
 <header class="hero">
@@ -498,6 +539,122 @@
 
 <!-- ═══════════ 1.2 TYPES OF FORMULAS ═══════════ -->
 <div class="section-header reveal" id="s2">
+
+<!-- SUBUNIT 1_1 QUICK QUIZ -->
+<div style="background:var(--surface);border:1px solid rgba(167,139,250,.25);border-radius:10px;overflow:hidden;margin:28px 0 40px;">
+  <div style="background:rgba(167,139,250,.08);border-bottom:1px solid rgba(167,139,250,.25);padding:14px 22px;display:flex;align-items:center;justify-content:space-between;">
+    <div><div style="font-family:'JetBrains Mono',monospace;font-size:.68rem;color:#a78bfa;text-transform:uppercase;letter-spacing:.1em;">Quick Quiz</div><strong style="color:#fff;font-family:'Playfair Display',serif;">1.1 Classification of Organic Compounds</strong></div>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);">10 Questions</span>
+  </div>
+  <div style="padding:20px 22px;">
+    <script>window._EMQA=window._EMQA||{};window._EMQA["1_1"]={1:2,2:3,3:1,4:1,5:2,6:3,7:0,8:1,9:2,10:0};</script>
+
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#a78bfa;margin-bottom:6px;">Q1</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Organic chemistry is the study of:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_1_1_A"><input type="radio" name="mq1_1_1" value="A" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>All compounds found in living things</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_1_1_B"><input type="radio" name="mq1_1_1" value="B" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Carbon-containing compounds with C–H bonds</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_1_1_C"><input type="radio" name="mq1_1_1" value="C" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Compounds containing only C, H, and O</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_1_1_D"><input type="radio" name="mq1_1_1" value="D" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Only natural compounds from plants</span></label>
+      <div id="mqE1_1_1" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(167,139,250,.08);border-left:3px solid #a78bfa;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">Organic chemistry deals with carbon-containing compounds. Carbon must be covalently bonded to hydrogen. Exceptions include CO₂, CO, carbonates, and cyanides which are classified as inorganic.</div>
+    </div>
+
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#a78bfa;margin-bottom:6px;">Q2</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The unique ability of carbon to bond to itself to form long chains and rings is called:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_1_2_A"><input type="radio" name="mq1_1_2" value="A" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Hybridisation</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_1_2_B"><input type="radio" name="mq1_1_2" value="B" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Catenation</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_1_2_C"><input type="radio" name="mq1_1_2" value="C" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Delocalisation</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_1_2_D"><input type="radio" name="mq1_1_2" value="D" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Isomerism</span></label>
+      <div id="mqE1_1_2" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(167,139,250,.08);border-left:3px solid #a78bfa;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">Catenation is the property of carbon to form covalent bonds with other carbon atoms, producing long chains, branched structures, and rings. This is why millions of organic compounds exist.</div>
+    </div>
+
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#a78bfa;margin-bottom:6px;">Q3</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Which of the following is NOT classified as an organic compound?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_1_3_A"><input type="radio" name="mq1_1_3" value="A" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Methane (CH₄)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_1_3_B"><input type="radio" name="mq1_1_3" value="B" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Ethanol (C₂H₅OH)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_1_3_C"><input type="radio" name="mq1_1_3" value="C" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Calcium carbonate (CaCO₃)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_1_3_D"><input type="radio" name="mq1_1_3" value="D" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Glucose (C₆H₁₂O₆)</span></label>
+      <div id="mqE1_1_3" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(167,139,250,.08);border-left:3px solid #a78bfa;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">CaCO₃ is an inorganic carbonate. Exceptions to the organic classification include CO₂, CO, carbonates, bicarbonates, and cyanides — despite containing carbon.</div>
+    </div>
+
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#a78bfa;margin-bottom:6px;">Q4</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">An acyclic organic compound is one that:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_1_4_A"><input type="radio" name="mq1_1_4" value="A" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Contains a benzene ring</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_1_4_B"><input type="radio" name="mq1_1_4" value="B" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Has no ring structure — carbon atoms form an open chain</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_1_4_C"><input type="radio" name="mq1_1_4" value="C" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Contains a ring with non-carbon atoms</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_1_4_D"><input type="radio" name="mq1_1_4" value="D" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Is always saturated</span></label>
+      <div id="mqE1_1_4" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(167,139,250,.08);border-left:3px solid #a78bfa;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">Acyclic (also called aliphatic) compounds have carbon atoms arranged in open chains with no ring. Examples: butane, pentane, ethanol.</div>
+    </div>
+
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#a78bfa;margin-bottom:6px;">Q5</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Aromatic organic compounds are defined by containing:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_1_5_A"><input type="radio" name="mq1_1_5" value="A" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Any ring of carbon atoms</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_1_5_B"><input type="radio" name="mq1_1_5" value="B" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>A benzene ring (C₆H₆) — highly stable due to delocalised π electrons</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_1_5_C"><input type="radio" name="mq1_1_5" value="C" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Only carbon and hydrogen</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_1_5_D"><input type="radio" name="mq1_1_5" value="D" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Cyclic saturated rings only</span></label>
+      <div id="mqE1_1_5" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(167,139,250,.08);border-left:3px solid #a78bfa;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">Aromatic compounds contain a benzene ring. They are highly stable due to the 6 delocalised π electrons spread over all 6 carbons. Examples: benzene, toluene, phenol.</div>
+    </div>
+
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#a78bfa;margin-bottom:6px;">Q6</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">A heterocyclic compound contains:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_1_6_A"><input type="radio" name="mq1_1_6" value="A" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Only carbon in the ring</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_1_6_B"><input type="radio" name="mq1_1_6" value="B" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>A ring with at least one non-carbon atom such as N, O, or S</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_1_6_C"><input type="radio" name="mq1_1_6" value="C" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>A benzene ring only</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_1_6_D"><input type="radio" name="mq1_1_6" value="D" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>An open chain with heteroatoms</span></label>
+      <div id="mqE1_1_6" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(167,139,250,.08);border-left:3px solid #a78bfa;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">Heterocyclic compounds have rings containing atoms other than carbon, such as nitrogen (pyridine), oxygen (furan), or sulfur (thiophene). They are very common in medicines and DNA bases.</div>
+    </div>
+
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#a78bfa;margin-bottom:6px;">Q7</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Saturated organic compounds contain:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_1_7_A"><input type="radio" name="mq1_1_7" value="A" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Only C=C double bonds</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_1_7_B"><input type="radio" name="mq1_1_7" value="B" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Only C–C single bonds — no multiple bonds between carbons</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_1_7_C"><input type="radio" name="mq1_1_7" value="C" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>At least one C≡C triple bond</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_1_7_D"><input type="radio" name="mq1_1_7" value="D" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>A benzene ring</span></label>
+      <div id="mqE1_1_7" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(167,139,250,.08);border-left:3px solid #a78bfa;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">Saturated compounds have only single C–C bonds (e.g. alkanes, CₙH₂ₙ₊₂). No more hydrogen can be added. Unsaturated compounds have C=C or C≡C bonds.</div>
+    </div>
+
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#a78bfa;margin-bottom:6px;">Q8</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Which general formula represents an unsaturated compound with one C=C double bond?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_1_8_A"><input type="radio" name="mq1_1_8" value="A" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>CₙH₂ₙ₊₂</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_1_8_B"><input type="radio" name="mq1_1_8" value="B" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>CₙH₂ₙ</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_1_8_C"><input type="radio" name="mq1_1_8" value="C" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>CₙH₂ₙ₋₂</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_1_8_D"><input type="radio" name="mq1_1_8" value="D" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>CₙH₂ₙ₊₁OH</span></label>
+      <div id="mqE1_1_8" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(167,139,250,.08);border-left:3px solid #a78bfa;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">CₙH₂ₙ is the general formula for alkenes — one C=C double bond. CₙH₂ₙ₊₂ = alkanes (saturated), CₙH₂ₙ₋₂ = alkynes (one C≡C).</div>
+    </div>
+
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#a78bfa;margin-bottom:6px;">Q9</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Alicyclic compounds are:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_1_9_A"><input type="radio" name="mq1_1_9" value="A" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>The same as aromatic compounds</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_1_9_B"><input type="radio" name="mq1_1_9" value="B" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Cyclic but NOT aromatic — they behave like aliphatic compounds</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_1_9_C"><input type="radio" name="mq1_1_9" value="C" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Open-chain unsaturated compounds</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_1_9_D"><input type="radio" name="mq1_1_9" value="D" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Heterocyclic compounds</span></label>
+      <div id="mqE1_1_9" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(167,139,250,.08);border-left:3px solid #a78bfa;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">Alicyclic compounds (e.g. cyclohexane C₆H₁₂) contain rings but not benzene rings. They behave chemically like aliphatic (open-chain) compounds.</div>
+    </div>
+
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#a78bfa;margin-bottom:6px;">Q10</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Carbon can form 4 covalent bonds. This means carbon is:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_1_10_A"><input type="radio" name="mq1_1_10" value="A" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Monovalent</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_1_10_B"><input type="radio" name="mq1_1_10" value="B" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Divalent</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_1_10_C"><input type="radio" name="mq1_1_10" value="C" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Tetravalent</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_1_10_D"><input type="radio" name="mq1_1_10" value="D" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Hexavalent</span></label>
+      <div id="mqE1_1_10" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(167,139,250,.08);border-left:3px solid #a78bfa;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">Carbon has 4 valence electrons and forms exactly 4 covalent bonds (tetravalent). This allows it to bond to H, O, N, halogens, and other C atoms in many combinations.</div>
+    </div>
+
+    <div style="text-align:center;">
+      <button onclick="submitMQu1('1_1',10)" style="background:#a78bfa;color:#000;border:none;padding:9px 30px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:.85rem;font-weight:700;cursor:pointer;">Check Answers</button>
+      <div id="mqRES1_1" style="display:none;margin-top:10px;border-radius:7px;padding:12px;font-family:'JetBrains Mono',monospace;font-size:.85rem;text-align:center;"></div>
+    </div>
+  </div>
+</div>
   <span class="section-number">1.2</span>
   <h2>Types of Formulas for Organic Compounds</h2>
 </div>
@@ -560,6 +717,122 @@ IUPAC name:   butane
 
 <!-- ═══════════ 1.3 FUNCTIONAL GROUPS ═══════════ -->
 <div class="section-header reveal" id="s3">
+
+<!-- SUBUNIT 1_2 QUICK QUIZ -->
+<div style="background:var(--surface);border:1px solid rgba(52,211,153,.25);border-radius:10px;overflow:hidden;margin:28px 0 40px;">
+  <div style="background:rgba(52,211,153,.08);border-bottom:1px solid rgba(52,211,153,.25);padding:14px 22px;display:flex;align-items:center;justify-content:space-between;">
+    <div><div style="font-family:'JetBrains Mono',monospace;font-size:.68rem;color:#34d399;text-transform:uppercase;letter-spacing:.1em;">Quick Quiz</div><strong style="color:#fff;font-family:'Playfair Display',serif;">1.2 Types of Formulas</strong></div>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);">10 Questions</span>
+  </div>
+  <div style="padding:20px 22px;">
+    <script>window._EMQA=window._EMQA||{};window._EMQA["1_2"]={1:2,2:3,3:0,4:1,5:3,6:0,7:0,8:1,9:2,10:0};</script>
+
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#34d399;margin-bottom:6px;">Q1</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The molecular formula of a compound shows:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_2_1_A"><input type="radio" name="mq1_2_1" value="A" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>How atoms are connected</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_2_1_B"><input type="radio" name="mq1_2_1" value="B" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>The total number of each type of atom in one molecule</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_2_1_C"><input type="radio" name="mq1_2_1" value="C" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>The simplest whole-number ratio of atoms</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_2_1_D"><input type="radio" name="mq1_2_1" value="D" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>The 3D shape of the molecule</span></label>
+      <div id="mqE1_2_1" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(52,211,153,.08);border-left:3px solid #34d399;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">The molecular formula (e.g. C₄H₁₀ for butane) gives the actual number of each element in one molecule. It does not show bonding or structure.</div>
+    </div>
+
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#34d399;margin-bottom:6px;">Q2</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The empirical formula of butane (C₄H₁₀) is:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_2_2_A"><input type="radio" name="mq1_2_2" value="A" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>C₄H₁₀</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_2_2_B"><input type="radio" name="mq1_2_2" value="B" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>C₂H₅</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_2_2_C"><input type="radio" name="mq1_2_2" value="C" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>CH₂</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_2_2_D"><input type="radio" name="mq1_2_2" value="D" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>C₂H₆</span></label>
+      <div id="mqE1_2_2" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(52,211,153,.08);border-left:3px solid #34d399;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">The empirical formula is the simplest whole-number ratio. C₄H₁₀: divide by 2 → C₂H₅. It cannot be simplified further (2 and 5 share no common factor).</div>
+    </div>
+
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#34d399;margin-bottom:6px;">Q3</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">A structural formula shows:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_2_3_A"><input type="radio" name="mq1_2_3" value="A" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Only the molecular mass</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_2_3_B"><input type="radio" name="mq1_2_3" value="B" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>How all atoms are connected — showing all bonds explicitly</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_2_3_C"><input type="radio" name="mq1_2_3" value="C" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Only the type of atoms present</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_2_3_D"><input type="radio" name="mq1_2_3" value="D" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>The 3D arrangement of atoms</span></label>
+      <div id="mqE1_2_3" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(52,211,153,.08);border-left:3px solid #34d399;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">The structural formula (also called displayed or full structural formula) shows every bond (C–H, C–C, etc.) between all atoms, making the connectivity clear.</div>
+    </div>
+
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#34d399;margin-bottom:6px;">Q4</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">A skeletal (line-angle) formula represents:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_2_4_A"><input type="radio" name="mq1_2_4" value="A" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Only the carbon skeleton without hydrogens</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_2_4_B"><input type="radio" name="mq1_2_4" value="B" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Each vertex and line end as a carbon atom; hydrogens on carbons are implied</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_2_4_C"><input type="radio" name="mq1_2_4" value="C" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>The 3D shape with bond angles</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_2_4_D"><input type="radio" name="mq1_2_4" value="D" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Only the functional group</span></label>
+      <div id="mqE1_2_4" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(52,211,153,.08);border-left:3px solid #34d399;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">In skeletal formulas, each bend/end of a line = a carbon. Hydrogens on carbons are not shown — assumed to complete carbon's 4 bonds. Functional groups and heteroatoms ARE shown.</div>
+    </div>
+
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#34d399;margin-bottom:6px;">Q5</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The condensed structural formula CH₃CH₂CH₂CH₃ represents:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_2_5_A"><input type="radio" name="mq1_2_5" value="A" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Methane</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_2_5_B"><input type="radio" name="mq1_2_5" value="B" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Propane</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_2_5_C"><input type="radio" name="mq1_2_5" value="C" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Butane</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_2_5_D"><input type="radio" name="mq1_2_5" value="D" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Ethane</span></label>
+      <div id="mqE1_2_5" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(52,211,153,.08);border-left:3px solid #34d399;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">CH₃CH₂CH₂CH₃ = 4 carbons in a row = butane (C₄H₁₀). Condensed formulas show the carbon chain with H atoms grouped, without drawing each bond.</div>
+    </div>
+
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#34d399;margin-bottom:6px;">Q6</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Which formula type gives the MOST information about a molecule?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_2_6_A"><input type="radio" name="mq1_2_6" value="A" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Molecular formula</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_2_6_B"><input type="radio" name="mq1_2_6" value="B" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Empirical formula</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_2_6_C"><input type="radio" name="mq1_2_6" value="C" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Structural (displayed) formula</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_2_6_D"><input type="radio" name="mq1_2_6" value="D" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>General formula</span></label>
+      <div id="mqE1_2_6" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(52,211,153,.08);border-left:3px solid #34d399;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">The structural (displayed) formula shows all atoms AND all bonds, revealing both the composition and connectivity. Molecular formula shows only composition.</div>
+    </div>
+
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#34d399;margin-bottom:6px;">Q7</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Glucose has molecular formula C₆H₁₂O₆. Its empirical formula is:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_2_7_A"><input type="radio" name="mq1_2_7" value="A" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>C₆H₁₂O₆</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_2_7_B"><input type="radio" name="mq1_2_7" value="B" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>CH₂O</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_2_7_C"><input type="radio" name="mq1_2_7" value="C" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>C₃H₆O₃</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_2_7_D"><input type="radio" name="mq1_2_7" value="D" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>C₂H₄O₂</span></label>
+      <div id="mqE1_2_7" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(52,211,153,.08);border-left:3px solid #34d399;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">Simplify C₆H₁₂O₆ by dividing all by 6: CH₂O. This is the empirical formula — the simplest whole-number ratio (1:2:1 for C:H:O).</div>
+    </div>
+
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#34d399;margin-bottom:6px;">Q8</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Two compounds can have the same molecular formula but different structural formulas. These are called:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_2_8_A"><input type="radio" name="mq1_2_8" value="A" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Isotopes</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_2_8_B"><input type="radio" name="mq1_2_8" value="B" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Isomers</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_2_8_C"><input type="radio" name="mq1_2_8" value="C" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Allotropes</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_2_8_D"><input type="radio" name="mq1_2_8" value="D" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Polymers</span></label>
+      <div id="mqE1_2_8" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(52,211,153,.08);border-left:3px solid #34d399;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">Isomers have the same molecular formula but different structural arrangements. For example, butane and methylpropane both have C₄H₁₀ but different carbon skeletons.</div>
+    </div>
+
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#34d399;margin-bottom:6px;">Q9</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">In a skeletal formula, a straight-line segment represents:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_2_9_A"><input type="radio" name="mq1_2_9" value="A" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>One hydrogen atom</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_2_9_B"><input type="radio" name="mq1_2_9" value="B" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>A C–C bond with both carbon atoms at each end (H atoms implied)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_2_9_C"><input type="radio" name="mq1_2_9" value="C" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>An oxygen atom</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_2_9_D"><input type="radio" name="mq1_2_9" value="D" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>A double bond only</span></label>
+      <div id="mqE1_2_9" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(52,211,153,.08);border-left:3px solid #34d399;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">Each line segment in a skeletal formula represents a C–C bond. The carbon at each end is understood; its remaining bonds are to (implied) hydrogen atoms.</div>
+    </div>
+
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#34d399;margin-bottom:6px;">Q10</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The general formula CₙH₂ₙ₊₂ represents which homologous series?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_2_10_A"><input type="radio" name="mq1_2_10" value="A" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Alkenes</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_2_10_B"><input type="radio" name="mq1_2_10" value="B" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Alcohols</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_2_10_C"><input type="radio" name="mq1_2_10" value="C" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Alkanes</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_2_10_D"><input type="radio" name="mq1_2_10" value="D" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Alkynes</span></label>
+      <div id="mqE1_2_10" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(52,211,153,.08);border-left:3px solid #34d399;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">CₙH₂ₙ₊₂ is the general formula for alkanes — saturated hydrocarbons. For n=1: CH₄ (methane); n=2: C₂H₆ (ethane); n=3: C₃H₈ (propane).</div>
+    </div>
+
+    <div style="text-align:center;">
+      <button onclick="submitMQu1('1_2',10)" style="background:#34d399;color:#000;border:none;padding:9px 30px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:.85rem;font-weight:700;cursor:pointer;">Check Answers</button>
+      <div id="mqRES1_2" style="display:none;margin-top:10px;border-radius:7px;padding:12px;font-family:'JetBrains Mono',monospace;font-size:.85rem;text-align:center;"></div>
+    </div>
+  </div>
+</div>
   <span class="section-number">1.3</span>
   <h2>Functional Groups and Homologous Series</h2>
 </div>
@@ -623,6 +896,122 @@ IUPAC name:   butane
 
 <!-- ═══════════ 1.4 IUPAC NOMENCLATURE ═══════════ -->
 <div class="section-header reveal" id="s4">
+
+<!-- SUBUNIT 1_3 QUICK QUIZ -->
+<div style="background:var(--surface);border:1px solid rgba(245,158,11,.25);border-radius:10px;overflow:hidden;margin:28px 0 40px;">
+  <div style="background:rgba(245,158,11,.08);border-bottom:1px solid rgba(245,158,11,.25);padding:14px 22px;display:flex;align-items:center;justify-content:space-between;">
+    <div><div style="font-family:'JetBrains Mono',monospace;font-size:.68rem;color:#f59e0b;text-transform:uppercase;letter-spacing:.1em;">Quick Quiz</div><strong style="color:#fff;font-family:'Playfair Display',serif;">1.3 Functional Groups & Homologous Series</strong></div>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);">10 Questions</span>
+  </div>
+  <div style="padding:20px 22px;">
+    <script>window._EMQA=window._EMQA||{};window._EMQA["1_3"]={1:2,2:3,3:1,4:1,5:2,6:3,7:0,8:1,9:2,10:3};</script>
+
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#f59e0b;margin-bottom:6px;">Q1</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">A functional group is:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_3_1_A"><input type="radio" name="mq1_3_1" value="A" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>The longest carbon chain</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_3_1_B"><input type="radio" name="mq1_3_1" value="B" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>An atom or group of atoms responsible for the characteristic chemical reactions of a compound</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_3_1_C"><input type="radio" name="mq1_3_1" value="C" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>The molecular formula of a compound</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_3_1_D"><input type="radio" name="mq1_3_1" value="D" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>The carbon backbone</span></label>
+      <div id="mqE1_3_1" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(245,158,11,.08);border-left:3px solid #f59e0b;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">The functional group determines the chemical behaviour of the molecule. The rest of the molecule (the alkyl group, R–) does not change the characteristic reactions.</div>
+    </div>
+
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#f59e0b;margin-bottom:6px;">Q2</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Members of a homologous series differ from each other by:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_3_2_A"><input type="radio" name="mq1_3_2" value="A" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>A different functional group</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_3_2_B"><input type="radio" name="mq1_3_2" value="B" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>A –CH₂– unit each time</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_3_2_C"><input type="radio" name="mq1_3_2" value="C" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>One carbon only at the end</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_3_2_D"><input type="radio" name="mq1_3_2" value="D" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>Two hydrogen atoms only</span></label>
+      <div id="mqE1_3_2" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(245,158,11,.08);border-left:3px solid #f59e0b;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">Each consecutive member of a homologous series has one more –CH₂– unit (14 mass units) than the previous. They share the same functional group and general formula.</div>
+    </div>
+
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#f59e0b;margin-bottom:6px;">Q3</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The functional group of alcohols is:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_3_3_A"><input type="radio" name="mq1_3_3" value="A" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>–COOH</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_3_3_B"><input type="radio" name="mq1_3_3" value="B" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>–CHO</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_3_3_C"><input type="radio" name="mq1_3_3" value="C" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>–OH (hydroxyl group)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_3_3_D"><input type="radio" name="mq1_3_3" value="D" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>–NH₂</span></label>
+      <div id="mqE1_3_3" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(245,158,11,.08);border-left:3px solid #f59e0b;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">Alcohols contain the –OH (hydroxyl) functional group. General formula: CₙH₂ₙ₊₁OH. Example: ethanol C₂H₅OH.</div>
+    </div>
+
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#f59e0b;margin-bottom:6px;">Q4</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Which functional group identifies a carboxylic acid?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_3_4_A"><input type="radio" name="mq1_3_4" value="A" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>–OH</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_3_4_B"><input type="radio" name="mq1_3_4" value="B" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>–COOH (carboxyl group)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_3_4_C"><input type="radio" name="mq1_3_4" value="C" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>–CHO</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_3_4_D"><input type="radio" name="mq1_3_4" value="D" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>–CO–</span></label>
+      <div id="mqE1_3_4" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(245,158,11,.08);border-left:3px solid #f59e0b;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">Carboxylic acids contain –COOH. General formula: CₙH₂ₙO₂. Example: ethanoic acid (CH₃COOH). The –COOH group acts as both a C=O and an –OH.</div>
+    </div>
+
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#f59e0b;margin-bottom:6px;">Q5</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Alkenes belong to a homologous series with which functional group?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_3_5_A"><input type="radio" name="mq1_3_5" value="A" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>C≡C triple bond</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_3_5_B"><input type="radio" name="mq1_3_5" value="B" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>C=C double bond</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_3_5_C"><input type="radio" name="mq1_3_5" value="C" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>–OH</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_3_5_D"><input type="radio" name="mq1_3_5" value="D" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>–COOH</span></label>
+      <div id="mqE1_3_5" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(245,158,11,.08);border-left:3px solid #f59e0b;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">Alkenes contain the C=C functional group (double bond). General formula: CₙH₂ₙ. Example for n=2: ethene C₂H₄.</div>
+    </div>
+
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#f59e0b;margin-bottom:6px;">Q6</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Why do boiling points increase as chain length increases within a homologous series?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_3_6_A"><input type="radio" name="mq1_3_6" value="A" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>Larger molecules are more ionic</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_3_6_B"><input type="radio" name="mq1_3_6" value="B" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>Larger molecules have more electrons → stronger van der Waals forces → more energy needed to separate them</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_3_6_C"><input type="radio" name="mq1_3_6" value="C" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>Larger molecules have stronger covalent bonds</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_3_6_D"><input type="radio" name="mq1_3_6" value="D" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>The functional group changes</span></label>
+      <div id="mqE1_3_6" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(245,158,11,.08);border-left:3px solid #f59e0b;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">As chain length increases, the number of electrons increases → stronger London dispersion (van der Waals) forces between molecules → higher boiling point. All members share the same functional group.</div>
+    </div>
+
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#f59e0b;margin-bottom:6px;">Q7</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Aldehydes and ketones both have the general formula CₙH₂ₙO and contain:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_3_7_A"><input type="radio" name="mq1_3_7" value="A" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>A hydroxyl group (–OH)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_3_7_B"><input type="radio" name="mq1_3_7" value="B" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>A carbonyl group (C=O)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_3_7_C"><input type="radio" name="mq1_3_7" value="C" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>A carboxyl group (–COOH)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_3_7_D"><input type="radio" name="mq1_3_7" value="D" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>An amino group (–NH₂)</span></label>
+      <div id="mqE1_3_7" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(245,158,11,.08);border-left:3px solid #f59e0b;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">Both aldehydes (–CHO, where C=O is at the end of the chain) and ketones (–CO–, where C=O is in the middle) contain the carbonyl group C=O.</div>
+    </div>
+
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#f59e0b;margin-bottom:6px;">Q8</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The functional group –NH₂ identifies:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_3_8_A"><input type="radio" name="mq1_3_8" value="A" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>Amides</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_3_8_B"><input type="radio" name="mq1_3_8" value="B" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>Amines</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_3_8_C"><input type="radio" name="mq1_3_8" value="C" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>Alcohols</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_3_8_D"><input type="radio" name="mq1_3_8" value="D" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>Nitriles</span></label>
+      <div id="mqE1_3_8" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(245,158,11,.08);border-left:3px solid #f59e0b;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">Amines contain the –NH₂ (amino) group. General formula: CₙH₂ₙ₊₁NH₂. Example: ethylamine C₂H₅NH₂. They are organic derivatives of ammonia.</div>
+    </div>
+
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#f59e0b;margin-bottom:6px;">Q9</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Members of the same homologous series have:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_3_9_A"><input type="radio" name="mq1_3_9" value="A" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>Identical physical properties</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_3_9_B"><input type="radio" name="mq1_3_9" value="B" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>Similar chemical properties but gradually changing physical properties</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_3_9_C"><input type="radio" name="mq1_3_9" value="C" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>Different functional groups</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_3_9_D"><input type="radio" name="mq1_3_9" value="D" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>The same molecular formula</span></label>
+      <div id="mqE1_3_9" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(245,158,11,.08);border-left:3px solid #f59e0b;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">A homologous series has: (i) same functional group → similar chemistry; (ii) differ by –CH₂– → gradual change in physical properties (bp, mp, density, solubility).</div>
+    </div>
+
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#f59e0b;margin-bottom:6px;">Q10</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The ester functional group is:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_3_10_A"><input type="radio" name="mq1_3_10" value="A" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>–COOH</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_3_10_B"><input type="radio" name="mq1_3_10" value="B" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>–COO– (between the C=O and O–C groups)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_3_10_C"><input type="radio" name="mq1_3_10" value="C" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>–CHO</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_3_10_D"><input type="radio" name="mq1_3_10" value="D" style="margin-top:3px;accent-color:#f59e0b;flex-shrink:0;"> <span>–CO–</span></label>
+      <div id="mqE1_3_10" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(245,158,11,.08);border-left:3px solid #f59e0b;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">Esters contain the –COO– linkage (–CO–O–). General formula: CₙH₂ₙO₂. Example: methyl ethanoate CH₃COOCH₃. Formed from carboxylic acid + alcohol.</div>
+    </div>
+
+    <div style="text-align:center;">
+      <button onclick="submitMQu1('1_3',10)" style="background:#f59e0b;color:#000;border:none;padding:9px 30px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:.85rem;font-weight:700;cursor:pointer;">Check Answers</button>
+      <div id="mqRES1_3" style="display:none;margin-top:10px;border-radius:7px;padding:12px;font-family:'JetBrains Mono',monospace;font-size:.85rem;text-align:center;"></div>
+    </div>
+  </div>
+</div>
   <span class="section-number">1.4</span>
   <h2>General Rules of IUPAC Nomenclature</h2>
 </div>
@@ -679,6 +1068,122 @@ IUPAC name:   butane
 <!-- ═══════════ WORKED EXAMPLES ═══════════ -->
 <div class="section-header reveal" id="examples">
   <span class="section-number">★</span>
+
+<!-- SUBUNIT 1_4 QUICK QUIZ -->
+<div style="background:var(--surface);border:1px solid rgba(248,113,113,.25);border-radius:10px;overflow:hidden;margin:28px 0 40px;">
+  <div style="background:rgba(248,113,113,.08);border-bottom:1px solid rgba(248,113,113,.25);padding:14px 22px;display:flex;align-items:center;justify-content:space-between;">
+    <div><div style="font-family:'JetBrains Mono',monospace;font-size:.68rem;color:#f87171;text-transform:uppercase;letter-spacing:.1em;">Quick Quiz</div><strong style="color:#fff;font-family:'Playfair Display',serif;">1.4 IUPAC Nomenclature</strong></div>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);">10 Questions</span>
+  </div>
+  <div style="padding:20px 22px;">
+    <script>window._EMQA=window._EMQA||{};window._EMQA["1_4"]={1:1,2:3,3:1,4:1,5:2,6:3,7:0,8:1,9:2,10:1};</script>
+
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#f87171;margin-bottom:6px;">Q1</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">IUPAC stands for:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_4_1_A"><input type="radio" name="mq1_4_1" value="A" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>International Union of Pure and Applied Chemistry</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_4_1_B"><input type="radio" name="mq1_4_1" value="B" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>International University of Pure and Applied Chemistry</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_4_1_C"><input type="radio" name="mq1_4_1" value="C" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>International Union of Physical and Applied Chemistry</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_4_1_D"><input type="radio" name="mq1_4_1" value="D" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>International Union of Polymer and Applied Chemistry</span></label>
+      <div id="mqE1_4_1" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(248,113,113,.08);border-left:3px solid #f87171;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">IUPAC = International Union of Pure and Applied Chemistry. Their systematic naming rules give every organic compound a unique name that reveals its structure.</div>
+    </div>
+
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#f87171;margin-bottom:6px;">Q2</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">In an IUPAC name, the ROOT (stem) of the name tells you:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_4_2_A"><input type="radio" name="mq1_4_2" value="A" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>The type of functional group</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_4_2_B"><input type="radio" name="mq1_4_2" value="B" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>The length of the longest carbon chain containing the principal functional group</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_4_2_C"><input type="radio" name="mq1_4_2" value="C" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>The position of substituents</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_4_2_D"><input type="radio" name="mq1_4_2" value="D" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>The number of branches</span></label>
+      <div id="mqE1_4_2" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(248,113,113,.08);border-left:3px solid #f87171;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">The root/stem is derived from the number of carbons in the longest chain: meth(1), eth(2), prop(3), but(4), pent(5), hex(6), hept(7), oct(8), non(9), dec(10).</div>
+    </div>
+
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#f87171;margin-bottom:6px;">Q3</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The suffix –ol in an IUPAC name indicates:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_4_3_A"><input type="radio" name="mq1_4_3" value="A" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>An aldehyde</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_4_3_B"><input type="radio" name="mq1_4_3" value="B" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>A ketone</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_4_3_C"><input type="radio" name="mq1_4_3" value="C" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>An alcohol</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_4_3_D"><input type="radio" name="mq1_4_3" value="D" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>A carboxylic acid</span></label>
+      <div id="mqE1_4_3" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(248,113,113,.08);border-left:3px solid #f87171;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">The suffix shows the principal functional group. –ol = alcohol; –al = aldehyde; –one = ketone; –oic acid = carboxylic acid; –ane = alkane; –ene = alkene; –yne = alkyne.</div>
+    </div>
+
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#f87171;margin-bottom:6px;">Q4</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">When numbering the carbon chain for IUPAC naming, you start from the end that gives:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_4_4_A"><input type="radio" name="mq1_4_4" value="A" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>The highest numbers to substituents</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_4_4_B"><input type="radio" name="mq1_4_4" value="B" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>The lowest possible locants (numbers) to the principal functional group or first substituent</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_4_4_C"><input type="radio" name="mq1_4_4" value="C" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>Always from left to right</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_4_4_D"><input type="radio" name="mq1_4_4" value="D" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>Always from the branch end</span></label>
+      <div id="mqE1_4_4" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(248,113,113,.08);border-left:3px solid #f87171;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">Rule 2: Number from the end closest to the principal functional group to give the lowest possible locants. If no functional group, number from the end closest to the first branch.</div>
+    </div>
+
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#f87171;margin-bottom:6px;">Q5</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">A compound has the name 2-methylpropane. How many carbons are in the longest chain?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_4_5_A"><input type="radio" name="mq1_4_5" value="A" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>2</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_4_5_B"><input type="radio" name="mq1_4_5" value="B" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>3</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_4_5_C"><input type="radio" name="mq1_4_5" value="C" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>4</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_4_5_D"><input type="radio" name="mq1_4_5" value="D" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>5</span></label>
+      <div id="mqE1_4_5" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(248,113,113,.08);border-left:3px solid #f87171;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">'Prop' = 3 carbons in the longest chain. '2-methyl' = a methyl branch at carbon 2. Total carbons = 4 (3 in chain + 1 methyl), but the longest continuous chain = 3.</div>
+    </div>
+
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#f87171;margin-bottom:6px;">Q6</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The prefix 'di-' in 2,3-dimethylbutane means:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_4_6_A"><input type="radio" name="mq1_4_6" value="A" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>Two different substituents</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_4_6_B"><input type="radio" name="mq1_4_6" value="B" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>Two methyl groups on the same molecule</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_4_6_C"><input type="radio" name="mq1_4_6" value="C" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>Two double bonds</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_4_6_D"><input type="radio" name="mq1_4_6" value="D" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>Two different chains</span></label>
+      <div id="mqE1_4_6" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(248,113,113,.08);border-left:3px solid #f87171;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">Di- means two identical substituents. 2,3-dimethylbutane has two methyl groups: one at C2 and one at C3 of a butane (4-carbon) chain.</div>
+    </div>
+
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#f87171;margin-bottom:6px;">Q7</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">When two different substituents are present, they are listed in IUPAC names:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_4_7_A"><input type="radio" name="mq1_4_7" value="A" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>In order of size (largest first)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_4_7_B"><input type="radio" name="mq1_4_7" value="B" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>Alphabetically (ignoring di-, tri-, etc.)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_4_7_C"><input type="radio" name="mq1_4_7" value="C" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>In order of their position number</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_4_7_D"><input type="radio" name="mq1_4_7" value="D" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>In order of their molecular mass</span></label>
+      <div id="mqE1_4_7" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(248,113,113,.08);border-left:3px solid #f87171;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">Rule 5: alphabetical order of substituent names, ignoring multiplying prefixes (di-, tri-). So 'bromo' comes before 'chloro'; 'ethyl' before 'methyl'.</div>
+    </div>
+
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#f87171;margin-bottom:6px;">Q8</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The compound CH₃CH₂CH₂OH has the IUPAC name:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_4_8_A"><input type="radio" name="mq1_4_8" value="A" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>Ethanol</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_4_8_B"><input type="radio" name="mq1_4_8" value="B" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>Propan-1-ol</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_4_8_C"><input type="radio" name="mq1_4_8" value="C" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>Propan-2-ol</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_4_8_D"><input type="radio" name="mq1_4_8" value="D" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>Methanol</span></label>
+      <div id="mqE1_4_8" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(248,113,113,.08);border-left:3px solid #f87171;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">3-carbon chain (prop-), –OH at carbon 1 (–1-ol) → propan-1-ol. The hydroxyl group is at the end carbon (C1), giving the lowest locant.</div>
+    </div>
+
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#f87171;margin-bottom:6px;">Q9</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The compound CH₃COCH₃ (propanone) has which functional group?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_4_9_A"><input type="radio" name="mq1_4_9" value="A" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>–OH at carbon 2</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_4_9_B"><input type="radio" name="mq1_4_9" value="B" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>–CO– (ketone carbonyl) at carbon 2</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_4_9_C"><input type="radio" name="mq1_4_9" value="C" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>–CHO at carbon 1</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_4_9_D"><input type="radio" name="mq1_4_9" value="D" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>–COOH at carbon 1</span></label>
+      <div id="mqE1_4_9" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(248,113,113,.08);border-left:3px solid #f87171;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">Propanone: 3-carbon chain, C=O at carbon 2 (middle) → ketone. The suffix is –one. IUPAC: propan-2-one (or propanone, since the 2 is the only possibility).</div>
+    </div>
+
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#f87171;margin-bottom:6px;">Q10</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Which IUPAC suffix indicates a carboxylic acid?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_4_10_A"><input type="radio" name="mq1_4_10" value="A" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>–ane</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_4_10_B"><input type="radio" name="mq1_4_10" value="B" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>–ol</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_4_10_C"><input type="radio" name="mq1_4_10" value="C" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>–al</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;transition:border-color .15s;" id="mqL1_4_10_D"><input type="radio" name="mq1_4_10" value="D" style="margin-top:3px;accent-color:#f87171;flex-shrink:0;"> <span>–oic acid</span></label>
+      <div id="mqE1_4_10" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(248,113,113,.08);border-left:3px solid #f87171;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;">The suffix –oic acid indicates a carboxylic acid (–COOH). Examples: methanoic acid (HCOOH), ethanoic acid (CH₃COOH), propanoic acid (CH₃CH₂COOH).</div>
+    </div>
+
+    <div style="text-align:center;">
+      <button onclick="submitMQu1('1_4',10)" style="background:#f87171;color:#000;border:none;padding:9px 30px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:.85rem;font-weight:700;cursor:pointer;">Check Answers</button>
+      <div id="mqRES1_4" style="display:none;margin-top:10px;border-radius:7px;padding:12px;font-family:'JetBrains Mono',monospace;font-size:.85rem;text-align:center;"></div>
+    </div>
+  </div>
+</div>
   <h2>Worked Examples</h2>
 </div>
 
@@ -888,7 +1393,283 @@ IUPAC name:   butane
     <h3>Multiple Choice Quiz</h3>
     <span class="quiz-meta">10 Questions · Select best answer</span>
   </div>
-  <div class="quiz-body" id="quizBody"></div>
+  <div class="quiz-body" id="quizBody">
+      <div class="q-block">
+        <span class="q-num">Q1</span>
+        <p class="q-text">Organic chemistry is defined as the study of:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q1" value="a"> All compounds found in living things</label>
+          <label class="opt"><input type="radio" name="q1" value="b"> Compounds of carbon (with some exceptions like CO₂, carbonates, carbides)</label>
+          <label class="opt"><input type="radio" name="q1" value="c"> Compounds containing only C, H, and O</label>
+          <label class="opt"><input type="radio" name="q1" value="d"> Compounds that can be set on fire</label>
+        </div>
+        <div class="q-exp" id="exp1">Organic chemistry = chemistry of carbon compounds. Exceptions include CO, CO₂, H₂CO₃, metal carbonates — these are treated as inorganic.</div>
+      </div>
+      <div class="q-block">
+        <span class="q-num">Q2</span>
+        <p class="q-text">Which of the following is NOT an organic compound?</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q2" value="a"> CH₄ (methane)</label>
+          <label class="opt"><input type="radio" name="q2" value="b"> C₂H₅OH (ethanol)</label>
+          <label class="opt"><input type="radio" name="q2" value="c"> Na₂CO₃ (sodium carbonate)</label>
+          <label class="opt"><input type="radio" name="q2" value="d"> C₆H₁₂O₆ (glucose)</label>
+        </div>
+        <div class="q-exp" id="exp2">Na₂CO₃ is inorganic — it contains no C–H bonds. Organic compounds must have carbon atoms bonded to hydrogen.</div>
+      </div>
+      <div class="q-block">
+        <span class="q-num">Q3</span>
+        <p class="q-text">A homologous series is a group of compounds that:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q3" value="a"> Have the same molecular formula</label>
+          <label class="opt"><input type="radio" name="q3" value="b"> Differ by a –CH₂– unit, share the same general formula and functional group, and show gradual property changes</label>
+          <label class="opt"><input type="radio" name="q3" value="c"> Have identical physical properties</label>
+          <label class="opt"><input type="radio" name="q3" value="d"> Contain only carbon and hydrogen</label>
+        </div>
+        <div class="q-exp" id="exp3">Each successive member adds CH₂. Same functional group → similar chemical properties. Gradual change in physical properties (bp, mp, density).</div>
+      </div>
+      <div class="q-block">
+        <span class="q-num">Q4</span>
+        <p class="q-text">The molecular formula shows:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q4" value="a"> How atoms are arranged in space</label>
+          <label class="opt"><input type="radio" name="q4" value="b"> The actual number of each type of atom in one molecule</label>
+          <label class="opt"><input type="radio" name="q4" value="c"> The simplest whole-number ratio of atoms</label>
+          <label class="opt"><input type="radio" name="q4" value="d"> The 3D shape of the molecule</label>
+        </div>
+        <div class="q-exp" id="exp4">Molecular formula: e.g. C₄H₁₀ tells you there are exactly 4 C and 10 H atoms per molecule. No bonding information.</div>
+      </div>
+      <div class="q-block">
+        <span class="q-num">Q5</span>
+        <p class="q-text">The empirical formula of glucose (C₆H₁₂O₆) is:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q5" value="a"> C₆H₁₂O₆</label>
+          <label class="opt"><input type="radio" name="q5" value="b"> CH₂O</label>
+          <label class="opt"><input type="radio" name="q5" value="c"> C₂H₄O₂</label>
+          <label class="opt"><input type="radio" name="q5" value="d"> CHO</label>
+        </div>
+        <div class="q-exp" id="exp5">Divide all subscripts by their GCF (6): C₆H₁₂O₆ → CH₂O. Empirical formula = simplest whole-number ratio.</div>
+      </div>
+      <div class="q-block">
+        <span class="q-num">Q6</span>
+        <p class="q-text">A structural formula shows:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q6" value="a"> Only the molecular formula</label>
+          <label class="opt"><input type="radio" name="q6" value="b"> How atoms are bonded together — all bonds between atoms are shown</label>
+          <label class="opt"><input type="radio" name="q6" value="c"> The 3D arrangement of atoms</label>
+          <label class="opt"><input type="radio" name="q6" value="d"> Only the carbon skeleton</label>
+        </div>
+        <div class="q-exp" id="exp6">Structural formula shows every bond explicitly (full structural) or condensed (CH₃–CH₂–OH). Reveals connectivity of atoms.</div>
+      </div>
+      <div class="q-block">
+        <span class="q-num">Q7</span>
+        <p class="q-text">The general formula for alkanes is:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q7" value="a"> CₙH₂ₙ</label>
+          <label class="opt"><input type="radio" name="q7" value="b"> CₙH₂ₙ₊₂</label>
+          <label class="opt"><input type="radio" name="q7" value="c"> CₙH₂ₙ₋₂</label>
+          <label class="opt"><input type="radio" name="q7" value="d"> CₙHₙ</label>
+        </div>
+        <div class="q-exp" id="exp7">Alkanes: saturated hydrocarbons. Each carbon forms 4 bonds. General formula CₙH₂ₙ₊₂. e.g. C₃H₈ (propane): 2×3+2=8 ✓</div>
+      </div>
+      <div class="q-block">
+        <span class="q-num">Q8</span>
+        <p class="q-text">A functional group is:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q8" value="a"> The longest carbon chain in a molecule</label>
+          <label class="opt"><input type="radio" name="q8" value="b"> An atom or group of atoms responsible for the characteristic chemical reactions of a compound</label>
+          <label class="opt"><input type="radio" name="q8" value="c"> The molecular formula of an organic compound</label>
+          <label class="opt"><input type="radio" name="q8" value="d"> The number of carbon atoms in a molecule</label>
+        </div>
+        <div class="q-exp" id="exp8">Functional groups (–OH, –COOH, –NH₂, C=O) determine reactivity. Different functional groups = different chemical behaviour.</div>
+      </div>
+      <div class="q-block">
+        <span class="q-num">Q9</span>
+        <p class="q-text">Which functional group is present in alcohols?</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q9" value="a"> –COOH (carboxyl)</label>
+          <label class="opt"><input type="radio" name="q9" value="b"> –OH (hydroxyl)</label>
+          <label class="opt"><input type="radio" name="q9" value="c"> –NH₂ (amino)</label>
+          <label class="opt"><input type="radio" name="q9" value="d"> –CHO (aldehyde)</label>
+        </div>
+        <div class="q-exp" id="exp9">Alcohols contain –OH group bonded to a carbon chain (not aromatic ring). e.g. ethanol CH₃CH₂OH.</div>
+      </div>
+      <div class="q-block">
+        <span class="q-num">Q10</span>
+        <p class="q-text">Isomers are compounds that:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q10" value="a"> Have the same structural formula</label>
+          <label class="opt"><input type="radio" name="q10" value="b"> Have the same molecular formula but different structural arrangements</label>
+          <label class="opt"><input type="radio" name="q10" value="c"> Have the same boiling point</label>
+          <label class="opt"><input type="radio" name="q10" value="d"> Contain the same functional group</label>
+        </div>
+        <div class="q-exp" id="exp10">Isomers: same molecular formula, different structures. e.g. C₄H₁₀ → n-butane and 2-methylpropane (branched). Different physical/chemical properties.</div>
+      </div>
+      <div class="q-block">
+        <span class="q-num">Q11</span>
+        <p class="q-text">In IUPAC nomenclature, the prefix 'but-' indicates:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q11" value="a"> 2 carbon atoms</label>
+          <label class="opt"><input type="radio" name="q11" value="b"> 3 carbon atoms</label>
+          <label class="opt"><input type="radio" name="q11" value="c"> 4 carbon atoms</label>
+          <label class="opt"><input type="radio" name="q11" value="d"> 5 carbon atoms</label>
+        </div>
+        <div class="q-exp" id="exp11">IUPAC prefixes: meth=1, eth=2, prop=3, but=4, pent=5, hex=6, hept=7, oct=8, non=9, dec=10.</div>
+      </div>
+      <div class="q-block">
+        <span class="q-num">Q12</span>
+        <p class="q-text">The IUPAC name of CH₃CH₂CH₂CH₃ is:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q12" value="a"> Propane</label>
+          <label class="opt"><input type="radio" name="q12" value="b"> Butane</label>
+          <label class="opt"><input type="radio" name="q12" value="c"> Pentane</label>
+          <label class="opt"><input type="radio" name="q12" value="d"> Methane</label>
+        </div>
+        <div class="q-exp" id="exp12">Count carbons: 4 C in a straight chain → but- prefix + -ane suffix (alkane) = butane.</div>
+      </div>
+      <div class="q-block">
+        <span class="q-num">Q13</span>
+        <p class="q-text">Saturated organic compounds contain:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q13" value="a"> At least one C=C double bond</label>
+          <label class="opt"><input type="radio" name="q13" value="b"> Only single C–C bonds (no double or triple bonds)</label>
+          <label class="opt"><input type="radio" name="q13" value="c"> A benzene ring</label>
+          <label class="opt"><input type="radio" name="q13" value="d"> A carbonyl group</label>
+        </div>
+        <div class="q-exp" id="exp13">Saturated = all C–C single bonds. Maximum number of H atoms possible. Alkanes are saturated hydrocarbons.</div>
+      </div>
+      <div class="q-block">
+        <span class="q-num">Q14</span>
+        <p class="q-text">Unsaturated compounds contain:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q14" value="a"> Only C–C single bonds</label>
+          <label class="opt"><input type="radio" name="q14" value="b"> One or more C=C double bonds or C≡C triple bonds</label>
+          <label class="opt"><input type="radio" name="q14" value="c"> Only hydrogen atoms</label>
+          <label class="opt"><input type="radio" name="q14" value="d"> Only oxygen atoms</label>
+        </div>
+        <div class="q-exp" id="exp14">Unsaturated = can add more H atoms. Alkenes (C=C), alkynes (C≡C), and aromatic compounds are unsaturated. Alkanes are saturated (only single bonds).</div>
+      </div>
+      <div class="q-block">
+        <span class="q-num">Q15</span>
+        <p class="q-text">The degree of unsaturation (DoU) formula for CₙHₘ is:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q15" value="a"> DoU = (2n + 2 – m)/2</label>
+          <label class="opt"><input type="radio" name="q15" value="b"> DoU = (n + 2 – m)/2</label>
+          <label class="opt"><input type="radio" name="q15" value="c"> DoU = (2n – m)/2</label>
+          <label class="opt"><input type="radio" name="q15" value="d"> DoU = n – m</label>
+        </div>
+        <div class="q-exp" id="exp15">DoU = (2n + 2 – m)/2 for CₙHₘ. Each degree = one ring or one π bond. e.g. benzene C₆H₆: (12+2–6)/2 = 4 (1 ring + 3 double bonds).</div>
+      </div>
+      <div class="q-block">
+        <span class="q-num">Q16</span>
+        <p class="q-text">The IUPAC suffix '-ol' indicates the presence of:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q16" value="a"> A ketone</label>
+          <label class="opt"><input type="radio" name="q16" value="b"> A hydroxyl group (alcohol)</label>
+          <label class="opt"><input type="radio" name="q16" value="c"> A carboxylic acid</label>
+          <label class="opt"><input type="radio" name="q16" value="d"> An aldehyde</label>
+        </div>
+        <div class="q-exp" id="exp16">IUPAC suffixes: -ol = alcohol, -al = aldehyde, -one = ketone, -oic acid = carboxylic acid, -amine = amine.</div>
+      </div>
+      <div class="q-block">
+        <span class="q-num">Q17</span>
+        <p class="q-text">Which represents a skeletal (line-angle) formula?</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q17" value="a"> CH₃CH₂CH₂OH</label>
+          <label class="opt"><input type="radio" name="q17" value="b"> A zigzag line where each vertex/end = a carbon atom, H atoms not shown</label>
+          <label class="opt"><input type="radio" name="q17" value="c"> C₃H₇OH</label>
+          <label class="opt"><input type="radio" name="q17" value="d"> Propan-1-ol</label>
+        </div>
+        <div class="q-exp" id="exp17">Skeletal formula: line = bond, each vertex/terminus = C with implied H atoms. Fastest to draw, most used by chemists.</div>
+      </div>
+      <div class="q-block">
+        <span class="q-num">Q18</span>
+        <p class="q-text">Carboxylic acids contain the functional group:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q18" value="a"> –OH only</label>
+          <label class="opt"><input type="radio" name="q18" value="b"> –COOH (carboxyl group = C=O and –OH on same carbon)</label>
+          <label class="opt"><input type="radio" name="q18" value="c"> –CHO</label>
+          <label class="opt"><input type="radio" name="q18" value="d"> –CO–</label>
+        </div>
+        <div class="q-exp" id="exp18">–COOH (carboxyl): a carbonyl (C=O) with an –OH on the same carbon. Gives acidic properties. e.g. ethanoic acid CH₃COOH.</div>
+      </div>
+      <div class="q-block">
+        <span class="q-num">Q19</span>
+        <p class="q-text">As the number of carbon atoms in a homologous series increases, the boiling point:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q19" value="a"> Decreases</label>
+          <label class="opt"><input type="radio" name="q19" value="b"> Increases — larger molecules have stronger van der Waals forces</label>
+          <label class="opt"><input type="radio" name="q19" value="c"> Stays the same</label>
+          <label class="opt"><input type="radio" name="q19" value="d"> First increases then decreases</label>
+        </div>
+        <div class="q-exp" id="exp19">More carbons → larger surface area → stronger London dispersion forces → higher boiling point. Smooth gradual trend in a homologous series.</div>
+      </div>
+      <div class="q-block">
+        <span class="q-num">Q20</span>
+        <p class="q-text">The IUPAC name of CH₃–CH(OH)–CH₃ is:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q20" value="a"> Propan-1-ol</label>
+          <label class="opt"><input type="radio" name="q20" value="b"> Propan-2-ol</label>
+          <label class="opt"><input type="radio" name="q20" value="c"> 2-methylpropan-1-ol</label>
+          <label class="opt"><input type="radio" name="q20" value="d"> Butan-2-ol</label>
+        </div>
+        <div class="q-exp" id="exp20">3 carbons (prop-), –OH on carbon 2 (-2-ol) → propan-2-ol. Number from end that gives lowest locant to the –OH group.</div>
+      </div>
+      <div class="q-block">
+        <span class="q-num">Q21</span>
+        <p class="q-text">A primary carbon atom is bonded to:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q21" value="a"> 3 other carbon atoms</label>
+          <label class="opt"><input type="radio" name="q21" value="b"> 1 other carbon atom (and 3 H)</label>
+          <label class="opt"><input type="radio" name="q21" value="c"> 2 other carbon atoms</label>
+          <label class="opt"><input type="radio" name="q21" value="d"> 4 other carbon atoms</label>
+        </div>
+        <div class="q-exp" id="exp21">1°C: bonded to 1 C. 2°C: bonded to 2 C. 3°C: bonded to 3 C. 4°C (quaternary): bonded to 4 C. Affects reactivity.</div>
+      </div>
+      <div class="q-block">
+        <span class="q-num">Q22</span>
+        <p class="q-text">Which pair are structural isomers?</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q22" value="a"> CH₄ and C₂H₆</label>
+          <label class="opt"><input type="radio" name="q22" value="b"> CH₃OCH₃ (dimethyl ether) and CH₃CH₂OH (ethanol) — both C₂H₆O</label>
+          <label class="opt"><input type="radio" name="q22" value="c"> C₂H₄ and C₂H₆</label>
+          <label class="opt"><input type="radio" name="q22" value="d"> CH₃COOH and HCOOCH₃</label>
+        </div>
+        <div class="q-exp" id="exp22">Dimethyl ether and ethanol both have molecular formula C₂H₆O but different connectivity → structural isomers.</div>
+      </div>
+      <div class="q-block">
+        <span class="q-num">Q23</span>
+        <p class="q-text">The prefix 'methyl-' in a branch name means:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q23" value="a"> The main chain has one carbon</label>
+          <label class="opt"><input type="radio" name="q23" value="b"> There is a –CH₃ group branching off the main chain</label>
+          <label class="opt"><input type="radio" name="q23" value="c"> The molecule contains a methanol group</label>
+          <label class="opt"><input type="radio" name="q23" value="d"> The compound is a methane derivative</label>
+        </div>
+        <div class="q-exp" id="exp23">Methyl (–CH₃) is a one-carbon substituent/branch. 2-methylpropane = propane main chain + CH₃ branch on C2.</div>
+      </div>
+      <div class="q-block">
+        <span class="q-num">Q24</span>
+        <p class="q-text">Which statement correctly describes a condensed structural formula?</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q24" value="a"> Shows only the molecular formula</label>
+          <label class="opt"><input type="radio" name="q24" value="b"> Shows all bonds explicitly</label>
+          <label class="opt"><input type="radio" name="q24" value="c"> Groups atoms on each carbon together (e.g. CH₃CH₂OH) without drawing all bonds</label>
+          <label class="opt"><input type="radio" name="q24" value="d"> Shows a 3D perspective</label>
+        </div>
+        <div class="q-exp" id="exp24">Condensed formula: atoms grouped by carbon but bonds not drawn (e.g. CH₃CH₂CH₃). Balance between detail and brevity.</div>
+      </div>
+      <div class="q-block">
+        <span class="q-num">Q25</span>
+        <p class="q-text">The IUPAC name of CH₃CH₂COOH is:</p>
+        <div class="options">
+          <label class="opt"><input type="radio" name="q25" value="a"> Ethanoic acid</label>
+          <label class="opt"><input type="radio" name="q25" value="b"> Propanoic acid</label>
+          <label class="opt"><input type="radio" name="q25" value="c"> Butanoic acid</label>
+          <label class="opt"><input type="radio" name="q25" value="d"> Methanoic acid</label>
+        </div>
+        <div class="q-exp" id="exp25">3 carbons in the longest chain including the COOH carbon → prop-. Carboxylic acid suffix = -anoic acid → propanoic acid.</div>
+      </div>
+  </div>
   <div class="score-display" id="scoreDisplay">
     <span class="score-num" id="scoreNum">—</span>
     <p class="score-msg" id="scoreMsg"></p>
@@ -960,161 +1741,239 @@ IUPAC name:   butane
 
 </main>
 
+
+
+
+
+<!-- ═══════════════════════════ UNIT QUIZ GATE ═══════════════════════════ -->
 <script>
-// ── Quiz Data ──
-const quizData = [
-  {
-    q:"Which of the following is classified as an organic compound?",
-    opts:["Carbon dioxide (CO₂)","Calcium carbonate (CaCO₃)","Ethanol (C₂H₅OH)","Sodium cyanide (NaCN)"],
-    ans:2,
-    exp:"Ethanol contains C–H bonds in a molecular compound. CO₂, CaCO₃, and NaCN are classified as inorganic despite containing carbon."
-  },
-  {
-    q:"The empirical formula of a compound is CH₂O and its molar mass is 180 g/mol. What is its molecular formula?",
-    opts:["CH₂O","C₃H₆O₃","C₆H₁₂O₆","C₄H₈O₄"],
-    ans:2,
-    exp:"Empirical formula mass of CH₂O = 12+2+16 = 30. n = 180/30 = 6. Molecular formula = (CH₂O)₆ = C₆H₁₂O₆ (glucose)."
-  },
-  {
-    q:"Which functional group is present in carboxylic acids?",
-    opts:["–OH","–CHO","–COOH","–CO–"],
-    ans:2,
-    exp:"Carboxylic acids contain the –COOH (carboxyl) group. –OH = alcohol, –CHO = aldehyde, –CO– = ketone."
-  },
-  {
-    q:"A compound with general formula CₙH₂ₙ belongs to which homologous series?",
-    opts:["Alkanes","Alkenes","Alkynes","Alcohols"],
-    ans:1,
-    exp:"Alkenes have the general formula CₙH₂ₙ. Alkanes = CₙH₂ₙ₊₂; Alkynes = CₙH₂ₙ₋₂."
-  },
-  {
-    q:"What is the IUPAC name of CH₃–CH(CH₃)–CH₂–CH₃?",
-    opts:["2-methylbutane","3-methylbutane","isopentane","2-methylpropane"],
-    ans:0,
-    exp:"The longest chain has 4 carbons (but-). There is a methyl branch on C2 → 2-methylbutane."
-  },
-  {
-    q:"Which statement about a homologous series is INCORRECT?",
-    opts:[
-      "Members differ by a –CH₂– unit",
-      "Members have the same functional group",
-      "Members have identical physical properties",
-      "Members show a gradual trend in boiling points"
-    ],
-    ans:2,
-    exp:"Members of a homologous series do NOT have identical physical properties — they show a GRADUAL change (e.g. increasing boiling point). All other statements are correct."
-  },
-  {
-    q:"The skeletal formula of a compound shows a zigzag with 4 line segments. How many carbon atoms does the molecule contain?",
-    opts:["4","5","6","8"],
-    ans:1,
-    exp:"In a skeletal formula, carbon atoms appear at every corner and at each end of the chain. 4 line segments → 5 carbon atoms."
-  },
-  {
-    q:"Which of the following is an aromatic compound?",
-    opts:["Cyclohexane","Hexane","Benzene","Cyclohexene"],
-    ans:2,
-    exp:"Benzene (C₆H₆) is the archetypal aromatic compound with a ring containing delocalized π electrons. Cyclohexane and cyclohexene are alicyclic; hexane is aliphatic."
-  },
-  {
-    q:"In IUPAC nomenclature, when two different substituents are present, how should they be listed?",
-    opts:[
-      "In order of increasing chain length",
-      "Alphabetically (ignoring di-, tri- etc.)",
-      "Numerically by their position numbers",
-      "In order of decreasing molecular mass"
-    ],
-    ans:1,
-    exp:"IUPAC rules require substituents to be listed alphabetically. The multiplying prefixes di-, tri-, tetra- are ignored when alphabetising (e.g. ethyl comes before methyl)."
-  },
-  {
-    q:"Which formula type shows the simplest whole-number ratio of atoms in a compound?",
-    opts:["Molecular formula","Structural formula","Displayed formula","Empirical formula"],
-    ans:3,
-    exp:"The empirical formula shows the simplest whole-number ratio of atoms. E.g. benzene C₆H₆ has empirical formula CH."
+(function(){
+  const CK='quiz_access_code', SK='quiz_access_granted';
+  const code=localStorage.getItem(CK);
+  if(!code) return;
+  if(sessionStorage.getItem(SK)) return;
+  const qw=document.querySelector('.quiz-wrap');
+  if(!qw) return;
+  function showGate(){
+    if(document.getElementById('_ugate')) return;
+    const g=document.createElement('div');
+    g.id='_ugate';
+    g.style.cssText='position:fixed;inset:0;background:#0d1117;z-index:99999;display:flex;align-items:center;justify-content:center;padding:24px;';
+    g.innerHTML=`
+      <div style="background:#161b22;border:2px solid rgba(245,158,11,.4);border-radius:16px;padding:44px 36px;max-width:440px;width:100%;text-align:center;">
+        <div style="font-size:3.5rem;margin-bottom:14px;">🔒</div>
+        <h2 style="font-family:'Playfair Display',serif;font-size:1.8rem;color:#fff;margin-bottom:10px;">Quiz Locked</h2>
+        <p style="color:#8b949e;font-size:.92rem;margin-bottom:20px;line-height:1.7;">Enter your teacher&#39;s access code to attempt this quiz.</p>
+        <input id="_ugate_inp" type="text" placeholder="Enter Code" maxlength="20" autocomplete="off"
+          style="width:100%;background:#1c2333;border:2px solid #30363d;border-radius:8px;color:#e6edf3;padding:13px 16px;font-family:'JetBrains Mono',monospace;font-size:1.4rem;text-align:center;letter-spacing:.2em;text-transform:uppercase;margin-bottom:10px;box-sizing:border-box;"
+          onkeydown="if(event.key==='Enter')window._ugateCheck()"/>
+        <div id="_ugate_err" style="font-family:'JetBrains Mono',monospace;font-size:.82rem;color:#f87171;min-height:20px;margin:6px 0 10px;"></div>
+        <button onclick="window._ugateCheck()" style="width:100%;background:#f59e0b;color:#000;border:none;padding:12px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.9rem;font-weight:700;cursor:pointer;margin-bottom:8px;">🔓 Unlock Quiz</button>
+        <button onclick="document.getElementById('_ugate').remove();document.body.style.overflow='';" style="width:100%;background:transparent;border:1px solid #30363d;color:#8b949e;padding:8px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.78rem;cursor:pointer;">✕ Cancel</button>
+      </div>`;
+    document.body.appendChild(g);
+    document.body.style.overflow='hidden';
+    setTimeout(()=>{const i=document.getElementById('_ugate_inp');if(i)i.focus();},100);
   }
-];
-
-let userAnswers = new Array(quizData.length).fill(null);
-let submitted = false;
-
-function buildQuiz(){
-  const body = document.getElementById('quizBody');
-  body.innerHTML = '';
-  quizData.forEach((item,i)=>{
-    const div = document.createElement('div');
-    div.className='q-item';
-    div.innerHTML=`<p>Q${i+1}. ${item.q}</p><div class="options" id="opts-${i}">
-      ${item.opts.map((o,j)=>`
-        <div class="option" id="opt-${i}-${j}" onclick="selectOpt(${i},${j})">
-          <div class="option-key">${['A','B','C','D'][j]}</div>
-          <span>${o}</span>
-        </div>`).join('')}
-    </div><div id="exp-${i}" style="display:none;margin-top:10px;font-size:.85rem;color:var(--muted);padding:8px 12px;background:rgba(255,255,255,.03);border-radius:6px;"></div>`;
-    body.appendChild(div);
-  });
-}
-
-function selectOpt(q,a){
-  if(submitted) return;
-  // clear previous selection
-  for(let j=0;j<4;j++){
-    const el=document.getElementById(`opt-${q}-${j}`);
-    if(el) el.style.borderColor='';
-  }
-  userAnswers[q]=a;
-  document.getElementById(`opt-${q}-${a}`).style.borderColor='var(--accent3)';
-  document.getElementById(`opt-${q}-${a}`).style.background='rgba(167,139,250,.12)';
-}
-
-function submitQuiz(){
-  if(submitted) return;
-  submitted=true;
-  let score=0;
-  quizData.forEach((item,i)=>{
-    const ua=userAnswers[i];
-    const correct=item.ans;
-    for(let j=0;j<item.opts.length;j++){
-      const el=document.getElementById(`opt-${i}-${j}`);
-      el.style.borderColor='';el.style.background='';
-      if(j===correct) el.classList.add('correct');
-      if(ua!==null && j===ua && ua!==correct) el.classList.add('wrong');
+  window._ugateCheck=function(){
+    const val=(document.getElementById('_ugate_inp')||{}).value;
+    if(!val) return;
+    const v=val.trim().toUpperCase();
+    const stored=localStorage.getItem(CK);
+    if(v===stored){
+      sessionStorage.setItem(SK,'1');
+      const g=document.getElementById('_ugate');
+      if(g) g.remove();
+      document.body.style.overflow='';
+    } else {
+      const err=document.getElementById('_ugate_err');
+      if(err) err.textContent='❌ Wrong code — try again.';
+      const inp=document.getElementById('_ugate_inp');
+      if(inp){inp.value='';inp.focus();}
     }
-    if(ua===correct) score++;
-    const exp=document.getElementById(`exp-${i}`);
-    exp.textContent='💬 '+item.exp;
-    exp.style.display='block';
+  };
+  qw.addEventListener('click',function(e){
+    if(!localStorage.getItem(CK)) return;
+    if(sessionStorage.getItem(SK)) return;
+    e.stopPropagation();e.preventDefault();
+    showGate();
+  },true);
+})();
+</script>
+
+<script>
+// ── PER-UNIT QUIZ ACCESS GATE ── ID: s5_unit1 ──
+(function(){
+  const ITEM_ID='s5_unit1';
+  const SESS_KEY='unlocked_'+ITEM_ID;
+  const CODE_KEY='quiz_access_code';
+  const LOCKS_KEY='assessment_locks';
+  
+  function isLocked(){return JSON.parse(localStorage.getItem(LOCKS_KEY)||'{}')[ITEM_ID]===true;}
+  function isGranted(){const c=localStorage.getItem(CODE_KEY)||'OPEN';return sessionStorage.getItem(SESS_KEY)===c||sessionStorage.getItem(SESS_KEY)==='OPEN';}
+  
+  const gate=document.createElement('div');
+  gate.id='unit-quiz-gate-s5_unit1';
+  gate.style.cssText='position:fixed;inset:0;background:#0d1117;z-index:99999;display:none;align-items:center;justify-content:center;padding:24px;';
+  gate.innerHTML=`<div style="background:#161b22;border:2px solid rgba(245,158,11,.4);border-radius:16px;padding:44px 38px;max-width:460px;width:100%;text-align:center;">
+    <div style="font-size:3.5rem;margin-bottom:14px;">🔒</div>
+    <h2 style="font-family:Playfair Display,serif;font-size:1.8rem;color:#fff;margin-bottom:10px;">Quiz Locked</h2>
+    <p style="color:#8b949e;font-size:.92rem;margin-bottom:22px;line-height:1.7;">Your teacher has locked this quiz. Enter the access code to unlock it.</p>
+    <input id="ugi-s5_unit1" type="text" placeholder="Enter Code" maxlength="20"
+      style="width:100%;background:#1c2333;border:2px solid #30363d;border-radius:8px;color:#e6edf3;padding:13px 16px;font-family:JetBrains Mono,monospace;font-size:1.3rem;text-align:center;letter-spacing:.2em;text-transform:uppercase;margin-bottom:10px;box-sizing:border-box;"
+      onkeydown="if(event.key==='Enter')unlockUnit_s5_unit1()"
+      oninput="this.value=this.value.toUpperCase()"/>
+    <div id="uge-s5_unit1" style="font-family:JetBrains Mono,monospace;font-size:.8rem;color:#f87171;min-height:18px;margin-bottom:10px;"></div>
+    <button onclick="unlockUnit_s5_unit1()" style="width:100%;background:#f59e0b;color:#000;border:none;padding:13px;border-radius:8px;font-family:JetBrains Mono,monospace;font-size:.88rem;font-weight:700;cursor:pointer;margin-bottom:8px;">🔓 Unlock Quiz</button>
+    <button onclick="document.getElementById('unit-quiz-gate-s5_unit1').style.display='none';document.body.style.overflow='';" style="width:100%;background:transparent;border:1px solid #30363d;color:#8b949e;padding:8px;border-radius:7px;font-family:JetBrains Mono,monospace;font-size:.78rem;cursor:pointer;">✕ Cancel — Go back</button>
+    <div style="font-family:JetBrains Mono,monospace;font-size:.7rem;color:#8b949e;margin-top:10px;">Ask your teacher for the access code.</div>
+  </div>`;
+  document.body.appendChild(gate);
+  
+  window.unlockUnit_s5_unit1=function(){
+    const entered=document.getElementById('ugi-s5_unit1').value.trim().toUpperCase();
+    const correct=localStorage.getItem(CODE_KEY)||'';
+    if(!entered){document.getElementById('uge-s5_unit1').textContent='Enter the code.';return;}
+    if(!correct||entered===correct){
+      sessionStorage.setItem(SESS_KEY,correct||'OPEN');
+      gate.style.display='none';document.body.style.overflow='';
+      if(window._pendingAction_s5_unit1) window._pendingAction_s5_unit1();
+    } else {
+      document.getElementById('uge-s5_unit1').textContent='❌ Wrong code. Ask your teacher.';
+      document.getElementById('ugi-s5_unit1').value='';
+    }
+  };
+  
+  window.addEventListener('DOMContentLoaded',function(){
+    if(!isLocked()) return;
+    const qw=document.querySelector('.quiz-wrap');
+    if(!qw) return;
+    qw.addEventListener('click',function(e){
+      if(!isLocked()||isGranted()) return;
+      if(e.target.tagName==='BUTTON'||e.target.classList.contains('qs')) return;
+      e.stopPropagation();e.preventDefault();
+      gate.style.display='flex';document.body.style.overflow='hidden';
+    },true);
   });
-  const pct=Math.round(score/quizData.length*100);
-  const scoreDisplay=document.getElementById('scoreDisplay');
-  scoreDisplay.style.display='block';
-  document.getElementById('scoreNum').textContent=`${score}/${quizData.length}`;
-  document.getElementById('scoreMsg').textContent=
-    pct>=80?`Excellent! ${pct}% — You have mastered Unit 1.`:
-    pct>=60?`Good effort! ${pct}% — Review the sections you got wrong.`:
-    `${pct}% — Re-read the notes and try again. You can do it! 💪`;
-}
+})();
 
+const _CA={q1:'b',q2:'c',q3:'b',q4:'b',q5:'b',q6:'b',q7:'b',q8:'b',q9:'b',q10:'b',q11:'c',q12:'b',q13:'b',q14:'b',q15:'a',q16:'b',q17:'b',q18:'b',q19:'b',q20:'b',q21:'b',q22:'b',q23:'b',q24:'c',q25:'b'};
+function submitQuiz(){
+  let s=0,t=Object.keys(_CA).length;
+  Object.entries(_CA).forEach(([q,c])=>{
+    const sel=document.querySelector('input[name="'+q+'"]:checked');
+    document.querySelectorAll('input[name="'+q+'"]').forEach(o=>{if(o.value===c)o.closest('label').classList.add('correct');});
+    if(sel){if(sel.value===c)s++;else sel.closest('label').classList.add('wrong');}
+    const e=document.getElementById('exp'+q.slice(1));if(e)e.style.display='block';
+    document.querySelectorAll('input[name="'+q+'"]').forEach(o=>o.disabled=true);
+  });
+  const p=Math.round(s/t*100);
+  const sn=document.getElementById('scoreNum');
+  const sm=document.getElementById('scoreMsg');
+  if(sn) sn.textContent=s+'/'+t+' ('+p+'%)';
+  if(sm) sm.textContent=p>=80?'🏆 Excellent!':p>=65?'✅ Good':p>=50?'📚 Review the notes':'❌ Re-read this unit';
+  const sd=document.getElementById('scoreDisplay');if(sd)sd.style.display='block';
+  const btn=document.querySelector('.btn-primary');if(btn)btn.disabled=true;
+}
 function resetQuiz(){
-  submitted=false;
-  userAnswers=new Array(quizData.length).fill(null);
-  document.getElementById('scoreDisplay').style.display='none';
-  buildQuiz();
+  document.querySelectorAll('.options input').forEach(i=>{i.checked=false;i.disabled=false;});
+  document.querySelectorAll('.opt').forEach(l=>l.classList.remove('correct','wrong'));
+  document.querySelectorAll('.q-exp').forEach(e=>e.style.display='none');
+  const sd=document.getElementById('scoreDisplay');if(sd)sd.style.display='none';
+  const btn=document.querySelector('.btn-primary');if(btn)btn.disabled=false;
+}
+</script>
+
+<script>
+/* ── Student identity & activity saving ── */
+function getStudentName(){return localStorage.getItem('chem_student_name')||'';}
+function getClassCode(){return localStorage.getItem('chem_class_code')||'';}
+
+function showStudentSetup(callback){
+  if(document.getElementById('student-setup-overlay')) return;
+  var ov=document.createElement('div');
+  ov.id='student-setup-overlay';
+  ov.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;';
+  ov.innerHTML=`<div style="background:#161b22;border:1px solid #30363d;border-radius:14px;padding:32px;max-width:420px;width:100%;">
+    <h3 style="font-family:'Playfair Display',serif;color:#fff;margin-bottom:8px;">📝 Before you start</h3>
+    <p style="color:#8b949e;font-size:.88rem;margin-bottom:20px;">Enter your name and the Class Code your teacher gave you so your results are saved.</p>
+    <label style="display:block;font-size:.78rem;color:#8b949e;margin-bottom:4px;font-family:'JetBrains Mono',monospace;">YOUR NAME</label>
+    <input id="setup-name" type="text" placeholder="e.g. Amina Uwase" style="width:100%;padding:10px 14px;background:#0d1117;border:1px solid #30363d;border-radius:8px;color:#fff;font-size:.9rem;margin-bottom:14px;box-sizing:border-box;">
+    <label style="display:block;font-size:.78rem;color:#8b949e;margin-bottom:4px;font-family:'JetBrains Mono',monospace;">CLASS CODE (from teacher)</label>
+    <input id="setup-code" type="text" placeholder="Paste the code here" style="width:100%;padding:10px 14px;background:#0d1117;border:1px solid #30363d;border-radius:8px;color:#fff;font-size:.9rem;margin-bottom:20px;box-sizing:border-box;font-family:'JetBrains Mono',monospace;">
+    <div style="display:flex;gap:10px;">
+      <button onclick="saveStudentSetup()" style="flex:1;padding:11px;background:#a78bfa;color:#000;border:none;border-radius:8px;font-weight:700;cursor:pointer;font-family:'JetBrains Mono',monospace;">Save & Continue</button>
+      <button onclick="document.getElementById('student-setup-overlay').remove()" style="padding:11px 18px;background:#21262d;color:#8b949e;border:1px solid #30363d;border-radius:8px;cursor:pointer;">Skip</button>
+    </div>
+  </div>`;
+  document.body.appendChild(ov);
+  window._setupCallback=callback;
+}
+function saveStudentSetup(){
+  var name=(document.getElementById('setup-name')||{}).value.trim();
+  if(!name){alert('Please enter your name.');return;}
+  localStorage.setItem('chem_student_name',name);
+  var code=(document.getElementById('setup-code')||{}).value.trim();
+  if(code) localStorage.setItem('chem_class_code',code);
+  var ov=document.getElementById('student-setup-overlay');
+  if(ov) ov.remove();
+  if(window._setupCallback) window._setupCallback();
+}
+async function saveActivityResult(unitLabel,subLabel,score,total,type){
+  var binId=getClassCode();
+  if(!binId||binId.length<10) return;
+  var student=getStudentName()||'Anonymous';
+  try{
+    var fr=await fetch('https://api.jsonbin.io/v3/b/'+binId+'/latest');
+    var fd=await fr.json();
+    var results=(fd.record&&fd.record.results)||[];
+    results.push({student:student,unit:unitLabel,subunit:subLabel,score:score,total:total,type:type||'quiz',date:new Date().toISOString()});
+    await fetch('https://api.jsonbin.io/v3/b/'+binId,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({results:results})});
+  }catch(e){}
 }
 
-function toggleAns(btn){
-  const panel=btn.nextElementSibling;
-  panel.classList.toggle('open');
-  btn.textContent=panel.classList.contains('open')?'Hide Answer ▴':'Show Answer ▾';
+function submitMQu1(qid,total){
+  var enc=window._EMQA&&window._EMQA[qid];if(!enc)return;
+  var ak={};for(var k in enc){var n=parseInt(k);ak[n]=String.fromCharCode(65+((enc[k]-n%4)+4)%4);}
+  var score=0;
+  for(var i=1;i<=total;i++){
+    var sel=document.querySelector('input[name="mq'+qid+'_'+i+'"]:checked');
+    var correct=ak[i];
+    var expEl=document.getElementById('mqE'+qid+'_'+i);
+    if(expEl)expEl.style.display='block';
+    ['A','B','C','D'].forEach(function(ltr){
+      var lbl=document.getElementById('mqL'+qid+'_'+i+'_'+ltr);
+      if(!lbl)return;
+      var inp=lbl.querySelector('input');
+      if(inp)inp.disabled=true;
+      if(ltr===correct){lbl.style.background='rgba(52,211,153,.12)';lbl.style.borderColor='#34d399';lbl.style.color='#34d399';}
+      else if(sel&&sel.value===ltr&&ltr!==correct){lbl.style.background='rgba(248,113,113,.1)';lbl.style.borderColor='#f87171';lbl.style.color='#f87171';}
+    });
+    if(sel&&sel.value===correct)score++;
+  }
+  var pct=Math.round(score/total*100);
+  var r=document.getElementById('mqRES'+qid);
+  if(r){r.style.display='block';r.style.background=pct>=70?'rgba(52,211,153,.1)':'rgba(248,113,113,.1)';r.style.border='1px solid '+(pct>=70?'#34d399':'#f87171');r.style.color=pct>=70?'#34d399':'#f87171';r.textContent='Score: '+score+'/'+total+' ('+pct+'%) — '+(pct>=80?'🏆 Excellent!':pct>=70?'✅ Good':pct>=50?'📚 Review the notes':'❌ Re-read this section');}
+  /* Save to teacher activity tracker */
+  var subLabels={'1_1':'1.1 Classification of Organic Compounds','1_2':'1.2 Types of Formulas','1_3':'1.3 Functional Groups & Homologous Series','1_4':'1.4 IUPAC Nomenclature'};
+  var subLabel=subLabels[qid]||('Section '+qid.replace('_','.'));
+  if(!getStudentName()||!getClassCode()){
+    showStudentSetup(function(){ saveActivityResult('S5 Unit 1 – Introduction to Organic Chemistry',subLabel,score,total,'quiz'); });
+  } else {
+    saveActivityResult('S5 Unit 1 – Introduction to Organic Chemistry',subLabel,score,total,'quiz');
+  }
 }
-
-// Scroll reveal
-const observer=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');}});
-},{threshold:.08});
-document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
-
-buildQuiz();
+</script>
+<script>
+function toggleAnswer(btn){
+  var ans = btn.nextElementSibling;
+  if(!ans) return;
+  var isOpen = ans.classList.contains('open');
+  ans.classList.toggle('open', !isOpen);
+  btn.textContent = isOpen ? 'Show Answer' : 'Hide Answer';
+  if(btn.classList.contains('rb')||btn.classList.contains('reveal-btn'))
+    btn.textContent = isOpen ? 'Model Answer' : 'Hide Answer';
+}
 </script>
 </body>
 </html>

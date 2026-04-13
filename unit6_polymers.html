@@ -480,6 +480,7 @@ function submitQuiz(){
     if(!qw) return;
     qw.addEventListener('click',function(e){
       if(!isLocked()||isGranted()) return;
+      if(e.target.tagName==='BUTTON'||e.target.classList.contains('qs')) return;
       e.stopPropagation();e.preventDefault();
       gate.style.display='flex';document.body.style.overflow='hidden';
     },true);

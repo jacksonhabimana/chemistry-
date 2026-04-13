@@ -96,6 +96,63 @@
   h3.sub{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--gold);margin:28px 0 10px;}
   sub,sup{font-size:.72em;}
   @media(max-width:600px){.hero{padding:50px 20px 40px;}.page{padding:0 16px 60px;}}
+
+.mini-quiz{background:var(--surface2);border:1px solid rgba(56,189,248,.2);border-radius:var(--radius);overflow:hidden;margin:32px 0 16px;}
+.mq-head{background:rgba(56,189,248,.1);border-bottom:1px solid rgba(56,189,248,.2);padding:12px 20px;display:flex;align-items:center;gap:10px;}
+.mq-head h4{font-family:'Playfair Display',serif;font-size:.98rem;color:#fff;flex:1;}
+.mq-badge{font-family:'JetBrains Mono',monospace;font-size:.68rem;background:rgba(56,189,248,.15);border:1px solid rgba(56,189,248,.3);color:var(--accent);padding:3px 10px;border-radius:50px;white-space:nowrap;}
+.mq-body{padding:18px 22px;}
+.mq-qblock{margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid var(--border);}
+.mq-qblock:last-of-type{border-bottom:none;margin-bottom:6px;padding-bottom:0;}
+.mq-qnum{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--accent);display:block;margin-bottom:5px;}
+.mq-qtext{font-size:.93rem;color:#fff;margin-bottom:9px;line-height:1.6;}
+.mq-opts label{display:flex;align-items:flex-start;gap:8px;padding:7px 11px;margin-bottom:5px;border-radius:7px;border:1px solid var(--border);cursor:pointer;font-size:.86rem;transition:all .15s;background:var(--bg);}
+.mq-opts label:hover{border-color:var(--accent);}
+.mq-opts label.correct{background:rgba(52,211,153,.1);border-color:var(--green)!important;color:var(--green);}
+.mq-opts label.wrong{background:rgba(248,113,113,.07);border-color:var(--red)!important;color:var(--red);}
+.mq-opts input[type=radio]{margin-top:3px;accent-color:var(--accent);flex-shrink:0;}
+.mq-exp{display:none;margin-top:7px;padding:9px 13px;background:rgba(56,189,248,.06);border-left:3px solid var(--accent);border-radius:0 5px 5px 0;font-size:.83rem;line-height:1.6;color:var(--muted);}
+.mq-submit{background:var(--accent);color:#000;border:none;padding:9px 26px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:.8rem;font-weight:700;cursor:pointer;transition:opacity .2s;margin-top:4px;}
+.mq-submit:hover{opacity:.85;}
+</style>
+
+<style>
+@media print {
+  body { background: #fff !important; color: #000 !important; }
+  * { background: transparent !important; color: #000 !important; border-color: #ccc !important; box-shadow: none !important; }
+  nav, footer, .quiz-wrap, .quiz-header, .quiz-body, .quiz-submit, .submit-btn, .btn, button:not(.print-btn), .lock-bar, .lock-overlay, .answer-panel { display: none !important; }
+  h1, h2, h3, h4 { color: #000 !important; }
+  a { color: #000 !important; text-decoration: none !important; }
+  .section-number { color: #000 !important; border-color: #000 !important; }
+  .callout, .definition, .example, .worked-example { background: #f5f5f5 !important; border-color: #000 !important; }
+  main, .content { max-width: 100% !important; padding: 0 !important; }
+}
+  body { background: #fff !important; color: #000 !important; font-size: 11pt; line-height: 1.6; }
+  nav, footer, .quiz-wrap, .quiz-container, section#quiz, section#test,
+  .tab-btn, .reveal-btn, button, .answer-panel, .print-hide,
+  [id*="lock"], .modal-overlay { display: none !important; }
+  main { max-width: 100% !important; padding: 0 !important; margin: 0 !important; }
+  h1, h2, h3, h4 { color: #000 !important; page-break-after: avoid; }
+  h2 { border-bottom: 2px solid #000 !important; padding-bottom: 4pt; margin-top: 18pt; }
+  section { page-break-inside: avoid; margin-bottom: 16pt; }
+  .section-header { background: #f0f0f0 !important; color: #000 !important; padding: 6pt 10pt; border-radius: 0 !important; }
+  .callout, .definition, .example-box, .worked-example {
+    background: #f5f5f5 !important; color: #000 !important;
+    border: 1pt solid #ccc !important; border-left: 3pt solid #333 !important;
+    padding: 8pt !important; margin: 8pt 0 !important;
+  }
+  table { border-collapse: collapse !important; width: 100% !important; }
+  th, td { border: 1pt solid #999 !important; padding: 4pt 6pt !important; color: #000 !important; background: #fff !important; font-size: 10pt; }
+  th { background: #e0e0e0 !important; font-weight: bold; }
+  p, li { color: #000 !important; }
+  .hero, .hero-eyebrow, .hero h1, .hero p { display: none !important; }
+  .content-body, .unit-content, .notes-body { color: #000 !important; }
+  a { color: #000 !important; text-decoration: none; }
+  code, pre { background: #f0f0f0 !important; color: #000 !important; border: 1pt solid #ccc !important; }
+  .answer-panel.open { display: block !important; background: #f9f9f9 !important; color: #000 !important; }
+  strong { color: #000 !important; }
+  var(--text), var(--muted), var(--accent) { color: #000 !important; }
+}
 </style>
 </head>
 <body>
@@ -158,6 +215,176 @@
 </div>
 
 <!-- 7.2 -->
+
+<div style="background:var(--surface);border:1px solid rgba(56,189,248,.25);border-radius:10px;overflow:hidden;margin:28px 0 40px;">
+  <div style="background:rgba(56,189,248,.08);border-bottom:1px solid rgba(56,189,248,.25);padding:14px 22px;display:flex;align-items:center;justify-content:space-between;">
+    <div><div style="font-family:'JetBrains Mono',monospace;font-size:.68rem;color:#38bdf8;text-transform:uppercase;letter-spacing:.1em;">Section 7.1 Quick Quiz</div><strong style="color:#fff;font-family:'Playfair Display',serif;">Occurrence & Physical Properties of Group 2 Elements</strong></div>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);">10 Questions</span>
+  </div>
+  <div style="padding:20px 22px;">
+    <script>window._MQA=window._MQA||{};window._MQA["7_1"]={1:"B",2:"B",3:"B",4:"B",5:"B",6:"C",7:"B",8:"B",9:"B",10:"C"};</script>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#38bdf8;margin-bottom:6px;">Q1</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">What is the general electronic configuration of Group 2 elements?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_1_1_A"><input type="radio" name="mq7_1_1" value="A" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>ns¹</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_1_1_B"><input type="radio" name="mq7_1_1" value="B" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>ns²</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_1_1_C"><input type="radio" name="mq7_1_1" value="C" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>ns²np¹</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_1_1_D"><input type="radio" name="mq7_1_1" value="D" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>(n-1)d¹ns²</span></label>
+      <div id="mqE7_1_1" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(56,189,248,.08);border-left:3px solid #38bdf8;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#38bdf8;">✓ Answer: B</strong><br>Group 2: ns² outer configuration (2 valence electrons in s orbital). Be=[He]2s², Mg=[Ne]3s², Ca=[Ar]4s², Sr=[Kr]5s², Ba=[Xe]6s², Ra=[Rn]7s². Two valence electrons → form M²⁺ ions. Higher charge than Group 1 (2+ vs 1+) → stronger ionic bonds → generally higher melting points than Group 1.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#38bdf8;margin-bottom:6px;">Q2</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The melting points of Group 2 metals are generally higher than Group 1 metals because:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_1_2_A"><input type="radio" name="mq7_1_2" value="A" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Group 2 metals are heavier</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_1_2_B"><input type="radio" name="mq7_1_2" value="B" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Group 2 metals contribute 2 valence electrons to the metallic electron sea (vs 1 for Group 1) → stronger metallic bonds → higher melting points</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_1_2_C"><input type="radio" name="mq7_1_2" value="C" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Group 2 metals have more neutrons</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_1_2_D"><input type="radio" name="mq7_1_2" value="D" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Group 2 atoms are smaller</span></label>
+      <div id="mqE7_1_2" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(56,189,248,.08);border-left:3px solid #38bdf8;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#38bdf8;">✓ Answer: B</strong><br>Metallic bond strength ∝ number of delocalised electrons. Group 2 (2e/atom) > Group 1 (1e/atom) → stronger bonds → higher m.p. Compare: Mg m.p.=650°C vs Na=98°C. Also Group 2 ions have 2+ charge (vs 1+) → stronger attraction to electron sea. Mg is used in lightweight alloys where strength matters.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#38bdf8;margin-bottom:6px;">Q3</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Beryllium (Be) is unusual among Group 2 elements because:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_1_3_A"><input type="radio" name="mq7_1_3" value="A" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>It is radioactive</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_1_3_B"><input type="radio" name="mq7_1_3" value="B" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>It has anomalous properties — very high m.p., forms covalent compounds, amphoteric oxide — due to very small size and high charge density of Be²⁺</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_1_3_C"><input type="radio" name="mq7_1_3" value="C" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>It is not a metal</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_1_3_D"><input type="radio" name="mq7_1_3" value="D" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>It reacts explosively with water</span></label>
+      <div id="mqE7_1_3" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(56,189,248,.08);border-left:3px solid #38bdf8;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#38bdf8;">✓ Answer: B</strong><br>Be anomalies: (1) Very high m.p. (1287°C) for Group 2; (2) BeCl₂ is covalent (Be²⁺ too small/polarising for ionic bond); (3) BeO is amphoteric (reacts with both acids AND bases); (4) Doesn't react with water at room temperature. Be²⁺ has highest charge density in Group 2 → behaves differently. Diagonal relationship: Be resembles Al.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#38bdf8;margin-bottom:6px;">Q4</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Magnesium is used in lightweight alloys for aircraft because:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_1_4_A"><input type="radio" name="mq7_1_4" value="A" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>It is radioactive</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_1_4_B"><input type="radio" name="mq7_1_4" value="B" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>It has low density (1.74 g/cm³) with reasonable strength — alloyed with Al or Zn to increase strength while remaining light</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_1_4_C"><input type="radio" name="mq7_1_4" value="C" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>It is the cheapest metal</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_1_4_D"><input type="radio" name="mq7_1_4" value="D" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>It is non-magnetic</span></label>
+      <div id="mqE7_1_4" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(56,189,248,.08);border-left:3px solid #38bdf8;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#38bdf8;">✓ Answer: B</strong><br>Mg alloys: density ~1.8 g/cm³ (about 2/3 of Al, 1/4 of steel). Used in aircraft, car parts, laptops, cameras where weight reduction is critical. Pure Mg is too soft; alloyed with Al, Zn, Mn → improved strength. Disadvantage: more reactive than Al (can corrode/ignite if damaged).</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#38bdf8;margin-bottom:6px;">Q5</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The atomic radius of calcium (Ca) is larger than that of magnesium (Mg) because:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_1_5_A"><input type="radio" name="mq7_1_5" value="A" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Ca has more protons</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_1_5_B"><input type="radio" name="mq7_1_5" value="B" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Ca has one more electron shell than Mg (4 shells vs 3) — adding a shell greatly increases atomic radius despite higher nuclear charge</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_1_5_C"><input type="radio" name="mq7_1_5" value="C" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Ca is less dense</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_1_5_D"><input type="radio" name="mq7_1_5" value="D" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Ca has fewer electrons</span></label>
+      <div id="mqE7_1_5" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(56,189,248,.08);border-left:3px solid #38bdf8;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#38bdf8;">✓ Answer: B</strong><br>Ca: [Ar]4s² (4 electron shells). Mg: [Ne]3s² (3 shells). More shells → outer electrons further from nucleus → larger radius. Ca radius = 197pm; Mg radius = 160pm. Down Group 2: Be(112) < Mg(160) < Ca(197) < Sr(215) < Ba(222) pm. Each additional shell increases radius significantly.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#38bdf8;margin-bottom:6px;">Q6</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Which Group 2 metal has the highest melting point?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_1_6_A"><input type="radio" name="mq7_1_6" value="A" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Barium (Ba)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_1_6_B"><input type="radio" name="mq7_1_6" value="B" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Calcium (Ca)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_1_6_C"><input type="radio" name="mq7_1_6" value="C" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Beryllium (Be)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_1_6_D"><input type="radio" name="mq7_1_6" value="D" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Magnesium (Mg)</span></label>
+      <div id="mqE7_1_6" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(56,189,248,.08);border-left:3px solid #38bdf8;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#38bdf8;">✓ Answer: C</strong><br>Be has the highest m.p. in Group 2 (1287°C). This seems counterintuitive (expected to decrease down group). Be's very small size → very high charge density → very strong metallic bonds. After Be: irregular trend — Mg(650°C), Ca(842°C), Sr(777°C), Ba(727°C). Be is exceptional due to its anomalously small size.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#38bdf8;margin-bottom:6px;">Q7</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Down Group 2, first ionisation energy:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_1_7_A"><input type="radio" name="mq7_1_7" value="A" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Increases</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_1_7_B"><input type="radio" name="mq7_1_7" value="B" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Decreases — atomic radius increases, Zeff for outer electrons decreases</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_1_7_C"><input type="radio" name="mq7_1_7" value="C" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Stays constant</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_1_7_D"><input type="radio" name="mq7_1_7" value="D" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>First increases then decreases</span></label>
+      <div id="mqE7_1_7" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(56,189,248,.08);border-left:3px solid #38bdf8;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#38bdf8;">✓ Answer: B</strong><br>IE₁ decreases down Group 2: Be(900) > Mg(738) > Ca(590) > Sr(550) > Ba(503) kJ/mol. Reason: atomic radius increases down the group → outer electrons (ns²) further from nucleus, more shielded → easier to remove → lower IE₁. This mirrors the trend in Group 1.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#38bdf8;margin-bottom:6px;">Q8</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The density of Group 2 metals generally increases down the group because:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_1_8_A"><input type="radio" name="mq7_1_8" value="A" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Atoms get smaller</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_1_8_B"><input type="radio" name="mq7_1_8" value="B" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Atomic mass increases more than atomic volume — mass effect dominates</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_1_8_C"><input type="radio" name="mq7_1_8" value="C" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>They become more metallic</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_1_8_D"><input type="radio" name="mq7_1_8" value="D" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>They have more electrons</span></label>
+      <div id="mqE7_1_8" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(56,189,248,.08);border-left:3px solid #38bdf8;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#38bdf8;">✓ Answer: B</strong><br>Going down Group 2: atomic mass increases significantly while atomic radius increases only moderately. Since density = mass/volume: if mass increases more than volume, density increases. Group 2 densities (g/cm³): Be(1.85) < Mg(1.74) < Ca(1.54) < Sr(2.63) < Ba(3.51). Note: Mg is less dense than Be (exception due to different crystal structure).</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#38bdf8;margin-bottom:6px;">Q9</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Group 2 elements form 2+ ions because:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_1_9_A"><input type="radio" name="mq7_1_9" value="A" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>They have 2 neutrons</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_1_9_B"><input type="radio" name="mq7_1_9" value="B" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>They have 2 valence electrons (ns²) which are both removed to achieve a noble gas configuration</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_1_9_C"><input type="radio" name="mq7_1_9" value="C" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>They have 2 protons</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_1_9_D"><input type="radio" name="mq7_1_9" value="D" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>They form only covalent bonds</span></label>
+      <div id="mqE7_1_9" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(56,189,248,.08);border-left:3px solid #38bdf8;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#38bdf8;">✓ Answer: B</strong><br>Group 2: ns² outer electrons. Both removed: M → M²⁺ + 2e⁻. The 2+ ions have noble gas configuration (for Ca²⁺ = [Ar], Sr²⁺ = [Kr]). The large drop from IE₂ to IE₃ (removing from inner shell) confirms 2 valence electrons. Group 2 ions are always 2+ in compounds.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#38bdf8;margin-bottom:6px;">Q10</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">What colour flame does calcium give in a flame test?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_1_10_A"><input type="radio" name="mq7_1_10" value="A" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Lilac/violet</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_1_10_B"><input type="radio" name="mq7_1_10" value="B" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Yellow-orange</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_1_10_C"><input type="radio" name="mq7_1_10" value="C" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Brick red/orange-red</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_1_10_D"><input type="radio" name="mq7_1_10" value="D" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Green</span></label>
+      <div id="mqE7_1_10" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(56,189,248,.08);border-left:3px solid #38bdf8;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#38bdf8;">✓ Answer: C</strong><br>Ca gives brick-red/orange-red flame. Flame test colours: Li=crimson red, Na=yellow-orange (persistent), K=lilac, Ca=brick red, Sr=scarlet red, Ba=apple green, Cu=blue-green. The colour depends on the specific electron transitions in each atom when excited in the flame.</div>
+    </div>
+    <div style="text-align:center;"><button onclick="submitMQ('7_1',10)" style="background:#38bdf8;color:#000;border:none;padding:9px 30px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:.85rem;font-weight:700;cursor:pointer;">Check Answers</button><div id="mqRES7_1" style="display:none;margin-top:10px;border-radius:7px;padding:12px;font-family:'JetBrains Mono',monospace;font-size:.85rem;text-align:center;"></div></div>
+  </div>
+</div>
+
+<!-- MINI-QUIZ s71 -->
+<div class="mini-quiz" id="mq-s71">
+  <div class="mq-head"><span style="font-size:1.1rem;">&#127919;</span><h4>Section 7.1 — Group 2 Properties</h4><span class="mq-badge">10 Questions</span></div>
+  <div class="mq-body">
+    <div class="mq-qblock"><span class="mq-qnum">Q1 of 10</span><p class="mq-qtext">Down Group 2, reactivity with water:</p><div class="mq-opts">
+      <label><input type="radio" name="u7s1q1" value="A"> Decreases</label>
+      <label><input type="radio" name="u7s1q1" value="B"> Increases</label>
+      <label><input type="radio" name="u7s1q1" value="C"> Stays the same</label>
+      <label><input type="radio" name="u7s1q1" value="D"> Alternates</label>
+    </div><div class="mq-exp" id="mqe-u7s1q1">Be: no reaction with water. Mg: reacts slowly with hot water/steam. Ca: reacts with cold water (Ca(OH)₂). Sr, Ba: react vigorously. Reactivity increases down group.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q2 of 10</span><p class="mq-qtext">The equation for Ca reacting with cold water:</p><div class="mq-opts">
+      <label><input type="radio" name="u7s1q2" value="A"> Ca + H₂O → CaO + H₂</label>
+      <label><input type="radio" name="u7s1q2" value="B"> Ca + 2H₂O → Ca(OH)₂ + H₂</label>
+      <label><input type="radio" name="u7s1q2" value="C"> 2Ca + O₂ → 2CaO</label>
+      <label><input type="radio" name="u7s1q2" value="D"> Ca + H₂O → CaH₂ + O₂</label>
+    </div><div class="mq-exp" id="mqe-u7s1q2">Ca + 2H₂O → Ca(OH)₂ + H₂. Ca(OH)₂ is slightly soluble (limewater). The solution turns milky with CO₂.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q3 of 10</span><p class="mq-qtext">Group 2 oxides react with water to give:</p><div class="mq-opts">
+      <label><input type="radio" name="u7s1q3" value="A"> Metal hydroxides (alkaline solution)</label>
+      <label><input type="radio" name="u7s1q3" value="B"> Metal acids</label>
+      <label><input type="radio" name="u7s1q3" value="C"> Neutral solutions</label>
+      <label><input type="radio" name="u7s1q3" value="D"> No reaction</label>
+    </div><div class="mq-exp" id="mqe-u7s1q3">MO + H₂O → M(OH)₂. Example: CaO + H₂O → Ca(OH)₂ (exothermic, quicklime slaking). Products are alkaline.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q4 of 10</span><p class="mq-qtext">The trend in solubility of Group 2 hydroxides going DOWN the group:</p><div class="mq-opts">
+      <label><input type="radio" name="u7s1q4" value="A"> Decreases</label>
+      <label><input type="radio" name="u7s1q4" value="B"> Increases</label>
+      <label><input type="radio" name="u7s1q4" value="C"> No change</label>
+      <label><input type="radio" name="u7s1q4" value="D"> Random</label>
+    </div><div class="mq-exp" id="mqe-u7s1q4">Hydroxide solubility increases: Be(OH)₂ (insoluble) → Mg(OH)₂ (sparingly) → Ca(OH)₂ (slightly) → Ba(OH)₂ (soluble). Lattice energy decreases faster than hydration energy.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q5 of 10</span><p class="mq-qtext">The trend in solubility of Group 2 sulfates going DOWN the group:</p><div class="mq-opts">
+      <label><input type="radio" name="u7s1q5" value="A"> Increases</label>
+      <label><input type="radio" name="u7s1q5" value="B"> Decreases</label>
+      <label><input type="radio" name="u7s1q5" value="C"> Random</label>
+      <label><input type="radio" name="u7s1q5" value="D"> No change</label>
+    </div><div class="mq-exp" id="mqe-u7s1q5">Sulfate solubility DECREASES: MgSO₄ (soluble) → CaSO₄ (slightly) → BaSO₄ (insoluble). Opposite trend to hydroxides. BaSO₄ insolubility used in Ba²⁺ test.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q6 of 10</span><p class="mq-qtext">Mg(OH)₂ is used in:</p><div class="mq-opts">
+      <label><input type="radio" name="u7s1q6" value="A"> Fertilisers</label>
+      <label><input type="radio" name="u7s1q6" value="B"> Antacid (milk of magnesia) — neutralises excess stomach acid</label>
+      <label><input type="radio" name="u7s1q6" value="C"> Water softening</label>
+      <label><input type="radio" name="u7s1q6" value="D"> Bleaching</label>
+    </div><div class="mq-exp" id="mqe-u7s1q6">Mg(OH)₂ (milk of magnesia): antacid, reacts with HCl in stomach. Also used as laxative. Ca(OH)₂ used in agriculture (neutralise acid soils).</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q7 of 10</span><p class="mq-qtext">Thermal stability of Group 2 carbonates DOWN the group:</p><div class="mq-opts">
+      <label><input type="radio" name="u7s1q7" value="A"> Decreases</label>
+      <label><input type="radio" name="u7s1q7" value="B"> Increases</label>
+      <label><input type="radio" name="u7s1q7" value="C"> Random</label>
+      <label><input type="radio" name="u7s1q7" value="D"> No change</label>
+    </div><div class="mq-exp" id="mqe-u7s1q7">Thermal stability increases down Group 2. Larger M²⁺ → lower charge density → less polarisation of CO₃²⁻ → more stable. MgCO₃ decomposes ~300°C; BaCO₃ ~1400°C.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q8 of 10</span><p class="mq-qtext">BaSO₄ is used as a contrast agent in X-ray diagnosis because:</p><div class="mq-opts">
+      <label><input type="radio" name="u7s1q8" value="A"> It is blue</label>
+      <label><input type="radio" name="u7s1q8" value="B"> It is insoluble and non-toxic — absorbs X-rays clearly showing GI tract</label>
+      <label><input type="radio" name="u7s1q8" value="C"> It reacts with acids</label>
+      <label><input type="radio" name="u7s1q8" value="D"> It is radioactive</label>
+    </div><div class="mq-exp" id="mqe-u7s1q8">BaSO₄: highly insoluble (Ksp very small) → not absorbed into bloodstream → non-toxic. Dense (absorbs X-rays) → shows stomach/intestine outline. 'Barium meal'.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q9 of 10</span><p class="mq-qtext">Ca(OH)₂ (limewater) is used to test for CO₂. The reaction is:</p><div class="mq-opts">
+      <label><input type="radio" name="u7s1q9" value="A"> CO₂ + Ca(OH)₂ → CaCO₃ + H₂O (turns milky)</label>
+      <label><input type="radio" name="u7s1q9" value="B"> CO₂ + Ca(OH)₂ → CaO + H₂O + CO₂</label>
+      <label><input type="radio" name="u7s1q9" value="C"> Ca(OH)₂ → CaO + H₂O with CO₂</label>
+      <label><input type="radio" name="u7s1q9" value="D"> CO₂ dissolves — no reaction</label>
+    </div><div class="mq-exp" id="mqe-u7s1q9">CO₂ + Ca(OH)₂ → CaCO₃↓ (white ppt, turns limewater milky). Excess CO₂: CaCO₃ + CO₂ + H₂O → Ca(HCO₃)₂ (soluble, clears again).</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q10 of 10</span><p class="mq-qtext">Magnesium burns in CO₂ to give:</p><div class="mq-opts">
+      <label><input type="radio" name="u7s1q10" value="A"> MgO + C (magnesium can reduce CO₂)</label>
+      <label><input type="radio" name="u7s1q10" value="B"> MgCO₃</label>
+      <label><input type="radio" name="u7s1q10" value="C"> Mg(HCO₃)₂</label>
+      <label><input type="radio" name="u7s1q10" value="D"> MgO + CO</label>
+    </div><div class="mq-exp" id="mqe-u7s1q10">2Mg + CO₂ → 2MgO + C. Mg is such a strong reducing agent it reduces CO₂ → white MgO + black carbon. This is why Mg fires cannot be extinguished with CO₂ extinguishers.</div></div>
+    <button class="mq-submit" onclick="submitMQ('u7s1',{"u7s1q1":"B","u7s1q2":"B","u7s1q3":"A","u7s1q4":"B","u7s1q5":"B","u7s1q6":"B","u7s1q7":"B","u7s1q8":"B","u7s1q9":"A","u7s1q10":"A"})">&#10003; Check Answers</button>
+    <div class="mq-result" id="mqr-u7s1"></div>
+  </div>
+</div>
 <div class="section-header" id="s72"><span class="section-number">7.2</span><h2>Reactivity of Group 2 Elements</h2></div>
 
 <h3 class="sub">Reactions with Oxygen</h3>
@@ -202,6 +429,107 @@ Ca + Br&#x2082; &rarr; CaBr&#x2082;
 Ba + F&#x2082;  &rarr; BaF&#x2082;</div>
 
 <!-- 7.3 -->
+
+<div style="background:var(--surface);border:1px solid rgba(251,146,60,.25);border-radius:10px;overflow:hidden;margin:28px 0 40px;">
+  <div style="background:rgba(251,146,60,.08);border-bottom:1px solid rgba(251,146,60,.25);padding:14px 22px;display:flex;align-items:center;justify-content:space-between;">
+    <div><div style="font-family:'JetBrains Mono',monospace;font-size:.68rem;color:#fb923c;text-transform:uppercase;letter-spacing:.1em;">Section 7.2 Quick Quiz</div><strong style="color:#fff;font-family:'Playfair Display',serif;">Reactivity of Group 2 Elements</strong></div>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);">10 Questions</span>
+  </div>
+  <div style="padding:20px 22px;">
+    <script>window._MQA=window._MQA||{};window._MQA["7_2"]={1:"B",2:"B",3:"C",4:"B",5:"B",6:"B",7:"A",8:"B",9:"C",10:"B"};</script>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#fb923c;margin-bottom:6px;">Q1</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Magnesium reacts with cold water:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_2_1_A"><input type="radio" name="mq7_2_1" value="A" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>Vigorously, like sodium</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_2_1_B"><input type="radio" name="mq7_2_1" value="B" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>Very slowly (produces Mg(OH)₂ — sparingly soluble coating slows reaction)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_2_1_C"><input type="radio" name="mq7_2_1" value="C" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>Not at all</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_2_1_D"><input type="radio" name="mq7_2_1" value="D" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>Explosively</span></label>
+      <div id="mqE7_2_1" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(251,146,60,.08);border-left:3px solid #fb923c;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#fb923c;">✓ Answer: B</strong><br>Mg + 2H₂O → Mg(OH)₂ + H₂ (very slow — sparingly soluble Mg(OH)₂ forms as coating on Mg surface, inhibiting further reaction). Mg reacts readily with steam: Mg + H₂O(g) → MgO + H₂ (fast). Ca reacts readily with cold water: Ca + 2H₂O → Ca(OH)₂ + H₂. Reactivity increases down Group 2.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#fb923c;margin-bottom:6px;">Q2</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">When calcium reacts with cold water, the products are:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_2_2_A"><input type="radio" name="mq7_2_2" value="A" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>CaO and H₂</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_2_2_B"><input type="radio" name="mq7_2_2" value="B" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>Ca(OH)₂ and H₂</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_2_2_C"><input type="radio" name="mq7_2_2" value="C" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>CaH₂ and O₂</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_2_2_D"><input type="radio" name="mq7_2_2" value="D" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>CaCl₂ and OH⁻</span></label>
+      <div id="mqE7_2_2" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(251,146,60,.08);border-left:3px solid #fb923c;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#fb923c;">✓ Answer: B</strong><br>Ca + 2H₂O → Ca(OH)₂ + H₂. Calcium hydroxide (slaked lime) is sparingly soluble → milky suspension forms. H₂ gas produced (squeaky pop). The reaction is less vigorous than Na + water (Group 2 less reactive than Group 1 due to higher IE and need to remove 2 electrons). Sr and Ba react more vigorously.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#fb923c;margin-bottom:6px;">Q3</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The general reaction of a Group 2 metal oxide with water produces:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_2_3_A"><input type="radio" name="mq7_2_3" value="A" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>An acidic solution</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_2_3_B"><input type="radio" name="mq7_2_3" value="B" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>A neutral solution</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_2_3_C"><input type="radio" name="mq7_2_3" value="C" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>An alkaline solution (metal hydroxide)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_2_3_D"><input type="radio" name="mq7_2_3" value="D" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>No reaction</span></label>
+      <div id="mqE7_2_3" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(251,146,60,.08);border-left:3px solid #fb923c;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#fb923c;">✓ Answer: C</strong><br>MO + H₂O → M(OH)₂. Group 2 oxides are basic oxides → react with water to form metal hydroxides → alkaline solution. Example: CaO (quicklime) + H₂O → Ca(OH)₂ (slaked lime) — exothermic, vigorous. The Ca(OH)₂ solution (limewater) is alkaline, used to test for CO₂.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#fb923c;margin-bottom:6px;">Q4</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The reactivity of Group 2 metals with dilute acid increases down the group because:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_2_4_A"><input type="radio" name="mq7_2_4" value="A" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>They have more electrons</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_2_4_B"><input type="radio" name="mq7_2_4" value="B" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>Ionisation energies decrease down the group — metals more easily lose 2 electrons to form M²⁺</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_2_4_C"><input type="radio" name="mq7_2_4" value="C" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>They are larger</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_2_4_D"><input type="radio" name="mq7_2_4" value="D" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>They have more neutrons</span></label>
+      <div id="mqE7_2_4" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(251,146,60,.08);border-left:3px solid #fb923c;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#fb923c;">✓ Answer: B</strong><br>Group 2 + dilute H₂SO₄ or HCl: M + 2HCl → MCl₂ + H₂. Reactivity increases down group because IE₁+IE₂ decreases (larger atomic radius, more shielding). Mg reacts slowly with dilute acid; Ca, Sr, Ba react progressively faster. Mg + H₂SO₄(dilute): slow due to insoluble MgSO₄ coating.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#fb923c;margin-bottom:6px;">Q5</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Barium is the most reactive Group 2 metal (excluding Ra) because:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_2_5_A"><input type="radio" name="mq7_2_5" value="A" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>It is the heaviest</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_2_5_B"><input type="radio" name="mq7_2_5" value="B" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>It has the largest atomic radius and lowest combined IE₁+IE₂ — loses 2 electrons most easily</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_2_5_C"><input type="radio" name="mq7_2_5" value="C" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>It has the most neutrons</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_2_5_D"><input type="radio" name="mq7_2_5" value="D" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>It is stored in oil</span></label>
+      <div id="mqE7_2_5" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(251,146,60,.08);border-left:3px solid #fb923c;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#fb923c;">✓ Answer: B</strong><br>Down Group 2: radius increases, IE₁+IE₂ decreases. Ba has the largest radius (222pm) and lowest IE₁+IE₂ in stable Group 2 elements → loses electrons most easily → most reactive (reacts vigorously with cold water, like Na). Barium compounds are used in medical imaging (BaSO₄ — barium meal X-ray).</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#fb923c;margin-bottom:6px;">Q6</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Magnesium reacts with steam (but not cold water) to produce:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_2_6_A"><input type="radio" name="mq7_2_6" value="A" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>Mg(OH)₂ and O₂</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_2_6_B"><input type="radio" name="mq7_2_6" value="B" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>MgO and H₂</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_2_6_C"><input type="radio" name="mq7_2_6" value="C" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>MgH₂ and O₂</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_2_6_D"><input type="radio" name="mq7_2_6" value="D" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>Mg(OH)₂ and Cl₂</span></label>
+      <div id="mqE7_2_6" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(251,146,60,.08);border-left:3px solid #fb923c;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#fb923c;">✓ Answer: B</strong><br>Mg + H₂O(g) → MgO + H₂. Steam is more reactive than liquid water with Mg because: (1) Higher temperature → more activation energy available; (2) MgO (insoluble) forms instead of sparingly soluble Mg(OH)₂ — doesn't coat/passivate the surface as effectively. The H₂ can be ignited showing combustion.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#fb923c;margin-bottom:6px;">Q7</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Which equation shows magnesium burning in oxygen?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_2_7_A"><input type="radio" name="mq7_2_7" value="A" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>2Mg + O₂ → 2MgO</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_2_7_B"><input type="radio" name="mq7_2_7" value="B" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>Mg + O₂ → MgO₂</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_2_7_C"><input type="radio" name="mq7_2_7" value="C" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>4Mg + O₂ → 2Mg₂O</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_2_7_D"><input type="radio" name="mq7_2_7" value="D" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>2Mg + 2O₂ → 2MgO₂</span></label>
+      <div id="mqE7_2_7" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(251,146,60,.08);border-left:3px solid #fb923c;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#fb923c;">✓ Answer: A</strong><br>2Mg + O₂ → 2MgO. Magnesium burns with an intense white flame (3000°C). MgO is a white powder — ionic solid with high melting point (2852°C). Mg doesn't form a peroxide (unlike Na) because Mg²⁺ stabilises the smaller O²⁻ ion. Mg can also burn in CO₂ (why CO₂ fire extinguishers can't put out Mg fires): 2Mg + CO₂ → 2MgO + C.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#fb923c;margin-bottom:6px;">Q8</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The reaction of Group 2 metals with chlorine:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_2_8_A"><input type="radio" name="mq7_2_8" value="A" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>Does not occur</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_2_8_B"><input type="radio" name="mq7_2_8" value="B" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>Produces metal chlorides (MCl₂) — all Group 2 metals react vigorously with Cl₂</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_2_8_C"><input type="radio" name="mq7_2_8" value="C" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>Produces metal oxides and HCl</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_2_8_D"><input type="radio" name="mq7_2_8" value="D" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>Is only possible with Ba</span></label>
+      <div id="mqE7_2_8" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(251,146,60,.08);border-left:3px solid #fb923c;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#fb923c;">✓ Answer: B</strong><br>M + Cl₂ → MCl₂. All Group 2 metals react with halogens to form ionic halides (M²⁺ X₂²⁻). Example: Mg + Cl₂ → MgCl₂ (dazzlingly bright reaction). Note: BeCl₂ is partially covalent (Be²⁺ too polarising for purely ionic bond with Cl⁻). Except for Be, Group 2 chlorides are typical ionic salts.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#fb923c;margin-bottom:6px;">Q9</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">When Group 2 oxides dissolve in water, the resulting solution:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_2_9_A"><input type="radio" name="mq7_2_9" value="A" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>Is acidic</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_2_9_B"><input type="radio" name="mq7_2_9" value="B" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>Is neutral</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_2_9_C"><input type="radio" name="mq7_2_9" value="C" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>Is alkaline — M(OH)₂ solutions have pH > 7</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_2_9_D"><input type="radio" name="mq7_2_9" value="D" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>Does not dissolve</span></label>
+      <div id="mqE7_2_9" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(251,146,60,.08);border-left:3px solid #fb923c;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#fb923c;">✓ Answer: C</strong><br>MO + H₂O → M(OH)₂ → M²⁺ + 2OH⁻. The OH⁻ ions make the solution alkaline. However, Group 2 hydroxides are sparingly soluble (except Ba(OH)₂): Ca(OH)₂ gives limewater (pH ≈ 12.4). Compare to Group 1 (NaOH: fully soluble, pH ≈ 14). Group 2 solutions are alkaline but less so than Group 1 solutions at same concentration.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#fb923c;margin-bottom:6px;">Q10</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Why does magnesium not react significantly with cold water but calcium does?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_2_10_A"><input type="radio" name="mq7_2_10" value="A" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>Ca is stored in water</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_2_10_B"><input type="radio" name="mq7_2_10" value="B" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>Mg(OH)₂ formed on Mg surface is sparingly soluble → forms an impermeable layer blocking further reaction; Ca(OH)₂ is slightly more soluble</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_2_10_C"><input type="radio" name="mq7_2_10" value="C" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>Mg atoms are smaller</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL7_2_10_D"><input type="radio" name="mq7_2_10" value="D" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>Ca has a different valence</span></label>
+      <div id="mqE7_2_10" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(251,146,60,.08);border-left:3px solid #fb923c;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#fb923c;">✓ Answer: B</strong><br>Key difference: solubility of hydroxide formed. Mg(OH)₂ is sparingly soluble (Ksp = 5.6×10⁻¹²) → forms protective coating → passivates Mg surface → reaction stops. Ca(OH)₂ more soluble → less protective coating → reaction continues. This is why Ca reacts with cold water but Mg does not (significantly).</div>
+    </div>
+    <div style="text-align:center;"><button onclick="submitMQ('7_2',10)" style="background:#fb923c;color:#000;border:none;padding:9px 30px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:.85rem;font-weight:700;cursor:pointer;">Check Answers</button><div id="mqRES7_2" style="display:none;margin-top:10px;border-radius:7px;padding:12px;font-family:'JetBrains Mono',monospace;font-size:.85rem;text-align:center;"></div></div>
+  </div>
+</div>
 <div class="section-header" id="s73"><span class="section-number">7.3</span><h2>Properties of Group 2 Compounds</h2></div>
 
 <h3 class="sub">Oxides</h3>
@@ -364,6 +692,75 @@ Ionic equation: Ba&#xB2;&#x207A;(aq) + SO&#x4;&#xB2;&#x207B;(aq) &rarr; BaSO&#x4
 </table></div>
 
 <!-- EXERCISES -->
+
+<!-- MINI-QUIZ s72 -->
+<div class="mini-quiz" id="mq-s72">
+  <div class="mq-head"><span style="font-size:1.1rem;">&#127919;</span><h4>Section 7.2 — Uses of Group 2 Compounds</h4><span class="mq-badge">10 Questions</span></div>
+  <div class="mq-body">
+    <div class="mq-qblock"><span class="mq-qnum">Q1 of 10</span><p class="mq-qtext">CaO (quicklime) is made by:</p><div class="mq-opts">
+      <label><input type="radio" name="u7s2q1" value="A"> Heating Ca in air</label>
+      <label><input type="radio" name="u7s2q1" value="B"> Thermal decomposition of CaCO₃ at 800°C+</label>
+      <label><input type="radio" name="u7s2q1" value="C"> Electrolysis of CaCl₂</label>
+      <label><input type="radio" name="u7s2q1" value="D"> Reacting Ca with water</label>
+    </div><div class="mq-exp" id="mqe-u7s2q1">CaCO₃ → CaO + CO₂ (calcination). Industrial kilns. CaO used in cement, steel making, neutralising acidic soils.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q2 of 10</span><p class="mq-qtext">Ca(OH)₂ is used in agriculture to:</p><div class="mq-opts">
+      <label><input type="radio" name="u7s2q2" value="A"> Add nitrogen to soil</label>
+      <label><input type="radio" name="u7s2q2" value="B"> Neutralise acidic soils and improve drainage</label>
+      <label><input type="radio" name="u7s2q2" value="C"> Kill pests</label>
+      <label><input type="radio" name="u7s2q2" value="D"> Increase water retention</label>
+    </div><div class="mq-exp" id="mqe-u7s2q2">Ca(OH)₂ (slaked lime, agricultural lime): neutralises acidic soil (increases pH), improves soil structure. Cheaper and more available than other alkalis.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q3 of 10</span><p class="mq-qtext">MgO is used as a refractory material because:</p><div class="mq-opts">
+      <label><input type="radio" name="u7s2q3" value="A"> It is cheap</label>
+      <label><input type="radio" name="u7s2q3" value="B"> It has very high melting point (2852°C) — stable at very high temperatures</label>
+      <label><input type="radio" name="u7s2q3" value="C"> It is soluble</label>
+      <label><input type="radio" name="u7s2q3" value="D"> It reacts with metals</label>
+    </div><div class="mq-exp" id="mqe-u7s2q3">MgO: ionic compound with 2+/2− charges → enormous lattice energy → extremely high m.p. → stable at furnace temperatures → used to line furnaces, kilns.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q4 of 10</span><p class="mq-qtext">CaCO₃ (limestone) is used in:</p><div class="mq-opts">
+      <label><input type="radio" name="u7s2q4" value="A"> Fertilisers</label>
+      <label><input type="radio" name="u7s2q4" value="B"> Making glass, cement, and neutralising acid in lakes/rivers</label>
+      <label><input type="radio" name="u7s2q4" value="C"> Water softening only</label>
+      <label><input type="radio" name="u7s2q4" value="D"> Bleaching</label>
+    </div><div class="mq-exp" id="mqe-u7s2q4">CaCO₃: glass (with SiO₂ + Na₂CO₃), cement (with clay, heated → calcium silicates), neutralising acid in lakes (liming), blast furnace flux.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q5 of 10</span><p class="mq-qtext">Which Group 2 compound is used in fireworks to give a red colour?</p><div class="mq-opts">
+      <label><input type="radio" name="u7s2q5" value="A"> MgCl₂</label>
+      <label><input type="radio" name="u7s2q5" value="B"> BaCl₂ (green)</label>
+      <label><input type="radio" name="u7s2q5" value="C"> SrCl₂ (red/crimson)</label>
+      <label><input type="radio" name="u7s2q5" value="D"> CaCl₂ (orange-red)</label>
+    </div><div class="mq-exp" id="mqe-u7s2q5">Sr²⁺: red/crimson flame. Ba²⁺: green. Ca²⁺: orange-red. Mg: white. Different emission spectra from different metals used for firework colours.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q6 of 10</span><p class="mq-qtext">Ba²⁺ ions are toxic. Why is BaSO₄ safe to use medicinally?</p><div class="mq-opts">
+      <label><input type="radio" name="u7s2q6" value="A"> It reacts with stomach acid safely</label>
+      <label><input type="radio" name="u7s2q6" value="B"> BaSO₄ is virtually insoluble → cannot be absorbed into bloodstream → passes through harmlessly</label>
+      <label><input type="radio" name="u7s2q6" value="C"> Ba²⁺ in BaSO₄ is neutralised</label>
+      <label><input type="radio" name="u7s2q6" value="D"> It contains no Ba</label>
+    </div><div class="mq-exp" id="mqe-u7s2q6">Ksp(BaSO₄) = 1×10⁻¹⁰ mol²/dm⁶ — extremely insoluble. Free Ba²⁺ concentration negligible → cannot be absorbed → non-toxic. Soluble Ba²⁺ compounds (BaCl₂) ARE toxic.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q7 of 10</span><p class="mq-qtext">Dolomite (MgCO₃·CaCO₃) is heated to give:</p><div class="mq-opts">
+      <label><input type="radio" name="u7s2q7" value="A"> MgO + CaCO₃</label>
+      <label><input type="radio" name="u7s2q7" value="B"> MgO + CaO + 2CO₂</label>
+      <label><input type="radio" name="u7s2q7" value="C"> Mg + Ca + 2CO₂</label>
+      <label><input type="radio" name="u7s2q7" value="D"> Mg(OH)₂ + Ca(OH)₂</label>
+    </div><div class="mq-exp" id="mqe-u7s2q7">Dolomite calcination: MgCO₃·CaCO₃ → MgO + CaO + 2CO₂. Dolime (MgO+CaO) used in steel making.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q8 of 10</span><p class="mq-qtext">Which Group 2 hydroxide is used in making cement?</p><div class="mq-opts">
+      <label><input type="radio" name="u7s2q8" value="A"> Be(OH)₂</label>
+      <label><input type="radio" name="u7s2q8" value="B"> Mg(OH)₂</label>
+      <label><input type="radio" name="u7s2q8" value="C"> Ca(OH)₂</label>
+      <label><input type="radio" name="u7s2q8" value="D"> Ba(OH)₂</label>
+    </div><div class="mq-exp" id="mqe-u7s2q8">Ca(OH)₂ (slaked lime) + SiO₂/Al₂O₃ → calcium silicates/aluminates (cement minerals). Cement hardens when mixed with water.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q9 of 10</span><p class="mq-qtext">CaSO₄·½H₂O (plaster of Paris) sets hard because:</p><div class="mq-opts">
+      <label><input type="radio" name="u7s2q9" value="A"> It loses water</label>
+      <label><input type="radio" name="u7s2q9" value="B"> It gains water: CaSO₄·½H₂O + 1½H₂O → CaSO₄·2H₂O (gypsum) — expanding slightly</label>
+      <label><input type="radio" name="u7s2q9" value="C"> It reacts with CO₂</label>
+      <label><input type="radio" name="u7s2q9" value="D"> It oxidises in air</label>
+    </div><div class="mq-exp" id="mqe-u7s2q9">Plaster of Paris + water → gypsum. Slight expansion on setting → fills moulds precisely. Used in casts, moulding, building.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q10 of 10</span><p class="mq-qtext">Which Group 2 element is essential for plant chlorophyll?</p><div class="mq-opts">
+      <label><input type="radio" name="u7s2q10" value="A"> Ca</label>
+      <label><input type="radio" name="u7s2q10" value="B"> Ba</label>
+      <label><input type="radio" name="u7s2q10" value="C"> Mg</label>
+      <label><input type="radio" name="u7s2q10" value="D"> Sr</label>
+    </div><div class="mq-exp" id="mqe-u7s2q10">Magnesium (Mg) is the central atom in the chlorophyll molecule (porphyrin ring). Mg²⁺ deficiency → yellowing of leaves (chlorosis). Ca²⁺ also essential (cell wall structure).</div></div>
+    <button class="mq-submit" onclick="submitMQ('u7s2',{"u7s2q1":"B","u7s2q2":"B","u7s2q3":"B","u7s2q4":"B","u7s2q5":"C","u7s2q6":"B","u7s2q7":"B","u7s2q8":"C","u7s2q9":"B","u7s2q10":"C"})">&#10003; Check Answers</button>
+    <div class="mq-result" id="mqr-u7s2"></div>
+  </div>
+</div>
 <div class="section-header" id="exercises"><span class="section-number">&#x270F;&#xFE0F;</span><h2>Exercises</h2></div>
 <ul class="exercise-list">
   <li>State and explain the trend in thermal stability of Group 2 carbonates (MgCO&#x2083; to BaCO&#x2083;). Write equations for the decomposition of MgCO&#x2083; and CaCO&#x2083;.
@@ -692,6 +1089,66 @@ Ionic equation: Ba&#xB2;&#x207A;(aq) + SO&#x4;&#xB2;&#x207B;(aq) &rarr; BaSO&#x4
     showGate();
   },true);
 })();
+const _CA={q1:'A',q2:'B',q3:'B',q4:'B',q5:'C',q6:'C',q7:'B',q8:'D',q9:'B',q10:'A',q11:'B',q12:'B',q13:'B',q14:'B',q15:'D',q16:'B',q17:'D',q18:'B',q19:'C',q20:'B',q21:'B',q22:'B',q23:'C',q24:'B',q25:'B'};
+function submitQuiz(){
+  let s=0,t=Object.keys(_CA).length;
+  Object.entries(_CA).forEach(([q,c])=>{
+    const sel=document.querySelector('input[name="'+q+'"]:checked');
+    document.querySelectorAll('input[name="'+q+'"]').forEach(o=>{
+      if(o.value===c) o.closest('label').classList.add('correct');
+    });
+    if(sel){
+      if(sel.value===c) s++;
+      else sel.closest('label').classList.add('wrong');
+    }
+    const e=document.getElementById('e'+q.slice(1));
+    if(e) e.style.display='block';
+    document.querySelectorAll('input[name="'+q+'"]').forEach(o=>o.disabled=true);
+  });
+  const p=Math.round(s/t*100);
+  const r=document.getElementById('qR');
+  r.style.display='block';
+  r.style.background=p>=70?'rgba(52,211,153,.1)':'rgba(248,113,113,.1)';
+  r.style.border='1px solid '+(p>=70?'var(--green)':'var(--red)');
+  r.style.color=p>=70?'var(--green)':'var(--red)';
+  r.style.padding='14px 18px';r.style.borderRadius='8px';r.style.fontFamily="'JetBrains Mono',monospace";
+  r.innerHTML='Score: '+s+'/'+t+' ('+p+'%) — '+(p>=80?'🏆 Excellent!':p>=70?'✅ Good — review marked answers.':p>=50?'📚 Keep going — study the explanations.':'❌ Review all material and try again.');
+  document.querySelector('.qs').disabled=true;
+  document.querySelector('.qs').style.opacity='.5';
+}
+// ── ACCESS GATE (unit quiz) ──
+(function(){
+  const SK='quiz_access_granted',CK='quiz_access_code';
+  const gate=document.createElement('div');
+  gate.id='unit-quiz-gate';
+  gate.style.cssText='position:fixed;inset:0;background:#0d1117;z-index:99999;display:none;align-items:center;justify-content:center;padding:24px;';
+  gate.innerHTML='<div style="background:#161b22;border:2px solid rgba(245,158,11,.4);border-radius:16px;padding:48px 40px;max-width:460px;width:100%;text-align:center;"><div style="font-size:3.5rem;margin-bottom:16px;">🔒</div><h2 style="font-family:Playfair Display,serif;font-size:1.8rem;color:#fff;margin-bottom:10px;">Quiz Locked</h2><p style="color:#8b949e;font-size:.93rem;margin-bottom:24px;line-height:1.7;">Enter the access code from your teacher to unlock this quiz.</p><input id="ugc-inp" type="text" placeholder="Enter Code" maxlength="20" style="width:100%;background:#1c2333;border:2px solid #30363d;border-radius:8px;color:#e6edf3;padding:14px 18px;font-family:JetBrains Mono,monospace;font-size:1.4rem;text-align:center;letter-spacing:.2em;text-transform:uppercase;margin-bottom:12px;box-sizing:border-box;" onkeydown="if(event.key===\'Enter\')unlockUnitQuiz()"/><div id="ugc-err" style="font-family:JetBrains Mono,monospace;font-size:.82rem;color:#f87171;min-height:20px;margin-bottom:10px;"></div><button onclick="unlockUnitQuiz()" style="width:100%;background:#f59e0b;color:#000;border:none;padding:13px;border-radius:8px;font-family:JetBrains Mono,monospace;font-size:.9rem;font-weight:700;cursor:pointer;margin-bottom:10px;">🔓 Unlock Quiz</button><button onclick="document.getElementById(\'unit-quiz-gate\').style.display=\'none\';document.body.style.overflow=\'\'" style="width:100%;background:transparent;border:1px solid #30363d;color:#8b949e;padding:9px;border-radius:8px;font-family:JetBrains Mono,monospace;font-size:.8rem;cursor:pointer;">✕ Cancel</button></div>';
+  document.body.appendChild(gate);
+  window.unlockUnitQuiz=function(){
+    const v=document.getElementById('ugc-inp').value.trim().toUpperCase();
+    const c=localStorage.getItem(CK);
+    if(!v){document.getElementById('ugc-err').textContent='Enter the code.';return;}
+    if(v===c||!c){sessionStorage.setItem(SK,c||'open');document.getElementById('unit-quiz-gate').style.display='none';document.body.style.overflow='';}
+    else{document.getElementById('ugc-err').textContent='❌ Wrong code.';document.getElementById('ugc-inp').value='';}
+  };
+  window.addEventListener('DOMContentLoaded',function(){
+    const code=localStorage.getItem(CK);if(!code)return;
+    const granted=sessionStorage.getItem(SK);if(granted)return;
+    const qw=document.querySelector('.quiz-wrap');if(!qw)return;
+    qw.addEventListener('click',function(e){
+      if(!localStorage.getItem(CK))return;
+      if(sessionStorage.getItem(SK))return;
+      if(e.target.tagName==='BUTTON'||e.target.classList.contains('qs')) return;
+      e.stopPropagation();e.preventDefault();
+      document.getElementById('unit-quiz-gate').style.display='flex';
+      document.body.style.overflow='hidden';
+    },true);
+  });
+})();
+</script>
+</body>
+</html>
+
 </script>
 
 <script>
@@ -743,6 +1200,7 @@ Ionic equation: Ba&#xB2;&#x207A;(aq) + SO&#x4;&#xB2;&#x207B;(aq) &rarr; BaSO&#x4
     if(!qw) return;
     qw.addEventListener('click',function(e){
       if(!isLocked()||isGranted()) return;
+      if(e.target.tagName==='BUTTON'||e.target.classList.contains('qs')) return;
       e.stopPropagation();e.preventDefault();
       gate.style.display='flex';document.body.style.overflow='hidden';
     },true);
@@ -757,6 +1215,9 @@ function toggleAnswer(btn){
   ans.classList.toggle('open', !isOpen);
   btn.textContent = isOpen ? (btn.classList.contains('rb') ? 'Model Answer' : 'Show Answer') : 'Hide Answer';
 }
+</script>
+<script>
+function submitMQ(qid,total){var ak=window._MQA&&window._MQA[qid];if(!ak)return;var score=0;for(var i=1;i<=total;i++){var sel=document.querySelector('input[name="mq'+qid+'_'+i+'"]:checked');var correct=ak[i];var expEl=document.getElementById('mqE'+qid+'_'+i);if(expEl)expEl.style.display='block';['A','B','C','D'].forEach(function(ltr){var lbl=document.getElementById('mqL'+qid+'_'+i+'_'+ltr);if(!lbl)return;var inp=lbl.querySelector('input');if(inp)inp.disabled=true;if(ltr===correct){lbl.style.background='rgba(52,211,153,.12)';lbl.style.borderColor='#34d399';lbl.style.color='#34d399';}else if(sel&&sel.value===ltr&&ltr!==correct){lbl.style.background='rgba(248,113,113,.1)';lbl.style.borderColor='#f87171';lbl.style.color='#f87171';}});if(sel&&sel.value===correct)score++;}var pct=Math.round(score/total*100);var r=document.getElementById('mqRES'+qid);if(r){r.style.display='block';r.style.background=pct>=70?'rgba(52,211,153,.1)':'rgba(248,113,113,.1)';r.style.border='1px solid '+(pct>=70?'#34d399':'#f87171');r.style.color=pct>=70?'#34d399':'#f87171';r.textContent='Score: '+score+'/'+total+' ('+pct+'%) — '+(pct>=80?'🏆 Excellent!':pct>=70?'✅ Good':pct>=50?'📚 Review the notes':'❌ Re-read this section');}}
 </script>
 </body>
 </html>

@@ -93,6 +93,45 @@ footer{border-top:1px solid var(--border);padding:28px;text-align:center;font-fa
 footer a{color:var(--accent);text-decoration:none;}
 @media(max-width:640px){.hero{padding:60px 24px 40px;}.page{padding:0 16px 60px;}.quiz-body{padding:16px;}}
 </style>
+
+<style>
+@media print {
+  body { background: #fff !important; color: #000 !important; }
+  * { background: transparent !important; color: #000 !important; border-color: #ccc !important; box-shadow: none !important; }
+  nav, footer, .quiz-wrap, .quiz-header, .quiz-body, .quiz-submit, .submit-btn, .btn, button:not(.print-btn), .lock-bar, .lock-overlay, .answer-panel { display: none !important; }
+  h1, h2, h3, h4 { color: #000 !important; }
+  a { color: #000 !important; text-decoration: none !important; }
+  .section-number { color: #000 !important; border-color: #000 !important; }
+  .callout, .definition, .example, .worked-example { background: #f5f5f5 !important; border-color: #000 !important; }
+  main, .content { max-width: 100% !important; padding: 0 !important; }
+}
+  body { background: #fff !important; color: #000 !important; font-size: 11pt; line-height: 1.6; }
+  nav, footer, .quiz-wrap, .quiz-container, section#quiz, section#test,
+  .tab-btn, .reveal-btn, button, .answer-panel, .print-hide,
+  [id*="lock"], .modal-overlay { display: none !important; }
+  main { max-width: 100% !important; padding: 0 !important; margin: 0 !important; }
+  h1, h2, h3, h4 { color: #000 !important; page-break-after: avoid; }
+  h2 { border-bottom: 2px solid #000 !important; padding-bottom: 4pt; margin-top: 18pt; }
+  section { page-break-inside: avoid; margin-bottom: 16pt; }
+  .section-header { background: #f0f0f0 !important; color: #000 !important; padding: 6pt 10pt; border-radius: 0 !important; }
+  .callout, .definition, .example-box, .worked-example {
+    background: #f5f5f5 !important; color: #000 !important;
+    border: 1pt solid #ccc !important; border-left: 3pt solid #333 !important;
+    padding: 8pt !important; margin: 8pt 0 !important;
+  }
+  table { border-collapse: collapse !important; width: 100% !important; }
+  th, td { border: 1pt solid #999 !important; padding: 4pt 6pt !important; color: #000 !important; background: #fff !important; font-size: 10pt; }
+  th { background: #e0e0e0 !important; font-weight: bold; }
+  p, li { color: #000 !important; }
+  .hero, .hero-eyebrow, .hero h1, .hero p { display: none !important; }
+  .content-body, .unit-content, .notes-body { color: #000 !important; }
+  a { color: #000 !important; text-decoration: none; }
+  code, pre { background: #f0f0f0 !important; color: #000 !important; border: 1pt solid #ccc !important; }
+  .answer-panel.open { display: block !important; background: #f9f9f9 !important; color: #000 !important; }
+  strong { color: #000 !important; }
+  var(--text), var(--muted), var(--accent) { color: #000 !important; }
+}
+</style>
 </head>
 <body>
 <nav>
@@ -217,11 +256,11 @@ Fe³⁺ + e⁻ → Fe²⁺              (reduction)
 Fe²⁺ → Fe³⁺ + e⁻              (oxidation)
 MnO₄⁻ + 8H⁺ + 5e⁻ → Mn²⁺ + 4H₂O    (reduction — acidic)
 Cr₂O₇²⁻ + 14H⁺ + 6e⁻ → 2Cr³⁺ + 7H₂O (reduction — acidic)
-H��O₂ + 2H⁺ + 2e⁻ → 2H₂O           (reduction)
+H��O₂ + 2H⁺ + 2e⁻ → 2H₂O           (reduction)
 I₂ + 2e⁻ → 2I⁻                      (reduction)
 2I⁻ → I₂ + 2e⁻                      (oxidation)
 Cl₂ + 2e⁻ → 2Cl⁻                    (reduction)
-H�� → 2H⁺ + 2e⁻                      (oxidation)
+H�� → 2H⁺ + 2e⁻                      (oxidation)
 2H⁺ + 2e⁻ → H₂                      (reduction — standard hydrogen electrode)</div>
 </div>
 
@@ -898,4 +937,3 @@ function submitQuiz(){
 })();
 </script>
 </body>
-</html>

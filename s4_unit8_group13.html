@@ -96,6 +96,63 @@
   h3.sub{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--gold);margin:28px 0 10px;}
   sub,sup{font-size:.72em;}
   @media(max-width:600px){.hero{padding:50px 20px 40px;}.page{padding:0 16px 60px;}}
+
+.mini-quiz{background:var(--surface2);border:1px solid rgba(56,189,248,.2);border-radius:var(--radius);overflow:hidden;margin:32px 0 16px;}
+.mq-head{background:rgba(56,189,248,.1);border-bottom:1px solid rgba(56,189,248,.2);padding:12px 20px;display:flex;align-items:center;gap:10px;}
+.mq-head h4{font-family:'Playfair Display',serif;font-size:.98rem;color:#fff;flex:1;}
+.mq-badge{font-family:'JetBrains Mono',monospace;font-size:.68rem;background:rgba(56,189,248,.15);border:1px solid rgba(56,189,248,.3);color:var(--accent);padding:3px 10px;border-radius:50px;white-space:nowrap;}
+.mq-body{padding:18px 22px;}
+.mq-qblock{margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid var(--border);}
+.mq-qblock:last-of-type{border-bottom:none;margin-bottom:6px;padding-bottom:0;}
+.mq-qnum{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--accent);display:block;margin-bottom:5px;}
+.mq-qtext{font-size:.93rem;color:#fff;margin-bottom:9px;line-height:1.6;}
+.mq-opts label{display:flex;align-items:flex-start;gap:8px;padding:7px 11px;margin-bottom:5px;border-radius:7px;border:1px solid var(--border);cursor:pointer;font-size:.86rem;transition:all .15s;background:var(--bg);}
+.mq-opts label:hover{border-color:var(--accent);}
+.mq-opts label.correct{background:rgba(52,211,153,.1);border-color:var(--green)!important;color:var(--green);}
+.mq-opts label.wrong{background:rgba(248,113,113,.07);border-color:var(--red)!important;color:var(--red);}
+.mq-opts input[type=radio]{margin-top:3px;accent-color:var(--accent);flex-shrink:0;}
+.mq-exp{display:none;margin-top:7px;padding:9px 13px;background:rgba(56,189,248,.06);border-left:3px solid var(--accent);border-radius:0 5px 5px 0;font-size:.83rem;line-height:1.6;color:var(--muted);}
+.mq-submit{background:var(--accent);color:#000;border:none;padding:9px 26px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:.8rem;font-weight:700;cursor:pointer;transition:opacity .2s;margin-top:4px;}
+.mq-submit:hover{opacity:.85;}
+</style>
+
+<style>
+@media print {
+  body { background: #fff !important; color: #000 !important; }
+  * { background: transparent !important; color: #000 !important; border-color: #ccc !important; box-shadow: none !important; }
+  nav, footer, .quiz-wrap, .quiz-header, .quiz-body, .quiz-submit, .submit-btn, .btn, button:not(.print-btn), .lock-bar, .lock-overlay, .answer-panel { display: none !important; }
+  h1, h2, h3, h4 { color: #000 !important; }
+  a { color: #000 !important; text-decoration: none !important; }
+  .section-number { color: #000 !important; border-color: #000 !important; }
+  .callout, .definition, .example, .worked-example { background: #f5f5f5 !important; border-color: #000 !important; }
+  main, .content { max-width: 100% !important; padding: 0 !important; }
+}
+  body { background: #fff !important; color: #000 !important; font-size: 11pt; line-height: 1.6; }
+  nav, footer, .quiz-wrap, .quiz-container, section#quiz, section#test,
+  .tab-btn, .reveal-btn, button, .answer-panel, .print-hide,
+  [id*="lock"], .modal-overlay { display: none !important; }
+  main { max-width: 100% !important; padding: 0 !important; margin: 0 !important; }
+  h1, h2, h3, h4 { color: #000 !important; page-break-after: avoid; }
+  h2 { border-bottom: 2px solid #000 !important; padding-bottom: 4pt; margin-top: 18pt; }
+  section { page-break-inside: avoid; margin-bottom: 16pt; }
+  .section-header { background: #f0f0f0 !important; color: #000 !important; padding: 6pt 10pt; border-radius: 0 !important; }
+  .callout, .definition, .example-box, .worked-example {
+    background: #f5f5f5 !important; color: #000 !important;
+    border: 1pt solid #ccc !important; border-left: 3pt solid #333 !important;
+    padding: 8pt !important; margin: 8pt 0 !important;
+  }
+  table { border-collapse: collapse !important; width: 100% !important; }
+  th, td { border: 1pt solid #999 !important; padding: 4pt 6pt !important; color: #000 !important; background: #fff !important; font-size: 10pt; }
+  th { background: #e0e0e0 !important; font-weight: bold; }
+  p, li { color: #000 !important; }
+  .hero, .hero-eyebrow, .hero h1, .hero p { display: none !important; }
+  .content-body, .unit-content, .notes-body { color: #000 !important; }
+  a { color: #000 !important; text-decoration: none; }
+  code, pre { background: #f0f0f0 !important; color: #000 !important; border: 1pt solid #ccc !important; }
+  .answer-panel.open { display: block !important; background: #f9f9f9 !important; color: #000 !important; }
+  strong { color: #000 !important; }
+  var(--text), var(--muted), var(--accent) { color: #000 !important; }
+}
 </style>
 </head>
 <body>
@@ -148,6 +205,107 @@
 <div class="def-box"><strong>Inert Pair Effect</strong>Going down Group 13 (and Group 14, 15), the ns&#xB2; pair of electrons becomes increasingly reluctant to participate in bonding. This is because the ns&#xB2; electrons penetrate the inner electron cores more and experience greater effective nuclear charge, making them harder to ionise. Result: heavier elements (Tl, Pb, Bi) prefer lower oxidation states (+1, +2, +3 rather than +3, +4, +5). For Group 13: Tl&#x207A; is more stable than Tl&#xB3;&#x207A;.</div>
 
 <!-- 8.2 -->
+
+<div style="background:var(--surface);border:1px solid rgba(56,189,248,.25);border-radius:10px;overflow:hidden;margin:28px 0 40px;">
+  <div style="background:rgba(56,189,248,.08);border-bottom:1px solid rgba(56,189,248,.25);padding:14px 22px;display:flex;align-items:center;justify-content:space-between;">
+    <div><div style="font-family:'JetBrains Mono',monospace;font-size:.68rem;color:#38bdf8;text-transform:uppercase;letter-spacing:.1em;">Section 8.1 Quick Quiz</div><strong style="color:#fff;font-family:'Playfair Display',serif;">Physical Properties of Group 13 Elements</strong></div>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);">10 Questions</span>
+  </div>
+  <div style="padding:20px 22px;">
+    <script>window._MQA=window._MQA||{};window._MQA["8_1"]={1:"B",2:"B",3:"B",4:"C",5:"C",6:"B",7:"B",8:"B",9:"B",10:"B"};</script>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#38bdf8;margin-bottom:6px;">Q1</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The general valence electron configuration of Group 13 elements is:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_1_1_A"><input type="radio" name="mq8_1_1" value="A" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>ns²</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_1_1_B"><input type="radio" name="mq8_1_1" value="B" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>ns²np¹</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_1_1_C"><input type="radio" name="mq8_1_1" value="C" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>ns¹</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_1_1_D"><input type="radio" name="mq8_1_1" value="D" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>ns²np²</span></label>
+      <div id="mqE8_1_1" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(56,189,248,.08);border-left:3px solid #38bdf8;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#38bdf8;">✓ Answer: B</strong><br>Group 13: ns²np¹ outer electrons (3 valence electrons). B=[He]2s²2p¹, Al=[Ne]3s²3p¹, Ga=[Ar]3d¹⁰4s²4p¹, In=[Kr]4d¹⁰5s²5p¹, Tl=[Xe]4f¹⁴5d¹⁰6s²6p¹. They typically form 3+ ions (lose all 3 valence electrons) or 3 covalent bonds. The empty p orbital in trivalent compounds makes Group 13 elements electron-deficient Lewis acids.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#38bdf8;margin-bottom:6px;">Q2</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Aluminium (Al) has a relatively high melting point for a Group 13 metal because:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_1_2_A"><input type="radio" name="mq8_1_2" value="A" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>It has many neutrons</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_1_2_B"><input type="radio" name="mq8_1_2" value="B" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Al contributes 3 valence electrons to metallic bonding — strong metallic bond — resulting in m.p.=660°C</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_1_2_C"><input type="radio" name="mq8_1_2" value="C" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Al is very reactive</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_1_2_D"><input type="radio" name="mq8_1_2" value="D" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Al forms ionic bonds</span></label>
+      <div id="mqE8_1_2" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(56,189,248,.08);border-left:3px solid #38bdf8;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#38bdf8;">✓ Answer: B</strong><br>Al metallic bonding is stronger than Group 1 (1e) or Group 2 (2e) because 3 electrons per atom are delocalised. M.p.(Al)=660°C > Mg(650°C) > Na(98°C). Also Al³⁺ ions have highest charge density among s,p-block metals → strongest attraction to electron sea. This is why Al is useful structurally.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#38bdf8;margin-bottom:6px;">Q3</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The density of aluminium (2.70 g/cm³) makes it suitable for:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_1_3_A"><input type="radio" name="mq8_1_3" value="A" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Chemical storage</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_1_3_B"><input type="radio" name="mq8_1_3" value="B" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Lightweight structural applications — aircraft, cars, packaging — where strength-to-weight ratio is important</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_1_3_C"><input type="radio" name="mq8_1_3" value="C" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Medical implants only</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_1_3_D"><input type="radio" name="mq8_1_3" value="D" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Electrical insulation</span></label>
+      <div id="mqE8_1_3" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(56,189,248,.08);border-left:3px solid #38bdf8;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#38bdf8;">✓ Answer: B</strong><br>Al: density 2.70 g/cm³ (about 1/3 of steel). Strong, corrosion-resistant (protective Al₂O₃ layer), recyclable. Used for: aircraft frames, car bodies, beverage cans, kitchen foil, electrical cables (cheaper than Cu, though less conductive). Al alloys (with Cu, Mg, Zn) are even stronger.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#38bdf8;margin-bottom:6px;">Q4</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Which Group 13 element is a non-metal with covalent bonding?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_1_4_A"><input type="radio" name="mq8_1_4" value="A" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Aluminium</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_1_4_B"><input type="radio" name="mq8_1_4" value="B" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Gallium</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_1_4_C"><input type="radio" name="mq8_1_4" value="C" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Boron</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_1_4_D"><input type="radio" name="mq8_1_4" value="D" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Indium</span></label>
+      <div id="mqE8_1_4" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(56,189,248,.08);border-left:3px solid #38bdf8;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#38bdf8;">✓ Answer: C</strong><br>Boron is the only non-metal in Group 13 (and the only non-metal metalloid in the group). It forms covalent compounds (BCl₃, BF₃, B₂H₆). Lacks metallic properties. Al, Ga, In, Tl are all metals. Boron's small size and high nuclear charge promote covalent bonding rather than metallic.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#38bdf8;margin-bottom:6px;">Q5</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Down Group 13, the melting points show an irregular trend. Which element has the lowest melting point?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_1_5_A"><input type="radio" name="mq8_1_5" value="A" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Boron</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_1_5_B"><input type="radio" name="mq8_1_5" value="B" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Aluminium</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_1_5_C"><input type="radio" name="mq8_1_5" value="C" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Gallium (m.p.=30°C — nearly a liquid at room temperature)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_1_5_D"><input type="radio" name="mq8_1_5" value="D" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Indium</span></label>
+      <div id="mqE8_1_5" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(56,189,248,.08);border-left:3px solid #38bdf8;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#38bdf8;">✓ Answer: C</strong><br>Ga has the lowest m.p. in Group 13 at 30°C (just above room temperature — melts in your hand). This is due to its unusual electron configuration ([Ar]3d¹⁰4s²4p¹) and crystal structure. The d-block insertion (3d¹⁰) before Ga affects its bonding properties. Ga is used in thermometers as a mercury substitute.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#38bdf8;margin-bottom:6px;">Q6</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The electrical conductivity of aluminium makes it useful for:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_1_6_A"><input type="radio" name="mq8_1_6" value="A" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Electrical insulation</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_1_6_B"><input type="radio" name="mq8_1_6" value="B" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>High-voltage transmission cables — Al has good conductivity (lower than Cu but much cheaper and lighter)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_1_6_C"><input type="radio" name="mq8_1_6" value="C" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Making ceramics</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_1_6_D"><input type="radio" name="mq8_1_6" value="D" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Biological applications</span></label>
+      <div id="mqE8_1_6" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(56,189,248,.08);border-left:3px solid #38bdf8;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#38bdf8;">✓ Answer: B</strong><br>Al electrical conductivity = 61% of Cu, but Al density = 30% of Cu. For the SAME mass, Al transmits more electricity. For power transmission lines where weight is critical, Al cables on steel cores are preferred over Cu. Cheaper and lighter than equivalent Cu cables for long-distance transmission.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#38bdf8;margin-bottom:6px;">Q7</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Gallium (Ga) has a unique property compared to most metals because:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_1_7_A"><input type="radio" name="mq8_1_7" value="A" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>It is radioactive</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_1_7_B"><input type="radio" name="mq8_1_7" value="B" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>It is a liquid at slightly above room temperature (m.p.=30°C) — one of the few metals that melts near room temperature</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_1_7_C"><input type="radio" name="mq8_1_7" value="C" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>It is transparent</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_1_7_D"><input type="radio" name="mq8_1_7" value="D" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>It doesn't conduct electricity</span></label>
+      <div id="mqE8_1_7" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(56,189,248,.08);border-left:3px solid #38bdf8;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#38bdf8;">✓ Answer: B</strong><br>Ga m.p. = 29.76°C. Liquid range: 29.76°C to 2229°C (very wide liquid range). Expands on solidification (like water). Used in: high-temperature thermometers (no toxic Hg), semiconductor devices (GaAs solar cells, LEDs), alloying. Gallium arsenide (GaAs) is a crucial semiconductor material.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#38bdf8;margin-bottom:6px;">Q8</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Thalium (Tl, bottom of Group 13) shows the inert pair effect by preferentially forming:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_1_8_A"><input type="radio" name="mq8_1_8" value="A" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Tl³⁺</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_1_8_B"><input type="radio" name="mq8_1_8" value="B" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Tl¹⁺ (thallous)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_1_8_C"><input type="radio" name="mq8_1_8" value="C" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Tl⁻</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_1_8_D"><input type="radio" name="mq8_1_8" value="D" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Tl⁴⁺</span></label>
+      <div id="mqE8_1_8" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(56,189,248,.08);border-left:3px solid #38bdf8;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#38bdf8;">✓ Answer: B</strong><br>Inert pair effect: down Group 13, the 6s² pair in Tl becomes increasingly reluctant to participate in bonding (relativistic effects stabilise 6s). Tl commonly forms Tl⁺ (loses only 6p¹, keeping 6s² 'inert pair') rather than Tl³⁺. Tl⁺ compounds are stable. Similarly: Pb prefers Pb²⁺ over Pb⁴⁺; Bi prefers Bi³⁺ over Bi⁵⁺.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#38bdf8;margin-bottom:6px;">Q9</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Aluminium is protected from corrosion by:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_1_9_A"><input type="radio" name="mq8_1_9" value="A" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>A layer of water</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_1_9_B"><input type="radio" name="mq8_1_9" value="B" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>A thin, adherent, impermeable aluminium oxide (Al₂O₃) layer that forms immediately on exposure to air</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_1_9_C"><input type="radio" name="mq8_1_9" value="C" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>A layer of hydroxide</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_1_9_D"><input type="radio" name="mq8_1_9" value="D" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>A layer of carbonate</span></label>
+      <div id="mqE8_1_9" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(56,189,248,.08);border-left:3px solid #38bdf8;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#38bdf8;">✓ Answer: B</strong><br>Al is thermodynamically very reactive (standard electrode potential = -1.66V). However, it instantly forms a thin (~4nm), dense, strongly adherent Al₂O₃ layer → protects underlying metal from further oxidation (passivation). This explains why Al seems 'unreactive' despite its high thermodynamic reactivity. Anodising thickens this protective layer.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#38bdf8;margin-bottom:6px;">Q10</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The atomic radius trend down Group 13 shows:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_1_10_A"><input type="radio" name="mq8_1_10" value="A" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Steadily increasing radius from B to Tl</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_1_10_B"><input type="radio" name="mq8_1_10" value="B" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Ga is nearly the same size as Al (due to poor shielding by 3d electrons) — irregular trend</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_1_10_C"><input type="radio" name="mq8_1_10" value="C" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>All same radius</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_1_10_D"><input type="radio" name="mq8_1_10" value="D" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Decreasing radius</span></label>
+      <div id="mqE8_1_10" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(56,189,248,.08);border-left:3px solid #38bdf8;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#38bdf8;">✓ Answer: B</strong><br>Radius (pm): B(85) < Al(143) < Ga(136) < In(167) < Tl(170). Ga is unexpectedly similar to Al because the 10 d electrons (3d¹⁰) in Ga provide poor shielding → higher Zeff → pulled inward. This 'd-block contraction' makes Ga nearly the same size as Al. Similar contraction affects other 4th period elements.</div>
+    </div>
+    <div style="text-align:center;"><button onclick="submitMQ('8_1',10)" style="background:#38bdf8;color:#000;border:none;padding:9px 30px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:.85rem;font-weight:700;cursor:pointer;">Check Answers</button><div id="mqRES8_1" style="display:none;margin-top:10px;border-radius:7px;padding:12px;font-family:'JetBrains Mono',monospace;font-size:.85rem;text-align:center;"></div></div>
+  </div>
+</div>
 <div class="section-header" id="s82"><span class="section-number">8.2</span><h2>Reaction of Aluminium</h2></div>
 <div class="card"><h3>Aluminium &mdash; Seemingly Unreactive but Actually Reactive</h3>
 <p>Pure aluminium is actually highly reactive (standard electrode potential E&deg; = &minus;1.66 V). However, in air it rapidly forms a thin, adherent, impervious layer of aluminium oxide (Al&#x2082;O&#x2083;) that protects the underlying metal from further reaction. This is called <strong>passivation</strong>.</p>
@@ -201,6 +359,107 @@ Overall ionic equation:
 </div>
 
 <!-- 8.3 -->
+
+<div style="background:var(--surface);border:1px solid rgba(167,139,250,.25);border-radius:10px;overflow:hidden;margin:28px 0 40px;">
+  <div style="background:rgba(167,139,250,.08);border-bottom:1px solid rgba(167,139,250,.25);padding:14px 22px;display:flex;align-items:center;justify-content:space-between;">
+    <div><div style="font-family:'JetBrains Mono',monospace;font-size:.68rem;color:#a78bfa;text-transform:uppercase;letter-spacing:.1em;">Section 8.2 Quick Quiz</div><strong style="color:#fff;font-family:'Playfair Display',serif;">Reaction of Aluminium</strong></div>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);">10 Questions</span>
+  </div>
+  <div style="padding:20px 22px;">
+    <script>window._MQA=window._MQA||{};window._MQA["8_2"]={1:"B",2:"B",3:"A",4:"A",5:"B",6:"B",7:"B",8:"A",9:"B",10:"B"};</script>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#a78bfa;margin-bottom:6px;">Q1</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Aluminium reacts with dilute hydrochloric acid to produce:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_2_1_A"><input type="radio" name="mq8_2_1" value="A" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Al₂O₃ and HCl</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_2_1_B"><input type="radio" name="mq8_2_1" value="B" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>AlCl₃ and H₂</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_2_1_C"><input type="radio" name="mq8_2_1" value="C" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Al(OH)₃ and H₂</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_2_1_D"><input type="radio" name="mq8_2_1" value="D" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>AlH₃ and Cl₂</span></label>
+      <div id="mqE8_2_1" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(167,139,250,.08);border-left:3px solid #a78bfa;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#a78bfa;">✓ Answer: B</strong><br>2Al + 6HCl → 2AlCl₃ + 3H₂. Aluminium dissolves in dilute acids to produce Al³⁺ salt and H₂ gas. The oxide layer must first be removed by acid before the reaction proceeds properly. Once the oxide is gone, Al reacts rapidly. AlCl₃ is soluble — ionic when hydrated.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#a78bfa;margin-bottom:6px;">Q2</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Why does aluminium appear to be unreactive despite being a very reactive metal thermodynamically?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_2_2_A"><input type="radio" name="mq8_2_2" value="A" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Aluminium has no free electrons</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_2_2_B"><input type="radio" name="mq8_2_2" value="B" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>A thin, dense, self-healing Al₂O₃ layer (passivation layer) forms instantly on the surface, protecting underlying Al</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_2_2_C"><input type="radio" name="mq8_2_2" value="C" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Aluminium is stable as Al³⁺</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_2_2_D"><input type="radio" name="mq8_2_2" value="D" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Aluminium is unreactive with anything</span></label>
+      <div id="mqE8_2_2" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(167,139,250,.08);border-left:3px solid #a78bfa;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#a78bfa;">✓ Answer: B</strong><br>Al standard electrode potential = −1.66V (very reactive, between Mg and Na). However, 4Al + 3O₂ → 2Al₂O₃ is extremely fast at the surface. The Al₂O₃ layer (4nm) is impermeable and strongly adherent → prevents further oxidation. This passivation explains why Al resists corrosion in air/water — 'apparent unreactivity' despite high thermodynamic reactivity.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#a78bfa;margin-bottom:6px;">Q3</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The thermite reaction involves aluminium reacting with iron oxide:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_2_3_A"><input type="radio" name="mq8_2_3" value="A" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>2Al + Fe₂O₃ → Al₂O₃ + 2Fe</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_2_3_B"><input type="radio" name="mq8_2_3" value="B" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>This reaction requires a catalyst</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_2_3_C"><input type="radio" name="mq8_2_3" value="C" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Al reacts with FeO only</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_2_3_D"><input type="radio" name="mq8_2_3" value="D" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>2Al + 3FeO → Al₂O₃ + 3Fe</span></label>
+      <div id="mqE8_2_3" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(167,139,250,.08);border-left:3px solid #a78bfa;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#a78bfa;">✓ Answer: A</strong><br>2Al + Fe₂O₃ → Al₂O₃ + 2Fe. This is the thermite reaction — extremely exothermic (ΔH ≈ −850 kJ/mol). Produces molten iron at ~2500°C. Uses: welding railway lines in remote areas, incendiary devices. Shows Al is a stronger reducing agent than Fe (Al removes O²⁻ from Fe₂O₃). Aluminothermy = using Al to reduce metal oxides.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#a78bfa;margin-bottom:6px;">Q4</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Aluminium dissolves in concentrated sodium hydroxide (NaOH) solution because:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_2_4_A"><input type="radio" name="mq8_2_4" value="A" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Al is amphoteric — reacts with bases as well as acids</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_2_4_B"><input type="radio" name="mq8_2_4" value="B" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Al only reacts with bases</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_2_4_C"><input type="radio" name="mq8_2_4" value="C" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>NaOH is an oxidising agent</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_2_4_D"><input type="radio" name="mq8_2_4" value="D" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Al becomes less reactive in base</span></label>
+      <div id="mqE8_2_4" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(167,139,250,.08);border-left:3px solid #a78bfa;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#a78bfa;">✓ Answer: A</strong><br>Al is amphoteric — reacts with both acids AND bases. With NaOH(aq): 2Al + 2NaOH + 2H₂O → 2NaAlO₂ + 3H₂. The aluminate ion [Al(OH)₄]⁻ or AlO₂⁻ forms in base. This is unusual — most metals don't react with bases. Amphoteric character distinguishes Al from purely basic Group 1,2 metals.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#a78bfa;margin-bottom:6px;">Q5</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Aluminium reacts with bromine (Br₂) to form:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_2_5_A"><input type="radio" name="mq8_2_5" value="A" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>AlBr (aluminium monobromide)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_2_5_B"><input type="radio" name="mq8_2_5" value="B" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>AlBr₃ (aluminium tribromide)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_2_5_C"><input type="radio" name="mq8_2_5" value="C" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Al₂Br₃</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_2_5_D"><input type="radio" name="mq8_2_5" value="D" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>AlBrO₃</span></label>
+      <div id="mqE8_2_5" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(167,139,250,.08);border-left:3px solid #a78bfa;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#a78bfa;">✓ Answer: B</strong><br>2Al + 3Br₂ → 2AlBr₃. AlBr₃ is a Lewis acid (like AlCl₃) — the Al atom has only 6 electrons around it (electron-deficient). Exists as Al₂Br₆ dimer in liquid/solid state (Br bridges). AlBr₃ is used as a catalyst in Friedel-Crafts reactions. All Group 13 trihalides are Lewis acids.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#a78bfa;margin-bottom:6px;">Q6</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">When aluminium reacts with oxygen during combustion, the equation is:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_2_6_A"><input type="radio" name="mq8_2_6" value="A" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Al + O₂ → AlO₂</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_2_6_B"><input type="radio" name="mq8_2_6" value="B" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>4Al + 3O₂ → 2Al₂O₃</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_2_6_C"><input type="radio" name="mq8_2_6" value="C" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>2Al + O₂ → 2AlO</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_2_6_D"><input type="radio" name="mq8_2_6" value="D" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Al + O₂ → Al₂O₃</span></label>
+      <div id="mqE8_2_6" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(167,139,250,.08);border-left:3px solid #a78bfa;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#a78bfa;">✓ Answer: B</strong><br>4Al + 3O₂ → 2Al₂O₃. Aluminium burns with a brilliant white flame. Al₂O₃ (alumina) is the product — white solid, very stable (high melting point 2072°C). The formation of Al₂O₃ is so exothermic (ΔH°f = −1676 kJ/mol) that it drives the thermite reaction. This stability is why Al passivates so effectively.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#a78bfa;margin-bottom:6px;">Q7</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Aluminium foil reacts slowly with mercury(II) chloride solution because:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_2_7_A"><input type="radio" name="mq8_2_7" value="A" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Mercury is more reactive than aluminium</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_2_7_B"><input type="radio" name="mq8_2_7" value="B" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>HgCl₂ destroys the Al₂O₃ protective layer (Hg amalgamates with Al surface) — exposing reactive Al which then oxidises rapidly in air</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_2_7_C"><input type="radio" name="mq8_2_7" value="C" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Mercury is a catalyst</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_2_7_D"><input type="radio" name="mq8_2_7" value="D" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>The reaction requires UV light</span></label>
+      <div id="mqE8_2_7" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(167,139,250,.08);border-left:3px solid #a78bfa;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#a78bfa;">✓ Answer: B</strong><br>HgCl₂(aq) can displace the oxide layer and form an Al-Hg amalgam on the surface. The amalgam prevents the passivating oxide from re-forming → Al continues to react rapidly with oxygen → white Al₂O₃ 'tendrils' form. This demonstration shows how reactive Al actually is when the protective oxide is removed.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#a78bfa;margin-bottom:6px;">Q8</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The reaction of aluminium with dilute sulfuric acid produces:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_2_8_A"><input type="radio" name="mq8_2_8" value="A" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Al₂(SO₄)₃ and H₂</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_2_8_B"><input type="radio" name="mq8_2_8" value="B" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Al₂SO₄ and H₂O</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_2_8_C"><input type="radio" name="mq8_2_8" value="C" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Al₂(SO₃)₃ and H₂</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_2_8_D"><input type="radio" name="mq8_2_8" value="D" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>AlSO₄ and H₂</span></label>
+      <div id="mqE8_2_8" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(167,139,250,.08);border-left:3px solid #a78bfa;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#a78bfa;">✓ Answer: A</strong><br>2Al + 3H₂SO₄(dilute) → Al₂(SO₄)₃ + 3H₂. Note: concentrated H₂SO₄ passivates Al (forms a protective oxide/sulfate layer) — similar to concentrated HNO₃ effect on iron. Dilute acid dissolves Al rapidly once the oxide layer is removed. Al₂(SO₄)₃ is soluble and used in paper-making (as alum hydrate), water treatment, and as a mordant in dyeing.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#a78bfa;margin-bottom:6px;">Q9</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Why is aluminium used in aircraft construction?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_2_9_A"><input type="radio" name="mq8_2_9" value="A" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>It is the most abundant metal</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_2_9_B"><input type="radio" name="mq8_2_9" value="B" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Low density (2.70 g/cm³) combined with high strength (when alloyed), good corrosion resistance, and workability make Al alloys ideal for aerospace</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_2_9_C"><input type="radio" name="mq8_2_9" value="C" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>It is magnetic</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_2_9_D"><input type="radio" name="mq8_2_9" value="D" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>It melts at very high temperatures</span></label>
+      <div id="mqE8_2_9" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(167,139,250,.08);border-left:3px solid #a78bfa;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#a78bfa;">✓ Answer: B</strong><br>Al alloys (e.g. duralumin: Al+Cu+Mg+Mn): density ~2.8 g/cm³ vs steel ~7.8 g/cm³. Three times lighter allows more payload/fuel efficiency. Good corrosion resistance (oxide layer). High specific strength (strength per unit mass). Can be welded, machined, rolled. A typical commercial aircraft is ~80% aluminium by mass.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#a78bfa;margin-bottom:6px;">Q10</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The Hall-Héroult process is used to produce aluminium by:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_2_10_A"><input type="radio" name="mq8_2_10" value="A" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Heating Al₂O₃ with carbon</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_2_10_B"><input type="radio" name="mq8_2_10" value="B" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Electrolysis of molten Al₂O₃ (dissolved in cryolite Na₃AlF₆) — Al forms at cathode, O₂ and CO₂ at carbon anode</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_2_10_C"><input type="radio" name="mq8_2_10" value="C" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Reducing Al₂O₃ with hydrogen</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL8_2_10_D"><input type="radio" name="mq8_2_10" value="D" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Thermal decomposition of Al₂O₃</span></label>
+      <div id="mqE8_2_10" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(167,139,250,.08);border-left:3px solid #a78bfa;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#a78bfa;">✓ Answer: B</strong><br>Hall-Héroult process: Al₂O₃ is dissolved in molten cryolite (Na₃AlF₆) at ~960°C (lowers melting point from 2072°C → 960°C). Electrolysis: Al³⁺ + 3e⁻ → Al (cathode); 2O²⁻ → O₂ + 4e⁻ (anode, but C anode burns: C+O₂→CO₂). Energy intensive: ~15 kWh/kg Al. Al can be recycled using only 5% of original energy.</div>
+    </div>
+    <div style="text-align:center;"><button onclick="submitMQ('8_2',10)" style="background:#a78bfa;color:#000;border:none;padding:9px 30px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:.85rem;font-weight:700;cursor:pointer;">Check Answers</button><div id="mqRES8_2" style="display:none;margin-top:10px;border-radius:7px;padding:12px;font-family:'JetBrains Mono',monospace;font-size:.85rem;text-align:center;"></div></div>
+  </div>
+</div>
 <div class="section-header" id="s83"><span class="section-number">8.3</span><h2>Oxides and Hydroxides of Group 13 Elements</h2></div>
 
 <h3 class="sub">Aluminium Oxide (Al&#x2082;O&#x2083;)</h3>
@@ -319,6 +578,75 @@ BF&#x2083; + NH&#x2083; &rarr; F&#x2083;B&larr;NH&#x2083;   (dative bond: N dona
 </table></div>
 
 <!-- EXERCISES -->
+
+<!-- MINI-QUIZ s81 -->
+<div class="mini-quiz" id="mq-s81">
+  <div class="mq-head"><span style="font-size:1.1rem;">&#127919;</span><h4>Section 8.1 — Group 13 Properties & Aluminium</h4><span class="mq-badge">10 Questions</span></div>
+  <div class="mq-body">
+    <div class="mq-qblock"><span class="mq-qnum">Q1 of 10</span><p class="mq-qtext">Aluminium appears unreactive in air due to:</p><div class="mq-opts">
+      <label><input type="radio" name="u8s1q1" value="A"> It has no valence electrons</label>
+      <label><input type="radio" name="u8s1q1" value="B"> A thin, impervious Al₂O₃ layer forms instantly on the surface (passivation)</label>
+      <label><input type="radio" name="u8s1q1" value="C"> It is a noble metal</label>
+      <label><input type="radio" name="u8s1q1" value="D"> It has high melting point</label>
+    </div><div class="mq-exp" id="mqe-u8s1q1">Passivation: Al reacts instantly with O₂ → thin Al₂O₃ layer → prevents further oxidation. This protective layer makes Al useful outdoors despite being reactive.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q2 of 10</span><p class="mq-qtext">Al₂O₃ is described as amphoteric because:</p><div class="mq-opts">
+      <label><input type="radio" name="u8s1q2" value="A"> It dissolves only in acid</label>
+      <label><input type="radio" name="u8s1q2" value="B"> It reacts with both acids AND bases</label>
+      <label><input type="radio" name="u8s1q2" value="C"> It is a strong base</label>
+      <label><input type="radio" name="u8s1q2" value="D"> It is insoluble</label>
+    </div><div class="mq-exp" id="mqe-u8s1q2">Amphoteric: Al₂O₃ + 3H₂SO₄ → Al₂(SO₄)₃ + 3H₂O (acts as base). Al₂O₃ + 2NaOH + 3H₂O → 2Na[Al(OH)₄] (acts as acid). Reacts with both.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q3 of 10</span><p class="mq-qtext">Aluminium is extracted by:</p><div class="mq-opts">
+      <label><input type="radio" name="u8s1q3" value="A"> Reduction with carbon</label>
+      <label><input type="radio" name="u8s1q3" value="B"> Electrolysis of molten Al₂O₃ (Hall-Héroult process)</label>
+      <label><input type="radio" name="u8s1q3" value="C"> Reduction with H₂</label>
+      <label><input type="radio" name="u8s1q3" value="D"> Heating the ore</label>
+    </div><div class="mq-exp" id="mqe-u8s1q3">Al₂O₃ melts at 2072°C — too high. Dissolved in molten cryolite (Na₃AlF₆, lower m.p.) → electrolysis. Carbon anodes, steel cathode.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q4 of 10</span><p class="mq-qtext">Al(OH)₃ reacts with NaOH to give:</p><div class="mq-opts">
+      <label><input type="radio" name="u8s1q4" value="A"> Al₂O₃ + NaOH</label>
+      <label><input type="radio" name="u8s1q4" value="B"> Na[Al(OH)₄] (sodium aluminate — tetrahydroxoaluminate ion)</label>
+      <label><input type="radio" name="u8s1q4" value="C"> AlNaO₂ + H₂O only</label>
+      <label><input type="radio" name="u8s1q4" value="D"> Al₂(SO₄)₃</label>
+    </div><div class="mq-exp" id="mqe-u8s1q4">Al(OH)₃ + OH⁻ → [Al(OH)₄]⁻ (aluminate). Amphoteric behaviour. Also: Al(OH)₃ + 3H⁺ → Al³⁺ + 3H₂O.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q5 of 10</span><p class="mq-qtext">The electron deficiency of BF₃ (Group 13) means it acts as:</p><div class="mq-opts">
+      <label><input type="radio" name="u8s1q5" value="A"> An electron donor (Lewis base)</label>
+      <label><input type="radio" name="u8s1q5" value="B"> An electron acceptor (Lewis acid)</label>
+      <label><input type="radio" name="u8s1q5" value="C"> A reducing agent</label>
+      <label><input type="radio" name="u8s1q5" value="D"> An oxidising agent</label>
+    </div><div class="mq-exp" id="mqe-u8s1q5">BF₃: B has only 6 electrons (no lone pair). Empty p orbital → accepts lone pairs → Lewis acid. Forms adducts with Lewis bases: BF₃ + NH₃ → F₃B←NH₃.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q6 of 10</span><p class="mq-qtext">Which property distinguishes Al from transition metals?</p><div class="mq-opts">
+      <label><input type="radio" name="u8s1q6" value="A"> Al is shiny</label>
+      <label><input type="radio" name="u8s1q6" value="B"> Al has a fixed oxidation state (+3 only); transition metals show variable oxidation states</label>
+      <label><input type="radio" name="u8s1q6" value="C"> Al is dense</label>
+      <label><input type="radio" name="u8s1q6" value="D"> Al is magnetic</label>
+    </div><div class="mq-exp" id="mqe-u8s1q6">Al always +3 (lost all 3 outer electrons). Transition metals: variable oxidation states (d electrons involved). Al is in Group 13 — not a transition metal.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q7 of 10</span><p class="mq-qtext">The thermite reaction (Al + Fe₂O₃) is used for:</p><div class="mq-opts">
+      <label><input type="radio" name="u8s1q7" value="A"> Making aluminium</label>
+      <label><input type="radio" name="u8s1q7" value="B"> Welding railway tracks — produces molten iron</label>
+      <label><input type="radio" name="u8s1q7" value="C"> Making Al₂O₃</label>
+      <label><input type="radio" name="u8s1q7" value="D"> Extracting iron in blast furnace</label>
+    </div><div class="mq-exp" id="mqe-u8s1q7">2Al + Fe₂O₃ → Al₂O₃ + 2Fe. Very exothermic (ΔH ≈ −850 kJ/mol). Al is a better reducing agent than Fe. Used to weld railroad tracks in situ.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q8 of 10</span><p class="mq-qtext">Anodising aluminium involves:</p><div class="mq-opts">
+      <label><input type="radio" name="u8s1q8" value="A"> Coating with zinc</label>
+      <label><input type="radio" name="u8s1q8" value="B"> Making Al the anode in electrolysis of H₂SO₄ — thickens the Al₂O₃ layer</label>
+      <label><input type="radio" name="u8s1q8" value="C"> Heating Al in O₂</label>
+      <label><input type="radio" name="u8s1q8" value="D"> Adding chromium coating</label>
+    </div><div class="mq-exp" id="mqe-u8s1q8">Anodising: Al as anode in H₂SO₄ → O₂ produced at anode oxidises Al → thicker Al₂O₃ layer. Can be dyed. More durable protection.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q9 of 10</span><p class="mq-qtext">Al reacts with dilute HCl to give:</p><div class="mq-opts">
+      <label><input type="radio" name="u8s1q9" value="A"> Al₂O₃ + HCl → AlCl₃ + H₂O</label>
+      <label><input type="radio" name="u8s1q9" value="B"> 2Al + 6HCl → 2AlCl₃ + 3H₂↑</label>
+      <label><input type="radio" name="u8s1q9" value="C"> Al + HCl → AlH₃ + Cl₂</label>
+      <label><input type="radio" name="u8s1q9" value="D"> Al + 2HCl → AlCl₂ + H₂</label>
+    </div><div class="mq-exp" id="mqe-u8s1q9">2Al + 6HCl → 2AlCl₃ + 3H₂. Al is oxidised (+3), H is reduced (0). First, oxide layer must be dissolved/abraded.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q10 of 10</span><p class="mq-qtext">Why is pure aluminium soft but alloyed aluminium (duralumin) hard?</p><div class="mq-opts">
+      <label><input type="radio" name="u8s1q10" value="A"> Alloyed Al has ionic bonds</label>
+      <label><input type="radio" name="u8s1q10" value="B"> Different-sized atoms (Cu, Mg, Mn) distort the lattice, preventing planes from sliding</label>
+      <label><input type="radio" name="u8s1q10" value="C"> Alloying adds more electrons</label>
+      <label><input type="radio" name="u8s1q10" value="D"> Pure Al has covalent bonds</label>
+    </div><div class="mq-exp" id="mqe-u8s1q10">Alloys: foreign atoms disrupt regular lattice → harder for planes to slip → harder, stronger material. Duralumin (Al + Cu + Mg): used in aircraft (strong, lightweight).</div></div>
+    <button class="mq-submit" onclick="submitMQ('u8s1',{"u8s1q1":"B","u8s1q2":"B","u8s1q3":"B","u8s1q4":"B","u8s1q5":"B","u8s1q6":"B","u8s1q7":"B","u8s1q8":"B","u8s1q9":"B","u8s1q10":"B"})">&#10003; Check Answers</button>
+    <div class="mq-result" id="mqr-u8s1"></div>
+  </div>
+</div>
 <div class="section-header" id="exercises"><span class="section-number">&#x270F;&#xFE0F;</span><h2>Exercises</h2></div>
 <ul class="exercise-list">
   <li>Write balanced equations to show that Al&#x2082;O&#x2083; is amphoteric, reacting with both dilute H&#x2082;SO&#x4; and NaOH solution. Explain what "amphoteric" means.
@@ -647,6 +975,66 @@ BF&#x2083; + NH&#x2083; &rarr; F&#x2083;B&larr;NH&#x2083;   (dative bond: N dona
     showGate();
   },true);
 })();
+const _CA={q1:'B',q2:'C',q3:'C',q4:'B',q5:'B',q6:'B',q7:'B',q8:'B',q9:'B',q10:'B',q11:'B',q12:'B',q13:'B',q14:'B',q15:'B',q16:'B',q17:'B',q18:'B',q19:'A',q20:'B',q21:'B',q22:'B',q23:'A',q24:'B',q25:'B'};
+function submitQuiz(){
+  let s=0,t=Object.keys(_CA).length;
+  Object.entries(_CA).forEach(([q,c])=>{
+    const sel=document.querySelector('input[name="'+q+'"]:checked');
+    document.querySelectorAll('input[name="'+q+'"]').forEach(o=>{
+      if(o.value===c) o.closest('label').classList.add('correct');
+    });
+    if(sel){
+      if(sel.value===c) s++;
+      else sel.closest('label').classList.add('wrong');
+    }
+    const e=document.getElementById('e'+q.slice(1));
+    if(e) e.style.display='block';
+    document.querySelectorAll('input[name="'+q+'"]').forEach(o=>o.disabled=true);
+  });
+  const p=Math.round(s/t*100);
+  const r=document.getElementById('qR');
+  r.style.display='block';
+  r.style.background=p>=70?'rgba(52,211,153,.1)':'rgba(248,113,113,.1)';
+  r.style.border='1px solid '+(p>=70?'var(--green)':'var(--red)');
+  r.style.color=p>=70?'var(--green)':'var(--red)';
+  r.style.padding='14px 18px';r.style.borderRadius='8px';r.style.fontFamily="'JetBrains Mono',monospace";
+  r.innerHTML='Score: '+s+'/'+t+' ('+p+'%) — '+(p>=80?'🏆 Excellent!':p>=70?'✅ Good — review marked answers.':p>=50?'📚 Keep going — study the explanations.':'❌ Review all material and try again.');
+  document.querySelector('.qs').disabled=true;
+  document.querySelector('.qs').style.opacity='.5';
+}
+// ── ACCESS GATE (unit quiz) ──
+(function(){
+  const SK='quiz_access_granted',CK='quiz_access_code';
+  const gate=document.createElement('div');
+  gate.id='unit-quiz-gate';
+  gate.style.cssText='position:fixed;inset:0;background:#0d1117;z-index:99999;display:none;align-items:center;justify-content:center;padding:24px;';
+  gate.innerHTML='<div style="background:#161b22;border:2px solid rgba(245,158,11,.4);border-radius:16px;padding:48px 40px;max-width:460px;width:100%;text-align:center;"><div style="font-size:3.5rem;margin-bottom:16px;">🔒</div><h2 style="font-family:Playfair Display,serif;font-size:1.8rem;color:#fff;margin-bottom:10px;">Quiz Locked</h2><p style="color:#8b949e;font-size:.93rem;margin-bottom:24px;line-height:1.7;">Enter the access code from your teacher to unlock this quiz.</p><input id="ugc-inp" type="text" placeholder="Enter Code" maxlength="20" style="width:100%;background:#1c2333;border:2px solid #30363d;border-radius:8px;color:#e6edf3;padding:14px 18px;font-family:JetBrains Mono,monospace;font-size:1.4rem;text-align:center;letter-spacing:.2em;text-transform:uppercase;margin-bottom:12px;box-sizing:border-box;" onkeydown="if(event.key===\'Enter\')unlockUnitQuiz()"/><div id="ugc-err" style="font-family:JetBrains Mono,monospace;font-size:.82rem;color:#f87171;min-height:20px;margin-bottom:10px;"></div><button onclick="unlockUnitQuiz()" style="width:100%;background:#f59e0b;color:#000;border:none;padding:13px;border-radius:8px;font-family:JetBrains Mono,monospace;font-size:.9rem;font-weight:700;cursor:pointer;margin-bottom:10px;">🔓 Unlock Quiz</button><button onclick="document.getElementById(\'unit-quiz-gate\').style.display=\'none\';document.body.style.overflow=\'\'" style="width:100%;background:transparent;border:1px solid #30363d;color:#8b949e;padding:9px;border-radius:8px;font-family:JetBrains Mono,monospace;font-size:.8rem;cursor:pointer;">✕ Cancel</button></div>';
+  document.body.appendChild(gate);
+  window.unlockUnitQuiz=function(){
+    const v=document.getElementById('ugc-inp').value.trim().toUpperCase();
+    const c=localStorage.getItem(CK);
+    if(!v){document.getElementById('ugc-err').textContent='Enter the code.';return;}
+    if(v===c||!c){sessionStorage.setItem(SK,c||'open');document.getElementById('unit-quiz-gate').style.display='none';document.body.style.overflow='';}
+    else{document.getElementById('ugc-err').textContent='❌ Wrong code.';document.getElementById('ugc-inp').value='';}
+  };
+  window.addEventListener('DOMContentLoaded',function(){
+    const code=localStorage.getItem(CK);if(!code)return;
+    const granted=sessionStorage.getItem(SK);if(granted)return;
+    const qw=document.querySelector('.quiz-wrap');if(!qw)return;
+    qw.addEventListener('click',function(e){
+      if(!localStorage.getItem(CK))return;
+      if(sessionStorage.getItem(SK))return;
+      if(e.target.tagName==='BUTTON'||e.target.classList.contains('qs')) return;
+      e.stopPropagation();e.preventDefault();
+      document.getElementById('unit-quiz-gate').style.display='flex';
+      document.body.style.overflow='hidden';
+    },true);
+  });
+})();
+</script>
+</body>
+</html>
+
 </script>
 
 <script>
@@ -698,6 +1086,7 @@ BF&#x2083; + NH&#x2083; &rarr; F&#x2083;B&larr;NH&#x2083;   (dative bond: N dona
     if(!qw) return;
     qw.addEventListener('click',function(e){
       if(!isLocked()||isGranted()) return;
+      if(e.target.tagName==='BUTTON'||e.target.classList.contains('qs')) return;
       e.stopPropagation();e.preventDefault();
       gate.style.display='flex';document.body.style.overflow='hidden';
     },true);
@@ -712,6 +1101,9 @@ function toggleAnswer(btn){
   ans.classList.toggle('open', !isOpen);
   btn.textContent = isOpen ? (btn.classList.contains('rb') ? 'Model Answer' : 'Show Answer') : 'Hide Answer';
 }
+</script>
+<script>
+function submitMQ(qid,total){var ak=window._MQA&&window._MQA[qid];if(!ak)return;var score=0;for(var i=1;i<=total;i++){var sel=document.querySelector('input[name="mq'+qid+'_'+i+'"]:checked');var correct=ak[i];var expEl=document.getElementById('mqE'+qid+'_'+i);if(expEl)expEl.style.display='block';['A','B','C','D'].forEach(function(ltr){var lbl=document.getElementById('mqL'+qid+'_'+i+'_'+ltr);if(!lbl)return;var inp=lbl.querySelector('input');if(inp)inp.disabled=true;if(ltr===correct){lbl.style.background='rgba(52,211,153,.12)';lbl.style.borderColor='#34d399';lbl.style.color='#34d399';}else if(sel&&sel.value===ltr&&ltr!==correct){lbl.style.background='rgba(248,113,113,.1)';lbl.style.borderColor='#f87171';lbl.style.color='#f87171';}});if(sel&&sel.value===correct)score++;}var pct=Math.round(score/total*100);var r=document.getElementById('mqRES'+qid);if(r){r.style.display='block';r.style.background=pct>=70?'rgba(52,211,153,.1)':'rgba(248,113,113,.1)';r.style.border='1px solid '+(pct>=70?'#34d399':'#f87171');r.style.color=pct>=70?'#34d399':'#f87171';r.textContent='Score: '+score+'/'+total+' ('+pct+'%) — '+(pct>=80?'🏆 Excellent!':pct>=70?'✅ Good':pct>=50?'📚 Review the notes':'❌ Re-read this section');}}
 </script>
 </body>
 </html>

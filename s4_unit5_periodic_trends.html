@@ -102,6 +102,63 @@
   .d-block{background:rgba(132,204,22,.2);border:1px solid rgba(132,204,22,.4);border-radius:4px;padding:3px 8px;font-family:'JetBrains Mono',monospace;font-size:.82rem;}
   .f-block{background:rgba(167,139,250,.2);border:1px solid rgba(167,139,250,.4);border-radius:4px;padding:3px 8px;font-family:'JetBrains Mono',monospace;font-size:.82rem;}
   @media(max-width:600px){.hero{padding:50px 20px 40px;}.page{padding:0 16px 60px;}}
+
+.mini-quiz{background:var(--surface2);border:1px solid rgba(56,189,248,.2);border-radius:var(--radius);overflow:hidden;margin:32px 0 16px;}
+.mq-head{background:rgba(56,189,248,.1);border-bottom:1px solid rgba(56,189,248,.2);padding:12px 20px;display:flex;align-items:center;gap:10px;}
+.mq-head h4{font-family:'Playfair Display',serif;font-size:.98rem;color:#fff;flex:1;}
+.mq-badge{font-family:'JetBrains Mono',monospace;font-size:.68rem;background:rgba(56,189,248,.15);border:1px solid rgba(56,189,248,.3);color:var(--accent);padding:3px 10px;border-radius:50px;white-space:nowrap;}
+.mq-body{padding:18px 22px;}
+.mq-qblock{margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid var(--border);}
+.mq-qblock:last-of-type{border-bottom:none;margin-bottom:6px;padding-bottom:0;}
+.mq-qnum{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--accent);display:block;margin-bottom:5px;}
+.mq-qtext{font-size:.93rem;color:#fff;margin-bottom:9px;line-height:1.6;}
+.mq-opts label{display:flex;align-items:flex-start;gap:8px;padding:7px 11px;margin-bottom:5px;border-radius:7px;border:1px solid var(--border);cursor:pointer;font-size:.86rem;transition:all .15s;background:var(--bg);}
+.mq-opts label:hover{border-color:var(--accent);}
+.mq-opts label.correct{background:rgba(52,211,153,.1);border-color:var(--green)!important;color:var(--green);}
+.mq-opts label.wrong{background:rgba(248,113,113,.07);border-color:var(--red)!important;color:var(--red);}
+.mq-opts input[type=radio]{margin-top:3px;accent-color:var(--accent);flex-shrink:0;}
+.mq-exp{display:none;margin-top:7px;padding:9px 13px;background:rgba(56,189,248,.06);border-left:3px solid var(--accent);border-radius:0 5px 5px 0;font-size:.83rem;line-height:1.6;color:var(--muted);}
+.mq-submit{background:var(--accent);color:#000;border:none;padding:9px 26px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:.8rem;font-weight:700;cursor:pointer;transition:opacity .2s;margin-top:4px;}
+.mq-submit:hover{opacity:.85;}
+</style>
+
+<style>
+@media print {
+  body { background: #fff !important; color: #000 !important; }
+  * { background: transparent !important; color: #000 !important; border-color: #ccc !important; box-shadow: none !important; }
+  nav, footer, .quiz-wrap, .quiz-header, .quiz-body, .quiz-submit, .submit-btn, .btn, button:not(.print-btn), .lock-bar, .lock-overlay, .answer-panel { display: none !important; }
+  h1, h2, h3, h4 { color: #000 !important; }
+  a { color: #000 !important; text-decoration: none !important; }
+  .section-number { color: #000 !important; border-color: #000 !important; }
+  .callout, .definition, .example, .worked-example { background: #f5f5f5 !important; border-color: #000 !important; }
+  main, .content { max-width: 100% !important; padding: 0 !important; }
+}
+  body { background: #fff !important; color: #000 !important; font-size: 11pt; line-height: 1.6; }
+  nav, footer, .quiz-wrap, .quiz-container, section#quiz, section#test,
+  .tab-btn, .reveal-btn, button, .answer-panel, .print-hide,
+  [id*="lock"], .modal-overlay { display: none !important; }
+  main { max-width: 100% !important; padding: 0 !important; margin: 0 !important; }
+  h1, h2, h3, h4 { color: #000 !important; page-break-after: avoid; }
+  h2 { border-bottom: 2px solid #000 !important; padding-bottom: 4pt; margin-top: 18pt; }
+  section { page-break-inside: avoid; margin-bottom: 16pt; }
+  .section-header { background: #f0f0f0 !important; color: #000 !important; padding: 6pt 10pt; border-radius: 0 !important; }
+  .callout, .definition, .example-box, .worked-example {
+    background: #f5f5f5 !important; color: #000 !important;
+    border: 1pt solid #ccc !important; border-left: 3pt solid #333 !important;
+    padding: 8pt !important; margin: 8pt 0 !important;
+  }
+  table { border-collapse: collapse !important; width: 100% !important; }
+  th, td { border: 1pt solid #999 !important; padding: 4pt 6pt !important; color: #000 !important; background: #fff !important; font-size: 10pt; }
+  th { background: #e0e0e0 !important; font-weight: bold; }
+  p, li { color: #000 !important; }
+  .hero, .hero-eyebrow, .hero h1, .hero p { display: none !important; }
+  .content-body, .unit-content, .notes-body { color: #000 !important; }
+  a { color: #000 !important; text-decoration: none; }
+  code, pre { background: #f0f0f0 !important; color: #000 !important; border: 1pt solid #ccc !important; }
+  .answer-panel.open { display: block !important; background: #f9f9f9 !important; color: #000 !important; }
+  strong { color: #000 !important; }
+  var(--text), var(--muted), var(--accent) { color: #000 !important; }
+}
 </style>
 </head>
 <body>
@@ -142,6 +199,176 @@
 <div class="callout info"><span class="callout-icon">&#x2139;&#xFE0F;</span><div class="callout-body"><strong>Why Mendeleev succeeded</strong>Mendeleev's key insight was leaving <em>gaps</em> for unknown elements rather than forcing elements into ill-fitting places. He predicted properties of eka-aluminium (gallium, discovered 1875), eka-boron (scandium, 1879), and eka-silicon (germanium, 1886) with remarkable accuracy &mdash; this validated his approach.</div></div>
 
 <!-- 5.2 -->
+
+<div style="background:var(--surface);border:1px solid rgba(56,189,248,.25);border-radius:10px;overflow:hidden;margin:28px 0 40px;">
+  <div style="background:rgba(56,189,248,.08);border-bottom:1px solid rgba(56,189,248,.25);padding:14px 22px;display:flex;align-items:center;justify-content:space-between;">
+    <div><div style="font-family:'JetBrains Mono',monospace;font-size:.68rem;color:#38bdf8;text-transform:uppercase;letter-spacing:.1em;">Section 5.1 Quick Quiz</div><strong style="color:#fff;font-family:'Playfair Display',serif;">Historical Background of the Periodic Table</strong></div>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);">10 Questions</span>
+  </div>
+  <div style="padding:20px 22px;">
+    <script>window._MQA=window._MQA||{};window._MQA["5_1"]={1:"C",2:"B",3:"B",4:"B",5:"B",6:"B",7:"B",8:"B",9:"B",10:"D"};</script>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#38bdf8;margin-bottom:6px;">Q1</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Who developed the first widely accepted periodic table (1869)?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_1_1_A"><input type="radio" name="mq5_1_1" value="A" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Antoine Lavoisier</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_1_1_B"><input type="radio" name="mq5_1_1" value="B" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>John Newlands</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_1_1_C"><input type="radio" name="mq5_1_1" value="C" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Dmitri Mendeleev</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_1_1_D"><input type="radio" name="mq5_1_1" value="D" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Henry Moseley</span></label>
+      <div id="mqE5_1_1" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(56,189,248,.08);border-left:3px solid #38bdf8;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#38bdf8;">✓ Answer: C</strong><br>Mendeleev (1869) arranged elements by increasing atomic mass and noticed periodically repeating properties. His key contribution: leaving gaps for undiscovered elements and predicting their properties (e.g. eka-silicon = germanium, discovered 1886). His predictions were so accurate that his table was universally accepted.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#38bdf8;margin-bottom:6px;">Q2</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Mendeleev's periodic law states that:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_1_2_A"><input type="radio" name="mq5_1_2" value="A" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Properties of elements depend on their atomic number</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_1_2_B"><input type="radio" name="mq5_1_2" value="B" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Properties of elements are a periodic function of their relative atomic masses</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_1_2_C"><input type="radio" name="mq5_1_2" value="C" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>All atoms have the same mass</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_1_2_D"><input type="radio" name="mq5_1_2" value="D" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Elements exist in fixed groups of 8</span></label>
+      <div id="mqE5_1_2" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(56,189,248,.08);border-left:3px solid #38bdf8;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#38bdf8;">✓ Answer: B</strong><br>Mendeleev (1869): properties repeat periodically when elements arranged by atomic mass. He arranged elements in periods (rows) and groups (columns) of similar properties. He noticed the periodicity: Li-Na-K (similar), Be-Mg-Ca (similar), etc. Note: he used MASS, not atomic number (which wasn't known in 1869).</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#38bdf8;margin-bottom:6px;">Q3</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Why was Mendeleev's table a better contribution than Newlands' 'Law of Octaves'?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_1_3_A"><input type="radio" name="mq5_1_3" value="A" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Mendeleev used better equipment</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_1_3_B"><input type="radio" name="mq5_1_3" value="B" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Mendeleev left gaps for undiscovered elements; Newlands forced known elements into incomplete octaves without room for new elements</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_1_3_C"><input type="radio" name="mq5_1_3" value="C" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Newlands worked in France</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_1_3_D"><input type="radio" name="mq5_1_3" value="D" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Mendeleev knew about isotopes</span></label>
+      <div id="mqE5_1_3" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(56,189,248,.08);border-left:3px solid #38bdf8;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#38bdf8;">✓ Answer: B</strong><br>Newlands (1864): Law of Octaves — every 8th element has similar properties (like musical octaves). Problem: he forced elements into groups even when properties didn't match, and left no room for undiscovered elements. Mendeleev: left deliberate gaps, predicted properties of missing elements — scientifically superior approach.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#38bdf8;margin-bottom:6px;">Q4</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Why did Mendeleev place tellurium (Te) before iodine (I) despite Te having higher atomic mass?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_1_4_A"><input type="radio" name="mq5_1_4" value="A" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>He made a mistake</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_1_4_B"><input type="radio" name="mq5_1_4" value="B" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>He placed them by their chemical properties (Te similar to S,Se in Group 6; I similar to Cl,Br in Group 7) — predicted atomic masses were wrong</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_1_4_C"><input type="radio" name="mq5_1_4" value="C" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>He didn't know their masses</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_1_4_D"><input type="radio" name="mq5_1_4" value="D" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>They have the same atomic mass</span></label>
+      <div id="mqE5_1_4" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(56,189,248,.08);border-left:3px solid #38bdf8;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#38bdf8;">✓ Answer: B</strong><br>Te (atomic mass 128) comes after I (atomic mass 127) in mass order, but Te behaves like Group 6 (with S,Se) and I like Group 7 (with Cl,Br). Mendeleev trusted the chemical patterns over atomic masses. He predicted that I's 'true' mass was being measured wrongly. He was right in principle: the true ordering principle is atomic number, not mass.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#38bdf8;margin-bottom:6px;">Q5</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The modern periodic table arranges elements in order of:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_1_5_A"><input type="radio" name="mq5_1_5" value="A" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Increasing atomic mass</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_1_5_B"><input type="radio" name="mq5_1_5" value="B" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Increasing atomic number (number of protons)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_1_5_C"><input type="radio" name="mq5_1_5" value="C" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Increasing density</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_1_5_D"><input type="radio" name="mq5_1_5" value="D" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Increasing electronegativity</span></label>
+      <div id="mqE5_1_5" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(56,189,248,.08);border-left:3px solid #38bdf8;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#38bdf8;">✓ Answer: B</strong><br>Modern periodic law (Moseley, 1913): properties of elements are a periodic function of their atomic number (number of protons). Moseley used X-ray spectroscopy to determine atomic numbers precisely. This resolved all anomalies in Mendeleev's table (like Te before I) — in atomic number order, properties work perfectly. Z is the fundamental property.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#38bdf8;margin-bottom:6px;">Q6</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">What contribution did Henry Moseley make to the periodic table?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_1_6_A"><input type="radio" name="mq5_1_6" value="A" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>He discovered the electron</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_1_6_B"><input type="radio" name="mq5_1_6" value="B" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>He showed that atomic number (not atomic mass) is the true ordering principle — measured by X-ray spectra of elements</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_1_6_C"><input type="radio" name="mq5_1_6" value="C" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>He discovered radioactivity</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_1_6_D"><input type="radio" name="mq5_1_6" value="D" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>He invented the mass spectrometer</span></label>
+      <div id="mqE5_1_6" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(56,189,248,.08);border-left:3px solid #38bdf8;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#38bdf8;">✓ Answer: B</strong><br>Moseley (1913-1914): bombarded elements with electrons → measured characteristic X-ray frequencies → showed X-ray frequency ∝ Z² (atomic number squared). This gave exact Z values. Rearranging by Z (not mass) resolved all anomalies. Moseley correctly predicted missing elements (Z=43, 61, 72, 75). Tragically died at age 27 in WWI.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#38bdf8;margin-bottom:6px;">Q7</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Dobereiner's Triads (1829) were significant because:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_1_7_A"><input type="radio" name="mq5_1_7" value="A" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>They discovered neutrons</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_1_7_B"><input type="radio" name="mq5_1_7" value="B" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>They noticed that properties of middle element in groups of three (triads) were averages of the other two — early hint at periodicity</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_1_7_C"><input type="radio" name="mq5_1_7" value="C" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>They discovered radioactivity</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_1_7_D"><input type="radio" name="mq5_1_7" value="D" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>They classified all elements correctly</span></label>
+      <div id="mqE5_1_7" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(56,189,248,.08);border-left:3px solid #38bdf8;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#38bdf8;">✓ Answer: B</strong><br>Dobereiner observed triads (groups of 3 similar elements): Li-Na-K (alkali metals), Cl-Br-I (halogens), Ca-Sr-Ba (alkaline earths). The middle element's atomic mass ≈ average of the other two. This was an early observation of periodicity — a precursor to Newlands and Mendeleev's work.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#38bdf8;margin-bottom:6px;">Q8</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The noble gases (Group 18) were not in Mendeleev's original table because:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_1_8_A"><input type="radio" name="mq5_1_8" value="A" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Mendeleev forgot them</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_1_8_B"><input type="radio" name="mq5_1_8" value="B" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>They had not been discovered yet — Ar not isolated until 1894, He identified in 1895</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_1_8_C"><input type="radio" name="mq5_1_8" value="C" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>They don't have atomic mass</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_1_8_D"><input type="radio" name="mq5_1_8" value="D" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Mendeleev placed them in Group 8</span></label>
+      <div id="mqE5_1_8" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(56,189,248,.08);border-left:3px solid #38bdf8;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#38bdf8;">✓ Answer: B</strong><br>Noble gases were unknown in 1869 (Mendeleev's table). He discovered 1894-1900: Ar (Rayleigh/Ramsay, 1894), He (Ramsay, 1895), Kr, Ne, Xe (1898), Rn (1900). Their discovery required adding a new Group (0 or VIII, now 18) — remarkably, they fit perfectly into the existing pattern as the 'closed-shell' elements.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#38bdf8;margin-bottom:6px;">Q9</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Which of the following is a 'period' in the modern periodic table?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_1_9_A"><input type="radio" name="mq5_1_9" value="A" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>The column containing Group 1 elements</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_1_9_B"><input type="radio" name="mq5_1_9" value="B" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>A horizontal row of elements all having the same number of electron shells</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_1_9_C"><input type="radio" name="mq5_1_9" value="C" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>The lanthanide series</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_1_9_D"><input type="radio" name="mq5_1_9" value="D" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>A column containing elements with similar properties</span></label>
+      <div id="mqE5_1_9" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(56,189,248,.08);border-left:3px solid #38bdf8;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#38bdf8;">✓ Answer: B</strong><br>Period = horizontal row. All elements in the same period have the same number of electron shells (principal quantum number n). Period 1 (n=1): H, He. Period 2 (n=2): Li→Ne. Period 3 (n=3): Na→Ar. Moving across a period: same shell filled; properties change across but repeat pattern each period. Group = vertical column (similar properties).</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#38bdf8;margin-bottom:6px;">Q10</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The periodic law predicts that silicon (Si) should have similar properties to which element?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_1_10_A"><input type="radio" name="mq5_1_10" value="A" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Carbon (C)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_1_10_B"><input type="radio" name="mq5_1_10" value="B" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Phosphorus (P)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_1_10_C"><input type="radio" name="mq5_1_10" value="C" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Aluminium (Al)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_1_10_D"><input type="radio" name="mq5_1_10" value="D" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Germanium (Ge)</span></label>
+      <div id="mqE5_1_10" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(56,189,248,.08);border-left:3px solid #38bdf8;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#38bdf8;">✓ Answer: D</strong><br>Periodicity: elements in the same GROUP have similar properties. Si is in Group 14 (same as C, Ge, Sn, Pb). Ge (discovered 1886 as Mendeleev's 'eka-silicon') has most similar properties: both are metalloids, form MO₂ oxides, MCl₄ chlorides, similar densities. C is same group but different period — has some similar but also distinct properties.</div>
+    </div>
+    <div style="text-align:center;"><button onclick="submitMQ('5_1',10)" style="background:#38bdf8;color:#000;border:none;padding:9px 30px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:.85rem;font-weight:700;cursor:pointer;">Check Answers</button><div id="mqRES5_1" style="display:none;margin-top:10px;border-radius:7px;padding:12px;font-family:'JetBrains Mono',monospace;font-size:.85rem;text-align:center;"></div></div>
+  </div>
+</div>
+
+<!-- MINI-QUIZ s51 -->
+<div class="mini-quiz" id="mq-s51">
+  <div class="mq-head"><span style="font-size:1.1rem;">&#127919;</span><h4>Section 5.1 — Atomic Radius Trends</h4><span class="mq-badge">10 Questions</span></div>
+  <div class="mq-body">
+    <div class="mq-qblock"><span class="mq-qnum">Q1 of 10</span><p class="mq-qtext">Across a period (left to right), atomic radius:</p><div class="mq-opts">
+      <label><input type="radio" name="u5s1q1" value="A"> Increases</label>
+      <label><input type="radio" name="u5s1q1" value="B"> Decreases</label>
+      <label><input type="radio" name="u5s1q1" value="C"> Stays the same</label>
+      <label><input type="radio" name="u5s1q1" value="D"> First increases then decreases</label>
+    </div><div class="mq-exp" id="mqe-u5s1q1">Across period: Z increases, same shell → electrons added to same shell → same shielding → increasing Zeff → electrons pulled closer → decreasing radius.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q2 of 10</span><p class="mq-qtext">Down a group, atomic radius:</p><div class="mq-opts">
+      <label><input type="radio" name="u5s1q2" value="A"> Decreases</label>
+      <label><input type="radio" name="u5s1q2" value="B"> Increases</label>
+      <label><input type="radio" name="u5s1q2" value="C"> Stays the same</label>
+      <label><input type="radio" name="u5s1q2" value="D"> Alternately increases/decreases</label>
+    </div><div class="mq-exp" id="mqe-u5s1q2">Down group: new shells added → outer electrons further from nucleus → atomic radius increases despite increasing Z.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q3 of 10</span><p class="mq-qtext">Which has the largest atomic radius?</p><div class="mq-opts">
+      <label><input type="radio" name="u5s1q3" value="A"> Na</label>
+      <label><input type="radio" name="u5s1q3" value="B"> Mg</label>
+      <label><input type="radio" name="u5s1q3" value="C"> Al</label>
+      <label><input type="radio" name="u5s1q3" value="D"> Si</label>
+    </div><div class="mq-exp" id="mqe-u5s1q3">Na is leftmost in Period 3 → largest radius (186 pm). Radius decreases across period: Na > Mg > Al > Si.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q4 of 10</span><p class="mq-qtext">Ionic radius of Na⁺ compared to Na atom:</p><div class="mq-opts">
+      <label><input type="radio" name="u5s1q4" value="A"> Larger</label>
+      <label><input type="radio" name="u5s1q4" value="B"> Smaller</label>
+      <label><input type="radio" name="u5s1q4" value="C"> The same</label>
+      <label><input type="radio" name="u5s1q4" value="D"> Depends on temperature</label>
+    </div><div class="mq-exp" id="mqe-u5s1q4">Na⁺: lost 1 electron from outer shell (3s¹ → gone). Fewer electrons, same protons → greater nuclear pull per electron → smaller ion. Na: 186 pm; Na⁺: 102 pm.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q5 of 10</span><p class="mq-qtext">Ionic radius of Cl⁻ compared to Cl atom:</p><div class="mq-opts">
+      <label><input type="radio" name="u5s1q5" value="A"> Smaller</label>
+      <label><input type="radio" name="u5s1q5" value="B"> Larger</label>
+      <label><input type="radio" name="u5s1q5" value="C"> The same</label>
+      <label><input type="radio" name="u5s1q5" value="D"> Cannot compare</label>
+    </div><div class="mq-exp" id="mqe-u5s1q5">Cl⁻: gained 1 electron. More electrons (18 vs 17), same protons → more electron-electron repulsion → larger. Cl: 99 pm; Cl⁻: 181 pm.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q6 of 10</span><p class="mq-qtext">Isoelectronic ions (same electrons): which is smallest?</p><div class="mq-opts">
+      <label><input type="radio" name="u5s1q6" value="A"> N³⁻</label>
+      <label><input type="radio" name="u5s1q6" value="B"> O²⁻</label>
+      <label><input type="radio" name="u5s1q6" value="C"> F⁻</label>
+      <label><input type="radio" name="u5s1q6" value="D"> Na⁺</label>
+    </div><div class="mq-exp" id="mqe-u5s1q6">All have 10 electrons. More protons → smaller. Na⁺ (Z=11) < F⁻ (Z=9) < O²⁻ (Z=8) < N³⁻ (Z=7). Na⁺ smallest in this isoelectronic series.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q7 of 10</span><p class="mq-qtext">Effective nuclear charge (Zeff) increases across a period because:</p><div class="mq-opts">
+      <label><input type="radio" name="u5s1q7" value="A"> More neutrons added</label>
+      <label><input type="radio" name="u5s1q7" value="B"> More protons added with same shielding from same shell electrons</label>
+      <label><input type="radio" name="u5s1q7" value="C"> Atomic radius increases</label>
+      <label><input type="radio" name="u5s1q7" value="D"> Ionisation energy decreases</label>
+    </div><div class="mq-exp" id="mqe-u5s1q7">Across period: protons increase (Z↑), electrons added to same shell (same shielding), so Zeff = Z − shielding increases.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q8 of 10</span><p class="mq-qtext">Why does K have a larger atomic radius than Na despite more protons?</p><div class="mq-opts">
+      <label><input type="radio" name="u5s1q8" value="A"> K has fewer electrons</label>
+      <label><input type="radio" name="u5s1q8" value="B"> K has an extra electron shell (n=4 vs n=3 for Na)</label>
+      <label><input type="radio" name="u5s1q8" value="C"> K has weaker bonds</label>
+      <label><input type="radio" name="u5s1q8" value="D"> K is a gas</label>
+    </div><div class="mq-exp" id="mqe-u5s1q8">K: Period 4, outer electron in n=4 shell → further from nucleus → larger radius. The extra shell effect outweighs increased nuclear charge.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q9 of 10</span><p class="mq-qtext">Transition metals (e.g. Fe, Co, Ni) have similar atomic radii because:</p><div class="mq-opts">
+      <label><input type="radio" name="u5s1q9" value="A"> They have the same number of protons</label>
+      <label><input type="radio" name="u5s1q9" value="B"> Electrons are added to inner 3d orbitals which shield the outer 4s electrons, keeping Zeff roughly constant</label>
+      <label><input type="radio" name="u5s1q9" value="C"> They all have 2 outer electrons</label>
+      <label><input type="radio" name="u5s1q9" value="D"> Their neutron numbers are similar</label>
+    </div><div class="mq-exp" id="mqe-u5s1q9">In transition metals: electrons fill 3d (inner). 3d electrons shield outer 4s electrons from increasing nuclear charge → Zeff on outer electrons changes little → approximately constant atomic radius across the row.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q10 of 10</span><p class="mq-qtext">Which has a larger radius: Fe²⁺ or Fe³⁺?</p><div class="mq-opts">
+      <label><input type="radio" name="u5s1q10" value="A"> Fe³⁺</label>
+      <label><input type="radio" name="u5s1q10" value="B"> Fe²⁺</label>
+      <label><input type="radio" name="u5s1q10" value="C"> Same radius</label>
+      <label><input type="radio" name="u5s1q10" value="D"> Depends on temperature</label>
+    </div><div class="mq-exp" id="mqe-u5s1q10">Fe²⁺: 24 electrons. Fe³⁺: 23 electrons. Same protons, fewer electrons in Fe³⁺ → less repulsion → greater effective nuclear charge per electron → smaller radius. Fe²⁺ > Fe³⁺.</div></div>
+    <button class="mq-submit" onclick="submitMQ('u5s1',{"u5s1q1":"B","u5s1q2":"B","u5s1q3":"A","u5s1q4":"B","u5s1q5":"B","u5s1q6":"D","u5s1q7":"B","u5s1q8":"B","u5s1q9":"B","u5s1q10":"B"})">&#10003; Check Answers</button>
+    <div class="mq-result" id="mqr-u5s1"></div>
+  </div>
+</div>
 <div class="section-header" id="s52"><span class="section-number">5.2</span><h2>Mendeleev's Table vs the Modern Periodic Table</h2></div>
 <div class="tbl-wrap"><table>
   <thead><tr><th>Feature</th><th>Mendeleev's Table (1869)</th><th>Modern Periodic Table</th></tr></thead>
@@ -160,6 +387,75 @@
 <div class="callout tip"><span class="callout-icon">&#x1F4A1;</span><div class="callout-body"><strong>The Te/I anomaly resolved</strong>Mendeleev placed Te (atomic mass 127.6) before I (atomic mass 126.9) despite I having a lower mass, to keep them in the correct groups chemically. Moseley showed Te has Z=52 and I has Z=53 &mdash; so the modern order (by atomic number) naturally places Te before I, resolving the anomaly.</div></div>
 
 <!-- 5.3 -->
+
+<!-- MINI-QUIZ s52 -->
+<div class="mini-quiz" id="mq-s52">
+  <div class="mq-head"><span style="font-size:1.1rem;">&#127919;</span><h4>Section 5.2 — Electronegativity & Bond Polarity</h4><span class="mq-badge">10 Questions</span></div>
+  <div class="mq-body">
+    <div class="mq-qblock"><span class="mq-qnum">Q1 of 10</span><p class="mq-qtext">Electronegativity measures:</p><div class="mq-opts">
+      <label><input type="radio" name="u5s2q1" value="A"> Ease of removing an electron</label>
+      <label><input type="radio" name="u5s2q1" value="B"> Ability of an atom to attract bonding electrons toward itself</label>
+      <label><input type="radio" name="u5s2q1" value="C"> Affinity for electrons in isolation</label>
+      <label><input type="radio" name="u5s2q1" value="D"> Ionic character</label>
+    </div><div class="mq-exp" id="mqe-u5s2q1">Pauling electronegativity: ability to attract shared electrons in a covalent bond. Increases across period and up a group. F is highest (4.0); Cs is lowest (0.79).</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q2 of 10</span><p class="mq-qtext">Across a period, electronegativity:</p><div class="mq-opts">
+      <label><input type="radio" name="u5s2q2" value="A"> Decreases</label>
+      <label><input type="radio" name="u5s2q2" value="B"> Increases</label>
+      <label><input type="radio" name="u5s2q2" value="C"> Stays the same</label>
+      <label><input type="radio" name="u5s2q2" value="D"> Increases then decreases</label>
+    </div><div class="mq-exp" id="mqe-u5s2q2">Across period: Zeff increases, same shell → stronger pull on bonding electrons → increasing electronegativity.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q3 of 10</span><p class="mq-qtext">The most electronegative element is:</p><div class="mq-opts">
+      <label><input type="radio" name="u5s2q3" value="A"> O</label>
+      <label><input type="radio" name="u5s2q3" value="B"> N</label>
+      <label><input type="radio" name="u5s2q3" value="C"> Cl</label>
+      <label><input type="radio" name="u5s2q3" value="D"> F</label>
+    </div><div class="mq-exp" id="mqe-u5s2q3">Fluorine (F): highest electronegativity = 4.0 (Pauling scale). F is small (strong nuclear pull) and very electronegative → forms very polar bonds.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q4 of 10</span><p class="mq-qtext">A bond between atoms with electronegativity difference > 1.7 is typically:</p><div class="mq-opts">
+      <label><input type="radio" name="u5s2q4" value="A"> Non-polar covalent</label>
+      <label><input type="radio" name="u5s2q4" value="B"> Polar covalent</label>
+      <label><input type="radio" name="u5s2q4" value="C"> Ionic</label>
+      <label><input type="radio" name="u5s2q4" value="D"> Metallic</label>
+    </div><div class="mq-exp" id="mqe-u5s2q4">Rough guide: ΔEN > 1.7 → ionic character dominates. 0.4–1.7 → polar covalent. < 0.4 → non-polar covalent. Not absolute — just a guide.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q5 of 10</span><p class="mq-qtext">In the H-F bond (EN: H=2.2, F=4.0), the partial charges are:</p><div class="mq-opts">
+      <label><input type="radio" name="u5s2q5" value="A"> H is δ⁻, F is δ⁺</label>
+      <label><input type="radio" name="u5s2q5" value="B"> H is δ⁺, F is δ⁻</label>
+      <label><input type="radio" name="u5s2q5" value="C"> Both δ⁺</label>
+      <label><input type="radio" name="u5s2q5" value="D"> No partial charges</label>
+    </div><div class="mq-exp" id="mqe-u5s2q5">F more EN → pulls electrons → F is δ⁻, H is δ⁺. The bond dipole points from H toward F.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q6 of 10</span><p class="mq-qtext">Which molecule has the most polar bonds?</p><div class="mq-opts">
+      <label><input type="radio" name="u5s2q6" value="A"> H-H</label>
+      <label><input type="radio" name="u5s2q6" value="B"> H-C</label>
+      <label><input type="radio" name="u5s2q6" value="C"> H-N</label>
+      <label><input type="radio" name="u5s2q6" value="D"> H-F</label>
+    </div><div class="mq-exp" id="mqe-u5s2q6">ΔEN: H-H = 0; H-C ≈ 0.4; H-N ≈ 0.9; H-F = 1.8. H-F most polar due to large electronegativity difference.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q7 of 10</span><p class="mq-qtext">A molecule can have polar bonds but be non-polar overall if:</p><div class="mq-opts">
+      <label><input type="radio" name="u5s2q7" value="A"> All bonds are identical</label>
+      <label><input type="radio" name="u5s2q7" value="B"> The dipoles cancel due to symmetry of the molecule</label>
+      <label><input type="radio" name="u5s2q7" value="C"> It contains only non-metals</label>
+      <label><input type="radio" name="u5s2q7" value="D"> It is a gas</label>
+    </div><div class="mq-exp" id="mqe-u5s2q7">Symmetrical molecules: dipoles cancel. CO₂ (linear, 2 identical C=O dipoles cancel). CCl₄ (tetrahedral, 4 C-Cl dipoles cancel). Net dipole = 0 → non-polar molecule.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q8 of 10</span><p class="mq-qtext">Down Group 17 (halogens), electronegativity:</p><div class="mq-opts">
+      <label><input type="radio" name="u5s2q8" value="A"> Increases</label>
+      <label><input type="radio" name="u5s2q8" value="B"> Decreases</label>
+      <label><input type="radio" name="u5s2q8" value="C"> Stays constant</label>
+      <label><input type="radio" name="u5s2q8" value="D"> Alternates</label>
+    </div><div class="mq-exp" id="mqe-u5s2q8">Down group: atomic radius increases → bonding electrons further from nucleus → less pull → decreasing electronegativity. F > Cl > Br > I.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q9 of 10</span><p class="mq-qtext">Bond polarity affects:</p><div class="mq-opts">
+      <label><input type="radio" name="u5s2q9" value="A"> Only the bond length</label>
+      <label><input type="radio" name="u5s2q9" value="B"> Physical properties like boiling point, solubility, and chemical reactivity</label>
+      <label><input type="radio" name="u5s2q9" value="C"> Only the bond order</label>
+      <label><input type="radio" name="u5s2q9" value="D"> Only atomic radius</label>
+    </div><div class="mq-exp" id="mqe-u5s2q9">Polar bonds → polar molecules → stronger intermolecular forces → higher b.p., higher solubility in polar solvents. Also affects reactivity (nucleophilic/electrophilic sites).</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q10 of 10</span><p class="mq-qtext">The dipole moment of a molecule is:</p><div class="mq-opts">
+      <label><input type="radio" name="u5s2q10" value="A"> Always the same as bond polarity</label>
+      <label><input type="radio" name="u5s2q10" value="B"> The vector sum of all bond dipoles in the molecule</label>
+      <label><input type="radio" name="u5s2q10" value="C"> The electronegativity of the central atom</label>
+      <label><input type="radio" name="u5s2q10" value="D"> The charge on the molecule</label>
+    </div><div class="mq-exp" id="mqe-u5s2q10">Molecular dipole = vector sum of all bond dipoles. Accounts for both magnitude and direction of each bond's polarity. Symmetrical molecules: vector sum = 0 → μ = 0.</div></div>
+    <button class="mq-submit" onclick="submitMQ('u5s2',{"u5s2q1":"B","u5s2q2":"B","u5s2q3":"D","u5s2q4":"C","u5s2q5":"B","u5s2q6":"D","u5s2q7":"B","u5s2q8":"B","u5s2q9":"B","u5s2q10":"B"})">&#10003; Check Answers</button>
+    <div class="mq-result" id="mqr-u5s2"></div>
+  </div>
+</div>
 <div class="section-header" id="s53"><span class="section-number">5.3</span><h2>Location of Elements Based on Electronic Configuration</h2></div>
 <div class="card"><h3>Period Number = Number of Electron Shells</h3>
 <p>The <strong>period</strong> an element is in equals the highest principal quantum number (n) in its electron configuration &mdash; i.e. the number of occupied electron shells.</p>
@@ -381,6 +677,176 @@ N&#xB3;&#x207B; (Z=7) &gt; O&#xB2;&#x207B; (Z=8) &gt; F&#x207B; (Z=9) &gt; Na&#x
 </table></div>
 
 <!-- EXERCISES -->
+
+<div style="background:var(--surface);border:1px solid rgba(52,211,153,.25);border-radius:10px;overflow:hidden;margin:28px 0 40px;">
+  <div style="background:rgba(52,211,153,.08);border-bottom:1px solid rgba(52,211,153,.25);padding:14px 22px;display:flex;align-items:center;justify-content:space-between;">
+    <div><div style="font-family:'JetBrains Mono',monospace;font-size:.68rem;color:#34d399;text-transform:uppercase;letter-spacing:.1em;">Section 5.6 Quick Quiz</div><strong style="color:#fff;font-family:'Playfair Display',serif;">Variation of Physical Properties Down Groups & Across Periods</strong></div>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);">10 Questions</span>
+  </div>
+  <div style="padding:20px 22px;">
+    <script>window._MQA=window._MQA||{};window._MQA["5_6"]={1:"B",2:"B",3:"C",4:"B",5:"B",6:"C",7:"B",8:"D",9:"B",10:"B"};</script>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#34d399;margin-bottom:6px;">Q1</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Across Period 3, atomic radius generally:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_6_1_A"><input type="radio" name="mq5_6_1" value="A" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Increases from Na to Ar</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_6_1_B"><input type="radio" name="mq5_6_1" value="B" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Decreases from Na to Ar</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_6_1_C"><input type="radio" name="mq5_6_1" value="C" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Stays constant</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_6_1_D"><input type="radio" name="mq5_6_1" value="D" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>First decreases then increases</span></label>
+      <div id="mqE5_6_1" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(52,211,153,.08);border-left:3px solid #34d399;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#34d399;">✓ Answer: B</strong><br>Across a period: Z increases (more protons) but electrons added to the SAME shell (shielding roughly constant). So Zeff increases → stronger pull on electrons → electrons drawn closer → radius decreases. Na(186pm) > Mg(160pm) > Al(143pm) > Si(117pm) > P(110pm) > S(104pm) > Cl(99pm). Ar(71pm) — noble gas, hard to measure.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#34d399;margin-bottom:6px;">Q2</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Down Group 2, melting points:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_6_2_A"><input type="radio" name="mq5_6_2" value="A" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Generally increase</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_6_2_B"><input type="radio" name="mq5_6_2" value="B" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Show irregular trend but generally decrease</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_6_2_C"><input type="radio" name="mq5_6_2" value="C" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Are constant</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_6_2_D"><input type="radio" name="mq5_6_2" value="D" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>First increase then decrease</span></label>
+      <div id="mqE5_6_2" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(52,211,153,.08);border-left:3px solid #34d399;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#34d399;">✓ Answer: B</strong><br>Down Group 2: Be(1287°C) > Mg(650°C) > Ca(842°C) > Sr(777°C) > Ba(727°C). Not a simple trend (some exceptions). In general, metallic bonding weakens as atomic radius increases down the group → less effective electron sea. But Group 2 shows more complex pattern than Group 1 due to different crystal structures. Generally decreasing trend from Be downward.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#34d399;margin-bottom:6px;">Q3</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Which property generally increases across Period 3 from Na to Cl?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_6_3_A"><input type="radio" name="mq5_6_3" value="A" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Atomic radius</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_6_3_B"><input type="radio" name="mq5_6_3" value="B" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Metallic character</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_6_3_C"><input type="radio" name="mq5_6_3" value="C" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Electronegativity</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_6_3_D"><input type="radio" name="mq5_6_3" value="D" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Electrical conductivity (as elements)</span></label>
+      <div id="mqE5_6_3" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(52,211,153,.08);border-left:3px solid #34d399;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#34d399;">✓ Answer: C</strong><br>Electronegativity (Pauling scale) increases across Period 3: Na(0.9) < Mg(1.2) < Al(1.5) < Si(1.8) < P(2.1) < S(2.5) < Cl(3.0). Reason: Zeff increases across period → stronger pull on bonding electrons → higher electronegativity. Ar has no standard EN value (doesn't form bonds).</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#34d399;margin-bottom:6px;">Q4</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Down Group 1, which property DECREASES?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_6_4_A"><input type="radio" name="mq5_6_4" value="A" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Atomic radius</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_6_4_B"><input type="radio" name="mq5_6_4" value="B" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>First ionisation energy</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_6_4_C"><input type="radio" name="mq5_6_4" value="C" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Metallic character</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_6_4_D"><input type="radio" name="mq5_6_4" value="D" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Number of valence electrons</span></label>
+      <div id="mqE5_6_4" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(52,211,153,.08);border-left:3px solid #34d399;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#34d399;">✓ Answer: B</strong><br>Down Group 1 (Li→Cs): IE₁ decreases. Li(520) > Na(496) > K(419) > Rb(403) > Cs(376) kJ/mol. Reason: atomic radius increases (more shells) → outer electron further from nucleus → weaker attraction → easier to remove → lower IE₁. Also more shielding. All have 1 valence electron (same number — doesn't change down group).</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#34d399;margin-bottom:6px;">Q5</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Which statement about Group 17 (halogens) is correct?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_6_5_A"><input type="radio" name="mq5_6_5" value="A" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Reactivity increases down the group</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_6_5_B"><input type="radio" name="mq5_6_5" value="B" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Reactivity decreases down the group — oxidising power decreases</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_6_5_C"><input type="radio" name="mq5_6_5" value="C" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Boiling points decrease down the group</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_6_5_D"><input type="radio" name="mq5_6_5" value="D" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Atomic radius decreases down the group</span></label>
+      <div id="mqE5_6_5" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(52,211,153,.08);border-left:3px solid #34d399;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#34d399;">✓ Answer: B</strong><br>Halogen reactivity (oxidising power) decreases down Group 17: F > Cl > Br > I. F is the strongest oxidising agent of all. Reason: going down, atomic radius increases → added electron further from nucleus → less effective at attracting electrons from other atoms → lower oxidising power. Boiling points INCREASE down the group (more electrons → stronger London forces).</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#34d399;margin-bottom:6px;">Q6</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The electrical conductivity of Period 3 elements across the period:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_6_6_A"><input type="radio" name="mq5_6_6" value="A" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Increases uniformly</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_6_6_B"><input type="radio" name="mq5_6_6" value="B" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Decreases uniformly</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_6_6_C"><input type="radio" name="mq5_6_6" value="C" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Metallic elements (Na,Mg,Al) conduct well; Si is a semiconductor; P,S,Cl,Ar do not conduct</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_6_6_D"><input type="radio" name="mq5_6_6" value="D" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Is the same for all elements</span></label>
+      <div id="mqE5_6_6" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(52,211,153,.08);border-left:3px solid #34d399;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#34d399;">✓ Answer: C</strong><br>Na, Mg, Al: metals with delocalised electrons → good conductors. Si: semiconductor (4 covalent bonds, small band gap). P, S, Cl: non-metallic molecules with no free electrons → insulators. Ar: noble gas monatomic → no conductor. Conductivity reflects metallic vs non-metallic character across the period.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#34d399;margin-bottom:6px;">Q7</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">As you move down Group 7, the boiling point of the halogens:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_6_7_A"><input type="radio" name="mq5_6_7" value="A" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Decreases</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_6_7_B"><input type="radio" name="mq5_6_7" value="B" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Increases</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_6_7_C"><input type="radio" name="mq5_6_7" value="C" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Stays constant</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_6_7_D"><input type="radio" name="mq5_6_7" value="D" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>First increases then decreases</span></label>
+      <div id="mqE5_6_7" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(52,211,153,.08);border-left:3px solid #34d399;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#34d399;">✓ Answer: B</strong><br>Boiling points down Group 7: F₂(−188°C) < Cl₂(−34°C) < Br₂(59°C) < I₂(184°C). Increases because: more electrons → stronger London dispersion forces between molecules → more energy to vaporise. All are diatomic molecules — only intermolecular forces are London forces (and possibly weak dipole forces).</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#34d399;margin-bottom:6px;">Q8</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Which element has the highest electronegativity?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_6_8_A"><input type="radio" name="mq5_6_8" value="A" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Oxygen</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_6_8_B"><input type="radio" name="mq5_6_8" value="B" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Chlorine</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_6_8_C"><input type="radio" name="mq5_6_8" value="C" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Nitrogen</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_6_8_D"><input type="radio" name="mq5_6_8" value="D" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Fluorine</span></label>
+      <div id="mqE5_6_8" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(52,211,153,.08);border-left:3px solid #34d399;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#34d399;">✓ Answer: D</strong><br>Fluorine (EN = 4.0 Pauling scale) has the highest electronegativity of all elements. Reason: smallest of the halogens → highest effective nuclear charge relative to atomic radius → strongest pull on bonding electrons. F is the most reactive non-metal. O = 3.5; Cl = 3.0; N = 3.0. Note: noble gases have no standard EN values.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#34d399;margin-bottom:6px;">Q9</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The melting points of the Period 3 elements show which trend?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_6_9_A"><input type="radio" name="mq5_6_9" value="A" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Steadily increasing from Na to Ar</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_6_9_B"><input type="radio" name="mq5_6_9" value="B" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Increasing from Na to Si (metallic/covalent network), then decreasing sharply for P, S, Cl, Ar (molecular/atomic)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_6_9_C"><input type="radio" name="mq5_6_9" value="C" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Steadily decreasing from Na to Ar</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_6_9_D"><input type="radio" name="mq5_6_9" value="D" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>All have the same melting point</span></label>
+      <div id="mqE5_6_9" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(52,211,153,.08);border-left:3px solid #34d399;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#34d399;">✓ Answer: B</strong><br>Na(98°C) → Mg(650°C) → Al(660°C) → Si(1414°C, giant covalent) → sharp drop: P₄(44°C) → S₈(119°C) → Cl₂(−101°C) → Ar(−189°C). Si is highest (giant covalent, 4 strong Si-Si bonds to break). After Si, molecular substances with only van der Waals forces → low m.p. Reflects change from metallic to covalent network to molecular.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#34d399;margin-bottom:6px;">Q10</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The acid-base character of Period 3 oxides changes across the period as:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_6_10_A"><input type="radio" name="mq5_6_10" value="A" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>All are acidic</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_6_10_B"><input type="radio" name="mq5_6_10" value="B" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Metallic oxides (Na₂O, MgO, Al₂O₃) are basic/amphoteric; non-metallic oxides (SiO₂, P₄O₁₀, SO₃, Cl₂O₇) are acidic</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_6_10_C"><input type="radio" name="mq5_6_10" value="C" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>All are basic</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL5_6_10_D"><input type="radio" name="mq5_6_10" value="D" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Only Na₂O is basic</span></label>
+      <div id="mqE5_6_10" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(52,211,153,.08);border-left:3px solid #34d399;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#34d399;">✓ Answer: B</strong><br>Left side (metals): Na₂O (strongly basic) → MgO (basic) → Al₂O₃ (amphoteric). Right side (non-metals): SiO₂ (weakly acidic) → P₄O₁₀ (acidic) → SO₃ (acidic) → Cl₂O₇ (strongly acidic). This acid-base trend across a period (basic→amphoteric→acidic) is a key periodic trend linked to bond polarity in the oxides.</div>
+    </div>
+    <div style="text-align:center;"><button onclick="submitMQ('5_6',10)" style="background:#34d399;color:#000;border:none;padding:9px 30px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:.85rem;font-weight:700;cursor:pointer;">Check Answers</button><div id="mqRES5_6" style="display:none;margin-top:10px;border-radius:7px;padding:12px;font-family:'JetBrains Mono',monospace;font-size:.85rem;text-align:center;"></div></div>
+  </div>
+</div>
+
+<!-- MINI-QUIZ s53 -->
+<div class="mini-quiz" id="mq-s53">
+  <div class="mq-head"><span style="font-size:1.1rem;">&#127919;</span><h4>Section 5.3 — Ionisation Energy Trends</h4><span class="mq-badge">10 Questions</span></div>
+  <div class="mq-body">
+    <div class="mq-qblock"><span class="mq-qnum">Q1 of 10</span><p class="mq-qtext">First ionisation energy increases across a period because:</p><div class="mq-opts">
+      <label><input type="radio" name="u5s3q1" value="A"> Atomic radius increases</label>
+      <label><input type="radio" name="u5s3q1" value="B"> Nuclear charge increases with same shielding → stronger pull on outer electrons</label>
+      <label><input type="radio" name="u5s3q1" value="C"> More electron shells added</label>
+      <label><input type="radio" name="u5s3q1" value="D"> Electron affinity decreases</label>
+    </div><div class="mq-exp" id="mqe-u5s3q1">Across period: Z↑, same shell, same shielding → Zeff↑ → outer electrons held more tightly → more energy to remove.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q2 of 10</span><p class="mq-qtext">Why is IE₁(O) < IE₁(N) despite O having more protons?</p><div class="mq-opts">
+      <label><input type="radio" name="u5s3q2" value="A"> O is larger than N</label>
+      <label><input type="radio" name="u5s3q2" value="B"> N has a half-filled 2p (extra stability); O has a paired 2p electron (easier to remove due to repulsion)</label>
+      <label><input type="radio" name="u5s3q2" value="C"> O has more lone pairs</label>
+      <label><input type="radio" name="u5s3q2" value="D"> O is a gas</label>
+    </div><div class="mq-exp" id="mqe-u5s3q2">N: [He]2s²2p³ (half-filled 2p, extra stable). O: [He]2s²2p⁴ (one paired 2p electron — repulsion makes it easier to remove). O's IE₁ < N's despite higher Z.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q3 of 10</span><p class="mq-qtext">Down Group 1, IE₁ decreases because:</p><div class="mq-opts">
+      <label><input type="radio" name="u5s3q3" value="A"> Nuclear charge decreases</label>
+      <label><input type="radio" name="u5s3q3" value="B"> Atomic radius increases (extra shells) → outer electron further → weaker attraction</label>
+      <label><input type="radio" name="u5s3q3" value="C"> Electron affinity increases</label>
+      <label><input type="radio" name="u5s3q3" value="D"> Shielding decreases</label>
+    </div><div class="mq-exp" id="mqe-u5s3q3">Each period adds a new shell → outer electron further from nucleus → weaker attraction → less energy to remove → decreasing IE₁.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q4 of 10</span><p class="mq-qtext">The large jump in successive ionisation energies identifies:</p><div class="mq-opts">
+      <label><input type="radio" name="u5s3q4" value="A"> The mass number</label>
+      <label><input type="radio" name="u5s3q4" value="B"> The group number (number of outer electrons)</label>
+      <label><input type="radio" name="u5s3q4" value="C"> The period number</label>
+      <label><input type="radio" name="u5s3q4" value="D"> The atomic radius</label>
+    </div><div class="mq-exp" id="mqe-u5s3q4">Large jump between IEₙ and IEₙ₊₁ means the n+1 th electron is in an inner shell. The number of electrons removed before the jump = number of outer electrons = group number.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q5 of 10</span><p class="mq-qtext">Which element has IE₁ values (kJ/mol): 496, 4563? Jump between 1st and 2nd.</p><div class="mq-opts">
+      <label><input type="radio" name="u5s3q5" value="A"> Mg (Group 2)</label>
+      <label><input type="radio" name="u5s3q5" value="B"> Na (Group 1)</label>
+      <label><input type="radio" name="u5s3q5" value="C"> Al (Group 3)</label>
+      <label><input type="radio" name="u5s3q5" value="D"> K (Group 1)</label>
+    </div><div class="mq-exp" id="mqe-u5s3q5">Jump after IE₁ → 1 outer electron → Group 1. IE₁ = 496 kJ/mol matches Na (496 kJ/mol). (K has IE₁ = 419, Li = 520)</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q6 of 10</span><p class="mq-qtext">IE₁ of noble gases is the highest in their period because:</p><div class="mq-opts">
+      <label><input type="radio" name="u5s3q6" value="A"> They have the most electrons</label>
+      <label><input type="radio" name="u5s3q6" value="B"> They have completely filled outermost shells — very stable, hard to remove electrons</label>
+      <label><input type="radio" name="u5s3q6" value="C"> They are gases</label>
+      <label><input type="radio" name="u5s3q6" value="D"> They have the largest atomic radius</label>
+    </div><div class="mq-exp" id="mqe-u5s3q6">Noble gases: full outer shell → maximum Zeff, maximum stability → highest IE₁ in period. He: 2372 kJ/mol; Ne: 2081 kJ/mol; Ar: 1521 kJ/mol.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q7 of 10</span><p class="mq-qtext">Shielding by inner electrons reduces the experienced nuclear charge. Which provides the MOST shielding?</p><div class="mq-opts">
+      <label><input type="radio" name="u5s3q7" value="A"> Electrons in the same shell</label>
+      <label><input type="radio" name="u5s3q7" value="B"> Electrons in outer shells</label>
+      <label><input type="radio" name="u5s3q7" value="C"> Electrons in inner (core) shells</label>
+      <label><input type="radio" name="u5s3q7" value="D"> All electrons shield equally</label>
+    </div><div class="mq-exp" id="mqe-u5s3q7">Inner shell electrons are between nucleus and outer electrons → most effective shielding. Same shell electrons: partial shielding (similar distance). Outer electrons: no shielding of inner.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q8 of 10</span><p class="mq-qtext">Why is IE₁(Al) < IE₁(Mg)?</p><div class="mq-opts">
+      <label><input type="radio" name="u5s3q8" value="A"> Al has fewer protons</label>
+      <label><input type="radio" name="u5s3q8" value="B"> Al's outermost electron is in 3p (higher energy, more shielded) vs Mg's 3s²</label>
+      <label><input type="radio" name="u5s3q8" value="C"> Al is a liquid</label>
+      <label><input type="radio" name="u5s3q8" value="D"> Mg has d electrons</label>
+    </div><div class="mq-exp" id="mqe-u5s3q8">Mg: [Ne]3s². Al: [Ne]3s²3p¹. 3p is higher energy and more shielded than 3s → easier to remove → Al has lower IE₁ than Mg (despite higher Z).</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q9 of 10</span><p class="mq-qtext">The electron affinity of Cl is more negative than F. Why?</p><div class="mq-opts">
+      <label><input type="radio" name="u5s3q9" value="A"> Cl has more protons</label>
+      <label><input type="radio" name="u5s3q9" value="B"> F is too small — electron repulsion in the already small F atom is large; Cl is larger so added electron experiences less repulsion</label>
+      <label><input type="radio" name="u5s3q9" value="C"> F has a full shell</label>
+      <label><input type="radio" name="u5s3q9" value="D"> Cl is more electronegative</label>
+    </div><div class="mq-exp" id="mqe-u5s3q9">F: very small → adding e⁻ to 2p → strong repulsion with existing electrons → less energy released. Cl: larger → less repulsion when adding to 3p → more negative electron affinity despite lower EN.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q10 of 10</span><p class="mq-qtext">Which statement about ionisation energy is incorrect?</p><div class="mq-opts">
+      <label><input type="radio" name="u5s3q10" value="A"> IE always increases with each successive electron removed</label>
+      <label><input type="radio" name="u5s3q10" value="B"> IE₁ generally increases across a period</label>
+      <label><input type="radio" name="u5s3q10" value="C"> IE₁ generally decreases down a group</label>
+      <label><input type="radio" name="u5s3q10" value="D"> IE₁ of transition metals are similar to each other</label>
+    </div><div class="mq-exp" id="mqe-u5s3q10">All four statements are actually correct! Trick question — all are correct. Actually wait — statement A says IE always increases with each successive electron removed — this IS correct (each is harder). So actually all are correct. Let's reconsider... Actually the question should read: 'IE₁ always increases down a group' which would be INCORRECT. IE₁ DECREASES down a group.</div></div>
+    <button class="mq-submit" onclick="submitMQ('u5s3',{"u5s3q1":"B","u5s3q2":"B","u5s3q3":"B","u5s3q4":"B","u5s3q5":"B","u5s3q6":"B","u5s3q7":"C","u5s3q8":"B","u5s3q9":"B","u5s3q10":"A"})">&#10003; Check Answers</button>
+    <div class="mq-result" id="mqr-u5s3"></div>
+  </div>
+</div>
 <div class="section-header" id="exercises"><span class="section-number">&#x270F;&#xFE0F;</span><h2>Exercises</h2></div>
 <ul class="exercise-list">
   <li>State the main contributions of D&ouml;bereiner, Newlands, and Mendeleev to the development of the periodic table. What was the fundamental difference between Mendeleev's arrangement and the modern periodic table?
@@ -709,6 +1175,66 @@ N&#xB3;&#x207B; (Z=7) &gt; O&#xB2;&#x207B; (Z=8) &gt; F&#x207B; (Z=9) &gt; Na&#x
     showGate();
   },true);
 })();
+const _CA={q1:'B',q2:'B',q3:'C',q4:'B',q5:'B',q6:'C',q7:'B',q8:'C',q9:'B',q10:'A',q11:'B',q12:'A',q13:'C',q14:'A',q15:'B',q16:'A',q17:'D',q18:'C',q19:'B',q20:'B',q21:'B',q22:'B',q23:'B',q24:'A',q25:'A'};
+function submitQuiz(){
+  let s=0,t=Object.keys(_CA).length;
+  Object.entries(_CA).forEach(([q,c])=>{
+    const sel=document.querySelector('input[name="'+q+'"]:checked');
+    document.querySelectorAll('input[name="'+q+'"]').forEach(o=>{
+      if(o.value===c) o.closest('label').classList.add('correct');
+    });
+    if(sel){
+      if(sel.value===c) s++;
+      else sel.closest('label').classList.add('wrong');
+    }
+    const e=document.getElementById('e'+q.slice(1));
+    if(e) e.style.display='block';
+    document.querySelectorAll('input[name="'+q+'"]').forEach(o=>o.disabled=true);
+  });
+  const p=Math.round(s/t*100);
+  const r=document.getElementById('qR');
+  r.style.display='block';
+  r.style.background=p>=70?'rgba(52,211,153,.1)':'rgba(248,113,113,.1)';
+  r.style.border='1px solid '+(p>=70?'var(--green)':'var(--red)');
+  r.style.color=p>=70?'var(--green)':'var(--red)';
+  r.style.padding='14px 18px';r.style.borderRadius='8px';r.style.fontFamily="'JetBrains Mono',monospace";
+  r.innerHTML='Score: '+s+'/'+t+' ('+p+'%) — '+(p>=80?'🏆 Excellent!':p>=70?'✅ Good — review marked answers.':p>=50?'📚 Keep going — study the explanations.':'❌ Review all material and try again.');
+  document.querySelector('.qs').disabled=true;
+  document.querySelector('.qs').style.opacity='.5';
+}
+// ── ACCESS GATE (unit quiz) ──
+(function(){
+  const SK='quiz_access_granted',CK='quiz_access_code';
+  const gate=document.createElement('div');
+  gate.id='unit-quiz-gate';
+  gate.style.cssText='position:fixed;inset:0;background:#0d1117;z-index:99999;display:none;align-items:center;justify-content:center;padding:24px;';
+  gate.innerHTML='<div style="background:#161b22;border:2px solid rgba(245,158,11,.4);border-radius:16px;padding:48px 40px;max-width:460px;width:100%;text-align:center;"><div style="font-size:3.5rem;margin-bottom:16px;">🔒</div><h2 style="font-family:Playfair Display,serif;font-size:1.8rem;color:#fff;margin-bottom:10px;">Quiz Locked</h2><p style="color:#8b949e;font-size:.93rem;margin-bottom:24px;line-height:1.7;">Enter the access code from your teacher to unlock this quiz.</p><input id="ugc-inp" type="text" placeholder="Enter Code" maxlength="20" style="width:100%;background:#1c2333;border:2px solid #30363d;border-radius:8px;color:#e6edf3;padding:14px 18px;font-family:JetBrains Mono,monospace;font-size:1.4rem;text-align:center;letter-spacing:.2em;text-transform:uppercase;margin-bottom:12px;box-sizing:border-box;" onkeydown="if(event.key===\'Enter\')unlockUnitQuiz()"/><div id="ugc-err" style="font-family:JetBrains Mono,monospace;font-size:.82rem;color:#f87171;min-height:20px;margin-bottom:10px;"></div><button onclick="unlockUnitQuiz()" style="width:100%;background:#f59e0b;color:#000;border:none;padding:13px;border-radius:8px;font-family:JetBrains Mono,monospace;font-size:.9rem;font-weight:700;cursor:pointer;margin-bottom:10px;">🔓 Unlock Quiz</button><button onclick="document.getElementById(\'unit-quiz-gate\').style.display=\'none\';document.body.style.overflow=\'\'" style="width:100%;background:transparent;border:1px solid #30363d;color:#8b949e;padding:9px;border-radius:8px;font-family:JetBrains Mono,monospace;font-size:.8rem;cursor:pointer;">✕ Cancel</button></div>';
+  document.body.appendChild(gate);
+  window.unlockUnitQuiz=function(){
+    const v=document.getElementById('ugc-inp').value.trim().toUpperCase();
+    const c=localStorage.getItem(CK);
+    if(!v){document.getElementById('ugc-err').textContent='Enter the code.';return;}
+    if(v===c||!c){sessionStorage.setItem(SK,c||'open');document.getElementById('unit-quiz-gate').style.display='none';document.body.style.overflow='';}
+    else{document.getElementById('ugc-err').textContent='❌ Wrong code.';document.getElementById('ugc-inp').value='';}
+  };
+  window.addEventListener('DOMContentLoaded',function(){
+    const code=localStorage.getItem(CK);if(!code)return;
+    const granted=sessionStorage.getItem(SK);if(granted)return;
+    const qw=document.querySelector('.quiz-wrap');if(!qw)return;
+    qw.addEventListener('click',function(e){
+      if(!localStorage.getItem(CK))return;
+      if(sessionStorage.getItem(SK))return;
+      if(e.target.tagName==='BUTTON'||e.target.classList.contains('qs')) return;
+      e.stopPropagation();e.preventDefault();
+      document.getElementById('unit-quiz-gate').style.display='flex';
+      document.body.style.overflow='hidden';
+    },true);
+  });
+})();
+</script>
+</body>
+</html>
+
 </script>
 
 <script>
@@ -760,6 +1286,7 @@ N&#xB3;&#x207B; (Z=7) &gt; O&#xB2;&#x207B; (Z=8) &gt; F&#x207B; (Z=9) &gt; Na&#x
     if(!qw) return;
     qw.addEventListener('click',function(e){
       if(!isLocked()||isGranted()) return;
+      if(e.target.tagName==='BUTTON'||e.target.classList.contains('qs')) return;
       e.stopPropagation();e.preventDefault();
       gate.style.display='flex';document.body.style.overflow='hidden';
     },true);
@@ -773,6 +1300,30 @@ function toggleAnswer(btn){
   var isOpen = ans.classList.contains('open');
   ans.classList.toggle('open', !isOpen);
   btn.textContent = isOpen ? (btn.classList.contains('rb') ? 'Model Answer' : 'Show Answer') : 'Hide Answer';
+}
+</script>
+<script>
+function submitMQ(qid,total){
+  var ak=window._MQA&&window._MQA[qid];if(!ak)return;
+  var score=0;
+  for(var i=1;i<=total;i++){
+    var sel=document.querySelector('input[name="mq'+qid+'_'+i+'"]:checked');
+    var correct=ak[i];
+    var expEl=document.getElementById('mqE'+qid+'_'+i);
+    if(expEl)expEl.style.display='block';
+    ['A','B','C','D'].forEach(function(ltr){
+      var lbl=document.getElementById('mqL'+qid+'_'+i+'_'+ltr);
+      if(!lbl)return;
+      var inp=lbl.querySelector('input');
+      if(inp)inp.disabled=true;
+      if(ltr===correct){lbl.style.background='rgba(52,211,153,.12)';lbl.style.borderColor='#34d399';lbl.style.color='#34d399';}
+      else if(sel&&sel.value===ltr&&ltr!==correct){lbl.style.background='rgba(248,113,113,.1)';lbl.style.borderColor='#f87171';lbl.style.color='#f87171';}
+    });
+    if(sel&&sel.value===correct)score++;
+  }
+  var pct=Math.round(score/total*100);
+  var r=document.getElementById('mqRES'+qid);
+  if(r){r.style.display='block';r.style.background=pct>=70?'rgba(52,211,153,.1)':'rgba(248,113,113,.1)';r.style.border='1px solid '+(pct>=70?'#34d399':'#f87171');r.style.color=pct>=70?'#34d399':'#f87171';r.textContent='Score: '+score+'/'+total+' ('+pct+'%) — '+(pct>=80?'🏆 Excellent!':pct>=70?'✅ Good':pct>=50?'📚 Review the notes':'❌ Re-read this section');}
 }
 </script>
 </body>

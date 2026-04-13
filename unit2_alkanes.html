@@ -2,702 +2,350 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>S5 Chemistry – Unit 2: Alkanes</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>S5 Chemistry &ndash; Unit 2: Alkanes</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Serif+4:wght@300;400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
 <style>
-  :root{
-    --bg:#0d1117;--surface:#161b22;--surface2:#1c2333;--border:#30363d;
-    --accent:#58c4dc;--accent2:#f97316;--accent3:#a78bfa;
-    --gold:#e8c547;--green:#34d399;--red:#f87171;
-    --text:#e6edf3;--muted:#8b949e;--radius:10px;
+:root{--bg:#0d1117;--surface:#161b22;--surface2:#1c2333;--border:#30363d;--accent:#38bdf8;--green:#34d399;--red:#f87171;--orange:#f59e0b;--purple:#a78bfa;--text:#e6edf3;--muted:#8b949e;--radius:10px;}
+*{box-sizing:border-box;margin:0;padding:0;}body{background:var(--bg);color:var(--text);font-family:'Source Serif 4',Georgia,serif;font-size:16px;line-height:1.75;}
+nav{position:sticky;top:0;z-index:200;background:rgba(13,17,23,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 24px;}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:52px;}
+.nav-brand{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--accent);text-decoration:none;}
+.nav-links a{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);text-decoration:none;padding:4px 10px;border-radius:5px;}
+.nav-links a:hover{color:var(--accent);}
+main{max-width:900px;margin:0 auto;padding:40px 24px 100px;}
+.section-header{display:flex;align-items:center;gap:16px;margin:48px 0 24px;padding-bottom:12px;border-bottom:2px solid var(--border);}
+.section-header h2{font-family:'Playfair Display',serif;font-size:1.6rem;color:#fff;}
+.section-number{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--accent);background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.25);padding:4px 12px;border-radius:4px;}
+.quiz-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-top:32px;}
+.quiz-header{background:rgba(167,139,250,.1);border-bottom:1px solid rgba(167,139,250,.2);padding:16px 24px;display:flex;align-items:center;justify-content:space-between;}
+.quiz-header h3{font-family:'Playfair Display',serif;color:#a78bfa;font-size:1.1rem;}
+.quiz-body{padding:24px;}
+.q-block{margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid var(--border);}
+.q-block:last-of-type{border-bottom:none;}
+.q-num{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#a78bfa;text-transform:uppercase;display:block;margin-bottom:6px;}
+.q-text{font-weight:600;color:#fff;margin-bottom:12px;font-size:.95rem;line-height:1.65;}
+.opts label{display:flex;align-items:flex-start;gap:9px;padding:9px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;}
+.opts label:hover{border-color:rgba(167,139,250,.4);}
+.opts label.correct{background:rgba(52,211,153,.1);border-color:var(--green);color:var(--green);}
+.opts label.wrong{background:rgba(248,113,113,.08);border-color:var(--red);color:var(--red);}
+.opts input{margin-top:3px;accent-color:#a78bfa;flex-shrink:0;}
+.qexplain{display:none;margin-top:10px;padding:10px 14px;background:rgba(167,139,250,.08);border-left:3px solid #a78bfa;border-radius:0 6px 6px 0;font-size:.86rem;color:var(--muted);line-height:1.65;}
+.quiz-submit{background:#a78bfa;color:#000;border:none;padding:10px 28px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:.85rem;font-weight:700;cursor:pointer;}
+</style>
+
+<style>
+@media print {
+  body { background: #fff !important; color: #000 !important; }
+  * { background: transparent !important; color: #000 !important; border-color: #ccc !important; box-shadow: none !important; }
+  nav, footer, .quiz-wrap, .quiz-header, .quiz-body, .quiz-submit, .submit-btn, .btn, button:not(.print-btn), .lock-bar, .lock-overlay, .answer-panel { display: none !important; }
+  h1, h2, h3, h4 { color: #000 !important; }
+  a { color: #000 !important; text-decoration: none !important; }
+  .section-number { color: #000 !important; border-color: #000 !important; }
+  .callout, .definition, .example, .worked-example { background: #f5f5f5 !important; border-color: #000 !important; }
+  main, .content { max-width: 100% !important; padding: 0 !important; }
+}
+  body { background: #fff !important; color: #000 !important; font-size: 11pt; line-height: 1.6; }
+  nav, footer, .quiz-wrap, .quiz-container, section#quiz, section#test,
+  .tab-btn, .reveal-btn, button, .answer-panel, .print-hide,
+  [id*="lock"], .modal-overlay { display: none !important; }
+  main { max-width: 100% !important; padding: 0 !important; margin: 0 !important; }
+  h1, h2, h3, h4 { color: #000 !important; page-break-after: avoid; }
+  h2 { border-bottom: 2px solid #000 !important; padding-bottom: 4pt; margin-top: 18pt; }
+  section { page-break-inside: avoid; margin-bottom: 16pt; }
+  .section-header { background: #f0f0f0 !important; color: #000 !important; padding: 6pt 10pt; border-radius: 0 !important; }
+  .callout, .definition, .example-box, .worked-example {
+    background: #f5f5f5 !important; color: #000 !important;
+    border: 1pt solid #ccc !important; border-left: 3pt solid #333 !important;
+    padding: 8pt !important; margin: 8pt 0 !important;
   }
-  *{box-sizing:border-box;margin:0;padding:0;}
-  html{scroll-behavior:smooth;}
-  body{background:var(--bg);color:var(--text);font-family:'Source Serif 4',Georgia,serif;font-size:17px;line-height:1.75;overflow-x:hidden;}
-  .hero{position:relative;padding:80px 40px 60px;text-align:center;overflow:hidden;background:radial-gradient(ellipse 80% 60% at 50% 0%,#1a2a1a 0%,var(--bg) 70%);border-bottom:1px solid var(--border);}
-  .hero::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(52,211,153,.05) 40px),repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(52,211,153,.05) 40px);pointer-events:none;}
-  .badge{display:inline-block;background:rgba(52,211,153,.12);border:1px solid rgba(52,211,153,.3);color:var(--green);padding:4px 16px;border-radius:50px;font-size:.78rem;font-family:'JetBrains Mono',monospace;letter-spacing:.12em;text-transform:uppercase;margin-bottom:22px;}
-  .hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.4rem);line-height:1.15;color:#fff;max-width:800px;margin:0 auto 18px;}
-  .hero h1 em{color:var(--green);font-style:italic;}
-  .hero p.sub{color:var(--muted);font-size:1rem;max-width:580px;margin:0 auto 32px;}
-  .toc-grid{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:700px;margin:0 auto;}
-  .toc-grid a{background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:8px 18px;border-radius:50px;text-decoration:none;font-size:.85rem;transition:all .2s;font-family:'JetBrains Mono',monospace;}
-  .toc-grid a:hover{background:var(--green);color:#000;border-color:var(--green);}
-  .page{max-width:960px;margin:0 auto;padding:0 28px 80px;}
-  .section-header{display:flex;align-items:center;gap:16px;margin:64px 0 28px;padding-bottom:14px;border-bottom:2px solid var(--border);}
-  .section-number{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--green);background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.25);padding:4px 12px;border-radius:4px;white-space:nowrap;}
-  .section-header h2{font-family:'Playfair Display',serif;font-size:1.75rem;color:#fff;}
-  .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:26px 30px;margin-bottom:22px;}
-  .card h3{font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--gold);margin-bottom:12px;}
-  .card p+p{margin-top:12px;}
-  .def-box{border-left:4px solid var(--green);background:rgba(52,211,153,.07);border-radius:0 var(--radius) var(--radius) 0;padding:18px 22px;margin:20px 0;}
-  .def-box strong{color:var(--green);display:block;font-size:.78rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;}
-  .callout{border-radius:var(--radius);padding:18px 22px;margin:20px 0;display:flex;gap:14px;align-items:flex-start;}
-  .callout.info{background:rgba(167,139,250,.08);border:1px solid rgba(167,139,250,.25);}
-  .callout.warn{background:rgba(249,115,22,.08);border:1px solid rgba(249,115,22,.25);}
-  .callout.tip{background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.25);}
-  .callout-icon{font-size:1.3rem;margin-top:2px;flex-shrink:0;}
-  .callout-body strong{display:block;margin-bottom:4px;font-size:.9rem;color:#fff;}
-  .tbl-wrap{overflow-x:auto;margin:20px 0;border-radius:var(--radius);border:1px solid var(--border);}
-  table{width:100%;border-collapse:collapse;}
-  thead tr{background:var(--surface2);}
-  th{padding:13px 16px;text-align:left;font-size:.82rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--green);white-space:nowrap;}
-  td{padding:12px 16px;border-top:1px solid var(--border);font-size:.9rem;}
-  tr:hover td{background:rgba(255,255,255,.02);}
-  td code{background:rgba(52,211,153,.12);padding:2px 7px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:.85em;}
-  .formula-block{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:20px 26px;margin:16px 0;font-family:'JetBrains Mono',monospace;font-size:.93rem;color:var(--green);overflow-x:auto;white-space:pre;}
-  .formula-block .comment{color:var(--muted);font-size:.82rem;}
-  .example-box{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin:26px 0;}
-  .example-header{background:rgba(232,197,71,.1);border-bottom:1px solid rgba(232,197,71,.2);padding:14px 22px;display:flex;align-items:center;gap:12px;}
-  .example-header span.tag{font-family:'JetBrains Mono',monospace;font-size:.72rem;background:var(--gold);color:#000;padding:3px 10px;border-radius:4px;font-weight:600;}
-  .example-header h4{color:var(--gold);font-family:'Playfair Display',serif;font-size:1rem;}
-  .example-body{padding:22px 26px;}
-  .example-body .q{color:var(--text);margin-bottom:14px;font-weight:600;}
-  .example-body .step{display:flex;gap:14px;margin:10px 0;}
-  .step-num{min-width:28px;height:28px;background:rgba(52,211,153,.15);border:1px solid rgba(52,211,153,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--green);flex-shrink:0;margin-top:3px;}
-  .step-text{flex:1;}
-  .exercise-list{list-style:none;counter-reset:ex;}
-  .exercise-list li{counter-increment:ex;margin-bottom:16px;padding:16px 20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);}
-  .exercise-list li::before{content:'Q' counter(ex) '.';font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--green);display:block;margin-bottom:6px;}
-  .reveal-btn{margin-top:10px;background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.3);color:var(--green);padding:6px 16px;border-radius:6px;cursor:pointer;font-size:.82rem;font-family:'JetBrains Mono',monospace;transition:all .2s;}
-  .reveal-btn:hover{background:var(--green);color:#000;}
-  .answer{display:none;margin-top:12px;padding:12px 16px;background:rgba(52,211,153,.06);border-left:3px solid var(--green);border-radius:0 6px 6px 0;font-size:.9rem;}
-  .answer.open{display:block;}
-  .quiz-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-top:32px;}
-  .quiz-header{background:rgba(167,139,250,.1);border-bottom:1px solid rgba(167,139,250,.2);padding:16px 24px;}
-  .quiz-header h3{font-family:'Playfair Display',serif;color:var(--accent3);font-size:1.2rem;}
-  .quiz-body{padding:24px;}
-  .q-block{margin-bottom:26px;padding-bottom:26px;border-bottom:1px solid var(--border);}
-  .q-block:last-of-type{border-bottom:none;}
-  .q-text{font-weight:600;margin-bottom:12px;color:#fff;}
-  .q-num{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--accent3);display:block;margin-bottom:4px;}
-  .options{display:flex;flex-direction:column;gap:8px;}
-  .opt{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:all .18s;font-size:.92rem;}
-  .opt:hover{border-color:var(--accent3);}
-  .opt input{margin-top:3px;accent-color:var(--accent3);}
-  .opt.correct{background:rgba(52,211,153,.12);border-color:var(--green)!important;color:var(--green);}
-  .opt.wrong{background:rgba(248,113,113,.1);border-color:var(--red)!important;color:var(--red);}
-  .q-exp{display:none;margin-top:10px;padding:10px 14px;background:rgba(167,139,250,.07);border-left:3px solid var(--accent3);border-radius:0 6px 6px 0;font-size:.88rem;}
-  .quiz-submit{background:var(--accent3);color:#000;border:none;padding:12px 32px;border-radius:8px;font-size:1rem;font-family:'JetBrains Mono',monospace;cursor:pointer;transition:opacity .2s;font-weight:600;}
-  .quiz-submit:hover{opacity:.85;}
-  .test-wrap{margin-top:40px;}
-  .test-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:28px;}
-  .test-section-header{background:rgba(249,115,22,.1);border-bottom:1px solid rgba(249,115,22,.2);padding:14px 24px;display:flex;justify-content:space-between;align-items:center;}
-  .test-section-header h3{font-family:'Playfair Display',serif;color:var(--accent2);font-size:1.1rem;}
-  .marks-badge{font-family:'JetBrains Mono',monospace;font-size:.75rem;background:rgba(249,115,22,.2);color:var(--accent2);padding:4px 12px;border-radius:50px;}
-  .test-body{padding:24px;}
-  .test-q{margin-bottom:20px;padding:16px 18px;background:var(--surface2);border-radius:8px;border:1px solid var(--border);}
-  .test-q-num{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--accent2);margin-bottom:6px;display:block;}
-  .test-answer-reveal{margin-top:14px;}
-  .unit-nav{display:flex;justify-content:space-between;align-items:center;margin-top:72px;padding-top:32px;border-top:1px solid var(--border);flex-wrap:wrap;gap:16px;}
-  .nav-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:8px;text-decoration:none;font-family:'JetBrains Mono',monospace;font-size:.85rem;transition:all .2s;}
-  .nav-btn.prev{background:var(--surface);border:1px solid var(--border);color:var(--muted);}
-  .nav-btn.prev:hover{border-color:var(--green);color:var(--green);}
-  .nav-btn.next{background:var(--green);color:#000;font-weight:600;}
-  .nav-btn.next:hover{opacity:.88;}
-  h3.sub-heading{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--accent3);margin:24px 0 10px;}
-  sub,sup{font-size:.72em;}
-  @media(max-width:600px){.hero{padding:50px 20px 40px;}.page{padding:0 16px 60px;}}
+  table { border-collapse: collapse !important; width: 100% !important; }
+  th, td { border: 1pt solid #999 !important; padding: 4pt 6pt !important; color: #000 !important; background: #fff !important; font-size: 10pt; }
+  th { background: #e0e0e0 !important; font-weight: bold; }
+  p, li { color: #000 !important; }
+  .hero, .hero-eyebrow, .hero h1, .hero p { display: none !important; }
+  .content-body, .unit-content, .notes-body { color: #000 !important; }
+  a { color: #000 !important; text-decoration: none; }
+  code, pre { background: #f0f0f0 !important; color: #000 !important; border: 1pt solid #ccc !important; }
+  .answer-panel.open { display: block !important; background: #f9f9f9 !important; color: #000 !important; }
+  strong { color: #000 !important; }
+  var(--text), var(--muted), var(--accent) { color: #000 !important; }
+}
 </style>
 </head>
 <body>
-
-<header class="hero">
-  <div class="badge">Unit 2 · Organic Chemistry</div>
-  <h1>The <em>Alkanes</em></h1>
-  <p class="sub">Saturated hydrocarbons — nomenclature, isomerism, occurrence, preparation, properties, and uses.</p>
-  <nav class="toc-grid">
-    <a href="#nomenclature">2.1 Nomenclature</a>
-    <a href="#isomerism">2.2 Isomerism</a>
-    <a href="#occurrence">2.3 Occurrence</a>
-    <a href="#preparation">2.4 Preparation</a>
-    <a href="#properties">2.5 Properties</a>
-    <a href="#reactions">2.6 Reactions</a>
-    <a href="#uses">2.7 Uses</a>
-    <a href="#exercises">Exercises</a>
-    <a href="#quiz">Quiz</a>
-    <a href="#test">Unit Test</a>
-  </nav>
-</header>
-
-<main class="page">
-
-<!-- 2.1 NOMENCLATURE -->
-<section id="nomenclature">
+<nav><div class="nav-inner">
+  <a href="index.html" class="nav-brand">&#9883; Habimana</a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="s5-chemistry.html">S5</a>
+    <a href="student-hub.html">Student Hub</a>
+  </div>
+</div></nav>
+<main>
   <div class="section-header">
-    <span class="section-number">2.1</span>
-    <h2>Nomenclature of Alkanes</h2>
+    <span class="section-number">S5 &bull; UNIT 2</span>
+    <h2>Alkanes</h2>
   </div>
-
-  <div class="def-box">
-    <strong>Definition</strong>
-    Alkanes are <b>saturated hydrocarbons</b> — organic compounds containing only carbon and hydrogen atoms joined exclusively by single C&ndash;C and C&ndash;H bonds. They belong to the homologous series with general formula <b>C<sub>n</sub>H<sub>2n+2</sub></b>.
-  </div>
-
-  <div class="card">
-    <h3>The Homologous Series</h3>
-    <p>Each successive member differs by &ndash;CH<sub>2</sub>&ndash; and shows a gradual change in physical properties while retaining similar chemical behaviour. All alkanes are colourless, relatively unreactive, and non-polar.</p>
-  </div>
-
-  <div class="tbl-wrap">
-    <table>
-      <thead><tr><th>n</th><th>Name</th><th>Molecular Formula</th><th>Condensed Formula</th><th>State (25&deg;C)</th></tr></thead>
-      <tbody>
-        <tr><td>1</td><td>Methane</td><td>CH<sub>4</sub></td><td>CH<sub>4</sub></td><td>Gas</td></tr>
-        <tr><td>2</td><td>Ethane</td><td>C<sub>2</sub>H<sub>6</sub></td><td>CH<sub>3</sub>CH<sub>3</sub></td><td>Gas</td></tr>
-        <tr><td>3</td><td>Propane</td><td>C<sub>3</sub>H<sub>8</sub></td><td>CH<sub>3</sub>CH<sub>2</sub>CH<sub>3</sub></td><td>Gas</td></tr>
-        <tr><td>4</td><td>Butane</td><td>C<sub>4</sub>H<sub>10</sub></td><td>CH<sub>3</sub>(CH<sub>2</sub>)<sub>2</sub>CH<sub>3</sub></td><td>Gas</td></tr>
-        <tr><td>5</td><td>Pentane</td><td>C<sub>5</sub>H<sub>12</sub></td><td>CH<sub>3</sub>(CH<sub>2</sub>)<sub>3</sub>CH<sub>3</sub></td><td>Liquid</td></tr>
-        <tr><td>6</td><td>Hexane</td><td>C<sub>6</sub>H<sub>14</sub></td><td>CH<sub>3</sub>(CH<sub>2</sub>)<sub>4</sub>CH<sub>3</sub></td><td>Liquid</td></tr>
-        <tr><td>7</td><td>Heptane</td><td>C<sub>7</sub>H<sub>16</sub></td><td>CH<sub>3</sub>(CH<sub>2</sub>)<sub>5</sub>CH<sub>3</sub></td><td>Liquid</td></tr>
-        <tr><td>8</td><td>Octane</td><td>C<sub>8</sub>H<sub>18</sub></td><td>CH<sub>3</sub>(CH<sub>2</sub>)<sub>6</sub>CH<sub>3</sub></td><td>Liquid</td></tr>
-        <tr><td>10</td><td>Decane</td><td>C<sub>10</sub>H<sub>22</sub></td><td>CH<sub>3</sub>(CH<sub>2</sub>)<sub>8</sub>CH<sub>3</sub></td><td>Liquid</td></tr>
-        <tr><td>18+</td><td>Octadecane&hellip;</td><td>C<sub>18+</sub>H<sub>38+</sub></td><td>&mdash;</td><td>Solid (wax)</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <h3 class="sub-heading">IUPAC Rules for Naming Branched Alkanes</h3>
-  <div class="card">
-    <ol style="padding-left:20px;line-height:2.1;">
-      <li><b>Longest chain</b> &mdash; identify the longest continuous carbon chain to give the parent name.</li>
-      <li><b>Lowest locants</b> &mdash; number the chain from the end nearest the first branch point so substituents get the lowest possible numbers.</li>
-      <li><b>Name substituents</b> &mdash; alkyl groups: methyl (&ndash;CH<sub>3</sub>), ethyl (&ndash;C<sub>2</sub>H<sub>5</sub>), propyl (&ndash;C<sub>3</sub>H<sub>7</sub>), isopropyl (&ndash;CH(CH<sub>3</sub>)<sub>2</sub>), etc.</li>
-      <li><b>Alphabetical order</b> &mdash; list substituents alphabetically (ignoring multiplying prefixes di&ndash;, tri&ndash;) before the parent chain name.</li>
-      <li><b>Identical substituents</b> &mdash; use di&ndash;, tri&ndash;, tetra&ndash; with separate locants for each instance.</li>
-      <li><b>Punctuation</b> &mdash; numbers separated by commas; numbers and letters separated by hyphens. No space in the final name.</li>
-    </ol>
-  </div>
-
-  <div class="callout tip">
-    <span class="callout-icon">&#128161;</span>
-    <div class="callout-body">
-      <strong>Memory Aid &mdash; First Four Names</strong>
-      <b>M</b>y <b>E</b>xcellent <b>P</b>upils <b>B</b>ring &rarr; <b>M</b>ethane, <b>E</b>thane, <b>P</b>ropane, <b>B</b>utane; then 5=pent, 6=hex, 7=hept, 8=oct, 9=non, 10=dec.
-    </div>
-  </div>
-
-  <div class="example-box">
-    <div class="example-header"><span class="tag">Example 1</span><h4>Naming a Branched Alkane</h4></div>
-    <div class="example-body">
-      <p class="q">Name: CH<sub>3</sub>&ndash;CH(CH<sub>3</sub>)&ndash;CH<sub>2</sub>&ndash;CH<sub>3</sub></p>
-      <div class="step"><div class="step-num">1</div><div class="step-text"><b>Longest chain:</b> C1&ndash;C2&ndash;C3&ndash;C4 = 4 carbons &rarr; parent: <b>butane</b>.</div></div>
-      <div class="step"><div class="step-num">2</div><div class="step-text"><b>Number from nearest branch:</b> branch is on C2 from either end &rarr; locant = 2.</div></div>
-      <div class="step"><div class="step-num">3</div><div class="step-text"><b>Substituent:</b> &ndash;CH<sub>3</sub> = <b>methyl</b>.</div></div>
-      <div class="step"><div class="step-num">&#10003;</div><div class="step-text">Name: <b>2-methylbutane</b>.</div></div>
-    </div>
-  </div>
-
-  <div class="example-box">
-    <div class="example-header"><span class="tag">Example 2</span><h4>Two Identical Branches</h4></div>
-    <div class="example-body">
-      <p class="q">Name: CH<sub>3</sub>&ndash;CH(CH<sub>3</sub>)&ndash;CH<sub>2</sub>&ndash;CH(CH<sub>3</sub>)&ndash;CH<sub>3</sub></p>
-      <div class="step"><div class="step-num">1</div><div class="step-text">Longest chain: 5 C &rarr; <b>pentane</b>.</div></div>
-      <div class="step"><div class="step-num">2</div><div class="step-text">Number from left: branches at C2, C4. From right: also C2, C4. Lowest set = 2,4.</div></div>
-      <div class="step"><div class="step-num">3</div><div class="step-text">Two methyl groups &rarr; prefix <b>di</b>.</div></div>
-      <div class="step"><div class="step-num">&#10003;</div><div class="step-text">Name: <b>2,4-dimethylpentane</b>.</div></div>
-    </div>
-  </div>
-
-  <div class="example-box">
-    <div class="example-header"><span class="tag">Example 3</span><h4>Choosing the Correct Longest Chain</h4></div>
-    <div class="example-body">
-      <p class="q">Name the compound where a central carbon has four CH<sub>3</sub> groups attached: C(CH<sub>3</sub>)<sub>4</sub></p>
-      <div class="step"><div class="step-num">1</div><div class="step-text">Expand: the central C plus any one CH<sub>3</sub> branch gives a 2-C chain. But we can pick a 3-C chain by taking central C + one CH<sub>3</sub> as C1, central as C2, another CH<sub>3</sub> as C3 &rarr; propane parent? No &mdash; we still have two CH<sub>3</sub> branches hanging off C2.</div></div>
-      <div class="step"><div class="step-num">2</div><div class="step-text">Longest chain = 3 C (pick any three carbons in a line: one CH<sub>3</sub>&ndash;C&ndash;CH<sub>3</sub>). Parent: <b>propane</b>. Remaining two CH<sub>3</sub> are both on C2.</div></div>
-      <div class="step"><div class="step-num">&#10003;</div><div class="step-text">Name: <b>2,2-dimethylpropane</b>.</div></div>
-    </div>
-  </div>
-</section>
-
-<!-- 2.2 ISOMERISM -->
-<section id="isomerism">
-  <div class="section-header">
-    <span class="section-number">2.2</span>
-    <h2>Isomerism in Alkanes</h2>
-  </div>
-
-  <div class="def-box">
-    <strong>Definition</strong>
-    <b>Structural (chain) isomers</b> are compounds with the same molecular formula but a different connectivity (arrangement) of atoms. In alkanes, isomerism arises from different branching of the carbon skeleton.
-  </div>
-
-  <div class="tbl-wrap">
-    <table>
-      <thead><tr><th>Molecular Formula</th><th>No. of Isomers</th><th>Names</th></tr></thead>
-      <tbody>
-        <tr><td>CH<sub>4</sub></td><td>1</td><td>Methane</td></tr>
-        <tr><td>C<sub>2</sub>H<sub>6</sub></td><td>1</td><td>Ethane</td></tr>
-        <tr><td>C<sub>3</sub>H<sub>8</sub></td><td>1</td><td>Propane</td></tr>
-        <tr><td>C<sub>4</sub>H<sub>10</sub></td><td>2</td><td>Butane; 2-methylpropane</td></tr>
-        <tr><td>C<sub>5</sub>H<sub>12</sub></td><td>3</td><td>Pentane; 2-methylbutane; 2,2-dimethylpropane</td></tr>
-        <tr><td>C<sub>6</sub>H<sub>14</sub></td><td>5</td><td>Hexane; 2-methylpentane; 3-methylpentane; 2,2-dimethylbutane; 2,3-dimethylbutane</td></tr>
-        <tr><td>C<sub>7</sub>H<sub>16</sub></td><td>9</td><td>&mdash;</td></tr>
-        <tr><td>C<sub>10</sub>H<sub>22</sub></td><td>75</td><td>&mdash;</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="callout info">
-    <span class="callout-icon">&#128204;</span>
-    <div class="callout-body">
-      <strong>Systematic Approach to Drawing Isomers</strong>
-      Start with the maximum-length straight chain. Then reduce chain by one carbon and attach it as a branch, moving the branch along. Reduce by two carbons next, and so on. Always check no two drawn structures are identical (can be renumbered to the same name).
-    </div>
-  </div>
-
-  <div class="example-box">
-    <div class="example-header"><span class="tag">Example 4</span><h4>All Isomers of C<sub>5</sub>H<sub>12</sub></h4></div>
-    <div class="example-body">
-      <div class="step"><div class="step-num">1</div><div class="step-text"><b>Longest chain = 5:</b> CH<sub>3</sub>CH<sub>2</sub>CH<sub>2</sub>CH<sub>2</sub>CH<sub>3</sub> &rarr; <b>pentane</b>.</div></div>
-      <div class="step"><div class="step-num">2</div><div class="step-text"><b>Chain = 4 + one methyl:</b> CH<sub>3</sub>CH(CH<sub>3</sub>)CH<sub>2</sub>CH<sub>3</sub> &rarr; <b>2-methylbutane</b>. (Branch at C3 from left = C2 from right &rarr; same compound.)</div></div>
-      <div class="step"><div class="step-num">3</div><div class="step-text"><b>Chain = 3 + two methyls both on C2:</b> C(CH<sub>3</sub>)<sub>4</sub> as propane core &rarr; <b>2,2-dimethylpropane</b>.</div></div>
-      <div class="step"><div class="step-num">&#10003;</div><div class="step-text">Total: <b>3 isomers</b>.</div></div>
-    </div>
-  </div>
-</section>
-
-<!-- 2.3 OCCURRENCE -->
-<section id="occurrence">
-  <div class="section-header">
-    <span class="section-number">2.3</span>
-    <h2>Occurrence of Alkanes</h2>
-  </div>
-
-  <div class="card">
-    <h3>Natural Gas</h3>
-    <p>Predominantly <b>methane (85&ndash;95%)</b> with smaller amounts of ethane, propane, and butane. Found trapped in porous rock above petroleum deposits, formed by anaerobic decomposition of organic matter over millions of years.</p>
-  </div>
-
-  <div class="card">
-    <h3>Petroleum (Crude Oil)</h3>
-    <p>A complex mixture of alkanes (C<sub>5</sub>&ndash;C<sub>40+</sub>), cycloalkanes, and aromatic hydrocarbons. Formed from ancient marine organisms buried under sediment and subjected to heat and pressure. Separated into useful fractions by <b>fractional distillation</b>.</p>
-  </div>
-
-  <div class="tbl-wrap">
-    <table>
-      <thead><tr><th>Fraction</th><th>Carbon Range</th><th>B.P. Range (&deg;C)</th><th>Use</th></tr></thead>
-      <tbody>
-        <tr><td>Refinery gas</td><td>C<sub>1</sub>&ndash;C<sub>4</sub></td><td>&lt;30</td><td>Fuel; LPG</td></tr>
-        <tr><td>Gasoline (petrol)</td><td>C<sub>5</sub>&ndash;C<sub>10</sub></td><td>30&ndash;200</td><td>Motor fuel</td></tr>
-        <tr><td>Kerosene (paraffin)</td><td>C<sub>10</sub>&ndash;C<sub>16</sub></td><td>150&ndash;270</td><td>Jet fuel; heating</td></tr>
-        <tr><td>Diesel/gas oil</td><td>C<sub>14</sub>&ndash;C<sub>20</sub></td><td>200&ndash;350</td><td>Diesel engines</td></tr>
-        <tr><td>Lubricating oil</td><td>C<sub>20</sub>&ndash;C<sub>50</sub></td><td>300&ndash;370</td><td>Lubricants; waxes</td></tr>
-        <tr><td>Residue (bitumen)</td><td>C<sub>50+</sub></td><td>&gt;370</td><td>Road surfacing</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="card">
-    <h3>Other Sources</h3>
-    <p>Methane is produced in <b>biogas</b> (anaerobic digestion of organic waste), in coal seams (<em>firedamp</em>), from landfill sites, from the digestive systems of ruminants, and as methane clathrates on the ocean floor.</p>
-  </div>
-</section>
-
-<!-- 2.4 PREPARATION -->
-<section id="preparation">
-  <div class="section-header">
-    <span class="section-number">2.4</span>
-    <h2>Laboratory Preparation of Alkanes</h2>
-  </div>
-
-  <h3 class="sub-heading">Method 1: Decarboxylation (Kolbe&rsquo;s Method)</h3>
-  <div class="card">
-    <p>Sodium salt of a carboxylic acid is heated strongly with soda lime (NaOH + CaO). The product alkane has <b>one fewer carbon</b> than the carboxylate.</p>
-    <div class="formula-block">RCOONa + NaOH  --CaO, heat-->  R-H  +  Na2CO3
-
-e.g.  CH3COONa + NaOH  -->  CH4  +  Na2CO3
-      (sodium ethanoate)          (methane)</div>
-  </div>
-
-  <h3 class="sub-heading">Method 2: Wurtz Reaction</h3>
-  <div class="card">
-    <p>An alkyl halide reacts with sodium metal in dry ether. Best when a single alkyl halide is used (otherwise a mixture of three products forms).</p>
-    <div class="formula-block">2 R-X  +  2 Na  --dry ether-->  R-R  +  2 NaX
-
-e.g.  2 CH3Br  +  2 Na  -->  CH3-CH3  +  2 NaBr
-                                (ethane)</div>
-  </div>
-
-  <h3 class="sub-heading">Method 3: Catalytic Hydrogenation of Alkenes</h3>
-  <div class="card">
-    <div class="formula-block">R-CH=CH2  +  H2  --Ni/Pt, 150 degC-->  R-CH2-CH3
-
-e.g.  CH2=CH2  +  H2  -->  CH3CH3  (ethane)</div>
-  </div>
-
-  <h3 class="sub-heading">Method 4: Reduction of Alkyl Halide</h3>
-  <div class="card">
-    <div class="formula-block">R-X  +  Zn  +  HCl  -->  R-H  +  ZnXCl
-or
-R-X  +  LiAlH4 (dry ether)  -->  R-H  +  ...</div>
-  </div>
-
-  <div class="example-box">
-    <div class="example-header"><span class="tag">Example 5</span><h4>Preparation of Butane via Decarboxylation</h4></div>
-    <div class="example-body">
-      <p class="q">Write the equation for preparing butane by decarboxylation.</p>
-      <div class="step"><div class="step-num">1</div><div class="step-text">Butane = C<sub>4</sub>H<sub>10</sub> (4 carbons). The carboxylate must have 4+1 = 5 carbons &rarr; <b>sodium pentanoate</b>: CH<sub>3</sub>CH<sub>2</sub>CH<sub>2</sub>CH<sub>2</sub>COONa.</div></div>
-      <div class="step"><div class="step-num">2</div><div class="step-text">CH<sub>3</sub>CH<sub>2</sub>CH<sub>2</sub>CH<sub>2</sub>COONa + NaOH &rarr; <sup>CaO, &Delta;</sup> CH<sub>3</sub>CH<sub>2</sub>CH<sub>2</sub>CH<sub>3</sub> + Na<sub>2</sub>CO<sub>3</sub></div></div>
-      <div class="step"><div class="step-num">&#10003;</div><div class="step-text">Product: <b>butane</b> &#10004;</div></div>
-    </div>
-  </div>
-</section>
-
-<!-- 2.5 PHYSICAL PROPERTIES -->
-<section id="properties">
-  <div class="section-header">
-    <span class="section-number">2.5</span>
-    <h2>Physical Properties</h2>
-  </div>
-
-  <div class="card">
-    <h3>States at Room Temperature</h3>
-    <p>C<sub>1</sub>&ndash;C<sub>4</sub>: <b>gases</b> &nbsp;|&nbsp; C<sub>5</sub>&ndash;C<sub>17</sub>: <b>liquids</b> &nbsp;|&nbsp; C<sub>18+</sub>: <b>solids (waxes)</b></p>
-  </div>
-
-  <div class="card">
-    <h3>Boiling and Melting Points</h3>
-    <p>Both increase steadily with chain length because longer chains have greater surface area, leading to <b>stronger London (van der Waals) dispersion forces</b> between molecules.</p>
-    <p><b>Branched isomers</b> have lower boiling points than straight-chain isomers of the same molecular formula because branching makes the molecule more compact, reducing surface area and weakening dispersion forces.</p>
-  </div>
-
-  <div class="tbl-wrap">
-    <table>
-      <thead><tr><th>Alkane</th><th>M<sub>r</sub></th><th>B.P. (&deg;C)</th><th>M.P. (&deg;C)</th><th>Notes</th></tr></thead>
-      <tbody>
-        <tr><td>Methane</td><td>16</td><td>&minus;162</td><td>&minus;183</td><td>Main component of natural gas</td></tr>
-        <tr><td>Ethane</td><td>30</td><td>&minus;89</td><td>&minus;183</td><td>&mdash;</td></tr>
-        <tr><td>Propane</td><td>44</td><td>&minus;42</td><td>&minus;188</td><td>LPG component</td></tr>
-        <tr><td>Butane</td><td>58</td><td>&minus;1</td><td>&minus;138</td><td>LPG; lighter fuel</td></tr>
-        <tr><td>Pentane</td><td>72</td><td>+36</td><td>&minus;130</td><td>Liquid at room temp</td></tr>
-        <tr><td>Hexane</td><td>86</td><td>+69</td><td>&minus;95</td><td>Common lab solvent</td></tr>
-        <tr><td>Octane</td><td>114</td><td>+126</td><td>&minus;57</td><td>Petrol component; octane rating</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="callout info">
-    <span class="callout-icon">&#128204;</span>
-    <div class="callout-body">
-      <strong>Effect of Branching on B.P. (C<sub>5</sub>H<sub>12</sub> isomers)</strong>
-      Pentane: 36&deg;C &nbsp;>&nbsp; 2-methylbutane: 28&deg;C &nbsp;>&nbsp; 2,2-dimethylpropane: 9&deg;C. Increasing branching = lower B.P.
-    </div>
-  </div>
-
-  <div class="card">
-    <h3>Solubility and Polarity</h3>
-    <p>Alkanes are <b>non-polar</b> molecules. They are <b>insoluble in water</b> (polar solvent) but dissolve freely in non-polar solvents such as hexane, benzene, CCl<sub>4</sub>, and ether (<em>like dissolves like</em>). All alkanes are less dense than water.</p>
-  </div>
-</section>
-
-<!-- 2.6 REACTIONS -->
-<section id="reactions">
-  <div class="section-header">
-    <span class="section-number">2.6</span>
-    <h2>Chemical Properties and Reactions</h2>
-  </div>
-
-  <div class="callout warn">
-    <span class="callout-icon">&#9888;&#65039;</span>
-    <div class="callout-body">
-      <strong>General Reactivity</strong>
-      Alkanes are <b>relatively unreactive</b>. Strong, non-polar C&ndash;C (347 kJ/mol) and C&ndash;H (413 kJ/mol) bonds resist attack by polar reagents, acids, bases, and oxidising agents. Their main reactions are <b>combustion</b> and <b>halogenation by free-radical substitution</b>.
-    </div>
-  </div>
-
-  <h3 class="sub-heading">Reaction 1: Combustion</h3>
-  <div class="card">
-    <h3>Complete Combustion (excess O<sub>2</sub>)</h3>
-    <div class="formula-block">CnH(2n+2)  +  (3n+1)/2 O2  -->  n CO2  +  (n+1) H2O
-
-e.g.  CH4  +  2O2  -->  CO2  +  2H2O   (DeltaH = -890 kJ/mol)
-      C3H8  +  5O2  -->  3CO2  +  4H2O</div>
-  </div>
-  <div class="card">
-    <h3>Incomplete Combustion (limited O<sub>2</sub>)</h3>
-    <div class="formula-block">2CH4  +  3O2  -->  2CO  +  4H2O  (limited oxygen)
-CH4  +  O2   -->  C  +  2H2O   (very limited oxygen)</div>
-    <p>Carbon monoxide (CO) is a colourless, odourless, toxic gas that binds to haemoglobin ~240&times; more strongly than O<sub>2</sub>, causing asphyxiation.</p>
-  </div>
-
-  <h3 class="sub-heading">Reaction 2: Halogenation &mdash; Free-Radical Substitution</h3>
-  <div class="card">
-    <p>Alkanes react with Cl<sub>2</sub> or Br<sub>2</sub> in <b>UV light or high temperature</b> (not in dark). The reaction is not selective and gives a mixture of all possible substitution products.</p>
-    <div class="formula-block">CH4  +  Cl2  --(hv)-->  CH3Cl  +  HCl   (chloromethane)
-CH3Cl + Cl2  --(hv)-->  CH2Cl2 + HCl   (dichloromethane)
-CH2Cl2+ Cl2  --(hv)-->  CHCl3  + HCl   (chloroform)
-CHCl3 + Cl2  --(hv)-->  CCl4   + HCl   (tetrachloromethane)</div>
-  </div>
-
-  <div class="card">
-    <h3>Free-Radical Mechanism (3 Stages)</h3>
-    <div class="formula-block"><b>INITIATION</b> (UV light causes homolytic fission):
-Cl2  --(hv)-->  2 Cl*
-
-<b>PROPAGATION</b> (chain reaction):
-Cl*  +  CH4   -->  *CH3  +  HCl
-*CH3 +  Cl2   -->  CH3Cl +  Cl*   (Cl* regenerated)
-
-<b>TERMINATION</b> (two radicals combine):
-Cl*  +  Cl*   -->  Cl2
-*CH3 +  Cl*   -->  CH3Cl
-*CH3 +  *CH3  -->  C2H6</div>
-  </div>
-
-  <div class="callout info">
-    <span class="callout-icon">&#128204;</span>
-    <div class="callout-body">
-      <strong>Why UV light is needed</strong>
-      The Cl&ndash;Cl bond requires ~243 kJ/mol to break homolytically. UV photons provide sufficient energy to generate Cl radicals that initiate the chain reaction. The reaction does not occur in the dark.
-    </div>
-  </div>
-
-  <h3 class="sub-heading">Reaction 3: Thermal Cracking</h3>
-  <div class="card">
-    <p><b>Thermal cracking</b> (400&ndash;900&deg;C, high pressure) breaks long-chain alkanes into shorter alkanes and alkenes. <b>Catalytic cracking</b> (450&ndash;550&deg;C, zeolite catalyst) is more controlled, producing more branched alkanes (higher octane rating) and useful alkenes.</p>
-    <div class="formula-block">C16H34  -->  C8H18  +  C8H16  (example thermal cracking)
-C10H22  -->  C4H10  +  C3H6  +  C3H6   (example)</div>
-  </div>
-
-  <div class="example-box">
-    <div class="example-header"><span class="tag">Example 6</span><h4>Balanced Equation &mdash; Combustion of Butane</h4></div>
-    <div class="example-body">
-      <p class="q">Write the balanced equation for complete combustion of butane (C<sub>4</sub>H<sub>10</sub>).</p>
-      <div class="step"><div class="step-num">1</div><div class="step-text">Apply C<sub>n</sub>H<sub>2n+2</sub> formula with n=4: need 4 CO<sub>2</sub> and 5 H<sub>2</sub>O.</div></div>
-      <div class="step"><div class="step-num">2</div><div class="step-text">Balance O: right side has 4&times;2 + 5&times;1 = 13 O atoms &rarr; need 13/2 O<sub>2</sub>.</div></div>
-      <div class="step"><div class="step-num">3</div><div class="step-text">C<sub>4</sub>H<sub>10</sub> + 13/2 O<sub>2</sub> &rarr; 4 CO<sub>2</sub> + 5 H<sub>2</sub>O. Multiply by 2:</div></div>
-      <div class="step"><div class="step-num">&#10003;</div><div class="step-text"><b>2 C<sub>4</sub>H<sub>10</sub> + 13 O<sub>2</sub> &rarr; 8 CO<sub>2</sub> + 10 H<sub>2</sub>O</b> &#10004;</div></div>
-    </div>
-  </div>
-</section>
-
-<!-- 2.7 USES -->
-<section id="uses">
-  <div class="section-header">
-    <span class="section-number">2.7</span>
-    <h2>Uses of Alkanes</h2>
-  </div>
-
-  <div class="tbl-wrap">
-    <table>
-      <thead><tr><th>Alkane(s)</th><th>Application</th><th>Reason / Notes</th></tr></thead>
-      <tbody>
-        <tr><td>Methane</td><td>Natural gas fuel; synthesis gas (H<sub>2</sub> + CO) production</td><td>High energy density; clean burning</td></tr>
-        <tr><td>Propane &amp; Butane</td><td>LPG &mdash; cooking, heating, portable fuel</td><td>Liquefied easily under moderate pressure</td></tr>
-        <tr><td>C<sub>5</sub>&ndash;C<sub>10</sub></td><td>Petrol / gasoline &mdash; motor fuel</td><td>Correct volatility for combustion engines</td></tr>
-        <tr><td>C<sub>10</sub>&ndash;C<sub>16</sub></td><td>Kerosene &mdash; jet fuel, paraffin lamps</td><td>High energy; right boiling range</td></tr>
-        <tr><td>C<sub>14</sub>&ndash;C<sub>20</sub></td><td>Diesel fuel</td><td>Compression-ignition engines</td></tr>
-        <tr><td>C<sub>20</sub>&ndash;C<sub>50</sub></td><td>Lubricating oils, greases, paraffin wax</td><td>High viscosity; thermal stability</td></tr>
-        <tr><td>C<sub>50+</sub></td><td>Bitumen &mdash; roads, waterproofing</td><td>Thermoplastic; excellent waterproofing</td></tr>
-        <tr><td>Alkanes generally</td><td>Feedstock for petrochemical industry</td><td>Raw material for plastics, detergents, solvents</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="callout warn">
-    <span class="callout-icon">&#9888;&#65039;</span>
-    <div class="callout-body">
-      <strong>Environmental Impact</strong>
-      Combustion of alkanes releases CO<sub>2</sub> (greenhouse gas) and, in limited oxygen, toxic CO and particulates. Methane itself is a potent greenhouse gas (~25&times; CO<sub>2</sub> over 100 years). Steps to reduce impact include catalytic converters, cleaner engine technology, and transition to renewable energy.
-    </div>
-  </div>
-</section>
-
-<!-- EXERCISES -->
-<section id="exercises">
-  <div class="section-header">
-    <span class="section-number">&#9999;&#65039;</span>
-    <h2>Exercises</h2>
-  </div>
-  <ul class="exercise-list">
-
-    <li>
-      Give the IUPAC name for: CH<sub>3</sub>&ndash;CH<sub>2</sub>&ndash;CH(CH<sub>3</sub>)&ndash;CH<sub>2</sub>&ndash;CH<sub>3</sub>
-      <br><button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
-      <div class="answer"><b>3-methylpentane.</b> Longest chain = 5 C (pentane); methyl branch on C3 (same from either end).</div>
-    </li>
-
-    <li>
-      Draw and name all structural isomers of C<sub>4</sub>H<sub>10</sub>.
-      <br><button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
-      <div class="answer">
-        <b>Two isomers:</b><br>
-        1. <b>Butane</b>: CH<sub>3</sub>CH<sub>2</sub>CH<sub>2</sub>CH<sub>3</sub><br>
-        2. <b>2-methylpropane</b>: CH<sub>3</sub>CH(CH<sub>3</sub>)CH<sub>3</sub>
-      </div>
-    </li>
-
-    <li>
-      Write the balanced equation for the complete combustion of hexane (C<sub>6</sub>H<sub>14</sub>).
-      <br><button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
-      <div class="answer"><b>2 C<sub>6</sub>H<sub>14</sub> + 19 O<sub>2</sub> &rarr; 12 CO<sub>2</sub> + 14 H<sub>2</sub>O</b></div>
-    </li>
-
-    <li>
-      Write the full three-stage free-radical mechanism for the monochlorination of methane by Cl<sub>2</sub> under UV light.
-      <br><button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
-      <div class="answer">
-        <b>Initiation:</b> Cl<sub>2</sub> &rarr;(hv) 2 Cl&bull;<br><br>
-        <b>Propagation:</b><br>
-        Cl&bull; + CH<sub>4</sub> &rarr; &bull;CH<sub>3</sub> + HCl<br>
-        &bull;CH<sub>3</sub> + Cl<sub>2</sub> &rarr; CH<sub>3</sub>Cl + Cl&bull;<br><br>
-        <b>Termination:</b><br>
-        Cl&bull; + Cl&bull; &rarr; Cl<sub>2</sub><br>
-        &bull;CH<sub>3</sub> + Cl&bull; &rarr; CH<sub>3</sub>Cl<br>
-        &bull;CH<sub>3</sub> + &bull;CH<sub>3</sub> &rarr; C<sub>2</sub>H<sub>6</sub>
-      </div>
-    </li>
-
-    <li>
-      Explain why 2,2-dimethylpropane (B.P. 9&deg;C) has a lower boiling point than pentane (B.P. 36&deg;C) despite having the same molecular formula C<sub>5</sub>H<sub>12</sub>.
-      <br><button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
-      <div class="answer">Both compounds are non-polar with the same molecular mass. Intermolecular forces are London dispersion forces only. 2,2-Dimethylpropane has a more <b>compact, spherical shape</b> with less surface area for contact between molecules &rarr; <b>weaker dispersion forces</b> &rarr; lower boiling point.</div>
-    </li>
-
-    <li>
-      A student heats sodium butanoate (CH<sub>3</sub>CH<sub>2</sub>CH<sub>2</sub>COONa) with NaOH and CaO. (a) Name the type of reaction. (b) Write the equation. (c) Name the organic product.
-      <br><button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
-      <div class="answer">
-        (a) <b>Decarboxylation</b> (Kolbe&rsquo;s method)<br>
-        (b) CH<sub>3</sub>CH<sub>2</sub>CH<sub>2</sub>COONa + NaOH &rarr;<sup>CaO, &Delta;</sup> CH<sub>3</sub>CH<sub>2</sub>CH<sub>3</sub> + Na<sub>2</sub>CO<sub>3</sub><br>
-        (c) <b>Propane</b>
-      </div>
-    </li>
-
-  </ul>
-</section>
-
-<!-- QUIZ -->
-<section id="quiz">
+  <p style="color:var(--muted);margin-bottom:32px;">This page contains the 25-question unit quiz for S5 Unit 2: Alkanes. For full notes, visit your teacher's unit page.</p>
+  <section id="quiz">
   <div class="section-header">
     <span class="section-number">&#129504;</span>
-    <h2>Interactive Quiz</h2>
+    <h2>Multiple Choice Quiz &mdash; 25 Questions</h2>
   </div>
   <div class="quiz-wrap">
-    <div class="quiz-header"><h3>Unit 2 Quiz &mdash; Alkanes (10 Questions)</h3></div>
-    <div class="quiz-body" id="quizForm">
+    <div class="quiz-header"><h3>Unit 2 Quiz &mdash; Alkanes</h3><span style="font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--muted);">25 Questions &middot; Select one answer each</span></div>
+    <div class="quiz-body" id="quizBody">
+      <div class="q-block"><span class="q-num">Q1</span>
+      <p class="q-text">What is the general molecular formula for alkanes?</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q1" value="a"> CnH2n</label>
+        <label class="opt"><input type="radio" name="q1" value="b"> CnH2n+2</label>
+        <label class="opt"><input type="radio" name="q1" value="c"> CnH2n&amp;minus;2</label>
+        <label class="opt"><input type="radio" name="q1" value="d"> CnHn+2</label>
+      </div>
+      <div class="qexplain" id="e1">Alkanes are saturated hydrocarbons with general formula CnH2n+2. Each carbon forms 4 bonds; end carbons have 3 H and middle carbons 2 H.</div></div>
+
+      <div class="q-block"><span class="q-num">Q2</span>
+      <p class="q-text">How many structural isomers does C4H10 have?</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q2" value="a"> 1</label>
+        <label class="opt"><input type="radio" name="q2" value="b"> 2</label>
+        <label class="opt"><input type="radio" name="q2" value="c"> 3</label>
+        <label class="opt"><input type="radio" name="q2" value="d"> 5</label>
+      </div>
+      <div class="qexplain" id="e2">2 isomers: butane (straight chain) and 2-methylpropane (branched).</div></div>
+
+      <div class="q-block"><span class="q-num">Q3</span>
+      <p class="q-text">What process is used to separate petroleum into fractions?</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q3" value="a"> Chromatography</label>
+        <label class="opt"><input type="radio" name="q3" value="b"> Recrystallisation</label>
+        <label class="opt"><input type="radio" name="q3" value="c"> Fractional distillation</label>
+        <label class="opt"><input type="radio" name="q3" value="d"> Electrolysis</label>
+      </div>
+      <div class="qexplain" id="e3">Fractional distillation. Crude oil is heated; vapours rise up a fractionating column and condense at different levels based on their boiling points.</div></div>
+
+      <div class="q-block"><span class="q-num">Q4</span>
+      <p class="q-text">The IUPAC name of (CH3)3CH is:</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q4" value="a"> trimethylmethane</label>
+        <label class="opt"><input type="radio" name="q4" value="b"> 2-methylbutane</label>
+        <label class="opt"><input type="radio" name="q4" value="c"> 2-methylpropane</label>
+        <label class="opt"><input type="radio" name="q4" value="d"> isobutane</label>
+      </div>
+      <div class="qexplain" id="e4">(CH3)3CH = CH3CH(CH3)CH3. Longest chain = 3 C (propane), methyl at C2 &amp;rarr; 2-methylpropane. &amp;ldquo;Isobutane&amp;rdquo; is only a common name.</div></div>
+
+      <div class="q-block"><span class="q-num">Q5</span>
+      <p class="q-text">Halogenation of alkanes requires:</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q5" value="a"> Aqueous acid catalyst</label>
+        <label class="opt"><input type="radio" name="q5" value="b"> UV light or high temperature</label>
+        <label class="opt"><input type="radio" name="q5" value="c"> Alkaline conditions</label>
+        <label class="opt"><input type="radio" name="q5" value="d"> Iron filings catalyst</label>
+      </div>
+      <div class="qexplain" id="e5">Free-radical substitution requires UV light or high temperature to homolytically cleave Cl2 into radicals that initiate the chain reaction.</div></div>
+
+      <div class="q-block"><span class="q-num">Q6</span>
+      <p class="q-text">Which termination step produces ethane during chlorination of methane?</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q6" value="a"> Cl&amp;bull; + Cl&amp;bull; &amp;rarr; Cl2</label>
+        <label class="opt"><input type="radio" name="q6" value="b"> &amp;bull;CH3 + Cl&amp;bull; &amp;rarr; CH3Cl</label>
+        <label class="opt"><input type="radio" name="q6" value="c"> &amp;bull;CH3 + &amp;bull;CH3 &amp;rarr; C2H6</label>
+        <label class="opt"><input type="radio" name="q6" value="d"> CH4 + Cl2 &amp;rarr; CH3Cl + HCl</label>
+      </div>
+      <div class="qexplain" id="e6">&amp;bull;CH3 + &amp;bull;CH3 &amp;rarr; C2H6. Two methyl radicals combine &amp;mdash; a minor termination step that produces ethane as a by-product.</div></div>
+
+      <div class="q-block"><span class="q-num">Q7</span>
+      <p class="q-text">Decarboxylation of sodium propanoate (CH3CH2COONa) with NaOH/CaO produces:</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q7" value="a"> Methane</label>
+        <label class="opt"><input type="radio" name="q7" value="b"> Ethane</label>
+        <label class="opt"><input type="radio" name="q7" value="c"> Propane</label>
+        <label class="opt"><input type="radio" name="q7" value="d"> Butane</label>
+      </div>
+      <div class="qexplain" id="e7">Sodium propanoate has 3 carbons. Decarboxylation removes &amp;ndash;COO&amp;minus;, giving a 2-carbon alkane: ethane.</div></div>
+
+      <div class="q-block"><span class="q-num">Q8</span>
+      <p class="q-text">Why are alkanes relatively unreactive with most chemical reagents?</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q8" value="a"> They are gases at room temperature</label>
+        <label class="opt"><input type="radio" name="q8" value="b"> C&amp;ndash;C and C&amp;ndash;H bonds are strong and non-polar</label>
+        <label class="opt"><input type="radio" name="q8" value="c"> They contain no hydrogen</label>
+        <label class="opt"><input type="radio" name="q8" value="d"> They dissolve in water</label>
+      </div>
+      <div class="qexplain" id="e8">C&amp;ndash;C (347 kJ/mol) and C&amp;ndash;H (413 kJ/mol) bonds are strong and non-polar. Non-polar bonds do not attract polar reagents (electrophiles or nucleophiles), so alkanes resist ionic attack.</div></div>
+
+      <div class="q-block"><span class="q-num">Q9</span>
+      <p class="q-text">Which petroleum fraction is used as jet fuel?</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q9" value="a"> Refinery gas</label>
+        <label class="opt"><input type="radio" name="q9" value="b"> Gasoline</label>
+        <label class="opt"><input type="radio" name="q9" value="c"> Kerosene</label>
+        <label class="opt"><input type="radio" name="q9" value="d"> Bitumen</label>
+      </div>
+      <div class="qexplain" id="e9">Kerosene (C10&amp;ndash;C16, B.P. 150&amp;ndash;270&amp;deg;C) is used as aviation turbine fuel (jet fuel).</div></div>
+
+      <div class="q-block"><span class="q-num">Q10</span>
+      <p class="q-text">The purpose of catalytic cracking in petroleum refining is:</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q10" value="a"> To increase the boiling points of fractions</label>
+        <label class="opt"><input type="radio" name="q10" value="b"> To convert long-chain alkanes into more useful shorter-chain hydrocarbons and alkenes</label>
+        <label class="opt"><input type="radio" name="q10" value="c"> To remove sulfur from crude oil</label>
+        <label class="opt"><input type="radio" name="q10" value="d"> To separate different fractions by boiling point</label>
+      </div>
+      <div class="qexplain" id="e10">Catalytic cracking breaks large molecules into smaller, more useful ones including petrol-range alkanes (higher demand) and alkenes (feedstock for plastics). It uses a zeolite catalyst at 450&amp;ndash;550&amp;deg;C.</div></div>
+
+      <div class="q-block"><span class="q-num">Q11</span>
+      <p class="q-text">The reaction of methane with excess chlorine under UV light gives as final product:</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q11" value="a"> CH₃Cl</label>
+        <label class="opt"><input type="radio" name="q11" value="b"> CH₂Cl₂</label>
+        <label class="opt"><input type="radio" name="q11" value="c"> CHCl₃</label>
+        <label class="opt"><input type="radio" name="q11" value="d"> CCl₄</label>
+      </div>
+      <div class="qexplain" id="e11">With excess Cl₂ and UV, all 4 H atoms are progressively replaced: CH₄ → CH₃Cl → CH₂Cl₂ → CHCl₃ → CCl₄ (tetrachloromethane). CCl₄ is the final product.</div></div>
+
+      <div class="q-block"><span class="q-num">Q12</span>
+      <p class="q-text">Cyclohexane (C₆H₁₂) is a cycloalkane. Its general formula is:</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q12" value="a"> CₙH₂ₙ₊₂</label>
+        <label class="opt"><input type="radio" name="q12" value="b"> CₙH₂ₙ (same as alkenes)</label>
+        <label class="opt"><input type="radio" name="q12" value="c"> CₙH₂ₙ₋₂</label>
+        <label class="opt"><input type="radio" name="q12" value="d"> CₙH₂ₙ₊₁</label>
+      </div>
+      <div class="qexplain" id="e12">Cycloalkanes: CₙH₂ₙ — same as alkenes but no double bond. The ring formation uses two H atoms less than the open chain. Cyclohexane (n=6): C₆H₁₂.</div></div>
+
+      <div class="q-block"><span class="q-num">Q13</span>
+      <p class="q-text">Which statement about the free-radical chain reaction of methane with Cl₂ is correct?</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q13" value="a"> It is started by heat only</label>
+        <label class="opt"><input type="radio" name="q13" value="b"> Termination stops the chain by combining two radicals, e.g. CH₃• + Cl• → CH₃Cl</label>
+        <label class="opt"><input type="radio" name="q13" value="c"> Propagation produces HCl and CH₃• in one step</label>
+        <label class="opt"><input type="radio" name="q13" value="d"> Only one product forms</label>
+      </div>
+      <div class="qexplain" id="e13">Termination: two radicals combine. e.g. 2Cl• → Cl₂; 2CH₃• → C₂H₆; CH₃• + Cl• → CH₃Cl. This removes chain carriers → ends the chain reaction.</div></div>
+
+      <div class="q-block"><span class="q-num">Q14</span>
+      <p class="q-text">Natural gas is a fossil fuel formed from:</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q14" value="a"> Recent plant material</label>
+        <label class="opt"><input type="radio" name="q14" value="b"> Ancient organic matter buried and transformed over millions of years under heat and pressure (anaerobic)</label>
+        <label class="opt"><input type="radio" name="q14" value="c"> Coal only</label>
+        <label class="opt"><input type="radio" name="q14" value="d"> Volcanic methane alone</label>
+      </div>
+      <div class="qexplain" id="e14">Natural gas: formed from anaerobic decomposition of ancient marine organisms over millions of years. Non-renewable resource. Main component: methane (85-95%).</div></div>
+
+      <div class="q-block"><span class="q-num">Q15</span>
+      <p class="q-text">The reason alkanes are immiscible with water is:</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q15" value="a"> They are too large to dissolve</label>
+        <label class="opt"><input type="radio" name="q15" value="b"> Alkanes are non-polar; water forms a strong hydrogen-bond network. Adding non-polar alkane disrupts H-bonds without forming new interactions — energetically unfavourable</label>
+        <label class="opt"><input type="radio" name="q15" value="c"> They react with water</label>
+        <label class="opt"><input type="radio" name="q15" value="d"> They are denser than water</label>
+      </div>
+      <div class="qexplain" id="e15">'Like dissolves like': non-polar alkanes cannot form H-bonds with water. The energy cost of disrupting water's H-bond network outweighs weak alkane-water London interactions.</div></div>
+
+      <div class="q-block"><span class="q-num">Q16</span>
+      <p class="q-text">Reforming of naphtha (C₇-C₁₀ alkanes) using a platinum catalyst converts them to:</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q16" value="a"> Shorter alkanes only</label>
+        <label class="opt"><input type="radio" name="q16" value="b"> Aromatic compounds (benzene, toluene, xylenes) — increasing octane rating of fuel</label>
+        <label class="opt"><input type="radio" name="q16" value="c"> Methane only</label>
+        <label class="opt"><input type="radio" name="q16" value="d"> Hydrogen and carbon</label>
+      </div>
+      <div class="qexplain" id="e16">Catalytic reforming: straight-chain alkanes → aromatic rings (dehydrocyclisation) + H₂. Products: BTX (benzene, toluene, xylenes) with higher octane numbers. Pt catalyst.</div></div>
+
+      <div class="q-block"><span class="q-num">Q17</span>
+      <p class="q-text">The boiling point of hexane (C₆H₁₄) compared to pentane (C₅H₁₂) is:</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q17" value="a"> Lower, because hexane has more carbons</label>
+        <label class="opt"><input type="radio" name="q17" value="b"> Higher, because longer chain = more surface area = stronger London forces</label>
+        <label class="opt"><input type="radio" name="q17" value="c"> The same</label>
+        <label class="opt"><input type="radio" name="q17" value="d"> Depends on pressure only</label>
+      </div>
+      <div class="qexplain" id="e17">Each additional –CH₂– unit adds surface area → stronger London forces → higher boiling point. Pentane: 36°C; hexane: 69°C. Pattern consistent throughout the alkane series.</div></div>
 
       <div class="q-block">
-        <span class="q-num">Q1</span>
-        <p class="q-text">What is the general molecular formula for alkanes?</p>
+        <span class="q-num">Q18</span>
+        <p class="q-text">Thermal cracking uses:</p>
         <div class="options">
-          <label class="opt"><input type="radio" name="q1" value="a"> C<sub>n</sub>H<sub>2n</sub></label>
-          <label class="opt"><input type="radio" name="q1" value="b"> C<sub>n</sub>H<sub>2n+2</sub></label>
-          <label class="opt"><input type="radio" name="q1" value="c"> C<sub>n</sub>H<sub>2n&minus;2</sub></label>
-          <label class="opt"><input type="radio" name="q1" value="d"> C<sub>n</sub>H<sub>n+2</sub></label>
+          <label class="opt"><input type="radio" name="q18" value="a"> A catalyst at low temperature</label>
+          <label class="opt"><input type="radio" name="q18" value="b"> Very high temperatures (400–900°C) without catalyst — C–C bonds break homolytically</label>
+          <label class="opt"><input type="radio" name="q18" value="c"> A platinum catalyst only</label>
+          <label class="opt"><input type="radio" name="q18" value="d"> Electrolysis</label>
         </div>
-        <div class="q-exp" id="exp1">Alkanes are saturated hydrocarbons with general formula <b>C<sub>n</sub>H<sub>2n+2</sub></b>. Each carbon forms 4 bonds; end carbons have 3 H and middle carbons 2 H.</div>
+        <div class="q-exp" id="exp18">Thermal cracking: high T, no catalyst. C–C bonds break homolytically → radicals → smaller alkanes + alkenes + H₂.</div>
       </div>
+      <div class="q-block"><span class="q-num">Q19</span>
+      <p class="q-text">The empirical formula of all alkanes with more than one carbon is:</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q19" value="a"> CH₄</label>
+        <label class="opt"><input type="radio" name="q19" value="b"> CH₃</label>
+        <label class="opt"><input type="radio" name="q19" value="c"> CH₂ (for n≥2, the ratio approaches CₙH₂ₙ₊₂ → CH₂ as n→∞)</label>
+        <label class="opt"><input type="radio" name="q19" value="d"> CH</label>
+      </div>
+      <div class="qexplain" id="e19">For large alkanes (n&gt;&gt;1): CₙH₂ₙ₊₂ ≈ CₙH₂ₙ → empirical formula approaches CH₂. Actually for even n: C₄H₁₀ → empirical C₂H₅. More precisely: depends on specific compound.</div></div>
 
-      <div class="q-block">
-        <span class="q-num">Q2</span>
-        <p class="q-text">How many structural isomers does C<sub>4</sub>H<sub>10</sub> have?</p>
-        <div class="options">
-          <label class="opt"><input type="radio" name="q2" value="a"> 1</label>
-          <label class="opt"><input type="radio" name="q2" value="b"> 2</label>
-          <label class="opt"><input type="radio" name="q2" value="c"> 3</label>
-          <label class="opt"><input type="radio" name="q2" value="d"> 5</label>
-        </div>
-        <div class="q-exp" id="exp2"><b>2 isomers:</b> butane (straight chain) and 2-methylpropane (branched).</div>
+      <div class="q-block"><span class="q-num">Q20</span>
+      <p class="q-text">Which alkane would be used as a component of diesel fuel?</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q20" value="a"> Methane (CH₄)</label>
+        <label class="opt"><input type="radio" name="q20" value="b"> Ethane (C₂H₆)</label>
+        <label class="opt"><input type="radio" name="q20" value="c"> Tetradecane (C₁₄H₃₀, a C₁₂-C₁₆ fraction)</label>
+        <label class="opt"><input type="radio" name="q20" value="d"> Propane (C₃H₈)</label>
       </div>
+      <div class="qexplain" id="e20">Diesel: C₁₂-C₁₆ fraction (kerosene/gas oil range). Heavier than petrol (C₅-C₁₀) but lighter than fuel oil. Tetradecane is a typical diesel component.</div></div>
 
-      <div class="q-block">
-        <span class="q-num">Q3</span>
-        <p class="q-text">What process is used to separate petroleum into fractions?</p>
-        <div class="options">
-          <label class="opt"><input type="radio" name="q3" value="a"> Chromatography</label>
-          <label class="opt"><input type="radio" name="q3" value="b"> Recrystallisation</label>
-          <label class="opt"><input type="radio" name="q3" value="c"> Fractional distillation</label>
-          <label class="opt"><input type="radio" name="q3" value="d"> Electrolysis</label>
-        </div>
-        <div class="q-exp" id="exp3"><b>Fractional distillation</b>. Crude oil is heated; vapours rise up a fractionating column and condense at different levels based on their boiling points.</div>
+      <div class="q-block"><span class="q-num">Q21</span>
+      <p class="q-text">When propane burns in insufficient oxygen, which products can form?</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q21" value="a"> CO₂ and H₂O only</label>
+        <label class="opt"><input type="radio" name="q21" value="b"> Carbon monoxide (CO), water and possibly carbon (soot) — incomplete combustion</label>
+        <label class="opt"><input type="radio" name="q21" value="c"> Only water</label>
+        <label class="opt"><input type="radio" name="q21" value="d"> Propan-1-ol</label>
       </div>
+      <div class="qexplain" id="e21">Incomplete combustion (limited O₂): C₃H₈ + 5O₂ → 3CO₂ + 4H₂O (complete); insufficient O₂ → CO and/or C produced. CO is toxic; soot is a particulate pollutant.</div></div>
 
-      <div class="q-block">
-        <span class="q-num">Q4</span>
-        <p class="q-text">The IUPAC name of (CH<sub>3</sub>)<sub>3</sub>CH is:</p>
-        <div class="options">
-          <label class="opt"><input type="radio" name="q4" value="a"> trimethylmethane</label>
-          <label class="opt"><input type="radio" name="q4" value="b"> 2-methylbutane</label>
-          <label class="opt"><input type="radio" name="q4" value="c"> 2-methylpropane</label>
-          <label class="opt"><input type="radio" name="q4" value="d"> isobutane</label>
-        </div>
-        <div class="q-exp" id="exp4">(CH<sub>3</sub>)<sub>3</sub>CH = CH<sub>3</sub>CH(CH<sub>3</sub>)CH<sub>3</sub>. Longest chain = 3 C (propane), methyl at C2 &rarr; <b>2-methylpropane</b>. &ldquo;Isobutane&rdquo; is only a common name.</div>
+      <div class="q-block"><span class="q-num">Q22</span>
+      <p class="q-text">The structural isomer 2-methylbutane has a different boiling point from pentane because:</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q22" value="a"> They have different molecular formulas</label>
+        <label class="opt"><input type="radio" name="q22" value="b"> Branching makes 2-methylbutane more compact → less surface area → weaker London forces → lower boiling point (28°C vs 36°C for pentane)</label>
+        <label class="opt"><input type="radio" name="q22" value="c"> They have different chemical properties</label>
+        <label class="opt"><input type="radio" name="q22" value="d"> One is a gas at room temperature</label>
       </div>
+      <div class="qexplain" id="e22">Same molecular formula C₅H₁₂ but different shapes. 2-methylbutane (branched) is more spherical → less intermolecular contact → weaker van der Waals → lower b.p.</div></div>
 
-      <div class="q-block">
-        <span class="q-num">Q5</span>
-        <p class="q-text">Halogenation of alkanes requires:</p>
-        <div class="options">
-          <label class="opt"><input type="radio" name="q5" value="a"> Aqueous acid catalyst</label>
-          <label class="opt"><input type="radio" name="q5" value="b"> UV light or high temperature</label>
-          <label class="opt"><input type="radio" name="q5" value="c"> Alkaline conditions</label>
-          <label class="opt"><input type="radio" name="q5" value="d"> Iron filings catalyst</label>
-        </div>
-        <div class="q-exp" id="exp5">Free-radical substitution requires <b>UV light or high temperature</b> to homolytically cleave Cl<sub>2</sub> into radicals that initiate the chain reaction.</div>
+      <div class="q-block"><span class="q-num">Q23</span>
+      <p class="q-text">The IUPAC name of CH₃CH₂CH(CH₃)CH₂CH₃ is:</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q23" value="a"> 2-methylbutane</label>
+        <label class="opt"><input type="radio" name="q23" value="b"> 3-methylpentane</label>
+        <label class="opt"><input type="radio" name="q23" value="c"> 2-ethylbutane</label>
+        <label class="opt"><input type="radio" name="q23" value="d"> 4-methylpentane</label>
       </div>
+      <div class="qexplain" id="e23">Longest chain: 5 carbons (pentane). Methyl branch on C3 → 3-methylpentane. Number from end nearest branch: C1-C2-C3(CH₃)-C4-C5. Name: 3-methylpentane.</div></div>
 
-      <div class="q-block">
-        <span class="q-num">Q6</span>
-        <p class="q-text">Which termination step produces ethane during chlorination of methane?</p>
-        <div class="options">
-          <label class="opt"><input type="radio" name="q6" value="a"> Cl&bull; + Cl&bull; &rarr; Cl<sub>2</sub></label>
-          <label class="opt"><input type="radio" name="q6" value="b"> &bull;CH<sub>3</sub> + Cl&bull; &rarr; CH<sub>3</sub>Cl</label>
-          <label class="opt"><input type="radio" name="q6" value="c"> &bull;CH<sub>3</sub> + &bull;CH<sub>3</sub> &rarr; C<sub>2</sub>H<sub>6</sub></label>
-          <label class="opt"><input type="radio" name="q6" value="d"> CH<sub>4</sub> + Cl<sub>2</sub> &rarr; CH<sub>3</sub>Cl + HCl</label>
-        </div>
-        <div class="q-exp" id="exp6"><b>&bull;CH<sub>3</sub> + &bull;CH<sub>3</sub> &rarr; C<sub>2</sub>H<sub>6</sub></b>. Two methyl radicals combine &mdash; a minor termination step that produces ethane as a by-product.</div>
+      <div class="q-block"><span class="q-num">Q24</span>
+      <p class="q-text">A mixture of hexane isomers in petrol is preferable to n-hexane because:</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q24" value="a"> Isomers burn more slowly</label>
+        <label class="opt"><input type="radio" name="q24" value="b"> Branched isomers have higher octane ratings — they ignite more smoothly in engines, reducing knocking</label>
+        <label class="opt"><input type="radio" name="q24" value="c"> Isomers are cheaper</label>
+        <label class="opt"><input type="radio" name="q24" value="d"> Isomers are safer to store</label>
       </div>
+      <div class="qexplain" id="e24">Octane rating measures resistance to pre-ignition (knocking). Branched alkanes: higher octane. 2,2,4-trimethylpentane (isooctane): octane rating = 100. n-heptane: 0. Branching is better.</div></div>
 
-      <div class="q-block">
-        <span class="q-num">Q7</span>
-        <p class="q-text">Decarboxylation of sodium propanoate (CH<sub>3</sub>CH<sub>2</sub>COONa) with NaOH/CaO produces:</p>
-        <div class="options">
-          <label class="opt"><input type="radio" name="q7" value="a"> Methane</label>
-          <label class="opt"><input type="radio" name="q7" value="b"> Ethane</label>
-          <label class="opt"><input type="radio" name="q7" value="c"> Propane</label>
-          <label class="opt"><input type="radio" name="q7" value="d"> Butane</label>
-        </div>
-        <div class="q-exp" id="exp7">Sodium propanoate has 3 carbons. Decarboxylation removes &ndash;COO<sup>&minus;</sup>, giving a 2-carbon alkane: <b>ethane</b>.</div>
+      <div class="q-block"><span class="q-num">Q25</span>
+      <p class="q-text">Methane (CH₄) has a tetrahedral structure because:</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="q25" value="a"> Carbon always forms 4 bonds in a line</label>
+        <label class="opt"><input type="radio" name="q25" value="b"> Carbon has 4 bonding pairs → VSEPR predicts tetrahedral geometry → bond angle 109.5°, sp³ hybridisation</label>
+        <label class="opt"><input type="radio" name="q25" value="c"> Hydrogen is small</label>
+        <label class="opt"><input type="radio" name="q25" value="d"> It is a gas</label>
       </div>
-
-      <div class="q-block">
-        <span class="q-num">Q8</span>
-        <p class="q-text">Why are alkanes relatively unreactive with most chemical reagents?</p>
-        <div class="options">
-          <label class="opt"><input type="radio" name="q8" value="a"> They are gases at room temperature</label>
-          <label class="opt"><input type="radio" name="q8" value="b"> C&ndash;C and C&ndash;H bonds are strong and non-polar</label>
-          <label class="opt"><input type="radio" name="q8" value="c"> They contain no hydrogen</label>
-          <label class="opt"><input type="radio" name="q8" value="d"> They dissolve in water</label>
-        </div>
-        <div class="q-exp" id="exp8">C&ndash;C (347 kJ/mol) and C&ndash;H (413 kJ/mol) bonds are <b>strong and non-polar</b>. Non-polar bonds do not attract polar reagents (electrophiles or nucleophiles), so alkanes resist ionic attack.</div>
-      </div>
-
-      <div class="q-block">
-        <span class="q-num">Q9</span>
-        <p class="q-text">Which petroleum fraction is used as jet fuel?</p>
-        <div class="options">
-          <label class="opt"><input type="radio" name="q9" value="a"> Refinery gas</label>
-          <label class="opt"><input type="radio" name="q9" value="b"> Gasoline</label>
-          <label class="opt"><input type="radio" name="q9" value="c"> Kerosene</label>
-          <label class="opt"><input type="radio" name="q9" value="d"> Bitumen</label>
-        </div>
-        <div class="q-exp" id="exp9"><b>Kerosene</b> (C<sub>10</sub>&ndash;C<sub>16</sub>, B.P. 150&ndash;270&deg;C) is used as aviation turbine fuel (jet fuel).</div>
-      </div>
-
-      <div class="q-block">
-        <span class="q-num">Q10</span>
-        <p class="q-text">The purpose of catalytic cracking in petroleum refining is:</p>
-        <div class="options">
-          <label class="opt"><input type="radio" name="q10" value="a"> To increase the boiling points of fractions</label>
-          <label class="opt"><input type="radio" name="q10" value="b"> To convert long-chain alkanes into more useful shorter-chain hydrocarbons and alkenes</label>
-          <label class="opt"><input type="radio" name="q10" value="c"> To remove sulfur from crude oil</label>
-          <label class="opt"><input type="radio" name="q10" value="d"> To separate different fractions by boiling point</label>
-        </div>
-        <div class="q-exp" id="exp10">Catalytic cracking <b>breaks large molecules into smaller, more useful ones</b> including petrol-range alkanes (higher demand) and alkenes (feedstock for plastics). It uses a zeolite catalyst at 450&ndash;550&deg;C.</div>
-      </div>
+      <div class="qexplain" id="e25">4 bonding pairs, 0 lone pairs → tetrahedral. VSEPR: pairs repel equally → 109.5° H–C–H angles. Carbon is sp³ hybridised in all alkanes.</div></div>
 
     </div>
     <div style="padding:0 24px 24px;">
@@ -706,223 +354,37 @@ C10H22  -->  C4H10  +  C3H6  +  C3H6   (example)</div>
     </div>
   </div>
 </section>
-
-<!-- UNIT TEST -->
-<section id="test">
-  <div class="section-header">
-    <span class="section-number">&#128221;</span>
-    <h2>Unit Test</h2>
-  </div>
-
-  <div class="callout info">
-    <span class="callout-icon">&#8505;&#65039;</span>
-    <div class="callout-body">
-      <strong>Instructions</strong>
-      Total: 50 marks &nbsp;|&nbsp; Time: 50 minutes &nbsp;|&nbsp; Attempt all questions &nbsp;|&nbsp; Show all working.
-    </div>
-  </div>
-
-  <div class="test-wrap">
-
-    <div class="test-section">
-      <div class="test-section-header">
-        <h3>Section A &mdash; Short Answer</h3>
-        <span class="marks-badge">30 marks</span>
-      </div>
-      <div class="test-body">
-
-        <div class="test-q">
-          <span class="test-q-num">Q1 [3 marks]</span>
-          <p>Give the IUPAC name for each compound:</p>
-          <p>(a) CH<sub>3</sub>CH<sub>2</sub>CH(CH<sub>3</sub>)CH<sub>3</sub> &nbsp; (b) (CH<sub>3</sub>)<sub>2</sub>CHCH(CH<sub>3</sub>)CH<sub>3</sub> &nbsp; (c) CH<sub>3</sub>C(CH<sub>3</sub>)<sub>2</sub>CH<sub>2</sub>CH<sub>3</sub></p>
-          <div class="test-answer-reveal">
-            <button class="reveal-btn" onclick="toggleAnswer(this)">Show Model Answer</button>
-            <div class="answer">
-              (a) <b>2-methylbutane</b><br>
-              (b) <b>2,3-dimethylbutane</b><br>
-              (c) <b>2,2-dimethylbutane</b>
-            </div>
-          </div>
-        </div>
-
-        <div class="test-q">
-          <span class="test-q-num">Q2 [4 marks]</span>
-          <p>Draw the structural formulae and give IUPAC names for all 3 isomers of C<sub>5</sub>H<sub>12</sub>.</p>
-          <div class="test-answer-reveal">
-            <button class="reveal-btn" onclick="toggleAnswer(this)">Show Model Answer</button>
-            <div class="answer">
-              1. <b>Pentane</b>: CH<sub>3</sub>CH<sub>2</sub>CH<sub>2</sub>CH<sub>2</sub>CH<sub>3</sub><br>
-              2. <b>2-methylbutane</b>: CH<sub>3</sub>CH(CH<sub>3</sub>)CH<sub>2</sub>CH<sub>3</sub><br>
-              3. <b>2,2-dimethylpropane</b>: C(CH<sub>3</sub>)<sub>4</sub>
-            </div>
-          </div>
-        </div>
-
-        <div class="test-q">
-          <span class="test-q-num">Q3 [4 marks]</span>
-          <p>Write balanced equations for: (a) complete combustion of propane; (b) incomplete combustion of ethane producing CO.</p>
-          <div class="test-answer-reveal">
-            <button class="reveal-btn" onclick="toggleAnswer(this)">Show Model Answer</button>
-            <div class="answer">
-              (a) C<sub>3</sub>H<sub>8</sub> + 5O<sub>2</sub> &rarr; 3CO<sub>2</sub> + 4H<sub>2</sub>O<br>
-              (b) 2C<sub>2</sub>H<sub>6</sub> + 5O<sub>2</sub> &rarr; 4CO + 6H<sub>2</sub>O
-            </div>
-          </div>
-        </div>
-
-        <div class="test-q">
-          <span class="test-q-num">Q4 [6 marks]</span>
-          <p>Write the full free-radical mechanism for the monochlorination of ethane (C<sub>2</sub>H<sub>6</sub>) by Cl<sub>2</sub> under UV light. Include all three stages.</p>
-          <div class="test-answer-reveal">
-            <button class="reveal-btn" onclick="toggleAnswer(this)">Show Model Answer</button>
-            <div class="answer">
-              <b>Initiation:</b> Cl<sub>2</sub> &rarr;(hv) 2 Cl&bull;<br><br>
-              <b>Propagation:</b><br>
-              Cl&bull; + C<sub>2</sub>H<sub>6</sub> &rarr; &bull;C<sub>2</sub>H<sub>5</sub> + HCl<br>
-              &bull;C<sub>2</sub>H<sub>5</sub> + Cl<sub>2</sub> &rarr; C<sub>2</sub>H<sub>5</sub>Cl + Cl&bull;<br><br>
-              <b>Termination:</b><br>
-              Cl&bull; + Cl&bull; &rarr; Cl<sub>2</sub><br>
-              &bull;C<sub>2</sub>H<sub>5</sub> + Cl&bull; &rarr; C<sub>2</sub>H<sub>5</sub>Cl<br>
-              &bull;C<sub>2</sub>H<sub>5</sub> + &bull;C<sub>2</sub>H<sub>5</sub> &rarr; C<sub>4</sub>H<sub>10</sub><br>
-              Main product: <b>chloroethane</b>
-            </div>
-          </div>
-        </div>
-
-        <div class="test-q">
-          <span class="test-q-num">Q5 [4 marks]</span>
-          <p>Give two laboratory methods for preparing methane, with a balanced equation for each.</p>
-          <div class="test-answer-reveal">
-            <button class="reveal-btn" onclick="toggleAnswer(this)">Show Model Answer</button>
-            <div class="answer">
-              <b>1. Decarboxylation:</b><br>
-              CH<sub>3</sub>COONa + NaOH &rarr;<sup>CaO, &Delta;</sup> CH<sub>4</sub> + Na<sub>2</sub>CO<sub>3</sub><br><br>
-              <b>2. Reduction of iodomethane:</b><br>
-              CH<sub>3</sub>I + Zn + HCl &rarr; CH<sub>4</sub> + ZnICl
-            </div>
-          </div>
-        </div>
-
-        <div class="test-q">
-          <span class="test-q-num">Q6 [5 marks]</span>
-          <p>Explain the trend in boiling points of straight-chain alkanes from methane to octane. Why do branched isomers have lower boiling points than straight-chain isomers of the same molecular formula?</p>
-          <div class="test-answer-reveal">
-            <button class="reveal-btn" onclick="toggleAnswer(this)">Show Model Answer</button>
-            <div class="answer">
-              <b>Trend:</b> B.P. increases from &minus;162&deg;C (methane) to +126&deg;C (octane) as chain length increases.<br>
-              <b>Reason:</b> Alkanes are non-polar; only London dispersion forces act between molecules. Longer chains have greater surface area &rarr; stronger dispersion forces &rarr; more energy needed to separate molecules &rarr; higher B.P.<br>
-              <b>Branching:</b> Branched isomers are more compact/spherical &rarr; less surface contact between molecules &rarr; weaker dispersion forces &rarr; lower B.P. than straight-chain isomer with same M<sub>r</sub>.
-            </div>
-          </div>
-        </div>
-
-        <div class="test-q">
-          <span class="test-q-num">Q7 [4 marks]</span>
-          <p>State four uses of alkanes, naming the specific fraction or compound used in each case and linking to a relevant property.</p>
-          <div class="test-answer-reveal">
-            <button class="reveal-btn" onclick="toggleAnswer(this)">Show Model Answer</button>
-            <div class="answer">
-              1. <b>Methane &mdash; fuel</b>: high energy density, clean burning.<br>
-              2. <b>Propane/butane (LPG) &mdash; portable cooking fuel</b>: liquefied under moderate pressure, easily stored.<br>
-              3. <b>Petrol (C<sub>5</sub>&ndash;C<sub>10</sub>) &mdash; motor fuel</b>: correct volatility for combustion engines.<br>
-              4. <b>Bitumen (C<sub>50+</sub>) &mdash; road surfacing</b>: thermoplastic, waterproof, durable.
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <div class="test-section">
-      <div class="test-section-header">
-        <h3>Section B &mdash; Extended Response</h3>
-        <span class="marks-badge">20 marks</span>
-      </div>
-      <div class="test-body">
-
-        <div class="test-q">
-          <span class="test-q-num">Q8 [10 marks]</span>
-          <p><b>(a)</b> Describe the fractional distillation of petroleum: explain how the fractionating column works, what principle governs separation, and name four fractions with their uses. <i>[6 marks]</i></p>
-          <p><b>(b)</b> Define cracking, write one equation for thermal cracking of a long-chain alkane, and state one reason why cracking is important in the petroleum industry. <i>[4 marks]</i></p>
-          <div class="test-answer-reveal">
-            <button class="reveal-btn" onclick="toggleAnswer(this)">Show Model Answer</button>
-            <div class="answer">
-              <b>(a)</b> Crude oil is heated in a furnace and fed into the base of a fractionating column, which is hot at the bottom (~400&deg;C) and cool at the top (~40&deg;C). Vapours rise and condense when they reach the level where temperature equals their boiling point; fractions are drawn off at different levels. Separation is based on <b>differences in boiling point</b>, which increases with chain length due to stronger van der Waals forces.<br>
-              Fractions: Refinery gas (C<sub>1</sub>&ndash;C<sub>4</sub>, fuel); Petrol (C<sub>5</sub>&ndash;C<sub>10</sub>, motor fuel); Kerosene (C<sub>10</sub>&ndash;C<sub>16</sub>, jet fuel); Bitumen (C<sub>50+</sub>, road surfacing).<br><br>
-              <b>(b)</b> Cracking is the thermal or catalytic decomposition of large alkane molecules into smaller, more useful hydrocarbons.<br>
-              Equation: C<sub>16</sub>H<sub>34</sub> &rarr; C<sub>8</sub>H<sub>18</sub> + C<sub>8</sub>H<sub>16</sub><br>
-              Importance: Converts low-demand heavy fractions into high-demand petrol and alkenes (monomers for plastics).
-            </div>
-          </div>
-        </div>
-
-        <div class="test-q">
-          <span class="test-q-num">Q9 [10 marks]</span>
-          <p><b>(a)</b> Write the structural formulae and IUPAC names for all five isomers of hexane (C<sub>6</sub>H<sub>14</sub>). <i>[5 marks]</i></p>
-          <p><b>(b)</b> Arrange the five isomers in order of increasing boiling point and justify your answer using intermolecular force theory. <i>[5 marks]</i></p>
-          <div class="test-answer-reveal">
-            <button class="reveal-btn" onclick="toggleAnswer(this)">Show Model Answer</button>
-            <div class="answer">
-              <b>(a)</b><br>
-              1. <b>Hexane</b>: CH<sub>3</sub>(CH<sub>2</sub>)<sub>4</sub>CH<sub>3</sub><br>
-              2. <b>2-methylpentane</b>: CH<sub>3</sub>CH(CH<sub>3</sub>)CH<sub>2</sub>CH<sub>2</sub>CH<sub>3</sub><br>
-              3. <b>3-methylpentane</b>: CH<sub>3</sub>CH<sub>2</sub>CH(CH<sub>3</sub>)CH<sub>2</sub>CH<sub>3</sub><br>
-              4. <b>2,2-dimethylbutane</b>: CH<sub>3</sub>C(CH<sub>3</sub>)<sub>2</sub>CH<sub>2</sub>CH<sub>3</sub><br>
-              5. <b>2,3-dimethylbutane</b>: CH<sub>3</sub>CH(CH<sub>3</sub>)CH(CH<sub>3</sub>)CH<sub>3</sub><br><br>
-              <b>(b) Increasing B.P.:</b><br>
-              2,2-dimethylbutane (50&deg;C) &lt; 2,3-dimethylbutane (58&deg;C) &lt; 2-methylpentane (60&deg;C) &lt; 3-methylpentane (63&deg;C) &lt; hexane (69&deg;C)<br><br>
-              <b>Justification:</b> All isomers have the same M<sub>r</sub> = 86 and are non-polar; only London dispersion forces differ. Hexane (straight chain) has the greatest surface area &rarr; strongest forces &rarr; highest B.P. Increasing branching reduces surface contact area &rarr; weaker forces &rarr; lower B.P. 2,2-dimethylbutane is most compact &rarr; lowest B.P.
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<div class="unit-nav">
-  <a class="nav-btn prev" href="unit1_organic_chemistry.html">&larr; Unit 1: Introduction to Organic Chemistry</a>
-  <a class="nav-btn next" href="unit3_alkenes_alkynes.html">Unit 3: Alkenes &amp; Alkynes &rarr;</a>
-</div>
-
+<script>
+const _CA={q1:'A',q2:'B',q3:'C',q4:'C',q5:'B',q6:'C',q7:'B',q8:'B',q9:'C',q10:'B',q11:'D',q12:'B',q13:'B',q14:'B',q15:'B',q16:'B',q17:'B',q18:'B',q19:'C',q20:'C',q21:'B',q22:'B',q23:'B',q24:'B',q25:'B'};
+function submitQuiz(){
+  let s=0,t=Object.keys(_CA).length;
+  Object.entries(_CA).forEach(([q,c])=>{
+    const sel=document.querySelector('input[name="'+q+'"]:checked');
+    const e=document.getElementById('e'+q.slice(1));if(e)e.style.display='block';
+    document.querySelectorAll('input[name="'+q+'"]').forEach(o=>{
+      if(o.value===c)o.closest('label').classList.add('correct');
+      else if(sel&&o.value===sel.value&&o.value!==c)o.closest('label').classList.add('wrong');
+      o.disabled=true;
+    });
+    if(sel&&sel.value===c)s++;
+  });
+  const p=Math.round(s/t*100);
+  const r=document.getElementById('quizResult');r.style.display='block';
+  r.style.cssText='display:block;margin-top:16px;padding:16px 20px;border-radius:8px;font-family:JetBrains Mono,monospace;font-size:.88rem;text-align:center;background:'+(p>=70?'rgba(52,211,153,.1)':'rgba(248,113,113,.1)')+';border:1px solid '+(p>=70?'var(--green)':'var(--red)')+';color:'+(p>=70?'var(--green)':'var(--red)');
+  r.innerHTML='Score: '+s+'/'+t+' ('+p+'%) &mdash; '+(p>=80?'&#127942; Excellent!':p>=70?'&#10003; Good':p>=50?'&#128218; Review notes':'&#10007; Re-read unit');
+  document.querySelector('.quiz-submit').disabled=true;document.querySelector('.quiz-submit').style.opacity='.5';
+}
+</script>
 </main>
-
 <script>
 function toggleAnswer(btn){
-  const ans = btn.nextElementSibling;
-  ans.classList.toggle('open');
-  btn.textContent = ans.classList.contains('open') ? 'Hide Answer' : 'Show Answer';
-}
-
-const correctAnswers = {q1:'b',q2:'b',q3:'c',q4:'c',q5:'b',q6:'c',q7:'b',q8:'b',q9:'c',q10:'b'};
-
-function submitQuiz(){
-  let score=0;
-  const total=Object.keys(correctAnswers).length;
-  Object.entries(correctAnswers).forEach(([q,correct])=>{
-    const sel=document.querySelector('input[name="'+q+'"]:checked');
-    document.querySelectorAll('input[name="'+q+'"]').forEach(o=>{
-      if(o.value===correct) o.parentElement.classList.add('correct');
-    });
-    if(sel){
-      if(sel.value===correct) score++;
-      else sel.parentElement.classList.add('wrong');
-    }
-    const exp=document.getElementById('exp'+q.slice(1));
-    if(exp) exp.style.display='block';
-    document.querySelectorAll('input[name="'+q+'"]').forEach(o=>o.disabled=true);
-  });
-  const pct=Math.round(score/total*100);
-  const res=document.getElementById('quizResult');
-  res.style.display='block';
-  res.style.background=pct>=70?'rgba(52,211,153,.1)':'rgba(248,113,113,.1)';
-  res.style.border='1px solid '+(pct>=70?'var(--green)':'var(--red)');
-  res.style.color=pct>=70?'var(--green)':'var(--red)';
-  res.innerHTML='Score: '+score+' / '+total+' ('+pct+'%) — '+(pct>=80?'Excellent! 🎉':pct>=60?'Good effort — review marked questions.':'Keep studying — re-read the notes and try again.');
-  document.querySelector('.quiz-submit').disabled=true;
-  document.querySelector('.quiz-submit').style.opacity='0.5';
+  var ans = btn.nextElementSibling;
+  if(!ans) return;
+  var isOpen = ans.classList.contains('open');
+  ans.classList.toggle('open', !isOpen);
+  btn.textContent = isOpen ? 'Show Answer' : 'Hide Answer';
+  if(btn.classList.contains('rb')||btn.classList.contains('reveal-btn'))
+    btn.textContent = isOpen ? 'Model Answer' : 'Hide Answer';
 }
 </script>
 </body>

@@ -94,6 +94,45 @@ footer{border-top:1px solid var(--border);padding:28px;text-align:center;font-fa
 footer a{color:var(--accent);text-decoration:none;}
 @media(max-width:640px){.hero{padding:60px 24px 40px;}.page{padding:0 16px 60px;}.quiz-body{padding:16px;}}
 </style>
+
+<style>
+@media print {
+  body { background: #fff !important; color: #000 !important; }
+  * { background: transparent !important; color: #000 !important; border-color: #ccc !important; box-shadow: none !important; }
+  nav, footer, .quiz-wrap, .quiz-header, .quiz-body, .quiz-submit, .submit-btn, .btn, button:not(.print-btn), .lock-bar, .lock-overlay, .answer-panel { display: none !important; }
+  h1, h2, h3, h4 { color: #000 !important; }
+  a { color: #000 !important; text-decoration: none !important; }
+  .section-number { color: #000 !important; border-color: #000 !important; }
+  .callout, .definition, .example, .worked-example { background: #f5f5f5 !important; border-color: #000 !important; }
+  main, .content { max-width: 100% !important; padding: 0 !important; }
+}
+  body { background: #fff !important; color: #000 !important; font-size: 11pt; line-height: 1.6; }
+  nav, footer, .quiz-wrap, .quiz-container, section#quiz, section#test,
+  .tab-btn, .reveal-btn, button, .answer-panel, .print-hide,
+  [id*="lock"], .modal-overlay { display: none !important; }
+  main { max-width: 100% !important; padding: 0 !important; margin: 0 !important; }
+  h1, h2, h3, h4 { color: #000 !important; page-break-after: avoid; }
+  h2 { border-bottom: 2px solid #000 !important; padding-bottom: 4pt; margin-top: 18pt; }
+  section { page-break-inside: avoid; margin-bottom: 16pt; }
+  .section-header { background: #f0f0f0 !important; color: #000 !important; padding: 6pt 10pt; border-radius: 0 !important; }
+  .callout, .definition, .example-box, .worked-example {
+    background: #f5f5f5 !important; color: #000 !important;
+    border: 1pt solid #ccc !important; border-left: 3pt solid #333 !important;
+    padding: 8pt !important; margin: 8pt 0 !important;
+  }
+  table { border-collapse: collapse !important; width: 100% !important; }
+  th, td { border: 1pt solid #999 !important; padding: 4pt 6pt !important; color: #000 !important; background: #fff !important; font-size: 10pt; }
+  th { background: #e0e0e0 !important; font-weight: bold; }
+  p, li { color: #000 !important; }
+  .hero, .hero-eyebrow, .hero h1, .hero p { display: none !important; }
+  .content-body, .unit-content, .notes-body { color: #000 !important; }
+  a { color: #000 !important; text-decoration: none; }
+  code, pre { background: #f0f0f0 !important; color: #000 !important; border: 1pt solid #ccc !important; }
+  .answer-panel.open { display: block !important; background: #f9f9f9 !important; color: #000 !important; }
+  strong { color: #000 !important; }
+  var(--text), var(--muted), var(--accent) { color: #000 !important; }
+}
+</style>
 </head>
 <body>
 <nav>
@@ -332,7 +371,7 @@ Bleaching:     SO₂ + H₂O + coloured matter → colourless (temporary bleachi
   <p>SO₃ is a <strong>planar trigonal molecule</strong> — sulfur uses sp² hybridisation with 3 S–O bonds (each with some double bond character via 3d–2p π bonding). Bond angle = 120°. It is the acid anhydride of sulfuric acid.</p>
   <div class="formula-block">SO₃ + H₂O → H₂SO₄          (direct — very exothermic; forms acid mist)
 SO₃ + H₂SO₄ → H₂S₂O₇       (oleum/fuming sulfuric acid — better absorption)
-H��S₂O₇ + H₂O → 2H₂SO₄      (then add water to oleum carefully)</div>
+H��S₂O₇ + H₂O → 2H₂SO₄      (then add water to oleum carefully)</div>
   <p>SO₃ reacts violently with water — produces an acid mist that is hard to handle. This is why SO₃ is first absorbed in concentrated H₂SO₄ to form oleum.</p>
 </div>
 
@@ -422,8 +461,8 @@ S + 2H₂SO₄(hot conc.) → 3SO₂ + 2H₂O               (sulfur oxidised)</d
 
   <h3 class="sub">4. As a Non-volatile Acid</h3>
   <div class="formula-block">H₂SO₄ + 2NaCl(s) → Na₂SO₄ + 2HCl↑    (displaces volatile HCl — warm)
-H��SO₄ + NaNO₃(s) → NaHSO₄ + HNO₃↑   (displaces volatile HNO₃)
-H��SO₄ + CaF₂(s) → CaSO₄ + 2HF↑       (produces HF — etches glass)</div>
+H��SO₄ + NaNO₃(s) → NaHSO₄ + HNO₃↑   (displaces volatile HNO₃)
+H��SO₄ + CaF₂(s) → CaSO₄ + 2HF↑       (produces HF — etches glass)</div>
 
   <h3 class="sub">5. Important Uses of H₂SO₄</h3>
   <ul style="margin:8px 0 0 20px;line-height:2.2;">
@@ -921,5 +960,4 @@ function submitQuiz(){
   window.addEventListener('DOMContentLoaded',function(){const code=localStorage.getItem(CK);if(!code)return;const granted=sessionStorage.getItem(SK);if(granted)return;const qw=document.querySelector('.quiz-wrap');if(!qw)return;qw.addEventListener('click',function(e){if(!localStorage.getItem(CK))return;if(sessionStorage.getItem(SK))return;e.stopPropagation();e.preventDefault();document.getElementById('unit-quiz-gate').style.display='flex';document.body.style.overflow='hidden';},true);});
 })();
 </script>
-</body>
-</html>
+</bo

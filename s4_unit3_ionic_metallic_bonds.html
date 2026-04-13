@@ -98,6 +98,63 @@
   h3.sub{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--gold);margin:28px 0 10px;}
   sub,sup{font-size:.72em;}
   @media(max-width:600px){.hero{padding:50px 20px 40px;}.page{padding:0 16px 60px;}}
+
+.mini-quiz{background:var(--surface2);border:1px solid rgba(56,189,248,.2);border-radius:var(--radius);overflow:hidden;margin:32px 0 16px;}
+.mq-head{background:rgba(56,189,248,.1);border-bottom:1px solid rgba(56,189,248,.2);padding:12px 20px;display:flex;align-items:center;gap:10px;}
+.mq-head h4{font-family:'Playfair Display',serif;font-size:.98rem;color:#fff;flex:1;}
+.mq-badge{font-family:'JetBrains Mono',monospace;font-size:.68rem;background:rgba(56,189,248,.15);border:1px solid rgba(56,189,248,.3);color:var(--accent);padding:3px 10px;border-radius:50px;white-space:nowrap;}
+.mq-body{padding:18px 22px;}
+.mq-qblock{margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid var(--border);}
+.mq-qblock:last-of-type{border-bottom:none;margin-bottom:6px;padding-bottom:0;}
+.mq-qnum{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--accent);display:block;margin-bottom:5px;}
+.mq-qtext{font-size:.93rem;color:#fff;margin-bottom:9px;line-height:1.6;}
+.mq-opts label{display:flex;align-items:flex-start;gap:8px;padding:7px 11px;margin-bottom:5px;border-radius:7px;border:1px solid var(--border);cursor:pointer;font-size:.86rem;transition:all .15s;background:var(--bg);}
+.mq-opts label:hover{border-color:var(--accent);}
+.mq-opts label.correct{background:rgba(52,211,153,.1);border-color:var(--green)!important;color:var(--green);}
+.mq-opts label.wrong{background:rgba(248,113,113,.07);border-color:var(--red)!important;color:var(--red);}
+.mq-opts input[type=radio]{margin-top:3px;accent-color:var(--accent);flex-shrink:0;}
+.mq-exp{display:none;margin-top:7px;padding:9px 13px;background:rgba(56,189,248,.06);border-left:3px solid var(--accent);border-radius:0 5px 5px 0;font-size:.83rem;line-height:1.6;color:var(--muted);}
+.mq-submit{background:var(--accent);color:#000;border:none;padding:9px 26px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:.8rem;font-weight:700;cursor:pointer;transition:opacity .2s;margin-top:4px;}
+.mq-submit:hover{opacity:.85;}
+</style>
+
+<style>
+@media print {
+  body { background: #fff !important; color: #000 !important; }
+  * { background: transparent !important; color: #000 !important; border-color: #ccc !important; box-shadow: none !important; }
+  nav, footer, .quiz-wrap, .quiz-header, .quiz-body, .quiz-submit, .submit-btn, .btn, button:not(.print-btn), .lock-bar, .lock-overlay, .answer-panel { display: none !important; }
+  h1, h2, h3, h4 { color: #000 !important; }
+  a { color: #000 !important; text-decoration: none !important; }
+  .section-number { color: #000 !important; border-color: #000 !important; }
+  .callout, .definition, .example, .worked-example { background: #f5f5f5 !important; border-color: #000 !important; }
+  main, .content { max-width: 100% !important; padding: 0 !important; }
+}
+  body { background: #fff !important; color: #000 !important; font-size: 11pt; line-height: 1.6; }
+  nav, footer, .quiz-wrap, .quiz-container, section#quiz, section#test,
+  .tab-btn, .reveal-btn, button, .answer-panel, .print-hide,
+  [id*="lock"], .modal-overlay { display: none !important; }
+  main { max-width: 100% !important; padding: 0 !important; margin: 0 !important; }
+  h1, h2, h3, h4 { color: #000 !important; page-break-after: avoid; }
+  h2 { border-bottom: 2px solid #000 !important; padding-bottom: 4pt; margin-top: 18pt; }
+  section { page-break-inside: avoid; margin-bottom: 16pt; }
+  .section-header { background: #f0f0f0 !important; color: #000 !important; padding: 6pt 10pt; border-radius: 0 !important; }
+  .callout, .definition, .example-box, .worked-example {
+    background: #f5f5f5 !important; color: #000 !important;
+    border: 1pt solid #ccc !important; border-left: 3pt solid #333 !important;
+    padding: 8pt !important; margin: 8pt 0 !important;
+  }
+  table { border-collapse: collapse !important; width: 100% !important; }
+  th, td { border: 1pt solid #999 !important; padding: 4pt 6pt !important; color: #000 !important; background: #fff !important; font-size: 10pt; }
+  th { background: #e0e0e0 !important; font-weight: bold; }
+  p, li { color: #000 !important; }
+  .hero, .hero-eyebrow, .hero h1, .hero p { display: none !important; }
+  .content-body, .unit-content, .notes-body { color: #000 !important; }
+  a { color: #000 !important; text-decoration: none; }
+  code, pre { background: #f0f0f0 !important; color: #000 !important; border: 1pt solid #ccc !important; }
+  .answer-panel.open { display: block !important; background: #f9f9f9 !important; color: #000 !important; }
+  strong { color: #000 !important; }
+  var(--text), var(--muted), var(--accent) { color: #000 !important; }
+}
 </style>
 </head>
 <body>
@@ -147,6 +204,176 @@
 </div>
 
 <!-- 3.2 -->
+
+<div style="background:var(--surface);border:1px solid rgba(56,189,248,.25);border-radius:10px;overflow:hidden;margin:28px 0 40px;">
+  <div style="background:rgba(56,189,248,.08);border-bottom:1px solid rgba(56,189,248,.25);padding:14px 22px;display:flex;align-items:center;justify-content:space-between;">
+    <div><div style="font-family:'JetBrains Mono',monospace;font-size:.68rem;color:#38bdf8;text-transform:uppercase;letter-spacing:.1em;">Section 3.1 Quick Quiz</div><strong style="color:#fff;font-family:'Playfair Display',serif;">Stability of Atoms & Why They Bond</strong></div>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);">10 Questions</span>
+  </div>
+  <div style="padding:20px 22px;">
+    <script>window._MQA=window._MQA||{};window._MQA["3_1"]={1:"B",2:"B",3:"D",4:"B",5:"D",6:"B",7:"C",8:"B",9:"B",10:"B"};</script>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#38bdf8;margin-bottom:6px;">Q1</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Atoms form chemical bonds primarily because:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_1_1_A"><input type="radio" name="mq3_1_1" value="A" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>They have equal numbers of protons and neutrons</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_1_1_B"><input type="radio" name="mq3_1_1" value="B" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Bonding leads to a lower overall energy state — atoms achieve greater stability</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_1_1_C"><input type="radio" name="mq3_1_1" value="C" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Electrons repel each other</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_1_1_D"><input type="radio" name="mq3_1_1" value="D" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Atoms are attracted to heat</span></label>
+      <div id="mqE3_1_1" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(56,189,248,.08);border-left:3px solid #38bdf8;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#38bdf8;">✓ Answer: B</strong><br>Chemical bonding reduces the total energy of the system (atoms + electrons) → more stable state. Noble gases (complete outer shells) are already at low energy → don't bond. Other atoms bond to achieve lower energy configurations resembling noble gas electron arrangements.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#38bdf8;margin-bottom:6px;">Q2</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The noble gas configuration refers to:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_1_2_A"><input type="radio" name="mq3_1_2" value="A" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>An atom with no electrons</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_1_2_B"><input type="radio" name="mq3_1_2" value="B" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>An atom with 8 valence electrons (or 2 for He) — a complete outer shell</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_1_2_C"><input type="radio" name="mq3_1_2" value="C" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>An atom with a full nucleus</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_1_2_D"><input type="radio" name="mq3_1_2" value="D" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>An atom with neutral charge only</span></label>
+      <div id="mqE3_1_2" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(56,189,248,.08);border-left:3px solid #38bdf8;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#38bdf8;">✓ Answer: B</strong><br>Noble gases (He, Ne, Ar, Kr...) have full outer shells: He=2e, Ne=8e(2,8), Ar=8e in outer shell(2,8,8)... This gives exceptional stability — very high IE₁, don't react chemically. The 'octet rule' generalises this: atoms tend to form bonds to achieve 8 outer electrons.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#38bdf8;margin-bottom:6px;">Q3</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Which of the following does NOT have a noble gas electronic configuration?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_1_3_A"><input type="radio" name="mq3_1_3" value="A" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Na⁺</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_1_3_B"><input type="radio" name="mq3_1_3" value="B" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Mg²⁺</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_1_3_C"><input type="radio" name="mq3_1_3" value="C" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Cl⁻</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_1_3_D"><input type="radio" name="mq3_1_3" value="D" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Fe²⁺</span></label>
+      <div id="mqE3_1_3" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(56,189,248,.08);border-left:3px solid #38bdf8;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#38bdf8;">✓ Answer: D</strong><br>Na⁺: Z=11, lose 1e → 10e = [Ne] ✓. Mg²⁺: Z=12, lose 2e → 10e = [Ne] ✓. Cl⁻: Z=17, gain 1e → 18e = [Ar] ✓. Fe²⁺: Z=26, lose 2e from 4s → 24e = [Ar]3d⁶ — NOT a noble gas config (incomplete d subshell). Transition metal ions rarely achieve noble gas configurations.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#38bdf8;margin-bottom:6px;">Q4</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The tendency of atoms to form 8 electrons in their outer shell is called:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_1_4_A"><input type="radio" name="mq3_1_4" value="A" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Ionisation</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_1_4_B"><input type="radio" name="mq3_1_4" value="B" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>The octet rule</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_1_4_C"><input type="radio" name="mq3_1_4" value="C" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Electron configuration</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_1_4_D"><input type="radio" name="mq3_1_4" value="D" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>The Pauli principle</span></label>
+      <div id="mqE3_1_4" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(56,189,248,.08);border-left:3px solid #38bdf8;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#38bdf8;">✓ Answer: B</strong><br>The octet rule: atoms tend to form bonds to achieve 8 electrons in their outermost shell (resembling noble gas configuration). Exceptions: H (2e — duet rule), B (6e — incomplete octet), expanded octets (PCl₅=10e, SF₆=12e for Period 3+ elements with d orbitals).</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#38bdf8;margin-bottom:6px;">Q5</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">When a bond forms between two atoms, the potential energy of the system:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_1_5_A"><input type="radio" name="mq3_1_5" value="A" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Always increases</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_1_5_B"><input type="radio" name="mq3_1_5" value="B" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Decreases (bond formation releases energy — exothermic)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_1_5_C"><input type="radio" name="mq3_1_5" value="C" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Stays the same</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_1_5_D"><input type="radio" name="mq3_1_5" value="D" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>First decreases then increases to a minimum at the bond length</span></label>
+      <div id="mqE3_1_5" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(56,189,248,.08);border-left:3px solid #38bdf8;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#38bdf8;">✓ Answer: D</strong><br>As two atoms approach: initially PE decreases (attractive forces dominate) → minimum PE = equilibrium bond length. Further approach: PE increases sharply (repulsive forces dominate: nucleus-nucleus, electron-electron). The equilibrium bond length is where PE is minimum. Bond formation releases energy (exothermic).</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#38bdf8;margin-bottom:6px;">Q6</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Hydrogen (H₂) forms because:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_1_6_A"><input type="radio" name="mq3_1_6" value="A" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Two H atoms have the same mass</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_1_6_B"><input type="radio" name="mq3_1_6" value="B" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Sharing electrons gives each H atom 2 electrons (He configuration) — more stable than separate H atoms</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_1_6_C"><input type="radio" name="mq3_1_6" value="C" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>H atoms repel each other</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_1_6_D"><input type="radio" name="mq3_1_6" value="D" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>H₂ has lower ionisation energy than H</span></label>
+      <div id="mqE3_1_6" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(56,189,248,.08);border-left:3px solid #38bdf8;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#38bdf8;">✓ Answer: B</strong><br>H atom: 1 electron, 1s¹. Forming H₂: each H shares its electron with the other → both achieve 1s² (He configuration, 2 electrons). The resulting H₂ molecule has lower energy than 2 separate H atoms by 436 kJ/mol (the H–H bond energy). Stability gained from electron sharing.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#38bdf8;margin-bottom:6px;">Q7</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Which type of bond involves complete transfer of electrons from metal to non-metal?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_1_7_A"><input type="radio" name="mq3_1_7" value="A" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Covalent bond</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_1_7_B"><input type="radio" name="mq3_1_7" value="B" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Dative covalent bond</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_1_7_C"><input type="radio" name="mq3_1_7" value="C" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Ionic bond</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_1_7_D"><input type="radio" name="mq3_1_7" value="D" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Metallic bond</span></label>
+      <div id="mqE3_1_7" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(56,189,248,.08);border-left:3px solid #38bdf8;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#38bdf8;">✓ Answer: C</strong><br>Ionic bond: metal loses electrons → cation (+); non-metal gains electrons → anion (−). Electrostatic attraction between oppositely charged ions. Example: Na⁺Cl⁻. The transfer is complete — one atom loses, the other gains. In covalent bonds, electrons are SHARED (not transferred).</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#38bdf8;margin-bottom:6px;">Q8</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">A molecule of water (H₂O) has 8 electrons around oxygen because:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_1_8_A"><input type="radio" name="mq3_1_8" value="A" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Oxygen needs 8 electrons total</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_1_8_B"><input type="radio" name="mq3_1_8" value="B" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Oxygen shares electrons with 2 hydrogen atoms, gaining 2 additional electrons (one from each H) to complete its outer shell to 8 electrons</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_1_8_C"><input type="radio" name="mq3_1_8" value="C" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Water has 8 oxygen atoms</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_1_8_D"><input type="radio" name="mq3_1_8" value="D" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Hydrogen has 8 electrons</span></label>
+      <div id="mqE3_1_8" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(56,189,248,.08);border-left:3px solid #38bdf8;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#38bdf8;">✓ Answer: B</strong><br>O: 1s²2s²2p⁴ (6 valence electrons). Each H shares 1 electron with O. O forms 2 single bonds: gets 2 more electrons → 6+2=8 electrons in outer shell (2 bonding pairs + 2 lone pairs). Octet achieved. Each H gets 2 electrons (1 from H + 1 from O) = duet. Both atoms achieve stable configurations.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#38bdf8;margin-bottom:6px;">Q9</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The bond length is defined as:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_1_9_A"><input type="radio" name="mq3_1_9" value="A" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>The distance between two atoms when they repel</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_1_9_B"><input type="radio" name="mq3_1_9" value="B" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>The equilibrium distance between the nuclei of two bonded atoms (where PE is minimum)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_1_9_C"><input type="radio" name="mq3_1_9" value="C" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>The radius of one atom only</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_1_9_D"><input type="radio" name="mq3_1_9" value="D" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>The distance electrons travel between atoms</span></label>
+      <div id="mqE3_1_9" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(56,189,248,.08);border-left:3px solid #38bdf8;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#38bdf8;">✓ Answer: B</strong><br>Bond length = equilibrium internuclear distance where potential energy is minimised. Shorter bonds = stronger bonds (generally). Single > double > triple bond length. C–C = 154 pm; C=C = 134 pm; C≡C = 120 pm. Values measured by X-ray crystallography or spectroscopy.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#38bdf8;margin-bottom:6px;">Q10</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Which of the following is most stable and why?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_1_10_A"><input type="radio" name="mq3_1_10" value="A" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Na (neutral atom)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_1_10_B"><input type="radio" name="mq3_1_10" value="B" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Na⁺ (sodium ion)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_1_10_C"><input type="radio" name="mq3_1_10" value="C" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Na²⁺ (dication)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_1_10_D"><input type="radio" name="mq3_1_10" value="D" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Na⁻ (anion)</span></label>
+      <div id="mqE3_1_10" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(56,189,248,.08);border-left:3px solid #38bdf8;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#38bdf8;">✓ Answer: B</strong><br>Na⁺ has configuration [Ne] — complete outer shell, noble gas configuration. Na (neutral) has [Ne]3s¹ — easily loses that 3s¹ electron. Na²⁺ would require removing an electron from the [Ne] core (very high energy — IEs jump enormously for core electrons). Na⁻ would have [Ne]3s² — this could exist but is much less stable than Na⁺.</div>
+    </div>
+    <div style="text-align:center;"><button onclick="submitMQ('3_1',10)" style="background:#38bdf8;color:#000;border:none;padding:9px 30px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:.85rem;font-weight:700;cursor:pointer;">Check Answers</button><div id="mqRES3_1" style="display:none;margin-top:10px;border-radius:7px;padding:12px;font-family:'JetBrains Mono',monospace;font-size:.85rem;text-align:center;"></div></div>
+  </div>
+</div>
+
+<!-- MINI-QUIZ s31 -->
+<div class="mini-quiz" id="mq-s31">
+  <div class="mq-head"><span style="font-size:1.1rem;">&#127919;</span><h4>Section 3.1 — Ionic Bonding</h4><span class="mq-badge">10 Questions</span></div>
+  <div class="mq-body">
+    <div class="mq-qblock"><span class="mq-qnum">Q1 of 10</span><p class="mq-qtext">Ionic bonding involves:</p><div class="mq-opts">
+      <label><input type="radio" name="u3s1q1" value="A"> Sharing of electrons</label>
+      <label><input type="radio" name="u3s1q1" value="B"> Complete transfer of electrons from metal to non-metal</label>
+      <label><input type="radio" name="u3s1q1" value="C"> Sharing of protons</label>
+      <label><input type="radio" name="u3s1q1" value="D"> Electrostatic repulsion between ions</label>
+    </div><div class="mq-exp" id="mqe-u3s1q1">Ionic bond: metal loses electrons → cation; non-metal gains → anion. Electrostatic attraction between opposite charges holds ions in lattice.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q2 of 10</span><p class="mq-qtext">Which pair forms an ionic compound?</p><div class="mq-opts">
+      <label><input type="radio" name="u3s1q2" value="A"> H₂ and O₂</label>
+      <label><input type="radio" name="u3s1q2" value="B"> Na and Cl</label>
+      <label><input type="radio" name="u3s1q2" value="C"> C and H</label>
+      <label><input type="radio" name="u3s1q2" value="D"> N and O</label>
+    </div><div class="mq-exp" id="mqe-u3s1q2">Na (metal, low IE) + Cl (non-metal, high EA) → Na⁺ and Cl⁻ → ionic bond. Metal-nonmetal combinations generally form ionic compounds.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q3 of 10</span><p class="mq-qtext">The coordination number of Na⁺ in NaCl structure is:</p><div class="mq-opts">
+      <label><input type="radio" name="u3s1q3" value="A"> 4</label>
+      <label><input type="radio" name="u3s1q3" value="B"> 6</label>
+      <label><input type="radio" name="u3s1q3" value="C"> 8</label>
+      <label><input type="radio" name="u3s1q3" value="D"> 12</label>
+    </div><div class="mq-exp" id="mqe-u3s1q3">NaCl: rock salt structure. Each Na⁺ is surrounded by 6 Cl⁻ and each Cl⁻ by 6 Na⁺. Coordination number = 6:6.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q4 of 10</span><p class="mq-qtext">Why do ionic compounds have high melting points?</p><div class="mq-opts">
+      <label><input type="radio" name="u3s1q4" value="A"> Covalent bonds are strong</label>
+      <label><input type="radio" name="u3s1q4" value="B"> Strong electrostatic forces between ions in 3D lattice require large energy to overcome</label>
+      <label><input type="radio" name="u3s1q4" value="C"> They have large molar mass</label>
+      <label><input type="radio" name="u3s1q4" value="D"> They are all metals</label>
+    </div><div class="mq-exp" id="mqe-u3s1q4">Strong electrostatic attraction between oppositely charged ions in the crystal lattice → large energy needed to melt → high melting points. E.g. NaCl m.p. = 801°C.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q5 of 10</span><p class="mq-qtext">Ionic compounds conduct electricity:</p><div class="mq-opts">
+      <label><input type="radio" name="u3s1q5" value="A"> Always, in all states</label>
+      <label><input type="radio" name="u3s1q5" value="B"> Only when solid</label>
+      <label><input type="radio" name="u3s1q5" value="C"> Only when molten or dissolved in water (ions free to move)</label>
+      <label><input type="radio" name="u3s1q5" value="D"> Never</label>
+    </div><div class="mq-exp" id="mqe-u3s1q5">Solid: ions fixed in lattice → cannot carry charge. Molten or dissolved: ions free to move → conducts. This is electrolytic conduction.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q6 of 10</span><p class="mq-qtext">Lattice energy is defined as:</p><div class="mq-opts">
+      <label><input type="radio" name="u3s1q6" value="A"> Energy to form ions from neutral atoms</label>
+      <label><input type="radio" name="u3s1q6" value="B"> Energy released when 1 mol of ionic solid forms from gaseous ions</label>
+      <label><input type="radio" name="u3s1q6" value="C"> Energy to dissolve ionic compound in water</label>
+      <label><input type="radio" name="u3s1q6" value="D"> Energy to melt the ionic solid</label>
+    </div><div class="mq-exp" id="mqe-u3s1q6">Lattice energy: M⁺(g) + X⁻(g) → MX(s), ΔH negative (exothermic). Greater lattice energy = stronger ionic lattice. Depends on charge and size of ions.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q7 of 10</span><p class="mq-qtext">Which ionic compound has the greatest lattice energy?</p><div class="mq-opts">
+      <label><input type="radio" name="u3s1q7" value="A"> NaCl</label>
+      <label><input type="radio" name="u3s1q7" value="B"> MgO</label>
+      <label><input type="radio" name="u3s1q7" value="C"> KBr</label>
+      <label><input type="radio" name="u3s1q7" value="D"> CaS</label>
+    </div><div class="mq-exp" id="mqe-u3s1q7">Lattice energy ∝ q⁺×q⁻/r. MgO: Mg²⁺ and O²⁻ (charges 2+,2−), small ions → much greater electrostatic attraction than NaCl (1+,1−, larger ions). MgO lattice energy ≈ −3791 kJ/mol vs NaCl ≈ −787 kJ/mol.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q8 of 10</span><p class="mq-qtext">The Born-Haber cycle is used to calculate:</p><div class="mq-opts">
+      <label><input type="radio" name="u3s1q8" value="A"> Atomic radius</label>
+      <label><input type="radio" name="u3s1q8" value="B"> Lattice energy indirectly using Hess's law</label>
+      <label><input type="radio" name="u3s1q8" value="C"> Bond enthalpy</label>
+      <label><input type="radio" name="u3s1q8" value="D"> Ionisation energy directly</label>
+    </div><div class="mq-exp" id="mqe-u3s1q8">Born-Haber: applies Hess's law to ionic compound formation cycle. ΔHf° = IE + EA + ΔHat + lattice energy (rearranged to find LE since LE can't be measured directly).</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q9 of 10</span><p class="mq-qtext">As ionic radius increases (larger ions), lattice energy:</p><div class="mq-opts">
+      <label><input type="radio" name="u3s1q9" value="A"> Increases</label>
+      <label><input type="radio" name="u3s1q9" value="B"> Decreases (less negative)</label>
+      <label><input type="radio" name="u3s1q9" value="C"> Stays constant</label>
+      <label><input type="radio" name="u3s1q9" value="D"> Doubles</label>
+    </div><div class="mq-exp" id="mqe-u3s1q9">Lattice energy ∝ 1/r. Larger ions → greater r → weaker electrostatic attraction → less negative (smaller magnitude) lattice energy. Example: LiF has greater lattice energy than CsI.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q10 of 10</span><p class="mq-qtext">CaO has much higher lattice energy than NaF because:</p><div class="mq-opts">
+      <label><input type="radio" name="u3s1q10" value="A"> Ca is a metal</label>
+      <label><input type="radio" name="u3s1q10" value="B"> Ca²⁺ and O²⁻ have higher charges (+2, −2) than Na⁺ and F⁻ (+1, −1) and similar size</label>
+      <label><input type="radio" name="u3s1q10" value="C"> NaF is covalent</label>
+      <label><input type="radio" name="u3s1q10" value="D"> CaO has more atoms</label>
+    </div><div class="mq-exp" id="mqe-u3s1q10">Lattice energy ∝ q⁺×q⁻. CaO: 2+×2− = 4 times the charge product of NaF (1+×1−). Also similar ionic sizes. Much stronger attraction → larger lattice energy.</div></div>
+    <button class="mq-submit" onclick="submitMQ('u3s1',{"u3s1q1":"B","u3s1q2":"B","u3s1q3":"B","u3s1q4":"B","u3s1q5":"C","u3s1q6":"B","u3s1q7":"B","u3s1q8":"B","u3s1q9":"B","u3s1q10":"B"})">&#10003; Check Answers</button>
+    <div class="mq-result" id="mqr-u3s1"></div>
+  </div>
+</div>
 <div class="section-header" id="s32"><span class="section-number">3.2</span><h2>Ionic Bonding</h2></div>
 
 <div class="def-box"><strong>Ionic Bond</strong>The electrostatic force of attraction between oppositely charged ions (cation and anion) formed by the complete transfer of one or more electrons from a metal atom to a non-metal atom.</div>
@@ -296,6 +523,107 @@ q&#x207A; = charge on cation, q&#x207B; = charge on anion, r = ionic radius</div
 <div class="callout info"><span class="callout-icon">&#x2139;&#xFE0F;</span><div class="callout-body"><strong>Writing ionic formulae from charges</strong>Use the "cross-over" rule: the magnitude of the cation's charge becomes the subscript of the anion and vice versa, then simplify. E.g. Al&#xB3;&#x207A; + O&#xB2;&#x207B; &rarr; Al&#xB2;O&#xB3;.</div></div>
 
 <!-- 3.3 -->
+
+<div style="background:var(--surface);border:1px solid rgba(251,146,60,.25);border-radius:10px;overflow:hidden;margin:28px 0 40px;">
+  <div style="background:rgba(251,146,60,.08);border-bottom:1px solid rgba(251,146,60,.25);padding:14px 22px;display:flex;align-items:center;justify-content:space-between;">
+    <div><div style="font-family:'JetBrains Mono',monospace;font-size:.68rem;color:#fb923c;text-transform:uppercase;letter-spacing:.1em;">Section 3.2 Quick Quiz</div><strong style="color:#fff;font-family:'Playfair Display',serif;">Ionic Bonding</strong></div>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);">10 Questions</span>
+  </div>
+  <div style="padding:20px 22px;">
+    <script>window._MQA=window._MQA||{};window._MQA["3_2"]={1:"B",2:"B",3:"C",4:"B",5:"B",6:"A",7:"B",8:"B",9:"B",10:"C"};</script>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#fb923c;margin-bottom:6px;">Q1</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Ionic bonding is defined as:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_2_1_A"><input type="radio" name="mq3_2_1" value="A" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>Sharing of electrons between two atoms</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_2_1_B"><input type="radio" name="mq3_2_1" value="B" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>Electrostatic attraction between oppositely charged ions formed by electron transfer</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_2_1_C"><input type="radio" name="mq3_2_1" value="C" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>The force between two neutral atoms</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_2_1_D"><input type="radio" name="mq3_2_1" value="D" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>The attraction between a nucleus and electrons</span></label>
+      <div id="mqE3_2_1" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(251,146,60,.08);border-left:3px solid #fb923c;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#fb923c;">✓ Answer: B</strong><br>Ionic bond: electrostatic attraction between a cation (metal — lost e⁻) and an anion (non-metal — gained e⁻). Complete electron transfer (unlike covalent sharing). Strength depends on charge of ions and distance between them (Coulomb's law). Generally strong — high melting points.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#fb923c;margin-bottom:6px;">Q2</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Which pair of elements is most likely to form an ionic compound?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_2_2_A"><input type="radio" name="mq3_2_2" value="A" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>C and O</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_2_2_B"><input type="radio" name="mq3_2_2" value="B" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>Na and Cl</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_2_2_C"><input type="radio" name="mq3_2_2" value="C" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>N and H</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_2_2_D"><input type="radio" name="mq3_2_2" value="D" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>C and H</span></label>
+      <div id="mqE3_2_2" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(251,146,60,.08);border-left:3px solid #fb923c;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#fb923c;">✓ Answer: B</strong><br>Ionic compounds form between elements with large electronegativity differences: typically metal + non-metal. Na (metal, low IE) readily loses 1e → Na⁺. Cl (non-metal, high EA) readily gains 1e → Cl⁻. Na + Cl → NaCl. C+O (both non-metals → covalent). N+H (both non-metals → covalent, NH₃). C+H (covalent, hydrocarbons).</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#fb923c;margin-bottom:6px;">Q3</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The formula of the ionic compound formed between calcium (Ca²⁺) and phosphate (PO₄³⁻) is:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_2_3_A"><input type="radio" name="mq3_2_3" value="A" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>CaPO₄</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_2_3_B"><input type="radio" name="mq3_2_3" value="B" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>Ca₂(PO₄)₃</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_2_3_C"><input type="radio" name="mq3_2_3" value="C" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>Ca₃(PO₄)₂</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_2_3_D"><input type="radio" name="mq3_2_3" value="D" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>Ca(PO₄)₂</span></label>
+      <div id="mqE3_2_3" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(251,146,60,.08);border-left:3px solid #fb923c;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#fb923c;">✓ Answer: C</strong><br>Charges must balance: Ca²⁺ and PO₄³⁻. LCM of 2 and 3 = 6. Need 3 Ca²⁺ (3×+2=+6) and 2 PO₄³⁻ (2×−3=−6). Total charge = 0. Formula = Ca₃(PO₄)₂. This is calcium phosphate — found in bones and teeth. Always: cation × its charge = anion × its charge.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#fb923c;margin-bottom:6px;">Q4</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Giant ionic lattice structures have high melting points because:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_2_4_A"><input type="radio" name="mq3_2_4" value="A" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>The ions are very heavy</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_2_4_B"><input type="radio" name="mq3_2_4" value="B" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>Strong electrostatic attractions between many oppositely charged ions require large amounts of energy to overcome</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_2_4_C"><input type="radio" name="mq3_2_4" value="C" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>The lattice is very large</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_2_4_D"><input type="radio" name="mq3_2_4" value="D" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>Ions cannot move</span></label>
+      <div id="mqE3_2_4" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(251,146,60,.08);border-left:3px solid #fb923c;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#fb923c;">✓ Answer: B</strong><br>Melting ionic lattice = overcoming electrostatic attractions between ALL ions in the lattice. These are strong (especially for high charge/small radius ions). Example: NaCl m.p. = 801°C; MgO m.p. = 2852°C (Mg²⁺ and O²⁻ have higher charge than Na⁺ and Cl⁻ → stronger attraction).</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#fb923c;margin-bottom:6px;">Q5</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Ionic compounds conduct electricity only when:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_2_5_A"><input type="radio" name="mq3_2_5" value="A" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>They are in solid form</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_2_5_B"><input type="radio" name="mq3_2_5" value="B" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>They are dissolved in water or melted (ions are free to move)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_2_5_C"><input type="radio" name="mq3_2_5" value="C" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>They are heated to high temperature (still solid)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_2_5_D"><input type="radio" name="mq3_2_5" value="D" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>They are compressed</span></label>
+      <div id="mqE3_2_5" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(251,146,60,.08);border-left:3px solid #fb923c;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#fb923c;">✓ Answer: B</strong><br>Solid ionic lattice: ions fixed in positions → cannot carry charge → no conductivity. Molten or aqueous solution: ions free to move → carry charge → conduct electricity. This is why NaCl does NOT conduct as a solid but DOES conduct when dissolved in water or melted. Key test: molten/dissolved conductivity = ionic compound.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#fb923c;margin-bottom:6px;">Q6</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Lattice energy is defined as:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_2_6_A"><input type="radio" name="mq3_2_6" value="A" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>Energy released when gaseous ions form a solid lattice</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_2_6_B"><input type="radio" name="mq3_2_6" value="B" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>Energy absorbed when a solid ionic compound dissolves in water</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_2_6_C"><input type="radio" name="mq3_2_6" value="C" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>The energy of one ion in the lattice</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_2_6_D"><input type="radio" name="mq3_2_6" value="D" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>Energy required to break all bonds in a molecule</span></label>
+      <div id="mqE3_2_6" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(251,146,60,.08);border-left:3px solid #fb923c;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#fb923c;">✓ Answer: A</strong><br>Lattice energy (LE): energy released when gaseous ions combine to form one mole of ionic lattice. Example: Na⁺(g) + Cl⁻(g) → NaCl(s), ΔH = −787 kJ/mol (exothermic). Larger LE → more stable lattice → harder to melt. LE depends on charge (higher charge → larger LE) and ionic radius (smaller radius → larger LE).</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#fb923c;margin-bottom:6px;">Q7</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Which ionic compound has the highest lattice energy?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_2_7_A"><input type="radio" name="mq3_2_7" value="A" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>NaCl</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_2_7_B"><input type="radio" name="mq3_2_7" value="B" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>MgO</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_2_7_C"><input type="radio" name="mq3_2_7" value="C" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>NaF</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_2_7_D"><input type="radio" name="mq3_2_7" value="D" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>KCl</span></label>
+      <div id="mqE3_2_7" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(251,146,60,.08);border-left:3px solid #fb923c;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#fb923c;">✓ Answer: B</strong><br>Lattice energy ∝ (q⁺ × q⁻) / (r⁺ + r⁻). MgO: charges +2 × −2 = 4 vs NaCl +1 × −1 = 1. Charge product 4× larger. Also, Mg²⁺ and O²⁻ are smaller than Na⁺ and Cl⁻ → smaller distance. Both factors give MgO a much higher LE (−3791 kJ/mol vs NaCl −787 kJ/mol).</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#fb923c;margin-bottom:6px;">Q8</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The Born-Haber cycle is used to calculate:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_2_8_A"><input type="radio" name="mq3_2_8" value="A" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>The molecular formula of ionic compounds</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_2_8_B"><input type="radio" name="mq3_2_8" value="B" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>The lattice energy (which cannot be measured directly) using Hess's Law and measurable enthalpy changes</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_2_8_C"><input type="radio" name="mq3_2_8" value="C" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>The bond angles in ionic compounds</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_2_8_D"><input type="radio" name="mq3_2_8" value="D" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>The density of ionic crystals</span></label>
+      <div id="mqE3_2_8" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(251,146,60,.08);border-left:3px solid #fb923c;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#fb923c;">✓ Answer: B</strong><br>Born-Haber cycle applies Hess's Law to ionic compound formation: combines directly measurable values (ΔHf°, atomisation enthalpy, IE, electron affinity) to calculate lattice energy indirectly. It's a thermodynamic cycle — the enthalpy sum around the cycle = 0. Essential for S6 physical chemistry.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#fb923c;margin-bottom:6px;">Q9</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Ionic compounds are generally soluble in water because:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_2_9_A"><input type="radio" name="mq3_2_9" value="A" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>Water breaks ionic bonds</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_2_9_B"><input type="radio" name="mq3_2_9" value="B" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>Water molecules surround the ions (hydration) — ion-dipole interactions between polar water and ions release energy (hydration enthalpy) that compensates for the lattice energy</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_2_9_C"><input type="radio" name="mq3_2_9" value="C" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>Water is a good solvent for all substances</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_2_9_D"><input type="radio" name="mq3_2_9" value="D" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>Ions have charge</span></label>
+      <div id="mqE3_2_9" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(251,146,60,.08);border-left:3px solid #fb923c;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#fb923c;">✓ Answer: B</strong><br>Solubility: if hydration enthalpy (energy released when ions are surrounded by water) > lattice energy (energy to break lattice), the compound dissolves. Polar water molecules orient around ions (O toward cations, H toward anions). Most ionic compounds dissolve in water; exceptions (e.g. BaSO₄) have very high lattice energies.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#fb923c;margin-bottom:6px;">Q10</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Which property is characteristic of ionic compounds in the solid state?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_2_10_A"><input type="radio" name="mq3_2_10" value="A" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>Good electrical conductors</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_2_10_B"><input type="radio" name="mq3_2_10" value="B" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>Soft and easily deformed</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_2_10_C"><input type="radio" name="mq3_2_10" value="C" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>High melting points and poor electrical conductors (as solids)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_2_10_D"><input type="radio" name="mq3_2_10" value="D" style="margin-top:3px;accent-color:#fb923c;flex-shrink:0;"> <span>Low melting points</span></label>
+      <div id="mqE3_2_10" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(251,146,60,.08);border-left:3px solid #fb923c;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#fb923c;">✓ Answer: C</strong><br>Solid ionic compounds: (1) High m.p. (strong electrostatic forces in lattice); (2) Hard and brittle (ions in fixed positions; when shifted, like charges repel → shatters); (3) Poor electrical conductors (ions fixed); (4) Soluble in polar solvents (often). These properties distinguish ionic from covalent compounds.</div>
+    </div>
+    <div style="text-align:center;"><button onclick="submitMQ('3_2',10)" style="background:#fb923c;color:#000;border:none;padding:9px 30px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:.85rem;font-weight:700;cursor:pointer;">Check Answers</button><div id="mqRES3_2" style="display:none;margin-top:10px;border-radius:7px;padding:12px;font-family:'JetBrains Mono',monospace;font-size:.85rem;text-align:center;"></div></div>
+  </div>
+</div>
 <div class="section-header" id="s33"><span class="section-number">3.3</span><h2>Metallic Bonds &amp; Physical Properties of Metals</h2></div>
 
 <div class="def-box"><strong>Metallic Bond</strong>The electrostatic attraction between a lattice of positive metal ions (cations) and a surrounding "sea" of delocalised electrons. The outer electrons of metal atoms are released into a shared pool that flows freely throughout the structure.</div>
@@ -385,6 +713,176 @@ q&#x207A; = charge on cation, q&#x207B; = charge on anion, r = ionic radius</div
 </table></div>
 
 <!-- EXERCISES -->
+
+<div style="background:var(--surface);border:1px solid rgba(167,139,250,.25);border-radius:10px;overflow:hidden;margin:28px 0 40px;">
+  <div style="background:rgba(167,139,250,.08);border-bottom:1px solid rgba(167,139,250,.25);padding:14px 22px;display:flex;align-items:center;justify-content:space-between;">
+    <div><div style="font-family:'JetBrains Mono',monospace;font-size:.68rem;color:#a78bfa;text-transform:uppercase;letter-spacing:.1em;">Section 3.3 Quick Quiz</div><strong style="color:#fff;font-family:'Playfair Display',serif;">Metallic Bonds & Physical Properties of Metals</strong></div>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);">10 Questions</span>
+  </div>
+  <div style="padding:20px 22px;">
+    <script>window._MQA=window._MQA||{};window._MQA["3_3"]={1:"B",2:"B",3:"B",4:"B",5:"B",6:"B",7:"B",8:"B",9:"B",10:"B"};</script>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#a78bfa;margin-bottom:6px;">Q1</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Metallic bonding is best described as:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_3_1_A"><input type="radio" name="mq3_3_1" value="A" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Covalent bonds between metal atoms</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_3_1_B"><input type="radio" name="mq3_3_1" value="B" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Strong attraction between positive metal cations and a sea of delocalised electrons</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_3_1_C"><input type="radio" name="mq3_3_1" value="C" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Ionic bonds between metal ions</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_3_1_D"><input type="radio" name="mq3_3_1" value="D" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Hydrogen bonds between metal atoms</span></label>
+      <div id="mqE3_3_1" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(167,139,250,.08);border-left:3px solid #a78bfa;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#a78bfa;">✓ Answer: B</strong><br>Metallic bond: metal atoms release valence electrons into a 'sea' of delocalised electrons. Positive metal cations are embedded in and attracted to this electron sea. The delocalised electrons act as a 'glue' holding cations together. Non-directional → metals can be deformed without breaking bonds.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#a78bfa;margin-bottom:6px;">Q2</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Metals are good electrical conductors because:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_3_2_A"><input type="radio" name="mq3_3_2" value="A" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>They have many protons</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_3_2_B"><input type="radio" name="mq3_3_2" value="B" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Delocalised electrons are free to move throughout the metal, carrying charge</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_3_2_C"><input type="radio" name="mq3_3_2" value="C" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>They are dense</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_3_2_D"><input type="radio" name="mq3_3_2" value="D" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>They have high melting points</span></label>
+      <div id="mqE3_3_2" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(167,139,250,.08);border-left:3px solid #a78bfa;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#a78bfa;">✓ Answer: B</strong><br>Metals have a sea of mobile delocalised electrons. When a voltage is applied, electrons flow from negative to positive terminal → electrical current. No new electrons are created — the existing delocalised electrons drift. This is why metals conduct electricity in solid AND liquid state (unlike ionic compounds which only conduct when molten/dissolved).</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#a78bfa;margin-bottom:6px;">Q3</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Metals are malleable and ductile because:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_3_3_A"><input type="radio" name="mq3_3_3" value="A" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Their bonds are weak</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_3_3_B"><input type="radio" name="mq3_3_3" value="B" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Layers of positive ions can slide over each other without breaking the metallic bond — the electron sea maintains cohesion throughout</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_3_3_C"><input type="radio" name="mq3_3_3" value="C" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>They have covalent bonds</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_3_3_D"><input type="radio" name="mq3_3_3" value="D" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Their ions are the same size</span></label>
+      <div id="mqE3_3_3" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(167,139,250,.08);border-left:3px solid #a78bfa;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#a78bfa;">✓ Answer: B</strong><br>Malleability: can be hammered into sheets. Ductility: can be drawn into wires. When layers slide, the non-directional electron sea maintains attraction throughout. Compare: ionic lattice — when layers shift, like charges align → repel → fracture (brittle). Covalent network solids — directional bonds break → brittle.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#a78bfa;margin-bottom:6px;">Q4</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Which factor increases the strength of metallic bonding?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_3_4_A"><input type="radio" name="mq3_3_4" value="A" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Larger ionic radius</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_3_4_B"><input type="radio" name="mq3_3_4" value="B" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>More valence electrons per atom and smaller ionic radius (higher charge density)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_3_4_C"><input type="radio" name="mq3_3_4" value="C" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Fewer electrons</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_3_4_D"><input type="radio" name="mq3_3_4" value="D" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Lower atomic number</span></label>
+      <div id="mqE3_3_4" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(167,139,250,.08);border-left:3px solid #a78bfa;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#a78bfa;">✓ Answer: B</strong><br>Metallic bond strength ∝ number of delocalised electrons × charge of cations / radius of cations. More valence electrons → stronger bond → higher m.p. Group 2 (2e) stronger than Group 1 (1e). Smaller atoms → higher charge density → stronger bond. Tungsten (d-block, many delocalised electrons) has m.p. 3422°C — highest of any metal.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#a78bfa;margin-bottom:6px;">Q5</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The electrical conductivity of metals decreases as temperature increases because:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_3_5_A"><input type="radio" name="mq3_3_5" value="A" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Metals melt at high temperature</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_3_5_B"><input type="radio" name="mq3_3_5" value="B" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Increasing temperature increases vibration of metal cations — more collisions with delocalised electrons → increased resistance</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_3_5_C"><input type="radio" name="mq3_3_5" value="C" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Electrons are removed at high temperature</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_3_5_D"><input type="radio" name="mq3_3_5" value="D" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>High temperature breaks metallic bonds</span></label>
+      <div id="mqE3_3_5" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(167,139,250,.08);border-left:3px solid #a78bfa;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#a78bfa;">✓ Answer: B</strong><br>As temperature rises, positive cations vibrate more vigorously → more collisions with flowing delocalised electrons → electrons impeded → resistance increases → conductivity decreases. Contrast: semiconductors increase conductivity with temperature. This temperature dependence distinguishes metals from semiconductors.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#a78bfa;margin-bottom:6px;">Q6</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Alloys often have different properties from pure metals because:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_3_6_A"><input type="radio" name="mq3_3_6" value="A" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Alloys contain non-metallic elements only</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_3_6_B"><input type="radio" name="mq3_3_6" value="B" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Different-sized atoms disrupt the regular arrangement of layers — atoms cannot slide as easily → alloys are harder and less malleable</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_3_6_C"><input type="radio" name="mq3_3_6" value="C" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Alloys have no delocalised electrons</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_3_6_D"><input type="radio" name="mq3_3_6" value="D" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Alloys always have higher electrical conductivity</span></label>
+      <div id="mqE3_3_6" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(167,139,250,.08);border-left:3px solid #a78bfa;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#a78bfa;">✓ Answer: B</strong><br>Alloy: mixture of metal with other elements. Different-sized atoms distort the regular lattice → layers cannot slide as easily → harder, less malleable (but sometimes more useful — stronger). Example: steel (Fe + C) is harder than pure iron. Bronze (Cu + Sn) harder than pure copper. Trade-off: strength gained, conductivity/malleability reduced.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#a78bfa;margin-bottom:6px;">Q7</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Metals have high melting points (generally) because:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_3_7_A"><input type="radio" name="mq3_3_7" value="A" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>They are heavy</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_3_7_B"><input type="radio" name="mq3_3_7" value="B" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Strong metallic bonds (electrostatic attraction between cations and delocalised electron sea) require large energy to overcome</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_3_7_C"><input type="radio" name="mq3_3_7" value="C" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>They are found in the earth's crust</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_3_7_D"><input type="radio" name="mq3_3_7" value="D" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Their atoms are large</span></label>
+      <div id="mqE3_3_7" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(167,139,250,.08);border-left:3px solid #a78bfa;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#a78bfa;">✓ Answer: B</strong><br>High m.p. reflects strong metallic bonds. Energy needed to disrupt the lattice by freeing cations from the electron sea. Group 2 > Group 1 m.p. (2 valence e vs 1). d-block metals have very high m.p. (many delocalised e from d orbitals). Exception: mercury (−39°C) has relatively weak Hg-Hg bonds due to relativistic effects on 6s electrons.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#a78bfa;margin-bottom:6px;">Q8</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Which statement about the melting points of Group 1 metals is correct?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_3_8_A"><input type="radio" name="mq3_3_8" value="A" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Li has the lowest m.p.</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_3_8_B"><input type="radio" name="mq3_3_8" value="B" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Cs has the lowest m.p.</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_3_8_C"><input type="radio" name="mq3_3_8" value="C" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>All Group 1 metals have the same m.p.</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_3_8_D"><input type="radio" name="mq3_3_8" value="D" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>K has the highest m.p.</span></label>
+      <div id="mqE3_3_8" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(167,139,250,.08);border-left:3px solid #a78bfa;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#a78bfa;">✓ Answer: B</strong><br>Down Group 1 (Li→Cs): atomic radius increases, nuclear charge increases but outer electrons are better shielded → metallic bond gets WEAKER → m.p. DECREASES. Li (180°C) > Na (98°C) > K (64°C) > Rb (39°C) > Cs (29°C). All Group 1 metals are soft with low m.p. compared to d-block metals.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#a78bfa;margin-bottom:6px;">Q9</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Copper is used for electrical wiring because:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_3_9_A"><input type="radio" name="mq3_3_9" value="A" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>It is red coloured</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_3_9_B"><input type="radio" name="mq3_3_9" value="B" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>It has high electrical conductivity (abundant delocalised electrons) and good ductility (can be drawn into wires)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_3_9_C"><input type="radio" name="mq3_3_9" value="C" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>It has the highest conductivity of all metals</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_3_9_D"><input type="radio" name="mq3_3_9" value="D" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>It is cheap and abundant</span></label>
+      <div id="mqE3_3_9" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(167,139,250,.08);border-left:3px solid #a78bfa;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#a78bfa;">✓ Answer: B</strong><br>Cu: excellent electrical conductor (2nd only to Ag, much cheaper). Good ductility → can be drawn into thin wires. Moderate strength, good corrosion resistance. Silver would be better conductor but far too expensive. Gold is used for contacts (doesn't oxidise) but too expensive for wiring. Cu is the practical choice.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#a78bfa;margin-bottom:6px;">Q10</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Which of the following correctly explains why iron (Fe) has a higher melting point than sodium (Na)?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_3_10_A"><input type="radio" name="mq3_3_10" value="A" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Fe is a larger atom than Na</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_3_10_B"><input type="radio" name="mq3_3_10" value="B" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Fe has more valence electrons (d-block) contributing to stronger metallic bonding; Fe cations also have higher charge density than Na</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_3_10_C"><input type="radio" name="mq3_3_10" value="C" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Fe is more abundant</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL3_3_10_D"><input type="radio" name="mq3_3_10" value="D" style="margin-top:3px;accent-color:#a78bfa;flex-shrink:0;"> <span>Na has more electrons than Fe</span></label>
+      <div id="mqE3_3_10" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(167,139,250,.08);border-left:3px solid #a78bfa;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#a78bfa;">✓ Answer: B</strong><br>Fe (d-block): more valence electrons (3d and 4s) contribute to metallic bonding → stronger bond → higher m.p. (1538°C). Na (Group 1): only 1 valence electron per atom → weaker bond → low m.p. (98°C). Fe cations also have higher charge than Na⁺ → stronger electrostatic attraction to electron sea.</div>
+    </div>
+    <div style="text-align:center;"><button onclick="submitMQ('3_3',10)" style="background:#a78bfa;color:#000;border:none;padding:9px 30px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:.85rem;font-weight:700;cursor:pointer;">Check Answers</button><div id="mqRES3_3" style="display:none;margin-top:10px;border-radius:7px;padding:12px;font-family:'JetBrains Mono',monospace;font-size:.85rem;text-align:center;"></div></div>
+  </div>
+</div>
+
+<!-- MINI-QUIZ s32 -->
+<div class="mini-quiz" id="mq-s32">
+  <div class="mq-head"><span style="font-size:1.1rem;">&#127919;</span><h4>Section 3.2 — Metallic Bonding</h4><span class="mq-badge">10 Questions</span></div>
+  <div class="mq-body">
+    <div class="mq-qblock"><span class="mq-qnum">Q1 of 10</span><p class="mq-qtext">Metallic bonding is described as:</p><div class="mq-opts">
+      <label><input type="radio" name="u3s2q1" value="A"> Ion-dipole interactions</label>
+      <label><input type="radio" name="u3s2q1" value="B"> A lattice of positive metal ions in a sea of delocalised electrons</label>
+      <label><input type="radio" name="u3s2q1" value="C"> Shared electron pairs</label>
+      <label><input type="radio" name="u3s2q1" value="D"> Electrostatic attraction between opposite charges</label>
+    </div><div class="mq-exp" id="mqe-u3s2q1">Metallic bond: cations (positive ions) in regular lattice; valence electrons delocalised — free to move throughout the metal. Attraction between cations and electron sea holds metal together.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q2 of 10</span><p class="mq-qtext">Why are metals good conductors of electricity?</p><div class="mq-opts">
+      <label><input type="radio" name="u3s2q2" value="A"> They have ionic bonds</label>
+      <label><input type="radio" name="u3s2q2" value="B"> Delocalised electrons can move freely and carry charge</label>
+      <label><input type="radio" name="u3s2q2" value="C"> They have low melting points</label>
+      <label><input type="radio" name="u3s2q2" value="D"> They are all shiny</label>
+    </div><div class="mq-exp" id="mqe-u3s2q2">Delocalised electrons move freely → carry electric current. This is electronic conduction — different from electrolytic conduction in ionic solutions.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q3 of 10</span><p class="mq-qtext">Why are metals malleable and ductile?</p><div class="mq-opts">
+      <label><input type="radio" name="u3s2q3" value="A"> Ionic bonds break easily</label>
+      <label><input type="radio" name="u3s2q3" value="B"> Layers of ions can slide over each other while the electron sea maintains bonding</label>
+      <label><input type="radio" name="u3s2q3" value="C"> They have low lattice energy</label>
+      <label><input type="radio" name="u3s2q3" value="D"> Covalent bonds can rotate</label>
+    </div><div class="mq-exp" id="mqe-u3s2q3">Metal layers slide → cations rearranged but electron sea still holds structure → doesn't break. Non-directional bonding allows deformation. Contrast: ionic crystals crack (ion repulsion when layers shift).</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q4 of 10</span><p class="mq-qtext">As you go across Period 3 (Na to Al), metallic bond strength:</p><div class="mq-opts">
+      <label><input type="radio" name="u3s2q4" value="A"> Decreases</label>
+      <label><input type="radio" name="u3s2q4" value="B"> Increases — more valence electrons and higher nuclear charge strengthen the bond</label>
+      <label><input type="radio" name="u3s2q4" value="C"> Stays constant</label>
+      <label><input type="radio" name="u3s2q4" value="D"> Al has the weakest metallic bond</label>
+    </div><div class="mq-exp" id="mqe-u3s2q4">Na: 1 valence e; Mg: 2; Al: 3. More electrons in sea + higher nuclear charge → stronger metallic bond → higher melting points: Na (98°C) < Mg (650°C) < Al (660°C).</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q5 of 10</span><p class="mq-qtext">Which best explains why metals have high melting points?</p><div class="mq-opts">
+      <label><input type="radio" name="u3s2q5" value="A"> Strong covalent bonds</label>
+      <label><input type="radio" name="u3s2q5" value="B"> Strong ionic bonds in layers</label>
+      <label><input type="radio" name="u3s2q5" value="C"> Strong electrostatic attraction between positive lattice and delocalised electron sea requires large energy to disrupt</label>
+      <label><input type="radio" name="u3s2q5" value="D"> Van der Waals forces between metal atoms</label>
+    </div><div class="mq-exp" id="mqe-u3s2q5">Metallic bonds are strong and non-directional. Large energy needed to free cations from electron sea. Giant metallic structure → high melting point. Tungsten (W) has m.p. 3422°C — 6 valence electrons, very strong metallic bond.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q6 of 10</span><p class="mq-qtext">Why does mercury (Hg) have a very low melting point for a metal?</p><div class="mq-opts">
+      <label><input type="radio" name="u3s2q6" value="A"> It is not a true metal</label>
+      <label><input type="radio" name="u3s2q6" value="B"> Hg has a filled d subshell (5d¹⁰6s²) — d electrons don't contribute to metallic bonding effectively → weak metallic bond → liquid at room temperature</label>
+      <label><input type="radio" name="u3s2q6" value="C"> Hg has covalent bonds</label>
+      <label><input type="radio" name="u3s2q6" value="D"> Hg has no valence electrons</label>
+    </div><div class="mq-exp" id="mqe-u3s2q6">Hg: [Xe]4f¹⁴5d¹⁰6s². Fully filled d (5d¹⁰) is compact and doesn't participate in metallic bonding. Only 2 valence 6s electrons contribute. Weak metallic bond → low m.p. (−39°C).</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q7 of 10</span><p class="mq-qtext">Why are metals lustrous (shiny)?</p><div class="mq-opts">
+      <label><input type="radio" name="u3s2q7" value="A"> They are ionic</label>
+      <label><input type="radio" name="u3s2q7" value="B"> Delocalised electrons absorb and immediately re-emit photons of light</label>
+      <label><input type="radio" name="u3s2q7" value="C"> They have smooth surfaces</label>
+      <label><input type="radio" name="u3s2q7" value="D"> They contain rare elements</label>
+    </div><div class="mq-exp" id="mqe-u3s2q7">Free electrons in metals absorb photons and immediately re-emit them → metals reflect light across all visible wavelengths → appear shiny. Same electrons explain electrical and thermal conductivity.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q8 of 10</span><p class="mq-qtext">Alloys are harder than pure metals because:</p><div class="mq-opts">
+      <label><input type="radio" name="u3s2q8" value="A"> Alloys have more metallic bonds</label>
+      <label><input type="radio" name="u3s2q8" value="B"> Foreign atoms of different size distort the lattice, preventing layers from sliding</label>
+      <label><input type="radio" name="u3s2q8" value="C"> Alloys have ionic bonds</label>
+      <label><input type="radio" name="u3s2q8" value="D"> Foreign atoms increase electron density</label>
+    </div><div class="mq-exp" id="mqe-u3s2q8">Alloy: mixture of metals. Different-sized atoms disrupt regular lattice → harder for layers to slide → stronger, harder material. Example: steel (Fe + C) is harder than pure iron.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q9 of 10</span><p class="mq-qtext">Why do metals conduct heat well?</p><div class="mq-opts">
+      <label><input type="radio" name="u3s2q9" value="A"> Ionic vibrations</label>
+      <label><input type="radio" name="u3s2q9" value="B"> Delocalised electrons transfer kinetic energy rapidly through the metal</label>
+      <label><input type="radio" name="u3s2q9" value="C"> Covalent bonds vibrate</label>
+      <label><input type="radio" name="u3s2q9" value="D"> Metal atoms are close together</label>
+    </div><div class="mq-exp" id="mqe-u3s2q9">Thermal conduction in metals: energetic electrons at the hot end move quickly through the metal, colliding with ions and transferring energy to cooler regions. Much faster than phonon conduction in non-metals.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q10 of 10</span><p class="mq-qtext">Which property would ionic NaCl and metallic Na share?</p><div class="mq-opts">
+      <label><input type="radio" name="u3s2q10" value="A"> Both conduct electricity when solid</label>
+      <label><input type="radio" name="u3s2q10" value="B"> Both have a regular lattice structure</label>
+      <label><input type="radio" name="u3s2q10" value="C"> Both are malleable</label>
+      <label><input type="radio" name="u3s2q10" value="D"> Both dissolve in water</label>
+    </div><div class="mq-exp" id="mqe-u3s2q10">Both have regular/ordered structures (lattice). NaCl = ionic lattice; Na = metallic lattice with electron sea. Differences: NaCl doesn't conduct when solid, is brittle; Na conducts always, is malleable.</div></div>
+    <button class="mq-submit" onclick="submitMQ('u3s2',{"u3s2q1":"B","u3s2q2":"B","u3s2q3":"B","u3s2q4":"B","u3s2q5":"C","u3s2q6":"B","u3s2q7":"B","u3s2q8":"B","u3s2q9":"B","u3s2q10":"B"})">&#10003; Check Answers</button>
+    <div class="mq-result" id="mqr-u3s2"></div>
+  </div>
+</div>
 <div class="section-header" id="exercises"><span class="section-number">&#x270F;&#xFE0F;</span><h2>Exercises</h2></div>
 <ul class="exercise-list">
   <li>Using dot-and-cross diagrams, show the formation of: (a) KBr, (b) MgCl&#x2082;, (c) Al&#x2082;O&#x2083;. In each case state the charge on each ion.
@@ -713,6 +1211,66 @@ q&#x207A; = charge on cation, q&#x207B; = charge on anion, r = ionic radius</div
     showGate();
   },true);
 })();
+const _CA={q1:'B',q2:'B',q3:'B',q4:'B',q5:'B',q6:'B',q7:'A',q8:'A',q9:'B',q10:'B',q11:'C',q12:'C',q13:'C',q14:'A',q15:'A',q16:'B',q17:'B',q18:'B',q19:'B',q20:'C',q21:'A',q22:'B',q23:'D',q24:'A',q25:'C'};
+function submitQuiz(){
+  let s=0,t=Object.keys(_CA).length;
+  Object.entries(_CA).forEach(([q,c])=>{
+    const sel=document.querySelector('input[name="'+q+'"]:checked');
+    document.querySelectorAll('input[name="'+q+'"]').forEach(o=>{
+      if(o.value===c) o.closest('label').classList.add('correct');
+    });
+    if(sel){
+      if(sel.value===c) s++;
+      else sel.closest('label').classList.add('wrong');
+    }
+    const e=document.getElementById('e'+q.slice(1));
+    if(e) e.style.display='block';
+    document.querySelectorAll('input[name="'+q+'"]').forEach(o=>o.disabled=true);
+  });
+  const p=Math.round(s/t*100);
+  const r=document.getElementById('qR');
+  r.style.display='block';
+  r.style.background=p>=70?'rgba(52,211,153,.1)':'rgba(248,113,113,.1)';
+  r.style.border='1px solid '+(p>=70?'var(--green)':'var(--red)');
+  r.style.color=p>=70?'var(--green)':'var(--red)';
+  r.style.padding='14px 18px';r.style.borderRadius='8px';r.style.fontFamily="'JetBrains Mono',monospace";
+  r.innerHTML='Score: '+s+'/'+t+' ('+p+'%) — '+(p>=80?'🏆 Excellent!':p>=70?'✅ Good — review marked answers.':p>=50?'📚 Keep going — study the explanations.':'❌ Review all material and try again.');
+  document.querySelector('.qs').disabled=true;
+  document.querySelector('.qs').style.opacity='.5';
+}
+// ── ACCESS GATE (unit quiz) ──
+(function(){
+  const SK='quiz_access_granted',CK='quiz_access_code';
+  const gate=document.createElement('div');
+  gate.id='unit-quiz-gate';
+  gate.style.cssText='position:fixed;inset:0;background:#0d1117;z-index:99999;display:none;align-items:center;justify-content:center;padding:24px;';
+  gate.innerHTML='<div style="background:#161b22;border:2px solid rgba(245,158,11,.4);border-radius:16px;padding:48px 40px;max-width:460px;width:100%;text-align:center;"><div style="font-size:3.5rem;margin-bottom:16px;">🔒</div><h2 style="font-family:Playfair Display,serif;font-size:1.8rem;color:#fff;margin-bottom:10px;">Quiz Locked</h2><p style="color:#8b949e;font-size:.93rem;margin-bottom:24px;line-height:1.7;">Enter the access code from your teacher to unlock this quiz.</p><input id="ugc-inp" type="text" placeholder="Enter Code" maxlength="20" style="width:100%;background:#1c2333;border:2px solid #30363d;border-radius:8px;color:#e6edf3;padding:14px 18px;font-family:JetBrains Mono,monospace;font-size:1.4rem;text-align:center;letter-spacing:.2em;text-transform:uppercase;margin-bottom:12px;box-sizing:border-box;" onkeydown="if(event.key===\'Enter\')unlockUnitQuiz()"/><div id="ugc-err" style="font-family:JetBrains Mono,monospace;font-size:.82rem;color:#f87171;min-height:20px;margin-bottom:10px;"></div><button onclick="unlockUnitQuiz()" style="width:100%;background:#f59e0b;color:#000;border:none;padding:13px;border-radius:8px;font-family:JetBrains Mono,monospace;font-size:.9rem;font-weight:700;cursor:pointer;margin-bottom:10px;">🔓 Unlock Quiz</button><button onclick="document.getElementById(\'unit-quiz-gate\').style.display=\'none\';document.body.style.overflow=\'\'" style="width:100%;background:transparent;border:1px solid #30363d;color:#8b949e;padding:9px;border-radius:8px;font-family:JetBrains Mono,monospace;font-size:.8rem;cursor:pointer;">✕ Cancel</button></div>';
+  document.body.appendChild(gate);
+  window.unlockUnitQuiz=function(){
+    const v=document.getElementById('ugc-inp').value.trim().toUpperCase();
+    const c=localStorage.getItem(CK);
+    if(!v){document.getElementById('ugc-err').textContent='Enter the code.';return;}
+    if(v===c||!c){sessionStorage.setItem(SK,c||'open');document.getElementById('unit-quiz-gate').style.display='none';document.body.style.overflow='';}
+    else{document.getElementById('ugc-err').textContent='❌ Wrong code.';document.getElementById('ugc-inp').value='';}
+  };
+  window.addEventListener('DOMContentLoaded',function(){
+    const code=localStorage.getItem(CK);if(!code)return;
+    const granted=sessionStorage.getItem(SK);if(granted)return;
+    const qw=document.querySelector('.quiz-wrap');if(!qw)return;
+    qw.addEventListener('click',function(e){
+      if(!localStorage.getItem(CK))return;
+      if(sessionStorage.getItem(SK))return;
+      if(e.target.tagName==='BUTTON'||e.target.classList.contains('qs')) return;
+      e.stopPropagation();e.preventDefault();
+      document.getElementById('unit-quiz-gate').style.display='flex';
+      document.body.style.overflow='hidden';
+    },true);
+  });
+})();
+</script>
+</body>
+</html>
+
 </script>
 
 <script>
@@ -764,6 +1322,7 @@ q&#x207A; = charge on cation, q&#x207B; = charge on anion, r = ionic radius</div
     if(!qw) return;
     qw.addEventListener('click',function(e){
       if(!isLocked()||isGranted()) return;
+      if(e.target.tagName==='BUTTON'||e.target.classList.contains('qs')) return;
       e.stopPropagation();e.preventDefault();
       gate.style.display='flex';document.body.style.overflow='hidden';
     },true);
@@ -777,6 +1336,30 @@ function toggleAnswer(btn){
   var isOpen = ans.classList.contains('open');
   ans.classList.toggle('open', !isOpen);
   btn.textContent = isOpen ? (btn.classList.contains('rb') ? 'Model Answer' : 'Show Answer') : 'Hide Answer';
+}
+</script>
+<script>
+function submitMQ(qid,total){
+  var ak=window._MQA&&window._MQA[qid];if(!ak)return;
+  var score=0;
+  for(var i=1;i<=total;i++){
+    var sel=document.querySelector('input[name="mq'+qid+'_'+i+'"]:checked');
+    var correct=ak[i];
+    var expEl=document.getElementById('mqE'+qid+'_'+i);
+    if(expEl)expEl.style.display='block';
+    ['A','B','C','D'].forEach(function(ltr){
+      var lbl=document.getElementById('mqL'+qid+'_'+i+'_'+ltr);
+      if(!lbl)return;
+      var inp=lbl.querySelector('input');
+      if(inp)inp.disabled=true;
+      if(ltr===correct){lbl.style.background='rgba(52,211,153,.12)';lbl.style.borderColor='#34d399';lbl.style.color='#34d399';}
+      else if(sel&&sel.value===ltr&&ltr!==correct){lbl.style.background='rgba(248,113,113,.1)';lbl.style.borderColor='#f87171';lbl.style.color='#f87171';}
+    });
+    if(sel&&sel.value===correct)score++;
+  }
+  var pct=Math.round(score/total*100);
+  var r=document.getElementById('mqRES'+qid);
+  if(r){r.style.display='block';r.style.background=pct>=70?'rgba(52,211,153,.1)':'rgba(248,113,113,.1)';r.style.border='1px solid '+(pct>=70?'#34d399':'#f87171');r.style.color=pct>=70?'#34d399':'#f87171';r.textContent='Score: '+score+'/'+total+' ('+pct+'%) — '+(pct>=80?'🏆 Excellent!':pct>=70?'✅ Good':pct>=50?'📚 Review the notes':'❌ Re-read this section');}
 }
 </script>
 </body>

@@ -98,6 +98,63 @@
   h3.sub{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--gold);margin:28px 0 10px;}
   sub,sup{font-size:.72em;}
   @media(max-width:600px){.hero{padding:50px 20px 40px;}.page{padding:0 16px 60px;}}
+
+.mini-quiz{background:var(--surface2);border:1px solid rgba(56,189,248,.2);border-radius:var(--radius);overflow:hidden;margin:32px 0 16px;}
+.mq-head{background:rgba(56,189,248,.1);border-bottom:1px solid rgba(56,189,248,.2);padding:12px 20px;display:flex;align-items:center;gap:10px;}
+.mq-head h4{font-family:'Playfair Display',serif;font-size:.98rem;color:#fff;flex:1;}
+.mq-badge{font-family:'JetBrains Mono',monospace;font-size:.68rem;background:rgba(56,189,248,.15);border:1px solid rgba(56,189,248,.3);color:var(--accent);padding:3px 10px;border-radius:50px;white-space:nowrap;}
+.mq-body{padding:18px 22px;}
+.mq-qblock{margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid var(--border);}
+.mq-qblock:last-of-type{border-bottom:none;margin-bottom:6px;padding-bottom:0;}
+.mq-qnum{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--accent);display:block;margin-bottom:5px;}
+.mq-qtext{font-size:.93rem;color:#fff;margin-bottom:9px;line-height:1.6;}
+.mq-opts label{display:flex;align-items:flex-start;gap:8px;padding:7px 11px;margin-bottom:5px;border-radius:7px;border:1px solid var(--border);cursor:pointer;font-size:.86rem;transition:all .15s;background:var(--bg);}
+.mq-opts label:hover{border-color:var(--accent);}
+.mq-opts label.correct{background:rgba(52,211,153,.1);border-color:var(--green)!important;color:var(--green);}
+.mq-opts label.wrong{background:rgba(248,113,113,.07);border-color:var(--red)!important;color:var(--red);}
+.mq-opts input[type=radio]{margin-top:3px;accent-color:var(--accent);flex-shrink:0;}
+.mq-exp{display:none;margin-top:7px;padding:9px 13px;background:rgba(56,189,248,.06);border-left:3px solid var(--accent);border-radius:0 5px 5px 0;font-size:.83rem;line-height:1.6;color:var(--muted);}
+.mq-submit{background:var(--accent);color:#000;border:none;padding:9px 26px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:.8rem;font-weight:700;cursor:pointer;transition:opacity .2s;margin-top:4px;}
+.mq-submit:hover{opacity:.85;}
+</style>
+
+<style>
+@media print {
+  body { background: #fff !important; color: #000 !important; }
+  * { background: transparent !important; color: #000 !important; border-color: #ccc !important; box-shadow: none !important; }
+  nav, footer, .quiz-wrap, .quiz-header, .quiz-body, .quiz-submit, .submit-btn, .btn, button:not(.print-btn), .lock-bar, .lock-overlay, .answer-panel { display: none !important; }
+  h1, h2, h3, h4 { color: #000 !important; }
+  a { color: #000 !important; text-decoration: none !important; }
+  .section-number { color: #000 !important; border-color: #000 !important; }
+  .callout, .definition, .example, .worked-example { background: #f5f5f5 !important; border-color: #000 !important; }
+  main, .content { max-width: 100% !important; padding: 0 !important; }
+}
+  body { background: #fff !important; color: #000 !important; font-size: 11pt; line-height: 1.6; }
+  nav, footer, .quiz-wrap, .quiz-container, section#quiz, section#test,
+  .tab-btn, .reveal-btn, button, .answer-panel, .print-hide,
+  [id*="lock"], .modal-overlay { display: none !important; }
+  main { max-width: 100% !important; padding: 0 !important; margin: 0 !important; }
+  h1, h2, h3, h4 { color: #000 !important; page-break-after: avoid; }
+  h2 { border-bottom: 2px solid #000 !important; padding-bottom: 4pt; margin-top: 18pt; }
+  section { page-break-inside: avoid; margin-bottom: 16pt; }
+  .section-header { background: #f0f0f0 !important; color: #000 !important; padding: 6pt 10pt; border-radius: 0 !important; }
+  .callout, .definition, .example-box, .worked-example {
+    background: #f5f5f5 !important; color: #000 !important;
+    border: 1pt solid #ccc !important; border-left: 3pt solid #333 !important;
+    padding: 8pt !important; margin: 8pt 0 !important;
+  }
+  table { border-collapse: collapse !important; width: 100% !important; }
+  th, td { border: 1pt solid #999 !important; padding: 4pt 6pt !important; color: #000 !important; background: #fff !important; font-size: 10pt; }
+  th { background: #e0e0e0 !important; font-weight: bold; }
+  p, li { color: #000 !important; }
+  .hero, .hero-eyebrow, .hero h1, .hero p { display: none !important; }
+  .content-body, .unit-content, .notes-body { color: #000 !important; }
+  a { color: #000 !important; text-decoration: none; }
+  code, pre { background: #f0f0f0 !important; color: #000 !important; border: 1pt solid #ccc !important; }
+  .answer-panel.open { display: block !important; background: #f9f9f9 !important; color: #000 !important; }
+  strong { color: #000 !important; }
+  var(--text), var(--muted), var(--accent) { color: #000 !important; }
+}
 </style>
 </head>
 <body>
@@ -142,6 +199,176 @@
 <div class="callout info"><span class="callout-icon">&#x2139;&#xFE0F;</span><div class="callout-body"><strong>Sigma (&sigma;) and Pi (&pi;) bonds</strong>A single bond is one &sigma; bond (end-on overlap). A double bond = one &sigma; + one &pi; (side-on overlap). A triple bond = one &sigma; + two &pi;. &sigma; bonds allow rotation; &pi; bonds restrict rotation around the axis.</div></div>
 
 <!-- 4.2 -->
+
+<div style="background:var(--surface);border:1px solid rgba(56,189,248,.25);border-radius:10px;overflow:hidden;margin:28px 0 40px;">
+  <div style="background:rgba(56,189,248,.08);border-bottom:1px solid rgba(56,189,248,.25);padding:14px 22px;display:flex;align-items:center;justify-content:space-between;">
+    <div><div style="font-family:'JetBrains Mono',monospace;font-size:.68rem;color:#38bdf8;text-transform:uppercase;letter-spacing:.1em;">Section 4.1 Quick Quiz</div><strong style="color:#fff;font-family:'Playfair Display',serif;">Overlap of Atomic Orbitals to Form Covalent Bonds</strong></div>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);">10 Questions</span>
+  </div>
+  <div style="padding:20px 22px;">
+    <script>window._MQA=window._MQA||{};window._MQA["4_1"]={1:"B",2:"C",3:"C",4:"C",5:"B",6:"B",7:"B",8:"C",9:"B",10:"B"};</script>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#38bdf8;margin-bottom:6px;">Q1</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">A covalent bond is formed by:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_1_1_A"><input type="radio" name="mq4_1_1" value="A" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Complete transfer of electrons from one atom to another</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_1_1_B"><input type="radio" name="mq4_1_1" value="B" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Overlap of atomic orbitals — a shared pair of electrons between two atoms</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_1_1_C"><input type="radio" name="mq4_1_1" value="C" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Electrostatic attraction between ions</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_1_1_D"><input type="radio" name="mq4_1_1" value="D" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Loss of electrons from both atoms</span></label>
+      <div id="mqE4_1_1" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(56,189,248,.08);border-left:3px solid #38bdf8;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#38bdf8;">✓ Answer: B</strong><br>Covalent bond: formed when atomic orbitals from two atoms overlap → shared pair of electrons occupies the region of overlap. Both atoms contribute electron(s) to the shared pair. The shared electrons attract both nuclei simultaneously → bond force. Unlike ionic bonding (electron transfer), covalent bonding involves sharing.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#38bdf8;margin-bottom:6px;">Q2</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Which of the following molecules contains a double covalent bond?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_1_2_A"><input type="radio" name="mq4_1_2" value="A" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>H₂</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_1_2_B"><input type="radio" name="mq4_1_2" value="B" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Cl₂</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_1_2_C"><input type="radio" name="mq4_1_2" value="C" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>O₂</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_1_2_D"><input type="radio" name="mq4_1_2" value="D" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>HCl</span></label>
+      <div id="mqE4_1_2" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(56,189,248,.08);border-left:3px solid #38bdf8;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#38bdf8;">✓ Answer: C</strong><br>O₂ contains a double bond (O=O): 4 shared electrons, 2 bonding pairs. H₂: single bond (H–H). Cl₂: single bond (Cl–Cl). HCl: single bond (H–Cl). In a Lewis structure, O₂: (:O=O:) — each O has one lone pair and shares 2 pairs with the other O.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#38bdf8;margin-bottom:6px;">Q3</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">A triple bond is formed by sharing:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_1_3_A"><input type="radio" name="mq4_1_3" value="A" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>One pair of electrons</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_1_3_B"><input type="radio" name="mq4_1_3" value="B" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Two pairs of electrons</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_1_3_C"><input type="radio" name="mq4_1_3" value="C" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Three pairs of electrons</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_1_3_D"><input type="radio" name="mq4_1_3" value="D" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Four pairs of electrons</span></label>
+      <div id="mqE4_1_3" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(56,189,248,.08);border-left:3px solid #38bdf8;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#38bdf8;">✓ Answer: C</strong><br>Triple bond: 3 shared pairs = 6 shared electrons. Example: N₂ (N≡N), with all 3 p orbitals participating. Triple bonds are shorter and stronger than double or single bonds. N≡N bond energy = 945 kJ/mol (very strong — explains N₂'s low reactivity). C≡C = 839 kJ/mol; C≡N = 890 kJ/mol.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#38bdf8;margin-bottom:6px;">Q4</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Which bond is the strongest?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_1_4_A"><input type="radio" name="mq4_1_4" value="A" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>C–C single bond</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_1_4_B"><input type="radio" name="mq4_1_4" value="B" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>C=C double bond</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_1_4_C"><input type="radio" name="mq4_1_4" value="C" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>C≡C triple bond</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_1_4_D"><input type="radio" name="mq4_1_4" value="D" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>C–H bond</span></label>
+      <div id="mqE4_1_4" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(56,189,248,.08);border-left:3px solid #38bdf8;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#38bdf8;">✓ Answer: C</strong><br>Bond strength (kJ/mol): C≡C (839) > C=C (614) > C–C (347). More shared electron pairs → stronger bond → more energy to break. Also: shorter bond = stronger bond. C≡C = 120 pm; C=C = 134 pm; C–C = 154 pm. Triple bonds are simultaneously shorter and stronger than double/single.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#38bdf8;margin-bottom:6px;">Q5</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The overlap between two s orbitals (e.g. in H₂) forms a:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_1_5_A"><input type="radio" name="mq4_1_5" value="A" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>π (pi) bond</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_1_5_B"><input type="radio" name="mq4_1_5" value="B" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>σ (sigma) bond</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_1_5_C"><input type="radio" name="mq4_1_5" value="C" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>δ (delta) bond</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_1_5_D"><input type="radio" name="mq4_1_5" value="D" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Ionic bond</span></label>
+      <div id="mqE4_1_5" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(56,189,248,.08);border-left:3px solid #38bdf8;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#38bdf8;">✓ Answer: B</strong><br>Sigma (σ) bond: formed by direct (head-on) overlap of orbitals along the internuclear axis. All single bonds are σ bonds. s-s overlap (H₂), s-p overlap (HCl), p-p head-on overlap all form σ bonds. The electron density is concentrated along the bond axis (between the nuclei).</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#38bdf8;margin-bottom:6px;">Q6</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">A pi (π) bond is formed by:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_1_6_A"><input type="radio" name="mq4_1_6" value="A" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Head-on overlap of orbitals</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_1_6_B"><input type="radio" name="mq4_1_6" value="B" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Sideways (lateral) overlap of parallel p orbitals — electron density above and below the internuclear axis</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_1_6_C"><input type="radio" name="mq4_1_6" value="C" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Transfer of electrons between atoms</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_1_6_D"><input type="radio" name="mq4_1_6" value="D" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Overlap of s orbitals</span></label>
+      <div id="mqE4_1_6" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(56,189,248,.08);border-left:3px solid #38bdf8;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#38bdf8;">✓ Answer: B</strong><br>Pi (π) bond: lateral (sideways) overlap of parallel p orbitals. Electron density is in two lobes above and below (or in front/behind) the internuclear axis. Weaker than σ bonds (less overlap). All double bonds contain: 1σ + 1π. All triple bonds: 1σ + 2π. Single bonds: 1σ only.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#38bdf8;margin-bottom:6px;">Q7</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Bond length decreases in the order: C–C > C=C > C≡C. This is because:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_1_7_A"><input type="radio" name="mq4_1_7" value="A" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Triple bonds have more protons</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_1_7_B"><input type="radio" name="mq4_1_7" value="B" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Each additional bond brings nuclei closer together (more electron density between nuclei pulls them together)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_1_7_C"><input type="radio" name="mq4_1_7" value="C" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Double bonds are weaker</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_1_7_D"><input type="radio" name="mq4_1_7" value="D" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Carbon has more electrons in triple bonds</span></label>
+      <div id="mqE4_1_7" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(56,189,248,.08);border-left:3px solid #38bdf8;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#38bdf8;">✓ Answer: B</strong><br>More bond pairs → more electron density between nuclei → stronger attraction pulling nuclei together → shorter bond. C–C=154pm, C=C=134pm, C≡C=120pm. Shorter bonds are also stronger (more overlap) and harder to break. Bond length and bond strength are inversely related.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#38bdf8;margin-bottom:6px;">Q8</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Which molecule has the shortest N–N bond?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_1_8_A"><input type="radio" name="mq4_1_8" value="A" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>N₂H₄ (hydrazine, N–N single bond)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_1_8_B"><input type="radio" name="mq4_1_8" value="B" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>N₂H₂ (diazene, N=N double bond)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_1_8_C"><input type="radio" name="mq4_1_8" value="C" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>N₂ (nitrogen, N≡N triple bond)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_1_8_D"><input type="radio" name="mq4_1_8" value="D" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>NF₃</span></label>
+      <div id="mqE4_1_8" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(56,189,248,.08);border-left:3px solid #38bdf8;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#38bdf8;">✓ Answer: C</strong><br>More bonds between same atoms → shorter bond length. N≡N=110pm (N₂) < N=N=125pm (N₂H₂) < N–N=145pm (N₂H₄). N₂ has the strongest, shortest N–N bond (triple bond). NF₃ has no N–N bond (N bonded to F, not N).</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#38bdf8;margin-bottom:6px;">Q9</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">A lone pair of electrons is:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_1_9_A"><input type="radio" name="mq4_1_9" value="A" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>An electron shared between two atoms</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_1_9_B"><input type="radio" name="mq4_1_9" value="B" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>A pair of electrons on one atom not involved in bonding</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_1_9_C"><input type="radio" name="mq4_1_9" value="C" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>An electron pair shared with three atoms</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_1_9_D"><input type="radio" name="mq4_1_9" value="D" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>An unpaired electron</span></label>
+      <div id="mqE4_1_9" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(56,189,248,.08);border-left:3px solid #38bdf8;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#38bdf8;">✓ Answer: B</strong><br>Lone pair (non-bonding pair): a pair of electrons on one atom that is NOT shared with another atom. Lone pairs influence molecular shape (VSEPR), bond angles (they take up more space than bonding pairs), and can be donated to form dative covalent bonds. Example: N in NH₃ has 1 lone pair; O in H₂O has 2 lone pairs.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#38bdf8;margin-bottom:6px;">Q10</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Why are covalent compounds generally volatile (low boiling points) when they have simple molecular structures?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_1_10_A"><input type="radio" name="mq4_1_10" value="A" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Their intramolecular bonds are weak</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_1_10_B"><input type="radio" name="mq4_1_10" value="B" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Simple molecules have weak intermolecular forces (van der Waals/dipole-dipole) — little energy needed to overcome these</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_1_10_C"><input type="radio" name="mq4_1_10" value="C" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>They contain no electrons</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_1_10_D"><input type="radio" name="mq4_1_10" value="D" style="margin-top:3px;accent-color:#38bdf8;flex-shrink:0;"> <span>Covalent bonds break easily</span></label>
+      <div id="mqE4_1_10" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(56,189,248,.08);border-left:3px solid #38bdf8;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#38bdf8;">✓ Answer: B</strong><br>Simple covalent molecules: strong intramolecular bonds (within molecules) but WEAK intermolecular forces between molecules. Boiling point = overcoming intermolecular forces (NOT breaking covalent bonds). Weak intermolecular forces → low boiling point → volatile. Exception: HF, H₂O, NH₃ have stronger hydrogen bonds → higher b.p. than expected.</div>
+    </div>
+    <div style="text-align:center;"><button onclick="submitMQ('4_1',10)" style="background:#38bdf8;color:#000;border:none;padding:9px 30px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:.85rem;font-weight:700;cursor:pointer;">Check Answers</button><div id="mqRES4_1" style="display:none;margin-top:10px;border-radius:7px;padding:12px;font-family:'JetBrains Mono',monospace;font-size:.85rem;text-align:center;"></div></div>
+  </div>
+</div>
+
+<!-- MINI-QUIZ s41 -->
+<div class="mini-quiz" id="mq-s41">
+  <div class="mq-head"><span style="font-size:1.1rem;">&#127919;</span><h4>Section 4.1 — Covalent Bonding</h4><span class="mq-badge">10 Questions</span></div>
+  <div class="mq-body">
+    <div class="mq-qblock"><span class="mq-qnum">Q1 of 10</span><p class="mq-qtext">A covalent bond is formed by:</p><div class="mq-opts">
+      <label><input type="radio" name="u4s1q1" value="A"> Transfer of electrons</label>
+      <label><input type="radio" name="u4s1q1" value="B"> Sharing of a pair of electrons between atoms</label>
+      <label><input type="radio" name="u4s1q1" value="C"> Attraction between ions</label>
+      <label><input type="radio" name="u4s1q1" value="D"> Sharing of protons</label>
+    </div><div class="mq-exp" id="mqe-u4s1q1">Covalent bond: two atoms each contribute one electron → shared pair. Lewis model: electron pair held between nuclei, attracting both → bond.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q2 of 10</span><p class="mq-qtext">A dative (coordinate) covalent bond differs because:</p><div class="mq-opts">
+      <label><input type="radio" name="u4s1q2" value="A"> Both electrons come from the same atom</label>
+      <label><input type="radio" name="u4s1q2" value="B"> Electrons are transferred not shared</label>
+      <label><input type="radio" name="u4s1q2" value="C"> It involves d orbitals</label>
+      <label><input type="radio" name="u4s1q2" value="D"> It is weaker than a normal covalent bond</label>
+    </div><div class="mq-exp" id="mqe-u4s1q2">Dative/coordinate bond: one atom donates BOTH electrons of the shared pair. Example: NH₃→BF₃ (N donates lone pair to B). Once formed, it is identical in strength to a normal covalent bond.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q3 of 10</span><p class="mq-qtext">Bond length increases as:</p><div class="mq-opts">
+      <label><input type="radio" name="u4s1q3" value="A"> Bond order increases</label>
+      <label><input type="radio" name="u4s1q3" value="B"> Bond order decreases (single > double > triple bond lengths for same atoms)</label>
+      <label><input type="radio" name="u4s1q3" value="C"> Number of lone pairs increases</label>
+      <label><input type="radio" name="u4s1q3" value="D"> Bond polarity increases</label>
+    </div><div class="mq-exp" id="mqe-u4s1q3">Bond order: single < double < triple. More bonding electrons → nuclei pulled closer → shorter bond. C−C = 154 pm > C=C = 134 pm > C≡C = 120 pm.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q4 of 10</span><p class="mq-qtext">Bond strength (bond enthalpy) increases as:</p><div class="mq-opts">
+      <label><input type="radio" name="u4s1q4" value="A"> Bond length increases</label>
+      <label><input type="radio" name="u4s1q4" value="B"> Bond order increases — more electrons shared → stronger bond</label>
+      <label><input type="radio" name="u4s1q4" value="C"> Number of lone pairs increases</label>
+      <label><input type="radio" name="u4s1q4" value="D"> Electronegativity difference increases</label>
+    </div><div class="mq-exp" id="mqe-u4s1q4">Higher bond order → more electron density between nuclei → stronger attraction → more energy to break. C≡C (839 kJ/mol) > C=C (614) > C−C (347).</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q5 of 10</span><p class="mq-qtext">The Lewis structure of CO₂ shows:</p><div class="mq-opts">
+      <label><input type="radio" name="u4s1q5" value="A"> 2 single bonds, 2 lone pairs on C</label>
+      <label><input type="radio" name="u4s1q5" value="B"> 2 double bonds, lone pairs on O</label>
+      <label><input type="radio" name="u4s1q5" value="C"> 3 double bonds</label>
+      <label><input type="radio" name="u4s1q5" value="D"> 1 triple bond and 1 single bond</label>
+    </div><div class="mq-exp" id="mqe-u4s1q5">CO₂: O=C=O. Each C=O is a double bond. O has 2 lone pairs each. C has no lone pairs. Linear molecule (no lone pairs on C).</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q6 of 10</span><p class="mq-qtext">Which molecule has a triple bond?</p><div class="mq-opts">
+      <label><input type="radio" name="u4s1q6" value="A"> H₂O</label>
+      <label><input type="radio" name="u4s1q6" value="B"> NH₃</label>
+      <label><input type="radio" name="u4s1q6" value="C"> N₂</label>
+      <label><input type="radio" name="u4s1q6" value="D"> CO₂</label>
+    </div><div class="mq-exp" id="mqe-u4s1q6">N₂: N≡N. Triple bond (1σ + 2π). Very strong bond (945 kJ/mol) makes N₂ unreactive. CO₂ has double bonds.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q7 of 10</span><p class="mq-qtext">How many bonding pairs are in a molecule of H₂O?</p><div class="mq-opts">
+      <label><input type="radio" name="u4s1q7" value="A"> 1</label>
+      <label><input type="radio" name="u4s1q7" value="B"> 2</label>
+      <label><input type="radio" name="u4s1q7" value="C"> 3</label>
+      <label><input type="radio" name="u4s1q7" value="D"> 4</label>
+    </div><div class="mq-exp" id="mqe-u4s1q7">H₂O: O forms 2 bonds with 2 H atoms = 2 bonding pairs. Also has 2 lone pairs (not bonding pairs).</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q8 of 10</span><p class="mq-qtext">Electronegativity difference determines:</p><div class="mq-opts">
+      <label><input type="radio" name="u4s1q8" value="A"> Bond strength</label>
+      <label><input type="radio" name="u4s1q8" value="B"> Bond length</label>
+      <label><input type="radio" name="u4s1q8" value="C"> Bond polarity — larger difference → more polar bond</label>
+      <label><input type="radio" name="u4s1q8" value="D"> Bond order</label>
+    </div><div class="mq-exp" id="mqe-u4s1q8">Large electronegativity difference → polar bond (electrons pulled toward more EN atom). If very large → ionic. Small difference → non-polar covalent.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q9 of 10</span><p class="mq-qtext">In a polar covalent bond, the δ⁻ charge is on:</p><div class="mq-opts">
+      <label><input type="radio" name="u4s1q9" value="A"> The less electronegative atom</label>
+      <label><input type="radio" name="u4s1q9" value="B"> The more electronegative atom</label>
+      <label><input type="radio" name="u4s1q9" value="C"> The central atom always</label>
+      <label><input type="radio" name="u4s1q9" value="D"> Both atoms equally</label>
+    </div><div class="mq-exp" id="mqe-u4s1q9">More electronegative atom attracts shared electrons more strongly → higher electron density → partial negative charge (δ⁻). Less EN atom has δ⁺.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q10 of 10</span><p class="mq-qtext">Which molecule is non-polar despite having polar bonds?</p><div class="mq-opts">
+      <label><input type="radio" name="u4s1q10" value="A"> HCl</label>
+      <label><input type="radio" name="u4s1q10" value="B"> H₂O</label>
+      <label><input type="radio" name="u4s1q10" value="C"> NH₃</label>
+      <label><input type="radio" name="u4s1q10" value="D"> CO₂</label>
+    </div><div class="mq-exp" id="mqe-u4s1q10">CO₂ (O=C=O): two polar C=O bonds are equal and opposite → dipoles cancel → non-polar molecule. Linear geometry = zero net dipole. H₂O, NH₃, HCl all have net dipole moments.</div></div>
+    <button class="mq-submit" onclick="submitMQ('u4s1',{"u4s1q1":"B","u4s1q2":"A","u4s1q3":"B","u4s1q4":"B","u4s1q5":"B","u4s1q6":"C","u4s1q7":"B","u4s1q8":"C","u4s1q9":"B","u4s1q10":"D"})">&#10003; Check Answers</button>
+    <div class="mq-result" id="mqr-u4s1"></div>
+  </div>
+</div>
 <div class="section-header" id="s42"><span class="section-number">4.2</span><h2>Theories on the Formation of Covalent Bonds</h2></div>
 <div class="two-col">
   <div class="card"><h3>Lewis Theory</h3><p>G.N. Lewis (1916) proposed that atoms share electron pairs to complete their octets. Represented by <strong>Lewis structures</strong> (dot-and-cross diagrams) showing bonding pairs (shared) and lone pairs (non-bonding). Simple and useful but does not explain bond angles or three-dimensional shapes.</p></div>
@@ -290,6 +517,107 @@
 </div>
 
 <!-- 4.6 -->
+
+<div style="background:var(--surface);border:1px solid rgba(52,211,153,.25);border-radius:10px;overflow:hidden;margin:28px 0 40px;">
+  <div style="background:rgba(52,211,153,.08);border-bottom:1px solid rgba(52,211,153,.25);padding:14px 22px;display:flex;align-items:center;justify-content:space-between;">
+    <div><div style="font-family:'JetBrains Mono',monospace;font-size:.68rem;color:#34d399;text-transform:uppercase;letter-spacing:.1em;">Section 4.5 Quick Quiz</div><strong style="color:#fff;font-family:'Playfair Display',serif;">VSEPR Theory — Molecular Shapes</strong></div>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);">10 Questions</span>
+  </div>
+  <div style="padding:20px 22px;">
+    <script>window._MQA=window._MQA||{};window._MQA["4_5"]={1:"B",2:"C",3:"B",4:"D",5:"B",6:"C",7:"B",8:"A",9:"B",10:"B"};</script>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#34d399;margin-bottom:6px;">Q1</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">VSEPR theory predicts molecular shapes based on:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_5_1_A"><input type="radio" name="mq4_5_1" value="A" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>The mass of the central atom</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_5_1_B"><input type="radio" name="mq4_5_1" value="B" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Electron pairs around the central atom repelling each other — they arrange to maximise distance (minimise repulsion)</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_5_1_C"><input type="radio" name="mq4_5_1" value="C" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>The number of protons in the molecule</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_5_1_D"><input type="radio" name="mq4_5_1" value="D" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>The molecular weight</span></label>
+      <div id="mqE4_5_1" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(52,211,153,.08);border-left:3px solid #34d399;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#34d399;">✓ Answer: B</strong><br>VSEPR (Valence Shell Electron Pair Repulsion): electron pairs (both bonding and lone pairs) around the central atom repel each other. They arrange to be as far apart as possible → minimise repulsion → determines geometry. The key: count ALL electron pairs (BP + LP), not just bonding pairs.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#34d399;margin-bottom:6px;">Q2</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The molecular shape of BF₃ (3 bonding pairs, 0 lone pairs) is:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_5_2_A"><input type="radio" name="mq4_5_2" value="A" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Pyramidal</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_5_2_B"><input type="radio" name="mq4_5_2" value="B" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Linear</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_5_2_C"><input type="radio" name="mq4_5_2" value="C" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Trigonal planar with bond angles 120°</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_5_2_D"><input type="radio" name="mq4_5_2" value="D" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Tetrahedral</span></label>
+      <div id="mqE4_5_2" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(52,211,153,.08);border-left:3px solid #34d399;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#34d399;">✓ Answer: C</strong><br>BF₃: 3 BP, 0 LP. 3 electron pairs → trigonal planar. Bond angles = 120°. Boron in BF₃ is electron-deficient (only 6 electrons). Shape is flat/planar. Compare with NH₃: also 3 BP but has 1 LP → pyramidal (LP pushes down on bonding pairs → angles < 120°).</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#34d399;margin-bottom:6px;">Q3</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The bond angle in H₂O is 104.5°. Why is it less than the ideal tetrahedral angle (109.5°)?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_5_3_A"><input type="radio" name="mq4_5_3" value="A" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>H atoms are smaller than O</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_5_3_B"><input type="radio" name="mq4_5_3" value="B" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Two lone pairs on oxygen occupy more space than bonding pairs, compressing the H–O–H angle</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_5_3_C"><input type="radio" name="mq4_5_3" value="C" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Water molecules interact with each other</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_5_3_D"><input type="radio" name="mq4_5_3" value="D" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>The oxygen nucleus is too positive</span></label>
+      <div id="mqE4_5_3" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(52,211,153,.08);border-left:3px solid #34d399;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#34d399;">✓ Answer: B</strong><br>H₂O: 2 BP + 2 LP around O. Lone pairs exert greater repulsion than bonding pairs → angle reduced below 109.5°. LP–LP repulsion > LP–BP > BP–BP. Two lone pairs push the two H atoms closer together → H–O–H = 104.5° (not 109.5°). This V-shape (bent) makes water polar → hydrogen bonding → unusual properties.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#34d399;margin-bottom:6px;">Q4</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Which molecule has a tetrahedral shape with bond angles of approximately 109.5°?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_5_4_A"><input type="radio" name="mq4_5_4" value="A" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>BF₃</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_5_4_B"><input type="radio" name="mq4_5_4" value="B" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>NH₃</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_5_4_C"><input type="radio" name="mq4_5_4" value="C" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>H₂O</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_5_4_D"><input type="radio" name="mq4_5_4" value="D" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>CH₄</span></label>
+      <div id="mqE4_5_4" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(52,211,153,.08);border-left:3px solid #34d399;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#34d399;">✓ Answer: D</strong><br>CH₄: 4 BP, 0 LP → tetrahedral, 109.5°. BF₃: 3 BP, 0 LP → trigonal planar, 120°. NH₃: 3 BP, 1 LP → trigonal pyramidal, 107°. H₂O: 2 BP, 2 LP → bent/V-shaped, 104.5°. For perfect tetrahedral, need 4 bonding pairs and no lone pairs.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#34d399;margin-bottom:6px;">Q5</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The shape of PCl₅ is:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_5_5_A"><input type="radio" name="mq4_5_5" value="A" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Octahedral</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_5_5_B"><input type="radio" name="mq4_5_5" value="B" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Trigonal bipyramidal</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_5_5_C"><input type="radio" name="mq4_5_5" value="C" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Tetrahedral</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_5_5_D"><input type="radio" name="mq4_5_5" value="D" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Square planar</span></label>
+      <div id="mqE4_5_5" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(52,211,153,.08);border-left:3px solid #34d399;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#34d399;">✓ Answer: B</strong><br>PCl₅: P has 5 bonding pairs, 0 lone pairs. 5 BP → trigonal bipyramidal. Three equatorial bonds (120° apart) and two axial bonds (90° to equatorial plane). P can exceed the octet by using its empty 3d orbitals (Period 3 element). Bond angles: equatorial-equatorial 120°; equatorial-axial 90°; axial-axial 180°.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#34d399;margin-bottom:6px;">Q6</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Which of the following has a linear molecular shape?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_5_6_A"><input type="radio" name="mq4_5_6" value="A" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>H₂O</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_5_6_B"><input type="radio" name="mq4_5_6" value="B" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>NH₃</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_5_6_C"><input type="radio" name="mq4_5_6" value="C" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>CO₂</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_5_6_D"><input type="radio" name="mq4_5_6" value="D" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>SO₂</span></label>
+      <div id="mqE4_5_6" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(52,211,153,.08);border-left:3px solid #34d399;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#34d399;">✓ Answer: C</strong><br>CO₂: C has 2 double bonds (treated as 2 electron domains), 0 lone pairs → linear, 180°. O=C=O. Note: each double bond counts as ONE electron domain for VSEPR. H₂O: 2BP+2LP → bent. NH₃: 3BP+1LP → pyramidal. SO₂: 2BP+1LP → bent, ~119°.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#34d399;margin-bottom:6px;">Q7</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The order of repulsion between electron pairs (strongest to weakest) is:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_5_7_A"><input type="radio" name="mq4_5_7" value="A" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>BP>LP>BP</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_5_7_B"><input type="radio" name="mq4_5_7" value="B" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>LP-LP > LP-BP > BP-BP</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_5_7_C"><input type="radio" name="mq4_5_7" value="C" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>BP-BP > LP-LP > LP-BP</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_5_7_D"><input type="radio" name="mq4_5_7" value="D" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>All equal</span></label>
+      <div id="mqE4_5_7" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(52,211,153,.08);border-left:3px solid #34d399;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#34d399;">✓ Answer: B</strong><br>Lone pair-lone pair repulsion > lone pair-bonding pair > bonding pair-bonding pair. Lone pairs are held more closely to the central atom (not shared, stay closer) → exert greater angular repulsion. This explains why NH₃ angle (107°) < CH₄ (109.5°) and H₂O (104.5°) < NH₃ (107°).</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#34d399;margin-bottom:6px;">Q8</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">The shape of SF₆ is:</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_5_8_A"><input type="radio" name="mq4_5_8" value="A" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Octahedral with bond angles 90°</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_5_8_B"><input type="radio" name="mq4_5_8" value="B" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Tetrahedral</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_5_8_C"><input type="radio" name="mq4_5_8" value="C" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Trigonal bipyramidal</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_5_8_D"><input type="radio" name="mq4_5_8" value="D" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Square planar</span></label>
+      <div id="mqE4_5_8" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(52,211,153,.08);border-left:3px solid #34d399;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#34d399;">✓ Answer: A</strong><br>SF₆: S has 6 bonding pairs, 0 lone pairs → octahedral. Bond angles: 90° (adjacent) and 180° (opposite). S can expand octet using 3d orbitals (Period 3). Octahedral shape: 6 equal bonds pointing to vertices of octahedron. All bond angles = 90° (adjacent pairs).</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#34d399;margin-bottom:6px;">Q9</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">A molecule AB₃ with one lone pair on A has which shape?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_5_9_A"><input type="radio" name="mq4_5_9" value="A" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Trigonal planar</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_5_9_B"><input type="radio" name="mq4_5_9" value="B" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Trigonal pyramidal</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_5_9_C"><input type="radio" name="mq4_5_9" value="C" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Tetrahedral</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_5_9_D"><input type="radio" name="mq4_5_9" value="D" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>Linear</span></label>
+      <div id="mqE4_5_9" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(52,211,153,.08);border-left:3px solid #34d399;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#34d399;">✓ Answer: B</strong><br>AB₃ + 1 LP = 4 electron domains → based on tetrahedral electron geometry. But shape describes only atoms, not lone pairs. With 3 BP + 1 LP → trigonal pyramidal (like NH₃, PH₃). Bond angles slightly less than 109.5° due to LP repulsion.</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#34d399;margin-bottom:6px;">Q10</div>
+      <div style="font-size:.95rem;color:#fff;margin-bottom:10px;line-height:1.65;">Why does the VSEPR model work well for predicting molecular shapes?</div>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_5_10_A"><input type="radio" name="mq4_5_10" value="A" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>It uses quantum mechanics exactly</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_5_10_B"><input type="radio" name="mq4_5_10" value="B" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>It provides a simple, intuitive way to predict geometry based on the principle that electron pairs repel and seek maximum separation</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_5_10_C"><input type="radio" name="mq4_5_10" value="C" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>It ignores lone pairs</span></label>
+      <label style="display:flex;align-items:flex-start;gap:9px;padding:8px 12px;margin-bottom:6px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;font-size:.88rem;" id="mqL4_5_10_D"><input type="radio" name="mq4_5_10" value="D" style="margin-top:3px;accent-color:#34d399;flex-shrink:0;"> <span>It only works for ionic compounds</span></label>
+      <div id="mqE4_5_10" style="display:none;margin-top:8px;padding:10px 14px;background:rgba(52,211,153,.08);border-left:3px solid #34d399;border-radius:0 6px 6px 0;font-size:.86rem;line-height:1.65;"><strong style="color:#34d399;">✓ Answer: B</strong><br>VSEPR works because electron pairs (bonding and lone) are regions of negative charge that repel each other. The equilibrium geometry is where repulsion is minimised. While it ignores quantum mechanical details, it gives correct predictions for most main-group element molecules. Simple, fast, and highly predictive.</div>
+    </div>
+    <div style="text-align:center;"><button onclick="submitMQ('4_5',10)" style="background:#34d399;color:#000;border:none;padding:9px 30px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:.85rem;font-weight:700;cursor:pointer;">Check Answers</button><div id="mqRES4_5" style="display:none;margin-top:10px;border-radius:7px;padding:12px;font-family:'JetBrains Mono',monospace;font-size:.85rem;text-align:center;"></div></div>
+  </div>
+</div>
 <div class="section-header" id="s46"><span class="section-number">4.6</span><h2>Hybridisation</h2></div>
 <div class="def-box"><strong>Hybridisation</strong>The mixing of atomic orbitals of similar energy on the same atom to form new hybrid orbitals with identical energy and shape. Hybridisation explains why carbon forms 4 equivalent bonds in CH&#x2084; (not 2 bonds as predicted by the 2 half-filled p orbitals).</div>
 <div class="tbl-wrap"><table>
@@ -428,6 +756,75 @@
 </table></div>
 
 <!-- EXERCISES -->
+
+<!-- MINI-QUIZ s42 -->
+<div class="mini-quiz" id="mq-s42">
+  <div class="mq-head"><span style="font-size:1.1rem;">&#127919;</span><h4>Section 4.2 — VSEPR Theory</h4><span class="mq-badge">10 Questions</span></div>
+  <div class="mq-body">
+    <div class="mq-qblock"><span class="mq-qnum">Q1 of 10</span><p class="mq-qtext">VSEPR theory predicts molecular shape based on:</p><div class="mq-opts">
+      <label><input type="radio" name="u4s2q1" value="A"> Bond lengths only</label>
+      <label><input type="radio" name="u4s2q1" value="B"> Repulsion between electron pairs around the central atom</label>
+      <label><input type="radio" name="u4s2q1" value="C"> Electronegativity of atoms</label>
+      <label><input type="radio" name="u4s2q1" value="D"> Mass of atoms</label>
+    </div><div class="mq-exp" id="mqe-u4s2q1">VSEPR: Valence Shell Electron Pair Repulsion. Electron pairs (bonding and lone) repel → arrange to maximise separation → determines molecular geometry.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q2 of 10</span><p class="mq-qtext">The shape of BF₃ (3 bond pairs, 0 lone pairs) is:</p><div class="mq-opts">
+      <label><input type="radio" name="u4s2q2" value="A"> Tetrahedral</label>
+      <label><input type="radio" name="u4s2q2" value="B"> Pyramidal</label>
+      <label><input type="radio" name="u4s2q2" value="C"> Trigonal planar</label>
+      <label><input type="radio" name="u4s2q2" value="D"> Linear</label>
+    </div><div class="mq-exp" id="mqe-u4s2q2">3 bond pairs, 0 lone pairs → trigonal planar, 120° bond angles. B is electron deficient (6 electrons, not 8 — cannot have lone pairs). Examples: BF₃, AlCl₃.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q3 of 10</span><p class="mq-qtext">Water (H₂O) has 2 bond pairs and 2 lone pairs. Its shape is:</p><div class="mq-opts">
+      <label><input type="radio" name="u4s2q3" value="A"> Tetrahedral</label>
+      <label><input type="radio" name="u4s2q3" value="B"> Linear</label>
+      <label><input type="radio" name="u4s2q3" value="C"> V-shaped/bent</label>
+      <label><input type="radio" name="u4s2q3" value="D"> Trigonal planar</label>
+    </div><div class="mq-exp" id="mqe-u4s2q3">4 electron pairs (tetrahedral arrangement) but 2 are lone pairs → bent/V-shaped. Actual H-O-H angle = 104.5° (lone pair repulsion reduces from ideal 109.5°).</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q4 of 10</span><p class="mq-qtext">Lone pairs repel more than bonding pairs because:</p><div class="mq-opts">
+      <label><input type="radio" name="u4s2q4" value="A"> Lone pairs are positive</label>
+      <label><input type="radio" name="u4s2q4" value="B"> Lone pairs are closer to nucleus and occupy more space — greater repulsion</label>
+      <label><input type="radio" name="u4s2q4" value="C"> Bonding pairs have opposite spins</label>
+      <label><input type="radio" name="u4s2q4" value="D"> Lone pairs are between atoms</label>
+    </div><div class="mq-exp" id="mqe-u4s2q4">Lone pairs: held by one nucleus only → spread out more → greater repulsion than bonding pairs (shared between two nuclei → more compressed). LP-LP > LP-BP > BP-BP repulsion.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q5 of 10</span><p class="mq-qtext">The bond angle in CH₄ is:</p><div class="mq-opts">
+      <label><input type="radio" name="u4s2q5" value="A"> 90°</label>
+      <label><input type="radio" name="u4s2q5" value="B"> 109.5°</label>
+      <label><input type="radio" name="u4s2q5" value="C"> 120°</label>
+      <label><input type="radio" name="u4s2q5" value="D"> 180°</label>
+    </div><div class="mq-exp" id="mqe-u4s2q5">CH₄: 4 bond pairs, 0 lone pairs → tetrahedral → 109.5° bond angles. All 4 bonds equivalent.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q6 of 10</span><p class="mq-qtext">Which molecule has a linear shape?</p><div class="mq-opts">
+      <label><input type="radio" name="u4s2q6" value="A"> H₂O</label>
+      <label><input type="radio" name="u4s2q6" value="B"> NH₃</label>
+      <label><input type="radio" name="u4s2q6" value="C"> BeCl₂</label>
+      <label><input type="radio" name="u4s2q6" value="D"> CH₄</label>
+    </div><div class="mq-exp" id="mqe-u4s2q6">BeCl₂: 2 bond pairs, 0 lone pairs → linear, 180°. Be has only 4 electrons in bonds (electron deficient). CO₂ and C₂H₂ also linear.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q7 of 10</span><p class="mq-qtext">NH₃ has bond angle of 107° rather than 109.5° because:</p><div class="mq-opts">
+      <label><input type="radio" name="u4s2q7" value="A"> N is more electronegative</label>
+      <label><input type="radio" name="u4s2q7" value="B"> One lone pair on N repels bonding pairs, compressing the H-N-H angles</label>
+      <label><input type="radio" name="u4s2q7" value="C"> N has fewer electrons</label>
+      <label><input type="radio" name="u4s2q7" value="D"> The bonds are polar</label>
+    </div><div class="mq-exp" id="mqe-u4s2q7">NH₃: 4 electron pairs (tetrahedral base), 1 lone pair. Lone pair repels 3 bonding pairs → H-N-H compresses from 109.5° to 107°.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q8 of 10</span><p class="mq-qtext">PCl₅ has what molecular geometry?</p><div class="mq-opts">
+      <label><input type="radio" name="u4s2q8" value="A"> Octahedral</label>
+      <label><input type="radio" name="u4s2q8" value="B"> Tetrahedral</label>
+      <label><input type="radio" name="u4s2q8" value="C"> Trigonal bipyramidal</label>
+      <label><input type="radio" name="u4s2q8" value="D"> Square planar</label>
+    </div><div class="mq-exp" id="mqe-u4s2q8">PCl₅: 5 bond pairs, 0 lone pairs → trigonal bipyramidal. P uses d orbitals (expanded octet). 3 equatorial bonds (120°) and 2 axial bonds (90° to equatorial).</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q9 of 10</span><p class="mq-qtext">SF₆ has 6 bond pairs and 0 lone pairs. Shape is:</p><div class="mq-opts">
+      <label><input type="radio" name="u4s2q9" value="A"> Tetrahedral</label>
+      <label><input type="radio" name="u4s2q9" value="B"> Trigonal bipyramidal</label>
+      <label><input type="radio" name="u4s2q9" value="C"> Octahedral</label>
+      <label><input type="radio" name="u4s2q9" value="D"> Square planar</label>
+    </div><div class="mq-exp" id="mqe-u4s2q9">SF₆: 6 bond pairs → octahedral. All bond angles 90°. S uses d orbitals. Very stable molecule.</div></div>
+    <div class="mq-qblock"><span class="mq-qnum">Q10 of 10</span><p class="mq-qtext">ClF₃ has 3 bond pairs and 2 lone pairs. Shape is:</p><div class="mq-opts">
+      <label><input type="radio" name="u4s2q10" value="A"> Trigonal planar</label>
+      <label><input type="radio" name="u4s2q10" value="B"> T-shaped</label>
+      <label><input type="radio" name="u4s2q10" value="C"> Pyramidal</label>
+      <label><input type="radio" name="u4s2q10" value="D"> Octahedral</label>
+    </div><div class="mq-exp" id="mqe-u4s2q10">5 electron pairs (trigonal bipyramidal arrangement), 2 lone pairs in equatorial positions → T-shaped. 90° and 180° bond angles (approximately). ClF₃ shape is T.</div></div>
+    <button class="mq-submit" onclick="submitMQ('u4s2',{"u4s2q1":"B","u4s2q2":"C","u4s2q3":"C","u4s2q4":"B","u4s2q5":"B","u4s2q6":"C","u4s2q7":"B","u4s2q8":"C","u4s2q9":"C","u4s2q10":"B"})">&#10003; Check Answers</button>
+    <div class="mq-result" id="mqr-u4s2"></div>
+  </div>
+</div>
 <div class="section-header" id="exercises"><span class="section-number">&#x270F;&#xFE0F;</span><h2>Exercises</h2></div>
 <ul class="exercise-list">
   <li>Use VSEPR theory to predict the shape and bond angles of: (a) PCl&#x2083;, (b) SF&#x2082;, (c) BCl&#x2083;, (d) XeF&#x2084; (hint: Xe has 2 lone pairs + 4 bonds).
@@ -754,6 +1151,66 @@
     showGate();
   },true);
 })();
+const _CA={q1:'B',q2:'B',q3:'D',q4:'C',q5:'A',q6:'C',q7:'B',q8:'A',q9:'B',q10:'A',q11:'B',q12:'A',q13:'A',q14:'B',q15:'A',q16:'B',q17:'A',q18:'A',q19:'C',q20:'A',q21:'A',q22:'B',q23:'C',q24:'C',q25:'B'};
+function submitQuiz(){
+  let s=0,t=Object.keys(_CA).length;
+  Object.entries(_CA).forEach(([q,c])=>{
+    const sel=document.querySelector('input[name="'+q+'"]:checked');
+    document.querySelectorAll('input[name="'+q+'"]').forEach(o=>{
+      if(o.value===c) o.closest('label').classList.add('correct');
+    });
+    if(sel){
+      if(sel.value===c) s++;
+      else sel.closest('label').classList.add('wrong');
+    }
+    const e=document.getElementById('e'+q.slice(1));
+    if(e) e.style.display='block';
+    document.querySelectorAll('input[name="'+q+'"]').forEach(o=>o.disabled=true);
+  });
+  const p=Math.round(s/t*100);
+  const r=document.getElementById('qR');
+  r.style.display='block';
+  r.style.background=p>=70?'rgba(52,211,153,.1)':'rgba(248,113,113,.1)';
+  r.style.border='1px solid '+(p>=70?'var(--green)':'var(--red)');
+  r.style.color=p>=70?'var(--green)':'var(--red)';
+  r.style.padding='14px 18px';r.style.borderRadius='8px';r.style.fontFamily="'JetBrains Mono',monospace";
+  r.innerHTML='Score: '+s+'/'+t+' ('+p+'%) — '+(p>=80?'🏆 Excellent!':p>=70?'✅ Good — review marked answers.':p>=50?'📚 Keep going — study the explanations.':'❌ Review all material and try again.');
+  document.querySelector('.qs').disabled=true;
+  document.querySelector('.qs').style.opacity='.5';
+}
+// ── ACCESS GATE (unit quiz) ──
+(function(){
+  const SK='quiz_access_granted',CK='quiz_access_code';
+  const gate=document.createElement('div');
+  gate.id='unit-quiz-gate';
+  gate.style.cssText='position:fixed;inset:0;background:#0d1117;z-index:99999;display:none;align-items:center;justify-content:center;padding:24px;';
+  gate.innerHTML='<div style="background:#161b22;border:2px solid rgba(245,158,11,.4);border-radius:16px;padding:48px 40px;max-width:460px;width:100%;text-align:center;"><div style="font-size:3.5rem;margin-bottom:16px;">🔒</div><h2 style="font-family:Playfair Display,serif;font-size:1.8rem;color:#fff;margin-bottom:10px;">Quiz Locked</h2><p style="color:#8b949e;font-size:.93rem;margin-bottom:24px;line-height:1.7;">Enter the access code from your teacher to unlock this quiz.</p><input id="ugc-inp" type="text" placeholder="Enter Code" maxlength="20" style="width:100%;background:#1c2333;border:2px solid #30363d;border-radius:8px;color:#e6edf3;padding:14px 18px;font-family:JetBrains Mono,monospace;font-size:1.4rem;text-align:center;letter-spacing:.2em;text-transform:uppercase;margin-bottom:12px;box-sizing:border-box;" onkeydown="if(event.key===\'Enter\')unlockUnitQuiz()"/><div id="ugc-err" style="font-family:JetBrains Mono,monospace;font-size:.82rem;color:#f87171;min-height:20px;margin-bottom:10px;"></div><button onclick="unlockUnitQuiz()" style="width:100%;background:#f59e0b;color:#000;border:none;padding:13px;border-radius:8px;font-family:JetBrains Mono,monospace;font-size:.9rem;font-weight:700;cursor:pointer;margin-bottom:10px;">🔓 Unlock Quiz</button><button onclick="document.getElementById(\'unit-quiz-gate\').style.display=\'none\';document.body.style.overflow=\'\'" style="width:100%;background:transparent;border:1px solid #30363d;color:#8b949e;padding:9px;border-radius:8px;font-family:JetBrains Mono,monospace;font-size:.8rem;cursor:pointer;">✕ Cancel</button></div>';
+  document.body.appendChild(gate);
+  window.unlockUnitQuiz=function(){
+    const v=document.getElementById('ugc-inp').value.trim().toUpperCase();
+    const c=localStorage.getItem(CK);
+    if(!v){document.getElementById('ugc-err').textContent='Enter the code.';return;}
+    if(v===c||!c){sessionStorage.setItem(SK,c||'open');document.getElementById('unit-quiz-gate').style.display='none';document.body.style.overflow='';}
+    else{document.getElementById('ugc-err').textContent='❌ Wrong code.';document.getElementById('ugc-inp').value='';}
+  };
+  window.addEventListener('DOMContentLoaded',function(){
+    const code=localStorage.getItem(CK);if(!code)return;
+    const granted=sessionStorage.getItem(SK);if(granted)return;
+    const qw=document.querySelector('.quiz-wrap');if(!qw)return;
+    qw.addEventListener('click',function(e){
+      if(!localStorage.getItem(CK))return;
+      if(sessionStorage.getItem(SK))return;
+      if(e.target.tagName==='BUTTON'||e.target.classList.contains('qs')) return;
+      e.stopPropagation();e.preventDefault();
+      document.getElementById('unit-quiz-gate').style.display='flex';
+      document.body.style.overflow='hidden';
+    },true);
+  });
+})();
+</script>
+</body>
+</html>
+
 </script>
 
 <script>
@@ -805,6 +1262,7 @@
     if(!qw) return;
     qw.addEventListener('click',function(e){
       if(!isLocked()||isGranted()) return;
+      if(e.target.tagName==='BUTTON'||e.target.classList.contains('qs')) return;
       e.stopPropagation();e.preventDefault();
       gate.style.display='flex';document.body.style.overflow='hidden';
     },true);
@@ -818,6 +1276,30 @@ function toggleAnswer(btn){
   var isOpen = ans.classList.contains('open');
   ans.classList.toggle('open', !isOpen);
   btn.textContent = isOpen ? (btn.classList.contains('rb') ? 'Model Answer' : 'Show Answer') : 'Hide Answer';
+}
+</script>
+<script>
+function submitMQ(qid,total){
+  var ak=window._MQA&&window._MQA[qid];if(!ak)return;
+  var score=0;
+  for(var i=1;i<=total;i++){
+    var sel=document.querySelector('input[name="mq'+qid+'_'+i+'"]:checked');
+    var correct=ak[i];
+    var expEl=document.getElementById('mqE'+qid+'_'+i);
+    if(expEl)expEl.style.display='block';
+    ['A','B','C','D'].forEach(function(ltr){
+      var lbl=document.getElementById('mqL'+qid+'_'+i+'_'+ltr);
+      if(!lbl)return;
+      var inp=lbl.querySelector('input');
+      if(inp)inp.disabled=true;
+      if(ltr===correct){lbl.style.background='rgba(52,211,153,.12)';lbl.style.borderColor='#34d399';lbl.style.color='#34d399';}
+      else if(sel&&sel.value===ltr&&ltr!==correct){lbl.style.background='rgba(248,113,113,.1)';lbl.style.borderColor='#f87171';lbl.style.color='#f87171';}
+    });
+    if(sel&&sel.value===correct)score++;
+  }
+  var pct=Math.round(score/total*100);
+  var r=document.getElementById('mqRES'+qid);
+  if(r){r.style.display='block';r.style.background=pct>=70?'rgba(52,211,153,.1)':'rgba(248,113,113,.1)';r.style.border='1px solid '+(pct>=70?'#34d399':'#f87171');r.style.color=pct>=70?'#34d399':'#f87171';r.textContent='Score: '+score+'/'+total+' ('+pct+'%) — '+(pct>=80?'🏆 Excellent!':pct>=70?'✅ Good':pct>=50?'📚 Review the notes':'❌ Re-read this section');}
 }
 </script>
 </body>
