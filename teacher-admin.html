@@ -953,172 +953,39 @@ table.results tr:hover td{background:rgba(255,255,255,.02);}
 
 <script>
 // ══════════ PASSWORD ══════════
-// ── Password Reset System ──
-var _resetCode = '';
-var _loginAttempts = 0;
 
-function showLoginView(){
-  document.getElementById('ls-login').style.display='block';
-  document.getElementById('ls-reset').style.display='none';
-}
-function showResetView(){
-  document.getElementById('ls-login').style.display='none';
-  document.getElementById('ls-reset').style.display='block';
-  document.getElementById('ls-reset-verify').style.display='none';
-  document.getElementById('ls-new-pwd').style.display='none';
-  document.getElementById('reset-msg').textContent='';
-}
-
-async function sendResetCode(){
-  var btn = document.getElementById('send-code-btn');
-  var msg = document.getElementById('reset-msg');
-  btn.disabled = true;
-  msg.style.color = 'var(--muted)';
-  msg.textContent = 'Sending code...';
-
-  // Generate 6-digit code
-  _resetCode = Math.floor(100000 + Math.random() * 900000).toString();
-
-  // Get EmailJS settings
-  var s = JSON.parse(localStorage.getItem('notif_settings')||'{}');
-  var pubKey = s.ejPubKey||'';
-  var serviceId = s.ejService||'';
-  var templateId = s.ejTemplate||'';
-
-  if(!pubKey||!serviceId||!templateId){
-    msg.style.color='var(--red)';
-    msg.textContent='EmailJS not configured. Code: '+_resetCode+' (write it down!)';
-    document.getElementById('ls-reset-verify').style.display='block';
-    btn.disabled=false;
-    return;
-  }
-
-  try{
-    emailjs.init(pubKey);
-    await emailjs.send(serviceId, templateId, {
-      to_email: 'hajackson2020@gmail.com',
-      subject: 'Teacher Admin — Password Reset Code',
-      message: 'Your password reset code is: ' + _resetCode + '\n\nThis code expires in 10 minutes.\n\n— Chemistry Portal',
-      from_name: 'Chemistry Portal'
-    });
-    msg.style.color='var(--green)';
-    msg.textContent='✅ Code sent to hajackson2020@gmail.com — check your inbox.';
-    document.getElementById('ls-reset-verify').style.display='block';
-  }catch(e){
-    // Fallback: show code directly if email fails
-    msg.style.color='var(--orange)';
-    msg.textContent='Email failed. Reset code: '+_resetCode+' (write it down!)';
-    document.getElementById('ls-reset-verify').style.display='block';
-  }
-  btn.disabled=false;
-}
-
-function verifyResetCode(){
-  var entered = (document.getElementById('reset-code-input').value||'').trim();
-  var msg = document.getElementById('verify-msg');
-  if(!_resetCode){msg.style.color='var(--red)';msg.textContent='Send the code first.';return;}
-  if(entered===_resetCode){
-    msg.style.color='var(--green)';
-    msg.textContent='✅ Code correct. Set your new password:';
-    document.getElementById('ls-new-pwd').style.display='block';
-    document.getElementById('reset-code-input').disabled=true;
+function doLogin(){
+  var v = (document.getElementById('pwd-input').value||'').trim();
+  var custom = localStorage.getItem('ta_custom_pwd')||'';
+  var correct = 'chem'+'istry'+'2024';
+  if(v === correct || v === 'CHEM2026' || (custom && v === custom)){
+    document.getElementById('lock-screen').style.display = 'none';
+    document.body.style.overflow = '';
+    try{ init(); } catch(e){ console.error(e); }
   } else {
-    msg.style.color='var(--red)';
-    msg.textContent='❌ Wrong code. Try again.';
+    var err = document.getElementById('pwd-error');
+    if(err) err.style.display = 'block';
+    document.getElementById('pwd-input').value = '';
+    document.getElementById('pwd-input').focus();
   }
 }
 
-function saveNewPassword(){
-  var p1 = (document.getElementById('new-pwd-input').value||'').trim();
-  var p2 = (document.getElementById('new-pwd-confirm').value||'').trim();
-  var msg = document.getElementById('verify-msg');
-  if(p1.length<6){msg.style.color='var(--red)';msg.textContent='Password must be at least 6 characters.';return;}
-  if(p1!==p2){msg.style.color='var(--red)';msg.textContent='Passwords do not match.';return;}
-  // Save new password as split array (obfuscated)
-  var parts=[p1.substring(0,4),p1.substring(4,8),p1.substring(8)];
-  localStorage.setItem('custom_pwd', JSON.stringify(parts));
-  msg.style.color='var(--green)';
-  msg.textContent='✅ Password changed! Logging in...';
-  setTimeout(function(){
-    sessionStorage.setItem('ta_unlocked','1');
-    localStorage.setItem('teacher_downloads_unlocked','true');
-    window.location.reload();
-  },1500);
-}
+function checkPwd(){ doLogin(); }
 
-function checkPwd(){
-  var v=(document.getElementById('pwd-input').value||'').trim();
-  // Check custom saved password first
-  var customParts=JSON.parse(localStorage.getItem('custom_pwd')||'null');
-  var customPwd=customParts?customParts.join(''):'';
-  var defaultOk=(v==='chem'+'istry'+'2024'||v==='CHEM2026');
-  var customOk=customPwd&&v===customPwd;
-  var ok=defaultOk||customOk;
-  if(ok){
-    _loginAttempts=0;
-    sessionStorage.setItem('ta_unlocked','1');
-    localStorage.setItem('teacher_downloads_unlocked','true');
-    window.location.reload();
-  } else {
-    _loginAttempts++;
-    var er=document.getElementById('pwd-error');
-    if(er) er.style.display='block';
-    // Show attempts warning after 2 wrong tries
-    if(_loginAttempts>=2){
-      var att=document.getElementById('pwd-attempts');
-      if(att){att.style.display='block';att.textContent=_loginAttempts+' failed attempts. Use "Forgot password?" to reset.';}
-    }
-    var inp=document.getElementById('pwd-input');
-    if(inp) inp.value='';
-  }
-}
-  var v=(document.getElementById('pwd-input').value||'').trim();
-  var ok=(v==='chem'+'istry'+'2024'||v==='CHEM2026');
-  if(ok){
-    sessionStorage.setItem('ta_unlocked','1');
-    localStorage.setItem('teacher_downloads_unlocked','true');
-    window.location.reload();
-  } else {
-    var er=document.getElementById('pwd-error');
-    if(er){ er.style.display='block'; er.textContent='Incorrect password. Try again.'; }
-    var inp=document.getElementById('pwd-input');
-    if(inp) inp.value='';
-  }
-}
 function changePwd(){
-  const cur=document.getElementById('cur-pwd').value;
-  const nw=document.getElementById('new-pwd').value;
-  const nw2=document.getElementById('new-pwd2').value;
-  var customParts=JSON.parse(localStorage.getItem('custom_pwd')||'null');
-  var customPwd=customParts?customParts.join(''):'chem'+'istry'+'2024';
-  const s=localStorage.getItem('admin_pwd')||customPwd;
-  const m=document.getElementById('pwd-change-msg');
-  if(cur!==s){m.style.color='var(--red)';m.textContent='❌ Current password incorrect.';return;}
-  if(nw.length<6){m.style.color='var(--red)';m.textContent='❌ Min 6 characters.';return;}
-  if(nw!==nw2){m.style.color='var(--red)';m.textContent='❌ Passwords do not match.';return;}
-  localStorage.setItem('admin_pwd',nw);
-  m.style.color='var(--green)';m.textContent='✅ Password updated.';
+  var cur = (document.getElementById('cur-pwd')||{}).value||'';
+  var nw  = (document.getElementById('new-pwd')||{}).value||'';
+  var nw2 = (document.getElementById('new-pwd2')||{}).value||'';
+  var m   = document.getElementById('pwd-change-msg');
+  var current = localStorage.getItem('ta_custom_pwd')||'chem'+'istry'+'2024';
+  if(cur!==current){if(m){m.style.color='var(--red)';m.textContent='❌ Current password incorrect.';}return;}
+  if(nw.length<6){if(m){m.style.color='var(--red)';m.textContent='❌ Min 6 characters.';}return;}
+  if(nw!==nw2){if(m){m.style.color='var(--red)';m.textContent='❌ Passwords do not match.';}return;}
+  localStorage.setItem('ta_custom_pwd',nw);
+  if(m){m.style.color='var(--green)';m.textContent='✅ Password updated.';}
 }
 
-// ══════════ TABS ══════════
-function showTab(id,btn){
-  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-  document.getElementById('tab-'+id).classList.add('active');
-  btn.classList.add('active');
-  if(id==='myexams') renderExamsList();
-  if(id==='results'){fetchCloudResults().then(()=>renderResults());}
-  if(id==='settings'){
-    document.getElementById('student-link').textContent=window.location.href.replace('teacher-admin.html','student-exam.html');
-    loadNotifSettings();
-    loadApiKey();
-    showAccessCodeStatus();
-  }
-  if(id==='activity') setTimeout(initActivityTab,50);
-  if(id==='publish-quiz') setTimeout(pqLoadUnits,50);
-}
 
-// ══════════ QUESTION BUILDER ══════════
 let qCount=0;
 function addQuestion(q){
   qCount++;
@@ -3819,6 +3686,1016 @@ function deletePE(id){
 }
 
 </script>
+</body>
+</html>
+  <div class="tab-panel" id="tab-downloads">
+    <h2 style="font-family:'Playfair Display',serif;margin-bottom:6px;">⬇ Downloads Manager</h2>
+    <p style="color:var(--muted);font-size:.88rem;margin-bottom:16px;">Generate access codes for students who have paid. Each code unlocks specific content on the Downloads page.</p>
+
+    <!-- TEACHER UNLOCK DOWNLOADS -->
+    <div style="background:rgba(52,211,153,.07);border:1px solid rgba(52,211,153,.25);border-radius:10px;padding:18px 20px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+      <div>
+        <strong style="color:#fff;display:block;margin-bottom:4px;">🔓 Teacher Download Access</strong>
+        <p style="color:var(--muted);font-size:.84rem;">Click this button to unlock all downloads on the Downloads page for your browser. Students still need to pay.</p>
+        <div id="dl-unlock-msg" style="font-family:'JetBrains Mono',monospace;font-size:.75rem;margin-top:6px;"></div>
+      </div>
+      <div style="display:flex;gap:10px;flex-direction:column;align-items:flex-end;">
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button onclick="teacherUnlockDownloads()" style="background:var(--green);color:#000;border:none;padding:10px 18px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.82rem;font-weight:700;cursor:pointer;white-space:nowrap;">🔓 Unlock</button>
+          <button onclick="teacherLockDownloads()" style="background:var(--red);color:#fff;border:none;padding:10px 18px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.82rem;font-weight:700;cursor:pointer;white-space:nowrap;">🔒 Lock</button>
+        </div>
+        <a href="downloads.html" target="_blank" style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--accent);text-decoration:none;">→ Open Downloads Page ↗</a>
+      </div>
+    </div>
+
+    <!-- HOW TO CHECK PAYMENTS -->
+    <div style="background:var(--surface2);border:1px solid rgba(56,189,248,.2);border-radius:10px;padding:18px 20px;margin-bottom:20px;">
+      <strong style="color:#fff;display:block;margin-bottom:10px;">💡 How to verify a student has paid</strong>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:.84rem;color:var(--muted);">
+        <div style="background:rgba(52,211,153,.06);border:1px solid rgba(52,211,153,.15);border-radius:8px;padding:12px;">
+          <strong style="color:var(--green);display:block;margin-bottom:6px;">📱 MTN MoMo check</strong>
+          Open your phone → check MTN MoMo SMS or dial <strong style="color:#fff;">*182#</strong> → check recent transactions → confirm the amount and sender match what the student told you.
+        </div>
+        <div style="background:rgba(56,189,248,.06);border:1px solid rgba(56,189,248,.15);border-radius:8px;padding:12px;">
+          <strong style="color:var(--accent);display:block;margin-bottom:6px;">💳 PawaPay check</strong>
+          If using PawaPay, log into <a href="https://dashboard.pawapay.io" target="_blank" style="color:var(--accent);">dashboard.pawapay.io</a> → Payments → see all confirmed payments with student phone number and amount.
+        </div>
+      </div>
+      <div style="margin-top:12px;font-size:.83rem;color:var(--muted);">
+        Once confirmed → use the <strong style="color:#fff;">Generate Access Code</strong> section below → send the code to the student via WhatsApp → they enter it on the Downloads page to unlock.
+      </div>
+    </div>
+
+    <!-- PENDING WHATSAPP PAYMENTS -->
+    <div style="background:var(--surface2);border:1px solid rgba(245,158,11,.2);border-radius:10px;padding:18px 20px;margin-bottom:20px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
+        <strong style="color:#fff;">📥 Students Who Requested Payment Confirmation</strong>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--muted);">(sent to you via WhatsApp)</span>
+      </div>
+      <div style="font-size:.83rem;color:var(--muted);margin-bottom:12px;">
+        When a student clicks "Pay via WhatsApp" on the Downloads page, they send you a WhatsApp message. 
+        After you verify payment on your phone, quickly generate their code here:
+      </div>
+      <div style="background:rgba(13,17,23,.5);border:1px solid var(--border);border-radius:8px;padding:14px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--muted);margin-bottom:10px;">QUICK GENERATE — enter student name and select what they paid for:</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+          <input type="text" id="quick-student" placeholder="Student name (from WhatsApp)" 
+                 style="flex:1;min-width:160px;background:var(--surface);border:1px solid var(--border);border-radius:6px;color:#fff;padding:8px 12px;font-family:'JetBrains Mono',monospace;font-size:.8rem;"/>
+          <select id="quick-item" style="flex:1;min-width:160px;background:var(--surface);border:1px solid var(--border);border-radius:6px;color:#fff;padding:8px 10px;font-family:'JetBrains Mono',monospace;font-size:.78rem;">
+            <option value="BUNDLE-S4">S4 Complete Course — 1,000 RWF</option>
+            <option value="BUNDLE-S5">S5 Complete Course — 1,000 RWF</option>
+            <option value="BUNDLE-S6">S6 Complete Course — 1,000 RWF</option>
+            <option value="ALL">All S4+S5+S6 — 3,000 RWF</option>
+            <option value="S4-U1">S4 Unit 1 — 300 RWF</option>
+            <option value="S5-U1">S5 Unit 1 — 300 RWF</option>
+            <option value="S6-U1">S6 Unit 1 — 300 RWF</option>
+          </select>
+          <button onclick="quickGenCode()" style="background:var(--orange);color:#000;border:none;padding:8px 16px;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:.78rem;font-weight:700;cursor:pointer;white-space:nowrap;">⚡ Generate & Send</button>
+        </div>
+        <div id="quick-result" style="display:none;margin-top:12px;background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.2);border-radius:7px;padding:12px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--muted);margin-bottom:4px;">ACCESS CODE:</div>
+          <div id="quick-code" style="font-family:'JetBrains Mono',monospace;font-size:1.3rem;color:var(--green);font-weight:700;margin-bottom:10px;"></div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <button onclick="copyQuickCode()" style="background:var(--green);color:#000;border:none;padding:6px 14px;border-radius:5px;font-family:'JetBrains Mono',monospace;font-size:.75rem;font-weight:700;cursor:pointer;">📋 Copy</button>
+            <a id="quick-wa" href="#" target="_blank" style="background:#25D366;color:#fff;padding:6px 14px;border-radius:5px;font-family:'JetBrains Mono',monospace;font-size:.75rem;font-weight:700;text-decoration:none;">📱 Send via WhatsApp</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MTN MoMo Number -->
+    <div style="background:var(--surface2);border:1px solid rgba(232,197,71,.25);border-radius:10px;padding:18px 20px;margin-bottom:20px;">
+      <label style="color:var(--gold);font-size:.78rem;">YOUR MTN MOMO NUMBER (shown to students on payment page)</label>
+      <input type="text" id="dl-momo" placeholder="+250 788 800 375" value="+250 788 800 375"
+             style="margin-top:6px;background:var(--surface);border:1px solid var(--border);border-radius:7px;color:#fff;padding:10px 14px;font-family:'JetBrains Mono',monospace;font-size:.9rem;width:100%;"/>
+      <button onclick="saveMomoNumber()" style="margin-top:10px;background:var(--gold);color:#000;border:none;padding:8px 18px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:.8rem;font-weight:700;cursor:pointer;">💾 Save Number</button>
+    </div>
+
+    <!-- Generate Access Code -->
+    <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:20px;">
+      <h3 style="color:#fff;margin-bottom:14px;font-size:1rem;">🔑 Generate Access Code for a Student</h3>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+        <div>
+          <label>Content to Unlock</label>
+          <select id="dl-item" style="width:100%;background:var(--surface);border:1px solid var(--border);border-radius:6px;color:#fff;padding:9px 12px;font-family:'JetBrains Mono',monospace;font-size:.82rem;">
+            <optgroup label="── Bundles ──">
+              <option value="BUNDLE-S4">S4 Complete Bundle (all 18 units)</option>
+              <option value="BUNDLE-S5">S5 Complete Bundle (all 15 units)</option>
+              <option value="BUNDLE-S6">S6 Complete Bundle (all 15 units)</option>
+              <option value="ALL">Ultimate Bundle (S4 + S5 + S6 everything)</option>
+            </optgroup>
+            <optgroup label="── S4 Individual Units ──">
+              <option value="S4-Unit1">S4 Unit 1 — Atomic Structure</option>
+              <option value="S4-Unit2">S4 Unit 2 — Electronic Configuration</option>
+              <option value="S4-Unit3">S4 Unit 3 — Chemical Bonding</option>
+              <option value="S4-Unit4">S4 Unit 4 — The Mole Concept</option>
+              <option value="S4-Unit5">S4 Unit 5 — Acids, Bases & Salts</option>
+              <option value="S4-Unit6">S4 Unit 6 — Redox Reactions</option>
+              <option value="S4-Unit7">S4 Unit 7 — Periodic Table</option>
+              <option value="S4-Unit8">S4 Unit 8 — Chemical Kinetics</option>
+              <option value="S4-Unit9">S4 Unit 9 — Thermochemistry</option>
+              <option value="S4-Unit10">S4 Unit 10 — Electrochemistry</option>
+              <option value="S4-Unit11">S4 Unit 11 — Organic Intro</option>
+              <option value="S4-Unit12">S4 Unit 12 — Hydrocarbons</option>
+              <option value="S4-Unit13">S4 Unit 13 — Functional Groups</option>
+              <option value="S4-Unit14">S4 Unit 14 — Polymers</option>
+              <option value="S4-Unit15">S4 Unit 15 — Industrial Chemistry</option>
+              <option value="S4-Unit16">S4 Unit 16 — Environmental Chemistry</option>
+              <option value="S4-Unit17">S4 Unit 17 — Analytical Chemistry</option>
+              <option value="S4-Unit18">S4 Unit 18 — Energy Changes</option>
+            </optgroup>
+            <optgroup label="── S5 Individual Units ──">
+              <option value="S5-Unit1">S5 Unit 1 — Organic Chemistry Intro</option>
+              <option value="S5-Unit2">S5 Unit 2 — Alkanes</option>
+              <option value="S5-Unit3">S5 Unit 3 — Alkenes & Alkynes</option>
+              <option value="S5-Unit4">S5 Unit 4 — Halogenoalkanes</option>
+              <option value="S5-Unit5">S5 Unit 5 — Alcohols & Ethers</option>
+              <option value="S5-Unit6">S5 Unit 6 — Carbonyl Compounds</option>
+              <option value="S5-Unit7">S5 Unit 7 — Carboxylic Acids</option>
+              <option value="S5-Unit8">S5 Unit 8 — Esters & Amides</option>
+              <option value="S5-Unit9">S5 Unit 9 — Amines & Amino Acids</option>
+              <option value="S5-Unit10">S5 Unit 10 — Phase Diagrams</option>
+              <option value="S5-Unit11">S5 Unit 11 — Solutions & Titration</option>
+              <option value="S5-Unit12">S5 Unit 12 — Conductivity</option>
+              <option value="S5-Unit13">S5 Unit 13 — Electrolysis</option>
+              <option value="S5-Unit14">S5 Unit 14 — Enthalpy</option>
+              <option value="S5-Unit15">S5 Unit 15 — Entropy & Free Energy</option>
+            </optgroup>
+            <optgroup label="── S6 Individual Units ──">
+              <option value="S6-Unit1">S6 Unit 1 — Transition Metals</option>
+              <option value="S6-Unit2">S6 Unit 2 — Extraction of Metals</option>
+              <option value="S6-Unit3">S6 Unit 3 — Fertilisers</option>
+              <option value="S6-Unit4">S6 Unit 4 — Benzene</option>
+              <option value="S6-Unit5">S6 Unit 5 — Benzene Derivatives</option>
+              <option value="S6-Unit6">S6 Unit 6 — Polymers</option>
+              <option value="S6-Unit7">S6 Unit 7 — Colligative Properties</option>
+              <option value="S6-Unit8">S6 Unit 8 — Chemical Equilibrium</option>
+              <option value="S6-Unit9">S6 Unit 9 — pH & Buffers</option>
+              <option value="S6-Unit10">S6 Unit 10 — Indicators & Titration</option>
+              <option value="S6-Unit11">S6 Unit 11 — Solubility Product</option>
+              <option value="S6-Unit12">S6 Unit 12 — Electrochemical Cells</option>
+              <option value="S6-Unit13">S6 Unit 13 — Reaction Rates</option>
+              <option value="S6-Unit14">S6 Unit 14 — Rate Laws</option>
+              <option value="S6-Unit15">S6 Unit 15 — Radioactivity</option>
+            </optgroup>
+          </select>
+        </div>
+        <div>
+          <label>Student Name (for your records)</label>
+          <input type="text" id="dl-student" placeholder="e.g. Amina Uwase"
+                 style="width:100%;background:var(--surface);border:1px solid var(--border);border-radius:6px;color:#fff;padding:9px 12px;font-family:'JetBrains Mono',monospace;font-size:.82rem;"/>
+        </div>
+      </div>
+      <button onclick="generateCode()" style="background:var(--green);color:#000;border:none;padding:10px 24px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:.85rem;font-weight:700;cursor:pointer;">🔑 Generate Access Code</button>
+
+      <div id="dl-code-result" style="display:none;margin-top:16px;background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.25);border-radius:8px;padding:16px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);margin-bottom:6px;">ACCESS CODE TO SEND TO STUDENT:</div>
+        <div id="dl-code-text" style="font-family:'JetBrains Mono',monospace;font-size:1.4rem;color:var(--green);font-weight:700;letter-spacing:.05em;margin-bottom:12px;"></div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <button onclick="copyDlCode()" style="background:var(--green);color:#000;border:none;padding:7px 16px;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:.78rem;font-weight:700;cursor:pointer;">📋 Copy Code</button>
+          <a id="dl-wa-send" href="#" target="_blank" style="background:#25D366;color:#fff;padding:7px 16px;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:.78rem;font-weight:700;text-decoration:none;">📱 Send via WhatsApp</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- All Generated Codes -->
+    <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:20px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+        <h3 style="color:#fff;font-size:1rem;">📋 All Generated Codes</h3>
+        <button onclick="renderDlCodes()" style="background:var(--surface);border:1px solid var(--border);color:var(--muted);padding:5px 12px;border-radius:5px;font-family:'JetBrains Mono',monospace;font-size:.72rem;cursor:pointer;">🔄 Refresh</button>
+      </div>
+      <div id="dl-codes-list" style="font-family:'JetBrains Mono',monospace;font-size:.8rem;"></div>
+    </div>
+  </div><!-- LOCK SCREEN -->
+<div id="lock-screen" style="position:fixed;inset:0;background:#0d1117;z-index:99999;display:flex;align-items:center;justify-content:center;">
+  <div style="background:#161b22;border:1px solid #30363d;border-radius:14px;padding:40px;max-width:360px;width:90%;text-align:center;">
+    <div style="font-size:2.5rem;margin-bottom:10px;">🔐</div>
+    <h2 style="color:#fff;margin-bottom:6px;font-family:'Playfair Display',serif;">Teacher Admin Portal</h2>
+    <p style="color:#8b949e;font-size:.9rem;margin-bottom:20px;">Enter your admin password</p>
+    <input type="password" id="pwd-input" placeholder="Password"
+      style="width:100%;background:#1c2333;border:2px solid #30363d;border-radius:8px;color:#fff;padding:12px 16px;font-size:1rem;margin-bottom:12px;box-sizing:border-box;"
+      onkeydown="if(event.key==='Enter')doLogin()"/>
+    <button onclick="doLogin()"
+      style="width:100%;background:#38bdf8;color:#000;border:none;padding:12px;border-radius:8px;font-size:.95rem;font-weight:700;cursor:pointer;">
+      🔓 Unlock
+    </button>
+    <p id="pwd-error" style="color:#f87171;margin-top:10px;font-size:.85rem;display:none;">Incorrect password.</p>
+  </div>
+</div>
+
+<script>
+function doLogin(){
+  var v = (document.getElementById('pwd-input').value||'').trim();
+  var saved = localStorage.getItem('ta_custom_pwd');
+  var ok = (v === 'chemistry2024' || v === 'CHEM2026' || (saved && v === saved));
+  if(ok){
+    document.getElementById('lock-screen').style.display = 'none';
+    document.body.style.overflow = '';
+    try{ init(); } catch(e){ location.reload(); }
+  } else {
+    document.getElementById('pwd-error').style.display = 'block';
+    document.getElementById('pwd-input').value = '';
+    document.getElementById('pwd-input').focus();
+  }
+}
+// Show lock screen
+document.body.style.overflow = 'hidden';
+document.getElementById('pwd-input').focus();
+</script>
+
+<script>
+(function(){
+  if(sessionStorage.getItem('ta_unlocked')!=='1'){
+    document.getElementById('lock-screen').style.display='flex';
+    document.getElementById('lock-screen').style.alignItems='center';
+    document.getElementById('lock-screen').style.justifyContent='center';
+    document.getElementById('lock-screen').style.minHeight='100vh';
+    document.getElementById('lock-screen').style.background='var(--bg,#0d1117)';
+  } else {
+    // Already authenticated - init the admin
+    document.addEventListener('DOMContentLoaded', function(){
+      try{ init(); } catch(e){ console.error('Admin init error:',e); }
+    });
+  }
+})();
+</script>
+
+
+<nav>
+  <div class="nav-inner">
+    <a class="nav-brand" href="index.html">⚗ Jackson Habimana</a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="s4-chemistry.html">S4</a>
+      <a href="s5-chemistry.html">S5</a>
+      <a href="s6-chemistry.html">S6</a>
+      <a href="student-quiz.html">Take Quiz</a><a href="student-hub.html">Student Hub</a>
+      <a href="teacher-admin.html" class="active">Admin</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page">
+  <h1 class="page-title">🎓 Teacher Admin Panel</h1>
+  <p class="page-sub">Create exams, manage results, control access, and monitor student performance.</p>
+
+  <!-- STAT CARDS -->
+  <div class="stat-grid" id="stat-grid">
+    <div class="stat-card"><div class="stat-val" id="stat-questions" style="color:var(--orange);">0</div><div class="stat-lbl">Quiz Questions</div></div>
+    <div class="stat-card"><div class="stat-val" id="stat-exams" style="color:var(--blue);">0</div><div class="stat-lbl">Published Exams</div></div>
+    <div class="stat-card"><div class="stat-val" id="stat-students" style="color:var(--purple);">0</div><div class="stat-lbl">Students</div></div>
+    <div class="stat-card"><div class="stat-val" id="stat-attempts" style="color:var(--accent);">0</div><div class="stat-lbl">Quiz Attempts</div></div>
+    <div class="stat-card"><div class="stat-val" id="stat-avg" style="color:var(--green);">0%</div><div class="stat-lbl">Average Score</div></div>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="showTab('create',this)">✏️ Create Exam</button>
+    <button class="tab-btn" onclick="showTab('myexams',this)">📋 My Exams</button>
+    <button class="tab-btn" onclick="showTab('results',this)">📊 Student Results</button>
+    <button class="tab-btn" onclick="showTab('import',this)">📥 Import</button>
+    <button class="tab-btn" onclick="showTab('settings',this)">⚙️ Settings</button>
+    <button class="tab-btn" onclick="showTab('activity',this)">📝 Quiz Activity</button>
+    <button class="tab-btn" onclick="showTab('publish-quiz',this)">📚 Publish Quiz</button>
+    <button class="tab-btn" onclick="showTab('resources',this)">🔗 Links & Files</button>
+    <button class="tab-btn" onclick="showTab('downloads',this)">⬇ Downloads</button>
+    <a href="lock-manager.html" class="tab-btn" style="text-decoration:none;">🔒 Lock Manager</a>
+  </div>
+
+  <!-- ═══ CREATE ═══ -->
+  <div class="tab-panel active" id="tab-create">
+    <div class="card">
+      <h2>Create New Exam / Quiz / Test</h2>
+      <div id="create-alert" class="alert"></div>
+      <div class="form-row">
+        <div><label>Exam Title *</label><input type="text" id="exam-title" placeholder="e.g. S4 Unit 3 Test – Ionic Bonding"/></div>
+        <div><label>Subject / Class</label><input type="text" id="exam-subject" placeholder="e.g. S4 Chemistry"/></div>
+      </div>
+      <div class="form-row3">
+        <div><label>Type</label><select id="exam-type"><option>Quiz</option><option>Test</option><option>Exam</option><option>Assignment</option></select></div>
+        <div><label>Time Limit (minutes)</label><input type="number" id="exam-time" value="30" min="1" max="240"/></div>
+        <div><label>Passing Score (%)</label><input type="number" id="exam-pass" value="50" min="1" max="100"/></div>
+      </div>
+      <div class="form-row">
+        <div><label>Max Cheat Warnings Before Auto-Submit</label><input type="number" id="exam-warnings" value="3" min="1" max="10"/></div>
+        <div><label>Instructions (optional)</label><input type="text" id="exam-instructions" placeholder="e.g. Answer all questions. No calculators."/></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Questions</h2>
+      <div id="questions-container"></div>
+      <button class="btn btn-ghost" onclick="addQuestion()">+ Add Question</button>
+    </div>
+
+    <div style="display:flex;gap:12px;flex-wrap:wrap;">
+      <button class="btn btn-success" onclick="publishExam()">🌐 Publish Exam (Get Student Code)</button>
+        <a href="exam-import.html" class="btn btn-ghost" style="text-decoration:none;">📋 Advanced Import Tool →</a>
+      <button class="btn btn-primary" onclick="saveExamLocal()">💾 Save Locally (No Internet)</button>
+      <button class="btn btn-ghost" onclick="clearForm()">🗑 Clear</button>
+    </div>
+
+    <!-- CODE RESULT -->
+    <div id="code-result" style="display:none;">
+      <div class="code-box">
+        <p style="color:var(--green);font-family:'JetBrains Mono',monospace;font-size:.75rem;text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;">✅ Exam Published! Copy this FULL CODE and share with students:</p>
+        <div class="code" id="exam-code-display" style="font-size:1rem;letter-spacing:.08em;word-break:break-all;padding:12px;">------</div>
+        <p style="color:var(--muted);font-size:.78rem;margin-top:6px;">⚠️ Students must paste this <strong style="color:#fff;">entire code</strong> (not just the last 6 digits) into student-exam.html</p>
+        <p>Students go to <strong style="color:#fff;">student-exam.html</strong> and paste this full code to start.</p>
+        <p style="margin-top:8px;font-size:.78rem;color:var(--orange);">This is the full exam ID — students paste the whole thing. Results will appear automatically in your Results tab.</p>
+        <div style="display:flex;gap:10px;justify-content:center;margin-top:14px;flex-wrap:wrap;">
+          <button class="btn btn-ghost btn-sm" onclick="copyCode()">📋 Copy Code</button>
+          <button class="btn btn-ghost btn-sm" onclick="downloadExamJSON()">⬇ Also Download JSON</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ MY EXAMS ═══ -->
+  <div class="tab-panel" id="tab-myexams">
+    <div class="card">
+      <h2>Saved Exams</h2>
+      <p style="color:var(--muted);font-size:.88rem;margin-bottom:18px;">Published exams get a <strong style="color:var(--green);">6-digit code</strong> students can enter directly. You can also download the JSON file to share manually.</p>
+      <div id="exams-list"><p style="color:var(--muted);">No exams yet. Create one above.</p></div>
+    </div>
+  </div>
+
+  <!-- ═══ RESULTS ═══ -->
+  <div class="tab-panel" id="tab-results">
+    <div class="card">
+      <h2 style="margin-bottom:20px;">📊 Student Results</h2>
+
+      <!-- RESULT STATS -->
+      <div class="results-stats" id="results-summary">
+        <div class="rs-card"><div class="rs-val" id="rs-attempts" style="color:var(--accent);">0</div><div class="rs-lbl">Attempts</div></div>
+        <div class="rs-card"><div class="rs-val" id="rs-students" style="color:var(--purple);">0</div><div class="rs-lbl">Students</div></div>
+        <div class="rs-card"><div class="rs-val" id="rs-avg" style="color:var(--orange);">0%</div><div class="rs-lbl">Average</div></div>
+        <div class="rs-card"><div class="rs-val" id="rs-gradeA" style="color:var(--green);">0</div><div class="rs-lbl">Grade A</div></div>
+        <div class="rs-card"><div class="rs-val" id="rs-gradeB" style="color:var(--blue);">0</div><div class="rs-lbl">Grade B</div></div>
+        <div class="rs-card"><div class="rs-val" id="rs-gradeC" style="color:var(--orange);">0</div><div class="rs-lbl">Grade C</div></div>
+        <div class="rs-card"><div class="rs-val" id="rs-gradeD" style="color:var(--red);">0</div><div class="rs-lbl">Grade D/F</div></div>
+        <div class="rs-card"><div class="rs-val" id="rs-violations" style="color:var(--red);">0</div><div class="rs-lbl">Violations</div></div>
+      </div>
+
+      <!-- FILTER BAR -->
+      <div class="filter-bar">
+        <select id="filter-exam" onchange="renderResults()" style="margin-bottom:0;">
+          <option value="">All Topics / Exams</option>
+        </select>
+        <select id="filter-score" onchange="renderResults()" style="margin-bottom:0;">
+          <option value="">All Scores</option>
+          <option value="A">Grade A (80–100%)</option>
+          <option value="B">Grade B (70–79%)</option>
+          <option value="C">Grade C (60–69%)</option>
+          <option value="D">Grade D (50–59%)</option>
+          <option value="F">Grade F (&lt;50%)</option>
+          <option value="pass">Passed Only</option>
+          <option value="fail">Failed Only</option>
+        </select>
+        <input type="text" id="filter-name" placeholder="🔍 Search by name..." oninput="renderResults()" style="margin-bottom:0;"/>
+      </div>
+
+      <!-- ACTION BUTTONS -->
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">
+        <button class="btn btn-primary btn-sm" onclick="refreshFromCloud()">☁️ Refresh from Cloud</button>
+        <button class="btn btn-success btn-sm" onclick="downloadCSV()">⬇️ Download CSV (Excel)</button>
+        <button class="btn btn-danger btn-sm" onclick="clearResults()">🗑 Clear All Results</button>
+      </div>
+
+      <!-- RESULTS TABLE -->
+      <div id="results-container"><p style="color:var(--muted);">No results yet. Click ☁️ Refresh from Cloud to load.</p></div>
+    </div>
+  </div>
+
+
+  <!-- ═══ QUIZ ACTIVITY RESULTS ═══ -->
+  <div class="tab-panel" id="tab-activity">
+    <div class="card">
+      <h2>📝 Quiz Activity Tracker</h2>
+      <p style="color:var(--muted);font-size:.88rem;margin-bottom:20px;">
+        Students' quiz attempts from unit pages are saved here. First create an Activity Bin, then share the Class Code with your students.
+      </p>
+
+      <!-- Setup section -->
+      <div id="activity-setup" style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:22px;margin-bottom:24px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--accent);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px;">Step 1 — Setup</div>
+        <div id="activity-bin-status" style="margin-bottom:14px;"></div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <button class="btn btn-primary" onclick="createActivityBin()">🗄️ Create Activity Bin</button>
+          <button class="btn" onclick="showActivityCode()" id="show-code-btn" style="display:none;">📋 Show Class Code</button>
+        </div>
+        <div id="activity-code-box" style="display:none;margin-top:16px;background:var(--bg);border:1px solid var(--accent);border-radius:8px;padding:16px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--muted);margin-bottom:6px;">CLASS CODE — Share this with ALL your students:</div>
+          <div id="activity-code-text" style="font-family:'JetBrains Mono',monospace;font-size:1rem;color:var(--accent);word-break:break-all;margin-bottom:10px;"></div>
+          <button class="btn btn-sm" onclick="copyActivityCode()">📋 Copy Code</button>
+          <p style="margin-top:10px;font-size:.78rem;color:var(--orange);">Students enter this code once on any unit page. After that, every quiz attempt is automatically saved here.</p>
+        </div>
+      </div>
+
+      <!-- Filters -->
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;align-items:center;">
+        <input type="text" id="act-filter-name" placeholder="🔍 Filter by student name..." oninput="renderActivity()" style="flex:1;min-width:160px;"/>
+        <select id="act-filter-unit" onchange="renderActivity()" style="min-width:140px;">
+          <option value="">All Units</option>
+          <option value="S4">S4</option>
+          <option value="S5">S5</option>
+          <option value="S6">S6</option>
+        </select>
+        <select id="act-filter-type" onchange="renderActivity()" style="min-width:140px;">
+          <option value="">All Types</option>
+          <option value="quiz">Quick Quiz</option>
+          <option value="unit-quiz">Unit Quiz</option>
+          <option value="test">Unit Test</option>
+        </select>
+        <button class="btn btn-sm" onclick="refreshActivity()">🔄 Refresh</button>
+        <button class="btn btn-danger btn-sm" onclick="clearActivityResults()">🗑 Clear</button>
+        <button class="btn btn-sm" onclick="exportActivityCSV()">⬇️ Export CSV</button>
+      </div>
+
+      <!-- Summary stats -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin-bottom:20px;" id="act-stats">
+        <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:14px;text-align:center;">
+          <div id="act-stat-students" style="font-size:1.5rem;font-weight:700;color:var(--accent);">0</div>
+          <div style="font-size:.72rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">STUDENTS</div>
+        </div>
+        <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:14px;text-align:center;">
+          <div id="act-stat-attempts" style="font-size:1.5rem;font-weight:700;color:#34d399;">0</div>
+          <div style="font-size:.72rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">ATTEMPTS</div>
+        </div>
+        <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:14px;text-align:center;">
+          <div id="act-stat-avg" style="font-size:1.5rem;font-weight:700;color:#f59e0b;">0%</div>
+          <div style="font-size:.72rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">AVG SCORE</div>
+        </div>
+        <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:14px;text-align:center;">
+          <div id="act-stat-pass" style="font-size:1.5rem;font-weight:700;color:#a78bfa;">0%</div>
+          <div style="font-size:.72rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">PASS RATE</div>
+        </div>
+      </div>
+
+      <!-- Results table -->
+      <div id="act-results-container" style="overflow-x:auto;">
+        <table style="width:100%;border-collapse:collapse;font-size:.85rem;">
+          <thead>
+            <tr style="background:var(--surface2);font-family:'JetBrains Mono',monospace;font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;">
+              <th style="padding:10px 14px;text-align:left;color:var(--muted);border-bottom:1px solid var(--border);">Student</th>
+              <th style="padding:10px 14px;text-align:left;color:var(--muted);border-bottom:1px solid var(--border);">Unit / Topic</th>
+              <th style="padding:10px 14px;text-align:left;color:var(--muted);border-bottom:1px solid var(--border);">Type</th>
+              <th style="padding:10px 14px;text-align:center;color:var(--muted);border-bottom:1px solid var(--border);">Score</th>
+              <th style="padding:10px 14px;text-align:center;color:var(--muted);border-bottom:1px solid var(--border);">%</th>
+              <th style="padding:10px 14px;text-align:left;color:var(--muted);border-bottom:1px solid var(--border);">Date</th>
+            </tr>
+          </thead>
+          <tbody id="act-results-body">
+            <tr><td colspan="6" style="text-align:center;padding:30px;color:var(--muted);">No activity yet. Create a bin and share the Class Code with students.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ PUBLISH UNIT QUIZ AS EXAM ═══ -->
+  <div class="tab-panel" id="tab-publish-quiz">
+    <div class="card">
+      <h2>📚 Publish a Unit Quiz as Exam</h2>
+      <p style="color:var(--muted);font-size:.88rem;margin-bottom:24px;">
+        Select any S4 unit quiz and publish it directly to the cloud. Students get a code to attempt it in the exam portal — with full tracking, timer, and cheat detection.
+      </p>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;">
+        <div>
+          <label>Course</label>
+          <select id="pq-course" onchange="pqLoadUnits()" style="margin-bottom:0;">
+            <option value="S4">S4 Chemistry</option>
+            <option value="S5">S5 Chemistry</option>
+            <option value="S6">S6 Chemistry</option>
+          </select>
+        </div>
+        <div>
+          <label>Unit / Quiz</label>
+          <select id="pq-unit" style="margin-bottom:0;">
+            <option value="">— Select a unit —</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="pq-preview" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:20px;display:none;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--accent);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;">Quiz Preview</div>
+        <div id="pq-preview-title" style="font-size:1rem;color:#fff;font-weight:600;margin-bottom:4px;"></div>
+        <div id="pq-preview-info" style="font-size:.82rem;color:var(--muted);"></div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:20px;">
+        <div>
+          <label>Time Limit (minutes)</label>
+          <input type="number" id="pq-time" value="30" min="5" max="180" style="margin-bottom:0;"/>
+        </div>
+        <div>
+          <label>Pass Mark (%)</label>
+          <input type="number" id="pq-pass" value="50" min="1" max="100" style="margin-bottom:0;"/>
+        </div>
+        <div>
+          <label>Max Warnings</label>
+          <input type="number" id="pq-warn" value="3" min="1" max="10" style="margin-bottom:0;"/>
+        </div>
+      </div>
+
+      <div style="margin-bottom:20px;">
+        <label>Instructions (optional)</label>
+        <textarea id="pq-instructions" rows="2" placeholder="e.g. This is a closed-book quiz. No calculators." style="margin-bottom:0;resize:vertical;"></textarea>
+      </div>
+
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <button class="btn btn-success" onclick="publishUnitQuiz()">🌐 Publish Quiz as Exam</button>
+        <button class="btn" onclick="pqPreview()">👁 Preview Questions</button>
+      </div>
+
+      <div id="pq-alert" class="alert" style="margin-top:14px;"></div>
+
+      <div id="pq-code-box" style="display:none;margin-top:20px;background:var(--bg);border:2px solid var(--green);border-radius:10px;padding:20px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--green);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;">✅ Quiz Published! Share this code with students:</div>
+        <div id="pq-code-text" style="font-family:'JetBrains Mono',monospace;font-size:.88rem;color:#fff;word-break:break-all;background:var(--surface2);padding:12px 16px;border-radius:6px;margin-bottom:12px;border:1px solid var(--border);"></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button class="btn btn-primary" onclick="copyPqCode()">📋 Copy Code</button>
+          <a id="pq-exam-link" href="student-exam.html" target="_blank" class="btn" style="text-decoration:none;">🔗 Open Student Exam Page</a>
+        </div>
+        <p style="margin-top:10px;font-size:.78rem;color:var(--orange);">Students go to the Student Exam page and paste this full code to start.</p>
+      </div>
+    </div>
+
+    <!-- Questions preview modal area -->
+    <div id="pq-questions-list" style="display:none;" class="card">
+      <h3 style="margin-bottom:16px;">Questions Preview</h3>
+      <div id="pq-ql-body"></div>
+    </div>
+  </div>
+
+  <!-- ═══ LINKS & FILES ═══ -->
+  <div class="tab-panel" id="tab-resources">
+    <div class="card">
+      <h2>🔗 Share External Links with Students</h2>
+      <p style="color:var(--muted);font-size:.88rem;margin-bottom:20px;">
+        Paste any URL (online quiz, video, article, Google Form, etc.) and give it a title. 
+        Students see all your links on the Student Hub page.
+      </p>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+        <div>
+          <label>Link Title</label>
+          <input type="text" id="link-title" placeholder="e.g. Organic Chemistry Quiz — Alkanes"/>
+        </div>
+        <div>
+          <label>Category</label>
+          <select id="link-cat" style="margin-bottom:0;">
+            <option value="S4">S4 Resource</option>
+            <option value="S5">S5 Resource</option>
+            <option value="S6">S6 Resource</option>
+            <option value="Video">Video Lesson</option>
+            <option value="Quiz">External Quiz</option>
+            <option value="Notes">Extra Notes</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+      </div>
+      <label>Full URL</label>
+      <input type="text" id="link-url" placeholder="https://chemistry.coach/organic-chemistry-1/reactions-of-alkanes/quiz/3"/>
+      <label>Description (optional)</label>
+      <input type="text" id="link-desc" placeholder="e.g. Practice quiz on reactions of alkanes — attempt before class"/>
+      <button class="btn btn-primary" onclick="addLink()" style="margin-bottom:0;">➕ Add Link</button>
+      <div id="link-msg" style="font-family:'JetBrains Mono',monospace;font-size:.8rem;margin-top:8px;"></div>
+    </div>
+
+    <div class="card">
+      <h2>📄 Upload Files for Students</h2>
+      <p style="color:var(--muted);font-size:.88rem;margin-bottom:20px;">
+        Upload a PDF, Word document, or any file. It will be encoded and stored so students 
+        can download it directly from the Student Hub.
+      </p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+        <div>
+          <label>File Title</label>
+          <input type="text" id="file-title" placeholder="e.g. S5 Unit 3 Past Paper 2023"/>
+        </div>
+        <div>
+          <label>Category</label>
+          <select id="file-cat" style="margin-bottom:0;">
+            <option value="S4">S4 Resource</option>
+            <option value="S5">S5 Resource</option>
+            <option value="S6">S6 Resource</option>
+            <option value="Exam Paper">Exam Paper</option>
+            <option value="Notes">Extra Notes</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+      </div>
+      <label>Select File (PDF, Word, Excel, Image — max 2MB)</label>
+      <div class="drop-zone" id="file-drop" onclick="document.getElementById('file-inp').click()"
+           ondragover="event.preventDefault();this.classList.add('drag-over')"
+           ondragleave="this.classList.remove('drag-over')"
+           ondrop="event.preventDefault();this.classList.remove('drag-over');handleFileDrop(event.dataTransfer.files[0])">
+        <div style="font-size:2rem;margin-bottom:8px;">📂</div>
+        <strong style="color:var(--text);">Click to browse or drag & drop</strong>
+        <p style="color:var(--muted);font-size:.82rem;margin-top:4px;">PDF · Word (.docx) · Excel · Images · max 2 MB</p>
+        <input type="file" id="file-inp" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.jpg,.jpeg,.png,.gif" style="display:none;" onchange="handleFileSelect(this.files[0])"/>
+      </div>
+      <div id="file-preview" style="display:none;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:14px 16px;margin-top:12px;">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span id="file-icon" style="font-size:1.8rem;">📄</span>
+          <div>
+            <div id="file-name-preview" style="font-family:'JetBrains Mono',monospace;font-size:.85rem;color:#fff;"></div>
+            <div id="file-size-preview" style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);"></div>
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-success" onclick="uploadFile()" style="margin-top:12px;margin-bottom:0;">📤 Save File for Students</button>
+      <div id="file-msg" style="font-family:'JetBrains Mono',monospace;font-size:.8rem;margin-top:8px;"></div>
+    </div>
+
+    <div class="card" style="border-color:rgba(245,158,11,.35);">
+      <h2>📝 Upload Exam Paper + Answer Key</h2>
+      <p style="color:var(--muted);font-size:.88rem;margin-bottom:20px;">
+        Upload your exam paper (PDF/Word) and enter the answer key. Students view the paper and submit answers on this portal — results appear automatically in <strong style="color:#fff;">Student Results</strong>.
+      </p>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div>
+          <label>Exam Title *</label>
+          <input type="text" id="pe-title" placeholder="e.g. S4 Chemistry End of Term Exam"/>
+        </div>
+        <div>
+          <label>Class / Level *</label>
+          <select id="pe-level" style="margin-bottom:0;">
+            <option value="S4">S4</option>
+            <option value="S5">S5</option>
+            <option value="S6">S6</option>
+            <option value="Mixed">Mixed</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:4px;">
+        <div>
+          <label>Number of Questions *</label>
+          <input type="number" id="pe-qcount" min="1" max="100" value="20" style="margin-bottom:0;"/>
+        </div>
+        <div>
+          <label>Time Limit (minutes)</label>
+          <input type="number" id="pe-time" min="5" max="180" value="60" style="margin-bottom:0;"/>
+        </div>
+      </div>
+
+      <div style="margin-top:16px;">
+        <label>Answer Key * <span style="color:var(--muted);font-weight:400;">(comma-separated, e.g. A,B,C,D,A,B,C,D...)</span></label>
+        <input type="text" id="pe-answers" placeholder="A,B,C,D,A,C,B,D,A,B,C,A,D,B,C,A,B,D,C,A" style="font-family:'JetBrains Mono',monospace;letter-spacing:.05em;text-transform:uppercase;"/>
+        <div id="pe-answers-preview" style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);margin-top:-10px;margin-bottom:10px;"></div>
+      </div>
+
+      <label>Upload Exam Paper File (PDF or Word — students will see and download this)</label>
+      <div class="drop-zone" id="pe-drop" onclick="document.getElementById('pe-file-inp').click()"
+           ondragover="event.preventDefault();this.classList.add('drag-over')"
+           ondragleave="this.classList.remove('drag-over')"
+           ondrop="event.preventDefault();this.classList.remove('drag-over');handlePEFile(event.dataTransfer.files[0])">
+        <div style="font-size:2rem;margin-bottom:6px;">📄</div>
+        <strong style="color:var(--text);">Click to upload exam paper</strong>
+        <p style="color:var(--muted);font-size:.82rem;margin-top:4px;">PDF or Word (.docx) recommended · max 5 MB</p>
+        <input type="file" id="pe-file-inp" accept=".pdf,.doc,.docx" style="display:none;" onchange="handlePEFile(this.files[0])"/>
+      </div>
+      <div id="pe-file-preview" style="display:none;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin-top:10px;">
+        <span id="pe-file-icon" style="font-size:1.5rem;margin-right:8px;">📄</span>
+        <span id="pe-file-name" style="font-family:'JetBrains Mono',monospace;font-size:.85rem;color:#fff;"></span>
+        <span id="pe-file-size" style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);margin-left:8px;"></span>
+      </div>
+
+      <button class="btn btn-orange" onclick="publishPaperExam()" style="margin-top:14px;margin-bottom:4px;">🚀 Publish Paper Exam → Students Can Now Attempt It</button>
+      <div id="pe-msg" style="font-family:'JetBrains Mono',monospace;font-size:.8rem;margin-top:6px;"></div>
+    </div>
+
+    <div class="card">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px;">
+        <h2 style="margin-bottom:0;">📋 Your Links & Files</h2>
+        <div style="display:flex;gap:8px;">
+          <select id="res-filter" onchange="renderResources()" style="width:auto;margin-bottom:0;font-family:'JetBrains Mono',monospace;font-size:.78rem;padding:6px 12px;">
+            <option value="">All Categories</option>
+            <option value="S4">S4</option>
+            <option value="S5">S5</option>
+            <option value="S6">S6</option>
+            <option value="Video">Videos</option>
+            <option value="Quiz">Quizzes</option>
+            <option value="Exam Paper">Exam Papers</option>
+          </select>
+          <button class="btn btn-ghost btn-sm" onclick="clearAllResources()">🗑 Clear All</button>
+        </div>
+      </div>
+      <div id="resources-list"><p style="color:var(--muted);">No links or files added yet.</p></div>
+    </div>
+  </div>
+
+  <!-- ═══ IMPORT ═══ -->
+  <div class="tab-panel" id="tab-import">
+    <div class="card">
+      <h2>Import Student Result Files</h2>
+      <p style="color:var(--muted);font-size:.88rem;margin-bottom:20px;">If students used the offline (JSON file) method, they download a result file. Upload those files here.</p>
+      <div class="drop-zone" id="drop-zone" onclick="document.getElementById('result-file-input').click()">
+        <div style="font-size:2.5rem;">📂</div>
+        <strong style="color:var(--text);">Click or drag & drop result files here</strong>
+        <p style="color:var(--muted);margin-top:6px;">Accepts <code>.json</code> result files</p>
+        <input type="file" id="result-file-input" accept=".json" multiple style="display:none;" onchange="importResults(this.files)"/>
+      </div>
+      <div id="import-log" style="margin-top:16px;"></div>
+    </div>
+  </div>
+
+  <!-- ═══ SETTINGS ═══ -->
+  <div class="tab-panel" id="tab-settings">
+
+    <!-- JSONBIN SETUP -->
+    <div class="card" style="border-color:rgba(52,211,153,.3);">
+      <h2>☁️ Cloud Storage Setup (Required for Exam Codes)</h2>
+      <p style="color:var(--muted);font-size:.88rem;margin-bottom:20px;">To publish exams with a code that students enter, you need a <strong style="color:#fff;">free JSONBin.io API key</strong>. This is what stores your exam in the cloud so students can retrieve it by code.</p>
+      <div class="setup-step">
+        <strong>Step 1:</strong> Go to <a href="https://jsonbin.io" target="_blank" style="color:var(--accent);">jsonbin.io</a> → click <strong>Sign Up Free</strong> (free account, no credit card)<br>
+        <strong>Step 2:</strong> After login, click your profile → <strong>API Keys</strong> → copy your <strong>Master Key</strong><br>
+        <strong>Step 3:</strong> Paste it below and click <strong>Save Key</strong>
+      </div>
+      <div class="form-row">
+        <div><label>JSONBin Master API Key</label><input type="text" id="jsonbin-key" placeholder="$2b$10$xxxxxxxxxxxxxxxxxxxx..."/></div>
+        <div style="display:flex;align-items:flex-end;padding-bottom:16px;gap:8px;">
+          <button class="btn btn-success" onclick="saveApiKey()">💾 Save Key</button>
+          <button class="btn btn-ghost btn-sm" onclick="testApiKey()">🧪 Test</button>
+          <span id="api-test-msg" style="font-family:'JetBrains Mono',monospace;font-size:.75rem;"></span>
+        </div>
+      </div>
+      <p style="color:var(--muted);font-size:.78rem;">✅ Free tier: 10,000 requests/month. Keys stored only in your browser.</p>
+      <div id="results-bin-info" style="margin-top:12px;display:none;background:rgba(56,189,248,.06);border:1px solid rgba(56,189,248,.2);border-radius:7px;padding:12px 16px;font-size:.83rem;color:var(--muted);">
+        <strong style="color:var(--accent);">📊 Results are automatically collected</strong><br>
+        When students submit quizzes, tests, or exams, results are saved to your JSONBin account. Click <strong style="color:#fff;">☁️ Refresh from Cloud</strong> in the Results tab to pull all results from any device.
+      </div>
+      <div id="dir-bin-info" style="margin-top:12px;display:none;">
+        <div style="background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.25);border-radius:7px;padding:12px 16px;font-size:.82rem;">
+          <strong style="color:var(--green);">📁 Exam Directory Bin ID:</strong><br>
+          <span id="dir-bin-id" style="font-family:JetBrains Mono,monospace;color:var(--accent);font-size:.78rem;"></span><br>
+          <small style="color:var(--muted);">Students only need the 6-digit code you share with them. This is handled automatically.</small>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACCESS CODE -->
+    <div class="card" style="border-color:rgba(245,158,11,.35);">
+      <h2>🔑 Student Access Code</h2>
+      <p style="color:var(--muted);font-size:.88rem;margin-bottom:18px;">Set a code that students must enter before attempting any quiz, test, or exam — including inside course units. Share the code (or the auto-generated link) with students.</p>
+
+      <!-- STEP 1: SET CODE -->
+      <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:18px 20px;margin-bottom:16px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--orange);margin-bottom:12px;">Step 1 — Set Your Code</div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;">
+          <div style="flex:1;min-width:180px;">
+            <label>Access Code</label>
+            <input type="text" id="access-code-input" placeholder="e.g. CHEM2024" maxlength="20" style="font-family:'JetBrains Mono',monospace;font-size:1.3rem;letter-spacing:.12em;text-transform:uppercase;" oninput="this.value=this.value.toUpperCase();updateCodeLink()"/>
+          </div>
+          <div style="padding-bottom:16px;display:flex;gap:8px;">
+            <button class="btn btn-orange" onclick="saveAccessCode()">💾 Save Code</button>
+            <button class="btn btn-danger btn-sm" onclick="clearAccessCode()">🔓 Remove</button>
+          </div>
+        </div>
+        <div id="access-code-msg" style="font-family:'JetBrains Mono',monospace;font-size:.82rem;margin-top:4px;"></div>
+      </div>
+
+      <!-- STEP 2: SHARE -->
+      <div id="access-code-status" style="display:none;background:rgba(245,158,11,.08);border:2px solid rgba(245,158,11,.3);border-radius:8px;padding:20px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:14px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--orange);">🔒 Lock Active — Share ONE of these with students:</div>
+        </div>
+
+        <div style="margin-bottom:14px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--muted);margin-bottom:6px;">OPTION A — Share just the code (students enter it manually):</div>
+          <div style="background:#0d1117;border:1px solid var(--border);border-radius:6px;padding:14px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:2rem;font-weight:700;color:var(--orange);letter-spacing:.25em;" id="code-big-display">----</div>
+        </div>
+
+        <div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--muted);margin-bottom:6px;">OPTION B — Share this link (students click it, no manual entry needed):</div>
+          <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+            <div style="flex:1;background:#0d1117;border:1px solid var(--border);border-radius:6px;padding:10px 14px;font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--accent);word-break:break-all;cursor:pointer;" id="code-link-display" onclick="copyCodeLink()">Loading...</div>
+            <button class="btn btn-ghost btn-sm" onclick="copyCodeLink()">📋 Copy Link</button>
+          </div>
+          <div id="copy-link-msg" style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--green);margin-top:6px;"></div>
+        </div>
+      </div>
+
+      <div style="margin-top:14px;background:rgba(13,17,23,.5);border:1px solid var(--border);border-radius:7px;padding:14px 16px;font-size:.83rem;color:var(--muted);">
+        <strong style="color:#fff;">🔒 What gets locked:</strong> Unit quizzes · Challenge Quizzes · Practice Tests · Exam Papers · Student Quiz · Student Hub<br>
+        <strong style="color:#fff;">✅ Still open:</strong> Course notes and lessons — students can still study without a code
+      </div>
+    </div>
+
+    <!-- PASSWORD -->
+    <div class="card">
+      <h2>Change Admin Password</h2>
+      <div style="max-width:400px;">
+        <label>Current Password</label><input type="password" id="cur-pwd" placeholder="Current password"/>
+        <label>New Password</label><input type="password" id="new-pwd" placeholder="New password"/>
+        <label>Confirm New Password</label><input type="password" id="new-pwd2" placeholder="Confirm"/>
+        <button class="btn btn-primary" onclick="changePwd()">🔐 Update Password</button>
+        <div id="pwd-change-msg" style="margin-top:10px;font-size:.85rem;"></div>
+      </div>
+    </div>
+
+    <!-- NOTIFICATIONS -->
+    <div class="card" style="border-color:rgba(248,113,113,.3);">
+      <h2>🚨 Cheat Alert Notifications</h2>
+      <p style="color:var(--muted);font-size:.88rem;margin-bottom:20px;">
+        When a student cheats, they instantly see a full-screen warning. You also receive an alert on your email and WhatsApp.
+      </p>
+
+      <!-- HOW IT WORKS -->
+      <div style="background:rgba(248,113,113,.07);border:1px solid rgba(248,113,113,.2);border-radius:10px;padding:18px 20px;margin-bottom:20px;">
+        <strong style="color:var(--red);font-family:'JetBrains Mono',monospace;font-size:.78rem;text-transform:uppercase;letter-spacing:.1em;">How it works</strong>
+        <ol style="margin:10px 0 0 18px;line-height:2.2;font-size:.88rem;color:var(--muted);">
+          <li>Student switches tab / opens another window → <strong style="color:#fff;">instantly blocked</strong></li>
+          <li>Big red warning covers their screen: <em>"CHEATING DETECTED — your teacher has been notified"</em></li>
+          <li>You receive an alert on <strong style="color:#fff;">email</strong> AND <strong style="color:#fff;">WhatsApp</strong> within seconds</li>
+          <li>After 3 violations → <strong style="color:var(--red);">exam auto-submits</strong></li>
+        </ol>
+      </div>
+
+      <!-- EMAIL SETUP -->
+      <div style="background:var(--surface2);border:1px solid rgba(232,197,71,.25);border-radius:10px;padding:20px;margin-bottom:16px;">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+          <span style="font-size:1.4rem;">📧</span>
+          <strong style="color:#fff;font-size:1rem;">Email Alerts (Gmail)</strong>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:.68rem;background:rgba(52,211,153,.12);color:var(--green);border:1px solid rgba(52,211,153,.25);padding:2px 10px;border-radius:50px;">FREE</span>
+        </div>
+        <div style="background:rgba(56,189,248,.06);border:1px solid rgba(56,189,248,.15);border-radius:8px;padding:14px 16px;margin-bottom:14px;font-size:.85rem;">
+          <strong style="color:var(--accent);display:block;margin-bottom:8px;">⚡ Quick Setup (3 minutes):</strong>
+          <ol style="margin-left:18px;line-height:2.1;color:var(--muted);">
+            <li>Go to <a href="https://emailjs.com" target="_blank" style="color:var(--accent);">emailjs.com</a> → <strong style="color:#fff;">Sign Up Free</strong></li>
+            <li>Click <strong style="color:#fff;">Email Services</strong> → <strong style="color:#fff;">Add New Service</strong> → choose <strong style="color:#fff;">Gmail</strong> → connect your Gmail account → copy the <strong style="color:var(--orange);">Service ID</strong></li>
+            <li>Click <strong style="color:#fff;">Email Templates</strong> → <strong style="color:#fff;">Create New Template</strong> → set Subject to <code>🚨 Cheat Alert — {{student_name}}</code> and Body to <code>{{message}}</code> → Save → copy the <strong style="color:var(--orange);">Template ID</strong></li>
+            <li>Click your account name (top right) → <strong style="color:#fff;">Account</strong> → copy the <strong style="color:var(--orange);">Public Key</strong></li>
+            <li>Paste all three below and click Save</li>
+          </ol>
+        </div>
+        <div class="form-row">
+          <div>
+            <label>EmailJS Public Key</label>
+            <input type="text" id="ej-pubkey" placeholder="user_aBcDeFgH..." oninput="saveNotifSettings()"/>
+          </div>
+          <div>
+            <label>Service ID</label>
+            <input type="text" id="ej-service" placeholder="service_xxxxxxx" oninput="saveNotifSettings()"/>
+          </div>
+        </div>
+        <div class="form-row">
+          <div>
+            <label>Template ID</label>
+            <input type="text" id="ej-template" placeholder="template_xxxxxxx" oninput="saveNotifSettings()"/>
+          </div>
+          <div>
+            <label>Your Email Address</label>
+            <input type="text" id="ej-email" placeholder="hajackson2020@gmail.com" oninput="saveNotifSettings()"/>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+          <button class="btn btn-ghost btn-sm" onclick="testEmail()">📤 Send Test Email</button>
+          <span id="ej-test-msg" style="font-family:'JetBrains Mono',monospace;font-size:.75rem;"></span>
+        </div>
+      </div>
+
+      <!-- WHATSAPP SETUP — Green API (works in Rwanda) -->
+      <div style="background:var(--surface2);border:1px solid rgba(52,211,153,.25);border-radius:10px;padding:20px;margin-bottom:16px;">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+          <span style="font-size:1.4rem;">📱</span>
+          <strong style="color:#fff;font-size:1rem;">WhatsApp Alerts (Green API)</strong>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:.68rem;background:rgba(52,211,153,.12);color:var(--green);border:1px solid rgba(52,211,153,.25);padding:2px 10px;border-radius:50px;">FREE · Works in Rwanda</span>
+        </div>
+
+        <div style="background:rgba(52,211,153,.06);border:1px solid rgba(52,211,153,.15);border-radius:8px;padding:16px;margin-bottom:16px;font-size:.85rem;">
+          <strong style="color:var(--green);display:block;margin-bottom:10px;">⚡ Setup (5 minutes — one time only):</strong>
+          <ol style="margin-left:18px;line-height:2.4;color:var(--muted);">
+            <li>Go to <a href="https://green-api.com" target="_blank" style="color:var(--accent);">green-api.com</a> → click <strong style="color:#fff;">Get Started Free</strong> → Sign up with Google</li>
+            <li>After login → click <strong style="color:#fff;">Create Instance</strong> → choose <strong style="color:#fff;">Developer (Free)</strong></li>
+            <li>A QR code appears → open WhatsApp on your phone → tap <strong style="color:#fff;">⋮ Menu → Linked Devices → Link a Device</strong> → scan the QR code</li>
+            <li>Your instance status turns <strong style="color:var(--green);">green (Authorized)</strong></li>
+            <li>Copy your <strong style="color:var(--orange);">Instance ID</strong> (e.g. <code style="background:rgba(255,255,255,.06);padding:1px 6px;border-radius:3px;">1101234567</code>) and <strong style="color:var(--orange);">API Token</strong> (long string)</li>
+            <li>Paste them below → click <strong style="color:#fff;">💾 Save</strong> → click <strong style="color:#fff;">📤 Send Test</strong></li>
+          </ol>
+        </div>
+
+        <div class="form-row">
+          <div>
+            <label>Green API Instance ID</label>
+            <input type="text" id="wa-instance" placeholder="e.g. 1101234567" oninput="saveNotifSettings()"/>
+          </div>
+          <div>
+            <label>Green API Token</label>
+            <input type="text" id="wa-token" placeholder="Paste your API token here" oninput="saveNotifSettings()"/>
+          </div>
+        </div>
+        <div class="form-row" style="margin-top:-8px;">
+          <div>
+            <label>Your WhatsApp Number (with country code)</label>
+            <input type="text" id="wa-phone" placeholder="+250788800375" oninput="saveNotifSettings()"/>
+          </div>
+          <div>
+            <label>CallMeBot API Key (optional backup)</label>
+            <input type="text" id="wa-apikey" placeholder="If you have it from CallMeBot" oninput="saveNotifSettings()"/>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+          <button class="btn btn-ghost btn-sm" onclick="testWhatsApp()">📤 Send Test WhatsApp</button>
+          <span id="wa-test-msg" style="font-family:'JetBrains Mono',monospace;font-size:.75rem;"></span>
+        </div>
+      </div>
+
+      <!-- PAWAPAY PAYMENT GATEWAY -->
+      <div style="background:var(--surface2);border:1px solid rgba(232,197,71,.25);border-radius:10px;padding:20px;margin-bottom:16px;">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+          <span style="font-size:1.4rem;">💳</span>
+          <strong style="color:#fff;font-size:1rem;">PawaPay — Automatic Mobile Money</strong>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:.68rem;background:rgba(232,197,71,.1);color:var(--gold);border:1px solid rgba(232,197,71,.2);padding:2px 10px;border-radius:50px;">For Downloads Page</span>
+        </div>
+        <div style="background:rgba(232,197,71,.06);border:1px solid rgba(232,197,71,.15);border-radius:8px;padding:14px 16px;margin-bottom:14px;font-size:.84rem;color:var(--muted);">
+          <strong style="color:var(--gold);display:block;margin-bottom:8px;">⚡ Setup (one time):</strong>
+          <ol style="margin-left:18px;line-height:2.4;">
+            <li>Go to <a href="https://cloudflare.com" target="_blank" style="color:var(--accent);">cloudflare.com</a> → Sign up free → Dashboard → <strong style="color:#fff;">Workers &amp; Pages</strong> → <strong style="color:#fff;">Create</strong> → <strong style="color:#fff;">Create Worker</strong></li>
+            <li>Delete all the default code → paste the <strong style="color:var(--gold);">cloudflare-worker.js</strong> file contents → click <strong style="color:#fff;">Deploy</strong></li>
+            <li>Click <strong style="color:#fff;">Settings → Variables</strong> → Add variable: Name = <code style="background:rgba(0,0,0,.3);padding:2px 6px;border-radius:4px;">PAWAPAY_TOKEN</code> Value = your PawaPay API token → Save</li>
+            <li>Copy the Worker URL (e.g. <code style="background:rgba(0,0,0,.3);padding:2px 6px;border-radius:4px;">https://pawapay-proxy.yourname.workers.dev</code>) → paste below → Save</li>
+          </ol>
+          <p style="margin-top:8px;color:var(--green);">✅ Free plan: 100,000 requests/day — more than enough for students downloading.</p>
+        </div>
+        <label>Cloudflare Worker URL</label>
+        <input type="text" id="pawapay-key" placeholder="https://pawapay-proxy.YOUR-NAME.workers.dev" style="font-family:'JetBrains Mono',monospace;"/>
+
+        <div style="margin-top:14px;">
+          <label>Cloudflare Worker URL <span style="color:var(--muted);font-weight:400;text-transform:none;font-size:.75rem;">(from cloudflare.com → Workers)</span></label>
+          <input type="text" id="worker-url" placeholder="https://chem-payments.YOUR-NAME.workers.dev" style="font-family:'JetBrains Mono',monospace;font-size:.8rem;"/>
+        </div>
+
+        <div style="display:flex;gap:8px;align-items:center;margin-top:10px;flex-wrap:wrap;">
+          <button onclick="savePawaPay()" style="background:var(--gold);color:#000;border:none;padding:9px 20px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:.82rem;font-weight:700;cursor:pointer;">💾 Save All</button>
+          <button onclick="testPawaPay()" style="background:var(--surface);color:var(--muted);border:1px solid var(--border);padding:9px 16px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:.8rem;cursor:pointer;">🧪 Test Connection</button>
+          <span id="pp-msg" style="font-family:'JetBrains Mono',monospace;font-size:.76rem;"></span>
+        </div>
+      </div>
+
+      <!-- TELEGRAM (optional) -->
+      <div style="background:var(--surface2);border:1px solid rgba(56,189,248,.2);border-radius:10px;padding:20px;margin-bottom:16px;">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+          <span style="font-size:1.4rem;">✈️</span>
+          <strong style="color:#fff;font-size:1rem;">Telegram Alerts (Optional)</strong>
+        </div>
+        <div class="form-row">
+          <div><label>Bot Token</label><input type="text" id="tg-token" placeholder="7512345678:AAH..." oninput="saveNotifSettings()"/></div>
+          <div><label>Chat ID</label><input type="text" id="tg-chatid" placeholder="123456789" oninput="saveNotifSettings()"/></div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <button class="btn btn-ghost btn-sm" onclick="testTelegram()">📤 Test Telegram</button>
+          <span id="tg-test-msg" style="font-family:'JetBrains Mono',monospace;font-size:.75rem;margin-left:8px;"></span>
+        </div>
+      </div>
+
+      <!-- TOGGLE NOTIFICATIONS -->
+      <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:16px 20px;">
+        <strong style="color:#fff;display:block;margin-bottom:12px;">What triggers a notification?</strong>
+        <div style="display:flex;gap:24px;flex-wrap:wrap;">
+          <label style="display:flex;align-items:center;gap:10px;cursor:pointer;text-transform:none;font-size:.9rem;letter-spacing:0;margin-bottom:0;">
+            <input type="checkbox" id="notif-cheat" onchange="saveNotifSettings()" style="width:auto;accent-color:var(--red);margin-bottom:0;" checked/>
+            <span>🚨 <strong style="color:var(--red);">Student cheats</strong> — tab switch / window blur</span>
+          </label>
+          <label style="display:flex;align-items:center;gap:10px;cursor:pointer;text-transform:none;font-size:.9rem;letter-spacing:0;margin-bottom:0;">
+            <input type="checkbox" id="notif-submit" onchange="saveNotifSettings()" style="width:auto;accent-color:var(--green);margin-bottom:0;" checked/>
+            <span>✅ <strong style="color:var(--green);">Student submits</strong> exam</span>
+          </label>
+        </div>
+      </div>
+
+      <div id="notif-save-msg" style="font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--green);margin-top:10px;"></div>
+    </div>
+
+    <!-- STUDENT LINK -->
+    <div class="card">
+      <h2>Student Exam Link</h2>
+      <p style="color:var(--muted);font-size:.88rem;margin-bottom:12px;">Share this link with students. They enter the exam code you give them.</p>
+      <div class="link-box" onclick="copyLink(this)" id="student-link">Loading...</div>
+      <p style="font-size:.75rem;color:var(--muted);margin-top:6px;">Click to copy</p>
+    </div>
+
+    <!-- HOW IT WORKS -->
+    <div class="card">
+      <h2>How the Exam Code System Works</h2>
+      <ol style="margin-left:20px;line-height:2.4;color:var(--muted);font-size:.9rem;">
+        <li>Set up your <strong style="color:#fff;">JSONBin API key</strong> once (Settings tab above) — takes 2 minutes.</li>
+        <li>Create an exam and click <strong style="color:var(--green);">🌐 Publish Exam</strong> → exam is saved to the cloud → you get a <strong style="color:var(--green);">6-digit code</strong>.</li>
+        <li>Share the <strong style="color:var(--green);">code</strong> with students (write on board, send via WhatsApp, etc.).</li>
+        <li>Students go to <strong style="color:var(--accent);">student-exam.html</strong>, enter the code → exam loads automatically.</li>
+        <li>Students complete the exam → submit → results are sent directly to your <strong style="color:#fff;">Results tab</strong> (cloud-saved) AND via Telegram/email notification.</li>
+        <li>View all results, see violations, download CSV report.</li>
+      </ol>
+      <p style="color:var(--orange);font-size:.85rem;margin-top:14px;">⚠️ No internet? Use <strong>💾 Save Locally</strong> instead — downloads a JSON file to share manually.</p>
+    </div>
+  </div>
+</div>
+
+
 </body>
 </html>
   <div class="tab-panel" id="tab-downloads">
