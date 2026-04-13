@@ -80,7 +80,7 @@ textarea{min-height:72px;}
 </nav>
 <div class="hero">
   <h1>📋 Jackson's Lesson Plan Generator</h1>
-  <p>Fill in your lesson details — Jackson generates objectives, materials, activities and references in the official Rwanda REB format.</p>
+  <p>For any subject — Biology, Chemistry, Physics, Mathematics, English and more. Jackson generates objectives, materials, activities and references in the official Rwanda REB format.</p>
 </div>
 
 <div class="wrap" id="formWrap">
@@ -89,13 +89,37 @@ textarea{min-height:72px;}
   <div class="card-hd">🏫 School & Teacher</div>
   <div class="g2">
     <div class="field"><label>School Name</label><input id="schoolName" placeholder="e.g. E.S. MUDASOMWA"/></div>
-    <div class="field"><label>Teacher's Name</label><input id="teacherName" value="Jackson Habimana"/></div>
+    <div class="field"><label>Teacher's Name</label><input id="teacherName" placeholder="e.g. Jackson Habimana"/></div>
   </div>
   <div class="g4">
     <div class="field"><label>Term</label><input id="term" placeholder="Term 2"/></div>
     <div class="field"><label>Date</label><input id="lessonDate" type="date"/></div>
-    <div class="field"><label>Subject</label><input id="subject" value="Chemistry"/></div>
-    <div class="field"><label>Class</label><input id="cls" placeholder="S5 PCB"/></div>
+    <div class="field"><label>Subject</label>
+<select id="subject">
+  <option value="Chemistry">Chemistry</option>
+  <option value="Biology">Biology</option>
+  <option value="Physics">Physics</option>
+  <option value="Mathematics">Mathematics</option>
+  <option value="English">English</option>
+  <option value="Kinyarwanda">Kinyarwanda</option>
+  <option value="French">French</option>
+  <option value="History">History</option>
+  <option value="Geography">Geography</option>
+  <option value="Economics">Economics</option>
+  <option value="Entrepreneurship">Entrepreneurship</option>
+  <option value="Computer Science">Computer Science</option>
+  <option value="Religious Studies (CRE)">Religious Studies (CRE)</option>
+  <option value="Integrated Science">Integrated Science</option>
+  <option value="Agriculture">Agriculture</option>
+  <option value="Physical Education">Physical Education</option>
+  <option value="Social Studies">Social Studies</option>
+  <option value="Other">Other</option>
+</select>
+</div>
+    <div class="field" id="otherSubjectField" style="display:none;">
+  <label>Specify Subject</label><input id="otherSubject" placeholder="e.g. Art, Music..."/>
+</div>
+<div class="field"><label>Class</label><input id="cls" placeholder="e.g. S4 PCB, S5 MCB, S3"/></div>
   </div>
   <div class="g4">
     <div class="field"><label>Unit No</label><input id="unitNo" placeholder="11"/></div>
@@ -137,6 +161,20 @@ textarea{min-height:72px;}
   <button class="btn-edit" id="editBtn" onclick="showForm()">✏ Edit</button>
 </div>
 
+<!-- Saved Plans -->
+<div class="card" style="margin-top:20px;">
+  <div class="card-hd">💾 Saved Lesson Plans <span id="savedCount" style="color:var(--muted);font-weight:400;"></span></div>
+  <div id="savedPlansContainer"><p style="color:var(--muted);font-size:.83rem;">No saved plans yet.</p></div>
+</div>
+
+<!-- Floating download bar shown after build -->
+<div id="floatBar" style="display:none;position:fixed;bottom:0;left:0;right:0;background:#161b22;border-top:2px solid #30363d;z-index:999;padding:12px 24px;display:none;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;">
+  <span style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:#8b949e;">Lesson Plan Ready:</span>
+  <button onclick="downloadWord()" style="background:#a78bfa;color:#fff;border:none;padding:10px 20px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.82rem;font-weight:700;cursor:pointer;">📄 Download Word</button>
+  <button onclick="downloadPDF()" style="background:#34d399;color:#000;border:none;padding:10px 20px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.82rem;font-weight:700;cursor:pointer;">🖨 Download PDF</button>
+  <button onclick="showForm()" style="background:#1c2333;color:#8b949e;border:1px solid #30363d;padding:10px 16px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.82rem;cursor:pointer;">✏ Edit</button>
+</div>
+
 </div><!-- formWrap -->
 
 <div id="preview"></div>
@@ -144,7 +182,18 @@ textarea{min-height:72px;}
 <script>
 var _aiData = {};
 
-function gv(id){ return (document.getElementById(id)||{}).value||''; }
+function gv(id){
+  var el = document.getElementById(id);
+  if(!el) return '';
+  if(id==='subject'){
+    var val = el.value||'';
+    if(val==='Other'){
+      return (document.getElementById('otherSubject')||{}).value||'Other';
+    }
+    return val;
+  }
+  return el.value||'';
+}
 
 async function generateWithAI(){
   var subject=gv('subject')||'Chemistry';
@@ -303,6 +352,10 @@ function buildPreview(){
   document.getElementById('editBtn').style.display='';
   document.getElementById('formWrap').style.display='none';
   document.getElementById('preview').scrollIntoView({behavior:'smooth'});
+  var fb=document.getElementById('floatBar');
+  if(fb){fb.style.display='flex';}
+  // Auto-save
+  savePlan();
 }
 
 function showForm(){
@@ -312,6 +365,8 @@ function showForm(){
   document.getElementById('pdfBtn').style.display='none';
   document.getElementById('editBtn').style.display='none';
   window.scrollTo({top:0,behavior:'smooth'});
+  var fb=document.getElementById('floatBar');
+  if(fb){fb.style.display='none';}
 }
 
 function downloadPDF(){
@@ -474,8 +529,144 @@ async function downloadWord(){
   btn.textContent='📄 Download Word'; btn.disabled=false;
 }
 
+// ── Save & Load Plans ──
+function savePlan(){
+  var plan = {
+    id: Date.now(),
+    savedAt: new Date().toLocaleDateString('en-GB'),
+    schoolName: gv('schoolName'),
+    teacherName: gv('teacherName'),
+    term: gv('term'),
+    date: gv('lessonDate'),
+    subject: gv('subject'),
+    cls: gv('cls'),
+    unitNo: gv('unitNo'),
+    lessonNo: gv('lessonNo'),
+    duration: gv('duration'),
+    classSize: gv('classSize'),
+    senType: gv('senType'),
+    senCount: gv('senCount'),
+    unitTitle: gv('unitTitle'),
+    keyComp: gv('keyComp'),
+    lessonTitle: gv('lessonTitle'),
+    aiData: _aiData
+  };
+  var saved = JSON.parse(localStorage.getItem('saved_lesson_plans')||'[]');
+  // Avoid duplicate: if same lessonTitle+date already saved, update it
+  var idx = saved.findIndex(function(p){ return p.lessonTitle===plan.lessonTitle && p.date===plan.date; });
+  if(idx !== -1){ saved[idx] = plan; } else { saved.unshift(plan); }
+  // No limit — keep all plans
+  localStorage.setItem('saved_lesson_plans', JSON.stringify(saved));
+  renderSavedPlans();
+  // Show save toast
+  showToast('✅ Lesson plan saved!');
+}
+
+function loadPlan(id){
+  var saved = JSON.parse(localStorage.getItem('saved_lesson_plans')||'[]');
+  var plan = saved.find(function(p){ return p.id===id; });
+  if(!plan) return;
+  document.getElementById('schoolName').value = plan.schoolName||'';
+  document.getElementById('teacherName').value = plan.teacherName||'';
+  document.getElementById('term').value = plan.term||'';
+  document.getElementById('lessonDate').value = plan.date||'';
+  // Set subject dropdown
+  var subEl = document.getElementById('subject');
+  var found = false;
+  for(var i=0;i<subEl.options.length;i++){
+    if(subEl.options[i].value===plan.subject){ subEl.selectedIndex=i; found=true; break; }
+  }
+  if(!found){ subEl.value='Other'; document.getElementById('otherSubject').value=plan.subject||''; document.getElementById('otherSubjectField').style.display='block'; }
+  document.getElementById('cls').value = plan.cls||'';
+  document.getElementById('unitNo').value = plan.unitNo||'';
+  document.getElementById('lessonNo').value = plan.lessonNo||'';
+  document.getElementById('duration').value = plan.duration||'';
+  document.getElementById('classSize').value = plan.classSize||'';
+  document.getElementById('senType').value = plan.senType||'';
+  document.getElementById('senCount').value = plan.senCount||'';
+  document.getElementById('unitTitle').value = plan.unitTitle||'';
+  document.getElementById('keyComp').value = plan.keyComp||'';
+  document.getElementById('lessonTitle').value = plan.lessonTitle||'';
+  _aiData = plan.aiData||{};
+  showForm();
+  document.getElementById('aiStatus').style.color='var(--green)';
+  document.getElementById('aiStatus').textContent='✅ Plan loaded — click BUILD LESSON PLAN to view.';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function deletePlan(id){
+  var saved = JSON.parse(localStorage.getItem('saved_lesson_plans')||'[]');
+  saved = saved.filter(function(p){ return p.id!==id; });
+  localStorage.setItem('saved_lesson_plans', JSON.stringify(saved));
+  renderSavedPlans();
+  showToast('🗑 Plan deleted');
+}
+
+function renderSavedPlans(){
+  var container = document.getElementById('savedPlansContainer');
+  if(!container) return;
+  var saved = JSON.parse(localStorage.getItem('saved_lesson_plans')||'[]');
+  if(saved.length===0){
+    container.innerHTML='<p style="color:var(--muted);font-size:.83rem;padding:12px 0;">No saved plans yet. Build your first lesson plan above.</p>';
+    return;
+  }
+  var html = '';
+  saved.forEach(function(p){
+    html += '<div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:8px;">'+
+      '<div>'+
+        '<div style="font-weight:600;color:#fff;font-size:.9rem;">'+p.lessonTitle+'</div>'+
+        '<div style="font-family:JetBrains Mono,monospace;font-size:.7rem;color:var(--muted);margin-top:3px;">'+
+          p.subject+' · '+p.cls+' · Unit '+p.unitNo+' Lesson '+p.lessonNo+' · Saved '+p.savedAt+
+        '</div>'+
+      '</div>'+
+      '<div style="display:flex;gap:8px;flex-wrap:wrap;">'+
+        '<button onclick="loadPlan('+p.id+')" style="background:var(--accent);color:#000;border:none;padding:7px 14px;border-radius:6px;font-family:JetBrains Mono,monospace;font-size:.72rem;font-weight:700;cursor:pointer;">📂 Open</button>'+
+        '<button onclick="quickDownload('+p.id+','word')" style="background:var(--purple);color:#fff;border:none;padding:7px 14px;border-radius:6px;font-family:JetBrains Mono,monospace;font-size:.72rem;font-weight:700;cursor:pointer;">📄 Word</button>'+
+        '<button onclick="quickDownload('+p.id+','pdf')" style="background:var(--green);color:#000;border:none;padding:7px 14px;border-radius:6px;font-family:JetBrains Mono,monospace;font-size:.72rem;font-weight:700;cursor:pointer;">🖨 PDF</button>'+
+        '<button onclick="deletePlan('+p.id+')" style="background:transparent;color:var(--red);border:1px solid var(--red);padding:7px 10px;border-radius:6px;font-family:JetBrains Mono,monospace;font-size:.72rem;cursor:pointer;">🗑</button>'+
+      '</div>'+
+    '</div>';
+  });
+  container.innerHTML = html;
+}
+
+function quickDownload(id, type){
+  var saved = JSON.parse(localStorage.getItem('saved_lesson_plans')||'[]');
+  var plan = saved.find(function(p){ return p.id===id; });
+  if(!plan) return;
+  // Load into form silently then build then download
+  loadPlan(id);
+  setTimeout(function(){
+    buildPreview();
+    setTimeout(function(){
+      if(type==='word') downloadWord();
+      else downloadPDF();
+    }, 800);
+  }, 300);
+}
+
+function showToast(msg){
+  var t = document.getElementById('toast');
+  if(!t){ t=document.createElement('div'); t.id='toast';
+    t.style.cssText='position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#161b22;border:1px solid var(--green);color:var(--green);padding:10px 20px;border-radius:8px;font-family:JetBrains Mono,monospace;font-size:.8rem;z-index:9999;transition:opacity .3s;';
+    document.body.appendChild(t);
+  }
+  t.textContent=msg; t.style.opacity='1';
+  setTimeout(function(){ t.style.opacity='0'; },2500);
+}
+
 // Init
 document.getElementById('lessonDate').value=new Date().toISOString().split('T')[0];
+// Load saved plans on startup
+renderSavedPlans();
+document.getElementById('subject').addEventListener('change',function(){
+  var otherField = document.getElementById('otherSubjectField');
+  if(this.value==='Other'){
+    otherField.style.display='block';
+  } else {
+    otherField.style.display='none';
+  }
+});
 </script>
 </body>
 </html>
