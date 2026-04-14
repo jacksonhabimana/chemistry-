@@ -6,7 +6,7 @@
 <title>Jackson's Lesson Plan Generator</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:wght@300;400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-<script src="https://unpkg.com/docx@8.5.0/build/index.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/docx@7.8.2/build/index.js"></script>
 <style>
 :root{--bg:#0d1117;--surface:#161b22;--surface2:#1c2333;--border:#30363d;--accent:#38bdf8;--green:#34d399;--gold:#e8c547;--purple:#a78bfa;--red:#f87171;--text:#e6edf3;--muted:#8b949e;}
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -30,8 +30,6 @@ label{font-family:'JetBrains Mono',monospace;font-size:.66rem;color:var(--muted)
 input,textarea,select{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:var(--text);padding:9px 12px;font-family:'Source Serif 4',serif;font-size:.88rem;resize:vertical;}
 input:focus,textarea:focus{outline:none;border-color:var(--accent);}
 textarea{min-height:72px;}
-/* AI box */
-.ai-box{background:rgba(167,139,250,.06);border:2px solid rgba(167,139,250,.3);border-radius:10px;padding:18px 20px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
 .ai-box h3{color:#fff;font-size:1rem;margin-bottom:3px;}
 .ai-box p{color:var(--muted);font-size:.83rem;}
 .btn-ai{background:linear-gradient(135deg,#a78bfa,#7c3aed);color:#fff;border:none;padding:12px 24px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.82rem;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:8px;white-space:nowrap;}
@@ -55,7 +53,9 @@ textarea{min-height:72px;}
 .lp .bg{background:#d9d9d9;}
 .lp .italic{font-style:italic;}
 .lp .self-eval td{height:52px;}
-[contenteditable="true"]:focus{outline:2px solid #38bdf8;outline-offset:2px;border-radius:2px;}
+[contenteditable="true"]:focus{outline:2px solid #38bdf8;outline-offset:2px;border-radius:2px;background:rgba(56,189,248,.05);}
+[contenteditable="true"]:hover{background:rgba(56,189,248,.03);cursor:text;}
+.lp [contenteditable="true"]::before{content:'';display:none;}
 
 @media print{
   body,html{background:#fff!important;}
@@ -84,6 +84,9 @@ textarea{min-height:72px;}
 </div>
 
 <div class="wrap" id="formWrap">
+
+
+
 
 <div class="card">
   <div class="card-hd">🏫 School & Teacher</div>
@@ -144,22 +147,16 @@ textarea{min-height:72px;}
   <div class="field"><label>Title of the Lesson</label><input id="lessonTitle" placeholder="e.g. Back Titration"/></div>
 </div>
 
-<!-- AI GENERATE -->
-<div class="ai-box">
-  <div>
-    <h3>✨ Generate with Jackson</h3>
-    <p>AI will write: Instructional Objectives, Learning Materials, References, and all Teaching Activities.</p>
-    <div class="ai-status" id="aiStatus"></div>
-  </div>
-  <button class="btn-ai" id="aiBtn" onclick="generateWithAI()">✨ BUILD</button>
-</div>
+
 
 <div class="actions">
+  <button class="btn-ai" id="aiBtn" onclick="generateWithAI()" style="display:inline-flex;align-items:center;gap:8px;">✨ BUILD</button>
   <button class="btn-gen" onclick="buildPreview()">📋 BUILD LESSON PLAN</button>
   <button class="btn-word" id="wordBtn" onclick="downloadWord()">📄 Download Word</button>
   <button class="btn-pdf" id="pdfBtn" onclick="downloadPDF()">🖨 Download PDF</button>
   <button class="btn-edit" id="editBtn" onclick="showForm()">✏ Edit</button>
 </div>
+<div id="aiStatus" style="margin-top:8px;font-family:JetBrains Mono,monospace;font-size:.75rem;min-height:18px;"></div>
 
 <!-- Saved Plans -->
 <div class="card" style="margin-top:20px;">
@@ -172,7 +169,8 @@ textarea{min-height:72px;}
   <span style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:#8b949e;">Lesson Plan Ready:</span>
   <button onclick="downloadWord()" style="background:#a78bfa;color:#fff;border:none;padding:10px 20px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.82rem;font-weight:700;cursor:pointer;">📄 Download Word</button>
   <button onclick="downloadPDF()" style="background:#34d399;color:#000;border:none;padding:10px 20px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.82rem;font-weight:700;cursor:pointer;">🖨 Download PDF</button>
-  <button onclick="showForm()" style="background:#1c2333;color:#8b949e;border:1px solid #30363d;padding:10px 16px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.82rem;cursor:pointer;">✏ Edit</button>
+  <button onclick="showForm()" style="background:#1c2333;color:#8b949e;border:1px solid #30363d;padding:10px 16px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.82rem;cursor:pointer;">✏ Edit Fields</button>
+  <button onclick="saveEdits()" style="background:var(--gold,#e8c547);color:#000;border:none;padding:10px 18px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.82rem;font-weight:700;cursor:pointer;">💾 Save Edits</button>
 </div>
 
 </div><!-- formWrap -->
@@ -239,9 +237,16 @@ async function generateWithAI(){
   ;
 
   try{
+    var apiKey = localStorage.getItem('lp_api_key')||'';
+    if(!apiKey){
+      st.style.color='var(--red)';
+      st.textContent='❌ No API key. Enter your Anthropic API key in the setup box above.';
+      btn.disabled=false; btn.innerHTML='✨ BUILD';
+      return;
+    }
     var r=await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',
-      headers:{'Content-Type':'application/json'},
+      headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
       body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompt}]})
     });
     var d=await r.json();
@@ -249,13 +254,15 @@ async function generateWithAI(){
     text=text.replace(/```json/g,'').replace(/```/g,'').trim();
     _aiData=JSON.parse(text);
     st.style.color='var(--green)';
-    st.textContent='✅ Done! Click "Generate Lesson Plan" to see the result.';
+    st.textContent='✅ Done! Building lesson plan...';
   }catch(e){
     st.style.color='var(--red)';
-    st.textContent='⚠️ AI error. You can still generate manually — click "Generate Lesson Plan".';
+    st.textContent='⚠️ AI could not connect. Building with manual content...';
     _aiData={};
   }
   btn.disabled=false; btn.innerHTML='✨ REBUILD';
+  // Auto build preview immediately after AI finishes
+  buildPreview();
 }
 
 function nl(s){ return (s||'').split('\n').filter(function(l){return l.trim();}).map(function(l){return l.replace(/^[-•]\s*/,'');}).join('<br/>'); }
@@ -528,8 +535,7 @@ async function downloadWord(){
       }]
     });
 
-    var buf=await docx.Packer.toBuffer(doc);
-    var blob=new Blob([buf],{type:'application/vnd.openxmlformats-officedocument.wordprocessingml.document'});
+    var blob=await docx.Packer.toBlob(doc);
     var url=URL.createObjectURL(blob);
     var a=document.createElement('a');
     a.href=url;
@@ -541,6 +547,37 @@ async function downloadWord(){
     alert('Word download failed: '+e.message+'\n\nUse PDF download instead.');
   }
   btn.textContent='📄 Download Word'; btn.disabled=false;
+}
+
+// ── API Key Management ──
+function saveApiKey(){
+  var key = (document.getElementById('apiKeyInput').value||'').trim();
+  if(!key){ alert('Please enter your API key.'); return; }
+  if(!key.startsWith('sk-')){
+    document.getElementById('keyStatus').style.color='var(--red)';
+    document.getElementById('keyStatus').textContent='❌ Invalid key format. Should start with sk-ant-...';
+    return;
+  }
+  localStorage.setItem('lp_api_key', key);
+  document.getElementById('keyStatus').style.color='var(--green)';
+  document.getElementById('keyStatus').textContent='✅ API key saved! AI generation is now enabled.';
+  document.getElementById('apiKeyInput').value='';
+}
+function clearApiKey(){
+  localStorage.removeItem('lp_api_key');
+  document.getElementById('keyStatus').style.color='var(--red)';
+  document.getElementById('keyStatus').textContent='🗑 API key cleared.';
+}
+function checkKeyOnLoad(){
+  var key = localStorage.getItem('lp_api_key');
+  var st = document.getElementById('keyStatus');
+  if(key && key.startsWith('sk-')){
+    st.style.color='var(--green)';
+    st.textContent='✅ API key saved — AI generation ready.';
+  } else {
+    st.style.color='var(--gold)';
+    st.textContent='⚠ No API key saved yet. Enter your key above to enable AI.';
+  }
 }
 
 // ── Save & Load Plans ──
@@ -659,6 +696,28 @@ function quickDownload(id, type){
   }, 300);
 }
 
+function saveEdits(){
+  // Collect all contenteditable cells from preview
+  var lp = document.getElementById('lpContent');
+  if(!lp){ showToast('❌ No lesson plan open.'); return; }
+  
+  // Save the full HTML of the lesson plan content
+  var key = 'lp_edit_' + (gv('lessonTitle')||'plan').replace(/\s+/g,'_');
+  localStorage.setItem(key, lp.innerHTML);
+  
+  // Also update the saved plans entry
+  var saved = JSON.parse(localStorage.getItem('saved_lesson_plans')||'[]');
+  var lessonTitle = gv('lessonTitle');
+  var idx = saved.findIndex(function(p){ return p.lessonTitle===lessonTitle; });
+  if(idx !== -1){
+    saved[idx].editedHTML = lp.innerHTML;
+    saved[idx].lastEdited = new Date().toLocaleDateString('en-GB');
+    localStorage.setItem('saved_lesson_plans', JSON.stringify(saved));
+  }
+  
+  showToast('✅ Edits saved! Download Word or PDF to get updated version.');
+}
+
 function showToast(msg){
   var t = document.getElementById('toast');
   if(!t){ t=document.createElement('div'); t.id='toast';
@@ -673,6 +732,7 @@ function showToast(msg){
 document.getElementById('lessonDate').value=new Date().toISOString().split('T')[0];
 // Load saved plans on startup
 renderSavedPlans();
+checkKeyOnLoad();
 document.getElementById('subject').addEventListener('change',function(){
   var otherField = document.getElementById('otherSubjectField');
   if(this.value==='Other'){
