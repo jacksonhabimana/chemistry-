@@ -210,7 +210,26 @@ input:focus,select:focus{outline:none;border-color:var(--accent);}
 <button class="teacher-toggle" onclick="toggleTeacher()" id="teacherToggle" style="display:none;">🔐 Teacher</button>
 
 <script>
-// ── Helpers ──
+
+// ═══════════════════════════════════════════════════════════════
+// 📹 ADD YOUR VIDEOS HERE — visible to ALL students on your site
+// ═══════════════════════════════════════════════════════════════
+// Each video needs: fname, title, source, url
+// fname must match a unit filename from your site
+// url can be any YouTube link (youtu.be or youtube.com/watch?v=)
+// ═══════════════════════════════════════════════════════════════
+var BUILTIN_VIDEOS = [
+
+  // ── S4 EXAMPLES (replace with your real links) ──
+  // { fname:'s4_unit1_atomic_structure.html',   title:'Atomic Structure Explained',          source:'Khan Academy',  url:'https://www.youtube.com/watch?v=SpA69zXbBWs' },
+  // { fname:'s4_unit12_group17.html',           title:'Halogens — Group 17 Properties',      source:'FuseSchool',    url:'https://www.youtube.com/watch?v=oVF-GrbnOEQ' },
+
+  // ── ADD YOUR VIDEOS BELOW THIS LINE ──
+
+
+  // ── END OF VIDEO LIST ──
+];
+// ═══════════════════════════════════════════════════════════════
 function getYtId(url){
   var m = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([\w-]{11})/);
   return m ? m[1] : null;
@@ -227,7 +246,9 @@ function getEmbed(url){
   return url;
 }
 function getAllVideos(){
-  var all = [];
+  // Start with hardcoded builtin videos (visible to everyone)
+  var all = BUILTIN_VIDEOS.map(function(v){ return Object.assign({},v); });
+  // Merge any teacher-added videos from localStorage
   var keys = Object.keys(localStorage).filter(function(k){ return k.startsWith('unit_videos_'); });
   keys.forEach(function(k){
     var fname = k.replace('unit_videos_','');
