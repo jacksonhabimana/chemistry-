@@ -6,7 +6,7 @@
 <title>Jackson's Lesson Plan Generator</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:wght@300;400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/docx@7.8.2/build/index.js"></script>
+<script src="https://unpkg.com/docx@8.5.0/build/index.js"></script>
 <style>
 :root{--bg:#0d1117;--surface:#161b22;--surface2:#1c2333;--border:#30363d;--accent:#38bdf8;--green:#34d399;--gold:#e8c547;--purple:#a78bfa;--red:#f87171;--text:#e6edf3;--muted:#8b949e;}
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -30,6 +30,8 @@ label{font-family:'JetBrains Mono',monospace;font-size:.66rem;color:var(--muted)
 input,textarea,select{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:var(--text);padding:9px 12px;font-family:'Source Serif 4',serif;font-size:.88rem;resize:vertical;}
 input:focus,textarea:focus{outline:none;border-color:var(--accent);}
 textarea{min-height:72px;}
+/* AI box */
+.ai-box{background:rgba(167,139,250,.06);border:2px solid rgba(167,139,250,.3);border-radius:10px;padding:18px 20px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
 .ai-box h3{color:#fff;font-size:1rem;margin-bottom:3px;}
 .ai-box p{color:var(--muted);font-size:.83rem;}
 .btn-ai{background:linear-gradient(135deg,#a78bfa,#7c3aed);color:#fff;border:none;padding:12px 24px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.82rem;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:8px;white-space:nowrap;}
@@ -53,9 +55,7 @@ textarea{min-height:72px;}
 .lp .bg{background:#d9d9d9;}
 .lp .italic{font-style:italic;}
 .lp .self-eval td{height:52px;}
-[contenteditable="true"]:focus{outline:2px solid #38bdf8;outline-offset:2px;border-radius:2px;background:rgba(56,189,248,.05);}
-[contenteditable="true"]:hover{background:rgba(56,189,248,.03);cursor:text;}
-.lp [contenteditable="true"]::before{content:'';display:none;}
+[contenteditable="true"]:focus{outline:2px solid #38bdf8;outline-offset:2px;border-radius:2px;}
 
 @media print{
   body,html{background:#fff!important;}
@@ -84,9 +84,6 @@ textarea{min-height:72px;}
 </div>
 
 <div class="wrap" id="formWrap">
-
-
-
 
 <div class="card">
   <div class="card-hd">🏫 School & Teacher</div>
@@ -147,17 +144,22 @@ textarea{min-height:72px;}
   <div class="field"><label>Title of the Lesson</label><input id="lessonTitle" placeholder="e.g. Back Titration"/></div>
 </div>
 
-
-
+<!-- AI GENERATE -->
+<div class="ai-box">
+  <div>
+    <h3>✨ Generate with Jackson</h3>
+    <p>AI will write: Instructional Objectives, Learning Materials, References, and all Teaching Activities.</p>
+    <div class="ai-status" id="aiStatus"></div>
+  </div>
+  <button class="btn-ai" id="aiBtn" onclick="generateWithAI()">✨ BUILD</button>
+</div>
 
 <div class="actions">
-  <button class="btn-ai" id="aiBtn" onclick="generateWithAI()" style="display:inline-flex;align-items:center;gap:8px;">✨ BUILD</button>
   <button class="btn-gen" onclick="buildPreview()">📋 BUILD LESSON PLAN</button>
   <button class="btn-word" id="wordBtn" onclick="downloadWord()">📄 Download Word</button>
   <button class="btn-pdf" id="pdfBtn" onclick="downloadPDF()">🖨 Download PDF</button>
   <button class="btn-edit" id="editBtn" onclick="showForm()">✏ Edit</button>
 </div>
-<div id="aiStatus" style="margin-top:8px;font-family:JetBrains Mono,monospace;font-size:.75rem;min-height:18px;"></div>
 
 <!-- Saved Plans -->
 <div class="card" style="margin-top:20px;">
@@ -170,8 +172,7 @@ textarea{min-height:72px;}
   <span style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:#8b949e;">Lesson Plan Ready:</span>
   <button onclick="downloadWord()" style="background:#a78bfa;color:#fff;border:none;padding:10px 20px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.82rem;font-weight:700;cursor:pointer;">📄 Download Word</button>
   <button onclick="downloadPDF()" style="background:#34d399;color:#000;border:none;padding:10px 20px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.82rem;font-weight:700;cursor:pointer;">🖨 Download PDF</button>
-  <button onclick="showForm()" style="background:#1c2333;color:#8b949e;border:1px solid #30363d;padding:10px 16px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.82rem;cursor:pointer;">✏ Edit Fields</button>
-  <button onclick="saveEdits()" style="background:var(--gold,#e8c547);color:#000;border:none;padding:10px 18px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.82rem;font-weight:700;cursor:pointer;">💾 Save Edits</button>
+  <button onclick="showForm()" style="background:#1c2333;color:#8b949e;border:1px solid #30363d;padding:10px 16px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.82rem;cursor:pointer;">✏ Edit</button>
 </div>
 
 </div><!-- formWrap -->
@@ -196,27 +197,16 @@ function gv(id){
 
 async function generateWithAI(){
   var subject=gv('subject')||'Chemistry';
-  var cls=gv('cls'); 
-  var unitTitle=gv('unitTitle');
-  var keyComp=gv('keyComp'); 
-  var lessonTitle=gv('lessonTitle');
+  var cls=gv('cls'); var unitTitle=gv('unitTitle');
+  var keyComp=gv('keyComp'); var lessonTitle=gv('lessonTitle');
   var duration=gv('duration')||'80 min';
 
   if(!lessonTitle&&!unitTitle){alert('Fill in Lesson Title and Unit Title first.');return;}
 
-  // Get Gemini API key
-  var apiKey = localStorage.getItem('gemini_api_key')||'';
-  if(!apiKey){
-    var entered = prompt('Enter your free Google Gemini API key:\n\nGet one free at:\nhttps://aistudio.google.com/app/apikey\n\n(Sign in with Google → Create API Key → Copy)');
-    if(!entered||!entered.trim()){return;}
-    apiKey = entered.trim();
-    localStorage.setItem('gemini_api_key', apiKey);
-  }
-
   var btn=document.getElementById('aiBtn');
   var st=document.getElementById('aiStatus');
   btn.disabled=true; btn.innerHTML='⏳ Generating...';
-  st.style.color='#a78bfa'; st.textContent='Jackson is writing your lesson plan...';
+  st.style.color='var(--purple)'; st.textContent='AI is writing your lesson plan...';
 
   var devMin = (parseInt(duration)||80) - 20;
   var prompt = 'You are an expert Rwanda CBC lesson plan writer for REB Rwanda secondary schools.\n\n'+
@@ -224,69 +214,192 @@ async function generateWithAI(){
     'Subject: '+subject+', Class: '+cls+', Unit: '+unitTitle+', Lesson: '+lessonTitle+'\n'+
     'Key Competence: '+keyComp+', Duration: '+duration+'\n\n'+
     'RULES:\n'+
-    '1. INSTRUCTIONAL OBJECTIVES must use CBC action verbs (define, explain, identify, calculate, distinguish, apply, demonstrate, compare, analyze) and must state the EXACT content being learned from '+lessonTitle+'. Example: "By end of lesson, students should be able to calculate the pH of a strong acid solution."\n'+
-    '2. Every activity must mention SPECIFIC content from the lesson title and unit.\n'+
-    '2. Introduction: teacher asks questions about prior knowledge RELATED to this topic, presents a real-life Rwanda example.\n'+
-    '3. Development: describe the actual concepts taught, specific experiments or calculations, exact group activities.\n'+
-    '4. Conclusion: teacher asks specific questions about what was learned, specific homework task.\n'+
-    '5. Generic competences: give a full sentence explanation of HOW each applies to THIS lesson.\n'+
-    '6. Use CBC competences: Communication, Critical Thinking, Research and Problem Solving, Cooperation, Lifelong Learning, Standardization Culture, Inclusive Education, Peace and Values, Environment and Sustainability.\n\n'+
-    'Return ONLY valid JSON (no markdown, no backticks):\n'+
+    '1. Every activity must mention SPECIFIC content from the lesson title and unit — no generic text.\n'+
+    '2. Introduction: teacher asks questions about prior knowledge RELATED to this topic, presents a real-life Rwanda example connected to '+lessonTitle+'.\n'+
+    '3. Development: describe the actual chemistry concepts taught, specific experiments or calculations done, exact group activities.\n'+
+    '4. Conclusion: teacher asks specific questions about what was learned in THIS lesson, specific homework task.\n'+
+    '5. Generic competences: give a full sentence explanation of HOW each competence applies to THIS lesson.\n'+
+    '6. Use these CBC competences as relevant: Communication, Critical Thinking, Research and Problem Solving, Cooperation and Interpersonal Management, Lifelong Learning, Standardization Culture, Inclusive Education, Peace and Values Education, Environment and Sustainability.\n\n'+
+    'Return ONLY JSON (no markdown, no backticks):\n'+
     '{\n'+
-    '  "objectives": "1. By the end of this lesson, '+cls+' students should be able to [action verb e.g. explain/define/calculate] [specific concept 1 from '+lessonTitle+'].\\n2. Students should be able to [action verb] [specific concept 2 taught in this lesson].\\n3. Students should be able to [action verb] [specific skill/application from '+lessonTitle+'].",\n'+
-    '  "materials": "[Specific materials needed]",\n'+
-    '  "references": "Rwanda Education Board. (2025). '+subject+' Learner Book. Kigali: REB.",\n'+
-    '  "intro_teacher": "[Teacher introduction activities specific to '+lessonTitle+']",\n'+
-    '  "intro_learner": "[Learner introduction activities]",\n'+
-    '  "intro_competences": "[Generic competences for introduction with explanations]",\n'+
-    '  "dev_teacher": "[Teacher development activities specific to '+lessonTitle+']",\n'+
-    '  "dev_learner": "[Learner development activities]",\n'+
-    '  "dev_competences": "[Generic competences for development with explanations]",\n'+
-    '  "conc_teacher": "[Teacher conclusion activities]",\n'+
-    '  "conc_learner": "[Learner conclusion activities]",\n'+
-    '  "conc_competences": "[Generic competences for conclusion with explanations]"\n'+
+    '  "objectives": "1. By end of lesson, '+cls+' students should be able to [specific objective 1 from '+lessonTitle+'].\\n2. Students should be able to [specific objective 2].\\n3. Students should be able to [specific objective 3].",\n'+
+    '  "materials": "[Specific materials for '+lessonTitle+' — textbook pages, lab items if needed, charts]",\n'+
+    '  "references": "Rwanda Education Board. (2025). '+subject+' Learner Book '+cls.substring(0,2)+'. Kigali: REB.",\n'+
+    '  "intro_teacher": "- Greets learners warmly and checks attendance.\\n- Asks 2 revision questions linking previous lesson to '+lessonTitle+': e.g. [specific question about prior topic].\\n- Presents a motivating real-life example: [specific Rwanda context example related to '+lessonTitle+'].\\n- Writes lesson title and objectives on the board.",\n'+
+    '  "intro_learner": "- Respond to greetings.\\n- Answer revision questions about [specific prior topic].\\n- Share prior knowledge about [specific concept in '+lessonTitle+'].\\n- Copy lesson objectives into notebooks.",\n'+
+    '  "intro_competences": "- Communication (Speaking): Learners verbally explain [specific prior concept], practising scientific vocabulary related to '+unitTitle+'.\\n- Critical Thinking: Learners analyse the real-life example of [specific scenario] to identify what problem needs solving.\\n- Inclusive Education: Teacher uses visual aids and simple language to support learners with different learning needs.",\n'+
+    '  "dev_teacher": "- Explains [specific concept 1 of '+lessonTitle+'] using a diagram/equation on the board, e.g. [specific formula or definition].\\n- Demonstrates [specific worked example or procedure] step by step, asking learners to follow.\\n- Organises learners into groups of 4-5 to complete: [specific group task directly from '+lessonTitle+'].\\n- Circulates, probes understanding with questions like: [specific question about the concept].\\n- Facilitates group presentations and corrects misconceptions about [specific concept 2].",\n'+
+    '  "dev_learner": "- Listen and take notes on [specific concept 1], including [specific formula or key term].\\n- Follow the demonstration and ask clarifying questions.\\n- In groups, complete [specific task]: e.g. [describe what they actually do].\\n- Present findings to class and record [specific result or conclusion].\\n- Engage with [specific concept 2] and link it to [concept 1].",\n'+
+    '  "dev_competences": "- Research and Problem Solving: Groups investigate [specific question from '+lessonTitle+'] by [specific method], developing skills in data analysis and scientific reasoning.\\n- Cooperation and Interpersonal Management: Learners share roles in the group task on [specific activity], practising leadership and respectful communication.\\n- Standardization Culture: Learners use correct SI units and significant figures when recording [specific measurements or calculations] for '+lessonTitle+'.\\n- Critical Thinking: Learners compare different results/approaches for [specific concept] and justify which method/answer is correct.\\n- Environment and Sustainability: Learners discuss how [specific aspect of '+lessonTitle+'] relates to environmental responsibility in Rwanda.",\n'+
+    '  "conc_teacher": "- Asks class: \'What are the 3 main points we learned about '+lessonTitle+' today?\' and summarises answers.\\n- Clears misconceptions about [specific concept from the lesson].\\n- Gives 2 formative assessment questions on '+lessonTitle+', e.g. [specific question type].\\n- Assigns homework: [specific task, e.g. solve problem X, read page Y, complete exercise Z].\\n- Previews next lesson: [what comes next in the unit].",\n'+
+    '  "conc_learner": "- Answer the summary questions about [specific concept from '+lessonTitle+'].\\n- Individually complete the 2 formative assessment questions.\\n- Write homework assignment in notebooks: [specific homework].\\n- Note what to prepare for the next lesson.",\n'+
+    '  "conc_competences": "- Lifelong Learning: Learners self-assess their understanding of [specific concept] and identify what to review further in '+lessonTitle+'.\\n- Communication (Writing): Learners write precise scientific answers to formative questions, practising correct use of [specific terminology].\\n- Peace and Values Education: Class discussion of findings encourages mutual respect and appreciation of different approaches to [the topic].\\n- Inclusive Education: Teacher provides additional guidance to learners who struggled with [specific difficult concept], ensuring no learner is left behind."\n'+
     '}\n\n'+
-    'Replace ALL placeholders with REAL content from '+lessonTitle+' and '+unitTitle+'.';
+    'CRITICAL: Replace EVERY placeholder in square brackets with REAL specific content from '+lessonTitle+' and '+unitTitle+'. Do not leave any generic text.'
+  ;
 
   try{
-    // Call Google Gemini API (free)
-    var url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' + apiKey;
-    var r = await fetch(url, {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({
-        contents: [{parts: [{text: prompt}]}],
-        generationConfig: {temperature: 0.7, maxOutputTokens: 2048}
-      })
+    var r=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompt}]})
     });
-    var d = await r.json();
-    
-    // Check for API error
-    if(d.error){
-      if(d.error.code===400||d.error.code===401||d.error.code===403){
-        localStorage.removeItem('gemini_api_key');
-        st.style.color='var(--red)'; 
-        st.textContent='❌ Invalid API key. Click ✨ BUILD again to enter a new key.';
-        btn.disabled=false; btn.innerHTML='✨ BUILD'; return;
-      }
-      throw new Error(d.error.message||'API error');
-    }
-
-    var text = d.candidates&&d.candidates[0]&&d.candidates[0].content&&d.candidates[0].content.parts&&d.candidates[0].content.parts[0]&&d.candidates[0].content.parts[0].text||'';
-    text = text.replace(/```json/g,'').replace(/```/g,'').trim();
-    _aiData = JSON.parse(text);
+    var d=await r.json();
+    var text=d.content&&d.content[0]&&d.content[0].text||'';
+    text=text.replace(/```json/g,'').replace(/```/g,'').trim();
+    _aiData=JSON.parse(text);
     st.style.color='var(--green)';
-    st.textContent='✅ Done! Building lesson plan...';
+    st.textContent='✅ Done! Click "Generate Lesson Plan" to see the result.';
   }catch(e){
     st.style.color='var(--red)';
-    st.textContent='⚠️ Could not generate. Building with blank fields — fill manually.';
+    st.textContent='⚠️ AI error. You can still generate manually — click "Generate Lesson Plan".';
     _aiData={};
-    console.error('Gemini error:',e);
   }
-  btn.disabled=false; btn.innerHTML='✨ BUILD';
-  buildPreview();
+  btn.disabled=false; btn.innerHTML='✨ REBUILD';
 }
 
+function nl(s){ return (s||'').split('\n').filter(function(l){return l.trim();}).map(function(l){return l.replace(/^[-•]\s*/,'');}).join('<br/>'); }
+function nlPlain(s){ return (s||'').split('\n').filter(function(l){return l.trim();}).map(function(l){return l.replace(/^[-•]\s*/,'');}).join('\n'); }
+
+function buildPreview(){
+  var date=gv('lessonDate')?new Date(gv('lessonDate')).toLocaleDateString('en-GB'):'';
+  var ai=_aiData;
+
+  var intro_dur=10;
+  var conc_dur=10;
+  var total=parseInt(gv('duration'))||80;
+  var dev_dur=total-intro_dur-conc_dur;
+
+  var html='<div class="lp" id="lpContent">'+
+  '<div class="lp-title">LESSON PLAN</div>'+
+  '<table>'+
+  '<tr>'+
+    '<td colspan="3"><span class="bold">School Name:</span> <span contenteditable="true">'+gv('schoolName')+'</span></td>'+
+    '<td colspan="5"><span class="bold">Teacher\'s Name:</span> <span contenteditable="true">'+gv('teacherName')+'</span></td>'+
+  '</tr>'+
+  '<tr class="bg bold">'+
+    '<td class="center">Term</td><td class="center">Date</td><td class="center">Subject</td><td class="center">Class</td>'+
+    '<td class="center">Unit No</td><td class="center">Lesson No</td><td class="center">Duration</td><td class="center">Class size</td>'+
+  '</tr>'+
+  '<tr>'+
+    '<td class="center" contenteditable="true">'+gv('term')+'</td>'+
+    '<td class="center" contenteditable="true">'+date+'</td>'+
+    '<td class="center" contenteditable="true">'+gv('subject')+'</td>'+
+    '<td class="center" contenteditable="true">'+gv('cls')+'</td>'+
+    '<td class="center" contenteditable="true">'+gv('unitNo')+'</td>'+
+    '<td class="center" contenteditable="true">'+gv('lessonNo')+'</td>'+
+    '<td class="center" contenteditable="true">'+gv('duration')+'</td>'+
+    '<td class="center" contenteditable="true">'+gv('classSize')+'</td>'+
+  '</tr>'+
+  '<tr>'+
+    '<td colspan="4" class="bold">Type of special educational needs to be catered for in this lesson and number of learners in each category</td>'+
+    '<td colspan="4" contenteditable="true">'+gv('senType')+'&nbsp;&nbsp;&nbsp;'+gv('senCount')+'</td>'+
+  '</tr>'+
+  '<tr><td colspan="3" class="bold">Unit title</td><td colspan="5" class="bold" style="text-transform:uppercase;" contenteditable="true">'+gv('unitTitle')+'</td></tr>'+
+  '<tr><td colspan="3" class="bold">Key unit competence</td><td colspan="5" contenteditable="true">'+gv('keyComp')+'</td></tr>'+
+  '<tr><td colspan="3" class="bold">Title of the lesson</td><td colspan="5" contenteditable="true">'+gv('lessonTitle')+'</td></tr>'+
+  '<tr><td colspan="3" class="bold">Instructional objectives</td><td colspan="5" style="white-space:pre-line;" contenteditable="true">'+(ai.objectives||'1. By the end of this lesson, students should be able to define key concepts.\n2. Students should be able to explain the main principles.\n3. Students should be able to apply knowledge to solve related problems.')+'</td></tr>'+
+  '<tr><td colspan="3" class="bold">Plan of this class (Location)</td><td colspan="5" contenteditable="true">Classroom</td></tr>'+
+  '<tr><td colspan="3" class="bold">Learning materials</td><td colspan="5" contenteditable="true">'+(ai.materials||'Chemistry Learner\'s Book, Laboratory equipment')+'</td></tr>'+
+  '<tr><td colspan="3" class="bold">References</td><td colspan="5" contenteditable="true">'+(ai.references||'Rwanda Education Board. Chemistry Learner\'s Book.')+'</td></tr>'+
+  // Activities header
+  '<tr class="bg">'+
+    '<td class="bold center">Timing for each step</td>'+
+    '<td colspan="3" class="bold center">Description of teaching and learning activities</td>'+
+    '<td colspan="4" class="bold center">Generic competences and cross-cutting issues + some explanations</td>'+
+  '</tr>'+
+  '<tr>'+
+    '<td colspan="8" class="italic center bg" style="font-size:9pt;">'+
+    'Students will actively engage in discussions, practical experiments, and presentations throughout the lesson.'+
+    '</td>'+
+  '</tr>'+
+  '<tr class="bg">'+
+    '<td></td>'+
+    '<td colspan="1" class="bold center">Teacher\'s activity</td>'+
+    '<td colspan="2" class="bold center">Learner\'s activity</td>'+
+    '<td colspan="4" class="bold center"></td>'+
+  '</tr>'+
+  // Introduction
+  '<tr>'+
+    '<td class="bold center" style="white-space:pre-line;" contenteditable="true">Introduction\n('+intro_dur+' min)</td>'+
+    '<td colspan="1" contenteditable="true" style="white-space:pre-line;">'+(ai.intro_teacher||'- Greets learners.\n- Reviews previous lesson.\n- Introduces the topic.')+'</td>'+
+    '<td colspan="2" contenteditable="true" style="white-space:pre-line;">'+(ai.intro_learner||'- Respond to greetings.\n- Answer revision questions.\n- Engage with topic.')+'</td>'+
+    '<td colspan="4" contenteditable="true" style="white-space:pre-line;">'+(ai.intro_competences||'- Communication: Learners express ideas verbally.')+'</td>'+
+  '</tr>'+
+  // Development
+  '<tr>'+
+    '<td class="bold center" style="white-space:pre-line;" contenteditable="true">Lesson Development\n('+dev_dur+' min)</td>'+
+    '<td colspan="1" contenteditable="true" style="white-space:pre-line;">'+(ai.dev_teacher||'- Demonstrates concepts.\n- Organises group work.\n- Facilitates activities.')+'</td>'+
+    '<td colspan="2" contenteditable="true" style="white-space:pre-line;">'+(ai.dev_learner||'- Observes demonstration.\n- Works in groups.\n- Presents findings.')+'</td>'+
+    '<td colspan="4" contenteditable="true" style="white-space:pre-line;">'+(ai.dev_competences||'- Research and Problem Solving.\n- Cooperation.\n- Standardisation Culture.')+'</td>'+
+  '</tr>'+
+  // Conclusion
+  '<tr>'+
+    '<td class="bold center" style="white-space:pre-line;" contenteditable="true">Conclusion\n('+conc_dur+' min)</td>'+
+    '<td colspan="1" contenteditable="true" style="white-space:pre-line;">'+(ai.conc_teacher||'- Summarises lesson.\n- Asks oral questions.\n- Gives homework.')+'</td>'+
+    '<td colspan="2" contenteditable="true" style="white-space:pre-line;">'+(ai.conc_learner||'- Participates in summary.\n- Answers questions.\n- Notes homework.')+'</td>'+
+    '<td colspan="4" contenteditable="true" style="white-space:pre-line;">'+(ai.conc_competences||'- Lifelong Learning.\n- Peace and Values Education.')+'</td>'+
+  '</tr>'+
+  // Self evaluation
+  '<tr>'+
+    '<td colspan="8" style="padding:6px 8px;">'+
+      '<div style="display:flex;align-items:stretch;min-height:70px;">'+
+        '<div class="bold" style="white-space:nowrap;padding-right:10px;padding-top:2px;flex-shrink:0;">Teacher\'s self-evaluation</div>'+
+        '<div style="border-left:2px solid #000;margin:0 10px;flex-shrink:0;"></div>'+
+        '<div contenteditable=\"true\" style=\"flex:1;font-weight:normal;font-size:9pt;outline:none;color:#333;min-height:60px;\"></div>'+
+      '</div>'+
+    '</td>'+
+  '</tr>'+
+  '</table>'+
+  '</div>';
+
+  document.getElementById('preview').innerHTML=html;
+  document.getElementById('preview').style.display='block';
+  document.getElementById('wordBtn').style.display='';
+  document.getElementById('pdfBtn').style.display='';
+  document.getElementById('editBtn').style.display='';
+  document.getElementById('formWrap').style.display='none';
+  document.getElementById('preview').scrollIntoView({behavior:'smooth'});
+  var fb=document.getElementById('floatBar');
+  if(fb){fb.style.display='flex';}
+  // Auto-save
+  savePlan();
+}
+
+function showForm(){
+  document.getElementById('formWrap').style.display='block';
+  document.getElementById('preview').style.display='none';
+  document.getElementById('wordBtn').style.display='none';
+  document.getElementById('pdfBtn').style.display='none';
+  document.getElementById('editBtn').style.display='none';
+  window.scrollTo({top:0,behavior:'smooth'});
+  var fb=document.getElementById('floatBar');
+  if(fb){fb.style.display='none';}
+}
+
+function downloadPDF(){
+  var el=document.getElementById('lpContent');
+  if(!el){alert('Generate lesson plan first.');return;}
+  var title=(gv('lessonTitle')||'Lesson_Plan').replace(/\s+/g,'_');
+  var clone = el.cloneNode(true);
+  clone.style.fontSize = '8.5pt';
+  clone.style.fontFamily = "Arial, sans-serif";
+  // Scale tables to fit one page
+  var tables = clone.querySelectorAll('table');
+  tables.forEach(function(t){ t.style.fontSize='8pt'; t.style.width='100%'; });
+  html2pdf().set({
+    margin:[6,6,6,6],
+    filename:title+'.pdf',
+    image:{type:'jpeg',quality:0.98},
+    html2canvas:{scale:2.5,useCORS:true,backgroundColor:'#ffffff',logging:false},
+    jsPDF:{unit:'mm',format:'a4',orientation:'portrait',compress:true}
+  }).from(clone).save();
+}
+
+function getCell(el){
+  var r=el.contentEditable==='true'?el.innerText||el.textContent:'';
+  return r.trim();
+}
 
 async function downloadWord(){
   var lp=document.getElementById('lpContent');
@@ -415,7 +528,8 @@ async function downloadWord(){
       }]
     });
 
-    var blob=await docx.Packer.toBlob(doc);
+    var buf=await docx.Packer.toBuffer(doc);
+    var blob=new Blob([buf],{type:'application/vnd.openxmlformats-officedocument.wordprocessingml.document'});
     var url=URL.createObjectURL(blob);
     var a=document.createElement('a');
     a.href=url;
@@ -428,11 +542,6 @@ async function downloadWord(){
   }
   btn.textContent='📄 Download Word'; btn.disabled=false;
 }
-
-// ── API Key Management ──
-
-
-
 
 // ── Save & Load Plans ──
 function savePlan(){
@@ -550,28 +659,6 @@ function quickDownload(id, type){
   }, 300);
 }
 
-function saveEdits(){
-  // Collect all contenteditable cells from preview
-  var lp = document.getElementById('lpContent');
-  if(!lp){ showToast('❌ No lesson plan open.'); return; }
-  
-  // Save the full HTML of the lesson plan content
-  var key = 'lp_edit_' + (gv('lessonTitle')||'plan').replace(/\s+/g,'_');
-  localStorage.setItem(key, lp.innerHTML);
-  
-  // Also update the saved plans entry
-  var saved = JSON.parse(localStorage.getItem('saved_lesson_plans')||'[]');
-  var lessonTitle = gv('lessonTitle');
-  var idx = saved.findIndex(function(p){ return p.lessonTitle===lessonTitle; });
-  if(idx !== -1){
-    saved[idx].editedHTML = lp.innerHTML;
-    saved[idx].lastEdited = new Date().toLocaleDateString('en-GB');
-    localStorage.setItem('saved_lesson_plans', JSON.stringify(saved));
-  }
-  
-  showToast('✅ Edits saved! Download Word or PDF to get updated version.');
-}
-
 function showToast(msg){
   var t = document.getElementById('toast');
   if(!t){ t=document.createElement('div'); t.id='toast';
@@ -582,7 +669,6 @@ function showToast(msg){
   setTimeout(function(){ t.style.opacity='0'; },2500);
 }
 
-// Pre-fill key input if saved
 // Init
 document.getElementById('lessonDate').value=new Date().toISOString().split('T')[0];
 // Load saved plans on startup
