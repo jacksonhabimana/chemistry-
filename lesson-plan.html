@@ -149,14 +149,7 @@ textarea{min-height:72px;}
 
 
 
-<div style="background:rgba(52,211,153,.06);border:1px solid rgba(52,211,153,.2);border-radius:8px;padding:12px 16px;margin-bottom:12px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
-  <span style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--green);">🔑 Gemini API Key</span>
-  <input type="password" id="gemini-key-input" placeholder="sk-... (paste your free key)" 
-    style="flex:1;min-width:200px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:var(--text);padding:7px 12px;font-family:'JetBrains Mono',monospace;font-size:.78rem;"/>
-  <button onclick="saveGeminiKey()" style="background:var(--green);color:#000;border:none;padding:8px 16px;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:.75rem;font-weight:700;cursor:pointer;white-space:nowrap;">💾 Save Key</button>
-  <a href="https://aistudio.google.com/app/apikey" target="_blank" style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--accent);white-space:nowrap;">Get free key →</a>
-  <span id="key-saved-msg" style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--green);display:none;">✅ Saved!</span>
-</div>
+
 <div class="actions">
   <button class="btn-ai" id="aiBtn" onclick="generateWithAI()" style="display:inline-flex;align-items:center;gap:8px;">✨ BUILD</button>
   <button class="btn-gen" onclick="buildPreview()">📋 BUILD LESSON PLAN</button>
@@ -231,7 +224,8 @@ async function generateWithAI(){
     'Subject: '+subject+', Class: '+cls+', Unit: '+unitTitle+', Lesson: '+lessonTitle+'\n'+
     'Key Competence: '+keyComp+', Duration: '+duration+'\n\n'+
     'RULES:\n'+
-    '1. Every activity must mention SPECIFIC content from the lesson title and unit.\n'+
+    '1. INSTRUCTIONAL OBJECTIVES must use CBC action verbs (define, explain, identify, calculate, distinguish, apply, demonstrate, compare, analyze) and must state the EXACT content being learned from '+lessonTitle+'. Example: "By end of lesson, students should be able to calculate the pH of a strong acid solution."\n'+
+    '2. Every activity must mention SPECIFIC content from the lesson title and unit.\n'+
     '2. Introduction: teacher asks questions about prior knowledge RELATED to this topic, presents a real-life Rwanda example.\n'+
     '3. Development: describe the actual concepts taught, specific experiments or calculations, exact group activities.\n'+
     '4. Conclusion: teacher asks specific questions about what was learned, specific homework task.\n'+
@@ -239,7 +233,7 @@ async function generateWithAI(){
     '6. Use CBC competences: Communication, Critical Thinking, Research and Problem Solving, Cooperation, Lifelong Learning, Standardization Culture, Inclusive Education, Peace and Values, Environment and Sustainability.\n\n'+
     'Return ONLY valid JSON (no markdown, no backticks):\n'+
     '{\n'+
-    '  "objectives": "1. By end of lesson, '+cls+' students should be able to [specific objective 1].\\n2. [specific objective 2].\\n3. [specific objective 3].",\n'+
+    '  "objectives": "1. By the end of this lesson, '+cls+' students should be able to [action verb e.g. explain/define/calculate] [specific concept 1 from '+lessonTitle+'].\\n2. Students should be able to [action verb] [specific concept 2 taught in this lesson].\\n3. Students should be able to [action verb] [specific skill/application from '+lessonTitle+'].",\n'+
     '  "materials": "[Specific materials needed]",\n'+
     '  "references": "Rwanda Education Board. (2025). '+subject+' Learner Book. Kigali: REB.",\n'+
     '  "intro_teacher": "[Teacher introduction activities specific to '+lessonTitle+']",\n'+
@@ -588,23 +582,7 @@ function showToast(msg){
   setTimeout(function(){ t.style.opacity='0'; },2500);
 }
 
-function saveGeminiKey(){
-  var k = (document.getElementById('gemini-key-input').value||'').trim();
-  if(!k){alert('Paste your Gemini API key first.');return;}
-  localStorage.setItem('gemini_api_key', k);
-  var msg = document.getElementById('key-saved-msg');
-  if(msg){ msg.style.display='inline'; setTimeout(function(){msg.style.display='none';},2000); }
-}
-
 // Pre-fill key input if saved
-(function(){
-  var saved = localStorage.getItem('gemini_api_key')||'';
-  if(saved){
-    var inp = document.getElementById('gemini-key-input');
-    if(inp) inp.value = saved;
-  }
-})();
-
 // Init
 document.getElementById('lessonDate').value=new Date().toISOString().split('T')[0];
 // Load saved plans on startup
