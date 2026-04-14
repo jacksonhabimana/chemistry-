@@ -91,6 +91,8 @@ tr:hover td{background:rgba(255,255,255,.02);}
 h3.sub{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--gold);margin:28px 0 10px;}
 sub,sup{font-size:.72em;}
 @media(max-width:600px){.hero{padding:50px 20px 40px;}.page{padding:0 16px 60px;}}
+
+
 </style>
 
 <style>
@@ -171,7 +173,19 @@ Superphosphate manufacture:
   <div class="card"><h3>Risks</h3><ul style="padding-left:20px;line-height:2.2;"><li><b>Incorrect NPK ratio</b>: toxic salt burn to plants; nutrient imbalance inhibits crop growth</li><li><b>Heavy metal contamination</b>: cadmium (Cd), arsenic (As), lead (Pb) in low-grade phosphate rock accumulate in soil and food chain</li><li><b>Biuret contamination in urea</b>: formed when urea is overheated; toxic to plants — inhibits protein synthesis</li><li><b>Moisture content</b>: clumping, uneven spreading, reduced efficacy</li><li><b>Counterfeit fertilisers</b>: inert fillers sold as nutrient-containing products; farmers lose money, crops fail</li></ul></div>
 </section>
 <section id="exercises">
-  <div class="section-header"><span class="section-number">&#9999;&#65039;</span><h2>Exercises</h2></div>
+  <div class="card reveal" id="videoSection">
+  <div id="videoGrid" class="video-grid">
+    <p class="video-empty" id="videoEmpty">No videos added yet for this unit.</p>
+  </div>
+</div>
+
+<!-- Video Modal -->
+<div class="video-modal" id="videoModal" onclick="if(event.target===this)closeVideo()">
+  <button class="video-modal-close" onclick="closeVideo()">✕</button>
+  <div id="videoFrame"></div>
+</div>
+
+<div class="section-header"><span class="section-number">&#9999;&#65039;</span><h2>Exercises</h2></div>
   <ul class="exercise-list"><li>Calculate the percentage by mass of nitrogen in: (a) NH₄NO₃ (b) urea CO(NH₂)₂ (c) (NH₄)₂SO₄. Which has the highest nitrogen content?
     <button class="reveal-btn" onclick="toggleAnswer(this)">Show Answer</button>
     <div class="answer">(a) M(NH₄NO₃)=80; N=28; %N=35%<br>(b) M(urea)=60; N=28; %N=46.7% (highest)<br>(c) M((NH₄)₂SO₄)=132; N=28; %N=21.2%</div></li><li>Write all steps of the Haber process and explain the choice of conditions (T, P, catalyst).
@@ -420,6 +434,7 @@ Superphosphate manufacture:
   <div style="padding:0 24px 24px;">
     <button class="quiz-submit" onclick="submitQuiz()">Submit Quiz</button>
     <div id="quizResult" style="display:none;margin-top:16px;padding:16px 20px;border-radius:8px;font-family:JetBrains Mono,monospace;font-size:.88rem;text-align:center;"></div>
+<div style="text-align:center;margin-top:20px;"><a href="#test" style="display:inline-block;background:var(--gold,#e8c547);color:#000;padding:11px 28px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.82rem;font-weight:700;text-decoration:none;">📝 Go to Unit Test →</a></div>
   </div>
 </div>
 <script>
@@ -665,6 +680,9 @@ async function dlInitPay(){
   try{
     var r=await fetch(workerUrl+'/deposit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({depositId:depositId,amount:String(_DL_PRICE),currency:currency,correspondent:correspondent,payer:{type:'MSISDN',address:{value:fullPhone}},statementDescription:'ChemNotes'})});
     var d=await r.json();
+    // DEBUG: log what PawaPay returns
+    console.log('PawaPay response status:', r.status);
+    console.log('PawaPay response body:', JSON.stringify(d));
     if(d.depositId||r.ok){
       _dlPollTimer=setInterval(async function(){
         try{
@@ -681,7 +699,7 @@ async function dlInitPay(){
     document.getElementById('dl-st-proc').style.display='none';
     var wa2=encodeURIComponent('PAYMENT\nUnit: '+document.title+'\nAmount: '+_DL_PRICE+' RWF\nPhone: '+code+num);
     document.getElementById('dl-wa-link').href='https://wa.me/250788800375?text='+wa2;
-    document.getElementById('dl-fail-txt').innerHTML='Payment could not be processed. Please try again or contact your teacher.';
+    document.getElementById('dl-fail-txt').innerHTML='Error: '+(d&&d.errorCode?d.errorCode:(e&&e.message?e.message:'Unknown error. Check console F12'));
     document.getElementById('dl-st-fail').style.display='block';
   }
 }

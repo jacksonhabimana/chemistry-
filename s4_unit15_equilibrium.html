@@ -92,6 +92,8 @@ h3.sub{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--gold);
 footer{border-top:1px solid var(--border);padding:28px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--muted);}
 footer a{color:var(--accent);text-decoration:none;}
 @media(max-width:640px){.hero{padding:60px 24px 40px;}.page{padding:0 16px 60px;}.quiz-body{padding:16px;}}
+
+
 </style>
 
 <style>
@@ -455,6 +457,18 @@ I₂ prefers the organic layer → purple colour in CCl₄ layer</div>
 </div>
 
 <!-- EXERCISES -->
+<div class="card reveal" id="videoSection">
+  <div id="videoGrid" class="video-grid">
+    <p class="video-empty" id="videoEmpty">No videos added yet for this unit.</p>
+  </div>
+</div>
+
+<!-- Video Modal -->
+<div class="video-modal" id="videoModal" onclick="if(event.target===this)closeVideo()">
+  <button class="video-modal-close" onclick="closeVideo()">✕</button>
+  <div id="videoFrame"></div>
+</div>
+
 <div class="section-header" id="exercises">
   <span class="section-number">✏️</span>
   <h2>Exercises</h2>
@@ -985,6 +999,9 @@ async function dlInitPay(){
   try{
     var r=await fetch(workerUrl+'/deposit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({depositId:depositId,amount:String(_DL_PRICE),currency:currency,correspondent:correspondent,payer:{type:'MSISDN',address:{value:fullPhone}},statementDescription:'ChemNotes'})});
     var d=await r.json();
+    // DEBUG: log what PawaPay returns
+    console.log('PawaPay response status:', r.status);
+    console.log('PawaPay response body:', JSON.stringify(d));
     if(d.depositId||r.ok){
       _dlPollTimer=setInterval(async function(){
         try{
@@ -1001,7 +1018,7 @@ async function dlInitPay(){
     document.getElementById('dl-st-proc').style.display='none';
     var wa2=encodeURIComponent('PAYMENT\nUnit: '+document.title+'\nAmount: '+_DL_PRICE+' RWF\nPhone: '+code+num);
     document.getElementById('dl-wa-link').href='https://wa.me/250788800375?text='+wa2;
-    document.getElementById('dl-fail-txt').innerHTML='Payment could not be processed. Please try again or contact your teacher.';
+    document.getElementById('dl-fail-txt').innerHTML='Error: '+(d&&d.errorCode?d.errorCode:(e&&e.message?e.message:'Unknown error. Check console F12'));
     document.getElementById('dl-st-fail').style.display='block';
   }
 }

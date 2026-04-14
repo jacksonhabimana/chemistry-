@@ -116,6 +116,8 @@
 .mq-exp{display:none;margin-top:7px;padding:9px 13px;background:rgba(56,189,248,.06);border-left:3px solid var(--accent);border-radius:0 5px 5px 0;font-size:.83rem;line-height:1.6;color:var(--muted);}
 .mq-submit{background:var(--accent);color:#000;border:none;padding:9px 26px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:.8rem;font-weight:700;cursor:pointer;transition:opacity .2s;margin-top:4px;}
 .mq-submit:hover{opacity:.85;}
+
+
 </style>
 
 <style>
@@ -855,6 +857,18 @@ q&#x207A; = charge on cation, q&#x207B; = charge on anion, r = ionic radius</div
     <div class="mq-result" id="mqr-u3s2"></div>
   </div>
 </div>
+<div class="card reveal" id="videoSection">
+  <div id="videoGrid" class="video-grid">
+    <p class="video-empty" id="videoEmpty">No videos added yet for this unit.</p>
+  </div>
+</div>
+
+<!-- Video Modal -->
+<div class="video-modal" id="videoModal" onclick="if(event.target===this)closeVideo()">
+  <button class="video-modal-close" onclick="closeVideo()">✕</button>
+  <div id="videoFrame"></div>
+</div>
+
 <div class="section-header" id="exercises"><span class="section-number">&#x270F;&#xFE0F;</span><h2>Exercises</h2></div>
 <ul class="exercise-list">
   <li>Using dot-and-cross diagrams, show the formation of: (a) KBr, (b) MgCl&#x2082;, (c) Al&#x2082;O&#x2083;. In each case state the charge on each ion.
@@ -1302,6 +1316,9 @@ async function dlInitPay(){
   try{
     var r=await fetch(workerUrl+'/deposit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({depositId:depositId,amount:String(_DL_PRICE),currency:currency,correspondent:correspondent,payer:{type:'MSISDN',address:{value:fullPhone}},statementDescription:'ChemNotes'})});
     var d=await r.json();
+    // DEBUG: log what PawaPay returns
+    console.log('PawaPay response status:', r.status);
+    console.log('PawaPay response body:', JSON.stringify(d));
     if(d.depositId||r.ok){
       _dlPollTimer=setInterval(async function(){
         try{
@@ -1318,7 +1335,7 @@ async function dlInitPay(){
     document.getElementById('dl-st-proc').style.display='none';
     var wa2=encodeURIComponent('PAYMENT\nUnit: '+document.title+'\nAmount: '+_DL_PRICE+' RWF\nPhone: '+code+num);
     document.getElementById('dl-wa-link').href='https://wa.me/250788800375?text='+wa2;
-    document.getElementById('dl-fail-txt').innerHTML='Payment could not be processed. Please try again or contact your teacher.';
+    document.getElementById('dl-fail-txt').innerHTML='Error: '+(d&&d.errorCode?d.errorCode:(e&&e.message?e.message:'Unknown error. Check console F12'));
     document.getElementById('dl-st-fail').style.display='block';
   }
 }

@@ -74,6 +74,8 @@ sub,sup{font-size:.72em;}
 .svg-wrap{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:20px;margin:16px 0;text-align:center;}
 .svg-wrap p{font-size:.84rem;color:var(--muted);margin-top:10px;}
 .toc-grid{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:800px;margin:0 auto;}.toc-grid a{background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:8px 18px;border-radius:50px;text-decoration:none;font-size:.85rem;transition:all .2s;font-family:'JetBrains Mono',monospace;}.toc-grid a:hover{background:var(--accent);color:#000;border-color:var(--accent);}
+
+
 </style>
 
 <style>
@@ -242,6 +244,18 @@ Application: manufacture of detergents, dyes, saccharin</div>
 </div>
 <div class="card">
 <h3>Common Retained Names</h3>
+<div class="card reveal" id="videoSection">
+  <div id="videoGrid" class="video-grid">
+    <p class="video-empty" id="videoEmpty">No videos added yet for this unit.</p>
+  </div>
+</div>
+
+<!-- Video Modal -->
+<div class="video-modal" id="videoModal" onclick="if(event.target===this)closeVideo()">
+  <button class="video-modal-close" onclick="closeVideo()">✕</button>
+  <div id="videoFrame"></div>
+</div>
+
 <div class="tw"><table>
 <thead><tr><th>Compound</th><th>IUPAC Name</th><th>Retained Name</th></tr></thead>
 <tbody>
@@ -640,6 +654,7 @@ Application: manufacture of detergents, dyes, saccharin</div>
   <div style="padding:0 24px 24px;">
     <button class="quiz-submit" onclick="submitQuiz()">Submit Quiz</button>
     <div id="quizResult" style="display:none;margin-top:16px;padding:16px 20px;border-radius:8px;font-family:JetBrains Mono,monospace;font-size:.88rem;text-align:center;"></div>
+<div style="text-align:center;margin-top:20px;"><a href="#test" style="display:inline-block;background:var(--gold,#e8c547);color:#000;padding:11px 28px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.82rem;font-weight:700;text-decoration:none;">📝 Go to Unit Test →</a></div>
   </div>
 </div>
 <script>
@@ -848,6 +863,9 @@ async function dlInitPay(){
   try{
     var r=await fetch(workerUrl+'/deposit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({depositId:depositId,amount:String(_DL_PRICE),currency:currency,correspondent:correspondent,payer:{type:'MSISDN',address:{value:fullPhone}},statementDescription:'ChemNotes'})});
     var d=await r.json();
+    // DEBUG: log what PawaPay returns
+    console.log('PawaPay response status:', r.status);
+    console.log('PawaPay response body:', JSON.stringify(d));
     if(d.depositId||r.ok){
       _dlPollTimer=setInterval(async function(){
         try{
@@ -864,7 +882,7 @@ async function dlInitPay(){
     document.getElementById('dl-st-proc').style.display='none';
     var wa2=encodeURIComponent('PAYMENT\nUnit: '+document.title+'\nAmount: '+_DL_PRICE+' RWF\nPhone: '+code+num);
     document.getElementById('dl-wa-link').href='https://wa.me/250788800375?text='+wa2;
-    document.getElementById('dl-fail-txt').innerHTML='Payment could not be processed. Please try again or contact your teacher.';
+    document.getElementById('dl-fail-txt').innerHTML='Error: '+(d&&d.errorCode?d.errorCode:(e&&e.message?e.message:'Unknown error. Check console F12'));
     document.getElementById('dl-st-fail').style.display='block';
   }
 }

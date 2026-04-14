@@ -93,6 +93,8 @@ h3.sub{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--gold);
 footer{border-top:1px solid var(--border);padding:28px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--muted);}
 footer a{color:var(--accent);text-decoration:none;}
 @media(max-width:640px){.hero{padding:60px 24px 40px;}.page{padding:0 16px 60px;}.quiz-body{padding:16px;}}
+
+
 </style>
 
 <style>
@@ -535,6 +537,18 @@ Lab preparation: FeS + H₂SO₄(dil.) → FeSO₄ + H₂S↑  (Kipp's apparatus
 </div>
 
 <!-- ═══ EXERCISES ═══ -->
+<div class="card reveal" id="videoSection">
+  <div id="videoGrid" class="video-grid">
+    <p class="video-empty" id="videoEmpty">No videos added yet for this unit.</p>
+  </div>
+</div>
+
+<!-- Video Modal -->
+<div class="video-modal" id="videoModal" onclick="if(event.target===this)closeVideo()">
+  <button class="video-modal-close" onclick="closeVideo()">✕</button>
+  <div id="videoFrame"></div>
+</div>
+
 <div class="section-header" id="exercises">
   <span class="section-number">✏️</span>
   <h2>Exercises</h2>

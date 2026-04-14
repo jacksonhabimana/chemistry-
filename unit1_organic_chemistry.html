@@ -408,22 +408,6 @@
   .reveal{opacity:0;transform:translateY(24px);transition:opacity .5s ease,transform .5s ease;}
   .reveal.visible{opacity:1;transform:none;}
 
-/* ── Video Section ── */
-.video-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-top:12px;}
-.video-card{background:var(--surface2);border:1px solid var(--border);border-radius:10px;overflow:hidden;cursor:pointer;transition:border-color .2s;}
-.video-card:hover{border-color:#f87171;}
-.video-thumb{position:relative;width:100%;aspect-ratio:16/9;background:#000;overflow:hidden;}
-.video-thumb img{width:100%;height:100%;object-fit:cover;}
-.video-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.35);}
-.video-play span{font-size:2.5rem;}
-.video-info{padding:10px 12px;}
-.video-info h4{color:#fff;font-size:.88rem;margin-bottom:3px;}
-.video-info p{color:var(--muted);font-size:.75rem;font-family:"JetBrains Mono",monospace;}
-.video-empty{color:var(--muted);font-size:.85rem;font-style:italic;padding:16px 0;}
-.video-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:9999;align-items:center;justify-content:center;flex-direction:column;}
-.video-modal.open{display:flex;}
-.video-modal iframe{width:min(860px,95vw);height:min(484px,54vw);border:none;border-radius:10px;}
-.video-modal-close{position:absolute;top:16px;right:20px;background:none;border:none;color:#fff;font-size:2rem;cursor:pointer;line-height:1;}
 </style>
 </head>
 <body>
@@ -439,7 +423,6 @@
     <a href="#s3">1.3 Functional Groups</a>
     <a href="#s4">1.4 IUPAC Rules</a>
     <a href="#examples">Worked Examples</a>
-    <a href="#videos">📹 Videos</a>
     <a href="#exercises">Exercises</a>
     <a href="#quiz">Quiz</a>
     <a href="#test">Unit Test</a>
@@ -812,11 +795,6 @@ IUPAC name:   butane
 </div>
 
 <!-- ═══════════ EXERCISES ═══════════ -->
-<!-- ═══ VIDEO SECTION ═══ -->
-<div class="section-header reveal" id="videos">
-  <span class="section-number">📹</span>
-  <h2>Video Resources</h2>
-</div>
 <div class="card reveal" id="videoSection">
   <div id="videoGrid" class="video-grid">
     <p class="video-empty" id="videoEmpty">No videos added yet for this unit.</p>
@@ -1448,78 +1426,5 @@ document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 
 buildQuiz();
 </script>
-<script>
-// ── Video Section ──
-(function(){
-  var fname = location.pathname.split("/").pop() || "index.html";
-  var key = "unit_videos_" + fname;
-  var videos = JSON.parse(localStorage.getItem(key)||"[]");
-
-  function getYtId(url){
-    var m = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))[\w-]{11}/);
-    if(!m) return null;
-    return m[0].split(/[\/=]/).pop();
-  }
-
-  function getThumb(url){
-    var ytId = getYtId(url);
-    if(ytId) return "https://img.youtube.com/vi/"+ytId+"/mqdefault.jpg";
-    return "";
-  }
-
-  function getEmbedUrl(url){
-    var ytId = getYtId(url);
-    if(ytId) return "https://www.youtube.com/embed/"+ytId+"?autoplay=1";
-    var vm = url.match(/vimeo\.com\/(\d+)/);
-    if(vm) return "https://player.vimeo.com/video/"+vm[1]+"?autoplay=1";
-    return url;
-  }
-
-  function renderVideos(){
-    var grid = document.getElementById("videoGrid");
-    var empty = document.getElementById("videoEmpty");
-    if(!grid) return;
-    if(videos.length===0){ if(empty) empty.style.display="block"; return; }
-    if(empty) empty.style.display="none";
-    grid.innerHTML = "";
-    videos.forEach(function(v){
-      var thumb = getThumb(v.url);
-      var card = document.createElement("div");
-      card.className = "video-card";
-      var thumbHtml = thumb
-        ? "<img src=""+thumb+"" alt=""+v.title+"" style="width:100%;height:100%;object-fit:cover;">"
-        : "<div style="width:100%;height:100%;background:linear-gradient(135deg,#1c2333,#0d1117);display:flex;align-items:center;justify-content:center;"><span style="font-size:2rem">🎬</span></div>";
-      card.innerHTML =
-        "<div class="video-thumb">"+thumbHtml+
-        "<div class="video-play"><span>▶</span></div></div>"+
-        "<div class="video-info"><h4>"+v.title+"</h4><p>"+v.source+"</p></div>";
-      card.onclick = (function(vid){ return function(){ openVideo(vid); }; })(v);
-      grid.appendChild(card);
-    });
-  }
-
-  window.openVideo = function(v){
-    var modal = document.getElementById("videoModal");
-    var frame = document.getElementById("videoFrame");
-    if(!modal||!frame) return;
-    var embedUrl = getEmbedUrl(v.url);
-    var isEmbed = embedUrl.includes("youtube.com/embed") || embedUrl.includes("vimeo.com/video");
-    frame.innerHTML = isEmbed
-      ? "<iframe src=""+embedUrl+"" allowfullscreen allow="autoplay"></iframe>"
-      : "<div style="text-align:center;"><a href=""+v.url+"" target="_blank" style="color:#38bdf8;font-size:1rem;">▶ Open Video →</a></div>";
-    modal.classList.add("open");
-  };
-
-  window.closeVideo = function(){
-    var modal = document.getElementById("videoModal");
-    var frame = document.getElementById("videoFrame");
-    if(modal) modal.classList.remove("open");
-    if(frame) frame.innerHTML = "";
-  };
-
-  renderVideos();
-})();
-</script>
-
 </body>
 </html>

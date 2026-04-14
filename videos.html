@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Video Library | Jackson Habimana Chemistry</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:wght@300;400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+<style>
+:root{--bg:#0d1117;--surface:#161b22;--surface2:#1c2333;--border:#30363d;--accent:#38bdf8;--green:#34d399;--gold:#e8c547;--purple:#a78bfa;--red:#f87171;--text:#e6edf3;--muted:#8b949e;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:'Source Serif 4',serif;min-height:100vh;}
+/* NAV */
+nav{position:sticky;top:0;z-index:200;background:rgba(13,17,23,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 28px;}
+.nav-inner{max-width:1080px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:54px;gap:12px;}
+.nav-brand{font-family:'JetBrains Mono',monospace;font-size:.82rem;color:var(--accent);text-decoration:none;letter-spacing:.06em;}
+.nav-links{display:flex;gap:4px;flex-wrap:wrap;}
+.nav-links a{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);text-decoration:none;padding:5px 12px;border-radius:6px;border:1px solid transparent;transition:all .15s;}
+.nav-links a:hover{color:#fff;border-color:var(--border);}
+/* HERO */
+.hero{background:linear-gradient(135deg,rgba(248,113,113,.08),rgba(167,139,250,.05));border-bottom:1px solid var(--border);padding:40px 24px 32px;text-align:center;}
+.hero h1{font-family:'Playfair Display',serif;font-size:2.2rem;color:#fff;margin-bottom:8px;}
+.hero h1 em{color:var(--red);font-style:italic;}
+.hero p{color:var(--muted);font-size:.9rem;max-width:520px;margin:0 auto;}
+/* FILTER BAR */
+.filter-bar{max-width:1080px;margin:24px auto 0;padding:0 20px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+.filter-btn{font-family:'JetBrains Mono',monospace;font-size:.72rem;padding:7px 16px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;transition:all .15s;}
+.filter-btn.active,.filter-btn:hover{background:var(--accent);color:#000;border-color:var(--accent);}
+.search-box{margin-left:auto;position:relative;}
+.search-box input{background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:8px 14px 8px 36px;font-family:'JetBrains Mono',monospace;font-size:.78rem;width:220px;}
+.search-box input::placeholder{color:var(--muted);}
+.search-box::before{content:'🔍';position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:.8rem;}
+/* GRID */
+.wrap{max-width:1080px;margin:0 auto;padding:24px 20px 80px;}
+.section-label{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--accent);text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px;margin-top:28px;}
+.video-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-bottom:8px;}
+.video-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;cursor:pointer;transition:border-color .2s,transform .15s;}
+.video-card:hover{border-color:var(--red);transform:translateY(-2px);}
+.video-card.hidden{display:none;}
+.thumb{position:relative;width:100%;aspect-ratio:16/9;background:#000;overflow:hidden;}
+.thumb img{width:100%;height:100%;object-fit:cover;}
+.thumb .play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.3);}
+.thumb .play span{font-size:2.2rem;transition:transform .15s;}
+.video-card:hover .play span{transform:scale(1.15);}
+.thumb .badge{position:absolute;bottom:6px;left:6px;background:rgba(0,0,0,.75);color:#fff;font-family:'JetBrains Mono',monospace;font-size:.62rem;padding:2px 7px;border-radius:4px;}
+.info{padding:10px 12px 12px;}
+.info .unit-tag{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--accent);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;}
+.info h4{color:#fff;font-size:.88rem;margin-bottom:3px;line-height:1.3;}
+.info p{color:var(--muted);font-size:.75rem;font-family:'JetBrains Mono',monospace;}
+/* EMPTY STATE */
+.empty{text-align:center;padding:60px 20px;color:var(--muted);}
+.empty .icon{font-size:3rem;margin-bottom:12px;}
+.empty h3{color:#fff;margin-bottom:6px;}
+.empty p{font-size:.85rem;}
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:9999;align-items:center;justify-content:center;flex-direction:column;}
+.modal-overlay.open{display:flex;}
+.modal-overlay iframe{width:min(900px,96vw);height:min(506px,54vw);border:none;border-radius:10px;}
+.modal-close{position:absolute;top:14px;right:18px;background:none;border:none;color:#fff;font-size:2rem;cursor:pointer;line-height:1;z-index:1;}
+.modal-title{color:#fff;font-family:'JetBrains Mono',monospace;font-size:.82rem;margin-top:14px;text-align:center;max-width:600px;}
+/* TEACHER PANEL */
+.teacher-panel{background:var(--surface);border:1px solid rgba(232,197,71,.25);border-radius:10px;padding:20px;margin-bottom:24px;display:none;}
+.teacher-panel.visible{display:block;}
+.teacher-panel h3{color:var(--gold);margin-bottom:14px;font-size:.95rem;font-family:'JetBrains Mono',monospace;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;}
+.form-row.full{grid-template-columns:1fr;}
+label{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:4px;}
+input,select{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:var(--text);padding:9px 12px;font-family:'JetBrains Mono',monospace;font-size:.82rem;}
+input:focus,select:focus{outline:none;border-color:var(--accent);}
+.btn-add{background:var(--green);color:#000;border:none;padding:10px 22px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:.82rem;font-weight:700;cursor:pointer;}
+.teacher-toggle{position:fixed;bottom:20px;right:20px;background:var(--gold);color:#000;border:none;padding:10px 18px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.78rem;font-weight:700;cursor:pointer;z-index:100;box-shadow:0 4px 12px rgba(0,0,0,.4);}
+.no-videos-msg{color:var(--muted);font-size:.85rem;font-style:italic;padding:12px 0;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">⚗ Habimana Chemistry</a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="s4-chemistry.html">S4</a>
+      <a href="s5-chemistry.html">S5</a>
+      <a href="s6-chemistry.html">S6</a>
+      <a href="student-hub.html">Student Hub</a>
+    </div>
+  </div>
+</nav>
+
+<div class="hero">
+  <h1>📹 <em>Video</em> Library</h1>
+  <p>Watch chemistry lessons added by Mr Habimana — organised by course and unit.</p>
+</div>
+
+<!-- Teacher Add Form -->
+<div class="wrap">
+  <div class="teacher-panel" id="teacherPanel">
+    <h3>➕ Add New Video</h3>
+    <div class="form-row">
+      <div>
+        <label>Course</label>
+        <select id="add-course">
+          <optgroup label="S4 Chemistry">
+            <option value="S4|s4_unit1_atomic_structure.html|Unit 1 — Atomic Structure">S4 Unit 1 — Atomic Structure</option>
+            <option value="S4|s4_unit2_electronic_config.html|Unit 2 — Electronic Config">S4 Unit 2 — Electronic Config</option>
+            <option value="S4|s4_unit3_ionic_metallic_bonds.html|Unit 3 — Ionic &amp; Metallic Bonds">S4 Unit 3 — Ionic &amp; Metallic Bonds</option>
+            <option value="S4|s4_unit4_covalent_bond.html|Unit 4 — Covalent Bond">S4 Unit 4 — Covalent Bond</option>
+            <option value="S4|s4_unit5_periodic_trends.html|Unit 5 — Periodic Trends">S4 Unit 5 — Periodic Trends</option>
+            <option value="S4|s4_unit6_group1.html|Unit 6 — Group 1">S4 Unit 6 — Group 1</option>
+            <option value="S4|s4_unit7_group2.html|Unit 7 — Group 2">S4 Unit 7 — Group 2</option>
+            <option value="S4|s4_unit8_group13.html|Unit 8 — Group 13">S4 Unit 8 — Group 13</option>
+            <option value="S4|s4_unit9_group14.html|Unit 9 — Group 14">S4 Unit 9 — Group 14</option>
+            <option value="S4|s4_unit10_group15.html|Unit 10 — Group 15">S4 Unit 10 — Group 15</option>
+            <option value="S4|s4_unit11_group16.html|Unit 11 — Group 16">S4 Unit 11 — Group 16</option>
+            <option value="S4|s4_unit12_group17.html|Unit 12 — Halogens">S4 Unit 12 — Halogens</option>
+            <option value="S4|s4_unit13_group18.html|Unit 13 — Noble Gases">S4 Unit 13 — Noble Gases</option>
+            <option value="S4|s4_unit14_period3.html|Unit 14 — Period 3">S4 Unit 14 — Period 3</option>
+            <option value="S4|s4_unit15_equilibrium.html|Unit 15 — Equilibrium">S4 Unit 15 — Equilibrium</option>
+            <option value="S4|s4_unit16_acids_bases.html|Unit 16 — Acids &amp; Bases">S4 Unit 16 — Acids &amp; Bases</option>
+            <option value="S4|s4_unit17_redox.html|Unit 17 — Redox">S4 Unit 17 — Redox</option>
+            <option value="S4|s4_unit18_energy_changes.html|Unit 18 — Energy Changes">S4 Unit 18 — Energy Changes</option>
+          </optgroup>
+          <optgroup label="S5 Chemistry">
+            <option value="S5|unit1_organic_chemistry.html|Unit 1 — Organic Chemistry">S5 Unit 1 — Organic Chemistry</option>
+            <option value="S5|unit2_alkanes.html|Unit 2 — Alkanes">S5 Unit 2 — Alkanes</option>
+            <option value="S5|unit3_alkenes_alkynes.html|Unit 3 — Alkenes &amp; Alkynes">S5 Unit 3 — Alkenes &amp; Alkynes</option>
+            <option value="S5|unit4_halogenoalkanes.html|Unit 4 — Halogenoalkanes">S5 Unit 4 — Halogenoalkanes</option>
+            <option value="S5|unit5_alcohols_ethers.html|Unit 5 — Alcohols &amp; Ethers">S5 Unit 5 — Alcohols &amp; Ethers</option>
+            <option value="S5|unit6_carbonyl.html|Unit 6 — Carbonyl">S5 Unit 6 — Carbonyl</option>
+            <option value="S5|unit7_carboxylic_acids.html|Unit 7 — Carboxylic Acids">S5 Unit 7 — Carboxylic Acids</option>
+            <option value="S5|unit8_esters_amides.html|Unit 8 — Esters &amp; Amides">S5 Unit 8 — Esters &amp; Amides</option>
+            <option value="S5|unit9_amines_amino_acids.html|Unit 9 — Amines">S5 Unit 9 — Amines</option>
+            <option value="S5|unit10_phase_diagrams.html|Unit 10 — Phase Diagrams">S5 Unit 10 — Phase Diagrams</option>
+            <option value="S5|unit11_solutions_titration.html|Unit 11 — Solutions">S5 Unit 11 — Solutions</option>
+            <option value="S5|unit12_conductivity.html|Unit 12 — Conductivity">S5 Unit 12 — Conductivity</option>
+            <option value="S5|unit13_electrolysis.html|Unit 13 — Electrolysis">S5 Unit 13 — Electrolysis</option>
+            <option value="S5|unit14_enthalpy.html|Unit 14 — Enthalpy">S5 Unit 14 — Enthalpy</option>
+            <option value="S5|unit15_entropy_free_energy.html|Unit 15 — Entropy">S5 Unit 15 — Entropy</option>
+          </optgroup>
+          <optgroup label="S6 Chemistry">
+            <option value="S6|unit1_transition_metals.html|Unit 1 — Transition Metals">S6 Unit 1 — Transition Metals</option>
+            <option value="S6|unit2_extraction_metals.html|Unit 2 — Extraction of Metals">S6 Unit 2 — Extraction of Metals</option>
+            <option value="S6|unit3_fertilisers.html|Unit 3 — Fertilisers">S6 Unit 3 — Fertilisers</option>
+            <option value="S6|unit4_benzene.html|Unit 4 — Benzene">S6 Unit 4 — Benzene</option>
+            <option value="S6|unit5_benzene_derivatives.html|Unit 5 — Benzene Derivatives">S6 Unit 5 — Benzene Derivatives</option>
+            <option value="S6|unit6_polymers.html|Unit 6 — Polymers">S6 Unit 6 — Polymers</option>
+            <option value="S6|unit7_solvent_colligative.html|Unit 7 — Colligative Properties">S6 Unit 7 — Colligative Properties</option>
+            <option value="S6|unit8_equilibrium.html|Unit 8 — Equilibrium">S6 Unit 8 — Equilibrium</option>
+            <option value="S6|unit9_pH.html|Unit 9 — pH">S6 Unit 9 — pH</option>
+            <option value="S6|unit10_indicators_titration.html|Unit 10 — Indicators">S6 Unit 10 — Indicators</option>
+            <option value="S6|unit11_solubility_product.html|Unit 11 — Solubility">S6 Unit 11 — Solubility</option>
+            <option value="S6|unit12_electrochemical_cells.html|Unit 12 — Electrochemical Cells">S6 Unit 12 — Electrochemical Cells</option>
+            <option value="S6|unit13_reaction_rates.html|Unit 13 — Reaction Rates">S6 Unit 13 — Reaction Rates</option>
+            <option value="S6|unit14_rate_laws.html|Unit 14 — Rate Laws">S6 Unit 14 — Rate Laws</option>
+            <option value="S6|unit15_radioactivity.html|Unit 15 — Radioactivity">S6 Unit 15 — Radioactivity</option>
+          </optgroup>
+        </select>
+      </div>
+      <div>
+        <label>Source / Channel</label>
+        <input id="add-source" placeholder="e.g. YouTube · Khan Academy"/>
+      </div>
+    </div>
+    <div class="form-row full">
+      <div>
+        <label>Video Title</label>
+        <input id="add-title" placeholder="e.g. Atomic Structure Explained"/>
+      </div>
+    </div>
+    <div class="form-row full">
+      <div>
+        <label>YouTube / Video URL</label>
+        <input id="add-url" placeholder="https://www.youtube.com/watch?v=..."/>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;margin-top:4px;">
+      <button class="btn-add" onclick="addVideo()">➕ Add Video</button>
+      <span id="add-msg" style="font-family:'JetBrains Mono',monospace;font-size:.78rem;"></span>
+    </div>
+  </div>
+
+  <!-- Filter Bar -->
+  <div class="filter-bar" style="padding:0;margin:0 0 20px 0;">
+    <button class="filter-btn active" onclick="filterVideos('ALL',this)">All</button>
+    <button class="filter-btn" onclick="filterVideos('S4',this)">S4</button>
+    <button class="filter-btn" onclick="filterVideos('S5',this)">S5</button>
+    <button class="filter-btn" onclick="filterVideos('S6',this)">S6</button>
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Search videos..." oninput="searchVideos(this.value)"/>
+    </div>
+  </div>
+
+  <!-- Video Sections -->
+  <div id="videoLibrary"></div>
+
+  <div class="empty" id="emptyState" style="display:none;">
+    <div class="icon">📹</div>
+    <h3>No Videos Yet</h3>
+    <p>Mr Habimana hasn't added any videos yet.<br/>Check back soon!</p>
+  </div>
+</div>
+
+<!-- Video Modal -->
+<div class="modal-overlay" id="videoModal" onclick="if(event.target===this)closeVideo()">
+  <button class="modal-close" onclick="closeVideo()">✕</button>
+  <div id="videoFrame"></div>
+  <div class="modal-title" id="modalTitle"></div>
+</div>
+
+<!-- Teacher Toggle -->
+<button class="teacher-toggle" onclick="toggleTeacher()" id="teacherToggle" style="display:none;">🔐 Teacher</button>
+
+<script>
+// ── Helpers ──
+function getYtId(url){
+  var m = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([\w-]{11})/);
+  return m ? m[1] : null;
+}
+function getThumb(url){
+  var id = getYtId(url);
+  return id ? 'https://img.youtube.com/vi/'+id+'/mqdefault.jpg' : '';
+}
+function getEmbed(url){
+  var id = getYtId(url);
+  if(id) return 'https://www.youtube.com/embed/'+id+'?autoplay=1';
+  var vm = url.match(/vimeo\.com\/(\d+)/);
+  if(vm) return 'https://player.vimeo.com/video/'+vm[1]+'?autoplay=1';
+  return url;
+}
+function getAllVideos(){
+  var all = [];
+  var keys = Object.keys(localStorage).filter(function(k){ return k.startsWith('unit_videos_'); });
+  keys.forEach(function(k){
+    var fname = k.replace('unit_videos_','');
+    var vids = JSON.parse(localStorage.getItem(k)||'[]');
+    vids.forEach(function(v){ all.push(Object.assign({},v,{fname:fname})); });
+  });
+  return all;
+}
+
+// ── Render ──
+var currentFilter = 'ALL';
+
+function getCourse(fname){
+  if(fname.startsWith('s4_')) return 'S4';
+  if(fname.startsWith('s6_') || ['unit1_transition','unit2_extract','unit3_fert','unit4_benz','unit5_benz','unit6_poly','unit7_solv','unit8_equi','unit9_pH','unit10_ind','unit11_sol','unit12_elec','unit13_reac','unit14_rate','unit15_radio'].some(function(p){return fname.startsWith(p);})) return 'S6';
+  return 'S5';
+}
+
+function getUnitLabel(fname){
+  var map = {
+    's4_unit1_atomic_structure.html':'S4 · Unit 1 — Atomic Structure',
+    's4_unit2_electronic_config.html':'S4 · Unit 2 — Electronic Config',
+    's4_unit3_ionic_metallic_bonds.html':'S4 · Unit 3 — Ionic & Metallic Bonds',
+    's4_unit4_covalent_bond.html':'S4 · Unit 4 — Covalent Bond',
+    's4_unit5_periodic_trends.html':'S4 · Unit 5 — Periodic Trends',
+    's4_unit6_group1.html':'S4 · Unit 6 — Group 1',
+    's4_unit7_group2.html':'S4 · Unit 7 — Group 2',
+    's4_unit8_group13.html':'S4 · Unit 8 — Group 13',
+    's4_unit9_group14.html':'S4 · Unit 9 — Group 14',
+    's4_unit10_group15.html':'S4 · Unit 10 — Group 15',
+    's4_unit11_group16.html':'S4 · Unit 11 — Group 16',
+    's4_unit12_group17.html':'S4 · Unit 12 — Halogens',
+    's4_unit13_group18.html':'S4 · Unit 13 — Noble Gases',
+    's4_unit14_period3.html':'S4 · Unit 14 — Period 3',
+    's4_unit15_equilibrium.html':'S4 · Unit 15 — Equilibrium',
+    's4_unit16_acids_bases.html':'S4 · Unit 16 — Acids & Bases',
+    's4_unit17_redox.html':'S4 · Unit 17 — Redox',
+    's4_unit18_energy_changes.html':'S4 · Unit 18 — Energy Changes',
+    'unit1_organic_chemistry.html':'S5 · Unit 1 — Organic Chemistry',
+    'unit2_alkanes.html':'S5 · Unit 2 — Alkanes',
+    'unit3_alkenes_alkynes.html':'S5 · Unit 3 — Alkenes & Alkynes',
+    'unit4_halogenoalkanes.html':'S5 · Unit 4 — Halogenoalkanes',
+    'unit5_alcohols_ethers.html':'S5 · Unit 5 — Alcohols & Ethers',
+    'unit6_carbonyl.html':'S5 · Unit 6 — Carbonyl',
+    'unit7_carboxylic_acids.html':'S5 · Unit 7 — Carboxylic Acids',
+    'unit8_esters_amides.html':'S5 · Unit 8 — Esters & Amides',
+    'unit9_amines_amino_acids.html':'S5 · Unit 9 — Amines',
+    'unit10_phase_diagrams.html':'S5 · Unit 10 — Phase Diagrams',
+    'unit11_solutions_titration.html':'S5 · Unit 11 — Solutions',
+    'unit12_conductivity.html':'S5 · Unit 12 — Conductivity',
+    'unit13_electrolysis.html':'S5 · Unit 13 — Electrolysis',
+    'unit14_enthalpy.html':'S5 · Unit 14 — Enthalpy',
+    'unit15_entropy_free_energy.html':'S5 · Unit 15 — Entropy',
+    'unit1_transition_metals.html':'S6 · Unit 1 — Transition Metals',
+    'unit2_extraction_metals.html':'S6 · Unit 2 — Extraction of Metals',
+    'unit3_fertilisers.html':'S6 · Unit 3 — Fertilisers',
+    'unit4_benzene.html':'S6 · Unit 4 — Benzene',
+    'unit5_benzene_derivatives.html':'S6 · Unit 5 — Benzene Derivatives',
+    'unit6_polymers.html':'S6 · Unit 6 — Polymers',
+    'unit7_solvent_colligative.html':'S6 · Unit 7 — Colligative Properties',
+    'unit8_equilibrium.html':'S6 · Unit 8 — Equilibrium',
+    'unit9_pH.html':'S6 · Unit 9 — pH',
+    'unit10_indicators_titration.html':'S6 · Unit 10 — Indicators',
+    'unit11_solubility_product.html':'S6 · Unit 11 — Solubility',
+    'unit12_electrochemical_cells.html':'S6 · Unit 12 — Electrochemical Cells',
+    'unit13_reaction_rates.html':'S6 · Unit 13 — Reaction Rates',
+    'unit14_rate_laws.html':'S6 · Unit 14 — Rate Laws',
+    'unit15_radioactivity.html':'S6 · Unit 15 — Radioactivity'
+  };
+  return map[fname] || fname;
+}
+
+function renderLibrary(){
+  var all = getAllVideos();
+  var lib = document.getElementById('videoLibrary');
+  var empty = document.getElementById('emptyState');
+  lib.innerHTML = '';
+
+  if(all.length === 0){
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+
+  // Group by unit
+  var groups = {};
+  all.forEach(function(v){
+    var course = getCourse(v.fname);
+    var label = getUnitLabel(v.fname);
+    var key = course + '|' + label;
+    if(!groups[key]) groups[key] = {course:course, label:label, videos:[]};
+    groups[key].videos.push(v);
+  });
+
+  // Sort groups: S4 first, then S5, then S6
+  var sorted = Object.keys(groups).sort(function(a,b){
+    var ca = a.split('|')[0], cb = b.split('|')[0];
+    var order = {S4:0,S5:1,S6:2};
+    if(order[ca] !== order[cb]) return order[ca]-order[cb];
+    return a.localeCompare(b);
+  });
+
+  sorted.forEach(function(key){
+    var g = groups[key];
+    var section = document.createElement('div');
+    section.className = 'video-group';
+    section.setAttribute('data-course', g.course);
+
+    var label = document.createElement('div');
+    label.className = 'section-label';
+    label.textContent = g.label;
+    section.appendChild(label);
+
+    var grid = document.createElement('div');
+    grid.className = 'video-grid';
+    g.videos.forEach(function(v, idx){
+      var thumb = getThumb(v.url);
+      var card = document.createElement('div');
+      card.className = 'video-card';
+      card.setAttribute('data-title', (v.title+' '+v.source).toLowerCase());
+      card.setAttribute('data-course', g.course);
+
+      var thumbHtml = thumb
+        ? '<img src="'+thumb+'" alt="'+v.title+'" loading="lazy">'
+        : '<div style="width:100%;height:100%;background:linear-gradient(135deg,#1c2333,#0d1117);display:flex;align-items:center;justify-content:center;"><span style="font-size:2.5rem">🎬</span></div>';
+
+      card.innerHTML =
+        '<div class="thumb">'+thumbHtml+
+        '<div class="play"><span>▶</span></div>'+
+        '<div class="badge">'+g.course+'</div>'+
+        '</div>'+
+        '<div class="info">'+
+        '<div class="unit-tag">'+g.label+'</div>'+
+        '<h4>'+v.title+'</h4>'+
+        '<p>'+v.source+'</p>'+
+        '</div>';
+
+      // Delete button for teacher
+      if(sessionStorage.getItem('vid_teacher')==='1'){
+        var del = document.createElement('button');
+        del.textContent = '🗑';
+        del.style.cssText = 'position:absolute;top:6px;right:6px;background:var(--red);color:#fff;border:none;border-radius:4px;padding:2px 7px;cursor:pointer;font-size:.75rem;z-index:2;';
+        card.style.position = 'relative';
+        del.onclick = (function(fname, vi){ return function(e){ e.stopPropagation(); removeVideo(fname, vi); }; })(v.fname, idx);
+        card.appendChild(del);
+      }
+
+      card.onclick = (function(vid, lbl){ return function(){ openVideo(vid, lbl); }; })(v, g.label);
+      grid.appendChild(card);
+    });
+    section.appendChild(grid);
+    lib.appendChild(section);
+  });
+}
+
+function filterVideos(course, btn){
+  currentFilter = course;
+  document.querySelectorAll('.filter-btn').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+  document.querySelectorAll('.video-group').forEach(function(g){
+    g.style.display = (course==='ALL' || g.getAttribute('data-course')===course) ? '' : 'none';
+  });
+}
+
+function searchVideos(q){
+  var term = q.toLowerCase();
+  document.querySelectorAll('.video-card').forEach(function(c){
+    var title = c.getAttribute('data-title')||'';
+    c.classList.toggle('hidden', !!term && !title.includes(term));
+  });
+}
+
+// ── Video Player ──
+function openVideo(v, label){
+  var modal = document.getElementById('videoModal');
+  var frame = document.getElementById('videoFrame');
+  var mtitle = document.getElementById('modalTitle');
+  var embed = getEmbed(v.url);
+  var isEmbed = embed.includes('youtube.com/embed') || embed.includes('vimeo.com/video');
+  frame.innerHTML = isEmbed
+    ? '<iframe src="'+embed+'" allowfullscreen allow="autoplay"></iframe>'
+    : '<div style="text-align:center;padding:40px;"><a href="'+v.url+'" target="_blank" style="color:#38bdf8;font-size:1.1rem;">▶ Open Video →</a></div>';
+  mtitle.textContent = v.title + ' · ' + label;
+  modal.classList.add('open');
+}
+function closeVideo(){
+  document.getElementById('videoModal').classList.remove('open');
+  document.getElementById('videoFrame').innerHTML = '';
+}
+document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeVideo(); });
+
+// ── Teacher Functions ──
+function toggleTeacher(){
+  var panel = document.getElementById('teacherPanel');
+  panel.classList.toggle('visible');
+}
+
+function checkTeacher(){
+  var pwd = prompt('Teacher password:');
+  if(pwd==='chemistry2024'||pwd==='CHEM2026'){
+    sessionStorage.setItem('vid_teacher','1');
+    document.getElementById('teacherToggle').style.display='block';
+    document.getElementById('teacherToggle').textContent='✏ Manage Videos';
+    renderLibrary();
+  }
+}
+
+function addVideo(){
+  var courseVal = document.getElementById('add-course').value;
+  var parts = courseVal.split('|');
+  var course = parts[0], fname = parts[1];
+  var title = (document.getElementById('add-title').value||'').trim();
+  var source = (document.getElementById('add-source').value||'').trim()||'Video';
+  var url = (document.getElementById('add-url').value||'').trim();
+  var msg = document.getElementById('add-msg');
+  if(!title||!url){msg.style.color='var(--red)';msg.textContent='❌ Title and URL required.';return;}
+  var key = 'unit_videos_'+fname;
+  var vids = JSON.parse(localStorage.getItem(key)||'[]');
+  vids.push({title:title,source:source,url:url});
+  localStorage.setItem(key, JSON.stringify(vids));
+  document.getElementById('add-title').value='';
+  document.getElementById('add-source').value='';
+  document.getElementById('add-url').value='';
+  msg.style.color='var(--green)'; msg.textContent='✅ Added!';
+  setTimeout(function(){msg.textContent='';},2000);
+  renderLibrary();
+}
+
+function removeVideo(fname, idx){
+  if(!confirm('Remove this video?')) return;
+  var key = 'unit_videos_'+fname;
+  var vids = JSON.parse(localStorage.getItem(key)||'[]');
+  vids.splice(idx,1);
+  localStorage.setItem(key, JSON.stringify(vids));
+  renderLibrary();
+}
+
+// ── Init ──
+renderLibrary();
+
+// Show teacher toggle if already authenticated
+if(sessionStorage.getItem('vid_teacher')==='1'){
+  document.getElementById('teacherToggle').style.display='block';
+  document.getElementById('teacherToggle').textContent='✏ Manage Videos';
+}
+
+// Secret double-click on title to open teacher mode
+document.querySelector('.hero h1').addEventListener('dblclick', checkTeacher);
+</script>
+</body>
+</html>
