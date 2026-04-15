@@ -444,6 +444,36 @@ function closeVideo(){
 document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeVideo(); });
 
 // ── Teacher Functions ──
+function addVideo(){
+  var courseVal = document.getElementById('add-course').value;
+  var parts = courseVal.split('|');
+  var fname = parts[1];
+  var title = (document.getElementById('add-title').value||'').trim();
+  var source = (document.getElementById('add-source').value||'').trim()||'Video';
+  var url = (document.getElementById('add-url').value||'').trim();
+  var msg = document.getElementById('add-msg');
+  if(!title||!url){msg.style.color='var(--red)';msg.textContent='❌ Title and URL required.';return;}
+  var key = 'unit_videos_'+fname;
+  var vids = JSON.parse(localStorage.getItem(key)||'[]');
+  vids.push({title:title,source:source,url:url,fname:fname});
+  localStorage.setItem(key, JSON.stringify(vids));
+  document.getElementById('add-title').value='';
+  document.getElementById('add-source').value='';
+  document.getElementById('add-url').value='';
+  msg.style.color='var(--green)'; msg.textContent='✅ Added! Click Export Code to save permanently.';
+  setTimeout(function(){msg.textContent='';},3000);
+  renderLibrary();
+}
+
+function removeVideo(fname, idx){
+  if(!confirm('Remove this video?')) return;
+  var key = 'unit_videos_'+fname;
+  var vids = JSON.parse(localStorage.getItem(key)||'[]');
+  vids.splice(idx,1);
+  localStorage.setItem(key, JSON.stringify(vids));
+  renderLibrary();
+}
+
 function exportVideos(){
   var all = [];
   var keys = Object.keys(localStorage).filter(function(k){ return k.startsWith('unit_videos_'); });
