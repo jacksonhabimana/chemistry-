@@ -82,7 +82,6 @@ input:focus,select:focus{outline:none;border-color:var(--accent);}
       <a href="s5-chemistry.html">S5</a>
       <a href="s6-chemistry.html">S6</a>
       <a href="student-hub.html">Student Hub</a>
-      <button id="teacherToggle" onclick="handleTeacherBtn()" style="background:var(--gold);color:#000;border:none;padding:5px 14px;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:.72rem;font-weight:700;cursor:pointer;">🔐 Teacher</button>
     </div>
   </div>
 </nav>
@@ -177,18 +176,6 @@ input:focus,select:focus{outline:none;border-color:var(--accent);}
       <button class="btn-add" onclick="addVideo()">➕ Add Video</button>
       <span id="add-msg" style="font-family:'JetBrains Mono',monospace;font-size:.78rem;"></span>
     </div>
-
-    <!-- Export section -->
-    <div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--border);">
-      <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--gold);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;">📋 Make Videos Visible to Students</div>
-      <p style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);margin-bottom:10px;line-height:1.5;">Videos you add above are saved in your browser only. To make them visible to all students, click <b style="color:#fff;">Export Code</b>, copy the code, and paste it into <code style="color:var(--accent);">videos.html</code> replacing the <code style="color:var(--accent);">BUILTIN_VIDEOS = []</code> line, then upload to GitHub.</p>
-      <button onclick="exportVideos()" style="background:var(--gold);color:#000;border:none;padding:9px 18px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:.78rem;font-weight:700;cursor:pointer;">📋 Export Code</button>
-      <div id="export-box" style="display:none;margin-top:12px;">
-        <textarea id="export-code" style="width:100%;height:160px;background:#0d1117;border:1px solid var(--accent);border-radius:6px;color:var(--green);font-family:'JetBrains Mono',monospace;font-size:.72rem;padding:10px;resize:vertical;" readonly></textarea>
-        <button onclick="copyExport()" style="margin-top:6px;background:var(--accent);color:#000;border:none;padding:7px 16px;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:.75rem;font-weight:700;cursor:pointer;">📄 Copy to Clipboard</button>
-        <span id="copy-msg" style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--green);margin-left:10px;"></span>
-      </div>
-    </div>
   </div>
 
   <!-- Filter Bar -->
@@ -220,19 +207,29 @@ input:focus,select:focus{outline:none;border-color:var(--accent);}
 </div>
 
 <!-- Teacher Toggle -->
-
+<button class="teacher-toggle" onclick="toggleTeacher()" id="teacherToggle" style="display:none;">🔐 Teacher</button>
 
 <script>
 
-// ═══════════════════════════════════════════════════
-// ADD YOUR VIDEOS HERE — visible to ALL students
-// ═══════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════════
+// 📹 ADD YOUR VIDEOS HERE — visible to ALL students on your site
+// ═══════════════════════════════════════════════════════════════
+// Each video needs: fname, title, source, url
+// fname must match a unit filename from your site
+// url can be any YouTube link (youtu.be or youtube.com/watch?v=)
+// ═══════════════════════════════════════════════════════════════
 var BUILTIN_VIDEOS = [
-  // { fname:'s4_unit1_atomic_structure.html', title:'Atomic Structure', source:'Khan Academy', url:'https://www.youtube.com/watch?v=...' },
-];
-// ═══════════════════════════════════════════════════
 
-// ── Helpers ──
+  // ── S4 EXAMPLES (replace with your real links) ──
+  // { fname:'s4_unit1_atomic_structure.html',   title:'Atomic Structure Explained',          source:'Khan Academy',  url:'https://www.youtube.com/watch?v=SpA69zXbBWs' },
+  // { fname:'s4_unit12_group17.html',           title:'Halogens — Group 17 Properties',      source:'FuseSchool',    url:'https://www.youtube.com/watch?v=oVF-GrbnOEQ' },
+
+  // ── ADD YOUR VIDEOS BELOW THIS LINE ──
+
+
+  // ── END OF VIDEO LIST ──
+];
+// ═══════════════════════════════════════════════════════════════
 function getYtId(url){
   var m = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([\w-]{11})/);
   return m ? m[1] : null;
@@ -249,9 +246,9 @@ function getEmbed(url){
   return url;
 }
 function getAllVideos(){
-  // Start with hardcoded videos (visible to everyone)
+  // Start with hardcoded builtin videos (visible to everyone)
   var all = BUILTIN_VIDEOS.map(function(v){ return Object.assign({},v); });
-  // Add any locally saved videos (teacher preview only)
+  // Merge any teacher-added videos from localStorage
   var keys = Object.keys(localStorage).filter(function(k){ return k.startsWith('unit_videos_'); });
   keys.forEach(function(k){
     var fname = k.replace('unit_videos_','');
@@ -444,69 +441,62 @@ function closeVideo(){
 document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeVideo(); });
 
 // ── Teacher Functions ──
-function exportVideos(){
-  var all = [];
-  var keys = Object.keys(localStorage).filter(function(k){ return k.startsWith('unit_videos_'); });
-  keys.forEach(function(k){
-    var fname = k.replace('unit_videos_','');
-    var vids = JSON.parse(localStorage.getItem(k)||'[]');
-    vids.forEach(function(v){
-      all.push("  { fname:'"+fname+"', title:'"+v.title.replace(/'/g,"\\'")+"', source:'"+(v.source||'Video')+"', url:'"+v.url+"' }");
-    });
-  });
-  var code = 'var BUILTIN_VIDEOS = [\n'+all.join(',\n')+'\n];';
-  document.getElementById('export-box').style.display='block';
-  document.getElementById('export-code').value = code;
-}
-
-function copyExport(){
-  var ta = document.getElementById('export-code');
-  ta.select(); document.execCommand('copy');
-  var msg = document.getElementById('copy-msg');
-  msg.textContent='✅ Copied!';
-  setTimeout(function(){ msg.textContent=''; },2000);
-}
-
-function handleTeacherBtn(){
-  if(sessionStorage.getItem('vid_teacher')==='1'){
-    var panel = document.getElementById('teacherPanel');
-    panel.classList.toggle('visible');
-    if(panel.classList.contains('visible')) renderUnitList();
-  } else {
-    checkTeacher();
-  }
-}
-
 function toggleTeacher(){
   var panel = document.getElementById('teacherPanel');
   panel.classList.toggle('visible');
-  if(panel.classList.contains('visible')) renderUnitList();
 }
 
 function checkTeacher(){
   var pwd = prompt('Teacher password:');
   if(pwd==='chemistry2024'||pwd==='CHEM2026'){
     sessionStorage.setItem('vid_teacher','1');
-    var btn = document.getElementById('teacherToggle');
-    btn.textContent='🎬 Manage Videos';
-    btn.style.background='var(--green)';
+    document.getElementById('teacherToggle').style.display='block';
+    document.getElementById('teacherToggle').textContent='✏ Manage Videos';
     renderLibrary();
-    var panel = document.getElementById('teacherPanel');
-    panel.classList.add('visible');
-    renderUnitList();
-  } else if(pwd !== null){
-    alert('Incorrect password.');
   }
+}
+
+function addVideo(){
+  var courseVal = document.getElementById('add-course').value;
+  var parts = courseVal.split('|');
+  var course = parts[0], fname = parts[1];
+  var title = (document.getElementById('add-title').value||'').trim();
+  var source = (document.getElementById('add-source').value||'').trim()||'Video';
+  var url = (document.getElementById('add-url').value||'').trim();
+  var msg = document.getElementById('add-msg');
+  if(!title||!url){msg.style.color='var(--red)';msg.textContent='❌ Title and URL required.';return;}
+  var key = 'unit_videos_'+fname;
+  var vids = JSON.parse(localStorage.getItem(key)||'[]');
+  vids.push({title:title,source:source,url:url});
+  localStorage.setItem(key, JSON.stringify(vids));
+  document.getElementById('add-title').value='';
+  document.getElementById('add-source').value='';
+  document.getElementById('add-url').value='';
+  msg.style.color='var(--green)'; msg.textContent='✅ Added!';
+  setTimeout(function(){msg.textContent='';},2000);
+  renderLibrary();
+}
+
+function removeVideo(fname, idx){
+  if(!confirm('Remove this video?')) return;
+  var key = 'unit_videos_'+fname;
+  var vids = JSON.parse(localStorage.getItem(key)||'[]');
+  vids.splice(idx,1);
+  localStorage.setItem(key, JSON.stringify(vids));
+  renderLibrary();
 }
 
 // ── Init ──
 renderLibrary();
 
-// Restore teacher session if already logged in
+// Show teacher toggle if already authenticated
 if(sessionStorage.getItem('vid_teacher')==='1'){
-  var btn = document.getElementById('teacherToggle');
-  if(btn){ btn.textContent='🎬 Manage Videos'; btn.style.background='var(--green)'; }
+  document.getElementById('teacherToggle').style.display='block';
+  document.getElementById('teacherToggle').textContent='✏ Manage Videos';
 }
+
+// Secret double-click on title to open teacher mode
+document.querySelector('.hero h1').addEventListener('dblclick', checkTeacher);
 </script>
 </body>
 </html>
