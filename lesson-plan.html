@@ -3,72 +3,88 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Lesson Plan Generator — Jackson Habimana</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Source+Serif+4:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+<title>Jackson's Lesson Plan Generator</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:wght@300;400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+
+<script src="https://cdn.jsdelivr.net/npm/docx@7.8.2/build/index.js"></script>
 <style>
-/* ── SCREEN UI ── */
-:root{--bg:#0d1117;--surface:#161b22;--surface2:#1c2333;--border:#30363d;--accent:#38bdf8;--green:#34d399;--gold:#e8c547;--text:#e6edf3;--muted:#8b949e;}
+:root{--bg:#0d1117;--surface:#161b22;--surface2:#1c2333;--border:#30363d;--accent:#38bdf8;--green:#34d399;--gold:#e8c547;--purple:#a78bfa;--red:#f87171;--text:#e6edf3;--muted:#8b949e;}
 *{box-sizing:border-box;margin:0;padding:0;}
-body{background:var(--bg);color:var(--text);font-family:'Source Serif 4',serif;line-height:1.6;}
+body{background:var(--bg);color:var(--text);font-family:'Source Serif 4',serif;}
 nav{position:sticky;top:0;z-index:200;background:rgba(13,17,23,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 28px;}
-.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:52px;}
+.nav-inner{max-width:960px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:52px;}
 .nav-brand{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--accent);text-decoration:none;}
 .nav-links a{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);text-decoration:none;padding:4px 10px;border-radius:5px;}
-.nav-links a:hover{color:var(--accent);}
-.hero{background:linear-gradient(135deg,rgba(56,189,248,.06),rgba(52,211,153,.03));border-bottom:1px solid var(--border);padding:32px 28px;text-align:center;}
+.hero{background:linear-gradient(135deg,rgba(167,139,250,.08),rgba(52,211,153,.04));border-bottom:1px solid var(--border);padding:32px 24px;text-align:center;}
 .hero h1{font-family:'Playfair Display',serif;font-size:2rem;color:#fff;margin-bottom:6px;}
+.hero h1 em{color:var(--purple);font-style:italic;}
 .hero p{color:var(--muted);font-size:.88rem;}
-.wrap{max-width:900px;margin:0 auto;padding:32px 24px 80px;}
-/* form */
-.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:22px;margin-bottom:18px;}
-.card-title{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--accent);text-transform:uppercase;letter-spacing:.1em;margin-bottom:14px;}
-.row{display:grid;gap:12px;margin-bottom:12px;}
-.row.cols2{grid-template-columns:1fr 1fr;}
-.row.cols3{grid-template-columns:1fr 1fr 1fr;}
-.row.cols4{grid-template-columns:1fr 1fr 1fr 1fr;}
-label{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:4px;}
+.wrap{max-width:860px;margin:0 auto;padding:28px 20px 80px;}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:16px;}
+.card-hd{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--accent);text-transform:uppercase;letter-spacing:.1em;margin-bottom:14px;}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
+.g4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px;}
+.field{margin-bottom:12px;}
+label{font-family:'JetBrains Mono',monospace;font-size:.66rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:4px;}
 input,textarea,select{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:var(--text);padding:9px 12px;font-family:'Source Serif 4',serif;font-size:.88rem;resize:vertical;}
-input:focus,textarea:focus,select:focus{outline:none;border-color:var(--accent);}
-textarea{min-height:70px;}
-/* activities table */
-.act-row{display:grid;grid-template-columns:120px 1fr 1fr 1fr;gap:8px;margin-bottom:8px;align-items:start;}
-.act-row input,.act-row textarea{font-size:.82rem;}
-.act-hd{display:grid;grid-template-columns:120px 1fr 1fr 1fr;gap:8px;margin-bottom:6px;}
-.act-hd div{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;}
-.btn-add{background:none;border:1px dashed var(--border);color:var(--muted);padding:7px 14px;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:.75rem;cursor:pointer;margin-top:4px;}
-.btn-add:hover{border-color:var(--accent);color:var(--accent);}
-.btn-rm{background:none;border:1px solid rgba(248,113,113,.3);color:var(--red);padding:4px 10px;border-radius:5px;font-family:'JetBrains Mono',monospace;font-size:.68rem;cursor:pointer;white-space:nowrap;align-self:start;margin-top:3px;}
-/* action buttons */
-.actions{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px;}
-.btn-gen{background:var(--accent);color:#000;border:none;padding:11px 24px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.85rem;font-weight:700;cursor:pointer;}
-.btn-print{background:var(--green);color:#000;border:none;padding:11px 24px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.85rem;font-weight:700;cursor:pointer;}
-.btn-clear{background:var(--surface2);color:var(--muted);border:1px solid var(--border);padding:11px 18px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.82rem;cursor:pointer;}
+input:focus,textarea:focus{outline:none;border-color:var(--accent);}
+textarea{min-height:72px;}
+/* AI box */
+.ai-box{background:rgba(167,139,250,.06);border:2px solid rgba(167,139,250,.3);border-radius:10px;padding:18px 20px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+.ai-box h3{color:#fff;font-size:1rem;margin-bottom:3px;}
+.ai-box p{color:var(--muted);font-size:.83rem;}
+.btn-ai{background:linear-gradient(135deg,#a78bfa,#7c3aed);color:#fff;border:none;padding:12px 24px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.82rem;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:8px;white-space:nowrap;}
+.btn-ai:disabled{opacity:.5;cursor:not-allowed;}
+.ai-status{font-family:'JetBrains Mono',monospace;font-size:.75rem;margin-top:6px;min-height:18px;}
+/* actions */
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px;}
+.btn-gen{background:var(--accent);color:#000;border:none;padding:12px 26px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.85rem;font-weight:700;cursor:pointer;}
+.btn-word{background:var(--purple);color:#fff;border:none;padding:12px 22px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.82rem;font-weight:700;cursor:pointer;display:none;}
+.btn-edit{background:var(--surface2);color:var(--muted);border:1px solid var(--border);padding:12px 18px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.82rem;cursor:pointer;display:none;}
 
-/* ── PRINT / PREVIEW AREA ── */
-#preview{display:none;background:#fff;color:#000;padding:0;}
-.lp{font-family:Arial,sans-serif;font-size:10pt;color:#000;max-width:900px;margin:0 auto;}
-.lp-title{text-align:center;font-size:14pt;font-weight:bold;text-decoration:underline;margin-bottom:8px;letter-spacing:1px;}
+/* ── LESSON PLAN PREVIEW ── */
+#preview{display:none;margin-top:24px;}
+.lp{font-family:'Times New Roman',Times,serif;font-size:10pt;color:#000;background:#fff;padding:16mm 18mm;}
+.lp-title{text-align:center;font-size:13pt;font-weight:bold;text-decoration:underline;margin-bottom:12px;letter-spacing:1px;font-family:'Times New Roman',Times,serif;}
 .lp table{width:100%;border-collapse:collapse;margin-bottom:0;}
-.lp table td,.lp table th{border:1px solid #000;padding:4px 7px;font-size:9.5pt;vertical-align:top;}
-.lp .hdr-row td{font-weight:bold;}
-.lp .label-cell{font-weight:bold;white-space:nowrap;width:180px;}
-.lp .act-header{background:#d9d9d9;font-weight:bold;text-align:center;}
-.lp .timing-cell{font-weight:bold;text-align:center;vertical-align:middle;}
-.lp .self-eval{height:50px;}
+.lp td,.lp th{border:1px solid #000;padding:5px 8px;font-size:9.5pt;vertical-align:top;font-family:'Times New Roman',Times,serif;}
+.lp .bold{font-weight:bold;}
+.lp .center{text-align:center;vertical-align:middle;}
+.lp .bg{background:#d9d9d9;}
+.lp .italic{font-style:italic;}
+.lp .self-eval td{height:52px;}
+[contenteditable="true"]:focus{outline:2px solid #38bdf8;outline-offset:2px;border-radius:2px;}
 
-/* ── PRINT STYLES ── */
+/* ── PREVIEW LAYOUT ── */
+#preview{display:none;margin-top:24px;}
+.preview-wrap{display:flex;gap:24px;align-items:flex-start;max-width:1120px;margin:0 auto;padding:0 20px 80px;}
+.preview-lp{flex:1;min-width:0;}
+.preview-sidebar{width:190px;flex-shrink:0;position:sticky;top:72px;}
+.sidebar-section-title{font-family:'JetBrains Mono',monospace;font-size:.63rem;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;margin-bottom:10px;padding-left:2px;}
+.sidebar-btn{display:flex;align-items:center;gap:10px;width:100%;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:11px 14px;color:var(--text);font-family:'JetBrains Mono',monospace;font-size:.76rem;cursor:pointer;margin-bottom:8px;transition:border-color .15s,background .15s;text-align:left;}
+.sidebar-btn:hover{border-color:var(--accent);background:var(--surface2);}
+.sidebar-btn .sb-icon{font-size:1rem;flex-shrink:0;}
+.sidebar-btn.active-edit{background:rgba(56,189,248,.12);border-color:var(--accent);color:var(--accent);}
+.sidebar-back{display:block;text-align:center;font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--muted);cursor:pointer;padding:8px;margin-top:4px;text-decoration:underline;}
+.sidebar-back:hover{color:#fff;}
+/* Edit mode — highlight all editable cells */
+.edit-mode [contenteditable="true"]{background:rgba(56,189,248,.06)!important;outline:1px dashed rgba(56,189,248,.4);border-radius:2px;cursor:text;}
+.edit-mode [contenteditable="true"]:hover{background:rgba(56,189,248,.1)!important;}
+
 @media print{
-  body{background:#fff!important;color:#000!important;}
-  nav,.hero,.wrap>.card,.actions,#formSection{display:none!important;}
-  #preview{display:block!important;padding:10mm!important;}
-  .lp{font-size:9pt;}
+  body,html{background:#fff!important;}
+  nav,.hero,.wrap>*:not(#preview){display:none!important;}
+  #preview{display:block!important;margin:0!important;}
+  .lp{padding:8mm 10mm!important;}
+  .no-print{display:none!important;}
 }
 </style>
 </head>
 <body>
 <nav>
   <div class="nav-inner">
-    <a href="index.html" class="nav-brand">⚗ Habimana</a>
+    <a href="index.html" class="nav-brand">⚗ Habimana Chemistry</a>
     <div class="nav-links">
       <a href="index.html">Home</a>
       <a href="s4-chemistry.html">S4</a>
@@ -78,245 +94,616 @@ textarea{min-height:70px;}
   </div>
 </nav>
 <div class="hero">
-  <h1>📋 Lesson Plan Generator</h1>
-  <p>Fill in the form below — your lesson plan generates in the official REB format, ready to print as PDF.</p>
+  <h1>📋 Jackson's Lesson Plan Generator</h1>
+  <p>For any subject — Biology, Chemistry, Physics, Mathematics, English and more. Jackson generates objectives, materials, activities and references in the official Rwanda REB format.</p>
 </div>
 
-<div class="wrap">
-<div id="formSection">
+<div class="wrap" id="formWrap">
 
-<!-- META INFO -->
 <div class="card">
-  <div class="card-title">School & Teacher Information</div>
-  <div class="row cols2">
-    <div><label>School Name</label><input id="schoolName" placeholder="e.g. E.S. MUDASOMWA"/></div>
-    <div><label>Teacher's Name</label><input id="teacherName" value="Jackson Habimana"/></div>
+  <div class="card-hd">🏫 School & Teacher</div>
+  <div class="g2">
+    <div class="field"><label>School Name</label><input id="schoolName" placeholder="e.g. E.S. MUDASOMWA"/></div>
+    <div class="field"><label>Teacher's Name</label><input id="teacherName" placeholder="e.g. Jackson Habimana"/></div>
   </div>
-  <div class="row cols4">
-    <div><label>Term</label><input id="term" placeholder="e.g. Term 2"/></div>
-    <div><label>Date</label><input id="lessonDate" type="date"/></div>
-    <div><label>Subject</label><input id="subject" value="Chemistry"/></div>
-    <div><label>Class</label><input id="class" placeholder="e.g. S5 PCB"/></div>
+  <div class="g4">
+    <div class="field"><label>Term</label><input id="term" placeholder="Term 2"/></div>
+    <div class="field"><label>Date</label><input id="lessonDate" type="date"/></div>
+    <div class="field"><label>Subject</label>
+<select id="subject">
+  <option value="Chemistry">Chemistry</option>
+  <option value="Biology">Biology</option>
+  <option value="Physics">Physics</option>
+  <option value="Mathematics">Mathematics</option>
+  <option value="English">English</option>
+  <option value="Kinyarwanda">Kinyarwanda</option>
+  <option value="French">French</option>
+  <option value="History">History</option>
+  <option value="Geography">Geography</option>
+  <option value="Economics">Economics</option>
+  <option value="Entrepreneurship">Entrepreneurship</option>
+  <option value="Computer Science">Computer Science</option>
+  <option value="Religious Studies (CRE)">Religious Studies (CRE)</option>
+  <option value="Integrated Science">Integrated Science</option>
+  <option value="Agriculture">Agriculture</option>
+  <option value="Physical Education">Physical Education</option>
+  <option value="Social Studies">Social Studies</option>
+  <option value="Other">Other</option>
+</select>
+</div>
+    <div class="field" id="otherSubjectField" style="display:none;">
+  <label>Specify Subject</label><input id="otherSubject" placeholder="e.g. Art, Music..."/>
+</div>
+<div class="field"><label>Class</label><input id="cls" placeholder="e.g. S4 PCB, S5 MCB, S3"/></div>
   </div>
-  <div class="row cols4">
-    <div><label>Unit No</label><input id="unitNo" placeholder="e.g. 11"/></div>
-    <div><label>Lesson No</label><input id="lessonNo" placeholder="e.g. 1"/></div>
-    <div><label>Duration</label><input id="duration" placeholder="e.g. 80 min"/></div>
-    <div><label>Class Size</label><input id="classSize" placeholder="e.g. 22"/></div>
+  <div class="g4">
+    <div class="field"><label>Unit No</label><input id="unitNo" placeholder="11"/></div>
+    <div class="field"><label>Lesson No</label><input id="lessonNo" placeholder="1"/></div>
+    <div class="field"><label>Duration</label><input id="duration" placeholder="80 min"/></div>
+    <div class="field"><label>Class Size</label><input id="classSize" placeholder="22"/></div>
   </div>
 </div>
 
-<!-- SPECIAL NEEDS -->
 <div class="card">
-  <div class="card-title">Special Educational Needs</div>
-  <div class="row">
-    <div><label>Type of special educational needs to be catered for</label><input id="sen" placeholder="e.g. None"/></div>
-    <div><label>Number of learners in each category</label><input id="senCount" placeholder="e.g. None"/></div>
+  <div class="card-hd">♿ Special Educational Needs</div>
+  <div class="g2">
+    <div class="field"><label>Type of special needs</label><input id="senType" placeholder="e.g. None"/></div>
+    <div class="field"><label>Number in each category</label><input id="senCount" placeholder="e.g. None"/></div>
   </div>
 </div>
 
-<!-- UNIT & LESSON -->
 <div class="card">
-  <div class="card-title">Unit & Lesson Details</div>
-  <div class="row">
-    <div><label>Unit Title</label><input id="unitTitle" placeholder="e.g. SOLUTIONS AND TITRATION"/></div>
-  </div>
-  <div class="row">
-    <div><label>Key Unit Competence</label><textarea id="keyComp" placeholder="e.g. Prepare standard solutions and use them to determine concentration of other solutions by titration."></textarea></div>
-  </div>
-  <div class="row">
-    <div><label>Title of the Lesson</label><input id="lessonTitle" placeholder="e.g. Back titration"/></div>
-  </div>
-  <div class="row">
-    <div><label>Instructional Objectives</label><textarea id="objectives" placeholder="e.g. 1. Using the provided materials, S5 PCB students should be able to explain the concept of back titration accurately..."></textarea></div>
+  <div class="card-hd">📖 Lesson Details</div>
+  <div class="field"><label>Unit Title</label><input id="unitTitle" placeholder="e.g. ALKANES AND THEIR PROPERTIES"/></div>
+  <div class="field"><label>Key Unit Competence</label><textarea id="keyComp" placeholder="e.g. Relate the physical and chemical properties of alkanes to their preparation methods, uses and isomerism."></textarea></div>
+  <div class="g2">
+    <div class="field"><label>Previous Lesson</label><input id="prevLesson" placeholder="e.g. Introduction to Organic Chemistry"/></div>
+    <div class="field"><label>Title of the Lesson</label><input id="lessonTitle" placeholder="e.g. Alkanes — Structure and Naming"/></div>
   </div>
 </div>
 
-<!-- PLAN -->
-<div class="card">
-  <div class="card-title">Plan & Resources</div>
-  <div class="row cols2">
-    <div><label>Plan of this class (Location)</label><input id="location" value="Classroom"/></div>
-    <div><label>Learning Materials</label><input id="materials" placeholder="e.g. Chemistry S5 Learner's Book, Laboratory equipment, Standard solutions"/></div>
-  </div>
-  <div class="row">
-    <div><label>References</label><input id="references" placeholder="e.g. Rwanda Education Board. (2025). Chemistry Learner's Book S5."/></div>
+<!-- AI GENERATE -->
+<div class="ai-box">
+  <div>
+    <h3>✨ Generate with Jackson</h3>
+    <p>AI will write: Instructional Objectives, Learning Materials, References, and all Teaching Activities.</p>
+    <div class="ai-status" id="aiStatus"></div>
   </div>
 </div>
 
-<!-- ACTIVITIES TABLE -->
-<div class="card">
-  <div class="card-title">Teaching & Learning Activities</div>
-  <div class="act-hd">
-    <div>Timing & Phase</div>
-    <div>Teacher's Activity</div>
-    <div>Learner's Activity</div>
-    <div>Generic Competences & Cross-cutting Issues</div>
-  </div>
-  <div id="actRows"></div>
-  <button class="btn-add" onclick="addRow()">+ Add Phase</button>
-</div>
-
-<!-- GENERATE -->
 <div class="actions">
-  <button class="btn-gen" onclick="generate()">📋 Generate Lesson Plan</button>
-  <button class="btn-print" onclick="printPlan()" id="printBtn" style="display:none;">🖨 Print / Save as PDF</button>
-  <button class="btn-clear" onclick="clearForm()">🗑 Clear Form</button>
+  <button class="btn-gen" onclick="buildPreview()">📋 BUILD LESSON PLAN</button>
+  <button class="btn-word" id="wordBtn" onclick="downloadWord()">📄 Download Word</button>
+  <button class="btn-edit" id="editBtn" onclick="showForm()">✏ Edit</button>
 </div>
 
-</div><!-- end formSection -->
+<!-- Saved Plans -->
+<div class="card" style="margin-top:20px;">
+  <div class="card-hd">💾 Saved Lesson Plans <span id="savedCount" style="color:var(--muted);font-weight:400;"></span></div>
+  <div id="savedPlansContainer"><p style="color:var(--muted);font-size:.83rem;">No saved plans yet.</p></div>
+</div>
 
-<!-- PREVIEW -->
-<div id="preview"></div>
 
-</div><!-- wrap -->
+</div><!-- formWrap -->
+
+<div id="preview">
+  <div class="preview-wrap">
+    <div class="preview-lp" id="previewLp"></div>
+    <div class="preview-sidebar no-print">
+      <div class="sidebar-section-title">Actions</div>
+      <button class="sidebar-btn" id="editToggleBtn" onclick="toggleEditMode()">
+        <span class="sb-icon">✏️</span> Edit
+      </button>
+      <button class="sidebar-btn" onclick="downloadWord()">
+        <span class="sb-icon">📄</span> Download Word
+      </button>
+      <span class="sidebar-back" onclick="showForm()">← Back to Form</span>
+    </div>
+  </div>
+</div>
 
 <script>
-// Default activity rows
-const DEFAULT_ROWS = [
-  {phase:'Introduction\n(10 min)',teacher:'- Greets learners warmly.\n- Revises key concepts with questions.\n- Guides discovery of lesson topic.',learner:'- Respond to greetings.\n- Answer revision questions.\n- Discover the concept through guided discussion.',competences:'- Communication: Sharing ideas during revision.\n- Inclusive Education: Supporting diverse learners.'},
-  {phase:'Lesson Development\n(50 min)',teacher:'- Demonstrates main concepts step by step.\n- Forms groups and distributes tasks.\n- Facilitates group activities and provides feedback.',learner:'- Demonstrates/practises the concept.\n- Works in pairs/groups on tasks.\n- Presents findings and corrects mistakes.',competences:'- Research and Problem Solving: Analyzing results.\n- Standardization Culture: Emphasising accuracy.\n- Cooperation: Working in groups.'},
-  {phase:'Conclusion\n(20 min)',teacher:'- Summarises the lesson and asks oral questions.\n- Gives a homework assignment.',learner:'- Participates in summarising by answering questions.\n- Writes down the homework assignment.',competences:'- Lifelong Learning: Encouraging continuous improvement.\n- Peace and Values Education.'},
-];
+var _aiData = {};
 
-function addRow(data){
-  const d=data||{phase:'',teacher:'',learner:'',competences:''};
-  const div=document.createElement('div');
-  div.className='act-row';
-  div.innerHTML=
-    '<textarea placeholder="e.g. Introduction\n(10 min)" style="min-height:80px;">'+d.phase+'</textarea>'+
-    '<textarea placeholder="Teacher activities..." style="min-height:80px;">'+d.teacher+'</textarea>'+
-    '<textarea placeholder="Learner activities..." style="min-height:80px;">'+d.learner+'</textarea>'+
-    '<div style="display:flex;flex-direction:column;gap:4px;">'+
-      '<textarea placeholder="Generic competences..." style="min-height:68px;">'+d.competences+'</textarea>'+
-      '<button class="btn-rm" onclick="this.closest(\'.act-row\').remove()">✕ Remove</button>'+
+function gv(id){
+  var el = document.getElementById(id);
+  if(!el) return '';
+  if(id==='subject'){
+    var val = el.value||'';
+    if(val==='Other'){
+      return (document.getElementById('otherSubject')||{}).value||'Other';
+    }
+    return val;
+  }
+  return el.value||'';
+}
+
+async function generateWithAI(){
+  var subject=gv('subject')||'Chemistry';
+  var cls=gv('cls'); var unitTitle=gv('unitTitle');
+  var keyComp=gv('keyComp'); var lessonTitle=gv('lessonTitle');
+  var prevLesson=gv('prevLesson')||'the previous lesson';
+  var duration=gv('duration')||'80 min';
+
+  if(!lessonTitle&&!unitTitle){alert('Fill in Lesson Title and Unit Title first.');return;}
+
+  var btn=document.getElementById('aiBtn');
+  var st=document.getElementById('aiStatus');
+  btn.disabled=true; btn.innerHTML='⏳ Generating...';
+  st.style.color='var(--purple)'; st.textContent='AI is writing your lesson plan...';
+
+  var devMin = (parseInt(duration)||80) - 20;
+  var prompt = 'You are an expert Rwanda CBC lesson plan writer for REB Rwanda secondary schools.\n\n'+
+    'Write a DETAILED lesson plan for:\n'+
+    'Subject: '+subject+', Class: '+cls+', Unit: '+unitTitle+'\n'+
+    'Previous lesson taught: '+prevLesson+'\n'+
+    'Lesson to teach today: '+lessonTitle+'\n'+
+    'Key Competence: '+keyComp+', Duration: '+duration+'\n\n'+
+    'STRICT RULES:\n'+
+    '1. INTRODUCTION must reference "'+prevLesson+'" as the previous lesson — teacher asks 2 specific revision questions ABOUT "'+prevLesson+'" to link prior knowledge to today\'s topic "'+lessonTitle+'".\n'+
+    '2. DEVELOPMENT must explain the actual content of "'+lessonTitle+'" — name the specific concepts, definitions, formulas, or reactions being taught today.\n'+
+    '3. LEARNER activities must describe what students DO with the specific content of "'+lessonTitle+'" — not generic actions.\n'+
+    '4. GENERIC COMPETENCES must each have a full sentence explaining HOW that competence is demonstrated in THIS specific lesson on "'+lessonTitle+'". Example: "Research and Problem Solving: Learners investigate the structural isomers of alkanes by drawing and naming branched-chain structures."\n'+
+    '5. CONCLUSION must ask specific questions about what was learned in "'+lessonTitle+'" today, and assign a specific homework task directly related to "'+lessonTitle+'".\n'+
+    '6. Use these CBC competences where relevant: Communication, Critical Thinking, Research and Problem Solving, Cooperation, Lifelong Learning, Standardisation Culture, Inclusive Education, Peace and Values Education, Environment and Sustainability, Gender Education.\n'+
+    '7. Instructional objectives must use CBC action verbs (define, explain, identify, draw, name, calculate, compare, distinguish, apply) + specific content from "'+lessonTitle+'".\n\n'+
+    'Return ONLY valid JSON (no markdown, no backticks):\n'+
+    '{\n'+
+    '  "objectives": "1. By end of lesson, '+cls+' students should be able to [CBC verb] [specific concept from '+lessonTitle+'].\\n2. Students should be able to [CBC verb] [specific concept 2].\\n3. Students should be able to [CBC verb] [specific application from '+lessonTitle+'].",\n'+
+    '  "materials": "[Specific textbook, chapter/page, teacher guide, any charts or models needed for '+lessonTitle+']",\n'+
+    '  "references": "Rwanda Education Board. (2025). '+subject+' Learner Book '+cls.substring(0,2)+'. Kigali: REB.",\n'+
+    '  "intro_teacher": "- Greets learners warmly and checks attendance.\\n- Asks revision question 1 about '+prevLesson+': [specific question linking '+prevLesson+' to '+lessonTitle+'].\\n- Asks revision question 2 about '+prevLesson+': [another specific question].\\n- Introduces today\'s topic \''+lessonTitle+'\' with a real-life Rwanda example: [specific example].\\n- Writes lesson title and objectives on the board.",\n'+
+    '  "intro_learner": "- Respond to greetings.\\n- Answer revision questions about '+prevLesson+': [what they recall].\\n- Connect prior knowledge of '+prevLesson+' to new topic '+lessonTitle+'.\\n- Copy lesson title and objectives into notebooks.",\n'+
+    '  "intro_competences": "- Communication: Learners verbally explain what they learned about '+prevLesson+', practising scientific vocabulary.\\n- Critical Thinking: Learners identify the connection between '+prevLesson+' and '+lessonTitle+'.\\n- Inclusive Education: Teacher uses diagrams and simple language to ensure all learners engage with the introduction.",\n'+
+    '  "dev_teacher": "- Explains [specific concept 1 of '+lessonTitle+']: [definition, formula, or rule] using a diagram/example on the board.\\n- Explains [specific concept 2 of '+lessonTitle+']: [definition or process] with a worked example.\\n- Organises learners into groups to complete: [specific task directly from '+lessonTitle+'].\\n- Facilitates group work, asking: [specific probing question about the concept].\\n- Facilitates group presentations and corrects misconceptions about '+lessonTitle+'.",\n'+
+    '  "dev_learner": "- Take notes on [specific concept 1 of '+lessonTitle+'], including [key term or formula].\\n- Follow worked example and attempt similar problems on [specific concept 2].\\n- In groups, complete [specific activity from '+lessonTitle+']: [describe exactly what they do].\\n- Present group findings on [specific concept] and record conclusions in notebooks.",\n'+
+    '  "dev_competences": "- Research and Problem Solving: Learners investigate [specific aspect of '+lessonTitle+'] by [specific method], building scientific reasoning skills.\\n- Cooperation: Learners collaborate in groups to [specific group task from '+lessonTitle+'], sharing ideas and responsibilities.\\n- Standardisation Culture: Learners apply correct notation and units when working with [specific content from '+lessonTitle+'].\\n- Critical Thinking: Learners compare [two specific concepts or examples from '+lessonTitle+'] and justify which is correct.\\n- Environment and Sustainability: Learners discuss how '+lessonTitle+' relates to real-world applications in Rwanda.",\n'+
+    '  "conc_teacher": "- Asks: \'What are the 3 key things we learned about '+lessonTitle+' today?\' and summarises the main points.\\n- Clears any remaining misconceptions about [specific concept from '+lessonTitle+'].\\n- Gives 2 oral assessment questions on '+lessonTitle+': [specific question 1] and [specific question 2].\\n- Assigns homework: [specific task directly related to '+lessonTitle+', e.g. exercises from the textbook page X, or draw and name X structures].\\n- Previews the next lesson topic.",\n'+
+    '  "conc_learner": "- Answer summary questions about the key concepts of '+lessonTitle+'.\\n- Respond to oral assessment questions individually.\\n- Write homework assignment in notebooks: [specific homework from '+lessonTitle+'].\\n- Note the topic of the next lesson.",\n'+
+    '  "conc_competences": "- Lifelong Learning: Learners self-assess their understanding of '+lessonTitle+' and identify concepts to review further.\\n- Communication (Writing): Learners write concise scientific answers using correct terminology from '+lessonTitle+'.\\n- Peace and Values Education: Whole-class discussion of '+lessonTitle+' encourages mutual respect for different answers and approaches.\\n- Inclusive Education: Teacher gives extra support to learners who struggled with [specific difficult concept from '+lessonTitle+']."\n'+
+    '}\n\n'+
+    'CRITICAL: Replace EVERY placeholder in square brackets with REAL specific content from "'+lessonTitle+'". Do NOT leave any generic text or square brackets in the output.';
+
+  try{
+    var r=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'x-api-key': localStorage.getItem('claude_api_key')||'',
+        'anthropic-version':'2023-06-01',
+        'anthropic-dangerous-direct-browser-access':'true'
+      },
+      body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:4096,messages:[{role:'user',content:prompt}]})
+    });
+    var d=await r.json();
+    var text=d.content&&d.content[0]&&d.content[0].text||'';
+    text=text.replace(/```json/g,'').replace(/```/g,'').trim();
+    _aiData=JSON.parse(text);
+    st.style.color='var(--green)';
+    st.textContent='✅ Done! Click "Generate Lesson Plan" to see the result.';
+  }catch(e){
+    st.style.color='var(--red)';
+    st.textContent='⚠️ AI error. You can still generate manually — click "Generate Lesson Plan".';
+    _aiData={};
+  }
+  btn.disabled=false; btn.innerHTML='✨ REBUILD';
+}
+
+function nl(s){ return (s||'').split('\n').filter(function(l){return l.trim();}).map(function(l){return l.replace(/^[-•]\s*/,'');}).join('<br/>'); }
+function nlPlain(s){ return (s||'').split('\n').filter(function(l){return l.trim();}).map(function(l){return l.replace(/^[-•]\s*/,'');}).join('\n'); }
+
+function buildPreview(){
+  var date=gv('lessonDate')?new Date(gv('lessonDate')).toLocaleDateString('en-GB'):'';
+  var ai=_aiData;
+
+  var intro_dur=10;
+  var conc_dur=10;
+  var total=parseInt(gv('duration'))||80;
+  var dev_dur=total-intro_dur-conc_dur;
+
+  var html='<div class="lp" id="lpContent">'+
+  '<div class="lp-title">LESSON PLAN</div>'+
+  '<table>'+
+  '<tr>'+
+    '<td colspan="3"><span class="bold">School Name:</span> <span contenteditable="true">'+gv('schoolName')+'</span></td>'+
+    '<td colspan="5"><span class="bold">Teacher\'s Name:</span> <span contenteditable="true">'+gv('teacherName')+'</span></td>'+
+  '</tr>'+
+  '<tr class="bg bold">'+
+    '<td class="center">Term</td><td class="center">Date</td><td class="center">Subject</td><td class="center">Class</td>'+
+    '<td class="center">Unit No</td><td class="center">Lesson No</td><td class="center">Duration</td><td class="center">Class size</td>'+
+  '</tr>'+
+  '<tr>'+
+    '<td class="center" contenteditable="true">'+gv('term')+'</td>'+
+    '<td class="center" contenteditable="true">'+date+'</td>'+
+    '<td class="center" contenteditable="true">'+gv('subject')+'</td>'+
+    '<td class="center" contenteditable="true">'+gv('cls')+'</td>'+
+    '<td class="center" contenteditable="true">'+gv('unitNo')+'</td>'+
+    '<td class="center" contenteditable="true">'+gv('lessonNo')+'</td>'+
+    '<td class="center" contenteditable="true">'+gv('duration')+'</td>'+
+    '<td class="center" contenteditable="true">'+gv('classSize')+'</td>'+
+  '</tr>'+
+  '<tr>'+
+    '<td colspan="4" class="bold">Type of special educational needs to be catered for in this lesson and number of learners in each category</td>'+
+    '<td colspan="4" contenteditable="true">'+gv('senType')+'&nbsp;&nbsp;&nbsp;'+gv('senCount')+'</td>'+
+  '</tr>'+
+  '<tr><td colspan="3" class="bold">Unit title</td><td colspan="5" class="bold" style="text-transform:uppercase;" contenteditable="true">'+gv('unitTitle')+'</td></tr>'+
+  '<tr><td colspan="3" class="bold">Key unit competence</td><td colspan="5" contenteditable="true">'+gv('keyComp')+'</td></tr>'+
+  '<tr><td colspan="3" class="bold">Title of the lesson</td><td colspan="5" contenteditable="true">'+gv('lessonTitle')+'</td></tr>'+
+  '<tr><td colspan="3" class="bold">Instructional objectives</td><td colspan="5" style="white-space:pre-line;" contenteditable="true">'+(ai.objectives||'1. By the end of this lesson, students should be able to define key concepts.\n2. Students should be able to explain the main principles.\n3. Students should be able to apply knowledge to solve related problems.')+'</td></tr>'+
+  '<tr><td colspan="3" class="bold">Plan of this class (Location)</td><td colspan="5" contenteditable="true">Classroom</td></tr>'+
+  '<tr><td colspan="3" class="bold">Learning materials</td><td colspan="5" contenteditable="true">'+(ai.materials||'Chemistry Learner\'s Book, Laboratory equipment')+'</td></tr>'+
+  '<tr><td colspan="3" class="bold">References</td><td colspan="5" contenteditable="true">'+(ai.references||'Rwanda Education Board. Chemistry Learner\'s Book.')+'</td></tr>'+
+  // Activities header
+  '<tr class="bg">'+
+    '<td class="bold center">Timing for each step</td>'+
+    '<td colspan="3" class="bold center">Description of teaching and learning activities</td>'+
+    '<td colspan="4" class="bold center">Generic competences and cross-cutting issues + some explanations</td>'+
+  '</tr>'+
+  '<tr>'+
+    '<td colspan="8" class="italic center bg" style="font-size:9pt;">'+
+    'Students will actively engage in discussions, practical experiments, and presentations throughout the lesson.'+
+    '</td>'+
+  '</tr>'+
+  '<tr class="bg">'+
+    '<td></td>'+
+    '<td colspan="1" class="bold center">Teacher\'s activity</td>'+
+    '<td colspan="2" class="bold center">Learner\'s activity</td>'+
+    '<td colspan="4" class="bold center"></td>'+
+  '</tr>'+
+  // Introduction
+  '<tr>'+
+    '<td class="bold center" style="white-space:pre-line;" contenteditable="true">Introduction\n('+intro_dur+' min)</td>'+
+    '<td colspan="1" contenteditable="true" style="white-space:pre-line;">'+(ai.intro_teacher||'- Greets learners.\n- Reviews previous lesson.\n- Introduces the topic.')+'</td>'+
+    '<td colspan="2" contenteditable="true" style="white-space:pre-line;">'+(ai.intro_learner||'- Respond to greetings.\n- Answer revision questions.\n- Engage with topic.')+'</td>'+
+    '<td colspan="4" contenteditable="true" style="white-space:pre-line;">'+(ai.intro_competences||'- Communication: Learners verbally share prior knowledge about the topic, practising scientific vocabulary.\n- Critical Thinking: Learners analyse the real-life example given by the teacher and connect it to the lesson topic.\n- Inclusive Education: Teacher uses visual aids and simple language to ensure all learners follow the introduction.')+'</td>'+
+  '</tr>'+
+  // Development
+  '<tr>'+
+    '<td class="bold center" style="white-space:pre-line;" contenteditable="true">Lesson Development\n('+dev_dur+' min)</td>'+
+    '<td colspan="1" contenteditable="true" style="white-space:pre-line;">'+(ai.dev_teacher||'- Explains the key concepts of the lesson using diagrams and examples on the board.\n- Demonstrates a worked example step by step.\n- Organises learners into groups to complete a topic-specific activity.\n- Facilitates group presentations and corrects misconceptions.')+'</td>'+
+    '<td colspan="2" contenteditable="true" style="white-space:pre-line;">'+(ai.dev_learner||'- Take notes on the key concepts, including definitions and formulas.\n- Follow the demonstration and ask clarifying questions.\n- In groups, complete the assigned activity and record findings.\n- Present group findings to the class.')+'</td>'+
+    '<td colspan="4" contenteditable="true" style="white-space:pre-line;">'+(ai.dev_competences||'- Research and Problem Solving: Learners investigate the topic by working through problems in groups, developing scientific reasoning skills.\n- Cooperation: Learners share roles and responsibilities during group work, practising teamwork and respectful communication.\n- Standardisation Culture: Learners apply correct scientific notation, units, and terminology when recording their findings.\n- Critical Thinking: Learners compare different approaches or results and justify which answer is correct.\n- Environment and Sustainability: Learners discuss how the topic relates to real-world applications and environmental responsibility in Rwanda.')+'</td>'+
+  '</tr>'+
+  // Conclusion
+  '<tr>'+
+    '<td class="bold center" style="white-space:pre-line;" contenteditable="true">Conclusion\n('+conc_dur+' min)</td>'+
+    '<td colspan="1" contenteditable="true" style="white-space:pre-line;">'+(ai.conc_teacher||'- Asks learners to summarise the 3 main points from today\'s lesson.\n- Clears any remaining misconceptions.\n- Gives 2 oral assessment questions on the lesson topic.\n- Assigns specific homework related to today\'s lesson.\n- Previews the next lesson.')+'</td>'+
+    '<td colspan="2" contenteditable="true" style="white-space:pre-line;">'+(ai.conc_learner||'- Answer the summary questions about today\'s key concepts.\n- Respond to oral assessment questions individually.\n- Write the homework assignment in notebooks.\n- Note the topic of the next lesson.')+'</td>'+
+    '<td colspan="4" contenteditable="true" style="white-space:pre-line;">'+(ai.conc_competences||'- Lifelong Learning: Learners self-assess their understanding of the lesson and identify areas to review further on their own.\n- Communication (Writing): Learners write precise scientific answers to assessment questions, using correct terminology from the lesson.\n- Peace and Values Education: Class discussion encourages mutual respect for different answers and approaches to the topic.\n- Inclusive Education: Teacher provides extra guidance to learners who struggled with difficult concepts, ensuring no learner is left behind.')+'</td>'+
+  '</tr>'+
+  // Self evaluation
+  '<tr>'+
+    '<td colspan="8" style="padding:6px 8px;">'+
+      '<div style="display:flex;align-items:stretch;min-height:70px;">'+
+        '<div class="bold" style="white-space:nowrap;padding-right:10px;padding-top:2px;flex-shrink:0;">Teacher\'s self-evaluation</div>'+
+        '<div style="border-left:2px solid #000;margin:0 10px;flex-shrink:0;"></div>'+
+        '<div contenteditable=\"true\" style=\"flex:1;font-weight:normal;font-size:9pt;outline:none;color:#333;min-height:60px;\"></div>'+
+      '</div>'+
+    '</td>'+
+  '</tr>'+
+  '</table>'+
+  '</div>';
+
+  document.getElementById('previewLp').innerHTML = html;
+  document.getElementById('preview').style.display = 'block';
+  document.getElementById('formWrap').style.display = 'none';
+  // Reset edit mode button
+  var etb = document.getElementById('editToggleBtn');
+  if(etb){ etb.classList.remove('active-edit'); etb.innerHTML='<span class="sb-icon">✏️</span> Edit'; }
+  document.getElementById('preview').scrollIntoView({behavior:'smooth'});
+  savePlan();
+}
+
+var _editMode = false;
+function toggleEditMode(){
+  _editMode = !_editMode;
+  var lp = document.getElementById('lpContent');
+  var btn = document.getElementById('editToggleBtn');
+  if(!lp) return;
+  if(_editMode){
+    lp.classList.add('edit-mode');
+    btn.classList.add('active-edit');
+    btn.innerHTML = '<span class="sb-icon">✅</span> Done Editing';
+    showToast('✏️ Click any cell to edit it directly');
+  } else {
+    lp.classList.remove('edit-mode');
+    btn.classList.remove('active-edit');
+    btn.innerHTML = '<span class="sb-icon">✏️</span> Edit';
+    showToast('✅ Edits saved — download to get updated file');
+  }
+}
+
+function showForm(){
+  document.getElementById('formWrap').style.display = 'block';
+  document.getElementById('preview').style.display = 'none';
+  _editMode = false;
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function getCell(el){
+  var r=el.contentEditable==='true'?el.innerText||el.textContent:'';
+  return r.trim();
+}
+
+async function downloadWord(){
+  var lp=document.getElementById('lpContent');
+  if(!lp){alert('Generate lesson plan first.');return;}
+
+  var btn = document.querySelector('.sidebar-btn[onclick="downloadWord()"]');
+  if(btn){ btn.innerHTML='<span class="sb-icon">⏳</span> Creating...'; btn.disabled=true; }
+
+  try{
+    // Collect editable content from preview
+    var cells=lp.querySelectorAll('[contenteditable="true"]');
+    var cv=[];
+    cells.forEach(function(c){cv.push((c.innerText||c.textContent||'').trim());});
+
+    // cv indices:
+    // 0=school, 1=teacher, 2=term, 3=date, 4=subject, 5=class, 6=unitNo, 7=lessonNo, 8=duration, 9=classSize
+    // 10=sen, 11=unitTitle, 12=keyComp, 13=lessonTitle, 14=objectives, 15=location, 16=materials, 17=references
+    // 18=intro timing, 19=intro teacher, 20=intro learner, 21=intro comp
+    // 22=dev timing, 23=dev teacher, 24=dev learner, 25=dev comp
+    // 26=conc timing, 27=conc teacher, 28=conc learner, 29=conc comp
+
+    function rows(text){
+      return (text||'').split('\n').filter(function(l){return l.trim();}).map(function(l){
+        return new docx.Paragraph({children:[new docx.TextRun({text:l.trim(),size:18})]});
+      });
+    }
+
+    function hCell(text,w,shade,bold){
+      return new docx.TableCell({
+        width:{size:w,type:docx.WidthType.DXA},
+        shading:shade?{fill:'D9D9D9',type:'clear'}:{},
+        margins:{top:60,bottom:60,left:100,right:100},
+        children:[new docx.Paragraph({alignment:docx.AlignmentType.CENTER,children:[new docx.TextRun({text:text,bold:bold||shade,size:18})]})]
+      });
+    }
+
+    function tCell(text,w,bold,colspan){
+      var opts={
+        width:{size:w,type:docx.WidthType.DXA},
+        margins:{top:60,bottom:60,left:100,right:100},
+        columnSpan:colspan||1,
+        children:rows(text)
+      };
+      if(bold) opts.children=[new docx.Paragraph({children:[new docx.TextRun({text:text,bold:true,size:18})]})];
+      return new docx.TableCell(opts);
+    }
+
+    var TW=9026; // A4 content width in DXA
+
+    var doc=new docx.Document({
+      styles:{default:{document:{run:{font:'Times New Roman',size:20}}}},
+      sections:[{
+        properties:{page:{size:{width:11906,height:16838},margin:{top:720,bottom:720,left:900,right:900}}},
+        children:[
+          new docx.Paragraph({alignment:docx.AlignmentType.CENTER,children:[new docx.TextRun({text:'LESSON PLAN',bold:true,underline:{},size:28,font:'Times New Roman'})],spacing:{after:200}}),
+          new docx.Table({
+            width:{size:TW,type:docx.WidthType.DXA},
+            columnWidths:[TW/8,TW/8,TW/8,TW/8,TW/8,TW/8,TW/8,TW/8],
+            rows:[
+              // School + Teacher
+              new docx.TableRow({children:[
+                new docx.TableCell({columnSpan:3,width:{size:TW*3/8,type:docx.WidthType.DXA},margins:{top:60,bottom:60,left:100,right:100},children:[new docx.Paragraph({children:[new docx.TextRun({text:'School Name: ',bold:true,size:18}),new docx.TextRun({text:cv[0]||gv('schoolName'),size:18})]})] }),
+                new docx.TableCell({columnSpan:5,width:{size:TW*5/8,type:docx.WidthType.DXA},margins:{top:60,bottom:60,left:100,right:100},children:[new docx.Paragraph({children:[new docx.TextRun({text:"Teacher's Name: ",bold:true,size:18}),new docx.TextRun({text:cv[1]||gv('teacherName'),size:18})]})] }),
+              ]}),
+              // Headers row
+              new docx.TableRow({children:[hCell('Term',TW/8,true),hCell('Date',TW/8,true),hCell('Subject',TW/8,true),hCell('Class',TW/8,true),hCell('Unit No',TW/8,true),hCell('Lesson No',TW/8,true),hCell('Duration',TW/8,true),hCell('Class size',TW/8,true)]}),
+              // Values row
+              new docx.TableRow({children:[hCell(cv[2]||gv('term'),TW/8,false),hCell(cv[3]||'',TW/8,false),hCell(cv[4]||gv('subject'),TW/8,false),hCell(cv[5]||gv('cls'),TW/8,false),hCell(cv[6]||gv('unitNo'),TW/8,false),hCell(cv[7]||gv('lessonNo'),TW/8,false),hCell(cv[8]||gv('duration'),TW/8,false),hCell(cv[9]||gv('classSize'),TW/8,false)]}),
+              // SEN
+              new docx.TableRow({children:[
+                new docx.TableCell({columnSpan:4,width:{size:TW/2,type:docx.WidthType.DXA},margins:{top:60,bottom:60,left:100,right:100},children:[new docx.Paragraph({children:[new docx.TextRun({text:'Type of special educational needs to be catered for in this lesson and number of learners in each category',bold:true,size:18})]})] }),
+                new docx.TableCell({columnSpan:4,width:{size:TW/2,type:docx.WidthType.DXA},margins:{top:60,bottom:60,left:100,right:100},children:[new docx.Paragraph({children:[new docx.TextRun({text:(cv[10]||gv('senType')+' '+gv('senCount')).trim(),size:18})]})]}),
+              ]}),
+              // Unit title
+              new docx.TableRow({children:[tCell('Unit title',TW*3/8,true,3),new docx.TableCell({columnSpan:5,width:{size:TW*5/8,type:docx.WidthType.DXA},margins:{top:60,bottom:60,left:100,right:100},children:[new docx.Paragraph({children:[new docx.TextRun({text:(cv[11]||gv('unitTitle')).toUpperCase(),bold:true,size:18})]})]})] }),
+              new docx.TableRow({children:[tCell('Key unit competence',TW*3/8,true,3),new docx.TableCell({columnSpan:5,width:{size:TW*5/8,type:docx.WidthType.DXA},margins:{top:60,bottom:60,left:100,right:100},children:rows(cv[12]||gv('keyComp'))})]}),
+              new docx.TableRow({children:[tCell('Title of the lesson',TW*3/8,true,3),new docx.TableCell({columnSpan:5,width:{size:TW*5/8,type:docx.WidthType.DXA},margins:{top:60,bottom:60,left:100,right:100},children:rows(cv[13]||gv('lessonTitle'))})]}),
+              new docx.TableRow({children:[tCell('Instructional objectives',TW*3/8,true,3),new docx.TableCell({columnSpan:5,width:{size:TW*5/8,type:docx.WidthType.DXA},margins:{top:60,bottom:60,left:100,right:100},children:rows(cv[14]||(_aiData.objectives||''))})]}),
+              new docx.TableRow({children:[tCell('Plan of this class (Location)',TW*3/8,true,3),new docx.TableCell({columnSpan:5,width:{size:TW*5/8,type:docx.WidthType.DXA},margins:{top:60,bottom:60,left:100,right:100},children:[new docx.Paragraph({children:[new docx.TextRun({text:cv[15]||'Classroom',size:18})]})]})] }),
+              new docx.TableRow({children:[tCell('Learning materials',TW*3/8,true,3),new docx.TableCell({columnSpan:5,width:{size:TW*5/8,type:docx.WidthType.DXA},margins:{top:60,bottom:60,left:100,right:100},children:rows(cv[16]||(_aiData.materials||''))})]}),
+              new docx.TableRow({children:[tCell('References',TW*3/8,true,3),new docx.TableCell({columnSpan:5,width:{size:TW*5/8,type:docx.WidthType.DXA},margins:{top:60,bottom:60,left:100,right:100},children:rows(cv[17]||(_aiData.references||''))})]}),
+              // Activities header
+              new docx.TableRow({children:[
+                hCell('Timing for each step',TW/8,true),
+                new docx.TableCell({columnSpan:3,width:{size:TW*3/8,type:docx.WidthType.DXA},shading:{fill:'D9D9D9',type:'clear'},margins:{top:60,bottom:60,left:100,right:100},children:[new docx.Paragraph({alignment:docx.AlignmentType.CENTER,children:[new docx.TextRun({text:'Description of teaching and learning activities',bold:true,size:18})]})]}),
+                new docx.TableCell({columnSpan:4,width:{size:TW/2,type:docx.WidthType.DXA},shading:{fill:'D9D9D9',type:'clear'},margins:{top:60,bottom:60,left:100,right:100},children:[new docx.Paragraph({alignment:docx.AlignmentType.CENTER,children:[new docx.TextRun({text:'Generic competences and cross-cutting issues + some explanations',bold:true,size:18})]})]})
+              ]}),
+              // Sub-header
+              new docx.TableRow({children:[
+                new docx.TableCell({columnSpan:8,width:{size:TW,type:docx.WidthType.DXA},shading:{fill:'D9D9D9',type:'clear'},margins:{top:60,bottom:60,left:100,right:100},children:[new docx.Paragraph({alignment:docx.AlignmentType.CENTER,children:[new docx.TextRun({text:'Students will actively engage in discussions, practical experiments, and presentations throughout the lesson.',italics:true,size:18})]})]}),
+              ]}),
+              new docx.TableRow({children:[
+                hCell('',TW/8,true),
+                new docx.TableCell({columnSpan:1,width:{size:TW/8,type:docx.WidthType.DXA},shading:{fill:'D9D9D9',type:'clear'},margins:{top:60,bottom:60,left:100,right:100},children:[new docx.Paragraph({alignment:docx.AlignmentType.CENTER,children:[new docx.TextRun({text:"Teacher's activity",bold:true,size:18})]})]}),
+                new docx.TableCell({columnSpan:2,width:{size:TW/4,type:docx.WidthType.DXA},shading:{fill:'D9D9D9',type:'clear'},margins:{top:60,bottom:60,left:100,right:100},children:[new docx.Paragraph({alignment:docx.AlignmentType.CENTER,children:[new docx.TextRun({text:"Learner's activity",bold:true,size:18})]})]}),
+                new docx.TableCell({columnSpan:4,width:{size:TW/2,type:docx.WidthType.DXA},shading:{fill:'D9D9D9',type:'clear'},margins:{top:60,bottom:60,left:100,right:100},children:[new docx.Paragraph({children:[new docx.TextRun({text:'',size:18})]})]}),
+              ]}),
+              // Introduction
+              new docx.TableRow({children:[
+                new docx.TableCell({width:{size:TW/8,type:docx.WidthType.DXA},margins:{top:60,bottom:60,left:100,right:100},children:rows(cv[18]||'Introduction\n(10 min)')}),
+                new docx.TableCell({columnSpan:1,width:{size:TW/8,type:docx.WidthType.DXA},margins:{top:60,bottom:60,left:100,right:100},children:rows(cv[19]||(_aiData.intro_teacher||''))}),
+                new docx.TableCell({columnSpan:2,width:{size:TW/4,type:docx.WidthType.DXA},margins:{top:60,bottom:60,left:100,right:100},children:rows(cv[20]||(_aiData.intro_learner||''))}),
+                new docx.TableCell({columnSpan:4,width:{size:TW/2,type:docx.WidthType.DXA},margins:{top:60,bottom:60,left:100,right:100},children:rows(cv[21]||(_aiData.intro_competences||''))}),
+              ]}),
+              // Development
+              new docx.TableRow({children:[
+                new docx.TableCell({width:{size:TW/8,type:docx.WidthType.DXA},margins:{top:60,bottom:60,left:100,right:100},children:rows(cv[22]||'Lesson Development\n(60 min)')}),
+                new docx.TableCell({columnSpan:1,width:{size:TW/8,type:docx.WidthType.DXA},margins:{top:60,bottom:60,left:100,right:100},children:rows(cv[23]||(_aiData.dev_teacher||''))}),
+                new docx.TableCell({columnSpan:2,width:{size:TW/4,type:docx.WidthType.DXA},margins:{top:60,bottom:60,left:100,right:100},children:rows(cv[24]||(_aiData.dev_learner||''))}),
+                new docx.TableCell({columnSpan:4,width:{size:TW/2,type:docx.WidthType.DXA},margins:{top:60,bottom:60,left:100,right:100},children:rows(cv[25]||(_aiData.dev_competences||''))}),
+              ]}),
+              // Conclusion
+              new docx.TableRow({children:[
+                new docx.TableCell({width:{size:TW/8,type:docx.WidthType.DXA},margins:{top:60,bottom:60,left:100,right:100},children:rows(cv[26]||'Conclusion\n(10 min)')}),
+                new docx.TableCell({columnSpan:1,width:{size:TW/8,type:docx.WidthType.DXA},margins:{top:60,bottom:60,left:100,right:100},children:rows(cv[27]||(_aiData.conc_teacher||''))}),
+                new docx.TableCell({columnSpan:2,width:{size:TW/4,type:docx.WidthType.DXA},margins:{top:60,bottom:60,left:100,right:100},children:rows(cv[28]||(_aiData.conc_learner||''))}),
+                new docx.TableCell({columnSpan:4,width:{size:TW/2,type:docx.WidthType.DXA},margins:{top:60,bottom:60,left:100,right:100},children:rows(cv[29]||(_aiData.conc_competences||''))}),
+              ]}),
+              // Self evaluation
+              new docx.TableRow({children:[
+                new docx.TableCell({columnSpan:8,width:{size:TW,type:docx.WidthType.DXA},margins:{top:60,bottom:60,left:100,right:100},children:[new docx.Paragraph({children:[new docx.TextRun({text:"Teacher's self-evaluation",bold:true,size:18,font:"Times New Roman"})]})],height:{value:1200,rule:'atLeast'}}),
+              ]}),
+            ]
+          })
+        ]
+      }]
+    });
+
+    var blob=await docx.Packer.toBlob(doc);
+    var url=URL.createObjectURL(blob);
+    var a=document.createElement('a');
+    a.href=url;
+    a.download=(gv('lessonTitle')||'Lesson_Plan').replace(/\s+/g,'_')+'.docx';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }catch(e){
+    console.error(e);
+    alert('Word download failed: '+e.message);
+  }
+  if(btn){ btn.innerHTML='<span class="sb-icon">📄</span> Download Word'; btn.disabled=false; }
+}
+
+// ── Save & Load Plans ──
+function savePlan(){
+  var plan = {
+    id: Date.now(),
+    savedAt: new Date().toLocaleDateString('en-GB'),
+    schoolName: gv('schoolName'),
+    teacherName: gv('teacherName'),
+    term: gv('term'),
+    date: gv('lessonDate'),
+    subject: gv('subject'),
+    cls: gv('cls'),
+    unitNo: gv('unitNo'),
+    lessonNo: gv('lessonNo'),
+    duration: gv('duration'),
+    classSize: gv('classSize'),
+    senType: gv('senType'),
+    senCount: gv('senCount'),
+    unitTitle: gv('unitTitle'),
+    keyComp: gv('keyComp'),
+    lessonTitle: gv('lessonTitle'),
+    prevLesson: gv('prevLesson'),
+    aiData: _aiData
+  };
+  var saved = JSON.parse(localStorage.getItem('saved_lesson_plans')||'[]');
+  // Avoid duplicate: if same lessonTitle+date already saved, update it
+  var idx = saved.findIndex(function(p){ return p.lessonTitle===plan.lessonTitle && p.date===plan.date; });
+  if(idx !== -1){ saved[idx] = plan; } else { saved.unshift(plan); }
+  // No limit — keep all plans
+  localStorage.setItem('saved_lesson_plans', JSON.stringify(saved));
+  renderSavedPlans();
+  // Show save toast
+  showToast('✅ Lesson plan saved!');
+}
+
+function loadPlan(id){
+  var saved = JSON.parse(localStorage.getItem('saved_lesson_plans')||'[]');
+  var plan = saved.find(function(p){ return p.id===id; });
+  if(!plan) return;
+  document.getElementById('schoolName').value = plan.schoolName||'';
+  document.getElementById('teacherName').value = plan.teacherName||'';
+  document.getElementById('term').value = plan.term||'';
+  document.getElementById('lessonDate').value = plan.date||'';
+  // Set subject dropdown
+  var subEl = document.getElementById('subject');
+  var found = false;
+  for(var i=0;i<subEl.options.length;i++){
+    if(subEl.options[i].value===plan.subject){ subEl.selectedIndex=i; found=true; break; }
+  }
+  if(!found){ subEl.value='Other'; document.getElementById('otherSubject').value=plan.subject||''; document.getElementById('otherSubjectField').style.display='block'; }
+  document.getElementById('cls').value = plan.cls||'';
+  document.getElementById('unitNo').value = plan.unitNo||'';
+  document.getElementById('lessonNo').value = plan.lessonNo||'';
+  document.getElementById('duration').value = plan.duration||'';
+  document.getElementById('classSize').value = plan.classSize||'';
+  document.getElementById('senType').value = plan.senType||'';
+  document.getElementById('senCount').value = plan.senCount||'';
+  document.getElementById('unitTitle').value = plan.unitTitle||'';
+  document.getElementById('keyComp').value = plan.keyComp||'';
+  document.getElementById('lessonTitle').value = plan.lessonTitle||'';
+  document.getElementById('prevLesson').value = plan.prevLesson||'';
+  _aiData = plan.aiData||{};
+  showForm();
+  document.getElementById('aiStatus').style.color='var(--green)';
+  document.getElementById('aiStatus').textContent='✅ Plan loaded — click BUILD LESSON PLAN to view.';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function deletePlan(id){
+  var saved = JSON.parse(localStorage.getItem('saved_lesson_plans')||'[]');
+  saved = saved.filter(function(p){ return p.id!==id; });
+  localStorage.setItem('saved_lesson_plans', JSON.stringify(saved));
+  renderSavedPlans();
+  showToast('🗑 Plan deleted');
+}
+
+function renderSavedPlans(){
+  var container = document.getElementById('savedPlansContainer');
+  if(!container) return;
+  var saved = JSON.parse(localStorage.getItem('saved_lesson_plans')||'[]');
+  if(saved.length===0){
+    container.innerHTML='<p style="color:var(--muted);font-size:.83rem;padding:12px 0;">No saved plans yet. Build your first lesson plan above.</p>';
+    return;
+  }
+  var html = '';
+  saved.forEach(function(p){
+    html += '<div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:8px;">'+
+      '<div>'+
+        '<div style="font-weight:600;color:#fff;font-size:.9rem;">'+p.lessonTitle+'</div>'+
+        '<div style="font-family:JetBrains Mono,monospace;font-size:.7rem;color:var(--muted);margin-top:3px;">'+
+          p.subject+' · '+p.cls+' · Unit '+p.unitNo+' Lesson '+p.lessonNo+' · Saved '+p.savedAt+
+        '</div>'+
+      '</div>'+
+      '<div style="display:flex;gap:8px;flex-wrap:wrap;">'+
+        '<button onclick="loadPlan('+p.id+')" style="background:var(--accent);color:#000;border:none;padding:7px 14px;border-radius:6px;font-family:JetBrains Mono,monospace;font-size:.72rem;font-weight:700;cursor:pointer;">📂 Open</button>'+
+        '<button onclick="quickDownload('+p.id+',\'word\')" style="background:var(--purple);color:#fff;border:none;padding:7px 14px;border-radius:6px;font-family:JetBrains Mono,monospace;font-size:.72rem;font-weight:700;cursor:pointer;">📄 Word</button>'+
+        '<button onclick="deletePlan('+p.id+')" style="background:transparent;color:var(--red);border:1px solid var(--red);padding:7px 10px;border-radius:6px;font-family:JetBrains Mono,monospace;font-size:.72rem;cursor:pointer;">🗑</button>'+
+      '</div>'+
     '</div>';
-  document.getElementById('actRows').appendChild(div);
-}
-
-function clearForm(){
-  if(!confirm('Clear all form data?')) return;
-  document.querySelectorAll('#formSection input,#formSection textarea').forEach(el=>el.value='');
-  document.getElementById('actRows').innerHTML='';
-  DEFAULT_ROWS.forEach(r=>addRow(r));
-  document.getElementById('preview').style.display='none';
-  document.getElementById('preview').innerHTML='';
-  document.getElementById('printBtn').style.display='none';
-}
-
-function v(id){return (document.getElementById(id)||{}).value||'';}
-
-function generate(){
-  // Collect activity rows
-  const rows=[];
-  document.querySelectorAll('.act-row').forEach(r=>{
-    const tas=r.querySelectorAll('textarea');
-    rows.push({phase:tas[0].value,teacher:tas[1].value,learner:tas[2].value,comp:tas[3].value});
   });
-
-  const date=v('lessonDate')?new Date(v('lessonDate')).toLocaleDateString('en-GB',{year:'numeric',month:'2-digit',day:'2-digit'}):'';
-
-  // Build activity rows HTML
-  let actHTML='';
-  // Shared sub-header row
-  actHTML+=`<tr>
-    <td class="act-header" rowspan="1" style="background:#d9d9d9;font-weight:bold;text-align:center;font-style:italic;font-size:9pt;" colspan="4">
-      Students will actively engage in discussions, practical experiments, and presentations throughout the lesson.
-    </td>
-  </tr>
-  <tr>
-    <td></td>
-    <td class="act-header" style="background:#d9d9d9;font-weight:bold;text-align:center;">Teacher's activity</td>
-    <td class="act-header" style="background:#d9d9d9;font-weight:bold;text-align:center;">Learner's activity</td>
-    <td class="act-header" style="background:#d9d9d9;font-weight:bold;text-align:center;"></td>
-  </tr>`;
-
-  rows.forEach(r=>{
-    const tLines=r.teacher.split('\n').map(l=>l.trim()).filter(Boolean).map(l=>'<br/>'+l).join('');
-    const lLines=r.learner.split('\n').map(l=>l.trim()).filter(Boolean).map(l=>'<br/>'+l).join('');
-    const cLines=r.comp.split('\n').map(l=>l.trim()).filter(Boolean).map(l=>'<br/>'+l).join('');
-    actHTML+=`<tr>
-      <td class="timing-cell" style="font-weight:bold;text-align:center;white-space:pre-line;">${r.phase.replace(/\n/g,'<br/>')}</td>
-      <td>${tLines.replace(/^<br\/>/,'')}</td>
-      <td>${lLines.replace(/^<br\/>/,'')}</td>
-      <td>${cLines.replace(/^<br\/>/,'')}</td>
-    </tr>`;
-  });
-
-  const html=`<div class="lp">
-    <div class="lp-title">LESSON PLAN</div>
-    <table>
-      <tr>
-        <td><strong>School Name:</strong> ${v('schoolName')}</td>
-        <td colspan="3"><strong>Teacher's Name:</strong> ${v('teacherName')}</td>
-      </tr>
-      <tr class="hdr-row" style="background:#d9d9d9;">
-        <td>Term</td><td>Date</td><td>Subject</td><td>Class</td><td>Unit No</td><td>Lesson No</td><td>Duration</td><td>Class size</td>
-      </tr>
-      <tr>
-        <td>${v('term')}</td><td>${date}</td><td>${v('subject')}</td><td>${v('class')}</td>
-        <td>${v('unitNo')}</td><td>${v('lessonNo')}</td><td>${v('duration')}</td><td>${v('classSize')}</td>
-      </tr>
-      <tr>
-        <td colspan="4" class="label-cell" style="font-weight:bold;">Type of special educational needs to be catered for in this class and the number of learners in each category</td>
-        <td colspan="4">${v('sen')} &nbsp;&nbsp; ${v('senCount')}</td>
-      </tr>
-      <tr>
-        <td colspan="2" class="label-cell" style="font-weight:bold;">Unit title</td>
-        <td colspan="6" style="font-weight:bold;text-transform:uppercase;">${v('unitTitle')}</td>
-      </tr>
-      <tr>
-        <td colspan="2" class="label-cell" style="font-weight:bold;">Key unit competence</td>
-        <td colspan="6">${v('keyComp')}</td>
-      </tr>
-      <tr>
-        <td colspan="2" class="label-cell" style="font-weight:bold;">Title of the lesson</td>
-        <td colspan="6">${v('lessonTitle')}</td>
-      </tr>
-      <tr>
-        <td colspan="2" class="label-cell" style="font-weight:bold;">Instructional objectives</td>
-        <td colspan="6" style="white-space:pre-line;">${v('objectives')}</td>
-      </tr>
-      <tr>
-        <td colspan="2" class="label-cell" style="font-weight:bold;">Plan of this class (Location)</td>
-        <td colspan="6">${v('location')}</td>
-      </tr>
-      <tr>
-        <td colspan="2" class="label-cell" style="font-weight:bold;">Learning materials</td>
-        <td colspan="6">${v('materials')}</td>
-      </tr>
-      <tr>
-        <td colspan="2" class="label-cell" style="font-weight:bold;">References</td>
-        <td colspan="6">${v('references')}</td>
-      </tr>
-      <tr style="background:#d9d9d9;">
-        <td style="font-weight:bold;">Timing for each step</td>
-        <td colspan="2" style="font-weight:bold;text-align:center;">Description of teaching and learning activities</td>
-        <td style="font-weight:bold;text-align:center;">Generic competences and cross-cutting issues + some explanations</td>
-      </tr>
-      ${actHTML}
-      <tr>
-        <td colspan="4" class="label-cell self-eval" style="font-weight:bold;">Teacher's self-evaluation</td>
-      </tr>
-    </table>
-  </div>`;
-
-  const preview=document.getElementById('preview');
-  preview.style.display='block';
-  preview.innerHTML=html;
-  document.getElementById('printBtn').style.display='';
-  preview.scrollIntoView({behavior:'smooth',block:'start'});
+  container.innerHTML = html;
 }
 
-function printPlan(){
-  window.print();
+function quickDownload(id, type){
+  var saved = JSON.parse(localStorage.getItem('saved_lesson_plans')||'[]');
+  var plan = saved.find(function(p){ return p.id===id; });
+  if(!plan) return;
+  // Load into form silently then build then download
+  loadPlan(id);
+  setTimeout(function(){
+    buildPreview();
+    setTimeout(function(){
+      if(type==='word') downloadWord();
+    }, 800);
+  }, 300);
 }
 
-// Init with default rows
-DEFAULT_ROWS.forEach(r=>addRow(r));
+function showToast(msg){
+  var t = document.getElementById('toast');
+  if(!t){ t=document.createElement('div'); t.id='toast';
+    t.style.cssText='position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#161b22;border:1px solid var(--green);color:var(--green);padding:10px 20px;border-radius:8px;font-family:JetBrains Mono,monospace;font-size:.8rem;z-index:9999;transition:opacity .3s;';
+    document.body.appendChild(t);
+  }
+  t.textContent=msg; t.style.opacity='1';
+  setTimeout(function(){ t.style.opacity='0'; },2500);
+}
 
-// Set today's date
+// Init
 document.getElementById('lessonDate').value=new Date().toISOString().split('T')[0];
+// Load saved plans on startup
+renderSavedPlans();
+document.getElementById('subject').addEventListener('change',function(){
+  var otherField = document.getElementById('otherSubjectField');
+  if(this.value==='Other'){
+    otherField.style.display='block';
+  } else {
+    otherField.style.display='none';
+  }
+});
 </script>
 </body>
 </html>
