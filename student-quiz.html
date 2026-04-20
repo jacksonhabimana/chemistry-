@@ -638,8 +638,14 @@ function doSubmit(reason){
   };
   // Save to localStorage
   try{const arr=JSON.parse(localStorage.getItem('student_results')||'[]');arr.push(resultData);localStorage.setItem('student_results',JSON.stringify(arr));}catch(e){}
-  // Save to teacher's cloud bin (if exam has embedded key)
-  if(activeExam&&activeExam._apiKey&&activeExam._resultsBin) saveToCloud(resultData,activeExam._apiKey,activeExam._resultsBin);
+  // Save to teacher's cloud bin
+  // 1. Teacher-set exam: use embedded credentials
+  if(activeExam&&activeExam._apiKey&&activeExam._resultsBin){
+    saveToCloud(resultData,activeExam._apiKey,activeExam._resultsBin);
+  } else {
+    // 2. Self-practice quiz: use teacher's own key/bin saved in localStorage
+    saveSelfPracticeToCloud(resultData);
+  }
   sendNotif('SUBMIT',`${pass?'✅':'❌'} SUBMISSION\nStudent: ${studentName}${studentClass?' ('+studentClass+')':''}\nExam: ${resultData.examTitle}\nScore: ${score}/${total} (${pct}%)\nResult: ${pass?'PASS':'FAIL'}\nViolations: ${violations}\nTime: ${mm}m ${ss}s`);
   showResult();
 }
@@ -650,6 +656,33 @@ async function saveToCloud(result,key,binId){
     const list=Array.isArray(gd.record)?gd.record:[];
     list.push(result);
     await fetch('https://api.jsonbin.io/v3/b/'+binId,{method:'PUT',headers:{'Content-Type':'application/json','X-Master-Key':key},body:JSON.stringify(list)});
+  }catch(e){}
+}
+// ── Self-practice quiz: save to teacher's JSONBin (same pattern as tests.html/exams.html) ──
+async function saveSelfPracticeToCloud(result){
+  try{
+    const key=localStorage.getItem('jsonbin_key');
+    if(!key) return; // Teacher hasn't logged in on this device — results only save locally
+    let binId=localStorage.getItem('results_bin_id');
+    if(!binId){
+      const rb=await fetch('https://api.jsonbin.io/v3/b',{
+        method:'POST',
+        headers:{'Content-Type':'application/json','X-Master-Key':key,'X-Bin-Private':'false','X-Bin-Name':'ChemResults'},
+        body:JSON.stringify([result])
+      });
+      const rd=await rb.json();
+      if(rd.metadata && rd.metadata.id){localStorage.setItem('results_bin_id',rd.metadata.id);}
+      return;
+    }
+    const gr=await fetch('https://api.jsonbin.io/v3/b/'+binId+'/latest',{headers:{'X-Master-Key':key}});
+    const gd=await gr.json();
+    const list=Array.isArray(gd.record)?gd.record:[];
+    list.push(result);
+    await fetch('https://api.jsonbin.io/v3/b/'+binId,{
+      method:'PUT',
+      headers:{'Content-Type':'application/json','X-Master-Key':key},
+      body:JSON.stringify(list)
+    });
   }catch(e){}
 }
 function showResult(){
