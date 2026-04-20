@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Results Archive | Jackson Habimana Chemistry</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Serif+4:wght@300;400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+<style>
+:root{--bg:#0d1117;--surface:#161b22;--surface2:#1c2333;--border:#30363d;--accent:#38bdf8;--gold:#e8c547;--green:#34d399;--red:#f87171;--orange:#f59e0b;--purple:#a78bfa;--text:#e6edf3;--muted:#8b949e;--radius:10px;}
+*{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Source Serif 4',Georgia,serif;font-size:16px;line-height:1.7;min-height:100vh;padding:30px 24px 80px;}
+.wrap{max-width:1100px;margin:0 auto;}
+nav{margin-bottom:30px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+nav a{font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--muted);text-decoration:none;padding:6px 14px;border-radius:6px;border:1px solid var(--border);transition:all .15s;}
+nav a:hover{color:var(--accent);border-color:var(--accent);}
+nav a.current{background:rgba(56,189,248,.1);color:var(--accent);border-color:rgba(56,189,248,.3);}
+h1{font-family:'Playfair Display',serif;font-size:2rem;margin-bottom:8px;color:#fff;}
+h1 em{color:var(--accent);font-style:italic;}
+.sub{color:var(--muted);font-size:.95rem;margin-bottom:26px;}
+
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:22px 26px;margin-bottom:20px;}
+.card h2{font-family:'Playfair Display',serif;font-size:1.25rem;color:var(--gold);margin-bottom:14px;}
+.card h3{font-family:'Playfair Display',serif;font-size:1.05rem;color:#fff;margin-bottom:10px;}
+
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border:none;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.82rem;font-weight:700;cursor:pointer;transition:all .15s;}
+.btn.primary{background:var(--accent);color:#000;}
+.btn.primary:hover{opacity:.85;}
+.btn.danger{background:rgba(248,113,113,.15);color:var(--red);border:1px solid rgba(248,113,113,.3);}
+.btn.danger:hover{background:var(--red);color:#000;}
+.btn.success{background:rgba(52,211,153,.15);color:var(--green);border:1px solid rgba(52,211,153,.3);}
+.btn.success:hover{background:var(--green);color:#000;}
+.btn.ghost{background:var(--surface2);color:var(--text);border:1px solid var(--border);}
+.btn.ghost:hover{border-color:var(--accent);color:var(--accent);}
+
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px;}
+.pill{display:inline-block;background:var(--surface2);border:1px solid var(--border);color:var(--muted);padding:4px 12px;border-radius:50px;font-family:'JetBrains Mono',monospace;font-size:.72rem;}
+.pill.live{background:rgba(52,211,153,.08);border-color:rgba(52,211,153,.3);color:var(--green);}
+.pill.cnt{background:rgba(56,189,248,.08);border-color:rgba(56,189,248,.3);color:var(--accent);}
+
+.key-warn{background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.3);color:var(--orange);border-radius:var(--radius);padding:14px 18px;margin-bottom:20px;font-size:.88rem;}
+.key-warn input{background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:8px 12px;margin:8px 6px 0 0;font-family:'JetBrains Mono',monospace;font-size:.82rem;width:100%;max-width:420px;}
+.key-warn .row{margin-top:8px;margin-bottom:0;}
+
+.date-group{background:var(--surface2);border:1px solid var(--border);border-radius:8px;margin-bottom:10px;}
+.date-group summary{padding:12px 16px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:.82rem;color:#fff;display:flex;align-items:center;gap:10px;}
+.date-group summary::marker,.date-group summary::-webkit-details-marker{display:none;}
+.date-group summary::before{content:'▸';color:var(--accent);transition:transform .15s;display:inline-block;}
+.date-group[open] summary::before{transform:rotate(90deg);}
+.date-group summary:hover{background:rgba(56,189,248,.05);}
+.date-group .date-body{padding:2px 16px 14px 32px;}
+
+.res-row{display:grid;grid-template-columns:1fr auto auto auto;gap:10px;align-items:center;padding:8px 10px;border-top:1px solid var(--border);font-size:.86rem;}
+.res-row:first-child{border-top:none;}
+.res-name{color:#fff;font-weight:600;}
+.res-meta{color:var(--muted);font-size:.76rem;margin-top:2px;}
+.res-score{font-family:'JetBrains Mono',monospace;color:var(--accent);}
+.res-pct{font-family:'JetBrains Mono',monospace;min-width:50px;text-align:right;}
+.res-pct.pass{color:var(--green);}
+.res-pct.fail{color:var(--red);}
+.res-time{font-family:'JetBrains Mono',monospace;color:var(--muted);font-size:.75rem;}
+
+.archive-item{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:14px 18px;margin-bottom:10px;}
+.archive-item .ttl{font-family:'JetBrains Mono',monospace;color:#fff;font-weight:700;font-size:.9rem;margin-bottom:4px;}
+.archive-item .sb{color:var(--muted);font-size:.78rem;margin-bottom:10px;}
+.archive-item .acts{display:flex;gap:8px;flex-wrap:wrap;}
+
+#status{min-height:22px;margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:.8rem;}
+.status-ok{color:var(--green);}
+.status-err{color:var(--red);}
+.status-info{color:var(--accent);}
+
+.empty{color:var(--muted);font-style:italic;padding:20px 0;text-align:center;}
+
+@media(max-width:640px){
+  body{padding:20px 14px 60px;}
+  .res-row{grid-template-columns:1fr auto;}
+  .res-time{grid-column:1/-1;text-align:left;}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav>
+    <a href="index.html">⚛ Home</a>
+    <a href="teacher-admin.html">👨‍🏫 Teacher Admin</a>
+    <a href="teacher-archives.html" class="current">📁 Results Archive</a>
+  </nav>
+
+  <h1>📁 Results <em>Archive</em></h1>
+  <p class="sub">Save a dated snapshot of your live results, then clear them. All archives are grouped by the date each student attempted the exam.</p>
+
+  <!-- Configuration section: shown only when no key is saved -->
+  <div id="keyWarn" class="key-warn" style="display:none;">
+    <strong style="color:#fff;">⚠️ JSONBin key needed</strong><br>
+    This page needs your JSONBin API key to read results. The key should already be saved when you log in to Teacher Admin. If not, paste it here:
+    <div class="row">
+      <input type="password" id="keyInput" placeholder="$2a$10$... your JSONBin X-Master-Key"/>
+      <button class="btn primary" onclick="saveKey()">💾 Save</button>
+    </div>
+  </div>
+
+  <!-- LIVE RESULTS CARD -->
+  <div class="card">
+    <div class="row" style="justify-content:space-between;">
+      <h2 style="margin-bottom:0;">🟢 Live results <span class="pill live" id="liveCount">0 results</span></h2>
+      <div class="row" style="margin-bottom:0;">
+        <button class="btn ghost" onclick="loadLive()">🔄 Reload</button>
+        <button class="btn success" onclick="archiveAndClear()" id="archBtn" disabled>📦 Archive &amp; Clear Live</button>
+      </div>
+    </div>
+    <p class="sub" style="margin-bottom:10px;">Results currently on your teacher dashboard, grouped by the date the student took the exam.</p>
+    <div id="liveList"></div>
+  </div>
+
+  <!-- ARCHIVES CARD -->
+  <div class="card">
+    <div class="row" style="justify-content:space-between;">
+      <h2 style="margin-bottom:0;">📚 Past archives <span class="pill cnt" id="archCount">0 archives</span></h2>
+      <button class="btn ghost" onclick="loadArchives()">🔄 Reload</button>
+    </div>
+    <p class="sub" style="margin-bottom:10px;">Previously archived snapshots. Expand any to see its date-grouped results; download each as CSV.</p>
+    <div id="archList"></div>
+  </div>
+
+  <div id="status"></div>
+
+</div>
+
+<script>
+/* ═════════════════════════════════════════════════════════════════════════
+   Results Archive — works with the same JSONBin storage already used by
+   tests.html, exams.html, student-quiz.html, and teacher-admin.html.
+
+   Storage keys used (all in localStorage):
+     jsonbin_key          — teacher's X-Master-Key (same one teacher-admin uses)
+     results_bin_id       — bin ID of LIVE results (same one students write to)
+     archive_index_bin_id — bin ID holding the list of past archives
+   ═════════════════════════════════════════════════════════════════════════ */
+
+const JB = 'https://api.jsonbin.io/v3/b';
+const $ = id => document.getElementById(id);
+
+// ── Status helpers ──
+function status(msg, kind) {
+  const el = $('status');
+  el.className = kind === 'ok' ? 'status-ok' : kind === 'err' ? 'status-err' : 'status-info';
+  el.textContent = msg || '';
+}
+
+// ── Key management ──
+function getKey(){ return (localStorage.getItem('jsonbin_key') || '').trim(); }
+function saveKey(){
+  const v = $('keyInput').value.trim();
+  if(!v){ status('Please paste your JSONBin key.', 'err'); return; }
+  localStorage.setItem('jsonbin_key', v);
+  status('✅ Key saved. Reloading…', 'ok');
+  setTimeout(()=>location.reload(), 600);
+}
+function getLiveBinId(){ return localStorage.getItem('results_bin_id') || ''; }
+function getArchiveIndexBinId(){ return localStorage.getItem('archive_index_bin_id') || ''; }
+
+// ── JSONBin helpers ──
+async function jbGet(binId){
+  const r = await fetch(JB + '/' + binId + '/latest', { headers: { 'X-Master-Key': getKey() } });
+  if(!r.ok) throw new Error('GET '+binId+' → '+r.status);
+  const d = await r.json();
+  return d.record;
+}
+async function jbPut(binId, obj){
+  const r = await fetch(JB + '/' + binId, {
+    method: 'PUT',
+    headers: { 'Content-Type':'application/json', 'X-Master-Key': getKey() },
+    body: JSON.stringify(obj)
+  });
+  if(!r.ok) throw new Error('PUT '+binId+' → '+r.status);
+  return r.json();
+}
+async function jbCreate(name, obj, privateBin){
+  const headers = { 'Content-Type':'application/json', 'X-Master-Key': getKey(), 'X-Bin-Name': name };
+  if(privateBin===false) headers['X-Bin-Private'] = 'false';
+  const r = await fetch(JB, { method:'POST', headers, body: JSON.stringify(obj) });
+  if(!r.ok) throw new Error('POST '+name+' → '+r.status);
+  return r.json();
+}
+
+// ── Date helpers ──
+function toDateKey(iso){
+  const d = new Date(iso || Date.now());
+  if(isNaN(d)) return 'Unknown date';
+  const y = d.getFullYear();
+  const m = String(d.getMonth()+1).padStart(2,'0');
+  const dd = String(d.getDate()).padStart(2,'0');
+  return `${y}-${m}-${dd}`;
+}
+function niceDate(key){
+  if(key==='Unknown date') return key;
+  const [y,m,d] = key.split('-');
+  const dt = new Date(+y, +m-1, +d);
+  return dt.toLocaleDateString(undefined, {weekday:'long', year:'numeric', month:'long', day:'numeric'});
+}
+function niceTime(iso){
+  const d = new Date(iso);
+  if(isNaN(d)) return '—';
+  return d.toLocaleString();
+}
+
+// ── Group results by date ──
+function groupByDate(results){
+  const groups = {};
+  results.forEach(r => {
+    const key = toDateKey(r.submittedAt || r.timestamp || r.date);
+    (groups[key] = groups[key] || []).push(r);
+  });
+  // Return as sorted array, newest dates first
+  return Object.keys(groups)
+    .sort((a,b)=> b.localeCompare(a))
+    .map(k => ({ date: k, results: groups[k] }));
+}
+
+// ── Render live results ──
+function renderResults(container, groups){
+  container.innerHTML = '';
+  if(!groups.length){
+    container.innerHTML = '<div class="empty">No results to show.</div>';
+    return;
+  }
+  groups.forEach(g => {
+    const det = document.createElement('details');
+    det.className = 'date-group';
+    det.open = false;
+    const summary = document.createElement('summary');
+    summary.innerHTML = `<strong style="color:#fff;">${niceDate(g.date)}</strong> <span class="pill cnt">${g.results.length} result${g.results.length===1?'':'s'}</span>`;
+    det.appendChild(summary);
+    const body = document.createElement('div');
+    body.className = 'date-body';
+    g.results.forEach(r => body.appendChild(renderRow(r)));
+    det.appendChild(body);
+    container.appendChild(det);
+  });
+}
+
+function renderRow(r){
+  const row = document.createElement('div');
+  row.className = 'res-row';
+  const pct = typeof r.percent === 'number' ? r.percent : Math.round((Number(r.score)||0)/(Number(r.totalMarks)||1)*100);
+  const pass = r.passed === true || pct >= 50;
+  const name = r.studentName || 'Anonymous';
+  const id = r.studentId ? ' · ' + r.studentId : '';
+  const title = r.examTitle || r.examSubject || 'Exam';
+  row.innerHTML = `
+    <div>
+      <div class="res-name">${escapeHtml(name)}${escapeHtml(id)}</div>
+      <div class="res-meta">${escapeHtml(title)}</div>
+    </div>
+    <div class="res-score">${r.score||0}/${r.totalMarks||'?'}</div>
+    <div class="res-pct ${pass?'pass':'fail'}">${pct}%</div>
+    <div class="res-time">${niceTime(r.submittedAt)}</div>
+  `;
+  return row;
+}
+
+function escapeHtml(s){ return String(s==null?'':s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+
+// ── Load live ──
+let liveResults = [];
+async function loadLive(){
+  const k = getKey(), bin = getLiveBinId();
+  if(!k){ $('keyWarn').style.display='block'; return; }
+  if(!bin){ $('liveList').innerHTML = '<div class="empty">No live results bin configured yet. Log in to Teacher Admin once so it saves your <code>results_bin_id</code>.</div>'; return; }
+  status('Loading live results…', 'info');
+  try{
+    const data = await jbGet(bin);
+    liveResults = Array.isArray(data) ? data : [];
+    $('liveCount').textContent = liveResults.length + (liveResults.length===1?' result':' results');
+    renderResults($('liveList'), groupByDate(liveResults));
+    $('archBtn').disabled = liveResults.length === 0;
+    status(liveResults.length ? '✅ Loaded '+liveResults.length+' results' : 'No live results to archive.', 'ok');
+  }catch(e){
+    status('❌ Could not load: '+e.message, 'err');
+    $('liveList').innerHTML = '<div class="empty">Could not load live results. Check your JSONBin key.</div>';
+  }
+}
+
+// ── Archive & clear ──
+async function archiveAndClear(){
+  const k = getKey(), bin = getLiveBinId();
+  if(!k || !bin){ status('Missing key or live results bin.', 'err'); return; }
+  if(!liveResults.length){ status('No live results to archive.', 'err'); return; }
+
+  const groups = groupByDate(liveResults);
+  const datesCovered = groups.length;
+  const preview = groups.map(g=>g.date+' ('+g.results.length+')').join(', ');
+
+  const label = 'Archive ' + toDateKey(Date.now()) + ' (' + liveResults.length + ' results across ' + datesCovered + ' date' + (datesCovered===1?'':'s') + ')';
+
+  if(!confirm('⚠️  Archive and CLEAR live results?\n\n' +
+              'Archive label:\n  ' + label + '\n\n' +
+              'Dates covered:\n  ' + preview + '\n\n' +
+              'This is SAFE — the archive will be created before anything is cleared.\n' +
+              'You can always view/download the archive from the "Past archives" section below.')) return;
+
+  status('📦 Creating archive…', 'info');
+  try{
+    // 1. Build the archive snapshot object
+    const snapshot = {
+      label,
+      createdAt: new Date().toISOString(),
+      totalResults: liveResults.length,
+      datesCovered,
+      dateKeys: groups.map(g=>g.date),
+      results: liveResults.slice(), // full copy
+    };
+
+    // 2. Create a new private bin for this snapshot
+    const created = await jbCreate('ChemArchive_' + toDateKey(Date.now()), snapshot, false);
+    const newBinId = created.metadata && created.metadata.id;
+    if(!newBinId) throw new Error('Could not create archive bin');
+
+    // 3. Append to archive index bin (create if missing)
+    let indexBinId = getArchiveIndexBinId();
+    const entry = { binId: newBinId, label, createdAt: snapshot.createdAt, totalResults: liveResults.length, datesCovered, dateKeys: snapshot.dateKeys };
+    if(!indexBinId){
+      const ic = await jbCreate('ChemArchiveIndex', [entry], false);
+      indexBinId = ic.metadata && ic.metadata.id;
+      if(indexBinId) localStorage.setItem('archive_index_bin_id', indexBinId);
+    } else {
+      let list = [];
+      try{ const got = await jbGet(indexBinId); if(Array.isArray(got)) list = got; }catch(e){}
+      list.unshift(entry);
+      await jbPut(indexBinId, list);
+    }
+
+    // 4. Finally, clear the LIVE results bin (set to empty array)
+    await jbPut(bin, []);
+
+    status('✅ Archived ' + liveResults.length + ' results and cleared live dashboard.', 'ok');
+    liveResults = [];
+    $('liveCount').textContent = '0 results';
+    renderResults($('liveList'), []);
+    $('archBtn').disabled = true;
+    await loadArchives();
+  }catch(e){
+    status('❌ Archive failed: ' + e.message + ' — NOTHING was cleared.', 'err');
+  }
+}
+
+// ── Load archives ──
+let archives = [];
+async function loadArchives(){
+  const k = getKey();
+  if(!k){ $('keyWarn').style.display='block'; return; }
+  const idxBin = getArchiveIndexBinId();
+  if(!idxBin){
+    $('archList').innerHTML = '<div class="empty">No archives yet. Click "Archive &amp; Clear Live" above to create your first.</div>';
+    $('archCount').textContent = '0 archives';
+    return;
+  }
+  try{
+    const data = await jbGet(idxBin);
+    archives = Array.isArray(data) ? data : [];
+    $('archCount').textContent = archives.length + ' archive' + (archives.length===1?'':'s');
+    renderArchives();
+  }catch(e){
+    $('archList').innerHTML = '<div class="empty">Could not load archives index: '+escapeHtml(e.message)+'</div>';
+  }
+}
+
+function renderArchives(){
+  const list = $('archList');
+  list.innerHTML = '';
+  if(!archives.length){
+    list.innerHTML = '<div class="empty">No archives yet.</div>';
+    return;
+  }
+  archives.forEach((a, i) => {
+    const item = document.createElement('div');
+    item.className = 'archive-item';
+    const dates = (a.dateKeys || []).join(', ') || '—';
+    item.innerHTML = `
+      <div class="ttl">📦 ${escapeHtml(a.label || 'Archive')}</div>
+      <div class="sb">Created: ${niceTime(a.createdAt)} · ${a.totalResults||0} results · Dates: ${escapeHtml(dates)}</div>
+      <div class="acts">
+        <button class="btn ghost" onclick="viewArchive(${i})">👁 View</button>
+        <button class="btn ghost" onclick="downloadArchive(${i})">⬇ Download CSV</button>
+        <button class="btn danger" onclick="deleteArchive(${i})">🗑 Delete</button>
+      </div>
+      <div id="arch-body-${i}" style="margin-top:12px;"></div>
+    `;
+    list.appendChild(item);
+  });
+}
+
+async function viewArchive(i){
+  const a = archives[i];
+  const body = $('arch-body-'+i);
+  if(body.dataset.open === '1'){ body.innerHTML=''; body.dataset.open='0'; return; }
+  body.innerHTML = '<div class="empty">Loading…</div>';
+  try{
+    const snap = await jbGet(a.binId);
+    const results = (snap && snap.results) || [];
+    const groups = groupByDate(results);
+    body.innerHTML = '';
+    renderResults(body, groups);
+    body.dataset.open = '1';
+  }catch(e){
+    body.innerHTML = '<div class="empty">Could not load archive: '+escapeHtml(e.message)+'</div>';
+  }
+}
+
+async function downloadArchive(i){
+  const a = archives[i];
+  status('Preparing CSV…', 'info');
+  try{
+    const snap = await jbGet(a.binId);
+    const results = (snap && snap.results) || [];
+    const csv = resultsToCSV(results);
+    const blob = new Blob([csv], {type:'text/csv;charset=utf-8'});
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = (a.label || 'archive').replace(/[^A-Za-z0-9_\-]+/g,'_') + '.csv';
+    link.click();
+    URL.revokeObjectURL(url);
+    status('✅ CSV downloaded.', 'ok');
+  }catch(e){
+    status('❌ Download failed: ' + e.message, 'err');
+  }
+}
+
+async function deleteArchive(i){
+  const a = archives[i];
+  if(!confirm('Permanently delete this archive?\n\n' + a.label + '\n\nThis cannot be undone.')) return;
+  try{
+    // Remove from the index
+    archives.splice(i, 1);
+    await jbPut(getArchiveIndexBinId(), archives);
+    // We intentionally do NOT delete the archive bin itself to avoid data loss from mistakes
+    // (JSONBin free tier limits bin count; if that's a concern, you can delete the orphan bin
+    // manually from your JSONBin dashboard)
+    status('✅ Removed from list. The snapshot bin is still in your JSONBin account for safety.', 'ok');
+    renderArchives();
+  }catch(e){
+    status('❌ Delete failed: ' + e.message, 'err');
+  }
+}
+
+function resultsToCSV(results){
+  const headers = ['#','Student Name','Class/ID','Exam Title','Subject','Score','Total','Percent','Passed','Violations','Time Taken','Submitted At'];
+  const lines = [headers.join(',')];
+  results.forEach((r, i) => {
+    const pct = typeof r.percent==='number' ? r.percent : Math.round((Number(r.score)||0)/(Number(r.totalMarks)||1)*100);
+    const pass = r.passed === true || pct >= 50 ? 'PASS' : 'FAIL';
+    const row = [
+      i+1,
+      csvEscape(r.studentName || 'Anonymous'),
+      csvEscape(r.studentId || ''),
+      csvEscape(r.examTitle || ''),
+      csvEscape(r.examSubject || ''),
+      r.score || 0,
+      r.totalMarks || 0,
+      pct,
+      pass,
+      r.violations || 0,
+      csvEscape(r.timeTaken || '—'),
+      csvEscape(r.submittedAt || ''),
+    ];
+    lines.push(row.join(','));
+  });
+  return lines.join('\n');
+}
+function csvEscape(v){
+  v = String(v==null?'':v);
+  if(/[",\n\r]/.test(v)) return '"' + v.replace(/"/g,'""') + '"';
+  return v;
+}
+
+// ── Init ──
+(function init(){
+  if(!getKey()){
+    $('keyWarn').style.display = 'block';
+    status('👉 Please paste your JSONBin key above to continue.', 'info');
+    return;
+  }
+  loadLive();
+  loadArchives();
+})();
+</script>
+<script src="shuffle-answers.js"></script>
+</body>
+</html>
