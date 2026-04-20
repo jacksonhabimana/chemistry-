@@ -10,15 +10,11 @@ export default {
   async fetch(request, env) {
     const ALLOWED_ORIGIN = 'https://jacksonhabimana.github.io';
     const cors = {
-      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Origin': ALLOWED_ORIGIN,
       'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
       'Access-Control-Allow-Headers': 'Content-Type',
       'Content-Type': 'application/json',
     };
-    // Use sandbox if SANDBOX variable is set to 'true', otherwise live
-    const BASE = (env.SANDBOX === 'true')
-      ? 'https://api.sandbox.pawapay.io'
-      : 'https://api.pawapay.io';
 
     if (request.method === 'OPTIONS') {
       return new Response(null, { status: 204, headers: cors });
@@ -31,7 +27,7 @@ export default {
     if (request.method === 'POST' && path === '/deposit') {
       try {
         const body = await request.json();
-        const response = await fetch(BASE + '/deposits', {
+        const response = await fetch('https://api.pawapay.io/deposits', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -51,7 +47,7 @@ export default {
       const depositId = url.searchParams.get('id');
       if (!depositId) return new Response(JSON.stringify({ error: 'Missing id' }), { status: 400, headers: cors });
       try {
-        const response = await fetch(BASE + '/deposits/' + depositId, {
+        const response = await fetch('https://api.pawapay.io/deposits/' + depositId, {
           headers: { 'Authorization': 'Bearer ' + env.PAWAPAY_TOKEN },
         });
         const data = await response.json();
