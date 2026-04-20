@@ -1346,5 +1346,6 @@ function toggleAnswer(btn){
 <script>
 function submitMQ(qid,total){var ak=window._MQA&&window._MQA[qid];if(!ak)return;var score=0;for(var i=1;i<=total;i++){var sel=document.querySelector('input[name="mq'+qid+'_'+i+'"]:checked');var correct=ak[i];var expEl=document.getElementById('mqE'+qid+'_'+i);if(expEl)expEl.style.display='block';['A','B','C','D'].forEach(function(ltr){var lbl=document.getElementById('mqL'+qid+'_'+i+'_'+ltr);if(!lbl)return;var inp=lbl.querySelector('input');if(inp)inp.disabled=true;if(ltr===correct){lbl.style.background='rgba(52,211,153,.12)';lbl.style.borderColor='#34d399';lbl.style.color='#34d399';}else if(sel&&sel.value===ltr&&ltr!==correct){lbl.style.background='rgba(248,113,113,.1)';lbl.style.borderColor='#f87171';lbl.style.color='#f87171';}});if(sel&&sel.value===correct)score++;}var pct=Math.round(score/total*100);var r=document.getElementById('mqRES'+qid);if(r){r.style.display='block';r.style.background=pct>=70?'rgba(52,211,153,.1)':'rgba(248,113,113,.1)';r.style.border='1px solid '+(pct>=70?'#34d399':'#f87171');r.style.color=pct>=70?'#34d399':'#f87171';r.textContent='Score: '+score+'/'+total+' ('+pct+'%) — '+(pct>=80?'🏆 Excellent!':pct>=70?'✅ Good':pct>=50?'📚 Review the notes':'❌ Re-read this section');}}
 </script>
+<script src="shuffle-answers.js"></script>
 </body>
 </html>
