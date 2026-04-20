@@ -1,34 +1,34 @@
 /* ===========================================================================
-   shuffle-answers.js  (v2)
+   shuffle-answers.js  (v3)
    Universal MCQ option shuffler for Jackson's chemistry portal
    (jacksonhabimana.github.io/chemistry-)
 
    On every page load, this script randomly re-orders the four options of
-   every multiple-choice question so the correct answer is not always in
-   the same letter (A/B/C/D). Scoring still works — the script uses
-   strategies that preserve the link between each option's text and
-   however your scoring logic identifies the correct answer.
+   every multiple-choice question so the correct answer is NOT always in
+   the same letter (A/B/C/D). Scoring still works correctly — the script
+   preserves the link between each option's text and however the scoring
+   logic identifies the correct answer.
 
-   Covers:
-     • Unit pages — Section Quick Quiz   (window._EMQA data)
-     • Unit pages — "Mini-Quiz"          (inline submitMQ(...,{...}) onclick)
-     • Unit pages — 25-question quiz     (generic DOM shuffle)
-     • Student Hub Take Quiz             (generic DOM shuffle)
-     • Tests page                        (generic DOM shuffle)
-     • Exams page                        (generic DOM shuffle)
-     • Any other page with 4-option MCQs (generic DOM shuffle)
+   v3 covers (NEW: Pattern D for data-driven quizzes like exams.html):
+     • Unit pages — Section Quick Quiz        (Pattern A: window._EMQA)
+     • Unit pages — "Mini-Quiz"               (Pattern B: submitMQ onclick)
+     • Unit pages — 25-question unit quiz     (Pattern C: radio label swap)
+     • Student hub Take Quiz                  (Pattern C or D)
+     • Tests page    (tests.html)             (Pattern D: shuffle data)
+     • Exams page    (exams.html)             (Pattern D: shuffle data) ★
+     • Any other data-driven MCQ              (Pattern D)
 
    Install:
-     Put this file next to fix-answers.js in the repo, and add to any page
-     that has MCQs — just before the closing </body> tag:
+     Put this file in the same folder as fix-answers.js, and add ONE line
+     to every page that has MCQs — just before the closing </body> tag:
 
        <script src="shuffle-answers.js"></script>
 
    Verify:
-     Open the browser console (F12). You should see:
-       [shuffle-answers] Shuffled: A=X, B=Y, C=Z
-     Reload the page a few times — the correct answer should land on
-     different letters across reloads.
+     Open the browser console (F12) and refresh. You should see:
+       [shuffle-answers] Shuffled: A=X, B=Y, C=Z, D=W
+     Reload the page — the correct answer should land on different letters
+     across reloads.
 =========================================================================== */
 
 (function () {
@@ -39,9 +39,10 @@
 
   var LETTERS = ['A', 'B', 'C', 'D'];
 
-  // Labels we've already shuffled — prevents double-shuffle when later
-  // passes (or the MutationObserver) revisit the same group.
+  // Track labels already shuffled so later passes don't re-shuffle them.
   var handledLabels = new WeakSet();
+  // Same for data-level questions.
+  var SHUFFLED_MARK = '__shuffle_answers_done__';
 
   function shuffleInPlace(a) {
     for (var i = a.length - 1; i > 0; i--) {
@@ -64,7 +65,6 @@
     }
   }
 
-  // Extract a label's content (excluding its radio <input>) as HTML.
   function extractLabelContent(label) {
     var clone = label.cloneNode(true);
     var ins = clone.querySelectorAll('input');
@@ -72,7 +72,6 @@
     return clone.innerHTML;
   }
 
-  // Replace everything after a label's <input> with the given HTML.
   function writeLabelContent(label, html) {
     var input = label.querySelector('input');
     if (!input) return false;
@@ -89,8 +88,6 @@
     return true;
   }
 
-  // Shuffle 4 labels by swapping the TEXT among them (inputs stay put).
-  // Returns map: origIndex -> newIndex, or null if it can't shuffle cleanly.
   function textSwap(labels) {
     if (!labels || labels.length !== 4) return null;
     for (var k = 0; k < 4; k++) {
@@ -187,14 +184,7 @@
     return count;
   }
 
-  /* --- PATTERN C: generic 4-option MCQ — DOM-reorder whole labels ----
-     For any group of 4 radio inputs sharing a `name`, move the entire
-     <label> elements around (including their inputs). This preserves the
-     link between each input's value (A/B/C/D), its text, and whatever
-     the scoring engine uses to decide "correct". Works for any scoring
-     that identifies the correct answer by the input's value or id.
-
-     Skips groups already handled by Pattern A or Pattern B. ------------- */
+  /* --- PATTERN C: generic 4-option MCQ — DOM-reorder whole labels ---- */
   function shufflePatternC(root) {
     root = root || document;
     var inputs;
@@ -219,7 +209,6 @@
       if (labels.indexOf(null) !== -1) continue;
       if (labels.some(function (l) { return handledLabels.has(l); })) continue;
 
-      // All 4 labels must share one parent so we can reorder in place.
       var parent = labels[0].parentNode;
       if (!parent) continue;
       var sameParent = true;
@@ -228,7 +217,6 @@
       }
       if (!sameParent) continue;
 
-      // Sort labels by current DOM order.
       var ordered = labels.slice().sort(function (a, b) {
         var pos = a.compareDocumentPosition(b);
         if (pos & Node.DOCUMENT_POSITION_FOLLOWING) return -1;
@@ -236,7 +224,6 @@
         return 0;
       });
 
-      // Marker lets us put them back at the same place after shuffling.
       var marker = document.createComment('shuffle-anchor');
       parent.insertBefore(marker, ordered[0]);
       for (var r = 0; r < ordered.length; r++) {
@@ -254,14 +241,171 @@
     return count;
   }
 
+  /* --- PATTERN D: data-driven quizzes (exams.html, tests.html, etc.) --
+     Looks for globals holding quiz data shaped like:
+       { s4:[...], s5:[...], s6:[...], full:[...] }   or plain array
+     Each question object is expected to have:
+       opts: [4 strings]      (or options/answers)
+       a:    number 0..3      (or correct/correctIndex/ans, or letter 'A'..'D')
+     Shuffles each question's options in place and updates the correct-
+     answer index to match, so the render/check functions keep working. -- */
+
+  var D_CANDIDATE_NAMES = [
+    'E', 'T', 'Q',
+    'QUIZ', 'QUIZ_DATA', 'QUIZDATA', 'quizData',
+    'EXAM', 'EXAMS', 'EXAM_DATA', 'examData',
+    'TEST', 'TESTS', 'TEST_DATA', 'testData',
+    'QUESTIONS', 'questions',
+    'DATA', 'data'
+  ];
+
+  var D_OPT_KEYS = ['opts', 'options', 'choices', 'answers'];
+  // Correct-answer keys whose value is a 0..3 index.
+  var D_IDX_KEYS = ['a', 'ans', 'answer', 'correct', 'correctIndex', 'correctIdx'];
+  // Correct-answer keys whose value is a letter 'A'..'D'.
+  var D_LETTER_KEYS = ['letter', 'correctLetter', 'ansLetter'];
+
+  function readGlobalByName(name) {
+    // Try window[name] first (works for `var` globals).
+    try {
+      if (name in window) return window[name];
+    } catch (e) {}
+    // Try lexical lookup via Function constructor (works for `const`/`let` globals).
+    try {
+      var getter = new Function(
+        'try{ return (typeof ' + name + '!=="undefined") ? ' + name + ' : undefined; }' +
+        'catch(e){ return undefined; }'
+      );
+      return getter();
+    } catch (e) {
+      return undefined;
+    }
+  }
+
+  function findOptsKey(q) {
+    for (var i = 0; i < D_OPT_KEYS.length; i++) {
+      var k = D_OPT_KEYS[i];
+      if (Array.isArray(q[k]) && q[k].length === 4) return k;
+    }
+    return null;
+  }
+
+  function findIdxKey(q) {
+    for (var i = 0; i < D_IDX_KEYS.length; i++) {
+      var k = D_IDX_KEYS[i];
+      if (typeof q[k] === 'number' && q[k] >= 0 && q[k] <= 3) return k;
+    }
+    return null;
+  }
+
+  function findLetterKey(q) {
+    for (var i = 0; i < D_LETTER_KEYS.length; i++) {
+      var k = D_LETTER_KEYS[i];
+      if (typeof q[k] === 'string' && LETTERS.indexOf(q[k].toUpperCase()) !== -1) return k;
+    }
+    // Also handle the case where an idx-named key contains a letter.
+    for (var j = 0; j < D_IDX_KEYS.length; j++) {
+      var kk = D_IDX_KEYS[j];
+      if (typeof q[kk] === 'string' && LETTERS.indexOf(q[kk].toUpperCase()) !== -1) return kk;
+    }
+    return null;
+  }
+
+  function shuffleQuestion(q) {
+    if (!q || typeof q !== 'object' || q[SHUFFLED_MARK]) return false;
+    var optsKey = findOptsKey(q);
+    if (!optsKey) return false;
+
+    var idxKey = findIdxKey(q);
+    var letterKey = idxKey ? null : findLetterKey(q);
+
+    var correctIdx;
+    if (idxKey) {
+      correctIdx = q[idxKey];
+    } else if (letterKey) {
+      correctIdx = LETTERS.indexOf(String(q[letterKey]).toUpperCase());
+      if (correctIdx < 0) return false;
+    } else {
+      return false;
+    }
+
+    var opts = q[optsKey];
+    var correctText = opts[correctIdx];
+
+    // Shuffle copy of the options.
+    var shuffled = opts.slice();
+    shuffleInPlace(shuffled);
+    q[optsKey] = shuffled;
+
+    // Update the correct-answer key accordingly.
+    var newIdx = shuffled.indexOf(correctText);
+    if (newIdx < 0) {
+      // Fallback: restore original ordering.
+      q[optsKey] = opts;
+      return false;
+    }
+    if (idxKey) {
+      q[idxKey] = newIdx;
+    } else {
+      q[letterKey] = LETTERS[newIdx];
+    }
+
+    // Hidden, non-enumerable would be ideal but assignment works fine.
+    try {
+      Object.defineProperty(q, SHUFFLED_MARK, {
+        value: true, enumerable: false, configurable: true, writable: true
+      });
+    } catch (e) { q[SHUFFLED_MARK] = true; }
+    return true;
+  }
+
+  function walkAndShuffle(obj, depth) {
+    depth = depth || 0;
+    if (depth > 6 || obj == null) return 0;
+    var count = 0;
+    if (Array.isArray(obj)) {
+      // If this array looks like a list of question objects, shuffle each.
+      for (var i = 0; i < obj.length; i++) {
+        var it = obj[i];
+        if (it && typeof it === 'object' && !Array.isArray(it) && findOptsKey(it)) {
+          if (shuffleQuestion(it)) count++;
+        } else if (it && typeof it === 'object') {
+          count += walkAndShuffle(it, depth + 1);
+        }
+      }
+      return count;
+    }
+    if (typeof obj !== 'object') return 0;
+    for (var k in obj) {
+      if (!Object.prototype.hasOwnProperty.call(obj, k)) continue;
+      try {
+        count += walkAndShuffle(obj[k], depth + 1);
+      } catch (e) { /* skip */ }
+    }
+    return count;
+  }
+
+  function shufflePatternD() {
+    var count = 0;
+    for (var i = 0; i < D_CANDIDATE_NAMES.length; i++) {
+      var name = D_CANDIDATE_NAMES[i];
+      var val = readGlobalByName(name);
+      if (val && typeof val === 'object') {
+        try { count += walkAndShuffle(val, 0); } catch (e) {}
+      }
+    }
+    return count;
+  }
+
   /* --- Orchestration ------------------------------------------------- */
   function runStatic() {
-    var a = 0, b = 0, c = 0;
+    var a = 0, b = 0, c = 0, d = 0;
     try { a = shufflePatternA(); } catch (e) { if (window.console) console.error('[shuffle-answers] A failed:', e); }
     try { b = shufflePatternB(); } catch (e) { if (window.console) console.error('[shuffle-answers] B failed:', e); }
     try { c = shufflePatternC(document); } catch (e) { if (window.console) console.error('[shuffle-answers] C failed:', e); }
+    try { d = shufflePatternD(); } catch (e) { if (window.console) console.error('[shuffle-answers] D failed:', e); }
     if (window.console) {
-      console.log('[shuffle-answers] Shuffled: A=' + a + ', B=' + b + ', C=' + c);
+      console.log('[shuffle-answers] Shuffled: A=' + a + ', B=' + b + ', C=' + c + ', D=' + d);
     }
   }
 
@@ -272,8 +416,9 @@
       pending = false;
       try {
         var c = shufflePatternC(document);
-        if (c > 0 && window.console) {
-          console.log('[shuffle-answers] Dynamic shuffle: C=' + c);
+        var d = shufflePatternD();
+        if ((c > 0 || d > 0) && window.console) {
+          console.log('[shuffle-answers] Dynamic shuffle: C=' + c + ', D=' + d);
         }
       } catch (e) {
         if (window.console) console.error('[shuffle-answers] Dynamic failed:', e);
@@ -287,10 +432,7 @@
           if (node.nodeType !== 1) continue;
           if (node.tagName === 'INPUT' ||
               (node.querySelector && node.querySelector('input[type="radio"]'))) {
-            if (!pending) {
-              pending = true;
-              setTimeout(flush, 30); // debounce so we catch a full group of 4
-            }
+            if (!pending) { pending = true; setTimeout(flush, 30); }
             return;
           }
         }
@@ -302,17 +444,22 @@
   function start() {
     runStatic();
     watchForDynamic();
-    // Late passes in case scripts render questions after load.
     setTimeout(function () {
       try {
         var c = shufflePatternC(document);
-        if (c > 0 && window.console) console.log('[shuffle-answers] Late pass: C=' + c);
+        var d = shufflePatternD();
+        if ((c > 0 || d > 0) && window.console) {
+          console.log('[shuffle-answers] Late pass: C=' + c + ', D=' + d);
+        }
       } catch (e) {}
     }, 500);
     setTimeout(function () {
       try {
         var c = shufflePatternC(document);
-        if (c > 0 && window.console) console.log('[shuffle-answers] Late pass 2: C=' + c);
+        var d = shufflePatternD();
+        if ((c > 0 || d > 0) && window.console) {
+          console.log('[shuffle-answers] Late pass 2: C=' + c + ', D=' + d);
+        }
       } catch (e) {}
     }, 2000);
   }
