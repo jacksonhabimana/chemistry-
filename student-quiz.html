@@ -502,26 +502,13 @@ function dismissWarn(){document.getElementById('warn-modal').classList.remove('s
 async function loadTeacherExam(){
   const nm=document.getElementById('student-name').value.trim();
   if(!nm){document.getElementById('name-err').textContent='Please enter your name first.';return;}
-  let code=document.getElementById('exam-code-input').value.trim().toUpperCase();
+  const code=document.getElementById('exam-code-input').value.trim();
   const err=document.getElementById('code-err');
   const loading=document.getElementById('code-loading');
-  if(!code||code.length<4){err.textContent='Please paste the exam code from your teacher.';return;}
+  if(!code||code.length<6){err.textContent='Please paste the full exam code from your teacher.';return;}
   err.textContent='';loading.style.display='block';
   studentName=nm; studentClass=document.getElementById('student-class').value.trim();
   try{
-    // If this is a short code (under 12 chars), look it up in the registry first
-    if(code.length < 12){
-      const regId = localStorage.getItem('exam_code_registry_bin');
-      if(regId){
-        const rr = await fetch('https://api.jsonbin.io/v3/b/'+regId+'/latest');
-        if(rr.ok){
-          const rd = await rr.json();
-          const map = (rd && rd.record) || {};
-          const entry = map[code];
-          if(entry) code = (typeof entry === 'string') ? entry : entry.longId;
-        }
-      }
-    }
     const r=await fetch('https://api.jsonbin.io/v3/b/'+code+'/latest');
     if(!r.ok) throw new Error('Exam not found. Check the code. ('+r.status+')');
     const d=await r.json();
@@ -651,14 +638,8 @@ function doSubmit(reason){
   };
   // Save to localStorage
   try{const arr=JSON.parse(localStorage.getItem('student_results')||'[]');arr.push(resultData);localStorage.setItem('student_results',JSON.stringify(arr));}catch(e){}
-  // Save to teacher's cloud bin
-  // 1. Teacher-set exam: use embedded credentials
-  if(activeExam&&activeExam._apiKey&&activeExam._resultsBin){
-    saveToCloud(resultData,activeExam._apiKey,activeExam._resultsBin);
-  } else {
-    // 2. Self-practice quiz: use teacher's own key/bin saved in localStorage
-    saveSelfPracticeToCloud(resultData);
-  }
+  // Save to teacher's cloud bin (if exam has embedded key)
+  if(activeExam&&activeExam._apiKey&&activeExam._resultsBin) saveToCloud(resultData,activeExam._apiKey,activeExam._resultsBin);
   sendNotif('SUBMIT',`${pass?'✅':'❌'} SUBMISSION\nStudent: ${studentName}${studentClass?' ('+studentClass+')':''}\nExam: ${resultData.examTitle}\nScore: ${score}/${total} (${pct}%)\nResult: ${pass?'PASS':'FAIL'}\nViolations: ${violations}\nTime: ${mm}m ${ss}s`);
   showResult();
 }
@@ -669,33 +650,6 @@ async function saveToCloud(result,key,binId){
     const list=Array.isArray(gd.record)?gd.record:[];
     list.push(result);
     await fetch('https://api.jsonbin.io/v3/b/'+binId,{method:'PUT',headers:{'Content-Type':'application/json','X-Master-Key':key},body:JSON.stringify(list)});
-  }catch(e){}
-}
-// ── Self-practice quiz: save to teacher's JSONBin (same pattern as tests.html/exams.html) ──
-async function saveSelfPracticeToCloud(result){
-  try{
-    const key=localStorage.getItem('jsonbin_key');
-    if(!key) return; // Teacher hasn't logged in on this device — results only save locally
-    let binId=localStorage.getItem('results_bin_id');
-    if(!binId){
-      const rb=await fetch('https://api.jsonbin.io/v3/b',{
-        method:'POST',
-        headers:{'Content-Type':'application/json','X-Master-Key':key,'X-Bin-Private':'false','X-Bin-Name':'ChemResults'},
-        body:JSON.stringify([result])
-      });
-      const rd=await rb.json();
-      if(rd.metadata && rd.metadata.id){localStorage.setItem('results_bin_id',rd.metadata.id);}
-      return;
-    }
-    const gr=await fetch('https://api.jsonbin.io/v3/b/'+binId+'/latest',{headers:{'X-Master-Key':key}});
-    const gd=await gr.json();
-    const list=Array.isArray(gd.record)?gd.record:[];
-    list.push(result);
-    await fetch('https://api.jsonbin.io/v3/b/'+binId,{
-      method:'PUT',
-      headers:{'Content-Type':'application/json','X-Master-Key':key},
-      body:JSON.stringify(list)
-    });
   }catch(e){}
 }
 function showResult(){
@@ -769,11 +723,8 @@ function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.re
 // Auto-load exam code from student-hub session storage
 window.addEventListener('load',()=>{
   const code=sessionStorage.getItem('exam_code_to_load');
-  const urlCode = new URLSearchParams(window.location.search).get('code');
-  if(urlCode){ document.getElementById('exam-code-input').value = urlCode.trim(); }
-  else if(code){ sessionStorage.removeItem('exam_code_to_load'); document.getElementById('exam-code-input').value = code; }
+  if(code){sessionStorage.removeItem('exam_code_to_load');document.getElementById('exam-code-input').value=code;}
 });
 </script>
-<script src="shuffle-answers.js"></script>
 </body>
 </html>
