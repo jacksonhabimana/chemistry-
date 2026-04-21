@@ -502,13 +502,26 @@ function dismissWarn(){document.getElementById('warn-modal').classList.remove('s
 async function loadTeacherExam(){
   const nm=document.getElementById('student-name').value.trim();
   if(!nm){document.getElementById('name-err').textContent='Please enter your name first.';return;}
-  const code=document.getElementById('exam-code-input').value.trim();
+  let code=document.getElementById('exam-code-input').value.trim().toUpperCase();
   const err=document.getElementById('code-err');
   const loading=document.getElementById('code-loading');
-  if(!code||code.length<6){err.textContent='Please paste the full exam code from your teacher.';return;}
+  if(!code||code.length<4){err.textContent='Please paste the exam code from your teacher.';return;}
   err.textContent='';loading.style.display='block';
   studentName=nm; studentClass=document.getElementById('student-class').value.trim();
   try{
+    // If this is a short code (under 12 chars), look it up in the registry first
+    if(code.length < 12){
+      const regId = localStorage.getItem('exam_code_registry_bin');
+      if(regId){
+        const rr = await fetch('https://api.jsonbin.io/v3/b/'+regId+'/latest');
+        if(rr.ok){
+          const rd = await rr.json();
+          const map = (rd && rd.record) || {};
+          const entry = map[code];
+          if(entry) code = (typeof entry === 'string') ? entry : entry.longId;
+        }
+      }
+    }
     const r=await fetch('https://api.jsonbin.io/v3/b/'+code+'/latest');
     if(!r.ok) throw new Error('Exam not found. Check the code. ('+r.status+')');
     const d=await r.json();
@@ -756,7 +769,9 @@ function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.re
 // Auto-load exam code from student-hub session storage
 window.addEventListener('load',()=>{
   const code=sessionStorage.getItem('exam_code_to_load');
-  if(code){sessionStorage.removeItem('exam_code_to_load');document.getElementById('exam-code-input').value=code;}
+  const urlCode = new URLSearchParams(window.location.search).get('code');
+  if(urlCode){ document.getElementById('exam-code-input').value = urlCode.trim(); }
+  else if(code){ sessionStorage.removeItem('exam_code_to_load'); document.getElementById('exam-code-input').value = code; }
 });
 </script>
 <script src="shuffle-answers.js"></script>

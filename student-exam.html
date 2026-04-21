@@ -114,33 +114,30 @@ body{background:var(--bg);color:var(--text);font-family:'Source Serif 4',Georgia
   <div class="upload-box" style="max-width:560px;">
     <div style="font-size:2.5rem;margin-bottom:12px;">⚗</div>
     <h1>Student Exam Portal</h1>
-    <p>Enter the exam code your teacher gave you, or upload the exam file.</p>
+    <p>Enter the <strong>6-character exam code</strong> your teacher gave you.</p>
 
     <!-- METHOD 1: CODE -->
     <div style="background:var(--surface2);border:2px solid rgba(52,211,153,.3);border-radius:10px;padding:24px;margin-bottom:16px;">
-      <div style="font-family:'JetBrains Mono',monospace;font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--green);margin-bottom:10px;">Method 1 — Enter Exam Code</div>
-      <input type="text" id="exam-code-input" placeholder="Paste full exam code here (long code from teacher)" maxlength="32"
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--green);margin-bottom:10px;">📋 Teacher-Set Exam</div>
+      <input type="text" id="exam-code-input" placeholder="A3F8C2 (6-character code)" maxlength="32"
         style="width:100%;background:var(--surface);border:1px solid var(--border);border-radius:7px;color:var(--text);padding:12px 16px;font-family:'JetBrains Mono',monospace;font-size:1.4rem;text-align:center;letter-spacing:.25em;text-transform:uppercase;margin-bottom:12px;"
         onkeydown="if(event.key==='Enter')loadByCode()"/>
       <button onclick="loadByCode()" style="width:100%;background:var(--green);color:#000;border:none;padding:12px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:.9rem;font-weight:700;cursor:pointer;">🚀 Load Exam by Code</button>
       <p id="code-loading" style="display:none;color:var(--muted);font-size:.82rem;margin-top:8px;font-family:'JetBrains Mono',monospace;">⏳ Loading exam...</p>
     </div>
 
-    <div style="display:flex;align-items:center;gap:12px;margin:8px 0;color:var(--muted);font-size:.82rem;">
-      <div style="flex:1;height:1px;background:var(--border);"></div>
-      <span style="font-family:'JetBrains Mono',monospace;font-size:.72rem;">OR</span>
-      <div style="flex:1;height:1px;background:var(--border);"></div>
-    </div>
-
-    <!-- METHOD 2: FILE -->
-    <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:20px;">
-      <div style="font-family:'JetBrains Mono',monospace;font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:10px;">Method 2 — Upload Exam File</div>
+    <!-- METHOD 2: FILE (hidden by default, click to expand) -->
+    <details style="margin-top:16px;">
+      <summary style="cursor:pointer;color:var(--muted);font-size:.8rem;text-align:center;padding:8px;font-family:'JetBrains Mono',monospace;">📄 Or upload an exam file (alternative)</summary>
+    <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:20px;margin-top:12px;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:10px;">Upload Exam File</div>
       <div class="drop-zone" id="dz" onclick="document.getElementById('ef').click()" style="padding:20px;">
         <div class="icon" style="font-size:1.8rem;">📄</div>
         <strong style="font-size:.9rem;">Click or drag & drop exam .json file</strong>
         <input type="file" id="ef" accept=".json" style="display:none;" onchange="loadExamFile(this.files[0])"/>
       </div>
     </div>
+    </details>
 
     <p style="color:var(--red);font-size:.85rem;margin-top:10px;" id="upload-err"></p>
     <p style="color:var(--muted);font-size:.78rem;margin-top:8px;">Jackson Habimana Chemistry Portal</p>
@@ -651,13 +648,24 @@ function downloadResult(){
 //  LOAD EXAM BY CODE
 // ══════════════════════════════════════════════
 async function loadByCode(){
-  const raw = document.getElementById('exam-code-input').value.trim();
+  let raw = document.getElementById('exam-code-input').value.trim().toUpperCase();
   const err = document.getElementById('upload-err');
   const loading = document.getElementById('code-loading');
-  if(!raw || raw.length < 10){err.textContent='❌ Please paste the FULL exam code from your teacher (it is a long code, not just 6 digits).';return;}
+  if(!raw || raw.length < 4){err.textContent='❌ Please enter the exam code from your teacher.';return;}
   err.textContent=''; loading.style.display='block';
   try{
-    // Code = JSONBin bin ID — fetch exam directly (bin is public, no key needed)
+    // If this is a short code (under 12 chars), look it up in the registry first
+    if(raw.length < 12){
+      const regId = localStorage.getItem('exam_code_registry_bin');
+      if(!regId) throw new Error('Code registry not configured on this device. Use the Student Hub to start.');
+      const rr = await fetch('https://api.jsonbin.io/v3/b/'+regId+'/latest');
+      if(!rr.ok) throw new Error('Could not read code registry ('+rr.status+')');
+      const rd = await rr.json();
+      const map = (rd && rd.record) || {};
+      const entry = map[raw];
+      if(!entry) throw new Error('Code not recognised. Please check with your teacher.');
+      raw = (typeof entry === 'string') ? entry : entry.longId;
+    }
     const r = await fetch('https://api.jsonbin.io/v3/b/'+raw+'/latest');
     if(!r.ok) throw new Error('Exam not found ('+r.status+'). Check the code.');
     const d = await r.json();
@@ -667,7 +675,7 @@ async function loadByCode(){
     showInfoScreen();
   }catch(e){
     loading.style.display='none';
-    err.innerHTML='❌ '+e.message+'<br><small style="color:var(--muted);">Copy the full code exactly from your teacher.</small>';
+    err.innerHTML='❌ '+e.message;
   }
 }
 
