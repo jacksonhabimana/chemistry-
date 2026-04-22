@@ -973,10 +973,21 @@ function submitQuiz(){
 </style>
 
 <div id="pdf-dl-bar">
-  <button id="pdf-dl-btn" onclick="checkPayAndDownload()">
-    <span class="spin" id="pdf-spin"></span>
-    <span id="pdf-btn-text">&#11015; Download PDF</span>
-  </button>
+  <div style="position:relative;display:inline-block;">
+    <button id="pdf-dl-btn" onclick="toggleDlMenu()">
+      <span class="spin" id="pdf-spin"></span>
+      <span id="pdf-btn-text">&#11015; Download PDF</span>
+      <span style="margin-left:8px;font-size:.85em;">&#x25BC;</span>
+    </button>
+    <div id="pdf-dl-menu" style="display:none;position:absolute;bottom:calc(100% + 8px);right:0;background:#161b22;border:1px solid #30363d;border-radius:8px;padding:8px;box-shadow:0 8px 32px rgba(0,0,0,.6);min-width:240px;z-index:10000;">
+      <button type="button" class="dl-opt" onclick="pickDl('notes')" style="display:block;width:100%;text-align:left;background:transparent;color:#e6edf3;border:none;padding:10px 14px;border-radius:6px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:.82rem;">&#128214; Notes only</button>
+      <button type="button" class="dl-opt" onclick="pickDl('quiz')" style="display:block;width:100%;text-align:left;background:transparent;color:#e6edf3;border:none;padding:10px 14px;border-radius:6px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:.82rem;">&#129514; Quiz only</button>
+      <button type="button" class="dl-opt" onclick="pickDl('test')" style="display:block;width:100%;text-align:left;background:transparent;color:#e6edf3;border:none;padding:10px 14px;border-radius:6px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:.82rem;">&#128221; Test only</button>
+      <div style="height:1px;background:#30363d;margin:4px 8px;"></div>
+      <button type="button" class="dl-opt" onclick="pickDl('all')" style="display:block;width:100%;text-align:left;background:transparent;color:#e6edf3;border:none;padding:10px 14px;border-radius:6px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:.82rem;">&#128196; Everything (full unit)</button>
+    </div>
+  </div>
+  <style>.dl-opt:hover{background:rgba(56,189,248,.1)!important;color:#38bdf8!important;}</style>
 </div>
 
 <div id="dl-pay-overlay">
@@ -1111,6 +1122,33 @@ function markPaidAndDownload(){
   document.getElementById('dl-st-ok').style.display='block';
   setTimeout(function(){closeDlPay();doDownloadPDF();},1500);
 }
+
+// === Part selector for Download PDF ===
+var _dlPart = 'notes';
+function toggleDlMenu(){
+  var m = document.getElementById('pdf-dl-menu');
+  m.style.display = (m.style.display === 'block') ? 'none' : 'block';
+  if(m.style.display === 'block'){
+    setTimeout(function(){ document.addEventListener('click', closeDlMenuOutside, true); }, 10);
+  }
+}
+function closeDlMenuOutside(e){
+  var m = document.getElementById('pdf-dl-menu');
+  var b = document.getElementById('pdf-dl-btn');
+  if(!m) return;
+  if(m.contains(e.target) || b.contains(e.target)) return;
+  m.style.display = 'none';
+  document.removeEventListener('click', closeDlMenuOutside, true);
+}
+function pickDl(part){
+  _dlPart = part;
+  document.getElementById('pdf-dl-menu').style.display = 'none';
+  document.removeEventListener('click', closeDlMenuOutside, true);
+  var labels = {notes:'Notes only', quiz:'Quiz only', test:'Test only', all:'Everything'};
+  document.getElementById('pdf-btn-text').textContent = '⬇ ' + labels[part] + '...';
+  checkPayAndDownload();
+}
+
 function doDownloadPDF(){
   var btn=document.getElementById('pdf-dl-btn');
   var spin=document.getElementById('pdf-spin');
@@ -1119,12 +1157,59 @@ function doDownloadPDF(){
   var title=document.title.replace(/[^a-zA-Z0-9\s]/g,'').replace(/\s+/g,'_').substring(0,60)||'chemistry_notes';
   var main=document.querySelector('main')||document.querySelector('.content')||document.body;
   var clone=main.cloneNode(true);
-  clone.querySelectorAll('.quiz-wrap,#quiz,#test,.quiz-submit,.qs,button,#pdf-dl-bar,#dl-pay-overlay').forEach(function(el){el.remove();});
-  var wrapper=document.createElement('div');
-  wrapper.style.cssText='background:#fff;color:#000;font-family:Georgia,serif;font-size:11pt;line-height:1.7;padding:20px;';
-  wrapper.appendChild(clone);
-  wrapper.querySelectorAll('*').forEach(function(el){el.style.color='#000';el.style.background='transparent';el.style.borderColor='#ccc';});
-  wrapper.querySelectorAll('h1,h2,h3,h4').forEach(function(h){h.style.color='#000';h.style.fontWeight='bold';});
+  // Strip sections based on what the user chose in the dropdown
+  var part = (typeof _dlPart !== 'undefined') ? _dlPart : 'notes';
+  if(part === 'notes'){
+    // Remove quiz + test, keep only notes
+    clone.querySelectorAll('.quiz-wrap,#quiz,#test,.quiz-submit,.qs,button,#pdf-dl-bar,#dl-pay-overlay,.section-header[id="quiz"],.section-header[id="test"]').forEach(function(el){el.remove();});
+  } else if(part === 'quiz'){
+    // Keep only quiz section
+    var keep = clone.querySelector('#quiz') || clone.querySelector('.quiz-wrap');
+    if(keep){
+      var keepParent = keep.closest('.section-header') ? keep.closest('.section-header').parentNode : clone;
+      // Find the quiz block and its section header
+      var qHeader = null;
+      var all = clone.querySelectorAll('.section-header, [id="quiz"], .quiz-wrap');
+      for(var i=0;i<all.length;i++){ if(all[i].id === 'quiz' || all[i].querySelector && all[i].querySelector('#quiz')){ qHeader = all[i]; break; } }
+      // Gather quiz header + wrap
+      var header = clone.querySelector('.section-header[id="quiz"]') || clone.querySelector('#quiz');
+      var wrap = clone.querySelector('.quiz-wrap') || clone.querySelector('#quiz + *');
+      // Build clean content
+      var quizContent = document.createElement('div');
+      if(header) quizContent.appendChild(header.cloneNode(true));
+      if(wrap && wrap !== header) quizContent.appendChild(wrap.cloneNode(true));
+      // Replace clone content with just the quiz
+      clone.innerHTML = '';
+      clone.appendChild(quizContent);
+    } else {
+      // Fallback: no quiz section found
+      clone.innerHTML = '<h2>Quiz not available in this unit</h2>';
+    }
+    // Remove interactive stuff
+    clone.querySelectorAll('.quiz-submit,.qs,button,#pdf-dl-bar,#dl-pay-overlay,input[type="radio"],input[type="submit"]').forEach(function(el){el.remove();});
+  } else if(part === 'test'){
+    // Keep only test section
+    var header = clone.querySelector('.section-header[id="test"]') || clone.querySelector('#test');
+    var testContent = document.createElement('div');
+    if(header){
+      testContent.appendChild(header.cloneNode(true));
+      // Gather all subsequent siblings until next section-header or end
+      var n = header.nextElementSibling;
+      while(n && !n.classList.contains('section-header')){
+        testContent.appendChild(n.cloneNode(true));
+        n = n.nextElementSibling;
+      }
+      clone.innerHTML = '';
+      clone.appendChild(testContent);
+    } else {
+      clone.innerHTML = '<h2>Test not available in this unit</h2>';
+    }
+    clone.querySelectorAll('button,#pdf-dl-bar,#dl-pay-overlay,input[type="submit"]').forEach(function(el){el.remove();});
+  } else {
+    // 'all' - keep everything, only strip download/payment UI
+    clone.querySelectorAll('#pdf-dl-bar,#dl-pay-overlay,.quiz-submit,.qs,button').forEach(function(el){el.remove();});
+  }
+  var unitTitleText = document.title.split('–')[1] ? document.title.split('–')[1].split('|')[0].trim() : (document.querySelector('h1') ? document.querySelector('h1').textContent.trim() : 'Chemistry Unit');var levelText = (document.title.match(/S[456]\s*Chemistry/i) || ['Chemistry'])[0];var unitNumMatch = document.title.match(/Unit\s*\d+/i);var unitNumText = unitNumMatch ? unitNumMatch[0] : '';var bookStyle = document.createElement('style');bookStyle.textContent = '.pdf-cover{width:794px;height:1100px;background:#fff;position:relative;page-break-after:always;}.pdf-cover-bar{position:absolute;top:0;left:0;width:100%;height:28%;background:#0f766e;}.pdf-cover-inner{position:absolute;top:0;left:0;width:100%;height:100%;padding:100px 60px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:space-between;}.pdf-cover-top{color:#fff;}.pdf-cover-top .level{font-family:Georgia,serif;font-size:18pt;letter-spacing:6px;text-transform:uppercase;opacity:.9;margin-bottom:20px;}.pdf-cover-top .unum{font-family:Georgia,serif;font-size:14pt;letter-spacing:4px;opacity:.75;}.pdf-cover-mid{margin-top:120px;}.pdf-cover-mid h1{font-family:Georgia,serif;font-size:42pt;color:#1a1a1a;line-height:1.15;font-weight:700;margin:0;}.pdf-cover-mid .subtitle{font-family:Georgia,serif;font-size:15pt;color:#555;margin-top:24px;font-style:italic;}.pdf-cover-bot{color:#333;}.pdf-cover-bot .author{font-family:Georgia,serif;font-size:22pt;font-weight:700;margin-bottom:6px;}.pdf-cover-bot .pub{font-family:Georgia,serif;font-size:12pt;color:#666;}.pdf-body{font-family:Georgia,serif;font-size:11pt;color:#1a1a1a;line-height:1.65;padding:48px 54px;}.pdf-body *{color:#1a1a1a!important;background:transparent!important;box-shadow:none!important;border-color:#d0d0d0!important;}.pdf-body h1{font-family:Georgia,serif;color:#0f766e!important;font-size:22pt;border-bottom:3px solid #0f766e!important;padding-bottom:8px;margin:28px 0 18px;page-break-after:avoid;font-weight:700;}.pdf-body h2{font-family:Georgia,serif;color:#0f766e!important;font-size:16pt;margin:24px 0 12px;page-break-after:avoid;font-weight:700;border-bottom:1px solid #bfdbd7!important;padding-bottom:4px;}.pdf-body h3{font-family:Georgia,serif;color:#333!important;font-size:13pt;margin:18px 0 8px;page-break-after:avoid;font-weight:700;}.pdf-body table{width:100%;border-collapse:collapse;margin:14px 0;font-size:10pt;}.pdf-body td,.pdf-body th{border:1px solid #c8c8c8;padding:7px 9px;vertical-align:top;}.pdf-body th{background:#f3faf8!important;color:#0f766e!important;font-weight:700;text-align:left;}.pdf-body tr:nth-child(even) td{background:#f9f9f9!important;}.pdf-body .callout,.pdf-body .definition,.pdf-body .example,.pdf-body .note{background:#f3faf8!important;border-left:4px solid #0f766e!important;padding:10px 14px;margin:12px 0;}.pdf-body ul,.pdf-body ol{margin:8px 0 8px 24px;}.pdf-body li{margin:4px 0;}.pdf-body img{max-width:100%;height:auto;}.pdf-body a{color:#0f766e!important;text-decoration:none;}.pdf-footer{text-align:center;color:#999;font-family:Georgia,serif;font-size:9pt;margin-top:40px;padding-top:16px;border-top:1px solid #ddd;}';var wrapper=document.createElement('div');wrapper.style.cssText='background:#fff;';var coverHTML = '<div class="pdf-cover"><div class="pdf-cover-bar"></div><div class="pdf-cover-inner"><div class="pdf-cover-top"><div class="level">' + levelText + '</div>' + (unitNumText ? '<div class="unum">' + unitNumText + '</div>' : '') + '</div><div class="pdf-cover-mid"><h1>' + unitTitleText + '</h1><div class="subtitle">A complete guide with notes, examples, and practice questions</div></div><div class="pdf-cover-bot"><div class="author">Jackson Habimana</div><div class="pub">Chemistry Portal &mdash; jacksonhabimana.github.io</div></div></div></div>';var bodyDiv = document.createElement('div');bodyDiv.className = 'pdf-body';bodyDiv.appendChild(clone);var footer = document.createElement('div');footer.className = 'pdf-footer';footer.innerHTML = '&copy; Jackson Habimana Chemistry Portal &mdash; All rights reserved';bodyDiv.appendChild(footer);wrapper.appendChild(bookStyle);wrapper.innerHTML += coverHTML;wrapper.appendChild(bodyDiv);
   html2pdf().set({margin:[10,10,10,10],filename:title+'.pdf',image:{type:'jpeg',quality:0.92},html2canvas:{scale:1.5,useCORS:true,backgroundColor:'#ffffff',logging:false},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}}).from(wrapper).save().then(function(){btn.disabled=false;spin.style.display='none';txt.textContent='Downloaded!';setTimeout(function(){txt.textContent='Download PDF';},3000);}).catch(function(){btn.disabled=false;spin.style.display='none';txt.textContent='Download PDF';});
 }
 document.getElementById('dl-pay-overlay').addEventListener('click',function(e){if(e.target===this)closeDlPay();});
