@@ -142,7 +142,7 @@ h1 em{color:var(--accent);font-style:italic;}
       <p><strong style="color:var(--green);">✅ Published successfully!</strong></p>
       <p>Share this code with your students:</p>
       <div class="big-code" id="codeOut"></div>
-      <p style="color:var(--muted);font-size:.78rem;">Students open <strong style="color:#fff;">Student Hub</strong> → paste this 6-character code → Start Exam.</p>
+      <p style="color:var(--muted);font-size:.78rem;">Students open Student Hub → "Take Teacher Exam" → paste this code to start.</p>
       <div class="row">
         <button class="btn ghost" onclick="copyCode()">📋 Copy Code</button>
         <button class="btn primary" onclick="closeModal()">Done</button>
@@ -729,7 +729,6 @@ async function doPublish(){
   status('📤 Publishing to cloud...', 'info');
 
   try{
-    // ── 1. Save the exam bin (long ID will be the internal lookup key) ──
     const binName = 'ChemExam_' + currentItem.level + '_' + Date.now();
     const r = await fetch(JB, {
       method: 'POST',
@@ -743,18 +742,14 @@ async function doPublish(){
     });
     if(!r.ok) throw new Error('JSONBin error ' + r.status);
     const d = await r.json();
-    const longId = d.metadata && d.metadata.id;
-    if(!longId) throw new Error('No bin id returned');
+    const code = d.metadata && d.metadata.id;
+    if(!code) throw new Error('No code returned');
 
-    // ── 2. Generate a short friendly 6-char code ──
-    const shortCode = await saveShortCode(longId, key, title);
-
-    // ── 3. Save into local index so teacher-admin can list it ──
+    // Save into local index so teacher-admin can list it
     try {
       const list = JSON.parse(localStorage.getItem('published_exams') || '[]');
       list.unshift({
-        code: shortCode,
-        longId: longId,
+        code: code,
         title: title,
         subject: currentItem.subject,
         totalQuestions: questions.length,
@@ -763,88 +758,16 @@ async function doPublish(){
       localStorage.setItem('published_exams', JSON.stringify(list));
     } catch(e) {}
 
-    // ── 4. Success screen ──
-    $('codeOut').textContent = shortCode;
+    // Success screen
+    $('codeOut').textContent = code;
     $('pubForm').style.display = 'none';
     $('pubSuccess').style.display = 'block';
-    status('✅ Exam published. Code: ' + shortCode, 'ok');
+    status('✅ Exam published. Code: ' + code, 'ok');
   }catch(e){
     status('❌ Publish failed: ' + e.message, 'err');
   }finally{
     $('publishBtn').disabled = false;
   }
-}
-
-// ────────────────────────────────────────────────────────────
-// Short-code registry
-// ────────────────────────────────────────────────────────────
-// A single PUBLIC JSONBin holds the map { shortCode → longBinId }.
-// The registry bin id is stored in localStorage under exam_code_registry_bin
-// AND we also write it into this HTML page as REGISTRY_BIN_ID fallback so
-// student pages can find it even on a fresh browser.
-
-// 6-char friendly alphabet (no confusable chars: no I,O,0,1)
-const CODE_ALPHA = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-function generateShortCode(){
-  let s = '';
-  const rnd = crypto.getRandomValues(new Uint32Array(6));
-  for(let i=0; i<6; i++) s += CODE_ALPHA[rnd[i] % CODE_ALPHA.length];
-  return s;
-}
-
-async function getOrCreateRegistry(key){
-  let regId = localStorage.getItem('exam_code_registry_bin');
-  if(regId){
-    // Verify it still exists
-    try{
-      const r = await fetch(JB + '/' + regId + '/latest', { headers: { 'X-Master-Key': key }});
-      if(r.ok) return regId;
-    }catch(e){}
-  }
-  // Create new registry (public so students can read it without a key)
-  const r = await fetch(JB, {
-    method: 'POST',
-    headers: {
-      'Content-Type':  'application/json',
-      'X-Master-Key':  key,
-      'X-Bin-Name':    'ChemExamCodeRegistry',
-      'X-Bin-Private': 'false'
-    },
-    body: JSON.stringify({})
-  });
-  if(!r.ok) throw new Error('Could not create code registry (HTTP ' + r.status + ')');
-  const d = await r.json();
-  regId = d.metadata && d.metadata.id;
-  if(!regId) throw new Error('Registry creation returned no id');
-  localStorage.setItem('exam_code_registry_bin', regId);
-  return regId;
-}
-
-async function saveShortCode(longId, key, title){
-  const regId = await getOrCreateRegistry(key);
-  // Load current map
-  let map = {};
-  try{
-    const r = await fetch(JB + '/' + regId + '/latest', { headers: { 'X-Master-Key': key }});
-    if(r.ok){
-      const d = await r.json();
-      if(d.record && typeof d.record === 'object' && !Array.isArray(d.record)) map = d.record;
-    }
-  }catch(e){}
-  // Generate a code not already in use
-  let code; let attempts = 0;
-  do{ code = generateShortCode(); attempts++; } while (map[code] && attempts < 20);
-  map[code] = { longId: longId, title: title || 'Chemistry Exam', publishedAt: new Date().toISOString() };
-  // Save
-  const up = await fetch(JB + '/' + regId, {
-    method: 'PUT',
-    headers: { 'Content-Type':'application/json', 'X-Master-Key': key },
-    body: JSON.stringify(map)
-  });
-  if(!up.ok) throw new Error('Registry save failed (HTTP ' + up.status + ')');
-  // Also store the registry id publicly on this user's browser so student-hub can read it
-  localStorage.setItem('exam_code_registry_bin', regId);
-  return code;
 }
 
 function copyCode(){
