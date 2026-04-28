@@ -64,6 +64,7 @@ h1 em{color:var(--accent);font-style:italic;}
 .status-err{color:var(--red);}
 .status-info{color:var(--accent);}
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
 <div class="wrap">
@@ -142,9 +143,10 @@ h1 em{color:var(--accent);font-style:italic;}
       <p><strong style="color:var(--green);">✅ Published successfully!</strong></p>
       <p>Share this code with your students:</p>
       <div class="big-code" id="codeOut"></div>
-      <p style="color:var(--muted);font-size:.78rem;">Students open Student Hub → "Take Teacher Exam" → paste this code to start.</p>
+      <p style="color:var(--muted);font-size:.78rem;">Students open <strong style="color:#fff;">Student Hub</strong> → paste this 6-character code → Start Exam.</p>
       <div class="row">
         <button class="btn ghost" onclick="copyCode()">📋 Copy Code</button>
+        <button class="btn ghost" onclick="downloadExamPaper()">⬇ Download Question Paper (PDF)</button>
         <button class="btn primary" onclick="closeModal()">Done</button>
       </div>
     </div>
@@ -724,11 +726,13 @@ async function doPublish(){
     _apiKey:      key,
     _resultsBin:  getResultsBinId() || null,
   };
+    window._lastPublishedExam = exam;
 
   $('publishBtn').disabled = true;
   status('📤 Publishing to cloud...', 'info');
 
   try{
+    // ── 1. Save the exam bin (long ID will be the internal lookup key) ──
     const binName = 'ChemExam_' + currentItem.level + '_' + Date.now();
     const r = await fetch(JB, {
       method: 'POST',
@@ -742,14 +746,18 @@ async function doPublish(){
     });
     if(!r.ok) throw new Error('JSONBin error ' + r.status);
     const d = await r.json();
-    const code = d.metadata && d.metadata.id;
-    if(!code) throw new Error('No code returned');
+    const longId = d.metadata && d.metadata.id;
+    if(!longId) throw new Error('No bin id returned');
 
-    // Save into local index so teacher-admin can list it
+    // ── 2. Generate a short friendly 6-char code ──
+    const shortCode = await saveShortCode(longId, key, title);
+
+    // ── 3. Save into local index so teacher-admin can list it ──
     try {
       const list = JSON.parse(localStorage.getItem('published_exams') || '[]');
       list.unshift({
-        code: code,
+        code: shortCode,
+        longId: longId,
         title: title,
         subject: currentItem.subject,
         totalQuestions: questions.length,
@@ -758,15 +766,219 @@ async function doPublish(){
       localStorage.setItem('published_exams', JSON.stringify(list));
     } catch(e) {}
 
-    // Success screen
-    $('codeOut').textContent = code;
+    // ── 4. Success screen ──
+    $('codeOut').textContent = shortCode;
     $('pubForm').style.display = 'none';
     $('pubSuccess').style.display = 'block';
-    status('✅ Exam published. Code: ' + code, 'ok');
+    status('✅ Exam published. Code: ' + shortCode, 'ok');
   }catch(e){
     status('❌ Publish failed: ' + e.message, 'err');
   }finally{
     $('publishBtn').disabled = false;
+  }
+}
+
+// ────────────────────────────────────────────────────────────
+// Short-code registry
+// ────────────────────────────────────────────────────────────
+// A single PUBLIC JSONBin holds the map { shortCode → longBinId }.
+// The registry bin id is stored in localStorage under exam_code_registry_bin
+// AND we also write it into this HTML page as REGISTRY_BIN_ID fallback so
+// student pages can find it even on a fresh browser.
+
+// 6-char friendly alphabet (no confusable chars: no I,O,0,1)
+const CODE_ALPHA = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+function generateShortCode(){
+  let s = '';
+  const rnd = crypto.getRandomValues(new Uint32Array(6));
+  for(let i=0; i<6; i++) s += CODE_ALPHA[rnd[i] % CODE_ALPHA.length];
+  return s;
+}
+
+async function getOrCreateRegistry(key){
+  let regId = localStorage.getItem('exam_code_registry_bin');
+  if(regId){
+    // Verify it still exists
+    try{
+      const r = await fetch(JB + '/' + regId + '/latest', { headers: { 'X-Master-Key': key }});
+      if(r.ok) return regId;
+    }catch(e){}
+  }
+  // Create new registry (public so students can read it without a key)
+  const r = await fetch(JB, {
+    method: 'POST',
+    headers: {
+      'Content-Type':  'application/json',
+      'X-Master-Key':  key,
+      'X-Bin-Name':    'ChemExamCodeRegistry',
+      'X-Bin-Private': 'false'
+    },
+    body: JSON.stringify({})
+  });
+  if(!r.ok) throw new Error('Could not create code registry (HTTP ' + r.status + ')');
+  const d = await r.json();
+  regId = d.metadata && d.metadata.id;
+  if(!regId) throw new Error('Registry creation returned no id');
+  localStorage.setItem('exam_code_registry_bin', regId);
+  return regId;
+}
+
+async function saveShortCode(longId, key, title){
+  const regId = await getOrCreateRegistry(key);
+  // Load current map
+  let map = {};
+  try{
+    const r = await fetch(JB + '/' + regId + '/latest', { headers: { 'X-Master-Key': key }});
+    if(r.ok){
+      const d = await r.json();
+      if(d.record && typeof d.record === 'object' && !Array.isArray(d.record)) map = d.record;
+    }
+  }catch(e){}
+  // Generate a code not already in use
+  let code; let attempts = 0;
+  do{ code = generateShortCode(); attempts++; } while (map[code] && attempts < 20);
+  map[code] = { longId: longId, title: title || 'Chemistry Exam', publishedAt: new Date().toISOString() };
+  // Save
+  const up = await fetch(JB + '/' + regId, {
+    method: 'PUT',
+    headers: { 'Content-Type':'application/json', 'X-Master-Key': key },
+    body: JSON.stringify(map)
+  });
+  if(!up.ok) throw new Error('Registry save failed (HTTP ' + up.status + ')');
+  // Also store the registry id publicly on this user's browser so student-hub can read it
+  localStorage.setItem('exam_code_registry_bin', regId);
+  return code;
+}
+
+// ── Download the just-published exam as a book-style PDF ──
+async function downloadExamPaper(){
+  var exam = window._lastPublishedExam;
+  if(!exam || !exam.questions || !exam.questions.length){
+    alert('No exam to download. Please publish an exam first.');
+    return;
+  }
+  if(typeof html2pdf === 'undefined'){
+    alert('PDF library not loaded. Please reload the page and try again.');
+    return;
+  }
+
+  // Show a small busy notice
+  var btn = event && event.target;
+  var oldText = btn ? btn.textContent : '';
+  if(btn){ btn.disabled = true; btn.textContent = '⏳ Generating...'; }
+
+  try{
+    // Build the book-style PDF container
+    var accent = '#0f766e';
+    var title = (exam.title || 'Chemistry Exam').replace(/[^\w\s\-]/g,'').trim();
+    var subject = exam.subject || 'Chemistry';
+    var code = document.getElementById('codeOut') ? document.getElementById('codeOut').textContent : '';
+    var totalQs = exam.questions.length;
+    var totalMarks = exam.questions.reduce(function(s,q){return s+(q.marks||1);},0);
+    var timeText = exam.time ? (exam.time + ' minutes') : 'No time limit';
+    var passText = exam.pass ? (exam.pass + '%') : '—';
+
+    var container = document.createElement('div');
+    container.style.cssText = 'position:fixed;left:-10000px;top:0;width:794px;background:#fff;';
+
+    // Build questions HTML (with A, B, C, D labels - no answers revealed)
+    var qsHtml = '';
+    exam.questions.forEach(function(q, i){
+      var optsHtml = '';
+      (q.options || []).forEach(function(opt, j){
+        var letter = String.fromCharCode(65 + j);
+        optsHtml += '<div class="opt"><span class="ltr">' + letter + '.</span> ' + String(opt).replace(/</g,'&lt;') + '</div>';
+      });
+      qsHtml += '<div class="q"><div class="qnum">Question ' + (i+1) + '<span class="marks">[' + (q.marks||1) + ' mark' + ((q.marks||1)>1?'s':'') + ']</span></div>' +
+                '<div class="qtext">' + String(q.text || '').replace(/</g,'&lt;') + '</div>' +
+                '<div class="opts">' + optsHtml + '</div></div>';
+    });
+
+    container.innerHTML =
+      '<style>' +
+      '  .pdf-cover{width:794px;height:1100px;background:#fff;position:relative;page-break-after:always;}' +
+      '  .pdf-cover-bar{position:absolute;top:0;left:0;width:100%;height:28%;background:' + accent + ';}' +
+      '  .pdf-cover-inner{position:absolute;top:0;left:0;width:100%;height:100%;padding:90px 60px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:space-between;}' +
+      '  .pdf-cover-top{color:#fff;}' +
+      '  .pdf-cover-top .level{font-family:Georgia,serif;font-size:18pt;letter-spacing:6px;text-transform:uppercase;opacity:.9;margin-bottom:18px;}' +
+      '  .pdf-cover-top .code{font-family:Georgia,serif;font-size:14pt;letter-spacing:4px;opacity:.75;}' +
+      '  .pdf-cover-mid{margin-top:100px;}' +
+      '  .pdf-cover-mid h1{font-family:Georgia,serif;font-size:40pt;color:#1a1a1a;line-height:1.15;font-weight:700;margin:0;}' +
+      '  .pdf-cover-mid .subtitle{font-family:Georgia,serif;font-size:14pt;color:#555;margin-top:20px;font-style:italic;}' +
+      '  .meta-box{margin-top:40px;font-family:Georgia,serif;font-size:12pt;color:#444;line-height:1.8;background:#f3faf8;border-left:4px solid ' + accent + ';padding:14px 18px;}' +
+      '  .pdf-cover-bot{color:#333;}' +
+      '  .pdf-cover-bot .author{font-family:Georgia,serif;font-size:20pt;font-weight:700;margin-bottom:4px;}' +
+      '  .pdf-cover-bot .pub{font-family:Georgia,serif;font-size:11pt;color:#666;}' +
+      '  .paper-body{font-family:Georgia,serif;font-size:11pt;color:#1a1a1a;line-height:1.6;padding:42px 54px;background:#fff;}' +
+      '  .paper-body h2{font-family:Georgia,serif;color:' + accent + ';font-size:20pt;border-bottom:3px solid ' + accent + ';padding-bottom:8px;margin:0 0 18px;}' +
+      '  .paper-body .instructions{background:#fffaf0;border-left:4px solid #d4a017;padding:10px 14px;margin-bottom:24px;font-size:11pt;}' +
+      '  .paper-body .q{margin:16px 0 14px;page-break-inside:avoid;}' +
+      '  .paper-body .qnum{font-family:Georgia,serif;font-weight:700;color:' + accent + ';font-size:12pt;margin-bottom:5px;}' +
+      '  .paper-body .qnum .marks{float:right;color:#555;font-weight:400;font-style:italic;font-size:10pt;}' +
+      '  .paper-body .qtext{margin:4px 0 8px;font-size:11pt;}' +
+      '  .paper-body .opts{margin-left:20px;}' +
+      '  .paper-body .opt{margin:3px 0;font-size:10.5pt;}' +
+      '  .paper-body .opt .ltr{display:inline-block;width:22px;font-weight:700;color:' + accent + ';}' +
+      '  .pdf-footer{text-align:center;color:#999;font-family:Georgia,serif;font-size:9pt;margin-top:30px;padding-top:14px;border-top:1px solid #ddd;}' +
+      '</style>' +
+      '<div class="pdf-cover">' +
+      '  <div class="pdf-cover-bar"></div>' +
+      '  <div class="pdf-cover-inner">' +
+      '    <div class="pdf-cover-top">' +
+      '      <div class="level">' + subject + '</div>' +
+      (code ? '      <div class="code">Exam Code: ' + code + '</div>' : '') +
+      '    </div>' +
+      '    <div class="pdf-cover-mid">' +
+      '      <h1>' + title + '</h1>' +
+      '      <div class="subtitle">Question Paper</div>' +
+      '      <div class="meta-box">' +
+      '        <strong>Number of Questions:</strong> ' + totalQs + '<br>' +
+      '        <strong>Total Marks:</strong> ' + totalMarks + '<br>' +
+      '        <strong>Time Allowed:</strong> ' + timeText + '<br>' +
+      '        <strong>Pass Mark:</strong> ' + passText +
+      '      </div>' +
+      '    </div>' +
+      '    <div class="pdf-cover-bot">' +
+      '      <div class="author">Jackson Habimana</div>' +
+      '      <div class="pub">Chemistry Portal &mdash; jacksonhabimana.github.io</div>' +
+      '    </div>' +
+      '  </div>' +
+      '</div>' +
+      '<div class="paper-body">' +
+      '  <h2>' + title + '</h2>' +
+      '  <div class="instructions">' +
+      '    <strong>Instructions to candidates:</strong><br>' +
+      '    &bull; Answer ALL questions.<br>' +
+      '    &bull; Each question has only ONE correct answer. Circle your chosen letter.<br>' +
+      '    &bull; Total marks: ' + totalMarks + '. Time: ' + timeText + '.' +
+      '  </div>' +
+      qsHtml +
+      '  <div class="pdf-footer">&copy; Jackson Habimana Chemistry Portal &mdash; All rights reserved</div>' +
+      '</div>';
+
+    document.body.appendChild(container);
+
+    // Generate PDF
+    await new Promise(function(r){ setTimeout(r, 300); });
+    await html2pdf()
+      .set({
+        margin: 0,
+        filename: title + ' — Question Paper.pdf',
+        image: { type:'jpeg', quality:0.92 },
+        html2canvas: { scale:1.4, useCORS:true, backgroundColor:'#ffffff', logging:false },
+        jsPDF: { unit:'pt', format:'a4', orientation:'portrait', compress:true },
+        pagebreak: { mode:['css','legacy'] }
+      })
+      .from(container)
+      .save();
+
+    document.body.removeChild(container);
+
+    if(btn){ btn.textContent = '✅ Downloaded'; setTimeout(function(){ btn.disabled = false; btn.textContent = oldText; }, 2500); }
+  }catch(e){
+    console.error('PDF paper error:', e);
+    alert('Could not generate PDF: ' + e.message);
+    if(btn){ btn.disabled = false; btn.textContent = oldText; }
   }
 }
 
