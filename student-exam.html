@@ -114,7 +114,7 @@ body{background:var(--bg);color:var(--text);font-family:'Source Serif 4',Georgia
   <div class="upload-box" style="max-width:560px;">
     <div style="font-size:2.5rem;margin-bottom:12px;">⚗</div>
     <h1>Student Exam Portal</h1>
-    <p>Enter the <strong>6-character exam code</strong> your teacher gave you.</p>
+    <p>Enter the <strong>6-digit exam code</strong> your teacher gave you.</p>
 
     <!-- METHOD 1: CODE -->
     <div style="background:var(--surface2);border:2px solid rgba(52,211,153,.3);border-radius:10px;padding:24px;margin-bottom:16px;">
@@ -230,7 +230,18 @@ body{background:var(--bg);color:var(--text);font-family:'Source Serif 4',Georgia
 // ══════════════════════════════════════════════
 //  AUTO-LOAD FROM STUDENT HUB
 // ══════════════════════════════════════════════
-window.addEventListener('load', ()=>{
+window.addEventListener('load', ()=>{\
+  // Auto-configure registry bin from URL parameter ?reg=BINID
+  // Teacher shares: student-exam.html?reg=BINID once; after that students only need 6-digit code
+  const params = new URLSearchParams(window.location.search);
+  const regParam = params.get('reg');
+  if(regParam && regParam.length > 8){
+    localStorage.setItem('exam_code_registry_bin', regParam);
+    // Clean URL without reload
+    const clean = window.location.pathname;
+    window.history.replaceState({}, '', clean);
+  }
+
   const code = sessionStorage.getItem('exam_code_to_load');
   if(code){
     sessionStorage.removeItem('exam_code_to_load');
@@ -657,7 +668,7 @@ async function loadByCode(){
     // If this is a short code (under 12 chars), look it up in the registry first
     if(raw.length < 12){
       const regId = localStorage.getItem('exam_code_registry_bin');
-      if(!regId) throw new Error('Code registry not configured on this device. Use the Student Hub to start.');
+      if(!regId) throw new Error('Not set up yet. Ask your teacher to send you the Student Setup Link first (you only need it once).');
       const rr = await fetch('https://api.jsonbin.io/v3/b/'+regId+'/latest');
       if(!rr.ok) throw new Error('Could not read code registry ('+rr.status+')');
       const rd = await rr.json();

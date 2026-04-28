@@ -206,18 +206,23 @@ table.results tr:hover td{background:rgba(255,255,255,.02);}
     <!-- CODE RESULT -->
     <div id="code-result" style="display:none;">
       <div class="code-box">
-        <p style="color:var(--green);font-family:'JetBrains Mono',monospace;font-size:.75rem;text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;">✅ Exam Published! Copy this FULL CODE and share with students:</p>
-        <div class="code" id="exam-code-display" style="font-size:1rem;letter-spacing:.08em;word-break:break-all;padding:12px;">------</div>
-        <p style="color:var(--muted);font-size:.78rem;margin-top:6px;">⚠️ Students must paste this <strong style="color:#fff;">entire code</strong> (not just the last 6 digits) into student-exam.html</p>
-        <p>Students go to <strong style="color:#fff;">student-exam.html</strong> and paste this full code to start.</p>
-        <p style="margin-top:8px;font-size:.78rem;color:var(--orange);">This is the full exam ID — students paste the whole thing. Results will appear automatically in your Results tab.</p>
+        <p style="color:var(--green);font-family:'JetBrains Mono',monospace;font-size:.75rem;text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;">✅ Exam Published! Share this 6-digit code with students:</p>
+        <div class="code" id="exam-code-display" style="font-size:2rem;letter-spacing:.3em;word-break:break-all;padding:12px;text-align:center;">------</div>
+        <p style="color:var(--muted);font-size:.78rem;margin-top:6px;">Students enter this 6-digit code in student-exam.html to start.</p>
+        <p style="color:var(--orange);font-size:.78rem;margin-top:4px;">Results will appear automatically in your Results tab.</p>
         <div style="display:flex;gap:10px;justify-content:center;margin-top:14px;flex-wrap:wrap;">
           <button class="btn btn-ghost btn-sm" onclick="copyCode()">📋 Copy Code</button>
           <button class="btn btn-ghost btn-sm" onclick="downloadExamJSON()">⬇ Also Download JSON</button>
         </div>
+        <div id="registry-setup-note" style="display:none;margin-top:14px;background:rgba(56,189,248,.08);border:1px solid rgba(56,189,248,.3);border-radius:8px;padding:12px 14px;font-size:.78rem;">
+          <strong style="color:var(--accent);">📌 First time?</strong>
+          <span style="color:var(--muted);"> Students need a one-time setup link so their devices know where to look up codes. Click below to copy it:</span>
+          <br/><br/>
+          <button class="btn btn-ghost btn-sm" onclick="copyRegistryLink()">🔗 Copy Student Setup Link</button>
+          <span style="color:var(--muted);font-size:.73rem;display:block;margin-top:6px;">Share this link with students once — after that, only the 6-digit code is needed.</span>
+        </div>
       </div>
     </div>
-  </div>
 
   <!-- ═══ MY EXAMS ═══ -->
   <div class="tab-panel" id="tab-myexams">
@@ -425,13 +430,20 @@ table.results tr:hover td{background:rgba(255,255,255,.02);}
       <div id="pq-alert" class="alert" style="margin-top:14px;"></div>
 
       <div id="pq-code-box" style="display:none;margin-top:20px;background:var(--bg);border:2px solid var(--green);border-radius:10px;padding:20px;">
-        <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--green);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;">✅ Quiz Published! Share this code with students:</div>
-        <div id="pq-code-text" style="font-family:'JetBrains Mono',monospace;font-size:.88rem;color:#fff;word-break:break-all;background:var(--surface2);padding:12px 16px;border-radius:6px;margin-bottom:12px;border:1px solid var(--border);"></div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--green);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;">✅ Quiz Published! Share this 6-digit code with students:</div>
+        <div id="pq-code-text" style="font-family:'JetBrains Mono',monospace;font-size:2rem;letter-spacing:.3em;color:#fff;background:var(--surface2);padding:14px 16px;border-radius:6px;margin-bottom:12px;border:1px solid var(--border);text-align:center;"></div>
         <div style="display:flex;gap:8px;flex-wrap:wrap;">
           <button class="btn btn-primary" onclick="copyPqCode()">📋 Copy Code</button>
           <a id="pq-exam-link" href="student-exam.html" target="_blank" class="btn" style="text-decoration:none;">🔗 Open Student Exam Page</a>
         </div>
-        <p style="margin-top:10px;font-size:.78rem;color:var(--orange);">Students go to the Student Exam page and paste this full code to start.</p>
+        <p style="margin-top:10px;font-size:.78rem;color:var(--muted);">Students go to the Student Exam page and enter this 6-digit code to start.</p>
+        <div id="registry-setup-note" style="display:none;margin-top:12px;background:rgba(56,189,248,.08);border:1px solid rgba(56,189,248,.3);border-radius:8px;padding:12px 14px;font-size:.78rem;">
+          <strong style="color:var(--accent);">📌 First time?</strong>
+          <span style="color:var(--muted);"> Students need a one-time setup link so their devices can resolve 6-digit codes. Copy and share it once:</span>
+          <br/><br/>
+          <button class="btn btn-ghost btn-sm" onclick="copyRegistryLink()">🔗 Copy Student Setup Link</button>
+          <span style="color:var(--muted);font-size:.73rem;display:block;margin-top:6px;">After students visit this link once, they only ever need the 6-digit code.</span>
+        </div>
       </div>
     </div>
 
@@ -1000,6 +1012,41 @@ function buildExamObj(){
 }
 
 // ══════════ PUBLISH (CLOUD) ══════════
+// ── 6-DIGIT CODE REGISTRY ──────────────────────────────────────────
+// Stores short code → binId mapping in a dedicated JSONBin so students
+// can enter a simple 6-digit code instead of the full 24-char binId.
+async function updateCodeRegistry(key, shortCode, binId){
+  let regId = localStorage.getItem('exam_code_registry_bin');
+  if(!regId){
+    // Create new registry bin
+    const r = await fetch('https://api.jsonbin.io/v3/b',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','X-Master-Key':key,'X-Bin-Private':'false','X-Bin-Name':'ChemCodeRegistry'},
+      body: JSON.stringify({[shortCode]: binId})
+    });
+    const d = await r.json();
+    if(!d.metadata?.id) throw new Error('Could not create code registry');
+    regId = d.metadata.id;
+    localStorage.setItem('exam_code_registry_bin', regId);
+  } else {
+    // Read existing map, add new code, write back
+    const r = await fetch('https://api.jsonbin.io/v3/b/'+regId+'/latest');
+    const d = await r.json();
+    const map = (d && d.record) || {};
+    map[shortCode] = binId;
+    await fetch('https://api.jsonbin.io/v3/b/'+regId,{
+      method:'PUT',
+      headers:{'Content-Type':'application/json','X-Master-Key':key},
+      body: JSON.stringify(map)
+    });
+  }
+  return regId;
+}
+
+function generate6DigitCode(){
+  return Math.floor(100000 + Math.random() * 900000).toString();
+}
+
 async function publishExam(){
   const exam=buildExamObj();
   if(!exam) return;
@@ -1046,22 +1093,33 @@ async function publishExam(){
     const d=await r.json();
     if(!d.metadata?.id) throw new Error(d.message||'Failed to publish');
     const binId=d.metadata.id;
-    // The STUDENT CODE = the full BIN ID (students paste it in, or teacher shares it)
-    // Also generate a short display code for convenience
-    const code=binId.slice(-8).toUpperCase();
+    // Generate a 6-digit student code and register it in the registry bin
+    const code = generate6DigitCode();
+    await updateCodeRegistry(key, code, binId);
     exam.binId=binId; exam.code=code;
     const exams=JSON.parse(localStorage.getItem('exams')||'[]');
     exams.push(exam);
     localStorage.setItem('exams',JSON.stringify(exams));
     lastExam=exam;
-    // Store the binId as the code students use
-    document.getElementById('exam-code-display').textContent=binId;
+    // Show the short 6-digit code to teacher
+    document.getElementById('exam-code-display').textContent=code;
+    // Show registry setup link for students
+    const regId = localStorage.getItem('exam_code_registry_bin');
+    const regNote = document.getElementById('registry-setup-note');
+    if(regNote && regId) regNote.style.display='block';
     document.getElementById('code-result').style.display='block';
     document.getElementById('code-result').scrollIntoView({behavior:'smooth'});
     showAlert(alert,'success','✅ Exam published! Share the code below with students.');
   }catch(e){
     showAlert(alert,'danger','❌ Publish failed: '+e.message+'. Check your API key or internet connection.');
   }
+}
+
+function copyRegistryLink(){
+  const regId = localStorage.getItem('exam_code_registry_bin');
+  if(!regId){alert('No registry yet — publish an exam first.');return;}
+  const link = 'https://jacksonhabimana.github.io/student-exam.html?reg='+regId;
+  navigator.clipboard.writeText(link).then(()=>alert('✅ Setup link copied!\n\nShare this with students:\n'+link+'\n\nOnce they visit it, they only need the 6-digit code from then on.'));
 }
 
 function copyCode(){
@@ -1126,9 +1184,9 @@ function renderExamsList(){
 }
 
 function reshareCode(binId, shortCode){
-  const display = binId || shortCode;
+  const display = shortCode || binId;
   navigator.clipboard.writeText(display).catch(()=>{});
-  alert(`Share this FULL CODE with your students:\n\n🔑 ${display}\n\nStudents paste it in student-exam.html to start.\n\n(Copied to clipboard automatically)`);
+  alert(`Share this CODE with your students:\n\n🔑 ${display}\n\nStudents enter it in student-exam.html to start.\n\n(Copied to clipboard automatically)`);
 }
 
 async function republishExam(id){
@@ -1151,14 +1209,12 @@ async function republishExam(id){
     const d=await r.json();
     if(!d.metadata?.id) throw new Error(d.message||'Failed');
     const binId=d.metadata.id;
-    const code=binId.slice(-8).toUpperCase();
-    const codes=JSON.parse(localStorage.getItem('exam_codes')||'{}');
-    codes[code]=binId;
-    localStorage.setItem('exam_codes',JSON.stringify(codes));
+    const code = generate6DigitCode();
+    await updateCodeRegistry(key, code, binId);
     exam.binId=binId;exam.code=code;
     localStorage.setItem('exams',JSON.stringify(exams));
     renderExamsList();
-    alert(`✅ Re-published! New code: ${code}`);
+    alert(`✅ Re-published! New 6-digit code: ${code}`);
   }catch(e){alert('❌ Failed: '+e.message);}
 }
 
@@ -3541,16 +3597,25 @@ async function publishUnitQuiz(){
     const binId = d.metadata.id;
     _pqLastBinId = binId;
 
+    // Generate a 6-digit student code and register in registry
+    const shortCode = generate6DigitCode();
+    await updateCodeRegistry(key, shortCode, binId);
+
     // Save to local exams list
     const exams = JSON.parse(localStorage.getItem('exams')||'[]');
     examObj.binId = binId;
-    examObj.code = binId;
+    examObj.code = shortCode;
     exams.push(examObj);
     localStorage.setItem('exams', JSON.stringify(exams));
 
     showAlert(alertEl,'success','✅ Published successfully!');
     document.getElementById('pq-code-box').style.display='block';
-    document.getElementById('pq-code-text').textContent = binId;
+    document.getElementById('pq-code-text').textContent = shortCode;
+
+    // Show registry setup note
+    const regId = localStorage.getItem('exam_code_registry_bin');
+    const regNote = document.getElementById('registry-setup-note');
+    if(regNote && regId) regNote.style.display='block';
 
     // Update stats
     updateStats();
