@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson Plan Generator | Chemistry Portal</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --surface: #161b22;
+    --surface2: #1c2128;
+    --border: #30363d;
+    --teal: #2dd4bf;
+    --teal-dim: #1a9d8c;
+    --text: #e6edf3;
+    --text-muted: #8b949e;
+    --success: #3fb950;
+    --warn: #d29922;
+    --radius: 10px;
+    --shadow: 0 4px 24px rgba(0,0,0,0.4);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    min-height: 100vh;
+    padding: 0 0 60px;
+  }
+
+  /* TOP NAV */
+  .top-bar {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    position: sticky; top: 0; z-index: 100;
+  }
+  .top-bar .logo {
+    font-size: 1.1rem; font-weight: 700; color: var(--teal);
+    text-decoration: none;
+  }
+  .top-bar .sep { color: var(--border); }
+  .top-bar .page-title { font-size: 0.95rem; color: var(--text-muted); }
+
+  /* MAIN LAYOUT */
+  .container { max-width: 960px; margin: 0 auto; padding: 32px 20px 0; }
+  .page-header { text-align: center; margin-bottom: 36px; }
+  .page-header h1 { font-size: 1.8rem; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+  .page-header p { color: var(--text-muted); font-size: 0.95rem; }
+
+  /* CARD */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+  }
+  .card-title {
+    font-size: 1rem; font-weight: 600; color: var(--teal);
+    margin-bottom: 20px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .card-title span.badge {
+    background: var(--teal); color: #0d1117;
+    border-radius: 50%; width: 22px; height: 22px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.75rem; font-weight: 700; flex-shrink: 0;
+  }
+
+  /* GRID */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  @media(max-width:640px) {
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  }
+
+  /* FORM FIELDS */
+  .field { display: flex; flex-direction: column; gap: 6px; }
+  .field label {
+    font-size: 0.82rem; font-weight: 600;
+    color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .field input, .field select {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 0.95rem;
+    padding: 10px 14px;
+    outline: none;
+    transition: border-color .2s, box-shadow .2s;
+    width: 100%;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+  .field select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%238b949e' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 36px;
+    cursor: pointer;
+  }
+  .field input:focus, .field select:focus {
+    border-color: var(--teal);
+    box-shadow: 0 0 0 3px rgba(45,212,191,0.15);
+  }
+  .field input::placeholder { color: var(--text-muted); }
+  .field select:disabled {
+    opacity: 0.45; cursor: not-allowed;
+  }
+  .field select option { background: #1c2128; }
+
+  /* LOADING SPINNER */
+  .select-wrap { position: relative; }
+  .spinner {
+    position: absolute; right: 36px; top: 50%;
+    transform: translateY(-50%);
+    width: 16px; height: 16px;
+    border: 2px solid var(--border);
+    border-top-color: var(--teal);
+    border-radius: 50%;
+    animation: spin .6s linear infinite;
+    display: none;
+  }
+  .spinner.active { display: block; }
+  @keyframes spin { to { transform: translateY(-50%) rotate(360deg); } }
+
+  /* STEP INDICATOR */
+  .steps {
+    display: flex; align-items: center; gap: 0;
+    margin-bottom: 28px; flex-wrap: wrap;
+  }
+  .step {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 0.8rem; color: var(--text-muted);
+    flex-shrink: 0;
+  }
+  .step .dot {
+    width: 24px; height: 24px; border-radius: 50%;
+    border: 2px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem; font-weight: 700;
+    transition: all .3s;
+  }
+  .step.active .dot { border-color: var(--teal); color: var(--teal); }
+  .step.done .dot { border-color: var(--success); background: var(--success); color: #0d1117; }
+  .step-line { flex: 1; height: 2px; background: var(--border); min-width: 20px; max-width: 60px; transition: background .3s; }
+  .step-line.done { background: var(--success); }
+
+  /* GENERATE BUTTON */
+  .btn-generate {
+    background: linear-gradient(135deg, var(--teal), #059669);
+    color: #0d1117;
+    border: none; border-radius: var(--radius);
+    padding: 14px 32px;
+    font-size: 1rem; font-weight: 700;
+    cursor: pointer;
+    width: 100%;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    transition: opacity .2s, transform .1s;
+    margin-top: 8px;
+    letter-spacing: 0.3px;
+  }
+  .btn-generate:hover:not(:disabled) { opacity: 0.9; transform: translateY(-1px); }
+  .btn-generate:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+  .btn-generate .btn-spinner {
+    width: 18px; height: 18px;
+    border: 2px solid rgba(0,0,0,0.3);
+    border-top-color: #0d1117;
+    border-radius: 50%;
+    animation: spin .6s linear infinite;
+    display: none;
+  }
+  .btn-generate.loading .btn-spinner { display: block; }
+  .btn-generate.loading .btn-icon { display: none; }
+
+  /* OUTPUT */
+  #output-section { display: none; }
+  .output-card {
+    background: var(--surface);
+    border: 1px solid var(--teal);
+    border-radius: var(--radius);
+    box-shadow: 0 0 32px rgba(45,212,191,0.08);
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+  .output-header {
+    background: linear-gradient(135deg, rgba(45,212,191,0.12), rgba(5,150,105,0.08));
+    border-bottom: 1px solid var(--border);
+    padding: 20px 28px;
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+  }
+  .output-header h2 { font-size: 1.2rem; font-weight: 700; color: var(--teal); }
+  .output-body { padding: 0; }
+
+  /* LESSON PLAN TABLE */
+  .lp-table { width: 100%; border-collapse: collapse; }
+  .lp-table tr { border-bottom: 1px solid var(--border); }
+  .lp-table tr:last-child { border-bottom: none; }
+  .lp-table td {
+    padding: 14px 20px;
+    vertical-align: top;
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+  .lp-table td:first-child {
+    width: 200px; font-weight: 600;
+    color: var(--teal); background: rgba(45,212,191,0.04);
+    border-right: 1px solid var(--border);
+    white-space: nowrap; font-size: 0.82rem;
+    text-transform: uppercase; letter-spacing: 0.4px;
+  }
+  .lp-table td:last-child { color: var(--text); }
+  .lp-table .section-row td { background: var(--surface2); padding: 8px 20px; }
+  .lp-table .section-row td:first-child {
+    color: var(--warn); font-size: 0.78rem;
+  }
+
+  /* ACTION BUTTONS */
+  .action-bar {
+    display: flex; gap: 10px; flex-wrap: wrap;
+  }
+  .btn {
+    padding: 9px 20px; border-radius: 8px; font-size: 0.88rem;
+    font-weight: 600; cursor: pointer; border: none;
+    display: flex; align-items: center; gap: 7px; transition: opacity .2s;
+  }
+  .btn:hover { opacity: 0.85; }
+  .btn-print { background: var(--teal); color: #0d1117; }
+  .btn-copy { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
+  .btn-reset { background: var(--surface2); color: var(--text-muted); border: 1px solid var(--border); }
+
+  /* PROGRESS MSG */
+  .progress-msg {
+    text-align: center; padding: 40px 20px;
+    color: var(--text-muted);
+  }
+  .progress-msg .big-spinner {
+    width: 48px; height: 48px;
+    border: 3px solid var(--border);
+    border-top-color: var(--teal);
+    border-radius: 50%;
+    animation: spin .8s linear infinite;
+    margin: 0 auto 16px;
+  }
+  .progress-msg p { font-size: 0.95rem; }
+  .progress-msg .sub { font-size: 0.8rem; margin-top: 6px; color: var(--border); }
+
+  @media print {
+    body { background: white; color: #000; }
+    .top-bar, .page-header, #form-section, .action-bar { display: none !important; }
+    #output-section { display: block !important; }
+    .output-card { border: 1px solid #ccc; box-shadow: none; }
+    .output-header { background: #f0faf9; }
+    .output-header h2 { color: #0d6e6e; }
+    .lp-table td:first-child { color: #0d6e6e; background: #f9fefe; }
+    .lp-table .section-row td:first-child { color: #b45309; }
+    .lp-table tr { border-color: #ddd; }
+  }
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <a class="logo" href="index.html">🧪 Chemistry Portal</a>
+  <span class="sep">›</span>
+  <span class="page-title">Lesson Plan Generator</span>
+</div>
+
+<div class="container">
+  <div class="page-header">
+    <h1>📋 AI Lesson Plan Generator</h1>
+    <p>Fill in your details, select your topic, and let AI build your complete lesson plan instantly.</p>
+  </div>
+
+  <!-- STEP INDICATOR -->
+  <div class="steps" id="steps">
+    <div class="step active" id="step1"><div class="dot">1</div><span>Your Info</span></div>
+    <div class="step-line" id="line1"></div>
+    <div class="step" id="step2"><div class="dot">2</div><span>Subject</span></div>
+    <div class="step-line" id="line2"></div>
+    <div class="step" id="step3"><div class="dot">3</div><span>Class</span></div>
+    <div class="step-line" id="line3"></div>
+    <div class="step" id="step4"><div class="dot">4</div><span>Unit</span></div>
+    <div class="step-line" id="line4"></div>
+    <div class="step" id="step5"><div class="dot">5</div><span>Lesson</span></div>
+    <div class="step-line" id="line5"></div>
+    <div class="step" id="step6"><div class="dot">6</div><span>Generate</span></div>
+  </div>
+
+  <!-- FORM -->
+  <div id="form-section">
+
+    <!-- Step 1: Teacher Info -->
+    <div class="card">
+      <div class="card-title"><span class="badge">1</span> Teacher Information</div>
+      <div class="grid-2">
+        <div class="field">
+          <label>School Name *</label>
+          <input type="text" id="school" placeholder="e.g. GS Kigali High School" oninput="checkStep1()">
+        </div>
+        <div class="field">
+          <label>Teacher Name *</label>
+          <input type="text" id="teacher" placeholder="e.g. Jackson Habimana" oninput="checkStep1()">
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2: Subject -->
+    <div class="card">
+      <div class="card-title"><span class="badge">2</span> Select Subject</div>
+      <div class="field">
+        <label>Subject</label>
+        <div class="select-wrap">
+          <select id="subject" onchange="loadClassLevels()" disabled>
+            <option value="">— Choose a subject —</option>
+          </select>
+          <div class="spinner" id="spin-subject"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3: Class Level -->
+    <div class="card">
+      <div class="card-title"><span class="badge">3</span> Select Class Level</div>
+      <div class="field">
+        <label>Class Level</label>
+        <div class="select-wrap">
+          <select id="classLevel" onchange="loadUnits()" disabled>
+            <option value="">— Select subject first —</option>
+          </select>
+          <div class="spinner" id="spin-class"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 4: Unit -->
+    <div class="card">
+      <div class="card-title"><span class="badge">4</span> Select Unit</div>
+      <div class="field">
+        <label>Unit</label>
+        <div class="select-wrap">
+          <select id="unit" onchange="loadLessons()" disabled>
+            <option value="">— Select class level first —</option>
+          </select>
+          <div class="spinner" id="spin-unit"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 5: Lesson -->
+    <div class="card">
+      <div class="card-title"><span class="badge">5</span> Select Lesson / Topic</div>
+      <div class="grid-2">
+        <div class="field">
+          <label>Lesson / Topic</label>
+          <div class="select-wrap">
+            <select id="lesson" onchange="checkReady()" disabled>
+              <option value="">— Select unit first —</option>
+            </select>
+            <div class="spinner" id="spin-lesson"></div>
+          </div>
+        </div>
+        <div class="field">
+          <label>Lesson Duration</label>
+          <select id="duration" onchange="checkReady()">
+            <option value="40 minutes">40 minutes</option>
+            <option value="60 minutes" selected>60 minutes</option>
+            <option value="80 minutes">80 minutes</option>
+            <option value="90 minutes">90 minutes</option>
+            <option value="120 minutes">120 minutes (Double)</option>
+          </select>
+        </div>
+      </div>
+      <div class="grid-3" style="margin-top:14px;">
+        <div class="field">
+          <label>Term</label>
+          <select id="term">
+            <option value="Term 1">Term 1</option>
+            <option value="Term 2">Term 2</option>
+            <option value="Term 3">Term 3</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Week</label>
+          <select id="week">
+            <option value="Week 1">Week 1</option><option value="Week 2">Week 2</option>
+            <option value="Week 3">Week 3</option><option value="Week 4">Week 4</option>
+            <option value="Week 5">Week 5</option><option value="Week 6">Week 6</option>
+            <option value="Week 7">Week 7</option><option value="Week 8">Week 8</option>
+            <option value="Week 9">Week 9</option><option value="Week 10">Week 10</option>
+            <option value="Week 11">Week 11</option><option value="Week 12">Week 12</option>
+            <option value="Week 13">Week 13</option><option value="Week 14">Week 14</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Date</label>
+          <input type="date" id="lessonDate">
+        </div>
+      </div>
+    </div>
+
+    <!-- Generate -->
+    <button class="btn-generate" id="generateBtn" onclick="generatePlan()" disabled>
+      <span class="btn-icon">✨</span>
+      <div class="btn-spinner"></div>
+      Generate Lesson Plan with AI
+    </button>
+
+  </div><!-- /form-section -->
+
+  <!-- OUTPUT -->
+  <div id="output-section">
+    <div class="output-card">
+      <div class="output-header">
+        <h2>📄 Generated Lesson Plan</h2>
+        <div class="action-bar">
+          <button class="btn btn-print" onclick="window.print()">🖨️ Print / Save PDF</button>
+          <button class="btn btn-copy" onclick="copyPlan()">📋 Copy Text</button>
+          <button class="btn btn-reset" onclick="resetForm()">↩ New Plan</button>
+        </div>
+      </div>
+      <div class="output-body" id="output-body">
+        <div class="progress-msg">
+          <div class="big-spinner"></div>
+          <p>AI is generating your lesson plan…</p>
+          <p class="sub">This takes about 15–30 seconds</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<script>
+/* ─────────────────────────────────────────
+   CURRICULUM DATA
+───────────────────────────────────────── */
+const SUBJECTS = [
+  "Chemistry", "Biology", "Physics", "Mathematics",
+  "English", "Kinyarwanda", "History", "Geography",
+  "Economics", "Computer Science"
+];
+
+const CLASS_LEVELS = {
+  "Chemistry":       ["S4","S5","S6"],
+  "Biology":         ["S4","S5","S6"],
+  "Physics":         ["S4","S5","S6"],
+  "Mathematics":     ["S1","S2","S3","S4","S5","S6"],
+  "English":         ["S1","S2","S3","S4","S5","S6"],
+  "Kinyarwanda":     ["S1","S2","S3","S4","S5","S6"],
+  "History":         ["S1","S2","S3","S4","S5","S6"],
+  "Geography":       ["S1","S2","S3","S4","S5","S6"],
+  "Economics":       ["S4","S5","S6"],
+  "Computer Science":["S4","S5","S6"]
+};
+
+const UNITS = {
+  "Chemistry":{
+    "S4":[
+      {n:"Unit 1: Atoms, Molecules and Ions", lessons:["Introduction to atoms and molecules","Atomic mass and molecular mass","The mole concept","Molar mass and calculations","Avogadro's number and applications"]},
+      {n:"Unit 2: Mole Concept and Stoichiometry", lessons:["Chemical formulae and equations","Balancing chemical equations","Mole ratio in reactions","Limiting reagent","Percentage yield and purity"]},
+      {n:"Unit 3: Atomic Structure", lessons:["Sub-atomic particles","Atomic number and mass number","Isotopes and their uses","Electronic configuration","Energy levels and shells"]},
+      {n:"Unit 4: The Periodic Table", lessons:["Development of the periodic table","Periods and groups","Periodic trends: atomic radius","Periodic trends: ionisation energy","Periodic trends: electronegativity"]},
+      {n:"Unit 5: Chemical Bonding", lessons:["Ionic bonding","Covalent bonding","Metallic bonding","Intermolecular forces","Properties related to bonding"]},
+      {n:"Unit 6: States of Matter and Gas Laws", lessons:["Properties of solids, liquids and gases","Kinetic theory of matter","Boyle's Law","Charles's Law","Ideal gas law and calculations"]},
+      {n:"Unit 7: Solutions and Concentration", lessons:["Types of solutions","Solubility and factors affecting it","Concentration: mol/L calculations","Dilution calculations","Preparing standard solutions"]},
+      {n:"Unit 8: Acids, Bases and Salts", lessons:["Properties of acids and bases","Arrhenius and Brønsted–Lowry theories","pH scale and calculations","Neutralisation reactions","Preparation of salts"]},
+      {n:"Unit 9: Oxidation and Reduction", lessons:["Oxidation states","Oxidising and reducing agents","Identifying redox reactions","Balancing redox equations","Applications of redox reactions"]},
+      {n:"Unit 10: Electrochemistry", lessons:["Electrolysis introduction","Electrolysis of solutions","Faraday's laws of electrolysis","Electrochemical cells","Industrial applications of electrolysis"]},
+      {n:"Unit 11: Rate of Chemical Reactions", lessons:["Factors affecting reaction rate","Collision theory","Effect of temperature on rate","Catalysts and enzymes","Rate calculations and graphs"]},
+      {n:"Unit 12: Chemical Equilibrium", lessons:["Reversible reactions","The equilibrium constant Kc","Le Chatelier's principle","Effect of concentration on equilibrium","Effect of temperature and pressure"]},
+      {n:"Unit 13: Energy Changes in Chemical Reactions", lessons:["Exothermic and endothermic reactions","Enthalpy changes ΔH","Measuring energy changes (calorimetry)","Hess's Law","Bond enthalpies"]},
+      {n:"Unit 14: Introductory Organic Chemistry", lessons:["What is organic chemistry?","Homologous series","Naming organic compounds (IUPAC)","Structural and molecular formulae","Functional groups overview"]},
+      {n:"Unit 15: Alkanes and Alkenes", lessons:["Structure of alkanes","Properties and reactions of alkanes","Structure of alkenes","Addition reactions of alkenes","Polymerisation of alkenes"]},
+      {n:"Unit 16: Alkynes and Aromatic Compounds", lessons:["Structure and properties of alkynes","Reactions of alkynes","Benzene structure","Properties of aromatic compounds","Uses of aromatic compounds"]},
+      {n:"Unit 17: Polymers and Plastics", lessons:["Addition polymerisation","Condensation polymerisation","Properties of common polymers","Biodegradable vs synthetic polymers","Plastics and the environment"]},
+      {n:"Unit 18: Environmental and Industrial Chemistry", lessons:["Air pollution and chemistry","Water treatment processes","The Haber process","Contact process for sulfuric acid","Green chemistry principles"]}
+    ],
+    "S5":[
+      {n:"Unit 1: Atomic Structure and Periodic Properties", lessons:["Quantum numbers and orbitals","Electronic configuration (advanced)","Periodic trends revisited","Ionisation energies across periods","Anomalies in the periodic table"]},
+      {n:"Unit 2: Chemical Energetics", lessons:["Standard enthalpy of formation","Hess's Law calculations","Born-Haber cycle","Lattice enthalpy","Entropy and Gibbs free energy"]},
+      {n:"Unit 3: Reaction Kinetics", lessons:["Rate expressions and rate constant","Order of reaction","Determining order experimentally","Arrhenius equation","Reaction mechanisms"]},
+      {n:"Unit 4: Chemical Equilibrium (Advanced)", lessons:["Equilibrium constant Kp","Relationship between Kp and Kc","Heterogeneous equilibria","Industrial applications of equilibrium","Solubility product Ksp"]},
+      {n:"Unit 5: Ionic Equilibria — Acids and Bases", lessons:["Strong vs weak acids and bases","Ka and Kb calculations","Buffer solutions","pH of buffer calculations","Indicators and titration curves"]},
+      {n:"Unit 6: Electrochemistry (Advanced)", lessons:["Standard electrode potentials","Electrochemical series","EMF of cells","Nernst equation","Corrosion and prevention"]},
+      {n:"Unit 7: Transition Elements", lessons:["Properties of transition metals","Variable oxidation states","Complex ions formation","Catalytic properties","Colour of transition metal compounds"]},
+      {n:"Unit 8: Organic Chemistry — Functional Groups", lessons:["Alcohols: reactions and uses","Aldehydes and ketones","Carboxylic acids and esters","Amines and amides","Organic synthesis routes"]}
+    ],
+    "S6":[
+      {n:"Unit 1: Analytical Chemistry", lessons:["Qualitative analysis of ions","Quantitative analysis: titrations","Chromatography techniques","Spectroscopy introduction","Interpreting IR and mass spectra"]},
+      {n:"Unit 2: Nuclear Chemistry", lessons:["Radioactive decay types","Nuclear stability and binding energy","Half-life calculations","Nuclear fission and fusion","Applications of radioactivity"]},
+      {n:"Unit 3: Advanced Organic Chemistry", lessons:["Stereoisomerism","Reaction mechanisms: SN1 and SN2","Elimination reactions","Aromatic substitution","Amino acids and proteins"]},
+      {n:"Unit 4: Industrial and Green Chemistry", lessons:["Industrial chemical processes","Atom economy","Green chemistry principles","Life cycle assessment","Sustainable chemistry practices"]},
+      {n:"Unit 5: Biochemistry", lessons:["Carbohydrates structure and function","Lipids and membranes","Proteins and enzymes","Nucleic acids: DNA and RNA","Metabolism overview"]},
+      {n:"Unit 6: Environmental Chemistry", lessons:["Greenhouse gases and climate change","Ozone depletion","Heavy metal pollution","Pesticides and water contamination","Remediation strategies"]}
+    ]
+  }
+};
+
+// Generic fallback units for non-chemistry subjects
+function genericUnits(subject, level) {
+  return [
+    {n:`Unit 1: Introduction to ${subject} — ${level}`, lessons:[`Introduction to ${subject}`,"Core concepts overview","Key terminology","Practical applications","Review and assessment"]},
+    {n:`Unit 2: Foundational Concepts`, lessons:["Lesson 1","Lesson 2","Lesson 3","Lesson 4","Lesson 5"]},
+    {n:`Unit 3: Applied Concepts`, lessons:["Lesson 1","Lesson 2","Lesson 3","Lesson 4","Lesson 5"]},
+    {n:`Unit 4: Advanced Topics`, lessons:["Lesson 1","Lesson 2","Lesson 3","Lesson 4","Lesson 5"]}
+  ];
+}
+
+/* ─────────────────────────────────────────
+   STATE
+───────────────────────────────────────── */
+let state = { step: 1 };
+
+/* ─────────────────────────────────────────
+   INIT
+───────────────────────────────────────── */
+window.onload = function() {
+  // Set today's date
+  document.getElementById('lessonDate').valueAsDate = new Date();
+
+  // Load subjects after tiny delay (simulate network)
+  setTimeout(() => {
+    const subjectSel = document.getElementById('subject');
+    subjectSel.innerHTML = '<option value="">— Choose a subject —</option>';
+    SUBJECTS.forEach(s => {
+      const o = document.createElement('option');
+      o.value = s; o.textContent = s;
+      subjectSel.appendChild(o);
+    });
+    subjectSel.disabled = false;
+    updateStep(1);
+  }, 300);
+};
+
+/* ─────────────────────────────────────────
+   STEP HELPERS
+───────────────────────────────────────── */
+function updateStep(active) {
+  for(let i=1;i<=6;i++){
+    const el = document.getElementById('step'+i);
+    if(!el) continue;
+    if(i < active) { el.className = 'step done'; }
+    else if(i === active) { el.className = 'step active'; }
+    else { el.className = 'step'; }
+  }
+  for(let i=1;i<=5;i++){
+    const ln = document.getElementById('line'+i);
+    if(ln) ln.className = i < active ? 'step-line done' : 'step-line';
+  }
+}
+
+function checkStep1() {
+  const school = document.getElementById('school').value.trim();
+  const teacher = document.getElementById('teacher').value.trim();
+  if(school && teacher) updateStep(2);
+}
+
+/* ─────────────────────────────────────────
+   CASCADE: SUBJECT → CLASS
+───────────────────────────────────────── */
+function loadClassLevels() {
+  const subject = document.getElementById('subject').value;
+  const cls = document.getElementById('classLevel');
+  const unitSel = document.getElementById('unit');
+  const lessonSel = document.getElementById('lesson');
+
+  // Reset downstream
+  cls.innerHTML = '<option value="">Loading…</option>';
+  cls.disabled = true;
+  unitSel.innerHTML = '<option value="">— Select class level first —</option>';
+  unitSel.disabled = true;
+  lessonSel.innerHTML = '<option value="">— Select unit first —</option>';
+  lessonSel.disabled = true;
+  document.getElementById('generateBtn').disabled = true;
+
+  if(!subject) { cls.innerHTML = '<option value="">— Select subject first —</option>'; return; }
+
+  const spin = document.getElementById('spin-class');
+  spin.classList.add('active');
+  updateStep(3);
+
+  setTimeout(() => {
+    spin.classList.remove('active');
+    const levels = CLASS_LEVELS[subject] || ["S4","S5","S6"];
+    cls.innerHTML = '<option value="">— Choose class level —</option>';
+    levels.forEach(l => {
+      const o = document.createElement('option');
+      o.value = l; o.textContent = l;
+      cls.appendChild(o);
+    });
+    cls.disabled = false;
+  }, 400);
+}
+
+/* ─────────────────────────────────────────
+   CASCADE: CLASS → UNITS
+───────────────────────────────────────── */
+function loadUnits() {
+  const subject = document.getElementById('subject').value;
+  const level = document.getElementById('classLevel').value;
+  const unitSel = document.getElementById('unit');
+  const lessonSel = document.getElementById('lesson');
+
+  unitSel.innerHTML = '<option value="">Loading…</option>';
+  unitSel.disabled = true;
+  lessonSel.innerHTML = '<option value="">— Select unit first —</option>';
+  lessonSel.disabled = true;
+  document.getElementById('generateBtn').disabled = true;
+
+  if(!level) { unitSel.innerHTML = '<option value="">— Select class level first —</option>'; return; }
+
+  const spin = document.getElementById('spin-unit');
+  spin.classList.add('active');
+  updateStep(4);
+
+  setTimeout(() => {
+    spin.classList.remove('active');
+    const data = (UNITS[subject] && UNITS[subject][level])
+      ? UNITS[subject][level]
+      : genericUnits(subject, level);
+
+    unitSel.innerHTML = '<option value="">— Choose a unit —</option>';
+    data.forEach((u, idx) => {
+      const o = document.createElement('option');
+      o.value = idx; o.textContent = u.n;
+      unitSel.appendChild(o);
+    });
+    unitSel.disabled = false;
+    unitSel._data = data; // cache
+  }, 500);
+}
+
+/* ─────────────────────────────────────────
+   CASCADE: UNIT → LESSONS
+───────────────────────────────────────── */
+function loadLessons() {
+  const unitSel = document.getElementById('unit');
+  const lessonSel = document.getElementById('lesson');
+  const idx = unitSel.value;
+
+  lessonSel.innerHTML = '<option value="">Loading…</option>';
+  lessonSel.disabled = true;
+  document.getElementById('generateBtn').disabled = true;
+
+  if(idx === '') { lessonSel.innerHTML = '<option value="">— Select unit first —</option>'; return; }
+
+  const spin = document.getElementById('spin-lesson');
+  spin.classList.add('active');
+  updateStep(5);
+
+  setTimeout(() => {
+    spin.classList.remove('active');
+    const unit = unitSel._data[parseInt(idx)];
+    lessonSel.innerHTML = '<option value="">— Choose a lesson —</option>';
+    unit.lessons.forEach((l, i) => {
+      const o = document.createElement('option');
+      o.value = i; o.textContent = `Lesson ${i+1}: ${l}`;
+      lessonSel.appendChild(o);
+    });
+    lessonSel.disabled = false;
+    lessonSel._lessons = unit.lessons;
+    lessonSel._unitName = unit.n;
+  }, 400);
+}
+
+/* ─────────────────────────────────────────
+   READY CHECK
+───────────────────────────────────────── */
+function checkReady() {
+  const school  = document.getElementById('school').value.trim();
+  const teacher = document.getElementById('teacher').value.trim();
+  const subject = document.getElementById('subject').value;
+  const level   = document.getElementById('classLevel').value;
+  const unit    = document.getElementById('unit').value;
+  const lesson  = document.getElementById('lesson').value;
+
+  const ready = school && teacher && subject && level && unit !== '' && lesson !== '';
+  document.getElementById('generateBtn').disabled = !ready;
+  if(ready) updateStep(6);
+}
+
+/* ─────────────────────────────────────────
+   GENERATE
+───────────────────────────────────────── */
+async function generatePlan() {
+  const school    = document.getElementById('school').value.trim();
+  const teacher   = document.getElementById('teacher').value.trim();
+  const subject   = document.getElementById('subject').value;
+  const level     = document.getElementById('classLevel').value;
+  const duration  = document.getElementById('duration').value;
+  const term      = document.getElementById('term').value;
+  const week      = document.getElementById('week').value;
+  const date      = document.getElementById('lessonDate').value;
+  const unitSel   = document.getElementById('unit');
+  const lessonSel = document.getElementById('lesson');
+
+  const unitName   = lessonSel._unitName || unitSel.options[unitSel.selectedIndex].text;
+  const lessonIdx  = parseInt(lessonSel.value);
+  const lessonName = lessonSel._lessons[lessonIdx];
+
+  // Show output section with loading
+  document.getElementById('form-section').style.display = 'none';
+  document.getElementById('output-section').style.display = 'block';
+  document.getElementById('output-body').innerHTML = `
+    <div class="progress-msg">
+      <div class="big-spinner"></div>
+      <p>AI is generating your lesson plan…</p>
+      <p class="sub">Crafting objectives, activities, and assessment for <em>${lessonName}</em></p>
+    </div>`;
+
+  // Gemini prompt
+  const prompt = `You are an expert Rwanda CBC (Competency-Based Curriculum) chemistry teacher. Generate a COMPLETE and DETAILED lesson plan in JSON format for the following lesson.
+
+Details:
+- School: ${school}
+- Teacher: ${teacher}
+- Subject: ${subject}
+- Class/Level: ${level}
+- Term: ${term}, ${week}
+- Date: ${date}
+- Unit: ${unitName}
+- Lesson Topic: ${lessonName}
+- Duration: ${duration}
+
+Return ONLY a valid JSON object (no markdown, no explanation) with these exact keys:
+{
+  "learning_objectives": "3-4 specific, measurable learning objectives starting with action verbs (Know, Understand, Apply, Analyse, Evaluate, Create). Write as bullet points separated by \\n",
+  "key_competencies": "List the Rwanda CBC key competencies addressed (e.g. Critical thinking, Communication, Cooperation, Research, Problem-solving). Explain how each is developed.",
+  "prerequisite_knowledge": "What students should already know before this lesson",
+  "materials_resources": "Specific materials, textbooks (e.g. Chemistry for Rwanda S4 Learner's Book), lab equipment, digital resources, charts needed",
+  "introduction": "Detailed introduction/motivation phase (5-10 min): include a hook, prior knowledge activation question, and lesson objectives sharing",
+  "teacher_activities": "Numbered step-by-step teacher activities with timing (e.g. 1. [0-10 min] ...)",
+  "student_activities": "Numbered step-by-step student activities with timing, including pair work, group work, or experiments",
+  "formative_assessment": "Specific assessment questions, tasks, or activities used during the lesson to check understanding",
+  "conclusion": "Detailed lesson conclusion/wrap-up (5 min): summarise key points, link to next lesson",
+  "homework": "Specific homework assignment with 3-5 questions or a task related to the lesson",
+  "references": "3-4 specific references: textbooks, REB syllabus, websites relevant to Rwanda CBC chemistry"
+}`;
+
+  try {
+    const res = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyD-YOUR-GEMINI-API-KEY', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: prompt }] }],
+        generationConfig: { temperature: 0.7, maxOutputTokens: 2048 }
+      })
+    });
+
+    if(!res.ok) throw new Error(`API error: ${res.status}`);
+    const data = await res.json();
+
+    let raw = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+    // Strip markdown fences
+    raw = raw.replace(/```json\s*/gi,'').replace(/```\s*/g,'').trim();
+
+    let plan;
+    try { plan = JSON.parse(raw); }
+    catch(e) {
+      // Try to extract JSON from text
+      const match = raw.match(/\{[\s\S]*\}/);
+      if(match) plan = JSON.parse(match[0]);
+      else throw new Error('Could not parse AI response');
+    }
+
+    renderPlan({school, teacher, subject, level, term, week, date, unitName, lessonName, duration}, plan);
+
+  } catch(err) {
+    document.getElementById('output-body').innerHTML = `
+      <div class="progress-msg">
+        <p style="color:#f85149;">⚠️ Error: ${err.message}</p>
+        <p class="sub">Please check your Gemini API key in the page code, then try again.</p>
+        <br><button class="btn btn-reset" onclick="resetForm()" style="margin:0 auto;">↩ Try Again</button>
+      </div>`;
+  }
+}
+
+/* ─────────────────────────────────────────
+   RENDER PLAN
+───────────────────────────────────────── */
+function renderPlan(info, plan) {
+  const fmt = (txt) => txt ? txt.replace(/\n/g,'<br>') : '—';
+  const d = info.date ? new Date(info.date).toLocaleDateString('en-RW',{weekday:'long',year:'numeric',month:'long',day:'numeric'}) : '—';
+
+  document.getElementById('output-body').innerHTML = `
+  <table class="lp-table">
+    <tr class="section-row"><td colspan="2">▶ LESSON IDENTIFICATION</td></tr>
+    <tr><td>School</td><td>${info.school}</td></tr>
+    <tr><td>Teacher</td><td>${info.teacher}</td></tr>
+    <tr><td>Subject</td><td>${info.subject}</td></tr>
+    <tr><td>Class / Level</td><td>${info.level}</td></tr>
+    <tr><td>Term / Week</td><td>${info.term} — ${info.week}</td></tr>
+    <tr><td>Date</td><td>${d}</td></tr>
+    <tr><td>Duration</td><td>${info.duration}</td></tr>
+    <tr><td>Unit</td><td>${info.unitName}</td></tr>
+    <tr><td>Lesson Topic</td><td><strong>${info.lessonName}</strong></td></tr>
+
+    <tr class="section-row"><td colspan="2">▶ LEARNING OBJECTIVES</td></tr>
+    <tr><td>By end of lesson, students will be able to:</td><td>${fmt(plan.learning_objectives)}</td></tr>
+
+    <tr class="section-row"><td colspan="2">▶ KEY COMPETENCIES (Rwanda CBC)</td></tr>
+    <tr><td>Competencies</td><td>${fmt(plan.key_competencies)}</td></tr>
+
+    <tr class="section-row"><td colspan="2">▶ PREREQUISITE KNOWLEDGE</td></tr>
+    <tr><td>Prior knowledge</td><td>${fmt(plan.prerequisite_knowledge)}</td></tr>
+
+    <tr class="section-row"><td colspan="2">▶ MATERIALS & RESOURCES</td></tr>
+    <tr><td>Resources needed</td><td>${fmt(plan.materials_resources)}</td></tr>
+
+    <tr class="section-row"><td colspan="2">▶ LESSON DEVELOPMENT</td></tr>
+    <tr><td>Introduction / Hook</td><td>${fmt(plan.introduction)}</td></tr>
+    <tr><td>Teacher Activities</td><td>${fmt(plan.teacher_activities)}</td></tr>
+    <tr><td>Student Activities</td><td>${fmt(plan.student_activities)}</td></tr>
+
+    <tr class="section-row"><td colspan="2">▶ ASSESSMENT</td></tr>
+    <tr><td>Formative Assessment</td><td>${fmt(plan.formative_assessment)}</td></tr>
+
+    <tr class="section-row"><td colspan="2">▶ CONCLUSION</td></tr>
+    <tr><td>Lesson Wrap-up</td><td>${fmt(plan.conclusion)}</td></tr>
+
+    <tr class="section-row"><td colspan="2">▶ HOMEWORK / ASSIGNMENT</td></tr>
+    <tr><td>Homework</td><td>${fmt(plan.homework)}</td></tr>
+
+    <tr class="section-row"><td colspan="2">▶ REFERENCES</td></tr>
+    <tr><td>References</td><td>${fmt(plan.references)}</td></tr>
+
+    <tr><td>Teacher's Signature</td><td style="height:40px;"></td></tr>
+    <tr><td>HoD Signature</td><td style="height:40px;"></td></tr>
+  </table>`;
+}
+
+/* ─────────────────────────────────────────
+   UTILS
+───────────────────────────────────────── */
+function copyPlan() {
+  const el = document.getElementById('output-body');
+  const text = el.innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    alert('Lesson plan copied to clipboard!');
+  });
+}
+
+function resetForm() {
+  document.getElementById('form-section').style.display = 'block';
+  document.getElementById('output-section').style.display = 'none';
+  updateStep(1);
+}
+</script>
+</body>
+</html>
