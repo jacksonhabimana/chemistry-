@@ -1,755 +1,322 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Create Lesson Plan | Chemistry Portal</title>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Lesson Plan Generator — Jackson Habimana</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Source+Serif+4:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,sans-serif;background:#f4f0e8;color:#1a1a2e;min-height:100vh;padding-bottom:80px}
-.nav{background:#fff;border-bottom:1px solid #e8e2d8;padding:0 32px;display:flex;align-items:center;gap:8px;height:56px;position:sticky;top:0;z-index:100;box-shadow:0 1px 4px rgba(0,0,0,.07)}
-.nav-logo{font-weight:700;font-size:1rem;color:#c48a00;text-decoration:none}
-.nav-sep{color:#ccc;font-size:1.1rem}.nav-page{font-size:.88rem;color:#888}
-.page{max-width:980px;margin:0 auto;padding:36px 20px 40px}
-.page-head-row{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:28px}
-.page-head h1{font-size:1.75rem;font-weight:700;color:#1a1a2e;margin-bottom:6px}
-.page-head p{font-size:.93rem;color:#666}
-.btn-hdr{display:flex;align-items:center;gap:7px;background:#fff;border:1.5px solid #ddd;border-radius:8px;padding:9px 16px;font-size:.85rem;color:#555;cursor:pointer;font-family:inherit;font-weight:500;white-space:nowrap;transition:border-color .2s,color .2s}
-.btn-hdr:hover{border-color:#c48a00;color:#c48a00}
-.mode-tabs{display:flex;gap:8px;margin-bottom:28px}
-.tab{display:flex;align-items:center;gap:7px;padding:9px 20px;border-radius:8px;border:1.5px solid #ddd;background:#fff;font-size:.88rem;font-weight:600;color:#666;cursor:pointer;font-family:inherit;transition:all .2s}
-.tab.active{background:#fef3d0;border-color:#c48a00;color:#c48a00}
-.tab:not(.active):hover{border-color:#bbb;color:#444}
-.card{background:#fff;border-radius:14px;border:1px solid #e8e2d8;padding:28px 28px 24px;margin-bottom:20px;box-shadow:0 2px 10px rgba(0,0,0,.05)}
-.sec-title{display:flex;align-items:center;gap:10px;margin-bottom:24px}
-.badge{width:28px;height:28px;background:#c48a00;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.82rem;font-weight:700;flex-shrink:0}
-.sec-title h2{font-size:1rem;font-weight:700;color:#1a1a2e}
-.grid{display:grid;gap:18px}.g3{grid-template-columns:1fr 1fr 1fr}.g2{grid-template-columns:1fr 1fr}
-@media(max-width:700px){.g3,.g2{grid-template-columns:1fr}}
-.field{display:flex;flex-direction:column;gap:6px}
-.field label{font-size:.82rem;font-weight:600;color:#444}
-.req{color:#e53e3e;margin-left:2px}
-.field input,.field select{border:1.5px solid #ddd;border-radius:8px;padding:10px 14px;font-size:.92rem;font-family:inherit;color:#1a1a2e;background:#fff;outline:none;transition:border-color .2s,box-shadow .2s;width:100%;appearance:none;-webkit-appearance:none}
-.field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='11' fill='%23999' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;cursor:pointer}
-.field input:focus,.field select:focus{border-color:#c48a00;box-shadow:0 0 0 3px rgba(196,138,0,.12)}
-.field input::placeholder{color:#bbb}
-.field select:disabled{opacity:.45;cursor:not-allowed;background-color:#fafafa}
-.hint{font-size:.75rem;color:#aaa;margin-top:3px;line-height:1.4}
-.sw{position:relative}
-.sp{position:absolute;right:36px;top:50%;transform:translateY(-50%);width:14px;height:14px;border:2px solid #eee;border-top-color:#c48a00;border-radius:50%;animation:rot .6s linear infinite;display:none;pointer-events:none}
-.sp.on{display:block}
-@keyframes rot{to{transform:translateY(-50%) rotate(360deg)}}
-.checks{display:flex;flex-direction:column;gap:12px}
-.ccard{display:flex;align-items:flex-start;gap:13px;padding:15px 18px;border:1.5px solid #e8e2d8;border-radius:10px;cursor:pointer;transition:border-color .2s,background .2s;user-select:none}
-.ccard:hover{border-color:#c48a00;background:#fffdf5}
-.ccard input[type=checkbox]{width:17px;height:17px;margin-top:2px;accent-color:#c48a00;flex-shrink:0;cursor:pointer;appearance:auto;-webkit-appearance:auto}
-.ct{font-size:.9rem;font-weight:600;color:#1a1a2e;margin-bottom:4px}
-.cd{font-size:.8rem;color:#888;line-height:1.45}
-.crow{display:flex;align-items:center;gap:10px;cursor:pointer;padding:4px 2px;user-select:none}
-.crow input[type=checkbox]{width:16px;height:16px;accent-color:#c48a00;border:none;padding:0;cursor:pointer;appearance:auto;-webkit-appearance:auto}
-.crow span{font-size:.88rem;color:#444}
-.fbar{display:flex;justify-content:flex-end;margin-top:4px}
-.btn-gen{display:flex;align-items:center;gap:9px;background:#c48a00;color:#fff;border:none;border-radius:10px;padding:13px 30px;font-size:.95rem;font-weight:700;font-family:inherit;cursor:pointer;transition:background .2s,transform .1s,opacity .2s;box-shadow:0 3px 14px rgba(196,138,0,.38)}
-.btn-gen:hover:not(:disabled){background:#a87800;transform:translateY(-1px)}
-.btn-gen:disabled{opacity:.4;cursor:not-allowed;transform:none}
-.btn-gen .gs{width:17px;height:17px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:rot .6s linear infinite;display:none}
-.btn-gen.loading .gs{display:block}.btn-gen.loading .gi{display:none}
-#out-wrap{display:none}
-.ocard{background:#fff;border:1px solid #e8e2d8;border-radius:14px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.07);margin-bottom:24px}
-.ohd{background:linear-gradient(135deg,#fffdf5 0%,#fff8e1 100%);border-bottom:1px solid #ebe5d8;padding:20px 28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
-.ohd h2{font-size:1.1rem;font-weight:700;color:#c48a00}
-.abar{display:flex;gap:8px;flex-wrap:wrap}
-.ba{display:flex;align-items:center;gap:6px;padding:8px 16px;border-radius:8px;font-size:.83rem;font-weight:600;cursor:pointer;border:none;font-family:inherit;transition:opacity .2s,transform .1s}
-.ba:hover{opacity:.85;transform:translateY(-1px)}
-.bpr{background:#c48a00;color:#fff;box-shadow:0 2px 8px rgba(196,138,0,.3)}
-.bcp{background:#f4f0e8;color:#555;border:1px solid #ddd}
-.bbk{background:#f4f0e8;color:#888;border:1px solid #ddd}
-.ptbl{width:100%;border-collapse:collapse}
-.ptbl tr{border-bottom:1px solid #f0ece4}
-.ptbl tr:last-child{border-bottom:none}
-.ptbl td{padding:13px 24px;vertical-align:top;font-size:.88rem;line-height:1.65}
-.ptbl td:first-child{width:220px;font-weight:600;font-size:.77rem;text-transform:uppercase;letter-spacing:.45px;color:#c48a00;background:#fffcf2;border-right:1px solid #f0ece4;white-space:nowrap}
-.ptbl .sr td{background:#fef9ec;color:#9a6f00;font-size:.76rem;font-weight:700;letter-spacing:.7px;text-transform:uppercase;padding:8px 24px}
-.lbox{text-align:center;padding:60px 24px}
-.lbox .sp2{width:50px;height:50px;border:3px solid #f0ece4;border-top-color:#c48a00;border-radius:50%;animation:rot .8s linear infinite;margin:0 auto 18px}
-.lbox p{font-size:.95rem;color:#888;margin-bottom:6px}
-.lbox .sub{font-size:.8rem;color:#ccc}
-.sig{min-height:52px}
-@media print{body{background:#fff}.nav,.page-head-row,#form-wrap,.mode-tabs,.abar{display:none!important}#out-wrap{display:block!important}.ocard{box-shadow:none;border:1px solid #ccc;border-radius:0}.ohd{background:#fffdf5}.ptbl td:first-child{color:#a07000;background:#fffdf5}.ptbl .sr td{background:#fffbe8;color:#9a6f00}.ptbl tr{border-color:#eee}}
+/* ── SCREEN UI ── */
+:root{--bg:#0d1117;--surface:#161b22;--surface2:#1c2333;--border:#30363d;--accent:#38bdf8;--green:#34d399;--gold:#e8c547;--text:#e6edf3;--muted:#8b949e;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:'Source Serif 4',serif;line-height:1.6;}
+nav{position:sticky;top:0;z-index:200;background:rgba(13,17,23,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 28px;}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:52px;}
+.nav-brand{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--accent);text-decoration:none;}
+.nav-links a{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);text-decoration:none;padding:4px 10px;border-radius:5px;}
+.nav-links a:hover{color:var(--accent);}
+.hero{background:linear-gradient(135deg,rgba(56,189,248,.06),rgba(52,211,153,.03));border-bottom:1px solid var(--border);padding:32px 28px;text-align:center;}
+.hero h1{font-family:'Playfair Display',serif;font-size:2rem;color:#fff;margin-bottom:6px;}
+.hero p{color:var(--muted);font-size:.88rem;}
+.wrap{max-width:900px;margin:0 auto;padding:32px 24px 80px;}
+/* form */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:22px;margin-bottom:18px;}
+.card-title{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--accent);text-transform:uppercase;letter-spacing:.1em;margin-bottom:14px;}
+.row{display:grid;gap:12px;margin-bottom:12px;}
+.row.cols2{grid-template-columns:1fr 1fr;}
+.row.cols3{grid-template-columns:1fr 1fr 1fr;}
+.row.cols4{grid-template-columns:1fr 1fr 1fr 1fr;}
+label{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:4px;}
+input,textarea,select{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:var(--text);padding:9px 12px;font-family:'Source Serif 4',serif;font-size:.88rem;resize:vertical;}
+input:focus,textarea:focus,select:focus{outline:none;border-color:var(--accent);}
+textarea{min-height:70px;}
+/* activities table */
+.act-row{display:grid;grid-template-columns:120px 1fr 1fr 1fr;gap:8px;margin-bottom:8px;align-items:start;}
+.act-row input,.act-row textarea{font-size:.82rem;}
+.act-hd{display:grid;grid-template-columns:120px 1fr 1fr 1fr;gap:8px;margin-bottom:6px;}
+.act-hd div{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;}
+.btn-add{background:none;border:1px dashed var(--border);color:var(--muted);padding:7px 14px;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:.75rem;cursor:pointer;margin-top:4px;}
+.btn-add:hover{border-color:var(--accent);color:var(--accent);}
+.btn-rm{background:none;border:1px solid rgba(248,113,113,.3);color:var(--red);padding:4px 10px;border-radius:5px;font-family:'JetBrains Mono',monospace;font-size:.68rem;cursor:pointer;white-space:nowrap;align-self:start;margin-top:3px;}
+/* action buttons */
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px;}
+.btn-gen{background:var(--accent);color:#000;border:none;padding:11px 24px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.85rem;font-weight:700;cursor:pointer;}
+.btn-print{background:var(--green);color:#000;border:none;padding:11px 24px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.85rem;font-weight:700;cursor:pointer;}
+.btn-clear{background:var(--surface2);color:var(--muted);border:1px solid var(--border);padding:11px 18px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.82rem;cursor:pointer;}
+
+/* ── PRINT / PREVIEW AREA ── */
+#preview{display:none;background:#fff;color:#000;padding:0;}
+.lp{font-family:Arial,sans-serif;font-size:10pt;color:#000;max-width:900px;margin:0 auto;}
+.lp-title{text-align:center;font-size:14pt;font-weight:bold;text-decoration:underline;margin-bottom:8px;letter-spacing:1px;}
+.lp table{width:100%;border-collapse:collapse;margin-bottom:0;}
+.lp table td,.lp table th{border:1px solid #000;padding:4px 7px;font-size:9.5pt;vertical-align:top;}
+.lp .hdr-row td{font-weight:bold;}
+.lp .label-cell{font-weight:bold;white-space:nowrap;width:180px;}
+.lp .act-header{background:#d9d9d9;font-weight:bold;text-align:center;}
+.lp .timing-cell{font-weight:bold;text-align:center;vertical-align:middle;}
+.lp .self-eval{height:50px;}
+
+/* ── PRINT STYLES ── */
+@media print{
+  body{background:#fff!important;color:#000!important;}
+  nav,.hero,.wrap>.card,.actions,#formSection{display:none!important;}
+  #preview{display:block!important;padding:10mm!important;}
+  .lp{font-size:9pt;}
+}
 </style>
 </head>
 <body>
-<nav class="nav">
-  <a class="nav-logo" href="index.html">&#x1F9EA; Chemistry Portal</a>
-  <span class="nav-sep">&#x203A;</span>
-  <span class="nav-page">Create Lesson Plan</span>
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">⚗ Habimana</a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="s4-chemistry.html">S4</a>
+      <a href="s5-chemistry.html">S5</a>
+      <a href="s6-chemistry.html">S6</a>
+    </div>
+  </div>
 </nav>
-<div class="page">
-  <div class="page-head-row">
-    <div class="page-head"><h1>Create Lesson Plan</h1><p>Fill in the details below to generate a comprehensive lesson plan.</p></div>
-    <button class="btn-hdr">&#x2699;&#xFE0F; Header Settings</button>
+<div class="hero">
+  <h1>📋 Lesson Plan Generator</h1>
+  <p>Fill in the form below — your lesson plan generates in the official REB format, ready to print as PDF.</p>
+</div>
+
+<div class="wrap">
+<div id="formSection">
+
+<!-- META INFO -->
+<div class="card">
+  <div class="card-title">School & Teacher Information</div>
+  <div class="row cols2">
+    <div><label>School Name</label><input id="schoolName" placeholder="e.g. E.S. MUDASOMWA"/></div>
+    <div><label>Teacher's Name</label><input id="teacherName" value="Jackson Habimana"/></div>
   </div>
-  <div class="mode-tabs">
-    <button class="tab active" onclick="setTab(this)">&#x1F4D6; Use Textbook</button>
-    <button class="tab" onclick="setTab(this)">&#x270F;&#xFE0F; Type Manually</button>
+  <div class="row cols4">
+    <div><label>Term</label><input id="term" placeholder="e.g. Term 2"/></div>
+    <div><label>Date</label><input id="lessonDate" type="date"/></div>
+    <div><label>Subject</label><input id="subject" value="Chemistry"/></div>
+    <div><label>Class</label><input id="class" placeholder="e.g. S5 PCB"/></div>
   </div>
-  <div id="form-wrap">
-    <div class="card">
-      <div class="sec-title"><div class="badge">A</div><h2>Lesson Plan Details</h2></div>
-      <div class="grid g3">
-        <div class="field"><label>School</label><input type="text" id="school" placeholder="e.g., GS Kigali" oninput="chk()"></div>
-        <div class="field"><label>Teacher Name</label><input type="text" id="teacher" value="Jackson Habimana" oninput="chk()"></div>
-        <div class="field"><label>Subject <span class="req">*</span></label>
-          <div class="sw"><select id="subject" onchange="onSubj()" disabled><option value="">Select subject</option></select><div class="sp" id="sp-s"></div></div>
-        </div>
-      </div>
-      <div class="grid g3" style="margin-top:18px">
-        <div class="field"><label>Class Level <span class="req">*</span></label>
-          <div class="sw"><select id="classLevel" onchange="onCls()" disabled><option value="">Select class level</option></select><div class="sp" id="sp-c"></div></div>
-        </div>
-        <div class="field"><label>Term</label>
-          <select id="term"><option>Term 1</option><option>Term 2</option><option>Term 3</option></select>
-        </div>
-        <div class="field"><label>Date</label><input type="date" id="date"></div>
-      </div>
-      <div class="grid g3" style="margin-top:18px">
-        <div class="field"><label>Duration (min)</label><input type="number" id="dur" value="40" min="20" max="300"></div>
-        <div class="field"><label>Class Size</label><input type="number" id="cls" placeholder="e.g., 45" min="1"></div>
-        <div class="field"><label>Language</label>
-          <select id="lang"><option>English</option><option>French</option><option>Kinyarwanda</option></select>
-        </div>
-      </div>
-      <div class="grid g2" style="margin-top:18px">
-        <div class="field"><label>Location</label><input type="text" id="loc" value="Classroom"></div>
-        <div class="field"><label>Special Needs Considerations</label>
-          <input type="text" id="sn" placeholder="e.g., Hearing impairment (2), Low vision (1) (optional)">
-          <span class="hint">Enter learner categories and counts only. Accommodations will be generated inside lesson activities.</span>
-        </div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="sec-title"><div class="badge">B</div><h2>Lesson Overview</h2></div>
-      <div class="grid g2">
-        <div class="field"><label>Unit <span class="req">*</span></label>
-          <div class="sw"><select id="unit" onchange="onUnit()" disabled><option value="">Select unit</option></select><div class="sp" id="sp-u"></div></div>
-        </div>
-        <div class="field"><label>Lesson Title <span class="req">*</span></label>
-          <div class="sw"><select id="lesson" onchange="chk()" disabled><option value="">Select lesson</option></select><div class="sp" id="sp-l"></div></div>
-        </div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="sec-title"><div class="badge">C</div><h2>Additional Options</h2></div>
-      <div class="checks">
-        <label class="ccard">
-          <input type="checkbox" id="o-smart">
-          <div><div class="ct">Generate SMART objective</div>
-          <div class="cd">Format the instructional objective like: By using &hellip;, [class] learners attended will be able to &hellip; at more than 6/10 within 40 minutes.</div></div>
-        </label>
-        <label class="ccard">
-          <input type="checkbox" id="o-att">
-          <div><div class="ct">Include attendance in class size</div>
-          <div class="cd">Show the formatted class size as present learners out of the total, for example 3 out of 30.</div></div>
-        </label>
-        <label class="crow"><input type="checkbox" id="o-act"><span>Include AI-generated activities description</span></label>
-        <label class="crow"><input type="checkbox" id="o-det" checked><span>Generate detailed lesson plan (2+ pages)</span></label>
-      </div>
-    </div>
-    <div class="fbar">
-      <button class="btn-gen" id="genBtn" onclick="doGen()" disabled>
-        <span class="gi">&#x2728;</span><div class="gs"></div> Generate Lesson Plan
-      </button>
-    </div>
-  </div>
-  <div id="out-wrap">
-    <div class="ocard">
-      <div class="ohd">
-        <h2>&#x1F4C4; Generated Lesson Plan</h2>
-        <div class="abar">
-          <button class="ba bpr" onclick="window.print()">&#x1F5A8;&#xFE0F; Print / PDF</button>
-          <button class="ba bcp" onclick="cpPlan()">&#x1F4CB; Copy</button>
-          <button class="ba bbk" onclick="goBack()">&#x21A9; New Plan</button>
-        </div>
-      </div>
-      <div id="out-body"></div>
-    </div>
+  <div class="row cols4">
+    <div><label>Unit No</label><input id="unitNo" placeholder="e.g. 11"/></div>
+    <div><label>Lesson No</label><input id="lessonNo" placeholder="e.g. 1"/></div>
+    <div><label>Duration</label><input id="duration" placeholder="e.g. 80 min"/></div>
+    <div><label>Class Size</label><input id="classSize" placeholder="e.g. 22"/></div>
   </div>
 </div>
+
+<!-- SPECIAL NEEDS -->
+<div class="card">
+  <div class="card-title">Special Educational Needs</div>
+  <div class="row">
+    <div><label>Type of special educational needs to be catered for</label><input id="sen" placeholder="e.g. None"/></div>
+    <div><label>Number of learners in each category</label><input id="senCount" placeholder="e.g. None"/></div>
+  </div>
+</div>
+
+<!-- UNIT & LESSON -->
+<div class="card">
+  <div class="card-title">Unit & Lesson Details</div>
+  <div class="row">
+    <div><label>Unit Title</label><input id="unitTitle" placeholder="e.g. SOLUTIONS AND TITRATION"/></div>
+  </div>
+  <div class="row">
+    <div><label>Key Unit Competence</label><textarea id="keyComp" placeholder="e.g. Prepare standard solutions and use them to determine concentration of other solutions by titration."></textarea></div>
+  </div>
+  <div class="row">
+    <div><label>Title of the Lesson</label><input id="lessonTitle" placeholder="e.g. Back titration"/></div>
+  </div>
+  <div class="row">
+    <div><label>Instructional Objectives</label><textarea id="objectives" placeholder="e.g. 1. Using the provided materials, S5 PCB students should be able to explain the concept of back titration accurately..."></textarea></div>
+  </div>
+</div>
+
+<!-- PLAN -->
+<div class="card">
+  <div class="card-title">Plan & Resources</div>
+  <div class="row cols2">
+    <div><label>Plan of this class (Location)</label><input id="location" value="Classroom"/></div>
+    <div><label>Learning Materials</label><input id="materials" placeholder="e.g. Chemistry S5 Learner's Book, Laboratory equipment, Standard solutions"/></div>
+  </div>
+  <div class="row">
+    <div><label>References</label><input id="references" placeholder="e.g. Rwanda Education Board. (2025). Chemistry Learner's Book S5."/></div>
+  </div>
+</div>
+
+<!-- ACTIVITIES TABLE -->
+<div class="card">
+  <div class="card-title">Teaching & Learning Activities</div>
+  <div class="act-hd">
+    <div>Timing & Phase</div>
+    <div>Teacher's Activity</div>
+    <div>Learner's Activity</div>
+    <div>Generic Competences & Cross-cutting Issues</div>
+  </div>
+  <div id="actRows"></div>
+  <button class="btn-add" onclick="addRow()">+ Add Phase</button>
+</div>
+
+<!-- GENERATE -->
+<div class="actions">
+  <button class="btn-gen" onclick="generate()">📋 Generate Lesson Plan</button>
+  <button class="btn-print" onclick="printPlan()" id="printBtn" style="display:none;">🖨 Print / Save as PDF</button>
+  <button class="btn-clear" onclick="clearForm()">🗑 Clear Form</button>
+</div>
+
+</div><!-- end formSection -->
+
+<!-- PREVIEW -->
+<div id="preview"></div>
+
+</div><!-- wrap -->
+
 <script>
+// Default activity rows
+const DEFAULT_ROWS = [
+  {phase:'Introduction\n(10 min)',teacher:'- Greets learners warmly.\n- Revises key concepts with questions.\n- Guides discovery of lesson topic.',learner:'- Respond to greetings.\n- Answer revision questions.\n- Discover the concept through guided discussion.',competences:'- Communication: Sharing ideas during revision.\n- Inclusive Education: Supporting diverse learners.'},
+  {phase:'Lesson Development\n(50 min)',teacher:'- Demonstrates main concepts step by step.\n- Forms groups and distributes tasks.\n- Facilitates group activities and provides feedback.',learner:'- Demonstrates/practises the concept.\n- Works in pairs/groups on tasks.\n- Presents findings and corrects mistakes.',competences:'- Research and Problem Solving: Analyzing results.\n- Standardization Culture: Emphasising accuracy.\n- Cooperation: Working in groups.'},
+  {phase:'Conclusion\n(20 min)',teacher:'- Summarises the lesson and asks oral questions.\n- Gives a homework assignment.',learner:'- Participates in summarising by answering questions.\n- Writes down the homework assignment.',competences:'- Lifelong Learning: Encouraging continuous improvement.\n- Peace and Values Education.'},
+];
 
-const CUR={
-"Chemistry":{lv:["S1","S2","S3","S4","S5","S6"],u:{
-"S1":[
-{n:"Unit 1: Chemistry and Society",ls:["What is chemistry and its branches","Chemistry and health","Chemistry and agriculture","Chemistry and environment","Chemistry and industry in Rwanda","Contribution of chemistry to the economy of Rwanda"]},
-{n:"Unit 2: Laboratory Safety and Apparatus",ls:["Laboratory safety rules and precautions","Common laboratory apparatus and their uses","Hazard symbols and handling chemicals safely","First aid in the laboratory","Setting up and recording experiments"]},
-{n:"Unit 3: States and Changes of States of Matter",ls:["Definition of matter and its three states","Kinetic particle theory and properties of solids, liquids and gases","Brownian motion and diffusion","Changes of state: melting, solidification, evaporation, boiling","Condensation and sublimation"]},
-{n:"Unit 4: Pure Substances and Mixtures",ls:["Difference between pure substances and mixtures","Types of mixtures: homogeneous and heterogeneous","Separation by filtration and evaporation","Separation by distillation and paper chromatography","Uses of separation techniques in daily life"]},
-{n:"Unit 5: Atoms, Elements and Compounds",ls:["Atoms, elements and compounds: definitions","Chemical symbols and formulae","Electronic configuration and valence electrons","Writing simple chemical formulae","Physical and chemical changes"]},
-{n:"Unit 6: Arrangement of Elements in the Periodic Table",ls:["Structure of the periodic table: groups and periods","Metals, non-metals and metalloids","Trends in properties across a period","Properties and trends within a group","Uses of the periodic table"]},
-{n:"Unit 7: Water and its Composition",ls:["Properties of water","Composition of water by electrolysis experiment","Hard and soft water: causes and effects","Methods of water purification in Rwanda","Tests for the presence of water"]},
-{n:"Unit 8: Air Composition and Pollution",ls:["Composition of air: nitrogen, oxygen, carbon dioxide, noble gases","Properties and uses of oxygen and nitrogen","Causes and effects of air pollution in Rwanda","Acid rain and the greenhouse effect","Prevention and control of air pollution"]},
-{n:"Unit 9: Waste Materials",ls:["Types of waste materials: biodegradable and non-biodegradable","Effects of improper waste disposal on health and environment","Waste management strategies: the 3Rs","Recycling and composting in Rwanda","Rwanda environmental protection laws and policies"]},
-{n:"Unit 10: Chemical Equations",ls:["Word equations for chemical reactions","Symbol equations and formulae","Balancing chemical equations","Law of conservation of mass","Interpreting balanced equations in context"]},
-{n:"Unit 11: Acids and Bases and pH",ls:["Properties and examples of acids in daily life","Properties and examples of bases and alkalis","The pH scale: measuring acidity and alkalinity","Using natural indicators from flowers","Simple neutralisation reactions"]},
-{n:"Unit 12: Inorganic Salts and their Properties",ls:["Definition and classification of salts","Properties of common inorganic salts","Preparation of salts by neutralisation","Preparation of salts by double decomposition","Uses of inorganic salts in Rwanda"]},
-{n:"Unit 13: Preparation of Oxygen and its Properties",ls:["Properties of oxygen gas","Laboratory preparation of oxygen from H2O2","Collecting oxygen by upward displacement of air and over water","Reactions of oxygen with metals and non-metals","Industrial production and uses of oxygen"]}
-],
-"S2":[
-{n:"Unit 1: Chemical Bonding",ls:["Why atoms form bonds: stability and the octet rule","Ionic bonding: transfer of electrons and dot-cross diagrams","Covalent bonding: sharing of electrons and dot-cross diagrams","Properties of ionic compounds","Properties of covalent compounds","Metallic bonding and properties of metals"]},
-{n:"Unit 2: Trends in Properties of Elements in the Periodic Table",ls:["Atomic radius trends across periods and down groups","Ionisation energy trends across periods and down groups","Electronegativity trends across periods and down groups","Reactivity trends of metals down Group 1 and 2","Reactivity trends of non-metals down Group 17"]},
-{n:"Unit 3: Water Pollution",ls:["Sources of water pollution in Rwanda: domestic, agricultural, industrial","Effects of water pollution on health and aquatic ecosystems","Physical, chemical and biological testing of water quality","Methods of water purification: filtration, chlorination, boiling","Rwanda water protection laws and community practices"]},
-{n:"Unit 4: Effective Ways of Waste Management",ls:["Types of waste and their environmental impact","Biodegradable vs non-biodegradable waste","Recycling and composting practices in Rwanda","Industrial waste treatment methods","Community-based waste reduction strategies"]},
-{n:"Unit 5: Categories of Chemical Reactions",ls:["Synthesis (combination) reactions with examples","Decomposition reactions with examples","Single displacement reactions with examples","Double displacement reactions with examples","Combustion reactions and their applications"]},
-{n:"Unit 6: Preparation of Salts and Identification of Ions",ls:["Preparation of soluble salts by neutralisation","Preparation of insoluble salts by precipitation","Titration technique and calculations","Flame tests for identifying metal ions Na, K, Ca, Ba","Testing for anions: carbonate, sulphate, chloride, nitrate"]},
-{n:"Unit 7: The Mole Concept and Gas Laws",ls:["Relative atomic and molecular masses","Avogadro's number and the mole concept","Molar mass calculations and mole-mass conversions","Boyle's Law: pressure-volume relationship at constant temperature","Charles's Law: volume-temperature relationship at constant pressure","Ideal gas equation PV=nRT and calculations"]},
-{n:"Unit 8: Preparation and Classification of Oxides",ls:["Classification of oxides: acidic, basic, amphoteric and neutral","Preparation of metal oxides by combustion and decomposition","Preparation of non-metal oxides","Reactions of acidic and basic oxides with water","Properties and uses of important oxides"]},
-{n:"Unit 9: Electrolytes and Non-electrolytes",ls:["Electrolytes and non-electrolytes: definitions and examples","Strong and weak electrolytes: degree of dissociation","Electrolysis: basic principles, electrodes and electrolytes","Electrolysis of copper sulphate solution","Industrial applications of electrolysis"]},
-{n:"Unit 10: Properties of Organic Compounds and Uses of Alkanes",ls:["Introduction to organic chemistry and carbon bonding","Homologous series and functional groups overview","Naming alkanes using IUPAC rules","Physical and chemical properties of alkanes","Uses of alkanes as fuels and in Rwanda energy sector"]}
-],
-"S3":[
-{n:"Unit 1: Carbon and its Inorganic Compounds",ls:["Allotropes of carbon: diamond, graphite and fullerene","Properties and uses of carbon allotropes","Carbon dioxide: preparation, properties and uses","Carbon monoxide: properties and dangers","The carbon cycle and its role in climate change"]},
-{n:"Unit 2: Nitrogen and its Inorganic Compounds",ls:["Industrial isolation of nitrogen by fractional distillation of liquid air","Laboratory preparation of nitrogen","Preparation, properties and uses of ammonia","The Haber process for industrial production of ammonia","Nitrogen compounds: nitrates, nitric acid and their uses"]},
-{n:"Unit 3: Sulphur and its Inorganic Compounds",ls:["Occurrence, extraction and allotropes of sulphur","Physical and chemical properties of sulphur","Sulphur dioxide: preparation, properties and environmental impact","Industrial preparation of sulphuric acid: the Contact process","Uses of sulphuric acid and environmental impact"]},
-{n:"Unit 4: Halogens and their Compounds",ls:["Physical properties and reactivity trends of halogens Group 17","Laboratory preparation of chlorine and its properties","Hydrogen halides: HCl, HBr and HI preparation and properties","Displacement reactions of halogens: oxidising power trend","Uses of halogens and their compounds in Rwanda"]},
-{n:"Unit 5: Rate of Reactions",ls:["Definition and measurement of rate of chemical reactions","Effect of concentration on rate of reaction","Effect of temperature on rate of reaction","Effect of particle size and surface area on rate","Role of catalysts and collision theory with activation energy"]},
-{n:"Unit 6: Chemical Properties of Acids and Bases",ls:["Reactions of acids with metals to produce hydrogen","Reactions of acids with bases: neutralisation","Reactions of acids with carbonates and bicarbonates","Laboratory preparation of acids and bases","Uses and hazards of acids and bases in daily life"]},
-{n:"Unit 7: Concentration of Solutions",ls:["Concentration of solutions in g per dm3","Concentration of solutions in mol per dm3 (molarity)","Preparing solutions of known concentration from solids","Dilution calculations and preparing diluted solutions","Acid-base titration technique and calculations"]},
-{n:"Unit 8: Oxidation and Reduction",ls:["Definitions of oxidation and reduction: electron transfer","Oxidation numbers: rules and how to calculate them","Identifying oxidising agents and reducing agents","Balancing redox equations using the half-equation method","The electrochemical series and reactivity of metals"]},
-{n:"Unit 9: Structure and Properties of Alkenes and Alcohols",ls:["Structure, naming and general formula of alkenes","Physical and chemical properties of alkenes: addition reactions","Polymerisation of alkenes: addition polymers and uses","Naming and classification of alcohols: primary, secondary, tertiary","Physical properties, reactions and uses of alcohols"]},
-{n:"Unit 10: Carboxylic Acids",ls:["General formula and IUPAC naming of carboxylic acids","Physical properties of carboxylic acids","Chemical properties: reactions with metals, bases and alcohols","Preparation of esters by esterification and their uses","Fats, oils and saponification (soap making)"]}
-],
-"S4":[
-{n:"Unit 1: Structure of an Atom and Mass Spectrum",ls:["Outline of the discovery of the atom constituents and their properties","Concept of atomic number, mass number, and isotopic mass","Calculation of relative atomic mass of elements with isotopes","Description and functioning of the mass spectrometer","Interpretation of mass spectra","Uses of the mass spectrometer and involving calculations"]},
-{n:"Unit 2: Electronic Configuration of Atoms and Ions",ls:["Bohr's atomic model and concept of energy levels","Hydrogen spectrum and spectral lines","Atomic spectra","Orbitals and quantum numbers","Electronic configuration of atoms and ions","Relationship between ionization energy, energy levels and factors influencing ionization energy"]},
-{n:"Unit 3: Formation of Ionic and Metallic Bonds",ls:["Stability of atoms and why they bind together","Ionic bonding","Formation of metallic bonds and physical properties of metals"]},
-{n:"Unit 4: Covalent Bond and Molecular Structure",ls:["Overlap of atomic orbitals to form covalent bonds","Theories on the formation of covalent bond","Coordinate or dative covalent bonding and properties","Valence bond theory (VBT)","Valence Shell Electron Pair Repulsion (VSEPR) theory","Hybridisation and types of hybridisation","Polar covalent bonds","Simple and giant covalent structures","Intermolecular forces"]},
-{n:"Unit 5: Variation in Trends of the Physical Properties",ls:["Historical background of the periodic table","Comparison of Mendeleev's table and modern periodic table","Location of elements in the periodic table based on the electronic configuration","Classification of elements into blocks (s, p, d, f-block)","Characteristics of different blocks of the periodic table","Variation of physical properties down the groups and across the periods"]},
-{n:"Unit 6: Trends in Chemical Properties of Group 1 Elements and their Compounds",ls:["Occurrence and physical properties of group 1 elements","Reactivity of group 1 elements with oxygen, water and halogens","Properties of group 1 oxides and hydroxides","The effect of heat on group 1 carbonates and nitrates","Solubility of group 1 compounds","Flame test for Li+, Na+ and K+","Uses of group 1 elements and their compounds","Hydrogen"]},
-{n:"Unit 7: Trends in Chemical Properties of Group 2 Elements and their Compounds",ls:["Occurrence and physical properties of group 2 elements","Reactivity of group 2 elements","Properties of group 2 compounds","Anomalous properties of beryllium compounds","Identification test for Ba2+ ions in aqueous solutions","Uses of group 2 elements and their compounds"]},
-{n:"Unit 8: Trends of Chemical Properties of Group 13 Elements and their Compounds",ls:["Physical properties of group 13 elements","Reaction of aluminium","Reaction with alkalis","Oxides and hydroxides of group 13 elements","Anomalous properties of boron","Identification of Al3+ ion in solution","Uses of some group 13 elements"]},
-{n:"Unit 9: Trends in Chemical Properties of Group 14 Elements and their Compounds",ls:["Chemical properties of group 14 elements","Difference between the chemical reactions of the oxides and chlorides of group 14 elements","Trends in thermal stability of the oxides, halides and hydroxides of group 14 elements","Variation in stability of oxidation state +2 and +4 down the group 14 elements","Uses of group 14 elements","Diagonal relationship"]},
-{n:"Unit 10: Trends in Chemical Properties of Group 15 Elements and their Compounds",ls:["Physical properties of group 15 elements and the relative inertness of nitrogen","Reactions of group 15 elements","Ammonia and nitric acid","Phosphorus and chemical properties of its compounds","Phosphoric acid"]},
-{n:"Unit 11: Trends of Chemical Properties of Group 16 Elements and their Compounds",ls:["Physical properties of group 16 elements","Comparison of acidity and volatility of group 16 hydrides","Preparation and properties of sulphuric acid","Properties of oxoanions of sulphur","Identification of sulphite and sulphate ions","Uses of group 16 elements and compounds"]},
-{n:"Unit 12: Trends of Chemical Properties of Group 17 Elements and their Compounds",ls:["Natural occurrence of halogens","Preparation methods of halogens","Trends of physical and chemical properties","Preparation of hydrogen halides","Trends in strength of acidity, volatility and reducing power of hydrogen halides","Chemical properties of chlorates, iodates, perchlorates and periodates","Uses of halogens and their compounds"]},
-{n:"Unit 13: Properties and Uses of Group 18 Elements and their Compounds",ls:["Occurrence and physical properties of noble gases","Reactivity and inertness of noble gases","Uses of noble gases"]},
-{n:"Unit 14: Trends in Chemical Properties of Period 3 Elements and their Compounds",ls:["Physical properties of the period 3 elements","Chemical properties of period 3 elements","Compounds of period 3 elements"]},
-{n:"Unit 15: Factors That Affect Chemical Equilibrium",ls:["Difference between complete and incomplete reactions (irreversible versus reversible reactions)","Concept of equilibrium (dynamic equilibrium) and its characteristics","Factors that affect the reactions in equilibrium and Le Chatelier's principle"]},
-{n:"Unit 16: Acids and Bases",ls:["Acid-base theories"]},
-{n:"Unit 17: Reduction and Oxidation Reaction",ls:["Definition of electrochemistry and its relationship with redox reactions","Definitions of reduction and oxidation reactions","Rules used to determine oxidation numbers of elements in chemical compounds and species","Balancing of redox equations","Reactivity series of metals"]},
-{n:"Unit 18: Energy Changes and Energy Profile Diagrams",ls:["Concept of a system","The internal energy of a system and first law of thermodynamics","Standard enthalpy changes","Energy profile diagrams for exothermic and endothermic reactions"]}
-],
-"S5":[
-{n:"Unit 1: Introduction to Organic Chemistry",ls:["Classification of organic compounds","Types of formulas for organic compounds","Functional groups and homologous series","General rules of nomenclature of organic compounds according to IUPAC","Isomerism in organic compounds"]},
-{n:"Unit 2: Alkanes",ls:["Nomenclature of alkanes","Isomerism","Occurrence of alkanes","Preparation of alkanes","Physical properties of alkanes","Chemical properties of alkanes","Uses of alkanes"]},
-{n:"Unit 3: Alkenes and Alkynes",ls:["Definition, structure and nomenclature of alkenes","Isomerism in alkenes","Preparation of alkenes","Laboratory preparation and chemical test for ethene","Physical properties of alkenes","Chemical properties","Structure, classification and nomenclature of alkynes","Laboratory and industrial preparation of alkynes","Physical properties of alkynes","Chemical reactions of alkynes","Uses of alkenes and alkynes"]},
-{n:"Unit 4: Halogenoalkanes (Alkyl Halides)",ls:["Definition and nomenclature of halogenoalkanes","Classification and isomerism","Physical properties of halogenoalkanes","Preparation methods of halogenoalkanes","Chemical properties","Chemical test for the presence of halogenoalkanes","Uses of halogenoalkanes and dangers associated with CFCs"]},
-{n:"Unit 5: Alcohols and Ethers",ls:["Definition and nomenclature","Classification and isomerism","Physical properties","Alcohol preparations","Preparation of ethanol by fermentation","Chemical properties of alcohols","Uses of alcohols","Ethers","Chemical properties of ethers","Uses of ethers"]},
-{n:"Unit 6: Carbonyl Compounds: Aldehydes and Ketones",ls:["Definition and nomenclature of carbonyl compounds","Isomerism","Physical properties of aldehydes and ketones","Chemical properties of carbonyl compounds","Preparation methods of aldehydes and ketones","Uses of aldehydes and ketones"]},
-{n:"Unit 7: Carboxylic Acids and Acyl Chlorides",ls:["Physical properties of carboxylic acids","Acidity of carboxylic acids","Preparation of carboxylic acids","Reactions of carboxylic acids","Uses of carboxylic acids","Acyl chlorides and nomenclature"]},
-{n:"Unit 8: Esters, Acid Anhydrides, Amides and Nitriles",ls:["Structure and nomenclature of esters","Preparation and chemical properties of esters","Saponification and detergents","Preparation, chemical properties and uses of acid anhydrides","Structure and nomenclature of amides","Preparation and chemical properties of amides","Structure and nomenclature of nitriles","Preparation and chemical properties of nitriles"]},
-{n:"Unit 9: Amines and Amino Acids",ls:["Nomenclature and classification of amines","Physical properties, natural occurrences and uses of amines","Preparation of amines","Chemical properties of amines","General structure of amino acids and some common examples","Comparison of physical properties of amino acids to those of carboxylic acids and amines","Chemical properties of amino acids","Optical isomers of amino acids","Peptides and polypeptides"]},
-{n:"Unit 10: Phase Diagrams",ls:["Phase equilibrium","Homogeneous and heterogeneous equilibria","Phase diagrams","Comparison of phase diagrams of substances that expand and those that contract on freezing","Applied aspect of phase diagrams"]},
-{n:"Unit 11: Solutions and Titration",ls:["Definition of standard solution and primary standard solution","Properties of a primary standard solution","Titration involving redox reactions","Back titration","Applications of titration","Determination of atomic masses"]},
-{n:"Unit 12: Conductivity of Solutions",ls:["Conductance of electrolytic solutions","Measurement of conductivity of solutions","Specific conductivity of solutions","Molar conductivity of solutions","Molar conductivity at infinite dilution","Factors that affect molar conductivity of solutions","Kohlrausch's law of individual molar conductivity","Use of conductivity measurement in titration and solubility product","Difference between metallic conductivity and electrolytic conductivity"]},
-{n:"Unit 13: Electrolysis",ls:["Definition of electrolysis and description of electrolytic cells","Electrolysis of water","Electrolysis of concentrated copper (II) sulphate solution using inert electrode","Electrolysis of concentrated copper (II) sulphate solution using copper electrodes","Faraday's laws","Factors affecting electrolysis","Application of electrolysis"]},
-{n:"Unit 14: Enthalpy Change of Reactions",ls:["Definition of standard enthalpy of different reactions","Relationship between temperature and heat","Experimental methods for finding the standard enthalpy of combustion reactions","Experimental methods for finding the standard enthalpy of neutralisation reactions","Hess's law or law of constant heat summation","Application of Hess's law","Lattice enthalpy","Born-Haber cycle","Born-Haber cycle: calculations of the lattice enthalpy","Hydration energy","Average standard bond enthalpy","Calculating enthalpy change of reaction using average bond enthalpies"]},
-{n:"Unit 15: Entropy and Free Energy",ls:["Definition of entropy and change in entropy","Free energy, the deciding factor","Feasibility of chemical reactions: relationship between free energy, enthalpy and entropy"]}
-],
-"S6":[
-{n:"Unit 1: Properties and Uses of Transition Metals",ls:["Definition and electronic configuration of transition metals","Properties of the transition metals","The anomalous properties of Zinc and Scandium","Naming of complex ions and isomerism in transition metal complexes","The chemistry of individual transition metals","Identification of transition metal ions"]},
-{n:"Unit 2: Extraction of Metals",ls:["Relating the properties of metals to their methods of extraction","Methods of extraction of Copper","Methods of extraction of Iron","Methods of extraction of tin","Methods of extraction of Zinc","Methods of extraction of Sodium","Methods of extraction of Aluminium","Methods of extraction of Wolfram (Tungsten)","Methods of extraction of tantalum","Dangers associated with extraction of metals"]},
-{n:"Unit 3: NPK as Components of Fertilizers",ls:["Types of fertilizers","Components of a fertilizer","The manufacture of fertilizers","Disadvantages of the use of organic and inorganic fertilizers","Dangers of the use of substandard fertilizers"]},
-{n:"Unit 4: Benzene",ls:["Structure of benzene","Physical properties, uses and toxicity of benzene","Preparation of benzene","Chemical stability of benzene","Reactions of benzene","Nomenclature and positional isomerism in derivatives of benzene"]},
-{n:"Unit 5: Derivatives of Benzene",ls:["Effect of substituent groups on the benzene ring","Phenol","Aromatic hydrocarbons","Aromatic carbonyl compounds","Aromatic carboxylic acids","Aromatic amines"]},
-{n:"Unit 6: Polymers and Polymerization",ls:["Definition of monomer, polymer and polymerization","Types of polymerisation","Classes and types of polymers","Properties of polymers","Importance of vulcanisation in rubber processing","Uses of polymers and their effect on the environment","Management of old polymer materials"]},
-{n:"Unit 7: Solvent Extraction and Colligative Properties",ls:["Definition of partition coefficient and solvent extraction","Raoult's law and colligative properties"]},
-{n:"Unit 8: Quantitative Chemical Equilibrium",ls:["Definition and characteristics of equilibrium constant Kc","Deriving equilibrium constant Kc","Mass action law and equilibrium constant expression","Definition of equilibrium constant in terms of partial pressures Kp","Relationship between Kc and Kp","Calculations on Kc and Kp","Comparison between reaction quotient Qc and equilibrium constant Kc"]},
-{n:"Unit 9: pH of Acidic and Alkaline Solutions",ls:["Degree of ionization in relation to strength of acids and bases","Explanation of acid and base dissociation constants Ka and Kb","Relationship between Ka and Kb","Use of Ka or pKa and Kb or pKb to explain the strength of acids and bases","Explanation of ionic product of water","Definition and calculations of pH and pOH of acidic and alkaline solutions","Salt hydrolysis","Buffer solution","Preparation of buffer solutions of different pH","Explanation of the working of buffer solutions"]},
-{n:"Unit 10: Indicators and Titration Curves",ls:["Definition of acid-base indicator","The pH range of indicators","Acid-base titration curves"]},
-{n:"Unit 11: Solubility and Solubility Product of Sparingly Soluble Salts",ls:["Definition of solubility and molar solubility","Unsaturated, saturated and super saturated solutions","Equations of the dissociation of sparingly soluble salts in water","Definition of solubility product Ksp","Relationship between solubility and solubility product Ksp","Calculations involving solubility product","Definition and calculation of ionic product QC","Predicting precipitation reactions using the ionic product and Ksp","Separation of ions by fractional precipitation","Common ion effect and solubility","The pH and solubility","Complex ion formation and solubility","Applications of solubility product"]},
-{n:"Unit 12: Electrochemical Cell and Applications",ls:["Definition of electrochemical cell","Description of electrochemical cells","Prediction of spontaneity of redox reactions","Explanation of the effect of concentration on electromotive force (emf) of the cell","Explanation of corrosion and its effects on metallic objects","Applications of electrochemical cells: batteries (dry cells, storage batteries and fuel cells)","Comparison between galvanic (voltaic) cell and electrolytic cell"]},
-{n:"Unit 13: Factors That Affect the Rate of Reactions",ls:["Concept of reaction kinetics","Factors that change the rates of reactions"]},
-{n:"Unit 14: Rate Laws and Measurements",ls:["Theories of reaction rates","Measuring the rates of reaction by observing the mass changes, colour changes and volume changes","Experimental determination of orders of reaction and rate laws","Relationship between reactant concentrations and time for zero, first and second order reaction","Difference between order of reaction and molecularity","Reaction mechanisms and kinetics"]},
-{n:"Unit 15: Radioactivity",ls:["Definition of radioactivity, radioisotopes and comparison between chemical and nuclear reactions","Emission of alpha particles, beta particles and gamma rays and their properties and effect of electric and magnetic field on them","Nuclear equations and radioactive decay series","Stability and instability of nuclei of atoms","Rate of decay of radioactive substances and half-life of a radioisotope","Uses of some radioisotopes","Nuclear fission and fusion and their applications","Health hazards of radioactive substances"]}
-],
-"Biology and Health Sciences":{lv:["S1","S2","S3"],u:{
-"S1":[
-{n:"Unit 1: Introduction to Biology",ls:["What is biology and its branches","Characteristics of living organisms","Scientific method in biology","Laboratory safety and equipment","Importance of biology in Rwanda"]},
-{n:"Unit 2: Introduction to Classification",ls:["Importance of biological classification","Taxonomic groups: kingdom to species","Kingdom Monera (bacteria)","Kingdom Protista and Fungi","Kingdom Plantae and Animalia"]},
-{n:"Unit 3: The External Structure and Importance of Flowering Plants",ls:["Parts of a flowering plant and their functions","Types of roots and stems","Types of leaves and their adaptations","Flowers: structure and functions","Economic importance of flowering plants in Rwanda"]},
-{n:"Unit 4: Magnifying Instruments and Biological Drawings",ls:["Parts and uses of the light microscope","Preparing wet mount slides","Using the microscope correctly","Rules of biological drawing","Calculating magnification"]},
-{n:"Unit 5: Plant and Animal Cells",ls:["Structure of a plant cell","Structure of an animal cell","Differences between plant and animal cells","Functions of cell organelles","Specialised cells and their adaptations"]},
-{n:"Unit 6: Levels of Organisation in Multicellular Organisms",ls:["Cells, tissues, organs and systems","Types of plant tissues","Types of animal tissues","Organ systems in humans","Levels of organisation in plants"]},
-{n:"Unit 7: Food Nutrients and Diet",ls:["Types of food nutrients and their sources","Functions of carbohydrates and lipids","Functions of proteins and vitamins","Functions of minerals and water","A balanced diet and malnutrition in Rwanda"]},
-{n:"Unit 8: Structure and Functions of Human Gas Exchange System",ls:["Structure of the human breathing system","Mechanism of breathing: inhalation","Mechanism of breathing: exhalation","Gas exchange at the alveolus","Respiratory diseases common in Rwanda"]},
-{n:"Unit 9: Tropic Responses",ls:["What are tropic responses?","Phototropism: response to light","Geotropism: response to gravity","Hydrotropism: response to water","Importance of tropisms in plant growth"]},
-{n:"Unit 10: Skeletal Systems of Organisms",ls:["Types of skeletal systems in animals","The human skeleton: axial skeleton","The human skeleton: appendicular skeleton","Functions of the skeleton","Joints: types and movement"]},
-{n:"Unit 11: Classification of Diseases",ls:["Definition of health and disease","Communicable diseases: causes and spread","Non-communicable diseases in Rwanda","Deficiency diseases and their prevention","Prevention and control of diseases in Rwanda"]},
-{n:"Unit 12: Human Reproductive System",ls:["Male reproductive system: structure and functions","Female reproductive system: structure and functions","Functions of reproductive organs and hormones","Menstrual cycle and ovulation","Reproductive health in Rwanda"]},
-{n:"Unit 13: Puberty and Sexual Maturation",ls:["Physical changes during puberty in males","Physical changes during puberty in females","Hormonal control of puberty","Emotional and social changes during adolescence","Adolescent health and hygiene"]},
-{n:"Unit 14: Reproduction, Pregnancy and Childbirth",ls:["Fertilisation and implantation","Development of the foetus in the womb","Placenta: structure and function","The process of childbirth","Postnatal care and breastfeeding"]}
-],
-"S2":[
-{n:"Unit 1: Classification of Kingdom Animalia",ls:["General characteristics of animals","Phylum Chordata","Features of fish","Features of Amphibians"]},
-{n:"Unit 2: Introduction to Environmental Biology",ls:["Concepts of ecology","Components and energy flow in an ecosystem","Energy flow and ecological pyramids"]},
-{n:"Unit 3: Passive Movement Across a Cell Membrane",ls:["Diffusion of gases and solutes","Factors affecting diffusion","Osmosis","Demonstration of osmosis using visking tubing","Demonstration of osmosis in plant tissues","Water relations in plant cells"]},
-{n:"Unit 4: Active Transport",ls:["Active transport and its importance","Role of proteins in active transport","Role of active transport in living organisms","Factors affecting active transport","Endocytosis and exocytosis"]},
-{n:"Unit 5: Identification of Food Components",ls:["Test for starch: iodine test","Testing for reducing sugars: Benedict's test","Test for non-reducing sugars","Testing for proteins: Biuret test","Test for lipids and vitamin C"]},
-{n:"Unit 6: Enzymes",ls:["Types and classification of enzymes","Characteristics of enzymes","Effect of amylase on starch (experiment)","Factors that affect enzyme activity including pH","Mode of enzyme action: lock and key model"]},
-{n:"Unit 7: Photosynthesis",ls:["Introduction to photosynthesis","Necessities of photosynthesis: chlorophyll","Necessity of sunlight in photosynthesis","Necessity of carbon dioxide in photosynthesis","Adaptations of the leaf and limiting factors of photosynthesis","Importance of photosynthesis and mineral requirements for plant growth"]},
-{n:"Unit 8: Transport of Water, Minerals and Organic Foods in Plants",ls:["Transport systems in plants: xylem and phloem","Absorption and uptake of water and mineral salts","Transpiration: definition and factors affecting it","Adaptations of plants to different environmental conditions","Translocation of organic foods in phloem"]},
-{n:"Unit 9: Gaseous Exchange in Humans and Plants",ls:["Respiratory surfaces in organisms","Mechanism of breathing in humans","Gas exchange in the alveolus","Respiratory diseases and effects of smoking","Gaseous exchange in plants through stomata"]},
-{n:"Unit 10: Excretion in Humans",ls:["Need for excretion in living organisms","The role of the liver in excretion","Structure of the urinary system and practices that maintain a healthy urinary system"]},
-{n:"Unit 11: Joints and Movement",ls:["Types of joints in the human body","Action of antagonistic muscles in the movement of a hinge joint","Practices that promote healthy bones and joints"]},
-{n:"Unit 12: Infectious Diseases",ls:["Transmission of infectious diseases","Defence mechanisms against infection","Symptoms, prevention, control and treatment of infectious diseases"]},
-{n:"Unit 13: Immunity and Vaccination",ls:["Antibodies and antigens: definitions","Immune response: innate and adaptive","Immunisation and auto-immunity"]},
-{n:"Unit 14: Sexual Behaviour and Sexual Response",ls:["Male and female sexual response","People and sexual relationships","Sexuality, age and culture"]},
-{n:"Unit 15: Pregnancy Prevention",ls:["Natural contraceptive methods","Artificial contraceptive methods","Non-hormonal based contraceptives"]},
-{n:"Unit 16: Reducing Risk of STIs and HIV and AIDS",ls:["Transmission of sexually transmitted infections","Ways of reducing STIs","Treatment of STIs and HIV/AIDS"]}
-],
-"S3":[
-{n:"Unit 1: Interdependence Among Organisms in an Ecosystem",ls:["Types of feeding relationships in ecosystems","Predation and prey relationships","Symbiosis: mutualism, commensalism and parasitism","Competition for resources among organisms","Importance of interdependence in Rwanda ecosystems"]},
-{n:"Unit 2: Population Size",ls:["Definition of a population and methods of estimating population size","Factors affecting population size: birth rate, death rate, migration","Population growth curves: J-shaped and S-shaped","Human population growth and its implications in Rwanda","Carrying capacity and sustainable resource use"]},
-{n:"Unit 3: Nutrients Cycle",ls:["The carbon cycle and its importance","The nitrogen cycle and its importance","The water hydrological cycle","The phosphorus cycle","Importance of nutrient cycles for sustainability"]},
-{n:"Unit 4: Effects of Human Activities on Ecosystem I",ls:["Deforestation: causes and effects in Rwanda","Soil erosion and land degradation","Mining and its environmental impact","Overfishing in Rwanda lakes","Conservation and reforestation efforts in Rwanda"]},
-{n:"Unit 5: Effects of Human Activities on Ecosystem II",ls:["Agricultural practices and soil degradation","Use of pesticides and herbicides and their effects","Water pollution by industrial activities","Air pollution and its effects on health","Rwanda environmental protection strategies and policies"]},
-{n:"Unit 6: Mitosis and Meiosis",ls:["Cell cycle: interphase and its stages","Stages of mitosis: prophase, metaphase, anaphase, telophase","Significance of mitosis in growth and repair","Meiosis I: the reduction division","Meiosis II and significance of meiosis in sexual reproduction"]},
-{n:"Unit 7: Heterotrophic Nutrition",ls:["Types of heterotrophic nutrition","Holozoic nutrition: digestion in the mouth and oesophagus","Digestion in the stomach","Digestion and absorption in the small intestine","Role of the large intestine and defecation"]},
-{n:"Unit 8: Circulatory System in Humans",ls:["Structure and function of the heart and cardiac cycle","Blood vessels: arteries, veins and capillaries","Components and functions of blood","The lymphatic system","Diseases of the circulatory system in Rwanda"]},
-{n:"Unit 9: Cellular Respiration",ls:["Aerobic respiration: glycolysis","Aerobic respiration: Krebs cycle","Oxidative phosphorylation and ATP production","Anaerobic respiration in yeast and muscles","Applications of fermentation in Rwanda"]},
-{n:"Unit 10: Skin and Homeostatic Mechanisms",ls:["Structure and functions of the skin","Thermoregulation: response to overheating","Thermoregulation: response to overcooling","Osmoregulation: controlling water balance in the body","The role of the kidney in homeostasis"]},
-{n:"Unit 11: Response and Coordination in Plants",ls:["Plant hormones: auxins and their role in growth","Effect of auxins on plant growth: phototropism and geotropism","Gibberellins and cytokinins and their effects","Abscisic acid and ethylene: roles in plant responses","Commercial uses of plant hormones in Rwanda"]},
-{n:"Unit 12: Response and Coordination in Animals",ls:["Structure and types of neurons: sensory, motor, relay","Synaptic transmission: how nerve impulses cross synapses","The brain: structure and functions of main parts","The spinal cord and the reflex arc","The eye: structure, functions and accommodation"]},
-{n:"Unit 13: Asexual and Sexual Reproduction",ls:["Types of asexual reproduction: binary fission, budding, fragmentation","Vegetative propagation in plants: cuttings, grafting, runners","Advantages and disadvantages of asexual reproduction","Sexual reproduction: definition and characteristics","Advantages of sexual reproduction over asexual reproduction"]},
-{n:"Unit 14: Sexual Reproduction in Flowering Plants",ls:["Structure of a flower and its reproductive parts","Pollination: self-pollination and cross-pollination","Fertilisation in flowering plants: double fertilisation","Seed and fruit development after fertilisation","Dispersal of seeds and fruits: mechanisms and examples"]},
-{n:"Unit 15: Sexual Reproduction in Human Beings",ls:["The male reproductive system: detailed structure and functions","The female reproductive system: detailed structure and functions","Gametogenesis: spermatogenesis and oogenesis","Fertilisation and implantation in the uterus","Pregnancy, foetal development, birth and contraception"]},
-{n:"Unit 16: Social Factors that Affect Good Health",ls:["Poverty and malnutrition: causes and effects in Rwanda","Education and health literacy","Cultural practices and their impact on health","Access to healthcare services in Rwanda","Community health promotion strategies"]},
-{n:"Unit 17: Decision-Making Regarding Sexual Relationships",ls:["Peer pressure and decision-making among adolescents","Consequences of early sexual activity","Sexually transmitted infections (STIs) in Rwanda","Abstinence and responsible sexual behaviour","Rwanda policies on adolescent reproductive health"]},
-{n:"Unit 18: HIV and AIDS",ls:["Structure of HIV and modes of transmission","HIV/AIDS progression from infection to AIDS","Prevention of HIV transmission","Antiretroviral treatment (ART) and living with HIV","Reducing stigma and supporting PLHIVs in Rwanda"]},
-{n:"Unit 19: Sexual Behaviour and Sexual Responses",ls:["Normal sexual development in adolescents","Psychological aspects of sexuality","Responsible sexual behaviour","Prevention of unwanted pregnancy","Support systems for adolescents in Rwanda"]},
-{n:"Unit 20: Genetics",ls:["Key terms: gene, allele, genotype, phenotype, locus","Mendelian genetics: monohybrid crosses and Punnett squares","Dominant and recessive alleles: examples in humans","Sex determination in humans: XX and XY chromosomes","Genetic diseases: sickle cell anaemia and haemophilia"]},
-{n:"Unit 21: Gene Technology",ls:["What is gene technology?","Recombinant DNA technology: restriction enzymes and ligases","Cloning: somatic cell nuclear transfer","Genetically modified organisms (GMOs): examples and uses","Ethical issues in gene technology"]},
-{n:"Unit 22: Variation and Adaptive Features",ls:["Types of variation: continuous and discontinuous","Sources of genetic variation: mutation and recombination","Adaptive features of organisms in different environments","Structural, physiological and behavioural adaptations","Adaptation in Rwanda diverse ecosystems"]},
-{n:"Unit 23: Natural and Artificial Selection",ls:["Charles Darwin's theory of natural selection","Evidence for evolution: fossil record and comparative anatomy","Selective breeding: artificial selection by humans","Examples of selective breeding in Rwandan agriculture","Impact of human selection on biodiversity"]}
-]}},
-"Biology":{lv:["S4","S5","S6"],u:{
-"S4":[
-{n:"Unit 1: Introduction to Biodiversity",ls:["Definition and levels of biodiversity: genetic, species, ecosystem","Importance of biodiversity for ecosystem services","Measuring biodiversity: species richness and diversity indices","Threats to biodiversity in Rwanda: habitat loss, overexploitation","Conservation of biodiversity: in-situ and ex-situ strategies"]},
-{n:"Unit 2: Introduction to Classification",ls:["Principles and purpose of biological classification","Taxonomic hierarchy: domain to species","Five-kingdom and three-domain classification systems","Binomial nomenclature and its importance","Constructing and using dichotomous keys"]},
-{n:"Unit 3: Microscopy",ls:["Parts and functions of the light microscope","Preparing biological specimens: wet mounts and stained slides","Calculating magnification and actual size","The electron microscope: SEM and TEM","Applications of microscopy in biology and medicine"]},
-{n:"Unit 4: Cell Structure and Specialisation",ls:["Ultrastructure of a eukaryotic cell: organelles and functions","Prokaryotic vs eukaryotic cell: comparison","Functions of nucleus, mitochondria, chloroplast, ER and Golgi","Functions of ribosomes, lysosomes and vacuoles","Cell specialisation: examples and how structure relates to function"]},
-{n:"Unit 5: Diversity of Specialised Tissues",ls:["Plant meristematic tissues: apical and lateral","Plant permanent tissues: xylem, phloem, epidermis, mesophyll","Animal epithelial tissues: types and functions","Animal connective tissues: blood, cartilage, bone","Muscle and nervous tissues: structure and function"]},
-{n:"Unit 6: Testing for Biological Molecules",ls:["Testing for reducing sugars: Benedict's test","Testing for non-reducing sugars: hydrolysis then Benedict's","Testing for starch: iodine solution","Testing for proteins: Biuret reagent","Testing for lipids: emulsion test"]},
-{n:"Unit 7: Structure and Functions of Biological Molecules",ls:["Carbohydrates: monosaccharides, disaccharides and polysaccharides","Lipids: triglycerides, phospholipids and sterols","Proteins: amino acids, peptide bonds and protein structure","Nucleic acids: DNA and RNA structure and functions","Water: properties and biological importance"]},
-{n:"Unit 8: Enzymes",ls:["Enzyme structure: active site and specificity","Induced fit model of enzyme action","Effect of temperature on enzyme activity","Effect of pH on enzyme activity","Enzyme inhibition: competitive and non-competitive"]},
-{n:"Unit 9: Cell Membrane and Transport",ls:["Fluid mosaic model of the cell membrane","Simple and facilitated diffusion across membranes","Osmosis: water potential in plant and animal cells","Active transport: sodium-potassium pump and co-transport","Bulk transport: endocytosis and exocytosis"]},
-{n:"Unit 10: Cell Division",ls:["The cell cycle: G1, S, G2 and M phases","Mitosis: stages and significance in growth and repair","Meiosis I: homologous chromosome separation","Meiosis II: chromatid separation","Cancer: uncontrolled cell division and treatment"]},
-{n:"Unit 11: Ecology",ls:["Ecosystems: biotic and abiotic components","Food chains, food webs and trophic levels","Energy flow: productivity and losses between trophic levels","Ecological pyramids: numbers, biomass and energy","Nutrient cycling: carbon and nitrogen cycles"]},
-{n:"Unit 12: Plant Physiology",ls:["Water uptake by roots: osmosis and cohesion-tension theory","Transpiration: factors affecting rate and measurement","Translocation in phloem: source-sink model and evidence","Mineral uptake: active transport and deficiency symptoms","Factors affecting growth: light, temperature and water"]}
-],
-"S5":[
-{n:"Unit 1: Interdependence between Organisms within their Environment",ls:["Feeding relationships: food chains and food webs","Types of symbiosis: mutualism, commensalism and parasitism","Competition: intraspecific and interspecific","Predator-prey relationships and population dynamics","Human impact on ecosystems in Rwanda"]},
-{n:"Unit 2: Transport Across the Cell Membrane",ls:["Simple diffusion: factors affecting rate","Facilitated diffusion: channel and carrier proteins","Osmosis: water potential in plant and animal cells","Active transport: ion pumps and energy requirements","Co-transport: glucose and sodium absorption in the gut"]},
-{n:"Unit 3: Chromosomes and Nucleic Acids",ls:["Structure of chromosomes: histones and DNA packaging","DNA double helix: Watson and Crick model","Nucleotides: structure, components and types","RNA types: mRNA, tRNA and rRNA and their roles","Differences between DNA and RNA"]},
-{n:"Unit 4: DNA Replication",ls:["Semi-conservative replication model and evidence","Meselson and Stahl experiment","Enzymes in DNA replication: helicase, DNA polymerase, ligase","Replication fork: leading and lagging strand synthesis","Errors in replication and DNA repair mechanisms"]},
-{n:"Unit 5: Cell and Nuclear Division",ls:["Mitosis: stages and significance in growth and asexual reproduction","Meiosis I: crossing over, chiasmata and independent assortment","Meiosis II: chromatid separation and haploid cells","Comparison of mitosis and meiosis","Clinical significance: cancer, Down syndrome and meiotic errors"]},
-{n:"Unit 6: Protein Synthesis",ls:["Transcription: mRNA synthesis from DNA template","Pre-mRNA processing: capping, polyadenylation and splicing","Translation: ribosome structure, codons and anticodons","Role of tRNA in bringing amino acids to the ribosome","Post-translational modification of proteins"]},
-{n:"Unit 7: Autotrophic Nutrition",ls:["Light-dependent reactions: photolysis of water and ATP synthesis","Light-independent reactions: the Calvin cycle and G3P production","Factors affecting rate of photosynthesis: light, CO2, temperature","C3 vs C4 plants and their adaptations","Limiting factors and commercial applications of photosynthesis"]},
-{n:"Unit 8: Transport System in Plants",ls:["Cohesion-tension theory for water transport in xylem","Structure and function of xylem vessels and tracheids","Structure and function of phloem sieve tubes and companion cells","Mass flow hypothesis for translocation in phloem","Experimental evidence for transport mechanisms in plants"]},
-{n:"Unit 9: Gas Exchange in Animals",ls:["Respiratory surfaces: features and adaptations","Gas exchange in fish: counter-current system in gills","Gas exchange in insects: tracheal system and tracheoles","Human lungs: structure and mechanism of gas exchange","Measurement of respiratory volumes: spirometry"]},
-{n:"Unit 10: Smoking and Related Diseases",ls:["Constituents of cigarette smoke: nicotine, tar, CO","Effect of nicotine on the cardiovascular system","Effect of tar on the respiratory epithelium and cilia","Carbon monoxide and its effect on oxygen transport","Diseases caused by smoking: lung cancer, emphysema, bronchitis"]},
-{n:"Unit 11: General Principles of Homeostasis",ls:["Definition and importance of homeostasis in living organisms","Negative feedback mechanisms: receptor, control centre, effector","Positive feedback: examples and biological significance","The role of the nervous and endocrine systems in homeostasis","Examples: blood glucose, temperature and osmoregulation"]},
-{n:"Unit 12: Regulation of Glucose",ls:["Blood glucose level and its importance for cell function","Role of the pancreas: insulin and glucagon secretion","Glycogenesis: conversion of glucose to glycogen in liver","Glycogenolysis and gluconeogenesis: maintaining blood glucose","Diabetes mellitus: Type 1 and Type 2 differences and management"]},
-{n:"Unit 13: Regulation of Temperature",ls:["Homeotherms vs poikilotherms: comparison","Thermoregulation: physiological responses to overheating","Thermoregulation: physiological responses to overcooling","Role of the hypothalamus as the body thermostat","Fever and hyperthermia: causes, effects and treatment"]},
-{n:"Unit 14: Behaviour and Responses in Mammals",ls:["Innate behaviour: reflexes, taxes and kineses","Learned behaviour: habituation and classical conditioning","Operant conditioning and its applications","Social behaviour: communication and hierarchy in mammals","Biological rhythms: circadian and seasonal patterns"]},
-{n:"Unit 15: Immune System, Vaccination and Antibiotics",ls:["Innate immunity: skin, mucous membranes, phagocytosis","Adaptive immunity: B-lymphocytes, antibodies and humoral response","T-lymphocytes: helper, cytotoxic and memory T cells","Vaccination: types, how vaccines work and herd immunity","Antibiotics: mechanisms of action and drug resistance problem"]},
-{n:"Unit 16: Human Reproductive System and Gametogenesis",ls:["Male reproductive system: detailed anatomy and functions","Female reproductive system: detailed anatomy and functions","Spermatogenesis: stages in the seminiferous tubules","Oogenesis: stages and hormonal control","Fertilisation: events from sperm-egg contact to implantation"]},
-{n:"Unit 17: Genetics",ls:["Monohybrid inheritance: dominant, recessive and co-dominant alleles","Dihybrid inheritance: independent assortment (Mendel's 2nd law)","Codominance and incomplete dominance with examples","Sex-linked inheritance: X-linked traits in humans","Chi-squared test for analysing genetic data"]},
-{n:"Unit 18: Mutations",ls:["Gene mutations: substitution, deletion and insertion of nucleotides","Chromosomal mutations: aneuploidy (Down, Turner, Klinefelter)","Causes of mutations: mutagens (radiation, chemicals)","Consequences of mutations: genetic disorders and cancer","Beneficial mutations and their role in evolution"]}
-],
-"S6":[
-{n:"Unit 1: Population and Natural Resources",ls:["Population growth models: exponential and logistic growth","Carrying capacity and factors limiting population size","Sustainable use of natural resources in Rwanda","Rwanda population dynamics: growth, distribution and challenges","Conservation policies and national parks in Rwanda"]},
-{n:"Unit 2: Concept of Ecosystem",ls:["Definition and types of ecosystems: terrestrial and aquatic","Biotic components: producers, consumers and decomposers","Abiotic components and their influence on ecosystems","Energy flow: gross and net productivity, ecological efficiency","Nutrient cycling: carbon, nitrogen and phosphorus cycles"]},
-{n:"Unit 3: Effect of Human Activities on Ecosystem and Biological Conservation",ls:["Habitat destruction and fragmentation: causes and effects","Overexploitation of species: fishing, hunting, logging","Pollution: air, water and soil pollution in Rwanda","Climate change and its effect on biodiversity","Conservation strategies: national parks, game reserves and seed banks"]},
-{n:"Unit 4: Circulatory System and Lymphatic System",ls:["Structure of the heart: chambers, valves and coronary circulation","Cardiac cycle: systole, diastole and heart sounds","Blood pressure: measurement, regulation and hypertension","Lymphatic system: vessels, lymph nodes and functions","Cardiovascular diseases: atherosclerosis, coronary heart disease"]},
-{n:"Unit 5: Energy from Respiration",ls:["Overview of cellular respiration: aerobic and anaerobic","Glycolysis: substrate-level phosphorylation in the cytoplasm","Krebs cycle: decarboxylation and reduction in the matrix","Electron transport chain and oxidative phosphorylation","Anaerobic respiration: ethanol fermentation and lactic acid production"]},
-{n:"Unit 6: Microbiology and Biotechnology",ls:["Types of microorganisms: bacteria, fungi, viruses and protists","Bacterial growth: growth phases and measurement techniques","Industrial fermentation: beer, yoghurt, antibiotics and biogas","Genetic engineering: recombinant DNA technology and gene cloning","Biotechnology applications: insulin, vaccines and GM crops"]},
-{n:"Unit 7: Plant Reproduction and Growth",ls:["Structure and functions of a flower and its reproductive parts","Pollination: biotic and abiotic vectors","Double fertilisation in angiosperms: formation of seed and endosperm","Seed structure, germination conditions and seedling growth","Plant growth regulators: auxins, gibberellins and their commercial uses"]},
-{n:"Unit 8: Nervous System and Sense Organs",ls:["Neuron structure: dendrites, axon, myelin sheath and nodes of Ranvier","Resting potential, depolarisation and action potential propagation","Synaptic transmission: neurotransmitters and receptor binding","Structure and functions of the main brain regions","The eye: accommodation, near and far vision, defects and correction"]},
-{n:"Unit 9: Hormones and Homeostasis",ls:["Endocrine glands and their hormones: pituitary, thyroid, adrenal, pancreas","Hormonal control of blood glucose: insulin and glucagon","Hormonal regulation of the menstrual cycle: FSH, LH, oestrogen, progesterone","Thermoregulation: the role of the hypothalamus and skin","ADH and osmoregulation by the kidney and collecting duct"]},
-{n:"Unit 10: Genetics and Evolution",ls:["Monohybrid and dihybrid inheritance: Mendelian ratios","Linkage, crossing over and recombination frequency","Population genetics: Hardy-Weinberg equilibrium and conditions","Evidence for evolution: fossil record, comparative anatomy and molecular","Natural selection, genetic drift and speciation"]},
-{n:"Unit 11: Skeletons, Muscles and Movement",ls:["Types of skeletal systems: exoskeleton, endoskeleton, hydrostatic","Human skeleton: axial and appendicular components","Structure of synovial joints: cartilage, synovial fluid, ligaments","Muscle contraction: sliding filament theory and role of ATP","Bone and joint disorders: osteoporosis, arthritis and muscular dystrophy"]}
-]}},
-"Physics":{lv:["S1","S2","S3","S4","S5","S6"],u:{
-"S1":[
-{n:"Unit 1: Laboratory Safety Rules and Measurement of Physical Quantities",ls:["Laboratory safety rules and precautions","Laboratory apparatus and their uses","Measurement of length using ruler and vernier calipers","Measurement of mass using beam balance","Measurement of time, volume and density","Significant figures and scientific notation"]},
-{n:"Unit 2: Qualitative Analysis of Linear Motion",ls:["Distance, displacement, speed and velocity","Uniform and non-uniform motion","Distance-time graphs","Velocity-time graphs","Acceleration and deceleration"]},
-{n:"Unit 3: Force (I)",ls:["Definition and types of forces","Effects of forces on objects","Resultant force and equilibrium","Friction: types and factors affecting it","Elasticity and Hooke's law"]},
-{n:"Unit 4: Newton's Laws of Motion",ls:["Newton's first law: inertia and equilibrium","Newton's second law: F=ma calculations","Newton's third law: action and reaction pairs","Applications of Newton's laws in daily life","Momentum and impulse"]},
-{n:"Unit 5: Centre of Gravity",ls:["Definition of centre of gravity","Finding centre of gravity of regular objects","Finding centre of gravity of irregular objects","Stability: stable, unstable and neutral equilibrium","Applications of centre of gravity"]},
-{n:"Unit 6: Work, Power and Energy",ls:["Work: definition and calculations","Kinetic energy and its calculations","Potential energy and its calculations","Conservation of mechanical energy","Power: definition, formula and efficiency"]},
-{n:"Unit 7: Simple Machines (I)",ls:["Types of simple machines","Levers: types, mechanical advantage and uses","Pulleys: types, mechanical advantage and uses","Inclined planes, wedges and screws","Efficiency of simple machines"]},
-{n:"Unit 8: Kinetic Theory and States of Matter",ls:["States of matter: properties of solids, liquids and gases","Kinetic particle theory: explaining properties of matter","Brownian motion and evidence for kinetic theory","Changes of state: melting, boiling, condensation, sublimation","Latent heat: definition and examples"]},
-{n:"Unit 9: Heat and Temperature",ls:["Difference between heat and temperature","Thermometers: types and temperature scales","Thermal expansion of solids, liquids and gases","Heat transfer by conduction","Heat transfer by convection and radiation"]},
-{n:"Unit 10: Magnetism",ls:["Properties of magnets and magnetic materials","Magnetic field: field lines and patterns","Ferromagnetic, paramagnetic and diamagnetic materials","Making and demagnetising magnets","Applications of magnets in daily life"]},
-{n:"Unit 11: Electrostatic (I)",ls:["Electric charge: positive and negative charges","Methods of charging: friction, contact and induction","Electric field: definition and field lines","Coulomb's law: force between charges","Applications of electrostatics in daily life"]},
-{n:"Unit 12: Current Electricity (I)",ls:["Electric current, voltage and resistance","Ohm's law and its verification experiment","Resistors in series circuits","Resistors in parallel circuits","Electrical power, energy and safety"]},
-{n:"Unit 13: Rectilinear Propagation of Light",ls:["Properties and rectilinear propagation of light","Formation of shadows and eclipses","The pinhole camera: image formation","Reflection of light: laws and plane mirror images","Applications of rectilinear propagation of light"]}
-],
-"S2":[
-{n:"Unit 1: Sources of Errors in Measurement of Physical Quantities",ls:["Types of errors: systematic and random errors","Accuracy and precision in measurements","Significant figures and rounding","Reducing errors in experiments","Expressing results with uncertainty"]},
-{n:"Unit 2: Quantitative Analysis of Linear Motion",ls:["Equations of uniformly accelerated motion","Solving problems using kinematic equations","Free fall and acceleration due to gravity","Projectile motion: horizontal and vertical components","Terminal velocity"]},
-{n:"Unit 3: Friction Force",ls:["Types of friction: static and kinetic friction","Factors affecting friction","Advantages and disadvantages of friction","Reducing friction: lubricants and bearings","Rolling friction vs sliding friction"]},
-{n:"Unit 4: Density and Pressure in Solids and Fluids",ls:["Density: definition, formula and calculations","Pressure in solids: force per unit area","Pressure in liquids: the rho-g-h formula","Atmospheric pressure and the barometer","Pressure gauges and their applications"]},
-{n:"Unit 5: Measuring Liquid Pressure with a Manometer",ls:["Construction and uses of a manometer","Using a manometer to measure gas pressure","Gauge pressure vs absolute pressure","U-tube manometer calculations","Applications of manometers in industry"]},
-{n:"Unit 6: Pascal's Principle and its Applications",ls:["Pascal's principle: transmission of pressure in fluids","The hydraulic press: structure and working principle","Hydraulic brakes in vehicles","The hydraulic lifting jack","Other hydraulic systems and applications"]},
-{n:"Unit 7: Archimedes' Principle and Atmospheric Pressure",ls:["Upthrust and buoyancy force","Archimedes' principle: statement and proof","Law of flotation: conditions for floating","Applications: ships, submarines and hot air balloons","Atmospheric pressure and its variations with altitude"]},
-{n:"Unit 8: Work, Power and Energy",ls:["Work done by a constant force","Gravitational potential energy","Kinetic energy and its calculations","Conservation of mechanical energy","Power and efficiency calculations"]},
-{n:"Unit 9: Conservation of Mechanical Energy in Isolated Systems",ls:["Law of conservation of energy","Total mechanical energy: KE + PE","Energy transformations in a pendulum","Energy transformations in projectile motion","Energy losses due to friction and air resistance"]},
-{n:"Unit 10: Gas Laws Experiments",ls:["Boyle's Law: pressure-volume relationship at constant temperature","Charles's Law: volume-temperature relationship at constant pressure","Gay-Lussac's Law: pressure-temperature relationship","Combined gas law and calculations","Ideal gas equation: PV=nRT and applications"]},
-{n:"Unit 11: Magnetisation and Demagnetisation",ls:["Methods of magnetisation: stroking and induction","Magnetic domain theory","Methods of demagnetisation","Permanent and temporary magnets","Magnetic induction and its applications"]},
-{n:"Unit 12: Applications of Electrostatics",ls:["Electric field lines and equipotential surfaces","Capacitors and charge storage","Charging and discharging a capacitor","The Van de Graaff generator","Applications: photocopier, inkjet printer, lightning conductor"]},
-{n:"Unit 13: Arrangement of Resistors in an Electric Circuit",ls:["Resistors in series: total resistance, current and voltage","Resistors in parallel: total resistance, current and voltage","Mixed series-parallel circuits","Internal resistance and EMF of a cell","Power dissipation in resistors"]},
-{n:"Unit 14: Reflection of Light in Curved Mirrors",ls:["Types of curved mirrors: concave and convex","Terms used with curved mirrors: principal axis, focal point, radius","Ray diagrams for concave mirrors: real and virtual images","Ray diagrams for convex mirrors","Mirror formula and magnification"]},
-{n:"Unit 15: Basic Electronic Components",ls:["Introduction to electronics and electronic components","Resistors: types, colour code and uses","Capacitors: types and uses","Diodes: structure, symbol and function","Transistors: NPN and PNP types and uses"]}
-],
-"S3":[
-{n:"Unit 1: Graphs of Linear Motion",ls:["Interpreting distance-time graphs","Interpreting velocity-time graphs","Calculating acceleration and displacement from v-t graphs","Drawing graphs from given data on motion","Non-uniform motion: curved graphs and analysis"]},
-{n:"Unit 2: Newton's Laws and Applications",ls:["Newton's first law: equilibrium and inertia","Newton's second law: net force and acceleration","Newton's third law: action-reaction pairs","Momentum: p=mv and conservation","Impulse and change in momentum"]},
-{n:"Unit 3: Collisions and Conservation of Momentum",ls:["Law of conservation of momentum","Elastic collisions: kinetic energy conserved","Inelastic collisions: kinetic energy not conserved","Explosions and recoil velocity","Applications of momentum conservation"]},
-{n:"Unit 4: Circular Motion",ls:["Uniform circular motion: speed and angular velocity","Centripetal acceleration: a=v2/r","Centripetal force: F=mv2/r","Conical pendulum and banking of roads","Applications of circular motion"]},
-{n:"Unit 5: Simple Harmonic Motion",ls:["Definition and conditions for SHM","Displacement, velocity and acceleration in SHM","Energy in SHM: kinetic and potential energy","Simple pendulum: period and frequency","Mass-spring system: period and frequency"]},
-{n:"Unit 6: Laws of Thermodynamics",ls:["Thermal equilibrium and the zeroth law","First law of thermodynamics: internal energy, heat and work","Second law of thermodynamics and entropy","Heat engines: efficiency calculations","Refrigerators and heat pumps"]},
-{n:"Unit 7: Introduction to Electromagnetic Induction",ls:["Magnetic flux and Faraday's law of electromagnetic induction","Lenz's law: direction of induced current","Factors affecting induced EMF","Fleming's right-hand rule","Applications of electromagnetic induction"]},
-{n:"Unit 8: Electrical Power Transmission",ls:["AC vs DC power generation","Step-up and step-down transformers: working principle","Why high voltage is used for power transmission","Power losses in transmission lines: calculations","Rwanda national electricity grid"]},
-{n:"Unit 9: Electric Field Intensity",ls:["Electric field: definition and units","Electric field lines: drawing and interpretation","Electric field between parallel plates","Electric potential difference and its relationship to E","Motion of charges in uniform electric fields"]},
-{n:"Unit 10: House Electric Installation",ls:["The domestic electricity supply in Rwanda","Live, neutral and earth wires: roles and colours","Fuses and circuit breakers: protection mechanisms","Wiring a plug correctly and safely","Electrical safety rules at home and school"]},
-{n:"Unit 11: Basic Alternating Current Circuits",ls:["AC waveforms: amplitude, frequency and period","RMS values of AC voltage and current","Resistors in AC circuits: current and voltage in phase","Capacitors in AC circuits: capacitive reactance","Inductors in AC circuits: inductive reactance"]},
-{n:"Unit 12: Refraction of Light",ls:["Laws of refraction and Snell's law","Refractive index: definition and calculation","Critical angle and total internal reflection","Applications: optical fibres, periscope and prisms","Dispersion of white light: formation of spectrum"]},
-{n:"Unit 13: Lenses and Optical Instruments",ls:["Types of lenses: converging and diverging","Image formation by converging lenses: ray diagrams","Image formation by diverging lenses","Lens formula and magnification","Optical instruments: microscope, telescope and camera"]},
-{n:"Unit 14: Sound Waves",ls:["Properties of sound waves: longitudinal waves","Speed of sound in different media","Reflection of sound: echo and reverberation","Resonance and natural frequency","Applications of sound: ultrasound in medicine"]},
-{n:"Unit 15: Colour of Light and Optical Phenomena",ls:["White light and the visible spectrum","Colours of opaque objects: absorbed and reflected light","Addition and subtraction of colours","Formation of rainbows","Polarisation of light and its applications"]}
-],
-"S4":[
-{n:"Unit 1: Thin Lenses",ls:["Types of thin lenses: converging and diverging","Ray diagrams for converging lenses","Ray diagrams for diverging lenses","Lens formula: 1/f=1/v-1/u and calculations","Magnification and its calculation","Graphical determination of focal length"]},
-{n:"Unit 2: Simple and Compound Optical Instruments",ls:["The simple magnifier: magnifying power","Compound microscope: structure and magnification","Refracting telescope: structure and magnifying power","Reflecting telescope: structure and uses","The camera: structure and functioning"]},
-{n:"Unit 3: Moments and Equilibrium of Bodies",ls:["Moment of a force: definition and calculation","Principle of moments","Centre of mass and centre of gravity","Conditions for equilibrium: translational and rotational","Stability: stable, unstable and neutral equilibrium"]},
-{n:"Unit 4: Work, Energy and Power",ls:["Work done by a constant force","Kinetic energy and gravitational potential energy","Conservation of mechanical energy: applications","Power: definition, formula and units","Efficiency of machines and energy transformations"]},
-{n:"Unit 5: Kirchhoff's Laws and Electric Circuits",ls:["Simple electric circuit and its construction","Kirchhoff's current law (KCL) and its applications","Kirchhoff's voltage law (KVL) and its applications","EMF and internal resistance of a cell","The Wheatstone bridge and potentiometer"]},
-{n:"Unit 6: Sources of Energy in the World",ls:["Fossil fuels: coal, petroleum and natural gas","Nuclear energy: fission and nuclear power plants","Solar energy and photovoltaic cells","Wind energy and hydroelectric power","Rwanda energy sources and renewable energy potential"]},
-{n:"Unit 7: Energy Degradation and Power Generation",ls:["Energy degradation: conversion of useful to waste energy","Efficiency of power generation","Thermal power stations: working principle","Hydroelectric power stations: structure and operation","Environmental impact of power generation"]},
-{n:"Unit 8: Projectile and Uniform Circular Motion",ls:["Projectile motion: horizontal launch","Projectile motion: launch at an angle","Range, maximum height and time of flight","Uniform circular motion: angular velocity and period","Centripetal acceleration and centripetal force"]},
-{n:"Unit 9: Universal Gravitational Field",ls:["Newton's law of universal gravitation","Gravitational field strength g","Orbital speed and period of satellites","Geostationary satellites and their uses","Escape velocity and gravitational potential energy"]},
-{n:"Unit 10: Effects of Electric and Electric Potential Fields",ls:["Electric field: definition and field lines","Electric field between parallel plates","Capacitance: definition and factors affecting it","Energy stored in a capacitor","Motion of charges in electric and potential fields"]},
-{n:"Unit 11: Applications of Laws of Thermodynamics",ls:["First law of thermodynamics: internal energy, heat and work","Isothermal and adiabatic processes","Second law of thermodynamics and entropy","Heat engines: Carnot cycle and efficiency","Refrigerators and heat pumps: working principle"]},
-{n:"Unit 12: General Structure of the Solar System",ls:["The Sun: structure and energy source","Planets and their characteristics in the solar system","Moons, asteroids, comets and meteoroids","Kepler's three laws of planetary motion","Space exploration and satellites"]}
-],
-"S5":[
-{n:"Unit 1: Wave and Practical Nature of Light",ls:["Wave-particle duality: de Broglie hypothesis","Planck's quantum theory and the photon","Photoelectric effect: observations and explanations","Einstein's photoelectric equation: calculations","Applications of photoelectric effect"]},
-{n:"Unit 2: Simple Harmonic Motion",ls:["Defining SHM: restoring force and displacement","Equations of SHM: x, v and a as functions of time","Energy in SHM: kinetic and potential energy exchange","Period of a simple pendulum: derivation and experiment","Period of a mass-spring system: derivation and experiment"]},
-{n:"Unit 3: Forced Oscillations and Resonance of a System",ls:["Free oscillations and natural frequency","Forced oscillations: driving frequency","Resonance: definition, conditions and examples","Damped oscillations: light, critical and heavy damping","Applications and effects of resonance in structures"]},
-{n:"Unit 4: Propagation of Mechanical Waves",ls:["Transverse and longitudinal waves: definitions and examples","Wave characteristics: amplitude, frequency, wavelength, speed","Wave equation: v=f times lambda and calculations","Superposition and interference of waves","Stationary waves: nodes and antinodes"]},
-{n:"Unit 5: Complex Electrical Circuits",ls:["EMF and internal resistance of cells: calculations","Cells in series and parallel configurations","Kirchhoff's current law (KCL): complex circuits","Kirchhoff's voltage law (KVL): complex circuits","The potentiometer and Wheatstone bridge"]},
-{n:"Unit 6: Electromagnetism",ls:["Magnetic force on a current-carrying conductor: F=BIL","Fleming's left-hand rule and the DC motor","Magnetic force on a moving charge: F=BQv","Electromagnetic induction: Faraday's law","The AC generator: structure and operation"]},
-{n:"Unit 7: Electromagnetic Waves",ls:["Nature and properties of electromagnetic waves","The electromagnetic spectrum: complete overview","Radio waves and microwaves: production and uses","Infrared, visible light and ultraviolet: properties and uses","X-rays and gamma rays: properties and uses"]},
-{n:"Unit 8: Atomic Spectra",ls:["Emission spectra: line and continuous spectra","Absorption spectra and dark lines","Bohr's model of the hydrogen atom","Energy levels and calculation of spectral line frequencies","Lasers: stimulated emission and applications"]},
-{n:"Unit 9: Photoelectric Effect and Wave-Particle Duality",ls:["Wave properties of particles: de Broglie wavelength calculations","Evidence for wave nature of electrons: electron diffraction","The electron microscope: principles and applications","Heisenberg uncertainty principle","Applications in nanotechnology"]},
-{n:"Unit 10: Analog and Digital Signals",ls:["Analog signals: characteristics and examples","Digital signals: bits, bytes and binary system","Advantages of digital signals over analog signals","Analog-to-digital conversion (ADC) process","Sampling rate and quantisation"]},
-{n:"Unit 11: Mobile Phone and Radio Communication",ls:["Radio waves: production and transmission","Amplitude modulation (AM) and frequency modulation (FM)","How a mobile phone network works","Communication satellites: geostationary and polar orbits","Signal processing: amplification and filtering"]},
-{n:"Unit 12: Digital Electronics",ls:["Logic gates: AND, OR and NOT gates","NAND, NOR and XOR gates: truth tables","Boolean algebra and simplification","Combinations of logic gates for specific functions","Half-adder and full-adder circuits"]}
-],
-"S6":[
-{n:"Unit 1: Sound Waves",ls:["Properties and characteristics of sound waves","Speed of sound in different media and factors affecting it","Intensity of sound and the decibel scale","Doppler effect: formula and applications","Ultrasound: medical and industrial applications"]},
-{n:"Unit 2: Climate Change and Greenhouse Effect",ls:["The greenhouse effect: natural and enhanced","Greenhouse gases: CO2, CH4, N2O and water vapour","Evidence for global climate change","Effects of climate change in Rwanda and Africa","Mitigation and adaptation strategies"]},
-{n:"Unit 3: Application of Physics in Agriculture",ls:["Irrigation systems: pressure and flow calculations","Water pumps: types, working principles and efficiency","Soil physics: porosity, water retention and drainage","Grain drying: heat transfer principles","Solar energy applications in agriculture in Rwanda"]},
-{n:"Unit 4: Earthquake, Landslide, Tsunami, Floods and Cyclone",ls:["Earthquakes: causes, seismic waves and measurement","Effects and prevention of earthquakes","Landslides: causes, effects and prevention in Rwanda","Tsunamis: formation, early warning and safety","Floods and cyclones: physics and disaster management"]},
-{n:"Unit 5: Atomic Nuclei and Radioactive Decay",ls:["Nuclear structure: protons, neutrons, mass number and isotopes","Types of radioactive decay: alpha, beta and gamma","Half-life: definition and decay calculations","Nuclear fission and chain reaction","Nuclear fusion and stellar energy production","Applications of radioactivity in medicine and industry"]},
-{n:"Unit 6: Applications of Optical Fibre in Telecommunication",ls:["Total internal reflection: conditions and critical angle","Structure and types of optical fibres","Propagation of light through optical fibres","Advantages of optical fibres over copper cables","Applications in telecommunications in Rwanda"]},
-{n:"Unit 7: Block Diagram of Telecommunication",ls:["Basic block diagram of a telecommunication system","Modulation: AM and FM principles","Transmission and reception of signals","Multiplexing and signal processing","Mobile phone networks and satellite communication"]},
-{n:"Unit 8: Nature of Particles and their Interactions",ls:["Classification of subatomic particles: leptons and hadrons","Fundamental forces: gravitational, electromagnetic, strong and weak","Antimatter and pair production","Conservation laws in particle interactions","Particle accelerators and detectors"]},
-{n:"Unit 9: Properties and Basic Principles of Quarks",ls:["Introduction to quarks: types and properties","Quark composition of protons and neutrons","Colour charge and quantum chromodynamics","Gluons and the strong nuclear force","Evidence for quarks from scattering experiments"]},
-{n:"Unit 10: Effect of X-Rays",ls:["Production of X-rays: the X-ray tube","Properties of X-rays and the electromagnetic spectrum","X-ray diffraction and Bragg's law","Biological effects of X-rays: ionising radiation","Medical applications: radiography and CT scanning"]},
-{n:"Unit 11: Effects of Lasers",ls:["Spontaneous and stimulated emission of radiation","Population inversion and laser operation","Types of lasers and their properties","Medical applications of lasers","Industrial and communication applications of lasers"]},
-{n:"Unit 12: Medical Imaging",ls:["X-ray imaging: principles and diagnostic uses","Ultrasound imaging: piezoelectric effect and applications","Magnetic Resonance Imaging (MRI): principles","Positron Emission Tomography (PET) scanning","Comparison of medical imaging techniques"]},
-{n:"Unit 13: Radiation and Medicine",ls:["Types of ionising radiation and their penetrating power","Radiation dosimetry: absorbed dose and equivalent dose","Biological effects of ionising radiation","Radiation protection: distance, shielding and time","Radiotherapy: using radiation to treat cancer"]},
-{n:"Unit 14: Cosmology, Galaxies and Expansion of Universe",ls:["The Big Bang theory: evidence and timeline","The expanding universe: Hubble's law and red shift","Galaxies: types, structure and formation","Dark matter and dark energy","The future of the universe: scenarios and theories"]}
-]}},
-"Mathematics":{lv:["S1","S2","S3","S4","S5","S6"],u:{
-"S1":[{n:"Unit 1: Sets",ls:["Introduction to sets: definition and notation","Types of sets: finite, infinite, empty and universal","Subsets and equal sets","Set operations: union and intersection","Venn diagrams: two and three sets"]},{n:"Unit 2: Sets of Numbers",ls:["Natural numbers and whole numbers","Integers: positive and negative","Rational and irrational numbers","Real numbers and the number line","Operations on sets of numbers"]},{n:"Unit 3: Linear Functions, Equations and Inequalities",ls:["Linear functions: definition and graphs","Solving linear equations with one unknown","Solving linear equations with two unknowns","Linear inequalities: solving and graphing","Word problems using linear equations and inequalities"]},{n:"Unit 4: Percentage, Discount, Profit and Loss",ls:["Percentages: calculation and applications","Discount: definition and calculations","Profit and loss: definitions and calculations","Simple interest calculations","Real-life applications in Rwanda"]},{n:"Unit 5: Ratio and Proportion",ls:["Ratio: definition and simplification","Dividing quantities in a given ratio","Direct proportion","Inverse proportion","Applications of ratio and proportion"]},{n:"Unit 6: Points, Lines and Angles",ls:["Points, lines and line segments","Types of angles","Angle relationships: complementary and supplementary","Angles on a straight line and at a point","Geometric constructions using ruler and compass"]},{n:"Unit 7: Solids",ls:["Types of solids: prisms, pyramids, cylinders, cones, spheres","Nets of solids","Surface area of solids","Volume of prisms and cylinders","Volume of pyramids, cones and spheres"]},{n:"Unit 8: Statistics (Ungrouped Data)",ls:["Data collection and organisation","Frequency tables and pictograms","Bar charts and pie charts","Mean, median, mode and range","Interpreting statistical graphs"]},{n:"Unit 9: Probability",ls:["Basic concepts: experiment, outcome, sample space and event","Probability scale: 0 to 1","Theoretical probability","Experimental probability","Simple probability problems"]}],
-"S2":[{n:"Unit 1: Rational and Irrational Numbers",ls:["Properties of rational numbers","Operations on rational numbers","Irrational numbers and surds","Approximation and estimation","Number patterns and sequences"]},{n:"Unit 2: Linear and Simultaneous Equations",ls:["Linear equations with two variables","Simultaneous equations: substitution method","Simultaneous equations: elimination method","Graphing linear equations","Word problems with simultaneous equations"]},{n:"Unit 3: Quadratic Expressions and Equations",ls:["Expanding double brackets","Factorising quadratics: common factor and grouping","Factorising quadratic trinomials","Solving quadratics by factorisation","The quadratic formula"]},{n:"Unit 4: Geometry: Quadrilaterals and Circles",ls:["Properties of special quadrilaterals","Areas of quadrilaterals","Parts of a circle","Circumference and area of a circle","Arc length and sector area"]},{n:"Unit 5: Trigonometry",ls:["Trigonometric ratios: sin, cos, tan","Finding sides and angles in right triangles","The sine rule","The cosine rule","Area of a triangle using trigonometry"]}],
-"S3":[{n:"Unit 1: Indices and Logarithms",ls:["Laws of indices","Negative and fractional indices","Definition and properties of logarithms","Laws of logarithms","Solving exponential and logarithmic equations"]},{n:"Unit 2: Functions",ls:["Definition: domain and range","Types: injective, surjective, bijective","Composite functions","Inverse functions","Graphs of functions and transformations"]},{n:"Unit 3: Polynomials",ls:["Operations on polynomials","Polynomial division","Remainder and factor theorems","Solving polynomial equations","Graphs of polynomial functions"]},{n:"Unit 4: Vectors in 2D",ls:["Vector notation: column and component form","Vector addition and subtraction","Scalar multiplication and magnitude","Unit vectors and position vectors","Applications of vectors in geometry"]},{n:"Unit 5: Statistics and Probability",ls:["Measures of central tendency: mean, median, mode","Measures of dispersion: variance and standard deviation","Probability: sample space and events","Conditional probability","Introduction to probability distributions"]}],
-"S4":[{n:"Unit 1: Logic and Set Theory",ls:["Propositions and logical connectives","Truth tables","Logical equivalences and tautologies","Set operations and Venn diagrams","Applications of logic"]},{n:"Unit 2: Functions and Graphs",ls:["Injective, surjective and bijective functions","Composite and inverse functions","Polynomial functions: zeros and factors","Rational functions and asymptotes","Graph transformations"]},{n:"Unit 3: Sequences and Series",ls:["Arithmetic sequences: term and sum formulae","Geometric sequences: term and sum formulae","Sigma notation","Infinite geometric series","Applications of sequences and series"]},{n:"Unit 4: Trigonometry (Advanced)",ls:["Graphs of sin, cos, tan: amplitude and period","Trigonometric identities","Compound and double angle formulae","Solving trigonometric equations","Inverse trigonometric functions"]},{n:"Unit 5: Differential Calculus",ls:["Limits and continuity","Derivative from first principles","Rules: power, chain, product and quotient","Applications: tangents and normals","Optimisation and curve sketching"]},{n:"Unit 6: Integral Calculus",ls:["Anti-differentiation and indefinite integrals","Standard integration rules","Definite integrals and area under a curve","Integration by substitution","Applications of integration"]}],
-"S5":[{n:"Unit 1: Complex Numbers",ls:["Definition: real and imaginary parts","Arithmetic of complex numbers","Argand diagram","Modulus, argument and polar form","De Moivre's theorem"]},{n:"Unit 2: Matrices and Determinants",ls:["Matrix notation and operations","Determinants of 2x2 and 3x3 matrices","Inverse matrices","Solving systems using matrices","Applications of matrices"]},{n:"Unit 3: Advanced Calculus",ls:["Integration by parts","Integration using partial fractions","Differential equations: separable variables","First-order linear ODEs","Applications: growth and decay models"]},{n:"Unit 4: Probability and Statistics",ls:["Binomial distribution","Poisson distribution","Normal distribution and Z-scores","Hypothesis testing","Confidence intervals"]},{n:"Unit 5: Vectors in 3D",ls:["3D coordinates and position vectors","Vector equation of a line","Scalar (dot) product: angles between vectors","Vector (cross) product","Vector equation of a plane"]}],
-"S6":[{n:"Unit 1: Complex Numbers",ls:["Definition of complex numbers: real and imaginary parts","Arithmetic operations on complex numbers","Argand diagram and geometric representation","Modulus, argument and polar form","De Moivre's theorem and applications"]},{n:"Unit 2: Logarithmic and Exponential Functions",ls:["Review of indices and logarithms","Natural logarithm and exponential function","Graphs of logarithmic and exponential functions","Solving exponential and logarithmic equations","Applications: growth and decay models"]},{n:"Unit 3: Taylor and Maclaurin's Expansions",ls:["Taylor series: definition and derivation","Maclaurin series: definition and standard expansions","Maclaurin expansion of sin x, cos x, e^x and ln(1+x)","Using expansions to approximate values","Range of validity of series expansions"]},{n:"Unit 4: Integration",ls:["Integration by substitution","Integration by parts","Integration of rational functions using partial fractions","Definite integrals and area under a curve","Volumes of revolution"]},{n:"Unit 5: Differential Equations",ls:["First order differential equations: separable variables","First order linear differential equations","Second order differential equations with constant coefficients","Particular solutions and initial conditions","Applications of differential equations"]},{n:"Unit 6: Intersection and Sum of Subspaces",ls:["Vector spaces and subspaces","Intersection of subspaces","Sum and direct sum of subspaces","Basis and dimension of subspaces","Applications of subspaces"]},{n:"Unit 7: Transformation of Matrices",ls:["Linear transformations: definition and properties","Matrix representation of linear transformations","Eigenvalues and eigenvectors","Diagonalisation of matrices","Applications of matrix transformations"]},{n:"Unit 8: Conics",ls:["The circle: equation and properties","The parabola: equation and properties","The ellipse: equation and properties","The hyperbola: equation and properties","Applications of conics in real life"]},{n:"Unit 9: Random Variables",ls:["Discrete random variables: definition and probability distribution","Expected value and variance of discrete random variables","Continuous random variables and probability density functions","The normal distribution: properties and calculations","Applications of probability distributions"]}]
-}},
-"English":{lv:["S1","S2","S3","S4","S5","S6"],u:{
-"S1":[{n:"Unit 1: Listening and Speaking",ls:["Greetings, introductions and classroom language","Giving and following instructions","Describing people and objects","Asking and answering questions","Simple oral presentations"]},{n:"Unit 2: Reading Comprehension",ls:["Skimming and scanning strategies","Identifying main ideas and supporting details","Inference and prediction","Vocabulary in context","Responding to different text types"]},{n:"Unit 3: Writing Skills",ls:["Sentence structure","Paragraph writing: topic sentences","Descriptive writing","Informal letters","Proofreading and editing"]},{n:"Unit 4: Grammar",ls:["Nouns, pronouns and adjectives","Verb tenses: simple present and past","Questions and negatives","Prepositions and conjunctions","Articles and determiners"]}],
-"S2":[{n:"Unit 1: Communication Skills",ls:["Formal vs informal communication","Discussion and debate techniques","Active listening strategies","Giving constructive feedback","Group presentations"]},{n:"Unit 2: Reading: Short Stories",ls:["Elements of a short story","Character and setting","Narrative techniques","Analysing dialogue","Creative written response"]},{n:"Unit 3: Essay Writing",ls:["Types of essays","Planning and outlining","Writing introductions and conclusions","Body paragraphs with evidence","Revision and editing"]},{n:"Unit 4: Grammar: Complex Structures",ls:["Complex sentences and clause types","Reported speech","Conditional sentences","Passive voice","Relative clauses"]}],
-"S3":[{n:"Unit 1: Poetry",ls:["Forms and elements of poetry","Figures of speech","Analysing mood and tone","Comparing poems","Writing original poetry"]},{n:"Unit 2: Drama",ls:["Elements of drama","Reading and performing a play","Characterisation and conflict","Themes in drama","Writing a dramatic scene"]},{n:"Unit 3: Research and Report Writing",ls:["Research skills","Note-taking and summarising","Structuring a research report","Referencing and plagiarism","Oral presentation of research"]},{n:"Unit 4: Advanced Grammar",ls:["Modal verbs","Clause types","Subject-verb agreement","Academic vocabulary","Common errors and correction"]}],
-"S4":[{n:"Unit 1: Novel Study",ls:["Introduction and context of the set novel","Character analysis","Plot and narrative arc","Themes, symbolism and language","Writing a literary essay"]},{n:"Unit 2: Academic Writing",ls:["Argumentative essays","Integrating sources","Academic vocabulary","Coherence and cohesion","Proofreading and peer review"]},{n:"Unit 3: Oral Communication",ls:["Formal presentations","Interview techniques","Negotiation and persuasion","Public speaking skills","Listening to lectures"]},{n:"Unit 4: Language and Context",ls:["Register and tone","Figurative and rhetorical language","Discourse markers","Style and voice","Language variation"]}],
-"S5":[{n:"Unit 1: Advanced Literature",ls:["Critical literary analysis","Contextual and historical reading","African literature","Comparing texts","Applying literary criticism frameworks"]},{n:"Unit 2: Professional Writing",ls:["CVs and cover letters","Business emails and reports","Formal proposals","Technical writing","Digital professional communication"]},{n:"Unit 3: Media and Language",ls:["Analysing media texts","Bias and representation","Propaganda techniques","Digital literacy","Creating media content"]},{n:"Unit 4: Linguistics",ls:["Phonology, morphology and syntax","Language change","Dialects and sociolects","Language and power","Multilingualism in Rwanda"]}],
-"S6":[{n:"Unit 1: Extended Literature Study",ls:["Comparative textual analysis","Author's craft and purpose","Social and historical contexts","Writing a comparative essay","Oral commentary on unseen texts"]},{n:"Unit 2: Advanced Academic Skills",ls:["Synthesising multiple sources","Critical argumentation","Writing a research paper","Academic presentations","Peer review and academic integrity"]},{n:"Unit 3: Language and Society",ls:["Language policy in Rwanda","Language and national identity","Code-switching","Rwanda language landscape","Global English"]}]
-}},
-"History and Citizenship":{lv:["S1","S2","S3","S4","S5","S6"],u:{
-"S1":[{n:"Unit 1: Introduction to History",ls:["Definition and importance of history","Primary and secondary historical sources","Pre-history and early humans","Early African civilisations","The Great Lakes region in ancient times"]},{n:"Unit 2: Early History of Rwanda",ls:["Origins of the people of Rwanda","Social organisation in early Rwanda","The early kingdoms of Rwanda","Founding and growth of the Rwandan kingdom","Culture and traditions of early Rwanda"]}],
-"S2":[{n:"Unit 1: Pre-Colonial Rwanda",ls:["The Rwandan kingdom: political structure and Umwami","Social organisation: roles and classes","Economy in pre-colonial Rwanda","Cultural practices and religion","Relations with neighbouring kingdoms"]},{n:"Unit 2: The Colonial Period",ls:["European exploration and the Berlin Conference","German colonial period in Rwanda","Belgian colonial rule: administration and policies","Missionary activities and education in Rwanda","Socio-economic changes under colonialism"]}],
-"S3":[{n:"Unit 1: World Wars and Africa",ls:["Causes and major events of World War I","African involvement in World War I","The inter-war period and League of Nations","Causes and major events of World War II","Impact of World War II on Africa and Rwanda"]},{n:"Unit 2: Rwanda Under Belgian Rule",ls:["Intensification of Belgian control post-WWI","Missionary education and its impact","Introduction of identity cards: ethnic classification","Economic exploitation under colonialism","Growth of nationalist movements in Rwanda"]}],
-"S4":[{n:"Unit 1: African Independence Movements",ls:["Pan-Africanism: philosophy and leaders","Independence movements in West Africa","Independence in East and Central Africa","Rwanda's independence 1962: process and challenges","Post-independence challenges in Africa"]},{n:"Unit 2: Rwanda 1959 to 1990",ls:["The Social Revolution of 1959: causes and events","The First Republic 1962 to 1973","The Second Republic 1973 to 1994","Political, economic and social developments","Ethnicity, propaganda and political tensions"]},{n:"Unit 3: The 1994 Genocide Against the Tutsi",ls:["Long-term causes: colonial legacy and ideology","Short-term causes: planning and preparation","Events of April to July 1994","International community's failure to intervene","Consequences: human, social and economic"]},{n:"Unit 4: Post-Genocide Rwanda",ls:["Gacaca courts and community justice","National Unity and Reconciliation Commission","Reconstruction of state institutions","Rwanda's economic and social transformation","Rwanda's role in Africa and peacekeeping"]}],
-"S5":[{n:"Unit 1: The Cold War 1945 to 1991",ls:["Origins of the Cold War: superpowers and ideology","Key events: Berlin Wall, Korean War, Vietnam War","Cuban Missile Crisis 1962","Detente and arms reduction","End of the Cold War and collapse of the USSR"]},{n:"Unit 2: Africa in the Post-Independence Era",ls:["One-party states and authoritarianism in Africa","Military coups and political instability","South African apartheid and the liberation struggle","Major conflicts in Africa","Formation and evolution of the African Union"]},{n:"Unit 3: Economic History of Africa",ls:["Colonial economic exploitation","Structural adjustment programmes (SAPs)","Debt crisis and HIPC initiative","Africa's development trajectory","Regional economic integration"]}],
-"S6":[{n:"Unit 1: Globalisation",ls:["Definition and drivers of globalisation","Economic globalisation: trade and investment flows","Cultural globalisation: media and identity","Political globalisation: international organisations","Rwanda in a globalised world"]},{n:"Unit 2: Contemporary World Issues",ls:["United Nations: structure, mandates and effectiveness","The African Union and regional integration","Global climate change: causes and international response","Global health challenges: pandemics and health systems","Rwanda's foreign policy and peacekeeping contributions"]}]
-}},
-"Geography and Environment":{lv:["S1","S2","S3"],u:{
-"S1":[{n:"Unit 1: Introduction to Geography",ls:["Definition and branches of geography","Maps: types, scale and map reading skills","Latitude and longitude: coordinates","The solar system: Earth's position","Earth's movements: rotation and revolution"]},{n:"Unit 2: The Physical Environment",ls:["Rocks: types, formation and uses","Weathering and erosion processes","River systems and drainage patterns in Rwanda","Landforms: mountains, valleys, plains and plateaux","Natural vegetation zones of Africa"]}],
-"S2":[{n:"Unit 1: Atmosphere, Weather and Climate",ls:["Layers of the atmosphere","Weather elements: temperature, humidity, rainfall and wind","Factors affecting climate: latitude, altitude, ocean currents","Climate types of Africa","Climate change: causes and impacts in Rwanda"]},{n:"Unit 2: Population and Settlement",ls:["World population: growth trends and distribution","Factors affecting population distribution","Rural and urban settlement patterns","Urbanisation in Rwanda: causes and effects","Migration: push and pull factors in Rwanda"]}],
-"S3":[{n:"Unit 1: Economic Activities",ls:["Agriculture: types, methods and importance in Rwanda","Mining: types, extraction and environmental impact","Manufacturing industry: location factors and types","Tourism: eco-tourism and Rwanda gorilla tourism","International trade and trade balances"]},{n:"Unit 2: Rwanda's Physical and Human Geography",ls:["Relief, topography and drainage of Rwanda","Climate zones and seasonal patterns in Rwanda","Natural resources: land, water, forests and minerals","Population distribution and demographics in Rwanda","Environmental challenges: soil erosion, deforestation"]}]
-}},
-"Geography":{lv:["S4","S5","S6"],u:{
-"S4":[{n:"Unit 1: Plate Tectonics and Internal Processes",ls:["Theory of plate tectonics: evidence and processes","Volcanic activity: types, distribution and impacts","Earthquakes: causes, measurement and effects","Fold mountains and mountain building","The East African Rift System"]},{n:"Unit 2: Hydrology",ls:["The hydrological cycle","River processes: erosion, transportation and deposition","Lake formation and features in Rwanda","Groundwater and springs","Water resource management in Rwanda"]},{n:"Unit 3: Climate Systems",ls:["Global atmospheric circulation and pressure belts","Ocean currents and their influence on climate","Extreme weather events: droughts and floods","Climate change: evidence, impacts and adaptation","Adaptation and mitigation strategies in Rwanda"]},{n:"Unit 4: Development Geography",ls:["Measuring development: GDP, HDI and other indicators","Theories of development: Rostow's model","The Sustainable Development Goals (SDGs)","Aid, trade and debt in development","Rwanda's development vision: Vision 2050"]}],
-"S5":[{n:"Unit 1: Population Geography",ls:["Population theories: Malthus and demographic transition model","Population policies in Africa and Rwanda","Demographic dividend: opportunities and challenges","Refugees and internal displacement in Africa","Rwanda's population policies and challenges"]},{n:"Unit 2: Agriculture and Food Security",ls:["Agricultural systems: subsistence and commercial","Green Revolution: successes and limitations","Sustainable and organic agriculture in Rwanda","Food security: causes and solutions","Land use policy and cooperatives in Rwanda"]},{n:"Unit 3: Urban Geography",ls:["Urbanisation trends in Africa","Urban land use models","Urban challenges: housing, infrastructure and inequality","Smart cities and urban planning in Africa","Kigali's urban development and master plan"]}],
-"S6":[{n:"Unit 1: Globalisation and Trade",ls:["Global trade patterns and commodity chains","Trade agreements: WTO, EAC and AfCFTA","Impact of globalisation on development in Africa","Rwanda's position in global trade","Digital economy and e-commerce in Rwanda"]},{n:"Unit 2: Environmental Management",ls:["Ecosystem services and natural capital","Deforestation and reforestation in Rwanda","Rwanda's environmental achievements","Climate change adaptation and mitigation strategies","Sustainable development: balancing economy and environment"]}]
-}},
-"Economics":{lv:["S4","S5","S6"],u:{
-"S4":[{n:"Unit 1: Introduction to Economics",ls:["Scarcity, choice and opportunity cost","Economic systems: market, command and mixed","Demand: definition, law and determinants","Supply: definition, law and determinants","Market equilibrium and price mechanism"]},{n:"Unit 2: Microeconomics",ls:["Elasticity of demand: PED, YED and XED","Elasticity of supply","Consumer theory and utility","Theory of production and costs","Market structures: perfect competition and monopoly"]},{n:"Unit 3: Macroeconomics",ls:["National income: GDP, GNP and measurement","Economic growth: determinants and measurement","Inflation: types, causes and effects in Rwanda","Unemployment: types, causes and policies","Business cycles and aggregate demand and supply"]},{n:"Unit 4: Money, Banking and Monetary Policy",ls:["Functions and types of money","Commercial banking: credit creation","National Bank of Rwanda: functions","Monetary policy instruments: repo rate, reserve ratio","Inflation targeting and price stability in Rwanda"]}],
-"S5":[{n:"Unit 1: Development Economics",ls:["Characteristics of developing countries","Theories of development: Rostow and dependency theory","Obstacles to development in Africa","Role of foreign aid and FDI","Rwanda's development model and economic transformation"]},{n:"Unit 2: International Trade",ls:["Absolute and comparative advantage","Trade policies: tariffs, quotas and subsidies","Balance of payments: current and capital account","Exchange rate systems: fixed, floating and managed","WTO and trade agreements: impact on Rwanda"]},{n:"Unit 3: Fiscal Policy",ls:["Government revenue: types of taxation","Principles of taxation: equity and efficiency","Government expenditure: public goods and services","Budget deficit and public debt management","Fiscal policy in Rwanda's national budget"]},{n:"Unit 4: Labour Economics",ls:["Labour demand and supply","Wage determination: minimum wage in Rwanda","Trade unions: role and impact","Types and causes of unemployment","Human capital: education and skills development"]}],
-"S6":[{n:"Unit 1: Economic Integration",ls:["Types of integration: FTA, customs union, common market","East African Community: history and achievements","African Continental Free Trade Area (AfCFTA)","Challenges and benefits for Rwanda","Rwanda's trade within EAC and beyond"]},{n:"Unit 2: Environmental Economics",ls:["Externalities and market failure","Environmental policy instruments: taxes and permits","Green economy principles","Rwanda's green growth strategy","Climate finance and carbon markets"]},{n:"Unit 3: Financial Markets",ls:["Financial markets: money and capital markets","Rwanda's financial sector development","Rwanda Stock Exchange (RSE)","Investment, risk and return","Microfinance and financial inclusion in Rwanda"]}]
-}},
-"ICT":{lv:["S1","S2","S3"],u:{
-"S1":[{n:"Unit 1: Introduction to ICT",ls:["What is ICT and its importance in Rwanda","History and evolution of computers","Parts of a computer: hardware overview","Input and output devices","Switching on, logging in and basic operations"]},{n:"Unit 2: Operating Systems and File Management",ls:["What is an operating system?","Desktop environment and navigation","Creating and organising files and folders","Keyboard shortcuts","Basic troubleshooting"]},{n:"Unit 3: Word Processing",ls:["Creating and saving documents","Text formatting: fonts, size, bold, italic","Tables, lists and headers","Inserting images and shapes","Printing and PDF export"]}],
-"S2":[{n:"Unit 1: Spreadsheets",ls:["Spreadsheet basics: workbook, worksheet and cells","Entering and formatting data","Formulae: SUM, AVERAGE, IF and COUNT","Creating charts and graphs","Practical spreadsheet tasks"]},{n:"Unit 2: Internet and Digital Communication",ls:["How the internet works: IP addresses, DNS and HTTP","Web browsers and effective searching","Email: composing, sending and organising","Online safety, cyberbullying and privacy","Digital citizenship and responsible use"]},{n:"Unit 3: Presentations",ls:["Creating slides: layouts and themes","Slide design: transitions and animations","Adding images, charts and multimedia","Delivering an effective presentation","Exporting and printing"]}],
-"S3":[{n:"Unit 1: Introduction to Programming",ls:["Algorithms and pseudocode for problem solving","Flowcharts for problem solving","Introduction to Python: syntax and IDE","Variables, data types and user input","Simple programs: conditions and loops"]},{n:"Unit 2: Databases",ls:["Database concepts: tables, fields and records","Entity-relationship (ER) diagrams","Creating a database in a DBMS","SQL queries: SELECT and WHERE","Reports and forms"]}]
-}},
-"Computer Science":{lv:["S4","S5","S6"],u:{
-"S4":[{n:"Unit 1: Programming in Python",ls:["Python syntax: variables and input/output","Control structures: if, elif and else","Loops: for and while","Functions: definition, parameters and return values","Debugging and error handling"]},{n:"Unit 2: Data Structures",ls:["Lists and their operations","Strings and string methods","Dictionaries and tuples","Stacks and queues","Searching and sorting algorithms"]},{n:"Unit 3: Databases and SQL",ls:["Relational database design","SQL: CREATE TABLE and INSERT INTO","SQL: SELECT, WHERE and ORDER BY","SQL: UPDATE, DELETE and JOIN","Normalisation: 1NF, 2NF and 3NF"]},{n:"Unit 4: Networks and Cybersecurity",ls:["Network types: LAN, WAN, MAN and Internet","Network topologies and devices","Network protocols: TCP/IP, HTTP and FTP","Cybersecurity threats: malware, phishing and hacking","Data protection, encryption and firewalls"]}],
-"S5":[{n:"Unit 1: Object-Oriented Programming",ls:["Classes and objects: attributes and methods","Encapsulation and access modifiers","Inheritance: single and multiple","Polymorphism and method overriding","OOP design project"]},{n:"Unit 2: Web Development",ls:["HTML: structure and semantic elements","CSS: selectors, box model and flexbox","JavaScript: variables, functions and DOM manipulation","Responsive design","Deploying a website on GitHub Pages"]},{n:"Unit 3: Algorithms and Complexity",ls:["Algorithm analysis: Big O notation","Recursive algorithms","Graph algorithms: BFS and DFS","Dynamic programming","Greedy algorithms and divide-and-conquer"]}],
-"S6":[{n:"Unit 1: Advanced Programming and APIs",ls:["REST APIs: HTTP requests and JSON","Data processing with Python: Pandas and NumPy","File I/O: reading, writing and exception handling","Data visualisation: Matplotlib and Seaborn","Building a data analysis project"]},{n:"Unit 2: Artificial Intelligence",ls:["Introduction to AI and its applications in Rwanda","Supervised learning: classification and regression","Unsupervised learning: clustering","Neural networks: architecture and training basics","Ethics of AI: bias, privacy and accountability"]},{n:"Unit 3: Capstone ICT Project",ls:["Requirements analysis and system design","Database and back-end development","Front-end development and UI design","Testing: unit, integration and user acceptance","Documentation and project presentation"]}]
-}},
-"Entrepreneurship":{lv:["S1","S2","S3","S4","S5","S6"],u:{
-"S1":[{n:"Unit 1: Introduction to Entrepreneurship",ls:["What is entrepreneurship?","Qualities of a successful entrepreneur","Identifying business opportunities","Needs, wants and market gaps","Youth entrepreneurship in Rwanda"]},{n:"Unit 2: Business Ideas and Planning",ls:["Generating and evaluating business ideas","Basic market research","Identifying target customers","Simple financial plan: income and expenses","Presenting a business idea"]}],
-"S2":[{n:"Unit 1: Business Environment",ls:["Internal and external business environment","SWOT analysis","Competitors and market positioning","Business ethics and corporate responsibility","Rwanda Business Development Board (RDB)"]},{n:"Unit 2: Financial Literacy",ls:["Budgeting and financial planning","Profit, loss and break-even analysis","Simple bookkeeping and record keeping","Savings and banking services in Rwanda","Mobile money and digital payments in Rwanda"]}],
-"S3":[{n:"Unit 1: Marketing",ls:["The 4Ps of marketing","Understanding and segmenting customers","Pricing strategies","Promotion and advertising","Digital marketing and social media"]},{n:"Unit 2: Business Operations",ls:["Production process and quality control","Customer service and satisfaction","Business registration in Rwanda","Formal and informal sector businesses","Cooperative enterprises in Rwanda"]}],
-"S4":[{n:"Unit 1: Business Creation",ls:["Opportunity identification and evaluation","Business model canvas","Legal requirements for business in Rwanda","Registering with RDB","Business ethics and corporate responsibility"]},{n:"Unit 2: Financial Management",ls:["Income statement and balance sheet","Cash flow management","Accessing finance: loans, grants and microfinance","Taxation in Rwanda","Financial record keeping"]},{n:"Unit 3: Marketing and Sales",ls:["Market research methods","Branding and product development","Sales techniques and customer relationship management","E-commerce platforms in Rwanda","Export marketing opportunities"]}],
-"S5":[{n:"Unit 1: Business Growth and Strategy",ls:["Business growth strategies: organic and inorganic","Strategic management: PESTLE analysis","Competitive strategies: Porter's generic strategies","Strategic alliances and partnerships","Business failure: causes and lessons learned"]},{n:"Unit 2: Innovation and Technology",ls:["Innovation as competitive advantage","Technology-driven business models","Digital transformation in Rwandan businesses","Intellectual property rights","Social entrepreneurship: profit with purpose"]}],
-"S6":[{n:"Unit 1: Advanced Business Management",ls:["Human resource management","Operations management and supply chain","Financial analysis and business ratios","Change management","Corporate governance in Rwanda"]},{n:"Unit 2: Entrepreneurship and National Development",ls:["SMEs and economic development in Rwanda","Rwanda's entrepreneurship ecosystem","Business plan writing: full plan","Pitching to investors","Entrepreneurship as a career path"]}]
-}},
-"Kinyarwanda":{lv:["S1","S2","S3","S4","S5","S6"],u:{
-"S1":[{n:"Umwete wa 1: Imvugo n'Imyandikire",ls:["Imvugo ikomeye no kwumva","Gusoma no gusobanukirwa","Imyandikire y'inyandiko ngufi","Amagambo mashya n'ikoreshwa ryayo","Ibiganiro bihuriweho"]},{n:"Umwete wa 2: Ururimi n'Imikoreshereze Yarwo",ls:["Izina n'ikoreshwa ryaryo","Igikorwa n'amakosa yaryo","Ingeli z'inzira n'ibanga","Imisumari n'imihango","Inyandiko nto: ibaruwa"]}],
-"S2":[{n:"Umwete wa 1: Ubuvanganzo bw'Ikinyarwanda",ls:["Indirimbo z'ubuvanganzo","Imigani n'ibyigisho byayo","Inkuru ngufi","Isesengura ry'indirimbo","Kwandika inyandiko z'ubuvanganzo"]},{n:"Umwete wa 2: Ururimi Rukora",ls:["Indangagaciro y'ururimi","Imiterere y'ibiganiro","Ubwoko bw'ibaruwa","Inyandiko ngari","Gusesengura inyandiko"]}],
-"S3":[{n:"Umwete wa 1: Ubuvanganzo Ndende",ls:["Imiterere y'inkuru ndende","Umuntu w'inkuru n'imiterere ye","Isesengura ry'inkuru","Ubuvanganzo n'umuco w'u Rwanda","Kwandika inkuru ngufi"]},{n:"Umwete wa 2: Isesengura ry'Ururimi",ls:["Imvugo n'intera z'ururimi","Amagambo yo mu mateka","Gushyira mu myandikire","Imiterere y'indirimbo","Kwandika inyandiko za siyansi"]}],
-"S4":[{n:"Umwete wa 1: Isesengura ry'Ibiganiro",ls:["Ubwoko bw'ibiganiro","Imiterere y'ibiganiro","Inyandiko y'ibiganiro","Isesengura ry'ibiganiro","Kwandika ibiganiro bya siyansi"]},{n:"Umwete wa 2: Ubuvanganzo n'Umuco",ls:["Isesengura ry'inkuru ndende","Umwanditsi n'intego ze","Isano y'ubuvanganzo n'amateka","Ubuvanganzo bwa kinyarwanda bwa none","Kwandika ingingo y'ubuvanganzo"]}],
-"S5":[{n:"Umwete wa 1: Ururimi rw'Inzobere",ls:["Imiterere y'ururimi rw'Ikinyarwanda","Amacakubiri y'ururimi","Gusesengura ururimi","Ururimi mu Rwanda wa none","Indangagaciro z'ururimi"]},{n:"Umwete wa 2: Ubuvanganzo Bukomeye",ls:["Isesengura ry'igitabo cyuzuye","Isano y'ubuvanganzo n'umuco","Kwandika inyigo y'ubuvanganzo","Ubuvanganzo bw'Afrika","Imyandikire ya nyuma"]}],
-"S6":[{n:"Umwete wa 1: Ururimi n'Umuco w'u Rwanda",ls:["Isano y'ururimi n'umuco","Ururimi mu Rwanda wa none","Impinduka z'ururimi","Ubushakashatsi bw'ururimi","Itekerezo ry'ururimi"]},{n:"Umwete wa 2: Kwandika no Gusesengura Inzobere",ls:["Kwandika ingingo ndende","Kwandika raporo","Kwandika ibiganiro bya siyansi","Kwandika amateka","Gusesengura inyandiko zitandukanye"]}]
-}}};
-
-
-function mkFallback(s,l){return [{n:`Unit 1: Introduction to ${s}`,ls:[`Overview of ${s} at ${l}`,"Key concepts","Foundational skills","Practical applications","Assessment"]}];}
-
-window.onload=()=>{
-  document.getElementById('date').valueAsDate=new Date();
-  setTimeout(()=>{
-    const s=document.getElementById('subject');
-    s.innerHTML='<option value="">Select subject</option>';
-    Object.keys(CUR).sort().forEach(k=>{const o=document.createElement('option');o.value=k;o.textContent=k;s.appendChild(o);});
-    s.disabled=false;
-  },200);
-};
-
-const sp=(id,on)=>document.getElementById(id).classList[on?'add':'remove']('on');
-
-function onSubj(){
-  const subj=document.getElementById('subject').value;
-  const cls=document.getElementById('classLevel');
-  const unit=document.getElementById('unit');
-  const les=document.getElementById('lesson');
-  cls.innerHTML='<option value="">Select class level</option>';cls.disabled=true;
-  unit.innerHTML='<option value="">Select unit</option>';unit.disabled=true;
-  les.innerHTML='<option value="">Select lesson</option>';les.disabled=true;
-  document.getElementById('genBtn').disabled=true;
-  if(!subj)return;
-  sp('sp-c',true);
-  setTimeout(()=>{
-    sp('sp-c',false);
-    const lvs=CUR[subj]?.lv||["S1","S2","S3","S4","S5","S6"];
-    lvs.forEach(l=>{const o=document.createElement('option');o.value=l;o.textContent=l;cls.appendChild(o);});
-    cls.disabled=false;
-  },350);
+function addRow(data){
+  const d=data||{phase:'',teacher:'',learner:'',competences:''};
+  const div=document.createElement('div');
+  div.className='act-row';
+  div.innerHTML=
+    '<textarea placeholder="e.g. Introduction\n(10 min)" style="min-height:80px;">'+d.phase+'</textarea>'+
+    '<textarea placeholder="Teacher activities..." style="min-height:80px;">'+d.teacher+'</textarea>'+
+    '<textarea placeholder="Learner activities..." style="min-height:80px;">'+d.learner+'</textarea>'+
+    '<div style="display:flex;flex-direction:column;gap:4px;">'+
+      '<textarea placeholder="Generic competences..." style="min-height:68px;">'+d.competences+'</textarea>'+
+      '<button class="btn-rm" onclick="this.closest(\'.act-row\').remove()">✕ Remove</button>'+
+    '</div>';
+  document.getElementById('actRows').appendChild(div);
 }
 
-function onCls(){
-  const subj=document.getElementById('subject').value;
-  const level=document.getElementById('classLevel').value;
-  const unit=document.getElementById('unit');
-  const les=document.getElementById('lesson');
-  unit.innerHTML='<option value="">Select unit</option>';unit.disabled=true;
-  les.innerHTML='<option value="">Select lesson</option>';les.disabled=true;
-  document.getElementById('genBtn').disabled=true;
-  if(!level)return;
-  sp('sp-u',true);
-  setTimeout(()=>{
-    sp('sp-u',false);
-    const data=CUR[subj]?.u?.[level]||mkFallback(subj,level);
-    data.forEach((u,i)=>{const o=document.createElement('option');o.value=i;o.textContent=u.n;unit.appendChild(o);});
-    unit.disabled=false;unit._d=data;
-  },400);
+function clearForm(){
+  if(!confirm('Clear all form data?')) return;
+  document.querySelectorAll('#formSection input,#formSection textarea').forEach(el=>el.value='');
+  document.getElementById('actRows').innerHTML='';
+  DEFAULT_ROWS.forEach(r=>addRow(r));
+  document.getElementById('preview').style.display='none';
+  document.getElementById('preview').innerHTML='';
+  document.getElementById('printBtn').style.display='none';
 }
 
-function onUnit(){
-  const unit=document.getElementById('unit');
-  const les=document.getElementById('lesson');
-  const idx=unit.value;
-  les.innerHTML='<option value="">Select lesson</option>';les.disabled=true;
-  document.getElementById('genBtn').disabled=true;
-  if(idx==='')return;
-  sp('sp-l',true);
-  setTimeout(()=>{
-    sp('sp-l',false);
-    const u=unit._d[parseInt(idx)];
-    u.ls.forEach((l,i)=>{const o=document.createElement('option');o.value=i;o.textContent=`Lesson ${i+1}: ${l}`;les.appendChild(o);});
-    les.disabled=false;les._u=u;
-  },350);
+function v(id){return (document.getElementById(id)||{}).value||'';}
+
+function generate(){
+  // Collect activity rows
+  const rows=[];
+  document.querySelectorAll('.act-row').forEach(r=>{
+    const tas=r.querySelectorAll('textarea');
+    rows.push({phase:tas[0].value,teacher:tas[1].value,learner:tas[2].value,comp:tas[3].value});
+  });
+
+  const date=v('lessonDate')?new Date(v('lessonDate')).toLocaleDateString('en-GB',{year:'numeric',month:'2-digit',day:'2-digit'}):'';
+
+  // Build activity rows HTML
+  let actHTML='';
+  // Shared sub-header row
+  actHTML+=`<tr>
+    <td class="act-header" rowspan="1" style="background:#d9d9d9;font-weight:bold;text-align:center;font-style:italic;font-size:9pt;" colspan="4">
+      Students will actively engage in discussions, practical experiments, and presentations throughout the lesson.
+    </td>
+  </tr>
+  <tr>
+    <td></td>
+    <td class="act-header" style="background:#d9d9d9;font-weight:bold;text-align:center;">Teacher's activity</td>
+    <td class="act-header" style="background:#d9d9d9;font-weight:bold;text-align:center;">Learner's activity</td>
+    <td class="act-header" style="background:#d9d9d9;font-weight:bold;text-align:center;"></td>
+  </tr>`;
+
+  rows.forEach(r=>{
+    const tLines=r.teacher.split('\n').map(l=>l.trim()).filter(Boolean).map(l=>'<br/>'+l).join('');
+    const lLines=r.learner.split('\n').map(l=>l.trim()).filter(Boolean).map(l=>'<br/>'+l).join('');
+    const cLines=r.comp.split('\n').map(l=>l.trim()).filter(Boolean).map(l=>'<br/>'+l).join('');
+    actHTML+=`<tr>
+      <td class="timing-cell" style="font-weight:bold;text-align:center;white-space:pre-line;">${r.phase.replace(/\n/g,'<br/>')}</td>
+      <td>${tLines.replace(/^<br\/>/,'')}</td>
+      <td>${lLines.replace(/^<br\/>/,'')}</td>
+      <td>${cLines.replace(/^<br\/>/,'')}</td>
+    </tr>`;
+  });
+
+  const html=`<div class="lp">
+    <div class="lp-title">LESSON PLAN</div>
+    <table>
+      <tr>
+        <td><strong>School Name:</strong> ${v('schoolName')}</td>
+        <td colspan="3"><strong>Teacher's Name:</strong> ${v('teacherName')}</td>
+      </tr>
+      <tr class="hdr-row" style="background:#d9d9d9;">
+        <td>Term</td><td>Date</td><td>Subject</td><td>Class</td><td>Unit No</td><td>Lesson No</td><td>Duration</td><td>Class size</td>
+      </tr>
+      <tr>
+        <td>${v('term')}</td><td>${date}</td><td>${v('subject')}</td><td>${v('class')}</td>
+        <td>${v('unitNo')}</td><td>${v('lessonNo')}</td><td>${v('duration')}</td><td>${v('classSize')}</td>
+      </tr>
+      <tr>
+        <td colspan="4" class="label-cell" style="font-weight:bold;">Type of special educational needs to be catered for in this class and the number of learners in each category</td>
+        <td colspan="4">${v('sen')} &nbsp;&nbsp; ${v('senCount')}</td>
+      </tr>
+      <tr>
+        <td colspan="2" class="label-cell" style="font-weight:bold;">Unit title</td>
+        <td colspan="6" style="font-weight:bold;text-transform:uppercase;">${v('unitTitle')}</td>
+      </tr>
+      <tr>
+        <td colspan="2" class="label-cell" style="font-weight:bold;">Key unit competence</td>
+        <td colspan="6">${v('keyComp')}</td>
+      </tr>
+      <tr>
+        <td colspan="2" class="label-cell" style="font-weight:bold;">Title of the lesson</td>
+        <td colspan="6">${v('lessonTitle')}</td>
+      </tr>
+      <tr>
+        <td colspan="2" class="label-cell" style="font-weight:bold;">Instructional objectives</td>
+        <td colspan="6" style="white-space:pre-line;">${v('objectives')}</td>
+      </tr>
+      <tr>
+        <td colspan="2" class="label-cell" style="font-weight:bold;">Plan of this class (Location)</td>
+        <td colspan="6">${v('location')}</td>
+      </tr>
+      <tr>
+        <td colspan="2" class="label-cell" style="font-weight:bold;">Learning materials</td>
+        <td colspan="6">${v('materials')}</td>
+      </tr>
+      <tr>
+        <td colspan="2" class="label-cell" style="font-weight:bold;">References</td>
+        <td colspan="6">${v('references')}</td>
+      </tr>
+      <tr style="background:#d9d9d9;">
+        <td style="font-weight:bold;">Timing for each step</td>
+        <td colspan="2" style="font-weight:bold;text-align:center;">Description of teaching and learning activities</td>
+        <td style="font-weight:bold;text-align:center;">Generic competences and cross-cutting issues + some explanations</td>
+      </tr>
+      ${actHTML}
+      <tr>
+        <td colspan="4" class="label-cell self-eval" style="font-weight:bold;">Teacher's self-evaluation</td>
+      </tr>
+    </table>
+  </div>`;
+
+  const preview=document.getElementById('preview');
+  preview.style.display='block';
+  preview.innerHTML=html;
+  document.getElementById('printBtn').style.display='';
+  preview.scrollIntoView({behavior:'smooth',block:'start'});
 }
 
-function chk(){
-  const ok=document.getElementById('subject').value&&
-            document.getElementById('classLevel').value&&
-            document.getElementById('unit').value!==''&&
-            document.getElementById('lesson').value!=='';
-  document.getElementById('genBtn').disabled=!ok;
+function printPlan(){
+  window.print();
 }
 
-function setTab(btn){
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  btn.classList.add('active');
-}
+// Init with default rows
+DEFAULT_ROWS.forEach(r=>addRow(r));
 
-async function doGen(){
-  const school=document.getElementById('school').value.trim()||'Not specified';
-  const teacher=document.getElementById('teacher').value.trim();
-  const subj=document.getElementById('subject').value;
-  const lv=document.getElementById('classLevel').value;
-  const term=document.getElementById('term').value;
-  const date=document.getElementById('date').value;
-  const dur=document.getElementById('dur').value;
-  const cls=document.getElementById('cls').value;
-  const lang=document.getElementById('lang').value;
-  const loc=document.getElementById('loc').value;
-  const sn=document.getElementById('sn').value.trim();
-  const smart=document.getElementById('o-smart').checked;
-  const att=document.getElementById('o-att').checked;
-  const det=document.getElementById('o-det').checked;
-
-  const unitSel=document.getElementById('unit');
-  const lesSel=document.getElementById('lesson');
-  const unitName=lesSel._u?.n||unitSel.options[unitSel.selectedIndex].text;
-  const lesName=lesSel._u?.ls[parseInt(lesSel.value)]||lesSel.options[lesSel.selectedIndex].text.replace(/^Lesson \d+:\s*/,'');
-
-  document.getElementById('form-wrap').style.display='none';
-  document.getElementById('out-wrap').style.display='block';
-  document.getElementById('out-body').innerHTML=`<div class="lbox"><div class="sp2"></div><p>AI is generating your lesson plan&hellip;</p><p class="sub">Preparing a ${det?'detailed':'standard'} plan for <em>${lesName}</em></p></div>`;
-
-  const smartN=smart?`\n- Write learning_objectives in SMART format: "By using [method], ${lv} learners will be able to [verb + skill] at more than 6/10 within ${dur} minutes."`:'';
-  const attN=(att&&cls)?`\n- Format class_size as: "X out of ${cls} learners"`:'';
-  const detN=det?'\n- Generate VERY DETAILED content: minimum 6-8 sentences per major section, include specific examples, questions and step-by-step procedures.':'';
-  const snN=sn?`\n- Special needs: ${sn}. Embed specific accommodations within student activities.`:'';
-
-  const prompt=`You are an expert Rwanda REB (Rwanda Education Board) teacher. Generate a complete, professional CBC-aligned lesson plan as a JSON object.\n\nDETAILS:\n- School: ${school}\n- Teacher: ${teacher}\n- Subject: ${subj}\n- Class Level: ${lv}\n- Term: ${term} | Date: ${date} | Duration: ${dur} minutes\n- Class Size: ${cls||'Not specified'} | Language: ${lang} | Location: ${loc}\n${sn?`- Special Needs: ${sn}`:''}\n- Unit: ${unitName}\n- Lesson Topic: ${lesName}\n\nINSTRUCTIONS:${smartN}${attN}${detN}${snN}\n- Align strictly with Rwanda REB CBC requirements. Reference the official REB textbook for ${subj} ${lv}.\n- Use Rwanda-specific real-life examples and contexts.\n- Be specific and practical.\n\nReturn ONLY a valid JSON object, NO markdown fences:\n{\n  "unit_competence":"The REB key unit competence for this unit from the official REB syllabus",\n  "instructional_objectives":"By the end of this lesson, learners will be able to: [3-4 specific objectives with action verbs e.g. Define, Explain, Calculate, Distinguish, Apply, Predict]",\n  "learning_objectives":"3-4 SMART lesson objectives with action verbs",\n  "key_competencies":"Rwanda REB CBC competencies: Critical Thinking, Communication, Cooperation, Research, Problem-Solving - explain HOW each is developed in THIS lesson",\n  "prerequisite_knowledge":"2-3 specific prior topics from the REB syllabus students must already know",\n  "materials_resources":"Specific list: REB ${subj} ${lv} Teacher Guide chapter, learner book page references, lab equipment, visual aids, ICT resources",\n  "introduction":"Detailed introduction 5-8 min: Rwanda-context hook, prior knowledge question, sharing objectives",\n  "teacher_activities":"Numbered with timestamps: 1.[0-5min]..., 2.[5-20min]..., 3.[20-35min]... Be specific about what teacher does and says",\n  "student_activities":"Numbered with timestamps - pair work, group work or practical activities with clear instructions",\n  "formative_assessment":"3-5 specific questions or tasks used DURING the lesson - mix lower-order recall and higher-order application analysis",\n  "conclusion":"Wrap-up 3-5 min: key points summary, link to next lesson, exit ticket activity",\n  "homework":"3-5 numbered questions or a practical task from this lesson",\n  "references":"3-4 specific: REB ${subj} ${lv} Learner Book title, REB Teacher Guide, REB syllabus, educational websites"\n}`;
-
-  const MODELS=['gemini-2.0-flash','gemini-1.5-flash','gemini-1.5-flash-8b','gemini-1.0-pro'];
-  const KEY='AIzaSyAhgRErK-h_DNHdrh04D2JeEqF2kcB9_E0';
-
-  try{
-    let data=null;
-    let lastErr='';
-    for(const model of MODELS){
-      try{
-        const r=await fetch(
-          `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${KEY}`,
-          {method:'POST',headers:{'Content-Type':'application/json'},
-           body:JSON.stringify({contents:[{parts:[{text:prompt}]}],generationConfig:{temperature:0.7,maxOutputTokens:3000}})}
-        );
-        if(r.ok){data=await r.json();break;}
-        const e=await r.json().catch(()=>({}));
-        lastErr=e.error?.message||`HTTP ${r.status}`;
-        if(!lastErr.toLowerCase().includes('quota')&&r.status!==429)break;
-      }catch(fe){lastErr=fe.message;}
-    }
-    if(!data)throw new Error('API Quota Exceeded on all Gemini models.\n\nTo fix:\n1. Go to aistudio.google.com\n2. Click Get API key and create a NEW free key\n3. Open this HTML file\n4. Find: const KEY = \'.....\'\n5. Replace with your new key and save\n6. Upload to GitHub again');
-
-    let raw=data.candidates?.[0]?.content?.parts?.[0]?.text||'';
-    raw=raw.replace(/```json\s*/gi,'').replace(/```\s*/g,'').trim();
-    let plan;
-    try{plan=JSON.parse(raw);}
-    catch{
-      const m=raw.match(/\{[\s\S]*\}/);
-      if(m)plan=JSON.parse(m[0]);
-      else throw new Error('AI response could not be parsed. Please try again.');
-    }
-    renderPlan({school,teacher,subj,lv,term,date,dur,cls,lang,loc,sn,unitName,lesName,att},plan);
-
-  }catch(e){
-    const html=e.message.replace(/\n/g,'<br>');
-    document.getElementById('out-body').innerHTML=`<div class="lbox"><p style="color:#e53e3e;font-size:.92rem;text-align:left;max-width:620px;margin:0 auto;line-height:1.9">${html}</p><br><button class="ba bbk" onclick="goBack()" style="margin:0 auto">&#x21A9; Go Back</button></div>`;
-  }
-}
-
-function renderPlan(info,plan){
-  const f=t=>t?String(t).replace(/\n/g,'<br>'):'&mdash;';
-  const d=info.date?new Date(info.date).toLocaleDateString('en-RW',{weekday:'long',year:'numeric',month:'long',day:'numeric'}):'&mdash;';
-  const cs=info.att&&info.cls?`${info.cls} learners`:(info.cls||'Not specified');
-  document.getElementById('out-body').innerHTML=`
-  <table class="ptbl">
-    <tr class="sr"><td colspan="2">&#x25B6; A. LESSON IDENTIFICATION</td></tr>
-    <tr><td>School</td><td>${info.school}</td></tr>
-    <tr><td>Teacher</td><td>${info.teacher}</td></tr>
-    <tr><td>Subject</td><td>${info.subj}</td></tr>
-    <tr><td>Class Level</td><td>${info.lv}</td></tr>
-    <tr><td>Term</td><td>${info.term}</td></tr>
-    <tr><td>Date</td><td>${d}</td></tr>
-    <tr><td>Duration</td><td>${info.dur} minutes</td></tr>
-    <tr><td>Class Size</td><td>${cs}</td></tr>
-    <tr><td>Language</td><td>${info.lang}</td></tr>
-    <tr><td>Location</td><td>${info.loc}</td></tr>
-    ${info.sn?`<tr><td>Special Needs</td><td>${info.sn}</td></tr>`:''}
-    <tr><td>Unit</td><td>${info.unitName}</td></tr>
-    <tr><td>Lesson Topic</td><td><strong>${info.lesName}</strong></td></tr>
-    <tr class="sr"><td colspan="2">&#x25B6; B. UNIT COMPETENCE &amp; OBJECTIVES</td></tr>
-    <tr><td>Key Unit Competence</td><td>${f(plan.unit_competence)}</td></tr>
-    <tr><td>Instructional Objectives</td><td>${f(plan.instructional_objectives)}</td></tr>
-    <tr><td>Learning Objectives (SMART)</td><td>${f(plan.learning_objectives)}</td></tr>
-    <tr class="sr"><td colspan="2">&#x25B6; C. KEY COMPETENCIES (REB CBC)</td></tr>
-    <tr><td>Competencies</td><td>${f(plan.key_competencies)}</td></tr>
-    <tr class="sr"><td colspan="2">&#x25B6; D. PREREQUISITE KNOWLEDGE</td></tr>
-    <tr><td>Prior knowledge required</td><td>${f(plan.prerequisite_knowledge)}</td></tr>
-    <tr class="sr"><td colspan="2">&#x25B6; E. MATERIALS AND RESOURCES</td></tr>
-    <tr><td>Resources needed</td><td>${f(plan.materials_resources)}</td></tr>
-    <tr class="sr"><td colspan="2">&#x25B6; F. LESSON DEVELOPMENT</td></tr>
-    <tr><td>Introduction / Hook</td><td>${f(plan.introduction)}</td></tr>
-    <tr><td>Teacher Activities</td><td>${f(plan.teacher_activities)}</td></tr>
-    <tr><td>Student Activities</td><td>${f(plan.student_activities)}</td></tr>
-    <tr class="sr"><td colspan="2">&#x25B6; G. FORMATIVE ASSESSMENT</td></tr>
-    <tr><td>Assessment tasks</td><td>${f(plan.formative_assessment)}</td></tr>
-    <tr class="sr"><td colspan="2">&#x25B6; H. CONCLUSION</td></tr>
-    <tr><td>Lesson wrap-up</td><td>${f(plan.conclusion)}</td></tr>
-    <tr class="sr"><td colspan="2">&#x25B6; I. HOMEWORK / ASSIGNMENT</td></tr>
-    <tr><td>Homework</td><td>${f(plan.homework)}</td></tr>
-    <tr class="sr"><td colspan="2">&#x25B6; J. REFERENCES</td></tr>
-    <tr><td>References</td><td>${f(plan.references)}</td></tr>
-    <tr class="sr"><td colspan="2">&#x25B6; K. SIGNATURES</td></tr>
-    <tr><td>Teacher's Signature</td><td class="sig"></td></tr>
-    <tr><td>Head of Department</td><td class="sig"></td></tr>
-    <tr><td>Head Teacher</td><td class="sig"></td></tr>
-  </table>`;
-}
-
-function cpPlan(){
-  navigator.clipboard.writeText(document.getElementById('out-body').innerText)
-    .then(()=>alert('Lesson plan copied to clipboard!'));
-}
-
-function goBack(){
-  document.getElementById('out-wrap').style.display='none';
-  document.getElementById('form-wrap').style.display='block';
-}
-
+// Set today's date
+document.getElementById('lessonDate').value=new Date().toISOString().split('T')[0];
 </script>
 </body>
 </html>
