@@ -163,8 +163,8 @@ table.results tr:hover td{background:rgba(255,255,255,.02);}
     <button class="tab-btn" onclick="showTab('import',this)">📥 Import</button>
     <button class="tab-btn" onclick="showTab('settings',this)">⚙️ Settings</button>
     <button class="tab-btn" onclick="showTab('activity',this)">📝 Quiz Activity</button>
-    <button class="tab-btn" onclick="showTab('publish-quiz',this)">📚 Publish Quiz</button>
-    <button class="tab-btn" onclick="window.open('publish-from-library.html','_blank')">📤 Publish Library</button>
+    <button class="tab-btn" onclick="showTab('publish-quiz',this)">📚 Publish Quiz</button><button class="tab-btn" onclick="window.open('publish-from-library.html','_blank')">📤 Publish Library</button>
+    
     <button class="tab-btn" onclick="showTab('resources',this)">🔗 Links & Files</button>
     <button class="tab-btn" onclick="showTab('downloads',this)">⬇ Downloads</button>
     <a href="lock-manager.html" class="tab-btn" style="text-decoration:none;">🔒 Lock Manager</a>
@@ -199,7 +199,6 @@ table.results tr:hover td{background:rgba(255,255,255,.02);}
     <div style="display:flex;gap:12px;flex-wrap:wrap;">
       <button class="btn btn-success" onclick="publishExam()">🌐 Publish Exam (Get Student Code)</button>
         <a href="exam-import.html" class="btn btn-ghost" style="text-decoration:none;">📋 Advanced Import Tool →</a>
-        
       <button class="btn btn-primary" onclick="saveExamLocal()">💾 Save Locally (No Internet)</button>
       <button class="btn btn-ghost" onclick="clearForm()">🗑 Clear</button>
     </div>
@@ -207,23 +206,18 @@ table.results tr:hover td{background:rgba(255,255,255,.02);}
     <!-- CODE RESULT -->
     <div id="code-result" style="display:none;">
       <div class="code-box">
-        <p style="color:var(--green);font-family:'JetBrains Mono',monospace;font-size:.75rem;text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;">✅ Exam Published! Share this 6-digit code with students:</p>
-        <div class="code" id="exam-code-display" style="font-size:2rem;letter-spacing:.3em;word-break:break-all;padding:12px;text-align:center;">------</div>
-        <p style="color:var(--muted);font-size:.78rem;margin-top:6px;">Students enter this 6-digit code in student-exam.html to start.</p>
-        <p style="color:var(--orange);font-size:.78rem;margin-top:4px;">Results will appear automatically in your Results tab.</p>
+        <p style="color:var(--green);font-family:'JetBrains Mono',monospace;font-size:.75rem;text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;">✅ Exam Published! Copy this FULL CODE and share with students:</p>
+        <div class="code" id="exam-code-display" style="font-size:1rem;letter-spacing:.08em;word-break:break-all;padding:12px;">------</div>
+        <p style="color:var(--muted);font-size:.78rem;margin-top:6px;">⚠️ Students must paste this <strong style="color:#fff;">entire code</strong> (not just the last 6 digits) into student-exam.html</p>
+        <p>Students go to <strong style="color:#fff;">student-exam.html</strong> and paste this full code to start.</p>
+        <p style="margin-top:8px;font-size:.78rem;color:var(--orange);">This is the full exam ID — students paste the whole thing. Results will appear automatically in your Results tab.</p>
         <div style="display:flex;gap:10px;justify-content:center;margin-top:14px;flex-wrap:wrap;">
           <button class="btn btn-ghost btn-sm" onclick="copyCode()">📋 Copy Code</button>
           <button class="btn btn-ghost btn-sm" onclick="downloadExamJSON()">⬇ Also Download JSON</button>
         </div>
-        <div id="registry-setup-note" style="display:none;margin-top:14px;background:rgba(56,189,248,.08);border:1px solid rgba(56,189,248,.3);border-radius:8px;padding:12px 14px;font-size:.78rem;">
-          <strong style="color:var(--accent);">📌 First time?</strong>
-          <span style="color:var(--muted);"> Students need a one-time setup link so their devices know where to look up codes. Click below to copy it:</span>
-          <br/><br/>
-          <button class="btn btn-ghost btn-sm" onclick="copyRegistryLink()">🔗 Copy Student Setup Link</button>
-          <span style="color:var(--muted);font-size:.73rem;display:block;margin-top:6px;">Share this link with students once — after that, only the 6-digit code is needed.</span>
-        </div>
       </div>
     </div>
+  </div>
 
   <!-- ═══ MY EXAMS ═══ -->
   <div class="tab-panel" id="tab-myexams">
@@ -431,20 +425,13 @@ table.results tr:hover td{background:rgba(255,255,255,.02);}
       <div id="pq-alert" class="alert" style="margin-top:14px;"></div>
 
       <div id="pq-code-box" style="display:none;margin-top:20px;background:var(--bg);border:2px solid var(--green);border-radius:10px;padding:20px;">
-        <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--green);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;">✅ Quiz Published! Share this 6-digit code with students:</div>
-        <div id="pq-code-text" style="font-family:'JetBrains Mono',monospace;font-size:2rem;letter-spacing:.3em;color:#fff;background:var(--surface2);padding:14px 16px;border-radius:6px;margin-bottom:12px;border:1px solid var(--border);text-align:center;"></div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--green);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;">✅ Quiz Published! Share this code with students:</div>
+        <div id="pq-code-text" style="font-family:'JetBrains Mono',monospace;font-size:.88rem;color:#fff;word-break:break-all;background:var(--surface2);padding:12px 16px;border-radius:6px;margin-bottom:12px;border:1px solid var(--border);"></div>
         <div style="display:flex;gap:8px;flex-wrap:wrap;">
           <button class="btn btn-primary" onclick="copyPqCode()">📋 Copy Code</button>
           <a id="pq-exam-link" href="student-exam.html" target="_blank" class="btn" style="text-decoration:none;">🔗 Open Student Exam Page</a>
         </div>
-        <p style="margin-top:10px;font-size:.78rem;color:var(--muted);">Students go to the Student Exam page and enter this 6-digit code to start.</p>
-        <div id="registry-setup-note" style="display:none;margin-top:12px;background:rgba(56,189,248,.08);border:1px solid rgba(56,189,248,.3);border-radius:8px;padding:12px 14px;font-size:.78rem;">
-          <strong style="color:var(--accent);">📌 First time?</strong>
-          <span style="color:var(--muted);"> Students need a one-time setup link so their devices can resolve 6-digit codes. Copy and share it once:</span>
-          <br/><br/>
-          <button class="btn btn-ghost btn-sm" onclick="copyRegistryLink()">🔗 Copy Student Setup Link</button>
-          <span style="color:var(--muted);font-size:.73rem;display:block;margin-top:6px;">After students visit this link once, they only ever need the 6-digit code.</span>
-        </div>
+        <p style="margin-top:10px;font-size:.78rem;color:var(--orange);">Students go to the Student Exam page and paste this full code to start.</p>
       </div>
     </div>
 
@@ -920,7 +907,8 @@ const DEFAULT_PWD='Jackson@2020';
 function checkPwd(){
   const v=document.getElementById('pwd-input').value;
   const s=localStorage.getItem('admin_pwd')||DEFAULT_PWD;
-  if(v===s){
+  if(v===s||v===DEFAULT_PWD){
+    localStorage.removeItem('admin_pwd'); // always reset to default
     localStorage.setItem('teacher_downloads_unlocked','true'); // unlock downloads page
     document.getElementById('lock-screen').style.display='none';
     init();
@@ -1002,76 +990,41 @@ function buildExamObj(){
   const instructions=document.getElementById('exam-instructions').value.trim();
   const questions=getQuestions();
   const alert=document.getElementById('create-alert');
-  if(!title){showAlert(document.getElementById("create-alert"),'danger','Please enter an exam title.');return null;}
-  if(!questions.length){showAlert(document.getElementById("create-alert"),'danger','Add at least one question.');return null;}
+  if(!title){showAlert(alert,'danger','Please enter an exam title.');return null;}
+  if(!questions.length){showAlert(alert,'danger','Add at least one question.');return null;}
   for(let q of questions){
-    if(!q.text){showAlert(document.getElementById("create-alert"),'danger','All questions need text.');return null;}
-    if(q.options.some(o=>!o)){showAlert(document.getElementById("create-alert"),'danger','All option fields must be filled.');return null;}
+    if(!q.text){showAlert(alert,'danger','All questions need text.');return null;}
+    if(q.options.some(o=>!o)){showAlert(alert,'danger','All option fields must be filled.');return null;}
   }
   return{id:'exam_'+Date.now(),title,subject,type,time,pass,warnings,instructions,questions,totalMarks:questions.reduce((s,q)=>s+q.marks,0),created:new Date().toISOString()};
 }
 
 // ══════════ PUBLISH (CLOUD) ══════════
-// ── 6-DIGIT CODE REGISTRY ──────────────────────────────────────────
-// Stores short code → binId mapping in a dedicated JSONBin so students
-// can enter a simple 6-digit code instead of the full 24-char binId.
-async function updateCodeRegistry(key, shortCode, binId){
-  let regId = localStorage.getItem('exam_code_registry_bin');
-  if(!regId){
-    // Create new registry bin
-    const r = await fetch('https://api.jsonbin.io/v3/b',{
-      method:'POST',
-      headers:{'Content-Type':'application/json','X-Master-Key':key,'X-Bin-Private':'false','X-Bin-Name':'ChemCodeRegistry'},
-      body: JSON.stringify({[shortCode]: binId})
-    });
-    const d = await r.json();
-    if(!d.metadata?.id) throw new Error('Could not create code registry');
-    regId = d.metadata.id;
-    localStorage.setItem('exam_code_registry_bin', regId);
-  } else {
-    // Read existing map, add new code, write back
-    const r = await fetch('https://api.jsonbin.io/v3/b/'+regId+'/latest');
-    const d = await r.json();
-    const map = (d && d.record) || {};
-    map[shortCode] = binId;
-    await fetch('https://api.jsonbin.io/v3/b/'+regId,{
-      method:'PUT',
-      headers:{'Content-Type':'application/json','X-Master-Key':key},
-      body: JSON.stringify(map)
-    });
-  }
-  return regId;
-}
-
-function generate6DigitCode(){
-  return Math.floor(100000 + Math.random() * 900000).toString();
-}
-
 async function publishExam(){
   const exam=buildExamObj();
   if(!exam) return;
   const key=localStorage.getItem('jsonbin_key');
   const alert=document.getElementById('create-alert');
   if(!key){
-    showAlert(document.getElementById("create-alert"),'danger','⚠️ No API key set. Go to Settings → Cloud Storage Setup to add your JSONBin key first. Or use 💾 Save Locally.');
+    showAlert(alert,'danger','⚠️ No API key set. Go to Settings → Cloud Storage Setup to add your JSONBin key first. Or use 💾 Save Locally.');
     return;
   }
-  showAlert(document.getElementById("create-alert"),'success','Publishing to cloud...');
+  showAlert(alert,'success','Publishing to cloud...');
   try{
-    // Create a DEDICATED results bin for THIS exam (so results never mix between exams)
-    let resultsBinId='';
-    try{
+    // Create results collection bin if not exists
+    let resultsBinId=localStorage.getItem('results_bin_id');
+    if(!resultsBinId){
       const rb=await fetch('https://api.jsonbin.io/v3/b',{
         method:'POST',
-        headers:{'Content-Type':'application/json','X-Master-Key':key,'X-Bin-Private':'false','X-Bin-Name':'Results-'+exam.title.slice(0,20).replace(/[^a-zA-Z0-9 \-]/g,'')},
+        headers:{'Content-Type':'application/json','X-Master-Key':key,'X-Bin-Private':'false','X-Bin-Name':'ChemResults'},
         body:JSON.stringify([])
       });
       const rd=await rb.json();
-      if(rd.metadata?.id) resultsBinId=rd.metadata.id;
-    }catch(e){}
-    // Embed API key and dedicated results bin into exam
+      if(rd.metadata?.id){resultsBinId=rd.metadata.id;localStorage.setItem('results_bin_id',resultsBinId);}
+    }
+    // Embed API key and results bin into exam so students can submit results cross-device
     exam._apiKey=key;
-    exam._resultsBin=resultsBinId;
+    exam._resultsBin=resultsBinId||'';
     // CRITICAL FIX: embed notification settings so student's browser can send alerts
     const _ns = JSON.parse(localStorage.getItem('notif_settings')||'{}');
     exam._notif = {
@@ -1087,39 +1040,28 @@ async function publishExam(){
     // Store exam in JSONBin
     const r=await fetch('https://api.jsonbin.io/v3/b',{
       method:'POST',
-      headers:{'Content-Type':'application/json','X-Master-Key':key,'X-Bin-Private':'false','X-Bin-Name':exam.title.slice(0,30).replace(/[^a-zA-Z0-9 \-]/g,'')||'ChemExam'},
+      headers:{'Content-Type':'application/json','X-Master-Key':key,'X-Bin-Private':'false','X-Bin-Name':exam.title.slice(0,30).replace(/[^\x00-\x7F]/g,'')||'ChemExam'},
       body:JSON.stringify(exam)
     });
     const d=await r.json();
     if(!d.metadata?.id) throw new Error(d.message||'Failed to publish');
     const binId=d.metadata.id;
-    // Generate a 6-digit student code and register it in the registry bin
-    const code = generate6DigitCode();
-    await updateCodeRegistry(key, code, binId);
+    // The STUDENT CODE = the full BIN ID (students paste it in, or teacher shares it)
+    // Also generate a short display code for convenience
+    const code=binId.slice(-8).toUpperCase();
     exam.binId=binId; exam.code=code;
     const exams=JSON.parse(localStorage.getItem('exams')||'[]');
     exams.push(exam);
     localStorage.setItem('exams',JSON.stringify(exams));
     lastExam=exam;
-    // Show the short 6-digit code to teacher
-    document.getElementById('exam-code-display').textContent=code;
-    // Show registry setup link for students
-    const regId = localStorage.getItem('exam_code_registry_bin');
-    const regNote = document.getElementById('registry-setup-note');
-    if(regNote && regId) regNote.style.display='block';
+    // Store the binId as the code students use
+    document.getElementById('exam-code-display').textContent=binId;
     document.getElementById('code-result').style.display='block';
     document.getElementById('code-result').scrollIntoView({behavior:'smooth'});
-    showAlert(document.getElementById("create-alert"),'success','✅ Exam published! Share the code below with students.');
+    showAlert(alert,'success','✅ Exam published! Share the code below with students.');
   }catch(e){
-    showAlert(document.getElementById("create-alert"),'danger','❌ Publish failed: '+e.message+'. Check your API key or internet connection.');
+    showAlert(alert,'danger','❌ Publish failed: '+e.message+'. Check your API key or internet connection.');
   }
-}
-
-function copyRegistryLink(){
-  const regId = localStorage.getItem('exam_code_registry_bin');
-  if(!regId){alert('No registry yet — publish an exam first.');return;}
-  const link = 'https://jacksonhabimana.github.io/student-exam.html?reg='+regId;
-  navigator.clipboard.writeText(link).then(()=>alert('✅ Setup link copied!\n\nShare this with students:\n'+link+'\n\nOnce they visit it, they only need the 6-digit code from then on.'));
 }
 
 function copyCode(){
@@ -1183,23 +1125,10 @@ function renderExamsList(){
     </div>`).join('');
 }
 
-function copyFullCode(binId){
-  if(!binId){alert('No code available.');return;}
-  // Find the short code for this exam
-  const exams=JSON.parse(localStorage.getItem('exams')||'[]');
-  const exam=exams.find(e=>e.binId===binId);
-  const display = (exam && exam.code) ? exam.code : binId.slice(-6).toUpperCase();
-  navigator.clipboard.writeText(display).then(()=>{
-    alert('Code copied: ' + display + '\n\nShare this with your students.');
-  }).catch(()=>{
-    prompt('Copy this code and share with students:',display);
-  });
-}
-
 function reshareCode(binId, shortCode){
-  const display = shortCode || binId;
+  const display = binId || shortCode;
   navigator.clipboard.writeText(display).catch(()=>{});
-  alert(`Share this CODE with your students:\n\n🔑 ${display}\n\nStudents enter it in student-exam.html to start.\n\n(Copied to clipboard automatically)`);
+  alert(`Share this FULL CODE with your students:\n\n🔑 ${display}\n\nStudents paste it in student-exam.html to start.\n\n(Copied to clipboard automatically)`);
 }
 
 async function republishExam(id){
@@ -1214,18 +1143,6 @@ async function republishExam(id){
   }
   if(!exam) return;
   try{
-    // Create a fresh dedicated results bin for the re-published exam
-    let newResultsBin='';
-    try{
-      const rb=await fetch('https://api.jsonbin.io/v3/b',{
-        method:'POST',
-        headers:{'Content-Type':'application/json','X-Master-Key':key,'X-Bin-Private':'false','X-Bin-Name':'Results-'+String(exam.title||'Exam').slice(0,20).replace(/[^a-zA-Z0-9 \-]/g,'')},
-        body:JSON.stringify([])
-      });
-      const rd=await rb.json();
-      if(rd.metadata?.id) newResultsBin=rd.metadata.id;
-    }catch(e){}
-    exam._resultsBin=newResultsBin;
     const r=await fetch('https://api.jsonbin.io/v3/b',{
       method:'POST',
       headers:{'Content-Type':'application/json','X-Master-Key':key,'X-Bin-Private':'false'},
@@ -1234,12 +1151,14 @@ async function republishExam(id){
     const d=await r.json();
     if(!d.metadata?.id) throw new Error(d.message||'Failed');
     const binId=d.metadata.id;
-    const code = generate6DigitCode();
-    await updateCodeRegistry(key, code, binId);
+    const code=binId.slice(-8).toUpperCase();
+    const codes=JSON.parse(localStorage.getItem('exam_codes')||'{}');
+    codes[code]=binId;
+    localStorage.setItem('exam_codes',JSON.stringify(codes));
     exam.binId=binId;exam.code=code;
     localStorage.setItem('exams',JSON.stringify(exams));
     renderExamsList();
-    alert(`✅ Re-published! New 6-digit code: ${code}`);
+    alert(`✅ Re-published! New code: ${code}`);
   }catch(e){alert('❌ Failed: '+e.message);}
 }
 
@@ -1260,26 +1179,18 @@ function deleteExam(id){
 async function fetchCloudResults(){
   try{
     const key=localStorage.getItem('jsonbin_key');
-    if(!key) return 0;
-    // Fetch from EACH exam's own dedicated results bin (no mixing)
-    const exams=JSON.parse(localStorage.getItem('exams')||'[]');
+    const binId=localStorage.getItem('results_bin_id');
+    if(!key||!binId) return;
+    const r=await fetch('https://api.jsonbin.io/v3/b/'+binId+'/latest',{headers:{'X-Master-Key':key}});
+    const d=await r.json();
+    if(!Array.isArray(d.record)) return;
+    // Merge cloud results into localStorage
     const local=JSON.parse(localStorage.getItem('student_results')||'[]');
     let added=0;
-    for(const exam of exams){
-      if(!exam._resultsBin) continue;
-      try{
-        const r=await fetch('https://api.jsonbin.io/v3/b/'+exam._resultsBin+'/latest',{headers:{'X-Master-Key':key}});
-        const d=await r.json();
-        if(!Array.isArray(d.record)) continue;
-        d.record.forEach(cr=>{
-          // Tag with examId/title from the exam object if missing
-          if(!cr.examId) cr.examId=exam.id;
-          if(!cr.examTitle) cr.examTitle=exam.title;
-          const dup=local.find(l=>l.studentName===cr.studentName&&l.examId===cr.examId&&l.submittedAt===cr.submittedAt);
-          if(!dup){local.push(cr);added++;}
-        });
-      }catch(e){}
-    }
+    d.record.forEach(cr=>{
+      const dup=local.find(l=>l.studentName===cr.studentName&&l.examId===cr.examId&&l.submittedAt===cr.submittedAt);
+      if(!dup){local.push(cr);added++;}
+    });
     if(added>0) localStorage.setItem('student_results',JSON.stringify(local));
     return added;
   }catch(e){return 0;}
@@ -1343,7 +1254,7 @@ function renderResults(){
 
   // Top stats
   const allRes=JSON.parse(localStorage.getItem('student_results')||'[]');
-  const exams=JSON.parse(localStorage.getItem('exams')||'[]');
+  const exams=JSON.parse(localStorage.getItem('my_exams')||'[]');
   const qCount=JSON.parse(localStorage.getItem('current_questions')||'[]').length;
   upd('stat-questions',qCount);
   upd('stat-exams',exams.length);
@@ -3585,17 +3496,18 @@ async function publishUnitQuiz(){
   document.getElementById('pq-code-box').style.display='none';
 
   // Ensure results bin exists before publishing
-  // Each quiz gets its OWN results bin — no mixing with other exams
-  let resultsBinId = '';
-  try{
-    const rb=await fetch('https://api.jsonbin.io/v3/b',{
-      method:'POST',
-      headers:{'Content-Type':'application/json','X-Master-Key':key,'X-Bin-Private':'false','X-Bin-Name':'Results-'+String(unit.title||'Quiz').slice(0,20).replace(/[^a-zA-Z0-9 \-]/g,'')},
-      body:JSON.stringify([])
-    });
-    const rd=await rb.json();
-    if(rd.metadata?.id) resultsBinId=rd.metadata.id;
-  }catch(e){}
+  let resultsBinId = localStorage.getItem('results_bin_id');
+  if(!resultsBinId){
+    try{
+      const rb=await fetch('https://api.jsonbin.io/v3/b',{
+        method:'POST',
+        headers:{'Content-Type':'application/json','X-Master-Key':key,'X-Bin-Private':'false','X-Bin-Name':'ChemResults'},
+        body:JSON.stringify([])
+      });
+      const rd=await rb.json();
+      if(rd.metadata?.id){resultsBinId=rd.metadata.id;localStorage.setItem('results_bin_id',resultsBinId);}
+    }catch(e){}
+  }
 
   // Get selected course for correct label
   const selectedCourse = (document.getElementById('pq-course')||{}).value||'S4';
@@ -3603,7 +3515,7 @@ async function publishUnitQuiz(){
   // Build exam object in exact format student-exam.html expects
   const examObj = {
     id: 'exam_' + Date.now(),
-    title: `${selectedCourse} ${unit.num} Quiz — ${unit.title}`.replace(/[^a-zA-Z0-9 \-]/g,'').trim()||`${selectedCourse} ${unit.num} Quiz`,
+    title: `${selectedCourse} ${unit.num} Quiz — ${unit.title}`.replace(/[^\x00-\x7F]/g,'').trim()||`${selectedCourse} ${unit.num} Quiz`,
     subject: `${selectedCourse} Chemistry`,
     type: 'quiz',
     time, pass, warnings: warn, instructions, allowSecondAttempt,
@@ -3621,7 +3533,7 @@ async function publishUnitQuiz(){
   try{
     const r = await fetch('https://api.jsonbin.io/v3/b',{
       method:'POST',
-      headers:{'Content-Type':'application/json','X-Master-Key':key,'X-Bin-Private':'false','X-Bin-Name':examObj.title.slice(0,30).replace(/[^a-zA-Z0-9 \-]/g,'')||'ChemQuiz'},
+      headers:{'Content-Type':'application/json','X-Master-Key':key,'X-Bin-Private':'false','X-Bin-Name':examObj.title.slice(0,30).replace(/[^\x00-\x7F]/g,'')||'ChemQuiz'},
       body: JSON.stringify(examObj)
     });
     const d = await r.json();
@@ -3629,25 +3541,16 @@ async function publishUnitQuiz(){
     const binId = d.metadata.id;
     _pqLastBinId = binId;
 
-    // Generate a 6-digit student code and register in registry
-    const shortCode = generate6DigitCode();
-    await updateCodeRegistry(key, shortCode, binId);
-
     // Save to local exams list
     const exams = JSON.parse(localStorage.getItem('exams')||'[]');
     examObj.binId = binId;
-    examObj.code = shortCode;
+    examObj.code = binId;
     exams.push(examObj);
     localStorage.setItem('exams', JSON.stringify(exams));
 
     showAlert(alertEl,'success','✅ Published successfully!');
     document.getElementById('pq-code-box').style.display='block';
-    document.getElementById('pq-code-text').textContent = shortCode;
-
-    // Show registry setup note
-    const regId = localStorage.getItem('exam_code_registry_bin');
-    const regNote = document.getElementById('registry-setup-note');
-    if(regNote && regId) regNote.style.display='block';
+    document.getElementById('pq-code-text').textContent = binId;
 
     // Update stats
     updateStats();
@@ -4466,7 +4369,7 @@ function renderPaperExamsList(){
   // Update stat card
   const el = document.getElementById('stat-exams');
   if(el){
-    const myExams = JSON.parse(localStorage.getItem('exams')||'[]');
+    const myExams = JSON.parse(localStorage.getItem('my_exams')||'[]');
     el.textContent = myExams.length + paperExams.length;
   }
 }
