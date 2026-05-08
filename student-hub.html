@@ -189,231 +189,93 @@ footer a{color:var(--accent);text-decoration:none;}
   </div>
 </nav>
 
+<style>
+/* ── STEP FLOW ── */
+.step-flow{display:none;}.step-flow.active{display:block;}
+.step-title{font-family:'JetBrains Mono',monospace;font-size:.72rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:18px;display:flex;align-items:center;gap:10px;}
+.step-title span{background:var(--surface);border:1px solid var(--border);border-radius:50%;width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;font-weight:700;color:var(--accent);}
+.class-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:8px;}
+@media(max-width:600px){.class-grid{grid-template-columns:1fr;}}
+.class-btn{background:var(--surface);border:2px solid var(--border);border-radius:14px;padding:28px 20px;cursor:pointer;text-align:center;transition:all .2s;position:relative;overflow:hidden;}
+.class-btn:hover,.class-btn.selected{border-color:var(--accent);background:rgba(56,189,248,.08);transform:translateY(-3px);box-shadow:0 8px 24px rgba(56,189,248,.15);}
+.class-btn .cb-level{font-family:'Playfair Display',serif;font-size:2.2rem;color:#fff;font-weight:700;margin-bottom:6px;}
+.class-btn .cb-label{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;}
+.class-btn .cb-count{font-family:'JetBrains Mono',monospace;font-size:.68rem;margin-top:8px;padding:3px 10px;border-radius:50px;background:rgba(56,189,248,.1);color:var(--accent);display:inline-block;}
+.subj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-bottom:8px;}
+.subj-btn{background:var(--surface);border:2px solid var(--border);border-radius:10px;padding:16px 18px;cursor:pointer;text-align:left;transition:all .2s;display:flex;align-items:center;gap:12px;}
+.subj-btn:hover,.subj-btn.selected{border-color:var(--green);background:rgba(52,211,153,.07);}
+.subj-btn .sb-icon{font-size:1.5rem;}
+.subj-btn .sb-name{font-family:'Source Serif 4',serif;font-size:.92rem;color:#fff;font-weight:600;}
+.back-btn{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--muted);background:none;border:1px solid var(--border);border-radius:6px;padding:6px 14px;cursor:pointer;margin-bottom:20px;transition:all .2s;}
+.back-btn:hover{color:var(--accent);border-color:var(--accent);}
+.breadcrumb{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--muted);margin-bottom:20px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.breadcrumb .bc-item{color:var(--accent);}
+.exam-section-label{font-family:'JetBrains Mono',monospace;font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;margin:28px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--border);}
+.no-exams{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:28px;text-align:center;color:var(--muted);font-size:.9rem;}
+</style>
+
 <div class="hero">
   <div class="badge">🎓 Student Assessment Centre</div>
   <h1>Welcome,<br><em>Chemistry Student</em></h1>
-  <p>Your teacher has shared this page with you. Use an exam code from your teacher, or choose a self-practice quiz, test, or exam below.</p>
+  <p>Select your class and subject to see your teacher's exams and practice assessments.</p>
 </div>
 
 <main class="page">
 
-  <!-- ═══ EXAM CODE ═══ -->
-  <div class="sec-hdr">
-    <span class="sec-pill" style="background:rgba(52,211,153,.15);color:var(--green);border:1px solid rgba(52,211,153,.3);">Step 1 — Teacher's Exam</span>
-    <h2>Enter Your Exam Code</h2>
-  </div>
-
-  <div class="code-box">
-    <h3>📋 Teacher-Set Exam</h3>
-    <p>If your teacher gave you a <strong>6-digit exam code</strong>, enter it here. The exam will load automatically with your teacher's questions, time limit, and rules.</p>
-    <div class="code-input-row">
-      <input class="code-inp" type="text" id="exam-code" maxlength="32" placeholder="A3F8C2 (6-character code)" onkeydown="if(event.key==='Enter')goToExam()"/>
-      <button class="code-btn" onclick="goToExam()">🚀 Start Exam</button>
-    </div>
-    <div class="code-err" id="code-err"></div>
-    <div class="code-loading" id="code-loading">⏳ Loading your exam...</div>
-  </div>
-
-  <div class="info-box">
-    <h4 style="color:var(--green);">📌 No code? No problem</h4>
-    <p style="font-size:.88rem;color:var(--muted);">If your teacher hasn't given a code, they may share a <strong style="color:var(--text);">.json exam file</strong> instead. Go to <a href="student-exam.html" style="color:var(--accent);">student-exam.html</a> to upload the file directly.</p>
-  </div>
-
-  <!-- ═══ SELF-PRACTICE ═══ -->
-  <div class="sec-hdr">
-    <span class="sec-pill" style="background:rgba(56,189,248,.15);color:var(--accent);border:1px solid rgba(56,189,248,.25);">Step 2 — Self Practice</span>
-    <h2>Practice Assessments</h2>
-  </div>
-
-  <p style="color:var(--muted);margin-bottom:24px;font-size:.93rem;">All questions below are <strong style="color:#fff;">unique</strong> — different from your course unit quizzes. Practice before your real exam!</p>
-
-  <!-- QUIZZES -->
-  <div style="margin-bottom:10px;">
-    <div style="font-family:'JetBrains Mono',monospace;font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:14px;">⚡ Quick Quizzes — 30 Questions Each</div>
-    <div class="assess-grid">
-      <a class="a-card" href="student-quiz.html?level=s4" style="--cc:var(--accent);">
-        <div class="a-card-top" style="background:var(--accent);"></div>
-        <div class="a-card-body">
-          <div class="a-card-icon">🔵</div>
-          <h3>S4 Chemistry Quiz</h3>
-          <p>Atomic structure, bonding, periodic table, Group 1, 2, 13 chemistry. 30 unique challenge questions.</p>
-          <div class="a-card-meta">
-            <span class="a-meta-chip">30 Questions</span>
-            <span class="a-meta-chip">MCQ</span>
-            <span class="a-meta-chip">With explanations</span>
-          </div>
-          <div class="a-card-arrow" style="color:var(--accent);">Take S4 Quiz →</div>
-        </div>
-      </a>
-      <a class="a-card" href="student-quiz.html?level=s5" style="--cc:var(--green);">
-        <div class="a-card-top" style="background:var(--green);"></div>
-        <div class="a-card-body">
-          <div class="a-card-icon">🟢</div>
-          <h3>S5 Chemistry Quiz</h3>
-          <p>Organic chemistry, reaction mechanisms, polymers, thermochemistry, amino acids. 30 unique questions.</p>
-          <div class="a-card-meta">
-            <span class="a-meta-chip">30 Questions</span>
-            <span class="a-meta-chip">MCQ</span>
-            <span class="a-meta-chip">With explanations</span>
-          </div>
-          <div class="a-card-arrow" style="color:var(--green);">Take S5 Quiz →</div>
-        </div>
-      </a>
-      <a class="a-card" href="student-quiz.html?level=s6" style="--cc:var(--purple);">
-        <div class="a-card-top" style="background:var(--purple);"></div>
-        <div class="a-card-body">
-          <div class="a-card-icon">🟣</div>
-          <h3>S6 Chemistry Quiz</h3>
-          <p>Transition metals, equilibrium, pH, electrochemistry, kinetics, radioactivity. 30 unique questions.</p>
-          <div class="a-card-meta">
-            <span class="a-meta-chip">30 Questions</span>
-            <span class="a-meta-chip">MCQ</span>
-            <span class="a-meta-chip">With explanations</span>
-          </div>
-          <div class="a-card-arrow" style="color:var(--purple);">Take S6 Quiz →</div>
-        </div>
-      </a>
-      <a class="a-card" href="student-quiz.html?level=mix">
-        <div class="a-card-top" style="background:var(--gold);"></div>
-        <div class="a-card-body">
-          <div class="a-card-icon">🏆</div>
-          <h3>Mixed Challenge Quiz</h3>
-          <p>S4 + S5 + S6 combined. 30 questions covering the full chemistry syllabus. Can you ace all levels?</p>
-          <div class="a-card-meta">
-            <span class="a-meta-chip">30 Questions</span>
-            <span class="a-meta-chip">Mixed</span>
-            <span class="a-meta-chip">Challenging</span>
-          </div>
-          <div class="a-card-arrow" style="color:var(--gold);">Take Mixed Quiz →</div>
-        </div>
-      </a>
+  <!-- ══ STEP 1: SELECT CLASS ══ -->
+  <div class="step-flow active" id="step-class">
+    <div class="step-title"><span>1</span> Select Your Class</div>
+    <div class="class-grid">
+      <button class="class-btn" onclick="selectClass('S4')">
+        <div class="cb-level">S4</div>
+        <div class="cb-label">Senior 4</div>
+        <div class="cb-count" id="cnt-S4">Loading...</div>
+      </button>
+      <button class="class-btn" onclick="selectClass('S5')">
+        <div class="cb-level">S5</div>
+        <div class="cb-label">Senior 5</div>
+        <div class="cb-count" id="cnt-S5">Loading...</div>
+      </button>
+      <button class="class-btn" onclick="selectClass('S6')">
+        <div class="cb-level">S6</div>
+        <div class="cb-label">Senior 6</div>
+        <div class="cb-count" id="cnt-S6">Loading...</div>
+      </button>
     </div>
   </div>
 
-  <!-- TESTS -->
-  <div style="margin-bottom:10px;margin-top:32px;">
-    <div style="font-family:'JetBrains Mono',monospace;font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--orange);margin-bottom:14px;">📝 Practice Tests — 40 Questions Each</div>
-    <div class="assess-grid">
-      <a class="a-card" href="tests.html#panel-s4" onclick="return goTest('s4')">
-        <div class="a-card-top" style="background:var(--accent);"></div>
-        <div class="a-card-body">
-          <div class="a-card-icon">📝</div>
-          <h3>S4 Practice Test</h3>
-          <p>40 harder questions on the full S4 syllabus. Different from all quizzes. Self-marking with explanations.</p>
-          <div class="a-card-meta">
-            <span class="a-meta-chip">40 Questions</span>
-            <span class="a-meta-chip">Harder</span>
-            <span class="a-meta-chip">Self-marking</span>
-          </div>
-          <div class="a-card-arrow" style="color:var(--accent);">Start S4 Test →</div>
-        </div>
-      </a>
-      <a class="a-card" href="tests.html#panel-s5" onclick="return goTest('s5')">
-        <div class="a-card-top" style="background:var(--green);"></div>
-        <div class="a-card-body">
-          <div class="a-card-icon">📝</div>
-          <h3>S5 Practice Test</h3>
-          <p>40 questions on organic chemistry, mechanisms, polymers, spectroscopy, thermochemistry.</p>
-          <div class="a-card-meta">
-            <span class="a-meta-chip">40 Questions</span>
-            <span class="a-meta-chip">Harder</span>
-            <span class="a-meta-chip">Self-marking</span>
-          </div>
-          <div class="a-card-arrow" style="color:var(--green);">Start S5 Test →</div>
-        </div>
-      </a>
-      <a class="a-card" href="tests.html#panel-s6" onclick="return goTest('s6')">
-        <div class="a-card-top" style="background:var(--purple);"></div>
-        <div class="a-card-body">
-          <div class="a-card-icon">📝</div>
-          <h3>S6 Practice Test</h3>
-          <p>40 questions on transition metals, equilibrium constants, Ksp, electrochemistry, kinetics, radioactivity.</p>
-          <div class="a-card-meta">
-            <span class="a-meta-chip">40 Questions</span>
-            <span class="a-meta-chip">Harder</span>
-            <span class="a-meta-chip">Self-marking</span>
-          </div>
-          <div class="a-card-arrow" style="color:var(--purple);">Start S6 Test →</div>
-        </div>
-      </a>
-      <a class="a-card" href="tests.html#panel-all" onclick="return goTest('all')">
-        <div class="a-card-top" style="background:var(--orange);"></div>
-        <div class="a-card-body">
-          <div class="a-card-icon">📝</div>
-          <h3>Mixed Practice Test</h3>
-          <p>40 questions combining S4 + S5 + S6. Tests your full chemistry knowledge across all levels.</p>
-          <div class="a-card-meta">
-            <span class="a-meta-chip">40 Questions</span>
-            <span class="a-meta-chip">Mixed</span>
-            <span class="a-meta-chip">Full syllabus</span>
-          </div>
-          <div class="a-card-arrow" style="color:var(--orange);">Start Mixed Test →</div>
-        </div>
-      </a>
-    </div>
+  <!-- ══ STEP 2: SELECT SUBJECT ══ -->
+  <div class="step-flow" id="step-subject">
+    <button class="back-btn" onclick="goStep('class')">← Back to Classes</button>
+    <div class="breadcrumb"><span id="bc-class" class="bc-item"></span></div>
+    <div class="step-title"><span>2</span> Select Your Subject</div>
+    <div class="subj-grid" id="subj-list"></div>
   </div>
 
-  <!-- EXAMS -->
-  <div style="margin-top:32px;">
-    <div style="font-family:'JetBrains Mono',monospace;font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--pink);margin-bottom:14px;">🎓 Full Exam Papers — 50 Questions Each</div>
-    <div class="assess-grid">
-      <a class="a-card" href="exams.html" onclick="return goExam('s4')">
-        <div class="a-card-top" style="background:var(--accent);"></div>
-        <div class="a-card-body">
-          <div class="a-card-icon">🎓</div>
-          <h3>S4 Exam Paper</h3>
-          <p>50 exam-level questions covering the complete S4 syllabus. Hardest questions on this site.</p>
-          <div class="a-card-meta">
-            <span class="a-meta-chip">50 Questions</span>
-            <span class="a-meta-chip">Exam Level</span>
-            <span class="a-meta-chip">Pass = 50%</span>
-          </div>
-          <div class="a-card-arrow" style="color:var(--pink);">Open S4 Exam →</div>
-        </div>
-      </a>
-      <a class="a-card" href="exams.html" onclick="return goExam('s5')">
-        <div class="a-card-top" style="background:var(--green);"></div>
-        <div class="a-card-body">
-          <div class="a-card-icon">🎓</div>
-          <h3>S5 Exam Paper</h3>
-          <p>50 exam-level questions on organic chemistry, spectroscopy, mechanisms, and physical chemistry.</p>
-          <div class="a-card-meta">
-            <span class="a-meta-chip">50 Questions</span>
-            <span class="a-meta-chip">Exam Level</span>
-            <span class="a-meta-chip">Pass = 50%</span>
-          </div>
-          <div class="a-card-arrow" style="color:var(--pink);">Open S5 Exam →</div>
-        </div>
-      </a>
-      <a class="a-card" href="exams.html" onclick="return goExam('s6')">
-        <div class="a-card-top" style="background:var(--purple);"></div>
-        <div class="a-card-body">
-          <div class="a-card-icon">🎓</div>
-          <h3>S6 Exam Paper</h3>
-          <p>50 exam-level questions on transition metals, Gibbs energy, electrochemistry, nuclear chemistry, buffers.</p>
-          <div class="a-card-meta">
-            <span class="a-meta-chip">50 Questions</span>
-            <span class="a-meta-chip">Exam Level</span>
-            <span class="a-meta-chip">Pass = 50%</span>
-          </div>
-          <div class="a-card-arrow" style="color:var(--pink);">Open S6 Exam →</div>
-        </div>
-      </a>
-      <a class="a-card" href="exams.html" onclick="return goExam('full')">
-        <div class="a-card-top" style="background:var(--pink);"></div>
-        <div class="a-card-body">
-          <div class="a-card-icon">🎓</div>
-          <h3>Full Chemistry Exam</h3>
-          <p>50 questions covering S4 + S5 + S6 comprehensive. The ultimate chemistry challenge.</p>
-          <div class="a-card-meta">
-            <span class="a-meta-chip">50 Questions</span>
-            <span class="a-meta-chip">All Levels</span>
-            <span class="a-meta-chip">Pass = 50%</span>
-          </div>
-          <div class="a-card-arrow" style="color:var(--pink);">Open Full Exam →</div>
-        </div>
-      </a>
+  <!-- ══ STEP 3: EXAMS ══ -->
+  <div class="step-flow" id="step-exams">
+    <button class="back-btn" onclick="goStep('subject')">← Back to Subjects</button>
+    <div class="breadcrumb"><span id="bc-class2" class="bc-item"></span> <span>›</span> <span id="bc-subj" class="bc-item"></span></div>
+
+    <!-- Teacher exams (published) -->
+    <div class="exam-section-label" style="color:var(--green);">📋 Teacher's Published Exams</div>
+    <div id="teacher-exams-list"></div>
+
+    <!-- Exam code entry -->
+    <div class="code-box" style="margin-top:20px;">
+      <h3>🔑 Have an Exam Code?</h3>
+      <p>If your teacher gave you a <strong>6-digit exam code</strong>, enter it here.</p>
+      <div class="code-input-row">
+        <input class="code-inp" type="text" id="exam-code" maxlength="32" placeholder="e.g. A3F8C2" onkeydown="if(event.key==='Enter')goToExam()"/>
+        <button class="code-btn" onclick="goToExam()">🚀 Start</button>
+      </div>
+      <div class="code-err" id="code-err"></div>
+      <div class="code-loading" id="code-loading">⏳ Loading your exam...</div>
     </div>
+
+    <!-- Self practice -->
+    <div class="exam-section-label" style="color:var(--accent);">⚡ Self-Practice Assessments</div>
+    <div class="assess-grid" id="practice-list"></div>
   </div>
 
   <!-- HOW IT WORKS -->
@@ -554,67 +416,188 @@ footer a{color:var(--accent);text-decoration:none;}
 <footer>⚗ Jackson Habimana Chemistry Portal &bull; <a href="index.html">Home</a> &bull; <a href="s4-chemistry.html">S4</a> &bull; <a href="s5-chemistry.html">S5</a> &bull; <a href="s6-chemistry.html">S6</a> &bull; <a href="contact.html">Contact</a></footer>
 
 <script>
-// ── Navigate to teacher exam ──
-// Accepts: short 6-char code (new format) OR long bin ID (legacy)
-// Goes directly to student-quiz.html without intermediate screens.
-const JB_URL = 'https://api.jsonbin.io/v3/b';
+// ══════════ SUBJECTS CONFIG ══════════
+const SUBJECTS = {
+  S4: [
+    {id:'chemistry', name:'Chemistry', icon:'⚗️'},
+    {id:'biology',   name:'Biology',   icon:'🌿'},
+    {id:'physics',   name:'Physics',   icon:'⚡'},
+    {id:'math',      name:'Math',      icon:'📐'},
+  ],
+  S5: [
+    {id:'chemistry', name:'Chemistry', icon:'⚗️'},
+    {id:'biology',   name:'Biology',   icon:'🌿'},
+    {id:'physics',   name:'Physics',   icon:'⚡'},
+    {id:'math',      name:'Math',      icon:'📐'},
+  ],
+  S6: [
+    {id:'chemistry', name:'Chemistry', icon:'⚗️'},
+    {id:'biology',   name:'Biology',   icon:'🌿'},
+    {id:'physics',   name:'Physics',   icon:'⚡'},
+    {id:'math',      name:'Math',      icon:'📐'},
+  ]
+};
 
-async function resolveExamCode(codeRaw){
-  const code = (codeRaw || '').trim().toUpperCase().replace(/\s+/g,'');
-  if(!code) throw new Error('Please enter the exam code your teacher gave you.');
-  // Legacy: looks like a long hex bin id (12+ chars, alphanumeric) → use as-is
-  if(code.length >= 12) return code;
-  // Short code (3–11 chars): look up in registry
-  const regId = localStorage.getItem('exam_code_registry_bin');
-  if(!regId){
-    throw new Error('This device has never loaded the code registry. Ask your teacher to re-send the code or use the long code.');
+const PRACTICE = {
+  S4: {
+    quiz: {href:'student-quiz.html?level=s4', label:'S4 Chemistry Quiz', desc:'30 unique MCQ questions — atomic structure, bonding, periodic table.', qs:'30 Qs', color:'var(--accent)'},
+    test: {href:'tests.html', onclick:"goTest('s4')", label:'S4 Practice Test', desc:'40 harder questions on the full S4 syllabus. Self-marking.', qs:'40 Qs', color:'var(--orange)'},
+    exam: {href:'exams.html', onclick:"goExam('s4')", label:'S4 Exam Paper', desc:'50 exam-level questions — hardest on the site.', qs:'50 Qs', color:'var(--pink)'},
+  },
+  S5: {
+    quiz: {href:'student-quiz.html?level=s5', label:'S5 Chemistry Quiz', desc:'30 questions — organic chemistry, mechanisms, thermochemistry.', qs:'30 Qs', color:'var(--green)'},
+    test: {href:'tests.html', onclick:"goTest('s5')", label:'S5 Practice Test', desc:'40 questions on organic chemistry, polymers, spectroscopy.', qs:'40 Qs', color:'var(--orange)'},
+    exam: {href:'exams.html', onclick:"goExam('s5')", label:'S5 Exam Paper', desc:'50 exam-level questions on organic and physical chemistry.', qs:'50 Qs', color:'var(--pink)'},
+  },
+  S6: {
+    quiz: {href:'student-quiz.html?level=s6', label:'S6 Chemistry Quiz', desc:'30 questions — transition metals, equilibrium, electrochemistry.', qs:'30 Qs', color:'var(--purple)'},
+    test: {href:'tests.html', onclick:"goTest('s6')", label:'S6 Practice Test', desc:'40 questions on equilibrium, kinetics, radioactivity, pH.', qs:'40 Qs', color:'var(--orange)'},
+    exam: {href:'exams.html', onclick:"goExam('s6')", label:'S6 Exam Paper', desc:'50 exam-level questions on advanced S6 topics.', qs:'50 Qs', color:'var(--pink)'},
   }
-  const r = await fetch(JB_URL + '/' + regId + '/latest');
-  if(!r.ok) throw new Error('Could not load code registry (HTTP ' + r.status + ')');
+};
+
+let selClass = '', selSubject = '';
+
+// ── Count published exams per class ──
+function countExams(cls){
+  const exams = JSON.parse(localStorage.getItem('my_exams')||'[]');
+  return exams.filter(e=>e.published && (e.classLevel||'').toUpperCase().startsWith(cls)).length;
+}
+
+// ── Step navigation ──
+function goStep(step){
+  document.querySelectorAll('.step-flow').forEach(el=>el.classList.remove('active'));
+  document.getElementById('step-'+step).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function selectClass(cls){
+  selClass = cls;
+  document.getElementById('bc-class').textContent = cls;
+  document.getElementById('bc-class2').textContent = cls;
+  // Build subject list
+  const subjs = SUBJECTS[cls] || [];
+  document.getElementById('subj-list').innerHTML = subjs.map(s=>`
+    <button class="subj-btn" onclick="selectSubject('${s.id}','${s.name}')">
+      <span class="sb-icon">${s.icon}</span>
+      <span class="sb-name">${s.name}</span>
+    </button>`).join('');
+  goStep('subject');
+}
+
+function selectSubject(subjId, subjName){
+  selSubject = subjName;
+  document.getElementById('bc-subj').textContent = subjName;
+  renderExams(selClass, subjId, subjName);
+  goStep('exams');
+}
+
+function renderExams(cls, subjId, subjName){
+  // ── Teacher published exams ──
+  const allExams = JSON.parse(localStorage.getItem('my_exams')||'[]');
+  const teacherExams = allExams.filter(e=>{
+    if(!e.published) return false;
+    const ec = (e.classLevel||'').toUpperCase();
+    const es = (e.subject||'').toLowerCase();
+    return ec.startsWith(cls) && (es.includes(subjId)||subjId==='chemistry');
+  });
+
+  const tel = document.getElementById('teacher-exams-list');
+  if(teacherExams.length){
+    tel.innerHTML = '<div class="assess-grid">'+teacherExams.map(e=>`
+      <a class="a-card" href="student-quiz.html?code=${encodeURIComponent(e.shortCode||e.id)}">
+        <div class="a-card-top" style="background:var(--green);"></div>
+        <div class="a-card-body">
+          <div class="a-card-icon">📋</div>
+          <h3>${e.title||'Exam'}</h3>
+          <p>${e.subject||subjName} · ${cls} · ${e.questions?.length||0} questions · ${e.timeLimit||40} min</p>
+          <div class="a-card-meta">
+            <span class="a-meta-chip">${e.questions?.length||'?'} Questions</span>
+            <span class="a-meta-chip">${e.timeLimit||40} min</span>
+            <span class="a-meta-chip" style="color:var(--green);border-color:var(--green);">✅ Published</span>
+          </div>
+          <div class="a-card-arrow" style="color:var(--green);">Start Exam →</div>
+        </div>
+      </a>`).join('')+'</div>';
+  } else {
+    tel.innerHTML = `<div class="no-exams">No published exams from your teacher for ${cls} ${subjName} yet.<br><span style="font-size:.82rem;margin-top:6px;display:block;">Use an exam code below if your teacher gave you one.</span></div>`;
+  }
+
+  // ── Self practice (chemistry only for now) ──
+  const pl = document.getElementById('practice-list');
+  if(subjId === 'chemistry' && PRACTICE[cls]){
+    const p = PRACTICE[cls];
+    pl.innerHTML = Object.values(p).map(item=>`
+      <a class="a-card" href="${item.href}" ${item.onclick?`onclick="${item.onclick};return false;"`:''}>
+        <div class="a-card-top" style="background:${item.color};"></div>
+        <div class="a-card-body">
+          <div class="a-card-icon">⚡</div>
+          <h3>${item.label}</h3>
+          <p>${item.desc}</p>
+          <div class="a-card-meta">
+            <span class="a-meta-chip">${item.qs}</span>
+            <span class="a-meta-chip">Self-marking</span>
+          </div>
+          <div class="a-card-arrow" style="color:${item.color};">Start →</div>
+        </div>
+      </a>`).join('');
+  } else {
+    pl.innerHTML = `<div class="no-exams" style="grid-column:1/-1;">Self-practice assessments for ${subjName} coming soon.</div>`;
+  }
+}
+
+// ── Init: show exam counts on class buttons ──
+window.addEventListener('DOMContentLoaded',()=>{
+  ['S4','S5','S6'].forEach(cls=>{
+    const n = countExams(cls);
+    const el = document.getElementById('cnt-'+cls);
+    if(el) el.textContent = n ? n+' exam'+(n>1?'s':'')+' published' : 'No published exams yet';
+  });
+});
+
+// ── Exam code entry ──
+const JB_URL = 'https://api.jsonbin.io/v3/b';
+async function resolveExamCode(codeRaw){
+  const code = (codeRaw||'').trim().toUpperCase().replace(/\s+/g,'');
+  if(!code) throw new Error('Please enter the exam code your teacher gave you.');
+  if(code.length >= 12) return code;
+  const regId = localStorage.getItem('exam_code_registry_bin');
+  if(!regId) throw new Error('Code registry not found. Ask your teacher to re-share the code.');
+  const r = await fetch(JB_URL+'/'+regId+'/latest');
+  if(!r.ok) throw new Error('Could not load code registry (HTTP '+r.status+')');
   const d = await r.json();
-  const map = d.record || {};
+  const map = d.record||{};
   const entry = map[code];
   if(!entry) throw new Error('Code not recognised. Please check with your teacher.');
-  return typeof entry === 'string' ? entry : entry.longId;
+  return typeof entry==='string'?entry:entry.longId;
 }
 
 async function goToExam(){
-  const input = document.getElementById('exam-code');
-  const err   = document.getElementById('code-err');
-  const load  = document.getElementById('code-loading');
-  err.textContent = '';
-  load.style.display = 'block';
+  const input=document.getElementById('exam-code');
+  const err=document.getElementById('code-err');
+  const load=document.getElementById('code-loading');
+  err.textContent='';
+  load.style.display='block';
   try{
-    const longId = await resolveExamCode(input.value);
-    sessionStorage.setItem('exam_code_to_load', longId);
-    // Go straight to the quiz-taker so students don't see the messy middle screen
-    window.location.href = 'student-quiz.html?code=' + encodeURIComponent(longId);
+    const longId=await resolveExamCode(input.value);
+    sessionStorage.setItem('exam_code_to_load',longId);
+    window.location.href='student-quiz.html?code='+encodeURIComponent(longId);
   }catch(e){
-    err.textContent = '❌ ' + e.message;
-    load.style.display = 'none';
+    err.textContent='❌ '+e.message;
+    load.style.display='none';
   }
 }
 
-document.getElementById('exam-code').addEventListener('keydown', e => {
-  if(e.key === 'Enter') goToExam();
-});
-document.getElementById('exam-code').addEventListener('input', function(){
-  this.value = this.value.toUpperCase();
+document.addEventListener('DOMContentLoaded',()=>{
+  const ci=document.getElementById('exam-code');
+  if(ci){
+    ci.addEventListener('keydown',e=>{if(e.key==='Enter')goToExam();});
+    ci.addEventListener('input',function(){this.value=this.value.toUpperCase();});
+  }
 });
 
-// ── Navigate to test with level pre-selected ──
-function goTest(level){
-  sessionStorage.setItem('test_level', level);
-  window.location.href = 'tests.html';
-  return false;
-}
-
-// ── Navigate to exam with level pre-selected ──
-function goExam(level){
-  sessionStorage.setItem('exam_level', level);
-  window.location.href = 'exams.html';
-  return false;
-}
+function goTest(level){sessionStorage.setItem('test_level',level);window.location.href='tests.html';return false;}
+function goExam(level){sessionStorage.setItem('exam_level',level);window.location.href='exams.html';return false;}
 </script>
 
 <script src="shuffle-answers.js"></script>
