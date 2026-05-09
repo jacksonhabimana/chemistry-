@@ -505,7 +505,7 @@ function renderExams(cls, subjId, subjName){
   const tel = document.getElementById('teacher-exams-list');
   if(teacherExams.length){
     tel.innerHTML = '<div class="assess-grid">'+teacherExams.map(e=>`
-      <a class="a-card" href="student-quiz.html?code=${encodeURIComponent(e.shortCode||e.id)}">
+      <a class="a-card" href="student-quiz.html?code=${encodeURIComponent(e.shortCode||e.id)}" onclick="sessionStorage.setItem('student_class','${cls}')">
         <div class="a-card-top" style="background:var(--green);"></div>
         <div class="a-card-body">
           <div class="a-card-icon">📋</div>

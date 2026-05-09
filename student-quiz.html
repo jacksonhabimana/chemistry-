@@ -638,8 +638,8 @@ function doSubmit(reason){
   };
   // Save to localStorage
   try{const arr=JSON.parse(localStorage.getItem('student_results')||'[]');arr.push(resultData);localStorage.setItem('student_results',JSON.stringify(arr));}catch(e){}
-  // Save to teacher's cloud bin (if exam has embedded key)
-  if(activeExam&&activeExam._apiKey&&activeExam._resultsBin) saveToCloud(resultData,activeExam._apiKey,activeExam._resultsBin);
+  // Save to teacher's cloud bin
+  saveResultToTeacher(resultData);
   sendNotif('SUBMIT',`${pass?'✅':'❌'} SUBMISSION\nStudent: ${studentName}${studentClass?' ('+studentClass+')':''}\nExam: ${resultData.examTitle}\nScore: ${score}/${total} (${pct}%)\nResult: ${pass?'PASS':'FAIL'}\nViolations: ${violations}\nTime: ${mm}m ${ss}s`);
   showResult();
 }
@@ -651,6 +651,21 @@ async function saveToCloud(result,key,binId){
     list.push(result);
     await fetch('https://api.jsonbin.io/v3/b/'+binId,{method:'PUT',headers:{'Content-Type':'application/json','X-Master-Key':key},body:JSON.stringify(list)});
   }catch(e){}
+}
+
+// Always try to save result to teacher's cloud bin
+async function saveResultToTeacher(result){
+  // 1. Use key/bin embedded in exam
+  if(activeExam&&activeExam._apiKey&&activeExam._resultsBin){
+    await saveToCloud(result,activeExam._apiKey,activeExam._resultsBin);
+    return;
+  }
+  // 2. Fallback: use teacher's key stored in localStorage (set via teacher-admin on same device)
+  const key=localStorage.getItem('jb_key')||localStorage.getItem('jsonbin_key');
+  const binId=localStorage.getItem('results_bin_id')||localStorage.getItem('jb_results_bin');
+  if(key&&binId){
+    await saveToCloud(result,key,binId);
+  }
 }
 function showResult(){
   show('result-screen');
@@ -722,8 +737,18 @@ function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.re
 
 // Auto-load exam code from student-hub session storage
 window.addEventListener('load',()=>{
-  const code=sessionStorage.getItem('exam_code_to_load');
-  if(code){sessionStorage.removeItem('exam_code_to_load');document.getElementById('exam-code-input').value=code;}
+  const urlCode=new URLSearchParams(window.location.search).get('code');
+  const ssCode=sessionStorage.getItem('exam_code_to_load');
+  const code=urlCode||ssCode;
+  if(ssCode) sessionStorage.removeItem('exam_code_to_load');
+  const ssName=sessionStorage.getItem('student_name');
+  const ssCls=sessionStorage.getItem('student_class');
+  if(ssName) document.getElementById('student-name').value=ssName;
+  if(ssCls) document.getElementById('student-class').value=ssCls;
+  if(code){
+    document.getElementById('exam-code-input').value=code;
+    if(ssName) loadTeacherExam();
+  }
 });
 </script>
 </body>
