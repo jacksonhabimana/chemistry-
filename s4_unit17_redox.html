@@ -72,7 +72,7 @@ h3.sub{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--gold);
 .qtext{font-size:1rem;color:#fff;margin-bottom:14px;line-height:1.7;}
 .opts label{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;margin-bottom:8px;border-radius:8px;border:1px solid var(--border);cursor:pointer;transition:all .15s;font-size:.93rem;}
 .opts label:hover{border-color:var(--accent);background:rgba(192,132,252,.04);}
-.opts label.correct{background:rgba(52,211,153,.12);border-color:#34d399;color:#34d399;}
+.opts label.correct{background:rgba(52,211,153,.12);border-color:var(--green);color:var(--green);}
 .opts label.wrong{background:rgba(248,113,113,.08);border-color:var(--red);color:var(--red);}
 .opts input[type=radio]{margin-top:3px;accent-color:var(--accent);flex-shrink:0;}
 .qexplain{display:none;margin-top:12px;padding:12px 16px;background:rgba(192,132,252,.07);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-size:.88rem;line-height:1.7;}
@@ -93,19 +93,14 @@ footer{border-top:1px solid var(--border);padding:28px;text-align:center;font-fa
 footer a{color:var(--accent);text-decoration:none;}
 @media(max-width:640px){.hero{padding:60px 24px 40px;}.page{padding:0 16px 60px;}.quiz-body{padding:16px;}}
 
-
+.ex-item { list-style: none; background: rgba(255,255,255,.03); border: 1px solid var(--border); border-radius: 8px; padding: 16px 18px; margin-bottom: 12px; }
+.ex-item::before { display: none; }
+.ex-q { color: var(--text); font-size: .95rem; line-height: 1.7; margin-bottom: 8px; }
+.ex-btn { font-size: .78rem; padding: 5px 14px; }
+.ex-ans { font-size: .88rem; line-height: 1.75; color: #94a3b8; }
+.exercise-list { padding-left: 0; }
 </style>
-
-<style>
-@media print {
-  body { background: #fff !important; color: #000 !important; }
-  nav, footer, .lock-bar, .lock-overlay { display: none !important; }
-  h1, h2, h3, h4 { color: #000 !important; background: transparent !important; }
-  a { color: #000 !important; text-decoration: none !important; }
-  .callout, .definition, .example, .worked-example { background: #f5f5f5 !important; border-color: #ccc !important; }
-  .quiz-wrap, .quiz-header, .q-block, .opt { background: #fff !important; color: #000 !important; border-color: #ccc !important; }
-}
-</style>
+  <script src="tracker.js"></script>
 </head>
 <body>
 <nav>
@@ -128,9 +123,6 @@ footer a{color:var(--accent);text-decoration:none;}
     <a href="#s172">17.2 Oxidation Numbers</a>
     <a href="#s173">17.3 Half-Equations</a>
     <a href="#s174">17.4 Balancing Redox</a>
-    <a href="#s175">17.5 Electrochemical Cells</a>
-    <a href="#s176">17.6 Standard Electrode Potentials</a>
-    <a href="#s177">17.7 Electrolysis</a>
     <a href="#s178">17.8 Reactivity Series</a>
     <a href="#exercises">Exercises</a>
     <a href="#quiz">Quiz</a>
@@ -291,191 +283,6 @@ H�� → 2H⁺ + 2e⁻                      (oxidation)
   </div>
 </div>
 
-<!-- 17.5 -->
-<div class="section-header" id="s175">
-  <span class="section-number">17.5</span>
-  <h2>Electrochemical Cells</h2>
-</div>
-
-<div class="card">
-  <h3>The Electrochemical Cell — Galvanic/Voltaic Cell</h3>
-  <p>An electrochemical (galvanic) cell converts <strong>chemical energy to electrical energy</strong> using a spontaneous redox reaction. The two half-reactions are separated and connected by an external circuit and a salt bridge.</p>
-  <div class="diagram-box">
-    <svg viewBox="0 0 520 200" xmlns="http://www.w3.org/2000/svg" width="100%" style="max-width:520px;">
-      <!-- Anode beaker (left) -->
-      <rect x="30" y="80" width="160" height="100" rx="4" fill="rgba(192,132,252,.08)" stroke="#c084fc" stroke-width="1.5"/>
-      <text x="110" y="118" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#c084fc">ZnSO₄(aq)</text>
-      <text x="110" y="133" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#8b949e">Zn²⁺ + SO₄²⁻</text>
-      <!-- Zn electrode -->
-      <rect x="95" y="55" width="8" height="95" rx="2" fill="#c084fc"/>
-      <text x="99" y="48" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#c084fc">Zn</text>
-      <text x="55" y="68" font-family="JetBrains Mono" font-size="10" fill="#f87171">ANODE (−)</text>
-      <text x="50" y="165" font-family="JetBrains Mono" font-size="9" fill="#8b949e">Zn→Zn²⁺+2e⁻</text>
-      <!-- Cathode beaker (right) -->
-      <rect x="330" y="80" width="160" height="100" rx="4" fill="rgba(56,189,248,.08)" stroke="#38bdf8" stroke-width="1.5"/>
-      <text x="410" y="118" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#38bdf8">CuSO₄(aq)</text>
-      <text x="410" y="133" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#8b949e">Cu²⁺ + SO₄²⁻</text>
-      <!-- Cu electrode -->
-      <rect x="420" y="55" width="8" height="95" rx="2" fill="#f59e0b"/>
-      <text x="424" y="48" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#f59e0b">Cu</text>
-      <text x="360" y="68" font-family="JetBrains Mono" font-size="10" fill="#34d399">CATHODE (+)</text>
-      <text x="355" y="165" font-family="JetBrains Mono" font-size="9" fill="#8b949e">Cu²⁺+2e⁻→Cu</text>
-      <!-- External wire -->
-      <line x1="99" y1="55" x2="99" y2="30" stroke="#c084fc" stroke-width="2"/>
-      <line x1="99" y1="30" x2="260" y2="30" stroke="#e6edf3" stroke-width="2"/>
-      <line x1="260" y1="30" x2="424" y2="30" stroke="#f59e0b" stroke-width="2"/>
-      <line x1="424" y1="30" x2="424" y2="55" stroke="#f59e0b" stroke-width="2"/>
-      <!-- Voltmeter -->
-      <rect x="230" y="18" width="60" height="26" rx="5" fill="#1c2333" stroke="#30363d" stroke-width="1.5"/>
-      <text x="260" y="35" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#e8c547">V</text>
-      <!-- Electron flow arrow -->
-      <text x="150" y="22" font-family="JetBrains Mono" font-size="9" fill="#8b949e">e⁻ flow →</text>
-      <!-- Salt bridge -->
-      <rect x="185" y="90" width="150" height="22" rx="4" fill="#1c2333" stroke="#e8c547" stroke-width="1.5"/>
-      <text x="260" y="105" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#e8c547">Salt bridge (KNO₃)</text>
-    </svg>
-    <figcaption>Zn-Cu galvanic cell: Zn anode (oxidation, −), Cu cathode (reduction, +), electrons flow external circuit, ions through salt bridge</figcaption>
-  </div>
-  <p><strong>Cell notation:</strong> Zn(s) | Zn²⁺(aq) || Cu²⁺(aq) | Cu(s)</p>
-  <p>Convention: anode (oxidation) on the LEFT | salt bridge || cathode (reduction) on the RIGHT.</p>
-  <p><strong>Salt bridge:</strong> Contains an electrolyte (KNO₃, KCl, NH₄NO₃) in agar gel. Completes the circuit by allowing ion flow. Maintains electrical neutrality in each half-cell (K⁺ flows into cathode half-cell; NO₃⁻ flows into anode half-cell).</p>
-</div>
-
-<!-- 17.6 -->
-<div class="section-header" id="s176">
-  <span class="section-number">17.6</span>
-  <h2>Standard Electrode Potentials (E°)</h2>
-</div>
-
-<div class="card">
-  <h3>The Standard Hydrogen Electrode (SHE)</h3>
-  <p>All electrode potentials are measured relative to the <strong>Standard Hydrogen Electrode (SHE)</strong>, which is assigned E° = 0.00 V by definition:</p>
-  <div class="formula-block">SHE: 2H⁺(aq, 1 mol dm⁻³) + 2e⁻ ⇌ H₂(g, 100 kPa)    E° = 0.00 V</div>
-  <p>Standard conditions: 298 K (25°C), all solutions at 1 mol dm⁻³, all gases at 100 kPa (1 bar). The E° for any half-cell is measured against the SHE.</p>
-</div>
-
-<div class="card">
-  <h3>Selected Standard Electrode Potentials</h3>
-  <div class="tbl-wrap" style="margin:0;"><table>
-    <thead><tr><th>Half-equation (reduction)</th><th>E° (V)</th><th>Tendency</th></tr></thead>
-    <tbody>
-      <tr><td>F₂ + 2e⁻ → 2F⁻</td><td>+2.87</td><td>Strongest oxidising agent</td></tr>
-      <tr><td>MnO₄⁻ + 8H⁺ + 5e⁻ → Mn²⁺ + 4H₂O</td><td>+1.51</td><td>Strong oxidant</td></tr>
-      <tr><td>Cr₂O₇²⁻ + 14H⁺ + 6e⁻ → 2Cr³⁺ + 7H₂O</td><td>+1.33</td><td>Strong oxidant</td></tr>
-      <tr><td>Cl₂ + 2e⁻ → 2Cl⁻</td><td>+1.36</td><td>Strong oxidant</td></tr>
-      <tr><td>Br₂ + 2e⁻ → 2Br⁻</td><td>+1.07</td><td></td></tr>
-      <tr><td>Fe³⁺ + e⁻ → Fe²⁺</td><td>+0.77</td><td></td></tr>
-      <tr><td>I₂ + 2e⁻ → 2I⁻</td><td>+0.54</td><td></td></tr>
-      <tr><td>Cu²⁺ + 2e⁻ → Cu</td><td>+0.34</td><td></td></tr>
-      <tr><td>2H⁺ + 2e⁻ → H₂</td><td>0.00</td><td>Reference (SHE)</td></tr>
-      <tr><td>Fe²⁺ + 2e⁻ → Fe</td><td>−0.44</td><td></td></tr>
-      <tr><td>Zn²⁺ + 2e⁻ → Zn</td><td>−0.76</td><td></td></tr>
-      <tr><td>Al³⁺ + 3e⁻ → Al</td><td>−1.66</td><td></td></tr>
-      <tr><td>Mg²⁺ + 2e⁻ → Mg</td><td>−2.37</td><td></td></tr>
-      <tr><td>Na⁺ + e⁻ → Na</td><td>−2.71</td><td>Strongest reducing agent</td></tr>
-    </tbody>
-  </table></div>
-</div>
-
-<div class="card">
-  <h3>Using E° Values</h3>
-  <h3 class="sub">Cell EMF (Electromotive Force)</h3>
-  <div class="formula-block">E°cell = E°(cathode/reduction) − E°(anode/oxidation)
-       = E°(more positive) − E°(more negative)
-
-Example: Zn-Cu cell:
-E°cell = E°(Cu²⁺/Cu) − E°(Zn²⁺/Zn)
-       = +0.34 − (−0.76) = +1.10 V
-
-Positive E°cell → spontaneous reaction → galvanic cell can produce electricity</div>
-  <h3 class="sub">Predicting Feasibility of Redox Reactions</h3>
-  <div class="callout info">
-    <span class="callout-icon">💡</span>
-    <div class="callout-body">
-      <strong>Feasibility rule: E°cell > 0 → spontaneous (feasible)</strong>
-      A reaction is thermodynamically feasible (spontaneous) if E°cell > 0. The species with the MORE POSITIVE E° will be reduced (acts as oxidising agent); the species with the MORE NEGATIVE E° will be oxidised (acts as reducing agent). This is equivalent to saying: the reaction goes in the direction that decreases free energy (ΔG = −nFE°cell; if E°cell > 0 → ΔG < 0 → spontaneous).
-    </div>
-  </div>
-  <div class="formula-block">Can Cl₂ oxidise Br⁻?
-E°(Cl₂/Cl⁻) = +1.36V; E°(Br₂/Br⁻) = +1.07V
-E°cell = +1.36 − (+1.07) = +0.29V > 0 → YES, spontaneous ✓
-Cl₂ + 2Br⁻ → 2Cl⁻ + Br₂
-
-Can I₂ oxidise Fe²⁺ to Fe³⁺?
-E°(I₂/I⁻) = +0.54V; E°(Fe³⁺/Fe²⁺) = +0.77V
-E°cell = +0.54 − (+0.77) = −0.23V < 0 → NO, not spontaneous ✗
-(But Fe³⁺ CAN oxidise I⁻: E°cell = +0.77−0.54 = +0.23V > 0 ✓)</div>
-</div>
-
-<!-- 17.7 -->
-<div class="section-header" id="s177">
-  <span class="section-number">17.7</span>
-  <h2>Electrolysis</h2>
-</div>
-
-<div class="card">
-  <h3>Principles of Electrolysis</h3>
-  <p>Electrolysis uses <strong>electrical energy to drive a non-spontaneous redox reaction</strong> — the reverse of a galvanic cell.</p>
-  <div class="def-box">
-    <strong>Cathode (negative electrode)</strong> — reduction occurs: positive ions (cations) gain electrons here. Metal deposits or gases are produced at the cathode.
-  </div>
-  <div class="def-box">
-    <strong>Anode (positive electrode)</strong> — oxidation occurs: negative ions (anions) lose electrons here. Gases (Cl₂, O₂) or dissolved metal is released at the anode.
-  </div>
-  <div class="callout mem">
-    <span class="callout-icon">🧠</span>
-    <div class="callout-body">
-      <strong>ANODE vs CATHODE in electrolysis vs galvanic cells</strong>
-      In BOTH: Anode = oxidation; Cathode = reduction. This never changes. What changes: in a galvanic cell, anode is negative (−) and cathode is positive (+). In electrolysis, anode is positive (+) and cathode is negative (−) — the external power supply forces current in the "wrong" direction.
-    </div>
-  </div>
-</div>
-
-<div class="card">
-  <h3>Electrolysis of Molten and Aqueous Electrolytes</h3>
-  <h3 class="sub">Molten NaCl (Downs Process)</h3>
-  <div class="formula-block">Cathode (−): Na⁺ + e⁻ → Na(l)      (sodium metal deposited)
-Anode (+):   2Cl⁻ → Cl₂(g) + 2e⁻  (chlorine gas produced)
-Overall: 2NaCl → 2Na + Cl₂
-
-Industrial use: Downs cell (commercial production of Na metal and Cl₂)</div>
-  <h3 class="sub">Aqueous NaCl (Chlor-Alkali Process)</h3>
-  <div class="formula-block">Cathode: 2H₂O + 2e⁻ → H₂↑ + 2OH⁻   (H₂O preferentially reduced over Na⁺)
-Anode: 2Cl⁻ → Cl₂↑ + 2e⁻           (Cl⁻ preferentially oxidised over H₂O at inert anode)
-Overall: 2NaCl + 2H₂O → 2NaOH + H₂ + Cl₂
-
-Products: NaOH (industrial alkali), Cl₂ (bleach, PVC), H₂ (fuel cells, Haber process)</div>
-  <h3 class="sub">Electrolysis of Dilute H₂SO₄</h3>
-  <div class="formula-block">Cathode: 2H⁺ + 2e⁻ → H₂↑             (H⁺ reduced)
-Anode: 2H₂O → O₂↑ + 4H⁺ + 4e⁻       (water oxidised — inert Pt anode)
-Ratio: H₂:O₂ = 2:1 (by volume)</div>
-  <h3 class="sub">Electrolytic Refining of Copper</h3>
-  <div class="formula-block">Anode (+):   Cu(impure) → Cu²⁺ + 2e⁻   (impure copper dissolves)
-Cathode (−): Cu²⁺ + 2e⁻ → Cu(pure)   (pure copper deposited)
-More reactive impurities (Zn, Fe, Ni) → pass into solution but not deposited
-Less reactive impurities (Ag, Au, Pt) → fall as "anode sludge" and are recovered</div>
-</div>
-
-<div class="card">
-  <h3>Faraday's Laws of Electrolysis</h3>
-  <p><strong>Faraday's First Law:</strong> The mass of substance deposited/liberated at an electrode is proportional to the quantity of charge passed.</p>
-  <p><strong>Faraday's Second Law:</strong> For the same charge, the masses of different substances deposited are proportional to their equivalent masses (M/n).</p>
-  <div class="formula-block">Charge (C) = Current (A) × Time (s):   Q = I × t
-
-Moles of electrons = Q / F     where F = 96,485 C mol⁻¹ (Faraday constant)
-
-Moles of substance = (moles of electrons) / n
-where n = number of electrons per ion
-
-Mass deposited = moles × molar mass = (It/nF) × M
-
-Example: Deposit Cu²⁺ for 30 min at 2.0 A:
-Q = 2.0 × 30 × 60 = 3600 C
-Moles e⁻ = 3600/96485 = 0.0373 mol
-Moles Cu = 0.0373/2 = 0.0187 mol  (Cu²⁺ + 2e⁻ → Cu)
-Mass Cu = 0.0187 × 63.5 = 1.19 g</div>
-</div>
-
 <!-- 17.8 -->
 <div class="section-header" id="s178">
   <span class="section-number">17.8</span>
@@ -514,47 +321,41 @@ Protection methods:
 </div>
 
 <!-- EXERCISES -->
-<div class="card reveal" id="videoSection">
-  <div id="videoGrid" class="video-grid">
-    <p class="video-empty" id="videoEmpty">No videos added yet for this unit.</p>
-  </div>
-</div>
-
-<!-- Video Modal -->
-<div class="video-modal" id="videoModal" onclick="if(event.target===this)closeVideo()">
-  <button class="video-modal-close" onclick="closeVideo()">✕</button>
-  <div id="videoFrame"></div>
-</div>
-
 <div class="section-header" id="exercises">
   <span class="section-number">✏️</span>
   <h2>Exercises</h2>
 </div>
 
 <ul class="exercise-list">
-  <li>Identify what is oxidised and what is reduced in each reaction. Identify the oxidising and reducing agents: (a) 2Mg + O₂ → 2MgO (b) Cu + 2AgNO₃ → Cu(NO₃)₂ + 2Ag (c) Cl₂ + 2KI → 2KCl + I₂
-    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide Answer':'Show Answer'">Show Answer</button>
-    <div class="answer">(a) Mg: 0→+2 (oxidised, loses e⁻). O₂: 0→−2 (reduced, gains e⁻). Mg = reducing agent; O₂ = oxidising agent. (b) Cu: 0→+2 (oxidised). Ag⁺: +1→0 (reduced). Cu = reducing agent; Ag⁺ (AgNO₃) = oxidising agent. Cu displaces Ag from solution. (c) Cl₂: 0→−1 (reduced). I⁻: −1→0 (oxidised). Cl₂ = oxidising agent; I⁻ (KI) = reducing agent. Cl₂ displaces I₂ because Cl₂ is a stronger oxidising agent (E° +1.36 vs +0.54V).</div>
+  <li class="ex-item">
+    <div class="ex-q">For each reaction, identify what is oxidised, what is reduced, the oxidising agent, and the reducing agent: (a) 2Mg + O<sub>2</sub> &rarr; 2MgO (b) Cu + 2AgNO<sub>3</sub> &rarr; Cu(NO<sub>3</sub>)<sub>2</sub> + 2Ag (c) Cl<sub>2</sub> + 2KBr &rarr; 2KCl + Br<sub>2</sub> (d) Zn + H<sub>2</sub>SO<sub>4</sub> &rarr; ZnSO<sub>4</sub> + H<sub>2</sub></div>
+    <button class="reveal-btn ex-btn" onclick="var a=this.nextElementSibling;a.classList.toggle('open');this.textContent=a.classList.contains('open')?'&#9650; Hide Answer':'&#9660; Show Answer'">&#9660; Show Answer</button>
+    <div class="answer ex-ans">(a) 2Mg + O<sub>2</sub> &rarr; 2MgO: Mg oxidised (0&rarr;+2); O<sub>2</sub> reduced (0&rarr;&minus;2); oxidising agent = O<sub>2</sub>; reducing agent = Mg. (b) Cu + 2AgNO<sub>3</sub> &rarr; Cu(NO<sub>3</sub>)<sub>2</sub> + 2Ag: Cu oxidised (0&rarr;+2); Ag<sup>+</sup> reduced (+1&rarr;0); OA = Ag<sup>+</sup>; RA = Cu. (c) Cl<sub>2</sub> + 2KBr &rarr; 2KCl + Br<sub>2</sub>: Br<sup>&minus;</sup> oxidised (&minus;1&rarr;0); Cl<sub>2</sub> reduced (0&rarr;&minus;1); OA = Cl<sub>2</sub>; RA = Br<sup>&minus;</sup>. (d) Zn + H<sub>2</sub>SO<sub>4</sub> &rarr; ZnSO<sub>4</sub> + H<sub>2</sub>: Zn oxidised (0&rarr;+2); H<sup>+</sup> reduced (+1&rarr;0); OA = H<sup>+</sup>; RA = Zn.</div>
   </li>
-  <li>Write balanced half-equations for: (a) Cr₂O₇²⁻ → Cr³⁺ (in acid) (b) H₂O₂ → H₂O (in acid) (c) SO₃²⁻ → SO₄²⁻ (in acid)
-    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide Answer':'Show Answer'">Show Answer</button>
-    <div class="answer">(a) Cr balanced: 2 each side. Add 7H₂O for O. Add 14H⁺ for H. Balance charge: Left = −2+14 = +12; Right = +6. Add 6e⁻ left: <strong>Cr₂O₇²⁻ + 14H⁺ + 6e⁻ → 2Cr³⁺ + 7H₂O</strong>. Check: Cr 2=2, O 7=7, H 14=14; charge +12−6=+6, right +6 ✓. (b) H balanced: 2 each side. Add 2H⁺ to right: H₂O₂ → 2H₂O needs 2H⁺ + 2e⁻: <strong>H₂O₂ + 2H⁺ + 2e⁻ → 2H₂O</strong>. (c) SO₃²⁻ → SO₄²⁻. S balanced. Add H₂O for O (need 1 more O): SO₃²⁻ + H₂O → SO₄²⁻ + 2H⁺ + 2e⁻. Check: charge −2+0 = −2+0+2−2 = −2 ✓. <strong>SO₃²⁻ + H₂O → SO₄²⁻ + 2H⁺ + 2e⁻</strong>.</div>
+  <li class="ex-item">
+    <div class="ex-q">Determine the oxidation state of the underlined element in each species: (a) <u>N</u> in HNO<sub>3</sub> (b) <u>Mn</u> in KMnO<sub>4</sub> (c) <u>S</u> in Na<sub>2</sub>S<sub>2</sub>O<sub>3</sub> (d) <u>Cr</u> in Cr<sub>2</sub>O<sub>7</sub><sup>2</sup><sup>&minus;</sup> (e) <u>Cl</u> in NaClO<sub>4</sub> (f) <u>Fe</u> in Fe<sub>3</sub>O<sub>4</sub></div>
+    <button class="reveal-btn ex-btn" onclick="var a=this.nextElementSibling;a.classList.toggle('open');this.textContent=a.classList.contains('open')?'&#9650; Hide Answer':'&#9660; Show Answer'">&#9660; Show Answer</button>
+    <div class="answer ex-ans">(a) N in HNO<sub>3</sub>: +1 + N + 3(&minus;2) = 0 &rarr; N = <b>+5</b>. (b) Mn in KMnO<sub>4</sub>: +1 + Mn + 4(&minus;2) = 0 &rarr; Mn = <b>+7</b>. (c) S in Na<sub>2</sub>S<sub>2</sub>O<sub>3</sub>: 2(+1) + 2S + 3(&minus;2) = 0 &rarr; S = <b>+2</b>. (d) Cr in Cr<sub>2</sub>O<sub>7</sub><sup>2&minus;</sup>: 2Cr + 7(&minus;2) = &minus;2 &rarr; Cr = <b>+6</b>. (e) Cl in NaClO<sub>4</sub>: +1 + Cl + 4(&minus;2) = 0 &rarr; Cl = <b>+7</b>. (f) Fe in Fe<sub>3</sub>O<sub>4</sub>: 3Fe + 4(&minus;2) = 0 &rarr; Fe = <b>+8/3</b> (mixed +2 and +3).</div>
   </li>
-  <li>Use standard electrode potentials to predict whether the following reactions are feasible. Calculate E°cell for each: (a) Can Br₂ oxidise Cl⁻? (b) Can Zn reduce Fe²⁺? (c) Can Fe²⁺ reduce I₂?
-    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide Answer':'Show Answer'">Show Answer</button>
-    <div class="answer">(a) E°(Br₂/Br⁻) = +1.07; E°(Cl₂/Cl⁻) = +1.36. For Br₂ to oxidise Cl⁻: Br₂ reduced (+1.07), Cl⁻ oxidised (−1.36 as anode). E°cell = +1.07 − (−(−1.36)) wait — anode = Cl₂/Cl⁻ so E°anode = +1.36V. E°cell = E°cathode − E°anode = +1.07 − +1.36 = −0.29V < 0 → NOT feasible. Cl₂ is a stronger oxidant than Br₂ so Cl₂ would oxidise Br⁻, but Br₂ cannot oxidise Cl⁻. (b) E°(Zn²⁺/Zn) = −0.76; E°(Fe²⁺/Fe) = −0.44. Zn reduces Fe²⁺: Zn oxidised (anode, −0.76), Fe²⁺ reduced (cathode, −0.44). E°cell = −0.44 − (−0.76) = +0.32V > 0 → FEASIBLE. Zn + Fe²⁺ → Zn²⁺ + Fe. (c) Fe²⁺ reduces I₂: I₂ reduced (cathode, +0.54), Fe²⁺ oxidised (anode, +0.77). E°cell = +0.54 − +0.77 = −0.23V < 0 → NOT feasible. Instead, Fe³⁺ oxidises I⁻: E°cell = +0.77 − 0.54 = +0.23V > 0 ✓.</div>
+  <li class="ex-item">
+    <div class="ex-q">Write balanced half-equations for: (a) oxidation of Fe<sup>2</sup><sup>+</sup> to Fe<sup>3</sup><sup>+</sup> (b) reduction of MnO<sub>4</sub><sup>&minus;</sup> to Mn<sup>2</sup><sup>+</sup> in acid (c) oxidation of Cl<sup>&minus;</sup> to Cl<sub>2</sub> (d) reduction of Cr<sub>2</sub>O<sub>7</sub><sup>2</sup><sup>&minus;</sup> to Cr<sup>3</sup><sup>+</sup> in acid. Then combine (a)+(b) into a full ionic equation.</div>
+    <button class="reveal-btn ex-btn" onclick="var a=this.nextElementSibling;a.classList.toggle('open');this.textContent=a.classList.contains('open')?'&#9650; Hide Answer':'&#9660; Show Answer'">&#9660; Show Answer</button>
+    <div class="answer ex-ans">(a) Fe<sup>2+</sup> &rarr; Fe<sup>3+</sup> + e<sup>&minus;</sup>. (b) MnO<sub>4</sub><sup>&minus;</sup> + 8H<sup>+</sup> + 5e<sup>&minus;</sup> &rarr; Mn<sup>2+</sup> + 4H<sub>2</sub>O. (c) 2Cl<sup>&minus;</sup> &rarr; Cl<sub>2</sub> + 2e<sup>&minus;</sup>. (d) Cr<sub>2</sub>O<sub>7</sub><sup>2&minus;</sup> + 14H<sup>+</sup> + 6e<sup>&minus;</sup> &rarr; 2Cr<sup>3+</sup> + 7H<sub>2</sub>O. Combined (a)+(b): multiply (a)&times;5: 5Fe<sup>2+</sup> &rarr; 5Fe<sup>3+</sup> + 5e<sup>&minus;</sup>. Add: MnO<sub>4</sub><sup>&minus;</sup> + 5Fe<sup>2+</sup> + 8H<sup>+</sup> &rarr; Mn<sup>2+</sup> + 5Fe<sup>3+</sup> + 4H<sub>2</sub>O.</div>
   </li>
-  <li>In the electrolysis of molten NaCl, what are the products at each electrode? Write the half-equations and the overall equation.
-    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide Answer':'Show Answer'">Show Answer</button>
-    <div class="answer">Cathode (−) — reduction: Na⁺ + e⁻ → Na(l). Sodium metal is deposited. Anode (+) — oxidation: 2Cl⁻ → Cl₂(g) + 2e⁻. Chlorine gas is produced. Balance electrons — multiply cathode ×2: 2Na⁺ + 2e⁻ → 2Na. Overall: 2Na⁺ + 2Cl⁻ → 2Na + Cl₂, or 2NaCl → 2Na + Cl₂. This is the Downs Process used industrially to produce sodium metal (used in making titanium and Na-vapour lamps) and chlorine.</div>
+  <li class="ex-item">
+    <div class="ex-q">Balance each redox equation using the half-equation method: (a) MnO<sub>4</sub><sup>&minus;</sup> + Fe<sup>2</sup><sup>+</sup> &rarr; Mn<sup>2</sup><sup>+</sup> + Fe<sup>3</sup><sup>+</sup> (acidic) (b) Cr<sub>2</sub>O<sub>7</sub><sup>2</sup><sup>&minus;</sup> + C<sub>2</sub>H<sub>5</sub>OH &rarr; Cr<sup>3</sup><sup>+</sup> + CH<sub>3</sub>COOH (acidic) (c) I<sub>2</sub> + S<sub>2</sub>O<sub>3</sub><sup>2</sup><sup>&minus;</sup> &rarr; I<sup>&minus;</sup> + S<sub>4</sub>O<sub>6</sub><sup>2</sup><sup>&minus;</sup></div>
+    <button class="reveal-btn ex-btn" onclick="var a=this.nextElementSibling;a.classList.toggle('open');this.textContent=a.classList.contains('open')?'&#9650; Hide Answer':'&#9660; Show Answer'">&#9660; Show Answer</button>
+    <div class="answer ex-ans">(a) MnO<sub>4</sub><sup>&minus;</sup> + 5Fe<sup>2+</sup> + 8H<sup>+</sup> &rarr; Mn<sup>2+</sup> + 5Fe<sup>3+</sup> + 4H<sub>2</sub>O. (b) Cr<sub>2</sub>O<sub>7</sub><sup>2&minus;</sup> + 3C<sub>2</sub>H<sub>5</sub>OH + 8H<sup>+</sup> &rarr; 2Cr<sup>3+</sup> + 3CH<sub>3</sub>COOH + 7H<sub>2</sub>O. (c) I<sub>2</sub> + 2S<sub>2</sub>O<sub>3</sub><sup>2&minus;</sup> &rarr; 2I<sup>&minus;</sup> + S<sub>4</sub>O<sub>6</sub><sup>2&minus;</sup>.</div>
   </li>
-  <li>A current of 1.5 A is passed through copper(II) sulfate solution for 25 minutes using copper electrodes. Calculate the mass of copper deposited at the cathode. (F = 96,485 C mol⁻¹; Ar(Cu) = 63.5)
-    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide Answer':'Show Answer'">Show Answer</button>
-    <div class="answer">Q = I × t = 1.5 × (25 × 60) = 1.5 × 1500 = 2250 C. Moles of electrons = Q/F = 2250/96485 = 0.02332 mol. Cu²⁺ + 2e⁻ → Cu: moles of Cu = 0.02332/2 = 0.01166 mol. Mass of Cu = 0.01166 × 63.5 = 0.740 g ≈ <strong>0.74 g</strong>. At the anode (copper electrode): Cu → Cu²⁺ + 2e⁻ — the same mass of copper dissolves from the anode (0.74 g). This is how electrolytic copper refining maintains constant [Cu²⁺] in solution.</div>
+  <li class="ex-item">
+    <div class="ex-q">Use the reactivity series to predict whether each reaction will occur. Write the ionic equation for those that do: (a) Fe + CuSO<sub>4</sub>(aq) (b) Cu + FeSO<sub>4</sub>(aq) (c) Zn + Pb(NO<sub>3</sub>)<sub>2</sub>(aq) (d) Ag + ZnSO<sub>4</sub>(aq) (e) Mg + H<sub>2</sub>SO<sub>4</sub>(aq)</div>
+    <button class="reveal-btn ex-btn" onclick="var a=this.nextElementSibling;a.classList.toggle('open');this.textContent=a.classList.contains('open')?'&#9650; Hide Answer':'&#9660; Show Answer'">&#9660; Show Answer</button>
+    <div class="answer ex-ans">(a) Fe + Cu<sup>2+</sup> &rarr; Fe<sup>2+</sup> + Cu ✓ (Fe > Cu in reactivity). (b) No reaction — Cu is below Fe; Cu cannot displace Fe<sup>2+</sup>. (c) Zn + Pb<sup>2+</sup> &rarr; Zn<sup>2+</sup> + Pb ✓ (Zn > Pb). (d) No reaction — Ag is below Zn; Ag cannot displace Zn<sup>2+</sup>. (e) Fe + 2H<sup>+</sup> &rarr; Fe<sup>2+</sup> + H<sub>2</sub> ✓ (Fe is above H).</div>
   </li>
-  <li>Explain why galvanising (coating iron with zinc) protects iron from rusting better than tin plating, even if the coating is scratched.
-    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide Answer':'Show Answer'">Show Answer</button>
-    <div class="answer">Zinc galvanising: Zn is MORE reactive than Fe (E°(Zn²⁺/Zn) = −0.76V vs E°(Fe²⁺/Fe) = −0.44V). Even if the Zn coating is scratched and Fe is exposed: Zn acts as a sacrificial anode (oxidised preferentially: Zn → Zn²⁺ + 2e⁻), protecting Fe (kept as cathode). Fe is protected until all Zn is consumed. Tin plating: Sn is LESS reactive than Fe (E°(Sn²⁺/Sn) = −0.14V vs Fe −0.44V). When tin coating is intact: barrier protection works. When tin is scratched: Fe becomes the anode (Fe more reactive than Sn — oxidised preferentially). The exposed Fe corrodes FASTER than uncoated iron. Conclusion: Zn gives both barrier AND cathodic protection (sacrificial); Sn gives barrier only, and accelerates corrosion when damaged.</div>
+  <li class="ex-item">
+    <div class="ex-q">Explain why galvanising (coating iron with zinc) protects iron from rusting even if the zinc coating is scratched, whereas tin-plating stops protecting as soon as it is scratched. Use the reactivity series and oxidation states in your answer.</div>
+    <button class="reveal-btn ex-btn" onclick="var a=this.nextElementSibling;a.classList.toggle('open');this.textContent=a.classList.contains('open')?'&#9650; Hide Answer':'&#9660; Show Answer'">&#9660; Show Answer</button>
+    <div class="answer ex-ans">Zinc is more reactive than iron (higher in reactivity series). If the Zn coating is scratched, Zn is still preferentially oxidised (Zn &rarr; Zn<sup>2+</sup> + 2e<sup>&minus;</sup>) rather than Fe, because Zn has a greater tendency to lose electrons. Zn acts as a sacrificial anode — it corrodes to protect the Fe underneath. Tin is less reactive than iron (below Fe in reactivity series). Once the tin coating is scratched, Fe is exposed and is now more reactive than Sn &rarr; Fe is oxidised preferentially &rarr; Fe<sup>2+</sup> &rarr; rust forms rapidly. Tin actually accelerates corrosion of exposed iron.</div>
   </li>
 </ul>
 
@@ -571,258 +372,234 @@ Protection methods:
   <div class="quiz-body">
 
     <div class="qblock"><span class="qnum">Q1</span>
-    <p class="qtext">In the reaction 2Fe³⁺ + Sn²⁺ → 2Fe²⁺ + Sn⁴⁺, the reducing agent is:</p>
+    <p class="qtext">In the reaction 2Fe<sup>3</sup><sup>+</sup> + Sn<sup>2</sup><sup>+</sup> &rarr; 2Fe<sup>2</sup><sup>+</sup> + Sn<sup>4</sup><sup>+</sup>, the REDUCING AGENT is:</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q1" value="A"> Fe³⁺</label>
-      <label class="opt"><input type="radio" name="q1" value="B"> Fe²⁺</label>
-      <label class="opt"><input type="radio" name="q1" value="C"> Sn²⁺</label>
-      <label class="opt"><input type="radio" name="q1" value="D"> Sn⁴⁺</label>
+      <label><input type="radio" name="q1" value="A"> Fe<sup>3</sup><sup>+</sup></label>
+      <label><input type="radio" name="q1" value="B"> Fe<sup>2</sup><sup>+</sup></label>
+      <label><input type="radio" name="q1" value="C"> Sn<sup>2</sup><sup>+</sup></label>
+      <label><input type="radio" name="q1" value="D"> Sn<sup>4</sup><sup>+</sup></label>
     </div>
-    <div class="qexplain" id="e1">Sn²⁺ is oxidised (OS +2 → +4, loses 2 electrons) → Sn²⁺ is the reducing agent. Fe³⁺ is reduced (OS +3 → +2, gains 1 electron) → Fe³⁺ is the oxidising agent. OIL RIG: the reducing agent is oxidised (loses electrons); the oxidising agent is reduced (gains electrons).</div></div>
-
+    <div class="qexplain" id="e1">Sn<sup>2</sup><sup>+</sup> is oxidised (OS +2 &rarr; +4, loses 2e<sup>&minus;</sup>) &rarr; Sn<sup>2</sup><sup>+</sup> is the reducing agent (it reduces Fe<sup>3</sup><sup>+</sup>). Fe<sup>3</sup><sup>+</sup> is reduced (OS +3 &rarr; +2, gains 1e<sup>&minus;</sup>) &rarr; Fe<sup>3</sup><sup>+</sup> is the oxidising agent. OIL RIG: the reducing agent loses electrons (is oxidised).</div></div>
     <div class="qblock"><span class="qnum">Q2</span>
-    <p class="qtext">The oxidation state of Cr in K₂Cr₂O₇ is:</p>
+    <p class="qtext">The oxidation state of Cr in K<sub>2</sub>Cr<sub>2</sub>O<sub>7</sub> is:</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q2" value="A"> +2</label>
-      <label class="opt"><input type="radio" name="q2" value="B"> +3</label>
-      <label class="opt"><input type="radio" name="q2" value="C"> +6</label>
-      <label class="opt"><input type="radio" name="q2" value="D"> +7</label>
+      <label><input type="radio" name="q2" value="A"> +2</label>
+      <label><input type="radio" name="q2" value="B"> +3</label>
+      <label><input type="radio" name="q2" value="C"> +6</label>
+      <label><input type="radio" name="q2" value="D"> +7</label>
     </div>
-    <div class="qexplain" id="e2">K₂Cr₂O₇: 2(+1) + 2Cr + 7(−2) = 0. 2 + 2Cr − 14 = 0. 2Cr = 12. Cr = +6. K₂Cr₂O₇ (potassium dichromate) is an important oxidising agent in titrimetry and in the breathalyser test (Cr goes +6 → +3; the orange dichromate turns green when reduced).</div></div>
-
+    <div class="qexplain" id="e2">K<sub>2</sub>Cr<sub>2</sub>O<sub>7</sub>: let Cr = x. 2(+1) + 2x + 7(&minus;2) = 0. 2 + 2x &minus; 14 = 0. 2x = 12. x = +6. K<sub>2</sub>Cr<sub>2</sub>O<sub>7</sub> (potassium dichromate) contains Cr(VI), an important oxidising agent in titrimetry.</div></div>
     <div class="qblock"><span class="qnum">Q3</span>
-    <p class="qtext">In the standard hydrogen electrode, E° is defined as:</p>
+    <p class="qtext">In the reaction Cl<sub>2</sub> + 2KBr &rarr; 2KCl + Br<sub>2</sub>, which element is OXIDISED?</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q3" value="A"> +1.00 V</label>
-      <label class="opt"><input type="radio" name="q3" value="B"> −1.00 V</label>
-      <label class="opt"><input type="radio" name="q3" value="C"> 0.00 V (by definition)</label>
-      <label class="opt"><input type="radio" name="q3" value="D"> 7.00 V</label>
+      <label><input type="radio" name="q3" value="A"> Cl</label>
+      <label><input type="radio" name="q3" value="B"> K</label>
+      <label><input type="radio" name="q3" value="C"> Br</label>
+      <label><input type="radio" name="q3" value="D"> O</label>
     </div>
-    <div class="qexplain" id="e3">The SHE (2H⁺ + 2e⁻ ⇌ H₂) is assigned E° = 0.00 V by international convention. All other electrode potentials are measured relative to this reference. Conditions: [H⁺] = 1 mol dm⁻³, p(H₂) = 100 kPa, T = 298 K. It uses a platinum electrode (inert conductor) in contact with H₂ gas and H⁺ solution.</div></div>
-
+    <div class="qexplain" id="e3">Br in KBr has OS &minus;1 &rarr; Br<sub>2</sub> has OS 0 &rarr; Br is oxidised (loses electrons). Cl<sub>2</sub> has OS 0 &rarr; KCl has OS &minus;1 &rarr; Cl is reduced. Cl<sub>2</sub> is the oxidising agent; Br<sup>&minus;</sup> is the reducing agent.</div></div>
     <div class="qblock"><span class="qnum">Q4</span>
-    <p class="qtext">For the galvanic cell Mg | Mg²⁺ || Cu²⁺ | Cu, E°cell = ?<br>(E°(Mg²⁺/Mg) = −2.37V; E°(Cu²⁺/Cu) = +0.34V)</p>
+    <p class="qtext">What is the oxidation state of N in HNO<sub>2</sub> (nitrous acid)?</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q4" value="A"> −2.03 V</label>
-      <label class="opt"><input type="radio" name="q4" value="B"> +2.03 V</label>
-      <label class="opt"><input type="radio" name="q4" value="C"> +2.71 V</label>
-      <label class="opt"><input type="radio" name="q4" value="D"> −2.71 V</label>
+      <label><input type="radio" name="q4" value="A"> +1</label>
+      <label><input type="radio" name="q4" value="B"> +3</label>
+      <label><input type="radio" name="q4" value="C"> +5</label>
+      <label><input type="radio" name="q4" value="D"> +2</label>
     </div>
-    <div class="qexplain" id="e4">E°cell = E°(cathode) − E°(anode) = E°(Cu²⁺/Cu) − E°(Mg²⁺/Mg) = +0.34 − (−2.37) = +2.71 V. Mg is the anode (more negative E°, oxidised: Mg → Mg²⁺ + 2e⁻). Cu²⁺ is the cathode (more positive E°, reduced: Cu²⁺ + 2e⁻ → Cu). Positive E°cell → spontaneous → galvanic cell works.</div></div>
-
+    <div class="qexplain" id="e4">HNO<sub>2</sub>: H = +1; O = &minus;2; N = x. +1 + x + 2(&minus;2) = 0. x &minus; 3 = &minus;1. x = +3. Compare with HNO<sub>3</sub> where N = +5.</div></div>
     <div class="qblock"><span class="qnum">Q5</span>
-    <p class="qtext">The balanced ionic equation for MnO₄⁻ oxidising Fe²⁺ in acid is:</p>
+    <p class="qtext">The half-equation for the oxidation of Fe<sup>2</sup><sup>+</sup> to Fe<sup>3</sup><sup>+</sup> is:</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q5" value="A"> MnO₄⁻ + Fe²⁺ → Mn²⁺ + Fe³⁺</label>
-      <label class="opt"><input type="radio" name="q5" value="B"> MnO₄⁻ + 8H⁺ + 5Fe²⁺ → Mn²⁺ + 4H₂O + 5Fe³⁺</label>
-      <label class="opt"><input type="radio" name="q5" value="C"> 2MnO₄⁻ + Fe²⁺ → 2Mn + Fe⁴⁺</label>
-      <label class="opt"><input type="radio" name="q5" value="D"> MnO₄⁻ + 5Fe²⁺ + 4H₂O → Mn²⁺ + 5Fe³⁺ + 8OH⁻</label>
+      <label><input type="radio" name="q5" value="A"> Fe<sup>2</sup><sup>+</sup> + e<sup>&minus;</sup> &rarr; Fe<sup>3</sup><sup>+</sup></label>
+      <label><input type="radio" name="q5" value="B"> Fe<sup>2</sup><sup>+</sup> &rarr; Fe<sup>3</sup><sup>+</sup> + e<sup>&minus;</sup></label>
+      <label><input type="radio" name="q5" value="C"> Fe<sup>3</sup><sup>+</sup> + e<sup>&minus;</sup> &rarr; Fe<sup>2</sup><sup>+</sup></label>
+      <label><input type="radio" name="q5" value="D"> Fe<sup>3</sup><sup>+</sup> &rarr; Fe<sup>2</sup><sup>+</sup> + e<sup>&minus;</sup></label>
     </div>
-    <div class="qexplain" id="e5">Reduction: MnO₄⁻ + 8H⁺ + 5e⁻ → Mn²⁺ + 4H₂O (5 electrons). Oxidation: Fe²⁺ → Fe³⁺ + e⁻ (×5): 5Fe²⁺ → 5Fe³⁺ + 5e⁻. Combined: MnO₄⁻ + 8H⁺ + 5Fe²⁺ → Mn²⁺ + 4H₂O + 5Fe³⁺. Check charge: −1+8+10 = +17; +2+15 = +17 ✓. The H⁺ and H₂O are needed to balance oxygen in acidic solution.</div></div>
-
+    <div class="qexplain" id="e5">Oxidation = loss of electrons. Fe<sup>2</sup><sup>+</sup> &rarr; Fe<sup>3</sup><sup>+</sup> + e<sup>&minus;</sup>. The oxidation state increases from +2 to +3, meaning one electron is lost. This is an oxidation half-equation.</div></div>
     <div class="qblock"><span class="qnum">Q6</span>
-    <p class="qtext">In electrolysis, which process occurs at the cathode?</p>
+    <p class="qtext">The balanced half-equation for the reduction of MnO<sub>4</sub><sup>&minus;</sup> to Mn<sup>2</sup><sup>+</sup> in acid is:</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q6" value="A"> Oxidation — anions lose electrons</label>
-      <label class="opt"><input type="radio" name="q6" value="B"> Reduction — cations gain electrons</label>
-      <label class="opt"><input type="radio" name="q6" value="C"> No reaction — cathode is inert</label>
-      <label class="opt"><input type="radio" name="q6" value="D"> Oxidation — cations gain electrons</label>
+      <label><input type="radio" name="q6" value="A"> MnO<sub>4</sub><sup>&minus;</sup> + 4H<sup>+</sup> + 3e<sup>&minus;</sup> &rarr; MnO<sub>2</sub> + 2H<sub>2</sub>O</label>
+      <label><input type="radio" name="q6" value="B"> MnO<sub>4</sub><sup>&minus;</sup> + 8H<sup>+</sup> + 5e<sup>&minus;</sup> &rarr; Mn<sup>2</sup><sup>+</sup> + 4H<sub>2</sub>O</label>
+      <label><input type="radio" name="q6" value="C"> MnO<sub>4</sub><sup>&minus;</sup> + 2H<sub>2</sub>O + 3e<sup>&minus;</sup> &rarr; MnO<sub>2</sub> + 4OH<sup>&minus;</sup></label>
+      <label><input type="radio" name="q6" value="D"> MnO<sub>4</sub><sup>&minus;</sup> + 8H<sup>+</sup> + 4e<sup>&minus;</sup> &rarr; Mn<sup>2</sup><sup>+</sup> + 4H<sub>2</sub>O</label>
     </div>
-    <div class="qexplain" id="e6">Cathode = negative electrode in electrolysis. Cations (positive ions) are attracted to the cathode and gain electrons → REDUCTION occurs. Examples: Cu²⁺ + 2e⁻ → Cu; Na⁺ + e⁻ → Na; 2H⁺ + 2e⁻ → H₂. Anode = positive electrode → oxidation: Cl⁻ → ½Cl₂ + e⁻; H₂O → ½O₂ + 2H⁺ + 2e⁻.</div></div>
-
+    <div class="qexplain" id="e6">Steps: (1) Mn: +7 &rarr; +2, gain = 5e<sup>&minus;</sup>. (2) Balance O: 4O &rarr; add 4H<sub>2</sub>O on right. (3) Balance H: 8H<sup>+</sup> on left. (4) Check charge: left = &minus;1+8&minus;5 = +2; right = +2 &#10003;. MnO<sub>4</sub><sup>&minus;</sup> + 8H<sup>+</sup> + 5e<sup>&minus;</sup> &rarr; Mn<sup>2</sup><sup>+</sup> + 4H<sub>2</sub>O.</div></div>
     <div class="qblock"><span class="qnum">Q7</span>
-    <p class="qtext">A current of 3.0 A is passed for 10 minutes through molten AlCl₃. What mass of Al is deposited? (F = 96,485 C/mol; Ar(Al) = 27)</p>
+    <p class="qtext">In the displacement reaction Cu + 2AgNO<sub>3</sub> &rarr; Cu(NO<sub>3</sub>)<sub>2</sub> + 2Ag, copper displaces silver because:</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q7" value="A"> 0.17 g</label>
-      <label class="opt"><input type="radio" name="q7" value="B"> 0.50 g</label>
-      <label class="opt"><input type="radio" name="q7" value="C"> 1.0 g</label>
-      <label class="opt"><input type="radio" name="q7" value="D"> 3.0 g</label>
+      <label><input type="radio" name="q7" value="A"> Cu is less reactive than Ag</label>
+      <label><input type="radio" name="q7" value="B"> Cu is more reactive than Ag (higher in reactivity series)</label>
+      <label><input type="radio" name="q7" value="C"> Ag has a higher density</label>
+      <label><input type="radio" name="q7" value="D"> Cu forms +2 ions and Ag forms +1 ions</label>
     </div>
-    <div class="qexplain" id="e7">Q = 3.0 × (10×60) = 1800 C. Moles e⁻ = 1800/96485 = 0.01866 mol. Al³⁺ + 3e⁻ → Al: moles Al = 0.01866/3 = 0.00622 mol. Mass = 0.00622 × 27 = 0.168 g ≈ 0.17 g. Note: 3 electrons per Al ion — must divide moles of electrons by 3 to get moles of Al.</div></div>
-
+    <div class="qexplain" id="e7">Reactivity series: Cu > Ag. More reactive metals displace less reactive metals from their salt solutions. Cu is oxidised (Cu &rarr; Cu<sup>2</sup><sup>+</sup> + 2e<sup>&minus;</sup>); Ag<sup>+</sup> is reduced (Ag<sup>+</sup> + e<sup>&minus;</sup> &rarr; Ag). The reverse reaction (Ag displacing Cu) does not occur.</div></div>
     <div class="qblock"><span class="qnum">Q8</span>
-    <p class="qtext">In the electrolysis of aqueous sodium chloride (brine), the gas produced at the cathode is:</p>
+    <p class="qtext">What is the oxidation state of Fe in Fe<sub>3</sub>O<sub>4</sub>?</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q8" value="A"> Cl₂</label>
-      <label class="opt"><input type="radio" name="q8" value="B"> O₂</label>
-      <label class="opt"><input type="radio" name="q8" value="C"> H₂</label>
-      <label class="opt"><input type="radio" name="q8" value="D"> Na vapour</label>
+      <label><input type="radio" name="q8" value="A"> +2</label>
+      <label><input type="radio" name="q8" value="B"> +3</label>
+      <label><input type="radio" name="q8" value="C"> +8/3 (average, mixed +2 and +3)</label>
+      <label><input type="radio" name="q8" value="D"> 0</label>
     </div>
-    <div class="qexplain" id="e8">Cathode (−) of brine electrolysis: Na⁺ is present but water is preferentially reduced (Na⁺ has a very negative E°; water is more easily reduced at the cathode): 2H₂O + 2e⁻ → H₂ + 2OH⁻. H₂ gas is produced at cathode. The OH⁻ and Na⁺ remaining in solution → NaOH. Anode (+): 2Cl⁻ → Cl₂ + 2e⁻ (Cl⁻ oxidised preferentially despite water also being present). This is the chlor-alkali process: NaCl, NaOH, H₂, Cl₂ all produced.</div></div>
-
+    <div class="qexplain" id="e8">Fe<sub>3</sub>O<sub>4</sub> contains both Fe<sup>2</sup><sup>+</sup> and Fe<sup>3</sup><sup>+</sup>: one Fe<sup>2</sup><sup>+</sup> and two Fe<sup>3</sup><sup>+</sup>. Average OS = (2 + 3 + 3)/3 = 8/3. Fe<sub>3</sub>O<sub>4</sub> is magnetite &mdash; a mixed iron oxide. 3x + 4(&minus;2) = 0 &rarr; x = +8/3.</div></div>
     <div class="qblock"><span class="qnum">Q9</span>
-    <p class="qtext">The oxidation state of N in HNO₂ (nitrous acid) is:</p>
+    <p class="qtext">Which of the following changes represents REDUCTION?</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q9" value="A"> +5</label>
-      <label class="opt"><input type="radio" name="q9" value="B"> +3</label>
-      <label class="opt"><input type="radio" name="q9" value="C"> +1</label>
-      <label class="opt"><input type="radio" name="q9" value="D"> −3</label>
+      <label><input type="radio" name="q9" value="A"> Fe<sup>2</sup><sup>+</sup> &rarr; Fe<sup>3</sup><sup>+</sup></label>
+      <label><input type="radio" name="q9" value="B"> Mn &rarr; Mn<sup>2</sup><sup>+</sup></label>
+      <label><input type="radio" name="q9" value="C"> Cu<sup>2</sup><sup>+</sup> &rarr; Cu</label>
+      <label><input type="radio" name="q9" value="D"> Na &rarr; Na<sup>+</sup></label>
     </div>
-    <div class="qexplain" id="e9">HNO₂: H(+1) + N + 2O(−2) = 0. 1 + N − 4 = 0. N = +3. Compare: HNO₃ N = +5; NH₃ N = −3; NO N = +2; NO₂ N = +4; N₂O N = +1; N₂ N = 0. The trend: the more oxygen atoms, the higher the oxidation state of N.</div></div>
-
+    <div class="qexplain" id="e9">Reduction = gain of electrons / decrease in OS. Cu<sup>2</sup><sup>+</sup> (+2) &rarr; Cu (0): OS decreases by 2; 2 electrons gained. All other options show increases in OS (oxidation).</div></div>
     <div class="qblock"><span class="qnum">Q10</span>
-    <p class="qtext">Galvanising protects iron from corrosion even when the coating is scratched because:</p>
+    <p class="qtext">In the breathalyser test, K<sub>2</sub>Cr<sub>2</sub>O<sub>7</sub> (orange) reacts with ethanol &rarr; Cr<sub>2</sub>(SO<sub>4</sub>)<sub>3</sub> (green). The Cr change is:</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q10" value="A"> Zinc forms a waterproof layer</label>
-      <label class="opt"><input type="radio" name="q10" value="B"> Zinc is more reactive than iron — it acts as a sacrificial anode, oxidising preferentially and protecting Fe</label>
-      <label class="opt"><input type="radio" name="q10" value="C"> Zinc reacts with oxygen to produce a colourless gas</label>
-      <label class="opt"><input type="radio" name="q10" value="D"> Zinc and iron form a compound that prevents water reaching Fe</label>
+      <label><input type="radio" name="q10" value="A"> Cr<sup>3</sup><sup>+</sup> oxidised to Cr<sup>6</sup><sup>+</sup></label>
+      <label><input type="radio" name="q10" value="B"> Cr<sup>6</sup><sup>+</sup> reduced to Cr<sup>3</sup><sup>+</sup></label>
+      <label><input type="radio" name="q10" value="C"> No change in Cr oxidation state</label>
+      <label><input type="radio" name="q10" value="D"> Cr is the reducing agent</label>
     </div>
-    <div class="qexplain" id="e10">E°(Zn²⁺/Zn) = −0.76V < E°(Fe²⁺/Fe) = −0.44V. When both Zn and Fe are exposed: Zn is more easily oxidised (more negative E°) → Zn → Zn²⁺ + 2e⁻. Fe acts as cathode (protected). This is cathodic protection via sacrificial anode. Zinc corrodes, Fe is saved. Contrast with tin plating: Sn less reactive than Fe → when Sn scratched, Fe corrodes faster (becomes the anode).</div></div>
-
+    <div class="qexplain" id="e10">In K<sub>2</sub>Cr<sub>2</sub>O<sub>7</sub>: Cr = +6 (orange). In Cr<sub>2</sub>(SO<sub>4</sub>)<sub>3</sub>: Cr = +3 (green). OS decreases: Cr is REDUCED (gains 3e<sup>&minus;</sup>). Ethanol is oxidised to ethanoic acid &rarr; ethanol is the reducing agent. Cr<sub>2</sub>O<sub>7</sub><sup>2</sup><sup>&minus;</sup> is the oxidising agent.</div></div>
     <div class="qblock"><span class="qnum">Q11</span>
-    <p class="qtext">Which half-equation correctly represents the reduction of dichromate ions in acid?</p>
+    <p class="qtext">The balanced ionic equation for MnO<sub>4</sub><sup>&minus;</sup> oxidising Fe<sup>2</sup><sup>+</sup> in acidic solution is:</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q11" value="A"> Cr₂O₇²⁻ + 6e⁻ → 2Cr³⁺</label>
-      <label class="opt"><input type="radio" name="q11" value="B"> Cr₂O₇²⁻ + 14H⁺ + 6e⁻ → 2Cr³⁺ + 7H₂O</label>
-      <label class="opt"><input type="radio" name="q11" value="C"> Cr₂O₇²⁻ + 14OH⁻ → 2Cr³⁺ + 7H₂O</label>
-      <label class="opt"><input type="radio" name="q11" value="D"> 2Cr³⁺ + 7H₂O → Cr₂O₇²⁻ + 14H⁺ + 6e⁻</label>
+      <label><input type="radio" name="q11" value="A"> MnO<sub>4</sub><sup>&minus;</sup> + 5Fe<sup>2</sup><sup>+</sup> + 4H<sup>+</sup> &rarr; Mn<sup>2</sup><sup>+</sup> + 5Fe<sup>3</sup><sup>+</sup> + 2H<sub>2</sub>O</label>
+      <label><input type="radio" name="q11" value="B"> MnO<sub>4</sub><sup>&minus;</sup> + 5Fe<sup>2</sup><sup>+</sup> + 8H<sup>+</sup> &rarr; Mn<sup>2</sup><sup>+</sup> + 5Fe<sup>3</sup><sup>+</sup> + 4H<sub>2</sub>O</label>
+      <label><input type="radio" name="q11" value="C"> MnO<sub>4</sub><sup>&minus;</sup> + 3Fe<sup>2</sup><sup>+</sup> + 8H<sup>+</sup> &rarr; Mn<sup>2</sup><sup>+</sup> + 3Fe<sup>3</sup><sup>+</sup> + 4H<sub>2</sub>O</label>
+      <label><input type="radio" name="q11" value="D"> 2MnO<sub>4</sub><sup>&minus;</sup> + 5Fe<sup>2</sup><sup>+</sup> + 8H<sup>+</sup> &rarr; 2Mn<sup>2</sup><sup>+</sup> + 5Fe<sup>3</sup><sup>+</sup> + 4H<sub>2</sub>O</label>
     </div>
-    <div class="qexplain" id="e11">Cr₂O₇²⁻ + 14H⁺ + 6e⁻ → 2Cr³⁺ + 7H₂O. This is a reduction (Cr goes from +6 to +3). Check: Cr: 2=2 ✓; O: 7=7 ✓; H: 14=14 ✓; Charge: (−2)+(+14)+(−6) = +6; right: +6 ✓. H⁺ and H₂O are needed in acid solution to balance O and H atoms. This half-equation has E° = +1.33V (strong oxidising agent).</div></div>
-
+    <div class="qexplain" id="e11">Reduction half: MnO<sub>4</sub><sup>&minus;</sup> + 8H<sup>+</sup> + 5e<sup>&minus;</sup> &rarr; Mn<sup>2</sup><sup>+</sup> + 4H<sub>2</sub>O (&times;1). Oxidation half: Fe<sup>2</sup><sup>+</sup> &rarr; Fe<sup>3</sup><sup>+</sup> + e<sup>&minus;</sup> (&times;5). Combined: MnO<sub>4</sub><sup>&minus;</sup> + 5Fe<sup>2</sup><sup>+</sup> + 8H<sup>+</sup> &rarr; Mn<sup>2</sup><sup>+</sup> + 5Fe<sup>3</sup><sup>+</sup> + 4H<sub>2</sub>O. Check: charge left = &minus;1+10+8 = +17; right = +2+15 = +17 &#10003;.</div></div>
     <div class="qblock"><span class="qnum">Q12</span>
-    <p class="qtext">The cell notation Zn(s) | Zn²⁺(aq) || Cu²⁺(aq) | Cu(s) indicates:</p>
+    <p class="qtext">Which half-equation correctly represents the REDUCTION of dichromate ions (Cr<sub>2</sub>O<sub>7</sub><sup>2</sup><sup>&minus;</sup>) in acid to Cr<sup>3</sup><sup>+</sup>?</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q12" value="A"> Cu is the anode and Zn is the cathode</label>
-      <label class="opt"><input type="radio" name="q12" value="B"> Zn is the anode (oxidation, left) and Cu is the cathode (reduction, right); || represents the salt bridge</label>
-      <label class="opt"><input type="radio" name="q12" value="C"> Both electrodes are the same</label>
-      <label class="opt"><input type="radio" name="q12" value="D"> The cell is in electrolysis mode</label>
+      <label><input type="radio" name="q12" value="A"> Cr<sub>2</sub>O<sub>7</sub><sup>2</sup><sup>&minus;</sup> + 14H<sup>+</sup> + 6e<sup>&minus;</sup> &rarr; 2Cr<sup>3</sup><sup>+</sup> + 7H<sub>2</sub>O</label>
+      <label><input type="radio" name="q12" value="B"> Cr<sub>2</sub>O<sub>7</sub><sup>2</sup><sup>&minus;</sup> + 6H<sup>+</sup> + 3e<sup>&minus;</sup> &rarr; 2Cr<sup>3</sup><sup>+</sup> + 3H<sub>2</sub>O</label>
+      <label><input type="radio" name="q12" value="C"> Cr<sub>2</sub>O<sub>7</sub><sup>2</sup><sup>&minus;</sup> + 14H<sup>+</sup> + 3e<sup>&minus;</sup> &rarr; 2Cr<sup>3</sup><sup>+</sup> + 7H<sub>2</sub>O</label>
+      <label><input type="radio" name="q12" value="D"> Cr<sub>2</sub>O<sub>7</sub><sup>2</sup><sup>&minus;</sup> + 7H<sub>2</sub>O &rarr; 2Cr<sup>3</sup><sup>+</sup> + 6e<sup>&minus;</sup></label>
     </div>
-    <div class="qexplain" id="e12">Cell notation convention: anode (oxidation) on LEFT | salt bridge || cathode (reduction) on RIGHT. Single | = electrode/solution interface. || = salt bridge. So: Zn is anode (Zn → Zn²⁺ + 2e⁻), Cu is cathode (Cu²⁺ + 2e⁻ → Cu). Electrons flow externally from Zn (−) to Cu (+). E°cell = +0.34 − (−0.76) = +1.10V.</div></div>
-
+    <div class="qexplain" id="e12">Steps: 2Cr (+6 each, total +12) &rarr; 2Cr<sup>3</sup><sup>+</sup> (+3 each, total +6): gain 6e<sup>&minus;</sup>. Balance O: 7O &rarr; 7H<sub>2</sub>O on right. Balance H: 14H<sup>+</sup> on left. Check charge: &minus;2 + 14 &minus; 6 = +6; right = 2(+3) = +6 &#10003;.</div></div>
     <div class="qblock"><span class="qnum">Q13</span>
-    <p class="qtext">In a galvanic cell, the function of the salt bridge is to:</p>
+    <p class="qtext">The oxidation state of S in H<sub>2</sub>SO<sub>4</sub> is:</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q13" value="A"> Allow electron flow between the two half-cells</label>
-      <label class="opt"><input type="radio" name="q13" value="B"> Maintain electrical neutrality in each half-cell by allowing ion migration, completing the circuit</label>
-      <label class="opt"><input type="radio" name="q13" value="C"> Increase the voltage of the cell</label>
-      <label class="opt"><input type="radio" name="q13" value="D"> Prevent any mixing of the two solutions</label>
+      <label><input type="radio" name="q13" value="A"> +2</label>
+      <label><input type="radio" name="q13" value="B"> +4</label>
+      <label><input type="radio" name="q13" value="C"> +6</label>
+      <label><input type="radio" name="q13" value="D"> +8</label>
     </div>
-    <div class="qexplain" id="e13">As oxidation occurs at the anode (e.g. Zn → Zn²⁺), positive ions accumulate → solution would become positive, stopping the reaction. As reduction occurs at cathode (Cu²⁺ → Cu), cations are removed → solution would become negative. Salt bridge (KNO₃ in agar): K⁺ migrates to cathode half-cell; NO₃⁻ migrates to anode half-cell → maintains neutrality → current continues. Electrons flow through external wire (not salt bridge). Salt bridge carries ionic current.</div></div>
-
+    <div class="qexplain" id="e13">H<sub>2</sub>SO<sub>4</sub>: 2(+1) + x + 4(&minus;2) = 0. 2 + x &minus; 8 = 0. x = +6. In H<sub>2</sub>SO<sub>3</sub> (sulfurous acid): S = +4. In H<sub>2</sub>S: S = &minus;2.</div></div>
     <div class="qblock"><span class="qnum">Q14</span>
-    <p class="qtext">Which of the following will react spontaneously? (E° values: F₂/F⁻ +2.87; Cl₂/Cl⁻ +1.36; Br₂/Br⁻ +1.07; I₂/I⁻ +0.54 V)</p>
+    <p class="qtext">In the reaction: 2Al + 6HCl &rarr; 2AlCl<sub>3</sub> + 3H<sub>2</sub>, aluminium is:</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q14" value="A"> I₂ + 2Cl⁻ → 2I⁻ + Cl₂</label>
-      <label class="opt"><input type="radio" name="q14" value="B"> Br₂ + 2Cl⁻ → 2Br⁻ + Cl₂</label>
-      <label class="opt"><input type="radio" name="q14" value="C"> Cl₂ + 2Br⁻ → 2Cl⁻ + Br₂</label>
-      <label class="opt"><input type="radio" name="q14" value="D"> Br₂ + 2I⁻ → no reaction</label>
+      <label><input type="radio" name="q14" value="A"> Reduced (OS decreases)</label>
+      <label><input type="radio" name="q14" value="B"> Oxidised (OS increases from 0 to +3)</label>
+      <label><input type="radio" name="q14" value="C"> Neither oxidised nor reduced</label>
+      <label><input type="radio" name="q14" value="D"> A spectator</label>
     </div>
-    <div class="qexplain" id="e14">E°cell = E°(cathode/reduction) − E°(anode/oxidation). (C) Cl₂ + 2Br⁻ → 2Cl⁻ + Br₂: Cl₂ reduced (+1.36), Br⁻ oxidised (+1.07 as anode). E°cell = +1.36 − +1.07 = +0.29V > 0 → SPONTANEOUS ✓. (A) E°cell = +0.54 − 1.36 = −0.82V ✗. (B) E°cell = +1.07 − 1.36 = −0.29V ✗. (D) Br₂ + 2I⁻: E°cell = +1.07 − 0.54 = +0.53V > 0 → actually spontaneous (answer D description is wrong). Answer C is the only clearly correctly stated spontaneous reaction.</div></div>
-
+    <div class="qexplain" id="e14">Al: OS 0 &rarr; +3 (increases by 3) &rarr; Al is oxidised (loses 3e<sup>&minus;</sup> per atom). H<sup>+</sup>: OS +1 &rarr; 0 in H<sub>2</sub> (gains 1e<sup>&minus;</sup>) &rarr; H<sup>+</sup> is reduced. HCl is the oxidising agent; Al is the reducing agent.</div></div>
     <div class="qblock"><span class="qnum">Q15</span>
-    <p class="qtext">Rusting of iron is an electrochemical process. The ANODIC (oxidation) reaction is:</p>
+    <p class="qtext">Which statement about OXIDATION STATES is correct?</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q15" value="A"> O₂ + 2H₂O + 4e⁻ → 4OH⁻</label>
-      <label class="opt"><input type="radio" name="q15" value="B"> Fe → Fe²⁺ + 2e⁻</label>
-      <label class="opt"><input type="radio" name="q15" value="C"> Fe²⁺ + 2OH⁻ → Fe(OH)₂</label>
-      <label class="opt"><input type="radio" name="q15" value">D"> H₂O → H₂ + ½O₂</label>
+      <label><input type="radio" name="q15" value="A"> The OS of any element in a compound is always zero</label>
+      <label><input type="radio" name="q15" value="B"> The sum of OS of all atoms in a neutral compound equals zero</label>
+      <label><input type="radio" name="q15" value="C"> Oxygen always has OS &minus;2 in every compound</label>
+      <label><input type="radio" name="q15" value="D"> Hydrogen always has OS +1 in every compound</label>
     </div>
-    <div class="qexplain" id="e15">Rusting is an electrochemical cell on the iron surface. Anode (oxidation): Fe → Fe²⁺ + 2e⁻ (iron dissolves into solution). Cathode (reduction): O₂ + 2H₂O + 4e⁻ → 4OH⁻ (oxygen reduced in neutral/slightly acidic water). Fe²⁺ + 2OH⁻ → Fe(OH)₂ → Fe(OH)₃ → Fe₂O₃·nH₂O (rust). The process is accelerated by: salt (increases conductivity), acid rain (provides H⁺), bimetallic contact (galvanic cell).</div></div>
-
+    <div class="qexplain" id="e15">Rule: in a neutral compound, sum of all OS = 0. In an ion, sum = charge. Exceptions: O in peroxides = &minus;1 (e.g. H<sub>2</sub>O<sub>2</sub>); H in metal hydrides = &minus;1 (e.g. NaH). So options C and D are not always true.</div></div>
     <div class="qblock"><span class="qnum">Q16</span>
-    <p class="qtext">What is the oxidation state of Fe in Fe₃O₄?</p>
+    <p class="qtext">Zinc reacts with copper sulfate solution: Zn + CuSO<sub>4</sub> &rarr; ZnSO<sub>4</sub> + Cu. This occurs because:</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q16" value="A"> +2</label>
-      <label class="opt"><input type="radio" name="q16" value="B"> +3</label>
-      <label class="opt"><input type="radio" name="q16" value="C"> +8/3 (mixed +2 and +3)</label>
-      <label class="opt"><input type="radio" name="q16" value="D"> +4</label>
+      <label><input type="radio" name="q16" value="A"> Cu is more reactive than Zn</label>
+      <label><input type="radio" name="q16" value="B"> Zn is higher in the reactivity series than Cu</label>
+      <label><input type="radio" name="q16" value="C"> CuSO<sub>4</sub> is a strong acid</label>
+      <label><input type="radio" name="q16" value="D"> Cu forms +2 ions</label>
     </div>
-    <div class="qexplain" id="e16">Fe₃O₄: 3Fe + 4(−2) = 0. 3Fe = 8. Fe = 8/3 = +2.67. This non-integer OS indicates Fe₃O₄ is a mixed oxide (Fe²⁺ · Fe₂O₃): one Fe²⁺ and two Fe³⁺. Fe₃O₄ = magnetite, magnetic, found in lodestone. Similarly, Pb₃O₄ (red lead) contains Pb²⁺ and Pb⁴⁺ (average OS = +8/3).</div></div>
-
+    <div class="qexplain" id="e16">Reactivity series: Zn > Cu. More reactive Zn displaces less reactive Cu<sup>2</sup><sup>+</sup> from solution. Zn is oxidised (0 &rarr; +2); Cu<sup>2</sup><sup>+</sup> is reduced (+2 &rarr; 0). Evidence: blue colour of CuSO<sub>4</sub> fades; orange-red Cu deposits on Zn.</div></div>
     <div class="qblock"><span class="qnum">Q17</span>
-    <p class="qtext">Which change represents REDUCTION?</p>
+    <p class="qtext">What happens to the OXIDATION STATE of nitrogen in the reaction: N<sub>2</sub> + 3H<sub>2</sub> &rarr; 2NH<sub>3</sub>?</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q17" value="A"> Zn → Zn²⁺</label>
-      <label class="opt"><input type="radio" name="q17" value="B"> Fe²⁺ → Fe³⁺</label>
-      <label class="opt"><input type="radio" name="q17" value="C"> MnO₄⁻ → Mn²⁺</label>
-      <label class="opt"><input type="radio" name="q17" value="D"> 2I⁻ → I₂</label>
+      <label><input type="radio" name="q17" value="A"> N is oxidised: 0 &rarr; +3</label>
+      <label><input type="radio" name="q17" value="B"> N is reduced: 0 &rarr; &minus;3</label>
+      <label><input type="radio" name="q17" value="C"> No change in OS of N</label>
+      <label><input type="radio" name="q17" value="D"> N is both oxidised and reduced</label>
     </div>
-    <div class="qexplain" id="e17">Reduction = decrease in OS (gain of electrons). (A) Zn: 0→+2 = oxidation. (B) Fe: +2→+3 = oxidation. (C) MnO₄⁻: Mn = +7 → Mn²⁺: Mn = +2 → OS decreased → REDUCTION ✓. (D) 2I⁻: −1→0 = oxidation. Remember: OIL RIG — Reduction Is Gain of electrons → OS decreases.</div></div>
-
+    <div class="qexplain" id="e17">In N<sub>2</sub>: OS of N = 0. In NH<sub>3</sub>: H = +1; N = x; x + 3(+1) = 0 &rarr; x = &minus;3. OS decreases from 0 to &minus;3 &rarr; N is REDUCED. H is oxidised (0 &rarr; +1). This is the Haber Process.</div></div>
     <div class="qblock"><span class="qnum">Q18</span>
-    <p class="qtext">In electrolytic copper refining, the impure copper is:</p>
+    <p class="qtext">Which of the following is the correct procedure to balance a redox equation using half-equations?</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q18" value="A"> The cathode — pure copper deposits on it</label>
-      <label class="opt"><input type="radio" name="q18" value="B"> The anode — impure copper dissolves; pure copper deposits on the cathode</label>
-      <label class="opt"><input type="radio" name="q18" value="C"> The electrolyte solution</label>
-      <label class="opt"><input type="radio" name="q18" value="D"> Not involved — pure copper appears from the CuSO₄ solution</label>
+      <label><input type="radio" name="q18" value="A"> Balance O first, then H, then charge, then electrons</label>
+      <label><input type="radio" name="q18" value="B"> Balance the element that changes OS, then balance O using H<sub>2</sub>O, then H using H<sup>+</sup>, then balance charge using electrons</label>
+      <label><input type="radio" name="q18" value="C"> Add electrons to both sides equally</label>
+      <label><input type="radio" name="q18" value="D"> Multiply both half-equations by the same factor</label>
     </div>
-    <div class="qexplain" id="e18">Anode (+) = impure copper (dissolves: Cu → Cu²⁺ + 2e⁻). Cathode (−) = thin pure copper sheet (Cu²⁺ + 2e⁻ → Cu pure). [Cu²⁺] stays nearly constant (Cu dissolves at anode, deposits at cathode at the same rate). Reactive impurities (Zn, Fe, Ni) dissolve at anode but don't deposit at cathode (too negative E°). Precious metals (Ag, Au, Pt) don't dissolve — fall as "anode sludge" with economic value. The product is 99.99%+ pure copper for electrical uses.</div></div>
-
+    <div class="qexplain" id="e18">Standard method for acidic solution: (1) Balance atoms of element changing OS. (2) Balance O by adding H<sub>2</sub>O. (3) Balance H by adding H<sup>+</sup>. (4) Balance charge by adding e<sup>&minus;</sup>. (5) Multiply half-equations to equalise electrons. (6) Add and cancel.</div></div>
     <div class="qblock"><span class="qnum">Q19</span>
-    <p class="qtext">The Faraday constant (F = 96,485 C mol⁻¹) represents:</p>
+    <p class="qtext">In the reaction: I<sub>2</sub> + 2Na<sub>2</sub>S<sub>2</sub>O<sub>3</sub> &rarr; 2NaI + Na<sub>2</sub>S<sub>4</sub>O<sub>6</sub>, thiosulfate (S<sub>2</sub>O<sub>3</sub><sup>2</sup><sup>&minus;</sup>) is:</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q19" value="A"> The charge on one electron</label>
-      <label class="opt"><input type="radio" name="q19" value="B"> The charge on one mole of electrons</label>
-      <label class="opt"><input type="radio" name="q19" value="C"> The mass of one mole of any element deposited</label>
-      <label class="opt"><input type="radio" name="q19" value="D"> The current needed to deposit one mole of metal</label>
+      <label><input type="radio" name="q19" value="A"> The oxidising agent (oxidises I<sub>2</sub>)</label>
+      <label><input type="radio" name="q19" value="B"> The reducing agent (reduces I<sub>2</sub>)</label>
+      <label><input type="radio" name="q19" value="C"> A spectator ion</label>
+      <label><input type="radio" name="q19" value="D"> Neither oxidised nor reduced</label>
     </div>
-    <div class="qexplain" id="e19">F = N_A × e = 6.022×10²³ × 1.602×10⁻¹⁹ = 96,485 C mol⁻¹. F is the charge carried by one mole of electrons. It connects macroscopic (moles) to electrical (Coulombs) quantities. Q = n(e⁻) × F; n(e⁻) = Q/F; n(substance) = n(e⁻)/z where z = electrons per formula unit. F ≈ 96,500 C mol⁻¹ is commonly used as an approximation.</div></div>
-
+    <div class="qexplain" id="e19">I<sub>2</sub> (OS 0) &rarr; I<sup>&minus;</sup> (OS &minus;1): I is reduced &rarr; I<sub>2</sub> is the oxidising agent. S<sub>2</sub>O<sub>3</sub><sup>2</sup><sup>&minus;</sup> &rarr; S<sub>4</sub>O<sub>6</sub><sup>2</sup><sup>&minus;</sup>: S is oxidised &rarr; thiosulfate is the reducing agent. This reaction is used in iodine titrations.</div></div>
     <div class="qblock"><span class="qnum">Q20</span>
-    <p class="qtext">The breathalyser test uses K₂Cr₂O₇ (orange) → Cr₂(SO₄)₃ (green). In this reaction, ethanol is:</p>
+    <p class="qtext">The OS of Cl in ClO<sub>3</sub><sup>&minus;</sup> (chlorate ion) is:</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q20" value="A"> Reduced — OS of C decreases</label>
-      <label class="opt"><input type="radio" name="q20" value="B"> Oxidised — OS of C increases (ethanol → ethanoic acid)</label>
-      <label class="opt"><input type="radio" name="q20" value="C"> Unchanged — it acts as a catalyst</label>
-      <label class="opt"><input type="radio" name="q20" value="D"> The indicator only</label>
+      <label><input type="radio" name="q20" value="A"> +3</label>
+      <label><input type="radio" name="q20" value="B"> +5</label>
+      <label><input type="radio" name="q20" value="C"> +7</label>
+      <label><input type="radio" name="q20" value="D"> +1</label>
     </div>
-    <div class="qexplain" id="e20">Ethanol (CH₃CH₂OH): C of CH₂OH has OS = −1. Ethanoic acid (CH₃COOH): C of COOH has OS = +3. OS increases → oxidation. Cr₂O₇²⁻ (Cr = +6) → Cr³⁺ (OS decreases) → reduction. Cr₂O₇²⁻ is the oxidising agent (is reduced, turns from orange to green). Ethanol is the reducing agent (is oxidised). Reaction: 3C₂H₅OH + 2K₂Cr₂O₇ + 8H₂SO₄ → 3CH₃COOH + 2Cr₂(SO₄)₃ + 2K₂SO₄ + 11H₂O. Now replaced by IR spectroscopy in modern breathalysers.</div></div>
-
+    <div class="qexplain" id="e20">ClO<sub>3</sub><sup>&minus;</sup>: Cl + 3(&minus;2) = &minus;1. Cl &minus; 6 = &minus;1. Cl = +5. Compare: ClO<sup>&minus;</sup> (Cl = +1), ClO<sub>2</sub><sup>&minus;</sup> (Cl = +3), ClO<sub>3</sub><sup>&minus;</sup> (Cl = +5), ClO<sub>4</sub><sup>&minus;</sup> (Cl = +7).</div></div>
     <div class="qblock"><span class="qnum">Q21</span>
-    <p class="qtext">Which statement about E°cell is correct?</p>
+    <p class="qtext">In which reaction is hydrogen OXIDISED?</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q21" value="A"> E°cell &lt; 0 means the reaction is spontaneous</label>
-      <label class="opt"><input type="radio" name="q21" value="B"> E°cell &gt; 0 means the reaction is thermodynamically feasible (spontaneous)</label>
-      <label class="opt"><input type="radio" name="q21" value="C"> E°cell = 0 means maximum energy is produced</label>
-      <label class="opt"><input type="radio" name="q21" value="D"> E°cell does not depend on temperature</label>
+      <label><input type="radio" name="q21" value="A"> H<sub>2</sub>O &rarr; H<sub>2</sub> + &frac12;O<sub>2</sub></label>
+      <label><input type="radio" name="q21" value="B"> H<sup>+</sup> + e<sup>&minus;</sup> &rarr; &frac12;H<sub>2</sub></label>
+      <label><input type="radio" name="q21" value="C"> 2H<sub>2</sub> + O<sub>2</sub> &rarr; 2H<sub>2</sub>O</label>
+      <label><input type="radio" name="q21" value="D"> CuO + H<sub>2</sub> &rarr; Cu + H<sub>2</sub>O</label>
     </div>
-    <div class="qexplain" id="e21">E°cell &gt; 0 → ΔG° = −nFE°cell &lt; 0 → reaction is spontaneous/feasible under standard conditions. E°cell &lt; 0 → not spontaneous (reverse reaction is spontaneous). E°cell = 0 → at equilibrium (as in the SHE). Temperature DOES affect E°cell (the Nernst equation relates E to T and concentrations). This is purely a thermodynamic prediction — a kinetic barrier may still prevent the reaction from occurring in practice.</div></div>
-
+    <div class="qexplain" id="e21">In H<sub>2</sub> + O<sub>2</sub> &rarr; H<sub>2</sub>O: H<sub>2</sub> has OS 0 &rarr; H in H<sub>2</sub>O has OS +1 &rarr; oxidised. Also O<sub>2</sub> (OS 0) &rarr; O in H<sub>2</sub>O (OS &minus;2) &rarr; reduced. In option D: H<sub>2</sub> (0) &rarr; H<sub>2</sub>O (+1) &mdash; also oxidised, but option C is cleaner. Check A: H<sub>2</sub>O (+1) &rarr; H<sub>2</sub> (0) &mdash; reduction.</div></div>
     <div class="qblock"><span class="qnum">Q22</span>
-    <p class="qtext">In the oxidation number method: what change occurs in a reaction where ClO₃⁻ is converted to Cl⁻?</p>
+    <p class="qtext">Mg displaces hydrogen from steam: Mg + H<sub>2</sub>O &rarr; MgO + H<sub>2</sub>. Which statement is correct?</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q22" value="A"> Cl OS changes from −1 to +5 (oxidation)</label>
-      <label class="opt"><input type="radio" name="q22" value="B"> Cl OS changes from +5 to −1 (reduction, gain of 6 electrons per Cl)</label>
-      <label class="opt"><input type="radio" name="q22" value="C"> Cl OS stays at −1</label>
-      <label class="opt"><input type="radio" name="q22" value="D"> Cl OS changes from +3 to −1</label>
+      <label><input type="radio" name="q22" value="A"> Mg is reduced; water is the reducing agent</label>
+      <label><input type="radio" name="q22" value="B"> H in water is reduced; Mg is the reducing agent</label>
+      <label><input type="radio" name="q22" value="C"> Mg is oxidised to Mg<sup>2</sup><sup>+</sup>; H<sub>2</sub>O is a spectator</label>
+      <label><input type="radio" name="q22" value="D"> Both Mg and H are reduced</label>
     </div>
-    <div class="qexplain" id="e22">ClO₃⁻: Cl + 3(−2) = −1 → Cl = +5. Cl⁻: OS = −1. Change: +5 → −1 = decrease of 6 → reduction (gain of 6 electrons per Cl). Half-equation: ClO₃⁻ + 6H⁺ + 6e⁻ → Cl⁻ + 3H₂O. This reduction is done by strong reducing agents (e.g. SO₂ or I⁻ in acidic conditions). ClO₃⁻ (chlorate) is the +5 state of Cl; Cl⁻ is the −1 state.</div></div>
-
+    <div class="qexplain" id="e22">Mg: OS 0 &rarr; +2 &rarr; oxidised &rarr; Mg is the reducing agent. H in H<sub>2</sub>O: OS +1 &rarr; 0 in H<sub>2</sub> &rarr; reduced &rarr; H<sub>2</sub>O is the oxidising agent.</div></div>
     <div class="qblock"><span class="qnum">Q23</span>
-    <p class="qtext">The displacement reaction Cu + 2AgNO₃ → Cu(NO₃)₂ + 2Ag occurs because:</p>
+    <p class="qtext">The reactivity series of metals is based on:</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q23" value="A"> Cu is less reactive than Ag</label>
-      <label class="opt"><input type="radio" name="q23" value="B"> Cu has a more negative E° than Ag — E°(Cu²⁺/Cu) = +0.34V; E°(Ag⁺/Ag) = +0.80V — so Cu is oxidised preferentially</label>
-      <label class="opt"><input type="radio" name="q23" value="C"> NO₃⁻ is the reducing agent</label>
-      <label class="opt"><input type="radio" name="q23" value="D"> Ag is more reactive than Cu</label>
+      <label><input type="radio" name="q23" value="A"> Melting point of the metals</label>
+      <label><input type="radio" name="q23" value="B"> Density of the metals</label>
+      <label><input type="radio" name="q23" value="C"> Tendency of metals to lose electrons (be oxidised)</label>
+      <label><input type="radio" name="q23" value="D"> Colour of the metal oxides</label>
     </div>
-    <div class="qexplain" id="e23">E°(Ag⁺/Ag) = +0.80V; E°(Cu²⁺/Cu) = +0.34V. Since E°(Ag⁺/Ag) &gt; E°(Cu²⁺/Cu): Ag⁺ is a stronger oxidising agent than Cu²⁺ → Ag⁺ oxidises Cu → Cu → Cu²⁺ + 2e⁻; Ag⁺ + e⁻ → Ag. E°cell = +0.80 − +0.34 = +0.46V > 0 → spontaneous. Beautiful silver crystals form on the copper. Note: Ag is LESS reactive than Cu in the reactivity series (more reactive = more negative E° = stronger reducing agent).</div></div>
-
+    <div class="qexplain" id="e23">Reactivity series ranks metals by their tendency to be oxidised (lose electrons &rarr; form positive ions). More reactive metals: (1) displace less reactive from solutions; (2) react more vigorously with acids, water; (3) are harder to extract from ores.</div></div>
     <div class="qblock"><span class="qnum">Q24</span>
-    <p class="qtext">Hydrogen peroxide (H₂O₂) can act as both an oxidising agent and a reducing agent. In which reaction does H₂O₂ act as a REDUCING agent?</p>
+    <p class="qtext">When iron rusts, the iron is:</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q24" value="A"> H₂O₂ + 2KI → I₂ + 2KOH (H₂O₂ oxidises I⁻)</label>
-      <label class="opt"><input type="radio" name="q24" value="B"> H₂O₂ + 2KMnO₄ + 3H₂SO₄ → 2MnSO₄ + K₂SO₄ + 3O₂ + 4H₂O (H₂O₂ reduces MnO₄⁻)</label>
-      <label class="opt"><input type="radio" name="q24" value="C"> H₂O₂ + H₂S → S + 2H₂O (H₂O₂ oxidises H₂S)</label>
-      <label class="opt"><input type="radio" name="q24" value="D"> H₂O₂ → H₂O + ½O₂ (decomposition)</label>
+      <label><input type="radio" name="q24" value="A"> Reduced (gains electrons)</label>
+      <label><input type="radio" name="q24" value="B"> Neither oxidised nor reduced</label>
+      <label><input type="radio" name="q24" value="C"> Oxidised (loses electrons, OS 0 &rarr; +2 or +3)</label>
+      <label><input type="radio" name="q24" value="D"> A catalyst</label>
     </div>
-    <div class="qexplain" id="e24">In reaction B: MnO₄⁻ (+7) → Mn²⁺ (+2) — Mn is reduced → MnO₄⁻ is the oxidising agent. H₂O₂ (O = −1) → O₂ (O = 0) — O is oxidised → H₂O₂ is the reducing agent (is oxidised from −1 to 0 in O₂). H₂O₂ is both oxidising (when it gains electrons, e.g. against I⁻) AND reducing (when it loses electrons, e.g. against MnO₄⁻). OS of O in H₂O₂ = −1, which is intermediate between 0 (O₂) and −2 (H₂O), so H₂O₂ can go either way.</div></div>
-
+    <div class="qexplain" id="e24">Rusting: Fe (OS 0) &rarr; Fe<sup>2</sup><sup>+</sup>/Fe<sup>3</sup><sup>+</sup> (OS +2/+3) &rarr; Fe is oxidised (loses electrons). O<sub>2</sub> + H<sub>2</sub>O are reduced &rarr; Fe is the reducing agent; O<sub>2</sub> is the oxidising agent. Rust = hydrated iron(III) oxide, Fe<sub>2</sub>O<sub>3</sub>·xH<sub>2</sub>O.</div></div>
     <div class="qblock"><span class="qnum">Q25</span>
-    <p class="qtext">Standard electrode potentials are measured under standard conditions. Which of these is NOT a standard condition?</p>
+    <p class="qtext">Hydrogen peroxide (H<sub>2</sub>O<sub>2</sub>) can act as both oxidising and reducing agent. In reaction with KMnO<sub>4</sub> (acidic), H<sub>2</sub>O<sub>2</sub> acts as:</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q25" value="A"> Temperature = 298 K (25°C)</label>
-      <label class="opt"><input type="radio" name="q25" value="B"> All ion concentrations = 1 mol dm⁻³</label>
-      <label class="opt"><input type="radio" name="q25" value="C"> All gas pressures = 100 kPa (1 bar)</label>
-      <label class="opt"><input type="radio" name="q25" value="D"> pH = 7 (neutral solution)</label>
+      <label><input type="radio" name="q25" value="A"> Reducing agent (oxidised to O<sub>2</sub>)</label>
+      <label><input type="radio" name="q25" value="B"> Oxidising agent (reduced to H<sub>2</sub>O)</label>
+      <label><input type="radio" name="q25" value="C"> Neither &mdash; it is a spectator</label>
+      <label><input type="radio" name="q25" value="D"> Both simultaneously</label>
     </div>
-    <div class="qexplain" id="e25">Standard conditions for E°: T = 298 K, concentration of all aqueous species = 1 mol dm⁻³, pressure of all gases = 100 kPa (1 bar). pH is NOT separately specified at 7 — for acid/base-involving half-equations (like MnO₄⁻/Mn²⁺), [H⁺] = 1 mol dm⁻³ → pH = 0 (not 7). Standard conditions refer to concentrations (1 mol dm⁻³), not pH = 7. So "pH = 7" is NOT a standard condition.</div></div>
+    <div class="qexplain" id="e25">In acidic KMnO<sub>4</sub>: MnO<sub>4</sub><sup>&minus;</sup> (strong OA) oxidises H<sub>2</sub>O<sub>2</sub>. H<sub>2</sub>O<sub>2</sub> &rarr; O<sub>2</sub> + 2H<sup>+</sup> + 2e<sup>&minus;</sup> (OS of O: &minus;1 &rarr; 0, oxidised). H<sub>2</sub>O<sub>2</sub> is the reducing agent. In reaction with KI: H<sub>2</sub>O<sub>2</sub> + 2I<sup>&minus;</sup> &rarr; I<sub>2</sub> + 2OH<sup>&minus;</sup> (O: &minus;1 &rarr; &minus;2, reduced) &mdash; here H<sub>2</sub>O<sub>2</sub> is the oxidising agent.</div></div>
+    
 
-    <div style="text-align:center;margin-top:28px;">
-      <button class="qs" onclick="submitQuiz()">Submit Quiz — Check Answers</button>
-      <div id="qR"></div>
+      <button class="qs" onclick="submitQuiz()" style="margin-top:24px;width:100%;padding:14px;background:var(--accent);color:#000;border:none;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.95rem;font-weight:700;cursor:pointer;letter-spacing:.03em;">&#9654; Submit Quiz &amp; Check Answers</button>
+      <div id="qR" style="display:none;"></div>
     </div>
   </div>
 </div>
@@ -837,358 +614,56 @@ Protection methods:
   <div class="test-sec-head"><h3>Section A — Short Answer</h3><span class="marks-badge">30 marks</span></div>
 
   <div class="tq"><div class="tq-num">Q1 [5 marks]</div>
-  <p>Find the oxidation state of the bold element in each species: (a) <b>Mn</b> in KMnO₄ (b) <b>S</b> in SO₄²⁻ (c) <b>Cr</b> in Cr₂O₇²⁻ (d) <b>N</b> in N₂H₄ (e) <b>Fe</b> in [Fe(CN)₆]³⁻ (f) <b>Cl</b> in NaClO₄ (g) <b>P</b> in H₃PO₃ (h) <b>C</b> in C₆H₁₂O₆ (i) <b>I</b> in IO₃⁻ (j) <b>Xe</b> in XeO₄. [5 — ½ each]</p>
+  <p>Find the oxidation state of the bold element in each species: (a) <b>Mn</b> in KMnO<sub>4</sub> (b) <b>S</b> in SO<sub>4</sub><sup>2</sup><sup>&minus;</sup> (c) <b>Cr</b> in Cr<sub>2</sub>O<sub>7</sub><sup>2</sup><sup>&minus;</sup> (d) <b>N</b> in N<sub>2</sub>H<sub>4</sub> (e) <b>Fe</b> in [Fe(CN)<sub>6</sub>]<sup>3</sup><sup>&minus;</sup> (f) <b>Cl</b> in NaClO<sub>4</sub> (g) <b>P</b> in H<sub>3</sub>PO<sub>3</sub> (h) <b>C</b> in C<sub>6</sub>H<sub>1</sub><sub>2</sub>O<sub>6</sub> (i) <b>I</b> in IO<sub>3</sub><sup>&minus;</sup> (j) <b>Xe</b> in XeO<sub>4</sub>. [5 &mdash; &frac12; mark each]</p>
   <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide':'Model Answer'">Model Answer</button>
-  <div class="answer">(a) KMnO₄: +1+Mn+4(−2)=0 → Mn=+7. (b) SO₄²⁻: S+4(−2)=−2 → S=+6. (c) Cr₂O₇²⁻: 2Cr+7(−2)=−2 → Cr=+6. (d) N₂H₄: 2N+4(+1)=0 → N=−2. (e) [Fe(CN)₆]³⁻: CN⁻ ligands = −1 each; Fe+6(−1)=−3 → Fe=+3. (f) NaClO₄: +1+Cl+4(−2)=0 → Cl=+7. (g) H₃PO₃: 3(+1)+P+3(−2)=0 → P=+3. (Note: one P−H bond, two P−OH bonds, one P=O; effective +3 for the formula). (h) C₆H₁₂O₆: 6C+12(+1)+6(−2)=0 → 6C=0 → C=0. (i) IO₃⁻: I+3(−2)=−1 → I=+5. (j) XeO₄: Xe+4(−2)=0 → Xe=+8.</div></div>
-
+  <div class="answer">(a) KMnO<sub>4</sub>: +1+Mn+4(&minus;2)=0 &rarr; Mn=+7. (b) SO<sub>4</sub><sup>2</sup><sup>&minus;</sup>: S+4(&minus;2)=&minus;2 &rarr; S=+6. (c) Cr<sub>2</sub>O<sub>7</sub><sup>2</sup><sup>&minus;</sup>: 2Cr+7(&minus;2)=&minus;2 &rarr; Cr=+6. (d) N<sub>2</sub>H<sub>4</sub>: 2N+4(+1)=0 &rarr; N=&minus;2. (e) [Fe(CN)<sub>6</sub>]<sup>3</sup><sup>&minus;</sup>: CN<sup>&minus;</sup> is &minus;1 each; Fe+6(&minus;1)=&minus;3 &rarr; Fe=+3. (f) NaClO<sub>4</sub>: +1+Cl+4(&minus;2)=0 &rarr; Cl=+7. (g) H<sub>3</sub>PO<sub>3</sub>: note P has only 2 OH groups (one H directly bonded to P); 3(+1)+P+3(&minus;2)=0 &rarr; P=+3. (h) C<sub>6</sub>H<sub>1</sub><sub>2</sub>O<sub>6</sub>: 6C+12(+1)+6(&minus;2)=0 &rarr; 6C=0 &rarr; C=0. (i) IO<sub>3</sub><sup>&minus;</sup>: I+3(&minus;2)=&minus;1 &rarr; I=+5. (j) XeO<sub>4</sub>: Xe+4(&minus;2)=0 &rarr; Xe=+8. [&frac12; mark each, 5 total]</div></div>
   <div class="tq"><div class="tq-num">Q2 [5 marks]</div>
-  <p>Balance the following redox equation using the half-equation method: MnO₄⁻ + C₂O₄²⁻ → Mn²⁺ + CO₂ (acidic solution). Show all half-equations and the combined equation. [5]</p>
+  <p>Balance the following redox equation using the half-equation method in acidic solution: MnO<sub>4</sub><sup>&minus;</sup> + C<sub>2</sub>O<sub>4</sub><sup>2</sup><sup>&minus;</sup> &rarr; Mn<sup>2</sup><sup>+</sup> + CO<sub>2</sub>. Show all half-equations, electron balancing, and the final combined ionic equation. [5]</p>
   <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide':'Model Answer'">Model Answer</button>
-  <div class="answer">Reduction: MnO₄⁻ + 8H⁺ + 5e⁻ → Mn²⁺ + 4H₂O [Mn: +7→+2, 5e⁻ gained]. [1.5] Oxidation: C₂O₄²⁻ → 2CO₂ + 2e⁻ [C: +3→+4, 2e⁻ lost; balance O: 4O each side ✓; charge: −2 = 0−2 = −2 ✓]. [1.5] LCM of electrons: 5×2e⁻ = 10e⁻ = 2×5e⁻. Multiply reduction ×2; oxidation ×5: 2MnO₄⁻ + 16H⁺ + 10e⁻ → 2Mn²⁺ + 8H₂O; 5C₂O₄²⁻ → 10CO₂ + 10e⁻. Combined: <strong>2MnO₄⁻ + 16H⁺ + 5C₂O₄²⁻ → 2Mn²⁺ + 8H₂O + 10CO₂</strong>. [1.5] Check: Mn 2=2 ✓; C 10=10 ✓; O 8+20=28; 8+20=28 ✓; H 16=16 ✓; charge: −2+16−10=+4; +4+0=+4 ✓. [0.5]</div></div>
-
+  <div class="answer">Reduction half: MnO<sub>4</sub><sup>&minus;</sup> + 8H<sup>+</sup> + 5e<sup>&minus;</sup> &rarr; Mn<sup>2</sup><sup>+</sup> + 4H<sub>2</sub>O. [1] Oxidation half: C<sub>2</sub>O<sub>4</sub><sup>2</sup><sup>&minus;</sup> &rarr; 2CO<sub>2</sub> + 2e<sup>&minus;</sup> (OS of C: +3 &rarr; +4, each C loses 1e<sup>&minus;</sup>, total 2e<sup>&minus;</sup> per C<sub>2</sub>O<sub>4</sub><sup>2</sup><sup>&minus;</sup>). [1] Balance electrons: multiply reduction &times; 2, oxidation &times; 5: 2MnO<sub>4</sub><sup>&minus;</sup> + 16H<sup>+</sup> + 10e<sup>&minus;</sup> &rarr; 2Mn<sup>2</sup><sup>+</sup> + 8H<sub>2</sub>O; 5C<sub>2</sub>O<sub>4</sub><sup>2</sup><sup>&minus;</sup> &rarr; 10CO<sub>2</sub> + 10e<sup>&minus;</sup>. [1] Add and cancel electrons: 2MnO<sub>4</sub><sup>&minus;</sup> + 5C<sub>2</sub>O<sub>4</sub><sup>2</sup><sup>&minus;</sup> + 16H<sup>+</sup> &rarr; 2Mn<sup>2</sup><sup>+</sup> + 10CO<sub>2</sub> + 8H<sub>2</sub>O. [1] Check: charge left = &minus;2&minus;10+16 = +4; right = +4+0+0 = +4 &#10003;. Atoms: Mn 2=2 &#10003;; C 10=10 &#10003;; O: 8+20=28 left; 20+8=28 right &#10003;. [1]</div></div>
   <div class="tq"><div class="tq-num">Q3 [5 marks]</div>
-  <p>Describe the construction and operation of a Zn-Cu galvanic cell. Include: the half-reactions at each electrode, the direction of electron flow, the role of the salt bridge, the cell notation, and calculate E°cell. (E°(Zn²⁺/Zn) = −0.76V; E°(Cu²⁺/Cu) = +0.34V) [5]</p>
+  <p>Define the terms oxidation and reduction in terms of: (a) electron transfer and (b) change in oxidation state. For the reaction: 2Al + 3Cl<sub>2</sub> &rarr; 2AlCl<sub>3</sub>, identify what is oxidised, what is reduced, the oxidising agent, and the reducing agent, showing the OS changes. [5]</p>
   <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide':'Model Answer'">Model Answer</button>
-  <div class="answer">Construction: two half-cells connected by external wire and salt bridge. Left (anode): Zn rod in ZnSO₄ solution. Right (cathode): Cu rod in CuSO₄ solution. Salt bridge (KNO₃ in agar) connects the two solutions. [1] Anode (−, oxidation): Zn → Zn²⁺ + 2e⁻. Zn dissolves; blue solution forms if ZnSO₄ is absent. [1] Cathode (+, reduction): Cu²⁺ + 2e⁻ → Cu. Copper deposits on Cu electrode; blue CuSO₄ solution fades. [1] Electrons flow through external circuit from Zn (−) to Cu (+). K⁺ ions migrate from salt bridge into cathode solution; NO₃⁻ ions into anode solution → maintains electrical neutrality. [1] Cell notation: Zn(s) | Zn²⁺(aq) || Cu²⁺(aq) | Cu(s). E°cell = E°(cathode) − E°(anode) = +0.34 − (−0.76) = +1.10 V. [1]</div></div>
-
+  <div class="answer">(a) Oxidation: loss of electrons; Reduction: gain of electrons. (b) Oxidation: increase in OS; Reduction: decrease in OS. OIL RIG: Oxidation Is Loss, Reduction Is Gain. [2] 2Al + 3Cl<sub>2</sub> &rarr; 2AlCl<sub>3</sub>: Al: OS 0 &rarr; +3 (increases by 3) &rarr; Al is oxidised; Al is the reducing agent. [1] Cl<sub>2</sub>: OS 0 &rarr; &minus;1 (decreases by 1) &rarr; Cl is reduced; Cl<sub>2</sub> is the oxidising agent. [1] Electron transfer: each Al loses 3e<sup>&minus;</sup> (total 6e<sup>&minus;</sup> from 2Al); each Cl<sub>2</sub> gains 2e<sup>&minus;</sup> (total 6e<sup>&minus;</sup> into 3Cl<sub>2</sub>) &rarr; balanced. [1]</div></div>
   <div class="tq"><div class="tq-num">Q4 [5 marks]</div>
-  <p>Describe the electrolysis of aqueous sodium chloride (brine). State what is produced at each electrode, write the half-equations, and name three important products of this industrial process with one use of each. [5]</p>
+  <p>For the displacement reaction: Fe + CuSO<sub>4</sub>(aq) &rarr; FeSO<sub>4</sub>(aq) + Cu: (a) Write the ionic half-equations for oxidation and reduction. [2] (b) Identify the oxidising agent and reducing agent. [1] (c) Using the reactivity series, explain why Fe displaces Cu but Cu does not displace Fe from FeSO<sub>4</sub> solution. [2]</p>
   <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide':'Model Answer'">Model Answer</button>
-  <div class="answer">Cathode (−): water is preferentially reduced (not Na⁺, too negative). 2H₂O + 2e⁻ → H₂↑ + 2OH⁻. Hydrogen gas produced; OH⁻ accumulates. [1.5] Anode (+): Cl⁻ is preferentially oxidised (over H₂O at high [Cl⁻]). 2Cl⁻ → Cl₂↑ + 2e⁻. Chlorine gas produced. [1.5] Overall: 2NaCl + 2H₂O → 2NaOH + H₂ + Cl₂. [0.5] Products and uses: (1) NaOH — used in soap/detergent manufacture, paper pulp, drain cleaner. (2) Cl₂ — used in making bleach (NaOCl), PVC, disinfecting water. (3) H₂ — used as fuel in fuel cells, in Haber process to make NH₃, in hydrogenation of oils. [1.5]</div></div>
-
+  <div class="answer">(a) Oxidation: Fe &rarr; Fe<sup>2</sup><sup>+</sup> + 2e<sup>&minus;</sup>. Reduction: Cu<sup>2</sup><sup>+</sup> + 2e<sup>&minus;</sup> &rarr; Cu. [2] (b) Oxidising agent: Cu<sup>2</sup><sup>+</sup> (gains electrons, is reduced). Reducing agent: Fe (loses electrons, is oxidised). [1] (c) Fe is higher than Cu in the reactivity series &rarr; Fe has a greater tendency to be oxidised (lose electrons) than Cu. Fe can lose electrons to Cu<sup>2</sup><sup>+</sup> because Fe releases electrons more readily than Cu. In the reverse reaction (Cu + FeSO<sub>4</sub>), Cu would need to transfer electrons to Fe<sup>2</sup><sup>+</sup> but Cu has less tendency to be oxidised than Fe &rarr; thermodynamically unfavourable &rarr; no reaction. [2]</div></div>
   <div class="tq"><div class="tq-num">Q5 [5 marks]</div>
-  <p>A current of 2.5 A is passed through silver nitrate solution for 45 minutes using platinum electrodes. (a) Which electrode does Ag deposit on? (b) Write the half-equation for this deposition. (c) Calculate the mass of Ag deposited. (F = 96,485 C/mol; Ar(Ag) = 108) [5]</p>
+  <p>The reactivity series includes: K > Ca > Na > Mg > Al > Zn > Fe > Ni > Sn > Pb > H > Cu > Ag > Au. Use this to: (a) predict the products of each reaction and write an ionic equation, or state "no reaction": (i) Mg + ZnSO<sub>4</sub>(aq) (ii) Cu + HCl(aq) (iii) Zn + Pb(NO<sub>3</sub>)<sub>2</sub>(aq) (iv) Fe + H<sub>2</sub>SO<sub>4</sub>(aq) [4] (b) Explain why platinum is used as an electrode material in many experiments. [1]</p>
   <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide':'Model Answer'">Model Answer</button>
-  <div class="answer">(a) Ag deposits on the <strong>cathode</strong> (negative electrode) — reduction occurs there: cations (Ag⁺) gain electrons. [1] (b) Ag⁺ + e⁻ → Ag(s). (1 electron per Ag⁺.) [1] (c) Q = I × t = 2.5 × (45 × 60) = 2.5 × 2700 = 6750 C. [1] Moles of electrons = 6750/96485 = 0.06996 mol. [1] Moles of Ag = 0.06996/1 = 0.06996 mol (1 electron per Ag⁺). Mass = 0.06996 × 108 = 7.56 g ≈ <strong>7.6 g</strong>. [1]</div></div>
-
+  <div class="answer">(a)(i) Mg + Zn<sup>2</sup><sup>+</sup> &rarr; Mg<sup>2</sup><sup>+</sup> + Zn. Mg (more reactive) displaces Zn<sup>2</sup><sup>+</sup>. [1] (ii) No reaction. Cu is BELOW H in the reactivity series &rarr; Cu cannot displace H<sup>+</sup> from HCl. [1] (iii) Zn + Pb<sup>2</sup><sup>+</sup> &rarr; Zn<sup>2</sup><sup>+</sup> + Pb. Zn (more reactive) displaces Pb<sup>2</sup><sup>+</sup>. [1] (iv) Fe + 2H<sup>+</sup> &rarr; Fe<sup>2</sup><sup>+</sup> + H<sub>2</sub>&uarr;. Fe is above H in reactivity series &rarr; displaces H<sup>+</sup> from acid. [1] (b) Pt is at the very bottom of the reactivity series (least reactive) &rarr; does not react with most chemical reagents, does not interfere with the reaction, and is a good conductor. Ideal inert electrode. [1]</div></div>
   <div class="tq"><div class="tq-num">Q6 [5 marks]</div>
-  <p>Use the following E° values to: (a) predict which reactions are spontaneous (b) write the ionic equation for the spontaneous reaction (c) calculate E°cell for each. E°(Fe³⁺/Fe²⁺) = +0.77V; E°(I₂/I⁻) = +0.54V; E°(Zn²⁺/Zn) = −0.76V; E°(Cu²⁺/Cu) = +0.34V. Reactions to test: (i) I₂ + 2Fe²⁺ vs 2I⁻ + 2Fe³⁺ (ii) Zn + Cu²⁺ vs Zn²⁺ + Cu. [5]</p>
+  <p>Write balanced half-equations for each, then combine them into a full ionic equation: (a) In acidic solution: Cr<sub>2</sub>O<sub>7</sub><sup>2</sup><sup>&minus;</sup> oxidises Fe<sup>2</sup><sup>+</sup> to Fe<sup>3</sup><sup>+</sup> (Cr<sub>2</sub>O<sub>7</sub><sup>2</sup><sup>&minus;</sup> &rarr; 2Cr<sup>3</sup><sup>+</sup>). [3] (b) The reaction of zinc with dilute sulfuric acid. [2]</p>
   <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide':'Model Answer'">Model Answer</button>
-  <div class="answer">(i) Forward: I₂ + 2Fe²⁺ → 2I⁻ + 2Fe³⁺. I₂ reduced (cathode, +0.54); Fe²⁺ oxidised (anode, +0.77). E°cell = +0.54 − +0.77 = −0.23V &lt; 0 → NOT spontaneous. Reverse: 2Fe³⁺ + 2I⁻ → I₂ + 2Fe²⁺. E°cell = +0.77 − +0.54 = +0.23V &gt; 0 → SPONTANEOUS. Ionic equation: 2Fe³⁺ + 2I⁻ → I₂ + 2Fe²⁺. (Fe³⁺ is a stronger oxidant than I₂.) [2.5] (ii) Forward: Zn + Cu²⁺ → Zn²⁺ + Cu. Zn oxidised (anode, −0.76); Cu²⁺ reduced (cathode, +0.34). E°cell = +0.34 − (−0.76) = +1.10V &gt; 0 → SPONTANEOUS ✓. Ionic equation: Zn(s) + Cu²⁺(aq) → Zn²⁺(aq) + Cu(s). Blue CuSO₄ solution fades; copper deposits on zinc. [2.5]</div></div>
-</div>
-
-<div class="test-section">
-  <div class="test-sec-head"><h3>Section B — Extended Answer</h3><span class="marks-badge">20 marks</span></div>
-
+  <div class="answer">(a) Reduction half: Cr<sub>2</sub>O<sub>7</sub><sup>2</sup><sup>&minus;</sup> + 14H<sup>+</sup> + 6e<sup>&minus;</sup> &rarr; 2Cr<sup>3</sup><sup>+</sup> + 7H<sub>2</sub>O. Oxidation half: Fe<sup>2</sup><sup>+</sup> &rarr; Fe<sup>3</sup><sup>+</sup> + e<sup>&minus;</sup> (&times;6): 6Fe<sup>2</sup><sup>+</sup> &rarr; 6Fe<sup>3</sup><sup>+</sup> + 6e<sup>&minus;</sup>. Combined: Cr<sub>2</sub>O<sub>7</sub><sup>2</sup><sup>&minus;</sup> + 6Fe<sup>2</sup><sup>+</sup> + 14H<sup>+</sup> &rarr; 2Cr<sup>3</sup><sup>+</sup> + 6Fe<sup>3</sup><sup>+</sup> + 7H<sub>2</sub>O. Check charge: &minus;2+12+14=+24 left; +6+18+0=+24 right &#10003;. [3] (b) Oxidation: Zn &rarr; Zn<sup>2</sup><sup>+</sup> + 2e<sup>&minus;</sup>. Reduction: 2H<sup>+</sup> + 2e<sup>&minus;</sup> &rarr; H<sub>2</sub>. Combined: Zn + 2H<sup>+</sup> &rarr; Zn<sup>2</sup><sup>+</sup> + H<sub>2</sub>. [2]</div></div>
   <div class="tq"><div class="tq-num">Q7 [10 marks]</div>
-  <p>(a) Define the terms: oxidation, reduction, oxidising agent, reducing agent. Illustrate each with the reaction of Fe with Cl₂. [3]<br>
-  (b) Explain the principles of electrochemical cells. How does the standard electrode potential E° relate to the feasibility of a reaction? Use the relationship ΔG° = −nFE°cell. [4]<br>
-  (c) Explain the corrosion of iron as an electrochemical process. Why does iron rust faster in salt water than in pure water? Describe two methods of corrosion protection with chemical explanations. [3]</p>
+  <p>(a) Define oxidation and reduction using the concepts of electron transfer and oxidation state. Distinguish between an oxidising agent and a reducing agent. [3] (b) For the reaction: 5H<sub>2</sub>O<sub>2</sub> + 2KMnO<sub>4</sub> + 3H<sub>2</sub>SO<sub>4</sub> &rarr; 2MnSO<sub>4</sub> + 5O<sub>2</sub> + K<sub>2</sub>SO<sub>4</sub> + 8H<sub>2</sub>O, identify: (i) which element is oxidised and which is reduced (ii) the oxidising agent and reducing agent (iii) write the two half-equations. [4] (c) Explain the term "disproportionation" with one example. [3]</p>
   <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide':'Model Answer'">Model Answer</button>
-  <div class="answer">(a) Oxidation: loss of electrons / increase in OS. Reduction: gain of electrons / decrease in OS. Oxidising agent: species that accepts electrons (is itself reduced). Reducing agent: species that donates electrons (is itself oxidised). Fe + Cl₂ reaction: 2Fe + 3Cl₂ → 2FeCl₃. Fe: 0→+3 (oxidised, loses 3e⁻, is the reducing agent). Cl₂: 0→−1 (reduced, gains e⁻, is the oxidising agent). [3] (b) An electrochemical cell converts chemical energy to electrical energy via a spontaneous redox reaction in two separated half-cells. E° values (tabulated as reduction potentials) allow prediction: the half-cell with higher E° undergoes reduction (cathode); the half-cell with lower E° undergoes oxidation (anode). E°cell = E°(cathode) − E°(anode). When E°cell > 0: ΔG° = −nFE°cell < 0 (n = moles of electrons; F = 96,485 C/mol) → spontaneous. E°cell < 0 → ΔG° > 0 → non-spontaneous. E°cell = 0 → ΔG° = 0 → equilibrium. Higher E°cell → more negative ΔG° → more energy available → stronger driving force. [4] (c) Iron rusting is a galvanic cell on the iron surface. Different areas of iron act as anode/cathode (due to stress, impurities). Anode: Fe → Fe²⁺ + 2e⁻ (Fe dissolves). Cathode: O₂ + 2H₂O + 4e⁻ → 4OH⁻ (O₂ reduced). Fe²⁺ + 2OH⁻ → Fe(OH)₂ → oxidised further → Fe₂O₃·nH₂O (rust). Salt water: NaCl dissolves → Na⁺ and Cl⁻ greatly increase conductivity of the solution → ion flow easier → galvanic cell current flows faster → Fe corrodes much faster. Protection: (1) Galvanising (Zn coat): Zn more reactive (E° −0.76 vs −0.44V) → sacrificial anode (Zn oxidised, Fe protected). (2) Cathodic protection: Fe made cathode by connecting Mg blocks (Mg E° = −2.37V → oxidised preferentially) or by impressing an external negative current onto the structure (pipelines, ships). [3]</div></div>
-
+  <div class="answer">(a) Oxidation: loss of e<sup>&minus;</sup> &rarr; increase in OS. Reduction: gain of e<sup>&minus;</sup> &rarr; decrease in OS. Oxidising agent: causes oxidation in another species; it is itself reduced (gains e<sup>&minus;</sup>). Reducing agent: causes reduction; it is itself oxidised (loses e<sup>&minus;</sup>). [3] (b)(i) H<sub>2</sub>O<sub>2</sub>: O has OS &minus;1. In O<sub>2</sub>: O has OS 0 &rarr; increases &rarr; O is oxidised. In KMnO<sub>4</sub>: Mn = +7. In MnSO<sub>4</sub>: Mn = +2 &rarr; decreases &rarr; Mn is reduced. [1] (ii) Oxidising agent: KMnO<sub>4</sub> (Mn is reduced). Reducing agent: H<sub>2</sub>O<sub>2</sub> (O is oxidised). [1] (iii) Oxidation: H<sub>2</sub>O<sub>2</sub> &rarr; O<sub>2</sub> + 2H<sup>+</sup> + 2e<sup>&minus;</sup> (OS &minus;1 &rarr; 0). Reduction: MnO<sub>4</sub><sup>&minus;</sup> + 8H<sup>+</sup> + 5e<sup>&minus;</sup> &rarr; Mn<sup>2</sup><sup>+</sup> + 4H<sub>2</sub>O. [2] (c) Disproportionation: a single element is simultaneously oxidised and reduced in the same reaction. Example: Cl<sub>2</sub> + 2NaOH &rarr; NaCl + NaOCl + H<sub>2</sub>O. Cl (OS 0) &rarr; Cl<sup>&minus;</sup> (OS &minus;1, reduced) AND Cl (OS 0) &rarr; OCl<sup>&minus;</sup> (OS +1, oxidised). [3]</div></div>
   <div class="tq"><div class="tq-num">Q8 [10 marks]</div>
-  <p>(a) Potassium manganate(VII) (KMnO₄) is a versatile oxidising agent. Describe the colour changes observed when KMnO₄ reacts in: (i) acidic solution (ii) neutral/alkaline solution. Give the manganese species produced and their colours in each case. Write the half-equation for the reduction in acid. [4]<br>
-  (b) A 25.00 cm³ sample of iron(II) sulfate solution is titrated against 0.020 mol dm⁻³ KMnO₄. 22.50 cm³ of KMnO₄ is needed. (i) Write the balanced ionic equation. (ii) Calculate the concentration of Fe²⁺. [3]<br>
-  (c) Explain the industrial importance of electrolysis with reference to THREE different industrial processes. Include: the electrolyte used, the electrodes, what is produced at each electrode, and the economic/industrial significance. [3]</p>
+  <p>(a) Explain what is meant by the reactivity series of metals and how it is determined experimentally. Describe two experiments a student could perform to place an unknown metal X in the reactivity series between zinc and copper. [5] (b) Write full ionic equations for the following reactions, showing OS changes: (i) Na reacting vigorously with water (ii) iron slowly rusting in the presence of oxygen and water (iii) aluminium dissolving in dilute hydrochloric acid. [5]</p>
   <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide':'Model Answer'">Model Answer</button>
-  <div class="answer">(a)(i) Acid solution: MnO₄⁻ (purple/violet) → Mn²⁺ (almost colourless/very pale pink). Colour change: purple → colourless. KMnO₄ is self-indicating — the endpoint is when the last drop of KMnO₄ added does not decolour. Mn goes from +7 to +2. Half-equation: MnO₄⁻ + 8H⁺ + 5e⁻ → Mn²⁺ + 4H₂O. [2] (ii) Neutral/alkaline: MnO₄⁻ (purple) → MnO₂ (brown precipitate). Mn goes from +7 to +4. Half-equation: MnO₄⁻ + 2H₂O + 3e⁻ → MnO₂↓ + 4OH⁻. Strong alkali (excess): MnO₄⁻ + e⁻ → MnO₄²⁻ (manganate, green). [2] (b)(i) In acid: 5Fe²⁺ → 5Fe³⁺ + 5e⁻ (×1); MnO₄⁻ + 8H⁺ + 5e⁻ → Mn²⁺ + 4H₂O. Combined: MnO₄⁻ + 8H⁺ + 5Fe²⁺ → Mn²⁺ + 4H₂O + 5Fe³⁺. [1] (ii) Moles KMnO₄ = 0.020 × 22.50/1000 = 4.5×10⁻⁴ mol. 1 MnO₄⁻ : 5 Fe²⁺ → moles Fe²⁺ = 5 × 4.5×10⁻⁴ = 2.25×10⁻³ mol. [Fe²⁺] = 2.25×10⁻³ / 0.02500 = 0.090 mol dm⁻³. [2] (c) Three industrial electrolysis processes (any 3): (1) Chlor-alkali (brine): Electrolyte = conc. NaCl(aq). Cathode = steel mesh: H₂ produced (fuel, Haber process). Anode = titanium with DSA: Cl₂ produced (bleach, PVC, solvents). Left: NaOH solution (soaps, detergents, paper). Major global industry. (2) Aluminium extraction (Hall-Héroult): Electrolyte = molten Al₂O₃ dissolved in cryolite (Na₃AlF₆) at 950°C. Cathode = graphite-lined steel vessel: Al(l) deposited. Anode = graphite (consumed): CO₂/O₂ produced. 15 kWh per kg Al — energy-intensive; hence Al recycling is important. (3) Copper refining: Electrolyte = CuSO₄(aq). Anode = impure Cu. Cathode = thin pure Cu sheet. Pure Cu (99.99%) deposited at cathode. Anode sludge contains Ag, Au, Pt — recovered economically. Essential for electrical wire grade copper. [3]</div></div>
-</div>
+  <div class="answer">(a) Reactivity series: a ranking of metals (and H) in order of decreasing tendency to lose electrons (be oxidised). Determined by: (1) displacement reactions &mdash; does metal A displace metal B from B's salt solution? (2) reactions with acid/water &mdash; rate/vigour. [2] Experiments for metal X (between Zn and Cu): Experiment 1: Add X to ZnSO<sub>4</sub>(aq). If X displaces Zn<sup>2</sup><sup>+</sup> (blue/colourless change, solid deposits), then X > Zn. Add X to CuSO<sub>4</sub>(aq). If X displaces Cu<sup>2</sup><sup>+</sup> (blue &rarr; colourless, orange-red Cu), and we know X < some reference above Zn, we can place X. [2] Experiment 2: Add Zn to X(NO<sub>3</sub>)<sub>n</sub>(aq) &mdash; if Zn displaces X, then Zn > X. Add Cu to X(NO<sub>3</sub>)<sub>n</sub>(aq) &mdash; if no reaction, Cu < X. &rarr; Zn > X > Cu. [1] (b)(i) 2Na + 2H<sub>2</sub>O &rarr; 2NaOH + H<sub>2</sub>. Na: 0&rarr;+1 (oxidised); H: +1&rarr;0 in H<sub>2</sub> (reduced). [1] (ii) 4Fe + 3O<sub>2</sub> + 2xH<sub>2</sub>O &rarr; 2Fe<sub>2</sub>O<sub>3</sub>·xH<sub>2</sub>O. Fe: 0&rarr;+3 (oxidised); O<sub>2</sub>: 0&rarr;&minus;2 (reduced). [2] (iii) 2Al + 6H<sup>+</sup> &rarr; 2Al<sup>3</sup><sup>+</sup> + 3H<sub>2</sub>. Al: 0&rarr;+3 (oxidised); H<sup>+</sup>: +1&rarr;0 (reduced). [2]</div></div>
 
-<div class="unit-nav">
-  <a href="s4_unit16_acids_bases.html">← Unit 16: Acids & Bases</a>
-  <a href="s4-chemistry.html">S4 Course Home</a>
-  <a href="s4_unit18_energy_changes.html">Unit 18: Energy Changes →</a>
-</div>
 </main>
 <footer>
   ⚗ Jackson Habimana Chemistry Portal &bull; S4 Unit 17: Redox Reactions &bull;
   <a href="s4-chemistry.html">Back to S4</a> &bull; <a href="index.html">Home</a>
 </footer>
 <script>
-const _CA={q1:'C',q2:'C',q3:'C',q4:'C',q5:'B',q6:'B',q7:'A',q8:'C',q9:'B',q10:'B',q11:'B',q12:'B',q13:'B',q14:'C',q15:'B',q16:'C',q17:'C',q18:'B',q19:'B',q20:'B',q21:'B',q22:'B',q23:'B',q24:'B',q25:'D'};
-function submitQuiz(){
-  let s=0,t=Object.keys(_CA).length;
-  Object.entries(_CA).forEach(([q,c])=>{
-    const sel=document.querySelector('input[name="'+q+'"]:checked');
-    document.querySelectorAll('input[name="'+q+'"]').forEach(o=>{if(o.value===c)o.closest('label').classList.add('correct');});
-    if(sel){if(sel.value===c)s++;else sel.closest('label').classList.add('wrong');}
-    const e=document.getElementById('e'+q.slice(1));if(e)e.style.display='block';
-    document.querySelectorAll('input[name="'+q+'"]').forEach(o=>o.disabled=true);
-  });
-  const p=Math.round(s/t*100);
-  const r=document.getElementById('qR');
-  r.style.cssText='display:block;margin-top:16px;border-radius:8px;padding:14px 18px;font-family:JetBrains Mono,monospace;font-size:.88rem;text-align:center;background:'+(p>=70?'rgba(52,211,153,.1)':'rgba(248,113,113,.1)')+';border:1px solid '+(p>=70?'var(--green)':'var(--red)')+';color:'+(p>=70?'var(--green)':'var(--red)');
-  r.innerHTML='Score: '+s+'/'+t+' ('+p+'%) — '+(p>=80?'🏆 Excellent!':p>=70?'✅ Good.':p>=50?'📚 Keep studying.':'❌ Review all material.');
-  document.querySelector('.qs').disabled=true;document.querySelector('.qs').style.opacity='.5';
-}
+const _CA={q1:'C',q2:'C',q3:'C',q4:'B',q5:'B',q6:'B',q7:'B',q8:'C',q9:'C',q10:'B',q11:'B',q12:'A',q13:'C',q14:'B',q15:'B',q16:'B',q17:'B',q18:'B',q19:'B',q20:'B',q21:'C',q22:'B',q23:'C',q24:'C',q25:'A'};
 
+(function(){
+  const SK='quiz_access_granted',CK='quiz_access_code';
+  const gate=document.createElement('div');gate.id='unit-quiz-gate';
+  gate.style.cssText='position:fixed;inset:0;background:#0d1117;z-index:99999;display:none;align-items:center;justify-content:center;padding:24px;';
+  gate.innerHTML='<div style="background:#161b22;border:2px solid rgba(192,132,252,.4);border-radius:16px;padding:48px 40px;max-width:460px;width:100%;text-align:center;"><div style="font-size:3.5rem;margin-bottom:16px;">🔒</div><h2 style="font-family:Playfair Display,serif;font-size:1.8rem;color:#fff;margin-bottom:10px;">Quiz Locked</h2><p style="color:#8b949e;font-size:.93rem;margin-bottom:24px;">Enter the access code from your teacher.</p><input id="ugc-inp" type="text" placeholder="Enter Code" maxlength="20" style="width:100%;background:#1c2333;border:2px solid #30363d;border-radius:8px;color:#e6edf3;padding:14px 18px;font-family:JetBrains Mono,monospace;font-size:1.4rem;text-align:center;letter-spacing:.2em;text-transform:uppercase;margin-bottom:12px;box-sizing:border-box;" onkeydown="if(event.key===\'Enter\')unlockUnitQuiz()"/><div id="ugc-err" style="font-family:JetBrains Mono,monospace;font-size:.82rem;color:#f87171;min-height:20px;margin-bottom:10px;"></div><button onclick="unlockUnitQuiz()" style="width:100%;background:#c084fc;color:#000;border:none;padding:13px;border-radius:8px;font-family:JetBrains Mono,monospace;font-size:.9rem;font-weight:700;cursor:pointer;margin-bottom:10px;">🔓 Unlock Quiz</button><button onclick="document.getElementById(\'unit-quiz-gate\').style.display=\'none\';document.body.style.overflow=\'\'" style="width:100%;background:transparent;border:1px solid #30363d;color:#8b949e;padding:9px;border-radius:8px;font-family:JetBrains Mono,monospace;font-size:.8rem;cursor:pointer;">✕ Cancel</button></div>';
+  document.body.appendChild(gate);
+  window.unlockUnitQuiz=function(){const v=document.getElementById('ugc-inp').value.trim().toUpperCase();const c=localStorage.getItem(CK);if(!v){document.getElementById('ugc-err').textContent='Enter the code.';return;}if(v===c||!c){sessionStorage.setItem(SK,c||'open');document.getElementById('unit-quiz-gate').style.display='none';document.body.style.overflow='';}else{document.getElementById('ugc-err').textContent='❌ Wrong code.';document.getElementById('ugc-inp').value='';}};
+  window.addEventListener('DOMContentLoaded',function(){const code=localStorage.getItem(CK);if(!code)return;const granted=sessionStorage.getItem(SK);if(granted)return;const qw=document.querySelector('.quiz-wrap');if(!qw)return;qw.addEventListener('click',function(e){if(!localStorage.getItem(CK))return;if(sessionStorage.getItem(SK))return;e.stopPropagation();e.preventDefault();document.getElementById('unit-quiz-gate').style.display='flex';document.body.style.overflow='hidden';},true);});
+})();
 </script>
 
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-<style>
-#pdf-dl-bar{position:fixed;bottom:24px;right:24px;z-index:9000;}
-#pdf-dl-btn{background:#34d399;color:#000;border:none;padding:12px 22px;border-radius:9px;font-family:'JetBrains Mono',monospace;font-size:.84rem;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(52,211,153,.4);display:flex;align-items:center;gap:8px;}
-#pdf-dl-btn:hover{opacity:.88;}
-#pdf-dl-btn .spin{display:none;width:14px;height:14px;border:2px solid #000;border-top-color:transparent;border-radius:50%;animation:dlsp .7s linear infinite;}
-@keyframes dlsp{to{transform:rotate(360deg)}}
-#dl-pay-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:99990;align-items:center;justify-content:center;padding:16px;}
-#dl-pay-overlay.open{display:flex;}
-#dl-pay-box{background:#161b22;border:1px solid #30363d;border-radius:14px;width:100%;max-width:400px;max-height:92vh;overflow-y:auto;}
-#dl-pay-box .ph{padding:18px 20px 12px;border-bottom:1px solid #30363d;}
-#dl-pay-box .ph h2{font-family:'Playfair Display',serif;color:#fff;font-size:1.1rem;}
-#dl-pay-box .ph p{color:#8b949e;font-size:.78rem;margin-top:2px;}
-#dl-pay-box .pb{padding:16px 20px;}
-#dl-pay-box .pf{padding:12px 20px;border-top:1px solid #30363d;display:flex;gap:8px;}
-.amt-bb{background:rgba(232,197,71,.07);border:1px solid rgba(232,197,71,.2);border-radius:9px;padding:12px;text-align:center;margin-bottom:14px;}
-.amt-bb .al{font-family:'JetBrains Mono',monospace;font-size:.62rem;color:#8b949e;text-transform:uppercase;letter-spacing:.1em;margin-bottom:2px;}
-.amt-bb .av{font-family:'JetBrains Mono',monospace;font-size:1.7rem;color:#e8c547;font-weight:700;}
-.ph-rowb{display:flex;gap:7px;margin-bottom:6px;}
-.cc-selb{background:#1c2333;border:1px solid #30363d;border-radius:6px;color:#fff;padding:8px 6px;font-family:'JetBrains Mono',monospace;font-size:.78rem;width:110px;}
-.ph-inpb{flex:1;background:#1c2333;border:1px solid #30363d;border-radius:6px;color:#fff;padding:8px 11px;font-family:'JetBrains Mono',monospace;font-size:.86rem;}
-.ph-inpb:focus,.cc-selb:focus{outline:none;border-color:#e8c547;}
-.net-rb{display:flex;gap:6px;margin-bottom:12px;}
-.nbb{flex:1;background:#1c2333;border:1px solid #30363d;border-radius:6px;color:#8b949e;font-family:'JetBrains Mono',monospace;font-size:.68rem;padding:7px;cursor:pointer;text-align:center;}
-.nbb.sel{background:rgba(52,211,153,.1);border-color:#34d399;color:#34d399;}
-.pay-gob{flex:1;background:#e8c547;color:#000;border:none;padding:11px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:.84rem;font-weight:700;cursor:pointer;}
-.pay-gob:disabled{opacity:.5;cursor:not-allowed;}
-.cancel-bb{background:#1c2333;color:#8b949e;border:1px solid #30363d;padding:10px 14px;border-radius:7px;cursor:pointer;font-size:.82rem;}
-.pay-stb{display:none;text-align:center;padding:20px;}
-.dl-spinnerb{width:34px;height:34px;border:3px solid #30363d;border-top-color:#e8c547;border-radius:50%;animation:dlsp .8s linear infinite;margin:0 auto 12px;}
-</style>
-
-<div id="pdf-dl-bar">
-  <div style="position:relative;display:inline-block;">
-    <button id="pdf-dl-btn" onclick="toggleDlMenu()">
-      <span class="spin" id="pdf-spin"></span>
-      <span id="pdf-btn-text">&#11015; Download PDF</span>
-      <span style="margin-left:8px;font-size:.85em;">&#x25BC;</span>
-    </button>
-    <div id="pdf-dl-menu" style="display:none;position:absolute;bottom:calc(100% + 8px);right:0;background:#161b22;border:1px solid #30363d;border-radius:8px;padding:8px;box-shadow:0 8px 32px rgba(0,0,0,.6);min-width:240px;z-index:10000;">
-      <button type="button" class="dl-opt" onclick="pickDl('notes')" style="display:block;width:100%;text-align:left;background:transparent;color:#e6edf3;border:none;padding:10px 14px;border-radius:6px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:.82rem;">&#128214; Notes only</button>
-      <button type="button" class="dl-opt" onclick="pickDl('quiz')" style="display:block;width:100%;text-align:left;background:transparent;color:#e6edf3;border:none;padding:10px 14px;border-radius:6px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:.82rem;">&#129514; Quiz only</button>
-      <button type="button" class="dl-opt" onclick="pickDl('test')" style="display:block;width:100%;text-align:left;background:transparent;color:#e6edf3;border:none;padding:10px 14px;border-radius:6px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:.82rem;">&#128221; Test only</button>
-      <div style="height:1px;background:#30363d;margin:4px 8px;"></div>
-      <button type="button" class="dl-opt" onclick="pickDl('all')" style="display:block;width:100%;text-align:left;background:transparent;color:#e6edf3;border:none;padding:10px 14px;border-radius:6px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:.82rem;">&#128196; Everything (full unit)</button>
-    </div>
-  </div>
-  <style>.dl-opt:hover{background:rgba(56,189,248,.1)!important;color:#38bdf8!important;}</style>
-</div>
-
-<div id="dl-pay-overlay">
-  <div id="dl-pay-box">
-    <div class="ph"><h2>&#128179; Pay to Download</h2><p>Unit notes &mdash; instant PDF download</p></div>
-    <div id="dl-pform">
-      <div class="pb">
-        <div class="amt-bb"><div class="al">Price</div><div class="av">300 RWF</div><div style="font-size:.72rem;color:#8b949e;margin-top:2px;">One-time &middot; Download immediately after payment</div></div>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:.67rem;color:#8b949e;text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px;">Phone Number</div>
-        <div class="ph-rowb">
-          <select class="cc-selb" id="dl-ccode" onchange="dlUpdateHint()">
-            <option value="+250" data-net="MTN / Airtel">&#127479;&#127484; +250</option>
-            <option value="+256" data-net="MTN / Airtel">&#127482;&#127468; +256</option>
-            <option value="+255" data-net="Vodacom / Tigo">&#127481;&#127487; +255</option>
-            <option value="+254" data-net="M-Pesa / Airtel">&#127472;&#127466; +254</option>
-            <option value="+234" data-net="MTN / Airtel">&#127475;&#127468; +234</option>
-            <option value="+233" data-net="MTN / Vodafone">&#127468;&#127469; +233</option>
-          </select>
-          <input class="ph-inpb" type="tel" id="dl-phone" placeholder="07XXXXXXXX" oninput="dlValPhone()" maxlength="12"/>
-        </div>
-        <div class="ph-hint" id="dl-ph-hint">Rwanda &mdash; MTN MoMo or Airtel Money</div>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:.67rem;color:#8b949e;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;">Network</div>
-        <div class="net-rb">
-          <div class="nbb sel" onclick="dlSelNet(this,'MTN')">MTN MoMo</div>
-          <div class="nbb" onclick="dlSelNet(this,'AIRTEL')">Airtel Money</div>
-          <div class="nbb" onclick="dlSelNet(this,'OTHER')">Other</div>
-        </div>
-        <div id="dl-err" style="display:none;font-family:'JetBrains Mono',monospace;font-size:.74rem;color:#f87171;padding:7px 10px;background:rgba(248,113,113,.07);border-radius:5px;margin-bottom:8px;"></div>
-      </div>
-      <div class="pf">
-        <button class="pay-gob" id="dl-pay-go" onclick="dlInitPay()" disabled>Pay &amp; Download</button>
-        <button class="cancel-bb" onclick="closeDlPay()">Cancel</button>
-      </div>
-    </div>
-    <div class="pay-stb" id="dl-st-proc">
-      <div class="dl-spinnerb"></div>
-      <div style="font-family:'JetBrains Mono',monospace;color:#fff;font-size:.86rem;margin-bottom:5px;">Processing Payment...</div>
-      <div style="color:#8b949e;font-size:.79rem;">Check your phone &mdash; enter your PIN to confirm.</div>
-    </div>
-    <div class="pay-stb" id="dl-st-ok">
-      <div style="font-size:2.8rem;margin-bottom:10px;">&#9989;</div>
-      <div style="font-family:'JetBrains Mono',monospace;color:#34d399;font-size:.92rem;margin-bottom:5px;">Payment Confirmed!</div>
-      <div style="color:#8b949e;font-size:.8rem;margin-bottom:16px;">Generating your PDF...</div>
-      <div class="dl-spinnerb"></div>
-    </div>
-    <div class="pay-stb" id="dl-st-fail">
-      <div style="font-size:2.8rem;margin-bottom:10px;">&#10060;</div>
-      <div style="font-family:'JetBrains Mono',monospace;color:#f87171;font-size:.86rem;margin-bottom:5px;">Payment Not Completed</div>
-      <div style="color:#8b949e;font-size:.79rem;margin-bottom:14px;" id="dl-fail-txt"></div>
-      <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
-        <button style="background:#e8c547;color:#000;border:none;padding:8px 16px;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:.76rem;font-weight:700;cursor:pointer;" onclick="dlShowForm()">Try Again</button>
-        <a id="dl-wa-link" href="#" target="_blank" style="background:#25D366;color:#fff;padding:8px 14px;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:.76rem;font-weight:700;text-decoration:none;">WhatsApp</a>
-        <button style="background:#1c2333;color:#8b949e;border:1px solid #30363d;padding:8px 14px;border-radius:6px;cursor:pointer;font-size:.8rem;" onclick="closeDlPay()">Cancel</button>
-      </div>
-    <!-- Payment Unavailable (no PawaPay key) -->
-    <div class="pay-stb" id="dl-st-manual">
-      <div style="font-size:2.4rem;margin-bottom:10px;">⚙️</div>
-      <div style="font-family:'JetBrains Mono',monospace;color:#8b949e;font-size:.88rem;margin-bottom:12px;">Payment service is being set up.</div>
-      <div style="color:#8b949e;font-size:.82rem;margin-bottom:18px;line-height:1.8;">Online payment is not yet available for this unit.<br>Please contact your teacher to get access.</div>
-      <button style="background:#1c2333;color:#8b949e;border:1px solid #30363d;padding:10px 18px;border-radius:7px;cursor:pointer;font-size:.82rem;" onclick="dlShowForm()">&#8592; Back</button>
-      <div id="dl-manual-phone" style="display:none;"></div>
-      <a id="dl-wa-link" href="#" style="display:none;"></a>
-    </div>
-  </div>
-</div>
-
-<script>
-var _DL_UNIT_ID='S4-17';
-var _DL_PRICE=300;
-var _dlNet='MTN',_dlPollTimer=null;
-function isPaidUnit(){
-  if(localStorage.getItem('teacher_dl_unlocked')==='true')return true;
-  var paid=JSON.parse(localStorage.getItem('paid_items')||'[]');
-  var lvl=_DL_UNIT_ID.split('-')[0];
-  return paid.indexOf(_DL_UNIT_ID)>=0||paid.indexOf('ALL')>=0||paid.indexOf(lvl)>=0||paid.indexOf('BUNDLE-'+lvl)>=0;
-}
-function checkPayAndDownload(){
-  if(localStorage.getItem('teacher_dl_unlocked')==='true'){doDownloadPDF();return;}
-  document.getElementById('dl-pay-overlay').classList.add('open');dlShowForm();
-}
-function closeDlPay(){document.getElementById('dl-pay-overlay').classList.remove('open');if(_dlPollTimer){clearInterval(_dlPollTimer);_dlPollTimer=null;}}
-function dlShowForm(){document.getElementById('dl-pform').style.display='block';['dl-st-proc','dl-st-ok','dl-st-fail','dl-st-manual'].forEach(function(id){document.getElementById(id).style.display='none';});document.getElementById('dl-err').style.display='none';}
-function dlSelNet(el,n){_dlNet=n;document.querySelectorAll('.nbb').forEach(function(b){b.classList.remove('sel');});el.classList.add('sel');}
-function dlUpdateHint(){var o=document.getElementById('dl-ccode').options[document.getElementById('dl-ccode').selectedIndex];document.getElementById('dl-ph-hint').textContent=o.text+' - '+(o.dataset.net||'Mobile Money');}
-function dlValPhone(){document.getElementById('dl-pay-go').disabled=document.getElementById('dl-phone').value.replace(/\D/g,'').length<8;}
-async function dlInitPay(){
-  var code=document.getElementById('dl-ccode').value;
-  var num=document.getElementById('dl-phone').value.replace(/\D/g,'');
-  if(num.length<8){var e=document.getElementById('dl-err');e.style.display='block';e.textContent='Enter a valid phone number.';return;}
-  var fullPhone=code.replace('+','')+num.replace(/^0/,'');
-  document.getElementById('dl-pform').style.display='none';
-  document.getElementById('dl-st-proc').style.display='block';
-  var workerUrl='https://chem-payment.hajackson2020.workers.dev';
-  var depositId='dep_'+Date.now()+'_'+Math.random().toString(36).substr(2,5);
-  var cMap={250:'RW',256:'UG',255:'TZ',254:'KE',234:'NG',233:'GH'};
-  var ci=cMap[parseInt(code.replace('+',''))]||'RW';
-  var corrMap={MTN:{RW:'MTNRW',UG:'MTNUG',GH:'MTNGHS'},AIRTEL:{RW:'AIRTELRW',UG:'AIRTELUG'},OTHER:{RW:'MTNRW'}};
-  var curMap={RW:'RWF',UG:'UGX',TZ:'TZS',KE:'KES',NG:'NGN',GH:'GHS'};
-  var correspondent=(corrMap[_dlNet]||corrMap.MTN)[ci]||'MTNRW';
-  var currency=curMap[ci]||'RWF';
-  try{
-    var r=await fetch(workerUrl+'/deposit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({depositId:depositId,amount:String(_DL_PRICE),currency:currency,correspondent:correspondent,payer:{type:'MSISDN',address:{value:fullPhone}},statementDescription:'ChemNotes'})});
-    var d=await r.json();
-    // DEBUG: log what PawaPay returns
-    console.log('PawaPay response status:', r.status);
-    console.log('PawaPay response body:', JSON.stringify(d));
-    if(d.depositId||r.ok){
-      _dlPollTimer=setInterval(async function(){
-        try{
-          var pr=await fetch(workerUrl+'/deposit?id='+depositId);
-          var pd=await pr.json();
-          var st=((pd.status||(pd[0]&&pd[0].status))||'').toUpperCase();
-          if(st==='COMPLETED'){clearInterval(_dlPollTimer);_dlPollTimer=null;markPaidAndDownload();}
-          else if(st==='FAILED'||st==='EXPIRED'){clearInterval(_dlPollTimer);_dlPollTimer=null;document.getElementById('dl-st-proc').style.display='none';document.getElementById('dl-fail-txt').textContent=(pd.correspondentIds&&pd.correspondentIds.reason)||'Payment not completed.';document.getElementById('dl-st-fail').style.display='block';}
-        }catch(e){}
-      },3000);
-      setTimeout(function(){if(_dlPollTimer){clearInterval(_dlPollTimer);_dlPollTimer=null;document.getElementById('dl-st-proc').style.display='none';document.getElementById('dl-fail-txt').textContent='Timed out. Contact Mr Habimana via WhatsApp.';document.getElementById('dl-st-fail').style.display='block';}},180000);
-    }else{throw new Error(d.errorCode||'Failed');}
-  }catch(e){
-    document.getElementById('dl-st-proc').style.display='none';
-    var wa2=encodeURIComponent('PAYMENT\nUnit: '+document.title+'\nAmount: '+_DL_PRICE+' RWF\nPhone: '+code+num);
-    document.getElementById('dl-wa-link').href='https://wa.me/250788800375?text='+wa2;
-    document.getElementById('dl-fail-txt').innerHTML='Error: '+(d&&d.errorCode?d.errorCode:(e&&e.message?e.message:'Unknown error. Check console F12'));
-    document.getElementById('dl-st-fail').style.display='block';
-  }
-}
-function markPaidAndDownload(){
-  var paid=JSON.parse(localStorage.getItem('paid_items')||'[]');
-  if(paid.indexOf(_DL_UNIT_ID)<0)paid.push(_DL_UNIT_ID);
-  localStorage.setItem('paid_items',JSON.stringify(paid));
-  document.getElementById('dl-st-proc').style.display='none';
-  document.getElementById('dl-st-ok').style.display='block';
-  setTimeout(function(){closeDlPay();doDownloadPDF();},1500);
-}
-
-// === Part selector for Download PDF ===
-var _dlPart = 'notes';
-function toggleDlMenu(){
-  var m = document.getElementById('pdf-dl-menu');
-  m.style.display = (m.style.display === 'block') ? 'none' : 'block';
-  if(m.style.display === 'block'){
-    setTimeout(function(){ document.addEventListener('click', closeDlMenuOutside, true); }, 10);
-  }
-}
-function closeDlMenuOutside(e){
-  var m = document.getElementById('pdf-dl-menu');
-  var b = document.getElementById('pdf-dl-btn');
-  if(!m) return;
-  if(m.contains(e.target) || b.contains(e.target)) return;
-  m.style.display = 'none';
-  document.removeEventListener('click', closeDlMenuOutside, true);
-}
-function pickDl(part){
-  _dlPart = part;
-  document.getElementById('pdf-dl-menu').style.display = 'none';
-  document.removeEventListener('click', closeDlMenuOutside, true);
-  var labels = {notes:'Notes only', quiz:'Quiz only', test:'Test only', all:'Everything'};
-  document.getElementById('pdf-btn-text').textContent = '⬇ ' + labels[part] + '...';
-  checkPayAndDownload();
-}
-
-function doDownloadPDF(){
-  var btn=document.getElementById('pdf-dl-btn');
-  var spin=document.getElementById('pdf-spin');
-  var txt=document.getElementById('pdf-btn-text');
-  btn.disabled=true;spin.style.display='block';txt.textContent='Generating...';
-  var title=document.title.replace(/[^a-zA-Z0-9\s]/g,'').replace(/\s+/g,'_').substring(0,60)||'chemistry_notes';
-  var main=document.querySelector('main')||document.querySelector('.content')||document.body;
-  var clone=main.cloneNode(true);
-  // Strip sections based on what the user chose in the dropdown
-  var part = (typeof _dlPart !== 'undefined') ? _dlPart : 'notes';
-  if(part === 'notes'){
-    // Remove quiz + test, keep only notes
-    clone.querySelectorAll('.quiz-wrap,#quiz,#test,.quiz-submit,.qs,button,#pdf-dl-bar,#dl-pay-overlay,.section-header[id="quiz"],.section-header[id="test"]').forEach(function(el){el.remove();});
-  } else if(part === 'quiz'){
-    // Keep only quiz section
-    var keep = clone.querySelector('#quiz') || clone.querySelector('.quiz-wrap');
-    if(keep){
-      var keepParent = keep.closest('.section-header') ? keep.closest('.section-header').parentNode : clone;
-      // Find the quiz block and its section header
-      var qHeader = null;
-      var all = clone.querySelectorAll('.section-header, [id="quiz"], .quiz-wrap');
-      for(var i=0;i<all.length;i++){ if(all[i].id === 'quiz' || all[i].querySelector && all[i].querySelector('#quiz')){ qHeader = all[i]; break; } }
-      // Gather quiz header + wrap
-      var header = clone.querySelector('.section-header[id="quiz"]') || clone.querySelector('#quiz');
-      var wrap = clone.querySelector('.quiz-wrap') || clone.querySelector('#quiz + *');
-      // Build clean content
-      var quizContent = document.createElement('div');
-      if(header) quizContent.appendChild(header.cloneNode(true));
-      if(wrap && wrap !== header) quizContent.appendChild(wrap.cloneNode(true));
-      // Replace clone content with just the quiz
-      clone.innerHTML = '';
-      clone.appendChild(quizContent);
-    } else {
-      // Fallback: no quiz section found
-      clone.innerHTML = '<h2>Quiz not available in this unit</h2>';
-    }
-    // Remove interactive stuff
-    clone.querySelectorAll('.quiz-submit,.qs,button,#pdf-dl-bar,#dl-pay-overlay,input[type="radio"],input[type="submit"]').forEach(function(el){el.remove();});
-  } else if(part === 'test'){
-    // Keep only test section
-    var header = clone.querySelector('.section-header[id="test"]') || clone.querySelector('#test');
-    var testContent = document.createElement('div');
-    if(header){
-      testContent.appendChild(header.cloneNode(true));
-      // Gather all subsequent siblings until next section-header or end
-      var n = header.nextElementSibling;
-      while(n && !n.classList.contains('section-header')){
-        testContent.appendChild(n.cloneNode(true));
-        n = n.nextElementSibling;
-      }
-      clone.innerHTML = '';
-      clone.appendChild(testContent);
-    } else {
-      clone.innerHTML = '<h2>Test not available in this unit</h2>';
-    }
-    clone.querySelectorAll('button,#pdf-dl-bar,#dl-pay-overlay,input[type="submit"]').forEach(function(el){el.remove();});
-  } else {
-    // 'all' - keep everything, only strip download/payment UI
-    clone.querySelectorAll('#pdf-dl-bar,#dl-pay-overlay,.quiz-submit,.qs,button').forEach(function(el){el.remove();});
-  }
-  var unitTitleText = document.title.split('–')[1] ? document.title.split('–')[1].split('|')[0].trim() : (document.querySelector('h1') ? document.querySelector('h1').textContent.trim() : 'Chemistry Unit');var levelText = (document.title.match(/S[456]\s*Chemistry/i) || ['Chemistry'])[0];var unitNumMatch = document.title.match(/Unit\s*\d+/i);var unitNumText = unitNumMatch ? unitNumMatch[0] : '';var bookStyle = document.createElement('style');bookStyle.textContent = '.pdf-cover{width:794px;height:1100px;background:#fff;position:relative;page-break-after:always;}.pdf-cover-bar{position:absolute;top:0;left:0;width:100%;height:28%;background:#0f766e;}.pdf-cover-inner{position:absolute;top:0;left:0;width:100%;height:100%;padding:100px 60px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:space-between;}.pdf-cover-top{color:#fff;}.pdf-cover-top .level{font-family:Georgia,serif;font-size:18pt;letter-spacing:6px;text-transform:uppercase;opacity:.9;margin-bottom:20px;}.pdf-cover-top .unum{font-family:Georgia,serif;font-size:14pt;letter-spacing:4px;opacity:.75;}.pdf-cover-mid{margin-top:120px;}.pdf-cover-mid h1{font-family:Georgia,serif;font-size:42pt;color:#1a1a1a;line-height:1.15;font-weight:700;margin:0;}.pdf-cover-mid .subtitle{font-family:Georgia,serif;font-size:15pt;color:#555;margin-top:24px;font-style:italic;}.pdf-cover-bot{color:#333;}.pdf-cover-bot .author{font-family:Georgia,serif;font-size:22pt;font-weight:700;margin-bottom:6px;}.pdf-cover-bot .pub{font-family:Georgia,serif;font-size:12pt;color:#666;}.pdf-body{font-family:Georgia,serif;font-size:11pt;color:#1a1a1a;line-height:1.65;padding:48px 54px;}.pdf-body *{color:#1a1a1a!important;background:transparent!important;box-shadow:none!important;border-color:#d0d0d0!important;}.pdf-body h1{font-family:Georgia,serif;color:#0f766e!important;font-size:22pt;border-bottom:3px solid #0f766e!important;padding-bottom:8px;margin:28px 0 18px;page-break-after:avoid;font-weight:700;}.pdf-body h2{font-family:Georgia,serif;color:#0f766e!important;font-size:16pt;margin:24px 0 12px;page-break-after:avoid;font-weight:700;border-bottom:1px solid #bfdbd7!important;padding-bottom:4px;}.pdf-body h3{font-family:Georgia,serif;color:#333!important;font-size:13pt;margin:18px 0 8px;page-break-after:avoid;font-weight:700;}.pdf-body table{width:100%;border-collapse:collapse;margin:14px 0;font-size:10pt;}.pdf-body td,.pdf-body th{border:1px solid #c8c8c8;padding:7px 9px;vertical-align:top;}.pdf-body th{background:#f3faf8!important;color:#0f766e!important;font-weight:700;text-align:left;}.pdf-body tr:nth-child(even) td{background:#f9f9f9!important;}.pdf-body .callout,.pdf-body .definition,.pdf-body .example,.pdf-body .note{background:#f3faf8!important;border-left:4px solid #0f766e!important;padding:10px 14px;margin:12px 0;}.pdf-body ul,.pdf-body ol{margin:8px 0 8px 24px;}.pdf-body li{margin:4px 0;}.pdf-body img{max-width:100%;height:auto;}.pdf-body a{color:#0f766e!important;text-decoration:none;}.pdf-footer{text-align:center;color:#999;font-family:Georgia,serif;font-size:9pt;margin-top:40px;padding-top:16px;border-top:1px solid #ddd;}';var wrapper=document.createElement('div');wrapper.style.cssText='background:#fff;';var coverHTML = '<div class="pdf-cover"><div class="pdf-cover-bar"></div><div class="pdf-cover-inner"><div class="pdf-cover-top"><div class="level">' + levelText + '</div>' + (unitNumText ? '<div class="unum">' + unitNumText + '</div>' : '') + '</div><div class="pdf-cover-mid"><h1>' + unitTitleText + '</h1><div class="subtitle">A complete guide with notes, examples, and practice questions</div></div><div class="pdf-cover-bot"><div class="author">Jackson Habimana</div><div class="pub">Chemistry Portal &mdash; jacksonhabimana.github.io</div></div></div></div>';var bodyDiv = document.createElement('div');bodyDiv.className = 'pdf-body';bodyDiv.appendChild(clone);var footer = document.createElement('div');footer.className = 'pdf-footer';footer.innerHTML = '&copy; Jackson Habimana Chemistry Portal &mdash; All rights reserved';bodyDiv.appendChild(footer);wrapper.appendChild(bookStyle);wrapper.innerHTML += coverHTML;wrapper.appendChild(bodyDiv);
-  html2pdf().set({margin:[10,10,10,10],filename:title+'.pdf',image:{type:'jpeg',quality:0.92},html2canvas:{scale:1.5,useCORS:true,backgroundColor:'#ffffff',logging:false},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}}).from(wrapper).save().then(function(){btn.disabled=false;spin.style.display='none';txt.textContent='Downloaded!';setTimeout(function(){txt.textContent='Download PDF';},3000);}).catch(function(){btn.disabled=false;spin.style.display='none';txt.textContent='Download PDF';});
-}
-document.getElementById('dl-pay-overlay').addEventListener('click',function(e){if(e.target===this)closeDlPay();});
-</script>
-<script src="shuffle-answers.js"></script>
 </body>
+</html>

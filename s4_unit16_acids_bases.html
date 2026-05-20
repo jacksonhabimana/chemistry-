@@ -72,7 +72,7 @@ h3.sub{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--gold);
 .qtext{font-size:1rem;color:#fff;margin-bottom:14px;line-height:1.7;}
 .opts label{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;margin-bottom:8px;border-radius:8px;border:1px solid var(--border);cursor:pointer;transition:all .15s;font-size:.93rem;}
 .opts label:hover{border-color:var(--accent);background:rgba(134,239,172,.04);}
-.opts label.correct{background:rgba(52,211,153,.12);border-color:#34d399;color:#34d399;}
+.opts label.correct{background:rgba(52,211,153,.12);border-color:var(--green);color:var(--green);}
 .opts label.wrong{background:rgba(248,113,113,.08);border-color:var(--red);color:var(--red);}
 .opts input[type=radio]{margin-top:3px;accent-color:var(--accent);flex-shrink:0;}
 .qexplain{display:none;margin-top:12px;padding:12px 16px;background:rgba(134,239,172,.07);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-size:.88rem;line-height:1.7;}
@@ -93,19 +93,14 @@ footer{border-top:1px solid var(--border);padding:28px;text-align:center;font-fa
 footer a{color:var(--accent);text-decoration:none;}
 @media(max-width:640px){.hero{padding:60px 24px 40px;}.page{padding:0 16px 60px;}.quiz-body{padding:16px;}}
 
-
+.ex-item { list-style: none; background: rgba(255,255,255,.03); border: 1px solid var(--border); border-radius: 8px; padding: 16px 18px; margin-bottom: 12px; }
+.ex-item::before { display: none; }
+.ex-q { color: var(--text); font-size: .95rem; line-height: 1.7; margin-bottom: 8px; }
+.ex-btn { font-size: .78rem; padding: 5px 14px; }
+.ex-ans { font-size: .88rem; line-height: 1.75; color: #94a3b8; }
+.exercise-list { padding-left: 0; }
 </style>
-
-<style>
-@media print {
-  body { background: #fff !important; color: #000 !important; }
-  nav, footer, .lock-bar, .lock-overlay { display: none !important; }
-  h1, h2, h3, h4 { color: #000 !important; background: transparent !important; }
-  a { color: #000 !important; text-decoration: none !important; }
-  .callout, .definition, .example, .worked-example { background: #f5f5f5 !important; border-color: #ccc !important; }
-  .quiz-wrap, .quiz-header, .q-block, .opt { background: #fff !important; color: #000 !important; border-color: #ccc !important; }
-}
-</style>
+  <script src="tracker.js"></script>
 </head>
 <body>
 <nav>
@@ -125,13 +120,6 @@ footer a{color:var(--accent);text-decoration:none;}
   <p class="sub">Arrhenius · Brønsted-Lowry · Lewis theories · pH and pOH · Strong vs weak · Ka and Kb · Neutralisation · Buffers · Indicators</p>
   <div class="toc-grid">
     <a href="#s161">16.1 Acid-Base Theories</a>
-    <a href="#s162">16.2 Strong & Weak Acids/Bases</a>
-    <a href="#s163">16.3 pH and Calculations</a>
-    <a href="#s164">16.4 Ka, Kb and pKa</a>
-    <a href="#s165">16.5 Neutralisation</a>
-    <a href="#s166">16.6 Salt Hydrolysis</a>
-    <a href="#s167">16.7 Buffers</a>
-    <a href="#s168">16.8 Indicators & Titrations</a>
     <a href="#exercises">Exercises</a>
     <a href="#quiz">Quiz</a>
     <a href="#test">Unit Test</a>
@@ -209,488 +197,42 @@ Cu²⁺ + 4NH₃ → [Cu(NH₃)₄]²⁺  (Cu²⁺ = Lewis acid; NH₃ = Lewis b
   </tbody>
 </table></div>
 
-<!-- 16.2 -->
-<div class="section-header" id="s162">
-  <span class="section-number">16.2</span>
-  <h2>Strong and Weak Acids and Bases</h2>
-</div>
-
-<div class="card">
-  <h3>Strong Acids</h3>
-  <p>A <strong>strong acid</strong> is one that is <strong>completely (fully) dissociated</strong> in aqueous solution — all molecules ionise:</p>
-  <div class="formula-block">HCl(aq) → H⁺(aq) + Cl⁻(aq)        100% ionised
-HNO₃(aq) → H⁺(aq) + NO₃⁻(aq)     100% ionised
-H��SO₄(aq) → 2H⁺(aq) + SO₄²⁻(aq)  100% first ionisation (2nd: Ka₂ = 0.012)  </div>
-  <p>The six common strong acids: <strong>HCl, HBr, HI, HNO₃, H₂SO₄, HClO₄</strong>. Strong acids give pH very close to −log[acid].</p>
-</div>
-
-<div class="card">
-  <h3>Weak Acids</h3>
-  <p>A <strong>weak acid</strong> is <strong>partially dissociated</strong> in aqueous solution — only a small fraction of molecules ionise. The dissociation is an equilibrium:</p>
-  <div class="formula-block">CH₃COOH(aq) ⇌ H⁺(aq) + CH₃COO⁻(aq)     Ka = 1.8×10⁻⁵ mol dm⁻³
-HCN(aq) ⇌ H⁺(aq) + CN⁻(aq)              Ka = 4.9×10⁻¹⁰ mol dm⁻³
-H��CO₃(aq) ⇌ H⁺(aq) + HCO₃⁻(aq)         Ka₁ = 4.3×10⁻⁷ mol dm⁻³
-H��PO₄(aq) ⇌ H⁺(aq) + H₂PO₄⁻(aq)        Ka₁ = 7.5×10⁻³ mol dm⁻³</div>
-  <p>Examples of weak acids: CH₃COOH (ethanoic/acetic), HCN, H₂CO₃, H₂SO₃, H₃PO₄, HF, organic carboxylic acids. Most are <strong>molecular organic acids</strong>.</p>
-</div>
-
-<div class="card">
-  <h3>Strong and Weak Bases</h3>
-  <p><strong>Strong bases</strong>: completely ionised in water — Group 1 hydroxides (NaOH, KOH, LiOH) and Ca(OH)₂ (sparingly soluble but fully ionised when dissolved).</p>
-  <div class="formula-block">NaOH(aq) → Na⁺(aq) + OH⁻(aq)    100% ionised</div>
-  <p><strong>Weak bases</strong>: partially ionised — accept proton from water in a reversible equilibrium:</p>
-  <div class="formula-block">NH₃(aq) + H₂O(l) ⇌ NH₄⁺(aq) + OH⁻(aq)    Kb = 1.8×10⁻⁵ mol dm⁻³
-CH₃NH₂(aq) + H₂O ⇌ CH₃NH₃⁺(aq) + OH⁻(aq)  (methylamine, slightly stronger base than NH₃)</div>
-</div>
-
-<div class="callout mem">
-  <span class="callout-icon">🧠</span>
-  <div class="callout-body">
-    <strong>Strong vs weak: strength ≠ concentration!</strong>
-    A "concentrated weak acid" (e.g. concentrated ethanoic acid) is NOT the same as a strong acid. Strength refers to the degree of ionisation; concentration refers to amount of acid per unit volume. 0.1 mol dm⁻³ HCl is a dilute strong acid. 10 mol dm⁻³ CH₃COOH is a concentrated weak acid. Dilute HCl has a much lower pH than concentrated ethanoic acid.
-  </div>
-</div>
-
-<!-- 16.3 -->
-<div class="section-header" id="s163">
-  <span class="section-number">16.3</span>
-  <h2>pH, pOH, and Calculations</h2>
-</div>
-
-<div class="card">
-  <h3>The pH Scale</h3>
-  <div class="formula-block">pH = −log₁₀[H⁺]          (or −log₁₀[H₃O⁺])
-[H⁺] = 10^(−pH)
-
-pOH = −log₁₀[OH⁻]
-pH + pOH = 14  (at 25°C)
-
-The ionic product of water: Kw = [H⁺][OH⁻] = 1.0×10⁻¹⁴ mol² dm⁻⁶  at 25°C
-Therefore: pKw = 14 = pH + pOH</div>
-  <div class="diagram-box">
-    <svg viewBox="0 0 520 80" xmlns="http://www.w3.org/2000/svg" width="100%" style="max-width:520px;">
-      <defs>
-        <linearGradient id="phg" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stop-color="#f87171"/>
-          <stop offset="50%" stop-color="#86efac"/>
-          <stop offset="100%" stop-color="#60a5fa"/>
-        </linearGradient>
-      </defs>
-      <rect x="20" y="20" width="480" height="28" rx="6" fill="url(#phg)" opacity=".7"/>
-      <text x="20" y="15" font-family="JetBrains Mono" font-size="9" fill="#f87171">0</text>
-      <text x="55" y="15" font-family="JetBrains Mono" font-size="9" fill="#e6edf3">1 2 3 4 5 6</text>
-      <text x="218" y="15" font-family="JetBrains Mono" font-size="9" fill="#86efac">7</text>
-      <text x="240" y="15" font-family="JetBrains Mono" font-size="9" fill="#e6edf3">8 9 10 11 12 13</text>
-      <text x="480" y="15" font-family="JetBrains Mono" font-size="9" fill="#60a5fa">14</text>
-      <text x="70" y="42" font-family="JetBrains Mono" font-size="10" fill="#fff">ACIDIC</text>
-      <text x="208" y="42" font-family="JetBrains Mono" font-size="10" fill="#fff">NEUTRAL</text>
-      <text x="350" y="42" font-family="JetBrains Mono" font-size="10" fill="#fff">BASIC</text>
-      <text x="20" y="68" font-family="JetBrains Mono" font-size="9" fill="#8b949e">gastric acid: ~1 | vinegar: 3 | rain: 5.6 | pure water: 7 | blood: 7.4 | seawater: 8.1 | bleach: 12</text>
-    </svg>
-    <figcaption>pH scale 0–14: acidic (0–7), neutral (7), basic (7–14) at 25°C</figcaption>
-  </div>
-</div>
-
-<div class="card">
-  <h3>pH Calculations</h3>
-  <h3 class="sub">Strong Acid</h3>
-  <div class="formula-block">HCl fully ionises → [H⁺] = [HCl]
-0.01 mol dm⁻³ HCl: [H⁺] = 0.01 = 10⁻²  →  pH = 2
-
-H��SO₄ (dilute, both protons): [H⁺] = 2×[H₂SO₄]
-0.05 mol dm⁻³ H₂SO₄: [H⁺] = 0.10  →  pH = 1</div>
-  <h3 class="sub">Strong Base</h3>
-  <div class="formula-block">NaOH fully ionises → [OH⁻] = [NaOH]
-0.01 mol dm⁻³ NaOH: [OH⁻] = 0.01  →  pOH = 2  →  pH = 14 − 2 = 12</div>
-  <h3 class="sub">Weak Acid (using Ka)</h3>
-  <div class="formula-block">For HA ⇌ H⁺ + A⁻:   Ka = [H⁺][A⁻] / [HA]
-
-Assume [H⁺] = [A⁻] = x  and  [HA] ≈ c (initial conc., valid when Ka << c)
-Then: Ka = x² / c   →   x = √(Ka × c)   →   [H⁺] = √(Ka × c)
-
-Example: 0.10 mol dm⁻³ CH₃COOH, Ka = 1.8×10⁻⁵
-[H⁺] = √(1.8×10⁻⁵ × 0.10) = √(1.8×10⁻⁶) = 1.34×10⁻³ mol dm⁻³
-pH = −log(1.34×10⁻³) = 2.87</div>
-</div>
-
-<div class="example-box">
-  <div class="ex-head">Worked Example 16.1 — pH Calculations</div>
-  <div class="ex-body">
-    <p><strong>Q1:</strong> Calculate pH of 0.050 mol dm⁻³ HNO₃ (strong acid).</p>
-    <div class="step"><span class="step-num">1</span><p>HNO₃ fully ionises: [H⁺] = 0.050 mol dm⁻³. pH = −log(0.050) = −log(5.0×10⁻²) = 2 − log(5) = 2 − 0.699 = <strong>1.30</strong></p></div>
-    <p><strong>Q2:</strong> Calculate pH of 0.20 mol dm⁻³ NaOH.</p>
-    <div class="step"><span class="step-num">2</span><p>[OH⁻] = 0.20 mol dm⁻³. pOH = −log(0.20) = 0.699. pH = 14 − 0.699 = <strong>13.30</strong></p></div>
-    <p><strong>Q3:</strong> Calculate pH of 0.050 mol dm⁻³ HF, Ka = 6.3×10⁻⁴.</p>
-    <div class="step"><span class="step-num">3</span><p>[H⁺] = √(Ka × c) = √(6.3×10⁻⁴ × 0.050) = √(3.15×10⁻⁵) = 5.61×10⁻³. pH = −log(5.61×10⁻³) = <strong>2.25</strong></p></div>
-    <p><strong>Q4:</strong> A solution has pH = 9.0. Calculate [H⁺] and [OH⁻].</p>
-    <div class="step"><span class="step-num">4</span><p>[H⁺] = 10⁻⁹·⁰ = <strong>1.0×10⁻⁹ mol dm⁻³</strong>. [OH⁻] = 10⁻(14-9) = 10⁻⁵ = <strong>1.0×10⁻⁵ mol dm⁻³</strong>.</p></div>
-  </div>
-</div>
-
-<!-- 16.4 -->
-<div class="section-header" id="s164">
-  <span class="section-number">16.4</span>
-  <h2>Acid Dissociation Constant Ka, Base Kb, and pKa</h2>
-</div>
-
-<div class="card">
-  <h3>Ka and pKa</h3>
-  <p>For the equilibrium: HA(aq) ⇌ H⁺(aq) + A⁻(aq)</p>
-  <div class="formula-block">Ka = [H⁺][A⁻] / [HA]    (units: mol dm⁻³)
-
-pKa = −log₁₀(Ka)
-
-Stronger acid → larger Ka → smaller pKa</div>
-  <div class="tbl-wrap" style="margin:0;"><table>
-    <thead><tr><th>Acid</th><th>Formula</th><th>Ka (mol dm⁻³)</th><th>pKa</th><th>Strength</th></tr></thead>
-    <tbody>
-      <tr><td>Hydrochloric acid</td><td>HCl</td><td>~10⁷ (essentially ∞)</td><td>~−7</td><td>Strong</td></tr>
-      <tr><td>Sulfuric acid (1st)</td><td>H₂SO₄</td><td>~10³</td><td>~−3</td><td>Strong</td></tr>
-      <tr><td>Phosphoric acid</td><td>H₃PO₄</td><td>7.5×10⁻³</td><td>2.12</td><td>Weak</td></tr>
-      <tr><td>Hydrofluoric acid</td><td>HF</td><td>6.3×10⁻⁴</td><td>3.20</td><td>Weak</td></tr>
-      <tr><td>Ethanoic acid</td><td>CH₃COOH</td><td>1.8×10⁻⁵</td><td>4.75</td><td>Weak</td></tr>
-      <tr><td>Carbonic acid</td><td>H₂CO₃</td><td>4.3×10⁻⁷</td><td>6.37</td><td>Very weak</td></tr>
-      <tr><td>Hydrogen cyanide</td><td>HCN</td><td>4.9×10⁻¹⁰</td><td>9.31</td><td>Very weak</td></tr>
-      <tr><td>Water (as acid)</td><td>H₂O</td><td>Kw/[H₂O] ≈ 10⁻¹⁶</td><td>~16</td><td>Extremely weak</td></tr>
-    </tbody>
-  </table></div>
-</div>
-
-<div class="card">
-  <h3>Kb and the Relationship Ka × Kb = Kw</h3>
-  <p>For conjugate acid-base pairs:</p>
-  <div class="formula-block">Ka(HA) × Kb(A⁻) = Kw = 1.0×10⁻¹⁴ (at 25°C)
-pKa + pKb = 14
-
-Example: CH₃COOH and CH₃COO⁻ (conjugate pair)
-Ka(CH₃COOH) = 1.8×10⁻⁵ 
-Kb(CH₃COO⁻) = Kw/Ka = 10⁻¹⁴/1.8×10⁻⁵ = 5.6×10⁻¹⁰
-
-Stronger acid → weaker conjugate base (smaller Kb)
-Weaker acid → stronge  </div>
-  <div class="callout mem">
-    <span class="callout-icon">🧠</span>
-    <div class="callout-body">
-      <strong>Neutral ≠ pH 7 at all temperatures</strong>
-      "Neutral" means [H⁺] = [OH⁻]. At 25°C, this gives pH 7. At higher temperatures, Kw increases → [H⁺]=[OH⁻] at a higher value → pH &lt; 7 for neutral solution. A solution at 50°C with pH 6.8 may still be neutral if [H⁺] = [OH⁻] at that temperature.
-    </div>
-  </div>
-</div>
-
-<div class="example-box">
-  <div class="ex-head">Worked Example 16.1 — pH Calculations</div>
-  <div class="ex-body">
-    <p><strong>(a) Calculate the pH of 0.050 mol dm⁻³ HCl.</strong></p>
-    <div class="step"><span class="step-num">1</span><p>HCl is a strong acid — fully dissociates. [H⁺] = 0.050 mol dm⁻³.</p></div>
-    <div class="step"><span class="step-num">2</span><p>pH = −log(0.050) = −log(5.0×10⁻²) = −(log 5.0 + log 10⁻²) = −(0.699 − 2) = <strong>1.30</strong></p></div>
-    <p><strong>(b) Calculate [H⁺] and [OH⁻] for a solution of pH 3.5 at 25°C.</strong></p>
-    <div class="step"><span class="step-num">1</span><p>[H⁺] = 10⁻³·⁵ = 3.16 × 10⁻⁴ mol dm⁻³</p></div>
-    <div class="step"><span class="step-num">2</span><p>[OH⁻] = Kw/[H⁺] = 10⁻¹⁴ / 3.16×10⁻⁴ = 3.16 × 10⁻¹¹ mol dm⁻³</p></div>
-    <p><strong>(c) Calculate the pH of 0.10 mol dm⁻³ NaOH.</strong></p>
-    <div class="step"><span class="step-num">1</span><p>[OH⁻] = 0.10 mol dm⁻³ (strong base, full dissociation).</p></div>
-    <div class="step"><span class="step-num">2</span><p>pOH = −log(0.10) = 1.00. pH = 14 − pOH = 14 − 1.00 = <strong>13.00</strong></p></div>
-    <p style="margin-top:8px;font-size:.9rem;color:var(--muted);">Or: [H⁺] = Kw/[OH⁻] = 10⁻¹⁴/0.10 = 10⁻¹³ → pH = 13</p>
-  </div>
-</div>
-
-<!-- 16.4 -->
-<div class="section-header" id="s164">
-  <span class="section-number">16.4</span>
-  <h2>Ka, Kb, pKa and the Acid Dissociation Constant</h2>
-</div>
-
-<div class="card">
-  <h3>The Acid Dissociation Constant Ka</h3>
-  <p>For a weak acid HA ⇌ H⁺ + A⁻:</p>
-  <div class="formula-block">Ka = [H⁺][A⁻] / [HA]     (mol dm⁻³)
-
-pKa = −log₁₀(Ka)
-
-Larger Ka → stronger weak acid → smaller pKa → lower pH
-Smaller Ka → weaker acid → larger pKa → higher pH</div>
-  <div class="tbl-wrap" style="margin:0;"><table>
-    <thead><tr><th>Acid</th><th>Ka (mol dm⁻³)</th><th>pKa</th><th>Strength</th></tr></thead>
-    <tbody>
-      <tr><td>HClO₄ (perchloric)</td><td>~10⁷</td><td>−7</td><td>Very strong</td></tr>
-      <tr><td>HCl, HNO₃, H₂SO₄</td><td>~10³ to 10⁶</td><td>Very negative</td><td>Strong</td></tr>
-      <tr><td>H₃PO₄ (1st)</td><td>7.5×10⁻³</td><td>2.1</td><td>Moderate weak</td></tr>
-      <tr><td>HF</td><td>6.3×10⁻⁴</td><td>3.2</td><td>Weak</td></tr>
-      <tr><td>CH₃COOH (ethanoic)</td><td>1.7×10⁻⁵</td><td>4.76</td><td>Weak</td></tr>
-      <tr><td>H₂CO₃ (carbonic, 1st)</td><td>4.3×10⁻⁷</td><td>6.4</td><td>Very weak</td></tr>
-      <tr><td>NH₄⁺</td><td>5.6×10⁻¹⁰</td><td>9.25</td><td>Very weak</td></tr>
-      <tr><td>H₂O (as acid)</td><td>~10⁻¹⁶</td><td>~16</td><td>Extremely weak</td></tr>
-    </tbody>
-  </table></div>
-</div>
-
-<div class="card">
-  <h3>Calculating pH of a Weak Acid from Ka</h3>
-  <p>For weak acid HA at concentration c, with degree of dissociation α &lt;&lt; 1 (weak acid approximation):</p>
-  <div class="formula-block">Ka = [H⁺]² / [HA]initial  (if α &lt;&lt; 1, i.e. [HA] barely changes)
-→ [H⁺] = √(Ka × c)
-→ pH = ½(pKa − log c)  or  pH = ½(pKa + pC)  where pC = −log c</div>
-</div>
-
-<div class="example-box">
-  <div class="ex-head">Worked Example 16.2 — Weak Acid pH</div>
-  <div class="ex-body">
-    <p><strong>Calculate the pH of 0.10 mol dm⁻³ CH₃COOH (Ka = 1.7 × 10⁻⁵ mol dm⁻³).</strong></p>
-    <div class="step"><span class="step-num">1</span><p>CH₃COOH ⇌ H⁺ + CH₃COO⁻. Ka = [H⁺]² / [CH₃COOH]initial (weak acid approximation)</p></div>
-    <div class="step"><span class="step-num">2</span><p>[H⁺]² = Ka × c = 1.7×10⁻⁵ × 0.10 = 1.7×10⁻⁶</p></div>
-    <div class="step"><span class="step-num">3</span><p>[H⁺] = √(1.7×10⁻⁶) = 1.30×10⁻³ mol dm⁻³</p></div>
-    <div class="step"><span class="step-num">4</span><p>pH = −log(1.30×10⁻³) = <strong>2.89</strong></p></div>
-    <div class="step"><span class="step-num">5</span><p>Check: degree of dissociation α = [H⁺]/c = 1.30×10⁻³/0.10 = 1.3% — valid since α &lt;&lt; 1 ✓</p></div>
-  </div>
-</div>
-
-<div class="card">
-  <h3>Relationship: Ka and Kb for Conjugate Pairs</h3>
-  <p>For a conjugate acid-base pair (HA and A⁻):</p>
-  <div class="formula-block">Ka × Kb = Kw = 1.0 × 10⁻¹⁴  (at 25°C)
-pKa + pKb = pKw = 14
-
-Example: CH₃COOH (Ka = 1.7×10⁻⁵) ↔ CH₃COO⁻ (Kb = Kw/Ka = 10⁻¹⁴/1.7×10⁻⁵ = 5.9×10⁻¹⁰)
-Strong acid → very weak conjugate base (Kb ≈ 0)
-Weak acid → stronger conjugate base</div>
-</div>
-
-<!-- 16.5 -->
-<div class="section-header" id="s165">
-  <span class="section-number">16.5</span>
-  <h2>Buffer Solutions</h2>
-</div>
-
-<div class="def-box">
-  <strong>Definition — Buffer Solution</strong>
-  A solution that resists significant changes in pH when small amounts of acid or alkali are added, or when the solution is diluted. It typically consists of a weak acid and its conjugate base (or a weak base and its conjugate acid) in comparable amounts.
-</div>
-
-<div class="card">
-  <h3>Acidic Buffer — Weak Acid + Conjugate Base Salt</h3>
-  <p>Example: CH₃COOH / CH₃COONa (ethanoic acid / sodium ethanoate). pH ≈ 4–6.</p>
-  <p><strong>How it works:</strong></p>
-  <ul style="margin:8px 0 0 20px;line-height:2.2;">
-    <li><strong>When H⁺ added:</strong> CH₃COO⁻(aq) + H⁺(aq) → CH₃COOH(aq). The conjugate base "mops up" added H⁺ → pH barely changes.</li>
-    <li><strong>When OH⁻ added:</strong> CH₃COOH(aq) + OH⁻(aq) → CH₃COO⁻(aq) + H₂O. The weak acid "neutralises" added OH⁻ → pH barely changes.</li>
-  </ul>
-  <p><strong>Buffer pH (Henderson-Hasselbalch equation):</strong></p>
-  <div class="formula-block">pH = pKa + log([A⁻] / [HA])
-     = pKa + log([salt] / [acid])
-
-At equal concentrations of acid and salt: pH = pKa  (simplest case)</div>
-  <div class="callout tip">
-    <span class="callout-icon">💡</span>
-    <div class="callout-body">
-      <strong>A buffer is most effective when [HA] ≈ [A⁻]</strong>
-      Equal amounts of weak acid and its conjugate base → pH = pKa. Buffer capacity is greatest at this point. Buffer is generally effective within ±1 pH unit of pKa.
-    </div>
-  </div>
-</div>
-
-<div class="card">
-  <h3>Basic Buffer — Weak Base + Conjugate Acid Salt</h3>
-  <p>Example: NH₃ / NH₄Cl (ammonia / ammonium chloride). pH ≈ 8–10.</p>
-  <div class="formula-block">When H⁺ added: NH₃ + H⁺ → NH₄⁺    (NH₃ mops up H⁺)
-When OH⁻ added: NH₄⁺ + OH⁻ → NH₃ + H₂O  (NH₄⁺ mops up OH⁻)
-
-pH = 14 − pKb − log([NH₄⁺]/[NH₃])  or use pKa of NH₄⁺ (9.25) in Henderson-Hasselbalch</div>
-</div>
-
-<div class="example-box">
-  <div class="ex-head">Worked Example 16.3 — Buffer pH Calculation</div>
-  <div class="ex-body">
-    <p><strong>Calculate the pH of a buffer made from 0.20 mol dm⁻³ CH₃COOH and 0.40 mol dm⁻³ CH₃COONa. (Ka = 1.7×10⁻⁵)</strong></p>
-    <div class="step"><span class="step-num">1</span><p>pKa = −log(1.7×10⁻⁵) = 4.77</p></div>
-    <div class="step"><span class="step-num">2</span><p>pH = pKa + log([A⁻]/[HA]) = 4.77 + log(0.40/0.20) = 4.77 + log(2) = 4.77 + 0.30 = <strong>5.07</strong></p></div>
-    <p>Because [A⁻] &gt; [HA], pH &gt; pKa (as expected — more base than acid).</p>
-  </div>
-</div>
-
-<div class="card">
-  <h3>Biological Importance of Buffers</h3>
-  <ul style="margin:0 0 0 22px;line-height:2.2;">
-    <li><strong>Blood buffer (pH 7.35–7.45):</strong> H₂CO₃/HCO₃⁻ system (carbonate buffer). CO₂ + H₂O ⇌ H₂CO₃ ⇌ H⁺ + HCO₃⁻. Lungs regulate CO₂ (breathing); kidneys regulate HCO₃⁻. pH outside 7.0–7.8 is fatal.</li>
-    <li><strong>Intracellular buffer:</strong> H₂PO₄⁻/HPO₄²⁻ (pKa = 7.2) — important inside cells</li>
-    <li><strong>Protein buffers:</strong> amino acid side chains (histidine imidazole, pKa ≈ 6.0) buffer inside cells</li>
-    <li><strong>Industrial:</strong> buffer solutions used in fermentation, pharmaceuticals, food processing, photography</li>
-  </ul>
-</div>
-
-<!-- 16.6 -->
-<div class="section-header" id="s166">
-  <span class="section-number">16.6</span>
-  <h2>Neutralisation and Salt Solutions</h2>
-</div>
-
-<div class="card">
-  <h3>Neutralisation Reactions</h3>
-  <div class="formula-block">Strong acid + Strong base → Neutral salt + water (pH 7)
-HCl + NaOH → NaCl + H₂O    (ionic: H⁺ + OH⁻ → H₂O)
-
-Weak acid + Strong base → Alkaline salt + water (pH > 7)
-CH₃COOH + NaOH → CH₃COONa + H₂O
-(CH₃COO⁻ is the conjugate base of weak acid — slight alkaline hydrolysis)
-
-Strong acid + Weak base → Acidic salt + water (pH < 7)
-HCl + NH₃ → NH₄Cl
-(NH₄⁺ is conjugate acid of weak base NH₃ — slight acidic hydrolysis)
-
-Weak acid + Weak base → pH depends on relative Ka, Kb</div>
-
-  <p><strong>Salt hydrolysis</strong> — why some salt solutions are not neutral:</p>
-  <div class="tbl-wrap" style="margin:0;"><table>
-    <thead><tr><th>Salt type</th><th>Example</th><th>pH</th><th>Reason</th></tr></thead>
-    <tbody>
-      <tr><td>Strong acid + Strong base</td><td>NaCl, KNO₃</td><td>7</td><td>Neither Na⁺ nor Cl⁻ hydrolyses</td></tr>
-      <tr><td>Weak acid + Strong base</td><td>CH₃COONa, Na₂CO₃</td><td>&gt;7 (alkaline)</td><td>CH₃COO⁻ + H₂O ⇌ CH₃COOH + OH⁻ (hydrolysis)</td></tr>
-      <tr><td>Strong acid + Weak base</td><td>NH₄Cl, FeCl₃</td><td>&lt;7 (acidic)</td><td>NH₄⁺ ⇌ NH₃ + H⁺ (hydrolysis)</td></tr>
-      <tr><td>Weak acid + Weak base</td><td>CH₃COONH₄</td><td>~7 (depends)</td><td>Both hydrolyse — nearly cancel</td></tr>
-    </tbody>
-  </table></div>
-</div>
-
-<!-- 16.7 -->
-<div class="section-header" id="s167">
-  <span class="section-number">16.7</span>
-  <h2>Indicators and Acid-Base Titrations</h2>
-</div>
-
-<div class="card">
-  <h3>Acid-Base Indicators</h3>
-  <p>An indicator is a weak acid (HIn) where the acid and conjugate base forms have different colours. The indicator changes colour near its pKa:</p>
-  <div class="formula-block">HIn ⇌ H⁺ + In⁻
-(colour 1)     (colour 2)
-
-Colour change occurs at pH ≈ pKa(indicator) ± 1 range</div>
-  <div class="tbl-wrap" style="margin:0;"><table>
-    <thead><tr><th>Indicator</th><th>pKa (HIn)</th><th>pH range</th><th>Acid colour</th><th>Base colour</th></tr></thead>
-    <tbody>
-      <tr><td>Methyl orange</td><td>3.5</td><td>3.1 – 4.4</td><td>Red</td><td>Yellow</td></tr>
-      <tr><td>Litmus</td><td>6.5</td><td>5.0 – 8.0</td><td>Red</td><td>Blue</td></tr>
-      <tr><td>Bromothymol blue</td><td>7.1</td><td>6.0 – 7.6</td><td>Yellow</td><td>Blue</td></tr>
-      <tr><td>Phenolphthalein</td><td>9.6</td><td>8.3 – 10.0</td><td>Colourless</td><td>Pink/magenta</td></tr>
-    </tbody>
-  </table></div>
-</div>
-
-<div class="card">
-  <h3>Titration Curves and Choosing the Right Indicator</h3>
-  <p>The choice of indicator depends on the <strong>pH at the equivalence point</strong>:</p>
-  <div class="diagram-box">
-    <svg viewBox="0 0 500 260" xmlns="http://www.w3.org/2000/svg" width="100%" style="max-width:500px;">
-      <text x="250" y="15" text-anchor="middle" font-family="Playfair Display,serif" font-size="12" fill="#e6edf3">Titration Curves: Strong/Weak Acid vs Strong Base</text>
-      <!-- Axes -->
-      <line x1="50" y1="220" x2="460" y2="220" stroke="#30363d" stroke-width="1.5"/>
-      <line x1="50" y1="30" x2="50" y2="225" stroke="#30363d" stroke-width="1.5"/>
-      <text x="28" y="225" font-family="JetBrains Mono" font-size="9" fill="#8b949e">0</text>
-      <text x="28" y="170" font-family="JetBrains Mono" font-size="9" fill="#8b949e">4</text>
-      <text x="28" y="130" font-family="JetBrains Mono" font-size="9" fill="#8b949e">7</text>
-      <text x="28" y="90" font-family="JetBrains Mono" font-size="9" fill="#8b949e">10</text>
-      <text x="28" y="48" font-family="JetBrains Mono" font-size="9" fill="#8b949e">14</text>
-      <text x="22" y="135" font-family="JetBrains Mono" font-size="9" fill="#8b949e" transform="rotate(-90,22,135)">pH</text>
-      <text x="255" y="238" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#8b949e">Volume NaOH added →</text>
-      <!-- Strong acid/strong base curve -->
-      <path d="M55,215 Q140,214 190,210 Q220,208 235,130 Q240,50 265,45 Q340,44 460,44" stroke="#f472b6" stroke-width="2.5" fill="none"/>
-      <!-- Weak acid/strong base curve -->
-      <path d="M55,190 Q100,188 150,180 Q190,172 220,165 Q235,140 245,130 Q258,95 270,80 Q320,60 460,58" stroke="#38bdf8" stroke-width="2" fill="none" stroke-dasharray="6,3"/>
-      <!-- Equivalence point lines -->
-      <line x1="250" y1="130" x2="250" y2="220" stroke="#f472b6" stroke-width="1" stroke-dasharray="3,3"/>
-      <line x1="250" y1="155" x2="250" y2="220" stroke="#38bdf8" stroke-width="1" stroke-dasharray="3,3"/>
-      <!-- pH horizontal guides -->
-      <line x1="50" y1="130" x2="460" y2="130" stroke="#30363d" stroke-width=".5" stroke-dasharray="2,4"/>
-      <!-- Labels -->
-      <text x="290" y="42" font-family="JetBrains Mono" font-size="10" fill="#f472b6">Strong/Strong</text>
-      <text x="290" y="65" font-family="JetBrains Mono" font-size="10" fill="#38bdf8">Weak/Strong</text>
-      <text x="252" y="125" font-family="JetBrains Mono" font-size="9" fill="#f472b6">pH 7</text>
-      <text x="252" y="155" font-family="JetBrains Mono" font-size="9" fill="#38bdf8">pH ~9</text>
-    </svg>
-    <figcaption>Titration curves: equivalence point pH 7 (strong/strong) vs pH ~9 (weak acid/strong base)</figcaption>
-  </div>
-
-  <div class="tbl-wrap" style="margin:0;"><table>
-    <thead><tr><th>Titration type</th><th>Equivalence pH</th><th>Suitable indicator</th><th>Unsuitable</th></tr></thead>
-    <tbody>
-      <tr><td>Strong acid vs strong base</td><td>~7</td><td>Litmus, bromothymol blue, methyl orange, phenolphthalein (all work — large pH jump)</td><td>Any works</td></tr>
-      <tr><td>Weak acid vs strong base</td><td>~8–9 (alkaline)</td><td>Phenolphthalein (range 8.3–10)</td><td>Methyl orange (changes too early)</td></tr>
-      <tr><td>Strong acid vs weak base</td><td>~5 (acidic)</td><td>Methyl orange (range 3.1–4.4)</td><td>Phenolphthalein (changes too late)</td></tr>
-      <tr><td>Weak acid vs weak base</td><td>~7 (variable)</td><td>No suitable indicator — gradual pH change at equivalence</td><td>Most indicators</td></tr>
-    </tbody>
-  </table></div>
-</div>
-
-<!-- 16.8 -->
-<div class="section-header" id="s168">
-  <span class="section-number">16.8</span>
-  <h2>Lewis Acid-Base Theory</h2>
-</div>
-
-<div class="def-box">
-  <strong>Lewis Theory (1923)</strong>
-  <strong>Lewis acid:</strong> an electron pair acceptor.<br>
-  <strong>Lewis base:</strong> an electron pair donor.
-</div>
-
-<div class="card">
-  <h3>Lewis Theory — The Broadest Definition</h3>
-  <p>Lewis theory is the most general acid-base theory. It includes all Brønsted-Lowry reactions but also covers many reactions where no proton transfer occurs:</p>
-  <div class="formula-block">BF₃ + :NH₃ → F₃B←NH₃     (BF₃ = Lewis acid; NH₃ = Lewis base; dative bond formed)
-Al³⁺ + 6H₂O → [Al(H₂O)₆]³⁺ (Al³⁺ = Lewis acid; H₂O = Lewis base)
-Cu²⁺ + 4NH₃ → [Cu(NH₃)₄]²⁺  (Cu²⁺ = Lewis acid; NH₃ = Lewis base — complex ion)
-Ag⁺ + 2NH₃ → [Ag(NH₃)₂]⁺   (Ag⁺ = Lewis acid; NH₃ = Lewis base)</div>
-  <p><strong>Lewis acids</strong> typically: electron-deficient atoms (BF₃, AlCl₃), transition metal cations (Fe³⁺, Cu²⁺), compounds with empty low-energy orbitals.</p>
-  <p><strong>Lewis bases</strong> typically: molecules/ions with lone pairs (NH₃, H₂O, F⁻, CN⁻, Cl⁻, OH⁻, CO).</p>
-  <div class="tbl-wrap" style="margin:0;"><table>
-    <thead><tr><th>Theory</th><th>Acid</th><th>Base</th><th>Scope</th></tr></thead>
-    <tbody>
-      <tr><td>Arrhenius</td><td>H⁺ producer in water</td><td>OH⁻ producer in water</td><td>Narrowest — aqueous only</td></tr>
-      <tr><td>Brønsted-Lowry</td><td>H⁺ donor</td><td>H⁺ acceptor</td><td>Intermediate — any solvent</td></tr>
-      <tr><td>Lewis</td><td>Electron pair acceptor</td><td>Electron pair donor</td><td>Broadest — includes non-proton reactions</td></tr>
-    </tbody>
-  </table></div>
-</div>
-
 <!-- EXERCISES -->
-<div class="card reveal" id="videoSection">
-  <div id="videoGrid" class="video-grid">
-    <p class="video-empty" id="videoEmpty">No videos added yet for this unit.</p>
-  </div>
-</div>
-
-<!-- Video Modal -->
-<div class="video-modal" id="videoModal" onclick="if(event.target===this)closeVideo()">
-  <button class="video-modal-close" onclick="closeVideo()">✕</button>
-  <div id="videoFrame"></div>
-</div>
-
 <div class="section-header" id="exercises">
   <span class="section-number">✏️</span>
   <h2>Exercises</h2>
 </div>
 
 <ul class="exercise-list">
-  <li>State the Brønsted-Lowry definitions of an acid and a base. For each of the following, identify the acid, base, conjugate acid, and conjugate base: (a) HCl + H₂O → H₃O⁺ + Cl⁻ (b) NH₃ + H₂O ⇌ NH₄⁺ + OH⁻ (c) HCO₃⁻ + OH⁻ → CO₃²⁻ + H₂O
-    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide Answer':'Show Answer'">Show Answer</button>
-    <div class="answer">Brønsted-Lowry: Acid = proton (H⁺) donor. Base = proton (H⁺) acceptor. (a) HCl: acid (donates H⁺ → Cl⁻, conjugate base); H₂O: base (accepts H⁺ → H₃O⁺, conjugate acid). Pairs: HCl/Cl⁻ and H₂O/H₃O⁺. (b) NH₃: base (accepts H⁺ → NH₄⁺, conjugate acid); H₂O: acid (donates H⁺ → OH⁻, conjugate base). Pairs: H₂O/OH⁻ and NH₃/NH₄⁺. (c) HCO₃⁻: acid (donates H⁺ → CO₃²⁻); OH⁻: base (accepts H⁺ → H₂O). Pairs: HCO₃⁻/CO₃²⁻ and OH⁻/H₂O. HCO₃⁻ is amphiprotic (can also accept H⁺).</div>
+  <li class="ex-item">
+    <div class="ex-q">State the Arrhenius definitions of an acid and a base. Give two limitations of the Arrhenius theory and explain how the Brønsted-Lowry theory overcomes them.</div>
+    <button class="reveal-btn ex-btn" onclick="var a=this.nextElementSibling;a.classList.toggle('open');this.textContent=a.classList.contains('open')?'&#9650; Hide Answer':'&#9660; Show Answer'">&#9660; Show Answer</button>
+    <div class="answer ex-ans">Arrhenius acid: produces H<sup>+</sup> (H<sub>3</sub>O<sup>+</sup>) in water. Arrhenius base: produces OH<sup>&minus;</sup> in water. Limitations: (1) only applies to aqueous solutions; (2) cannot explain basic behaviour of NH<sub>3</sub> (no OH<sup>&minus;</sup> group). Br&oslash;nsted-Lowry overcomes these: (1) applies to non-aqueous and gas-phase reactions; (2) defines acid/base by H<sup>+</sup> transfer — NH<sub>3</sub> is a base because it accepts H<sup>+</sup>, regardless of water.</div>
   </li>
-  <li>Calculate the pH of: (a) 0.025 mol dm⁻³ H₂SO₄ (b) 0.050 mol dm⁻³ KOH (c) 0.20 mol dm⁻³ methanoic acid HCOOH (Ka = 1.77×10⁻⁴)
-    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide Answer':'Show Answer'">Show Answer</button>
-    <div class="answer">(a) H₂SO₄ → 2H⁺ + SO₄²⁻ (strong, fully dissociates). [H⁺] = 2 × 0.025 = 0.050 mol dm⁻³. pH = −log(0.050) = 1.30. (b) KOH → K⁺ + OH⁻ (strong). [OH⁻] = 0.050. pOH = −log(0.050) = 1.30. pH = 14 − 1.30 = 12.70. (c) HCOOH ⇌ H⁺ + HCOO⁻. [H⁺] = √(Ka × c) = √(1.77×10⁻⁴ × 0.20) = √(3.54×10⁻⁵) = 5.95×10⁻³ mol dm⁻³. pH = −log(5.95×10⁻³) = 2.23. Check: α = 5.95×10⁻³/0.20 = 3.0% — valid for weak acid approx.</div>
+  <li class="ex-item">
+    <div class="ex-q">For each of the following reactions, identify: (i) the Brønsted-Lowry acid (ii) the Brønsted-Lowry base (iii) conjugate acid (iv) conjugate base: (a) HCl + H<sub>2</sub>O &rarr; H<sub>3</sub>O<sup>+</sup> + Cl<sup>&minus;</sup> (b) NH<sub>3</sub> + H<sub>2</sub>O &#8652; NH<sub>4</sub><sup>+</sup> + OH<sup>&minus;</sup> (c) HCO<sub>3</sub><sup>&minus;</sup> + OH<sup>&minus;</sup> &rarr; CO<sub>3</sub><sup>2</sup><sup>&minus;</sup> + H<sub>2</sub>O (d) HSO<sub>4</sub><sup>&minus;</sup> + H<sub>2</sub>O &#8652; SO<sub>4</sub><sup>2</sup><sup>&minus;</sup> + H<sub>3</sub>O<sup>+</sup></div>
+    <button class="reveal-btn ex-btn" onclick="var a=this.nextElementSibling;a.classList.toggle('open');this.textContent=a.classList.contains('open')?'&#9650; Hide Answer':'&#9660; Show Answer'">&#9660; Show Answer</button>
+    <div class="answer ex-ans">(a) HCl + H<sub>2</sub>O &rarr; H<sub>3</sub>O<sup>+</sup> + Cl<sup>&minus;</sup>: HCl = acid; H<sub>2</sub>O = base; H<sub>3</sub>O<sup>+</sup> = conjugate acid; Cl<sup>&minus;</sup> = conjugate base. (b) NH<sub>3</sub> + H<sub>2</sub>O &rlhar; NH<sub>4</sub><sup>+</sup> + OH<sup>&minus;</sup>: H<sub>2</sub>O = acid; NH<sub>3</sub> = base; NH<sub>4</sub><sup>+</sup> = conjugate acid; OH<sup>&minus;</sup> = conjugate base. (c) HCO<sub>3</sub><sup>&minus;</sup> + OH<sup>&minus;</sup> &rarr; CO<sub>3</sub><sup>2&minus;</sup> + H<sub>2</sub>O: HCO<sub>3</sub><sup>&minus;</sup> = acid; OH<sup>&minus;</sup> = base; H<sub>2</sub>O = conjugate acid; CO<sub>3</sub><sup>2&minus;</sup> = conjugate base. (d) HSO<sub>4</sub><sup>&minus;</sup> + H<sub>2</sub>O &rlhar; SO<sub>4</sub><sup>2&minus;</sup> + H<sub>3</sub>O<sup>+</sup>: HSO<sub>4</sub><sup>&minus;</sup> = acid; H<sub>2</sub>O = base; H<sub>3</sub>O<sup>+</sup> = conjugate acid; SO<sub>4</sub><sup>2&minus;</sup> = conjugate base.</div>
   </li>
-  <li>A buffer solution contains 0.15 mol dm⁻³ ethanoic acid (CH₃COOH) and 0.25 mol dm⁻³ sodium ethanoate (CH₃COONa). (Ka = 1.7×10⁻⁵). (a) Calculate the pH of this buffer. (b) Calculate the pH after 0.010 mol NaOH is added to 1.0 dm³ of this buffer.
-    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide Answer':'Show Answer'">Show Answer</button>
-    <div class="answer">(a) pH = pKa + log([A⁻]/[HA]) = −log(1.7×10⁻⁵) + log(0.25/0.15) = 4.77 + log(1.67) = 4.77 + 0.22 = <strong>4.99</strong>. (b) Adding 0.010 mol NaOH to 1.0 dm³: OH⁻ reacts with CH₃COOH: CH₃COOH + OH⁻ → CH₃COO⁻ + H₂O. 0.010 mol CH₃COOH consumed; 0.010 mol CH₃COO⁻ formed. New [CH₃COOH] = 0.15 − 0.010 = 0.140 mol dm⁻³. New [CH₃COO⁻] = 0.25 + 0.010 = 0.260 mol dm⁻³. New pH = 4.77 + log(0.260/0.140) = 4.77 + log(1.857) = 4.77 + 0.27 = <strong>5.04</strong>. pH changed only 0.05 units — buffer action demonstrated.</div>
+  <li class="ex-item">
+    <div class="ex-q">Explain the difference between a strong acid and a weak acid, with two examples of each. Describe one experimental observation that distinguishes a strong acid from a weak acid at the same concentration.</div>
+    <button class="reveal-btn ex-btn" onclick="var a=this.nextElementSibling;a.classList.toggle('open');this.textContent=a.classList.contains('open')?'&#9650; Hide Answer':'&#9660; Show Answer'">&#9660; Show Answer</button>
+    <div class="answer ex-ans">Strong acid: fully (100%) dissociated in dilute solution. Examples: HCl, HNO<sub>3</sub>, H<sub>2</sub>SO<sub>4</sub>, HBr. Weak acid: only partially dissociated (&lt;5%). Examples: CH<sub>3</sub>COOH, HF, H<sub>2</sub>CO<sub>3</sub>, HCN. Experimental distinction at same concentration: (1) pH — strong acid has lower pH (e.g. HCl 0.1 mol dm<sup>&minus;3</sup> has pH 1; CH<sub>3</sub>COOH has pH ~2.9); (2) Reaction rate with Mg or CaCO<sub>3</sub> — strong acid reacts more vigorously (more H<sup>+</sup> available at same concentration).</div>
   </li>
-  <li>Why is phenolphthalein used as the indicator for titrating weak acid (ethanoic acid) with strong base (NaOH), but not methyl orange?
-    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide Answer':'Show Answer'">Show Answer</button>
-    <div class="answer">Weak acid (CH₃COOH) + strong base (NaOH): equivalence point pH ≈ 8–9 (alkaline — CH₃COO⁻ hydrolyses slightly). The titration curve shows a steep pH jump from ~7 to ~11 around the equivalence point. Phenolphthalein changes colour at pH 8.3–10 → this range falls within the steep jump → sharp, clear colour change at equivalence → suitable. Methyl orange changes at pH 3.1–4.4 — this is in the buffer region (before equivalence), where the curve is gradual → methyl orange changes colour gradually before equivalence is reached → gives a poor endpoint → not suitable. Rule: indicator's pH range must lie within the steep part of the titration curve.</div>
+  <li class="ex-item">
+    <div class="ex-q">State the Lewis definitions of an acid and a base. For each, identify the Lewis acid and Lewis base: (a) BF<sub>3</sub> + :NH<sub>3</sub> &rarr; F<sub>3</sub>B&ndash;NH<sub>3</sub> (b) Fe<sup>3</sup><sup>+</sup> + 6H<sub>2</sub>O &rarr; [Fe(H<sub>2</sub>O)<sub>6</sub>]<sup>3</sup><sup>+</sup> (c) AlCl<sub>3</sub> + Cl<sup>&minus;</sup> &rarr; AlCl<sub>4</sub><sup>&minus;</sup> (d) CO<sub>2</sub> + H<sub>2</sub>O &rarr; H<sub>2</sub>CO<sub>3</sub></div>
+    <button class="reveal-btn ex-btn" onclick="var a=this.nextElementSibling;a.classList.toggle('open');this.textContent=a.classList.contains('open')?'&#9650; Hide Answer':'&#9660; Show Answer'">&#9660; Show Answer</button>
+    <div class="answer ex-ans">Lewis acid: electron pair acceptor. Lewis base: electron pair donor. (a) BF<sub>3</sub> + :NH<sub>3</sub> &rarr; F<sub>3</sub>B&ndash;NH<sub>3</sub>: BF<sub>3</sub> = Lewis acid (empty p orbital on B, accepts lone pair); NH<sub>3</sub> = Lewis base (lone pair on N). (b) Fe<sup>3+</sup> + 6H<sub>2</sub>O &rarr; [Fe(H<sub>2</sub>O)<sub>6</sub>]<sup>3+</sup>: Fe<sup>3+</sup> = Lewis acid (empty d orbitals); H<sub>2</sub>O = Lewis base (lone pairs on O). (c) AlCl<sub>3</sub> + Cl<sup>&minus;</sup> &rarr; AlCl<sub>4</sub><sup>&minus;</sup>: AlCl<sub>3</sub> = Lewis acid (incomplete octet on Al); Cl<sup>&minus;</sup> = Lewis base. (d) CO<sub>2</sub> + H<sub>2</sub>O &rarr; H<sub>2</sub>CO<sub>3</sub>: CO<sub>2</sub> = Lewis acid (accepts lone pair from O in H<sub>2</sub>O); H<sub>2</sub>O = Lewis base.</div>
   </li>
-  <li>Identify each species as a Lewis acid or Lewis base: (a) BF₃ (b) NH₃ (c) Fe³⁺ (d) Cl⁻ (e) SO₃. Explain your reasoning.
-    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide Answer':'Show Answer'">Show Answer</button>
-    <div class="answer">(a) BF₃: Lewis acid — B has only 6 electrons (electron deficient, empty 2p orbital) → accepts lone pair from base. (b) NH₃: Lewis base — N has a lone pair → donates to Lewis acid (e.g. forms H₃N→BF₃). (c) Fe³⁺: Lewis acid — metal cation with empty d orbitals → accepts lone pairs from ligands (H₂O, CN⁻, etc.) to form complex ions. (d) Cl⁻: Lewis base — has 4 lone pairs → can donate to Lewis acids (e.g. forms [AlCl₄]⁻ with AlCl₃). (e) SO₃: Lewis acid — S has empty low-energy orbitals (3d); reacts with H₂O (Lewis base): SO₃ + H₂O → H₂SO₄. The O lone pair of water attacks S.</div>
+  <li class="ex-item">
+    <div class="ex-q">Explain why H<sub>2</sub>O, HCO<sub>3</sub><sup>&minus;</sup>, and HSO<sub>4</sub><sup>&minus;</sup> are all described as amphiprotic. Write equations showing each species acting as both an acid and a base.</div>
+    <button class="reveal-btn ex-btn" onclick="var a=this.nextElementSibling;a.classList.toggle('open');this.textContent=a.classList.contains('open')?'&#9650; Hide Answer':'&#9660; Show Answer'">&#9660; Show Answer</button>
+    <div class="answer ex-ans">H<sub>2</sub>O as acid: H<sub>2</sub>O &rarr; OH<sup>&minus;</sup> + H<sup>+</sup> (donates H<sup>+</sup> to NH<sub>3</sub>: H<sub>2</sub>O + NH<sub>2</sub><sup>&minus;</sup> &rarr; OH<sup>&minus;</sup> + NH<sub>3</sub>). H<sub>2</sub>O as base: H<sub>2</sub>O + H<sup>+</sup> &rarr; H<sub>3</sub>O<sup>+</sup> (from HCl). HCO<sub>3</sub><sup>&minus;</sup> as acid: HCO<sub>3</sub><sup>&minus;</sup> &rarr; CO<sub>3</sub><sup>2&minus;</sup> + H<sup>+</sup>. HCO<sub>3</sub><sup>&minus;</sup> as base: HCO<sub>3</sub><sup>&minus;</sup> + H<sup>+</sup> &rarr; H<sub>2</sub>CO<sub>3</sub>. HSO<sub>4</sub><sup>&minus;</sup> as acid: HSO<sub>4</sub><sup>&minus;</sup> &rarr; SO<sub>4</sub><sup>2&minus;</sup> + H<sup>+</sup>. HSO<sub>4</sub><sup>&minus;</sup> as base: HSO<sub>4</sub><sup>&minus;</sup> + H<sup>+</sup> &rarr; H<sub>2</sub>SO<sub>4</sub>.</div>
   </li>
-  <li>Explain why a solution of NH₄Cl is acidic but a solution of Na₂CO₃ is alkaline. Write hydrolysis equations for each.
-    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide Answer':'Show Answer'">Show Answer</button>
-    <div class="answer">NH₄Cl is the salt of a weak base (NH₃) and a strong acid (HCl). NH₄⁺ is the conjugate acid of weak base NH₃ — it partially hydrolyses: NH₄⁺ + H₂O ⇌ NH₃ + H₃O⁺. This produces H⁺ → solution is acidic (pH ≈ 5). Cl⁻ (from strong acid) does not hydrolyse. Na₂CO₃ is the salt of a weak acid (H₂CO₃) and a strong base (NaOH). CO₃²⁻ is the conjugate base of weak acid HCO₃⁻ — it hydrolyses: CO₃²⁻ + H₂O ⇌ HCO₃⁻ + OH⁻. This produces OH⁻ → solution is alkaline (pH ≈ 11). Na⁺ (from strong base) does not hydrolyse. General rule: salt of weak acid + strong base → alkaline (anion hydrolyses). Salt of weak base + strong acid → acidic (cation hydrolyses).</div>
+  <li class="ex-item">
+    <div class="ex-q">Compare the Arrhenius, Brønsted-Lowry, and Lewis theories of acids and bases in terms of: (a) definition of an acid (b) definition of a base (c) scope (which reactions each explains) (d) one example unique to each broader theory.</div>
+    <button class="reveal-btn ex-btn" onclick="var a=this.nextElementSibling;a.classList.toggle('open');this.textContent=a.classList.contains('open')?'&#9650; Hide Answer':'&#9660; Show Answer'">&#9660; Show Answer</button>
+    <div class="answer ex-ans">Arrhenius: acid = H<sup>+</sup> producer in H<sub>2</sub>O; base = OH<sup>&minus;</sup> producer in H<sub>2</sub>O; limited to aqueous. Br&oslash;nsted-Lowry: acid = H<sup>+</sup> donor; base = H<sup>+</sup> acceptor; applies to non-aqueous/gas-phase. Lewis: acid = electron pair acceptor; base = electron pair donor; most general, covers reactions with no H<sup>+</sup>. Unique to B-L (not Arrhenius): HCl(g) + NH<sub>3</sub>(g) &rarr; NH<sub>4</sub>Cl(s) — gas phase, no water. Unique to Lewis (not B-L): BF<sub>3</sub> + F<sup>&minus;</sup> &rarr; BF<sub>4</sub><sup>&minus;</sup> — no H<sup>+</sup> transfer at all.</div>
   </li>
 </ul>
 
@@ -707,258 +249,234 @@ Ag⁺ + 2NH₃ → [Ag(NH₃)₂]⁺   (Ag⁺ = Lewis acid; NH₃ = Lewis base)<
   <div class="quiz-body">
 
     <div class="qblock"><span class="qnum">Q1</span>
-    <p class="qtext">According to Brønsted-Lowry theory, a base is:</p>
+    <p class="qtext">According to Brønsted-Lowry theory, a BASE is:</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q1" value="A"> A substance that produces OH⁻ in water</label>
-      <label class="opt"><input type="radio" name="q1" value="B"> A proton (H⁺) acceptor</label>
-      <label class="opt"><input type="radio" name="q1" value="C"> A substance that accepts electrons</label>
-      <label class="opt"><input type="radio" name="q1" value="D"> A metal hydroxide</label>
+      <label><input type="radio" name="q1" value="A"> A substance that produces OH<sup>&minus;</sup> ions in water</label>
+      <label><input type="radio" name="q1" value="B"> A proton (H<sup>+</sup>) acceptor</label>
+      <label><input type="radio" name="q1" value="C"> A proton donor</label>
+      <label><input type="radio" name="q1" value="D"> An electron pair acceptor</label>
     </div>
-    <div class="qexplain" id="e1">Brønsted-Lowry base = proton (H⁺) acceptor. This is broader than Arrhenius (OH⁻ producer) because it includes substances like NH₃ which accept H⁺ without having OH⁻. Lewis base = electron pair donor (even broader). All Arrhenius bases are Brønsted-Lowry bases, but not vice versa.</div></div>
-
+    <div class="qexplain" id="e1">Brønsted-Lowry base = proton (H<sup>+</sup>) acceptor. Brønsted-Lowry acid = proton donor. The Brønsted-Lowry theory is broader than Arrhenius: bases do not need to contain OH<sup>&minus;</sup> or be dissolved in water.</div></div>
     <div class="qblock"><span class="qnum">Q2</span>
-    <p class="qtext">What is the conjugate base of H₂SO₄?</p>
+    <p class="qtext">What is the conjugate base of H<sub>2</sub>SO<sub>4</sub>?</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q2" value="A"> SO₄²⁻</label>
-      <label class="opt"><input type="radio" name="q2" value="B"> HSO₄⁻</label>
-      <label class="opt"><input type="radio" name="q2" value="C"> H₂SO₃</label>
-      <label class="opt"><input type="radio" name="q2" value="D"> H₃SO₄⁺</label>
+      <label><input type="radio" name="q2" value="A"> H<sub>3</sub>SO<sub>4</sub><sup>+</sup></label>
+      <label><input type="radio" name="q2" value="B"> HSO<sub>4</sub><sup>&minus;</sup></label>
+      <label><input type="radio" name="q2" value="C"> SO<sub>4</sub><sup>2</sup><sup>&minus;</sup></label>
+      <label><input type="radio" name="q2" value="D"> OH<sup>&minus;</sup></label>
     </div>
-    <div class="qexplain" id="e2">Conjugate base = acid − H⁺. H₂SO₄ − H⁺ = HSO₄⁻. The conjugate base of H₂SO₄ is HSO₄⁻ (hydrogen sulfate ion). H₂SO₄ → H⁺ + HSO₄⁻ (1st dissociation). SO₄²⁻ is the conjugate base of HSO₄⁻ (2nd dissociation). The conjugate base is formed by removing one H⁺ from the acid.</div></div>
-
+    <div class="qexplain" id="e2">H<sub>2</sub>SO<sub>4</sub> donates one proton &rarr; HSO<sub>4</sub><sup>&minus;</sup> is the conjugate base. Conjugate base = acid &minus; one H<sup>+</sup>. HSO<sub>4</sub><sup>&minus;</sup> can itself donate a second proton, making SO<sub>4</sub><sup>2</sup><sup>&minus;</sup> its conjugate base.</div></div>
     <div class="qblock"><span class="qnum">Q3</span>
-    <p class="qtext">The pH of 0.010 mol dm⁻³ HNO₃ is:</p>
+    <p class="qtext">In the reaction NH<sub>3</sub> + H<sub>2</sub>O &#8652; NH<sub>4</sub><sup>+</sup> + OH<sup>&minus;</sup>, water acts as:</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q3" value="A"> 2</label>
-      <label class="opt"><input type="radio" name="q3" value="B"> 1</label>
-      <label class="opt"><input type="radio" name="q3" value="C"> 3</label>
-      <label class="opt"><input type="radio" name="q3" value="D"> 12</label>
+      <label><input type="radio" name="q3" value="A"> A base (proton acceptor)</label>
+      <label><input type="radio" name="q3" value="B"> An acid (proton donor)</label>
+      <label><input type="radio" name="q3" value="C"> Neither acid nor base</label>
+      <label><input type="radio" name="q3" value="D"> A spectator molecule</label>
     </div>
-    <div class="qexplain" id="e3">HNO₃ is a strong acid (fully dissociates): [H⁺] = 0.010 = 10⁻² mol dm⁻³. pH = −log(10⁻²) = 2. Quick rule: −log(10⁻ⁿ) = n. 0.010 = 10⁻² → pH = 2. (0.10 mol dm⁻³ → pH 1; 0.001 → pH 3).</div></div>
-
+    <div class="qexplain" id="e3">H<sub>2</sub>O donates a proton (H<sup>+</sup>) to NH<sub>3</sub> &rarr; H<sub>2</sub>O is the Brønsted-Lowry acid. NH<sub>3</sub> accepts the proton &rarr; NH<sub>3</sub> is the Brønsted-Lowry base. Conjugate pairs: NH<sub>3</sub>/NH<sub>4</sub><sup>+</sup> and H<sub>2</sub>O/OH<sup>&minus;</sup>.</div></div>
     <div class="qblock"><span class="qnum">Q4</span>
-    <p class="qtext">Which of the following is a weak acid?</p>
+    <p class="qtext">Which of the following is a WEAK acid?</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q4" value="A"> HCl</label>
-      <label class="opt"><input type="radio" name="q4" value="B"> H₂SO₄</label>
-      <label class="opt"><input type="radio" name="q4" value="C"> CH₃COOH (ethanoic acid)</label>
-      <label class="opt"><input type="radio" name="q4" value="D"> HNO₃</label>
+      <label><input type="radio" name="q4" value="A"> HCl</label>
+      <label><input type="radio" name="q4" value="B"> HNO<sub>3</sub></label>
+      <label><input type="radio" name="q4" value="C"> CH<sub>3</sub>COOH (ethanoic acid)</label>
+      <label><input type="radio" name="q4" value="D"> H<sub>2</sub>SO<sub>4</sub></label>
     </div>
-    <div class="qexplain" id="e4">CH₃COOH (ethanoic acid) is a weak acid — only partially dissociates: Ka = 1.7×10⁻⁵. Strong acids (essentially 100% dissociation): HCl, HNO₃, H₂SO₄, HBr, HI, HClO₄. Common weak acids: CH₃COOH, HF, H₂CO₃, H₃PO₄, HNO₂, H₂SO₃.</div></div>
-
+    <div class="qexplain" id="e4">Weak acids are only partially dissociated in solution. CH<sub>3</sub>COOH &#8652; CH<sub>3</sub>COO<sup>&minus;</sup> + H<sup>+</sup> (only ~1% dissociated at 0.1 M). HCl, HNO<sub>3</sub>, and H<sub>2</sub>SO<sub>4</sub> are strong acids &mdash; essentially fully dissociated.</div></div>
     <div class="qblock"><span class="qnum">Q5</span>
-    <p class="qtext">At 25°C, the ionic product of water Kw = 10⁻¹⁴. This means in pure water:</p>
+    <p class="qtext">In the Arrhenius theory, an ACID is defined as:</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q5" value="A"> [H⁺] = 10⁻⁷ mol dm⁻³ and pH = 7</label>
-      <label class="opt"><input type="radio" name="q5" value="B"> [H⁺] = 10⁻¹⁴ mol dm⁻³</label>
-      <label class="opt"><input type="radio" name="q5" value="C"> Water does not contain any ions</label>
-      <label class="opt"><input type="radio" name="q5" value="D"> pH = 14</label>
+      <label><input type="radio" name="q5" value="A"> A proton donor</label>
+      <label><input type="radio" name="q5" value="B"> A substance that produces H<sup>+</sup> ions in aqueous solution</label>
+      <label><input type="radio" name="q5" value="C"> An electron pair acceptor</label>
+      <label><input type="radio" name="q5" value="D"> A proton acceptor</label>
     </div>
-    <div class="qexplain" id="e5">Kw = [H⁺][OH⁻] = 10⁻¹⁴. In pure water [H⁺] = [OH⁻] = √(10⁻¹⁴) = 10⁻⁷ mol dm⁻³. pH = −log(10⁻⁷) = 7. "Neutral" at 25°C = pH 7. Above 25°C, Kw increases → [H⁺] increases → pH &lt; 7 for neutral — but still neutral because [H⁺]=[OH⁻].</div></div>
-
+    <div class="qexplain" id="e5">Arrhenius acid: produces H<sup>+</sup> (or H<sub>3</sub>O<sup>+</sup>) ions when dissolved in water. Arrhenius base: produces OH<sup>&minus;</sup> ions in water. This is more limited than Brønsted-Lowry, as it applies only to aqueous solutions.</div></div>
     <div class="qblock"><span class="qnum">Q6</span>
-    <p class="qtext">Ka for CH₃COOH = 1.7×10⁻⁵. The pH of 0.10 mol dm⁻³ CH₃COOH is approximately:</p>
+    <p class="qtext">What is the conjugate acid of NH<sub>3</sub>?</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q6" value="A"> 1.0</label>
-      <label class="opt"><input type="radio" name="q6" value="B"> 4.76</label>
-      <label class="opt"><input type="radio" name="q6" value="C"> 2.89</label>
-      <label class="opt"><input type="radio" name="q6" value="D"> 5.00</label>
+      <label><input type="radio" name="q6" value="A"> NH<sub>2</sub><sup>&minus;</sup></label>
+      <label><input type="radio" name="q6" value="B"> N<sub>2</sub>H<sub>4</sub></label>
+      <label><input type="radio" name="q6" value="C"> NH<sub>4</sub><sup>+</sup></label>
+      <label><input type="radio" name="q6" value="D"> N<sub>2</sub>H<sub>2</sub></label>
     </div>
-    <div class="qexplain" id="e6">[H⁺] = √(Ka × c) = √(1.7×10⁻⁵ × 0.10) = √(1.7×10⁻⁶) = 1.30×10⁻³. pH = −log(1.30×10⁻³) = 2.89. Note: 4.76 = pKa (the pH when [acid]=[conjugate base] in a buffer, not for pure acid solution). pH 2.89 confirms weak acid: much higher than HCl at same concentration (pH 1.0).</div></div>
-
+    <div class="qexplain" id="e6">Conjugate acid = base + one H<sup>+</sup>. NH<sub>3</sub> + H<sup>+</sup> &rarr; NH<sub>4</sub><sup>+</sup>. So NH<sub>4</sub><sup>+</sup> is the conjugate acid of NH<sub>3</sub>. Conversely, NH<sub>3</sub> is the conjugate base of NH<sub>4</sub><sup>+</sup>.</div></div>
     <div class="qblock"><span class="qnum">Q7</span>
-    <p class="qtext">A buffer solution is best described as:</p>
+    <p class="qtext">HCO<sub>3</sub><sup>&minus;</sup> (hydrogen carbonate ion) is described as AMPHIPROTIC because:</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q7" value="A"> A solution with pH = 7</label>
-      <label class="opt"><input type="radio" name="q7" value="B"> A solution that resists pH change when small amounts of acid or alkali are added</label>
-      <label class="opt"><input type="radio" name="q7" value="C"> A solution of a strong acid</label>
-      <label class="opt"><input type="radio" name="q7" value="D"> A solution that neutralises all added H⁺</label>
+      <label><input type="radio" name="q7" value="A"> It contains both H and O atoms</label>
+      <label><input type="radio" name="q7" value="B"> It can act as both a proton donor and a proton acceptor</label>
+      <label><input type="radio" name="q7" value="C"> It is found in both acids and bases</label>
+      <label><input type="radio" name="q7" value="D"> It reacts with both metals and non-metals</label>
     </div>
-    <div class="qexplain" id="e7">A buffer RESISTS (partially opposes) pH change — it does not prevent all change. Buffer contains: (1) weak acid (to mop up added OH⁻) and (2) conjugate base (to mop up added H⁺). Examples: CH₃COOH / CH₃COO⁻ (acidic buffer, pH ≈ 4–6); NH₃ / NH₄⁺ (basic buffer, pH ≈ 8–10). Buffer does NOT mean pH = 7 — buffers can maintain any pH near their pKa.</div></div>
-
+    <div class="qexplain" id="e7">Amphiprotic species can donate OR accept a proton. HCO<sub>3</sub><sup>&minus;</sup> + H<sup>+</sup> &rarr; H<sub>2</sub>CO<sub>3</sub> (acts as base); HCO<sub>3</sub><sup>&minus;</sup> &rarr; CO<sub>3</sub><sup>2</sup><sup>&minus;</sup> + H<sup>+</sup> (acts as acid). Other amphiprotic species: H<sub>2</sub>O, HSO<sub>4</sub><sup>&minus;</sup>, H<sub>2</sub>PO<sub>4</sub><sup>&minus;</sup>.</div></div>
     <div class="qblock"><span class="qnum">Q8</span>
-    <p class="qtext">The Henderson-Hasselbalch equation gives the pH of a buffer as:</p>
+    <p class="qtext">In the reaction: BF<sub>3</sub> + :NH<sub>3</sub> &rarr; F<sub>3</sub>B&larr;NH<sub>3</sub>, which species is the Lewis ACID?</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q8" value="A"> pH = pKa × [A⁻]/[HA]</label>
-      <label class="opt"><input type="radio" name="q8" value="B"> pH = pKa + log([A⁻]/[HA])</label>
-      <label class="opt"><input type="radio" name="q8" value="C"> pH = Ka + [A⁻]</label>
-      <label class="opt"><input type="radio" name="q8" value="D"> pH = −log[HA]</label>
+      <label><input type="radio" name="q8" value="A"> NH<sub>3</sub> (electron pair donor)</label>
+      <label><input type="radio" name="q8" value="B"> BF<sub>3</sub> (electron pair acceptor)</label>
+      <label><input type="radio" name="q8" value="C"> F<sub>3</sub>B&larr;NH<sub>3</sub> (the adduct)</label>
+      <label><input type="radio" name="q8" value="D"> None of the species</label>
     </div>
-    <div class="qexplain" id="e8">Henderson-Hasselbalch: pH = pKa + log([conjugate base]/[weak acid]) = pKa + log([A⁻]/[HA]). When [A⁻] = [HA]: log(1) = 0 → pH = pKa. This is the half-equivalence point on a titration curve. When [A⁻] > [HA]: pH > pKa. When [A⁻] < [HA]: pH < pKa. Buffer is most effective within ±1 pH unit of pKa.</div></div>
-
+    <div class="qexplain" id="e8">Lewis acid = electron pair acceptor. BF<sub>3</sub> has an empty p orbital on B &rarr; accepts the lone pair from NH<sub>3</sub>. Lewis base = electron pair donor. NH<sub>3</sub> has a lone pair &rarr; donates it to BF<sub>3</sub>.</div></div>
     <div class="qblock"><span class="qnum">Q9</span>
-    <p class="qtext">The pH of blood must be maintained at 7.35–7.45. The main buffer system in blood is:</p>
+    <p class="qtext">Which of the following is a Lewis ACID?</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q9" value="A"> NaCl/HCl buffer</label>
-      <label class="opt"><input type="radio" name="q9" value="B"> H₂CO₃/HCO₃⁻ (carbonate buffer) regulated by breathing and the kidneys</label>
-      <label class="opt"><input type="radio" name="q9" value="C"> CH₃COOH/CH₃COO⁻ buffer</label>
-      <label class="opt"><input type="radio" name="q9" value="D"> NaOH/Na₂SO₄ buffer</label>
+      <label><input type="radio" name="q9" value="A"> NH<sub>3</sub></label>
+      <label><input type="radio" name="q9" value="B"> H<sub>2</sub>O</label>
+      <label><input type="radio" name="q9" value="C"> BF<sub>3</sub></label>
+      <label><input type="radio" name="q9" value="D"> Cl<sup>&minus;</sup></label>
     </div>
-    <div class="qexplain" id="e9">Blood buffer: CO₂(aq) + H₂O ⇌ H₂CO₃ ⇌ H⁺ + HCO₃⁻. Lungs remove CO₂ (shifts left → reduces [H⁺] → raises pH when too acidic). Kidneys regulate [HCO₃⁻] (excrete or retain HCO₃⁻). This coupled system maintains blood pH within the narrow 7.35–7.45 range. pH &lt;7.0 = acidosis; pH &gt;7.8 = alkalosis — both fatal within minutes.</div></div>
-
+    <div class="qexplain" id="e9">Lewis acid = electron pair acceptor. BF<sub>3</sub> has an incomplete octet on boron &rarr; can accept a lone pair. NH<sub>3</sub>, H<sub>2</sub>O, and Cl<sup>&minus;</sup> all have lone pairs &rarr; they are Lewis bases.</div></div>
     <div class="qblock"><span class="qnum">Q10</span>
-    <p class="qtext">What is the pH of 0.050 mol dm⁻³ NaOH at 25°C?</p>
+    <p class="qtext">In the Brønsted-Lowry theory, identify the TWO conjugate pairs in: HCl + H<sub>2</sub>O &rarr; H<sub>3</sub>O<sup>+</sup> + Cl<sup>&minus;</sup></p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q10" value="A"> 1.30</label>
-      <label class="opt"><input type="radio" name="q10" value="B"> 12.70</label>
-      <label class="opt"><input type="radio" name="q10" value="C"> 7.00</label>
-      <label class="opt"><input type="radio" name="q10" value="D"> 13.00</label>
+      <label><input type="radio" name="q10" value="A"> HCl/Cl<sup>&minus;</sup> and H<sub>2</sub>O/OH<sup>&minus;</sup></label>
+      <label><input type="radio" name="q10" value="B"> HCl/H<sub>3</sub>O<sup>+</sup> and H<sub>2</sub>O/Cl<sup>&minus;</sup></label>
+      <label><input type="radio" name="q10" value="C"> HCl/Cl<sup>&minus;</sup> and H<sub>2</sub>O/H<sub>3</sub>O<sup>+</sup></label>
+      <label><input type="radio" name="q10" value="D"> H<sub>3</sub>O<sup>+</sup>/Cl<sup>&minus;</sup> and HCl/H<sub>2</sub>O</label>
     </div>
-    <div class="qexplain" id="e10">NaOH is a strong base: [OH⁻] = 0.050 mol dm⁻³. pOH = −log(0.050) = 1.30. pH = 14 − pOH = 14 − 1.30 = 12.70. Alternatively: [H⁺] = Kw/[OH⁻] = 10⁻¹⁴/0.050 = 2.0×10⁻¹³. pH = −log(2.0×10⁻¹³) = 12.70.</div></div>
-
+    <div class="qexplain" id="e10">Conjugate pair 1: HCl (acid) and Cl<sup>&minus;</sup> (conjugate base) &mdash; HCl loses H<sup>+</sup>. Conjugate pair 2: H<sub>2</sub>O (base) and H<sub>3</sub>O<sup>+</sup> (conjugate acid) &mdash; H<sub>2</sub>O gains H<sup>+</sup>. A conjugate pair differs by exactly one H<sup>+</sup>.</div></div>
     <div class="qblock"><span class="qnum">Q11</span>
-    <p class="qtext">For a titration of weak acid with strong base (e.g. CH₃COOH with NaOH), the most suitable indicator is:</p>
+    <p class="qtext">Which statement correctly compares Arrhenius and Brønsted-Lowry theories?</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q11" value="A"> Methyl orange (range 3.1–4.4)</label>
-      <label class="opt"><input type="radio" name="q11" value="B"> Litmus (range 5.0–8.0)</label>
-      <label class="opt"><input type="radio" name="q11" value="C"> Phenolphthalein (range 8.3–10.0)</label>
-      <label class="opt"><input type="radio" name="q11" value="D"> Any indicator works equally well</label>
+      <label><input type="radio" name="q11" value="A"> They are identical in scope</label>
+      <label><input type="radio" name="q11" value="B"> Arrhenius is broader; it covers non-aqueous reactions</label>
+      <label><input type="radio" name="q11" value="C"> Brønsted-Lowry is broader; it applies to non-aqueous reactions and gases</label>
+      <label><input type="radio" name="q11" value="D"> Brønsted-Lowry only applies to water</label>
     </div>
-    <div class="qexplain" id="e11">Weak acid + strong base: equivalence point pH ≈ 8–9 (alkaline — conjugate base CH₃COO⁻ hydrolyses). The steep pH jump occurs between pH ~7 and ~11. Phenolphthalein (8.3–10) falls within this steep jump → sharp colour change → suitable. Methyl orange (3.1–4.4) changes in the buffer region (before equivalence, gradual slope) → poor endpoint. Litmus (5–8) might just work but has a wide gradual range — phenolphthalein is preferred.</div></div>
-
+    <div class="qexplain" id="e11">Brønsted-Lowry extends Arrhenius: (1) applies to non-aqueous solvents; (2) covers gas-phase reactions (e.g. HCl(g) + NH<sub>3</sub>(g) &rarr; NH<sub>4</sub>Cl(s)); (3) defines acids/bases by H<sup>+</sup> transfer rather than requiring water.</div></div>
     <div class="qblock"><span class="qnum">Q12</span>
-    <p class="qtext">A solution of Na₂CO₃ in water is alkaline because:</p>
+    <p class="qtext">In the reaction: CH<sub>3</sub>COOH + H<sub>2</sub>O &#8652; CH<sub>3</sub>COO<sup>&minus;</sup> + H<sub>3</sub>O<sup>+</sup>, the conjugate base of CH<sub>3</sub>COOH is:</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q12" value="A"> Na₂CO₃ contains sodium, a metal</label>
-      <label class="opt"><input type="radio" name="q12" value="B"> CO₃²⁻ is the conjugate base of the weak acid HCO₃⁻ — it hydrolyses to produce OH⁻</label>
-      <label class="opt"><input type="radio" name="q12" value="C"> Na₂CO₃ directly ionises to give OH⁻</label>
-      <label class="opt"><input type="radio" name="q12" value="D"> The solution becomes acidic, not alkaline</label>
+      <label><input type="radio" name="q12" value="A"> H<sub>2</sub>O</label>
+      <label><input type="radio" name="q12" value="B"> H<sub>3</sub>O<sup>+</sup></label>
+      <label><input type="radio" name="q12" value="C"> CH<sub>3</sub>COO<sup>&minus;</sup></label>
+      <label><input type="radio" name="q12" value="D"> OH<sup>&minus;</sup></label>
     </div>
-    <div class="qexplain" id="e12">Na₂CO₃ → 2Na⁺ + CO₃²⁻. CO₃²⁻ is the conjugate base of HCO₃⁻ (itself derived from weak acid H₂CO₃). CO₃²⁻ + H₂O ⇌ HCO₃⁻ + OH⁻ (hydrolysis — CO₃²⁻ accepts H⁺ from water → OH⁻ produced → alkaline). Na⁺ does not hydrolyse. Na₂CO₃ is a common base used in washing soda, drain cleaner, glass making (pH ≈ 11).</div></div>
-
+    <div class="qexplain" id="e12">CH<sub>3</sub>COOH donates H<sup>+</sup> to H<sub>2</sub>O &rarr; CH<sub>3</sub>COO<sup>&minus;</sup> is the conjugate base. The conjugate base of an acid always has one fewer H<sup>+</sup> and one more negative charge.</div></div>
     <div class="qblock"><span class="qnum">Q13</span>
-    <p class="qtext">The pKa of CH₃COOH is 4.76. A buffer of equal concentrations of CH₃COOH and CH₃COONa has pH:</p>
+    <p class="qtext">H<sub>2</sub>O is amphoteric because:</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q13" value="A"> 7.00</label>
-      <label class="opt"><input type="radio" name="q13" value="B"> 9.52</label>
-      <label class="opt"><input type="radio" name="q13" value="C"> 4.76</label>
-      <label class="opt"><input type="radio" name="q13" value="D"> 2.38</label>
+      <label><input type="radio" name="q13" value="A"> It is a liquid at room temperature</label>
+      <label><input type="radio" name="q13" value="B"> It can act as both an acid (H<sup>+</sup> donor) and a base (H<sup>+</sup> acceptor)</label>
+      <label><input type="radio" name="q13" value="C"> It contains two hydrogen atoms</label>
+      <label><input type="radio" name="q13" value="D"> It is polar</label>
     </div>
-    <div class="qexplain" id="e13">Henderson-Hasselbalch: pH = pKa + log([A⁻]/[HA]). Equal concentrations: [A⁻] = [HA] → log(1) = 0 → pH = pKa = 4.76. This is the most important point on a titration curve: the half-equivalence point where [acid] = [conjugate base] → pH = pKa → used to determine Ka from titration data.</div></div>
-
+    <div class="qexplain" id="e13">H<sub>2</sub>O as acid: H<sub>2</sub>O &rarr; OH<sup>&minus;</sup> + H<sup>+</sup> (in reaction with stronger base like NH<sub>3</sub>). H<sub>2</sub>O as base: H<sub>2</sub>O + H<sup>+</sup> &rarr; H<sub>3</sub>O<sup>+</sup> (in reaction with HCl). Amphoteric = can act as both acid and base (not necessarily amphiprotic, but for water these terms overlap).</div></div>
     <div class="qblock"><span class="qnum">Q14</span>
-    <p class="qtext">Lewis acid BF₃ reacts with Lewis base NH₃ to form the adduct F₃B←NH₃. The new bond formed is:</p>
+    <p class="qtext">According to Lewis theory, which species acts as a Lewis BASE in the formation of [Fe(H<sub>2</sub>O)<sub>6</sub>]<sup>3</sup><sup>+</sup>?</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q14" value="A"> Ionic bond</label>
-      <label class="opt"><input type="radio" name="q14" value="B"> A dative (coordinate) covalent bond — NH₃ donates its lone pair to empty orbital on B</label>
-      <label class="opt"><input type="radio" name="q14" value="C"> Hydrogen bond</label>
-      <label class="opt"><input type="radio" name="q14" value="D"> Van der Waals bond</label>
+      <label><input type="radio" name="q14" value="A"> Fe<sup>3</sup><sup>+</sup></label>
+      <label><input type="radio" name="q14" value="B"> H<sub>2</sub>O</label>
+      <label><input type="radio" name="q14" value="C"> Fe</label>
+      <label><input type="radio" name="q14" value="D"> H<sub>3</sub>O<sup>+</sup></label>
     </div>
-    <div class="qexplain" id="e14">Lewis acid-base reaction: NH₃ (lone pair on N) donates to empty 2p orbital on B in BF₃ → forms a dative (coordinate) covalent bond where BOTH electrons come from the Lewis base (NH₃). Result: B now has 4 bonds (sp³ hybridised), tetrahedral; N has 4 bonds (positively charged, as in NH₄⁺). This is identical to how metal complexes form ([Cu(NH₃)₄]²⁺): metal = Lewis acid; NH₃ = Lewis base; dative bonds throughout.</div></div>
-
+    <div class="qexplain" id="e14">H<sub>2</sub>O has lone pairs on oxygen &rarr; donates lone pairs to Fe<sup>3</sup><sup>+</sup> &rarr; Lewis base. Fe<sup>3</sup><sup>+</sup> has empty d orbitals &rarr; accepts lone pairs &rarr; Lewis acid. Lewis theory explains complex ion formation that Brønsted-Lowry cannot.</div></div>
     <div class="qblock"><span class="qnum">Q15</span>
-    <p class="qtext">The Ka × Kb relationship for a conjugate acid-base pair at 25°C is:</p>
+    <p class="qtext">A strong acid is one that:</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q15" value="A"> Ka × Kb = 1</label>
-      <label class="opt"><input type="radio" name="q15" value="B"> Ka × Kb = Kw = 1.0×10⁻¹⁴</label>
-      <label class="opt"><input type="radio" name="q15" value="C"> Ka + Kb = 14</label>
-      <label class="opt"><input type="radio" name="q15" value="D"> Ka / Kb = 7</label>
+      <label><input type="radio" name="q15" value="A"> Has a high concentration</label>
+      <label><input type="radio" name="q15" value="B"> Reacts violently with water</label>
+      <label><input type="radio" name="q15" value="C"> Fully (essentially completely) dissociates in aqueous solution</label>
+      <label><input type="radio" name="q15" value="D"> Has a low pH in all concentrations</label>
     </div>
-    <div class="qexplain" id="e15">For any conjugate acid-base pair (HA/A⁻): Ka(HA) × Kb(A⁻) = Kw = 10⁻¹⁴ at 25°C. Also: pKa + pKb = pKw = 14. This means: strong acid (large Ka) → very weak conjugate base (tiny Kb). Weak acid (small Ka) → stronger conjugate base (larger Kb). Example: CH₃COOH Ka = 1.7×10⁻⁵ → CH₃COO⁻ Kb = 10⁻¹⁴/1.7×10⁻⁵ = 5.9×10⁻¹⁰.</div></div>
-
+    <div class="qexplain" id="e15">Strong acid: fully dissociated in solution (e.g. HCl &rarr; H<sup>+</sup> + Cl<sup>&minus;</sup>, 100%). Weak acid: partially dissociated (e.g. CH<sub>3</sub>COOH &#8652; CH<sub>3</sub>COO<sup>&minus;</sup> + H<sup>+</sup>, ~1%). Strength is independent of concentration.</div></div>
     <div class="qblock"><span class="qnum">Q16</span>
-    <p class="qtext">HCO₃⁻ (hydrogen carbonate ion) is described as amphiprotic because:</p>
+    <p class="qtext">Which of the following pairs are a conjugate acid-base pair?</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q16" value="A"> It contains both H and C atoms</label>
-      <label class="opt"><input type="radio" name="q16" value="B"> It can act as both a proton donor (acid) AND a proton acceptor (base) in Brønsted-Lowry theory</label>
-      <label class="opt"><input type="radio" name="q16" value="C"> It reacts with both metals and non-metals</label>
-      <label class="opt"><input type="radio" name="q16" value="D"> It is an amphipathic molecule</label>
+      <label><input type="radio" name="q16" value="A"> HCl and NaOH</label>
+      <label><input type="radio" name="q16" value="B"> H<sub>2</sub>SO<sub>4</sub> and SO<sub>4</sub><sup>2</sup><sup>&minus;</sup></label>
+      <label><input type="radio" name="q16" value="C"> NH<sub>4</sub><sup>+</sup> and NH<sub>3</sub></label>
+      <label><input type="radio" name="q16" value="D"> HNO<sub>3</sub> and OH<sup>&minus;</sup></label>
     </div>
-    <div class="qexplain" id="e16">HCO₃⁻ as acid (donates H⁺): HCO₃⁻ ⇌ H⁺ + CO₃²⁻ (Ka₂ of H₂CO₃ = 4.7×10⁻¹¹). HCO₃⁻ as base (accepts H⁺): HCO₃⁻ + H⁺ ⇌ H₂CO₃ (or equivalently, + H₃O⁺ ⇌ H₂CO₃ + H₂O). Amphiprotic = can be both acid AND base in B-L theory. Other amphiprotic species: H₂O, HSO₄⁻, HS⁻, H₂PO₄⁻, HPO₄²⁻. Amphoteric = can act as acid/base — applies especially to oxides and hydroxides.</div></div>
-
+    <div class="qexplain" id="e16">A conjugate acid-base pair differs by exactly one H<sup>+</sup>. NH<sub>4</sub><sup>+</sup> &rarr; NH<sub>3</sub> + H<sup>+</sup> &#10003;. H<sub>2</sub>SO<sub>4</sub> and SO<sub>4</sub><sup>2</sup><sup>&minus;</sup> differ by two H<sup>+</sup> &rarr; not a conjugate pair. HCl and NaOH are not related by H<sup>+</sup> transfer.</div></div>
     <div class="qblock"><span class="qnum">Q17</span>
-    <p class="qtext">A buffer is made from equal volumes of 0.1 mol dm⁻³ NH₃ and 0.1 mol dm⁻³ NH₄Cl mixed together. The pH of this buffer (pKa NH₄⁺ = 9.25) is:</p>
+    <p class="qtext">In the gas phase reaction: HCl(g) + NH<sub>3</sub>(g) &rarr; NH<sub>4</sub>Cl(s), which acid-base theory BEST explains this?</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q17" value="A"> 7.00</label>
-      <label class="opt"><input type="radio" name="q17" value="B"> 9.25</label>
-      <label class="opt"><input type="radio" name="q17" value="C"> 4.75</label>
-      <label class="opt"><input type="radio" name="q17" value="D"> 11.00</label>
+      <label><input type="radio" name="q17" value="A"> Arrhenius (requires aqueous H<sup>+</sup> and OH<sup>&minus;</sup>)</label>
+      <label><input type="radio" name="q17" value="B"> Brønsted-Lowry (H<sup>+</sup> transfer without water)</label>
+      <label><input type="radio" name="q17" value="C"> Lewis (electron pair transfer)</label>
+      <label><input type="radio" name="q17" value="D"> Neither theory applies</label>
     </div>
-    <div class="qexplain" id="e17">Use NH₄⁺ as the "acid" with pKa = 9.25. Henderson-Hasselbalch: pH = pKa(NH₄⁺) + log([NH₃]/[NH₄⁺]). Equal volumes of equal concentrations → [NH₃] = [NH₄⁺] (after mixing, volumes double but concentrations halved equally — ratio unchanged). log(1) = 0. pH = 9.25. This is the half-equivalence point of the NH₃/HCl titration curve. Buffer range: ~8.25–10.25.</div></div>
-
+    <div class="qexplain" id="e17">No water is present &rarr; Arrhenius cannot explain it. HCl donates H<sup>+</sup> to NH<sub>3</sub> &rarr; Brønsted-Lowry (proton transfer) explains it perfectly. Lewis theory also works but Brønsted-Lowry is more specific here.</div></div>
     <div class="qblock"><span class="qnum">Q18</span>
-    <p class="qtext">A solution of NH₄Cl (ammonium chloride) is:</p>
+    <p class="qtext">The strength of an acid depends on:</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q18" value="A"> Alkaline — due to NH₃ formed</label>
-      <label class="opt"><input type="radio" name="q18" value="B"> Acidic — NH₄⁺ partially hydrolyses to give H⁺</label>
-      <label class="opt"><input type="radio" name="q18" value="C"> Neutral — both ions from strong species</label>
-      <label class="opt"><input type="radio" name="q18" value="D"> Neutral — because Cl⁻ and NH₄⁺ cancel</label>
+      <label><input type="radio" name="q18" value="A"> Its concentration in solution</label>
+      <label><input type="radio" name="q18" value="B"> How readily it donates a proton (degree of dissociation)</label>
+      <label><input type="radio" name="q18" value="C"> Its molecular mass</label>
+      <label><input type="radio" name="q18" value="D"> How many atoms it contains</label>
     </div>
-    <div class="qexplain" id="e18">NH₄Cl = salt of weak base (NH₃) + strong acid (HCl). NH₄⁺ + H₂O ⇌ NH₃ + H₃O⁺ — NH₄⁺ partially donates its proton to water → H₃O⁺ released → solution acidic (pH ~5 for 0.1 mol dm⁻³). Cl⁻ is conjugate base of strong acid HCl → too weak as a base to hydrolyse water → Cl⁻ does nothing. Rule: salt of weak base + strong acid → acidic solution.</div></div>
-
+    <div class="qexplain" id="e18">Acid strength = tendency to donate H<sup>+</sup>. Strong acids: bond to H<sup>+</sup> is easily broken &rarr; 100% dissociation. Weak acids: H<sup>+</sup> is held more tightly &rarr; partial dissociation. Strength is an intrinsic property of the acid, NOT its concentration.</div></div>
     <div class="qblock"><span class="qnum">Q19</span>
-    <p class="qtext">Which of the following pairs can act as a buffer?</p>
+    <p class="qtext">Which of the following correctly identifies a Lewis acid-base pair?</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q19" value="A"> HCl and NaCl</label>
-      <label class="opt"><input type="radio" name="q19" value="B"> NaOH and NaCl</label>
-      <label class="opt"><input type="radio" name="q19" value="C"> CH₃COOH and CH₃COONa</label>
-      <label class="opt"><input type="radio" name="q19" value="D"> HCl and NaOH (equal amounts)</label>
+      <label><input type="radio" name="q19" value="A"> HCl (Lewis acid) + H<sub>2</sub>O (Lewis base) &rarr; H<sub>3</sub>O<sup>+</sup> + Cl<sup>&minus;</sup> &mdash; H<sub>2</sub>O accepts H<sup>+</sup></label>
+      <label><input type="radio" name="q19" value="B"> AlCl<sub>3</sub> (Lewis acid) + Cl<sup>&minus;</sup> (Lewis base) &rarr; AlCl<sub>4</sub><sup>&minus;</sup></label>
+      <label><input type="radio" name="q19" value="C"> NaOH (Lewis acid) + HCl (Lewis base) &rarr; NaCl + H<sub>2</sub>O</label>
+      <label><input type="radio" name="q19" value="D"> NH<sub>3</sub> (Lewis acid) + BF<sub>3</sub> (Lewis base) &rarr; F<sub>3</sub>BNH<sub>3</sub></label>
     </div>
-    <div class="qexplain" id="e19">A buffer requires a weak acid + its conjugate base (or weak base + conjugate acid) in comparable amounts. CH₃COOH (weak acid) + CH₃COONa (sodium salt provides CH₃COO⁻, the conjugate base) → buffer. HCl + NaCl: HCl is strong acid; NaCl has no buffering capacity. NaOH + NaCl: NaOH is strong base; NaCl neutral. HCl + NaOH equal amounts → complete neutralisation → NaCl + H₂O (no buffer — equivalence point).</div></div>
-
+    <div class="qexplain" id="e19">AlCl<sub>3</sub> has an empty orbital &rarr; accepts lone pair from Cl<sup>&minus;</sup> &rarr; Lewis acid. Cl<sup>&minus;</sup> donates lone pair &rarr; Lewis base. This gives AlCl<sub>4</sub><sup>&minus;</sup>. Option D has acid and base reversed (BF<sub>3</sub> is Lewis acid; NH<sub>3</sub> is Lewis base).</div></div>
     <div class="qblock"><span class="qnum">Q20</span>
-    <p class="qtext">The pH of 0.040 mol dm⁻³ H₂SO₄ (assume complete dissociation of both protons) is:</p>
+    <p class="qtext">What is the conjugate BASE of H<sub>3</sub>PO<sub>4</sub>?</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q20" value="A"> 1.40</label>
-      <label class="opt"><input type="radio" name="q20" value="B"> 2.40</label>
-      <label class="opt"><input type="radio" name="q20" value="C"> 1.10</label>
-      <label class="opt"><input type="radio" name="q20" value="D"> 0.70</label>
+      <label><input type="radio" name="q20" value="A"> PO<sub>4</sub><sup>3</sup><sup>&minus;</sup></label>
+      <label><input type="radio" name="q20" value="B"> HPO<sub>4</sub><sup>2</sup><sup>&minus;</sup></label>
+      <label><input type="radio" name="q20" value="C"> H<sub>2</sub>PO<sub>4</sub><sup>&minus;</sup></label>
+      <label><input type="radio" name="q20" value="D"> H<sub>4</sub>PO<sub>4</sub><sup>+</sup></label>
     </div>
-    <div class="qexplain" id="e20">H₂SO₄ → 2H⁺ + SO₄²⁻ (diprotic strong acid, assuming both protons fully dissociate). [H⁺] = 2 × 0.040 = 0.080 mol dm⁻³. pH = −log(0.080) = −log(8.0×10⁻²) = −(log 8.0 + log 10⁻²) = −(0.903 − 2) = 1.10. Note: in reality the 2nd ionisation of H₂SO₄ is not quite complete at this concentration, but at A-level both protons are assumed to fully dissociate.</div></div>
-
+    <div class="qexplain" id="e20">H<sub>3</sub>PO<sub>4</sub> loses one H<sup>+</sup> &rarr; H<sub>2</sub>PO<sub>4</sub><sup>&minus;</sup> (dihydrogen phosphate). This is the conjugate base after the first deprotonation. H<sub>3</sub>PO<sub>4</sub> is a triprotic acid with three successive conjugate pairs.</div></div>
     <div class="qblock"><span class="qnum">Q21</span>
-    <p class="qtext">A strong acid and a weak acid at the same concentration have different pH values. At 0.1 mol dm⁻³, HCl has pH 1 but CH₃COOH has pH ~2.9. This is because:</p>
+    <p class="qtext">In the Brønsted-Lowry sense, a species that can act as BOTH an acid and a base is called:</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q21" value="A"> CH₃COOH has a larger molar mass</label>
-      <label class="opt"><input type="radio" name="q21" value="B"> CH₃COOH only partially dissociates — [H⁺] &lt;&lt; 0.1 mol dm⁻³</label>
-      <label class="opt"><input type="radio" name="q21" value="C"> HCl is more concentrated</label>
-      <label class="opt"><input type="radio" name="q21" value="D"> pH does not depend on [H⁺]</label>
+      <label><input type="radio" name="q21" value="A"> Amphoteric</label>
+      <label><input type="radio" name="q21" value="B"> Neutral</label>
+      <label><input type="radio" name="q21" value="C"> Ionic</label>
+      <label><input type="radio" name="q21" value="D"> Polar</label>
     </div>
-    <div class="qexplain" id="e21">HCl (strong): [H⁺] = 0.1 mol dm⁻³ (100% dissociation). pH = 1. CH₃COOH (weak): Ka = 1.7×10⁻⁵; only ~1.3% dissociates at 0.1 mol dm⁻³. [H⁺] = √(1.7×10⁻⁵ × 0.1) = 1.3×10⁻³ mol dm⁻³. pH = 2.89. At the same concentration, the weak acid has fewer H⁺ ions → higher pH. The difference in pH reflects the degree of ionisation (extent of reaction).</div></div>
-
+    <div class="qexplain" id="e21">Amphoteric (or amphiprotic) species: can both donate and accept a proton. Examples: H<sub>2</sub>O, HCO<sub>3</sub><sup>&minus;</sup>, HSO<sub>4</sub><sup>&minus;</sup>, H<sub>2</sub>PO<sub>4</sub><sup>&minus;</sup>, amino acids (have both NH<sub>3</sub><sup>+</sup> and COO<sup>&minus;</sup> groups).</div></div>
     <div class="qblock"><span class="qnum">Q22</span>
-    <p class="qtext">Phenolphthalein is colourless below pH 8.3 and pink above pH 10.0. It is suitable for titration of:</p>
+    <p class="qtext">The Lewis theory of acids and bases is MORE general than Brønsted-Lowry because:</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q22" value="A"> Strong acid with strong base (equivalence at pH 7)</label>
-      <label class="opt"><input type="radio" name="q22" value="B"> Weak acid with strong base (equivalence at pH ~8–9)</label>
-      <label class="opt"><input type="radio" name="q22" value="C"> Strong acid with weak base (equivalence at pH ~5)</label>
-      <label class="opt"><input type="radio" name="q22" value="D"> All titrations — phenolphthalein is universal</label>
+      <label><input type="radio" name="q22" value="A"> It only applies to aqueous solutions</label>
+      <label><input type="radio" name="q22" value="B"> It covers electron pair transfers, including reactions with no H<sup>+</sup> transfer</label>
+      <label><input type="radio" name="q22" value="C"> It requires water to be present</label>
+      <label><input type="radio" name="q22" value="D"> It applies only to gases</label>
     </div>
-    <div class="qexplain" id="e22">Phenolphthalein changes colour in pH range 8.3–10.0. Weak acid + strong base: equivalence point ~pH 8–9 → falls within the steep part of the curve → phenolphthalein gives a sharp endpoint. Strong acid + weak base: equivalence at pH ~5 → phenolphthalein changes after equivalence → poor endpoint. Strong acid + strong base: equivalence at pH 7 → phenolphthalein might work (jump from 4–10 includes 8.3–10) but a lower-range indicator is sharper.</div></div>
-
+    <div class="qexplain" id="e22">Lewis theory covers any electron pair transfer, including complex ion formation and reactions with no H<sup>+</sup> involved (e.g. BF<sub>3</sub> + F<sup>&minus;</sup> &rarr; BF<sub>4</sub><sup>&minus;</sup>). Every Brønsted-Lowry acid is also a Lewis acid (accepts electron pair from water when H<sup>+</sup> is transferred), but Lewis acids include species that cannot donate/accept H<sup>+</sup>.</div></div>
     <div class="qblock"><span class="qnum">Q23</span>
-    <p class="qtext">Which species acts as a Lewis acid in the formation of [Fe(H₂O)₆]³⁺?</p>
+    <p class="qtext">In the reaction: CO<sub>2</sub> + H<sub>2</sub>O &rarr; H<sub>2</sub>CO<sub>3</sub>, CO<sub>2</sub> acts as a:</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q23" value="A"> H₂O</label>
-      <label class="opt"><input type="radio" name="q23" value="B"> OH⁻</label>
-      <label class="opt"><input type="radio" name="q23" value="C"> Fe³⁺</label>
-      <label class="opt"><input type="radio" name="q23" value="D"> H⁺</label>
+      <label><input type="radio" name="q23" value="A"> Brønsted-Lowry acid</label>
+      <label><input type="radio" name="q23" value="B"> Arrhenius base</label>
+      <label><input type="radio" name="q23" value="C"> Lewis acid (electron pair acceptor)</label>
+      <label><input type="radio" name="q23" value="D"> Reducing agent</label>
     </div>
-    <div class="qexplain" id="e23">Lewis acid = electron pair acceptor. Fe³⁺ has empty d orbitals → accepts lone pairs from H₂O (Lewis base, electron pair donor via O lone pairs). 6 H₂O molecules each donate a lone pair to Fe³⁺ → 6 dative bonds → [Fe(H₂O)₆]³⁺ complex ion. All transition metal cations act as Lewis acids in forming complex ions. The ligands (H₂O, NH₃, CN⁻, etc.) are all Lewis bases.</div></div>
-
+    <div class="qexplain" id="e23">CO<sub>2</sub> accepts a lone pair from H<sub>2</sub>O to form H<sub>2</sub>CO<sub>3</sub> &rarr; Lewis acid. This cannot be explained by Brønsted-Lowry (no H<sup>+</sup> is transferred in this step). Lewis acids include many molecules with incomplete octets or empty d orbitals.</div></div>
     <div class="qblock"><span class="qnum">Q24</span>
-    <p class="qtext">The pKa of HF is 3.2. Which is more acidic: HF or CH₃COOH (pKa 4.76)?</p>
+    <p class="qtext">A student dissolves equal moles of HCl and CH<sub>3</sub>COOH in separate beakers of water. Which statement is correct?</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q24" value="A"> CH₃COOH — it has a larger pKa</label>
-      <label class="opt"><input type="radio" name="q24" value="B"> HF — it has a smaller pKa (larger Ka)</label>
-      <label class="opt"><input type="radio" name="q24" value="C"> They are equally acidic</label>
-      <label class="opt"><input type="radio" name="q24" value="D"> Cannot be determined from pKa</label>
+      <label><input type="radio" name="q24" value="A"> Both solutions have the same pH</label>
+      <label><input type="radio" name="q24" value="B"> HCl solution has a lower pH (more acidic)</label>
+      <label><input type="radio" name="q24" value="C"> CH<sub>3</sub>COOH solution has a lower pH</label>
+      <label><input type="radio" name="q24" value="D"> They have the same [H<sup>+</sup>]</label>
     </div>
-    <div class="qexplain" id="e24">Smaller pKa = larger Ka = stronger acid. pKa 3.2 (HF) &lt; pKa 4.76 (CH₃COOH) → HF is more acidic. Ka(HF) = 10⁻³·² = 6.3×10⁻⁴; Ka(CH₃COOH) = 10⁻⁴·⁷⁶ = 1.7×10⁻⁵. HF dissociates more than ethanoic acid at the same concentration → lower pH → more acidic. However, both are weak acids (Ka &lt;&lt; 1).</div></div>
-
+    <div class="qexplain" id="e24">HCl is a strong acid &rarr; completely dissociated &rarr; higher [H<sup>+</sup>] &rarr; lower pH. CH<sub>3</sub>COOH is weak &rarr; partially dissociated &rarr; lower [H<sup>+</sup>] &rarr; higher pH (less acidic). At 0.1 mol/dm<sup>3</sup>: HCl has pH 1; CH<sub>3</sub>COOH has pH ~2.9.</div></div>
     <div class="qblock"><span class="qnum">Q25</span>
-    <p class="qtext">If [H⁺] in a solution is doubled, the pH:</p>
+    <p class="qtext">Which of these reactions can ONLY be explained by Lewis theory and NOT by Brønsted-Lowry?</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q25" value="A"> Doubles</label>
-      <label class="opt"><input type="radio" name="q25" value="B"> Decreases by log(2) ≈ 0.30 pH units</label>
-      <label class="opt"><input type="radio" name="q25" value="C"> Increases by 2</label>
-      <label class="opt"><input type="radio" name="q25" value="D"> Halves</label>
+      <label><input type="radio" name="q25" value="A"> HCl + NaOH &rarr; NaCl + H<sub>2</sub>O</label>
+      <label><input type="radio" name="q25" value="B"> NH<sub>3</sub> + HCl &rarr; NH<sub>4</sub>Cl</label>
+      <label><input type="radio" name="q25" value="C"> BF<sub>3</sub> + F<sup>&minus;</sup> &rarr; BF<sub>4</sub><sup>&minus;</sup></label>
+      <label><input type="radio" name="q25" value="D"> H<sub>2</sub>SO<sub>4</sub> + H<sub>2</sub>O &rarr; H<sub>3</sub>O<sup>+</sup> + HSO<sub>4</sub><sup>&minus;</sup></label>
     </div>
-    <div class="qexplain" id="e25">pH = −log[H⁺]. If [H⁺] doubles: new pH = −log(2[H⁺]) = −log 2 − log[H⁺] = original pH − log(2) = original pH − 0.301. pH decreases by 0.30 (since doubling [H⁺] makes solution more acidic → lower pH). Example: pH 3.0 → [H⁺] = 10⁻³; double → [H⁺] = 2×10⁻³ → pH = −log(2×10⁻³) = 2.70. Change = −0.30 pH units.</div></div>
+    <div class="qexplain" id="e25">BF<sub>3</sub> + F<sup>&minus;</sup> &rarr; BF<sub>4</sub><sup>&minus;</sup> involves no H<sup>+</sup> transfer &rarr; Brønsted-Lowry cannot explain it. BF<sub>3</sub> is a Lewis acid (accepts lone pair); F<sup>&minus;</sup> is a Lewis base (donates lone pair). All other options involve H<sup>+</sup> transfer and are explained by Brønsted-Lowry.</div></div>
+    
 
-    <div style="text-align:center;margin-top:28px;">
-      <button class="qs" onclick="submitQuiz()">Submit Quiz — Check Answers</button>
-      <div id="qR"></div>
+      <button class="qs" onclick="submitQuiz()" style="margin-top:24px;width:100%;padding:14px;background:var(--accent);color:#000;border:none;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.95rem;font-weight:700;cursor:pointer;letter-spacing:.03em;">&#9654; Submit Quiz &amp; Check Answers</button>
+      <div id="qR" style="display:none;"></div>
     </div>
   </div>
 </div>
@@ -973,57 +491,38 @@ Ag⁺ + 2NH₃ → [Ag(NH₃)₂]⁺   (Ag⁺ = Lewis acid; NH₃ = Lewis base)<
   <div class="test-sec-head"><h3>Section A — Short Answer</h3><span class="marks-badge">30 marks</span></div>
 
   <div class="tq"><div class="tq-num">Q1 [5 marks]</div>
-  <p>Compare the Arrhenius, Brønsted-Lowry, and Lewis definitions of acids and bases. Give one example of a reaction that illustrates the Lewis definition but cannot be explained by the Arrhenius definition. [5]</p>
+  <p>Compare the Arrhenius, Brønsted-Lowry, and Lewis definitions of acids and bases. Give one example of a reaction that is explained by Lewis theory but CANNOT be explained by the Arrhenius theory. [5]</p>
   <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide':'Model Answer'">Model Answer</button>
-  <div class="answer">Arrhenius: acid = H⁺ producer in water; base = OH⁻ producer. Limitation: only aqueous; cannot explain NH₃ as base (no OH⁻). [1] Brønsted-Lowry: acid = H⁺ donor; base = H⁺ acceptor. Broader — works in any solvent; explains NH₃ as base (accepts H⁺). [1] Lewis: acid = electron pair acceptor; base = electron pair donor. Broadest — includes reactions with no H⁺ transfer. [1] Lewis reaction not in Arrhenius: BF₃ + NH₃ → F₃B←NH₃. No H⁺ transfer — BF₃ accepts NH₃'s lone pair → dative bond. Neither BF₃ nor NH₃ produces H⁺ or OH⁻ in water. Lewis acid = BF₃; Lewis base = NH₃. [1] Also acceptable: AlCl₃ + Cl⁻ → [AlCl₄]⁻; or [Fe(H₂O)₆]³⁺ formation. [1 mark for clear explanation]</div></div>
-
+  <div class="answer">Arrhenius: acid produces H<sup>+</sup> in water; base produces OH<sup>&minus;</sup> in water. Limited to aqueous solutions. [1] Brønsted-Lowry: acid = H<sup>+</sup> donor; base = H<sup>+</sup> acceptor. Applies to non-aqueous and gas-phase reactions. Introduces concept of conjugate pairs. [1] Lewis: acid = electron pair acceptor; base = electron pair donor. Most general &mdash; covers reactions without any H<sup>+</sup> transfer. [1] Lewis-only example: BF<sub>3</sub> + :NH<sub>3</sub> &rarr; F<sub>3</sub>B&larr;NH<sub>3</sub>. No H<sup>+</sup> transferred &rarr; cannot be explained by Arrhenius (no OH<sup>&minus;</sup> or H<sup>+</sup> produced in water) or Brønsted-Lowry. BF<sub>3</sub> accepts lone pair from NH<sub>3</sub> &rarr; Lewis acid. [2]</div></div>
   <div class="tq"><div class="tq-num">Q2 [5 marks]</div>
-  <p>Calculate the pH of: (a) 0.020 mol dm⁻³ HCl [1] (b) 0.50 mol dm⁻³ NaOH [1] (c) 0.15 mol dm⁻³ CH₃COOH (Ka = 1.7×10⁻⁵) [2] (d) a mixture of 25.0 cm³ of 0.10 mol dm⁻³ HCl and 25.0 cm³ of 0.10 mol dm⁻³ NaOH [1]. [5]</p>
+  <p>Identify the Brønsted-Lowry acid, base, conjugate acid, and conjugate base in each reaction: (a) H<sub>2</sub>SO<sub>4</sub> + H<sub>2</sub>O &rarr; H<sub>3</sub>O<sup>+</sup> + HSO<sub>4</sub><sup>&minus;</sup> [1] (b) HCO<sub>3</sub><sup>&minus;</sup> + H<sub>2</sub>O &#8652; H<sub>2</sub>CO<sub>3</sub> + OH<sup>&minus;</sup> [1] (c) NH<sub>4</sub><sup>+</sup> + OH<sup>&minus;</sup> &rarr; NH<sub>3</sub> + H<sub>2</sub>O [1] (d) Explain why HCO<sub>3</sub><sup>&minus;</sup> is described as amphiprotic, writing two equations to illustrate. [2]</p>
   <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide':'Model Answer'">Model Answer</button>
-  <div class="answer">(a) HCl strong acid: [H⁺] = 0.020. pH = −log(0.020) = −log(2×10⁻²) = 1.70. [1] (b) NaOH strong base: [OH⁻] = 0.50. pOH = −log(0.5) = 0.30. pH = 14 − 0.30 = 13.70. [1] (c) CH₃COOH weak acid: [H⁺] = √(Ka × c) = √(1.7×10⁻⁵ × 0.15) = √(2.55×10⁻⁶) = 1.597×10⁻³. pH = −log(1.597×10⁻³) = 2.80. [2] (d) Equal volumes and equal concentrations of strong acid + strong base → exact equivalence → complete neutralisation → NaCl solution → pH = 7. [1]</div></div>
-
+  <div class="answer">(a) H<sub>2</sub>SO<sub>4</sub> = acid (H<sup>+</sup> donor); H<sub>2</sub>O = base; H<sub>3</sub>O<sup>+</sup> = conjugate acid of H<sub>2</sub>O; HSO<sub>4</sub><sup>&minus;</sup> = conjugate base of H<sub>2</sub>SO<sub>4</sub>. [1] (b) HCO<sub>3</sub><sup>&minus;</sup> = base (accepts H<sup>+</sup> from H<sub>2</sub>O); H<sub>2</sub>O = acid; H<sub>2</sub>CO<sub>3</sub> = conjugate acid of HCO<sub>3</sub><sup>&minus;</sup>; OH<sup>&minus;</sup> = conjugate base of H<sub>2</sub>O. [1] (c) NH<sub>4</sub><sup>+</sup> = acid (donates H<sup>+</sup>); OH<sup>&minus;</sup> = base; H<sub>2</sub>O = conjugate acid of OH<sup>&minus;</sup>; NH<sub>3</sub> = conjugate base of NH<sub>4</sub><sup>+</sup>. [1] (d) HCO<sub>3</sub><sup>&minus;</sup> as acid: HCO<sub>3</sub><sup>&minus;</sup> &rarr; CO<sub>3</sub><sup>2</sup><sup>&minus;</sup> + H<sup>+</sup> (donates proton to a base). HCO<sub>3</sub><sup>&minus;</sup> as base: HCO<sub>3</sub><sup>&minus;</sup> + H<sup>+</sup> &rarr; H<sub>2</sub>CO<sub>3</sub> (accepts proton from an acid). Amphiprotic = can both donate and accept H<sup>+</sup>. [2]</div></div>
   <div class="tq"><div class="tq-num">Q3 [5 marks]</div>
-  <p>Describe how a buffer solution of pH 5.00 could be prepared using ethanoic acid (pKa = 4.76). Include the concentrations/ratio needed and explain how the buffer resists pH change when small amounts of acid and alkali are added. [5]</p>
+  <p>Explain the difference between a STRONG acid and a WEAK acid. For each pair, state which is the stronger acid and why: (a) HCl vs CH<sub>3</sub>COOH (b) HNO<sub>3</sub> vs HNO<sub>2</sub> (c) H<sub>2</sub>SO<sub>4</sub> vs H<sub>3</sub>PO<sub>4</sub>. Describe TWO experimental observations that distinguish 0.1 mol dm<sup>&minus;</sup><sup>3</sup> HCl from 0.1 mol dm<sup>&minus;</sup><sup>3</sup> CH<sub>3</sub>COOH. [5]</p>
   <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide':'Model Answer'">Model Answer</button>
-  <div class="answer">Preparation: use CH₃COOH and CH₃COONa (sodium ethanoate). Henderson-Hasselbalch: pH = pKa + log([A⁻]/[HA]) → 5.00 = 4.76 + log([CH₃COO⁻]/[CH₃COOH]) → log ratio = 0.24 → ratio = 10⁰·²⁴ = 1.74. [1.5] So [CH₃COO⁻]/[CH₃COOH] = 1.74 : 1. Example: dissolve 0.174 mol CH₃COONa and 0.100 mol CH₃COOH in 1 dm³ water. [0.5] How it resists: when H⁺ added: CH₃COO⁻ + H⁺ → CH₃COOH (conjugate base mops up H⁺) → small decrease in [A⁻], small increase in [HA] → ratio barely changes → pH barely changes. [1.5] When OH⁻ added: CH₃COOH + OH⁻ → CH₃COO⁻ + H₂O (weak acid neutralises OH⁻) → small increase in [A⁻], small decrease in [HA] → ratio barely changes → pH barely changes. [1.5]</div></div>
-
+  <div class="answer">Strong acid: fully (100%) dissociated in dilute aqueous solution. Weak acid: only partially dissociated (< 5% typically). [1] (a) HCl: strong acid (fully dissociated); CH<sub>3</sub>COOH: weak (Ka = 1.7&times;10<sup>&minus;</sup><sup>5</sup>, ~1% dissociated). HCl is stronger. [1] (b) HNO<sub>3</sub>: strong acid; HNO<sub>2</sub>: weak acid. HNO<sub>3</sub> is stronger. [1] (c) H<sub>2</sub>SO<sub>4</sub>: strong (1st dissociation complete); H<sub>3</sub>PO<sub>4</sub>: weak acid. H<sub>2</sub>SO<sub>4</sub> is stronger. [1] Two observations: (1) HCl has lower pH (pH 1 vs ~2.9) &mdash; more H<sup>+</sup> ions present; (2) HCl reacts faster with Mg ribbon (or CaCO<sub>3</sub>) and produces more vigorous effervescence &mdash; more H<sup>+</sup> available. Both from same concentration. [1]</div></div>
   <div class="tq"><div class="tq-num">Q4 [5 marks]</div>
-  <p>Explain why salt solutions of the following are acidic, alkaline, or neutral, writing a hydrolysis equation where relevant: (a) KNO₃ (b) Na₂CO₃ (c) FeCl₃ (d) (NH₄)₂SO₄ (e) CH₃COONH₄. [5]</p>
+  <p>State the Lewis definitions of acid and base. For each reaction, identify the Lewis acid and Lewis base, and write an equation: (a) Formation of [Fe(H<sub>2</sub>O)<sub>6</sub>]<sup>3</sup><sup>+</sup> from Fe<sup>3</sup><sup>+</sup> and H<sub>2</sub>O (b) Reaction of SO<sub>3</sub> with H<sub>2</sub>O to give H<sub>2</sub>SO<sub>4</sub> (c) AlCl<sub>3</sub> reacting with Cl<sup>&minus;</sup> (d) Reaction of Ag<sup>+</sup> with two NH<sub>3</sub> molecules. [5]</p>
   <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide':'Model Answer'">Model Answer</button>
-  <div class="answer">(a) KNO₃: neutral pH 7. K⁺ (strong base conjugate cation) + NO₃⁻ (strong acid conjugate anion) — neither hydrolyses. [1] (b) Na₂CO₃: alkaline. CO₃²⁻ + H₂O ⇌ HCO₃⁻ + OH⁻ — CO₃²⁻ is conjugate base of weak acid HCO₃⁻; hydrolyses → OH⁻ → alkaline (pH ~11). Na⁺ inert. [1] (c) FeCl₃: acidic. [Fe(H₂O)₆]³⁺ + H₂O ⇌ [Fe(H₂O)₅OH]²⁺ + H₃O⁺ — Fe³⁺ has very high charge density; polarises coordinated H₂O → H⁺ released → acidic (pH ~3). Cl⁻ inert. [1] (d) (NH₄)₂SO₄: acidic. NH₄⁺ ⇌ NH₃ + H⁺ — NH₄⁺ is conjugate acid of weak base NH₃ → hydrolyses to give H⁺ → acidic (pH ~5). SO₄²⁻ inert (from strong acid H₂SO₄). [1] (e) CH₃COONH₄: nearly neutral (~7). Both CH₃COO⁻ (hydrolyses → OH⁻) and NH₄⁺ (hydrolyses → H⁺) — they nearly cancel. Exact pH depends on relative Ka(NH₄⁺) vs Kb(CH₃COO⁻). [1]</div></div>
-
+  <div class="answer">Lewis acid: electron pair acceptor. Lewis base: electron pair donor. [1] (a) Fe<sup>3</sup><sup>+</sup> + 6H<sub>2</sub>O &rarr; [Fe(H<sub>2</sub>O)<sub>6</sub>]<sup>3</sup><sup>+</sup>. Fe<sup>3</sup><sup>+</sup> = Lewis acid (empty d orbitals, accepts 6 lone pairs); H<sub>2</sub>O = Lewis base (lone pairs on O). [1] (b) SO<sub>3</sub> + H<sub>2</sub>O &rarr; H<sub>2</sub>SO<sub>4</sub>. SO<sub>3</sub> = Lewis acid (accepts lone pair from O in H<sub>2</sub>O); H<sub>2</sub>O = Lewis base. [1] (c) AlCl<sub>3</sub> + Cl<sup>&minus;</sup> &rarr; AlCl<sub>4</sub><sup>&minus;</sup>. AlCl<sub>3</sub> = Lewis acid (incomplete octet on Al); Cl<sup>&minus;</sup> = Lewis base (lone pair donor). [1] (d) Ag<sup>+</sup> + 2NH<sub>3</sub> &rarr; [Ag(NH<sub>3</sub>)<sub>2</sub>]<sup>+</sup>. Ag<sup>+</sup> = Lewis acid; NH<sub>3</sub> = Lewis base (N lone pair). [1]</div></div>
   <div class="tq"><div class="tq-num">Q5 [5 marks]</div>
-  <p>Sketch and annotate the titration curves for: (a) 25 cm³ of 0.10 mol dm⁻³ NaOH added to 25 cm³ of 0.10 mol dm⁻³ HCl and (b) 0.10 mol dm⁻³ NaOH added to 0.10 mol dm⁻³ CH₃COOH. Label the equivalence point pH, buffer region, and the appropriate indicator for each. [5]</p>
+  <p>For the gas-phase reaction: HCl(g) + NH<sub>3</sub>(g) &rarr; NH<sub>4</sub>Cl(s), explain why this reaction: (a) CAN be explained by Brønsted-Lowry theory [2] (b) CANNOT be explained by Arrhenius theory [1] (c) Identify the conjugate acid-base pairs [2].</p>
   <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide':'Model Answer'">Model Answer</button>
-  <div class="answer">(a) Strong acid vs strong base: starts pH ~1 (HCl side). Gradual rise. Very steep jump from pH ~3 to pH ~11 at equivalence (25 cm³ NaOH added). Equivalence pH = 7. Levels off at pH ~13 (excess NaOH). Suitable indicator: any broad-range indicator (methyl orange, litmus, phenolphthalein all work — steep jump covers all their ranges). [2.5] (b) Weak acid vs strong base: starts pH ~2.9 (CH₃COOH). Buffer region (pH ~4–6, gradual slope) between start and half-equivalence point. Half-equivalence point at 12.5 cm³ NaOH: pH = pKa = 4.76 (buffer region midpoint). Steep jump from pH ~7 to pH ~11 at 25 cm³ (equivalence). Equivalence pH ~8–9 (CH₃COO⁻ slightly alkaline). Levels off at pH ~13. Indicator: phenolphthalein (8.3–10) — changes within the steep jump at equivalence. Methyl orange unsuitable (changes in buffer region, before equivalence). [2.5]</div></div>
-
+  <div class="answer">(a) Brønsted-Lowry: HCl donates H<sup>+</sup> to NH<sub>3</sub> &rarr; H<sup>+</sup> transfer occurs. HCl = acid (H<sup>+</sup> donor); NH<sub>3</sub> = base (H<sup>+</sup> acceptor). Brønsted-Lowry applies to gas-phase and non-aqueous reactions &mdash; it only requires H<sup>+</sup> transfer, not water. [2] (b) Arrhenius: requires dissolution in water to produce H<sup>+</sup> or OH<sup>&minus;</sup> ions. This is a gas-phase reaction with no water. No H<sup>+</sup> ions produced in solution; NH<sub>4</sub>Cl is a solid product. Arrhenius theory cannot describe it. [1] (c) Conjugate pair 1: HCl (acid) and Cl<sup>&minus;</sup> (conjugate base) &mdash; HCl loses H<sup>+</sup>. Conjugate pair 2: NH<sub>3</sub> (base) and NH<sub>4</sub><sup>+</sup> (conjugate acid) &mdash; NH<sub>3</sub> gains H<sup>+</sup>. [2]</div></div>
   <div class="tq"><div class="tq-num">Q6 [5 marks]</div>
-  <p>The Kw of water at 37°C (body temperature) is approximately 2.4 × 10⁻¹⁴. (a) Calculate the pH of pure water at 37°C. (b) Is this solution acidic, neutral, or alkaline? Explain. (c) What does this tell us about the pH of "neutrality" at different temperatures? [5]</p>
+  <p>Explain, with examples, the concept of a conjugate acid-base pair. For each species, write the formula of its conjugate acid OR conjugate base as indicated: (a) conjugate base of H<sub>3</sub>PO<sub>4</sub> (b) conjugate acid of CO<sub>3</sub><sup>2</sup><sup>&minus;</sup> (c) conjugate base of H<sub>2</sub>O (d) conjugate acid of HPO<sub>4</sub><sup>2</sup><sup>&minus;</sup> (e) conjugate base of HF. [5]</p>
   <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide':'Model Answer'">Model Answer</button>
-  <div class="answer">(a) Kw = [H⁺][OH⁻] = 2.4×10⁻¹⁴ at 37°C. Pure water: [H⁺] = [OH⁻] = √(2.4×10⁻¹⁴) = 1.55×10⁻⁷ mol dm⁻³. pH = −log(1.55×10⁻⁷) = 6.81. [2] (b) The solution is NEUTRAL — even though pH = 6.81 (less than 7). Neutral means [H⁺] = [OH⁻], which is true here. The solution is neither acidic (excess H⁺) nor alkaline (excess OH⁻). [2] (c) The pH of neutrality is NOT always 7 — it equals −½log(Kw), which depends on temperature. At 25°C: pKw = 14, so neutral pH = 7. At higher T, Kw increases (water ionisation is endothermic — higher T favours more ions) → [H⁺] increases → neutral pH &lt; 7. The practical implication: pH of "neutral" blood at 37°C is 6.81, but blood is slightly alkaline at 7.4 (relative to the neutral point of 6.81). [1]</div></div>
-</div>
-
-<div class="test-section">
-  <div class="test-sec-head"><h3>Section B — Extended Answer</h3><span class="marks-badge">20 marks</span></div>
-
+  <div class="answer">Conjugate acid-base pair: two species that differ by exactly one H<sup>+</sup>. When an acid donates H<sup>+</sup>, it becomes its conjugate base (one fewer H<sup>+</sup>, one more negative charge). When a base accepts H<sup>+</sup>, it becomes its conjugate acid. [1] (a) H<sub>3</sub>PO<sub>4</sub> &minus; H<sup>+</sup> = H<sub>2</sub>PO<sub>4</sub><sup>&minus;</sup> [1] (b) CO<sub>3</sub><sup>2</sup><sup>&minus;</sup> + H<sup>+</sup> = HCO<sub>3</sub><sup>&minus;</sup> [1] (c) H<sub>2</sub>O &minus; H<sup>+</sup> = OH<sup>&minus;</sup> [1] (d) HPO<sub>4</sub><sup>2</sup><sup>&minus;</sup> + H<sup>+</sup> = H<sub>2</sub>PO<sub>4</sub><sup>&minus;</sup> [1] (e) HF &minus; H<sup>+</sup> = F<sup>&minus;</sup> [0 &mdash; included in subtotal]</div></div>
   <div class="tq"><div class="tq-num">Q7 [10 marks]</div>
-  <p>(a) Explain, with Ka values and equations, the difference between a strong acid (HCl) and a weak acid (CH₃COOH) at the same concentration. Describe how you would distinguish them experimentally using three different observations. [5]<br>
-  (b) Describe the manufacture of a buffer of pH 7.4 (blood pH) using dihydrogen phosphate ions. The pKa of H₂PO₄⁻ is 7.2. Calculate the ratio [HPO₄²⁻]/[H₂PO₄⁻] needed. Why is the phosphate buffer important inside cells? [5]</p>
+  <p>(a) Explain fully, with equations, what is meant by the terms: (i) amphoteric (ii) amphiprotic. Illustrate with examples from H<sub>2</sub>O, HCO<sub>3</sub><sup>&minus;</sup>, and HSO<sub>4</sub><sup>&minus;</sup>. State whether amphoteric and amphiprotic mean exactly the same thing. [5] (b) Compare the three acid-base theories in a table with columns: Theory | Definition of Acid | Definition of Base | Limitation. Then describe one reaction that each broader theory can explain but the narrower cannot. [5]</p>
   <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide':'Model Answer'">Model Answer</button>
-  <div class="answer">(a) HCl (strong): HCl → H⁺ + Cl⁻ (complete, no equilibrium). Ka → ∞ (or very large). At 0.1 mol dm⁻³: [H⁺] = 0.1 → pH = 1.0. CH₃COOH (weak): CH₃COOH ⇌ H⁺ + CH₃COO⁻ (partial). Ka = 1.7×10⁻⁵ (small). At 0.1 mol dm⁻³: [H⁺] = 1.3×10⁻³ → pH = 2.9. [2] Experimental distinctions: (1) pH meter/indicator: HCl pH 1; CH₃COOH pH ~3 (at same concentration). (2) Electrical conductivity: HCl much higher conductivity (more ions in solution → more current). (3) Rate of reaction with Mg: HCl reacts faster (more H⁺ available → higher initial rate of H₂ evolution); both eventually produce same total H₂ if enough Mg used. (4) Reaction with Na₂CO₃: both produce CO₂ at same rate initially? — Actually HCl reacts faster (more H⁺). (5) Titration curve: HCl shows much steeper initial pH; CH₃COOH shows buffer region. [3] (b) Buffer: H₂PO₄⁻ (weak acid, pKa 7.2) + HPO₄²⁻ (conjugate base). Henderson-Hasselbalch: pH = pKa + log([HPO₄²⁻]/[H₂PO₄⁻]) → 7.4 = 7.2 + log(ratio) → log(ratio) = 0.2 → ratio = 10⁰·² = 1.58. [2] So [HPO₄²⁻]/[H₂PO₄⁻] = 1.58 : 1. Importance: pKa 7.2 is close to intracellular pH (~7.0–7.2) → phosphate buffer is most effective near intracellular pH → effectively maintains the pH around which most cellular enzymes function optimally. Phosphate is abundant in cells (from ATP, DNA backbone). [3]</div></div>
-
+  <div class="answer">(a) Amphoteric: can act as both acid and base (general term, includes Lewis sense). Amphiprotic: specifically can both donate AND accept a proton (H<sup>+</sup>). These terms largely overlap for Brønsted-Lowry discussion but amphoteric is broader (includes Lewis). [1] H<sub>2</sub>O as acid: H<sub>2</sub>O &rarr; OH<sup>&minus;</sup> + H<sup>+</sup> (with strong base NH<sub>3</sub>: H<sub>2</sub>O + NH<sub>2</sub><sup>&minus;</sup> &rarr; OH<sup>&minus;</sup> + NH<sub>3</sub>). H<sub>2</sub>O as base: H<sub>2</sub>O + H<sup>+</sup> &rarr; H<sub>3</sub>O<sup>+</sup> (with HCl). [1] HCO<sub>3</sub><sup>&minus;</sup> as acid: HCO<sub>3</sub><sup>&minus;</sup> &rarr; CO<sub>3</sub><sup>2</sup><sup>&minus;</sup> + H<sup>+</sup>. As base: HCO<sub>3</sub><sup>&minus;</sup> + H<sup>+</sup> &rarr; H<sub>2</sub>CO<sub>3</sub>. [1] HSO<sub>4</sub><sup>&minus;</sup> as acid: HSO<sub>4</sub><sup>&minus;</sup> &rarr; SO<sub>4</sub><sup>2</sup><sup>&minus;</sup> + H<sup>+</sup>. As base: HSO<sub>4</sub><sup>&minus;</sup> + H<sup>+</sup> &rarr; H<sub>2</sub>SO<sub>4</sub>. [1] Difference: amphoteric covers Lewis behaviour; amphiprotic is specifically proton transfer. Strictly not identical. [1] (b) Arrhenius: acid = H<sup>+</sup> in H<sub>2</sub>O; base = OH<sup>&minus;</sup> in H<sub>2</sub>O; limitation = only aqueous. Brønsted-Lowry: acid = H<sup>+</sup> donor; base = H<sup>+</sup> acceptor; limitation = requires H<sup>+</sup> transfer. Lewis: acid = e<sup>&minus;</sup> pair acceptor; base = e<sup>&minus;</sup> pair donor; limitation = broadest, least specific. [2] B-L explains what Arrhenius cannot: HCl(g) + NH<sub>3</sub>(g) &rarr; NH<sub>4</sub>Cl (gas phase, no water). Lewis explains what B-L cannot: BF<sub>3</sub> + F<sup>&minus;</sup> &rarr; BF<sub>4</sub><sup>&minus;</sup> (no H<sup>+</sup> transfer). [3]</div></div>
   <div class="tq"><div class="tq-num">Q8 [10 marks]</div>
-  <p>(a) Explain the concept of conjugate acid-base pairs in Brønsted-Lowry theory. State the relationship Ka × Kb = Kw and use it to explain why a strong acid has a very weak conjugate base. Calculate Kb for the ethanoate ion (CH₃COO⁻) given Ka(CH₃COOH) = 1.7 × 10⁻⁵. [5]<br>
-  (b) Explain why a titration of weak acid with weak base (e.g. CH₃COOH with NH₃) gives a poor endpoint and cannot use a standard indicator. Sketch the shape of this titration curve and compare it with a strong acid-strong base curve. [5]</p>
+  <p>(a) For each of the following, classify as strong acid, weak acid, strong base, or weak base and explain your reasoning: HNO<sub>3</sub>, CH<sub>3</sub>COOH, Ca(OH)<sub>2</sub>, NH<sub>3</sub>, H<sub>2</sub>SO<sub>4</sub>, HF, KOH, HCN. [4] (b) Using Brønsted-Lowry theory, write equations showing the stepwise dissociation of H<sub>3</sub>PO<sub>4</sub>. Label each species in the first step as acid, base, conjugate acid, or conjugate base. [3] (c) Explain why water is described as a neutral solvent in Brønsted-Lowry theory, and why some solvents are called levelling solvents for strong acids. [3]</p>
   <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide':'Model Answer'">Model Answer</button>
-  <div class="answer">(a) Conjugate pairs: when acid HA donates H⁺, it forms A⁻ (conjugate base). When base B accepts H⁺, it forms BH⁺ (conjugate acid). For any pair: Ka(HA) × Kb(A⁻) = Kw = 10⁻¹⁴ at 25°C. [1] Why strong acid → very weak conjugate base: HCl is strong acid (Ka → very large). Kb(Cl⁻) = Kw/Ka = 10⁻¹⁴ / (very large) = essentially zero. Cl⁻ has almost no tendency to accept H⁺ from water → very weak base. Conversely, weak acid CH₃COOH (small Ka) → its conjugate base CH₃COO⁻ has a non-negligible Kb → can accept some H⁺ → appreciable base → hydrolyses water slightly → alkaline salt solution. [2] Kb(CH₃COO⁻) = Kw / Ka(CH₃COOH) = 10⁻¹⁴ / 1.7×10⁻⁵ = 5.9×10⁻¹⁰ mol dm⁻³. pKb = 9.23. (Check: pKa + pKb = 4.77 + 9.23 = 14 ✓) [2] (b) Weak acid vs weak base titration: both species have their own buffering effects — before, at, and after equivalence, the pH changes gradually. The equivalence point is NOT sharply defined — the curve barely has a steep section. No common indicator has a range that falls within a steep pH jump, because there is none. Any indicator would change colour gradually over a wide volume range → no precise endpoint. [2] Titration curve shape: starts at pH ~3 (CH₃COOH, weak acid). Rises gradually through the buffer region (~pH 4–6). Near equivalence: pH changes very slowly and steadily — there is NO steep jump at all (compare strong/strong which has a jump of ~8 pH units in 0.1 cm³). After equivalence: gradual rise to ~pH 11. Compared to strong/strong curve: strong/strong has a dramatic near-vertical jump of 6–8 pH units centred at pH 7 around equivalence. The weak/weak curve has a slow S-shape with no steep section. The pH at equivalence is approximately 7 for weak acid/weak base when Ka ≈ Kb, but there is no indicator that can reliably detect this as a sharp endpoint. Potentiometric titration (pH meter and chart recorder) is needed instead. [3]</div></div>
-</div>
+  <div class="answer">(a) HNO<sub>3</sub>: strong acid (fully dissociated). CH<sub>3</sub>COOH: weak acid (Ka = 1.7&times;10<sup>&minus;</sup><sup>5</sup>, partial dissociation). Ca(OH)<sub>2</sub>: strong base (fully dissociates to Ca<sup>2</sup><sup>+</sup> + 2OH<sup>&minus;</sup>). NH<sub>3</sub>: weak base (NH<sub>3</sub> + H<sub>2</sub>O &#8652; NH<sub>4</sub><sup>+</sup> + OH<sup>&minus;</sup>, Kb = 1.8&times;10<sup>&minus;</sup><sup>5</sup>). H<sub>2</sub>SO<sub>4</sub>: strong acid (1st dissociation complete). HF: weak acid (Ka = 6.3&times;10<sup>&minus;</sup><sup>4</sup>, partial). KOH: strong base. HCN: weak acid (Ka = 4.9&times;10<sup>&minus;</sup><sup>1</sup><sup>0</sup>). [4] (b) Step 1: H<sub>3</sub>PO<sub>4</sub> (acid) + H<sub>2</sub>O (base) &#8652; H<sub>2</sub>PO<sub>4</sub><sup>&minus;</sup> (conjugate base) + H<sub>3</sub>O<sup>+</sup> (conjugate acid). Step 2: H<sub>2</sub>PO<sub>4</sub><sup>&minus;</sup> + H<sub>2</sub>O &#8652; HPO<sub>4</sub><sup>2</sup><sup>&minus;</sup> + H<sub>3</sub>O<sup>+</sup>. Step 3: HPO<sub>4</sub><sup>2</sup><sup>&minus;</sup> + H<sub>2</sub>O &#8652; PO<sub>4</sub><sup>3</sup><sup>&minus;</sup> + H<sub>3</sub>O<sup>+</sup>. [3] (c) Water is neutral: it can donate H<sup>+</sup> (to stronger bases) or accept H<sup>+</sup> (from stronger acids) equally readily &rarr; does not favour one direction. Levelling effect: in water, all strong acids appear equally strong because they are all 100% dissociated &mdash; water accepts their H<sup>+</sup> completely. To distinguish acid strengths among strong acids requires a weaker base solvent. [3]</div></div>
 
-<div class="unit-nav">
-  <a href="s4_unit15_equilibrium.html">← Unit 15: Equilibrium</a>
-  <a href="s4-chemistry.html">S4 Course Home</a>
-  <a href="s4_unit17_redox.html">Unit 17: Redox →</a>
-</div>
 </main>
 
 <footer>
@@ -1031,866 +530,19 @@ Ag⁺ + 2NH₃ → [Ag(NH₃)₂]⁺   (Ag⁺ = Lewis acid; NH₃ = Lewis base)<
   <a href="s4-chemistry.html">Back to S4</a> &bull; <a href="index.html">Home</a>
 </footer>
 
-
-
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-<style>
-#pdf-dl-bar{position:fixed;bottom:24px;right:24px;z-index:9000;}
-#pdf-dl-btn{background:#34d399;color:#000;border:none;padding:12px 22px;border-radius:9px;font-family:'JetBrains Mono',monospace;font-size:.84rem;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(52,211,153,.4);display:flex;align-items:center;gap:8px;}
-#pdf-dl-btn:hover{opacity:.88;}
-#pdf-dl-btn .spin{display:none;width:14px;height:14px;border:2px solid #000;border-top-color:transparent;border-radius:50%;animation:dlsp .7s linear infinite;}
-@keyframes dlsp{to{transform:rotate(360deg)}}
-#dl-pay-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:99990;align-items:center;justify-content:center;padding:16px;}
-#dl-pay-overlay.open{display:flex;}
-#dl-pay-box{background:#161b22;border:1px solid #30363d;border-radius:14px;width:100%;max-width:400px;max-height:92vh;overflow-y:auto;}
-#dl-pay-box .ph{padding:18px 20px 12px;border-bottom:1px solid #30363d;}
-#dl-pay-box .ph h2{font-family:'Playfair Display',serif;color:#fff;font-size:1.1rem;}
-#dl-pay-box .ph p{color:#8b949e;font-size:.78rem;margin-top:2px;}
-#dl-pay-box .pb{padding:16px 20px;}
-#dl-pay-box .pf{padding:12px 20px;border-top:1px solid #30363d;display:flex;gap:8px;}
-.amt-bb{background:rgba(232,197,71,.07);border:1px solid rgba(232,197,71,.2);border-radius:9px;padding:12px;text-align:center;margin-bottom:14px;}
-.amt-bb .al{font-family:'JetBrains Mono',monospace;font-size:.62rem;color:#8b949e;text-transform:uppercase;letter-spacing:.1em;margin-bottom:2px;}
-.amt-bb .av{font-family:'JetBrains Mono',monospace;font-size:1.7rem;color:#e8c547;font-weight:700;}
-.ph-rowb{display:flex;gap:7px;margin-bottom:6px;}
-.cc-selb{background:#1c2333;border:1px solid #30363d;border-radius:6px;color:#fff;padding:8px 6px;font-family:'JetBrains Mono',monospace;font-size:.78rem;width:110px;}
-.ph-inpb{flex:1;background:#1c2333;border:1px solid #30363d;border-radius:6px;color:#fff;padding:8px 11px;font-family:'JetBrains Mono',monospace;font-size:.86rem;}
-.ph-inpb:focus,.cc-selb:focus{outline:none;border-color:#e8c547;}
-.net-rb{display:flex;gap:6px;margin-bottom:12px;}
-.nbb{flex:1;background:#1c2333;border:1px solid #30363d;border-radius:6px;color:#8b949e;font-family:'JetBrains Mono',monospace;font-size:.68rem;padding:7px;cursor:pointer;text-align:center;}
-.nbb.sel{background:rgba(52,211,153,.1);border-color:#34d399;color:#34d399;}
-.pay-gob{flex:1;background:#e8c547;color:#000;border:none;padding:11px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:.84rem;font-weight:700;cursor:pointer;}
-.pay-gob:disabled{opacity:.5;cursor:not-allowed;}
-.cancel-bb{background:#1c2333;color:#8b949e;border:1px solid #30363d;padding:10px 14px;border-radius:7px;cursor:pointer;font-size:.82rem;}
-.pay-stb{display:none;text-align:center;padding:20px;}
-.dl-spinnerb{width:34px;height:34px;border:3px solid #30363d;border-top-color:#e8c547;border-radius:50%;animation:dlsp .8s linear infinite;margin:0 auto 12px;}
-</style>
-
-<div id="pdf-dl-bar">
-  <div style="position:relative;display:inline-block;">
-    <button id="pdf-dl-btn" onclick="toggleDlMenu()">
-      <span class="spin" id="pdf-spin"></span>
-      <span id="pdf-btn-text">&#11015; Download PDF</span>
-      <span style="margin-left:8px;font-size:.85em;">&#x25BC;</span>
-    </button>
-    <div id="pdf-dl-menu" style="display:none;position:absolute;bottom:calc(100% + 8px);right:0;background:#161b22;border:1px solid #30363d;border-radius:8px;padding:8px;box-shadow:0 8px 32px rgba(0,0,0,.6);min-width:240px;z-index:10000;">
-      <button type="button" class="dl-opt" onclick="pickDl('notes')" style="display:block;width:100%;text-align:left;background:transparent;color:#e6edf3;border:none;padding:10px 14px;border-radius:6px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:.82rem;">&#128214; Notes only</button>
-      <button type="button" class="dl-opt" onclick="pickDl('quiz')" style="display:block;width:100%;text-align:left;background:transparent;color:#e6edf3;border:none;padding:10px 14px;border-radius:6px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:.82rem;">&#129514; Quiz only</button>
-      <button type="button" class="dl-opt" onclick="pickDl('test')" style="display:block;width:100%;text-align:left;background:transparent;color:#e6edf3;border:none;padding:10px 14px;border-radius:6px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:.82rem;">&#128221; Test only</button>
-      <div style="height:1px;background:#30363d;margin:4px 8px;"></div>
-      <button type="button" class="dl-opt" onclick="pickDl('all')" style="display:block;width:100%;text-align:left;background:transparent;color:#e6edf3;border:none;padding:10px 14px;border-radius:6px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:.82rem;">&#128196; Everything (full unit)</button>
-    </div>
-  </div>
-  <style>.dl-opt:hover{background:rgba(56,189,248,.1)!important;color:#38bdf8!important;}</style>
-</div>
-
-<div id="dl-pay-overlay">
-  <div id="dl-pay-box">
-    <div class="ph"><h2>&#128179; Pay to Download</h2><p>Unit notes &mdash; instant PDF download</p></div>
-    <div id="dl-pform">
-      <div class="pb">
-        <div class="amt-bb"><div class="al">Price</div><div class="av">300 RWF</div><div style="font-size:.72rem;color:#8b949e;margin-top:2px;">One-time &middot; Download immediately after payment</div></div>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:.67rem;color:#8b949e;text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px;">Phone Number</div>
-        <div class="ph-rowb">
-          <select class="cc-selb" id="dl-ccode" onchange="dlUpdateHint()">
-            <option value="+250" data-net="MTN / Airtel">&#127479;&#127484; +250</option>
-            <option value="+256" data-net="MTN / Airtel">&#127482;&#127468; +256</option>
-            <option value="+255" data-net="Vodacom / Tigo">&#127481;&#127487; +255</option>
-            <option value="+254" data-net="M-Pesa / Airtel">&#127472;&#127466; +254</option>
-            <option value="+234" data-net="MTN / Airtel">&#127475;&#127468; +234</option>
-            <option value="+233" data-net="MTN / Vodafone">&#127468;&#127469; +233</option>
-          </select>
-          <input class="ph-inpb" type="tel" id="dl-phone" placeholder="07XXXXXXXX" oninput="dlValPhone()" maxlength="12"/>
-        </div>
-        <div class="ph-hint" id="dl-ph-hint">Rwanda &mdash; MTN MoMo or Airtel Money</div>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:.67rem;color:#8b949e;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;">Network</div>
-        <div class="net-rb">
-          <div class="nbb sel" onclick="dlSelNet(this,'MTN')">MTN MoMo</div>
-          <div class="nbb" onclick="dlSelNet(this,'AIRTEL')">Airtel Money</div>
-          <div class="nbb" onclick="dlSelNet(this,'OTHER')">Other</div>
-        </div>
-        <div id="dl-err" style="display:none;font-family:'JetBrains Mono',monospace;font-size:.74rem;color:#f87171;padding:7px 10px;background:rgba(248,113,113,.07);border-radius:5px;margin-bottom:8px;"></div>
-      </div>
-      <div class="pf">
-        <button class="pay-gob" id="dl-pay-go" onclick="dlInitPay()" disabled>Pay &amp; Download</button>
-        <button class="cancel-bb" onclick="closeDlPay()">Cancel</button>
-      </div>
-    </div>
-    <div class="pay-stb" id="dl-st-proc">
-      <div class="dl-spinnerb"></div>
-      <div style="font-family:'JetBrains Mono',monospace;color:#fff;font-size:.86rem;margin-bottom:5px;">Processing Payment...</div>
-      <div style="color:#8b949e;font-size:.79rem;">Check your phone &mdash; enter your PIN to confirm.</div>
-    </div>
-    <div class="pay-stb" id="dl-st-ok">
-      <div style="font-size:2.8rem;margin-bottom:10px;">&#9989;</div>
-      <div style="font-family:'JetBrains Mono',monospace;color:#34d399;font-size:.92rem;margin-bottom:5px;">Payment Confirmed!</div>
-      <div style="color:#8b949e;font-size:.8rem;margin-bottom:16px;">Generating your PDF...</div>
-      <div class="dl-spinnerb"></div>
-    </div>
-    <div class="pay-stb" id="dl-st-fail">
-      <div style="font-size:2.8rem;margin-bottom:10px;">&#10060;</div>
-      <div style="font-family:'JetBrains Mono',monospace;color:#f87171;font-size:.86rem;margin-bottom:5px;">Payment Not Completed</div>
-      <div style="color:#8b949e;font-size:.79rem;margin-bottom:14px;" id="dl-fail-txt"></div>
-      <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
-        <button style="background:#e8c547;color:#000;border:none;padding:8px 16px;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:.76rem;font-weight:700;cursor:pointer;" onclick="dlShowForm()">Try Again</button>
-        <a id="dl-wa-link" href="#" target="_blank" style="background:#25D366;color:#fff;padding:8px 14px;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:.76rem;font-weight:700;text-decoration:none;">WhatsApp</a>
-        <button style="background:#1c2333;color:#8b949e;border:1px solid #30363d;padding:8px 14px;border-radius:6px;cursor:pointer;font-size:.8rem;" onclick="closeDlPay()">Cancel</button>
-      </div>
-    <!-- Payment Unavailable (no PawaPay key) -->
-    <div class="pay-stb" id="dl-st-manual">
-      <div style="font-size:2.4rem;margin-bottom:10px;">⚙️</div>
-      <div style="font-family:'JetBrains Mono',monospace;color:#8b949e;font-size:.88rem;margin-bottom:12px;">Payment service is being set up.</div>
-      <div style="color:#8b949e;font-size:.82rem;margin-bottom:18px;line-height:1.8;">Online payment is not yet available for this unit.<br>Please contact your teacher to get access.</div>
-      <button style="background:#1c2333;color:#8b949e;border:1px solid #30363d;padding:10px 18px;border-radius:7px;cursor:pointer;font-size:.82rem;" onclick="dlShowForm()">&#8592; Back</button>
-      <div id="dl-manual-phone" style="display:none;"></div>
-      <a id="dl-wa-link" href="#" style="display:none;"></a>
-    </div>
-  </div>
-</div>
-
 <script>
-var _DL_UNIT_ID='S4-16';
-var _DL_PRICE=300;
-var _dlNet='MTN',_dlPollTimer=null;
-function isPaidUnit(){
-  if(localStorage.getItem('teacher_dl_unlocked')==='true')return true;
-  var paid=JSON.parse(localStorage.getItem('paid_items')||'[]');
-  var lvl=_DL_UNIT_ID.split('-')[0];
-  return paid.indexOf(_DL_UNIT_ID)>=0||paid.indexOf('ALL')>=0||paid.indexOf(lvl)>=0||paid.indexOf('BUNDLE-'+lvl)>=0;
-}
-function checkPayAndDownload(){
-  if(localStorage.getItem('teacher_dl_unlocked')==='true'){doDownloadPDF();return;}
-  document.getElementById('dl-pay-overlay').classList.add('open');dlShowForm();
-}
-function closeDlPay(){document.getElementById('dl-pay-overlay').classList.remove('open');if(_dlPollTimer){clearInterval(_dlPollTimer);_dlPollTimer=null;}}
-function dlShowForm(){document.getElementById('dl-pform').style.display='block';['dl-st-proc','dl-st-ok','dl-st-fail','dl-st-manual'].forEach(function(id){document.getElementById(id).style.display='none';});document.getElementById('dl-err').style.display='none';}
-function dlSelNet(el,n){_dlNet=n;document.querySelectorAll('.nbb').forEach(function(b){b.classList.remove('sel');});el.classList.add('sel');}
-function dlUpdateHint(){var o=document.getElementById('dl-ccode').options[document.getElementById('dl-ccode').selectedIndex];document.getElementById('dl-ph-hint').textContent=o.text+' - '+(o.dataset.net||'Mobile Money');}
-function dlValPhone(){document.getElementById('dl-pay-go').disabled=document.getElementById('dl-phone').value.replace(/\D/g,'').length<8;}
-async function dlInitPay(){
-  var code=document.getElementById('dl-ccode').value;
-  var num=document.getElementById('dl-phone').value.replace(/\D/g,'');
-  if(num.length<8){var e=document.getElementById('dl-err');e.style.display='block';e.textContent='Enter a valid phone number.';return;}
-  var fullPhone=code.replace('+','')+num.replace(/^0/,'');
-  document.getElementById('dl-pform').style.display='none';
-  document.getElementById('dl-st-proc').style.display='block';
-  var workerUrl='https://chem-payment.hajackson2020.workers.dev';
-  var depositId='dep_'+Date.now()+'_'+Math.random().toString(36).substr(2,5);
-  var cMap={250:'RW',256:'UG',255:'TZ',254:'KE',234:'NG',233:'GH'};
-  var ci=cMap[parseInt(code.replace('+',''))]||'RW';
-  var corrMap={MTN:{RW:'MTNRW',UG:'MTNUG',GH:'MTNGHS'},AIRTEL:{RW:'AIRTELRW',UG:'AIRTELUG'},OTHER:{RW:'MTNRW'}};
-  var curMap={RW:'RWF',UG:'UGX',TZ:'TZS',KE:'KES',NG:'NGN',GH:'GHS'};
-  var correspondent=(corrMap[_dlNet]||corrMap.MTN)[ci]||'MTNRW';
-  var currency=curMap[ci]||'RWF';
-  try{
-    var r=await fetch(workerUrl+'/deposit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({depositId:depositId,amount:String(_DL_PRICE),currency:currency,correspondent:correspondent,payer:{type:'MSISDN',address:{value:fullPhone}},statementDescription:'ChemNotes'})});
-    var d=await r.json();
-    // DEBUG: log what PawaPay returns
-    console.log('PawaPay response status:', r.status);
-    console.log('PawaPay response body:', JSON.stringify(d));
-    if(d.depositId||r.ok){
-      _dlPollTimer=setInterval(async function(){
-        try{
-          var pr=await fetch(workerUrl+'/deposit?id='+depositId);
-          var pd=await pr.json();
-          var st=((pd.status||(pd[0]&&pd[0].status))||'').toUpperCase();
-          if(st==='COMPLETED'){clearInterval(_dlPollTimer);_dlPollTimer=null;markPaidAndDownload();}
-          else if(st==='FAILED'||st==='EXPIRED'){clearInterval(_dlPollTimer);_dlPollTimer=null;document.getElementById('dl-st-proc').style.display='none';document.getElementById('dl-fail-txt').textContent=(pd.correspondentIds&&pd.correspondentIds.reason)||'Payment not completed.';document.getElementById('dl-st-fail').style.display='block';}
-        }catch(e){}
-      },3000);
-      setTimeout(function(){if(_dlPollTimer){clearInterval(_dlPollTimer);_dlPollTimer=null;document.getElementById('dl-st-proc').style.display='none';document.getElementById('dl-fail-txt').textContent='Timed out. Contact Mr Habimana via WhatsApp.';document.getElementById('dl-st-fail').style.display='block';}},180000);
-    }else{throw new Error(d.errorCode||'Failed');}
-  }catch(e){
-    document.getElementById('dl-st-proc').style.display='none';
-    var wa2=encodeURIComponent('PAYMENT\nUnit: '+document.title+'\nAmount: '+_DL_PRICE+' RWF\nPhone: '+code+num);
-    document.getElementById('dl-wa-link').href='https://wa.me/250788800375?text='+wa2;
-    document.getElementById('dl-fail-txt').innerHTML='Error: '+(d&&d.errorCode?d.errorCode:(e&&e.message?e.message:'Unknown error. Check console F12'));
-    document.getElementById('dl-st-fail').style.display='block';
-  }
-}
-function markPaidAndDownload(){
-  var paid=JSON.parse(localStorage.getItem('paid_items')||'[]');
-  if(paid.indexOf(_DL_UNIT_ID)<0)paid.push(_DL_UNIT_ID);
-  localStorage.setItem('paid_items',JSON.stringify(paid));
-  document.getElementById('dl-st-proc').style.display='none';
-  document.getElementById('dl-st-ok').style.display='block';
-  setTimeout(function(){closeDlPay();doDownloadPDF();},1500);
-}
+const _CA={q1:'B',q2:'B',q3:'B',q4:'C',q5:'B',q6:'C',q7:'B',q8:'B',q9:'C',q10:'C',q11:'C',q12:'C',q13:'B',q14:'B',q15:'C',q16:'C',q17:'B',q18:'B',q19:'B',q20:'C',q21:'A',q22:'B',q23:'C',q24:'B',q25:'C'};
 
-// === Part selector for Download PDF ===
-var _dlPart = 'notes';
-function toggleDlMenu(){
-  var m = document.getElementById('pdf-dl-menu');
-  m.style.display = (m.style.display === 'block') ? 'none' : 'block';
-  if(m.style.display === 'block'){
-    setTimeout(function(){ document.addEventListener('click', closeDlMenuOutside, true); }, 10);
-  }
-}
-function closeDlMenuOutside(e){
-  var m = document.getElementById('pdf-dl-menu');
-  var b = document.getElementById('pdf-dl-btn');
-  if(!m) return;
-  if(m.contains(e.target) || b.contains(e.target)) return;
-  m.style.display = 'none';
-  document.removeEventListener('click', closeDlMenuOutside, true);
-}
-function pickDl(part){
-  _dlPart = part;
-  document.getElementById('pdf-dl-menu').style.display = 'none';
-  document.removeEventListener('click', closeDlMenuOutside, true);
-  var labels = {notes:'Notes only', quiz:'Quiz only', test:'Test only', all:'Everything'};
-  document.getElementById('pdf-btn-text').textContent = '⬇ ' + labels[part] + '...';
-  checkPayAndDownload();
-}
-
-function doDownloadPDF(){
-  var btn=document.getElementById('pdf-dl-btn');
-  var spin=document.getElementById('pdf-spin');
-  var txt=document.getElementById('pdf-btn-text');
-  btn.disabled=true;spin.style.display='block';txt.textContent='Generating...';
-  var title=document.title.replace(/[^a-zA-Z0-9\s]/g,'').replace(/\s+/g,'_').substring(0,60)||'chemistry_notes';
-  var main=document.querySelector('main')||document.querySelector('.content')||document.body;
-  var clone=main.cloneNode(true);
-  // Strip sections based on what the user chose in the dropdown
-  var part = (typeof _dlPart !== 'undefined') ? _dlPart : 'notes';
-  if(part === 'notes'){
-    // Remove quiz + test, keep only notes
-    clone.querySelectorAll('.quiz-wrap,#quiz,#test,.quiz-submit,.qs,button,#pdf-dl-bar,#dl-pay-overlay,.section-header[id="quiz"],.section-header[id="test"]').forEach(function(el){el.remove();});
-  } else if(part === 'quiz'){
-    // Keep only quiz section
-    var keep = clone.querySelector('#quiz') || clone.querySelector('.quiz-wrap');
-    if(keep){
-      var keepParent = keep.closest('.section-header') ? keep.closest('.section-header').parentNode : clone;
-      // Find the quiz block and its section header
-      var qHeader = null;
-      var all = clone.querySelectorAll('.section-header, [id="quiz"], .quiz-wrap');
-      for(var i=0;i<all.length;i++){ if(all[i].id === 'quiz' || all[i].querySelector && all[i].querySelector('#quiz')){ qHeader = all[i]; break; } }
-      // Gather quiz header + wrap
-      var header = clone.querySelector('.section-header[id="quiz"]') || clone.querySelector('#quiz');
-      var wrap = clone.querySelector('.quiz-wrap') || clone.querySelector('#quiz + *');
-      // Build clean content
-      var quizContent = document.createElement('div');
-      if(header) quizContent.appendChild(header.cloneNode(true));
-      if(wrap && wrap !== header) quizContent.appendChild(wrap.cloneNode(true));
-      // Replace clone content with just the quiz
-      clone.innerHTML = '';
-      clone.appendChild(quizContent);
-    } else {
-      // Fallback: no quiz section found
-      clone.innerHTML = '<h2>Quiz not available in this unit</h2>';
-    }
-    // Remove interactive stuff
-    clone.querySelectorAll('.quiz-submit,.qs,button,#pdf-dl-bar,#dl-pay-overlay,input[type="radio"],input[type="submit"]').forEach(function(el){el.remove();});
-  } else if(part === 'test'){
-    // Keep only test section
-    var header = clone.querySelector('.section-header[id="test"]') || clone.querySelector('#test');
-    var testContent = document.createElement('div');
-    if(header){
-      testContent.appendChild(header.cloneNode(true));
-      // Gather all subsequent siblings until next section-header or end
-      var n = header.nextElementSibling;
-      while(n && !n.classList.contains('section-header')){
-        testContent.appendChild(n.cloneNode(true));
-        n = n.nextElementSibling;
-      }
-      clone.innerHTML = '';
-      clone.appendChild(testContent);
-    } else {
-      clone.innerHTML = '<h2>Test not available in this unit</h2>';
-    }
-    clone.querySelectorAll('button,#pdf-dl-bar,#dl-pay-overlay,input[type="submit"]').forEach(function(el){el.remove();});
-  } else {
-    // 'all' - keep everything, only strip download/payment UI
-    clone.querySelectorAll('#pdf-dl-bar,#dl-pay-overlay,.quiz-submit,.qs,button').forEach(function(el){el.remove();});
-  }
-  var unitTitleText = document.title.split('–')[1] ? document.title.split('–')[1].split('|')[0].trim() : (document.querySelector('h1') ? document.querySelector('h1').textContent.trim() : 'Chemistry Unit');var levelText = (document.title.match(/S[456]\s*Chemistry/i) || ['Chemistry'])[0];var unitNumMatch = document.title.match(/Unit\s*\d+/i);var unitNumText = unitNumMatch ? unitNumMatch[0] : '';var bookStyle = document.createElement('style');bookStyle.textContent = '.pdf-cover{width:794px;height:1100px;background:#fff;position:relative;page-break-after:always;}.pdf-cover-bar{position:absolute;top:0;left:0;width:100%;height:28%;background:#0f766e;}.pdf-cover-inner{position:absolute;top:0;left:0;width:100%;height:100%;padding:100px 60px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:space-between;}.pdf-cover-top{color:#fff;}.pdf-cover-top .level{font-family:Georgia,serif;font-size:18pt;letter-spacing:6px;text-transform:uppercase;opacity:.9;margin-bottom:20px;}.pdf-cover-top .unum{font-family:Georgia,serif;font-size:14pt;letter-spacing:4px;opacity:.75;}.pdf-cover-mid{margin-top:120px;}.pdf-cover-mid h1{font-family:Georgia,serif;font-size:42pt;color:#1a1a1a;line-height:1.15;font-weight:700;margin:0;}.pdf-cover-mid .subtitle{font-family:Georgia,serif;font-size:15pt;color:#555;margin-top:24px;font-style:italic;}.pdf-cover-bot{color:#333;}.pdf-cover-bot .author{font-family:Georgia,serif;font-size:22pt;font-weight:700;margin-bottom:6px;}.pdf-cover-bot .pub{font-family:Georgia,serif;font-size:12pt;color:#666;}.pdf-body{font-family:Georgia,serif;font-size:11pt;color:#1a1a1a;line-height:1.65;padding:48px 54px;}.pdf-body *{color:#1a1a1a!important;background:transparent!important;box-shadow:none!important;border-color:#d0d0d0!important;}.pdf-body h1{font-family:Georgia,serif;color:#0f766e!important;font-size:22pt;border-bottom:3px solid #0f766e!important;padding-bottom:8px;margin:28px 0 18px;page-break-after:avoid;font-weight:700;}.pdf-body h2{font-family:Georgia,serif;color:#0f766e!important;font-size:16pt;margin:24px 0 12px;page-break-after:avoid;font-weight:700;border-bottom:1px solid #bfdbd7!important;padding-bottom:4px;}.pdf-body h3{font-family:Georgia,serif;color:#333!important;font-size:13pt;margin:18px 0 8px;page-break-after:avoid;font-weight:700;}.pdf-body table{width:100%;border-collapse:collapse;margin:14px 0;font-size:10pt;}.pdf-body td,.pdf-body th{border:1px solid #c8c8c8;padding:7px 9px;vertical-align:top;}.pdf-body th{background:#f3faf8!important;color:#0f766e!important;font-weight:700;text-align:left;}.pdf-body tr:nth-child(even) td{background:#f9f9f9!important;}.pdf-body .callout,.pdf-body .definition,.pdf-body .example,.pdf-body .note{background:#f3faf8!important;border-left:4px solid #0f766e!important;padding:10px 14px;margin:12px 0;}.pdf-body ul,.pdf-body ol{margin:8px 0 8px 24px;}.pdf-body li{margin:4px 0;}.pdf-body img{max-width:100%;height:auto;}.pdf-body a{color:#0f766e!important;text-decoration:none;}.pdf-footer{text-align:center;color:#999;font-family:Georgia,serif;font-size:9pt;margin-top:40px;padding-top:16px;border-top:1px solid #ddd;}';var wrapper=document.createElement('div');wrapper.style.cssText='background:#fff;';var coverHTML = '<div class="pdf-cover"><div class="pdf-cover-bar"></div><div class="pdf-cover-inner"><div class="pdf-cover-top"><div class="level">' + levelText + '</div>' + (unitNumText ? '<div class="unum">' + unitNumText + '</div>' : '') + '</div><div class="pdf-cover-mid"><h1>' + unitTitleText + '</h1><div class="subtitle">A complete guide with notes, examples, and practice questions</div></div><div class="pdf-cover-bot"><div class="author">Jackson Habimana</div><div class="pub">Chemistry Portal &mdash; jacksonhabimana.github.io</div></div></div></div>';var bodyDiv = document.createElement('div');bodyDiv.className = 'pdf-body';bodyDiv.appendChild(clone);var footer = document.createElement('div');footer.className = 'pdf-footer';footer.innerHTML = '&copy; Jackson Habimana Chemistry Portal &mdash; All rights reserved';bodyDiv.appendChild(footer);wrapper.appendChild(bookStyle);wrapper.innerHTML += coverHTML;wrapper.appendChild(bodyDiv);
-  html2pdf().set({margin:[10,10,10,10],filename:title+'.pdf',image:{type:'jpeg',quality:0.92},html2canvas:{scale:1.5,useCORS:true,backgroundColor:'#ffffff',logging:false},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}}).from(wrapper).save().then(function(){btn.disabled=false;spin.style.display='none';txt.textContent='Downloaded!';setTimeout(function(){txt.textContent='Download PDF';},3000);}).catch(function(){btn.disabled=false;spin.style.display='none';txt.textContent='Download PDF';});
-}
-document.getElementById('dl-pay-overlay').addEventListener('click',function(e){if(e.target===this)closeDlPay();});
+(function(){
+  const SK='quiz_access_granted',CK='quiz_access_code';
+  const gate=document.createElement('div');gate.id='unit-quiz-gate';
+  gate.style.cssText='position:fixed;inset:0;background:#0d1117;z-index:99999;display:none;align-items:center;justify-content:center;padding:24px;';
+  gate.innerHTML='<div style="background:#161b22;border:2px solid rgba(244,114,182,.4);border-radius:16px;padding:48px 40px;max-width:460px;width:100%;text-align:center;"><div style="font-size:3.5rem;margin-bottom:16px;">🔒</div><h2 style="font-family:Playfair Display,serif;font-size:1.8rem;color:#fff;margin-bottom:10px;">Quiz Locked</h2><p style="color:#8b949e;font-size:.93rem;margin-bottom:24px;">Enter the access code from your teacher.</p><input id="ugc-inp" type="text" placeholder="Enter Code" maxlength="20" style="width:100%;background:#1c2333;border:2px solid #30363d;border-radius:8px;color:#e6edf3;padding:14px 18px;font-family:JetBrains Mono,monospace;font-size:1.4rem;text-align:center;letter-spacing:.2em;text-transform:uppercase;margin-bottom:12px;box-sizing:border-box;" onkeydown="if(event.key===\'Enter\')unlockUnitQuiz()"/><div id="ugc-err" style="font-family:JetBrains Mono,monospace;font-size:.82rem;color:#f87171;min-height:20px;margin-bottom:10px;"></div><button onclick="unlockUnitQuiz()" style="width:100%;background:#f472b6;color:#000;border:none;padding:13px;border-radius:8px;font-family:JetBrains Mono,monospace;font-size:.9rem;font-weight:700;cursor:pointer;margin-bottom:10px;">🔓 Unlock Quiz</button><button onclick="document.getElementById(\'unit-quiz-gate\').style.display=\'none\';document.body.style.overflow=\'\'" style="width:100%;background:transparent;border:1px solid #30363d;color:#8b949e;padding:9px;border-radius:8px;font-family:JetBrains Mono,monospace;font-size:.8rem;cursor:pointer;">✕ Cancel</button></div>';
+  document.body.appendChild(gate);
+  window.unlockUnitQuiz=function(){const v=document.getElementById('ugc-inp').value.trim().toUpperCase();const c=localStorage.getItem(CK);if(!v){document.getElementById('ugc-err').textContent='Enter the code.';return;}if(v===c||!c){sessionStorage.setItem(SK,c||'open');document.getElementById('unit-quiz-gate').style.display='none';document.body.style.overflow='';}else{document.getElementById('ugc-err').textContent='❌ Wrong code.';document.getElementById('ugc-inp').value='';}};
+  window.addEventListener('DOMContentLoaded',function(){const code=localStorage.getItem(CK);if(!code)return;const granted=sessionStorage.getItem(SK);if(granted)return;const qw=document.querySelector('.quiz-wrap');if(!qw)return;qw.addEventListener('click',function(e){if(!localStorage.getItem(CK))return;if(sessionStorage.getItem(SK))return;e.stopPropagation();e.preventDefault();document.getElementById('unit-quiz-gate').style.display='flex';document.body.style.overflow='hidden';},true);});
+})();
 </script>
+
 </body>
 </html>
-  </div>
-</div>
-
-<!-- 16.5 -->
-<div class="section-header" id="s165">
-  <span class="section-number">16.5</span>
-  <h2>Neutralisation Reactions</h2>
-</div>
-
-<div class="card">
-  <h3>Types of Neutralisation</h3>
-  <p>Neutralisation is the reaction between an acid and a base to produce a <strong>salt and water</strong>. The net ionic equation for any strong acid + strong base neutralisation is always:</p>
-  <div class="formula-block">H⁺(aq) + OH⁻(aq) → H₂O(l)     ΔH = −57.1 kJ mol⁻¹  (enthalpy of neutralisation)</div>
-  <div class="formula-block">Strong acid + strong base:
-HCl + NaOH → NaCl + H₂O
-
-Strong acid + weak base:
-HCl + NH₃ → NH₄Cl     (NH₄Cl is the salt — acidic solution)
-
-Weak acid + strong base:
-CH₃COOH + NaOH → CH₃COONa + H₂O    (CH₃COONa — basic solution)
-
-Weak acid + weak base:
-CH₃COOH + NH₃ → CH₃COONH₄    (depends on relative Ka and Kb)
-
-Acid + carbonate:
-H��SO₄ + Na₂CO₃ → Na₂SO₄ + H₂O + CO₂↑
-2HCl + CaCO₃ → CaCl₂ + H₂O + CO₂↑
-
-Acid + metal oxide:
-H��SO₄ + CuO → CuSO₄ + H₂O
-
-Acid + metal:
-Zn + H₂SO₄(dil.) → ZnSO₄ + H₂↑</div>
-</div>
-
-<div class="card">
-  <h3>Enthalpy of Neutralisation</h3>
-  <p>The standard enthalpy of neutralisation (ΔHₙ) is the enthalpy change when 1 mol of water is formed in a neutralisation reaction.</p>
-  <div class="tbl-wrap" style="margin:0;"><table>
-    <thead><tr><th>Acid + Base</th><th>ΔHₙ (kJ/mol)</th><th>Reason for difference</th></tr></thead>
-    <tbody>
-      <tr><td>HCl + NaOH</td><td>−57.1</td><td>Strong + strong → net ionic equation only: H⁺ + OH⁻ → H₂O</td></tr>
-      <tr><td>HNO₃ + KOH</td><td>−57.3</td><td>Strong + strong — same net reaction</td></tr>
-      <tr><td>CH₃COOH + NaOH</td><td>−55.2</td><td>Weak acid — energy needed to ionise CH₃COOH; less exothermic</td></tr>
-      <tr><td>HCl + NH₃</td><td>−52.2</td><td>Weak base — energy needed to ionise NH₃; less exothermic</td></tr>
-      <tr><td>CH₃COOH + NH₃</td><td>−50.4</td><td>Both weak — most energy used in ionisation; least exothermic</td></tr>
-    </tbody>
-  </table></div>
-  <p>All strong acid + strong base reactions have ΔHₙ ≈ −57 kJ/mol because the net reaction is always H⁺ + OH⁻ → H₂O. Weak acids/bases are less exothermic because some energy is used to ionise the weak electrolyte (endothermic partial ionisation step subtracts from the total heat).</p>
-</div>
-
-<!-- 16.6 -->
-<div class="section-header" id="s166">
-  <span class="section-number">16.6</span>
-  <h2>Salt Hydrolysis — pH of Salt Solutions</h2>
-</div>
-
-<div class="card">
-  <h3>Why Are Some Salt Solutions Not Neutral?</h3>
-  <p>When a salt dissolves in water, the ions may react with water (hydrolyse), producing H⁺ or OH⁻ → the solution is not neutral. The pH depends on the parent acid and base:</p>
-  <div class="tbl-wrap" style="margin:0;"><table>
-    <thead><tr><th>Salt type</th><th>Example</th><th>pH in water</th><th>Reason</th></tr></thead>
-    <tbody>
-      <tr><td>Strong acid + Strong base</td><td>NaCl, KNO₃, Na₂SO₄</td><td>7 (neutral)</td><td>Na⁺ and Cl⁻ neither hydrolyse — spectator ions</td></tr>
-      <tr><td>Strong acid + Weak base</td><td>NH₄Cl, NH₄NO₃</td><td>&lt;7 (acidic)</td><td>NH₄⁺ + H₂O ⇌ NH₃ + H₃O⁺ — ammonium hydrolyses</td></tr>
-      <tr><td>Weak acid + Strong base</td><td>CH₃COONa, Na₂CO₃</td><td>&gt;7 (basic)</td><td>CH₃COO⁻ + H₂O ⇌ CH₃COOH + OH⁻ — acetate hydrolyses</td></tr>
-      <tr><td>Weak acid + Weak base</td><td>CH₃COONH₄</td><td>≈7 (depends on Ka vs Kb)</td><td>Both ions hydrolyse; pH depends on relative strength</td></tr>
-    </tbody>
-  </table></div>
-</div>
-
-<!-- 16.7 -->
-<div class="section-header" id="s167">
-  <span class="section-number">16.7</span>
-  <h2>Buffer Solutions</h2>
-</div>
-
-<div class="def-box">
-  <strong>Definition — Buffer Solution</strong>
-  A solution that <strong>resists changes in pH</strong> when small amounts of acid or base are added. It maintains a nearly constant pH. Buffers contain a weak acid and its conjugate base (or a weak base and its conjugate acid) in comparable concentrations.
-</div>
-
-<div class="card">
-  <h3>How a Buffer Works — Acidic Buffer</h3>
-  <p>An acidic buffer contains a <strong>weak acid (HA)</strong> and its <strong>conjugate base (A⁻)</strong>, typically as its sodium salt NaA:</p>
-  <div class="formula-block">Example: CH₃COOH / CH₃COO⁻Na⁺ buffer (pKa = 4.75; effective range pH 3.75–5.75)
-
-When acid (H⁺) is added:
-CH₃COO⁻ + H⁺ → CH₃COOH    (base component neutralises added H⁺ → pH barely changes)
-
-When base (OH⁻) is added:
-CH₃COOH + OH⁻ → CH₃COO⁻ + H₂O    (acid component neutralises added OH⁻ → pH barely changes)</div>
-  <p>The buffer works because there is a large reservoir of both the weak acid (to neutralise OH⁻) and its conjugate base (to neutralise H⁺).</p>
-</div>
-
-<div class="card">
-  <h3>Henderson-Hasselbalch Equation</h3>
-  <div class="formula-block">pH = pKa + log([A⁻]/[HA])
-
-where [A⁻] = concentration of conjugate base (salt)
-      [HA] = concentration of weak acid
-
-Special case: when [A⁻] = [HA] → log(1) = 0 → pH = pKa  (half-equivalence point)</div>
-  <p>The buffer has maximum capacity (resists pH change best) when [A⁻] = [HA], i.e. when pH = pKa. Buffers work effectively in the range pKa ± 1.</p>
-  <div class="example-box">
-    <div class="ex-head">Worked Example 16.2 — Buffer pH Calculation</div>
-    <div class="ex-body">
-      <p><strong>A buffer contains 0.20 mol dm⁻³ CH₃COOH and 0.30 mol dm⁻³ CH₃COONa. Ka = 1.8×10⁻⁵. Calculate the pH.</strong></p>
-      <div class="step"><span class="step-num">1</span><p>pKa = −log(1.8×10⁻⁵) = 4.74</p></div>
-      <div class="step"><span class="step-num">2</span><p>pH = pKa + log([A⁻]/[HA]) = 4.74 + log(0.30/0.20) = 4.74 + log(1.5) = 4.74 + 0.176 = <strong>4.92</strong></p></div>
-      <div class="step"><span class="step-num">3</span><p>Adding 0.01 mol HCl to 1 dm³ of buffer: H⁺ + CH₃COO⁻ → CH₃COOH. New [CH₃COO⁻] = 0.29; [CH₃COOH] = 0.21. pH = 4.74 + log(0.29/0.21) = 4.74 + 0.141 = 4.88. Change = only 0.04 pH units (vs ~2 pH units in unbuffered water).</p></div>
-    </div>
-  </div>
-</div>
-
-<div class="card">
-  <h3>Biological Importance of Buffers</h3>
-  <ul style="margin:0 0 0 22px;line-height:2.3;">
-    <li><strong>Blood</strong>: pH 7.35–7.45 maintained by H₂CO₃/HCO₃⁻ buffer (pKa₁ = 6.37) and haemoglobin buffer. Acidosis (pH &lt;7.35) or alkalosis (pH &gt;7.45) can be fatal.</li>
-    <li><strong>Intracellular fluid</strong>: H₂PO₄⁻/HPO₄²⁻ buffer (pKa₂ = 7.21) operates near neutral pH.</li>
-    <li><strong>Enzyme activity</strong>: enzymes have optimal pH — buffers maintain this in laboratory and industrial applications.</li>
-    <li><strong>Ocean pH</strong>: CO₂/HCO₃⁻/CO₃²⁻ system buffers seawater at pH ~8.1. Ocean acidification (absorption of atmospheric CO₂) threatens marine ecosystems.</li>
-  </ul>
-</div>
-
-<!-- 16.8 -->
-<div class="section-header" id="s168">
-  <span class="section-number">16.8</span>
-  <h2>Indicators and Acid-Base Titrations</h2>
-</div>
-
-<div class="card">
-  <h3>How Acid-Base Indicators Work</h3>
-  <p>An indicator is a <strong>weak acid (HIn)</strong> where the undissociated form (HIn) and the conjugate base (In⁻) have <strong>different colours</strong>:</p>
-  <div class="formula-block">HIn(aq) ⇌ H⁺(aq) + In⁻(aq)
-colour A              colour B
-
-In acidic solution: equilibrium shifts left → colour A dominates
-In basic solution: equilibrium shifts right → colour B dominates
-Transition occurs around pH ≈ pKa(HIn) ± 1</div>
-</div>
-
-<div class="tbl-wrap"><table>
-  <thead><tr><th>Indicator</th><th>pKa</th><th>pH range</th><th>Acid colour</th><th>Base colour</th></tr></thead>
-  <tbody>
-    <tr><td>Methyl orange</td><td>3.5</td><td>3.1–4.4</td><td>Red</td><td>Yellow</td></tr>
-    <tr><td>Methyl red</td><td>5.0</td><td>4.4–6.2</td><td>Red</td><td>Yellow</td></tr>
-    <tr><td>Litmus</td><td>6.5</td><td>5.0–8.0</td><td>Red</td><td>Blue</td></tr>
-    <tr><td>Phenolphthalein</td><td>9.3</td><td>8.3–10.0</td><td>Colourless</td><td>Pink/red</td></tr>
-    <tr><td>Universal indicator</td><td>—</td><td>1–14</td><td>Red → orange → yellow → green → blue → purple</td><td colspan="2">Used for rough pH estimation</td></tr>
-  </tbody>
-</table></div>
-
-<div class="card">
-  <h3>Choosing the Right Indicator for a Titration</h3>
-  <p>At the equivalence point, the pH changes very sharply (the vertical portion of the titration curve). The indicator must change colour within the <strong>sharp pH jump</strong> at the equivalence point:</p>
-  <div class="tbl-wrap" style="margin:0;"><table>
-    <thead><tr><th>Titration type</th><th>Equivalence point pH</th><th>Suitable indicator(s)</th></tr></thead>
-    <tbody>
-      <tr><td>Strong acid + Strong base</td><td>~7</td><td>Any — methyl orange, litmus, or phenolphthalein (all change in the steep region)</td></tr>
-      <tr><td>Strong acid + Weak base (e.g. HCl + NH₃)</td><td>&lt;7 (~5.2)</td><td>Methyl orange or methyl red (change at pH 3–5); phenolphthalein unsuitable</td></tr>
-      <tr><td>Weak acid + Strong base (e.g. CH₃COOH + NaOH)</td><td>&gt;7 (~8.7)</td><td>Phenolphthalein (changes at pH 8.3–10); methyl orange unsuitable</td></tr>
-      <tr><td>Weak acid + Weak base</td><td>~7 (variable)</td><td>No single indicator is suitable — gradual pH change, no sharp jump</td></tr>
-    </tbody>
-  </table></div>
-  <div class="callout warn">
-    <span class="callout-icon">⚠️</span>
-    <div class="callout-body">
-      <strong>Weak acid + weak base: no sharp endpoint</strong>
-      For CH₃COOH + NH₃, there is no sharp pH jump at the equivalence point — the pH changes gradually over a wide range. No common indicator shows a clear sharp colour change — this titration must be done using a pH meter or conductimetric method.
-    </div>
-  </div>
-</div>
-
-<div class="card">
-  <h3>Titration Curves</h3>
-  <div class="formula-block">Strong acid vs Strong base:
-Start: pH ~1 (acid). Rises slowly, then STEEP jump at equivalence point (~7). End: pH ~13.
-Steep region: pH 4–10 (huge jump). All indicators work.
-
-Strong acid vs Weak base (e.g. HCl + NH₃):
-Start: pH ~1. Steep jump at equivalence ~5.2. End: ~12.
-Use: methyl orange or methyl red only.
-
-Weak acid vs Strong base (e.g. CH₃COOH + NaOH):
-Start: pH ~3. Buffer region around pKa (4.75). 
-Half-equivalence point: pH = pKa = 4.75.
-Equivalence ~8.7. End: ~13.
-Use: phenolphthalein only.
-
-Weak acid vs Weak base:
-No steep jump → no simple indicator reliable.</div>
-</div>
-
-<!-- EXERCISES -->
-<div class="section-header" id="exercises">
-  <span class="section-number">✏️</span>
-  <h2>Exercises</h2>
-</div>
-
-<ul class="exercise-list">
-  <li>Identify the conjugate acid-base pairs in: (a) HF + H₂O ⇌ H₃O⁺ + F⁻ (b) NH₃ + H₂O ⇌ NH₄⁺ + OH⁻ (c) H₂SO₄ + H₂O → H₃O⁺ + HSO₄⁻
-    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide Answer':'Show Answer'">Show Answer</button>
-    <div class="answer">(a) HF/F⁻ (differ by H⁺): HF = acid₁, F⁻ = conjugate base₁. H₃O⁺/H₂O: H₃O⁺ = acid₂, H₂O = conjugate base₂. HF donates H⁺ to H₂O → H₃O⁺ + F⁻. (b) NH₄⁺/NH₃: NH₄⁺ = acid₁, NH₃ = conjugate base₁ (NH₃ accepts H⁺ to become NH₄⁺). H₂O/OH⁻: H₂O = acid₂, OH⁻ = conjugate base₂. NH₃ acts as base (proton acceptor). (c) H₂SO₄/HSO₄⁻: H₂SO₄ = acid (loses one H⁺), HSO₄⁻ = conjugate base. H₃O⁺/H₂O: H₂O = base (gains H⁺ → H₃O⁺). Note: HSO₄⁻ can also act as an acid (further ionisation).</div>
-  </li>
-  <li>Calculate the pH of: (a) 0.025 mol dm⁻³ HCl (b) 0.025 mol dm⁻³ NaOH (c) 0.10 mol dm⁻³ HCN (Ka = 4.9×10⁻¹⁰)
-    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide Answer':'Show Answer'">Show Answer</button>
-    <div class="answer">(a) HCl strong acid: [H⁺] = 0.025. pH = −log(0.025) = −log(2.5×10⁻²) = 2 − log(2.5) = 2 − 0.40 = <strong>1.60</strong>. (b) NaOH strong base: [OH⁻] = 0.025. pOH = 1.60. pH = 14 − 1.60 = <strong>12.40</strong>. (c) HCN weak acid: [H⁺] = √(Ka × c) = √(4.9×10⁻¹⁰ × 0.10) = √(4.9×10⁻¹¹) = 7.0×10⁻⁶ mol dm⁻³. pH = −log(7.0×10⁻⁶) = 5.15. Check assumption: x/c = 7.0×10⁻⁶/0.10 = 7×10⁻⁵ << 1 ✓. pH = <strong>5.15</strong>.</div>
-  </li>
-  <li>Explain why the pH of 0.10 mol dm⁻³ CH₃COOH is higher than that of 0.10 mol dm⁻³ HCl. Include equations and reference to Ka.
-    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide Answer':'Show Answer'">Show Answer</button>
-    <div class="answer">HCl is a strong acid — fully ionised: HCl → H⁺ + Cl⁻. [H⁺] = 0.10 mol dm⁻³. pH = 1.00. CH₃COOH is a weak acid — partially ionised: CH₃COOH ⇌ H⁺ + CH₃COO⁻. Ka = 1.8×10⁻⁵. Only a small fraction ionises. [H⁺] = √(1.8×10⁻⁵ × 0.10) = 1.34×10⁻³ mol dm⁻³. pH = 2.87. Since [H⁺] in CH₃COOH solution is much less than in HCl solution (even at same concentration), the ethanoic acid has a higher pH (less acidic). Ka for HCl >> Ka for CH₃COOH → degree of dissociation << 100% for weak acid.</div>
-  </li>
-  <li>A buffer solution is made by mixing 100 cm³ of 0.10 mol dm⁻³ CH₃COOH with 100 cm³ of 0.10 mol dm⁻³ CH₃COONa. Ka = 1.8×10⁻⁵. Calculate (a) the pH of the buffer, (b) the pH after adding 1.0 cm³ of 1.0 mol dm⁻³ HCl.
-    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide Answer':'Show Answer'">Show Answer</button>
-    <div class="answer">(a) pKa = −log(1.8×10⁻⁵) = 4.74. pH = pKa + log([A⁻]/[HA]) = 4.74 + log(0.10/0.10) = 4.74 + 0 = <strong>4.74</strong>. (When [A⁻] = [HA], pH = pKa.) (b) Moles in 200 cm³: CH₃COOH = 0.010 mol; CH₃COO⁻ = 0.010 mol. Adding 1.0 cm³ of 1.0 mol dm⁻³ HCl = 0.001 mol H⁺. Reaction: H⁺ + CH₃COO⁻ → CH₃COOH. New moles: CH₃COO⁻ = 0.010 − 0.001 = 0.009 mol; CH₃COOH = 0.010 + 0.001 = 0.011 mol. New [CH₃COO⁻]/[CH₃COOH] = 0.009/0.011 = 0.818. pH = 4.74 + log(0.818) = 4.74 − 0.087 = <strong>4.65</strong>. Change = 4.74 − 4.65 = 0.09 pH units (vs ~4 units without buffer).</div>
-  </li>
-  <li>Explain why phenolphthalein is suitable for the titration of ethanoic acid with sodium hydroxide but methyl orange is not.
-    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide Answer':'Show Answer'">Show Answer</button>
-    <div class="answer">CH₃COOH + NaOH → CH₃COONa + H₂O. This is a weak acid + strong base titration. The equivalence point pH is ~8.7 (basic) because CH₃COO⁻ hydrolyses to give OH⁻. The pH curve shows a steep jump between ~7 and ~11 at the equivalence point. Phenolphthalein changes colour from colourless to pink between pH 8.3–10 — this lies within the steep region → accurate endpoint. Methyl orange changes colour between pH 3.1–4.4 — this occurs long before the equivalence point, in the buffer region of the curve where pH changes gradually → no sharp colour change → inaccurate endpoint → methyl orange cannot be used for this titration.</div>
-  </li>
-  <li>Explain the difference between a Lewis acid and a Brønsted-Lowry acid. Give an example of a Lewis acid that is NOT a Brønsted-Lowry acid.
-    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide Answer':'Show Answer'">Show Answer</button>
-    <div class="answer">Brønsted-Lowry acid: a proton (H⁺) donor — must contain H that can be donated. Lewis acid: an electron pair acceptor — accepts a lone pair to form a coordinate bond. These can overlap: H⁺ itself is both a Lewis acid (accepts lone pair from base) AND the Brønsted-Lowry acid; HCl is a B-L acid (donates H⁺) and H⁺ acts as Lewis acid. A Lewis acid that is NOT a B-L acid: BF₃ (contains no H → cannot donate H⁺ → not a B-L acid). But BF₃ + NH₃ → F₃B–NH₃ (BF₃ accepts lone pair from NH₃ → Lewis acid). Also: AlCl₃, Fe³⁺, Cu²⁺, SnCl₄ — all Lewis acids but not B-L acids (no ionisable H). Lewis theory is the most general and includes all B-L acids plus many more substances.</div>
-  </li>
-</ul>
-
-<!-- QUIZ -->
-<div class="section-header" id="quiz">
-  <span class="section-number">🧪</span>
-  <h2>Multiple Choice Quiz — 25 Questions</h2>
-</div>
-<div class="quiz-wrap">
-  <div class="quiz-head">
-    <h3>Unit 16: Acids and Bases</h3>
-    <span style="font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--muted);">25 Questions</span>
-  </div>
-  <div class="quiz-body">
-
-    <div class="qblock"><span class="qnum">Q1</span>
-    <p class="qtext">According to Brønsted-Lowry theory, an acid is:</p>
-    <div class="opts">
-      <label class="opt"><input type="radio" name="q1" value="A"> A substance that produces OH⁻ in water</label>
-      <label class="opt"><input type="radio" name="q1" value="B"> A proton (H⁺) donor</label>
-      <label class="opt"><input type="radio" name="q1" value="C"> An electron pair acceptor</label>
-      <label class="opt"><input type="radio" name="q1" value="D"> A substance that produces H⁺ only in aqueous solution</label>
-    </div>
-    <div class="qexplain" id="e1">Brønsted-Lowry: acid = H⁺ donor; base = H⁺ acceptor. This definition works in aqueous AND non-aqueous solvents and explains NH₃ as a base (it accepts H⁺ even though it has no OH⁻). Option A = Arrhenius base. Option C = Lewis acid. Option D = Arrhenius acid (limited).</div></div>
-
-    <div class="qblock"><span class="qnum">Q2</span>
-    <p class="qtext">In the reaction: NH₃ + H₂O ⇌ NH₄⁺ + OH⁻, water acts as:</p>
-    <div class="opts">
-      <label class="opt"><input type="radio" name="q2" value="A"> A Lewis acid</label>
-      <label class="opt"><input type="radio" name="q2" value="B"> A Brønsted-Lowry acid (H⁺ donor → OH⁻)</label>
-      <label class="opt"><input type="radio" name="q2" value="C"> An Arrhenius acid</label>
-      <label class="opt"><input type="radio" name="q2" value="D"> A neutral spectator</label>
-    </div>
-    <div class="qexplain" id="e2">H₂O donates H⁺ to NH₃ → OH⁻ remains. Therefore H₂O is the Brønsted-Lowry acid (H⁺ donor) in this reaction. NH₃ is the B-L base (H⁺ acceptor → NH₄⁺). Conjugate pairs: H₂O/OH⁻ (differ by H⁺) and NH₄⁺/NH₃. Water is amphiprotic — can act as acid or base.</div></div>
-
-    <div class="qblock"><span class="qnum">Q3</span>
-    <p class="qtext">Which of the following is a Lewis acid but NOT a Brønsted-Lowry acid?</p>
-    <div class="opts">
-      <label class="opt"><input type="radio" name="q3" value="A"> HCl</label>
-      <label class="opt"><input type="radio" name="q3" value="B"> CH₃COOH</label>
-      <label class="opt"><input type="radio" name="q3" value="C"> BF₃</label>
-      <label class="opt"><input type="radio" name="q3" value="D"> H₂SO₄</label>
-    </div>
-    <div class="qexplain" id="e3">BF₃: has no hydrogen atom → cannot donate H⁺ → NOT a B-L acid. But B has an empty p orbital → accepts lone pair from bases (e.g. NH₃ → F₃B–NH₃) → Lewis acid. HCl, CH₃COOH, H₂SO₄: all have ionisable H → both B-L and Lewis acids (H⁺ itself acts as Lewis acid accepting lone pair of base).</div></div>
-
-    <div class="qblock"><span class="qnum">Q4</span>
-    <p class="qtext">What is the pH of 0.01 mol dm⁻³ HCl?</p>
-    <div class="opts">
-      <label class="opt"><input type="radio" name="q4" value="A"> 1</label>
-      <label class="opt"><input type="radio" name="q4" value="B"> 2</label>
-      <label class="opt"><input type="radio" name="q4" value="C"> 12</label>
-      <label class="opt"><input type="radio" name="q4" value="D"> 0.01</label>
-    </div>
-    <div class="qexplain" id="e4">HCl → fully ionised: [H⁺] = 0.01 = 10⁻². pH = −log(10⁻²) = 2. Simple rule: for strong acids, pH = −log[acid]. For HCl concentrations: 1 M → pH 0; 0.1 M → pH 1; 0.01 M → pH 2; 0.001 M → pH 3.</div></div>
-
-    <div class="qblock"><span class="qnum">Q5</span>
-    <p class="qtext">A strong acid differs from a weak acid of the same concentration because:</p>
-    <div class="opts">
-      <label class="opt"><input type="radio" name="q5" value="A"> The strong acid is more concentrated</label>
-      <label class="opt"><input type="radio" name="q5" value="B"> The strong acid is completely ionised; the weak acid is only partially ionised → [H⁺] is much higher for strong acid at same initial concentration</label>
-      <label class="opt"><input type="radio" name="q5" value="C"> The strong acid has a higher molar mass</label>
-      <label class="opt"><input type="radio" name="q5" value="D"> The weak acid has more H atoms in its formula</label>
-    </div>
-    <div class="qexplain" id="e5">Strength refers to degree of ionisation. Strong acid (HCl): 100% ionised — [H⁺] = [acid]. Weak acid (CH₃COOH): 1–3% ionised — [H⁺] << [acid]. At same concentration (e.g. 0.1 mol dm⁻³): HCl gives pH 1; CH₃COOH gives pH ~2.87. The key is the extent of dissociation, not concentration (which is the amount per unit volume).</div></div>
-
-    <div class="qblock"><span class="qnum">Q6</span>
-    <p class="qtext">For a weak acid HA with Ka = 4.0×10⁻⁵ and [HA] = 0.20 mol dm⁻³, [H⁺] is approximately:</p>
-    <div class="opts">
-      <label class="opt"><input type="radio" name="q6" value="A"> 4.0×10⁻⁵ mol dm⁻³</label>
-      <label class="opt"><input type="radio" name="q6" value="B"> 2.8×10⁻³ mol dm⁻³</label>
-      <label class="opt"><input type="radio" name="q6" value="C"> 8.0×10⁻⁵ mol dm⁻³</label>
-      <label class="opt"><input type="radio" name="q6" value="D"> 0.20 mol dm⁻³</label>
-    </div>
-    <div class="qexplain" id="e6">[H⁺] = √(Ka × c) = √(4.0×10⁻⁵ × 0.20) = √(8.0×10⁻⁶) = 2.83×10⁻³ ≈ 2.8×10⁻³ mol dm⁻³. Check assumption: 2.8×10⁻³/0.20 = 1.4% << 5% ✓. This formula [H⁺] = √(Ka×c) is derived from Ka = x²/(c−x) ≈ x²/c when degree of ionisation is small.</div></div>
-
-    <div class="qblock"><span class="qnum">Q7</span>
-    <p class="qtext">The conjugate base of H₂PO₄⁻ is:</p>
-    <div class="opts">
-      <label class="opt"><input type="radio" name="q7" value="A"> H₃PO₄</label>
-      <label class="opt"><input type="radio" name="q7" value="B"> H₂PO₄²⁻</label>
-      <label class="opt"><input type="radio" name="q7" value="C"> HPO₄²⁻</label>
-      <label class="opt"><input type="radio" name="q7" value="D"> PO₄³⁻</label>
-    </div>
-    <div class="qexplain" id="e7">Conjugate base = species formed after the acid donates H⁺. H₂PO₄⁻ loses H⁺ → HPO₄²⁻. So HPO₄²⁻ is the conjugate base of H₂PO₄⁻. Note: H₃PO₄ would be the conjugate acid (H₂PO₄⁻ gains H⁺ → H₃PO₄). H₂PO₄⁻ is amphiprotic — can act as both acid and base.</div></div>
-
-    <div class="qblock"><span class="qnum">Q8</span>
-    <p class="qtext">What is the pH of 0.050 mol dm⁻³ NaOH?</p>
-    <div class="opts">
-      <label class="opt"><input type="radio" name="q8" value="A"> 1.30</label>
-      <label class="opt"><input type="radio" name="q8" value="B"> 12.70</label>
-      <label class="opt"><input type="radio" name="q8" value="C"> 7.00</label>
-      <label class="opt"><input type="radio" name="q8" value="D"> 13.00</label>
-    </div>
-    <div class="qexplain" id="e8">[OH⁻] = 0.050 mol dm⁻³. pOH = −log(0.050) = −log(5×10⁻²) = 2 − log5 = 2 − 0.699 = 1.30. pH = 14 − 1.30 = 12.70. Quick check: [H⁺] = Kw/[OH⁻] = 10⁻¹⁴/0.05 = 2×10⁻¹³. pH = −log(2×10⁻¹³) = 13 − log2 = 13 − 0.30 = 12.70 ✓</div></div>
-
-    <div class="qblock"><span class="qnum">Q9</span>
-    <p class="qtext">A buffer solution resists changes in pH because:</p>
-    <div class="opts">
-      <label class="opt"><input type="radio" name="q9" value="A"> It has a very high pH</label>
-      <label class="opt"><input type="radio" name="q9" value="B"> It contains both a weak acid (to neutralise added OH⁻) and its conjugate base (to neutralise added H⁺) in large concentrations</label>
-      <label class="opt"><input type="radio" name="q9" value="C"> It contains a strong acid that reacts with any base added</label>
-      <label class="opt"><input type="radio" name="q9" value="D"> It has no protons available</label>
-    </div>
-    <div class="qexplain" id="e9">Buffer mechanism: (1) Added H⁺ is neutralised by the conjugate base A⁻: A⁻ + H⁺ → HA (barely changes ratio). (2) Added OH⁻ is neutralised by the weak acid HA: HA + OH⁻ → A⁻ + H₂O. Both components are present in significant amounts ("reservoir"), so the ratio [A⁻]/[HA] changes only slightly → pH changes only slightly (Henderson-Hasselbalch: pH = pKa + log([A⁻]/[HA])).</div></div>
-
-    <div class="qblock"><span class="qnum">Q10</span>
-    <p class="qtext">The Henderson-Hasselbalch equation gives buffer pH = pKa + log([A⁻]/[HA]). At the half-equivalence point of a weak acid titration:</p>
-    <div class="opts">
-      <label class="opt"><input type="radio" name="q10" value="A"> pH = 7</label>
-      <label class="opt"><input type="radio" name="q10" value="B"> pH = pKa (because [A⁻] = [HA] → log(1) = 0)</label>
-      <label class="opt"><input type="radio" name="q10" value="C"> pH = 14</label>
-      <label class="opt"><input type="radio" name="q10" value="D"> pH = 2×pKa</label>
-    </div>
-    <div class="qexplain" id="e10">At the half-equivalence point: exactly half the acid has been neutralised → [A⁻] = [HA]. Substituting: pH = pKa + log([A⁻]/[HA]) = pKa + log(1) = pKa + 0 = pKa. This is an important result — used to determine Ka experimentally (find the half-equivalence volume on the titration curve, read off pH → that pH = pKa → Ka = 10⁻pKa).</div></div>
-
-    <div class="qblock"><span class="qnum">Q11</span>
-    <p class="qtext">An aqueous solution of NH₄Cl is:</p>
-    <div class="opts">
-      <label class="opt"><input type="radio" name="q11" value="A"> Basic (pH &gt; 7)</label>
-      <label class="opt"><input type="radio" name="q11" value="B"> Neutral (pH = 7)</label>
-      <label class="opt"><input type="radio" name="q11" value="C"> Acidic (pH &lt; 7)</label>
-      <label class="opt"><input type="radio" name="q11" value="D"> Cannot be determined</label>
-    </div>
-    <div class="qexplain" id="e11">NH₄Cl is the salt of a strong acid (HCl) + weak base (NH₃). NH₄⁺ hydrolyses: NH₄⁺ + H₂O ⇌ NH₃ + H₃O⁺ → produces H₃O⁺ → acidic. Cl⁻ (from strong acid) does not hydrolyse. Result: acidic solution (pH ~5 for typical concentration). Remember: salt of strong acid + weak base → acidic; salt of weak acid + strong base → basic; salt of strong acid + strong base → neutral.</div></div>
-
-    <div class="qblock"><span class="qnum">Q12</span>
-    <p class="qtext">Kw = [H⁺][OH⁻] = 1.0×10⁻¹⁴ at 25°C. In pure water at 25°C, [H⁺] = [OH⁻] = ?</p>
-    <div class="opts">
-      <label class="opt"><input type="radio" name="q12" value="A"> 1.0×10⁻¹⁴ mol dm⁻³</label>
-      <label class="opt"><input type="radio" name="q12" value="B"> 1.0×10⁻⁷ mol dm⁻³</label>
-      <label class="opt"><input type="radio" name="q12" value="C"> 1.0 mol dm⁻³</label>
-      <label class="opt"><input type="radio" name="q12" value="D"> 7.0×10⁻⁷ mol dm⁻³</label>
-    </div>
-    <div class="qexplain" id="e12">In pure water: [H⁺] = [OH⁻] = x. Kw = x² = 10⁻¹⁴ → x = 10⁻⁷ mol dm⁻³. pH = −log(10⁻⁷) = 7.00 (neutral). At temperatures other than 25°C, Kw changes (increases with T) → pH of neutral water is NOT 7 at other temperatures (e.g. at 37°C body temperature, Kw ≈ 2.4×10⁻¹⁴, neutral pH ≈ 6.81).</div></div>
-
-    <div class="qblock"><span class="qnum">Q13</span>
-    <p class="qtext">Which indicator is most suitable for titrating ethanoic acid against sodium hydroxide?</p>
-    <div class="opts">
-      <label class="opt"><input type="radio" name="q13" value="A"> Methyl orange (range 3.1–4.4)</label>
-      <label class="opt"><input type="radio" name="q13" value="B"> Litmus (range 5.0–8.0)</label>
-      <label class="opt"><input type="radio" name="q13" value="C"> Phenolphthalein (range 8.3–10.0)</label>
-      <label class="opt"><input type="radio" name="q13" value="D"> Universal indicator</label>
-    </div>
-    <div class="qexplain" id="e13">CH₃COOH + NaOH: weak acid + strong base. Equivalence point pH ≈ 8.7 (basic — CH₃COO⁻ is basic). Steep pH jump occurs from ~7 to ~11. Phenolphthalein (changes 8.3–10) lies within this steep region → sharp colour change at equivalence point. Methyl orange (3.1–4.4) changes in the buffer region before equivalence → no sharp endpoint. Litmus has too broad a range and no sharp colour change. Universal indicator gives approximate pH only.</div></div>
-
-    <div class="qblock"><span class="qnum">Q14</span>
-    <p class="qtext">The enthalpy of neutralisation for strong acid + strong base is approximately −57 kJ/mol. For CH₃COOH + NaOH it is −55 kJ/mol. Why is it less exothermic for the weak acid?</p>
-    <div class="opts">
-      <label class="opt"><input type="radio" name="q14" value="A"> Weaker acid releases less energy overall</label>
-      <label class="opt"><input type="radio" name="q14" value="B"> Some energy is absorbed in the (endothermic) partial ionisation of CH₃COOH before neutralisation can occur — reducing the net heat released</label>
-      <label class="opt"><input type="radio" name="q14" value="C"> NaOH is less reactive with weak acids</label>
-      <label class="opt"><input type="radio" name="q14" value="D"> Water formation is less exothermic with weak acids</label>
-    </div>
-    <div class="qexplain" id="e14">Net equation for H⁺ + OH⁻ → H₂O always releases the same energy (−57.1 kJ). For strong acid: HCl is already fully ionised, so all energy is from H⁺ + OH⁻ → H₂O. For weak acid: CH₃COOH must first be ionised (endothermic step: CH₃COOH → H⁺ + CH₃COO⁻ absorbs energy). The net enthalpy = −57.1 + (endothermic ionisation energy) = less exothermic. ΔHₙ(weak acid) < ΔHₙ(strong acid) because of the additional endothermic ionisation step.</div></div>
-
-    <div class="qblock"><span class="qnum">Q15</span>
-    <p class="qtext">Which of the following salts gives a basic aqueous solution?</p>
-    <div class="opts">
-      <label class="opt"><input type="radio" name="q15" value="A"> NH₄Cl</label>
-      <label class="opt"><input type="radio" name="q15" value="B"> KNO₃</label>
-      <label class="opt"><input type="radio" name="q15" value="C"> Na₂CO₃</label>
-      <label class="opt"><input type="radio" name="q15" value="D"> FeCl₃</label>
-    </div>
-    <div class="qexplain" id="e15">Na₂CO₃ is the salt of a weak acid (H₂CO₃) + strong base (NaOH). CO₃²⁻ hydrolyses: CO₃²⁻ + H₂O ⇌ HCO₃⁻ + OH⁻ → basic (pH ~11.6 for 0.1 mol dm⁻³). NH₄Cl: strong acid + weak base → acidic. KNO₃: strong acid + strong base → neutral. FeCl₃: strong acid + weak Lewis acid Fe³⁺ → acidic (Fe³⁺ hydrolyses to give H⁺).</div></div>
-
-    <div class="qblock"><span class="qnum">Q16</span>
-    <p class="qtext">For conjugate acid-base pair: Ka(acid) × Kb(conjugate base) = Kw. If Ka(HF) = 6.3×10⁻⁴, what is Kb(F⁻)?</p>
-    <div class="opts">
-      <label class="opt"><input type="radio" name="q16" value="A"> 6.3×10⁻⁴</label>
-      <label class="opt"><input type="radio" name="q16" value="B"> 1.6×10⁻¹¹</label>
-      <label class="opt"><input type="radio" name="q16" value="C"> 6.3×10⁻¹⁸</label>
-      <label class="opt"><input type="radio" name="q16" value="D"> 1.0×10⁻¹⁴</label>
-    </div>
-    <div class="qexplain" id="e16">Ka × Kb = Kw = 1.0×10⁻¹⁴. Kb(F⁻) = Kw/Ka(HF) = 1.0×10⁻¹⁴ / 6.3×10⁻⁴ = 1.59×10⁻¹¹ ≈ 1.6×10⁻¹¹. F⁻ is a weak base (Kb &lt; 10⁻¹⁰ is very weak). This shows: stronger acid (large Ka) → weaker conjugate base (small Kb). HF is relatively strong for a weak acid → F⁻ is correspondingly weak as a base.</div></div>
-
-    <div class="qblock"><span class="qnum">Q17</span>
-    <p class="qtext">A buffer with pH = 5.00 is made from a weak acid with pKa = 4.74. The ratio [A⁻]/[HA] must be:</p>
-    <div class="opts">
-      <label class="opt"><input type="radio" name="q17" value="A"> 1:1</label>
-      <label class="opt"><input type="radio" name="q17" value="B"> 1.82:1</label>
-      <label class="opt"><input type="radio" name="q17" value="C"> 0.55:1</label>
-      <label class="opt"><input type="radio" name="q17" value="D"> 5:4.74</label>
-    </div>
-    <div class="qexplain" id="e17">Henderson-Hasselbalch: pH = pKa + log([A⁻]/[HA]). 5.00 = 4.74 + log([A⁻]/[HA]). log([A⁻]/[HA]) = 0.26. [A⁻]/[HA] = 10^0.26 = 1.82. So the salt/acid ratio = 1.82:1. This means more conjugate base than acid — the buffer is above the pKa, as expected (pH > pKa → [A⁻] > [HA]).</div></div>
-
-    <div class="qblock"><span class="qnum">Q18</span>
-    <p class="qtext">Water is described as "amphiprotic." This means:</p>
-    <div class="opts">
-      <label class="opt"><input type="radio" name="q18" value="A"> It is both acidic and basic in the same solution</label>
-      <label class="opt"><input type="radio" name="q18" value="B"> It can act as both a proton donor (acid) and a proton acceptor (base) in different reactions</label>
-      <label class="opt"><input type="radio" name="q18" value="C"> It has amphoteric oxides dissolved in it</label>
-      <label class="opt"><input type="radio" name="q18" value="D"> It conducts electricity in both directions</label>
-    </div>
-    <div class="qexplain" id="e18">Amphiprotic = can both donate AND accept protons (H⁺). H₂O as acid: H₂O + NH₃ → OH⁻ + NH₄⁺ (donates H⁺). H₂O as base: H₂O + HCl → H₃O⁺ + Cl⁻ (accepts H⁺). Also: H₂SO₄ is amphiprotic in some solvents; H₂PO₄⁻ is amphiprotic. Amphoteric refers to acid-base character with respect to full solutions (e.g. Al₂O₃ reacts with both acids and bases), while amphiprotic specifically refers to proton transfer.</div></div>
-
-    <div class="qblock"><span class="qnum">Q19</span>
-    <p class="qtext">A solution has [OH⁻] = 2.0×10⁻³ mol dm⁻³. Its pH is:</p>
-    <div class="opts">
-      <label class="opt"><input type="radio" name="q19" value="A"> 2.70</label>
-      <label class="opt"><input type="radio" name="q19" value="B"> 11.30</label>
-      <label class="opt"><input type="radio" name="q19" value="C"> 7.00</label>
-      <label class="opt"><input type="radio" name="q19" value="D"> 12.00</label>
-    </div>
-    <div class="qexplain" id="e19">pOH = −log(2.0×10⁻³) = −log(2) − log(10⁻³) = 3 − 0.301 = 2.70. pH = 14 − pOH = 14 − 2.70 = 11.30. Alternatively: [H⁺] = Kw/[OH⁻] = 10⁻¹⁴ / 2.0×10⁻³ = 5.0×10⁻¹² mol dm⁻³. pH = −log(5.0×10⁻¹²) = 12 − log5 = 12 − 0.699 = 11.30 ✓</div></div>
-
-    <div class="qblock"><span class="qnum">Q20</span>
-    <p class="qtext">The degree of ionisation of a weak acid increases when:</p>
-    <div class="opts">
-      <label class="opt"><input type="radio" name="q20" value="A"> The acid concentration is increased</label>
-      <label class="opt"><input type="radio" name="q20" value="B"> The acid is diluted (concentration decreases)</label>
-      <label class="opt"><input type="radio" name="q20" value="C"> Temperature is decreased</label>
-      <label class="opt"><input type="radio" name="q20" value="D"> A common ion (A⁻) is added</label>
-    </div>
-    <div class="qexplain" id="e20">For HA ⇌ H⁺ + A⁻, degree of ionisation α = √(Ka/c). When concentration c decreases (dilution), α increases. Physically: dilution shifts equilibrium right (products → lower concentration → Le Châtelier shifts right to restore). At infinite dilution, all weak acids are fully ionised. Adding A⁻ (common ion) shifts LEFT → less ionisation (decrease α). Increasing concentration → α decreases. Temperature: depends on ΔH of ionisation (usually endothermic → higher T → more ionised).</div></div>
-
-    <div class="qblock"><span class="qnum">Q21</span>
-    <p class="qtext">For the reaction: BF₃ + F⁻ → BF₄⁻, BF₃ acts as a:</p>
-    <div class="opts">
-      <label class="opt"><input type="radio" name="q21" value="A"> Brønsted-Lowry acid</label>
-      <label class="opt"><input type="radio" name="q21" value="B"> Brønsted-Lowry base</label>
-      <label class="opt"><input type="radio" name="q21" value="C"> Lewis acid (electron pair acceptor)</label>
-      <label class="opt"><input type="radio" name="q21" value="D"> Lewis base (electron pair donor)</label>
-    </div>
-    <div class="qexplain" id="e21">BF₃ accepts the lone pair from F⁻ → forms a dative (coordinate) bond → BF₄⁻. BF₃ is the Lewis acid (e⁻ pair acceptor). F⁻ is the Lewis base (e⁻ pair donor). No proton transfer occurs — cannot be classified by Brønsted-Lowry. B in BF₃ has only 6 valence electrons (empty p orbital) → electron deficient → Lewis acid. This reaction is used in organic chemistry (BF₃ as a Lewis acid catalyst for Friedel-Crafts reactions).</div></div>
-
-    <div class="qblock"><span class="qnum">Q22</span>
-    <p class="qtext">The titration of a weak acid vs weak base has no sharp equivalence point. This is because:</p>
-    <div class="opts">
-      <label class="opt"><input type="radio" name="q22" value="A"> No neutralisation occurs</label>
-      <label class="opt"><input type="radio" name="q22" value="B"> The pH changes very gradually throughout the titration — no steep jump occurs at the equivalence point, so no indicator shows a sharp colour change</label>
-      <label class="opt"><input type="radio" name="q22" value="C"> Both substances are liquids</label>
-      <label class="opt"><input type="radio" name="q22" value="D"> The Kc for this reaction is zero</label>
-    </div>
-    <div class="qexplain" id="e22">For CH₃COOH + NH₃: the buffer on the acid side and the buffer on the base side both resist pH change. The titration curve has a very gradual slope throughout — no steep vertical section. Without a steep jump, no indicator changes sharply at the equivalence point. pH meter or conductimetric titration must be used instead. This is fundamentally different from strong acid + strong base (large steep jump from pH 4 to pH 10).</div></div>
-
-    <div class="qblock"><span class="qnum">Q23</span>
-    <p class="qtext">pKa of CH₃COOH = 4.75. A buffer made with equal concentrations of CH₃COOH and CH₃COO⁻ has pH:</p>
-    <div class="opts">
-      <label class="opt"><input type="radio" name="q23" value="A"> 7.00</label>
-      <label class="opt"><input type="radio" name="q23" value="B"> 9.50</label>
-      <label class="opt"><input type="radio" name="q23" value="C"> 4.75</label>
-      <label class="opt"><input type="radio" name="q23" value="D"> 2.38</label>
-    </div>
-    <div class="qexplain" id="e23">pH = pKa + log([A⁻]/[HA]) = 4.75 + log(1) = 4.75 + 0 = 4.75. When [A⁻] = [HA], pH = pKa. This is a key result used in buffer preparation and in finding Ka from titration curves. The buffer has maximum capacity at this pH and is effective in the range pKa ± 1 = 3.75–5.75 for ethanoic acid.</div></div>
-
-    <div class="qblock"><span class="qnum">Q24</span>
-    <p class="qtext">Ka for HCN = 4.9×10⁻¹⁰. The pKa is approximately:</p>
-    <div class="opts">
-      <label class="opt"><input type="radio" name="q24" value="A"> 4.9</label>
-      <label class="opt"><input type="radio" name="q24" value="B"> 9.3</label>
-      <label class="opt"><input type="radio" name="q24" value="C"> 10.3</label>
-      <label class="opt"><input type="radio" name="q24" value="D"> −9.3</label>
-    </div>
-    <div class="qexplain" id="e24">pKa = −log(Ka) = −log(4.9×10⁻¹⁰) = 10 − log(4.9) = 10 − 0.69 = 9.31 ≈ 9.3. HCN is a very weak acid (pKa = 9.3 → much weaker than CH₃COOH with pKa 4.75). High pKa = small Ka = weak acid. Rule: pKa = −log Ka; Ka = 10^(−pKa). You can estimate: Ka = 4.9×10⁻¹⁰ → exponent is −10, coefficient ~5 → pKa ≈ 9.3.</div></div>
-
-    <div class="qblock"><span class="qnum">Q25</span>
-    <p class="qtext">The blood buffer maintains pH 7.35–7.45. If blood pH falls below 7.35, the condition is called:</p>
-    <div class="opts">
-      <label class="opt"><input type="radio" name="q25" value="A"> Alkalosis</label>
-      <label class="opt"><input type="radio" name="q25" value="B"> Acidosis</label>
-      <label class="opt"><input type="radio" name="q25" value="C"> Neutralisation</label>
-      <label class="opt"><input type="radio" name="q25" value="D"> Buffering</label>
-    </div>
-    <div class="qexplain" id="e25">Blood pH 7.35–7.45 is maintained by H₂CO₃/HCO₃⁻ (carbonic acid/bicarbonate) buffer system. pH &lt;7.35 = acidosis (blood too acidic) → caused by CO₂ retention (respiratory acidosis) or metabolic acid production. pH &gt;7.45 = alkalosis (blood too basic) → caused by hyperventilation (blowing off CO₂) or metabolic alkalosis. Even small deviations from 7.4 can be life-threatening because enzymes have narrow pH optima.</div></div>
-
-    <div style="text-align:center;margin-top:28px;">
-      <button class="qs" onclick="submitQuiz()">Submit Quiz — Check Answers</button>
-      <div id="qR"></div>
-    </div>
-  </div>
-</div>
-
-<!-- TEST -->
-<div class="section-header" id="test">
-  <span class="section-number">📝</span>
-  <h2>Unit Test — 50 Marks</h2>
-</div>
-
-<div class="test-section">
-  <div class="test-sec-head"><h3>Section A — Short Answer</h3><span class="marks-badge">30 marks</span></div>
-
-  <div class="tq"><div class="tq-num">Q1 [5 marks]</div>
-  <p>Compare the Arrhenius, Brønsted-Lowry, and Lewis theories of acids and bases. For each theory: give the definition of an acid and a base, state a limitation or advantage, and give one example reaction. [5]</p>
-  <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide':'Model Answer'">Model Answer</button>
-  <div class="answer">Arrhenius: Acid produces H⁺; Base produces OH⁻. Limitation: aqueous only; cannot explain NH₃ as base. Example: HCl → H⁺ + Cl⁻; NaOH → Na⁺ + OH⁻. [1] Brønsted-Lowry: Acid = H⁺ donor; Base = H⁺ acceptor. Advantage: works in any solvent; explains NH₃ (accepts H⁺ from water). Example: NH₃ + H₂O ⇌ NH₄⁺ + OH⁻ (NH₃ = base, H₂O = acid). [1.5] Lewis: Acid = e⁻ pair acceptor; Base = e⁻ pair donor. Most general — includes reactions without H⁺ transfer. Advantage: explains complex ion formation, BF₃ reactions. Example: BF₃ + NH₃ → F₃B–NH₃ (BF₃ = Lewis acid, NH₃ = Lewis base). [1.5] All B-L acids are Lewis acids (H⁺ is a Lewis acid — accepts lone pair from base). All Arrhenius reactions are B-L reactions. Lewis includes all others. [1]</div></div>
-
-  <div class="tq"><div class="tq-num">Q2 [5 marks]</div>
-  <p>Calculate the pH of the following solutions at 25°C: (a) 0.050 mol dm⁻³ H₂SO₄ (assume both protons ionise) (b) 1.5×10⁻³ mol dm⁻³ NaOH (c) 0.20 mol dm⁻³ ethanoic acid (Ka = 1.8×10⁻⁵ mol dm⁻³) (d) a solution with [H⁺] = 3.2×10⁻⁸ mol dm⁻³. [5]</p>
-  <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide':'Model Answer'">Model Answer</button>
-  <div class="answer">(a) H₂SO₄: [H⁺] = 2 × 0.050 = 0.10 mol dm⁻³. pH = −log(0.10) = 1.00. [1] (b) NaOH: [OH⁻] = 1.5×10⁻³. pOH = −log(1.5×10⁻³) = 3 − log1.5 = 3 − 0.176 = 2.82. pH = 14 − 2.82 = 11.18. [1] (c) CH₃COOH: [H⁺] = √(Ka × c) = √(1.8×10⁻⁵ × 0.20) = √(3.6×10⁻⁶) = 1.897×10⁻³. pH = −log(1.897×10⁻³) = 3 − log(1.897) = 3 − 0.278 = 2.72. [1.5] (d) pH = −log(3.2×10⁻⁸) = 8 − log(3.2) = 8 − 0.505 = 7.50. Solution is slightly basic. [1.5]</div></div>
-
-  <div class="tq"><div class="tq-num">Q3 [5 marks]</div>
-  <p>Explain what is meant by a buffer solution. Describe how an ethanoic acid/sodium ethanoate buffer works when: (a) 0.002 mol HCl is added to 1 dm³ of buffer (b) 0.002 mol NaOH is added to 1 dm³ of buffer. Write equations for each case. A buffer contains 0.10 mol dm⁻³ CH₃COOH and 0.15 mol dm⁻³ CH₃COONa (Ka = 1.8×10⁻⁵). Calculate its pH. [5]</p>
-  <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide':'Model Answer'">Model Answer</button>
-  <div class="answer">Buffer: a solution that resists changes in pH when small amounts of acid or base are added. Contains a weak acid and its conjugate base in comparable concentrations. [1] (a) HCl added: H⁺ + CH₃COO⁻ → CH₃COOH. The conjugate base (CH₃COO⁻) neutralises the added H⁺. [A⁻] decreases slightly; [HA] increases slightly. pH barely changes (small change in log ratio). [1] (b) NaOH added: OH⁻ + CH₃COOH → CH₃COO⁻ + H₂O. The weak acid neutralises the added OH⁻. [HA] decreases slightly; [A⁻] increases slightly. pH barely changes. [1] pH calculation: pKa = −log(1.8×10⁻⁵) = 4.74. pH = pKa + log([A⁻]/[HA]) = 4.74 + log(0.15/0.10) = 4.74 + log(1.5) = 4.74 + 0.176 = 4.92. [2]</div></div>
-
-  <div class="tq"><div class="tq-num">Q4 [5 marks]</div>
-  <p>Explain how acid-base indicators work. Why is phenolphthalein the correct indicator for titrating NaOH against ethanoic acid, while methyl orange is not? Sketch the shape of the titration curve for this reaction and mark the half-equivalence point and the equivalence point. [5]</p>
-  <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide':'Model Answer'">Model Answer</button>
-  <div class="answer">Indicator is a weak acid HIn where HIn (colour 1) ⇌ H⁺ + In⁻ (colour 2). In acid: excess H⁺ shifts left → colour 1. In base: OH⁻ removes H⁺ → shifts right → colour 2. Transition occurs near pH = pKa(HIn). [2] Weak acid + strong base equivalence point ≈ pH 8.7. Steep pH jump: ~7 to ~11. Phenolphthalein (pKa ≈ 9.3, range 8.3–10) lies within this steep region → sharp colour change (colourless → pink) at equivalence. Methyl orange (range 3.1–4.4) changes colour in the buffer region (before equivalence) where pH changes gradually → no clear endpoint. [2] Titration curve sketch: starts at low pH (~3), rises slowly (buffer region), steep jump ~8 to ~11 at equivalence, levels off at ~13. Half-equivalence point: at half the volume of base added, pH = pKa(CH₃COOH) = 4.75. Equivalence: steep jump mid-point ~8.7. [1]</div></div>
-
-  <div class="tq"><div class="tq-num">Q5 [5 marks]</div>
-  <p>Predict the pH (acidic, neutral, or basic) of aqueous solutions of: (a) NaCl (b) Na₂SO₄ (c) NH₄Cl (d) Na₂CO₃ (e) AlCl₃. Write the hydrolysis equation for any ion that reacts with water. [5]</p>
-  <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide':'Model Answer'">Model Answer</button>
-  <div class="answer">(a) NaCl: strong acid + strong base → neutral (pH 7). Na⁺ and Cl⁻ do not hydrolyse. [0.5] (b) Na₂SO₄: H₂SO₄ (strong) + NaOH (strong) → neutral (pH 7). SO₄²⁻ is conjugate base of strong acid H₂SO₄ → does not hydrolyse. [0.5] (c) NH₄Cl: strong acid (HCl) + weak base (NH₃) → acidic (pH &lt; 7 ≈ 5). NH₄⁺ + H₂O ⇌ NH₃ + H₃O⁺ (ammonium ion hydrolyses). [1.5] (d) Na₂CO₃: weak acid (H₂CO₃) + strong base (NaOH) → basic (pH &gt; 7 ≈ 11.6). CO₃²⁻ + H₂O ⇌ HCO₃⁻ + OH⁻ (carbonate hydrolyses). [1.5] (e) AlCl₃: strong acid (HCl) + weak Lewis acid (Al³⁺ — high charge density) → acidic. Al³⁺ + 6H₂O → [Al(H₂O)₆]³⁺ → [Al(H₂O)₅OH]²⁺ + H⁺ → acidic (pH ≈ 3 for 0.1 mol dm⁻³). [1]</div></div>
-
-  <div class="tq"><div class="tq-num">Q6 [5 marks]</div>
-  <p>Ka(ethanoic acid) = 1.8×10⁻⁵. (a) Calculate pKa. (b) Calculate the pH of 0.050 mol dm⁻³ ethanoic acid. (c) What is Ka for a dibasic weak acid that is exactly 2.0% ionised at 0.10 mol dm⁻³? (d) State the relationship Ka × Kb = Kw and use it to find Kb for CH₃COO⁻. [5]</p>
-  <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide':'Model Answer'">Model Answer</button>
-  <div class="answer">(a) pKa = −log(1.8×10⁻⁵) = 5 − log(1.8) = 5 − 0.255 = 4.74. [1] (b) [H⁺] = √(Ka×c) = √(1.8×10⁻⁵ × 0.050) = √(9.0×10⁻⁷) = 9.49×10⁻⁴ mol dm⁻³. pH = −log(9.49×10⁻⁴) = 4 − log(9.49) = 4 − 0.977 = 3.02. [1] (c) 2.0% ionised at c = 0.10: degree α = 0.020. [H⁺] = α × c = 0.020 × 0.10 = 2.0×10⁻³ mol dm⁻³. Ka = [H⁺][A⁻]/[HA] = (2.0×10⁻³)² / (0.10 − 2.0×10⁻³) ≈ (2.0×10⁻³)² / 0.098 = 4.0×10⁻⁶ / 0.098 = 4.1×10⁻⁵ mol dm⁻³. [1.5] (d) Ka(CH₃COOH) × Kb(CH₃COO⁻) = Kw = 1.0×10⁻¹⁴. Kb = 10⁻¹⁴ / 1.8×10⁻⁵ = 5.6×10⁻¹⁰ mol dm⁻³. pKb = 9.26. This confirms: stronger acid (large Ka) → weaker conjugate base (small Kb); pKa + pKb = 14. [1.5]</div></div>
-</div>
-
-<div class="test-section">
-  <div class="test-sec-head"><h3>Section B — Extended Answer</h3><span class="marks-badge">20 marks</span></div>
-
-  <div class="tq"><div class="tq-num">Q7 [10 marks]</div>
-  <p>(a) Describe and compare the titration curves for: (i) strong acid + strong base (ii) weak acid + strong base (iii) strong acid + weak base. For each: give the approximate pH at the start, the equivalence point, and the end; explain the shape of the curve; state which indicator(s) are suitable. [6]<br>
-  (b) Explain the biological importance of buffer solutions. Describe the blood buffering system in detail, including the equilibrium involved, how excess acid is handled, and how excess base is handled. What medical conditions arise when the blood buffer fails? [4]</p>
-  <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide':'Model Answer'">Model Answer</button>
-  <div class="answer">(a)(i) Strong acid (HCl) + strong base (NaOH): Start pH ~1. Equivalence ~7. End ~13. Curve: slow rise, then very steep jump (~pH 4 to 10 in just a few drops). Salt NaCl formed (neutral). Indicators: any works — methyl orange, litmus, phenolphthalein all within steep region. [2] (ii) Weak acid (CH₃COOH) + strong base (NaOH): Start pH ~3. Buffer region during titration (gradual rise). Half-equivalence at pH = pKa ≈ 4.75. Equivalence ~8.7 (basic — CH₃COO⁻ hydrolyses). End ~13. Steep jump: ~7 to 11. Indicator: phenolphthalein only (range 8.3–10 within steep). Methyl orange unsuitable (changes in buffer region). [2] (iii) Strong acid (HCl) + weak base (NH₃): Start pH ~1 (HCl in burette) or ~11 (NH₃ in flask). Equivalence ~5.2 (acidic — NH₄Cl formed, NH₄⁺ hydrolyses). Steep jump: ~3 to 7. Indicator: methyl orange or methyl red only (range 3–5 within steep). Phenolphthalein changes before equivalence (in NH₃ buffer region) → unsuitable. [2] (b) Blood pH 7.35–7.45. Major buffer: H₂CO₃/HCO₃⁻. Equilibrium: CO₂ + H₂O ⇌ H₂CO₃ ⇌ H⁺ + HCO₃⁻ (respiratory and metabolic control). [1] Excess acid (H⁺): HCO₃⁻ + H⁺ → H₂CO₃ → CO₂ + H₂O. CO₂ exhaled by faster breathing → H⁺ removed. Kidneys also excrete H⁺ (slower). [1] Excess base (OH⁻): H₂CO₃ + OH⁻ → HCO₃⁻ + H₂O. Also: CO₂ absorbed more slowly from lungs. [1] Medical conditions: Acidosis (pH &lt;7.35): respiratory (CO₂ retention — slow breathing, lung disease) or metabolic (diabetes ketoacidosis, kidney failure). Alkalosis (pH &gt;7.45): respiratory (hyperventilation, blowing off CO₂) or metabolic (vomiting, excess antacids). Both can cause confusion, seizures, cardiac arrhythmias, or death if severe. [1]</div></div>
-
-  <div class="tq"><div class="tq-num">Q8 [10 marks]</div>
-  <p>(a) Discuss the factors that determine the strength of an oxyacid (oxoacid). Use HClO, HClO₂, HClO₃, HClO₄ as examples. Extend to explain why H₂SO₄ is a strong acid and H₂SO₃ is weak, and why H₃PO₄ is weaker than HNO₃. [5]<br>
-  (b) Distinguish between monoprotic, diprotic, and polyprotic acids. For H₃PO₄ (triprotic), write the three ionisation equations with their Ka values (Ka₁ = 7.5×10⁻³; Ka₂ = 6.2×10⁻⁸; Ka₃ = 4.8×10⁻¹³). Explain why Ka₁ >> Ka₂ >> Ka₃. State which form predominates in blood (pH 7.4). [5]</p>
-  <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide':'Model Answer'">Model Answer</button>
-  <div class="answer">(a) Oxyacid strength: more O atoms bonded to central atom → more electron withdrawal from O–H bond → weaker O–H bond → easier to donate H⁺ → stronger acid. Also: higher OS of central atom → more electron-withdrawing. [1] HClO (+1): weakest (pKa 7.5) — only 1 O atom; H–O–Cl — little withdrawal. HClO₂ (+3): pKa ~2. HClO₃ (+5): pKa ~−1 (strong). HClO₄ (+7): pKa ~−10 (strongest common acid) — 4 O atoms withdraw electron density from O–H bond maximally. [1.5] H₂SO₄ vs H₂SO₃: H₂SO₄ has 4 O atoms (S in +6), very strong first ionisation. H₂SO₃ has 3 O atoms (S in +4), weaker acid. More O atoms → stronger acid. [1] HNO₃ vs H₃PO₄: HNO₃ has 3 O atoms (N in +5) — strong acid. H₃PO₄ has 4 O atoms but P is less electronegative than N (P EN = 2.1, N EN = 3.0) → P withdraws electrons less effectively from O–H → H₃PO₄ weaker. Also: in HNO₃, NO₃⁻ conjugate base is highly stabilised by resonance (3 equivalent structures) → better conjugate base stability → stronger acid. [1.5] (b) Monoprotic: one ionisable H⁺ (HCl, HNO₃, CH₃COOH). Diprotic: two H⁺ (H₂SO₄, H₂CO₃). Polyprotic: three or more H⁺ (H₃PO₄, H₃C₆H₅O₇ citric acid). [1] H₃PO₄ ionisations: H₃PO₄ ⇌ H⁺ + H₂PO₄⁻ (Ka₁ = 7.5×10⁻³); H₂PO₄⁻ ⇌ H⁺ + HPO₄²⁻ (Ka₂ = 6.2×10⁻⁸); HPO₄²⁻ ⇌ H⁺ + PO₄³⁻ (Ka₃ = 4.8×10⁻¹³). [1.5] Why Ka₁ >> Ka₂ >> Ka₃: each successive ionisation removes H⁺ from an ion with increasing negative charge. The negative charge makes it progressively harder to remove a positively-charged H⁺ (electrostatic repulsion). Also: the second and third ionisations give increasingly negatively charged species (HPO₄²⁻, PO₄³⁻) which stabilise the remaining H⁺ better. [1.5] In blood pH 7.4: compare pKa₁ = 2.12, pKa₂ = 7.20, pKa₃ = 12.32. At pH 7.4, [HPO₄²⁻]/[H₂PO₄⁻] = 10^(7.4−7.2) = 10^0.2 = 1.58. So HPO₄²⁻ : H₂PO₄⁻ ≈ 1.6:1 → HPO₄²⁻ predominates slightly. (PO₄³⁻ negligible at pH 7.4; H₃PO₄ essentially absent.) [1]</div></div>
-</div>
-
-<div class="unit-nav">
-  <a href="s4_unit15_equilibrium.html">← Unit 15: Equilibrium</a>
-  <a href="s4-chemistry.html">S4 Course Home</a>
-  <a href="s4_unit17_redox.html">Unit 17: Redox →</a>
-</div>
-</main>
-<footer>
-  ⚗ Jackson Habimana Chemistry Portal &bull; S4 Unit 16: Acids and Bases &bull;
-  <a href="s4-chemistry.html">Back to S4</a> &bull; <a href="index.html">Home</a>
-</footer>
-<script>
-const _CA={q1:'B',q2:'B',q3:'C',q4:'B',q5:'B',q6:'B',q7:'C',q8:'B',q9:'B',q10:'B',q11:'C',q12:'B',q13:'C',q14:'B',q15:'C',q16:'B',q17:'B',q18:'B',q19:'B',q20:'B',q21:'C',q22:'B',q23:'C',q24:'B',q25:'B'};
-function submitQuiz(){
-  let s=0,t=Object.keys(_CA).length;
-  Object.entries(_CA).forEach(([q,c])=>{
-    const sel=document.querySelector('input[name="'+q+'"]:checked');
-    document.querySelectorAll('input[name="'+q+'"]').forEach(o=>{if(o.value===c)o.closest('label').classList.add('correct');});
-    if(sel){if(sel.value===c)s++;else sel.closest('label').classList.add('wrong');}
-    const e=document.getElementById('e'+q.slice(1));if(e)e.style.display='block';
-    document.querySelectorAll('input[name="'+q+'"]').forEach(o=>o.disabled=true);
-  });
-  const p=Math.round(s/t*100);
-  const r=document.getElementById('qR');
-  r.style.cssText='display:block;margin-top:16px;border-radius:8px;padding:14px 18px;font-family:JetBrains Mono,monospace;font-size:.88rem;text-align:center;background:'+(p>=70?'rgba(52,211,153,.1)':'rgba(248,113,113,.1)')+';border:1px solid '+(p>=70?'var(--green)':'var(--red)')+';color:'+(p>=70?'var(--green)':'var(--red)');
-  r.innerHTML='Score: '+s+'/'+t+' ('+p+'%) — '+(p>=80?'🏆 Excellent!':p>=70?'✅ Good.':p>=50?'📚 Keep studying.':'❌ Review all material.');
-  document.querySelector('.qs').disabled=true;document.querySelector('.qs').style.opacity='.5';
-}
-
-</script>
-<script src="shuffle-answers.js"></script>
-</body>

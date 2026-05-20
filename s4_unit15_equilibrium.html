@@ -72,7 +72,7 @@ h3.sub{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--gold);
 .qtext{font-size:1rem;color:#fff;margin-bottom:14px;line-height:1.7;}
 .opts label{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;margin-bottom:8px;border-radius:8px;border:1px solid var(--border);cursor:pointer;transition:all .15s;font-size:.93rem;}
 .opts label:hover{border-color:var(--accent);background:rgba(56,189,248,.04);}
-.opts label.correct{background:rgba(52,211,153,.12);border-color:#34d399;color:#34d399;}
+.opts label.correct{background:rgba(52,211,153,.12);border-color:var(--green);color:var(--green);}
 .opts label.wrong{background:rgba(248,113,113,.08);border-color:var(--red);color:var(--red);}
 .opts input[type=radio]{margin-top:3px;accent-color:var(--accent);flex-shrink:0;}
 .qexplain{display:none;margin-top:12px;padding:12px 16px;background:rgba(56,189,248,.07);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-size:.88rem;line-height:1.7;}
@@ -93,19 +93,14 @@ footer{border-top:1px solid var(--border);padding:28px;text-align:center;font-fa
 footer a{color:var(--accent);text-decoration:none;}
 @media(max-width:640px){.hero{padding:60px 24px 40px;}.page{padding:0 16px 60px;}.quiz-body{padding:16px;}}
 
-
+.ex-item { list-style: none; background: rgba(255,255,255,.03); border: 1px solid var(--border); border-radius: 8px; padding: 16px 18px; margin-bottom: 12px; }
+.ex-item::before { display: none; }
+.ex-q { color: var(--text); font-size: .95rem; line-height: 1.7; margin-bottom: 8px; }
+.ex-btn { font-size: .78rem; padding: 5px 14px; }
+.ex-ans { font-size: .88rem; line-height: 1.75; color: #94a3b8; }
+.exercise-list { padding-left: 0; }
 </style>
-
-<style>
-@media print {
-  body { background: #fff !important; color: #000 !important; }
-  nav, footer, .lock-bar, .lock-overlay { display: none !important; }
-  h1, h2, h3, h4 { color: #000 !important; background: transparent !important; }
-  a { color: #000 !important; text-decoration: none !important; }
-  .callout, .definition, .example, .worked-example { background: #f5f5f5 !important; border-color: #ccc !important; }
-  .quiz-wrap, .quiz-header, .q-block, .opt { background: #fff !important; color: #000 !important; border-color: #ccc !important; }
-}
-</style>
+  <script src="tracker.js"></script>
 </head>
 <body>
 <nav>
@@ -128,9 +123,6 @@ footer a{color:var(--accent);text-decoration:none;}
     <a href="#s152">15.2 Dynamic Equilibrium</a>
     <a href="#s153">15.3 Le Châtelier's Principle</a>
     <a href="#s154">15.4 Effect of Changes</a>
-    <a href="#s155">15.5 Equilibrium Constants Kc & Kp</a>
-    <a href="#s156">15.6 Industrial Applications</a>
-    <a href="#s157">15.7 Partition & Solubility Equilibria</a>
     <a href="#exercises">Exercises</a>
     <a href="#quiz">Quiz</a>
     <a href="#test">Unit Test</a>
@@ -306,198 +298,42 @@ Fe³⁺(aq) + SCN⁻(aq) ⇌ [Fe(SCN)]²⁺(aq)  Blood-red complex (equilibrium 
     <li>A catalyst does NOT improve the yield — it only saves time</li>
   </ul>
 </div>
-
-<!-- 15.5 -->
-<div class="section-header" id="s155">
-  <span class="section-number">15.5</span>
-  <h2>Equilibrium Constants: Kc and Kp</h2>
-</div>
-
-<div class="card">
-  <h3>The Equilibrium Law and Kc</h3>
-  <p>For a reversible reaction: aA + bB ⇌ cC + dD, the equilibrium constant <strong>Kc</strong> is:</p>
-  <div class="formula-block">Kc = [C]ᶜ[D]ᵈ / ([A]ᵃ[B]ᵇ)
-
-where [ ] = equilibrium concentration in mol dm⁻³
-and powers = stoichiometric coefficients in the balanced equation</div>
-  <p>Kc is a constant at a given temperature for a given reaction. It does not depend on initial concentrations, pressure, or the presence of a catalyst.</p>
-  <div class="callout info">
-    <span class="callout-icon">💡</span>
-    <div class="callout-body">
-      <strong>Rules for writing Kc expressions:</strong>
-      (1) Pure solids and pure liquids are NOT included (their "concentration" is constant and incorporated into Kc). (2) The expression is written with products over reactants. (3) Each concentration is raised to the power of its stoichiometric coefficient. (4) The expression depends on the exact equation written — if you reverse the equation, Kc becomes 1/Kc; if you multiply the equation by n, Kc becomes (Kc)ⁿ.
-    </div>
-  </div>
-</div>
-
-<div class="card">
-  <h3>Magnitude of Kc — What It Tells Us</h3>
-  <div class="tbl-wrap" style="margin:0;"><table>
-    <thead><tr><th>Value of Kc</th><th>Interpretation</th><th>Example</th></tr></thead>
-    <tbody>
-      <tr><td>Kc >> 1 (e.g. 10¹⁰)</td><td>Equilibrium lies far to the right — mostly products at equilibrium; reaction almost complete</td><td>H₂ + ½O₂ ⇌ H₂O: Kc = 10⁴⁰</td></tr>
-      <tr><td>Kc ≈ 1</td><td>Significant amounts of both reactants and products at equilibrium</td><td>H₂ + I₂ ⇌ 2HI: Kc = 46 at 450°C</td></tr>
-      <tr><td>Kc << 1 (e.g. 10⁻¹⁰)</td><td>Equilibrium lies far to the left — mostly reactants; reaction barely proceeds</td><td>N₂ + O₂ ⇌ 2NO: Kc = 10⁻³⁰ at 25°C</td></tr>
-    </tbody>
-  </table></div>
-</div>
-
-<div class="card">
-  <h3>Kp — Equilibrium Constant in Terms of Partial Pressures</h3>
-  <p>For gaseous equilibria, Kp uses partial pressures instead of concentrations:</p>
-  <div class="formula-block">For aA(g) + bB(g) ⇌ cC(g) + dD(g):
-
-Kp = (pC)ᶜ(pD)ᵈ / (pA)ᵃ(pB)ᵇ
-
-where p = partial pressure (in atm, Pa, or bar)
-
-Relationship: Kp = Kc(RT)^Δn
-
-where Δn = (c + d) − (a + b) = change in moles of gas
-R = 8.314 J mol⁻¹ K⁻¹, T = temperature in Kelvin
-
-If Δn = 0: Kp = Kc (e.g. H₂ + I₂ ⇌ 2HI: Δn = 2−2 = 0)</div>
-</div>
-
-<div class="example-box">
-  <div class="ex-head">Worked Example 15.2 — Writing and Calculating Kc</div>
-  <div class="ex-body">
-    <p><strong>Q1:</strong> Write the Kc expression for: 2SO₂(g) + O₂(g) ⇌ 2SO₃(g)</p>
-    <div class="step"><span class="step-num">1</span><p>Kc = [SO₃]² / ([SO₂]²[O₂])</p></div>
-    <p><strong>Q2:</strong> At equilibrium in a 2.0 dm³ vessel: [N₂] = 0.50 mol dm⁻³, [H₂] = 0.20 mol dm⁻³, [NH₃] = 0.30 mol dm⁻³. Calculate Kc for N₂ + 3H₂ ⇌ 2NH₃.</p>
-    <div class="step"><span class="step-num">1</span><p>Kc = [NH₃]² / ([N₂][H₂]³) = (0.30)² / (0.50 × (0.20)³)</p></div>
-    <div class="step"><span class="step-num">2</span><p>= 0.090 / (0.50 × 0.0080) = 0.090 / 0.0040 = <strong>22.5 mol⁻² dm⁶</strong></p></div>
-    <p><strong>Q3:</strong> Write Kc for the reverse: 2NH₃ ⇌ N₂ + 3H₂</p>
-    <div class="step"><span class="step-num">3</span><p>Kc(reverse) = [N₂][H₂]³ / [NH₃]² = 1/22.5 = <strong>0.044 mol² dm⁻⁶</strong></p></div>
-  </div>
-</div>
-
-<!-- 15.6 -->
-<div class="section-header" id="s156">
-  <span class="section-number">15.6</span>
-  <h2>Industrial Applications of Equilibrium</h2>
-</div>
-
-<div class="card">
-  <h3>The Haber Process — A Le Châtelier Case Study</h3>
-  <p>N₂(g) + 3H₂(g) ⇌ 2NH₃(g)   ΔH = −92 kJ mol⁻¹</p>
-  <div class="tbl-wrap" style="margin:0;"><table>
-    <thead><tr><th>Factor</th><th>Favours yield (Le Châtelier)</th><th>Favours rate</th><th>Industrial compromise</th></tr></thead>
-    <tbody>
-      <tr><td>Temperature</td><td>Lower T → more NH₃ (exothermic → low T shifts right)</td><td>Higher T → faster</td><td>~450°C — acceptable rate AND ~15% conversion per pass</td></tr>
-      <tr><td>Pressure</td><td>Higher P → more NH₃ (4 mol → 2 mol gas)</td><td>Higher P → faster</td><td>~200 atm — balance of yield, cost, and safety</td></tr>
-      <tr><td>Catalyst (Fe)</td><td>No effect on Kc or equilibrium position</td><td>Dramatically increases rate</td><td>Iron + K₂O/Al₂O₃ promoters — essential</td></tr>
-      <tr><td>Remove NH₃</td><td>Shifts right → more NH₃</td><td>—</td><td>NH₃ condensed and removed continuously; N₂/H₂ recycled</td></tr>
-    </tbody>
-  </table></div>
-</div>
-
-<div class="card">
-  <h3>The Contact Process — Another Equilibrium Example</h3>
-  <p>2SO₂(g) + O₂(g) ⇌ 2SO₃(g)   ΔH = −197 kJ mol⁻¹</p>
-  <ul style="margin:8px 0 0 20px;line-height:2.2;">
-    <li><strong>Conditions:</strong> 450°C, V₂O₅ catalyst, 1–2 atm (slightly above atmospheric)</li>
-    <li><strong>Temperature:</strong> 450°C is a compromise — lower T would give more SO₃ (exothermic) but reaction too slow; 450°C gives ~99.5% conversion with V₂O₅</li>
-    <li><strong>Pressure:</strong> Relatively low pressure used (3 mol gas → 2 mol gas, high P would help, but low P already gives good yield and saves costs)</li>
-    <li><strong>Excess air:</strong> Excess O₂ shifts equilibrium right, increasing SO₃ yield</li>
-  </ul>
-</div>
-
-<div class="card">
-  <h3>Esterification Equilibrium</h3>
-  <p>CH₃COOH + C₂H₅OH ⇌ CH₃COOC₂H₅ + H₂O   (acid catalyst, Kc ≈ 4 at 25°C)</p>
-  <p>To improve yield of ester (ethyl ethanoate):</p>
-  <ul style="margin:8px 0 0 20px;line-height:2.2;">
-    <li>Use excess of one reactant (ethanol cheaper — use in excess)</li>
-    <li>Remove water as it forms (e.g. by distillation or drying agent) → shifts right</li>
-    <li>Remove ester by distillation → shifts right</li>
-    <li>H₂SO₄ catalyst increases rate but does NOT change Kc or equilibrium position</li>
-  </ul>
-  <div class="callout tip">
-    <span class="callout-icon">💡</span>
-    <div class="callout-body">
-      <strong>Fischer Esterification — exam favourite</strong>
-      Kc ≈ 4 for ethyl ethanoate synthesis. This means roughly equal concentrations of reactants and products at equilibrium. By removing water (drives right), yields of 90%+ can be achieved industrially.
-    </div>
-  </div>
-</div>
-
-<!-- 15.7 -->
-<div class="section-header" id="s157">
-  <span class="section-number">15.7</span>
-  <h2>Solubility Product (Ksp) and Partition Equilibria</h2>
-</div>
-
-<div class="card">
-  <h3>Solubility Product Ksp</h3>
-  <p>When a sparingly soluble salt dissolves: AgCl(s) ⇌ Ag⁺(aq) + Cl⁻(aq)</p>
-  <p>The solid AgCl is not included in the expression (pure solid, constant "concentration"):</p>
-  <div class="formula-block">Ksp = [Ag⁺][Cl⁻]   (mol² dm⁻⁶)
-
-For BaSO₄: Ksp = [Ba²⁺][SO₄²⁻]
-For Ca₃(PO₄)₂: Ca₃(PO₄)₂ ⇌ 3Ca²⁺ + 2PO₄³⁻ → Ksp = [Ca²⁺]³[PO₄³⁻]²
-
-Significance:
-- If [Ag⁺][Cl⁻] < Ksp: solution is unsaturated — more can dissolve
-- If [Ag⁺][Cl⁻] = Ksp: solution is saturated — equilibrium
-- If [Ag⁺][Cl⁻] > Ksp: precipitate forms (ion product exceeds Ksp)  </div>
-  <p>The <strong>common ion effect</strong>: adding a common ion (e.g. adding NaCl to AgCl solution) increases [Cl⁻] → ionic product [Ag⁺][Cl⁻] &gt; Ksp → more AgCl precipitates → solubility decreases.</p>
-</div>
-
-<div class="card">
-  <h3>Partition Equilibrium</h3>
-  <p>When a substance distributes between two immiscible solvents (e.g. water and organic solvent), a partition (distribution) equilibrium is established:</p>
-  <div class="formula-block">Partition coefficient Kd = [X]_organic / [X]_aqueous
-
-Example: iodine between CCl₄ and water:
-I₂(aq) ⇌ I₂(CCl₄)    Kd = [I₂]_CCl₄ / [I₂]_aq ≈ 85 at 25°C
-
-I₂ prefers the organic layer → purple colour in CCl₄ layer</div>
-  <p>This is the basis of <strong>solvent extraction</strong>: using an organic solvent to extract a substance from an aqueous solution. Multiple small-volume extractions are more efficient than one large-volume extraction.</p>
-</div>
-
 <!-- EXERCISES -->
-<div class="card reveal" id="videoSection">
-  <div id="videoGrid" class="video-grid">
-    <p class="video-empty" id="videoEmpty">No videos added yet for this unit.</p>
-  </div>
-</div>
-
-<!-- Video Modal -->
-<div class="video-modal" id="videoModal" onclick="if(event.target===this)closeVideo()">
-  <button class="video-modal-close" onclick="closeVideo()">✕</button>
-  <div id="videoFrame"></div>
-</div>
-
 <div class="section-header" id="exercises">
   <span class="section-number">✏️</span>
   <h2>Exercises</h2>
 </div>
 
 <ul class="exercise-list">
-  <li>Define dynamic equilibrium. State three characteristics that distinguish it from a state where no reaction is occurring.
-    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide Answer':'Show Answer'">Show Answer</button>
-    <div class="answer">Dynamic equilibrium: a state in a closed system where the rate of the forward reaction equals the rate of the reverse reaction, and the concentrations of all species remain constant. Three characteristics: (1) Both forward and reverse reactions are occurring simultaneously at equal rates — neither has stopped. (2) The system is dynamic at the molecular level even though macroscopic properties (concentration, colour, pressure) appear constant. (3) Can only exist in a closed system — if products escape, the equilibrium is destroyed and reaction goes to completion. (vs. no reaction: if no reaction, concentrations are also constant but rates of both reactions are zero).</div>
+  <li class="ex-item">
+    <div class="ex-q">Define the terms: (a) reversible reaction (b) irreversible reaction (c) dynamic equilibrium. Give one example of each from everyday chemistry and write a balanced equation where possible.</div>
+    <button class="reveal-btn ex-btn" onclick="var a=this.nextElementSibling;a.classList.toggle('open');this.textContent=a.classList.contains('open')?'&#9650; Hide Answer':'&#9660; Show Answer'">&#9660; Show Answer</button>
+    <div class="answer ex-ans">Reversible reaction: proceeds in both forward and reverse directions; can reach equilibrium. Example: N<sub>2</sub>(g) + 3H<sub>2</sub>(g) &rlhar; 2NH<sub>3</sub>(g). Irreversible: proceeds essentially to completion in one direction only. Example: 2Mg + O<sub>2</sub> &rarr; 2MgO (combustion). Dynamic equilibrium: a state in a closed system where forward rate = reverse rate and all concentrations remain constant. Example: N<sub>2</sub>O<sub>4</sub>(g) &rlhar; 2NO<sub>2</sub>(g) — the brown colour stays constant in a sealed tube.</div>
   </li>
-  <li>For the reaction PCl₅(g) ⇌ PCl₃(g) + Cl₂(g) (ΔH = +88 kJ mol⁻¹), predict the effect on the equilibrium position of: (a) increasing temperature, (b) increasing pressure, (c) adding a catalyst, (d) removing Cl₂.
-    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide Answer':'Show Answer'">Show Answer</button>
-    <div class="answer">(a) Increasing T: reaction is endothermic → adding heat → system opposes by using heat → shifts right (forward) → more PCl₃ and Cl₂ formed → Kc increases (endothermic reaction, higher T → larger Kc). (b) Increasing pressure: left side = 1 mol gas; right side = 2 mol gas. Higher pressure → shifts LEFT (fewer gas moles on left) → more PCl₅ forms. Kc unchanged. (c) Adding catalyst: no effect on equilibrium position or Kc — both forward and reverse rates increase equally → equilibrium reached faster only. (d) Removing Cl₂: [Cl₂] decreases → system opposes by producing more Cl₂ → shifts RIGHT → more PCl₃ and Cl₂ formed, more PCl₅ used. Kc unchanged.</div>
+  <li class="ex-item">
+    <div class="ex-q">For the reaction PCl<sub>5</sub>(g) &#8652; PCl<sub>3</sub>(g) + Cl<sub>2</sub>(g) (&Delta;H = +88 kJ mol<sup>&minus;</sup><sup>1</sup>), predict the effect on the equilibrium <em>position</em> of: (a) increasing temperature (b) increasing pressure (c) adding a catalyst (d) removing Cl<sub>2</sub> as it forms. In each case, state the direction of shift and explain using Le Ch&acirc;telier's Principle.</div>
+    <button class="reveal-btn ex-btn" onclick="var a=this.nextElementSibling;a.classList.toggle('open');this.textContent=a.classList.contains('open')?'&#9650; Hide Answer':'&#9660; Show Answer'">&#9660; Show Answer</button>
+    <div class="answer ex-ans">(a) Increase T: forward reaction is endothermic (&Delta;H = +88 kJ/mol) &rarr; shifts RIGHT &rarr; more PCl<sub>3</sub> and Cl<sub>2</sub>. (b) Increase P: left = 1 mol gas; right = 1+1 = 2 mol gas &rarr; fewer moles on LEFT &rarr; shifts LEFT &rarr; more PCl<sub>5</sub>. (c) Catalyst: no change in position — equilibrium reached faster only. (d) Remove Cl<sub>2</sub>: [Cl<sub>2</sub>] decreases &rarr; system opposes by producing more Cl<sub>2</sub> &rarr; shifts RIGHT.</div>
   </li>
-  <li>Write the Kc expression for: (a) 2NO(g) + O₂(g) ⇌ 2NO₂(g) (b) CaCO₃(s) ⇌ CaO(s) + CO₂(g) (c) Fe³⁺(aq) + SCN⁻(aq) ⇌ [FeSCN]²⁺(aq)
-    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide Answer':'Show Answer'">Show Answer</button>
-    <div class="answer">(a) Kc = [NO₂]² / ([NO]²[O₂]) — units: mol⁻¹ dm³. (b) Kc = [CO₂] — CaCO₃ and CaO are pure solids, not included in Kc expression. Units: mol dm⁻³. (c) Kc = [[FeSCN]²⁺] / ([Fe³⁺][SCN⁻]) — units: dm³ mol⁻¹. The blood-red colour of [FeSCN]²⁺ intensifies when more Fe³⁺ or SCN⁻ is added (equilibrium shifts right), and fades when these are diluted or complexed.</div>
+  <li class="ex-item">
+    <div class="ex-q">State Le Ch&acirc;telier's Principle. Apply it to N<sub>2</sub>(g) + 3H<sub>2</sub>(g) &#8652; 2NH<sub>3</sub>(g) (exothermic). Predict the effect on equilibrium position of: (a) increasing pressure from 100 to 300 atm (b) increasing temperature from 350&deg;C to 500&deg;C (c) removing NH<sub>3</sub> as it forms (d) adding an iron catalyst.</div>
+    <button class="reveal-btn ex-btn" onclick="var a=this.nextElementSibling;a.classList.toggle('open');this.textContent=a.classList.contains('open')?'&#9650; Hide Answer':'&#9660; Show Answer'">&#9660; Show Answer</button>
+    <div class="answer ex-ans">Le Ch&acirc;telier's Principle: when a system at equilibrium is disturbed, it shifts to oppose the change. N<sub>2</sub> + 3H<sub>2</sub> &rlhar; 2NH<sub>3</sub> (exothermic): (a) Increase P from 100&rarr;300 atm: 4 mol gas &rarr; 2 mol gas &rarr; shifts RIGHT &rarr; more NH<sub>3</sub>. (b) Increase T 350&rarr;500&deg;C: exothermic forward &rarr; shifts LEFT &rarr; less NH<sub>3</sub>; lower yield. (c) Remove NH<sub>3</sub>: [NH<sub>3</sub>] drops &rarr; shifts RIGHT continuously &rarr; more NH<sub>3</sub> produced. (d) Iron catalyst: no effect on position; equilibrium reached faster.</div>
   </li>
-  <li>At 500°C, the equilibrium constant for N₂(g) + 3H₂(g) ⇌ 2NH₃(g) is Kc = 6.0 × 10⁻² mol⁻² dm⁶. At equilibrium, [N₂] = 0.50 mol dm⁻³ and [H₂] = 0.60 mol dm⁻³. Calculate [NH₃] at equilibrium.
-    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide Answer':'Show Answer'">Show Answer</button>
-    <div class="answer">Kc = [NH₃]² / ([N₂][H₂]³) = 6.0 × 10⁻². [N₂] = 0.50, [H₂] = 0.60. [NH₃]² = Kc × [N₂] × [H₂]³ = 6.0×10⁻² × 0.50 × (0.60)³ = 6.0×10⁻² × 0.50 × 0.216 = 6.0×10⁻² × 0.108 = 6.48×10⁻³. [NH₃] = √(6.48×10⁻³) = 0.0805 mol dm⁻³ ≈ <strong>0.080 mol dm⁻³</strong>.</div>
+  <li class="ex-item">
+    <div class="ex-q">For the equilibrium 2NO<sub>2</sub>(g) &#8652; N<sub>2</sub>O<sub>4</sub>(g) (exothermic, &Delta;H = &minus;57 kJ/mol), describe and explain what you observe if: (a) the sealed tube is placed in hot water (b) the sealed tube is placed in ice water (c) the pressure is increased by halving the volume. (NO<sub>2</sub> is brown; N<sub>2</sub>O<sub>4</sub> is colourless.)</div>
+    <button class="reveal-btn ex-btn" onclick="var a=this.nextElementSibling;a.classList.toggle('open');this.textContent=a.classList.contains('open')?'&#9650; Hide Answer':'&#9660; Show Answer'">&#9660; Show Answer</button>
+    <div class="answer ex-ans">(a) Hot water: adds heat &rarr; system opposes by absorbing heat &rarr; endothermic direction favoured &rarr; more N<sub>2</sub>O<sub>4</sub> &rarr; 2NO<sub>2</sub> &rarr; mixture darkens (more brown NO<sub>2</sub>). (b) Ice water: removes heat &rarr; exothermic direction favoured &rarr; 2NO<sub>2</sub> &rarr; N<sub>2</sub>O<sub>4</sub> &rarr; mixture pales (more colourless N<sub>2</sub>O<sub>4</sub>). (c) Halve volume (double P): left = 2 mol gas; right = 1 mol gas; fewer moles on right &rarr; shifts RIGHT &rarr; more N<sub>2</sub>O<sub>4</sub> formed &rarr; mixture pales initially then stabilises.</div>
   </li>
-  <li>Explain why a catalyst does not change the equilibrium yield of a product, but is still used industrially. Use the Haber Process as your example.
-    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide Answer':'Show Answer'">Show Answer</button>
-    <div class="answer">A catalyst provides an alternative reaction pathway with lower activation energy. It speeds up both the forward and reverse reactions by the same factor → both rates increase equally → equilibrium is reached faster → equilibrium position is unchanged → same concentrations of NH₃ at equilibrium. Kc is unchanged. However, in industry, the Fe catalyst in the Haber Process allows equilibrium to be reached at 450°C in a reasonable time. Without the catalyst, the reaction would be too slow at 450°C. To achieve a usable rate without the catalyst, temperatures of ~700°C+ would be needed — but this would give a very poor yield (exothermic reaction, higher T → less NH₃). The catalyst thus allows the best of both: acceptable rate AND acceptable yield at 450°C. It saves energy and reduces process time, which is economically essential.</div>
+  <li class="ex-item">
+    <div class="ex-q">Explain the industrial conditions for the Haber Process (N<sub>2</sub> + 3H<sub>2</sub> &#8652; 2NH<sub>3</sub>, exothermic): (a) Why is ~450&deg;C chosen rather than a very low temperature? (b) Why is ~200 atm pressure used? (c) What is the role of the iron catalyst? (d) Why is ammonia removed by condensation as it forms?</div>
+    <button class="reveal-btn ex-btn" onclick="var a=this.nextElementSibling;a.classList.toggle('open');this.textContent=a.classList.contains('open')?'&#9650; Hide Answer':'&#9660; Show Answer'">&#9660; Show Answer</button>
+    <div class="answer ex-ans">(a) ~450&deg;C chosen: low T gives better yield (exothermic &rarr; shifts right at low T) but rate is too slow; 450&deg;C is a compromise giving acceptable rate AND yield with the iron catalyst. (b) ~200 atm: 4 mol gas &rarr; 2 mol; high P shifts right &rarr; better yield; limited by engineering cost and safety. (c) Iron catalyst: lowers activation energy for both forward and reverse equally; allows acceptable rate at 450&deg;C without wasting energy on extreme temperatures; does NOT affect yield. (d) NH<sub>3</sub> removed by condensation: continuously lowers [NH<sub>3</sub>] &rarr; Le Ch&acirc;telier shifts right &rarr; unreacted N<sub>2</sub>/H<sub>2</sub> recycled &rarr; near-complete conversion over multiple passes.</div>
   </li>
-  <li>The Ksp of AgCl at 25°C is 1.8 × 10⁻¹⁰ mol² dm⁻⁶. (a) Calculate the molar solubility of AgCl in pure water. (b) Calculate the molar solubility of AgCl in 0.10 mol dm⁻³ NaCl solution (common ion effect).
-    <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide Answer':'Show Answer'">Show Answer</button>
-    <div class="answer">(a) AgCl ⇌ Ag⁺ + Cl⁻. Let s = molar solubility. [Ag⁺] = [Cl⁻] = s. Ksp = s² = 1.8×10⁻¹⁰ → s = √(1.8×10⁻¹⁰) = 1.34×10⁻⁵ mol dm⁻³. (b) In 0.10 mol dm⁻³ NaCl: [Cl⁻] = 0.10 + s ≈ 0.10 (s << 0.10). Ksp = [Ag⁺][Cl⁻] = s × 0.10 = 1.8×10⁻¹⁰ → s = 1.8×10⁻⁹ mol dm⁻³. The common ion effect reduces the solubility by a factor of ~7500 (from 1.34×10⁻⁵ to 1.8×10⁻⁹ mol dm⁻³). Adding NaCl shifts AgCl ⇌ Ag⁺ + Cl⁻ to the left → less AgCl dissolves.</div>
+  <li class="ex-item">
+    <div class="ex-q">For H<sub>2</sub>(g) + I<sub>2</sub>(g) &#8652; 2HI(g): (a) Explain why changing the pressure has no effect on the equilibrium position. (b) A student claims that adding more H<sub>2</sub> shifts the equilibrium right. Explain this at the molecular level. (c) Why does the same equilibrium mixture result whether you start from pure H<sub>2</sub> + I<sub>2</sub> or from pure HI?</div>
+    <button class="reveal-btn ex-btn" onclick="var a=this.nextElementSibling;a.classList.toggle('open');this.textContent=a.classList.contains('open')?'&#9650; Hide Answer':'&#9660; Show Answer'">&#9660; Show Answer</button>
+    <div class="answer ex-ans">(a) H<sub>2</sub> + I<sub>2</sub> &rlhar; 2HI: left = 1+1 = 2 mol gas; right = 2 mol gas. Equal moles &rarr; &Delta;n(gas) = 0 &rarr; pressure change cannot favour either side &rarr; no shift. (b) Adding H<sub>2</sub> increases [H<sub>2</sub>] &rarr; forward rate increases (more H<sub>2</sub>-I<sub>2</sub> collisions) &rarr; more HI produced until new equilibrium where forward rate = reverse rate again. (c) Equilibrium is a state function determined only by T and the amounts present. Starting from either H<sub>2</sub>+I<sub>2</sub> or pure HI with equivalent amounts, the system shifts forward or backward respectively until it reaches the same ratio of concentrations (same K<sub>c</sub>) at that temperature.</div>
   </li>
 </ul>
 
@@ -514,258 +350,234 @@ I₂ prefers the organic layer → purple colour in CCl₄ layer</div>
   <div class="quiz-body">
 
     <div class="qblock"><span class="qnum">Q1</span>
-    <p class="qtext">At dynamic equilibrium, which statement is correct?</p>
+    <p class="qtext">What distinguishes a reversible reaction from an irreversible reaction?</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q1" value="A"> The forward reaction has stopped</label>
-      <label class="opt"><input type="radio" name="q1" value="B"> The concentrations of all species are zero</label>
-      <label class="opt"><input type="radio" name="q1" value="C"> The rate of the forward reaction equals the rate of the reverse reaction; concentrations are constant</label>
-      <label class="opt"><input type="radio" name="q1" value="D"> The reaction is complete — all reactants converted to products</label>
+      <label><input type="radio" name="q1" value="A"> Irreversible reactions always release energy</label>
+      <label><input type="radio" name="q1" value="B"> Reversible reactions can proceed in both the forward and reverse directions</label>
+      <label><input type="radio" name="q1" value="C"> Irreversible reactions involve only gases</label>
+      <label><input type="radio" name="q1" value="D"> Reversible reactions always reach completion</label>
     </div>
-    <div class="qexplain" id="e1">Dynamic equilibrium: forward rate = reverse rate (both ongoing simultaneously). Concentrations remain constant (not zero — both reactants and products are present). "Dynamic" = both reactions happening; "equilibrium" = net change = zero. Neither forward nor reverse has stopped.</div></div>
-
+    <div class="qexplain" id="e1">A reversible reaction can go in both directions: reactants &rarr; products AND products &rarr; reactants. An irreversible reaction proceeds essentially to completion in one direction only.</div></div>
     <div class="qblock"><span class="qnum">Q2</span>
-    <p class="qtext">Le Châtelier's Principle states that when a system at equilibrium is disturbed, it will:</p>
+    <p class="qtext">At dynamic equilibrium, which statement is CORRECT?</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q2" value="A"> Shift to completely counteract the disturbance</label>
-      <label class="opt"><input type="radio" name="q2" value="B"> Partially oppose the change to minimise its effect and establish a new equilibrium</label>
-      <label class="opt"><input type="radio" name="q2" value="C"> Stop reacting until conditions return to normal</label>
-      <label class="opt"><input type="radio" name="q2" value="D"> Always shift in the forward direction</label>
+      <label><input type="radio" name="q2" value="A"> All reactions have stopped</label>
+      <label><input type="radio" name="q2" value="B"> The forward rate is greater than the reverse rate</label>
+      <label><input type="radio" name="q2" value="C"> The concentrations of reactants and products remain constant</label>
+      <label><input type="radio" name="q2" value="D"> All reactants have been converted to products</label>
     </div>
-    <div class="qexplain" id="e2">Le Châtelier: the system <em>partially</em> opposes the change — never fully. If you add more reactant, the forward reaction increases — but not enough to fully consume all the added reactant. A new equilibrium is established with higher concentrations of both reactants and products. "Partially oppose" is the key phrase.</div></div>
-
+    <div class="qexplain" id="e2">At dynamic equilibrium: (1) rates of forward and reverse reactions are equal; (2) concentrations remain constant; (3) the reaction is still occurring at molecular level. The system appears static macroscopically but is dynamic microscopically.</div></div>
     <div class="qblock"><span class="qnum">Q3</span>
-    <p class="qtext">For 2SO₂(g) + O₂(g) ⇌ 2SO₃(g), increasing pressure will:</p>
+    <p class="qtext">Le Ch&acirc;telier's Principle states that when a system at equilibrium is disturbed, it will:</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q3" value="A"> Shift equilibrium left (more SO₂ + O₂)</label>
-      <label class="opt"><input type="radio" name="q3" value="B"> Shift equilibrium right (more SO₃) — left side has 3 mol gas, right has 2 mol</label>
-      <label class="opt"><input type="radio" name="q3" value="C"> Have no effect — both sides have equal moles of gas</label>
-      <label class="opt"><input type="radio" name="q3" value="D"> Increase the value of Kc</label>
+      <label><input type="radio" name="q3" value="A"> Reach a new equilibrium identical to the original</label>
+      <label><input type="radio" name="q3" value="B"> Oppose the change to minimise the disturbance</label>
+      <label><input type="radio" name="q3" value="C"> Always shift to produce more products</label>
+      <label><input type="radio" name="q3" value="D"> Increase in temperature to compensate</label>
     </div>
-    <div class="qexplain" id="e3">Left side: 2 SO₂ + 1 O₂ = 3 mol gas. Right side: 2 SO₃ = 2 mol gas. Increasing pressure → system shifts to side with fewer moles of gas (right) → more SO₃ produced. This is why the Contact Process uses slightly elevated pressure (although Kc unchanged — only position shifts).</div></div>
-
+    <div class="qexplain" id="e3">Le Ch&acirc;telier's Principle: if a system at equilibrium is subjected to a change (concentration, pressure, or temperature), the equilibrium position will shift in a direction that opposes the change and establishes a new equilibrium.</div></div>
     <div class="qblock"><span class="qnum">Q4</span>
-    <p class="qtext">Which of the following changes will alter the VALUE of the equilibrium constant Kc?</p>
+    <p class="qtext">For 2SO<sub>2</sub>(g) + O<sub>2</sub>(g) &#8652; 2SO<sub>3</sub>(g) (exothermic), increasing pressure will shift the equilibrium:</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q4" value="A"> Adding more reactant</label>
-      <label class="opt"><input type="radio" name="q4" value="B"> Increasing pressure</label>
-      <label class="opt"><input type="radio" name="q4" value="C"> Adding a catalyst</label>
-      <label class="opt"><input type="radio" name="q4" value="D"> Changing temperature</label>
+      <label><input type="radio" name="q4" value="A"> To the left (fewer moles of gas on left)</label>
+      <label><input type="radio" name="q4" value="B"> To the right (fewer moles of gas on right)</label>
+      <label><input type="radio" name="q4" value="C"> No change (equal moles on both sides)</label>
+      <label><input type="radio" name="q4" value="D"> Depends on the temperature</label>
     </div>
-    <div class="qexplain" id="e4">Only a change in <strong>temperature</strong> changes the value of Kc. Concentration changes, pressure changes, and catalysts all change the equilibrium POSITION but not Kc. Temperature affects Kc because it changes the relative rates of forward and reverse reactions differently (activation energies are different for exo- and endothermic directions). All other factors → same Kc, different position.</div></div>
-
+    <div class="qexplain" id="e4">Left side: 2 + 1 = 3 moles of gas. Right side: 2 moles of gas. Increasing pressure favours the side with fewer moles of gas &rarr; shifts RIGHT &rarr; more SO<sub>3</sub>. Le Ch&acirc;telier: system opposes increased pressure by reducing the number of gas molecules.</div></div>
     <div class="qblock"><span class="qnum">Q5</span>
-    <p class="qtext">The Kc expression for N₂(g) + 3H₂(g) ⇌ 2NH₃(g) is:</p>
+    <p class="qtext">For the exothermic reaction A(g) &#8652; B(g) + heat, increasing temperature will:</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q5" value="A"> Kc = [N₂][H₂]³ / [NH₃]²</label>
-      <label class="opt"><input type="radio" name="q5" value="B"> Kc = [NH₃]² / ([N₂][H₂]³)</label>
-      <label class="opt"><input type="radio" name="q5" value="C"> Kc = [NH₃] / ([N₂][H₂])</label>
-      <label class="opt"><input type="radio" name="q5" value="D"> Kc = [N₂] + [H₂]³ / [NH₃]²</label>
+      <label><input type="radio" name="q5" value="A"> Shift equilibrium right, producing more B</label>
+      <label><input type="radio" name="q5" value="B"> Shift equilibrium left, producing more A</label>
+      <label><input type="radio" name="q5" value="C"> Have no effect on the equilibrium position</label>
+      <label><input type="radio" name="q5" value="D"> Increase the value of the equilibrium constant</label>
     </div>
-    <div class="qexplain" id="e5">Kc = [products]^stoich / [reactants]^stoich = [NH₃]² / ([N₂]¹[H₂]³). Powers match stoichiometric coefficients. Products over reactants. Kc has units of mol⁻² dm⁶ (can check: [mol/dm³]² / ([mol/dm³][mol/dm³]³) = mol²/dm⁶ / mol⁴/dm¹² = mol⁻²dm⁶).</div></div>
-
+    <div class="qexplain" id="e5">Heat can be treated as a product in an exothermic reaction. Adding more heat (increasing temperature) shifts the equilibrium LEFT (away from the heat side) to oppose the change. This decreases the yield of products.</div></div>
     <div class="qblock"><span class="qnum">Q6</span>
-    <p class="qtext">For the exothermic reaction A ⇌ B (ΔH = −50 kJ mol⁻¹), increasing temperature:</p>
-    <div class="opts">
-      <label class="opt"><input type="radio" name="q6" value="A"> Shifts equilibrium right → more B; Kc increases</label>
-      <label class="opt"><input type="radio" name="q6" value="B"> Shifts equilibrium left → more A; Kc decreases</label>
-      <label class="opt"><input type="radio" name="q6" value="C"> No effect on equilibrium position</label>
-      <label class="opt"><input type="radio" name="q6" value="D"> Shifts equilibrium right; Kc unchanged</label>
-    </div>
-    <div class="qexplain" id="e6">The forward reaction is exothermic — it releases heat. Adding more heat (increasing T) causes the system to oppose by using heat → shifts the REVERSE (endothermic) direction → more A, less B. Kc decreases (less product relative to reactant at the new equilibrium). For exothermic reactions: higher T → lower Kc. For endothermic: higher T → higher Kc.</div></div>
-
-    <div class="qblock"><span class="qnum">Q7</span>
     <p class="qtext">Adding a catalyst to a reaction at equilibrium:</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q7" value="A"> Increases the yield of products</label>
-      <label class="opt"><input type="radio" name="q7" value="B"> Shifts equilibrium in the forward direction</label>
-      <label class="opt"><input type="radio" name="q7" value="C"> Speeds up both forward and reverse reactions equally — equilibrium is reached faster; position and Kc unchanged</label>
-      <label class="opt"><input type="radio" name="q7" value="D"> Changes the value of Kc</label>
+      <label><input type="radio" name="q6" value="A"> Increases the yield of products</label>
+      <label><input type="radio" name="q6" value="B"> Shifts the equilibrium to the right</label>
+      <label><input type="radio" name="q6" value="C"> Increases the rates of both forward and reverse reactions equally</label>
+      <label><input type="radio" name="q6" value="D"> Changes the equilibrium constant</label>
     </div>
-    <div class="qexplain" id="e7">A catalyst lowers the activation energy of BOTH forward and reverse reactions by the same amount (since the transition state is lowered for both). Both rates increase by the same factor → equilibrium is reached faster (kinetics) but at the same position (thermodynamics). Neither Kc nor the equilibrium concentrations change. The catalyst does NOT affect yield — only time to reach equilibrium.</div></div>
-
+    <div class="qexplain" id="e6">A catalyst lowers the activation energy for BOTH forward and reverse reactions equally. It does NOT shift the equilibrium position, does NOT change the yield, and does NOT change the equilibrium constant. It only allows equilibrium to be reached FASTER.</div></div>
+    <div class="qblock"><span class="qnum">Q7</span>
+    <p class="qtext">Which change will shift the equilibrium RIGHT for: CaCO<sub>3</sub>(s) &#8652; CaO(s) + CO<sub>2</sub>(g)?</p>
+    <div class="opts">
+      <label><input type="radio" name="q7" value="A"> Increasing pressure</label>
+      <label><input type="radio" name="q7" value="B"> Adding more CaCO<sub>3</sub>(s)</label>
+      <label><input type="radio" name="q7" value="C"> Removing CO<sub>2</sub> gas as it forms</label>
+      <label><input type="radio" name="q7" value="D"> Decreasing temperature</label>
+    </div>
+    <div class="qexplain" id="e7">Removing CO<sub>2</sub> decreases [CO<sub>2</sub>] &rarr; equilibrium shifts right to replace it (Le Ch&acirc;telier). Adding more CaCO<sub>3</sub> (a pure solid) has no effect on position. Increasing pressure shifts LEFT (fewer gas moles). Decreasing temperature shifts LEFT for this endothermic forward reaction.</div></div>
     <div class="qblock"><span class="qnum">Q8</span>
-    <p class="qtext">For N₂O₄(g) ⇌ 2NO₂(g) (endothermic, ΔH = +57 kJ/mol), a mixture of N₂O₄ and NO₂ is placed in a syringe and rapidly compressed. The immediate change is:</p>
+    <p class="qtext">For H<sub>2</sub>(g) + I<sub>2</sub>(g) &#8652; 2HI(g), increasing pressure has:</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q8" value="A"> The mixture becomes darker (more NO₂ — brown)</label>
-      <label class="opt"><input type="radio" name="q8" value="B"> The mixture first becomes lighter (paler) as NO₂ combines to form N₂O₄ due to pressure increase shifting left</label>
-      <label class="opt"><input type="radio" name="q8" value="C"> No change observed</label>
-      <label class="opt"><input type="radio" name="q8" value="D"> Temperature decreases immediately</label>
+      <label><input type="radio" name="q8" value="A"> No effect on the equilibrium position</label>
+      <label><input type="radio" name="q8" value="B"> Shifts equilibrium to the right</label>
+      <label><input type="radio" name="q8" value="C"> Shifts equilibrium to the left</label>
+      <label><input type="radio" name="q8" value="D"> Stops the reaction</label>
     </div>
-    <div class="qexplain" id="e8">Compression increases pressure → system shifts toward fewer moles of gas → LEFT (N₂O₄ side, 1 mol gas) → NO₂ (brown, 2 mol gas) is converted to N₂O₄ (colourless) → mixture becomes paler. Note: immediately after compression, the mixture is darker (all gas compressed into smaller volume → higher [NO₂] → darker) — then over time, equilibrium shifts left → paler. The immediate observation on rapid compression: darker colour, then fades over time.</div></div>
-
+    <div class="qexplain" id="e8">Moles of gas on left = 1 + 1 = 2. Moles on right = 2. Equal moles on both sides &rarr; pressure change has NO effect on the equilibrium position. Le Ch&acirc;telier: there is no way to oppose a pressure change if both sides have the same number of moles.</div></div>
     <div class="qblock"><span class="qnum">Q9</span>
-    <p class="qtext">If Kc for a reaction is very large (e.g. 10¹⁰), this means:</p>
+    <p class="qtext">For the reaction: Fe<sup>3</sup><sup>+</sup>(aq) + SCN<sup>&minus;</sup>(aq) &#8652; [FeSCN]<sup>2</sup><sup>+</sup>(aq) [blood red], adding more Fe(NO<sub>3</sub>)<sub>3</sub> will:</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q9" value="A"> The reaction is very slow</label>
-      <label class="opt"><input type="radio" name="q9" value="B"> Equilibrium lies far to the right — mostly products at equilibrium; reaction is essentially complete</label>
-      <label class="opt"><input type="radio" name="q9" value="C"> The activation energy is very high</label>
-      <label class="opt"><input type="radio" name="q9" value="D"> The reaction requires a catalyst to proceed</label>
+      <label><input type="radio" name="q9" value="A"> Make the solution paler (shift left)</label>
+      <label><input type="radio" name="q9" value="B"> Have no effect</label>
+      <label><input type="radio" name="q9" value="C"> Form more [FeSCN]<sup>2</sup><sup>+</sup> giving a deeper red colour</label>
+      <label><input type="radio" name="q9" value="D"> Increase the temperature</label>
     </div>
-    <div class="qexplain" id="e9">Kc = [products] / [reactants]. Very large Kc (>> 1) means [products] >> [reactants] at equilibrium → equilibrium lies far right → reaction nearly complete. Note: Kc says nothing about rate (kinetics). A reaction can have very large Kc (thermodynamically favourable) but still be very slow (high Eₐ) — e.g. H₂ + ½O₂ → H₂O has Kc = 10⁴⁰ but doesn't react without a spark or catalyst.</div></div>
-
+    <div class="qexplain" id="e9">Adding Fe<sup>3</sup><sup>+</sup> increases [Fe<sup>3</sup><sup>+</sup>] &rarr; equilibrium shifts RIGHT to reduce [Fe<sup>3</sup><sup>+</sup>] &rarr; more [FeSCN]<sup>2</sup><sup>+</sup> is formed &rarr; the solution becomes a deeper blood-red colour. This is a classic demonstration of Le Ch&acirc;telier's Principle using colour change as evidence.</div></div>
     <div class="qblock"><span class="qnum">Q10</span>
-    <p class="qtext">For CaCO₃(s) ⇌ CaO(s) + CO₂(g), the Kc expression is:</p>
+    <p class="qtext">Which of the following is an example of a REVERSIBLE reaction?</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q10" value="A"> Kc = [CaO][CO₂] / [CaCO₃]</label>
-      <label class="opt"><input type="radio" name="q10" value="B"> Kc = [CO₂]</label>
-      <label class="opt"><input type="radio" name="q10" value="C"> Kc = [CaO] / [CaCO₃]</label>
-      <label class="opt"><input type="radio" name="q10" value="D"> Kc = 1</label>
+      <label><input type="radio" name="q10" value="A"> Combustion of methane in excess oxygen</label>
+      <label><input type="radio" name="q10" value="B"> Explosion of gunpowder</label>
+      <label><input type="radio" name="q10" value="C"> Decomposition of N<sub>2</sub>O<sub>4</sub>(g) into NO<sub>2</sub>(g)</label>
+      <label><input type="radio" name="q10" value="D"> Burning of a candle</label>
     </div>
-    <div class="qexplain" id="e10">Pure solids (CaCO₃ and CaO) are NOT included in the Kc expression — their concentrations are constant (effectively 1 in thermodynamic terms). Only gaseous or aqueous species are included. Therefore Kc = [CO₂] only. This means: at a given temperature, the equilibrium pressure of CO₂ above the CaCO₃/CaO mixture is constant — the famous lime kiln equilibrium.</div></div>
-
+    <div class="qexplain" id="e10">N<sub>2</sub>O<sub>4</sub>(g) &#8652; 2NO<sub>2</sub>(g) is reversible &mdash; both decomposition and recombination occur, achieving equilibrium. The other three are highly exothermic irreversible reactions that proceed essentially to completion; the products do not recombine under normal conditions.</div></div>
     <div class="qblock"><span class="qnum">Q11</span>
-    <p class="qtext">In the Haber Process (N₂ + 3H₂ ⇌ 2NH₃, exothermic), which set of conditions gives the best YIELD of NH₃?</p>
+    <p class="qtext">For the endothermic reaction: N<sub>2</sub>(g) + O<sub>2</sub>(g) &#8652; 2NO(g), maximum yield of NO is favoured by:</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q11" value="A"> High T, low P, no catalyst</label>
-      <label class="opt"><input type="radio" name="q11" value="B"> Low T, high P (thermodynamically best but rate too slow)</label>
-      <label class="opt"><input type="radio" name="q11" value="C"> High T, high P, Fe catalyst</label>
-      <label class="opt"><input type="radio" name="q11" value="D"> Low T, low P, Fe catalyst</label>
+      <label><input type="radio" name="q11" value="A"> Low temperature and low pressure</label>
+      <label><input type="radio" name="q11" value="B"> High temperature, since forward reaction is endothermic</label>
+      <label><input type="radio" name="q11" value="C"> High pressure only</label>
+      <label><input type="radio" name="q11" value="D"> Low temperature and high pressure</label>
     </div>
-    <div class="qexplain" id="e11">Thermodynamic optimum for yield: low T (exothermic → cooler favours product), high P (4 mol → 2 mol gas, high P favours right). So the BEST yield is at low T, high P. However, low T = very slow rate. Industrial compromise: 450°C (reasonable rate AND yield) and 200 atm. The question asks for best yield (not industrial compromise), so low T + high P gives highest Kc and highest percentage NH₃.</div></div>
-
+    <div class="qexplain" id="e11">The forward reaction is endothermic, so increasing temperature shifts the equilibrium RIGHT &rarr; more NO. Since moles of gas are equal on both sides (2 vs 2), pressure has no effect on position.</div></div>
     <div class="qblock"><span class="qnum">Q12</span>
-    <p class="qtext">The reaction CH₃COOH + C₂H₅OH ⇌ CH₃COOC₂H₅ + H₂O has Kc ≈ 4. To increase the yield of ester, you could:</p>
+    <p class="qtext">At equilibrium in a closed system, which of the following is NOT true?</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q12" value="A"> Add a catalyst (H₂SO₄)</label>
-      <label class="opt"><input type="radio" name="q12" value="B"> Use excess ethanol and remove water as it forms</label>
-      <label class="opt"><input type="radio" name="q12" value="C"> Increase pressure</label>
-      <label class="opt"><input type="radio" name="q12" value="D"> Decrease temperature</label>
+      <label><input type="radio" name="q12" value="A"> Rate of forward reaction = rate of reverse reaction</label>
+      <label><input type="radio" name="q12" value="B"> Concentrations of all species are equal to each other</label>
+      <label><input type="radio" name="q12" value="C"> System has constant macroscopic properties</label>
+      <label><input type="radio" name="q12" value="D"> Both reactions still occur at molecular level</label>
     </div>
-    <div class="qexplain" id="e12">To shift right and increase ester yield: (1) Use excess of one reactant (ethanol) — shifts equilibrium right. (2) Remove water as it forms (by distillation or CaCl₂) — Le Châtelier shifts right to replace it. Adding H₂SO₄ catalyst: does NOT change yield (only speeds up reaching equilibrium). Pressure: reaction is in solution — pressure has minimal effect. Temperature: Kc ≈ 4 with weak temperature dependence — modest effect.</div></div>
-
+    <div class="qexplain" id="e12">Concentrations are CONSTANT at equilibrium, but they are NOT necessarily equal to each other. For example, in H<sub>2</sub> + I<sub>2</sub> &#8652; 2HI, [HI] is typically much higher than [H<sub>2</sub>] or [I<sub>2</sub>].</div></div>
     <div class="qblock"><span class="qnum">Q13</span>
-    <p class="qtext">Adding iron catalyst to the Haber Process at equilibrium:</p>
+    <p class="qtext">For: CH<sub>3</sub>COOH + C<sub>2</sub>H<sub>5</sub>OH &#8652; CH<sub>3</sub>COOC<sub>2</sub>H<sub>5</sub> + H<sub>2</sub>O, which change increases the yield of ester?</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q13" value="A"> Shifts equilibrium right → more NH₃</label>
-      <label class="opt"><input type="radio" name="q13" value="B"> Increases Kc</label>
-      <label class="opt"><input type="radio" name="q13" value="C"> Does not change equilibrium position or Kc — only increases rate at which equilibrium is reached</label>
-      <label class="opt"><input type="radio" name="q13" value="D"> Shifts equilibrium left → less NH₃</label>
+      <label><input type="radio" name="q13" value="A"> Add more water</label>
+      <label><input type="radio" name="q13" value="B"> Remove the ester as it forms</label>
+      <label><input type="radio" name="q13" value="C"> Decrease the temperature</label>
+      <label><input type="radio" name="q13" value="D"> Use a larger container</label>
     </div>
-    <div class="qexplain" id="e13">If the reaction mixture is already AT equilibrium, adding a catalyst has no effect on position or Kc. The catalyst only matters when the system is NOT yet at equilibrium — it speeds up the approach to equilibrium. If the catalyst is added to a non-equilibrium mixture, equilibrium is reached faster but at the same position. This is a commonly tested concept.</div></div>
-
+    <div class="qexplain" id="e13">Removing ester (product) as it forms shifts the equilibrium RIGHT (Le Ch&acirc;telier), producing more ester. Adding water (a product) shifts LEFT. Temperature and container size have little practical effect on this liquid-phase equilibrium.</div></div>
     <div class="qblock"><span class="qnum">Q14</span>
-    <p class="qtext">For the equilibrium: Fe³⁺(aq) + SCN⁻(aq) ⇌ [FeSCN]²⁺(aq) (blood red), adding more Fe(NO₃)₃ solution will cause:</p>
+    <p class="qtext">For the Haber Process: N<sub>2</sub>(g) + 3H<sub>2</sub>(g) &#8652; 2NH<sub>3</sub>(g) (exothermic), which conditions give the BEST yield of NH<sub>3</sub>?</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q14" value="A"> The solution to become paler (less red)</label>
-      <label class="opt"><input type="radio" name="q14" value="B"> The solution to become darker red (more [FeSCN]²⁺ formed)</label>
-      <label class="opt"><input type="radio" name="q14" value="C"> No visible change</label>
-      <label class="opt"><input type="radio" name="q14" value="D"> A precipitate to form</label>
+      <label><input type="radio" name="q14" value="A"> High temperature and low pressure</label>
+      <label><input type="radio" name="q14" value="B"> High temperature and high pressure</label>
+      <label><input type="radio" name="q14" value="C"> Low temperature and high pressure</label>
+      <label><input type="radio" name="q14" value="D"> Low temperature and low pressure</label>
     </div>
-    <div class="qexplain" id="e14">Adding Fe³⁺ increases [Fe³⁺] → Le Châtelier → equilibrium shifts right to reduce [Fe³⁺] → more [FeSCN]²⁺ forms → solution becomes darker red/blood red. This is a classic visible demonstration of Le Châtelier's principle. Conversely, adding dilute water → paler (dilution shifts left). Adding F⁻ (which complexes Fe³⁺ more strongly) → paler (removes Fe³⁺ → shifts left).</div></div>
-
+    <div class="qexplain" id="e14">High pressure: 4 moles gas &rarr; 2 moles &rarr; shifts RIGHT (more NH<sub>3</sub>). Low temperature: forward reaction is exothermic &rarr; lower T shifts RIGHT (more NH<sub>3</sub>). (In practice, 450&deg;C is a compromise to get adequate rate.)</div></div>
     <div class="qblock"><span class="qnum">Q15</span>
-    <p class="qtext">The units of Kc for the reaction N₂(g) + 3H₂(g) ⇌ 2NH₃(g) are:</p>
+    <p class="qtext">When more reactant is added to a system at equilibrium, the forward reaction rate initially:</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q15" value="A"> mol dm⁻³</label>
-      <label class="opt"><input type="radio" name="q15" value="B"> mol² dm⁻⁶</label>
-      <label class="opt"><input type="radio" name="q15" value="C"> mol⁻² dm⁶</label>
-      <label class="opt"><input type="radio" name="q15" value="D"> Dimensionless</label>
+      <label><input type="radio" name="q15" value="A"> Decreases</label>
+      <label><input type="radio" name="q15" value="B"> Remains the same</label>
+      <label><input type="radio" name="q15" value="C"> Increases, then decreases as new equilibrium is reached</label>
+      <label><input type="radio" name="q15" value="D"> Becomes zero</label>
     </div>
-    <div class="qexplain" id="e15">Kc = [NH₃]² / ([N₂][H₂]³). Check units: (mol dm⁻³)² / ((mol dm⁻³)(mol dm⁻³)³) = mol²dm⁻⁶ / mol⁴dm⁻¹² = mol⁻²dm⁶. This can be verified: Δn = 2−(1+3) = −2. Units = (mol dm⁻³)^Δn = (mol dm⁻³)⁻² = mol⁻²dm⁶. Units of Kc depend on the stoichiometry — not always given for simplicity, but can be required.</div></div>
-
+    <div class="qexplain" id="e15">Adding reactant increases its concentration &rarr; collision frequency increases &rarr; forward rate increases. The equilibrium shifts right until a new balance is achieved where forward rate = reverse rate again.</div></div>
     <div class="qblock"><span class="qnum">Q16</span>
-    <p class="qtext">For H₂(g) + I₂(g) ⇌ 2HI(g), increasing pressure has:</p>
+    <p class="qtext">A closed container holds H<sub>2</sub>(g) + I<sub>2</sub>(g) &#8652; 2HI(g) at equilibrium. The volume is suddenly doubled. The equilibrium position:</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q16" value="A"> Equilibrium shifts right → more HI</label>
-      <label class="opt"><input type="radio" name="q16" value="B"> No effect on equilibrium position — equal moles of gas on both sides (Δn = 0)</label>
-      <label class="opt"><input type="radio" name="q16" value="C"> Equilibrium shifts left → less HI</label>
-      <label class="opt"><input type="radio" name="q16" value="D"> Kc increases</label>
+      <label><input type="radio" name="q16" value="A"> Shifts right</label>
+      <label><input type="radio" name="q16" value="B"> Shifts left</label>
+      <label><input type="radio" name="q16" value="C"> Does not change</label>
+      <label><input type="radio" name="q16" value="D"> All gases recombine</label>
     </div>
-    <div class="qexplain" id="e16">Left side: 1 H₂ + 1 I₂ = 2 mol gas. Right side: 2 HI = 2 mol gas. Δn = 0. Since both sides have equal moles of gas, pressure changes do NOT affect the equilibrium position (the system cannot reduce or increase total moles of gas by shifting). Kp = Kc when Δn = 0. Classic exam example where P effect is zero.</div></div>
-
+    <div class="qexplain" id="e16">Moles of gas: left = 2, right = 2. Doubling the volume (halving the pressure) has NO effect on this equilibrium because both sides have equal moles of gas. Le Ch&acirc;telier: no net shift can oppose a pressure change when &Delta;n(gas) = 0.</div></div>
     <div class="qblock"><span class="qnum">Q17</span>
-    <p class="qtext">Ksp for AgBr = 5.0 × 10⁻¹³ mol² dm⁻⁶. The molar solubility of AgBr in pure water is:</p>
+    <p class="qtext">PCl<sub>5</sub>(g) &#8652; PCl<sub>3</sub>(g) + Cl<sub>2</sub>(g) is endothermic. Decreasing the temperature will:</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q17" value="A"> 5.0 × 10⁻¹³ mol dm⁻³</label>
-      <label class="opt"><input type="radio" name="q17" value="B"> 7.1 × 10⁻⁷ mol dm⁻³</label>
-      <label class="opt"><input type="radio" name="q17" value="C"> 2.5 × 10⁻¹³ mol dm⁻³</label>
-      <label class="opt"><input type="radio" name="q17" value="D"> 1.0 × 10⁻⁶ mol dm⁻³</label>
+      <label><input type="radio" name="q17" value="A"> Shift equilibrium right, producing more PCl<sub>3</sub> and Cl<sub>2</sub></label>
+      <label><input type="radio" name="q17" value="B"> Shift equilibrium left, producing more PCl<sub>5</sub></label>
+      <label><input type="radio" name="q17" value="C"> Have no effect</label>
+      <label><input type="radio" name="q17" value="D"> Increase the forward reaction rate</label>
     </div>
-    <div class="qexplain" id="e17">AgBr ⇌ Ag⁺ + Br⁻. Let s = solubility. [Ag⁺] = [Br⁻] = s. Ksp = s × s = s² = 5.0×10⁻¹³. s = √(5.0×10⁻¹³) = 7.07×10⁻⁷ ≈ 7.1×10⁻⁷ mol dm⁻³. Very low solubility (AgBr is sparingly soluble — cream precipitate in the halide test). This is less soluble than AgCl (Ksp = 1.8×10⁻¹⁰) and more soluble than AgI (Ksp = 8.5×10⁻¹⁷).</div></div>
-
+    <div class="qexplain" id="e17">Forward reaction is endothermic. Removing heat (decreasing T) shifts the equilibrium LEFT (towards the exothermic direction) to generate heat. This produces more PCl<sub>5</sub> and decreases the amounts of PCl<sub>3</sub> and Cl<sub>2</sub>.</div></div>
     <div class="qblock"><span class="qnum">Q18</span>
-    <p class="qtext">The equilibrium constant for A + B ⇌ C + D is Kc. If the equation is reversed (C + D ⇌ A + B), the new Kc is:</p>
+    <p class="qtext">In a reversible reaction, when a product is continuously removed from the equilibrium mixture:</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q18" value="A"> Kc (unchanged)</label>
-      <label class="opt"><input type="radio" name="q18" value="B"> 1/Kc</label>
-      <label class="opt"><input type="radio" name="q18" value="C"> Kc²</label>
-      <label class="opt"><input type="radio" name="q18" value="D"> −Kc</label>
+      <label><input type="radio" name="q18" value="A"> The forward reaction stops</label>
+      <label><input type="radio" name="q18" value="B"> The reverse reaction speeds up</label>
+      <label><input type="radio" name="q18" value="C"> The equilibrium continuously shifts right, producing more product</label>
+      <label><input type="radio" name="q18" value="D"> The rate of forward reaction decreases</label>
     </div>
-    <div class="qexplain" id="e18">Original: Kc = [C][D]/[A][B]. Reversed: Kc(rev) = [A][B]/[C][D] = 1/Kc. Reversing the equation inverts the Kc expression → Kc becomes 1/Kc. Similarly, if you multiply the equation by 2 (2A + 2B ⇌ 2C + 2D), new Kc = (Kc)² = Kc². These are fundamental algebraic properties of equilibrium constants.</div></div>
-
+    <div class="qexplain" id="e18">Continuously removing a product keeps its concentration low &rarr; equilibrium keeps shifting right to replace it. This is used industrially (e.g. removing NH<sub>3</sub> by condensation in Haber Process) to achieve near-complete conversion.</div></div>
     <div class="qblock"><span class="qnum">Q19</span>
-    <p class="qtext">Why must a reversible reaction be carried out in a closed system to achieve equilibrium?</p>
+    <p class="qtext">Why must a reversible reaction be carried out in a CLOSED system to achieve equilibrium?</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q19" value="A"> Open systems are too hot</label>
-      <label class="opt"><input type="radio" name="q19" value="B"> In an open system, gaseous or volatile products escape → reaction continues forward without reverse reaction → goes to completion</label>
-      <label class="opt"><input type="radio" name="q19" value="C"> Catalysts only work in closed systems</label>
-      <label class="opt"><input type="radio" name="q19" value="D"> Pressure cannot build up in an open system</label>
+      <label><input type="radio" name="q19" value="A"> To maintain constant temperature</label>
+      <label><input type="radio" name="q19" value="B"> To prevent loss of reactants or products so both reactions can occur simultaneously</label>
+      <label><input type="radio" name="q19" value="C"> To allow the catalyst to work effectively</label>
+      <label><input type="radio" name="q19" value="D"> To increase the pressure</label>
     </div>
-    <div class="qexplain" id="e19">In an open system, gases or volatile products escape to the surroundings. The reverse reaction requires reactants (which are now the products that have escaped) — so the reverse reaction cannot proceed. Le Châtelier: removing products continuously shifts equilibrium right → more products formed → eventually ALL reactants converted → reaction goes to completion. Example: CaCO₃ heated in open air → CO₂ escapes → all CaCO₃ decomposes. In closed vessel → CO₂ builds up → equilibrium established.</div></div>
-
+    <div class="qexplain" id="e19">In an open system, products escape &rarr; reverse reaction cannot occur &rarr; no equilibrium is reached. In a closed system, both reactants and products are retained, allowing forward and reverse rates to become equal.</div></div>
     <div class="qblock"><span class="qnum">Q20</span>
-    <p class="qtext">In the Contact Process (2SO₂ + O₂ ⇌ 2SO₃, exothermic), which change would DECREASE the yield of SO₃?</p>
+    <p class="qtext">For 2SO<sub>2</sub>(g) + O<sub>2</sub>(g) &#8652; 2SO<sub>3</sub>(g), which change does NOT alter the equilibrium POSITION?</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q20" value="A"> Decreasing temperature</label>
-      <label class="opt"><input type="radio" name="q20" value="B"> Increasing pressure</label>
-      <label class="opt"><input type="radio" name="q20" value="C"> Increasing temperature</label>
-      <label class="opt"><input type="radio" name="q20" value="D"> Adding excess O₂</label>
+      <label><input type="radio" name="q20" value="A"> Adding more O<sub>2</sub></label>
+      <label><input type="radio" name="q20" value="B"> Increasing the pressure</label>
+      <label><input type="radio" name="q20" value="C"> Adding a V<sub>2</sub>O<sub>5</sub> catalyst</label>
+      <label><input type="radio" name="q20" value="D"> Decreasing the temperature</label>
     </div>
-    <div class="qexplain" id="e20">Increasing temperature of an exothermic reaction → system opposes by using the heat → shifts REVERSE direction (left) → less SO₃. Kc decreases at higher T for exothermic reactions. This is why 450°C is a compromise — 600°C+ would give very poor SO₃ yield but faster rate. Lower T → more SO₃ (better yield) but too slow.</div></div>
-
+    <div class="qexplain" id="e20">A catalyst speeds up both forward and reverse reactions equally &rarr; equilibrium is reached faster but the position (and yield) is unchanged. Adding O<sub>2</sub>, changing pressure, or changing temperature all shift the position.</div></div>
     <div class="qblock"><span class="qnum">Q21</span>
-    <p class="qtext">The Kp for 2NO₂(g) ⇌ N₂O₄(g) at 25°C is 8.8 atm⁻¹. This means:</p>
+    <p class="qtext">A sealed syringe with N<sub>2</sub>O<sub>4</sub>(g) &#8652; 2NO<sub>2</sub>(g) at equilibrium (N<sub>2</sub>O<sub>4</sub> colourless; NO<sub>2</sub> brown) is rapidly compressed. What is observed immediately, then after a few seconds?</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q21" value="A"> Mostly NO₂ at equilibrium at 25°C</label>
-      <label class="opt"><input type="radio" name="q21" value="B"> Mostly N₂O₄ at equilibrium at 25°C (Kp >> 1)</label>
-      <label class="opt"><input type="radio" name="q21" value="C"> Equal amounts of NO₂ and N₂O₄</label>
-      <label class="opt"><input type="radio" name="q21" value="D"> The reaction does not proceed</label>
+      <label><input type="radio" name="q21" value="A"> Immediately colourless, then brown</label>
+      <label><input type="radio" name="q21" value="B"> Immediately darker brown, then slightly paler</label>
+      <label><input type="radio" name="q21" value="C"> No colour change</label>
+      <label><input type="radio" name="q21" value="D"> Immediately paler, then darker brown</label>
     </div>
-    <div class="qexplain" id="e21">Kp = p(N₂O₄) / p(NO₂)² = 8.8 atm⁻¹ — this is greater than 1, meaning N₂O₄ is favoured at 25°C (the mixture is mostly colourless N₂O₄). At higher T (say 100°C), the equilibrium shifts left (endothermic reverse reaction) → more NO₂ (brown). This explains why the N₂O₄/NO₂ mixture appears darker brown when heated and paler when cooled.</div></div>
-
+    <div class="qexplain" id="e21">Compression increases total pressure &rarr; all concentrations increase &rarr; immediate darkening (more NO<sub>2</sub> per unit volume). Then Le Ch&acirc;telier shifts equilibrium LEFT (fewer moles) &rarr; some NO<sub>2</sub> recombines &rarr; slight paling from the darkest point, but still darker than original.</div></div>
     <div class="qblock"><span class="qnum">Q22</span>
-    <p class="qtext">At equilibrium, [A] = 0.20, [B] = 0.30, [C] = 0.60 mol dm⁻³ for A + B ⇌ C. Calculate Kc.</p>
+    <p class="qtext">Why is a catalyst used in industrial reversible reactions if it does not increase yield?</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q22" value="A"> 10</label>
-      <label class="opt"><input type="radio" name="q22" value="B"> 0.1</label>
-      <label class="opt"><input type="radio" name="q22" value="C"> 0.036</label>
-      <label class="opt"><input type="radio" name="q22" value="D"> 1.0</label>
+      <label><input type="radio" name="q22" value="A"> It shifts equilibrium to the right</label>
+      <label><input type="radio" name="q22" value="B"> It increases the equilibrium yield of the product</label>
+      <label><input type="radio" name="q22" value="C"> It allows a lower temperature to be used while maintaining acceptable rate</label>
+      <label><input type="radio" name="q22" value="D"> It changes the equilibrium constant</label>
     </div>
-    <div class="qexplain" id="e22">Kc = [C] / ([A][B]) = 0.60 / (0.20 × 0.30) = 0.60 / 0.060 = <strong>10</strong>. Units: (mol dm⁻³) / (mol dm⁻³)² = mol⁻¹ dm³. Kc = 10 means products favoured (more C than A or B at equilibrium). The equilibrium lies slightly to the right.</div></div>
-
+    <div class="qexplain" id="e22">Lower temperature gives better yield for exothermic reactions but is too slow. A catalyst at lower temperature can give acceptable rate with better yield &mdash; the economic optimum. Without the catalyst, the reaction would need a much higher (yield-reducing) temperature.</div></div>
     <div class="qblock"><span class="qnum">Q23</span>
-    <p class="qtext">Adding a common ion reduces the solubility of a sparingly soluble salt. This is because:</p>
+    <p class="qtext">The reaction H<sub>2</sub>(g) + Cl<sub>2</sub>(g) &rarr; 2HCl(g) is considered irreversible under normal conditions because:</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q23" value="A"> The common ion reacts chemically with the salt</label>
-      <label class="opt"><input type="radio" name="q23" value="B"> Adding an ion already present increases the ionic product above Ksp → precipitation occurs until ionic product drops back to Ksp → less salt dissolves</label>
-      <label class="opt"><input type="radio" name="q23" value="C"> The temperature decreases when the common ion is added</label>
-      <label class="opt"><input type="radio" name="q23" value="D"> The common ion increases the Ksp</label>
+      <label><input type="radio" name="q23" value="A"> It produces only gases</label>
+      <label><input type="radio" name="q23" value="B"> It is very slow</label>
+      <label><input type="radio" name="q23" value="C"> It is highly exothermic and the products are very stable &mdash; the reverse reaction is negligible</label>
+      <label><input type="radio" name="q23" value="D"> It involves diatomic molecules only</label>
     </div>
-    <div class="qexplain" id="e23">Common ion effect: adding NaCl to AgCl solution increases [Cl⁻]. The ionic product [Ag⁺][Cl⁻] exceeds Ksp → precipitation of more AgCl → [Ag⁺] decreases until [Ag⁺][Cl⁻] = Ksp again. The new equilibrium has lower [Ag⁺] = lower solubility. Le Châtelier: adding Cl⁻ shifts AgCl ⇌ Ag⁺ + Cl⁻ to the left → less dissolution. Ksp is unchanged (only T changes Ksp).</div></div>
-
+    <div class="qexplain" id="e23">Highly exothermic reactions that produce very stable products have such large equilibrium constants that virtually all reactants are converted to products. The reverse reaction, though possible in principle, is negligible under normal conditions.</div></div>
     <div class="qblock"><span class="qnum">Q24</span>
-    <p class="qtext">The equilibrium H₂(g) + I₂(g) ⇌ 2HI(g) has Kc = 46 at 450°C. Starting with 0.50 mol H₂ and 0.50 mol I₂ in a 1.0 dm³ vessel, the [HI] at equilibrium is approximately:</p>
+    <p class="qtext">For an exothermic equilibrium reaction, increasing temperature shifts the equilibrium to the LEFT because:</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q24" value="A"> 0.50 mol dm⁻³</label>
-      <label class="opt"><input type="radio" name="q24" value="B"> 1.0 mol dm⁻³</label>
-      <label class="opt"><input type="radio" name="q24" value="C"> 0.39 mol dm⁻³</label>
-      <label class="opt"><input type="radio" name="q24" value="D"> 0.78 mol dm⁻³</label>
+      <label><input type="radio" name="q24" value="A"> Higher temperature always favours reactants</label>
+      <label><input type="radio" name="q24" value="B"> The reverse (endothermic) reaction is favoured to absorb the added heat</label>
+      <label><input type="radio" name="q24" value="C"> The equilibrium constant becomes larger</label>
+      <label><input type="radio" name="q24" value="D"> The forward reaction rate decreases</label>
     </div>
-    <div class="qexplain" id="e24">H₂ + I₂ ⇌ 2HI: Kc = [HI]²/([H₂][I₂]) = 46. Let x mol react. [H₂] = 0.50−x, [I₂] = 0.50−x, [HI] = 2x. Kc = (2x)² / (0.50−x)² = 46. √(46) = 6.78. 2x/(0.50−x) = 6.78. 2x = 3.39 − 6.78x. 8.78x = 3.39. x = 0.386. [HI] = 2x = 0.77 ≈ <strong>0.78 mol dm⁻³</strong>.</div></div>
-
+    <div class="qexplain" id="e24">Le Ch&acirc;telier: adding heat &rarr; system opposes by absorbing heat &rarr; endothermic direction is favoured &rarr; left shift (for exothermic forward reaction). The equilibrium constant Kc DECREASES at higher temperature for exothermic reactions.</div></div>
     <div class="qblock"><span class="qnum">Q25</span>
-    <p class="qtext">In an industrial ammonia synthesis plant, NH₃ is continuously removed by condensation as it is formed. The effect of this is:</p>
+    <p class="qtext">In the Contact Process, SO<sub>3</sub> is absorbed into H<sub>2</sub>SO<sub>4</sub> as soon as it forms: 2SO<sub>2</sub> + O<sub>2</sub> &#8652; 2SO<sub>3</sub>. This is done to:</p>
     <div class="opts">
-      <label class="opt"><input type="radio" name="q25" value="A"> Shifts equilibrium left → less NH₃ total</label>
-      <label class="opt"><input type="radio" name="q25" value="B"> Shifts equilibrium right continuously → more NH₃ produced from N₂ and H₂; overall conversion of N₂/H₂ to NH₃ exceeds equilibrium yield per pass</label>
-      <label class="opt"><input type="radio" name="q25" value="C"> No effect — NH₃ removal does not affect equilibrium</label>
-      <label class="opt"><input type="radio" name="q25" value="D"> Increases Kc → more product at each equilibrium</label>
+      <label><input type="radio" name="q25" value="A"> Increase the temperature of the reaction</label>
+      <label><input type="radio" name="q25" value="B"> Shift the equilibrium right and maximise SO<sub>3</sub> production</label>
+      <label><input type="radio" name="q25" value="C"> Reduce the pressure</label>
+      <label><input type="radio" name="q25" value="D"> Act as a catalyst</label>
     </div>
-    <div class="qexplain" id="e25">Removing NH₃ decreases [NH₃] → reaction "chases" the removed product by shifting right (Le Châtelier — removes product → forward direction favoured). In the Haber Process: NH₃ is condensed and removed; unreacted N₂ and H₂ are recycled. This achieves ~97% overall conversion of feedgas to NH₃ even though single-pass conversion is only ~15%. Removing product is a key industrial strategy to maximise output.</div></div>
+    <div class="qexplain" id="e25">Removing SO<sub>3</sub> (product) keeps [SO<sub>3</sub>] very low &rarr; equilibrium shifts right (Le Ch&acirc;telier) &rarr; more SO<sub>2</sub> and O<sub>2</sub> are consumed &rarr; near-complete conversion achieved. This is an industrial application of Le Ch&acirc;telier's Principle.</div></div>
+    
 
-    <div style="text-align:center;margin-top:28px;">
-      <button class="qs" onclick="submitQuiz()">Submit Quiz — Check Answers</button>
-      <div id="qR"></div>
+      <button class="qs" onclick="submitQuiz()" style="margin-top:24px;width:100%;padding:14px;background:var(--accent);color:#000;border:none;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.95rem;font-weight:700;cursor:pointer;letter-spacing:.03em;">&#9654; Submit Quiz &amp; Check Answers</button>
+      <div id="qR" style="display:none;"></div>
     </div>
   </div>
 </div>
@@ -780,57 +592,38 @@ I₂ prefers the organic layer → purple colour in CCl₄ layer</div>
   <div class="test-sec-head"><h3>Section A — Short Answer</h3><span class="marks-badge">30 marks</span></div>
 
   <div class="tq"><div class="tq-num">Q1 [5 marks]</div>
-  <p>Define dynamic equilibrium. Describe an experiment to demonstrate that both the forward and reverse reactions are still occurring at equilibrium, using the N₂O₄/NO₂ system as your example. [5]</p>
+  <p>Define dynamic equilibrium. State THREE characteristics that distinguish a system at dynamic equilibrium from a system where the reaction has stopped. Use the N<sub>2</sub>O<sub>4</sub>(g) &#8652; 2NO<sub>2</sub>(g) system to illustrate each characteristic.</p>
   <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide':'Model Answer'">Model Answer</button>
-  <div class="answer">Definition: a state in a closed system where the rate of forward reaction = rate of reverse reaction; macroscopic properties (concentration, pressure, colour) remain constant; both reactions continue at the molecular level. [2] N₂O₄ ⇌ 2NO₂: N₂O₄ is colourless; NO₂ is brown. At equilibrium in a sealed tube: the mixture has a constant brown colour (not colourless — reaction has not gone to completion; not deep brown — not all N₂O₄ dissociated). Evidence both reactions continue: (1) cool the tube → mixture becomes paler (reverse reaction — NO₂ → N₂O₄ dominates temporarily → new darker-than-warm equilibrium at lower T because exothermic forward reaction is disfavoured — wait, cooling favours forward here since forward is exothermic). (2) Seal a mixture of pure NO₂ or pure N₂O₄ in a tube — over time, the colour changes and stabilises at the same shade regardless of which pure substance you start with — reaching the same equilibrium from either direction. [3]</div></div>
-
+  <div class="answer">Definition: a state in a closed system where the rate of the forward reaction equals the rate of the reverse reaction, so macroscopic properties remain constant while both reactions continue at the molecular level. [2] Three characteristics using N<sub>2</sub>O<sub>4</sub> &#8652; 2NO<sub>2</sub>: (1) Constant colour &mdash; the brown colour due to NO<sub>2</sub> is constant and neither deepens nor fades; if the reaction had stopped, colour would be constant too, but it can be shown to shift when disturbed. [1] (2) Reached from either direction &mdash; starting with pure N<sub>2</sub>O<sub>4</sub> or pure NO<sub>2</sub> gives the same equilibrium colour at the same T. [1] (3) Occurs in a closed system &mdash; in an open flask the NO<sub>2</sub> escapes and equilibrium is never established; the colour fades rather than stabilising. [1]</div></div>
   <div class="tq"><div class="tq-num">Q2 [5 marks]</div>
-  <p>For the reaction: 2SO₂(g) + O₂(g) ⇌ 2SO₃(g), ΔH = −197 kJ mol⁻¹<br>Predict and explain the effect on the equilibrium position AND Kc of: (a) increasing temperature (b) increasing pressure (c) adding V₂O₅ catalyst (d) adding more SO₂. [5]</p>
+  <p>For the reaction: 2SO<sub>2</sub>(g) + O<sub>2</sub>(g) &#8652; 2SO<sub>3</sub>(g), &Delta;H = &minus;197 kJ mol<sup>&minus;</sup><sup>1</sup>. Predict AND explain the effect on the equilibrium POSITION of: (a) increasing temperature [1] (b) increasing pressure [1] (c) adding V<sub>2</sub>O<sub>5</sub> catalyst [1] (d) removing SO<sub>3</sub> as it forms [1] (e) adding more O<sub>2</sub> [1].</p>
   <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide':'Model Answer'">Model Answer</button>
-  <div class="answer">(a) Increasing T: reaction is exothermic — adding heat → system opposes by using heat → shifts LEFT → less SO₃. Kc DECREASES (exothermic: higher T → lower Kc). [1] (b) Increasing P: left = 3 mol gas, right = 2 mol gas → shifts RIGHT (fewer moles) → more SO₃. Kc unchanged (only T changes Kc). [1] (c) V₂O₅ catalyst: no effect on position or Kc — equilibrium reached FASTER, not shifted. Both forward and reverse rates increased equally. [1] (d) Adding more SO₂: [SO₂] increases → system opposes by reducing [SO₂] → shifts RIGHT → more SO₃ formed. Kc unchanged. [1] Summary: only temperature changes Kc; concentration, pressure, and catalyst change position but not Kc. [1]</div></div>
-
+  <div class="answer">(a) Increase T: reaction is exothermic &rarr; system opposes by absorbing heat &rarr; shifts LEFT &rarr; less SO<sub>3</sub>. [1] (b) Increase P: left = 3 mol gas; right = 2 mol gas &rarr; fewer moles on right &rarr; shifts RIGHT &rarr; more SO<sub>3</sub>. [1] (c) V<sub>2</sub>O<sub>5</sub> catalyst: no change in position &mdash; speeds up both forward and reverse equally &rarr; equilibrium reached faster, yield unchanged. [1] (d) Removing SO<sub>3</sub>: [SO<sub>3</sub>] decreases &rarr; system opposes by producing more SO<sub>3</sub> &rarr; shifts RIGHT. [1] (e) Adding O<sub>2</sub>: [O<sub>2</sub>] increases &rarr; system opposes by consuming O<sub>2</sub> &rarr; shifts RIGHT &rarr; more SO<sub>3</sub>. [1]</div></div>
   <div class="tq"><div class="tq-num">Q3 [5 marks]</div>
-  <p>Write the Kc expressions for the following reactions and state the units: (a) 2HI(g) ⇌ H₂(g) + I₂(g) (b) PCl₅(g) ⇌ PCl₃(g) + Cl₂(g) (c) Fe³⁺(aq) + SCN⁻(aq) ⇌ [FeSCN]²⁺(aq) (d) CH₃COOH(aq) + C₂H₅OH(aq) ⇌ CH₃COOC₂H₅(aq) + H₂O(l). [5]</p>
+  <p>State Le Ch&acirc;telier's Principle. For each of the following, predict the direction of shift and explain: (a) N<sub>2</sub> + 3H<sub>2</sub> &#8652; 2NH<sub>3</sub> &mdash; increase pressure [1] (b) CaCO<sub>3</sub>(s) &#8652; CaO(s) + CO<sub>2</sub>(g) &mdash; remove CO<sub>2</sub> [1] (c) 2HBr(g) &#8652; H<sub>2</sub>(g) + Br<sub>2</sub>(g) (endothermic) &mdash; decrease temperature [1] (d) CH<sub>3</sub>COOH + C<sub>2</sub>H<sub>5</sub>OH &#8652; ester + H<sub>2</sub>O &mdash; add more ethanol [1] (e) Fe<sup>3</sup><sup>+</sup>(aq) + SCN<sup>&minus;</sup>(aq) &#8652; [FeSCN]<sup>2</sup><sup>+</sup>(aq) &mdash; dilute with water [1].</p>
   <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide':'Model Answer'">Model Answer</button>
-  <div class="answer">(a) Kc = [H₂][I₂] / [HI]². Units: (mol dm⁻³)² / (mol dm⁻³)² = dimensionless (Δn = 0). [1] (b) Kc = [PCl₃][Cl₂] / [PCl₅]. Units: (mol dm⁻³)² / (mol dm⁻³) = mol dm⁻³ (Δn = +1). [1] (c) Kc = [[FeSCN]²⁺] / ([Fe³⁺][SCN⁻]). Units: mol dm⁻³ / (mol dm⁻³)² = mol⁻¹ dm³. [1] (d) Kc = [CH₃COOC₂H₅] / ([CH₃COOH][C₂H₅OH]). H₂O(l) is pure liquid — NOT included in Kc. Units: mol dm⁻³ / (mol dm⁻³)² = mol⁻¹ dm³ (Δn = −1 in solution). [2]</div></div>
-
+  <div class="answer">Principle: when a system at equilibrium is disturbed, it shifts to oppose the change. [stated implicitly in answers] (a) 4 mol gas &rarr; 2 mol gas; high P favours fewer moles &rarr; shifts RIGHT &rarr; more NH<sub>3</sub>. [1] (b) Remove CO<sub>2</sub> &rarr; [CO<sub>2</sub>] drops &rarr; shifts RIGHT to replace CO<sub>2</sub>. [1] (c) Endothermic forward &rarr; decreasing T removes heat &rarr; system opposes by generating heat &rarr; shifts LEFT &rarr; more HBr. [1] (d) Adding ethanol (reactant) &rarr; shifts RIGHT &rarr; more ester formed. [1] (e) Diluting with water decreases all concentrations &rarr; shifts in direction that increases particle numbers &rarr; shifts LEFT (fewer product particles than reactant particles, 1 product vs 2 reactants here) &rarr; solution becomes paler. [1]</div></div>
   <div class="tq"><div class="tq-num">Q4 [5 marks]</div>
-  <p>In the esterification: CH₃COOH + C₂H₅OH ⇌ CH₃COOC₂H₅ + H₂O, Kc = 4.0 at 60°C. 1.0 mol of each reactant is mixed in a 1.0 dm³ flask. Calculate the equilibrium concentrations of all species. [5]</p>
+  <p>Distinguish between a reversible and an irreversible reaction with two examples of each. Explain why reversible reactions must be carried out in a closed system to reach equilibrium. Why does starting from either pure reactants or pure products (in the same amounts) give the same equilibrium mixture?</p>
   <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide':'Model Answer'">Model Answer</button>
-  <div class="answer">Let x = moles reacted at equilibrium. Initial: [CH₃COOH] = [C₂H₅OH] = 1.0; [ester] = [H₂O] = 0. At equilibrium: [acid] = [alcohol] = (1.0 − x); [ester] = [H₂O] = x. [1] Kc = x² / (1.0 − x)² = 4.0. √(4.0) = 2.0. [1] x / (1.0 − x) = 2.0. x = 2.0 − 2.0x. 3.0x = 2.0. x = 0.667 mol dm⁻³. [2] [CH₃COOH] = [C₂H₅OH] = 0.333 mol dm⁻³; [ester] = [H₂O] = 0.667 mol dm⁻³. [1] Check: Kc = (0.667)² / (0.333)² = 0.444 / 0.111 = 4.0 ✓</div></div>
-
+  <div class="answer">Reversible: reaction can go in both directions, reaching equilibrium; examples: N<sub>2</sub>O<sub>4</sub> &#8652; 2NO<sub>2</sub>; N<sub>2</sub> + 3H<sub>2</sub> &#8652; 2NH<sub>3</sub>. [1] Irreversible: proceeds essentially to completion in one direction; examples: Mg + O<sub>2</sub> &rarr; MgO (combustion); Na + H<sub>2</sub>O &rarr; NaOH + H<sub>2</sub>. [1] Closed system needed: in open system, products escape (or reactants evaporate) &rarr; reverse reaction cannot occur &rarr; no equilibrium reached; all material converted to products or lost. [2] Same equilibrium from either side: equilibrium depends only on temperature (determines the equilibrium constant) and the amounts of material present, not on the direction of approach. Le Ch&acirc;telier: whether you start from reactants or products, the system adjusts forward or backward until rates are equal &mdash; the same stable state. [1]</div></div>
   <div class="tq"><div class="tq-num">Q5 [5 marks]</div>
-  <p>The Ksp of CaF₂ is 3.9 × 10⁻¹¹ mol³ dm⁻⁹ at 25°C. (a) Write the dissolution equation and Ksp expression. (b) Calculate the molar solubility of CaF₂ in pure water. (c) Explain what happens when NaF solution is added to a saturated CaF₂ solution. [5]</p>
+  <p>For the reaction H<sub>2</sub>(g) + I<sub>2</sub>(g) &#8652; 2HI(g), explain why: (a) increasing the pressure at constant temperature does NOT change the equilibrium position [2] (b) removing some HI from the equilibrium mixture shifts the position to the right [2] (c) adding a catalyst speeds up both reactions but does not change the yield [1].</p>
   <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide':'Model Answer'">Model Answer</button>
-  <div class="answer">(a) CaF₂(s) ⇌ Ca²⁺(aq) + 2F⁻(aq). Ksp = [Ca²⁺][F⁻]². [1] (b) Let s = molar solubility. [Ca²⁺] = s; [F⁻] = 2s. Ksp = s × (2s)² = 4s³ = 3.9×10⁻¹¹. s³ = 3.9×10⁻¹¹/4 = 9.75×10⁻¹². s = (9.75×10⁻¹²)^(1/3) = 2.14×10⁻⁴ mol dm⁻³. [2] (c) Adding NaF increases [F⁻] (common ion). Ionic product [Ca²⁺][F⁻]² > Ksp → precipitation of more CaF₂ → [Ca²⁺] decreases → solubility of CaF₂ decreases (common ion effect). Le Châtelier: adding F⁻ shifts CaF₂(s) ⇌ Ca²⁺ + 2F⁻ to the left → more CaF₂ precipitates. [2]</div></div>
-
+  <div class="answer">(a) Moles of gas: left = 1 + 1 = 2; right = 2. Equal moles on both sides &rarr; no net difference in pressure between products and reactants &rarr; equilibrium position unchanged. Le Ch&acirc;telier: the system cannot oppose the pressure change because any shift would not change the number of gas moles &mdash; so no shift occurs. [2] (b) Removing HI reduces [HI] below equilibrium value &rarr; forward rate > reverse rate temporarily &rarr; equilibrium shifts right to replace HI by reacting H<sub>2</sub> + I<sub>2</sub>. [2] (c) Catalyst lowers activation energy for BOTH forward and reverse reactions equally &rarr; both rates increase by the same factor &rarr; the ratio of rates (and hence equilibrium position) is unchanged; only time to reach equilibrium decreases. [1]</div></div>
   <div class="tq"><div class="tq-num">Q6 [5 marks]</div>
-  <p>Explain the industrial significance of the following equilibrium strategies: (a) recycling unreacted feedstock (b) removing products as they form (c) using high pressure in the Haber Process (d) why equilibrium yield and rate considerations conflict in industrial processes. [5]</p>
+  <p>Sealed tubes containing N<sub>2</sub>O<sub>4</sub>(g)/NO<sub>2</sub>(g) at equilibrium are placed in (a) hot water and (b) ice. The hot tube becomes darker brown; the cold tube becomes paler. Explain these observations fully using Le Ch&acirc;telier's Principle, and state what they reveal about the enthalpy of the forward reaction.</p>
   <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide':'Model Answer'">Model Answer</button>
-  <div class="answer">(a) Recycling: in Haber, only ~15% NH₃ per pass. Unreacted N₂/H₂ recycled → overall conversion ~97%. This makes the process economically viable without needing extreme conditions. Le Châtelier: effectively removes product → more reactant converted per cycle. [1] (b) Removing products: shifts equilibrium right (Le Châtelier). Example: NH₃ condensed at −33°C and removed continuously → forces more NH₃ to form from remaining N₂/H₂. Esterification: water removed to drive ester formation. [1] (c) High pressure (200 atm) in Haber: N₂ + 3H₂ → 2NH₃ reduces moles of gas → high P favours right → higher yield at given T. Cost: high-pressure equipment (thick-walled reactors, compressors) expensive; greater explosion risk; capital cost limits the economic optimum to ~200 atm. [1] (d) Rate vs yield conflict: for exothermic reactions (Haber, Contact), lower T → better yield (Kc favours products) but SLOWER rate. Higher T → faster rate but lower Kc → poorer yield. The industrial compromise (Haber: 450°C, 200 atm, Fe catalyst) balances these competing demands — acceptable rate AND reasonable yield, with catalyst helping to achieve economic conversion without excessive heating. [2]</div></div>
-</div>
-
-<div class="test-section">
-  <div class="test-sec-head"><h3>Section B — Extended Answer</h3><span class="marks-badge">20 marks</span></div>
-
+  <div class="answer">(a) Hot water: adding heat to the equilibrium &rarr; system opposes by absorbing heat &rarr; shifts in the endothermic direction &rarr; more N<sub>2</sub>O<sub>4</sub> breaks down to give more brown NO<sub>2</sub> &rarr; mixture darkens. [2] (b) Ice: removing heat &rarr; system opposes by releasing heat &rarr; shifts in the exothermic direction &rarr; more NO<sub>2</sub> recombines to N<sub>2</sub>O<sub>4</sub> (colourless) &rarr; mixture pales. [2] Conclusion: the forward reaction N<sub>2</sub>O<sub>4</sub> &rarr; 2NO<sub>2</sub> is endothermic (heat absorbed); the reverse reaction 2NO<sub>2</sub> &rarr; N<sub>2</sub>O<sub>4</sub> is exothermic. The colour changes are consistent with &Delta;H > 0 for the forward reaction. [1]</div></div>
   <div class="tq"><div class="tq-num">Q7 [10 marks]</div>
-  <p>(a) Le Châtelier's Principle is essential to understanding industrial chemical processes. Using the Haber Process as your main example, describe how each factor (temperature, pressure, catalyst, and product removal) is optimised, explaining the reasoning for each industrial choice. [6]<br>
-  (b) The equilibrium constant Kc has different units for different reactions. Explain why, and derive the units for: (i) N₂ + 3H₂ ⇌ 2NH₃ (ii) 2NO(g) ⇌ N₂(g) + O₂(g). [4]</p>
+  <p>(a) Using Le Ch&acirc;telier's Principle, explain why each industrial condition of the Haber Process is chosen. For each, state the effect on YIELD and on RATE: (i) Temperature ~450&deg;C (ii) Pressure ~200 atm (iii) Iron catalyst (iv) Continuous removal of NH<sub>3</sub>. [7] (b) The yield of NH<sub>3</sub> per pass is only ~15%. How does the process still achieve near-complete conversion? [3]</p>
   <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide':'Model Answer'">Model Answer</button>
-  <div class="answer">(a) N₂ + 3H₂ ⇌ 2NH₃, ΔH = −92 kJ/mol. Temperature: exothermic → lower T increases Kc (more NH₃ at equilibrium). But lower T = slower rate. 450°C compromise: fast enough rate for viable production; Kc gives ~15% NH₃ per pass at 200 atm; Fe catalyst essential at this temperature. Higher T (>600°C) would give >5× faster rate but Kc so low that yield would be uneconomic. [2] Pressure: 4 mol gas → 2 mol gas. High P → equilibrium shifts right → more NH₃. 200 atm chosen: at higher P (600+ atm), yield improves further but engineering costs (vessel thickness, compressor power) increase exponentially; safety risks rise. At 200 atm with 450°C and Fe catalyst, ~15% NH₃ per pass is sufficient (with recycling → 97% overall). [2] Catalyst (Fe + promoters K₂O, Al₂O₃): no effect on Kc or equilibrium position. Lowers activation energy → faster approach to equilibrium → can operate at 450°C rather than 700°C+ without catalyst (which would give impractically slow rate). K₂O is electronic promoter (increases electron density of Fe active sites); Al₂O₃ is structural (prevents sintering of Fe particles). [1] Product removal: NH₃ condensed at −33°C as the hot reactor gases are cooled → removed as liquid → shifts equilibrium right (removes product) → N₂/H₂ recycled back to reactor. This allows high overall conversion from multiple passes. [1] (b) Units of Kc depend on Δn (change in moles, Δn = moles products − moles reactants). Since each concentration has units mol dm⁻³, Kc has units (mol dm⁻³)^Δn. [1] (i) N₂ + 3H₂ ⇌ 2NH₃: Δn = 2 − (1+3) = −2. Units = (mol dm⁻³)⁻² = mol⁻²dm⁶. Kc = [NH₃]² / ([N₂][H₂]³) has these units. [1.5] (ii) 2NO ⇌ N₂ + O₂: Δn = 2 − 2 = 0. Units = (mol dm⁻³)⁰ = dimensionless. Kc = [N₂][O₂] / [NO]² — no units. [1.5]</div></div>
-
+  <div class="answer">(a)(i) Temperature 450&deg;C: for exothermic N<sub>2</sub>+3H<sub>2</sub>&#8652;2NH<sub>3</sub>, LOW T gives better yield (equilibrium shifts right) but SLOW rate. HIGH T gives poor yield but fast rate. 450&deg;C is a compromise: acceptable rate + acceptable yield. Iron catalyst allows 450&deg;C to work where a higher T would normally be needed. [2] (ii) Pressure 200 atm: left side has 4 mol gas, right has 2 &rarr; high P shifts RIGHT &rarr; better yield. Higher P also increases rate (more collisions). Economically limited to 200 atm (engineering costs, safety). Yield: improves. Rate: improves. [2] (iii) Iron catalyst: no effect on yield or position. Lowers activation energy &rarr; faster rate at 450&deg;C. Without catalyst, reaction too slow at 450&deg;C. [1] (iv) Removing NH<sub>3</sub>: shifts equilibrium right (Le Ch&acirc;telier) &rarr; more NH<sub>3</sub> formed from remaining N<sub>2</sub>/H<sub>2</sub>. Yield: increases over successive passes. [2] (b) Unreacted N<sub>2</sub> and H<sub>2</sub> are recycled back into the reactor after NH<sub>3</sub> is condensed and removed. Each pass converts ~15% &rarr; over many cycles overall conversion approaches ~97%. This makes the process economically viable without needing extreme temperatures or pressures. [3]</div></div>
   <div class="tq"><div class="tq-num">Q8 [10 marks]</div>
-  <p>(a) Explain the difference between thermodynamic feasibility (Kc) and kinetic feasibility (rate) of a reaction, using two examples where a reaction has very large Kc but is still very slow without special conditions. [4]<br>
-  (b) Describe the relationship between temperature, Kc, and ΔH for equilibrium reactions. Explain how van 't Hoff's equation qualitatively describes this: ln(Kc) changes linearly with 1/T (plot gives −ΔH/R as slope). Include what happens to Kc as T → ∞ and T → 0 for exothermic and endothermic reactions. [6]</p>
+  <p>(a) Describe what happens at the molecular level when a reversible reaction reaches dynamic equilibrium, starting from pure reactants. Draw a sketch graph of forward and reverse rates against time. [4] (b) For the esterification: CH<sub>3</sub>COOH(aq) + C<sub>2</sub>H<sub>5</sub>OH(aq) &#8652; CH<sub>3</sub>COOC<sub>2</sub>H<sub>5</sub>(aq) + H<sub>2</sub>O(l), describe THREE practical ways to increase the yield of ester, explaining each using Le Ch&acirc;telier's Principle. [6]</p>
   <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('open');this.textContent=this.nextElementSibling.classList.contains('open')?'Hide':'Model Answer'">Model Answer</button>
-  <div class="answer">(a) Thermodynamic feasibility: Kc >> 1 means products are more stable than reactants → reaction is thermodynamically favourable → in principle should go to completion. Kinetic feasibility: depends on Eₐ — even if ΔG is very negative, the reaction will not proceed at a useful rate if Eₐ is too high. Example 1: Diamond → graphite (ΔH = −2 kJ/mol, Kc ≈ 10^4 — graphite is thermodynamically more stable than diamond at 25°C). Yet diamonds are forever — the Eₐ for C–C bond rearrangement in a diamond lattice is enormous → rate ≈ 0 at room T. Example 2: H₂(g) + ½O₂(g) → H₂O(l). Kc = 10^40 at 25°C — strongly thermodynamically favoured. Yet H₂ and O₂ can be stored together indefinitely without reacting at room temperature. The Eₐ is ~200 kJ/mol — requires a spark or catalyst (Pt). These examples show: knowing Kc tells you WHERE equilibrium lies; knowing Eₐ tells you HOW FAST it gets there. Industrial chemistry uses catalysts to make kinetically feasible what is already thermodynamically favourable. [4] (b) van't Hoff equation: d(ln Kc)/dT = ΔH/(RT²), or in integrated form: ln(Kc) = −ΔH/(RT) + constant. A plot of ln(Kc) vs 1/T gives: slope = −ΔH/R. [1] For exothermic reactions (ΔH < 0): slope = −(negative)/R = positive — so as 1/T increases (T decreases), ln Kc increases → Kc increases. Physically: lower T → equilibrium shifts toward products → Kc larger. As T → 0: Kc → ∞ (essentially all products). As T → ∞: Kc → 1 or small (equilibrium shifts strongly left). [2] For endothermic reactions (ΔH > 0): slope = −(positive)/R = negative — as 1/T increases (T decreases), ln Kc decreases → Kc decreases. Lower T → less product at equilibrium. As T → 0: Kc → 0 (essentially all reactants). As T → ∞: Kc → ∞ (all products). [2] Summary table: Exothermic (ΔH < 0): Kc decreases as T increases; Endothermic (ΔH > 0): Kc increases as T increases. This is the mathematical foundation of Le Châtelier's temperature effect — which qualitatively states the same thing but without the quantitative slope. [1]</div></div>
-</div>
+  <div class="answer">(a) At t=0: only reactants present &rarr; forward rate is maximum; reverse rate = 0. As reaction proceeds: [reactants] decrease &rarr; forward rate decreases; [products] build up &rarr; reverse rate increases. At equilibrium: forward rate = reverse rate; concentrations constant. Sketch: forward rate curve decreasing to horizontal; reverse rate curve increasing from 0 to meet it. [4] (b) Three ways: (1) Add more ethanol (or ethanoic acid) &mdash; increases reactant concentration &rarr; equilibrium shifts right &rarr; more ester. [2] (2) Remove ester (or water) as it forms &mdash; e.g. distil off ester (b.p. 77&deg;C) &mdash; decreases product concentration &rarr; shifts right &rarr; more ester. [2] (3) Add a catalyst (H<sup>+</sup> ions / conc. H<sub>2</sub>SO<sub>4</sub>) &mdash; does NOT change yield directly, but reaches equilibrium faster; at higher temperatures the yield is lower (reaction is exothermic) so catalyst at moderate T gives best result. Note: catalyst does not shift equilibrium, but enables practical conditions. Award marks if student correctly applies Le Ch&acirc;telier for methods 1 and 2. [2]</div></div>
 
-<div class="unit-nav">
-  <a href="s4_unit14_period3.html">← Unit 14: Period 3</a>
-  <a href="s4-chemistry.html">S4 Course Home</a>
-  <a href="s4_unit16_acids_bases.html">Unit 16: Acids & Bases →</a>
-</div>
 </main>
 
 <footer>
@@ -839,300 +632,18 @@ I₂ prefers the organic layer → purple colour in CCl₄ layer</div>
 </footer>
 
 <script>
-const _CA={q1:'C',q2:'B',q3:'B',q4:'D',q5:'B',q6:'B',q7:'C',q8:'B',q9:'B',q10:'B',q11:'B',q12:'B',q13:'C',q14:'B',q15:'C',q16:'B',q17:'B',q18:'B',q19:'B',q20:'C',q21:'B',q22:'A',q23:'B',q24:'D',q25:'B'};
-function submitQuiz(){
-  let s=0,t=Object.keys(_CA).length;
-  Object.entries(_CA).forEach(([q,c])=>{
-    const sel=document.querySelector('input[name="'+q+'"]:checked');
-    document.querySelectorAll('input[name="'+q+'"]').forEach(o=>{if(o.value===c)o.closest('label').classList.add('correct');});
-    if(sel){if(sel.value===c)s++;else sel.closest('label').classList.add('wrong');}
-    const e=document.getElementById('e'+q.slice(1));if(e)e.style.display='block';
-    document.querySelectorAll('input[name="'+q+'"]').forEach(o=>o.disabled=true);
-  });
-  const p=Math.round(s/t*100);
-  const r=document.getElementById('qR');
-  r.style.cssText='display:block;margin-top:16px;border-radius:8px;padding:14px 18px;font-family:JetBrains Mono,monospace;font-size:.88rem;text-align:center;background:'+(p>=70?'rgba(52,211,153,.1)':'rgba(248,113,113,.1)')+';border:1px solid '+(p>=70?'var(--green)':'var(--red)')+';color:'+(p>=70?'var(--green)':'var(--red)');
-  r.innerHTML='Score: '+s+'/'+t+' ('+p+'%) — '+(p>=80?'🏆 Excellent!':p>=70?'✅ Good.':p>=50?'📚 Keep studying.':'❌ Review all material.');
-  document.querySelector('.qs').disabled=true;document.querySelector('.qs').style.opacity='.5';
-}
+const _CA={q1:'B',q2:'C',q3:'B',q4:'B',q5:'B',q6:'C',q7:'C',q8:'A',q9:'C',q10:'C',q11:'B',q12:'B',q13:'B',q14:'C',q15:'C',q16:'C',q17:'B',q18:'C',q19:'B',q20:'C',q21:'B',q22:'C',q23:'C',q24:'B',q25:'B'};
 
+(function(){
+  const SK='quiz_access_granted',CK='quiz_access_code';
+  const gate=document.createElement('div');gate.id='unit-quiz-gate';
+  gate.style.cssText='position:fixed;inset:0;background:#0d1117;z-index:99999;display:none;align-items:center;justify-content:center;padding:24px;';
+  gate.innerHTML='<div style="background:#161b22;border:2px solid rgba(56,189,248,.4);border-radius:16px;padding:48px 40px;max-width:460px;width:100%;text-align:center;"><div style="font-size:3.5rem;margin-bottom:16px;">🔒</div><h2 style="font-family:Playfair Display,serif;font-size:1.8rem;color:#fff;margin-bottom:10px;">Quiz Locked</h2><p style="color:#8b949e;font-size:.93rem;margin-bottom:24px;">Enter the access code from your teacher.</p><input id="ugc-inp" type="text" placeholder="Enter Code" maxlength="20" style="width:100%;background:#1c2333;border:2px solid #30363d;border-radius:8px;color:#e6edf3;padding:14px 18px;font-family:JetBrains Mono,monospace;font-size:1.4rem;text-align:center;letter-spacing:.2em;text-transform:uppercase;margin-bottom:12px;box-sizing:border-box;" onkeydown="if(event.key===\'Enter\')unlockUnitQuiz()"/><div id="ugc-err" style="font-family:JetBrains Mono,monospace;font-size:.82rem;color:#f87171;min-height:20px;margin-bottom:10px;"></div><button onclick="unlockUnitQuiz()" style="width:100%;background:#38bdf8;color:#000;border:none;padding:13px;border-radius:8px;font-family:JetBrains Mono,monospace;font-size:.9rem;font-weight:700;cursor:pointer;margin-bottom:10px;">🔓 Unlock Quiz</button><button onclick="document.getElementById(\'unit-quiz-gate\').style.display=\'none\';document.body.style.overflow=\'\'" style="width:100%;background:transparent;border:1px solid #30363d;color:#8b949e;padding:9px;border-radius:8px;font-family:JetBrains Mono,monospace;font-size:.8rem;cursor:pointer;">✕ Cancel</button></div>';
+  document.body.appendChild(gate);
+  window.unlockUnitQuiz=function(){const v=document.getElementById('ugc-inp').value.trim().toUpperCase();const c=localStorage.getItem(CK);if(!v){document.getElementById('ugc-err').textContent='Enter the code.';return;}if(v===c||!c){sessionStorage.setItem(SK,c||'open');document.getElementById('unit-quiz-gate').style.display='none';document.body.style.overflow='';}else{document.getElementById('ugc-err').textContent='❌ Wrong code.';document.getElementById('ugc-inp').value='';}};
+  window.addEventListener('DOMContentLoaded',function(){const code=localStorage.getItem(CK);if(!code)return;const granted=sessionStorage.getItem(SK);if(granted)return;const qw=document.querySelector('.quiz-wrap');if(!qw)return;qw.addEventListener('click',function(e){if(!localStorage.getItem(CK))return;if(sessionStorage.getItem(SK))return;e.stopPropagation();e.preventDefault();document.getElementById('unit-quiz-gate').style.display='flex';document.body.style.overflow='hidden';},true);});
+})();
 </script>
 
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-<style>
-#pdf-dl-bar{position:fixed;bottom:24px;right:24px;z-index:9000;}
-#pdf-dl-btn{background:#34d399;color:#000;border:none;padding:12px 22px;border-radius:9px;font-family:'JetBrains Mono',monospace;font-size:.84rem;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(52,211,153,.4);display:flex;align-items:center;gap:8px;}
-#pdf-dl-btn:hover{opacity:.88;}
-#pdf-dl-btn .spin{display:none;width:14px;height:14px;border:2px solid #000;border-top-color:transparent;border-radius:50%;animation:dlsp .7s linear infinite;}
-@keyframes dlsp{to{transform:rotate(360deg)}}
-#dl-pay-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:99990;align-items:center;justify-content:center;padding:16px;}
-#dl-pay-overlay.open{display:flex;}
-#dl-pay-box{background:#161b22;border:1px solid #30363d;border-radius:14px;width:100%;max-width:400px;max-height:92vh;overflow-y:auto;}
-#dl-pay-box .ph{padding:18px 20px 12px;border-bottom:1px solid #30363d;}
-#dl-pay-box .ph h2{font-family:'Playfair Display',serif;color:#fff;font-size:1.1rem;}
-#dl-pay-box .ph p{color:#8b949e;font-size:.78rem;margin-top:2px;}
-#dl-pay-box .pb{padding:16px 20px;}
-#dl-pay-box .pf{padding:12px 20px;border-top:1px solid #30363d;display:flex;gap:8px;}
-.amt-bb{background:rgba(232,197,71,.07);border:1px solid rgba(232,197,71,.2);border-radius:9px;padding:12px;text-align:center;margin-bottom:14px;}
-.amt-bb .al{font-family:'JetBrains Mono',monospace;font-size:.62rem;color:#8b949e;text-transform:uppercase;letter-spacing:.1em;margin-bottom:2px;}
-.amt-bb .av{font-family:'JetBrains Mono',monospace;font-size:1.7rem;color:#e8c547;font-weight:700;}
-.ph-rowb{display:flex;gap:7px;margin-bottom:6px;}
-.cc-selb{background:#1c2333;border:1px solid #30363d;border-radius:6px;color:#fff;padding:8px 6px;font-family:'JetBrains Mono',monospace;font-size:.78rem;width:110px;}
-.ph-inpb{flex:1;background:#1c2333;border:1px solid #30363d;border-radius:6px;color:#fff;padding:8px 11px;font-family:'JetBrains Mono',monospace;font-size:.86rem;}
-.ph-inpb:focus,.cc-selb:focus{outline:none;border-color:#e8c547;}
-.net-rb{display:flex;gap:6px;margin-bottom:12px;}
-.nbb{flex:1;background:#1c2333;border:1px solid #30363d;border-radius:6px;color:#8b949e;font-family:'JetBrains Mono',monospace;font-size:.68rem;padding:7px;cursor:pointer;text-align:center;}
-.nbb.sel{background:rgba(52,211,153,.1);border-color:#34d399;color:#34d399;}
-.pay-gob{flex:1;background:#e8c547;color:#000;border:none;padding:11px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:.84rem;font-weight:700;cursor:pointer;}
-.pay-gob:disabled{opacity:.5;cursor:not-allowed;}
-.cancel-bb{background:#1c2333;color:#8b949e;border:1px solid #30363d;padding:10px 14px;border-radius:7px;cursor:pointer;font-size:.82rem;}
-.pay-stb{display:none;text-align:center;padding:20px;}
-.dl-spinnerb{width:34px;height:34px;border:3px solid #30363d;border-top-color:#e8c547;border-radius:50%;animation:dlsp .8s linear infinite;margin:0 auto 12px;}
-</style>
-
-<div id="pdf-dl-bar">
-  <div style="position:relative;display:inline-block;">
-    <button id="pdf-dl-btn" onclick="toggleDlMenu()">
-      <span class="spin" id="pdf-spin"></span>
-      <span id="pdf-btn-text">&#11015; Download PDF</span>
-      <span style="margin-left:8px;font-size:.85em;">&#x25BC;</span>
-    </button>
-    <div id="pdf-dl-menu" style="display:none;position:absolute;bottom:calc(100% + 8px);right:0;background:#161b22;border:1px solid #30363d;border-radius:8px;padding:8px;box-shadow:0 8px 32px rgba(0,0,0,.6);min-width:240px;z-index:10000;">
-      <button type="button" class="dl-opt" onclick="pickDl('notes')" style="display:block;width:100%;text-align:left;background:transparent;color:#e6edf3;border:none;padding:10px 14px;border-radius:6px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:.82rem;">&#128214; Notes only</button>
-      <button type="button" class="dl-opt" onclick="pickDl('quiz')" style="display:block;width:100%;text-align:left;background:transparent;color:#e6edf3;border:none;padding:10px 14px;border-radius:6px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:.82rem;">&#129514; Quiz only</button>
-      <button type="button" class="dl-opt" onclick="pickDl('test')" style="display:block;width:100%;text-align:left;background:transparent;color:#e6edf3;border:none;padding:10px 14px;border-radius:6px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:.82rem;">&#128221; Test only</button>
-      <div style="height:1px;background:#30363d;margin:4px 8px;"></div>
-      <button type="button" class="dl-opt" onclick="pickDl('all')" style="display:block;width:100%;text-align:left;background:transparent;color:#e6edf3;border:none;padding:10px 14px;border-radius:6px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:.82rem;">&#128196; Everything (full unit)</button>
-    </div>
-  </div>
-  <style>.dl-opt:hover{background:rgba(56,189,248,.1)!important;color:#38bdf8!important;}</style>
-</div>
-
-<div id="dl-pay-overlay">
-  <div id="dl-pay-box">
-    <div class="ph"><h2>&#128179; Pay to Download</h2><p>Unit notes &mdash; instant PDF download</p></div>
-    <div id="dl-pform">
-      <div class="pb">
-        <div class="amt-bb"><div class="al">Price</div><div class="av">300 RWF</div><div style="font-size:.72rem;color:#8b949e;margin-top:2px;">One-time &middot; Download immediately after payment</div></div>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:.67rem;color:#8b949e;text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px;">Phone Number</div>
-        <div class="ph-rowb">
-          <select class="cc-selb" id="dl-ccode" onchange="dlUpdateHint()">
-            <option value="+250" data-net="MTN / Airtel">&#127479;&#127484; +250</option>
-            <option value="+256" data-net="MTN / Airtel">&#127482;&#127468; +256</option>
-            <option value="+255" data-net="Vodacom / Tigo">&#127481;&#127487; +255</option>
-            <option value="+254" data-net="M-Pesa / Airtel">&#127472;&#127466; +254</option>
-            <option value="+234" data-net="MTN / Airtel">&#127475;&#127468; +234</option>
-            <option value="+233" data-net="MTN / Vodafone">&#127468;&#127469; +233</option>
-          </select>
-          <input class="ph-inpb" type="tel" id="dl-phone" placeholder="07XXXXXXXX" oninput="dlValPhone()" maxlength="12"/>
-        </div>
-        <div class="ph-hint" id="dl-ph-hint">Rwanda &mdash; MTN MoMo or Airtel Money</div>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:.67rem;color:#8b949e;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;">Network</div>
-        <div class="net-rb">
-          <div class="nbb sel" onclick="dlSelNet(this,'MTN')">MTN MoMo</div>
-          <div class="nbb" onclick="dlSelNet(this,'AIRTEL')">Airtel Money</div>
-          <div class="nbb" onclick="dlSelNet(this,'OTHER')">Other</div>
-        </div>
-        <div id="dl-err" style="display:none;font-family:'JetBrains Mono',monospace;font-size:.74rem;color:#f87171;padding:7px 10px;background:rgba(248,113,113,.07);border-radius:5px;margin-bottom:8px;"></div>
-      </div>
-      <div class="pf">
-        <button class="pay-gob" id="dl-pay-go" onclick="dlInitPay()" disabled>Pay &amp; Download</button>
-        <button class="cancel-bb" onclick="closeDlPay()">Cancel</button>
-      </div>
-    </div>
-    <div class="pay-stb" id="dl-st-proc">
-      <div class="dl-spinnerb"></div>
-      <div style="font-family:'JetBrains Mono',monospace;color:#fff;font-size:.86rem;margin-bottom:5px;">Processing Payment...</div>
-      <div style="color:#8b949e;font-size:.79rem;">Check your phone &mdash; enter your PIN to confirm.</div>
-    </div>
-    <div class="pay-stb" id="dl-st-ok">
-      <div style="font-size:2.8rem;margin-bottom:10px;">&#9989;</div>
-      <div style="font-family:'JetBrains Mono',monospace;color:#34d399;font-size:.92rem;margin-bottom:5px;">Payment Confirmed!</div>
-      <div style="color:#8b949e;font-size:.8rem;margin-bottom:16px;">Generating your PDF...</div>
-      <div class="dl-spinnerb"></div>
-    </div>
-    <div class="pay-stb" id="dl-st-fail">
-      <div style="font-size:2.8rem;margin-bottom:10px;">&#10060;</div>
-      <div style="font-family:'JetBrains Mono',monospace;color:#f87171;font-size:.86rem;margin-bottom:5px;">Payment Not Completed</div>
-      <div style="color:#8b949e;font-size:.79rem;margin-bottom:14px;" id="dl-fail-txt"></div>
-      <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
-        <button style="background:#e8c547;color:#000;border:none;padding:8px 16px;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:.76rem;font-weight:700;cursor:pointer;" onclick="dlShowForm()">Try Again</button>
-        <a id="dl-wa-link" href="#" target="_blank" style="background:#25D366;color:#fff;padding:8px 14px;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:.76rem;font-weight:700;text-decoration:none;">WhatsApp</a>
-        <button style="background:#1c2333;color:#8b949e;border:1px solid #30363d;padding:8px 14px;border-radius:6px;cursor:pointer;font-size:.8rem;" onclick="closeDlPay()">Cancel</button>
-      </div>
-    <!-- Payment Unavailable (no PawaPay key) -->
-    <div class="pay-stb" id="dl-st-manual">
-      <div style="font-size:2.4rem;margin-bottom:10px;">⚙️</div>
-      <div style="font-family:'JetBrains Mono',monospace;color:#8b949e;font-size:.88rem;margin-bottom:12px;">Payment service is being set up.</div>
-      <div style="color:#8b949e;font-size:.82rem;margin-bottom:18px;line-height:1.8;">Online payment is not yet available for this unit.<br>Please contact your teacher to get access.</div>
-      <button style="background:#1c2333;color:#8b949e;border:1px solid #30363d;padding:10px 18px;border-radius:7px;cursor:pointer;font-size:.82rem;" onclick="dlShowForm()">&#8592; Back</button>
-      <div id="dl-manual-phone" style="display:none;"></div>
-      <a id="dl-wa-link" href="#" style="display:none;"></a>
-    </div>
-  </div>
-</div>
-
-<script>
-var _DL_UNIT_ID='S4-15';
-var _DL_PRICE=300;
-var _dlNet='MTN',_dlPollTimer=null;
-function isPaidUnit(){
-  if(localStorage.getItem('teacher_dl_unlocked')==='true')return true;
-  var paid=JSON.parse(localStorage.getItem('paid_items')||'[]');
-  var lvl=_DL_UNIT_ID.split('-')[0];
-  return paid.indexOf(_DL_UNIT_ID)>=0||paid.indexOf('ALL')>=0||paid.indexOf(lvl)>=0||paid.indexOf('BUNDLE-'+lvl)>=0;
-}
-function checkPayAndDownload(){
-  if(localStorage.getItem('teacher_dl_unlocked')==='true'){doDownloadPDF();return;}
-  document.getElementById('dl-pay-overlay').classList.add('open');dlShowForm();
-}
-function closeDlPay(){document.getElementById('dl-pay-overlay').classList.remove('open');if(_dlPollTimer){clearInterval(_dlPollTimer);_dlPollTimer=null;}}
-function dlShowForm(){document.getElementById('dl-pform').style.display='block';['dl-st-proc','dl-st-ok','dl-st-fail','dl-st-manual'].forEach(function(id){document.getElementById(id).style.display='none';});document.getElementById('dl-err').style.display='none';}
-function dlSelNet(el,n){_dlNet=n;document.querySelectorAll('.nbb').forEach(function(b){b.classList.remove('sel');});el.classList.add('sel');}
-function dlUpdateHint(){var o=document.getElementById('dl-ccode').options[document.getElementById('dl-ccode').selectedIndex];document.getElementById('dl-ph-hint').textContent=o.text+' - '+(o.dataset.net||'Mobile Money');}
-function dlValPhone(){document.getElementById('dl-pay-go').disabled=document.getElementById('dl-phone').value.replace(/\D/g,'').length<8;}
-async function dlInitPay(){
-  var code=document.getElementById('dl-ccode').value;
-  var num=document.getElementById('dl-phone').value.replace(/\D/g,'');
-  if(num.length<8){var e=document.getElementById('dl-err');e.style.display='block';e.textContent='Enter a valid phone number.';return;}
-  var fullPhone=code.replace('+','')+num.replace(/^0/,'');
-  document.getElementById('dl-pform').style.display='none';
-  document.getElementById('dl-st-proc').style.display='block';
-  var workerUrl='https://chem-payment.hajackson2020.workers.dev';
-  var depositId='dep_'+Date.now()+'_'+Math.random().toString(36).substr(2,5);
-  var cMap={250:'RW',256:'UG',255:'TZ',254:'KE',234:'NG',233:'GH'};
-  var ci=cMap[parseInt(code.replace('+',''))]||'RW';
-  var corrMap={MTN:{RW:'MTNRW',UG:'MTNUG',GH:'MTNGHS'},AIRTEL:{RW:'AIRTELRW',UG:'AIRTELUG'},OTHER:{RW:'MTNRW'}};
-  var curMap={RW:'RWF',UG:'UGX',TZ:'TZS',KE:'KES',NG:'NGN',GH:'GHS'};
-  var correspondent=(corrMap[_dlNet]||corrMap.MTN)[ci]||'MTNRW';
-  var currency=curMap[ci]||'RWF';
-  try{
-    var r=await fetch(workerUrl+'/deposit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({depositId:depositId,amount:String(_DL_PRICE),currency:currency,correspondent:correspondent,payer:{type:'MSISDN',address:{value:fullPhone}},statementDescription:'ChemNotes'})});
-    var d=await r.json();
-    // DEBUG: log what PawaPay returns
-    console.log('PawaPay response status:', r.status);
-    console.log('PawaPay response body:', JSON.stringify(d));
-    if(d.depositId||r.ok){
-      _dlPollTimer=setInterval(async function(){
-        try{
-          var pr=await fetch(workerUrl+'/deposit?id='+depositId);
-          var pd=await pr.json();
-          var st=((pd.status||(pd[0]&&pd[0].status))||'').toUpperCase();
-          if(st==='COMPLETED'){clearInterval(_dlPollTimer);_dlPollTimer=null;markPaidAndDownload();}
-          else if(st==='FAILED'||st==='EXPIRED'){clearInterval(_dlPollTimer);_dlPollTimer=null;document.getElementById('dl-st-proc').style.display='none';document.getElementById('dl-fail-txt').textContent=(pd.correspondentIds&&pd.correspondentIds.reason)||'Payment not completed.';document.getElementById('dl-st-fail').style.display='block';}
-        }catch(e){}
-      },3000);
-      setTimeout(function(){if(_dlPollTimer){clearInterval(_dlPollTimer);_dlPollTimer=null;document.getElementById('dl-st-proc').style.display='none';document.getElementById('dl-fail-txt').textContent='Timed out. Contact Mr Habimana via WhatsApp.';document.getElementById('dl-st-fail').style.display='block';}},180000);
-    }else{throw new Error(d.errorCode||'Failed');}
-  }catch(e){
-    document.getElementById('dl-st-proc').style.display='none';
-    var wa2=encodeURIComponent('PAYMENT\nUnit: '+document.title+'\nAmount: '+_DL_PRICE+' RWF\nPhone: '+code+num);
-    document.getElementById('dl-wa-link').href='https://wa.me/250788800375?text='+wa2;
-    document.getElementById('dl-fail-txt').innerHTML='Error: '+(d&&d.errorCode?d.errorCode:(e&&e.message?e.message:'Unknown error. Check console F12'));
-    document.getElementById('dl-st-fail').style.display='block';
-  }
-}
-function markPaidAndDownload(){
-  var paid=JSON.parse(localStorage.getItem('paid_items')||'[]');
-  if(paid.indexOf(_DL_UNIT_ID)<0)paid.push(_DL_UNIT_ID);
-  localStorage.setItem('paid_items',JSON.stringify(paid));
-  document.getElementById('dl-st-proc').style.display='none';
-  document.getElementById('dl-st-ok').style.display='block';
-  setTimeout(function(){closeDlPay();doDownloadPDF();},1500);
-}
-
-// === Part selector for Download PDF ===
-var _dlPart = 'notes';
-function toggleDlMenu(){
-  var m = document.getElementById('pdf-dl-menu');
-  m.style.display = (m.style.display === 'block') ? 'none' : 'block';
-  if(m.style.display === 'block'){
-    setTimeout(function(){ document.addEventListener('click', closeDlMenuOutside, true); }, 10);
-  }
-}
-function closeDlMenuOutside(e){
-  var m = document.getElementById('pdf-dl-menu');
-  var b = document.getElementById('pdf-dl-btn');
-  if(!m) return;
-  if(m.contains(e.target) || b.contains(e.target)) return;
-  m.style.display = 'none';
-  document.removeEventListener('click', closeDlMenuOutside, true);
-}
-function pickDl(part){
-  _dlPart = part;
-  document.getElementById('pdf-dl-menu').style.display = 'none';
-  document.removeEventListener('click', closeDlMenuOutside, true);
-  var labels = {notes:'Notes only', quiz:'Quiz only', test:'Test only', all:'Everything'};
-  document.getElementById('pdf-btn-text').textContent = '⬇ ' + labels[part] + '...';
-  checkPayAndDownload();
-}
-
-function doDownloadPDF(){
-  var btn=document.getElementById('pdf-dl-btn');
-  var spin=document.getElementById('pdf-spin');
-  var txt=document.getElementById('pdf-btn-text');
-  btn.disabled=true;spin.style.display='block';txt.textContent='Generating...';
-  var title=document.title.replace(/[^a-zA-Z0-9\s]/g,'').replace(/\s+/g,'_').substring(0,60)||'chemistry_notes';
-  var main=document.querySelector('main')||document.querySelector('.content')||document.body;
-  var clone=main.cloneNode(true);
-  // Strip sections based on what the user chose in the dropdown
-  var part = (typeof _dlPart !== 'undefined') ? _dlPart : 'notes';
-  if(part === 'notes'){
-    // Remove quiz + test, keep only notes
-    clone.querySelectorAll('.quiz-wrap,#quiz,#test,.quiz-submit,.qs,button,#pdf-dl-bar,#dl-pay-overlay,.section-header[id="quiz"],.section-header[id="test"]').forEach(function(el){el.remove();});
-  } else if(part === 'quiz'){
-    // Keep only quiz section
-    var keep = clone.querySelector('#quiz') || clone.querySelector('.quiz-wrap');
-    if(keep){
-      var keepParent = keep.closest('.section-header') ? keep.closest('.section-header').parentNode : clone;
-      // Find the quiz block and its section header
-      var qHeader = null;
-      var all = clone.querySelectorAll('.section-header, [id="quiz"], .quiz-wrap');
-      for(var i=0;i<all.length;i++){ if(all[i].id === 'quiz' || all[i].querySelector && all[i].querySelector('#quiz')){ qHeader = all[i]; break; } }
-      // Gather quiz header + wrap
-      var header = clone.querySelector('.section-header[id="quiz"]') || clone.querySelector('#quiz');
-      var wrap = clone.querySelector('.quiz-wrap') || clone.querySelector('#quiz + *');
-      // Build clean content
-      var quizContent = document.createElement('div');
-      if(header) quizContent.appendChild(header.cloneNode(true));
-      if(wrap && wrap !== header) quizContent.appendChild(wrap.cloneNode(true));
-      // Replace clone content with just the quiz
-      clone.innerHTML = '';
-      clone.appendChild(quizContent);
-    } else {
-      // Fallback: no quiz section found
-      clone.innerHTML = '<h2>Quiz not available in this unit</h2>';
-    }
-    // Remove interactive stuff
-    clone.querySelectorAll('.quiz-submit,.qs,button,#pdf-dl-bar,#dl-pay-overlay,input[type="radio"],input[type="submit"]').forEach(function(el){el.remove();});
-  } else if(part === 'test'){
-    // Keep only test section
-    var header = clone.querySelector('.section-header[id="test"]') || clone.querySelector('#test');
-    var testContent = document.createElement('div');
-    if(header){
-      testContent.appendChild(header.cloneNode(true));
-      // Gather all subsequent siblings until next section-header or end
-      var n = header.nextElementSibling;
-      while(n && !n.classList.contains('section-header')){
-        testContent.appendChild(n.cloneNode(true));
-        n = n.nextElementSibling;
-      }
-      clone.innerHTML = '';
-      clone.appendChild(testContent);
-    } else {
-      clone.innerHTML = '<h2>Test not available in this unit</h2>';
-    }
-    clone.querySelectorAll('button,#pdf-dl-bar,#dl-pay-overlay,input[type="submit"]').forEach(function(el){el.remove();});
-  } else {
-    // 'all' - keep everything, only strip download/payment UI
-    clone.querySelectorAll('#pdf-dl-bar,#dl-pay-overlay,.quiz-submit,.qs,button').forEach(function(el){el.remove();});
-  }
-  var unitTitleText = document.title.split('–')[1] ? document.title.split('–')[1].split('|')[0].trim() : (document.querySelector('h1') ? document.querySelector('h1').textContent.trim() : 'Chemistry Unit');var levelText = (document.title.match(/S[456]\s*Chemistry/i) || ['Chemistry'])[0];var unitNumMatch = document.title.match(/Unit\s*\d+/i);var unitNumText = unitNumMatch ? unitNumMatch[0] : '';var bookStyle = document.createElement('style');bookStyle.textContent = '.pdf-cover{width:794px;height:1100px;background:#fff;position:relative;page-break-after:always;}.pdf-cover-bar{position:absolute;top:0;left:0;width:100%;height:28%;background:#0f766e;}.pdf-cover-inner{position:absolute;top:0;left:0;width:100%;height:100%;padding:100px 60px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:space-between;}.pdf-cover-top{color:#fff;}.pdf-cover-top .level{font-family:Georgia,serif;font-size:18pt;letter-spacing:6px;text-transform:uppercase;opacity:.9;margin-bottom:20px;}.pdf-cover-top .unum{font-family:Georgia,serif;font-size:14pt;letter-spacing:4px;opacity:.75;}.pdf-cover-mid{margin-top:120px;}.pdf-cover-mid h1{font-family:Georgia,serif;font-size:42pt;color:#1a1a1a;line-height:1.15;font-weight:700;margin:0;}.pdf-cover-mid .subtitle{font-family:Georgia,serif;font-size:15pt;color:#555;margin-top:24px;font-style:italic;}.pdf-cover-bot{color:#333;}.pdf-cover-bot .author{font-family:Georgia,serif;font-size:22pt;font-weight:700;margin-bottom:6px;}.pdf-cover-bot .pub{font-family:Georgia,serif;font-size:12pt;color:#666;}.pdf-body{font-family:Georgia,serif;font-size:11pt;color:#1a1a1a;line-height:1.65;padding:48px 54px;}.pdf-body *{color:#1a1a1a!important;background:transparent!important;box-shadow:none!important;border-color:#d0d0d0!important;}.pdf-body h1{font-family:Georgia,serif;color:#0f766e!important;font-size:22pt;border-bottom:3px solid #0f766e!important;padding-bottom:8px;margin:28px 0 18px;page-break-after:avoid;font-weight:700;}.pdf-body h2{font-family:Georgia,serif;color:#0f766e!important;font-size:16pt;margin:24px 0 12px;page-break-after:avoid;font-weight:700;border-bottom:1px solid #bfdbd7!important;padding-bottom:4px;}.pdf-body h3{font-family:Georgia,serif;color:#333!important;font-size:13pt;margin:18px 0 8px;page-break-after:avoid;font-weight:700;}.pdf-body table{width:100%;border-collapse:collapse;margin:14px 0;font-size:10pt;}.pdf-body td,.pdf-body th{border:1px solid #c8c8c8;padding:7px 9px;vertical-align:top;}.pdf-body th{background:#f3faf8!important;color:#0f766e!important;font-weight:700;text-align:left;}.pdf-body tr:nth-child(even) td{background:#f9f9f9!important;}.pdf-body .callout,.pdf-body .definition,.pdf-body .example,.pdf-body .note{background:#f3faf8!important;border-left:4px solid #0f766e!important;padding:10px 14px;margin:12px 0;}.pdf-body ul,.pdf-body ol{margin:8px 0 8px 24px;}.pdf-body li{margin:4px 0;}.pdf-body img{max-width:100%;height:auto;}.pdf-body a{color:#0f766e!important;text-decoration:none;}.pdf-footer{text-align:center;color:#999;font-family:Georgia,serif;font-size:9pt;margin-top:40px;padding-top:16px;border-top:1px solid #ddd;}';var wrapper=document.createElement('div');wrapper.style.cssText='background:#fff;';var coverHTML = '<div class="pdf-cover"><div class="pdf-cover-bar"></div><div class="pdf-cover-inner"><div class="pdf-cover-top"><div class="level">' + levelText + '</div>' + (unitNumText ? '<div class="unum">' + unitNumText + '</div>' : '') + '</div><div class="pdf-cover-mid"><h1>' + unitTitleText + '</h1><div class="subtitle">A complete guide with notes, examples, and practice questions</div></div><div class="pdf-cover-bot"><div class="author">Jackson Habimana</div><div class="pub">Chemistry Portal &mdash; jacksonhabimana.github.io</div></div></div></div>';var bodyDiv = document.createElement('div');bodyDiv.className = 'pdf-body';bodyDiv.appendChild(clone);var footer = document.createElement('div');footer.className = 'pdf-footer';footer.innerHTML = '&copy; Jackson Habimana Chemistry Portal &mdash; All rights reserved';bodyDiv.appendChild(footer);wrapper.appendChild(bookStyle);wrapper.innerHTML += coverHTML;wrapper.appendChild(bodyDiv);
-  html2pdf().set({margin:[10,10,10,10],filename:title+'.pdf',image:{type:'jpeg',quality:0.92},html2canvas:{scale:1.5,useCORS:true,backgroundColor:'#ffffff',logging:false},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}}).from(wrapper).save().then(function(){btn.disabled=false;spin.style.display='none';txt.textContent='Downloaded!';setTimeout(function(){txt.textContent='Download PDF';},3000);}).catch(function(){btn.disabled=false;spin.style.display='none';txt.textContent='Download PDF';});
-}
-document.getElementById('dl-pay-overlay').addEventListener('click',function(e){if(e.target===this)closeDlPay();});
-</script>
-<script src="shuffle-answers.js"></script>
 </body>
-</ht
+</html>
