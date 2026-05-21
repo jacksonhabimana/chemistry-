@@ -1,10 +1,7 @@
 // ═══════════════════════════════════════════════════════════════════
-//  Jackson Habimana Chemistry Portal — Universal Student Tracker v3
-//  Pushes results directly into your existing JSONBin results bin
-//  so they appear in teacher-admin → Refresh from Cloud.
-//
-//  ADD ONE LINE inside <head> on every unit page:
-//  <script src="tracker.js"></script>
+//  Jackson Habimana Chemistry Portal — Universal Student Tracker v4
+//  Tracks: Quizzes + Tests + Exams + Paper Exams
+//  Add inside <head>: <script src="tracker.js"></script>
 // ═══════════════════════════════════════════════════════════════════
 
 (function(){
@@ -20,13 +17,12 @@ const unitName  = (document.title||'Unknown Unit')
                     .replace('| Jackson Habimana Chemistry Portal','')
                     .replace('|','').trim();
 
-// ── Get JSONBin credentials ───────────────────────────────────────
-// Teacher-admin stores these in localStorage after setup
+// ── JSONBin credentials (set by teacher-admin) ───────────────────
 function getCreds(){
   return {
-    apiKey:     localStorage.getItem('jsonbin_key')     || '',
-    resultsBin: localStorage.getItem('results_bin_id')  || '',
-    activityBin:localStorage.getItem('activity_bin_id') || ''
+    key:        localStorage.getItem('jsonbin_key')      || '',
+    resultsBin: localStorage.getItem('results_bin_id')   || '',
+    activityBin:localStorage.getItem('activity_bin_id')  || ''
   };
 }
 
@@ -71,7 +67,7 @@ function buildGate(){
       <input id="_trk_id" type="text" placeholder="Class / ID (e.g. S4A, S4MCB)" maxlength="30"
              onkeydown="if(event.key==='Enter')window._trkStart()"/>
       <div class="err" id="_trk_err"></div>
-      <button onclick="window._trkStart()">▶ Start Assessment</button>
+      <button onclick="window._trkStart()">&#9654; Start Assessment</button>
     </div>`;
   document.body.appendChild(gate);
 
@@ -81,7 +77,7 @@ function buildGate(){
 }
 
 window._trkStart = function(){
-  const n = (document.getElementById('_trk_name').value||'').trim();
+  const n  = (document.getElementById('_trk_name').value||'').trim();
   const id = (document.getElementById('_trk_id').value||'').trim();
   if(n.length < 3){
     document.getElementById('_trk_err').textContent = 'Please enter your full name (at least 3 characters).';
@@ -110,7 +106,7 @@ function initCheatDetection(){
     if(!submitted){ e.preventDefault(); flag('Right Click','Right-click during assessment.'); }
   });
   document.addEventListener('copy', function(){
-    if(!submitted) flag('Copy','Student used copy (Ctrl+C or selection).');
+    if(!submitted) flag('Copy','Student used copy during assessment.');
   });
   document.addEventListener('keydown', function(e){
     if(!submitted && (e.ctrlKey||e.metaKey) &&
@@ -123,137 +119,87 @@ function flag(event, detail){
   cheatCount++;
   cheatLog.push({event, detail, time: new Date().toISOString()});
   const b = document.getElementById('_trk_banner');
-  if(b) b.innerHTML = '⚠️ WARNING #'+cheatCount+': '+event+' — reported to your teacher!';
-  // Push cheat ping to activity bin immediately
-  pushToCloud({
-    student:    studentName,
-    studentId:  studentId,
-    unit:       unitName,
-    type:       'cheat_flag',
-    event:      event,
-    detail:     detail,
-    cheatCount: cheatCount,
-    date:       new Date().toISOString()
+  if(b) b.innerHTML = '&#9888; WARNING #'+cheatCount+': '+event+' &mdash; reported to your teacher!';
+  pushCloud({
+    student:studentName, studentId, unit:unitName,
+    type:'cheat_flag', event, detail,
+    cheatCount, date:new Date().toISOString()
   }, 'activity');
 }
 
 // ════════════════════════════════════════════════════════════════
 //  PUSH TO JSONBIN
-//  Appends result to the same bins teacher-admin reads from
 // ════════════════════════════════════════════════════════════════
-async function pushToCloud(resultObj, binType){
-  const creds = getCreds();
-  const key = creds.apiKey;
-  if(!key) return; // API key not configured yet — teacher must set up first
-
-  const binId = binType === 'activity' ? creds.activityBin : creds.resultsBin;
+async function pushCloud(obj, bin){
+  const {key, resultsBin, activityBin} = getCreds();
+  if(!key) return;
+  const binId = bin==='activity' ? activityBin : resultsBin;
   if(!binId) return;
-
   try{
-    // 1. Fetch current bin contents
-    const getResp = await fetch('https://api.jsonbin.io/v3/b/'+binId+'/latest',{
-      headers:{'X-Master-Key': key}
-    });
-    const getData = await getResp.json();
-    let arr = getData.record;
-    if(!Array.isArray(arr)){
-      // activity bin stores {results:[...]}
-      arr = arr && arr.results ? arr.results : [];
-    }
-
-    // 2. Append new result
-    arr.push(resultObj);
-
-    // 3. PUT updated array back
-    const putBody = binType === 'activity'
-      ? JSON.stringify({results: arr, updated: new Date().toISOString()})
+    const g = await fetch('https://api.jsonbin.io/v3/b/'+binId+'/latest',
+      {headers:{'X-Master-Key':key}});
+    const gd = await g.json();
+    let arr = Array.isArray(gd.record) ? gd.record
+            : (gd.record && gd.record.results ? gd.record.results : []);
+    arr.push(obj);
+    const body = bin==='activity'
+      ? JSON.stringify({results:arr, updated:new Date().toISOString()})
       : JSON.stringify(arr);
-
     await fetch('https://api.jsonbin.io/v3/b/'+binId,{
-      method: 'PUT',
-      headers:{'Content-Type':'application/json','X-Master-Key': key},
-      body: putBody
+      method:'PUT',
+      headers:{'Content-Type':'application/json','X-Master-Key':key},
+      body
     });
-  }catch(e){ console.warn('[tracker] cloud push failed:',e); }
+  }catch(e){ console.warn('[tracker] push failed:',e); }
 }
 
 // ════════════════════════════════════════════════════════════════
-//  COLLECT & SEND RESULT
-//  Called after quiz/test/exam submit
+//  BUILD RESULT OBJECT
 // ════════════════════════════════════════════════════════════════
-function collectAndSend(assessType){
-  submitted = true;
-  const timeTaken = startTime ? Math.round((Date.now()-startTime)/60000) : 0;
-
-  let score=0, total=0, answers={};
-  const pct_calc = ()=> total>0 ? Math.round(score/total*100) : 0;
-
-  // Quiz: use _CA answer key
-  if(typeof _CA !== 'undefined'){
-    total = Object.keys(_CA).length;
-    Object.entries(_CA).forEach(function([q,correct]){
-      const sel = document.querySelector('input[name="'+q+'"]:checked');
-      answers[q] = sel ? sel.value : '—';
-      if(sel && sel.value===correct) score++;
-    });
-  }
-
-  // Test/Exam: count tq divs
-  if(total === 0){
-    const tqs = document.querySelectorAll('.tq');
-    total = tqs.length || 0;
-    tqs.forEach(function(tq,i){
-      const viewed = !!tq.querySelector('.answer.open');
-      answers['Q'+(i+1)] = viewed ? 'Viewed' : 'Not viewed';
-      if(viewed) score++;
-    });
-  }
-
-  const pct   = pct_calc();
+function buildResult(assessType, score, total, answers){
+  const pct   = total>0 ? Math.round(score/total*100) : 0;
   const grade = pct>=80?'A':pct>=70?'B':pct>=60?'C':pct>=50?'D':'F';
   const now   = new Date().toISOString();
-
-  // ── Format matching what renderResults() in teacher-admin expects ──
-  const resultObj = {
-    // student_results format
-    studentName:  studentName,
-    studentId:    studentId,
-    examId:       unitName + '_' + assessType + '_' + Date.now(),
-    examTitle:    unitName + (assessType ? ' — ' + assessType : ''),
-    examSubject:  (unitName.split(' ')[0]||'S') + ' Chemistry',
-    score:        score,
-    totalMarks:   total,
-    percent:      pct,
-    grade:        grade,
-    passed:       pct >= 50,
-    timeTaken:    timeTaken,
-    cheatCount:   cheatCount,
-    cheatLog:     cheatLog,
-    answers:      answers,
-    submittedAt:  now,
-    type:         assessType || 'quiz',
-    // activity format (also stored so activity tab shows it)
-    student:      studentName,
-    unit:         unitName,
-    subunit:      assessType || 'Quiz',
-    total:        total,
-    date:         now
+  const time  = startTime ? Math.round((Date.now()-startTime)/60000) : 0;
+  return {
+    studentName, studentId,
+    examId:      unitName+'_'+assessType+'_'+Date.now(),
+    examTitle:   unitName+' — '+assessType,
+    examSubject: (unitName.split(' ')[0]||'S')+' Chemistry',
+    score, totalMarks:total, percent:pct, grade,
+    passed:pct>=50, timeTaken:time,
+    cheatCount, cheatLog, answers,
+    submittedAt:now,
+    type:assessType.toLowerCase(),
+    // activity format
+    student:studentName, unit:unitName,
+    subunit:assessType, total, date:now
   };
+}
 
-  // Push to BOTH bins so it shows in all teacher-admin views
-  pushToCloud(resultObj, 'results');
-  pushToCloud(resultObj, 'activity');
+function sendResult(assessType, score, total, answers){
+  if(submitted) return;
+  submitted = true;
+  const r = buildResult(assessType, score, total, answers||{});
+  pushCloud(r, 'results');
+  pushCloud(r, 'activity');
 }
 
 // ════════════════════════════════════════════════════════════════
-//  HOOK submitQuiz — replace it entirely so it also sends results
+//  HOOK ALL SUBMIT FUNCTIONS
+//  Covers: submitQuiz, submitTest, submitExam, submitPaper,
+//          finishExam, finishQuiz, finishTest, completeExam,
+//          gradeExam — and any submit button click
 // ════════════════════════════════════════════════════════════════
-function hookSubmitQuiz(){
+
+// ── QUIZ (uses _CA answer key) ───────────────────────────────────
+function hookQuiz(){
+  if(typeof _CA === 'undefined') return;
   window.submitQuiz = function(){
-    // Run scoring + UI
-    let score=0, total=Object.keys(_CA).length;
+    let score=0, total=Object.keys(_CA).length, answers={};
     Object.entries(_CA).forEach(function([q,correct]){
       const sel=document.querySelector('input[name="'+q+'"]:checked');
+      answers[q]=sel?sel.value:'—';
       document.querySelectorAll('input[name="'+q+'"]').forEach(function(o){
         o.disabled=true;
         if(o.value===correct) o.closest('label').classList.add('correct');
@@ -262,10 +208,11 @@ function hookSubmitQuiz(){
       const exp=document.getElementById('e'+q.slice(1));
       if(exp) exp.style.display='block';
     });
+    // Score UI
     const pct=Math.round(score/total*100);
     const col=pct>=80?'var(--green)':pct>=60?'#fbbf24':'var(--red)';
     const bg=pct>=80?'rgba(52,211,153,.1)':pct>=60?'rgba(251,191,36,.08)':'rgba(248,113,113,.1)';
-    const msg=pct>=80?'🏆 Excellent!':pct>=60?'✅ Good — review wrong answers.':'📚 Review and try again.';
+    const msg=pct>=80?'&#127942; Excellent!':pct>=60?'&#9989; Good &mdash; review wrong answers.':'&#128218; Review and try again.';
     const r=document.getElementById('qR');
     if(r){
       r.style.cssText='display:block;margin-top:20px;border-radius:10px;padding:18px 22px;'
@@ -276,13 +223,98 @@ function hookSubmitQuiz(){
         +'<div style="font-size:.9rem;margin-bottom:4px;">'+msg+'</div>'
         +'<div style="font-size:.78rem;opacity:.75;">Correct: '+score
         +' | Wrong: '+(total-score)+' | Cheat flags: '+cheatCount+'</div>'
-        +'<div style="font-size:.75rem;margin-top:6px;opacity:.6;">✓ Results sent to teacher</div>';
+        +'<div style="font-size:.75rem;margin-top:6px;opacity:.6;">&#10003; Results sent to teacher</div>';
     }
     const sb=document.querySelector('.qs');
-    if(sb){sb.disabled=true;sb.style.opacity='.4';sb.textContent='✓ Submitted';}
-    // Send to cloud
-    collectAndSend('Quiz');
+    if(sb){sb.disabled=true;sb.style.opacity='.4';sb.textContent='&#10003; Submitted';}
+    sendResult('Quiz', score, total, answers);
   };
+}
+
+// ── TEST (tq divs with reveal buttons) ──────────────────────────
+function hookTest(){
+  const tqs = document.querySelectorAll('.tq');
+  if(!tqs.length) return;
+  // Wrap every existing reveal-btn to track when model answers viewed
+  // Also hook any submitTest / finishTest function
+  const names = ['submitTest','finishTest','completeTest','gradeTest'];
+  names.forEach(function(fn){
+    if(typeof window[fn]==='function'){
+      const orig = window[fn];
+      window[fn] = function(){
+        orig.apply(this,arguments);
+        const answers={};
+        tqs.forEach(function(tq,i){
+          answers['Q'+(i+1)]=tq.querySelector('.answer.open')?'Viewed':'Not viewed';
+        });
+        sendResult('Test', document.querySelectorAll('.answer.open').length, tqs.length, answers);
+      };
+    }
+  });
+}
+
+// ── EXAM (student-exam / exams.html style) ───────────────────────
+function hookExam(){
+  const names = ['submitExam','finishExam','completeExam','gradeExam',
+                 'submitPaper','finishPaper','submitAnswers','submitResponse'];
+  names.forEach(function(fn){
+    if(typeof window[fn]==='function'){
+      const orig = window[fn];
+      window[fn] = function(){
+        orig.apply(this,arguments);
+        collectExamResult();
+      };
+    }
+  });
+}
+
+function collectExamResult(){
+  // Try to find score from result display
+  let score=0, total=0, answers={}, atype='Exam';
+  // MCQ style
+  if(typeof _CA!=='undefined'){
+    total=Object.keys(_CA).length;
+    Object.entries(_CA).forEach(function([q,c]){
+      const sel=document.querySelector('input[name="'+q+'"]:checked');
+      answers[q]=sel?sel.value:'—';
+      if(sel&&sel.value===c) score++;
+    });
+    atype='Exam Quiz';
+  }
+  // Structured exam style — count answered textareas/inputs
+  if(total===0){
+    const inputs=document.querySelectorAll('textarea,input[type="text"]');
+    inputs.forEach(function(inp,i){
+      if(inp.value&&inp.value.trim().length>2){
+        score++; answers['Q'+(i+1)]=inp.value.trim().slice(0,80);
+      } else { answers['Q'+(i+1)]='—'; }
+      total++;
+    });
+  }
+  sendResult(atype, score, total, answers);
+}
+
+// ── SUBMIT BUTTON WATCHER ────────────────────────────────────────
+// Catches any submit button not covered by named functions above
+function watchSubmitButtons(){
+  document.addEventListener('click', function(e){
+    const btn = e.target.closest('button,input[type="submit"]');
+    if(!btn) return;
+    const txt = (btn.textContent||btn.value||'').toLowerCase();
+    const isSubmit = ['submit','finish','complete','send result','end exam',
+                      'submit exam','submit test','submit quiz'].some(w=>txt.includes(w));
+    if(!isSubmit || submitted) return;
+    // Give the page's own handler 500ms to run first, then collect
+    setTimeout(function(){
+      if(submitted) return; // already sent by hooked function
+      // Detect what type based on page elements
+      let atype='Assessment';
+      if(document.getElementById('quiz')||document.querySelector('.quiz-wrap')) atype='Quiz';
+      else if(document.getElementById('test')||document.querySelector('.test-section')) atype='Test';
+      else if(document.querySelector('.exam-container,.exam-wrap')) atype='Exam';
+      collectExamResult();
+    }, 500);
+  });
 }
 
 // ════════════════════════════════════════════════════════════════
@@ -290,9 +322,14 @@ function hookSubmitQuiz(){
 // ════════════════════════════════════════════════════════════════
 function init(){
   buildGate();
-  hookSubmitQuiz();
-  // Retry hook after 2s in case _CA loads late
-  setTimeout(hookSubmitQuiz, 2000);
+  hookQuiz();
+  hookTest();
+  hookExam();
+  watchSubmitButtons();
+  // Retry all hooks after page scripts fully load
+  setTimeout(function(){
+    hookQuiz(); hookTest(); hookExam();
+  }, 2000);
 }
 
 if(document.readyState==='loading'){
