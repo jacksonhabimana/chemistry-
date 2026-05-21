@@ -1,0 +1,108 @@
+# ═══════════════════════════════════════════════════════════════
+#  Jackson Chemistry Portal — Auto-inject tracker.js
+#  Upload this file to: .github/workflows/inject_tracker.yml
+#  Then go to Actions tab → "Inject Tracker" → Run workflow
+#  It patches ALL HTML unit files automatically in one click.
+# ═══════════════════════════════════════════════════════════════
+
+name: Inject Tracker
+
+on:
+  workflow_dispatch:   # run manually from Actions tab
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Inject tracker.js into all unit HTML files
+        run: |
+          python3 << 'PYEOF'
+          import os, re, glob
+
+          # Files to patch — all unit and assessment pages
+          TARGETS = [
+            # S4
+            "s4_unit1_atomic_structure.html","s4_unit2_electronic_config.html",
+            "s4_unit3_ionic_metallic_bonds.html","s4_unit4_covalent_bond.html",
+            "s4_unit5_periodic_trends.html","s4_unit6_group1.html",
+            "s4_unit7_group2.html","s4_unit8_group13.html",
+            "s4_unit9_group14.html","s4_unit10_group15.html",
+            "s4_unit11_group16.html","s4_unit12_group17.html",
+            "s4_unit13_group18.html","s4_unit14_period3.html",
+            "s4_unit15_equilibrium.html","s4_unit16_acids_bases.html",
+            "s4_unit17_redox.html","s4_unit18_energy_changes.html",
+            # S5
+            "unit1_organic_chemistry.html","unit2_alkanes.html",
+            "unit3_alkenes_alkynes.html","unit4_halogenoalkanes.html",
+            "unit5_alcohols_ethers.html","unit6_carbonyl.html",
+            "unit7_carboxylic_acids.html","unit8_esters.html",
+            "unit8_esters_amides.html","unit9_amines_amino_acids.html",
+            "unit10_indicators_titration.html","unit11_solutions_titration.html",
+            "unit12_conductivity.html","unit12_electrochemical_cells.html",
+            "unit13_electrolysis.html","unit13_reaction_rates.html",
+            "unit14_enthalpy.html","unit14_rate_laws.html",
+            "unit15_entropy_free_energy.html","unit15_radioactivity.html",
+            # S6
+            "unit1_transition_metals.html","unit2_extraction_metals.html",
+            "unit3_fertilisers.html","unit4_benzene.html",
+            "unit5_benzene_derivatives.html","unit6_polymers.html",
+            "unit7_solvent_colligative.html","unit8_equilibrium.html",
+            "unit9_pH.html","unit10_phase_diagrams.html",
+            "unit11_solubility_product.html",
+            # Exam / quiz / test pages
+            "exams.html","quizzes.html","tests.html",
+            "student-exam.html","student-quiz.html","student-paper-exam.html",
+          ]
+
+          TRACKER_LINE = '  <script src="tracker.js"></script>\n'
+          patched = 0
+          skipped = 0
+
+          for fname in TARGETS:
+              if not os.path.exists(fname):
+                  print(f"  SKIP (not found): {fname}")
+                  skipped += 1
+                  continue
+
+              with open(fname, 'r', encoding='utf-8', errors='replace') as f:
+                  content = f.read()
+
+              # Already patched?
+              if 'tracker.js' in content:
+                  print(f"  ALREADY PATCHED: {fname}")
+                  skipped += 1
+                  continue
+
+              # Remove any old inline tracker block if present
+              content = re.sub(
+                  r'\n?<!-- ═══ Student Tracking System ═══ -->.*?<!-- ═══ End Tracking System ═══ -->\n?',
+                  '', content, flags=re.DOTALL
+              )
+
+              # Inject before </head>
+              if '</head>' in content:
+                  content = content.replace('</head>', TRACKER_LINE + '</head>', 1)
+                  with open(fname, 'w', encoding='utf-8') as f:
+                      f.write(content)
+                  print(f"  PATCHED: {fname}")
+                  patched += 1
+              else:
+                  print(f"  WARNING no </head>: {fname}")
+                  skipped += 1
+
+          print(f"\nDone: {patched} patched, {skipped} skipped.")
+          PYEOF
+
+      - name: Commit patched files
+        run: |
+          git config user.name  "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add -A
+          git diff --staged --quiet || git commit -m "chore: inject tracker.js into all unit pages"
+          git push
