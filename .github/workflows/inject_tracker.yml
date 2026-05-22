@@ -13,66 +13,62 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Inject tracker.js into ALL HTML files
+      - name: Remove tracker from ALL pages first (clean slate)
         run: |
           python3 << 'PYEOF'
-          import os, re, glob
+          import os, glob
+          removed = 0
+          for fname in glob.glob('*.html'):
+            with open(fname,'r',encoding='utf-8',errors='replace') as f:
+              content = f.read()
+            if 'tracker.js' in content:
+              content = content.replace('  <script src="tracker.js"></script>\n','')
+              content = content.replace('<script src="tracker.js"></script>\n','')
+              content = content.replace('<script src="tracker.js"></script>','')
+              with open(fname,'w',encoding='utf-8') as f:
+                f.write(content)
+              print(f"  Cleaned: {fname}")
+              removed += 1
+          print(f"Removed from {removed} files")
+          PYEOF
+
+      - name: Add tracker ONLY to quiz/test/exam pages
+        run: |
+          python3 << 'PYEOF'
+          import os, re
 
           TRACKER_LINE = '  <script src="tracker.js"></script>\n'
+
+          # ONLY these pages get the tracker gate
+          TARGETS = [
+            "exams.html",
+            "quizzes.html",
+            "tests.html",
+            "quiz-hub.html",
+            "student-exam.html",
+            "student-exam (2).html",
+            "student-quiz.html",
+            "student-paper-exam.html",
+          ]
+
           patched = 0
-          skipped = 0
-          already = 0
-
-          # Get ALL html files in root directory
-          html_files = glob.glob('*.html')
-
-          # Exclude teacher-only and non-assessment pages
-          EXCLUDE = {
-            'teacher-admin.html', 'teacher-admin (2).html',
-            'lock-manager.html', 'lockbar.html', 'lockbar-v2.html',
-            'contact.html', 'downloads.html', 'videos.html',
-            'periodic-table.html', 'lesson-plan.html',
-            'manifest.json'
-          }
-
-          for fname in sorted(html_files):
-            if fname in EXCLUDE:
-              print(f"  EXCLUDED: {fname}")
-              skipped += 1
+          for fname in TARGETS:
+            if not os.path.exists(fname):
+              print(f"  NOT FOUND: {fname}")
               continue
-
-            try:
-              with open(fname, 'r', encoding='utf-8', errors='replace') as f:
-                content = f.read()
-            except:
-              print(f"  READ ERROR: {fname}")
-              skipped += 1
-              continue
-
-            # Already patched?
+            with open(fname,'r',encoding='utf-8',errors='replace') as f:
+              content = f.read()
             if 'tracker.js' in content:
               print(f"  ALREADY: {fname}")
-              already += 1
               continue
-
-            # Remove any old inline tracker block
-            content = re.sub(
-              r'\n?<!-- ═══ Student Tracking System ═══ -->.*?<!-- ═══ End Tracking System ═══ -->\n?',
-              '', content, flags=re.DOTALL
-            )
-
-            # Inject before </head>
             if '</head>' in content:
               content = content.replace('</head>', TRACKER_LINE + '</head>', 1)
-              with open(fname, 'w', encoding='utf-8') as f:
+              with open(fname,'w',encoding='utf-8') as f:
                 f.write(content)
               print(f"  PATCHED: {fname}")
               patched += 1
-            else:
-              print(f"  NO HEAD TAG: {fname}")
-              skipped += 1
 
-          print(f"\nDone: {patched} newly patched | {already} already had tracker | {skipped} skipped/excluded")
+          print(f"\nDone: {patched} assessment pages patched")
           PYEOF
 
       - name: Commit changes
@@ -80,5 +76,5 @@ jobs:
           git config user.name  "GitHub Actions"
           git config user.email "actions@github.com"
           git add -A
-          git diff --staged --quiet || git commit -m "chore: inject tracker.js into all remaining HTML pages"
+          git diff --staged --quiet || git commit -m "fix: tracker only on quiz/test/exam pages"
           git push
