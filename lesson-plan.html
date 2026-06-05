@@ -64,6 +64,16 @@ body{font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,sans-serif;backgrou
 .bpr{background:#c48a00;color:#fff;box-shadow:0 2px 8px rgba(196,138,0,.3)}
 .bcp{background:#21262d;color:#8b949e;border:1px solid #30363d}
 .bbk{background:#21262d;color:#8b949e;border:1px solid #30363d}
+.bedt{background:#1a472a;color:#4ade80;border:1px solid #4ade80}
+.bdoc{background:#1e3a5f;color:#60a5fa;border:1px solid #60a5fa}
+#edit-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:999;overflow-y:auto}
+#edit-box{background:#161b22;border:1px solid #30363d;border-radius:14px;max-width:860px;margin:40px auto;padding:28px}
+#edit-box h3{color:#c48a00;margin-bottom:20px;font-size:1.1rem}
+.ef{display:flex;flex-direction:column;gap:6px;margin-bottom:16px}
+.ef label{font-size:.8rem;font-weight:600;color:#8b949e;text-transform:uppercase;letter-spacing:.4px}
+.ef textarea{background:#0d1117;border:1.5px solid #30363d;border-radius:8px;color:#e6edf3;padding:10px 14px;font-size:.88rem;font-family:inherit;resize:vertical;min-height:80px;outline:none}
+.ef textarea:focus{border-color:#c48a00}
+.ebtns{display:flex;gap:10px;justify-content:flex-end;margin-top:8px}
 .ptbl{width:100%;border-collapse:collapse}
 .ptbl tr{border-bottom:1px solid #21262d}
 .ptbl tr:last-child{border-bottom:none}
@@ -145,6 +155,8 @@ body{font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,sans-serif;backgrou
         <h2>&#x1F4C4; Generated Lesson Plan</h2>
         <div class="abar">
           <button class="ba bpr" onclick="window.print()">&#x1F5A8;&#xFE0F; Print / PDF</button>
+          <button class="ba bdoc" onclick="dlWord()">&#x1F4C4; Download Word</button>
+          <button class="ba bedt" onclick="openEdit()">&#x270F;&#xFE0F; Edit</button>
           <button class="ba bcp" onclick="cpPlan()">&#x1F4CB; Copy</button>
           <button class="ba bbk" onclick="goBack()">&#x21A9; New Plan</button>
         </div>
@@ -153,6 +165,19 @@ body{font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,sans-serif;backgrou
     </div>
   </div>
 </div>
+
+<!-- Edit Modal -->
+<div id="edit-modal">
+  <div id="edit-box">
+    <h3>&#x270F;&#xFE0F; Edit Lesson Plan</h3>
+    <div id="edit-fields"></div>
+    <div class="ebtns">
+      <button class="ba bbk" onclick="closeEdit()">&#x2715; Cancel</button>
+      <button class="ba bpr" onclick="saveEdit()">&#x2713; Save Changes</button>
+    </div>
+  </div>
+</div>
+
 <script>
 
 const CUR={
@@ -632,182 +657,143 @@ async function doGen(){
   const introMin=Math.round(parseInt(dur)*0.18);
   const devMin=Math.round(parseInt(dur)*0.67);
   const concMin=parseInt(dur)-introMin-devMin;
-  const prompt=`You are an expert Rwanda REB teacher. Generate a CBC lesson plan in the OFFICIAL REB format as a JSON object. Return ONLY valid JSON, no markdown, no extra text.
+  const prompt=`You are an expert Rwanda REB teacher. Generate a CBC lesson plan in OFFICIAL REB format. Return ONLY valid JSON, no markdown, no extra text.
 
-DETAILS: School:${school} | Teacher:${teacher} | Subject:${subj} | Class:${lv} | Term:${term} | Date:${date} | Duration:${dur}min | Class Size:${cls||'N/A'} | Location:${loc}${sn?' | Special Needs:'+sn:''}
-Unit: ${unitName}
-Lesson: ${lesName}
+LESSON DETAILS:
+School: ${school} | Teacher: ${teacher} | Subject: ${subj} | Class: ${lv}
+Term: ${term} | Date: ${date} | Duration: ${dur}min | Size: ${cls||'N/A'} | Location: ${loc}
+Special Needs: ${sn||'None'} | Unit: ${unitName} | Lesson: ${lesName}
 
-Return this JSON structure (fill ALL fields with real detailed content):
-{"unit_no":"[number]","lesson_no":"[number] Out of [total]","unit_title":"[FULL UNIT TITLE CAPS]","key_unit_competence":"[official REB competence statement]","lesson_title":"${lesName}","instructional_objectives":"By using locally made charts, ${lv} learners will be able to [explain/calculate/describe] ${lesName} clearly within ${dur} minutes.","learning_materials":"exercise books, locally made charts, [specific materials for this topic]","references":"Rwanda Education Board. (2025). ${subj} Learner Book ${lv}. Kigali.","intro_timing":"Introduction (${introMin} min)","intro_teacher":"[Teacher introduction: greet, show materials, ask 2 prior knowledge questions about ${lesName}]","intro_learner":"[Learner response: greet, observe materials, answer prior knowledge questions]","intro_competences":"Critical Thinking: learners analyze prior knowledge. Communication: learners express ideas.","dev_timing":"Lesson Development (${devMin} min)","dev_teacher":"[Detailed teacher steps: demonstrate ${lesName}, form groups, assign tasks, facilitate, give feedback]","dev_learner":"[Detailed learner steps: observe demonstration, work in groups on ${lesName} tasks, present findings, discuss]","dev_competences":"Critical Thinking: analyze results. Cooperation: group work. Environment: relate to real context.","conc_timing":"Conclusion (${concMin} min)","conc_teacher":"[Teacher conclusion: summarize ${lesName} key points, ask 2 oral questions, give homework]","conc_learner":"[Learner conclusion: answer oral questions on ${lesName}, write homework in exercise books]","conc_competences":"Critical Thinking: learners evaluate understanding. Communication: oral responses."}`
-
-  const WORKER='https://chem-payment.hajackson2020.workers.dev/lesson-plan';
-
-  try{
-    const r=await fetch(WORKER,{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({prompt})
-    });
-    const res=await r.json();
-    if(!r.ok){
-      if(res.error==='quota')throw new Error('AI quota exceeded. Please try again later.');
-      throw new Error(res.error||'Worker error. Please try again.');
-    }
-    let raw=res.text||'';
-    raw=raw.replace(/```json\s*/gi,'').replace(/```\s*/g,'').trim();
-
-    // Extract a JSON field value by key name (handles multiline values safely)
-    function extractField(text, key){
-      const re=new RegExp('"'+key+'"\\s*:\\s*"((?:[^"\\\\]|\\\\[\\s\\S])*)"','i');
-      const m=text.match(re);
-      if(m)return m[1].replace(/\\n/g,'\n').replace(/\\t/g,' ').replace(/\\\"/g,'"');
-      return '';
-    }
-
-    const fields=['unit_no','lesson_no','unit_title','key_unit_competence','lesson_title',
-      'instructional_objectives','learning_materials','references',
-      'intro_timing','intro_teacher','intro_learner','intro_competences',
-      'dev_timing','dev_teacher','dev_learner','dev_competences',
-      'conc_timing','conc_teacher','conc_learner','conc_competences'];
-
-    let plan={};
-    // First try normal JSON parse
-    try{
-      let t=raw;
-      const bm=t.match(/\{[\s\S]*\}/);
-      if(bm)t=bm[0];
-      t=t.replace(/,\s*([}\]])/g,'$1');
-      plan=JSON.parse(t);
-    } catch{
-      // Fallback: extract each field individually with regex
-      fields.forEach(k=>{ plan[k]=extractField(raw,k); });
-      // If all empty, something is really wrong
-      if(!plan.unit_title && !plan.intro_teacher){
-        throw new Error('AI response could not be parsed. Please try again.');
-      }
-    }
-    renderPlan({school,teacher,subj,lv,term,date,dur,cls,lang,loc,sn,unitName,lesName,att},plan);
-
-  }catch(e){
-    const html=e.message.replace(/\n/g,'<br>');
-    document.getElementById('out-body').innerHTML=`<div class="lbox"><p style="color:#e53e3e;font-size:.92rem;text-align:left;max-width:620px;margin:0 auto;line-height:1.9">${html}</p><br><button class="ba bbk" onclick="goBack()" style="margin:0 auto">&#x21A9; Go Back</button></div>`;
-  }
+Return EXACTLY this JSON structure with ALL fields filled with real detailed content:
+{"unit_no":"[number]","lesson_no":"[e.g. 3 of 6]","unit_title":"[FULL UNIT TITLE CAPS from REB ${subj} ${lv} syllabus]","key_unit_competence":"[official REB key unit competence for this unit]","lesson_title":"${lesName}","instructional_objectives":"Using notes and available textbook, learners will be able to clearly describe ${lesName} within ${dur} minutes.","learning_materials":"Textbooks, notes for teacher, chalk, blackboard, [specific materials for ${lesName}]","references":"REB ${subj} Learner Book ${lv}. Kigali: Rwanda Education Board. S${lv} notes syllabus, comprehensive ${subj} student and teacher guide.","intro_timing":"Introduction\n${introMin} min","intro_teacher":"Greets learners.\nAsks questions about the previous lesson related to ${lesName}.\n[2-3 specific prior knowledge questions about ${lesName}]","intro_learner":"Greet teacher and answer the questions asked by teacher about the previous lesson.\n[Specific expected learner responses for ${lesName}]","intro_competences":"Critical thinking while thinking about what they are going to answer.\nOral communication in English while answering questions and discussing in groups.\nCreativity and innovation.\nCooperation and interpersonal management.\nGender balance through mixing boys and girls in groups.","dev_timing":"Development\n${devMin} min","dev_teacher":"Teacher introduces new lesson and concepts about ${lesName}.\nArranges groups of learners and gives them activity to discuss on ${lesName}.\n[Specific group activity on ${lesName}]\nFacilitates and guides learners while working in groups.\nMoves in all groups helping them with difficulties.\nHelps learners to present their findings.","dev_learner":"Follow teacher introduction of the new lesson and ask questions for clarification where necessary.\nWork in groups on the activity given on ${lesName}.\n[Specific learner tasks for ${lesName}]\nPresent their findings group by group (one member presents, other members intervene to clarify).","conc_timing":"Conclusion\nSummary and evaluation\n${concMin} min","conc_teacher":"Teacher summarizes the contents delivered about ${lesName}.\nAsks questions to check whether students have understood: [3 specific evaluation questions on ${lesName}].\nGives homework.","conc_learner":"Answer questions one by one orally.\nAsk teacher where confused for clarifications.\nWrite homework in exercise books."}`;
 }
 
 function renderPlan(info,plan){
+  _currentPlan=plan;
+  _currentInfo=info;
   const f=t=>t?String(t).replace(/\n/g,'<br>'):'&mdash;';
   const d=info.date?new Date(info.date).toLocaleDateString('en-RW',{year:'numeric',month:'2-digit',day:'2-digit'}):'&mdash;';
-  const cs=info.cls||'Not specified';
   document.getElementById('out-body').innerHTML=`
-  <div style="padding:24px;font-family:'Segoe UI',sans-serif;color:#e6edf3">
-
-    <h2 style="text-align:center;font-size:1.3rem;font-weight:700;margin-bottom:18px;color:#e6edf3">LESSON PLAN</h2>
-
-    <table style="width:100%;border-collapse:collapse;margin-bottom:12px">
+  <div style="padding:20px 24px;font-family:Arial,sans-serif;color:#e6edf3;font-size:.87rem">
+    <h2 style="text-align:center;font-size:1.15rem;font-weight:700;margin-bottom:14px;letter-spacing:1px">LESSON PLAN</h2>
+    <table style="width:100%;border-collapse:collapse;margin-bottom:2px">
       <tr>
-        <td style="padding:6px 10px;font-size:.85rem;color:#8b949e;width:50%"><strong style="color:#c48a00">School Name:</strong> ${info.school}</td>
-        <td style="padding:6px 10px;font-size:.85rem;color:#8b949e"><strong style="color:#c48a00">Teacher's Name:</strong> ${info.teacher}</td>
+        <td style="padding:4px 6px;width:50%"><b style="color:#c48a00">School Name:</b> ${info.school}</td>
+        <td style="padding:4px 6px"><b style="color:#c48a00">Teacher's Name:</b> ${info.teacher}</td>
       </tr>
     </table>
-
-    <table style="width:100%;border-collapse:collapse;border:1px solid #30363d;margin-bottom:0">
+    <table style="width:100%;border-collapse:collapse;border:1px solid #555">
       <tr style="background:#1c2128">
-        <th style="padding:8px 10px;font-size:.8rem;border:1px solid #30363d;color:#c48a00;text-align:left">Term</th>
-        <th style="padding:8px 10px;font-size:.8rem;border:1px solid #30363d;color:#c48a00;text-align:left">Date</th>
-        <th style="padding:8px 10px;font-size:.8rem;border:1px solid #30363d;color:#c48a00;text-align:left">Subject</th>
-        <th style="padding:8px 10px;font-size:.8rem;border:1px solid #30363d;color:#c48a00;text-align:left">Class</th>
-        <th style="padding:8px 10px;font-size:.8rem;border:1px solid #30363d;color:#c48a00;text-align:left">Unit No</th>
-        <th style="padding:8px 10px;font-size:.8rem;border:1px solid #30363d;color:#c48a00;text-align:left">Lesson No</th>
-        <th style="padding:8px 10px;font-size:.8rem;border:1px solid #30363d;color:#c48a00;text-align:left">Duration</th>
-        <th style="padding:8px 10px;font-size:.8rem;border:1px solid #30363d;color:#c48a00;text-align:left">Class size</th>
+        <th style="padding:6px 7px;border:1px solid #555;color:#c48a00;font-size:.8rem">Term</th>
+        <th style="padding:6px 7px;border:1px solid #555;color:#c48a00;font-size:.8rem">Date</th>
+        <th style="padding:6px 7px;border:1px solid #555;color:#c48a00;font-size:.8rem">Subject</th>
+        <th style="padding:6px 7px;border:1px solid #555;color:#c48a00;font-size:.8rem">Class</th>
+        <th style="padding:6px 7px;border:1px solid #555;color:#c48a00;font-size:.8rem">Unit No</th>
+        <th style="padding:6px 7px;border:1px solid #555;color:#c48a00;font-size:.8rem">Lesson No</th>
+        <th style="padding:6px 7px;border:1px solid #555;color:#c48a00;font-size:.8rem">Duration</th>
+        <th style="padding:6px 7px;border:1px solid #555;color:#c48a00;font-size:.8rem">Class size</th>
       </tr>
       <tr>
-        <td style="padding:8px 10px;font-size:.85rem;border:1px solid #30363d">${info.term}</td>
-        <td style="padding:8px 10px;font-size:.85rem;border:1px solid #30363d">${d}</td>
-        <td style="padding:8px 10px;font-size:.85rem;border:1px solid #30363d">${info.subj}</td>
-        <td style="padding:8px 10px;font-size:.85rem;border:1px solid #30363d">${info.lv}</td>
-        <td style="padding:8px 10px;font-size:.85rem;border:1px solid #30363d">${f(plan.unit_no)}</td>
-        <td style="padding:8px 10px;font-size:.85rem;border:1px solid #30363d">${f(plan.lesson_no)}</td>
-        <td style="padding:8px 10px;font-size:.85rem;border:1px solid #30363d">${info.dur} min</td>
-        <td style="padding:8px 10px;font-size:.85rem;border:1px solid #30363d">${cs}</td>
+        <td style="padding:6px 7px;border:1px solid #555;text-align:center">${info.term}</td>
+        <td style="padding:6px 7px;border:1px solid #555;text-align:center">${d}</td>
+        <td style="padding:6px 7px;border:1px solid #555;text-align:center">${info.subj}</td>
+        <td style="padding:6px 7px;border:1px solid #555;text-align:center">${info.lv}</td>
+        <td style="padding:6px 7px;border:1px solid #555;text-align:center">${f(plan.unit_no)}</td>
+        <td style="padding:6px 7px;border:1px solid #555;text-align:center">${f(plan.lesson_no)}</td>
+        <td style="padding:6px 7px;border:1px solid #555;text-align:center">${info.dur} min</td>
+        <td style="padding:6px 7px;border:1px solid #555;text-align:center">${info.cls||'N/A'}</td>
       </tr>
     </table>
-
-    <table style="width:100%;border-collapse:collapse;border:1px solid #30363d;border-top:none;margin-bottom:0">
-      <tr>
-        <td style="padding:8px 10px;font-size:.8rem;font-weight:700;color:#c48a00;background:#1c2128;border:1px solid #30363d;width:220px;white-space:nowrap">Type of special educational needs</td>
-        <td style="padding:8px 10px;font-size:.85rem;border:1px solid #30363d" colspan="3">${info.sn||'None'}</td>
-      </tr>
-      <tr>
-        <td style="padding:8px 10px;font-size:.8rem;font-weight:700;color:#c48a00;background:#1c2128;border:1px solid #30363d">Unit title</td>
-        <td style="padding:8px 10px;font-size:.85rem;border:1px solid #30363d;font-weight:600" colspan="3">${f(plan.unit_title)||info.unitName}</td>
-      </tr>
-      <tr>
-        <td style="padding:8px 10px;font-size:.8rem;font-weight:700;color:#c48a00;background:#1c2128;border:1px solid #30363d">Key unit competence</td>
-        <td style="padding:8px 10px;font-size:.85rem;border:1px solid #30363d" colspan="3">${f(plan.key_unit_competence)}</td>
-      </tr>
-      <tr>
-        <td style="padding:8px 10px;font-size:.8rem;font-weight:700;color:#c48a00;background:#1c2128;border:1px solid #30363d">Title of the lesson</td>
-        <td style="padding:8px 10px;font-size:.85rem;border:1px solid #30363d" colspan="3">${info.lesName}</td>
-      </tr>
-      <tr>
-        <td style="padding:8px 10px;font-size:.8rem;font-weight:700;color:#c48a00;background:#1c2128;border:1px solid #30363d">Instructional objectives</td>
-        <td style="padding:8px 10px;font-size:.85rem;border:1px solid #30363d" colspan="3">${f(plan.instructional_objectives)}</td>
-      </tr>
-      <tr>
-        <td style="padding:8px 10px;font-size:.8rem;font-weight:700;color:#c48a00;background:#1c2128;border:1px solid #30363d">Plan of this class (Location)</td>
-        <td style="padding:8px 10px;font-size:.85rem;border:1px solid #30363d" colspan="3">${info.loc}</td>
-      </tr>
-      <tr>
-        <td style="padding:8px 10px;font-size:.8rem;font-weight:700;color:#c48a00;background:#1c2128;border:1px solid #30363d">Learning materials</td>
-        <td style="padding:8px 10px;font-size:.85rem;border:1px solid #30363d" colspan="3">${f(plan.learning_materials)}</td>
-      </tr>
-      <tr>
-        <td style="padding:8px 10px;font-size:.8rem;font-weight:700;color:#c48a00;background:#1c2128;border:1px solid #30363d">References</td>
-        <td style="padding:8px 10px;font-size:.85rem;border:1px solid #30363d" colspan="3">${f(plan.references)}</td>
-      </tr>
+    <table style="width:100%;border-collapse:collapse;border:1px solid #555;border-top:none">
+      <tr><td style="padding:6px 7px;font-weight:700;color:#c48a00;background:#1c2128;border:1px solid #555;width:40%;vertical-align:top">Type of Special Educational Needs to be catered for in this lesson and number of learners in each category</td><td style="padding:6px 7px;border:1px solid #555">${info.sn||'None'}</td></tr>
+      <tr><td style="padding:6px 7px;font-weight:700;color:#c48a00;background:#1c2128;border:1px solid #555">Unit title</td><td style="padding:6px 7px;border:1px solid #555;font-weight:600">${f(plan.unit_title)||info.unitName}</td></tr>
+      <tr><td style="padding:6px 7px;font-weight:700;color:#c48a00;background:#1c2128;border:1px solid #555">Key Unit Competence</td><td style="padding:6px 7px;border:1px solid #555">${f(plan.key_unit_competence)}</td></tr>
+      <tr><td style="padding:6px 7px;font-weight:700;color:#c48a00;background:#1c2128;border:1px solid #555">Title of the lesson</td><td style="padding:6px 7px;border:1px solid #555">${info.lesName}</td></tr>
+      <tr><td style="padding:6px 7px;font-weight:700;color:#c48a00;background:#1c2128;border:1px solid #555">Instructional Objective</td><td style="padding:6px 7px;border:1px solid #555">${f(plan.instructional_objectives)}</td></tr>
+      <tr><td style="padding:6px 7px;font-weight:700;color:#c48a00;background:#1c2128;border:1px solid #555">Plan for this Class (location: in / outside)</td><td style="padding:6px 7px;border:1px solid #555">${info.loc}</td></tr>
+      <tr><td style="padding:6px 7px;font-weight:700;color:#c48a00;background:#1c2128;border:1px solid #555">Learning Materials (for all learners)</td><td style="padding:6px 7px;border:1px solid #555">${f(plan.learning_materials)}</td></tr>
+      <tr><td style="padding:6px 7px;font-weight:700;color:#c48a00;background:#1c2128;border:1px solid #555">References</td><td style="padding:6px 7px;border:1px solid #555">${f(plan.references)}</td></tr>
     </table>
-
-    <table style="width:100%;border-collapse:collapse;border:1px solid #30363d;border-top:none;margin-bottom:0">
-      <tr style="background:#1c2128;text-align:center">
-        <th style="padding:8px 10px;font-size:.8rem;border:1px solid #30363d;color:#c48a00;width:150px">Timing for each step</th>
-        <th style="padding:8px 10px;font-size:.8rem;border:1px solid #30363d;color:#c48a00" colspan="2">Description of teaching and learning activities</th>
-        <th style="padding:8px 10px;font-size:.8rem;border:1px solid #30363d;color:#c48a00;width:200px">Generic competences and cross-cutting issues</th>
+    <table style="width:100%;border-collapse:collapse;border:1px solid #555;border-top:none">
+      <tr style="background:#1c2128">
+        <th style="padding:6px 7px;border:1px solid #555;color:#c48a00;width:13%;text-align:center;vertical-align:middle" rowspan="2">Timing for each step</th>
+        <th style="padding:6px 7px;border:1px solid #555;color:#c48a00;text-align:center" colspan="2">Description of teaching/learning activities</th>
+        <th style="padding:6px 7px;border:1px solid #555;color:#c48a00;width:26%;text-align:center;vertical-align:middle;font-size:.8rem" rowspan="2">Generic competences<br>and<br>Cross cutting issues<br>to be addressed<br>+<br>a short explanation<br><span style="color:#8b949e;font-weight:400;font-style:italic">Teacher's activities</span></th>
       </tr>
-      <tr style="background:#1c2128;text-align:center">
-        <td style="border:1px solid #30363d"></td>
-        <td style="padding:8px 10px;font-size:.8rem;font-weight:700;border:1px solid #30363d;color:#8b949e;width:35%">Teacher's activity</td>
-        <td style="padding:8px 10px;font-size:.8rem;font-weight:700;border:1px solid #30363d;color:#8b949e;width:35%">Learner's activity</td>
-        <td style="border:1px solid #30363d"></td>
+      <tr style="background:#1c2128">
+        <th style="padding:6px 7px;border:1px solid #555;color:#8b949e;width:30%;text-align:center">Teacher's activities</th>
+        <th style="padding:6px 7px;border:1px solid #555;color:#8b949e;width:31%;text-align:center">Learner's activities</th>
       </tr>
       <tr>
-        <td style="padding:10px;font-size:.85rem;font-weight:700;border:1px solid #30363d;vertical-align:top;color:#e6edf3">${f(plan.intro_timing)}</td>
-        <td style="padding:10px;font-size:.85rem;border:1px solid #30363d;vertical-align:top">${f(plan.intro_teacher)}</td>
-        <td style="padding:10px;font-size:.85rem;border:1px solid #30363d;vertical-align:top">${f(plan.intro_learner)}</td>
-        <td style="padding:10px;font-size:.85rem;border:1px solid #30363d;vertical-align:top;color:#8b949e">${f(plan.intro_competences)}</td>
+        <td style="padding:8px 7px;border:1px solid #555;vertical-align:top;font-weight:700;text-align:center">${f(plan.intro_timing)}</td>
+        <td style="padding:8px 7px;border:1px solid #555;vertical-align:top">${f(plan.intro_teacher)}</td>
+        <td style="padding:8px 7px;border:1px solid #555;vertical-align:top">${f(plan.intro_learner)}</td>
+        <td style="padding:8px 7px;border:1px solid #555;vertical-align:top;color:#adb5bd;font-size:.82rem">${f(plan.intro_competences)}</td>
       </tr>
       <tr>
-        <td style="padding:10px;font-size:.85rem;font-weight:700;border:1px solid #30363d;vertical-align:top;color:#e6edf3">${f(plan.dev_timing)}</td>
-        <td style="padding:10px;font-size:.85rem;border:1px solid #30363d;vertical-align:top">${f(plan.dev_teacher)}</td>
-        <td style="padding:10px;font-size:.85rem;border:1px solid #30363d;vertical-align:top">${f(plan.dev_learner)}</td>
-        <td style="padding:10px;font-size:.85rem;border:1px solid #30363d;vertical-align:top;color:#8b949e">${f(plan.dev_competences)}</td>
+        <td style="padding:8px 7px;border:1px solid #555;vertical-align:top;font-weight:700;text-align:center">${f(plan.dev_timing)}</td>
+        <td style="padding:8px 7px;border:1px solid #555;vertical-align:top">${f(plan.dev_teacher)}</td>
+        <td style="padding:8px 7px;border:1px solid #555;vertical-align:top">${f(plan.dev_learner)}</td>
+        <td style="padding:8px 7px;border:1px solid #555;vertical-align:top"></td>
       </tr>
       <tr>
-        <td style="padding:10px;font-size:.85rem;font-weight:700;border:1px solid #30363d;vertical-align:top;color:#e6edf3">${f(plan.conc_timing)}</td>
-        <td style="padding:10px;font-size:.85rem;border:1px solid #30363d;vertical-align:top">${f(plan.conc_teacher)}</td>
-        <td style="padding:10px;font-size:.85rem;border:1px solid #30363d;vertical-align:top">${f(plan.conc_learner)}</td>
-        <td style="padding:10px;font-size:.85rem;border:1px solid #30363d;vertical-align:top;color:#8b949e">${f(plan.conc_competences)}</td>
+        <td style="padding:8px 7px;border:1px solid #555;vertical-align:top;font-weight:700;text-align:center">${f(plan.conc_timing)}</td>
+        <td style="padding:8px 7px;border:1px solid #555;vertical-align:top">${f(plan.conc_teacher)}</td>
+        <td style="padding:8px 7px;border:1px solid #555;vertical-align:top">${f(plan.conc_learner)}</td>
+        <td style="padding:8px 7px;border:1px solid #555;vertical-align:top"></td>
       </tr>
       <tr>
-        <td style="padding:10px;font-size:.8rem;font-weight:700;color:#c48a00;background:#1c2128;border:1px solid #30363d" colspan="4">Teacher's self-evaluation</td>
+        <td colspan="4" style="padding:6px 7px;font-weight:700;color:#c48a00;background:#1c2128;border:1px solid #555">Self-evaluation</td>
       </tr>
-      <tr>
-        <td style="padding:30px 10px;border:1px solid #30363d" colspan="4"></td>
-      </tr>
+      <tr><td colspan="4" style="padding:50px 7px;border:1px solid #555"></td></tr>
     </table>
-
   </div>`;
+}
+
+function dlWord(){
+  if(!_currentPlan||!_currentInfo)return;
+  const p=_currentPlan;
+  const info=_currentInfo;
+  const nl=s=>s?String(s).split('\n').join('<br>'):'';
+  const d=info.date?new Date(info.date).toLocaleDateString('en-RW',{year:'numeric',month:'2-digit',day:'2-digit'}):'';
+  const html=`<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40"><head><meta charset="utf-8"><title>Lesson Plan</title>
+<style>body{font-family:Arial,sans-serif;font-size:11pt;margin:1.5cm}h2{text-align:center;font-size:13pt;font-weight:bold;margin-bottom:8pt;letter-spacing:1pt}table{width:100%;border-collapse:collapse;margin-bottom:0;font-size:10pt}td,th{border:1px solid #000;padding:5pt 6pt;vertical-align:top}.lbl{background:#f5f0e0;font-weight:bold;width:35%}.hdr{background:#f5f0e0;font-weight:bold;text-align:center}.ctr{text-align:center}</style></head><body>
+<h2>LESSON PLAN</h2>
+<table><tr><td style="border:none"><b>School Name:</b> ${info.school}</td><td style="border:none"><b>Teacher's Name:</b> ${info.teacher}</td></tr></table>
+<table>
+<tr><th class="hdr">Term</th><th class="hdr">Date</th><th class="hdr">Subject</th><th class="hdr">Class</th><th class="hdr">Unit No</th><th class="hdr">Lesson No</th><th class="hdr">Duration</th><th class="hdr">Class size</th></tr>
+<tr><td class="ctr">${info.term}</td><td class="ctr">${d}</td><td class="ctr">${info.subj}</td><td class="ctr">${info.lv}</td><td class="ctr">${p.unit_no||''}</td><td class="ctr">${p.lesson_no||''}</td><td class="ctr">${info.dur} min</td><td class="ctr">${info.cls||'N/A'}</td></tr>
+</table>
+<table>
+<tr><td class="lbl">Type of Special Educational Needs to be catered for in this lesson and number of learners in each category</td><td>${info.sn||'None'}</td></tr>
+<tr><td class="lbl">Unit title</td><td><b>${p.unit_title||info.unitName}</b></td></tr>
+<tr><td class="lbl">Key Unit Competence</td><td>${p.key_unit_competence||''}</td></tr>
+<tr><td class="lbl">Title of the lesson</td><td>${info.lesName}</td></tr>
+<tr><td class="lbl">Instructional Objective</td><td>${p.instructional_objectives||''}</td></tr>
+<tr><td class="lbl">Plan for this Class (location: in / outside)</td><td>${info.loc}</td></tr>
+<tr><td class="lbl">Learning Materials (for all learners)</td><td>${p.learning_materials||''}</td></tr>
+<tr><td class="lbl">References</td><td>${p.references||''}</td></tr>
+</table>
+<table>
+<tr>
+  <th class="hdr" rowspan="2" style="width:13%;vertical-align:middle">Timing for each step</th>
+  <th class="hdr" colspan="2">Description of teaching/learning activities</th>
+  <th class="hdr" rowspan="2" style="width:26%;vertical-align:middle">Generic competences and Cross cutting issues to be addressed<br>+<br>a short explanation<br><i>Teacher's activities</i></th>
+</tr>
+<tr><th class="hdr" style="width:30%">Teacher's activities</th><th class="hdr" style="width:31%">Learner's activities</th></tr>
+<tr><td class="ctr"><b>${nl(p.intro_timing)}</b></td><td>${nl(p.intro_teacher)}</td><td>${nl(p.intro_learner)}</td><td>${nl(p.intro_competences)}</td></tr>
+<tr><td class="ctr"><b>${nl(p.dev_timing)}</b></td><td>${nl(p.dev_teacher)}</td><td>${nl(p.dev_learner)}</td><td></td></tr>
+<tr><td class="ctr"><b>${nl(p.conc_timing)}</b></td><td>${nl(p.conc_teacher)}</td><td>${nl(p.conc_learner)}</td><td></td></tr>
+<tr><td colspan="4" style="background:#f5f0e0;font-weight:bold">Self-evaluation</td></tr>
+<tr><td colspan="4" style="height:60pt"></td></tr>
+</table></body></html>`;
+  const blob=new Blob([html],{type:'application/msword'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;
+  a.download='LessonPlan_'+info.subj+'_'+info.lv+'_'+info.lesName.replace(/[^a-z0-9]/gi,'_').substring(0,40)+'.doc';
+  a.click();
+  URL.revokeObjectURL(url);
 }
 
 function cpPlan(){
