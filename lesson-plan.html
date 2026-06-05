@@ -644,29 +644,37 @@ async function doGen(){
       if(res.error==='quota')throw new Error('AI quota exceeded. Please try again later.');
       throw new Error(res.error||'Worker error. Please try again.');
     }
-    const data={candidates:[{content:{parts:[{text:res.text}]}}]};
-
-    let raw=data.candidates?.[0]?.content?.parts?.[0]?.text||'';
+    let raw=res.text||'';
     raw=raw.replace(/```json\s*/gi,'').replace(/```\s*/g,'').trim();
-    // Robust JSON cleaning
-    function cleanJSON(s){
-      // Extract outermost {...}
-      const m=s.match(/\{[\s\S]*\}/);
-      if(!m)return s;
-      let t=m[0];
-      // Remove control characters except \n \r \t
-      t=t.replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g,' ');
-      // Fix trailing commas before } or ]
-      t=t.replace(/,\s*([}\]])/g,'$1');
-      // Fix unescaped newlines inside JSON string values
-      t=t.replace(/"((?:[^"\\]|\\.)*)"/g,(_,v)=>'"'+v.replace(/\n/g,'\\n').replace(/\r/g,'\\r').replace(/\t/g,'\\t')+'"');
-      return t;
+
+    // Extract a JSON field value by key name (handles multiline values safely)
+    function extractField(text, key){
+      const re=new RegExp('"'+key+'"\\s*:\\s*"((?:[^"\\\\]|\\\\[\\s\\S])*)"','i');
+      const m=text.match(re);
+      if(m)return m[1].replace(/\\n/g,'\n').replace(/\\t/g,' ').replace(/\\\"/g,'"');
+      return '';
     }
-    let plan;
-    try{plan=JSON.parse(raw);}
-    catch{
-      try{plan=JSON.parse(cleanJSON(raw));}
-      catch(e2){throw new Error('AI response could not be parsed. Please try again.');}
+
+    const fields=['unit_competence','instructional_objectives','learning_objectives',
+      'key_competencies','prerequisite_knowledge','materials_resources',
+      'introduction','teacher_activities','student_activities',
+      'formative_assessment','conclusion','homework','references'];
+
+    let plan={};
+    // First try normal JSON parse
+    try{
+      let t=raw;
+      const bm=t.match(/\{[\s\S]*\}/);
+      if(bm)t=bm[0];
+      t=t.replace(/,\s*([}\]])/g,'$1');
+      plan=JSON.parse(t);
+    } catch{
+      // Fallback: extract each field individually with regex
+      fields.forEach(k=>{ plan[k]=extractField(raw,k); });
+      // If all empty, something is really wrong
+      if(!plan.unit_competence && !plan.introduction){
+        throw new Error('AI response could not be parsed. Please try again.');
+      }
     }
     renderPlan({school,teacher,subj,lv,term,date,dur,cls,lang,loc,sn,unitName,lesName,att},plan);
 
