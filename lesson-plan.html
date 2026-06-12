@@ -1292,51 +1292,118 @@ function renderPlan(info,plan){
   _currentPlan=plan;
   _currentInfo=info;
   const f=t=>t?String(t).replace(/\n/g,'<br>'):'&mdash;';
-  const d=info.date?new Date(info.date).toLocaleDateString('en-RW',{weekday:'long',year:'numeric',month:'long',day:'numeric'}):'&mdash;';
-  const cs=info.att&&info.cls?`${info.cls} learners`:(info.cls||'Not specified');
+  const d=info.date?new Date(info.date).toLocaleDateString('en-RW',{year:'numeric',month:'2-digit',day:'2-digit'}):'&mdash;';
+  const cs=info.cls||'Not specified';
   document.getElementById('out-body').innerHTML=`
-  <table class="ptbl">
-    <tr class="sr"><td colspan="2">&#x25B6; A. LESSON IDENTIFICATION</td></tr>
-    <tr><td>School</td><td>${info.school}</td></tr>
-    <tr><td>Teacher</td><td>${info.teacher}</td></tr>
-    <tr><td>Subject</td><td>${info.subj}</td></tr>
-    <tr><td>Class Level</td><td>${info.lv}</td></tr>
-    <tr><td>Term</td><td>${info.term}</td></tr>
-    <tr><td>Date</td><td>${d}</td></tr>
-    <tr><td>Duration</td><td>${info.dur} minutes</td></tr>
-    <tr><td>Class Size</td><td>${cs}</td></tr>
-    <tr><td>Language</td><td>${info.lang}</td></tr>
-    <tr><td>Location</td><td>${info.loc}</td></tr>
-    ${info.sn?`<tr><td>Special Needs</td><td>${info.sn}</td></tr>`:''}
-    <tr><td>Unit</td><td>${info.unitName}</td></tr>
-    <tr><td>Lesson Topic</td><td><strong>${info.lesName}</strong></td></tr>
-    <tr class="sr"><td colspan="2">&#x25B6; B. UNIT COMPETENCE &amp; OBJECTIVES</td></tr>
-    <tr><td>Key Unit Competence</td><td>${f(plan.unit_competence)}</td></tr>
-    <tr><td>Instructional Objectives</td><td>${f(plan.instructional_objectives)}</td></tr>
-    <tr><td>Learning Objectives (SMART)</td><td>${f(plan.learning_objectives)}</td></tr>
-    <tr class="sr"><td colspan="2">&#x25B6; C. KEY COMPETENCIES (REB CBC)</td></tr>
-    <tr><td>Competencies</td><td>${f(plan.key_competencies)}</td></tr>
-    <tr class="sr"><td colspan="2">&#x25B6; D. PREREQUISITE KNOWLEDGE</td></tr>
-    <tr><td>Prior knowledge required</td><td>${f(plan.prerequisite_knowledge)}</td></tr>
-    <tr class="sr"><td colspan="2">&#x25B6; E. MATERIALS AND RESOURCES</td></tr>
-    <tr><td>Resources needed</td><td>${f(plan.materials_resources)}</td></tr>
-    <tr class="sr"><td colspan="2">&#x25B6; F. LESSON DEVELOPMENT</td></tr>
-    <tr><td>Introduction / Hook</td><td>${f(plan.introduction)}</td></tr>
-    <tr><td>Teacher Activities</td><td>${f(plan.teacher_activities)}</td></tr>
-    <tr><td>Student Activities</td><td>${f(plan.student_activities)}</td></tr>
-    <tr class="sr"><td colspan="2">&#x25B6; G. FORMATIVE ASSESSMENT</td></tr>
-    <tr><td>Assessment tasks</td><td>${f(plan.formative_assessment)}</td></tr>
-    <tr class="sr"><td colspan="2">&#x25B6; H. CONCLUSION</td></tr>
-    <tr><td>Lesson wrap-up</td><td>${f(plan.conclusion)}</td></tr>
-    <tr class="sr"><td colspan="2">&#x25B6; I. HOMEWORK / ASSIGNMENT</td></tr>
-    <tr><td>Homework</td><td>${f(plan.homework)}</td></tr>
-    <tr class="sr"><td colspan="2">&#x25B6; J. REFERENCES</td></tr>
-    <tr><td>References</td><td>${f(plan.references)}</td></tr>
-    <tr class="sr"><td colspan="2">&#x25B6; K. SIGNATURES</td></tr>
-    <tr><td>Teacher's Signature</td><td class="sig"></td></tr>
-    <tr><td>Head of Department</td><td class="sig"></td></tr>
-    <tr><td>Head Teacher</td><td class="sig"></td></tr>
-  </table>`;
+  <div style="padding:20px 24px;font-family:Arial,sans-serif;color:#e6edf3;font-size:.88rem;line-height:1.5">
+
+    <h2 style="text-align:center;font-size:1.15rem;font-weight:700;margin-bottom:14px;letter-spacing:1px;color:#e6edf3">LESSON PLAN</h2>
+
+    <table style="width:100%;border-collapse:collapse;margin-bottom:4px">
+      <tr>
+        <td style="padding:4px 0;width:50%;color:#e6edf3"><strong>School Name:</strong> ${info.school}</td>
+        <td style="padding:4px 0;color:#e6edf3"><strong>Teacher's Name:</strong> ${info.teacher}</td>
+      </tr>
+    </table>
+
+    <table style="width:100%;border-collapse:collapse;border:1px solid #555;margin-bottom:0">
+      <tr>
+        <th style="padding:6px 8px;border:1px solid #555;background:#1c2128;color:#e6edf3;font-weight:700;text-align:left;font-size:.83rem">Term</th>
+        <th style="padding:6px 8px;border:1px solid #555;background:#1c2128;color:#e6edf3;font-weight:700;text-align:left;font-size:.83rem">Date</th>
+        <th style="padding:6px 8px;border:1px solid #555;background:#1c2128;color:#e6edf3;font-weight:700;text-align:left;font-size:.83rem">Subject</th>
+        <th style="padding:6px 8px;border:1px solid #555;background:#1c2128;color:#e6edf3;font-weight:700;text-align:left;font-size:.83rem">Class</th>
+        <th style="padding:6px 8px;border:1px solid #555;background:#1c2128;color:#e6edf3;font-weight:700;text-align:left;font-size:.83rem">Unit No</th>
+        <th style="padding:6px 8px;border:1px solid #555;background:#1c2128;color:#e6edf3;font-weight:700;text-align:left;font-size:.83rem">Lesson No</th>
+        <th style="padding:6px 8px;border:1px solid #555;background:#1c2128;color:#e6edf3;font-weight:700;text-align:left;font-size:.83rem">Duration</th>
+        <th style="padding:6px 8px;border:1px solid #555;background:#1c2128;color:#e6edf3;font-weight:700;text-align:left;font-size:.83rem">Class size</th>
+      </tr>
+      <tr>
+        <td style="padding:6px 8px;border:1px solid #555">${info.term}</td>
+        <td style="padding:6px 8px;border:1px solid #555">${d}</td>
+        <td style="padding:6px 8px;border:1px solid #555">${info.subj}</td>
+        <td style="padding:6px 8px;border:1px solid #555">${info.lv}</td>
+        <td style="padding:6px 8px;border:1px solid #555;text-align:center">${f(plan.unit_no)}</td>
+        <td style="padding:6px 8px;border:1px solid #555;text-align:center">${f(plan.lesson_no)}</td>
+        <td style="padding:6px 8px;border:1px solid #555;text-align:center">${info.dur} min</td>
+        <td style="padding:6px 8px;border:1px solid #555;text-align:center">${cs}</td>
+      </tr>
+    </table>
+
+    <table style="width:100%;border-collapse:collapse;border:1px solid #555;border-top:none;margin-bottom:0">
+      <tr>
+        <td style="padding:7px 8px;font-weight:700;color:#e6edf3;background:#1c2128;border:1px solid #555;width:40%;vertical-align:top">Type of special educational needs to be catered for in this lesson and number of learners in each category</td>
+        <td style="padding:7px 8px;border:1px solid #555" colspan="3">${info.sn||'None'}</td>
+      </tr>
+      <tr>
+        <td style="padding:7px 8px;font-weight:700;color:#e6edf3;background:#1c2128;border:1px solid #555">Unit title</td>
+        <td style="padding:7px 8px;border:1px solid #555;font-weight:600;text-transform:uppercase" colspan="3">${f(plan.unit_title)||info.unitName}</td>
+      </tr>
+      <tr>
+        <td style="padding:7px 8px;font-weight:700;color:#e6edf3;background:#1c2128;border:1px solid #555">Key unit competence</td>
+        <td style="padding:7px 8px;border:1px solid #555" colspan="3">${f(plan.key_unit_competence)}</td>
+      </tr>
+      <tr>
+        <td style="padding:7px 8px;font-weight:700;color:#e6edf3;background:#1c2128;border:1px solid #555">Title of the lesson</td>
+        <td style="padding:7px 8px;border:1px solid #555" colspan="3">${info.lesName}</td>
+      </tr>
+      <tr>
+        <td style="padding:7px 8px;font-weight:700;color:#e6edf3;background:#1c2128;border:1px solid #555">Instructional objectives</td>
+        <td style="padding:7px 8px;border:1px solid #555" colspan="3">${f(plan.instructional_objectives)}</td>
+      </tr>
+      <tr>
+        <td style="padding:7px 8px;font-weight:700;color:#e6edf3;background:#1c2128;border:1px solid #555">Plan of this class (Location)</td>
+        <td style="padding:7px 8px;border:1px solid #555" colspan="3">${info.loc}</td>
+      </tr>
+      <tr>
+        <td style="padding:7px 8px;font-weight:700;color:#e6edf3;background:#1c2128;border:1px solid #555">Learning materials</td>
+        <td style="padding:7px 8px;border:1px solid #555" colspan="3">${f(plan.learning_materials)}</td>
+      </tr>
+      <tr>
+        <td style="padding:7px 8px;font-weight:700;color:#e6edf3;background:#1c2128;border:1px solid #555">References</td>
+        <td style="padding:7px 8px;border:1px solid #555" colspan="3">${f(plan.references)}</td>
+      </tr>
+    </table>
+
+    <table style="width:100%;border-collapse:collapse;border:1px solid #555;border-top:none;margin-bottom:0">
+      <tr>
+        <td style="padding:7px 8px;font-weight:700;color:#e6edf3;background:#1c2128;border:1px solid #555;width:13%;text-align:center;vertical-align:middle" rowspan="3">Timing for each step</td>
+        <td style="padding:7px 8px;font-weight:700;color:#e6edf3;background:#1c2128;border:1px solid #555;text-align:center" colspan="2"><strong>Description of teaching and learning activities</strong></td>
+        <td style="padding:7px 8px;font-weight:700;color:#e6edf3;background:#1c2128;border:1px solid #555;text-align:center;width:24%;vertical-align:middle" rowspan="3">Generic competences and<br>cross-cutting issues +<br>some explanations</td>
+      </tr>
+      <tr>
+        <td style="padding:6px 8px;font-style:italic;color:#adb5bd;background:#1c2128;border:1px solid #555;text-align:center" colspan="2"><em>Learners will explore ${info.lesName} through demonstrations and practical activities.</em></td>
+      </tr>
+      <tr>
+        <td style="padding:7px 8px;font-weight:700;color:#e6edf3;background:#1c2128;border:1px solid #555;text-align:center;width:31%">Teacher's activity</td>
+        <td style="padding:7px 8px;font-weight:700;color:#e6edf3;background:#1c2128;border:1px solid #555;text-align:center;width:32%">Learner's activity</td>
+      </tr>
+      <tr>
+        <td style="padding:8px;border:1px solid #555;vertical-align:top;font-weight:700;text-align:left"><strong>Introduction (${Math.round(parseInt(info.dur)*0.18)} min)</strong></td>
+        <td style="padding:8px;border:1px solid #555;vertical-align:top">${f(plan.intro_teacher)}</td>
+        <td style="padding:8px;border:1px solid #555;vertical-align:top">${f(plan.intro_learner)}</td>
+        <td style="padding:8px;border:1px solid #555;vertical-align:top;color:#adb5bd;font-size:.83rem">${f(plan.intro_competences)}</td>
+      </tr>
+      <tr>
+        <td style="padding:8px;border:1px solid #555;vertical-align:top;font-weight:700;text-align:left"><strong>Lesson Development (${Math.round(parseInt(info.dur)*0.67)} min)</strong></td>
+        <td style="padding:8px;border:1px solid #555;vertical-align:top">${f(plan.dev_teacher)}</td>
+        <td style="padding:8px;border:1px solid #555;vertical-align:top">${f(plan.dev_learner)}</td>
+        <td style="padding:8px;border:1px solid #555;vertical-align:top"></td>
+      </tr>
+      <tr>
+        <td style="padding:8px;border:1px solid #555;vertical-align:top;font-weight:700;text-align:left"><strong>Conclusion (${parseInt(info.dur)-Math.round(parseInt(info.dur)*0.18)-Math.round(parseInt(info.dur)*0.67)} min)</strong></td>
+        <td style="padding:8px;border:1px solid #555;vertical-align:top">${f(plan.conc_teacher)}</td>
+        <td style="padding:8px;border:1px solid #555;vertical-align:top">${f(plan.conc_learner)}</td>
+        <td style="padding:8px;border:1px solid #555;vertical-align:top"></td>
+      </tr>
+      <tr>
+        <td colspan="4" style="padding:7px 8px;font-weight:700;color:#e6edf3;background:#1c2128;border:1px solid #555">Teacher's self-evaluation</td>
+      </tr>
+      <tr>
+        <td colspan="4" style="padding:50px 8px;border:1px solid #555"></td>
+      </tr>
+    </table>
+
+  </div>`;
 }
 
 let _currentPlan=null;
@@ -1396,37 +1463,62 @@ function dlWord(){
   const info=_currentInfo;
   const nl=s=>s?String(s).split('\n').join('<br>'):'';
   const d=info.date?new Date(info.date).toLocaleDateString('en-RW',{year:'numeric',month:'2-digit',day:'2-digit'}):'';
+  const introMin=Math.round(parseInt(info.dur)*0.18);
+  const devMin=Math.round(parseInt(info.dur)*0.67);
+  const concMin=parseInt(info.dur)-introMin-devMin;
   const html=`<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40"><head><meta charset="utf-8"><title>Lesson Plan</title>
-<style>body{font-family:Arial,sans-serif;font-size:11pt;margin:1.5cm}h2{text-align:center;font-size:13pt;font-weight:bold;margin-bottom:8pt;letter-spacing:1pt}table{width:100%;border-collapse:collapse;margin-bottom:0;font-size:10pt}td,th{border:1px solid #000;padding:5pt 6pt;vertical-align:top}.lbl{background:#f5f0e0;font-weight:bold;width:35%}.hdr{background:#f5f0e0;font-weight:bold;text-align:center}.ctr{text-align:center}</style></head><body>
+<style>body{font-family:Arial,sans-serif;font-size:11pt;margin:1.5cm}h2{text-align:center;font-size:13pt;font-weight:bold;margin-bottom:8pt;letter-spacing:1pt}table{width:100%;border-collapse:collapse;margin-bottom:0;font-size:10pt}td,th{border:1px solid #000;padding:5pt 6pt;vertical-align:top}.lbl{background:#f5f0e0;font-weight:bold;width:38%}.hdr{background:#f5f0e0;font-weight:bold;text-align:center}.ctr{text-align:center}</style></head><body>
 <h2>LESSON PLAN</h2>
-<table><tr><td style="border:none"><b>School Name:</b> ${info.school}</td><td style="border:none"><b>Teacher's Name:</b> ${info.teacher}</td></tr></table>
+<table style="border:none"><tr><td style="border:none"><b>School Name:</b> ${info.school}</td><td style="border:none"><b>Teacher's Name:</b> ${info.teacher}</td></tr></table>
 <table>
 <tr><th class="hdr">Term</th><th class="hdr">Date</th><th class="hdr">Subject</th><th class="hdr">Class</th><th class="hdr">Unit No</th><th class="hdr">Lesson No</th><th class="hdr">Duration</th><th class="hdr">Class size</th></tr>
 <tr><td class="ctr">${info.term}</td><td class="ctr">${d}</td><td class="ctr">${info.subj}</td><td class="ctr">${info.lv}</td><td class="ctr">${p.unit_no||''}</td><td class="ctr">${p.lesson_no||''}</td><td class="ctr">${info.dur} min</td><td class="ctr">${info.cls||'N/A'}</td></tr>
 </table>
 <table>
-<tr><td class="lbl">Type of Special Educational Needs</td><td>${info.sn||'None'}</td></tr>
+<tr><td class="lbl">Type of special educational needs to be catered for in this lesson and number of learners in each category</td><td>${info.sn||'None'}</td></tr>
 <tr><td class="lbl">Unit title</td><td><b>${p.unit_title||info.unitName}</b></td></tr>
-<tr><td class="lbl">Key Unit Competence</td><td>${p.key_unit_competence||''}</td></tr>
+<tr><td class="lbl">Key unit competence</td><td>${p.key_unit_competence||''}</td></tr>
 <tr><td class="lbl">Title of the lesson</td><td>${info.lesName}</td></tr>
-<tr><td class="lbl">Instructional Objective</td><td>${p.instructional_objectives||''}</td></tr>
-<tr><td class="lbl">Plan for this Class (location)</td><td>${info.loc}</td></tr>
-<tr><td class="lbl">Learning Materials</td><td>${p.learning_materials||''}</td></tr>
+<tr><td class="lbl">Instructional objectives</td><td>${p.instructional_objectives||''}</td></tr>
+<tr><td class="lbl">Plan of this class (Location)</td><td>${info.loc}</td></tr>
+<tr><td class="lbl">Learning materials</td><td>${p.learning_materials||''}</td></tr>
 <tr><td class="lbl">References</td><td>${p.references||''}</td></tr>
 </table>
 <table>
 <tr>
-  <th class="hdr" rowspan="2" style="width:13%;vertical-align:middle">Timing for each step</th>
-  <th class="hdr" colspan="2">Description of teaching/learning activities</th>
-  <th class="hdr" rowspan="2" style="width:26%;vertical-align:middle">Generic competences and Cross cutting issues to be addressed<br>+<br>a short explanation<br><i>Teacher's activities</i></th>
+  <td class="hdr" rowspan="3" style="width:13%;vertical-align:middle">Timing for each step</td>
+  <td class="hdr" colspan="2"><b>Description of teaching and learning activities</b></td>
+  <td class="hdr" rowspan="3" style="width:24%;vertical-align:middle">Generic competences and<br>cross-cutting issues +<br>some explanations</td>
 </tr>
-<tr><th class="hdr" style="width:30%">Teacher's activities</th><th class="hdr" style="width:31%">Learner's activities</th></tr>
-<tr><td class="ctr"><b>${nl(p.intro_timing)}</b></td><td>${nl(p.intro_teacher)}</td><td>${nl(p.intro_learner)}</td><td>${nl(p.intro_competences)}</td></tr>
-<tr><td class="ctr"><b>${nl(p.dev_timing)}</b></td><td>${nl(p.dev_teacher)}</td><td>${nl(p.dev_learner)}</td><td></td></tr>
-<tr><td class="ctr"><b>${nl(p.conc_timing)}</b></td><td>${nl(p.conc_teacher)}</td><td>${nl(p.conc_learner)}</td><td></td></tr>
-<tr><td colspan="4" style="background:#f5f0e0;font-weight:bold">Self-evaluation</td></tr>
+<tr>
+  <td colspan="2" style="background:#fffdf5;text-align:center;font-style:italic">Learners will explore ${info.lesName} through demonstrations and practical activities.</td>
+</tr>
+<tr>
+  <th class="hdr" style="width:31%">Teacher's activity</th>
+  <th class="hdr" style="width:32%">Learner's activity</th>
+</tr>
+<tr>
+  <td><b>Introduction (${introMin} min)</b></td>
+  <td>${nl(p.intro_teacher)}</td>
+  <td>${nl(p.intro_learner)}</td>
+  <td>${nl(p.intro_competences)}</td>
+</tr>
+<tr>
+  <td><b>Lesson Development (${devMin} min)</b></td>
+  <td>${nl(p.dev_teacher)}</td>
+  <td>${nl(p.dev_learner)}</td>
+  <td></td>
+</tr>
+<tr>
+  <td><b>Conclusion (${concMin} min)</b></td>
+  <td>${nl(p.conc_teacher)}</td>
+  <td>${nl(p.conc_learner)}</td>
+  <td></td>
+</tr>
+<tr><td colspan="4" style="background:#f5f0e0;font-weight:bold">Teacher's self-evaluation</td></tr>
 <tr><td colspan="4" style="height:60pt"></td></tr>
-</table></body></html>`;
+</table>
+</body></html>`;
   const blob=new Blob([html],{type:'application/msword'});
   const url=URL.createObjectURL(blob);
   const a=document.createElement('a');
@@ -1435,7 +1527,6 @@ function dlWord(){
   a.click();
   URL.revokeObjectURL(url);
 }
-
 function cpPlan(){
   navigator.clipboard.writeText(document.getElementById('out-body').innerText)
     .then(()=>alert('Lesson plan copied to clipboard!'));
