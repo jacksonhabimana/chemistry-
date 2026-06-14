@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Create Lesson Plan | Chemistry Portal</title>
+<title>Create Lesson Plan | Jackson AI</title>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,sans-serif;background:#0d1117;color:#e6edf3;min-height:100vh;padding-bottom:80px}
@@ -90,11 +90,9 @@ body{font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,sans-serif;backgrou
 </head>
 <body>
 <nav class="nav">
-  <a class="nav-logo" href="index.html">&#x1F9EA; Chemistry Portal</a>
+  <a class="nav-logo" href="index.html">&#x2728; Jackson AI</a>
   <span class="nav-sep">&#x203A;</span>
   <span class="nav-page" style="color:#e6edf3;font-weight:600">Create Lesson Plan</span>
-  <span class="nav-sep">&#x203A;</span>
-  <span style="font-size:.82rem;background:linear-gradient(90deg,#c48a00,#f0b429);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:700;letter-spacing:.3px">&#x2728; by Jackson AI</span>
 </nav>
 <div class="page">
   <div class="page-head-row">
@@ -156,7 +154,7 @@ body{font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,sans-serif;backgrou
       <div class="ohd">
         <h2>&#x1F4C4; Generated Lesson Plan</h2>
         <div class="abar">
-          <button class="ba bpr" onclick="window.print()">&#x1F5A8;&#xFE0F; Print / PDF</button>
+          <button class="ba bpr" onclick="dlPDF()">&#x1F4D1; Download PDF</button>
           <button class="ba bdoc" onclick="dlWord()">&#x1F4C4; Download Word</button>
           <button class="ba bedt" onclick="openEdit()">&#x270F;&#xFE0F; Edit</button>
           <button class="ba bcp" onclick="cpPlan()">&#x1F4CB; Copy</button>
@@ -1206,7 +1204,7 @@ async function doGen(){
 
   document.getElementById('form-wrap').style.display='none';
   document.getElementById('out-wrap').style.display='block';
-  document.getElementById('out-body').innerHTML=`<div class="lbox"><div class="sp2"></div><p>AI is generating your lesson plan&hellip;</p><p class="sub">Preparing a detailed plan for <em>${lesName}</em></p></div>`;
+  document.getElementById('out-body').innerHTML=`<div class="lbox"><div class="sp2"></div><p>Jackson AI is generating your lesson plan&hellip;</p><p class="sub">Preparing a detailed plan for <em>${lesName}</em></p></div>`;
 
   const introMin=Math.round(parseInt(dur)*0.18);
   const devMin=Math.round(parseInt(dur)*0.67);
@@ -1224,23 +1222,28 @@ IMPORTANT RULES:
 1. Introduction: Teacher greets learners then asks 2-3 questions about the PREVIOUS lesson "${prevLesName}" (NOT about "${lesName}"). The new lesson "${lesName}" is introduced only at the start of Development.
 2. Development: Teacher introduces "${lesName}" as the NEW lesson, then conducts group activities on "${lesName}".
 3. Conclusion: Summarizes "${lesName}" and gives homework on "${lesName}".
-4. Generic Competences column: Fill ONLY for Introduction row. Leave Development and Conclusion rows EMPTY in that column.
+4. Generic Competences column: Fill for ALL THREE rows with DIFFERENT specific competences. Each competence MUST include a short explanation of how it is applied in that phase. Format each as:
+- [Competence name]: [short explanation of how learners apply it in this phase]
+Example: "Critical thinking: Learners analyze previous lesson questions before answering."
+"Cooperation: Learners work in groups to complete the assigned activity."
+"Communication: Learners present findings and ask questions for clarification."
+Write 3-4 competences per row, each with its own short explanation.
 
 Return EXACTLY this JSON:
-{"unit_no":"[number]","lesson_no":"[e.g. 3 of 6]","unit_title":"[FULL UNIT TITLE CAPS from REB ${subj} ${lv} syllabus]","key_unit_competence":"[official REB key unit competence for this unit]","lesson_title":"${lesName}","instructional_objectives":"Using notes and available textbook, learners will be able to clearly explain ${lesName} within ${dur} minutes.","learning_materials":"Textbooks, notes for teacher, chalk, blackboard, [specific materials for ${lesName}]","references":"REB ${subj} Learner Book ${lv}. Kigali: Rwanda Education Board. S${lv} notes syllabus, comprehensive ${subj} student and teacher guide.","intro_timing":"Introduction\n${introMin} min","intro_teacher":"Greets learners.\nAsks 2-3 revision questions about the PREVIOUS lesson: ${prevLesName}.\n[Write 2-3 specific questions testing knowledge of ${prevLesName}, NOT ${lesName}]","intro_learner":"Greet teacher and answer the questions asked about the previous lesson: ${prevLesName}.\n[Expected learner answers about ${prevLesName}]","intro_competences":"Critical thinking while thinking about what they are going to answer.\nOral communication in English while answering questions and discussing in groups.\nCreativity and innovation.\nCooperation and interpersonal management.\nGender balance through mixing boys and girls in groups.","dev_timing":"Development\n${devMin} min","dev_teacher":"Teacher introduces the new lesson: ${lesName}.\nExplains key concepts of ${lesName} to the class.\nArranges groups and gives activity on ${lesName}.\n[Specific group activity on ${lesName}]\nFacilitates and guides learners while working in groups.\nMoves in all groups helping them with difficulties.\nHelps learners to present their findings.","dev_learner":"Follow teacher introduction of the new lesson: ${lesName} and ask questions for clarification where necessary.\nWork in groups on the activity given on ${lesName}.\n[Specific learner tasks for ${lesName}]\nPresent their findings group by group (one member presents, other members intervene to clarify).","conc_timing":"Conclusion\nSummary and evaluation\n${concMin} min","conc_teacher":"Teacher summarizes the key points of ${lesName}.\nAsks 3 oral evaluation questions on ${lesName}: [specific questions on ${lesName}].\nGives homework on ${lesName}.","conc_learner":"Answer questions one by one orally.\nAsk teacher where confused for clarifications.\nWrite homework in exercise books."}`;
+{"unit_no":"[number]","lesson_no":"[e.g. 3 of 6]","unit_title":"[FULL UNIT TITLE CAPS from REB ${subj} ${lv} syllabus]","key_unit_competence":"[official REB key unit competence for this unit]","lesson_title":"${lesName}","instructional_objectives":"Using notes and available textbook, learners will be able to clearly explain ${lesName} within ${dur} minutes.","learning_materials":"Textbooks, notes for teacher, chalk, blackboard, [specific materials for ${lesName}]","references":"REB ${subj} Learner Book ${lv}. Kigali: Rwanda Education Board. S${lv} notes syllabus, comprehensive ${subj} student and teacher guide.","intro_timing":"Introduction\n${introMin} min","intro_teacher":"Greets learners.\nAsks 2-3 revision questions about the PREVIOUS lesson: ${prevLesName}.\n[Write 2-3 specific questions testing knowledge of ${prevLesName}, NOT ${lesName}]","intro_learner":"Greet teacher and answer the questions asked about the previous lesson: ${prevLesName}.\n[Expected learner answers about ${prevLesName}]","intro_competences":"Critical thinking while thinking about what they are going to answer.\nOral communication in English while answering questions and discussing in groups.\nCreativity and innovation.\nCooperation and interpersonal management.\nGender balance through mixing boys and girls in groups.","dev_timing":"Development\n${devMin} min","dev_teacher":"Teacher introduces the new lesson: ${lesName}.\nExplains key concepts of ${lesName} to the class.\nArranges groups and gives activity on ${lesName}.\n[Specific group activity on ${lesName}]\nFacilitates and guides learners while working in groups.\nMoves in all groups helping them with difficulties.\nHelps learners to present their findings.","dev_learner":"Follow teacher introduction of the new lesson: ${lesName} and ask questions for clarification where necessary.\nWork in groups on the activity given on ${lesName}.\n[Specific learner tasks for ${lesName}]\nPresent their findings group by group (one member presents, other members intervene to clarify).","conc_timing":"Conclusion\nSummary and evaluation\n${concMin} min","conc_teacher":"Teacher summarizes the key points of ${lesName}.\nAsks 3 oral evaluation questions on ${lesName}: [specific questions on ${lesName}].\nGives homework on ${lesName}.","conc_learner":"Answer questions one by one orally.\nAsk teacher where confused for clarifications.\nWrite homework in exercise books.","dev_competences":"[Specific generic competences and cross-cutting issues for the Development phase, e.g. Critical thinking, Cooperation, Research, Environment and sustainability]","conc_competences":"[Specific generic competences and cross-cutting issues for Conclusion phase, e.g. Communication, Self-assessment, Creativity and innovation]"}`;
 
   const WORKER='https://chem-payment.hajackson2020.workers.dev/lesson-plan';
-  const controller=new AbortController();
-  const timer=setTimeout(()=>controller.abort(),55000);
+  const fetchTimer=setTimeout(()=>{
+    document.getElementById('out-body').innerHTML=`<div class="lbox"><p style="color:#e53e3e">Request timed out. Please check your internet and try again.</p><br><button class="ba bbk" onclick="goBack()">&#x21A9; Go Back</button></div>`;
+  },55000);
 
   try{
     const r=await fetch(WORKER,{
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({prompt}),
-      signal:controller.signal
+      body:JSON.stringify({prompt})
     });
-    clearTimeout(timer);
+    clearTimeout(fetchTimer);
     const res=await r.json();
     if(!r.ok){
       if(res.error==='quota')throw new Error('AI quota exceeded. Please try again later.');
@@ -1276,10 +1279,8 @@ Return EXACTLY this JSON:
     }
     renderPlan({school,teacher,subj,lv,term,date,dur,cls,lang,loc,sn,unitName,lesName},plan);
   }catch(e){
-    clearTimeout(timer);
-    const msg=e.name==='AbortError'
-      ?'Request timed out. Please check your internet and try again.'
-      :e.message;
+    clearTimeout(fetchTimer);
+    const msg=e.message||'Network error. Please check your internet and try again.';
     document.getElementById('out-body').innerHTML=`
       <div class="lbox">
         <p style="color:#e53e3e;font-size:.92rem;max-width:500px;margin:0 auto;line-height:1.8">${msg}</p>
@@ -1387,13 +1388,13 @@ function renderPlan(info,plan){
         <td style="padding:8px;border:1px solid #555;vertical-align:top;font-weight:700;text-align:left"><strong>Lesson Development (${Math.round(parseInt(info.dur)*0.67)} min)</strong></td>
         <td style="padding:8px;border:1px solid #555;vertical-align:top">${f(plan.dev_teacher)}</td>
         <td style="padding:8px;border:1px solid #555;vertical-align:top">${f(plan.dev_learner)}</td>
-        <td style="padding:8px;border:1px solid #555;vertical-align:top"></td>
+        <td style="padding:8px;border:1px solid #555;vertical-align:top;color:#adb5bd;font-size:.83rem">${f(plan.dev_competences)}</td>
       </tr>
       <tr>
         <td style="padding:8px;border:1px solid #555;vertical-align:top;font-weight:700;text-align:left"><strong>Conclusion (${parseInt(info.dur)-Math.round(parseInt(info.dur)*0.18)-Math.round(parseInt(info.dur)*0.67)} min)</strong></td>
         <td style="padding:8px;border:1px solid #555;vertical-align:top">${f(plan.conc_teacher)}</td>
         <td style="padding:8px;border:1px solid #555;vertical-align:top">${f(plan.conc_learner)}</td>
-        <td style="padding:8px;border:1px solid #555;vertical-align:top"></td>
+        <td style="padding:8px;border:1px solid #555;vertical-align:top;color:#adb5bd;font-size:.83rem">${f(plan.conc_competences)}</td>
       </tr>
       <tr>
         <td colspan="4" style="padding:7px 8px;font-weight:700;color:#e6edf3;background:#1c2128;border:1px solid #555">Teacher's self-evaluation</td>
@@ -1402,6 +1403,11 @@ function renderPlan(info,plan){
         <td colspan="4" style="padding:50px 8px;border:1px solid #555"></td>
       </tr>
     </table>
+
+    <div style="text-align:center;margin-top:18px;padding:12px;border-top:1px solid #30363d">
+      <p style="font-size:.78rem;color:#8b949e;margin-bottom:4px">&#x2728; Lesson plan generated by <strong style="color:#f0b429">Jackson AI</strong></p>
+      <a href="https://jacksonhabimana.github.io/chemistry-/" target="_blank" style="font-size:.75rem;color:#58a6ff;text-decoration:none">&#x1F310; https://jacksonhabimana.github.io/chemistry-/</a>
+    </div>
 
   </div>`;
 }
@@ -1455,6 +1461,92 @@ function saveEdit(){
   });
   closeEdit();
   renderPlan(_currentInfo,_currentPlan);
+}
+
+
+function dlPDF(){
+  if(!_currentPlan||!_currentInfo)return;
+  const p=_currentPlan;
+  const info=_currentInfo;
+  const nl=s=>s?String(s).split('\n').join('<br>'):'';
+  const d=info.date?new Date(info.date).toLocaleDateString('en-RW',{year:'numeric',month:'2-digit',day:'2-digit'}):'';
+  const introMin=Math.round(parseInt(info.dur)*0.18);
+  const devMin=Math.round(parseInt(info.dur)*0.67);
+  const concMin=parseInt(info.dur)-introMin-devMin;
+
+  const html=`<!DOCTYPE html><html><head><meta charset="utf-8">
+<title>Lesson Plan</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;font-size:10pt;padding:15mm;color:#000;background:#fff}
+h2{text-align:center;font-size:13pt;font-weight:bold;margin-bottom:10pt;letter-spacing:1pt}
+.school-row{display:flex;justify-content:space-between;margin-bottom:6pt;font-size:10pt}
+table{width:100%;border-collapse:collapse;margin-bottom:0;font-size:9.5pt}
+td,th{border:1px solid #000;padding:5pt 6pt;vertical-align:top}
+.lbl{background:#f5f0e0;font-weight:bold;width:38%}
+.hdr{background:#f5f0e0;font-weight:bold;text-align:center}
+.ctr{text-align:center}
+.italic{font-style:italic;text-align:center;background:#fffdf5}
+tr{page-break-inside:avoid}
+@media print{
+  body{padding:10mm}
+  @page{margin:10mm;size:A4}
+}
+</style></head><body>
+<h2>LESSON PLAN</h2>
+<div class="school-row">
+  <span><b>School Name:</b> ${info.school}</span>
+  <span><b>Teacher's Name:</b> ${info.teacher}</span>
+</div>
+<table>
+<tr>
+  <th class="hdr">Term</th><th class="hdr">Date</th><th class="hdr">Subject</th>
+  <th class="hdr">Class</th><th class="hdr">Unit No</th><th class="hdr">Lesson No</th>
+  <th class="hdr">Duration</th><th class="hdr">Class size</th>
+</tr>
+<tr>
+  <td class="ctr">${info.term}</td><td class="ctr">${d}</td><td class="ctr">${info.subj}</td>
+  <td class="ctr">${info.lv}</td><td class="ctr">${p.unit_no||''}</td>
+  <td class="ctr">${p.lesson_no||''}</td><td class="ctr">${info.dur} min</td>
+  <td class="ctr">${info.cls||'N/A'}</td>
+</tr>
+</table>
+<table>
+<tr><td class="lbl">Type of special educational needs to be catered for in this lesson and number of learners in each category</td><td>${info.sn||'None'}</td></tr>
+<tr><td class="lbl">Unit title</td><td><b>${p.unit_title||info.unitName}</b></td></tr>
+<tr><td class="lbl">Key unit competence</td><td>${p.key_unit_competence||''}</td></tr>
+<tr><td class="lbl">Title of the lesson</td><td>${info.lesName}</td></tr>
+<tr><td class="lbl">Instructional objectives</td><td>${p.instructional_objectives||''}</td></tr>
+<tr><td class="lbl">Plan of this class (Location)</td><td>${info.loc}</td></tr>
+<tr><td class="lbl">Learning materials</td><td>${p.learning_materials||''}</td></tr>
+<tr><td class="lbl">References</td><td>${p.references||''}</td></tr>
+</table>
+<table>
+<tr>
+  <td class="hdr" rowspan="3" style="width:13%;vertical-align:middle">Timing for each step</td>
+  <td class="hdr" colspan="2"><b>Description of teaching and learning activities</b></td>
+  <td class="hdr" rowspan="3" style="width:24%;vertical-align:middle">Generic competences and cross-cutting issues + some explanations</td>
+</tr>
+<tr><td class="italic" colspan="2"><em>Learners will explore ${info.lesName} through demonstrations and practical activities.</em></td></tr>
+<tr><th class="hdr" style="width:31%">Teacher's activity</th><th class="hdr" style="width:32%">Learner's activity</th></tr>
+<tr><td><b>Introduction (${introMin} min)</b></td><td>${nl(p.intro_teacher)}</td><td>${nl(p.intro_learner)}</td><td>${nl(p.intro_competences)}</td></tr>
+<tr><td><b>Lesson Development (${devMin} min)</b></td><td>${nl(p.dev_teacher)}</td><td>${nl(p.dev_learner)}</td><td>${nl(p.dev_competences)}</td></tr>
+<tr><td><b>Conclusion (${concMin} min)</b></td><td>${nl(p.conc_teacher)}</td><td>${nl(p.conc_learner)}</td><td>${nl(p.conc_competences)}</td></tr>
+<tr><td colspan="4" class="lbl">Teacher's self-evaluation</td></tr>
+<tr><td colspan="4" style="height:60pt"></td></tr>
+</table>
+<script>window.onload=function(){window.print();}<\/script>
+</body></html>`;
+
+  const blob=new Blob([html],{type:'text/html'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;
+  a.download='LessonPlan_'+info.subj+'_'+info.lv+'_'+info.lesName.replace(/[^a-z0-9]/gi,'_').substring(0,40)+'.html';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
 }
 
 function dlWord(){
