@@ -179,12 +179,11 @@ table.results tr:hover td{background:rgba(255,255,255,.02);}
         <div><label>Subject / Class</label><input type="text" id="exam-subject" placeholder="e.g. S4 Chemistry"/></div>
       </div>
       <div class="form-row3">
-        <div><label>Type</label><select id="exam-type" onchange="updateTestNumVisibility()"><option>Quiz</option><option>Test</option><option>Exam</option><option>Assignment</option></select></div>
-        <div id="test-num-wrap"><label>Test Number</label><select id="exam-test-num"><option value="1">Test 1</option><option value="2">Test 2</option><option value="3">Test 3</option><option value="4">Test 4</option><option value="5">Test 5</option></select></div>
+        <div><label>Type</label><select id="exam-type"><option>Quiz</option><option>Test</option><option>Exam</option><option>Assignment</option></select></div>
         <div><label>Time Limit (minutes)</label><input type="number" id="exam-time" value="30" min="1" max="240"/></div>
+        <div><label>Passing Score (%)</label><input type="number" id="exam-pass" value="50" min="1" max="100"/></div>
       </div>
       <div class="form-row">
-        <div><label>Passing Score (%)</label><input type="number" id="exam-pass" value="50" min="1" max="100"/></div>
         <div><label>Max Cheat Warnings Before Auto-Submit</label><input type="number" id="exam-warnings" value="3" min="1" max="10"/></div>
         <div><label>Instructions (optional)</label><input type="text" id="exam-instructions" placeholder="e.g. Answer all questions. No calculators."/></div>
       </div>
@@ -422,12 +421,12 @@ table.results tr:hover td{background:rgba(255,255,255,.02);}
 
       <div id="pq-code-box" style="display:none;margin-top:20px;background:var(--bg);border:2px solid var(--green);border-radius:10px;padding:20px;">
         <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--green);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;">✅ Quiz Published! Share this code with students:</div>
-        <div id="pq-code-text" style="font-family:'JetBrains Mono',monospace;font-size:.88rem;color:#fff;word-break:break-all;background:var(--surface2);padding:12px 16px;border-radius:6px;margin-bottom:12px;border:1px solid var(--border);"></div>
+        <div id="pq-code-text" style="font-family:'JetBrains Mono',monospace;font-size:2rem;color:#fff;letter-spacing:.2em;text-align:center;background:var(--surface2);padding:12px 16px;border-radius:6px;margin-bottom:12px;border:1px solid var(--border);"></div>
         <div style="display:flex;gap:8px;flex-wrap:wrap;">
           <button class="btn btn-primary" onclick="copyPqCode()">📋 Copy Code</button>
           <a id="pq-exam-link" href="student-exam.html" target="_blank" class="btn" style="text-decoration:none;">🔗 Open Student Exam Page</a>
         </div>
-        <p style="margin-top:10px;font-size:.78rem;color:var(--orange);">Students go to the Student Exam page and paste this full code to start.</p>
+        <p style="margin-top:10px;font-size:.78rem;color:var(--orange);">Students go to the Student Exam page and enter this 5-digit code to start.</p>
       </div>
     </div>
 
@@ -936,17 +935,10 @@ function getQuestions(){
 
 // ══════════ BUILD EXAM OBJECT ══════════
 let lastExam=null;
-function updateTestNumVisibility(){
-  const t = document.getElementById('exam-type').value;
-  const wrap = document.getElementById('test-num-wrap');
-  if(wrap) wrap.style.display = (t==='Test') ? 'block' : 'none';
-}
-
 function buildExamObj(){
   const title=document.getElementById('exam-title').value.trim();
   const subject=document.getElementById('exam-subject').value.trim();
   const type=document.getElementById('exam-type').value;
-  const testNum=type==='Test'?(parseInt(document.getElementById('exam-test-num').value)||1):null;
   const time=parseInt(document.getElementById('exam-time').value)||30;
   const pass=parseInt(document.getElementById('exam-pass').value)||50;
   const warnings=parseInt(document.getElementById('exam-warnings').value)||3;
@@ -959,7 +951,7 @@ function buildExamObj(){
     if(!q.text){showAlert(alert,'danger','All questions need text.');return null;}
     if(q.options.some(o=>!o)){showAlert(alert,'danger','All option fields must be filled.');return null;}
   }
-  return{id:'exam_'+Date.now(),title,subject,type,testNum,time,pass,warnings,instructions,questions,totalMarks:questions.reduce((s,q)=>s+q.marks,0),created:new Date().toISOString()};
+  return{id:'exam_'+Date.now(),title,subject,type,time,pass,warnings,instructions,questions,totalMarks:questions.reduce((s,q)=>s+q.marks,0),created:new Date().toISOString()};
 }
 
 // ══════════ 5-DIGIT CODE REGISTRY ══════════
@@ -1310,7 +1302,6 @@ function downloadExcel(){
   const results=JSON.parse(localStorage.getItem('student_results')||'[]');
   if(!results.length){alert('No results to download.');return;}
   const wb=XLSX.utils.book_new();
-
   // Group by class
   const classes={};
   results.forEach(r=>{
@@ -1318,70 +1309,38 @@ function downloadExcel(){
     if(!classes[cls])classes[cls]=[];
     classes[cls].push(r);
   });
-
+  // Create one sheet per class
   Object.keys(classes).sort().forEach(cls=>{
-    const clsResults=classes[cls];
-
-    // Find all unique test numbers used in this class
-    const testNums=new Set();
-    clsResults.forEach(r=>{
-      if(r.examType==='Test'&&r.testNum) testNums.add(Number(r.testNum));
-    });
-    const sortedTests=[...testNums].sort((a,b)=>a-b);
-    const allAssessments=sortedTests.map(n=>'Test '+n);
-
-    // Get unique students sorted by name
-    const studentMap={};
-    clsResults.forEach(r=>{
-      const name=(r.studentName||'Unknown').trim();
-      if(!studentMap[name]) studentMap[name]={name,scores:{}};
-      const key = (r.examType==='Test'&&r.testNum)?('Test '+Number(r.testNum)):null;
-        if(!key) return;
-      // Keep highest score if duplicate
-      if(!studentMap[name].scores[key]||r.score>studentMap[name].scores[key].score){
-        studentMap[name].scores[key]={score:r.score,total:r.totalMarks||100};
-      }
-    });
-
-    const students=Object.values(studentMap).sort((a,b)=>a.name.localeCompare(b.name));
-
-    // Build header rows
-    const maxRow=['Maximum',''];
-    allAssessments.forEach(col=>{
-      // Find max marks for this column
-      let max=0;
-      clsResults.forEach(r=>{
-        const key=(r.examType==='Test'&&r.testNum)?('Test '+r.testNum):(r.examType||r.examTitle||'Exam');
-        if(key===col&&(r.totalMarks||0)>max) max=r.totalMarks||0;
-      });
-      maxRow.push(max||'');
-    });
-    maxRow.push('Total','%','Grade','Pass/Fail');
-
-    const headers=['#','Student Name',...allAssessments,'Total','%','Grade','Pass/Fail'];
-
-    const dataRows=students.map((s,i)=>{
-      let totalScore=0; let totalMax=0;
-      const cols=allAssessments.map(col=>{
-        const entry=s.scores[col];
-        if(entry){totalScore+=entry.score;totalMax+=entry.total;return entry.score;}
-        return '';
-      });
-      const pct=totalMax>0?Math.round(totalScore/totalMax*100):0;
-      return [i+1,s.name,...cols,totalMax>0?totalScore:'',totalMax>0?(pct+'%'):'',totalMax>0?getGrade(pct):'',totalMax>0?(pct>=50?'PASS':'FAIL'):''];
-    });
-
-    const sheetData=[headers,maxRow,...dataRows];
-    const ws=XLSX.utils.aoa_to_sheet(sheetData);
-
+    const rows=classes[cls].sort((a,b)=>(a.studentName||'').localeCompare(b.studentName||''));
+    const headers=['#','Student Name','Class','Exam','Score','Total Marks','Percentage','Pass/Fail','Grade','Violations','Time Taken','Date & Time'];
+    const data=[headers,...rows.map((r,i)=>[
+      i+1,
+      r.studentName||'',
+      r.studentId||r.classGrade||cls,
+      r.examTitle||'',
+      r.score||0,
+      r.totalMarks||100,
+      (r.percent||0)+'%',
+      r.passed?'PASS':'FAIL',
+      getGrade(r.percent||0),
+      r.violations||0,
+      r.timeTaken||'',
+      r.submittedAt?new Date(r.submittedAt).toLocaleString():''
+    ])];
+    const ws=XLSX.utils.aoa_to_sheet(data);
     // Column widths
-    const colWidths=[{wch:4},{wch:26},...allAssessments.map(()=>({wch:10})),{wch:8},{wch:8},{wch:8},{wch:10}];
-    ws['!cols']=colWidths;
-
-    XLSX.utils.book_append_sheet(wb,ws,cls.substring(0,31));
+    ws['!cols']=[{wch:4},{wch:24},{wch:12},{wch:28},{wch:8},{wch:12},{wch:12},{wch:10},{wch:8},{wch:10},{wch:12},{wch:20}];
+    // Bold header row
+    const range=XLSX.utils.decode_range(ws['!ref']);
+    for(let C=range.s.c;C<=range.e.c;C++){
+      const cell=ws[XLSX.utils.encode_cell({r:0,c:C})];
+      if(cell)cell.s={font:{bold:true}};
+    }
+    // Sheet name max 31 chars
+    const sheetName=cls.substring(0,31);
+    XLSX.utils.book_append_sheet(wb,ws,sheetName);
   });
-
-  XLSX.writeFile(wb,'marks_by_class_'+new Date().toISOString().slice(0,10)+'.xlsx');
+  XLSX.writeFile(wb,'student_results_by_class_'+new Date().toISOString().slice(0,10)+'.xlsx');
 }
 
 function clearResults(){if(!confirm('Delete ALL results?'))return;localStorage.removeItem('student_results');renderResults(); // updates stats too
@@ -2821,16 +2780,20 @@ async function publishUnitQuiz(){
     const binId = d.metadata.id;
     _pqLastBinId = binId;
 
+    // Generate 5-digit code
+    const code = await registerExamCode(binId, key);
+    examObj.binId = binId;
+    examObj.code = code;
+    examObj._regBinId = localStorage.getItem('exam_code_registry_bin')||'';
+
     // Save to local exams list
     const exams = JSON.parse(localStorage.getItem('exams')||'[]');
-    examObj.binId = binId;
-    examObj.code = binId;
     exams.push(examObj);
     localStorage.setItem('exams', JSON.stringify(exams));
 
     showAlert(alertEl,'success','✅ Published successfully!');
     document.getElementById('pq-code-box').style.display='block';
-    document.getElementById('pq-code-text').textContent = binId;
+    document.getElementById('pq-code-text').textContent = code;
 
     // Update stats
     updateStats();
