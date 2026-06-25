@@ -115,14 +115,14 @@ body{background:var(--bg);color:var(--text);font-family:'Source Serif 4',Georgia
   <div class="upload-box" style="max-width:560px;">
     <div style="font-size:2.5rem;margin-bottom:12px;">⚗</div>
     <h1>Student Exam Portal</h1>
-    <p>Enter the <strong>6-digit exam code</strong> your teacher gave you.</p>
+    <p>Enter the <strong>5-digit exam code</strong> your teacher gave you.</p>
 
     <!-- METHOD 1: CODE -->
     <div style="background:var(--surface2);border:2px solid rgba(52,211,153,.3);border-radius:10px;padding:24px;margin-bottom:16px;">
       <div style="font-family:'JetBrains Mono',monospace;font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--green);margin-bottom:10px;">📋 Teacher-Set Exam</div>
-      <input type="text" id="exam-code-input" placeholder="A3F8C2 (6-character code)" maxlength="32"
-        style="width:100%;background:var(--surface);border:1px solid var(--border);border-radius:7px;color:var(--text);padding:12px 16px;font-family:'JetBrains Mono',monospace;font-size:1.4rem;text-align:center;letter-spacing:.25em;text-transform:uppercase;margin-bottom:12px;"
-        onkeydown="if(event.key==='Enter')loadByCode()"/>
+      <input type="text" id="exam-code-input" placeholder="e.g. 47382" maxlength="5"
+        style="width:100%;background:var(--surface);border:1px solid var(--border);border-radius:7px;color:var(--text);padding:12px 16px;font-family:'JetBrains Mono',monospace;font-size:1.8rem;text-align:center;letter-spacing:.35em;margin-bottom:12px;"
+        onkeydown="if(event.key==='Enter')loadByCode()" oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,5)"/>
       <button onclick="loadByCode()" style="width:100%;background:var(--green);color:#000;border:none;padding:12px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:.9rem;font-weight:700;cursor:pointer;">🚀 Load Exam by Code</button>
       <p id="code-loading" style="display:none;color:var(--muted);font-size:.82rem;margin-top:8px;font-family:'JetBrains Mono',monospace;">⏳ Loading exam...</p>
     </div>
@@ -155,8 +155,29 @@ body{background:var(--bg);color:var(--text);font-family:'Source Serif 4',Georgia
     <div class="exam-preview" id="exam-preview"></div>
     <label>Full Name *</label>
     <input type="text" id="s-name" placeholder="e.g. Uwimana Jean"/>
-    <label>Class</label>
-    <input type="text" id="s-id" placeholder="e.g. S4A, S5B (optional)"/>
+    <label>Class *</label>
+    <select id="s-id" style="background:#0d1117;border:1px solid #30363d;border-radius:8px;color:#e6edf3;padding:10px 12px;font-size:.9rem;width:100%;margin-bottom:12px;">
+      <option value="">-- Select your class --</option>
+      <optgroup label="Senior 4">
+        <option value="S4 MS1 A">S4 MS1 A</option>
+        <option value="S4 MS1 B">S4 MS1 B</option>
+        <option value="S4 PCB">S4 PCB</option>
+        <option value="S4 MCB">S4 MCB</option>
+        <option value="S4 PCM">S4 PCM</option>
+      </optgroup>
+      <optgroup label="Senior 5">
+        <option value="S5 MCB">S5 MCB</option>
+        <option value="S5 PCB">S5 PCB</option>
+        <option value="S5 PCM">S5 PCM</option>
+        <option value="S5 MPC">S5 MPC</option>
+      </optgroup>
+      <optgroup label="Senior 6">
+        <option value="S6 MCB">S6 MCB</option>
+        <option value="S6 PCB">S6 PCB</option>
+        <option value="S6 PCM">S6 PCM</option>
+        <option value="S6 MPC">S6 MPC</option>
+      </optgroup>
+    </select>
     <div id="info-err" style="color:var(--red);font-size:.85rem;margin-bottom:12px;"></div>
     <button class="btn btn-primary" style="width:100%;justify-content:center;padding:13px;" onclick="startExam()">🚀 Start Exam</button>
     <p style="color:var(--orange);font-size:.8rem;margin-top:14px;text-align:center;">⚠️ Once started, switching tabs or windows will be recorded as a violation.</p>
@@ -340,6 +361,8 @@ function startExam(){
   // Store student name so notifications can use it
   if(exam) exam._studentName = (document.getElementById('s-name')||{}).value||'Unknown';
   const name = document.getElementById('s-name').value.trim();
+  const classVal = document.getElementById('s-id').value.trim();
+  if(!classVal){document.getElementById('info-err').textContent='❌ Please select your class.';return;}
   const err = document.getElementById('info-err');
   if(!name){err.textContent='Please enter your full name.';return;}
   err.textContent='';
@@ -625,6 +648,35 @@ function submitExam(reason){
     breakdown
   };
 
+  // ── Save to localStorage ──
+  try{
+    const existing=JSON.parse(localStorage.getItem('student_results')||'[]');
+    existing.push(resultData);
+    localStorage.setItem('student_results',JSON.stringify(existing));
+  }catch(e){}
+
+  // ── Auto-save to teacher cloud results bin (embedded in exam JSON) ──
+  if(exam && exam._apiKey && exam._resultsBin){
+    (async()=>{
+      try{
+        const gr=await fetch('https://api.jsonbin.io/v3/b/'+exam._resultsBin+'/latest',
+          {headers:{'X-Master-Key':exam._apiKey}});
+        const gd=await gr.json();
+        const list=Array.isArray(gd.record)?gd.record:[];
+        // Prevent duplicates
+        const isDup=list.some(x=>x.studentName===resultData.studentName&&x.examId===resultData.examId&&x.submittedAt===resultData.submittedAt);
+        if(!isDup){
+          list.push(resultData);
+          await fetch('https://api.jsonbin.io/v3/b/'+exam._resultsBin,{
+            method:'PUT',
+            headers:{'Content-Type':'application/json','X-Master-Key':exam._apiKey},
+            body:JSON.stringify(list)
+          });
+        }
+      }catch(e){ console.warn('Cloud save failed:',e); }
+    })();
+  }
+
   showResult(resultData);
 }
 
@@ -660,29 +712,31 @@ function downloadResult(){
 //  LOAD EXAM BY CODE
 // ══════════════════════════════════════════════
 async function loadByCode(){
-  let raw = document.getElementById('exam-code-input').value.trim().toUpperCase();
+  let raw = document.getElementById('exam-code-input').value.trim();
   const err = document.getElementById('upload-err');
   const loading = document.getElementById('code-loading');
-  if(!raw || raw.length < 4){err.textContent='❌ Please enter the exam code from your teacher.';return;}
+  if(!raw || raw.length < 4){err.textContent='❌ Please enter the 5-digit code from your teacher.';return;}
   err.textContent=''; loading.style.display='block';
   try{
-    // If this is a short code (under 12 chars), look it up in the registry first
-    if(raw.length < 12){
+    // 5-digit numeric code → look up in registry
+    if(/^\d{5}$/.test(raw)){
       const regId = localStorage.getItem('exam_code_registry_bin');
-      if(!regId) throw new Error('Not set up yet. Ask your teacher to send you the Student Setup Link first (you only need it once).');
+      if(!regId) throw new Error('Registry not set up. Ask your teacher for the Student Setup Link first (one-time setup).');
       const rr = await fetch('https://api.jsonbin.io/v3/b/'+regId+'/latest');
       if(!rr.ok) throw new Error('Could not read code registry ('+rr.status+')');
       const rd = await rr.json();
       const map = (rd && rd.record) || {};
-      const entry = map[raw];
-      if(!entry) throw new Error('Code not recognised. Please check with your teacher.');
-      raw = (typeof entry === 'string') ? entry : entry.longId;
+      const binId = map[raw];
+      if(!binId) throw new Error('Code '+raw+' not found. Please check with your teacher.');
+      raw = binId;
     }
     const r = await fetch('https://api.jsonbin.io/v3/b/'+raw+'/latest');
-    if(!r.ok) throw new Error('Exam not found ('+r.status+'). Check the code.');
+    if(!r.ok) throw new Error('Exam not found ('+r.status+'). Check the code with your teacher.');
     const d = await r.json();
-    if(!d.record||!d.record.questions) throw new Error('Invalid exam. Ask teacher to re-publish.');
+    if(!d.record||!d.record.questions) throw new Error('Invalid exam data. Ask teacher to re-publish.');
     exam = d.record;
+    // Save registry bin ID if embedded in exam
+    if(exam._regBinId) localStorage.setItem('exam_code_registry_bin', exam._regBinId);
     loading.style.display='none';
     showInfoScreen();
   }catch(e){
@@ -713,25 +767,3 @@ function toggleReview(){
 </body>
 </html>
 
-  // ── Save to local storage ──
-  try{
-    const existing=JSON.parse(localStorage.getItem('student_results')||'[]');
-    existing.push(resultData);
-    localStorage.setItem('student_results',JSON.stringify(existing));
-  }catch(e){}
-
-  // ── Save to teacher's cloud results bin (embedded in exam) ──
-  if(exam && exam._apiKey && exam._resultsBin){
-    try{
-      const gr=await fetch('https://api.jsonbin.io/v3/b/'+exam._resultsBin+'/latest',
-        {headers:{'X-Master-Key':exam._apiKey}});
-      const gd=await gr.json();
-      const list=Array.isArray(gd.record)?gd.record:[];
-      list.push(resultData);
-      await fetch('https://api.jsonbin.io/v3/b/'+exam._resultsBin,{
-        method:'PUT',
-        headers:{'Content-Type':'application/json','X-Master-Key':exam._apiKey},
-        body:JSON.stringify(list)
-      });
-    }catch(e){}
-  }

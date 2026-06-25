@@ -111,6 +111,7 @@ table.results tr:hover td{background:rgba(255,255,255,.02);}
 .grade-D{color:#f87171;font-weight:700;}
 .grade-F{color:#f87171;font-weight:700;}
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
 <body>
 
@@ -206,7 +207,7 @@ table.results tr:hover td{background:rgba(255,255,255,.02);}
       <div class="code-box">
         <p style="color:var(--green);font-family:'JetBrains Mono',monospace;font-size:.75rem;text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;">✅ Exam Published! Copy this FULL CODE and share with students:</p>
         <div class="code" id="exam-code-display" style="font-size:1rem;letter-spacing:.08em;word-break:break-all;padding:12px;">------</div>
-        <p style="color:var(--muted);font-size:.78rem;margin-top:6px;">⚠️ Students must paste this <strong style="color:#fff;">entire code</strong> (not just the last 6 digits) into student-exam.html</p>
+        <p style="color:var(--muted);font-size:.78rem;margin-top:6px;">⚠️ Students must paste this <strong style="color:#fff;">entire code</strong> (not just the last 5 digits) into student-exam.html</p>
         <p>Students go to <strong style="color:#fff;">student-exam.html</strong> and paste this full code to start.</p>
         <p style="margin-top:8px;font-size:.78rem;color:var(--orange);">This is the full exam ID — students paste the whole thing. Results will appear automatically in your Results tab.</p>
         <div style="display:flex;gap:10px;justify-content:center;margin-top:14px;flex-wrap:wrap;">
@@ -221,7 +222,7 @@ table.results tr:hover td{background:rgba(255,255,255,.02);}
   <div class="tab-panel" id="tab-myexams">
     <div class="card">
       <h2>Saved Exams</h2>
-      <p style="color:var(--muted);font-size:.88rem;margin-bottom:18px;">Published exams get a <strong style="color:var(--green);">6-digit code</strong> students can enter directly. You can also download the JSON file to share manually.</p>
+      <p style="color:var(--muted);font-size:.88rem;margin-bottom:18px;">Published exams get a <strong style="color:var(--green);">5-digit code</strong> students can enter directly. You can also download the JSON file to share manually.</p>
       <div id="exams-list"><p style="color:var(--muted);">No exams yet. Create one above.</p></div>
     </div>
   </div>
@@ -264,7 +265,8 @@ table.results tr:hover td{background:rgba(255,255,255,.02);}
       <!-- ACTION BUTTONS -->
       <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">
         <button class="btn btn-primary btn-sm" onclick="refreshFromCloud()">☁️ Refresh from Cloud</button>
-        <button class="btn btn-success btn-sm" onclick="downloadCSV()">⬇️ Download CSV (Excel)</button>
+        <button class="btn btn-success btn-sm" onclick="downloadCSV()">⬇️ Download CSV</button>
+        <button class="btn btn-sm" onclick="downloadExcel()" style="background:#217346;color:#fff;border:none;">📊 Download Excel (by Class)</button>
         <button class="btn btn-danger btn-sm" onclick="clearResults()">🗑 Clear All Results</button>
       </div>
 
@@ -639,7 +641,7 @@ table.results tr:hover td{background:rgba(255,255,255,.02);}
         <div style="background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.25);border-radius:7px;padding:12px 16px;font-size:.82rem;">
           <strong style="color:var(--green);">📁 Exam Directory Bin ID:</strong><br>
           <span id="dir-bin-id" style="font-family:JetBrains Mono,monospace;color:var(--accent);font-size:.78rem;"></span><br>
-          <small style="color:var(--muted);">Students only need the 6-digit code you share with them. This is handled automatically.</small>
+          <small style="color:var(--muted);">Students only need the 5-digit code you share with them. This is handled automatically.</small>
         </div>
       </div>
     </div>
@@ -844,7 +846,7 @@ table.results tr:hover td{background:rgba(255,255,255,.02);}
       <h2>How the Exam Code System Works</h2>
       <ol style="margin-left:20px;line-height:2.4;color:var(--muted);font-size:.9rem;">
         <li>Set up your <strong style="color:#fff;">JSONBin API key</strong> once (Settings tab above) — takes 2 minutes.</li>
-        <li>Create an exam and click <strong style="color:var(--green);">🌐 Publish Exam</strong> → exam is saved to the cloud → you get a <strong style="color:var(--green);">6-digit code</strong>.</li>
+        <li>Create an exam and click <strong style="color:var(--green);">🌐 Publish Exam</strong> → exam is saved to the cloud → you get a <strong style="color:var(--green);">5-digit code</strong>.</li>
         <li>Share the <strong style="color:var(--green);">code</strong> with students (write on board, send via WhatsApp, etc.).</li>
         <li>Students go to <strong style="color:var(--accent);">student-exam.html</strong>, enter the code → exam loads automatically.</li>
         <li>Students complete the exam → submit → results are sent directly to your <strong style="color:#fff;">Results tab</strong> (cloud-saved) AND via Telegram/email notification.</li>
@@ -952,6 +954,47 @@ function buildExamObj(){
   return{id:'exam_'+Date.now(),title,subject,type,time,pass,warnings,instructions,questions,totalMarks:questions.reduce((s,q)=>s+q.marks,0),created:new Date().toISOString()};
 }
 
+// ══════════ 5-DIGIT CODE REGISTRY ══════════
+async function registerExamCode(binId, key){
+  // Get or create registry bin
+  let regBinId = localStorage.getItem('exam_code_registry_bin');
+  let registry = {};
+  if(regBinId){
+    try{
+      const gr = await fetch('https://api.jsonbin.io/v3/b/'+regBinId+'/latest',
+        {headers:{'X-Master-Key':key}});
+      const gd = await gr.json();
+      registry = (gd && gd.record) || {};
+    }catch(e){ registry={}; }
+  } else {
+    // Create registry bin
+    const rb = await fetch('https://api.jsonbin.io/v3/b',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','X-Master-Key':key,'X-Bin-Private':'false','X-Bin-Name':'ExamCodeRegistry'},
+      body:JSON.stringify({})
+    });
+    const rd = await rb.json();
+    regBinId = rd.metadata?.id;
+    if(regBinId) localStorage.setItem('exam_code_registry_bin', regBinId);
+  }
+  // Generate unique 5-digit code
+  const usedCodes = new Set(Object.keys(registry));
+  let code;
+  do { code = String(Math.floor(10000 + Math.random() * 90000)); } while(usedCodes.has(code));
+  registry[code] = binId;
+  // Save registry
+  if(regBinId){
+    await fetch('https://api.jsonbin.io/v3/b/'+regBinId,{
+      method:'PUT',
+      headers:{'Content-Type':'application/json','X-Master-Key':key},
+      body:JSON.stringify(registry)
+    });
+    // Also save reg bin ID into student localStorage key
+    localStorage.setItem('exam_code_registry_bin', regBinId);
+  }
+  return code;
+}
+
 // ══════════ PUBLISH (CLOUD) ══════════
 async function publishExam(){
   const exam=buildExamObj();
@@ -978,6 +1021,7 @@ async function publishExam(){
     // Embed API key and results bin into exam so students can submit results cross-device
     exam._apiKey=key;
     exam._resultsBin=resultsBinId||'';
+    exam._regBinId=localStorage.getItem('exam_code_registry_bin')||'';
     // CRITICAL FIX: embed notification settings so student's browser can send alerts
     const _ns = JSON.parse(localStorage.getItem('notif_settings')||'{}');
     exam._notif = {
@@ -999,19 +1043,17 @@ async function publishExam(){
     const d=await r.json();
     if(!d.metadata?.id) throw new Error(d.message||'Failed to publish');
     const binId=d.metadata.id;
-    // The STUDENT CODE = the full BIN ID (students paste it in, or teacher shares it)
-    // Also generate a short display code for convenience
-    const code=binId.slice(-8).toUpperCase();
+    // Generate unique 5-digit code and store in registry
+    const code = await registerExamCode(binId, key);
     exam.binId=binId; exam.code=code;
     const exams=JSON.parse(localStorage.getItem('exams')||'[]');
     exams.push(exam);
     localStorage.setItem('exams',JSON.stringify(exams));
     lastExam=exam;
-    // Store the binId as the code students use
-    document.getElementById('exam-code-display').textContent=binId;
+    document.getElementById('exam-code-display').textContent=code;
     document.getElementById('code-result').style.display='block';
     document.getElementById('code-result').scrollIntoView({behavior:'smooth'});
-    showAlert(alert,'success','✅ Exam published! Share the code below with students.');
+    showAlert(alert,'success','✅ Exam published! Share the 5-digit code below with students.');
   }catch(e){
     showAlert(alert,'danger','❌ Publish failed: '+e.message+'. Check your API key or internet connection.');
   }
@@ -1104,7 +1146,7 @@ async function republishExam(id){
     const d=await r.json();
     if(!d.metadata?.id) throw new Error(d.message||'Failed');
     const binId=d.metadata.id;
-    const code=binId.slice(-8).toUpperCase();
+    const code = await registerExamCode(binId, key);
     const codes=JSON.parse(localStorage.getItem('exam_codes')||'{}');
     codes[code]=binId;
     localStorage.setItem('exam_codes',JSON.stringify(codes));
@@ -1256,6 +1298,51 @@ function downloadCSV(){
   const csv=[headers,...rows].map(r=>r.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
   downloadFile(csv,'student_results_'+Date.now()+'.csv','text/csv');
 }
+function downloadExcel(){
+  const results=JSON.parse(localStorage.getItem('student_results')||'[]');
+  if(!results.length){alert('No results to download.');return;}
+  const wb=XLSX.utils.book_new();
+  // Group by class
+  const classes={};
+  results.forEach(r=>{
+    const cls=(r.studentId||r.classGrade||'Unknown Class').trim()||'Unknown Class';
+    if(!classes[cls])classes[cls]=[];
+    classes[cls].push(r);
+  });
+  // Create one sheet per class
+  Object.keys(classes).sort().forEach(cls=>{
+    const rows=classes[cls].sort((a,b)=>(a.studentName||'').localeCompare(b.studentName||''));
+    const headers=['#','Student Name','Class','Exam','Score','Total Marks','Percentage','Pass/Fail','Grade','Violations','Time Taken','Date & Time'];
+    const data=[headers,...rows.map((r,i)=>[
+      i+1,
+      r.studentName||'',
+      r.studentId||r.classGrade||cls,
+      r.examTitle||'',
+      r.score||0,
+      r.totalMarks||100,
+      (r.percent||0)+'%',
+      r.passed?'PASS':'FAIL',
+      getGrade(r.percent||0),
+      r.violations||0,
+      r.timeTaken||'',
+      r.submittedAt?new Date(r.submittedAt).toLocaleString():''
+    ])];
+    const ws=XLSX.utils.aoa_to_sheet(data);
+    // Column widths
+    ws['!cols']=[{wch:4},{wch:24},{wch:12},{wch:28},{wch:8},{wch:12},{wch:12},{wch:10},{wch:8},{wch:10},{wch:12},{wch:20}];
+    // Bold header row
+    const range=XLSX.utils.decode_range(ws['!ref']);
+    for(let C=range.s.c;C<=range.e.c;C++){
+      const cell=ws[XLSX.utils.encode_cell({r:0,c:C})];
+      if(cell)cell.s={font:{bold:true}};
+    }
+    // Sheet name max 31 chars
+    const sheetName=cls.substring(0,31);
+    XLSX.utils.book_append_sheet(wb,ws,sheetName);
+  });
+  XLSX.writeFile(wb,'student_results_by_class_'+new Date().toISOString().slice(0,10)+'.xlsx');
+}
+
 function clearResults(){if(!confirm('Delete ALL results?'))return;localStorage.removeItem('student_results');renderResults(); // updates stats too
 }
 // ═══════════════════════════════════════════════════
