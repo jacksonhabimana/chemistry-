@@ -558,7 +558,7 @@ window.addEventListener('DOMContentLoaded',()=>{
 // ── Exam code entry ──
 const JB_URL = 'https://api.jsonbin.io/v3/b';
 
-// Try multiple sources to get the registry bin ID
+// Get registry bin ID from all possible sources
 async function getRegistryId(){
   // 1. Already stored locally
   let regId = localStorage.getItem('exam_code_registry_bin');
@@ -566,17 +566,28 @@ async function getRegistryId(){
   // 2. Try from URL param ?reg=...
   const urlReg = new URLSearchParams(window.location.search).get('reg');
   if(urlReg){ localStorage.setItem('exam_code_registry_bin', urlReg); return urlReg; }
+  // 3. Try embedded bootstrap bin IDs (teacher's published exams embed _regBinId)
+  // Check any locally saved exam for _regBinId
+  try{
+    const bootId = localStorage.getItem('exam_bootstrap_bin');
+    if(bootId){
+      const r = await fetch(JB_URL+'/'+bootId+'/latest');
+      if(r.ok){
+        const d = await r.json();
+        const rid = d.record&&d.record.regBinId;
+        if(rid){ localStorage.setItem('exam_code_registry_bin', rid); return rid; }
+      }
+    }
+  }catch(e){}
   return null;
 }
 
 async function resolveExamCode(codeRaw){
   const code = (codeRaw||'').trim().replace(/\s+/g,'');
   if(!code) throw new Error('Please enter the 5-digit exam code your teacher gave you.');
-  // If it looks like a full bin ID (long), use directly
   if(code.length >= 12) return code;
-  // 5-digit code — look up in registry
   const regId = await getRegistryId();
-  if(!regId) throw new Error('Registry not set up on this device. Ask your teacher for the Student Setup Link and open it once.');
+  if(!regId) throw new Error('Could not connect to exam registry. Please check your internet connection.');
   const r = await fetch(JB_URL+'/'+regId+'/latest');
   if(!r.ok) throw new Error('Could not load code registry (HTTP '+r.status+')');
   const d = await r.json();
@@ -603,9 +614,12 @@ async function goToExam(){
 }
 
 document.addEventListener('DOMContentLoaded',()=>{
-  // Auto-set registry from URL if present
-  const urlReg = new URLSearchParams(window.location.search).get('reg');
+  // Auto-set registry and bootstrap bin from URL params if present
+  const params = new URLSearchParams(window.location.search);
+  const urlReg = params.get('reg');
+  const urlBoot = params.get('boot');
   if(urlReg) localStorage.setItem('exam_code_registry_bin', urlReg);
+  if(urlBoot) localStorage.setItem('exam_bootstrap_bin', urlBoot);
 
   const ci=document.getElementById('exam-code');
   if(ci){

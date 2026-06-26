@@ -1045,8 +1045,32 @@ async function registerExamCode(binId, key){
       headers:{'Content-Type':'application/json','X-Master-Key':key},
       body:JSON.stringify(registry)
     });
-    // Also save reg bin ID into student localStorage key
     localStorage.setItem('exam_code_registry_bin', regBinId);
+    // Update public bootstrap bin so students auto-configure without setup link
+    try{
+      let bootId = localStorage.getItem('exam_bootstrap_bin');
+      if(!bootId){
+        // Create bootstrap bin
+        const rb = await fetch('https://api.jsonbin.io/v3/b',{
+          method:'POST',
+          headers:{'Content-Type':'application/json','X-Master-Key':key,'X-Bin-Private':'false','X-Bin-Name':'ExamBootstrap'},
+          body:JSON.stringify({regBinId})
+        });
+        const rd = await rb.json();
+        if(rd.metadata?.id){
+          bootId = rd.metadata.id;
+          localStorage.setItem('exam_bootstrap_bin', bootId);
+          // Save bootId into a known fixed location in teacher admin
+          localStorage.setItem('exam_bootstrap_bin', bootId);
+        }
+      } else {
+        await fetch('https://api.jsonbin.io/v3/b/'+bootId,{
+          method:'PUT',
+          headers:{'Content-Type':'application/json','X-Master-Key':key},
+          body:JSON.stringify({regBinId})
+        });
+      }
+    }catch(e){}
   }
   return code;
 }
@@ -3175,8 +3199,9 @@ function updateCodeLink(){
   const code=document.getElementById('access-code-input').value.trim().toUpperCase();
   if(!code) return;
   const regId=localStorage.getItem('exam_code_registry_bin')||'';
+  const bootId=localStorage.getItem('exam_bootstrap_bin')||'';
   const base=window.location.href.replace('teacher-admin.html','student-hub.html');
-  const link=base.split('?')[0]+'?c='+encodeURIComponent(code)+(regId?'&reg='+regId:'');
+  const link=base.split('?')[0]+'?c='+encodeURIComponent(code)+(regId?'&reg='+regId:'')+(bootId?'&boot='+bootId:'');
   const ld=document.getElementById('code-link-display');
   if(ld) ld.textContent=link;
 }
