@@ -113,6 +113,7 @@ table.results tr:hover td{background:rgba(255,255,255,.02);}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 </head>
 <body>
 
@@ -3595,21 +3596,35 @@ document.addEventListener('DOMContentLoaded', ()=>{
 });
 
 async function readFileAsText(file){
-  if(file.name.endsWith('.pdf')){
-    // Read PDF as base64 and send to Gemini
+  if(file.name.toLowerCase().endsWith('.pdf')){
+    // Use PDF.js to extract text page by page
     return new Promise((resolve,reject)=>{
       const r = new FileReader();
-      r.onload = e => resolve({type:'pdf', data: e.target.result.split(',')[1]});
+      r.onload = async e => {
+        try{
+          if(typeof pdfjsLib === 'undefined') throw new Error('PDF.js not loaded');
+          pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+          const pdf = await pdfjsLib.getDocument({data: new Uint8Array(e.target.result)}).promise;
+          let text = '';
+          for(let i=1;i<=pdf.numPages;i++){
+            const page = await pdf.getPage(i);
+            const content = await page.getTextContent();
+            text += content.items.map(s=>s.str).join(' ') + '\n';
+          }
+          if(!text.trim()) throw new Error('Could not extract text from PDF. Try the Paste Text option instead.');
+          resolve({type:'text', data: text});
+        }catch(err){ reject(err); }
+      };
       r.onerror = reject;
-      r.readAsDataURL(file);
+      r.readAsArrayBuffer(file);
     });
-  } else if(file.name.endsWith('.docx')||file.name.endsWith('.doc')){
-    // Use mammoth to extract text from docx
+  } else if(file.name.toLowerCase().endsWith('.docx')||file.name.toLowerCase().endsWith('.doc')){
     return new Promise((resolve,reject)=>{
       const r = new FileReader();
       r.onload = async e => {
         try{
           const result = await mammoth.extractRawText({arrayBuffer: e.target.result});
+          if(!result.value.trim()) throw new Error('Could not extract text from Word file.');
           resolve({type:'text', data: result.value});
         }catch(err){ reject(err); }
       };
@@ -3645,22 +3660,7 @@ async function uplExtractAndPublish(){
 
     if(isFile){
       const fileData = await readFileAsText(_uplFile);
-      if(fileData.type === 'pdf'){
-        // For PDF, send as base64 with instruction
-        prompt = `You are extracting exam questions from a PDF exam paper.
-The PDF is provided as base64. Extract ALL questions with their mark allocations.
-Return ONLY valid JSON in this exact format:
-{
-  "questions": [
-    {"question": "Question text here", "marks": 2, "type": "short_answer"},
-    {"question": "1. Option A\n2. Option B\n3. Option C\n4. Option D", "marks": 1, "type": "mcq", "answer": "A"}
-  ]
-}
-For MCQ questions, include the options in the question field.
-For questions with sub-parts, keep them as one question.
-PDF content (base64): ${fileData.data.substring(0,8000)}`;
-      } else {
-        prompt = `You are extracting exam questions from this exam paper text.
+      prompt = `You are extracting exam questions from this exam paper text.
 Extract ALL questions with their mark allocations.
 Return ONLY valid JSON in this exact format:
 {
@@ -3669,10 +3669,11 @@ Return ONLY valid JSON in this exact format:
     {"question": "Question with options:\nA) option1\nB) option2\nC) option3\nD) option4", "marks": 1, "type": "mcq", "answer": "A"}
   ]
 }
+For MCQ: include all options in the question field and set the correct answer letter.
+For structured questions with sub-parts, keep them together.
 Exam text:
-${fileData.data.substring(0,6000)}`;
-      }
-    } else {
+${fileData.data.substring(0,7000)}`;
+        } else {
       prompt = `You are extracting exam questions from this text.
 Extract ALL questions with their mark allocations.
 Return ONLY valid JSON in this exact format:
