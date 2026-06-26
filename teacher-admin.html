@@ -112,6 +112,7 @@ table.results tr:hover td{background:rgba(255,255,255,.02);}
 .grade-F{color:#f87171;font-weight:700;}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
 </head>
 <body>
 
@@ -599,12 +600,66 @@ table.results tr:hover td{background:rgba(255,255,255,.02);}
 
   <!-- ═══ IMPORT ═══ -->
   <div class="tab-panel" id="tab-import">
+
+    <!-- UPLOAD EXAM SECTION -->
+    <div class="card" style="border-color:rgba(99,179,237,.3);">
+      <h2>📤 Upload Exam &amp; Publish</h2>
+      <p style="color:var(--muted);font-size:.88rem;margin-bottom:20px;">Upload a <strong>Word (.docx)</strong> or <strong>PDF</strong> exam paper, or <strong>paste exam text</strong> — AI will extract the questions and publish with a 5-digit student code.</p>
+
+      <!-- Tabs inside -->
+      <div style="display:flex;gap:8px;margin-bottom:20px;border-bottom:1px solid var(--border);padding-bottom:0;">
+        <button id="upl-tab-file" class="tab-btn active" onclick="uplShowTab('file')" style="font-size:.75rem;padding:8px 16px;">📁 Upload File</button>
+        <button id="upl-tab-paste" class="tab-btn" onclick="uplShowTab('paste')" style="font-size:.75rem;padding:8px 16px;">📝 Paste Text</button>
+      </div>
+
+      <!-- File upload -->
+      <div id="upl-panel-file">
+        <div class="drop-zone" id="exam-drop-zone" onclick="document.getElementById('exam-file-input').click()" style="margin-bottom:16px;">
+          <div style="font-size:2.5rem;">📄</div>
+          <strong style="color:var(--text);">Click or drag &amp; drop exam file here</strong>
+          <p style="color:var(--muted);margin-top:6px;">Accepts <code>.docx</code> or <code>.pdf</code></p>
+          <input type="file" id="exam-file-input" accept=".docx,.pdf" style="display:none;" onchange="uplFileSelected(this.files[0])"/>
+        </div>
+        <div id="upl-file-name" style="font-size:.85rem;color:var(--green);margin-bottom:12px;display:none;"></div>
+      </div>
+
+      <!-- Paste text -->
+      <div id="upl-panel-paste" style="display:none;">
+        <textarea id="upl-paste-text" placeholder="Paste your exam questions here...&#10;&#10;Example:&#10;1. What is the formula for water? (2 marks)&#10;   A) H2O  B) CO2  C) NaCl  D) H2SO4&#10;&#10;2. Define oxidation. (3 marks)" style="width:100%;min-height:200px;background:#0d1117;border:1.5px solid var(--border);border-radius:8px;color:var(--text);padding:12px;font-size:.88rem;font-family:inherit;resize:vertical;"></textarea>
+      </div>
+
+      <!-- Exam details -->
+      <div class="form-row" style="margin-top:16px;">
+        <div><label>Exam Title</label><input type="text" id="upl-title" placeholder="e.g. S5 Chemistry Test 1"/></div>
+        <div><label>Subject</label><input type="text" id="upl-subject" placeholder="e.g. Chemistry" value="Chemistry"/></div>
+      </div>
+      <div class="form-row">
+        <div><label>Class</label><select id="upl-class"><option>S4</option><option>S5</option><option>S6</option></select></div>
+        <div><label>Type</label><select id="upl-type"><option>Test</option><option>Quiz</option><option>Exam</option><option>Assignment</option></select></div>
+        <div><label>Time (minutes)</label><input type="number" id="upl-time" value="60" min="5" max="300"/></div>
+      </div>
+
+      <button class="btn btn-success" onclick="uplExtractAndPublish()" style="margin-top:4px;">🤖 Extract Questions &amp; Publish</button>
+      <div id="upl-alert" style="margin-top:14px;"></div>
+
+      <!-- Result code box -->
+      <div id="upl-code-box" style="display:none;margin-top:20px;background:var(--bg);border:2px solid var(--green);border-radius:10px;padding:20px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--green);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;">✅ Exam Published! Share this 5-digit code with students:</div>
+        <div id="upl-code-text" style="font-family:'JetBrains Mono',monospace;font-size:3rem;color:#fff;text-align:center;letter-spacing:.3em;padding:16px;background:var(--surface2);border-radius:8px;margin-bottom:12px;border:1px solid var(--border);"></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button class="btn btn-primary" onclick="copyUplCode()">📋 Copy Code</button>
+          <a href="student-exam.html" target="_blank" class="btn" style="text-decoration:none;">🔗 Open Student Exam Page</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- IMPORT RESULTS SECTION -->
     <div class="card">
-      <h2>Import Student Result Files</h2>
+      <h2>📥 Import Student Result Files</h2>
       <p style="color:var(--muted);font-size:.88rem;margin-bottom:20px;">If students used the offline (JSON file) method, they download a result file. Upload those files here.</p>
       <div class="drop-zone" id="drop-zone" onclick="document.getElementById('result-file-input').click()">
         <div style="font-size:2.5rem;">📂</div>
-        <strong style="color:var(--text);">Click or drag & drop result files here</strong>
+        <strong style="color:var(--text);">Click or drag &amp; drop result files here</strong>
         <p style="color:var(--muted);margin-top:6px;">Accepts <code>.json</code> result files</p>
         <input type="file" id="result-file-input" accept=".json" multiple style="display:none;" onchange="importResults(this.files)"/>
       </div>
@@ -3504,6 +3559,213 @@ function deletePE(id){
   renderResources();
 }
 
+
+// ══════════ UPLOAD EXAM FUNCTIONS ══════════
+let _uplFile = null;
+
+function uplShowTab(tab){
+  document.getElementById('upl-panel-file').style.display = tab==='file'?'block':'none';
+  document.getElementById('upl-panel-paste').style.display = tab==='paste'?'block':'none';
+  document.getElementById('upl-tab-file').classList.toggle('active', tab==='file');
+  document.getElementById('upl-tab-paste').classList.toggle('active', tab==='paste');
+}
+
+function uplFileSelected(file){
+  if(!file) return;
+  _uplFile = file;
+  const el = document.getElementById('upl-file-name');
+  el.style.display='block';
+  el.textContent = '📄 Selected: ' + file.name + ' (' + (file.size/1024).toFixed(1) + ' KB)';
+  // Auto-fill title from filename
+  const titleEl = document.getElementById('upl-title');
+  if(!titleEl.value) titleEl.value = file.name.replace(/\.docx?|\.pdf$/i,'').replace(/[-_]/g,' ');
+}
+
+// Drag and drop support
+document.addEventListener('DOMContentLoaded', ()=>{
+  const dz = document.getElementById('exam-drop-zone');
+  if(!dz) return;
+  dz.addEventListener('dragover', e=>{e.preventDefault();dz.style.borderColor='var(--green)';});
+  dz.addEventListener('dragleave', ()=>dz.style.borderColor='');
+  dz.addEventListener('drop', e=>{
+    e.preventDefault(); dz.style.borderColor='';
+    const f = e.dataTransfer.files[0];
+    if(f) uplFileSelected(f);
+  });
+});
+
+async function readFileAsText(file){
+  if(file.name.endsWith('.pdf')){
+    // Read PDF as base64 and send to Gemini
+    return new Promise((resolve,reject)=>{
+      const r = new FileReader();
+      r.onload = e => resolve({type:'pdf', data: e.target.result.split(',')[1]});
+      r.onerror = reject;
+      r.readAsDataURL(file);
+    });
+  } else if(file.name.endsWith('.docx')||file.name.endsWith('.doc')){
+    // Use mammoth to extract text from docx
+    return new Promise((resolve,reject)=>{
+      const r = new FileReader();
+      r.onload = async e => {
+        try{
+          const result = await mammoth.extractRawText({arrayBuffer: e.target.result});
+          resolve({type:'text', data: result.value});
+        }catch(err){ reject(err); }
+      };
+      r.onerror = reject;
+      r.readAsArrayBuffer(file);
+    });
+  }
+  throw new Error('Unsupported file type. Use .docx or .pdf');
+}
+
+async function uplExtractAndPublish(){
+  const alertEl = document.getElementById('upl-alert');
+  const key = localStorage.getItem('jsonbin_key');
+  if(!key){ alertEl.innerHTML='<div class="alert alert-danger">⚠️ No JSONBin API key set. Go to Settings tab first.</div>'; return; }
+
+  const title = document.getElementById('upl-title').value.trim() || 'Uploaded Exam';
+  const subject = document.getElementById('upl-subject').value.trim() || 'Chemistry';
+  const cls = document.getElementById('upl-class').value;
+  const type = document.getElementById('upl-type').value;
+  const time = parseInt(document.getElementById('upl-time').value)||60;
+  const pasteText = document.getElementById('upl-paste-text').value.trim();
+
+  // Check input
+  const isFile = document.getElementById('upl-panel-file').style.display !== 'none';
+  if(isFile && !_uplFile){ alertEl.innerHTML='<div class="alert alert-danger">❌ Please select a file first.</div>'; return; }
+  if(!isFile && !pasteText){ alertEl.innerHTML='<div class="alert alert-danger">❌ Please paste some exam text first.</div>'; return; }
+
+  alertEl.innerHTML='<div class="alert alert-success">⏳ Reading exam content...</div>';
+  document.getElementById('upl-code-box').style.display='none';
+
+  try{
+    let prompt = '';
+
+    if(isFile){
+      const fileData = await readFileAsText(_uplFile);
+      if(fileData.type === 'pdf'){
+        // For PDF, send as base64 with instruction
+        prompt = `You are extracting exam questions from a PDF exam paper.
+The PDF is provided as base64. Extract ALL questions with their mark allocations.
+Return ONLY valid JSON in this exact format:
+{
+  "questions": [
+    {"question": "Question text here", "marks": 2, "type": "short_answer"},
+    {"question": "1. Option A\n2. Option B\n3. Option C\n4. Option D", "marks": 1, "type": "mcq", "answer": "A"}
+  ]
+}
+For MCQ questions, include the options in the question field.
+For questions with sub-parts, keep them as one question.
+PDF content (base64): ${fileData.data.substring(0,8000)}`;
+      } else {
+        prompt = `You are extracting exam questions from this exam paper text.
+Extract ALL questions with their mark allocations.
+Return ONLY valid JSON in this exact format:
+{
+  "questions": [
+    {"question": "Question text here", "marks": 2, "type": "short_answer"},
+    {"question": "Question with options:\nA) option1\nB) option2\nC) option3\nD) option4", "marks": 1, "type": "mcq", "answer": "A"}
+  ]
+}
+Exam text:
+${fileData.data.substring(0,6000)}`;
+      }
+    } else {
+      prompt = `You are extracting exam questions from this text.
+Extract ALL questions with their mark allocations.
+Return ONLY valid JSON in this exact format:
+{
+  "questions": [
+    {"question": "Question text here", "marks": 2, "type": "short_answer"},
+    {"question": "Question with options:\nA) option1\nB) option2\nC) option3\nD) option4", "marks": 1, "type": "mcq", "answer": "A"}
+  ]
+}
+Text:
+${pasteText.substring(0,6000)}`;
+    }
+
+    alertEl.innerHTML='<div class="alert alert-success">🤖 AI is extracting questions...</div>';
+
+    // Call worker
+    const res = await fetch('https://chem-payment.hajackson2020.workers.dev/lesson-plan',{
+      method:'POST', mode:'cors', cache:'no-cache',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({prompt})
+    });
+    const data = await res.json();
+    if(!res.ok) throw new Error(data.error||'AI extraction failed');
+    const raw = data.text||'';
+    const clean = raw.replace(/```json|```/g,'').trim();
+    const parsed = JSON.parse(clean);
+    const questions = parsed.questions||[];
+    if(!questions.length) throw new Error('No questions found. Try pasting the text manually.');
+
+    alertEl.innerHTML=`<div class="alert alert-success">✅ Extracted ${questions.length} questions. Publishing...</div>`;
+
+    // Ensure results bin
+    let resultsBinId = localStorage.getItem('results_bin_id');
+    if(!resultsBinId){
+      try{
+        const rb=await fetch('https://api.jsonbin.io/v3/b',{method:'POST',headers:{'Content-Type':'application/json','X-Master-Key':key,'X-Bin-Private':'false','X-Bin-Name':'ChemResults'},body:JSON.stringify([])});
+        const rd=await rb.json();
+        if(rd.metadata?.id){resultsBinId=rd.metadata.id;localStorage.setItem('results_bin_id',resultsBinId);}
+      }catch(e){}
+    }
+
+    // Build exam object
+    const examObj = {
+      id:'exam_'+Date.now(),
+      title:`${cls} ${title}`,
+      subject:`${cls} ${subject}`,
+      type, time, pass:50, warnings:3,
+      instructions:'Answer ALL questions. Show all working where necessary.',
+      questions: questions.map(q=>({...q, marks:q.marks||1})),
+      totalMarks: questions.reduce((s,q)=>s+(q.marks||1),0),
+      created:new Date().toISOString(),
+      _apiKey:key,
+      _resultsBin:resultsBinId||'',
+      _regBinId:localStorage.getItem('exam_code_registry_bin')||''
+    };
+
+    // Publish to JSONBin
+    const r2 = await fetch('https://api.jsonbin.io/v3/b',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','X-Master-Key':key,'X-Bin-Private':'false','X-Bin-Name':title.slice(0,30)},
+      body:JSON.stringify(examObj)
+    });
+    const d2 = await r2.json();
+    if(!d2.metadata?.id) throw new Error(d2.message||'Publish failed');
+    const binId = d2.metadata.id;
+
+    // Generate 5-digit code
+    const code = await registerExamCode(binId, key);
+    examObj.binId=binId; examObj.code=code;
+
+    // Save locally
+    const exams=JSON.parse(localStorage.getItem('exams')||'[]');
+    exams.push(examObj);
+    localStorage.setItem('exams',JSON.stringify(exams));
+
+    alertEl.innerHTML=`<div class="alert alert-success">✅ Published! ${questions.length} questions extracted. Code: <strong>${code}</strong></div>`;
+    document.getElementById('upl-code-text').textContent=code;
+    document.getElementById('upl-code-box').style.display='block';
+    updateStats();
+
+  }catch(e){
+    alertEl.innerHTML=`<div class="alert alert-danger">❌ ${e.message}</div>`;
+  }
+}
+
+function copyUplCode(){
+  const code=document.getElementById('upl-code-text').textContent;
+  navigator.clipboard.writeText(code).then(()=>{
+    const btn=event.target;
+    btn.textContent='✅ Copied!';
+    setTimeout(()=>btn.textContent='📋 Copy Code',2000);
+  });
+}
 </script>
 </body>
 </html>
