@@ -264,9 +264,9 @@ footer a{color:var(--accent);text-decoration:none;}
     <!-- Exam code entry -->
     <div class="code-box" style="margin-top:20px;">
       <h3>🔑 Have an Exam Code?</h3>
-      <p>If your teacher gave you a <strong>6-digit exam code</strong>, enter it here.</p>
+      <p>If your teacher gave you a <strong>5-digit exam code</strong>, enter it here.</p>
       <div class="code-input-row">
-        <input class="code-inp" type="text" id="exam-code" maxlength="32" placeholder="e.g. A3F8C2" onkeydown="if(event.key==='Enter')goToExam()"/>
+        <input class="code-inp" type="text" id="exam-code" maxlength="5" placeholder="e.g. 93491" maxlength="32" placeholder="e.g. A3F8C2" onkeydown="if(event.key==='Enter')goToExam()"/>
         <button class="code-btn" onclick="goToExam()">🚀 Start</button>
       </div>
       <div class="code-err" id="code-err"></div>
@@ -286,7 +286,7 @@ footer a{color:var(--accent);text-decoration:none;}
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;" id="how-grid">
     <div class="info-box">
       <h4 style="color:var(--green);">📋 Teacher's Exam (Code)</h4>
-      <div class="info-row"><div class="info-num" style="background:rgba(52,211,153,.15);color:var(--green);">1</div><p>Your teacher creates an exam in the admin portal and gets a <strong>6-digit code</strong>.</p></div>
+      <div class="info-row"><div class="info-num" style="background:rgba(52,211,153,.15);color:var(--green);">1</div><p>Your teacher creates an exam in the admin portal and gets a <strong>5-digit code</strong>.</p></div>
       <div class="info-row"><div class="info-num" style="background:rgba(52,211,153,.15);color:var(--green);">2</div><p>Teacher writes the code on the board or sends it via WhatsApp/email.</p></div>
       <div class="info-row"><div class="info-num" style="background:rgba(52,211,153,.15);color:var(--green);">3</div><p>You enter the code above → the exam loads with the teacher's questions and time limit.</p></div>
       <div class="info-row"><div class="info-num" style="background:rgba(52,211,153,.15);color:var(--green);">4</div><p>Complete the exam → your result goes automatically to the teacher's results dashboard.</p></div>
@@ -557,18 +557,32 @@ window.addEventListener('DOMContentLoaded',()=>{
 
 // ── Exam code entry ──
 const JB_URL = 'https://api.jsonbin.io/v3/b';
+
+// Try multiple sources to get the registry bin ID
+async function getRegistryId(){
+  // 1. Already stored locally
+  let regId = localStorage.getItem('exam_code_registry_bin');
+  if(regId) return regId;
+  // 2. Try from URL param ?reg=...
+  const urlReg = new URLSearchParams(window.location.search).get('reg');
+  if(urlReg){ localStorage.setItem('exam_code_registry_bin', urlReg); return urlReg; }
+  return null;
+}
+
 async function resolveExamCode(codeRaw){
-  const code = (codeRaw||'').trim().toUpperCase().replace(/\s+/g,'');
-  if(!code) throw new Error('Please enter the exam code your teacher gave you.');
+  const code = (codeRaw||'').trim().replace(/\s+/g,'');
+  if(!code) throw new Error('Please enter the 5-digit exam code your teacher gave you.');
+  // If it looks like a full bin ID (long), use directly
   if(code.length >= 12) return code;
-  const regId = localStorage.getItem('exam_code_registry_bin');
-  if(!regId) throw new Error('Code registry not found. Ask your teacher to re-share the code.');
+  // 5-digit code — look up in registry
+  const regId = await getRegistryId();
+  if(!regId) throw new Error('Registry not set up on this device. Ask your teacher for the Student Setup Link and open it once.');
   const r = await fetch(JB_URL+'/'+regId+'/latest');
   if(!r.ok) throw new Error('Could not load code registry (HTTP '+r.status+')');
   const d = await r.json();
   const map = d.record||{};
   const entry = map[code];
-  if(!entry) throw new Error('Code not recognised. Please check with your teacher.');
+  if(!entry) throw new Error('Code "'+code+'" not found. Please check with your teacher.');
   return typeof entry==='string'?entry:entry.longId;
 }
 
@@ -581,7 +595,7 @@ async function goToExam(){
   try{
     const longId=await resolveExamCode(input.value);
     sessionStorage.setItem('exam_code_to_load',longId);
-    window.location.href='student-quiz.html?code='+encodeURIComponent(longId);
+    window.location.href='student-exam.html?code='+encodeURIComponent(longId);
   }catch(e){
     err.textContent='❌ '+e.message;
     load.style.display='none';
@@ -589,10 +603,14 @@ async function goToExam(){
 }
 
 document.addEventListener('DOMContentLoaded',()=>{
+  // Auto-set registry from URL if present
+  const urlReg = new URLSearchParams(window.location.search).get('reg');
+  if(urlReg) localStorage.setItem('exam_code_registry_bin', urlReg);
+
   const ci=document.getElementById('exam-code');
   if(ci){
     ci.addEventListener('keydown',e=>{if(e.key==='Enter')goToExam();});
-    ci.addEventListener('input',function(){this.value=this.value.toUpperCase();});
+    ci.addEventListener('input',function(){this.value=this.value.replace(/[^0-9]/g,'').slice(0,5);});
   }
 });
 

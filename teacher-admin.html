@@ -3118,8 +3118,9 @@ function clearAccessCode(){
 function updateCodeLink(){
   const code=document.getElementById('access-code-input').value.trim().toUpperCase();
   if(!code) return;
+  const regId=localStorage.getItem('exam_code_registry_bin')||'';
   const base=window.location.href.replace('teacher-admin.html','student-hub.html');
-  const link=base.split('?')[0]+'?c='+encodeURIComponent(code);
+  const link=base.split('?')[0]+'?c='+encodeURIComponent(code)+(regId?'&reg='+regId:'');
   const ld=document.getElementById('code-link-display');
   if(ld) ld.textContent=link;
 }
@@ -3138,8 +3139,9 @@ function showAccessCodeStatus(){
   el.style.display='block';
   const bd=document.getElementById('code-big-display');
   if(bd) bd.textContent=code;
+  const regId2=localStorage.getItem('exam_code_registry_bin')||'';
   const base=window.location.href.replace('teacher-admin.html','student-hub.html');
-  const link=base.split('?')[0]+'?c='+encodeURIComponent(code);
+  const link=base.split('?')[0]+'?c='+encodeURIComponent(code)+(regId2?'&reg='+regId2:'');
   const ld=document.getElementById('code-link-display');
   if(ld) ld.textContent=link;
 }
