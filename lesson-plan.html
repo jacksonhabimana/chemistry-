@@ -89,6 +89,65 @@ body{font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,sans-serif;backgrou
 </style>
 </head>
 <body>
+  <!-- ═══ PASTE THIS RIGHT AFTER <body> (before <div id="form-wrap">) ═══ -->
+<div id="teacher-lock" style="position:fixed;inset:0;background:#0d1117;z-index:9999;display:flex;align-items:center;justify-content:center;">
+  <div style="background:#161b22;border:1px solid #30363d;border-radius:12px;padding:32px;max-width:340px;width:90%;text-align:center;">
+    <h2 style="color:#fff;font-family:Georgia,serif;margin-bottom:6px;">Teacher Login</h2>
+    <p style="color:#8b949e;font-size:.85rem;margin-bottom:20px;">Log in to generate lesson plans</p>
+    <input type="text" id="tl-username" placeholder="Username" style="width:100%;background:#1c2333;border:1px solid #30363d;border-radius:6px;color:#fff;padding:10px 14px;margin-bottom:12px;font-size:.93rem;"/>
+    <input type="password" id="tl-password" placeholder="Password" onkeydown="if(event.key==='Enter')teacherLogin()" style="width:100%;background:#1c2333;border:1px solid #30363d;border-radius:6px;color:#fff;padding:10px 14px;margin-bottom:16px;font-size:.93rem;"/>
+    <button onclick="teacherLogin()" style="width:100%;background:#38bdf8;color:#0d1117;border:none;border-radius:6px;padding:11px;font-weight:bold;cursor:pointer;">Log In</button>
+    <p id="tl-error" style="color:#f87171;margin-top:12px;font-size:.85rem;display:none;">Invalid username or password.</p>
+  </div>
+</div>
+
+<script>
+const TEACHER_LOGIN_URL = 'https://chem-payment.hajackson2020.workers.dev/teachers/login';
+
+(function checkExistingSession(){
+  const token = localStorage.getItem('teacher_token');
+  if (token) {
+    document.getElementById('teacher-lock').style.display = 'none';
+  }
+})();
+
+async function teacherLogin(){
+  const username = document.getElementById('tl-username').value.trim();
+  const password = document.getElementById('tl-password').value;
+  const err = document.getElementById('tl-error');
+  err.style.display = 'none';
+  if (!username || !password) return;
+
+  try {
+    const r = await fetch(TEACHER_LOGIN_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, password })
+    });
+    const d = await r.json();
+    if (r.ok && d.token) {
+      localStorage.setItem('teacher_token', d.token);
+      localStorage.setItem('teacher_name', d.name || username);
+      // Auto-fill the Teacher Name field if present
+      const teacherField = document.getElementById('teacher');
+      if (teacherField && !teacherField.value) teacherField.value = d.name || username;
+      document.getElementById('teacher-lock').style.display = 'none';
+    } else {
+      err.textContent = d.error || 'Invalid username or password.';
+      err.style.display = 'block';
+    }
+  } catch(e) {
+    err.textContent = 'Network error. Please try again.';
+    err.style.display = 'block';
+  }
+}
+
+function teacherLogout(){
+  localStorage.removeItem('teacher_token');
+  localStorage.removeItem('teacher_name');
+  location.reload();
+}
+</script>
 <nav class="nav">
   <a class="nav-logo" href="index.html">&#x2728; Jackson AI</a>
   <span class="nav-sep">&#x203A;</span>
