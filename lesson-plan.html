@@ -1296,11 +1296,25 @@ Return EXACTLY this JSON:
     document.getElementById('out-body').innerHTML=`<div class="lbox"><p style="color:#e53e3e">Request timed out. Please check your internet and try again.</p><br><button class="ba bbk" onclick="goBack()">&#x21A9; Go Back</button></div>`;
   },55000);
 
-  try{
+   try{
+    const teacherToken=localStorage.getItem('teacher_token')||'';
     const r=await fetch(WORKER,{
       method:'POST',
-      headers:{'Content-Type':'application/json'},
+      headers:{'Content-Type':'application/json','X-Teacher-Token':teacherToken},
       body:JSON.stringify({prompt})
+    });
+    clearTimeout(fetchTimer);
+    const res=await r.json();
+    if(!r.ok){
+      if(res.error==='quota')throw new Error('AI quota exceeded. Please try again later.');
+      if(res.error==='auth'){
+        localStorage.removeItem('teacher_token');
+        throw new Error('Your session expired. Please refresh the page and log in again.');
+      }
+      if(res.error==='limit')throw new Error(res.message||'Your generation limit has been reached.');
+      throw new Error(res.error||'Worker error. Please try again.');
+    }
+  
     });
     clearTimeout(fetchTimer);
     const res=await r.json();
