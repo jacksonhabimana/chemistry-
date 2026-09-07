@@ -30,7 +30,7 @@ body{font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,sans-serif;backgrou
 .field label{font-size:.82rem;font-weight:600;color:#8b949e}
 .req{color:#e53e3e;margin-left:2px}
 .field input,.field select{border:1.5px solid #30363d;border-radius:8px;padding:10px 14px;font-size:.92rem;font-family:inherit;color:#e6edf3;background:#0d1117;outline:none;transition:border-color .2s,box-shadow .2s;width:100%;appearance:none;-webkit-appearance:none}
-.field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='11' fill='%23999' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;cursor:pointer}
+.field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/100/svg' width='11' height='11' fill='%23999' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;cursor:pointer}
 .field input:focus,.field select:focus{border-color:#c48a00;box-shadow:0 0 0 3px rgba(196,138,0,.12)}
 .field input::placeholder{color:#484f58}
 .field select:disabled{opacity:.45;cursor:not-allowed;background-color:#161b22}
@@ -86,6 +86,25 @@ body{font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,sans-serif;backgrou
 .lbox .sub{font-size:.8rem;color:#ccc}
 .sig{min-height:52px}
 @media print{body{background:#fff}.nav,.page-head-row,#form-wrap,.mode-tabs,.abar{display:none!important}#out-wrap{display:block!important}.ocard{box-shadow:none;border:1px solid #ccc;border-radius:0}.ohd{background:#fffdf5}.ptbl td:first-child{color:#a07000;background:#fffdf5}.ptbl .sr td{background:#fffbe8;color:#9a6f00}.ptbl tr{border-color:#eee}}
+
+/* Term plan access / payment */
+.access-card{background:linear-gradient(135deg,#171d25,#11161c);border:1px solid #c48a00;border-radius:14px;padding:18px 20px;margin:0 0 20px;box-shadow:0 4px 16px rgba(0,0,0,.18)}
+.access-row{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}.access-title{font-weight:800;color:#e6edf3;font-size:1rem}.access-sub{color:#8b949e;font-size:.82rem;margin-top:5px}.access-count{color:#c48a00;font-weight:800}.access-actions{display:flex;gap:8px;flex-wrap:wrap}.pay-btn{border:0;border-radius:9px;padding:10px 15px;font-weight:800;cursor:pointer;text-decoration:none;display:inline-block}.pay-primary{background:#c48a00;color:#fff}.pay-secondary{background:#21262d;color:#e6edf3;border:1px solid #30363d}.pay-card{display:none;background:#171d25;border:1px solid #c48a00;border-radius:14px;padding:22px;margin:0 0 20px}.pay-card h3{margin:0 0 8px;color:#fff}.pay-card p{color:#aab2bd;font-size:.86rem;line-height:1.5;margin:6px 0}.pay-number{font-size:1.2rem;font-weight:900;color:#c48a00;letter-spacing:.5px}.pay-amount{font-size:1.1rem;font-weight:900;color:#fff}.pay-note{font-size:.78rem!important;color:#8b949e!important}.blocked{opacity:.55;pointer-events:none}.term-tag{display:inline-block;padding:3px 8px;border-radius:999px;background:#2a2110;color:#e7b63b;font-size:.72rem;font-weight:800;margin-left:6px}
+@media(max-width:600px){.access-row{align-items:flex-start}.access-actions{width:100%}.pay-btn{flex:1;text-align:center}}
+
+
+.payment-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:9999;align-items:center;justify-content:center;padding:20px}
+.payment-modal-card{width:min(520px,100%);background:#161b22;border:1px solid #c48a00;border-radius:16px;padding:24px;box-shadow:0 12px 40px rgba(0,0,0,.45);color:#e6edf3}
+.payment-modal-card h2{margin:0 0 10px;color:#c48a00;font-size:1.2rem}
+.payment-modal-card p{color:#b1bac4;font-size:.9rem;line-height:1.55;margin:8px 0}
+.pay-number-big{font-size:1.5rem;font-weight:800;color:#fff;background:#21262d;border-radius:10px;padding:13px;text-align:center;letter-spacing:1px;margin:14px 0}
+.pay-step{margin:10px 0;padding:10px 12px;background:#0d1117;border-radius:8px}
+.payment-modal-actions{display:flex;gap:8px;margin-top:16px}
+.payment-close{background:#21262d;color:#e6edf3;border:1px solid #30363d}
+.payment-modal input{width:100%;box-sizing:border-box;background:#0d1117;border:1px solid #30363d;border-radius:8px;color:#fff;padding:11px;margin-top:6px}
+.payment-note{font-size:.78rem!important;color:#8b949e!important}
+
+.mobilepay-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.78);z-index:10000;align-items:center;justify-content:center;padding:20px}.mobilepay-box{width:min(500px,100%);background:#161b22;border:1px solid #c48a00;border-radius:16px;padding:24px;color:#e6edf3;box-shadow:0 16px 50px rgba(0,0,0,.5)}.mobilepay-box h2{margin:0 0 8px;color:#c48a00}.mobilepay-box p{color:#b1bac4;line-height:1.5}.mobilepay-networks{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0}.network-btn{border:1px solid #30363d;background:#21262d;color:#e6edf3;border-radius:10px;padding:13px;cursor:pointer;font-weight:700}.network-btn.active{border-color:#c48a00;box-shadow:0 0 0 2px rgba(196,138,0,.2)}.mobilepay-field{margin-top:12px}.mobilepay-field label{display:block;font-size:.84rem;margin-bottom:6px}.mobilepay-field input{width:100%;box-sizing:border-box;background:#0d1117;color:#fff;border:1px solid #30363d;border-radius:9px;padding:12px;font-size:1rem}.mobilepay-actions{display:flex;gap:9px;margin-top:18px}.mobilepay-actions button{flex:1}.mobilepay-status{margin-top:14px;padding:11px;border-radius:9px;background:#0d1117;color:#b1bac4;display:none}.mobilepay-status.ok{color:#3fb950}.mobilepay-status.err{color:#f85149}.mobilepay-close{background:#21262d!important;color:#e6edf3!important;border:1px solid #30363d!important}
 </style>
 </head>
 <body>
@@ -117,6 +136,8 @@ body{font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,sans-serif;backgrou
   </div>
 </div>
 
+
+<div class="mobilepay-modal" id="mobilepay-modal" role="dialog" aria-modal="true"><div class="mobilepay-box"><h2>💳 Pay 100 RWF</h2><p>Choose your mobile-money network, enter the phone number the money will come from, then confirm. A payment request will be sent to that phone.</p><div class="mobilepay-networks"><button type="button" class="network-btn" id="mtn-btn" onclick="selectNetwork('MTN')">🟡 MTN MoMo</button><button type="button" class="network-btn" id="airtel-btn" onclick="selectNetwork('Airtel')">🔴 Airtel Money</button></div><div class="mobilepay-field"><label>Mobile Money phone number</label><input id="payer-number" type="tel" inputmode="numeric" maxlength="10" placeholder="07XXXXXXXX"></div><div class="mobilepay-field"><label>Name</label><input id="payer-name" type="text" placeholder="Your name"></div><div class="mobilepay-actions"><button type="button" class="pay-btn pay-primary" onclick="startMobileMoneyPayment()">📲 Send Payment Request</button><button type="button" class="pay-btn mobilepay-close" onclick="closeMobileMoneyPayment()">Close</button></div><div class="mobilepay-status" id="mobilepay-status"></div></div></div>
 <script>
 const TEACHER_LOGIN_URL = 'https://chem-payment.hajackson2020.workers.dev/teachers/login';
 const TEACHER_REGISTER_URL = 'https://chem-payment.hajackson2020.workers.dev/teachers/self-register';
@@ -210,6 +231,13 @@ function teacherLogout(){
   localStorage.removeItem('teacher_name');
   location.reload();
 }
+
+(function initAccessUI(){
+  const term=document.getElementById('term');
+  if(term) term.addEventListener('change',refreshAccessStatus);
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',refreshAccessStatus);
+  else refreshAccessStatus();
+})();
 </script>
 <nav class="nav">
   <a class="nav-logo" href="index.html">&#x2728; Jackson AI</a>
@@ -224,6 +252,24 @@ function teacherLogout(){
   <div class="page-head-row">
     <div class="page-head"><h1>Create Lesson Plan</h1><p>Fill in the details below to generate a comprehensive lesson plan.</p></div>
   </div>
+
+    <div class="access-card" id="access-card">
+      <div class="access-row">
+        <div>
+          <div class="access-title">🎁 Free Lesson Plans <span class="term-tag" id="access-term">Term 1</span></div>
+          <div class="access-sub">Your administrator has granted <span class="access-count" id="free-count">1</span> free lesson-plan generation for this term.</div>
+        </div>
+        <div class="access-actions">
+          <button class="pay-btn pay-secondary" type="button" onclick="refreshAccessStatus()">↻ Refresh</button>
+        </div>
+      </div>
+    </div>
+    <div class="pay-card" id="payment-card">
+      <h3>💳 Continue with Term 1</h3>
+      <p>You have used your free lesson plan. Pay <span class="pay-amount">100 RWF</span> to generate another lesson plan.</p>
+      <p class="pay-note">Choose MTN MoMo or Airtel Money, enter the phone number that will pay, and a payment request will be sent to that phone.</p>
+      <div class="access-actions" style="margin-top:12px"><button class="pay-btn pay-primary" type="button" onclick="openMobileMoneyPayment()">💰 Pay 100 RWF</button></div>
+    </div>
   <div id="form-wrap">
     <div class="card">
       <div class="sec-title"><div class="badge">A</div><h2>Lesson Plan Details</h2></div>
@@ -239,7 +285,7 @@ function teacherLogout(){
           <div class="sw"><select id="classLevel" onchange="onCls()" disabled><option value="">Select class level</option></select><div class="sp" id="sp-c"></div></div>
         </div>
         <div class="field"><label>Term</label>
-          <select id="term"><option>Term 1</option><option>Term 2</option><option>Term 3</option></select>
+          <select id="term" onchange="onTermChanged()"><option>Term 1</option><option>Term 2</option><option>Term 3</option></select>
         </div>
         <div class="field"><label>Date</label><input type="date" id="date"></div>
       </div>
@@ -1299,12 +1345,80 @@ function chk(){
   document.getElementById('genBtn').disabled=!ok;
 }
 
+const FREE_PLANS_PER_TERM = 1;
+const TERM_PRICE_RWF = 100;
+const PAYMENT_NUMBER = '0788800375';
+const PAYMENT_API = 'https://chem-payment.hajackson2020.workers.dev';
+
+function accessKey(){
+  const teacher = (localStorage.getItem('teacher_name') || 'teacher').trim().toLowerCase().replace(/[^a-z0-9_-]/g,'_');
+  const term = document.getElementById('term')?.value || 'Term 1';
+  return `lessonPlanAccess_${teacher}_${term.replace(/\\s+/g,'_')}`;
+}
+function getAccess(){
+  const key=accessKey();
+  let a;
+  try{a=JSON.parse(localStorage.getItem(key)||'null')}catch(e){a=null}
+  if(!a) a={freeUsed:0,paid:false};
+  return a;
+}
+function saveAccess(a){localStorage.setItem(accessKey(),JSON.stringify(a));}
+function refreshAccessStatus(){
+  const term=document.getElementById('term')?.value || 'Term 1';
+  const a=getAccess();
+  const remaining=Math.max(0,FREE_PLANS_PER_TERM-(Number(a.freeUsed)||0));
+  document.getElementById('access-term').textContent=term;
+  document.getElementById('free-count').textContent=a.paid ? 'Paid access' : remaining;
+  const payCard=document.getElementById('payment-card');
+  const form=document.getElementById('form-wrap');
+  if(term==='Term 1' && !a.paid && remaining===0){
+    payCard.style.display='block';
+    form.classList.add('blocked');
+  }else{
+    payCard.style.display='none';
+    form.classList.remove('blocked');
+  }
+}
+function canGenerate(){
+  const a=getAccess();
+  if(a.paid) return true;
+  const remaining=FREE_PLANS_PER_TERM-(Number(a.freeUsed)||0);
+  if(remaining<=0){refreshAccessStatus();return false;}
+  return true;
+}
+function recordSuccessfulGeneration(){
+  const a=getAccess();
+  if(!a.paid) a.freeUsed=(Number(a.freeUsed)||0)+1;
+  saveAccess(a);
+  refreshAccessStatus();
+}
+function openMobileMoneyPayment(){
+  const m=document.getElementById('mobilepay-modal'); if(m) m.style.display='flex';
+  const n=document.getElementById('teacher')?.value || localStorage.getItem('teacher_name') || '';
+  const f=document.getElementById('payer-name'); if(f&&!f.value) f.value=n;
+}
+function closeMobileMoneyPayment(){const m=document.getElementById('mobilepay-modal');if(m)m.style.display='none';}
+let selectedNetwork='';
+function selectNetwork(n){selectedNetwork=n;document.getElementById('mtn-btn').classList.toggle('active',n==='MTN');document.getElementById('airtel-btn').classList.toggle('active',n==='Airtel');}
+function paymentStatus(msg,type=''){const e=document.getElementById('mobilepay-status');e.textContent=msg;e.className='mobilepay-status '+type;e.style.display='block';}
+async function startMobileMoneyPayment(){
+ const phone=document.getElementById('payer-number').value.trim();
+ const name=document.getElementById('payer-name').value.trim()||localStorage.getItem('teacher_name')||'Teacher';
+ if(!selectedNetwork)return paymentStatus('Please choose MTN MoMo or Airtel Money.','err');
+ if(!/^07\d{8}$/.test(phone))return paymentStatus('Enter a valid Rwanda mobile number, e.g. 0781234567.','err');
+ paymentStatus('Sending the 100 RWF payment request to '+phone+'...');
+ try{const r=await fetch(PAYMENT_API+'/payment/initiate',{method:'POST',headers:{'Content-Type':'application/json','X-Teacher-Token':localStorage.getItem('teacher_token')||''},body:JSON.stringify({amount:TERM_PRICE_RWF,phone,network:selectedNetwork,name,term:'Term 1'})});const d=await r.json();if(!r.ok)throw new Error(d.error||'Could not start payment.');paymentStatus('Request sent. Check '+phone+' and approve the 100 RWF payment with your Mobile Money PIN.','ok');if(d.reference)pollPayment(d.reference);}catch(e){paymentStatus(e.message||'Payment request failed.','err');}}
+async function pollPayment(reference){for(let i=0;i<30;i++){await new Promise(r=>setTimeout(r,3000));try{const r=await fetch(PAYMENT_API+'/payment/verify?reference='+encodeURIComponent(reference));const d=await r.json();if(d.paid){const a=getAccess();a.paid=true;saveAccess(a);refreshAccessStatus();paymentStatus('Payment confirmed. Term 1 is unlocked.','ok');setTimeout(closeMobileMoneyPayment,1200);return;}if(d.status==='failed')return paymentStatus('Payment failed or was cancelled. Please try again.','err');}catch(e){}}paymentStatus('Still waiting for confirmation. Please wait and try Refresh if needed.');}
+function copyPayNumber(){if(navigator.clipboard)navigator.clipboard.writeText(PAYMENT_NUMBER).then(()=>alert('Payment number copied: '+PAYMENT_NUMBER));else prompt('Copy payment number:',PAYMENT_NUMBER);}
+function onTermChanged(){refreshAccessStatus();}
+
 function setTab(btn){
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   btn.classList.add('active');
 }
 
 async function doGen(){
+  if(!canGenerate()) return;
   const school=document.getElementById('school').value.trim()||'Not specified';
   const teacher=document.getElementById('teacher').value.trim();
   const subj=document.getElementById('subject').value;
@@ -1379,6 +1493,11 @@ Return EXACTLY this JSON:
         throw new Error('Your session expired. Please refresh the page and log in again.');
       }
       if(res.error==='limit')throw new Error(res.message||'Your generation limit has been reached.');
+      if(res.error==='payment_required'){
+        refreshAccessStatus();
+        openMobileMoneyPayment();
+        throw new Error(res.message||'Please pay 100 RWF to unlock Term 1.');
+      }
       throw new Error(res.error||'Worker error. Please try again.');
     }
  
@@ -1410,6 +1529,7 @@ Return EXACTLY this JSON:
         throw new Error('Could not parse AI response. Please try again.');
     }
     renderPlan({school,teacher,subj,lv,term,date,dur,cls,lang,loc,sn,unitName,lesName},plan);
+    recordSuccessfulGeneration();
   }catch(e){
     clearTimeout(fetchTimer);
     const msg=e.message||'Network error. Please check your internet and try again.';
@@ -1760,6 +1880,9 @@ function goBack(){
   document.getElementById('out-wrap').style.display='none';
   document.getElementById('form-wrap').style.display='block';
 }
+
+
+
 
 
 
