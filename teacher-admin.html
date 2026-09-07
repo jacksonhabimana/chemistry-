@@ -927,6 +927,96 @@ table.results tr:hover td{background:rgba(255,255,255,.02);}
   <button class="btn" onclick="saveLessonPlanLimits()" style="margin-top:8px;">💾 Save Limits</button>
   <p id="lp-limits-msg" style="margin-top:10px;font-size:.85rem;"></p>
 </div>
+<!-- ═══ PASTE THIS CARD INSIDE tab-settings, near the Lesson Plan Limits card ═══ -->
+<div class="card">
+  <h2>👩‍🏫 Manage Teacher Accounts</h2>
+  <p style="color:var(--muted);font-size:.85rem;margin-bottom:14px;">Add teacher logins for the Lesson Plan Generator. Each teacher gets their own monthly/term/yearly limit.</p>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;">
+    <div><label>Username</label><input type="text" id="mt-username" placeholder="e.g. jclaudine"/></div>
+    <div><label>Full Name</label><input type="text" id="mt-name" placeholder="e.g. Claudine U."/></div>
+    <div><label>Password</label><input type="password" id="mt-password" placeholder="min 4 characters"/></div>
+  </div>
+
+  <button class="btn" onclick="addTeacher()" style="margin-top:8px;">➕ Add Teacher</button>
+  <p id="mt-msg" style="margin-top:10px;font-size:.85rem;"></p>
+
+  <div id="mt-list" style="margin-top:20px;"></div>
+</div>
+
+<script>
+const MT_REGISTER_URL = 'https://chem-payment.hajackson2020.workers.dev/teachers/register';
+const MT_LIST_URL = 'https://chem-payment.hajackson2020.workers.dev/teachers/list';
+const MT_DELETE_URL = 'https://chem-payment.hajackson2020.workers.dev/teachers/delete';
+
+function mtAdminKey(){
+  return localStorage.getItem('lp_admin_key') || document.getElementById('lp-admin-key')?.value.trim() || '';
+}
+
+async function addTeacher(){
+  const m = document.getElementById('mt-msg');
+  const key = mtAdminKey();
+  const username = document.getElementById('mt-username').value.trim();
+  const name = document.getElementById('mt-name').value.trim();
+  const password = document.getElementById('mt-password').value;
+
+  if(!key){ m.style.color='var(--red)'; m.textContent='❌ Enter your Admin Sync Key in the Lesson Plan Limits section above first.'; return; }
+  if(!username||!password){ m.style.color='var(--red)'; m.textContent='❌ Username and password are required.'; return; }
+
+  try{
+    const r = await fetch(MT_REGISTER_URL, {
+      method:'POST',
+      headers:{'Content-Type':'application/json','X-Admin-Key':key},
+      body: JSON.stringify({username, name, password})
+    });
+    const d = await r.json();
+    if(r.ok){
+      m.style.color='var(--green)'; m.textContent='✅ Teacher added.';
+      document.getElementById('mt-username').value='';
+      document.getElementById('mt-name').value='';
+      document.getElementById('mt-password').value='';
+      loadTeacherList();
+    }else{
+      m.style.color='var(--red)'; m.textContent='❌ '+(d.error||'Failed to add teacher.');
+    }
+  }catch(e){
+    m.style.color='var(--red)'; m.textContent='❌ Network error.';
+  }
+}
+
+async function loadTeacherList(){
+  const key = mtAdminKey();
+  const listDiv = document.getElementById('mt-list');
+  if(!key){ listDiv.innerHTML=''; return; }
+  try{
+    const r = await fetch(MT_LIST_URL, { headers:{'X-Admin-Key':key} });
+    const d = await r.json();
+    if(!r.ok || !d.teachers){ listDiv.innerHTML=''; return; }
+    if(d.teachers.length===0){ listDiv.innerHTML='<p style="color:var(--muted);font-size:.85rem;">No teachers added yet.</p>'; return; }
+    listDiv.innerHTML = '<label>Current Teachers</label>' + d.teachers.map(t=>`
+      <div style="display:flex;justify-content:space-between;align-items:center;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:10px 14px;margin-bottom:8px;">
+        <span style="color:#fff;">${t.name} <span style="color:var(--muted);font-size:.8rem;">(${t.username})</span></span>
+        <button onclick="deleteTeacher('${t.username}')" style="background:var(--red);color:#fff;border:none;border-radius:4px;padding:4px 10px;cursor:pointer;font-size:.8rem;">Remove</button>
+      </div>
+    `).join('');
+  }catch(e){
+    listDiv.innerHTML = '<p style="color:var(--red);font-size:.85rem;">Could not load teacher list.</p>';
+  }
+}
+
+async function deleteTeacher(username){
+  const key = mtAdminKey();
+  if(!confirm('Remove teacher "'+username+'"?')) return;
+  try{
+    await fetch(MT_DELETE_URL, {
+      method:'POST',
+      headers:{'Content-Type':'application/json','X-Admin-Key':key},
+      body: JSON.stringify({username})
+    });
+    loadTeacherList();
+  }catch(e){}
+}
+</script>      
 
 <script>
 const LP_WORKER = 'https://chem-payment.hajackson2020.workers.dev/lesson-plan/limits';
