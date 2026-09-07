@@ -124,6 +124,9 @@ const TEACHER_REGISTER_URL = 'https://chem-payment.hajackson2020.workers.dev/tea
 (function checkExistingSession(){
   const token = localStorage.getItem('teacher_token');
   if (token) document.getElementById('teacher-lock').style.display = 'none';
+  const savedName = localStorage.getItem('teacher_name');
+  const navName = document.getElementById('nav-teacher-name');
+  if (savedName && navName) navName.textContent = savedName;
 })();
 
 function tlShowRegister(){
@@ -140,6 +143,8 @@ function tlOnSuccess(token, name, username){
   localStorage.setItem('teacher_name', name || username);
   const teacherField = document.getElementById('teacher');
   if (teacherField && !teacherField.value) teacherField.value = name || username;
+  const navName = document.getElementById('nav-teacher-name');
+  if (navName) navName.textContent = name || username;
   document.getElementById('teacher-lock').style.display = 'none';
 }
 
@@ -210,6 +215,10 @@ function teacherLogout(){
   <a class="nav-logo" href="index.html">&#x2728; Jackson AI</a>
   <span class="nav-sep">&#x203A;</span>
   <span class="nav-page" style="color:#e6edf3;font-weight:600">Create Lesson Plan</span>
+  <span style="margin-left:auto;display:flex;align-items:center;gap:12px;font-size:.82rem;color:#8b949e;">
+    <span id="nav-teacher-name"></span>
+    <a href="#" onclick="teacherLogout();return false;" style="color:#f87171;text-decoration:none;font-weight:600;">Logout</a>
+  </span>
 </nav>
 <div class="page">
   <div class="page-head-row">
