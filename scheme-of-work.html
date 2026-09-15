@@ -1151,13 +1151,7 @@ async function callAI(prompt){
     throw new Error('Cannot reach server. Check your internet connection.');
   }
   const res=await r.json();
-  if(!r.ok){
-      const errMsg=res.error||'Error generating content. Please try again.';
-      if(errMsg.toLowerCase().includes('quota')||errMsg.toLowerCase().includes('limit')){
-        throw new Error('⚠️ Gemini API quota exceeded. Your daily limit has been reached. Please wait a few minutes or until tomorrow and try again. (Tip: generate one term at a time to save quota)');
-      }
-      throw new Error(errMsg);
-    }
+  if(!r.ok)throw new Error(res.error||'Error generating content. Please try again.');
   let raw=res.text||'';
   raw=raw.replace(/```json/gi,'').replace(/```/g,'').trim();
 
@@ -1194,13 +1188,7 @@ async function callAI(prompt){
     throw new Error('Cannot reach server. Check your internet connection.');
   }
   const res=await r.json();
-  if(!r.ok){
-      const errMsg=res.error||'Error generating content. Please try again.';
-      if(errMsg.toLowerCase().includes('quota')||errMsg.toLowerCase().includes('limit')){
-        throw new Error('⚠️ Gemini API quota exceeded. Your daily limit has been reached. Please wait a few minutes or until tomorrow and try again. (Tip: generate one term at a time to save quota)');
-      }
-      throw new Error(errMsg);
-    }
+  if(!r.ok)throw new Error(res.error||'Error generating content. Please try again.');
   let raw=res.text||'';
   raw=raw.replace(/```json/gi,'').replace(/```/g,'').trim();
 
