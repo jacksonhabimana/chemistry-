@@ -1607,21 +1607,36 @@ Return ONLY the completed JSON, no markdown, no backticks, no explanation.
 
 ${templateJSON}`;
 
-      try{
-        const {parsed,raw}=await callAI(prompt);
-        if(parsed&&parsed.unit_title){
-          allUnits.push(parsed);
-        } else {
-          const salvaged=salvageUnits(raw);
-          if(salvaged.length)allUnits=allUnits.concat(salvaged);
-          else allUnits.push({unit_title:unitName,week_range:'',lessons_and_evaluation:lessonsTemplate,knowledge_understanding:'',skills:'',attitudes_values:'',key_unit_competence:'',teaching_methods:'Group work, Pair work, Questioning, Practical activities, Video clips',evaluation_procedures:'Oral, written, practical',resources_references:''});
+      let unitDone=false;
+      for(let attempt=0;attempt<2&&!unitDone;attempt++){
+        try{
+          const {parsed,raw}=await callAI(prompt);
+          if(parsed&&parsed.unit_title){
+            allUnits.push(parsed);
+          } else {
+            const salvaged=salvageUnits(raw);
+            if(salvaged.length)allUnits=allUnits.concat(salvaged);
+            else allUnits.push({unit_title:unitName,week_range:'',lessons_and_evaluation:lessonsTemplate,knowledge_understanding:'',skills:'',attitudes_values:'',key_unit_competence:'',teaching_methods:'Group work, Pair work, Questioning, Practical activities, Video clips',evaluation_procedures:'Oral, written, practical',resources_references:''});
+          }
+          unitDone=true;
+        }catch(e){
+          if(attempt===0){
+            // First failure for this unit: wait longer (likely a rate limit) and retry once
+            document.getElementById('out-body').innerHTML=`<div class="lbox"><div class="sp2"></div><p>Jackson AI is building your scheme of work&hellip;</p><p class="sub">${termInfo.label}: Unit ${ui+1} of ${termUnitIdx.length} &mdash; ${unitName} (retrying&hellip;)</p></div>`;
+            await new Promise(res=>setTimeout(res,5000));
+            continue;
+          }
+          if(allUnits.length===0&&ui===0&&ti===0){
+            document.getElementById('out-body').innerHTML=`<div class="lbox"><p style="color:#e53e3e;margin-bottom:10px">${e.message}</p><div style="display:flex;gap:8px;justify-content:center"><button class="ba bpr" onclick="doGen()">🔄 Try Again</button><button class="ba bbk" onclick="goBack()">↩ Go Back</button></div></div>`;
+            return;
+          }
+          console.log('Unit '+unitName+' failed after retry:',e.message);
         }
-      }catch(e){
-        if(allUnits.length===0&&ui===0&&ti===0){
-          document.getElementById('out-body').innerHTML=`<div class="lbox"><p style="color:#e53e3e;margin-bottom:10px">${e.message}</p><div style="display:flex;gap:8px;justify-content:center"><button class="ba bpr" onclick="doGen()">🔄 Try Again</button><button class="ba bbk" onclick="goBack()">↩ Go Back</button></div></div>`;
-          return;
-        }
-        console.log('Unit '+unitName+' failed:',e.message);
+      }
+
+      // Small pause between successive AI calls to avoid tripping per-minute rate limits
+      if(ui<termUnitIdx.length-1||ti<activeTerms.length-1){
+        await new Promise(res=>setTimeout(res,1500));
       }
     }
 
