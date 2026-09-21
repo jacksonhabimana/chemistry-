@@ -930,7 +930,7 @@ table.results tr:hover td{background:rgba(255,255,255,.02);}
 <!-- ═══ PASTE THIS CARD INSIDE tab-settings, near the Lesson Plan Limits card ═══ -->
 <div class="card">
   <h2>👩‍🏫 Manage Teacher Accounts</h2>
-  <p style="color:var(--muted);font-size:.85rem;margin-bottom:14px;">Add teacher logins for the Lesson Plan Generator. Each teacher gets their own monthly/term/yearly limit.</p>
+  <p style="color:var(--muted);font-size:.85rem;margin-bottom:14px;">Add teacher logins for the Lesson Plan Generator. Toggle any teacher to Unlimited to bypass their monthly/term/yearly caps.</p>
 
   <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;">
     <div><label>Username</label><input type="text" id="mt-username" placeholder="e.g. jclaudine"/></div>
@@ -948,6 +948,7 @@ table.results tr:hover td{background:rgba(255,255,255,.02);}
 const MT_REGISTER_URL = 'https://chem-payment.hajackson2020.workers.dev/teachers/register';
 const MT_LIST_URL = 'https://chem-payment.hajackson2020.workers.dev/teachers/list';
 const MT_DELETE_URL = 'https://chem-payment.hajackson2020.workers.dev/teachers/delete';
+const MT_UNLIMITED_URL = 'https://chem-payment.hajackson2020.workers.dev/teachers/set-unlimited';
 
 function mtAdminKey(){
   return localStorage.getItem('lp_admin_key') || document.getElementById('lp-admin-key')?.value.trim() || '';
@@ -994,14 +995,31 @@ async function loadTeacherList(){
     if(!r.ok || !d.teachers){ listDiv.innerHTML=''; return; }
     if(d.teachers.length===0){ listDiv.innerHTML='<p style="color:var(--muted);font-size:.85rem;">No teachers added yet.</p>'; return; }
     listDiv.innerHTML = '<label>Current Teachers</label>' + d.teachers.map(t=>`
-      <div style="display:flex;justify-content:space-between;align-items:center;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:10px 14px;margin-bottom:8px;">
-        <span style="color:#fff;">${t.name} <span style="color:var(--muted);font-size:.8rem;">(${t.username})</span></span>
-        <button onclick="deleteTeacher('${t.username}')" style="background:var(--red);color:#fff;border:none;border-radius:4px;padding:4px 10px;cursor:pointer;font-size:.8rem;">Remove</button>
+      <div style="display:flex;justify-content:space-between;align-items:center;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:10px 14px;margin-bottom:8px;flex-wrap:wrap;gap:8px;">
+        <span style="color:#fff;">${t.name} <span style="color:var(--muted);font-size:.8rem;">(${t.username})</span>
+          ${t.unlimited ? '<span style="color:var(--green);font-size:.75rem;margin-left:6px;">● Unlimited</span>' : '<span style="color:var(--muted);font-size:.75rem;margin-left:6px;">● Limited</span>'}
+        </span>
+        <span style="display:flex;gap:8px;">
+          <button onclick="toggleUnlimited('${t.username}', ${!t.unlimited})" style="background:${t.unlimited ? 'var(--surface2)' : 'var(--green)'};color:${t.unlimited ? 'var(--muted)' : '#fff'};border:1px solid var(--border);border-radius:4px;padding:4px 10px;cursor:pointer;font-size:.8rem;">${t.unlimited ? 'Set Limited' : 'Set Unlimited'}</button>
+          <button onclick="deleteTeacher('${t.username}')" style="background:var(--red);color:#fff;border:none;border-radius:4px;padding:4px 10px;cursor:pointer;font-size:.8rem;">Remove</button>
+        </span>
       </div>
     `).join('');
   }catch(e){
     listDiv.innerHTML = '<p style="color:var(--red);font-size:.85rem;">Could not load teacher list.</p>';
   }
+}
+
+async function toggleUnlimited(username, newValue){
+  const key = mtAdminKey();
+  try{
+    await fetch(MT_UNLIMITED_URL, {
+      method:'POST',
+      headers:{'Content-Type':'application/json','X-Admin-Key':key},
+      body: JSON.stringify({username, unlimited:newValue})
+    });
+    loadTeacherList();
+  }catch(e){}
 }
 
 async function deleteTeacher(username){
