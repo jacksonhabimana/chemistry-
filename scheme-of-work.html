@@ -1404,6 +1404,44 @@ function salvageUnits(raw){
 
 const TERM_META={term1:{label:'Term 1',weeks:15},term2:{label:'Term 2',weeks:13},term3:{label:'Term 3',weeks:11}};
 
+// Rwandan academic calendar 2026/2027 - all school weeks run Monday-Friday
+// Term 1: 07/09/2026 - 18/12/2026 | Term 2: 04/01/2027 - 02/04/2027 | Term 3: 20/04/2027 - 02/07/2027 (starts Tuesday)
+const TERM_DATES={
+  term1:{start:'2026-09-07'},
+  term2:{start:'2027-01-04'},
+  term3:{week1Start:'2027-04-20',week2Start:'2027-04-26'}
+};
+function addDays(d,n){const r=new Date(d);r.setDate(r.getDate()+n);return r;}
+function parseISODate(s){const p=s.split('-').map(Number);return new Date(p[0],p[1]-1,p[2]);}
+function weekBounds(termKey,n){
+  const cfg=TERM_DATES[termKey];
+  if(!cfg||!n||n<1)return null;
+  if(termKey==='term3'){
+    if(n===1){const s=parseISODate(cfg.week1Start);return{start:s,end:addDays(s,3)};}
+    const mon=addDays(parseISODate(cfg.week2Start),(n-2)*7);
+    return{start:mon,end:addDays(mon,4)};
+  }
+  const mon=addDays(parseISODate(cfg.start),(n-1)*7);
+  return{start:mon,end:addDays(mon,4)};
+}
+const MONTHS_SHORT=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+function fmtD(d){return String(d.getDate()).padStart(2,'0')+' '+MONTHS_SHORT[d.getMonth()];}
+function fmtDateRange(s,e){
+  if(s.getMonth()===e.getMonth()&&s.getFullYear()===e.getFullYear()){
+    return String(s.getDate()).padStart(2,'0')+'\u2013'+String(e.getDate()).padStart(2,'0')+' '+MONTHS_SHORT[s.getMonth()]+' '+e.getFullYear();
+  }
+  return fmtD(s)+' \u2013 '+fmtD(e)+' '+e.getFullYear();
+}
+function weekRangeDates(termKey,weekRangeStr){
+  const nums=(weekRangeStr||'').match(/\d+/g);
+  if(!nums||!nums.length)return '';
+  const ws=nums.map(Number);
+  const b1=weekBounds(termKey,Math.min(...ws));
+  const b2=weekBounds(termKey,Math.max(...ws));
+  if(!b1||!b2)return '';
+  return fmtDateRange(b1.start,b2.end);
+}
+
 function onTermToggle(){
   document.getElementById('chk-fullyear').checked=false;
   rebuildUnitsPerTerm();
@@ -1674,12 +1712,12 @@ function getNextWeekNumber(units){
   return maxWeek>0?maxWeek+1:(units?units.length:0)+1;
 }
 
-function closingWeeksRows(closing,nextWeek){
+function closingWeeksRows(closing,nextWeek,termKey){
   const rows=[];
   let wk=nextWeek;
-  if(closing.revision){rows.push({label:'REVISION',week:'WEEK '+wk});wk++;}
-  if(closing.examweek){rows.push({label:'EXAMINATIONS',week:'WEEK '+wk});wk++;}
-  if(closing.marking){rows.push({label:'MARKING & SCHOOL REPORT',week:'WEEK '+wk});wk++;}
+  if(closing.revision){rows.push({label:'REVISION',week:'WEEK '+wk,dates:weekRangeDates(termKey,'WEEK '+wk)});wk++;}
+  if(closing.examweek){rows.push({label:'EXAMINATIONS',week:'WEEK '+wk,dates:weekRangeDates(termKey,'WEEK '+wk)});wk++;}
+  if(closing.marking){rows.push({label:'MARKING & SCHOOL REPORT',week:'WEEK '+wk,dates:weekRangeDates(termKey,'WEEK '+wk)});wk++;}
   return rows;
 }
 
@@ -1715,7 +1753,7 @@ function renderSOW(info,sow){
     t.units.forEach(u=>{
       const objectives=`<strong>Knowledge &amp; Understanding:</strong> ${u.knowledge_understanding||''}<br><br><strong>Skills:</strong> ${u.skills||''}<br><br><strong>Attitudes &amp; Values:</strong> ${u.attitudes_values||''}`;
       html+=`<tr>
-        <td><span class="week-badge">${u.week_range||''}</span></td>
+        <td><span class="week-badge">${u.week_range||''}</span><br><span style="font-size:.68rem;color:var(--dim);white-space:nowrap">${weekRangeDates(t.termInfo.key,u.week_range)}</span></td>
         <td><strong>${u.unit_title||''}</strong></td>
         <td>${u.lessons_and_evaluation||''}</td>
         <td>${objectives}</td>
@@ -1731,11 +1769,11 @@ function renderSOW(info,sow){
       </tr>`;
     });
 
-    const closingRows=closingWeeksRows(info.closing,getNextWeekNumber(t.units));
+    const closingRows=closingWeeksRows(info.closing,getNextWeekNumber(t.units),t.termInfo.key);
     if(closingRows.length){
       html+='<tr><td colspan="7" style="background:#161b22;height:2px;padding:0"></td></tr>';
       closingRows.forEach(cr=>{
-        html+=`<tr style="background:#0d1117"><td><span class="week-badge" style="background:rgba(255,123,114,.12);color:#ff7b72">${cr.week}</span></td><td colspan="6" style="font-weight:700;color:#ff7b72">${cr.label}</td></tr>`;
+        html+=`<tr style="background:#0d1117"><td><span class="week-badge" style="background:rgba(255,123,114,.12);color:#ff7b72">${cr.week}</span><br><span style="font-size:.68rem;color:var(--dim);white-space:nowrap">${cr.dates||''}</span></td><td colspan="6" style="font-weight:700;color:#ff7b72">${cr.label}</td></tr>`;
       });
     }
 
@@ -1760,11 +1798,11 @@ function dlWord(){
     let rows='';
     t.units.forEach(u=>{
       const objectives=`<b>Knowledge &amp; Understanding:</b> ${u.knowledge_understanding||''}<br><br><b>Skills:</b> ${u.skills||''}<br><br><b>Attitudes &amp; Values:</b> ${u.attitudes_values||''}`;
-      rows+=`<tr><td>${u.week_range||''}</td><td><b>${u.unit_title||''}</b></td><td>${u.lessons_and_evaluation||''}</td><td>${objectives}</td><td>${u.teaching_methods||''}</td><td>${u.resources_references||''}</td><td></td></tr>`;
+      rows+=`<tr><td>${u.week_range||''}<br><small>${weekRangeDates(t.termInfo.key,u.week_range)}</small></td><td><b>${u.unit_title||''}</b></td><td>${u.lessons_and_evaluation||''}</td><td>${objectives}</td><td>${u.teaching_methods||''}</td><td>${u.resources_references||''}</td><td></td></tr>`;
       rows+=`<tr><td colspan="2" style="text-align:center;font-weight:bold;background:#fff3e0">Summative Evaluation</td><td colspan="2"><b>Key Unit Competence:</b> ${u.key_unit_competence||''}</td><td colspan="2"><b>Evaluation:</b> ${u.evaluation_procedures||'Oral, written, practical'}</td></tr>`;
     });
-    closingWeeksRows(info.closing,getNextWeekNumber(t.units)).forEach(cr=>{
-      rows+=`<tr><td>${cr.week}</td><td colspan="6" style="font-weight:bold;text-align:center">${cr.label}</td></tr>`;
+    closingWeeksRows(info.closing,getNextWeekNumber(t.units),t.termInfo.key).forEach(cr=>{
+      rows+=`<tr><td>${cr.week}<br><small>${cr.dates||''}</small></td><td colspan="6" style="font-weight:bold;text-align:center">${cr.label}</td></tr>`;
     });
     termBlocks+=`<h2>${t.termInfo.label} ${info.academicYear} &mdash; Number of weeks: ${t.termInfo.weeks}</h2>
 <table>
@@ -1801,11 +1839,11 @@ function dlPDF(){
     let rows='';
     t.units.forEach(u=>{
       const objectives=`<b>Knowledge &amp; Understanding:</b> ${u.knowledge_understanding||''}<br><br><b>Skills:</b> ${u.skills||''}<br><br><b>Attitudes &amp; Values:</b> ${u.attitudes_values||''}`;
-      rows+=`<tr><td>${u.week_range||''}</td><td><b>${u.unit_title||''}</b></td><td>${u.lessons_and_evaluation||''}</td><td>${objectives}</td><td>${u.teaching_methods||''}</td><td>${u.resources_references||''}</td><td></td></tr>`;
+      rows+=`<tr><td>${u.week_range||''}<br><small>${weekRangeDates(t.termInfo.key,u.week_range)}</small></td><td><b>${u.unit_title||''}</b></td><td>${u.lessons_and_evaluation||''}</td><td>${objectives}</td><td>${u.teaching_methods||''}</td><td>${u.resources_references||''}</td><td></td></tr>`;
       rows+=`<tr><td colspan="2" style="text-align:center;font-weight:bold;background:#fff3e0">Summative Evaluation</td><td colspan="2"><b>Key Unit Competence:</b> ${u.key_unit_competence||''}</td><td colspan="2"><b>Evaluation:</b> ${u.evaluation_procedures||'Oral, written, practical'}</td></tr>`;
     });
-    closingWeeksRows(info.closing,getNextWeekNumber(t.units)).forEach(cr=>{
-      rows+=`<tr><td>${cr.week}</td><td colspan="6" style="font-weight:bold;text-align:center">${cr.label}</td></tr>`;
+    closingWeeksRows(info.closing,getNextWeekNumber(t.units),t.termInfo.key).forEach(cr=>{
+      rows+=`<tr><td>${cr.week}<br><small>${cr.dates||''}</small></td><td colspan="6" style="font-weight:bold;text-align:center">${cr.label}</td></tr>`;
     });
     termBlocks+=`<h2>${t.termInfo.label} ${info.academicYear} &mdash; Number of weeks: ${t.termInfo.weeks}</h2>
 <table>
