@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Paste the contents of meta-tags-snippet.html here too, adjusting the title/description for this page -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About — Chemistry Portal</title>
+  <meta name="description" content="About the Chemistry Portal: an AI-powered chemistry learning platform for Rwandan Senior 4-6 students, built by chemistry teacher Jackson Habimana.">
+  <style>
+    :root {
+      --bg: #0d1117;
+      --card: #161b22;
+      --text: #e6edf3;
+      --muted: #8b949e;
+      --accent: #2ea043;
+      --border: #30363d;
+    }
+    * { box-sizing: border-box; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      margin: 0;
+      padding: 2rem 1rem;
+      line-height: 1.6;
+    }
+    .container { max-width: 700px; margin: 0 auto; }
+    h1 { font-size: 1.8rem; margin-bottom: 0.25rem; }
+    .subtitle { color: var(--muted); margin-bottom: 2rem; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    h2 { font-size: 1.2rem; color: var(--accent); margin-top: 0; }
+    a { color: var(--accent); }
+    ul { padding-left: 1.2rem; }
+    .back { display: inline-block; margin-bottom: 1.5rem; color: var(--muted); text-decoration: none; }
+    .back:hover { color: var(--text); }
+    footer { color: var(--muted); font-size: 0.85rem; text-align: center; margin-top: 2rem; }
+
+    /* ---- Chat widget ---- */
+    #chat-toggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      font-size: 1.4rem;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      z-index: 1000;
+    }
+    #chat-panel {
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      width: 320px;
+      max-width: calc(100vw - 40px);
+      height: 420px;
+      max-height: 70vh;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+      z-index: 1000;
+    }
+    #chat-panel.open { display: flex; }
+    #chat-header {
+      background: var(--accent);
+      color: #fff;
+      padding: 0.75rem 1rem;
+      font-weight: 600;
+      font-size: 0.95rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    #chat-close { background: none; border: none; color: #fff; font-size: 1.1rem; cursor: pointer; }
+    #chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+    }
+    .chat-msg { padding: 0.5rem 0.75rem; border-radius: 8px; max-width: 85%; line-height: 1.4; }
+    .chat-msg.user { align-self: flex-end; background: var(--accent); color: #fff; }
+    .chat-msg.bot { align-self: flex-start; background: #21262d; color: var(--text); }
+    .chat-msg.bot.loading { color: var(--muted); font-style: italic; }
+    #chat-input-row {
+      display: flex;
+      border-top: 1px solid var(--border);
+    }
+    #chat-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: var(--text);
+      padding: 0.65rem 0.75rem;
+      font-size: 0.9rem;
+      outline: none;
+    }
+    #chat-send {
+      background: none;
+      border: none;
+      color: var(--accent);
+      font-weight: 600;
+      padding: 0 1rem;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="index.html" class="back">&larr; Back to home</a>
+    <h1>About the Chemistry Portal</h1>
+    <p class="subtitle">Free AI-powered chemistry learning for Rwandan secondary schools</p>
+
+    <div class="card">
+      <h2>What this is</h2>
+      <p>
+        This portal supports chemistry teaching and learning for Senior 4, 5, and 6 students
+        across all science combinations (MCB, PCB, PCM, ANP), aligned with Rwanda's
+        Competency-Based Curriculum (CBC) and REB standards. It offers notes, quizzes,
+        practice exercises, and full tests for students, plus AI-assisted lesson planning,
+        exam generation, and scheme-of-work tools for teachers.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>Who built it</h2>
+      <p>
+        Built and maintained by Jackson Habimana, a chemistry teacher at Association Carrefour
+        Umurezi (E.S. Mudasomwa), Rwanda. The portal grew out of day-to-day classroom needs —
+        generating REB-aligned lesson plans and exams faster, and giving students a self-study
+        resource that matches what they're taught in class.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>A note on AI-generated content</h2>
+      <p>
+        Lesson plans, exams, and summary notes on this portal are generated with AI assistance
+        and formatted to match official REB structures. Teachers using these materials are
+        encouraged to review content for accuracy before using it in the classroom.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>Contact</h2>
+      <p>
+        Questions, feedback, or found an issue? Reach out via
+        <a href="https://github.com/jacksonhabimana/chemistry-" target="_blank" rel="noopener">GitHub</a>.
+      </p>
+    </div>
+
+    <footer>
+      &copy; 2026 Jackson Habimana — Chemistry Portal
+    </footer>
+  </div>
+
+  <!-- ---- Chat widget ---- -->
+  <button id="chat-toggle" aria-label="Ask a question">💬</button>
+  <div id="chat-panel">
+    <div id="chat-header">
+      <span>Ask about Chemistry</span>
+      <button id="chat-close" aria-label="Close">&times;</button>
+    </div>
+    <div id="chat-messages">
+      <div class="chat-msg bot">Hi! Ask me anything — any subject or concept, S4 to S6.</div>
+    </div>
+    <div id="chat-input-row">
+      <input id="chat-input" type="text" placeholder="Type your question..." autocomplete="off">
+      <button id="chat-send">Send</button>
+    </div>
+  </div>
+
+  <script>
+    // -----------------------------------------------------------------
+    // CHAT WIDGET LOGIC
+    // This calls your existing Cloudflare Worker (Gemini proxy).
+    // ADJUST the WORKER_URL and the fetch body/response parsing below
+    // to match your worker's actual request/response shape — this uses
+    // a common pattern but your worker may expect different field names.
+    // -----------------------------------------------------------------
+    const WORKER_URL = "https://chem-payment.hajackson2020.workers.dev";
+
+    const toggleBtn = document.getElementById('chat-toggle');
+    const closeBtn = document.getElementById('chat-close');
+    const panel = document.getElementById('chat-panel');
+    const messages = document.getElementById('chat-messages');
+    const input = document.getElementById('chat-input');
+    const sendBtn = document.getElementById('chat-send');
+
+    toggleBtn.addEventListener('click', () => panel.classList.toggle('open'));
+    closeBtn.addEventListener('click', () => panel.classList.remove('open'));
+
+    function addMessage(text, sender) {
+      const div = document.createElement('div');
+      div.className = 'chat-msg ' + sender;
+      div.textContent = text;
+      messages.appendChild(div);
+      messages.scrollTop = messages.scrollHeight;
+      return div;
+    }
+
+    async function sendQuestion() {
+      const question = input.value.trim();
+      if (!question) return;
+      addMessage(question, 'user');
+      input.value = '';
+      const loadingMsg = addMessage('Thinking...', 'bot loading');
+
+      try {
+        const response = await fetch(WORKER_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            prompt: `You are a helpful tutor for Rwandan Senior 4-6 students, following the REB Competency-Based Curriculum. Answer questions on any subject or concept clearly and simply, at a level appropriate for a secondary school student: ${question}`
+          })
+        });
+
+        if (!response.ok) throw new Error('Request failed: ' + response.status);
+        const data = await response.json();
+
+        // Adjust this line to match your worker's actual response field
+        // (e.g. data.answer, data.text, data.candidates[0].content.parts[0].text)
+        const answer = data.answer || data.text || data.response || JSON.stringify(data);
+
+        loadingMsg.remove();
+        addMessage(answer, 'bot');
+      } catch (err) {
+        loadingMsg.remove();
+        addMessage("Sorry, something went wrong. Please try again.", 'bot');
+        console.error(err);
+      }
+    }
+
+    sendBtn.addEventListener('click', sendQuestion);
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') sendQuestion();
+    });
+  </script>
+</body>
+</html>
