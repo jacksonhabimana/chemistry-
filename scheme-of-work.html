@@ -1427,10 +1427,17 @@ function weekBounds(termKey,n){
 const MONTHS_SHORT=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 function fmtD(d){return String(d.getDate()).padStart(2,'0')+' '+MONTHS_SHORT[d.getMonth()];}
 function fmtDateRange(s,e){
+  const pad=n=>String(n).padStart(2,'0');
   if(s.getMonth()===e.getMonth()&&s.getFullYear()===e.getFullYear()){
-    return String(s.getDate()).padStart(2,'0')+'\u2013'+String(e.getDate()).padStart(2,'0')+' '+MONTHS_SHORT[s.getMonth()]+' '+e.getFullYear();
+    return pad(s.getDate())+'-'+pad(e.getDate())+'/'+pad(s.getMonth()+1)+'/'+s.getFullYear();
   }
-  return fmtD(s)+' \u2013 '+fmtD(e)+' '+e.getFullYear();
+  return pad(s.getDate())+'/'+pad(s.getMonth()+1)+'-'+pad(e.getDate())+'/'+pad(e.getMonth()+1)+'/'+e.getFullYear();
+}
+function weekLabel(wr){
+  if(!wr)return '';
+  let s=String(wr).trim().replace(/^week\s*/i,'Week ');
+  if(!/:$/.test(s))s+=':';
+  return s;
 }
 function weekRangeDates(termKey,weekRangeStr){
   const nums=(weekRangeStr||'').match(/\d+/g);
@@ -1715,9 +1722,9 @@ function getNextWeekNumber(units){
 function closingWeeksRows(closing,nextWeek,termKey){
   const rows=[];
   let wk=nextWeek;
-  if(closing.revision){rows.push({label:'REVISION',week:'WEEK '+wk,dates:weekRangeDates(termKey,'WEEK '+wk)});wk++;}
-  if(closing.examweek){rows.push({label:'EXAMINATIONS',week:'WEEK '+wk,dates:weekRangeDates(termKey,'WEEK '+wk)});wk++;}
-  if(closing.marking){rows.push({label:'MARKING & SCHOOL REPORT',week:'WEEK '+wk,dates:weekRangeDates(termKey,'WEEK '+wk)});wk++;}
+  if(closing.revision){rows.push({label:'REVISION',week:'Week '+wk+':',dates:weekRangeDates(termKey,String(wk))});wk++;}
+  if(closing.examweek){rows.push({label:'EXAMINATIONS',week:'Week '+wk+':',dates:weekRangeDates(termKey,String(wk))});wk++;}
+  if(closing.marking){rows.push({label:'MARKING & SCHOOL REPORT',week:'Week '+wk+':',dates:weekRangeDates(termKey,String(wk))});wk++;}
   return rows;
 }
 
@@ -1753,7 +1760,7 @@ function renderSOW(info,sow){
     t.units.forEach(u=>{
       const objectives=`<strong>Knowledge &amp; Understanding:</strong> ${u.knowledge_understanding||''}<br><br><strong>Skills:</strong> ${u.skills||''}<br><br><strong>Attitudes &amp; Values:</strong> ${u.attitudes_values||''}`;
       html+=`<tr>
-        <td><span class="week-badge">${u.week_range||''}</span><br><span style="font-size:.68rem;color:var(--dim);white-space:nowrap">${weekRangeDates(t.termInfo.key,u.week_range)}</span></td>
+        <td><span class="week-badge">${weekLabel(u.week_range)}</span><br><span style="font-size:.68rem;color:var(--dim);white-space:nowrap">${weekRangeDates(t.termInfo.key,u.week_range)}</span></td>
         <td><strong>${u.unit_title||''}</strong></td>
         <td>${u.lessons_and_evaluation||''}</td>
         <td>${objectives}</td>
@@ -1798,11 +1805,11 @@ function dlWord(){
     let rows='';
     t.units.forEach(u=>{
       const objectives=`<b>Knowledge &amp; Understanding:</b> ${u.knowledge_understanding||''}<br><br><b>Skills:</b> ${u.skills||''}<br><br><b>Attitudes &amp; Values:</b> ${u.attitudes_values||''}`;
-      rows+=`<tr><td>${u.week_range||''}<br><small>${weekRangeDates(t.termInfo.key,u.week_range)}</small></td><td><b>${u.unit_title||''}</b></td><td>${u.lessons_and_evaluation||''}</td><td>${objectives}</td><td>${u.teaching_methods||''}</td><td>${u.resources_references||''}</td><td></td></tr>`;
+      rows+=`<tr><td><b>${weekLabel(u.week_range)}</b><br>${weekRangeDates(t.termInfo.key,u.week_range)}</td><td><b>${u.unit_title||''}</b></td><td>${u.lessons_and_evaluation||''}</td><td>${objectives}</td><td>${u.teaching_methods||''}</td><td>${u.resources_references||''}</td><td></td></tr>`;
       rows+=`<tr><td colspan="2" style="text-align:center;font-weight:bold;background:#fff3e0">Summative Evaluation</td><td colspan="2"><b>Key Unit Competence:</b> ${u.key_unit_competence||''}</td><td colspan="2"><b>Evaluation:</b> ${u.evaluation_procedures||'Oral, written, practical'}</td></tr>`;
     });
     closingWeeksRows(info.closing,getNextWeekNumber(t.units),t.termInfo.key).forEach(cr=>{
-      rows+=`<tr><td>${cr.week}<br><small>${cr.dates||''}</small></td><td colspan="6" style="font-weight:bold;text-align:center">${cr.label}</td></tr>`;
+      rows+=`<tr><td><b>${cr.week}</b><br>${cr.dates||''}</td><td colspan="6" style="font-weight:bold;text-align:center">${cr.label}</td></tr>`;
     });
     termBlocks+=`<h2>${t.termInfo.label} ${info.academicYear} &mdash; Number of weeks: ${t.termInfo.weeks}</h2>
 <table>
@@ -1839,11 +1846,11 @@ function dlPDF(){
     let rows='';
     t.units.forEach(u=>{
       const objectives=`<b>Knowledge &amp; Understanding:</b> ${u.knowledge_understanding||''}<br><br><b>Skills:</b> ${u.skills||''}<br><br><b>Attitudes &amp; Values:</b> ${u.attitudes_values||''}`;
-      rows+=`<tr><td>${u.week_range||''}<br><small>${weekRangeDates(t.termInfo.key,u.week_range)}</small></td><td><b>${u.unit_title||''}</b></td><td>${u.lessons_and_evaluation||''}</td><td>${objectives}</td><td>${u.teaching_methods||''}</td><td>${u.resources_references||''}</td><td></td></tr>`;
+      rows+=`<tr><td><b>${weekLabel(u.week_range)}</b><br>${weekRangeDates(t.termInfo.key,u.week_range)}</td><td><b>${u.unit_title||''}</b></td><td>${u.lessons_and_evaluation||''}</td><td>${objectives}</td><td>${u.teaching_methods||''}</td><td>${u.resources_references||''}</td><td></td></tr>`;
       rows+=`<tr><td colspan="2" style="text-align:center;font-weight:bold;background:#fff3e0">Summative Evaluation</td><td colspan="2"><b>Key Unit Competence:</b> ${u.key_unit_competence||''}</td><td colspan="2"><b>Evaluation:</b> ${u.evaluation_procedures||'Oral, written, practical'}</td></tr>`;
     });
     closingWeeksRows(info.closing,getNextWeekNumber(t.units),t.termInfo.key).forEach(cr=>{
-      rows+=`<tr><td>${cr.week}<br><small>${cr.dates||''}</small></td><td colspan="6" style="font-weight:bold;text-align:center">${cr.label}</td></tr>`;
+      rows+=`<tr><td><b>${cr.week}</b><br>${cr.dates||''}</td><td colspan="6" style="font-weight:bold;text-align:center">${cr.label}</td></tr>`;
     });
     termBlocks+=`<h2>${t.termInfo.label} ${info.academicYear} &mdash; Number of weeks: ${t.termInfo.weeks}</h2>
 <table>
