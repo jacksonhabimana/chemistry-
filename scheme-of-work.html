@@ -1448,6 +1448,21 @@ function weekRangeDates(termKey,weekRangeStr){
   if(!b1||!b2)return '';
   return fmtDateRange(b1.start,b2.end);
 }
+// Breaks a week_range like "WEEK 1-2" or "WEEK 2&3" into its individual
+// weeks, each with its own dates - instead of merging them into one range.
+function weekBreakdownParts(termKey,weekRangeStr){
+  const nums=(weekRangeStr||'').match(/\d+/g);
+  if(!nums||!nums.length)return [];
+  const ws=nums.map(Number);
+  const min=Math.min(...ws),max=Math.max(...ws);
+  const parts=[];
+  for(let n=min;n<=max;n++){
+    const b=weekBounds(termKey,n);
+    if(!b)continue;
+    parts.push({n,label:'Week '+n+':',dates:fmtDateRange(b.start,b.end)});
+  }
+  return parts;
+}
 
 function onTermToggle(){
   document.getElementById('chk-fullyear').checked=false;
@@ -1760,7 +1775,7 @@ function renderSOW(info,sow){
     t.units.forEach(u=>{
       const objectives=`<strong>Knowledge &amp; Understanding:</strong> ${u.knowledge_understanding||''}<br><br><strong>Skills:</strong> ${u.skills||''}<br><br><strong>Attitudes &amp; Values:</strong> ${u.attitudes_values||''}`;
       html+=`<tr>
-        <td><span class="week-badge">${weekLabel(u.week_range)}</span><br><span style="font-size:.68rem;color:var(--dim);white-space:nowrap">${weekRangeDates(t.termInfo.key,u.week_range)}</span></td>
+        <td>${weekBreakdownParts(t.termInfo.key,u.week_range).map(p=>`<span class="week-badge">${p.label}</span><br><span style="font-size:.68rem;color:var(--dim);white-space:nowrap">${p.dates}</span>`).join('<br><br>')}</td>
         <td><strong>${u.unit_title||''}</strong></td>
         <td>${u.lessons_and_evaluation||''}</td>
         <td>${objectives}</td>
@@ -1805,7 +1820,7 @@ function dlWord(){
     let rows='';
     t.units.forEach(u=>{
       const objectives=`<b>Knowledge &amp; Understanding:</b> ${u.knowledge_understanding||''}<br><br><b>Skills:</b> ${u.skills||''}<br><br><b>Attitudes &amp; Values:</b> ${u.attitudes_values||''}`;
-      rows+=`<tr><td><b>${weekLabel(u.week_range)}</b><br>${weekRangeDates(t.termInfo.key,u.week_range)}</td><td><b>${u.unit_title||''}</b></td><td>${u.lessons_and_evaluation||''}</td><td>${objectives}</td><td>${u.teaching_methods||''}</td><td>${u.resources_references||''}</td><td></td></tr>`;
+      rows+=`<tr><td>${weekBreakdownParts(t.termInfo.key,u.week_range).map(p=>'<b>'+p.label+'</b><br>'+p.dates).join('<br><br>')}</td><td><b>${u.unit_title||''}</b></td><td>${u.lessons_and_evaluation||''}</td><td>${objectives}</td><td>${u.teaching_methods||''}</td><td>${u.resources_references||''}</td><td></td></tr>`;
       rows+=`<tr><td colspan="2" style="text-align:center;font-weight:bold;background:#fff3e0">Summative Evaluation</td><td colspan="2"><b>Key Unit Competence:</b> ${u.key_unit_competence||''}</td><td colspan="2"><b>Evaluation:</b> ${u.evaluation_procedures||'Oral, written, practical'}</td></tr>`;
     });
     closingWeeksRows(info.closing,getNextWeekNumber(t.units),t.termInfo.key).forEach(cr=>{
@@ -1846,7 +1861,7 @@ function dlPDF(){
     let rows='';
     t.units.forEach(u=>{
       const objectives=`<b>Knowledge &amp; Understanding:</b> ${u.knowledge_understanding||''}<br><br><b>Skills:</b> ${u.skills||''}<br><br><b>Attitudes &amp; Values:</b> ${u.attitudes_values||''}`;
-      rows+=`<tr><td><b>${weekLabel(u.week_range)}</b><br>${weekRangeDates(t.termInfo.key,u.week_range)}</td><td><b>${u.unit_title||''}</b></td><td>${u.lessons_and_evaluation||''}</td><td>${objectives}</td><td>${u.teaching_methods||''}</td><td>${u.resources_references||''}</td><td></td></tr>`;
+      rows+=`<tr><td>${weekBreakdownParts(t.termInfo.key,u.week_range).map(p=>'<b>'+p.label+'</b><br>'+p.dates).join('<br><br>')}</td><td><b>${u.unit_title||''}</b></td><td>${u.lessons_and_evaluation||''}</td><td>${objectives}</td><td>${u.teaching_methods||''}</td><td>${u.resources_references||''}</td><td></td></tr>`;
       rows+=`<tr><td colspan="2" style="text-align:center;font-weight:bold;background:#fff3e0">Summative Evaluation</td><td colspan="2"><b>Key Unit Competence:</b> ${u.key_unit_competence||''}</td><td colspan="2"><b>Evaluation:</b> ${u.evaluation_procedures||'Oral, written, practical'}</td></tr>`;
     });
     closingWeeksRows(info.closing,getNextWeekNumber(t.units),t.termInfo.key).forEach(cr=>{
