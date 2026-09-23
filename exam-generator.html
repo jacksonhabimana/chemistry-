@@ -1552,6 +1552,34 @@ async function fetchWithRetry(prompt,onRetry){
   throw new Error(lastErr||'Failed after retries. Please try again.');
 }
 
+// Distributes `total` marks across `count` questions with natural variation
+// (instead of every question getting an identical uniform mark value),
+// while guaranteeing every question gets at least `min` marks and the
+// section still sums exactly to `total`.
+function spreadMarks(total,count,min){
+  min=min||1;
+  if(count<=0)return[];
+  if(count===1)return[total];
+  if(total<min*count){
+    const base=Math.floor(total/count);let rem=total-base*count;
+    const arr=new Array(count).fill(base);
+    for(let i=0;i<rem;i++)arr[i]++;
+    return arr;
+  }
+  const arr=new Array(count).fill(min);
+  let remaining=total-min*count;
+  const weights=[1.4,0.8,1.2,0.7,1.1,0.9,1.3,0.75,1.05,0.85];
+  let wSum=0;const w=[];
+  for(let i=0;i<count;i++){const x=weights[i%weights.length];w.push(x);wSum+=x;}
+  let used=0;
+  for(let i=0;i<count;i++){const add=Math.round(remaining*w[i]/wSum);arr[i]+=add;used+=add;}
+  let drift=remaining-used,idx=0,guard=0;
+  while(drift>0){arr[idx%count]++;drift--;idx++;guard++;if(guard>count*20)break;}
+  idx=0;guard=0;
+  while(drift<0){if(arr[idx%count]>min){arr[idx%count]--;drift++;}idx++;guard++;if(guard>count*20)break;}
+  return arr;
+}
+
 async function doGen(){
   const subj=document.getElementById('subject').value;
   const lv=document.getElementById('classLevel').value;
@@ -1631,9 +1659,9 @@ async function doGen(){
   if(hasShort){
     const m=baseM;
     const cnt=Math.max(3,Math.round(m/3));
-    const mk=Math.round(m/cnt);
+    const marksArr=spreadMarks(m,cnt,2);
     const qs=Array.from({length:cnt},(_,j)=>
-      `{"number":${j+1},"question":"[Short answer question ${j+1} about ${unitName}] (${mk} marks)","marks":${mk}}`
+      `{"number":${j+1},"question":"[Short answer question ${j+1} about ${unitName}] (${marksArr[j]} marks)","marks":${marksArr[j]}}`
     ).join(',');
     allSections.push(`{"title":"SECTION ${L[si]}: SHORT ANSWER QUESTIONS (${m} marks)","instructions":"Answer ALL questions. Write concise answers.","total_marks":${m},"questions":[${qs}]}`);
     si++;
@@ -1641,9 +1669,9 @@ async function doGen(){
   if(hasStruct){
     const m=baseM;
     const cnt=Math.max(2,Math.round(m/6));
-    const mk=Math.round(m/cnt);
+    const marksArr=spreadMarks(m,cnt,3);
     const qs=Array.from({length:cnt},(_,j)=>
-      `{"number":${j+1},"question":"[Structured question ${j+1} about ${unitName} with sub-parts] (${mk} marks)","marks":${mk}}`
+      `{"number":${j+1},"question":"[Structured question ${j+1} about ${unitName} with sub-parts] (${marksArr[j]} marks)","marks":${marksArr[j]}}`
     ).join(',');
     allSections.push(`{"title":"SECTION ${L[si]}: STRUCTURED QUESTIONS (${m} marks)","instructions":"Answer ALL questions. Show working.","total_marks":${m},"questions":[${qs}]}`);
     si++;
@@ -1651,9 +1679,9 @@ async function doGen(){
   if(hasPrac){
     const m=baseM;
     const cnt=Math.max(2,Math.round(m/6));
-    const mk=Math.round(m/cnt);
+    const marksArr=spreadMarks(m,cnt,3);
     const qs=Array.from({length:cnt},(_,j)=>
-      `{"number":${j+1},"question":"[Practical/experiment question ${j+1} about ${unitName}] (${mk} marks)","marks":${mk}}`
+      `{"number":${j+1},"question":"[Practical/experiment question ${j+1} about ${unitName}] (${marksArr[j]} marks)","marks":${marksArr[j]}}`
     ).join(',');
     allSections.push(`{"title":"SECTION ${L[si]}: PRACTICAL QUESTIONS (${m} marks)","instructions":"Describe experiments clearly.","total_marks":${m},"questions":[${qs}]}`);
     si++;
@@ -1661,9 +1689,9 @@ async function doGen(){
   if(hasEssay){
     const m=totalM-allSections.reduce((s,sec)=>{const mm=sec.match(/"total_marks":(\d+)/);return s+(mm?parseInt(mm[1]):0);},0);
     const cnt=Math.max(2,Math.round(m/12));
-    const mk=Math.round(m/cnt);
+    const marksArr=spreadMarks(m,cnt,6);
     const qs=Array.from({length:cnt},(_,j)=>
-      `{"number":${j+1},"question":"[Essay question ${j+1} about ${unitName} - detailed explanation required] (${mk} marks)","marks":${mk}}`
+      `{"number":${j+1},"question":"[Essay question ${j+1} about ${unitName} - detailed explanation required] (${marksArr[j]} marks)","marks":${marksArr[j]}}`
     ).join(',');
     allSections.push(`{"title":"SECTION ${L[si]}: ESSAY/LONG ANSWER QUESTIONS (${m} marks)","instructions":"Give detailed explanations with examples.","total_marks":${m},"questions":[${qs}]}`);
     si++;
