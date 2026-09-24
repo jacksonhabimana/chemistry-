@@ -24,7 +24,7 @@
 <style>
   :root{--bg:#0d1117;--surface:#161b22;--surface2:#1c2333;--border:#30363d;--accent:#38bdf8;--gold:#e8c547;--green:#34d399;--red:#f87171;--text:#e6edf3;--muted:#8b949e;--radius:14px;}
   *{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
-  body{background:var(--bg);color:var(--text);font-family:'Source Serif 4',Georgia,serif;font-size:17px;line-height:1.75;overflow-x:hidden;}
+  body{background:var(--bg);color:var(--text);font-family:'Source Serif 4',Georgia,serif;font-size:17px;line-height:1.75;overflow-x:hidden;padding-bottom:74px;}
 
   /* NAV */
   nav{position:sticky;top:0;z-index:100;background:rgba(13,17,23,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 32px;}
@@ -115,6 +115,39 @@
   .nav-toggle{display:none;background:none;border:1px solid #30363d;color:#e6edf3;padding:4px 10px;border-radius:5px;cursor:pointer;}
   @media(max-width:768px){.nav-toggle{display:block;}.nav-links{display:none;position:absolute;top:58px;left:0;right:0;background:rgba(13,17,23,.98);flex-direction:column;padding:12px;gap:4px;border-bottom:1px solid #30363d;}#main-nav.open .nav-links{display:flex;}}
   @media(max-width:640px){.hero{padding:70px 20px 60px;}.page{padding:50px 16px 80px;}.about{padding:30px 24px;}}
+</style>
+
+<style>
+  #ask-bar{
+    position:fixed;bottom:0;left:0;right:0;z-index:500;
+    background:rgba(13,17,23,.97);backdrop-filter:blur(12px);
+    border-top:1px solid #30363d;
+    padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));
+  }
+  #nav-ask-form{
+    max-width:640px;margin:0 auto;display:flex;align-items:center;gap:8px;
+    background:#161b22;border:1px solid #30363d;border-radius:24px;
+    padding:6px 8px 6px 16px;
+  }
+  #nav-ask-form:focus-within{border-color:#38bdf8;}
+  .ask-plus{
+    background:transparent;border:1px solid #30363d;color:#8b949e;
+    width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:1.1rem;
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  .ask-plus:hover{border-color:#38bdf8;color:#38bdf8;}
+  #nav-ask-input{
+    flex:1;background:transparent;border:none;outline:none;color:#e6edf3;
+    font-family:'Source Serif 4',Georgia,serif;font-size:.95rem;min-width:0;
+  }
+  #nav-ask-input::placeholder{color:#8b949e;}
+  .ask-send{
+    background:#38bdf8;border:none;color:#0d1117;width:32px;height:32px;
+    border-radius:50%;cursor:pointer;font-size:.9rem;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .ask-send:hover{opacity:.9;}
+  @media(max-width:480px){#nav-ask-input{font-size:.88rem;}}
 </style></head>
 <body>
 
@@ -157,11 +190,6 @@
       <a href="student-hub.html" style="color:var(--accent);border-color:rgba(56,189,248,.3);background:rgba(56,189,248,.06);">Student Hub</a>
       <a href="teacher-admin.html">Admin</a>
       <a href="contact.html">Contact</a>
-
-      <form id="nav-ask-form" onsubmit="return navAskSubmit(event)" style="display:flex;align-items:center;background:#161b22;border:1px solid #30363d;border-radius:20px;padding:4px 6px 4px 14px;margin-left:6px;min-width:190px;">
-        <input id="nav-ask-input" type="text" placeholder="How can I help you today?" style="flex:1;background:transparent;border:none;outline:none;color:#e6edf3;font-family:'JetBrains Mono',monospace;font-size:.7rem;">
-        <button type="submit" aria-label="Ask" style="background:#38bdf8;border:none;color:#0d1117;width:26px;height:26px;border-radius:50%;cursor:pointer;font-size:.85rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;">💬</button>
-      </form>
     </div>
   </div>
 </nav>
@@ -370,6 +398,14 @@
   </p>
 </footer>
 
+<!-- ---- Fixed bottom "Ask Jackson AI" bar ---- -->
+<div id="ask-bar">
+  <form id="nav-ask-form" onsubmit="return navAskSubmit(event)">
+    <button type="button" class="ask-plus" aria-label="More" onclick="window.location.href='chat.html'">+</button>
+    <input id="nav-ask-input" type="text" placeholder="How can I help you today?" autocomplete="off">
+    <button type="submit" class="ask-send" aria-label="Ask">➤</button>
+  </form>
+</div>
 
 <script>
 function navAskSubmit(e){
