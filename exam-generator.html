@@ -227,14 +227,20 @@ function teacherLogout(){
         </div>
       </div>
       <div class="form-row">
-        <div class="form-group">
-          <label>Unit</label>
-          <select id="unit" onchange="onUnit()" disabled>
+        <div class="form-group" style="flex:1 1 100%">
+          <label>Units to Cover</label>
+          <p style="font-size:.78rem;color:#8b949e;margin:2px 0 8px">Select one or more units — the exam will spread questions across all units you tick.</p>
+          <div style="display:flex;gap:6px;margin-bottom:6px">
+            <input type="text" id="unitrange" placeholder="e.g. 1-6 or 1,3,5-8" disabled style="flex:1;background:#0d1117;border:1px solid #30363d;border-radius:6px;color:#e6edf3;padding:7px 9px;font-size:.78rem">
+            <button type="button" onclick="applyUnitRange()" style="background:#38bdf8;color:#0d1117;border:none;border-radius:6px;padding:7px 12px;font-size:.78rem;font-weight:700;cursor:pointer;white-space:nowrap">Apply</button>
+          </div>
+          <select id="unit" multiple onchange="onUnit()" disabled style="height:150px;width:100%;background:#0d1117;border:1px solid #30363d;border-radius:7px;color:#e6edf3;padding:8px;font-size:.82rem">
             <option value="">Select level first</option>
           </select>
+          <p style="font-size:.72rem;color:#8b949e;margin-top:4px">Type a range above (e.g. "1-6") and tap Apply, or hold Ctrl / tap multiple options to select manually.</p>
         </div>
         <div class="form-group">
-          <label>Topics (optional)</label>
+          <label>Topics (optional — only for a single unit)</label>
           <select id="topic" disabled>
             <option value="">All topics in unit</option>
           </select>
@@ -1392,8 +1398,10 @@ function onSubj(){
   const cls=document.getElementById('classLevel');
   const unit=document.getElementById('unit');
   const topic=document.getElementById('topic');
+  const range=document.getElementById('unitrange');
   cls.innerHTML='<option value="">Select class level</option>';cls.disabled=true;
-  unit.innerHTML='<option value="">Select unit first</option>';unit.disabled=true;
+  unit.innerHTML='<option value="">Select level first</option>';unit.disabled=true;
+  range.disabled=true;range.value='';
   topic.innerHTML='<option value="">All topics in unit</option>';topic.disabled=true;
   document.getElementById('genBtn').disabled=true;
   if(!subj)return;
@@ -1407,32 +1415,70 @@ function onCls(){
   const level=document.getElementById('classLevel').value;
   const unit=document.getElementById('unit');
   const topic=document.getElementById('topic');
-  unit.innerHTML='<option value="">Select unit</option>';unit.disabled=true;
+  const range=document.getElementById('unitrange');
+  unit.innerHTML='<option value="">Select unit(s)</option>';unit.disabled=true;
+  range.disabled=true;range.value='';
   topic.innerHTML='<option value="">All topics in unit</option>';topic.disabled=true;
   document.getElementById('genBtn').disabled=true;
   if(!level)return;
   const data=CUR[subj]?.u?.[level]||mkFallback(subj,level);
+  unit.innerHTML='';
   data.forEach((u,i)=>{const o=document.createElement('option');o.value=i;o.textContent=u.n;unit.appendChild(o);});
   unit.disabled=false;unit._d=data;
+  range.disabled=false;
 }
 
 function onUnit(){
   const unit=document.getElementById('unit');
   const topic=document.getElementById('topic');
-  const idx=unit.value;
+  const selected=Array.from(unit.selectedOptions).filter(o=>o.value!=='');
   topic.innerHTML='<option value="">All topics in unit</option>';topic.disabled=true;
-  document.getElementById('genBtn').disabled=true;
-  if(idx==='')return;
-  const u=unit._d[parseInt(idx)];
-  u.ls.forEach((l,i)=>{const o=document.createElement('option');o.value=i;o.textContent=l;topic.appendChild(o);});
-  topic.disabled=false;topic._u=u;
+  if(selected.length===1){
+    const u=unit._d[parseInt(selected[0].value)];
+    u.ls.forEach((l,i)=>{const o=document.createElement('option');o.value=i;o.textContent=l;topic.appendChild(o);});
+    topic.disabled=false;topic._u=u;
+  }
   checkReady();
 }
 
+function applyUnitRange(){
+  const input=document.getElementById('unitrange');
+  const sel=document.getElementById('unit');
+  if(!input||!sel||!sel._d)return;
+  const text=input.value.trim();
+  if(!text)return;
+  const wanted=new Set();
+  text.split(',').forEach(part=>{
+    part=part.trim();
+    if(!part)return;
+    if(part.includes('-')){
+      const [a,b]=part.split('-').map(s=>parseInt(s.trim()));
+      if(!isNaN(a)&&!isNaN(b)){
+        const lo=Math.min(a,b),hi=Math.max(a,b);
+        for(let n=lo;n<=hi;n++)wanted.add(n);
+      }
+    } else {
+      const n=parseInt(part);
+      if(!isNaN(n))wanted.add(n);
+    }
+  });
+  let appliedCount=0;
+  Array.from(sel.options).forEach(o=>{
+    const unitNum=parseInt(o.value)+1;
+    if(wanted.has(unitNum)){o.selected=true;appliedCount++;}
+  });
+  if(appliedCount===0){
+    alert('No matching units found for "'+text+'". This subject/level has '+sel._d.length+' units (1-'+sel._d.length+').');
+  }
+  onUnit();
+}
+
 function checkReady(){
+  const unitSel=document.getElementById('unit');
+  const anySelected=unitSel&&Array.from(unitSel.selectedOptions).filter(o=>o.value!=='').length>0;
   const ok=document.getElementById('subject').value&&
             document.getElementById('classLevel').value&&
-            document.getElementById('unit').value!=='';
+            anySelected;
   document.getElementById('genBtn').disabled=!ok;
 }
 
@@ -1585,8 +1631,12 @@ async function doGen(){
   const lv=document.getElementById('classLevel').value;
   const unitSel=document.getElementById('unit');
   const topicSel=document.getElementById('topic');
-  const unitName=unitSel._d[parseInt(unitSel.value)].n;
-  const topicName=topicSel.value!==''?topicSel._u?.ls[parseInt(topicSel.value)]:'All topics';
+  const selectedUnits=Array.from(unitSel.selectedOptions).filter(o=>o.value!=='').map(o=>unitSel._d[parseInt(o.value)]);
+  if(selectedUnits.length===0){alert('Please select at least one unit.');return;}
+  const unitNames=selectedUnits.map(u=>u.n);
+  const unitName=unitNames.length===1?unitNames[0]:unitNames.join('; ');
+  const isMultiUnit=unitNames.length>1;
+  const topicName=(!isMultiUnit&&topicSel.value!=='')?topicSel._u?.ls[parseInt(topicSel.value)]:'All topics';
   const school=document.getElementById('school').value.trim()||'Not specified';
   const teacher=document.getElementById('teacher').value.trim()||'Not specified';
   const term=document.getElementById('term').value;
@@ -1699,7 +1749,10 @@ async function doGen(){
 
   const templateJSON=`{"exam_title":"${examType} - ${subj} ${lv} - ${unitName}","instructions":"Answer ALL questions. Time: ${dur}. Total: ${totalM} marks.","sections":[`+allSections.join(',')+`]}`;
 
-  const prompt="You are a Rwanda REB "+subj+" examiner. Replace ALL placeholder questions in this JSON with REAL exam questions about '"+unitName+"' for "+subj+" "+lv+" students.\n\nRULES:\n1. Keep EXACT same JSON structure\n2. Keep EXACT same number of questions per section\n3. Keep EXACT same marks per question\n4. MCQ must have 4 options labeled A B C D\n5. Make questions specific to '"+unitName+"' REB "+subj+" "+lv+" curriculum\n6. Return ONLY the completed JSON - no markdown, no backticks, no explanation\n\n"+templateJSON;
+  const unitInstruction=isMultiUnit
+    ? "Replace ALL placeholder questions in this JSON with REAL exam questions covering these "+unitNames.length+" units for "+subj+" "+lv+" students, spreading questions as evenly as possible across all of them so every unit is represented:\\n"+unitNames.map((n,i)=>(i+1)+". "+n).join('\\n')
+    : "Replace ALL placeholder questions in this JSON with REAL exam questions about '"+unitName+"' for "+subj+" "+lv+" students.";
+  const prompt="You are a Rwanda REB "+subj+" examiner. "+unitInstruction+"\n\nRULES:\n1. Keep EXACT same JSON structure\n2. Keep EXACT same number of questions per section\n3. Keep EXACT same marks per question\n4. MCQ must have 4 options labeled A B C D\n5. Make questions specific to the "+(isMultiUnit?"listed units":"'"+unitName+"'")+" REB "+subj+" "+lv+" curriculum"+(isMultiUnit?", distributing questions across all listed units rather than focusing on just one":"")+"\n6. Return ONLY the completed JSON - no markdown, no backticks, no explanation\n\n"+templateJSON;
 
   try{
     const res=await fetchWithRetry(prompt,(attempt)=>{
