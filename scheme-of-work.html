@@ -1645,7 +1645,7 @@ async function doGen(){
 
       const lessonsTemplate=lessonList.slice(0,8).map((l,li)=>`Lesson ${li+1}: ${l}`).join(' ');
 
-      const templateJSON=`{"unit_title":"${unitName.replace(/"/g,'')}","week_range":"[e.g. WEEK 1-2]","lessons_and_evaluation":"[List each lesson as 'Lesson X: short title' separated by spaces, summarizing: ${lessonsTemplate.replace(/"/g,"'").substring(0,300)}]","knowledge_understanding":"[3-4 bullet-style points using action verbs: Explain, Describe, Define, Outline, State - what learners will KNOW]","skills":"[2-3 bullet-style points using action verbs: Apply, Compare, Perform, Relate, Classify - what learners will be able to DO]","attitudes_values":"[1-2 bullet-style points: Appreciate, Respect, Develop - attitudes fostered]","key_unit_competence":"[the single official REB key unit competence statement for this unit]","teaching_methods":"Group work, Pair work, Questioning, Making a presentation, Practical activities and making a report of the findings, Video clips","evaluation_procedures":"Oral, written, practical","resources_references":"[realistic REB ${subj} ${lv} textbook and teacher's guide references]"}`;
+      const templateJSON=`{"unit_title":"${unitName.replace(/"/g,'')}","week_range":"[e.g. WEEK 1-2]","lessons_and_evaluation":["[Lesson X: short title]","[Lesson Y: short title]"],"assessment_criteria":"[one short paragraph: what learners should be able to do by the end of this unit, following the format 'The learners can ...']","knowledge_understanding":["[bullet point using action verbs: Explain, Describe, Define, Outline, State]","[another point]"],"skills":["[bullet point using action verbs: Apply, Compare, Perform, Relate, Classify]"],"attitudes_values":["[bullet point: Appreciate, Respect, Develop...]"],"key_unit_competence":"[the single official REB key unit competence statement for this unit]","teaching_methods":"Group work, Pair work, Questioning, Making a presentation, Practical activities and making a report of the findings, Video clips","evaluation_procedures":"Oral, written, practical","resources_references":"[realistic REB ${subj} ${lv} textbook and teacher's guide references]"}`;
 
       const prompt=`You are an expert Rwanda REB ${subj} teacher creating an official REB-format Scheme of Work for ${lv}, ${termInfo.label} ${academicYear}.
 
@@ -1655,13 +1655,14 @@ This is unit ${ui+1} of ${termUnitIdx.length} being scheduled across a ${termInf
 
 TASK: Replace ALL placeholders in this JSON with REAL content following the EXACT official REB scheme of work format (as used in actual Rwandan school documents):
 1. "week_range" - estimate which week(s) this unit would occupy, written like "WEEK 1" or "WEEK 2&3" or "WEEK 4,5&6" - assume roughly proportional time across the ${termInfo.weeks}-week term for ${termUnitIdx.length} total units, with this being unit ${ui+1}
-2. "lessons_and_evaluation" - list the lessons exactly in REB style: "Lesson 1&2: [topic]. Lesson 3: [topic]." etc, based on the lesson list given above
-3. "knowledge_understanding" - REAL learning objectives using REB action verbs (Explain, Describe, Define, Outline, State, Compare)
-4. "skills" - REAL skill objectives (Apply, Perform, Relate, Classify, Demonstrate, Distinguish)
-5. "attitudes_values" - REAL attitudes (Appreciate, Respect, Develop culture of...)
-6. "key_unit_competence" - the genuine REB key unit competence statement for "${unitName}" in ${subj} ${lv}
-7. Keep "teaching_methods" and "evaluation_procedures" as given (these are standard across REB schemes)
-8. "resources_references" - realistic textbook/teacher's guide citations for ${subj} ${lv}
+2. "lessons_and_evaluation" - a JSON ARRAY with ONE STRING PER LESSON, each written "Lesson X: [topic]" (combine lessons with "Lesson X&Y: [topic]" only if they truly belong together), based on the lesson list given above. Keep each array entry short (under 15 words) - do not cram multiple lessons into one entry.
+3. "assessment_criteria" - ONE short paragraph (1-2 sentences) starting "The learners can..." describing what they'll be able to do
+4. "knowledge_understanding" - a JSON ARRAY of REAL learning objectives, each its own short bullet-style string, using REB action verbs (Explain, Describe, Define, Outline, State, Compare)
+5. "skills" - a JSON ARRAY of REAL skill objectives, each its own short bullet-style string (Apply, Perform, Relate, Classify, Demonstrate, Distinguish)
+6. "attitudes_values" - a JSON ARRAY of REAL attitudes, each its own short bullet-style string (Appreciate, Respect, Develop culture of...)
+7. "key_unit_competence" - the genuine REB key unit competence statement for "${unitName}" in ${subj} ${lv}
+8. Keep "teaching_methods" and "evaluation_procedures" as given (these are standard across REB schemes)
+9. "resources_references" - realistic textbook/teacher's guide citations for ${subj} ${lv}
 
 Return ONLY the completed JSON, no markdown, no backticks, no explanation.
 
@@ -1676,7 +1677,7 @@ ${templateJSON}`;
           } else {
             const salvaged=salvageUnits(raw);
             if(salvaged.length)allUnits=allUnits.concat(salvaged);
-            else allUnits.push({unit_title:unitName,week_range:'',lessons_and_evaluation:lessonsTemplate,knowledge_understanding:'',skills:'',attitudes_values:'',key_unit_competence:'',teaching_methods:'Group work, Pair work, Questioning, Practical activities, Video clips',evaluation_procedures:'Oral, written, practical',resources_references:''});
+            else allUnits.push({unit_title:unitName,week_range:'',lessons_and_evaluation:lessonList.slice(0,8).map((l,li)=>`Lesson ${li+1}: ${l}`),assessment_criteria:'',knowledge_understanding:[],skills:[],attitudes_values:[],key_unit_competence:'',teaching_methods:'Group work, Pair work, Questioning, Practical activities, Video clips',evaluation_procedures:'Oral, written, practical',resources_references:''});
           }
           unitDone=true;
         }catch(e){
@@ -1743,6 +1744,41 @@ function closingWeeksRows(closing,nextWeek,termKey){
   return rows;
 }
 
+// Turn a value into clean HTML: arrays become bulleted lines,
+// plain strings pass through as-is, for both screen and doc exports.
+function fmtBullets(val,bold){
+  if(Array.isArray(val)){
+    return val.filter(Boolean).map(v=>(bold?`<b>&bull;</b> `:'&bull; ')+v).join('<br>');
+  }
+  return val||'';
+}
+function fmtLessons(val){
+  if(Array.isArray(val)){
+    return val.filter(Boolean).map(v=>{
+      const m=v.match(/^(Lesson[^:]*:)(.*)$/i);
+      return m?`<b>${m[1]}</b>${m[2]}`:v;
+    }).join('<br>');
+  }
+  return val||'';
+}
+function objectivesCellHTML(u,boldTag){
+  const b=(s)=>`<${boldTag}>${s}</${boldTag}>`;
+  const parts=[];
+  if(u.knowledge_understanding&&(Array.isArray(u.knowledge_understanding)?u.knowledge_understanding.length:u.knowledge_understanding))
+    parts.push(b('Knowledge &amp; Understanding:')+'<br>'+fmtBullets(u.knowledge_understanding));
+  if(u.skills&&(Array.isArray(u.skills)?u.skills.length:u.skills))
+    parts.push(b('Skills:')+'<br>'+fmtBullets(u.skills));
+  if(u.attitudes_values&&(Array.isArray(u.attitudes_values)?u.attitudes_values.length:u.attitudes_values))
+    parts.push(b('Attitudes &amp; Values:')+'<br>'+fmtBullets(u.attitudes_values));
+  return parts.join('<br><br>');
+}
+function lessonsCellHTML(u,boldTag){
+  const b=(s)=>`<${boldTag}>${s}</${boldTag}>`;
+  const parts=[fmtLessons(u.lessons_and_evaluation)];
+  if(u.assessment_criteria)parts.push(b('Assessment criteria:')+' '+u.assessment_criteria);
+  return parts.filter(Boolean).join('<br><br>');
+}
+
 function renderSOW(info,sow){
   const yearLabel=sow.terms.length>1?`${info.academicYear} &mdash; ${sow.terms.map(t=>t.termInfo.label).join(', ')}`:`${sow.terms[0].termInfo.label} ${info.academicYear}`;
   let html=`
@@ -1773,11 +1809,11 @@ function renderSOW(info,sow){
       </tr>`;
 
     t.units.forEach(u=>{
-      const objectives=`<strong>Knowledge &amp; Understanding:</strong> ${u.knowledge_understanding||''}<br><br><strong>Skills:</strong> ${u.skills||''}<br><br><strong>Attitudes &amp; Values:</strong> ${u.attitudes_values||''}`;
+      const objectives=objectivesCellHTML(u,'strong');
       html+=`<tr>
         <td>${weekBreakdownParts(t.termInfo.key,u.week_range).map(p=>`<span class="week-badge">${p.label}</span><br><span style="font-size:.68rem;color:var(--dim);white-space:nowrap">${p.dates}</span>`).join('<br><br>')}</td>
         <td><strong>${u.unit_title||''}</strong></td>
-        <td>${u.lessons_and_evaluation||''}</td>
+        <td>${lessonsCellHTML(u,'strong')}</td>
         <td>${objectives}</td>
         <td>${u.teaching_methods||''}</td>
         <td>${u.resources_references||''}</td>
@@ -1819,8 +1855,8 @@ function dlWord(){
   sow.terms.forEach(t=>{
     let rows='';
     t.units.forEach(u=>{
-      const objectives=`<b>Knowledge &amp; Understanding:</b> ${u.knowledge_understanding||''}<br><br><b>Skills:</b> ${u.skills||''}<br><br><b>Attitudes &amp; Values:</b> ${u.attitudes_values||''}`;
-      rows+=`<tr><td>${weekBreakdownParts(t.termInfo.key,u.week_range).map(p=>'<b>'+p.label+'</b><br>'+p.dates).join('<br><br>')}</td><td><b>${u.unit_title||''}</b></td><td>${u.lessons_and_evaluation||''}</td><td>${objectives}</td><td>${u.teaching_methods||''}</td><td>${u.resources_references||''}</td><td></td></tr>`;
+      const objectives=objectivesCellHTML(u,'b');
+      rows+=`<tr><td>${weekBreakdownParts(t.termInfo.key,u.week_range).map(p=>'<b>'+p.label+'</b><br>'+p.dates).join('<br><br>')}</td><td><b>${u.unit_title||''}</b></td><td>${lessonsCellHTML(u,'b')}</td><td>${objectives}</td><td>${u.teaching_methods||''}</td><td>${u.resources_references||''}</td><td></td></tr>`;
       rows+=`<tr><td colspan="2" style="text-align:center;font-weight:bold;background:#fff3e0">Summative Evaluation</td><td colspan="2"><b>Key Unit Competence:</b> ${u.key_unit_competence||''}</td><td colspan="2"><b>Evaluation:</b> ${u.evaluation_procedures||'Oral, written, practical'}</td></tr>`;
     });
     closingWeeksRows(info.closing,getNextWeekNumber(t.units),t.termInfo.key).forEach(cr=>{
@@ -1860,8 +1896,8 @@ function dlPDF(){
   sow.terms.forEach(t=>{
     let rows='';
     t.units.forEach(u=>{
-      const objectives=`<b>Knowledge &amp; Understanding:</b> ${u.knowledge_understanding||''}<br><br><b>Skills:</b> ${u.skills||''}<br><br><b>Attitudes &amp; Values:</b> ${u.attitudes_values||''}`;
-      rows+=`<tr><td>${weekBreakdownParts(t.termInfo.key,u.week_range).map(p=>'<b>'+p.label+'</b><br>'+p.dates).join('<br><br>')}</td><td><b>${u.unit_title||''}</b></td><td>${u.lessons_and_evaluation||''}</td><td>${objectives}</td><td>${u.teaching_methods||''}</td><td>${u.resources_references||''}</td><td></td></tr>`;
+      const objectives=objectivesCellHTML(u,'b');
+      rows+=`<tr><td>${weekBreakdownParts(t.termInfo.key,u.week_range).map(p=>'<b>'+p.label+'</b><br>'+p.dates).join('<br><br>')}</td><td><b>${u.unit_title||''}</b></td><td>${lessonsCellHTML(u,'b')}</td><td>${objectives}</td><td>${u.teaching_methods||''}</td><td>${u.resources_references||''}</td><td></td></tr>`;
       rows+=`<tr><td colspan="2" style="text-align:center;font-weight:bold;background:#fff3e0">Summative Evaluation</td><td colspan="2"><b>Key Unit Competence:</b> ${u.key_unit_competence||''}</td><td colspan="2"><b>Evaluation:</b> ${u.evaluation_procedures||'Oral, written, practical'}</td></tr>`;
     });
     closingWeeksRows(info.closing,getNextWeekNumber(t.units),t.termInfo.key).forEach(cr=>{
