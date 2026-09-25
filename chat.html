@@ -43,6 +43,10 @@
     display:flex;align-items:center;justify-content:center;flex-shrink:0;
   }
   .chat-plus:hover{border-color:var(--accent);color:var(--accent);}
+  #image-preview-row{padding:8px 14px 0;display:flex;align-items:center;gap:8px;}
+  #image-preview-row img{width:52px;height:52px;object-fit:cover;border-radius:8px;border:1px solid var(--border);}
+  #image-preview-remove{background:var(--surface2);border:1px solid var(--border);color:var(--muted);width:22px;height:22px;border-radius:50%;cursor:pointer;font-size:.8rem;line-height:1;}
+  #image-preview-remove:hover{color:var(--red);border-color:var(--red);}
   #chat-input{
     flex:1;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);
     padding:12px 14px;font-size:.95rem;font-family:'Source Serif 4',Georgia,serif;outline:none;
@@ -80,8 +84,10 @@
     <div id="chat-messages">
       <div class="chat-msg bot">Hi! I'm Jackson AI. Ask me anything — chemistry, biology, physics, math, or any other subject. What would you like to know?</div>
     </div>
+    <div id="image-preview-row" style="display:none;"></div>
     <div id="chat-input-row">
-      <button class="chat-plus" aria-label="More options" type="button">+</button>
+      <button class="chat-plus" id="chat-plus-btn" aria-label="Attach a photo" type="button">+</button>
+      <input type="file" id="chat-file-input" accept="image/*" style="display:none;">
       <input id="chat-input" type="text" placeholder="Write a message..." autocomplete="off">
       <button id="chat-send">Send</button>
     </div>
@@ -97,6 +103,11 @@
   const messages = document.getElementById('chat-messages');
   const input = document.getElementById('chat-input');
   const sendBtn = document.getElementById('chat-send');
+  const plusBtn = document.getElementById('chat-plus-btn');
+  const fileInput = document.getElementById('chat-file-input');
+  const previewRow = document.getElementById('image-preview-row');
+
+  let pendingImage = null; // { data: base64 (no prefix), mimeType }
 
   function addMessage(text, sender) {
     const div = document.createElement('div');
@@ -107,20 +118,73 @@
     return div;
   }
 
+  function addImageMessage(dataUrl) {
+    const div = document.createElement('div');
+    div.className = 'chat-msg user';
+    const img = document.createElement('img');
+    img.src = dataUrl;
+    img.style.maxWidth = '100%';
+    img.style.borderRadius = '8px';
+    img.style.display = 'block';
+    div.appendChild(img);
+    messages.appendChild(div);
+    messages.scrollTop = messages.scrollHeight;
+  }
+
+  // Resize/compress an image file client-side before sending, to keep
+  // the request small and fast (max 1024px on the longest side).
+  function fileToCompressedImage(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const img = new Image();
+        img.onload = () => {
+          const maxDim = 1024;
+          let { width, height } = img;
+          if (width > maxDim || height > maxDim) {
+            const scale = maxDim / Math.max(width, height);
+            width = Math.round(width * scale);
+            height = Math.round(height * scale);
+          }
+          const canvas = document.createElement('canvas');
+          canvas.width = width;
+          canvas.height = height;
+          canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+          const dataUrl = canvas.toDataURL('image/jpeg', 0.82);
+          resolve(dataUrl);
+        };
+        img.onerror = reject;
+        img.src = reader.result;
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+
   async function sendQuestion(qOverride) {
     const question = (qOverride !== undefined ? qOverride : input.value).trim();
-    if (!question) return;
-    addMessage(question, 'user');
+    if (!question && !pendingImage) return;
+
+    if (pendingImage) {
+      addImageMessage('data:' + pendingImage.mimeType + ';base64,' + pendingImage.data);
+    }
+    if (question) addMessage(question, 'user');
+
     input.value = '';
+    const imageToSend = pendingImage;
+    clearPendingImage();
     sendBtn.disabled = true;
     const loadingMsg = addMessage('Thinking...', 'bot loading');
     try {
+      const requestBody = {
+        prompt: `You are a helpful tutor for Rwandan Senior 4-6 students, following the REB Competency-Based Curriculum. Answer directly and concisely — no greetings, no "That's a great question" preamble, just the explanation itself, clearly and simply, at a level appropriate for a secondary school student: ${question}`
+      };
+      if (imageToSend) requestBody.image = imageToSend;
+
       const response = await fetch(WORKER_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          prompt: `You are a helpful tutor for Rwandan Senior 4-6 students, following the REB Competency-Based Curriculum. Answer questions on any subject or concept clearly and simply, at a level appropriate for a secondary school student: ${question}`
-        })
+        body: JSON.stringify(requestBody)
       });
       const data = await response.json().catch(() => ({}));
       if (!response.ok) {
@@ -140,6 +204,55 @@
       input.focus();
     }
   }
+
+  function clearPendingImage() {
+    pendingImage = null;
+    previewRow.style.display = 'none';
+    previewRow.innerHTML = '';
+    fileInput.value = '';
+  }
+
+  function showPendingImagePreview(dataUrl) {
+    previewRow.innerHTML = '';
+    const img = document.createElement('img');
+    img.src = dataUrl;
+    const removeBtn = document.createElement('button');
+    removeBtn.id = 'image-preview-remove';
+    removeBtn.type = 'button';
+    removeBtn.textContent = '✕';
+    removeBtn.addEventListener('click', clearPendingImage);
+    previewRow.appendChild(img);
+    previewRow.appendChild(removeBtn);
+    previewRow.style.display = 'flex';
+  }
+
+  plusBtn.addEventListener('click', () => fileInput.click());
+
+  fileInput.addEventListener('change', async () => {
+    const file = fileInput.files[0];
+    if (!file) return;
+    if (!file.type.startsWith('image/')) {
+      alert('Please choose an image file.');
+      clearPendingImage();
+      return;
+    }
+    if (file.size > 10 * 1024 * 1024) {
+      alert('That image is too large. Please choose one under 10MB.');
+      clearPendingImage();
+      return;
+    }
+    try {
+      const dataUrl = await fileToCompressedImage(file);
+      const [prefix, base64] = dataUrl.split(',');
+      const mimeType = prefix.match(/data:(.*?);/)[1];
+      pendingImage = { data: base64, mimeType };
+      showPendingImagePreview(dataUrl);
+      input.focus();
+    } catch (err) {
+      alert('Could not process that image. Please try another.');
+      clearPendingImage();
+    }
+  });
 
   sendBtn.addEventListener('click', () => sendQuestion());
   input.addEventListener('keydown', (e) => { if (e.key === 'Enter') sendQuestion(); });
