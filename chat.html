@@ -36,7 +36,13 @@
   .chat-msg.bot{align-self:flex-start;background:var(--surface2);color:var(--text);border:1px solid var(--border);}
   .chat-msg.bot.loading{color:var(--muted);font-style:italic;}
 
-  #chat-input-row{display:flex;border-top:1px solid var(--border);padding:10px;gap:8px;}
+  #chat-input-row{display:flex;align-items:center;border-top:1px solid var(--border);padding:10px;gap:8px;}
+  .chat-plus{
+    background:transparent;border:1px solid var(--border);color:var(--muted);
+    width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:1.15rem;
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  .chat-plus:hover{border-color:var(--accent);color:var(--accent);}
   #chat-input{
     flex:1;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);
     padding:12px 14px;font-size:.95rem;font-family:'Source Serif 4',Georgia,serif;outline:none;
@@ -48,13 +54,6 @@
   }
   #chat-send:hover{opacity:.9;}
   #chat-send:disabled{opacity:.5;cursor:not-allowed;}
-
-  .suggestions{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;justify-content:center;}
-  .sugg-chip{
-    background:var(--surface);border:1px solid var(--border);color:var(--muted);
-    padding:7px 14px;border-radius:20px;font-size:.78rem;cursor:pointer;font-family:'JetBrains Mono',monospace;
-  }
-  .sugg-chip:hover{border-color:var(--accent);color:var(--accent);}
 
   footer{text-align:center;color:var(--muted);font-size:.78rem;padding:18px;border-top:1px solid var(--border);}
 </style>
@@ -82,16 +81,10 @@
       <div class="chat-msg bot">Hi! I'm Jackson AI. Ask me anything — chemistry, biology, physics, math, or any other subject. What would you like to know?</div>
     </div>
     <div id="chat-input-row">
-      <input id="chat-input" type="text" placeholder="Type your question..." autocomplete="off">
+      <button class="chat-plus" aria-label="More options" type="button">+</button>
+      <input id="chat-input" type="text" placeholder="Write a message..." autocomplete="off">
       <button id="chat-send">Send</button>
     </div>
-  </div>
-
-  <div class="suggestions">
-    <div class="sugg-chip" data-q="Explain the difference between ionic and covalent bonding">Ionic vs covalent bonding</div>
-    <div class="sugg-chip" data-q="What is the mole concept in chemistry?">The mole concept</div>
-    <div class="sugg-chip" data-q="How do I balance a chemical equation?">Balancing equations</div>
-    <div class="sugg-chip" data-q="Explain photosynthesis simply">Photosynthesis</div>
   </div>
 </main>
 
@@ -100,7 +93,7 @@
 </footer>
 
 <script>
-  const WORKER_URL = "https://chem-payment.hajackson2020.workers.dev";
+  const WORKER_URL = "https://chem-payment.hajackson2020.workers.dev/chat";
   const messages = document.getElementById('chat-messages');
   const input = document.getElementById('chat-input');
   const sendBtn = document.getElementById('chat-send');
@@ -129,9 +122,13 @@
           prompt: `You are a helpful tutor for Rwandan Senior 4-6 students, following the REB Competency-Based Curriculum. Answer questions on any subject or concept clearly and simply, at a level appropriate for a secondary school student: ${question}`
         })
       });
-      if (!response.ok) throw new Error('Request failed: ' + response.status);
-      const data = await response.json();
-      const answer = data.answer || data.text || data.response || JSON.stringify(data);
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        loadingMsg.remove();
+        addMessage(data.message || "Sorry, I couldn't get an answer right now. Please try again.", 'bot');
+        return;
+      }
+      const answer = data.text || data.answer || data.response || "Sorry, I couldn't get an answer right now.";
       loadingMsg.remove();
       addMessage(answer, 'bot');
     } catch (err) {
@@ -146,10 +143,6 @@
 
   sendBtn.addEventListener('click', () => sendQuestion());
   input.addEventListener('keydown', (e) => { if (e.key === 'Enter') sendQuestion(); });
-
-  document.querySelectorAll('.sugg-chip').forEach(chip => {
-    chip.addEventListener('click', () => sendQuestion(chip.dataset.q));
-  });
 
   // Auto-send a question passed in via ?q= from the homepage nav box
   const params = new URLSearchParams(window.location.search);
