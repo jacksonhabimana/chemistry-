@@ -82,7 +82,7 @@
 
   <div id="chat-box">
     <div id="chat-messages">
-      <div class="chat-msg bot">Hi! I'm Jackson AI. Ask me anything — chemistry, biology, physics, math, or any other subject. What would you like to know?</div>
+      <div class="chat-msg bot" id="initial-greeting">Hi! I'm Jackson AI. Ask me anything — chemistry, biology, physics, math, or any other subject. What would you like to know?</div>
     </div>
     <div id="image-preview-row" style="display:none;"></div>
     <div id="chat-input-row">
@@ -108,6 +108,17 @@
   const previewRow = document.getElementById('image-preview-row');
 
   let pendingImage = null; // { data: base64 (no prefix), mimeType }
+  let visitorName = localStorage.getItem('jai_name') || null;
+  let awaitingName = !visitorName;
+  let pendingAfterName = null; // a question typed/linked-in before we knew their name
+
+  if (awaitingName) {
+    const greetingDiv = document.getElementById('initial-greeting');
+    greetingDiv.textContent = "Hi! I'm Jackson AI 👋 What's your name?";
+  } else {
+    const greetingDiv = document.getElementById('initial-greeting');
+    greetingDiv.textContent = `Hi ${visitorName}! 👋 Ask me anything — any subject or concept, S4 to S6.`;
+  }
 
   // Convert the AI's markdown-ish output (**bold**, "* " bullets, numbered
   // sections all run together) into readable HTML with real line breaks.
@@ -218,6 +229,28 @@
     const question = (qOverride !== undefined ? qOverride : input.value).trim();
     if (!question && !pendingImage) return;
 
+    // First message on a new device/browser: capture the visitor's name
+    // instead of sending it to the AI as a question.
+    if (awaitingName) {
+      addMessage(question, 'user');
+      input.value = '';
+      const name = question.replace(/[^a-zA-Z\s'-]/g, '').trim().split(/\s+/)[0] || question;
+      const cleanName = name.charAt(0).toUpperCase() + name.slice(1);
+      visitorName = cleanName;
+      localStorage.setItem('jai_name', cleanName);
+      awaitingName = false;
+      if (pendingAfterName) {
+        const held = pendingAfterName;
+        pendingAfterName = null;
+        addMessage(`Nice to meet you, ${cleanName}! 👋`, 'bot');
+        sendQuestion(held);
+      } else {
+        addMessage(`Nice to meet you, ${cleanName}! 👋 What would you like to work on today?`, 'bot');
+      }
+      input.focus();
+      return;
+    }
+
     if (pendingImage) {
       addImageMessage('data:' + pendingImage.mimeType + ';base64,' + pendingImage.data);
     }
@@ -229,8 +262,9 @@
     sendBtn.disabled = true;
     const loadingMsg = addMessage('Thinking...', 'bot loading');
     try {
+      const nameNote = visitorName ? ` The student's name is ${visitorName} — you can address them by name occasionally, but don't force it into every sentence.` : '';
       const requestBody = {
-        prompt: `You are a helpful tutor for Rwandan Senior 4-6 students, following the REB Competency-Based Curriculum. Answer directly and concisely — no greetings, no "That's a great question" preamble, just the explanation itself, clearly and simply, at a level appropriate for a secondary school student. Structure longer answers with short paragraphs and a clear line break between each step or point (put each numbered step or bullet on its own line) rather than one dense block of text. Do not use markdown formatting like ** for bold or # for headings — write in plain text only.\n\nQuestion: ${question}`
+        prompt: `You are a helpful tutor for Rwandan Senior 4-6 students, following the REB Competency-Based Curriculum.${nameNote} If the message is just a casual greeting (hi, hello, hey, muraho) with no real question in it, reply with ONE short, warm, friendly sentence greeting them back and asking what they'd like help with — do NOT explain anything or lecture. Otherwise, answer directly and concisely — no "That's a great question" preamble, just the explanation itself, clearly and simply, at a level appropriate for a secondary school student. Structure longer answers with short paragraphs and a clear line break between each step or point (put each numbered step or bullet on its own line) rather than one dense block of text. Do not use markdown formatting like ** for bold or # for headings — write in plain text only.\n\nMessage: ${question}`
       };
       if (imageToSend) requestBody.image = imageToSend;
 
@@ -313,10 +347,16 @@
   sendBtn.addEventListener('click', () => sendQuestion());
   input.addEventListener('keydown', (e) => { if (e.key === 'Enter') sendQuestion(); });
 
-  // Auto-send a question passed in via ?q= from the homepage nav box
+  // Auto-send a question passed in via ?q= from the homepage nav box —
+  // but if we don't know the visitor's name yet, ask for that first and
+  // hold the question until they answer it.
   const params = new URLSearchParams(window.location.search);
   const incomingQ = params.get('q');
-  if (incomingQ) {
+  if (incomingQ && awaitingName) {
+    pendingAfterName = incomingQ;
+    input.placeholder = "Type your name to get started...";
+    input.focus();
+  } else if (incomingQ) {
     sendQuestion(incomingQ);
   } else {
     input.focus();
