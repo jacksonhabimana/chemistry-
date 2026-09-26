@@ -109,10 +109,41 @@
 
   let pendingImage = null; // { data: base64 (no prefix), mimeType }
 
+  // Convert the AI's markdown-ish output (**bold**, "* " bullets, numbered
+  // sections all run together) into readable HTML with real line breaks.
+  function formatBotText(raw) {
+    let s = raw
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+
+    // **bold** -> <strong>bold</strong>
+    s = s.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+
+    // Break before numbered section headers like "1." "2." when bolded
+    s = s.replace(/(<strong>)(\d+)\.\s/g, '<br><br>$1$2. ');
+
+    // Turn " * " bullet markers (single asterisk used as a list bullet)
+    // into a new line with a bullet point
+    s = s.replace(/\s\*\s/g, '<br>&bull; ');
+
+    // Respect any real newlines too
+    s = s.replace(/\n/g, '<br>');
+
+    // Clean up a leading <br> if the text now starts with one
+    s = s.replace(/^(<br>\s*)+/, '');
+
+    return s;
+  }
+
   function addMessage(text, sender) {
     const div = document.createElement('div');
     div.className = 'chat-msg ' + sender;
-    div.textContent = text;
+    if (sender === 'bot') {
+      div.innerHTML = formatBotText(text);
+    } else {
+      div.textContent = text;
+    }
     messages.appendChild(div);
     messages.scrollTop = messages.scrollHeight;
     return div;
@@ -127,6 +158,28 @@
     img.style.borderRadius = '8px';
     img.style.display = 'block';
     div.appendChild(img);
+    messages.appendChild(div);
+    messages.scrollTop = messages.scrollHeight;
+  }
+
+  function addBotImage(url, caption) {
+    const div = document.createElement('div');
+    div.className = 'chat-msg bot';
+    const img = document.createElement('img');
+    img.src = url;
+    img.alt = caption || '';
+    img.style.maxWidth = '100%';
+    img.style.borderRadius = '8px';
+    img.style.display = 'block';
+    div.appendChild(img);
+    if (caption) {
+      const cap = document.createElement('div');
+      cap.style.fontSize = '.72rem';
+      cap.style.color = 'var(--muted)';
+      cap.style.marginTop = '6px';
+      cap.textContent = caption;
+      div.appendChild(cap);
+    }
     messages.appendChild(div);
     messages.scrollTop = messages.scrollHeight;
   }
@@ -177,7 +230,7 @@
     const loadingMsg = addMessage('Thinking...', 'bot loading');
     try {
       const requestBody = {
-        prompt: `You are a helpful tutor for Rwandan Senior 4-6 students, following the REB Competency-Based Curriculum. Answer directly and concisely — no greetings, no "That's a great question" preamble, just the explanation itself, clearly and simply, at a level appropriate for a secondary school student: ${question}`
+        prompt: `You are a helpful tutor for Rwandan Senior 4-6 students, following the REB Competency-Based Curriculum. Answer directly and concisely — no greetings, no "That's a great question" preamble, just the explanation itself, clearly and simply, at a level appropriate for a secondary school student. Structure longer answers with short paragraphs and a clear line break between each step or point (put each numbered step or bullet on its own line) rather than one dense block of text. Do not use markdown formatting like ** for bold or # for headings — write in plain text only.\n\nQuestion: ${question}`
       };
       if (imageToSend) requestBody.image = imageToSend;
 
@@ -195,6 +248,9 @@
       const answer = data.text || data.answer || data.response || "Sorry, I couldn't get an answer right now.";
       loadingMsg.remove();
       addMessage(answer, 'bot');
+      if (data.image && data.image.url) {
+        addBotImage(data.image.url, data.image.caption);
+      }
     } catch (err) {
       loadingMsg.remove();
       addMessage("Sorry, something went wrong. Please try again.", 'bot');
