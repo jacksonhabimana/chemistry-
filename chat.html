@@ -21,6 +21,30 @@
   main{flex:1;max-width:800px;width:100%;margin:0 auto;padding:32px 20px 60px;display:flex;flex-direction:column;}
 
   .chat-hero{text-align:center;margin-bottom:24px;}
+
+  .chat-toolbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:8px;}
+  #new-chat-btn,#history-btn{
+    background:var(--surface);border:1px solid var(--border);color:var(--text);
+    padding:7px 14px;border-radius:20px;font-size:.8rem;cursor:pointer;font-family:'JetBrains Mono',monospace;
+  }
+  #new-chat-btn:hover,#history-btn:hover{border-color:var(--accent);color:var(--accent);}
+  .history-wrap{position:relative;}
+  #history-panel{
+    display:none;position:absolute;right:0;top:calc(100% + 6px);width:280px;max-height:340px;overflow-y:auto;
+    background:var(--surface);border:1px solid var(--border);border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:50;
+  }
+  #history-panel.open{display:block;}
+  .history-item{
+    display:flex;justify-content:space-between;align-items:center;gap:6px;
+    padding:10px 12px;border-bottom:1px solid var(--border);cursor:pointer;font-size:.82rem;
+  }
+  .history-item:last-child{border-bottom:none;}
+  .history-item:hover{background:var(--surface2);}
+  .history-item-text{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .history-item-date{font-size:.68rem;color:var(--muted);white-space:nowrap;margin-left:6px;}
+  .history-item-del{background:none;border:none;color:var(--muted);cursor:pointer;font-size:.85rem;flex-shrink:0;}
+  .history-item-del:hover{color:var(--red);}
+  .history-empty{padding:16px;text-align:center;color:var(--muted);font-size:.8rem;}
   .chat-hero h1{font-family:'Playfair Display',serif;font-size:2rem;color:#fff;margin-bottom:6px;}
   .chat-hero p{color:var(--muted);font-size:.92rem;}
 
@@ -80,14 +104,22 @@
     <p>Ask anything — any subject or concept, S4 to S6.</p>
   </div>
 
+  <div class="chat-toolbar">
+    <button id="new-chat-btn" type="button">+ New Chat</button>
+    <div class="history-wrap">
+      <button id="history-btn" type="button">🕘 History</button>
+      <div id="history-panel"></div>
+    </div>
+  </div>
+
   <div id="chat-box">
     <div id="chat-messages">
       <div class="chat-msg bot" id="initial-greeting">Hi! I'm Jackson AI. Ask me anything — chemistry, biology, physics, math, or any other subject. What would you like to know?</div>
     </div>
     <div id="image-preview-row" style="display:none;"></div>
     <div id="chat-input-row">
-      <button class="chat-plus" id="chat-plus-btn" aria-label="Attach a photo" type="button">+</button>
-      <input type="file" id="chat-file-input" accept="image/*" style="display:none;">
+      <button class="chat-plus" id="chat-plus-btn" aria-label="Attach a photo or file" type="button">+</button>
+      <input type="file" id="chat-file-input" accept="image/*,.pdf,.txt,application/pdf,text/plain" style="display:none;">
       <input id="chat-input" type="text" placeholder="Write a message..." autocomplete="off">
       <button id="chat-send">Send</button>
     </div>
@@ -107,10 +139,113 @@
   const fileInput = document.getElementById('chat-file-input');
   const previewRow = document.getElementById('image-preview-row');
 
-  let pendingImage = null; // { data: base64 (no prefix), mimeType }
+  let pendingImage = null; // { data: base64 (no prefix), mimeType, kind: 'image'|'pdf' }
+  let pendingTextFile = null; // { name, content } for .txt attachments
   let visitorName = localStorage.getItem('jai_name') || null;
   let awaitingName = !visitorName;
   let pendingAfterName = null; // a question typed/linked-in before we knew their name
+
+  const SESSIONS_KEY = 'jai_sessions';
+  let currentSessionId = 'sess_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8);
+  let currentMessages = []; // [{sender:'user'|'bot', kind:'text'|'bot-image', text, imageUrl, caption}]
+
+  function getSessions() {
+    try { return JSON.parse(localStorage.getItem(SESSIONS_KEY) || '[]'); }
+    catch (e) { return []; }
+  }
+  function saveSessions(arr) {
+    try { localStorage.setItem(SESSIONS_KEY, JSON.stringify(arr)); }
+    catch (e) { /* storage full or unavailable — history just won't persist */ }
+  }
+  function persistCurrentSession() {
+    if (!currentMessages.some(m => m.sender === 'user')) return; // nothing real to save yet
+    const sessions = getSessions();
+    const firstUserMsg = currentMessages.find(m => m.sender === 'user');
+    const title = (firstUserMsg?.text || 'New chat').slice(0, 60);
+    const idx = sessions.findIndex(s => s.id === currentSessionId);
+    const record = { id: currentSessionId, title, updatedAt: Date.now(), messages: currentMessages };
+    if (idx >= 0) sessions[idx] = record; else sessions.unshift(record);
+    saveSessions(sessions);
+  }
+  function relativeDate(ts) {
+    const diff = Date.now() - ts;
+    const mins = Math.floor(diff / 60000);
+    if (mins < 1) return 'just now';
+    if (mins < 60) return mins + 'm ago';
+    const hrs = Math.floor(mins / 60);
+    if (hrs < 24) return hrs + 'h ago';
+    const days = Math.floor(hrs / 24);
+    if (days < 7) return days + 'd ago';
+    return new Date(ts).toLocaleDateString();
+  }
+  function renderHistoryPanel() {
+    const panel = document.getElementById('history-panel');
+    const sessions = getSessions().sort((a, b) => b.updatedAt - a.updatedAt);
+    if (!sessions.length) {
+      panel.innerHTML = '<div class="history-empty">No past chats yet</div>';
+      return;
+    }
+    panel.innerHTML = '';
+    sessions.forEach(s => {
+      const item = document.createElement('div');
+      item.className = 'history-item';
+      const textSpan = document.createElement('span');
+      textSpan.className = 'history-item-text';
+      textSpan.textContent = s.title;
+      const dateSpan = document.createElement('span');
+      dateSpan.className = 'history-item-date';
+      dateSpan.textContent = relativeDate(s.updatedAt);
+      const delBtn = document.createElement('button');
+      delBtn.className = 'history-item-del';
+      delBtn.type = 'button';
+      delBtn.textContent = '✕';
+      delBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const remaining = getSessions().filter(x => x.id !== s.id);
+        saveSessions(remaining);
+        renderHistoryPanel();
+      });
+      item.appendChild(textSpan);
+      item.appendChild(dateSpan);
+      item.appendChild(delBtn);
+      item.addEventListener('click', () => loadSession(s.id));
+      panel.appendChild(item);
+    });
+  }
+  function loadSession(id) {
+    persistCurrentSession();
+    const session = getSessions().find(s => s.id === id);
+    if (!session) return;
+    currentSessionId = session.id;
+    currentMessages = session.messages.slice();
+    document.getElementById('chat-messages').innerHTML = '';
+    session.messages.forEach(m => {
+      if (m.kind === 'bot-image') {
+        renderBotImage(m.imageUrl, m.caption);
+      } else {
+        renderMessage(m.text, m.sender);
+      }
+    });
+    document.getElementById('history-panel').classList.remove('open');
+    document.getElementById('chat-messages').scrollTop = document.getElementById('chat-messages').scrollHeight;
+  }
+  function startNewChat() {
+    persistCurrentSession();
+    currentSessionId = 'sess_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8);
+    currentMessages = [];
+    const messagesDiv = document.getElementById('chat-messages');
+    messagesDiv.innerHTML = '';
+    const greetDiv = document.createElement('div');
+    greetDiv.className = 'chat-msg bot';
+    greetDiv.textContent = visitorName
+      ? `Hi ${visitorName}! 👋 What would you like to work on?`
+      : "Hi! I'm Jackson AI. Ask me anything — chemistry, biology, physics, math, or any other subject.";
+    messagesDiv.appendChild(greetDiv);
+    clearPendingImage();
+    document.getElementById('history-panel').classList.remove('open');
+    input.value = '';
+    input.focus();
+  }
 
   if (awaitingName) {
     const greetingDiv = document.getElementById('initial-greeting');
@@ -120,9 +255,34 @@
     greetingDiv.textContent = `Hi ${visitorName}! 👋 Ask me anything — any subject or concept, S4 to S6.`;
   }
 
+  // Safety net: if the AI still slips in an ASCII-art style diagram
+  // (lines of just |, -, letters used for spacing/alignment) despite the
+  // prompt telling it not to, render that whole message as a monospace
+  // block instead of letting a proportional font mangle the alignment.
+  function looksLikeAsciiArt(raw) {
+    const lines = raw.split('\n');
+    let symbolLines = 0;
+    for (const line of lines) {
+      const trimmed = line.trim();
+      if (!trimmed) continue;
+      const isSymbolHeavy = /^[|\-\sA-Za-z0-9=+]+$/.test(trimmed) && /[|\-]/.test(trimmed);
+      const letterCount = (trimmed.match(/[A-Za-z]/g) || []).length;
+      if (isSymbolHeavy && letterCount <= trimmed.length * 0.6) symbolLines++;
+    }
+    return symbolLines >= 2;
+  }
+
   // Convert the AI's markdown-ish output (**bold**, "* " bullets, numbered
   // sections all run together) into readable HTML with real line breaks.
   function formatBotText(raw) {
+    if (looksLikeAsciiArt(raw)) {
+      const escaped = raw
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+      return `<pre style="white-space:pre;overflow-x:auto;font-family:'JetBrains Mono',monospace;font-size:.82rem;background:var(--bg);padding:10px;border-radius:6px;border:1px solid var(--border);margin:0;">${escaped}</pre>`;
+    }
+
     let s = raw
       .replace(/&/g, '&amp;')
       .replace(/</g, '&lt;')
@@ -147,7 +307,7 @@
     return s;
   }
 
-  function addMessage(text, sender) {
+  function renderMessage(text, sender) {
     const div = document.createElement('div');
     div.className = 'chat-msg ' + sender;
     if (sender === 'bot') {
@@ -157,6 +317,13 @@
     }
     messages.appendChild(div);
     messages.scrollTop = messages.scrollHeight;
+    return div;
+  }
+
+  function addMessage(text, sender) {
+    const div = renderMessage(text, sender);
+    currentMessages.push({ sender, kind: 'text', text });
+    persistCurrentSession();
     return div;
   }
 
@@ -171,9 +338,13 @@
     div.appendChild(img);
     messages.appendChild(div);
     messages.scrollTop = messages.scrollHeight;
+    // Don't store the actual base64 image in history (too large for
+    // localStorage) — just a text note so the conversation still makes sense.
+    currentMessages.push({ sender: 'user', kind: 'text', text: '📷 Attached a photo' });
+    persistCurrentSession();
   }
 
-  function addBotImage(url, caption) {
+  function renderBotImage(url, caption) {
     const div = document.createElement('div');
     div.className = 'chat-msg bot';
     const img = document.createElement('img');
@@ -193,6 +364,12 @@
     }
     messages.appendChild(div);
     messages.scrollTop = messages.scrollHeight;
+  }
+
+  function addBotImage(url, caption) {
+    renderBotImage(url, caption);
+    currentMessages.push({ sender: 'bot', kind: 'bot-image', imageUrl: url, caption });
+    persistCurrentSession();
   }
 
   // Resize/compress an image file client-side before sending, to keep
@@ -225,9 +402,29 @@
     });
   }
 
+  // Read a PDF (or any binary file) as a base64 data URL, no compression.
+  function fileToDataUrl(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+
+  // Read a plain text file's actual text content.
+  function fileToText(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = reject;
+      reader.readAsText(file);
+    });
+  }
+
   async function sendQuestion(qOverride) {
     const question = (qOverride !== undefined ? qOverride : input.value).trim();
-    if (!question && !pendingImage) return;
+    if (!question && !pendingImage && !pendingTextFile) return;
 
     // First message on a new device/browser: capture the visitor's name
     // instead of sending it to the AI as a question.
@@ -251,20 +448,35 @@
       return;
     }
 
-    if (pendingImage) {
+    if (pendingImage && pendingImage.kind === 'image') {
       addImageMessage('data:' + pendingImage.mimeType + ';base64,' + pendingImage.data);
+    } else if (pendingImage && pendingImage.kind === 'pdf') {
+      addMessage('📄 Attached a PDF', 'user');
+    } else if (pendingTextFile) {
+      addMessage('📄 Attached ' + pendingTextFile.name, 'user');
     }
     if (question) addMessage(question, 'user');
 
     input.value = '';
     const imageToSend = pendingImage;
+    const textFileToSend = pendingTextFile;
     clearPendingImage();
     sendBtn.disabled = true;
     const loadingMsg = addMessage('Thinking...', 'bot loading');
     try {
       const nameNote = visitorName ? ` The student's name is ${visitorName} — you can address them by name occasionally, but don't force it into every sentence.` : '';
+      let messageText = question;
+      if (textFileToSend) {
+        messageText = `[Attached file: ${textFileToSend.name}]\n${textFileToSend.content}\n\n${question || 'Please read the attached file and help with it.'}`;
+      }
       const requestBody = {
-        prompt: `You are a helpful tutor for Rwandan Senior 4-6 students, following the REB Competency-Based Curriculum.${nameNote} If the message is just a casual greeting (hi, hello, hey, muraho) with no real question in it, reply with ONE short, warm, friendly sentence greeting them back and asking what they'd like help with — do NOT explain anything or lecture. Otherwise, answer directly and concisely — no "That's a great question" preamble, just the explanation itself, clearly and simply, at a level appropriate for a secondary school student. Structure longer answers with short paragraphs and a clear line break between each step or point (put each numbered step or bullet on its own line) rather than one dense block of text. Do not use markdown formatting like ** for bold or # for headings — write in plain text only.\n\nMessage: ${question}`
+        prompt: `You are a helpful tutor for Rwandan Senior 4-6 students, following the REB Competency-Based Curriculum.${nameNote}
+
+If the message is JUST a casual greeting (hi, hello, hey) with no real question, reply with ONE short, warm sentence greeting them back and asking what they'd like help with — nothing more.
+
+Otherwise: never start your reply with "Muraho", "Hello", "Hi", or any greeting word, and never open with "That's a great question" or similar filler — start straight with the actual content. If the message has more than one question or part, answer EVERY part completely, in order — do not skip or shorten any part to save space. Structure longer answers with short paragraphs and a clear line break between each step or point (each numbered step or bullet on its own line). Do not use markdown formatting like ** for bold or # for headings — write in plain text only. Never draw ASCII-art diagrams, grids, or multi-line structures using spaces, dashes or "|" characters to represent chemical structures, molecules, or anything visual — this chat cannot align them and they will look broken. Instead describe structures in words or standard condensed notation on a single line (for example: CH3-CH2-CH3, or "propane: three carbons in a chain, each carbon bonded to hydrogens to complete four bonds").
+
+Message: ${messageText}`
       };
       if (imageToSend) requestBody.image = imageToSend;
 
@@ -297,6 +509,7 @@
 
   function clearPendingImage() {
     pendingImage = null;
+    pendingTextFile = null;
     previewRow.style.display = 'none';
     previewRow.innerHTML = '';
     fileInput.value = '';
@@ -316,31 +529,72 @@
     previewRow.style.display = 'flex';
   }
 
+  function showPendingFileChip(label) {
+    previewRow.innerHTML = '';
+    const chip = document.createElement('div');
+    chip.style.cssText = 'display:flex;align-items:center;gap:6px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:6px 10px;font-size:.78rem;color:var(--text);';
+    chip.textContent = '📄 ' + label;
+    const removeBtn = document.createElement('button');
+    removeBtn.id = 'image-preview-remove';
+    removeBtn.type = 'button';
+    removeBtn.textContent = '✕';
+    removeBtn.addEventListener('click', clearPendingImage);
+    chip.appendChild(removeBtn);
+    previewRow.appendChild(chip);
+    previewRow.style.display = 'flex';
+  }
+
   plusBtn.addEventListener('click', () => fileInput.click());
 
   fileInput.addEventListener('change', async () => {
     const file = fileInput.files[0];
     if (!file) return;
-    if (!file.type.startsWith('image/')) {
-      alert('Please choose an image file.');
-      clearPendingImage();
-      return;
-    }
+
     if (file.size > 10 * 1024 * 1024) {
-      alert('That image is too large. Please choose one under 10MB.');
+      alert('That file is too large. Please choose one under 10MB.');
       clearPendingImage();
       return;
     }
+
     try {
-      const dataUrl = await fileToCompressedImage(file);
-      const [prefix, base64] = dataUrl.split(',');
-      const mimeType = prefix.match(/data:(.*?);/)[1];
-      pendingImage = { data: base64, mimeType };
-      showPendingImagePreview(dataUrl);
+      if (file.type.startsWith('image/')) {
+        const dataUrl = await fileToCompressedImage(file);
+        const [prefix, base64] = dataUrl.split(',');
+        const mimeType = prefix.match(/data:(.*?);/)[1];
+        pendingImage = { data: base64, mimeType, kind: 'image' };
+        showPendingImagePreview(dataUrl);
+      } else if (file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf')) {
+        const dataUrl = await fileToDataUrl(file);
+        const [prefix, base64] = dataUrl.split(',');
+        pendingImage = { data: base64, mimeType: 'application/pdf', kind: 'pdf' };
+        showPendingFileChip(file.name);
+      } else if (file.type === 'text/plain' || file.name.toLowerCase().endsWith('.txt')) {
+        const text = await fileToText(file);
+        pendingTextFile = { name: file.name, content: text.slice(0, 15000) };
+        showPendingFileChip(file.name);
+      } else {
+        alert('Please choose an image, a PDF, or a .txt file.');
+        clearPendingImage();
+        return;
+      }
       input.focus();
     } catch (err) {
-      alert('Could not process that image. Please try another.');
+      alert('Could not process that file. Please try another.');
       clearPendingImage();
+    }
+  });
+
+  document.getElementById('new-chat-btn').addEventListener('click', startNewChat);
+  document.getElementById('history-btn').addEventListener('click', () => {
+    const panel = document.getElementById('history-panel');
+    const isOpening = !panel.classList.contains('open');
+    if (isOpening) renderHistoryPanel();
+    panel.classList.toggle('open');
+  });
+  document.addEventListener('click', (e) => {
+    const wrap = document.querySelector('.history-wrap');
+    if (wrap && !wrap.contains(e.target)) {
+      document.getElementById('history-panel').classList.remove('open');
     }
   });
 
