@@ -488,7 +488,7 @@ Message: ${messageText}`
       const data = await response.json().catch(() => ({}));
       if (!response.ok) {
         loadingMsg.remove();
-        addMessage(data.message || "Sorry, I couldn't get an answer right now. Please try again.", 'bot');
+        addMessage(data.message || (data.error ? `Debug info: ${data.error}` : "Sorry, I couldn't get an answer right now. Please try again."), 'bot');
         return;
       }
       const answer = data.text || data.answer || data.response || "Sorry, I couldn't get an answer right now.";
