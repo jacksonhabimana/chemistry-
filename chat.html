@@ -89,6 +89,8 @@
   .chat-msg.bot a{color:var(--accent);}
   .chat-msg.bot .katex{font-size:1.02em;}
   .chat-msg.bot .katex-display{overflow-x:auto;overflow-y:hidden;margin:.5em 0;}
+  .chat-msg.bot .svg-diagram{background:#f8fafc;border:1px solid var(--border);border-radius:8px;padding:10px;margin:.5em 0;overflow-x:auto;text-align:center;}
+  .chat-msg.bot .svg-diagram svg{width:100%;max-width:680px;height:auto;}
   .chat-msg.bot .mermaid{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:10px;margin:.5em 0;overflow-x:auto;display:flex;justify-content:center;}
 
   #chat-input-row{display:flex;align-items:center;border-top:1px solid var(--border);padding:10px;gap:8px;}
@@ -343,6 +345,34 @@
     return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   }
 
+  // The AI doesn't always label SVG code as ```svg (it may say ```xml/```html,
+  // use no fence at all, or get cut off before </svg>). Normalise all of those
+  // so the figure is always drawn.
+  function normalizeSvgBlocks(text) {
+    const parts = text.split(/(```[\s\S]*?(?:```|$))/);
+    return parts.map((part) => {
+      if (part.startsWith('```')) {
+        const inner = part.replace(/^```[^\n]*\n?/, '').replace(/```$/, '');
+        const start = inner.search(/<svg[\s>]/i);
+        if (start === -1) return part;
+        let svg = inner.slice(start);
+        const end = svg.toLowerCase().lastIndexOf('</svg>');
+        svg = end === -1 ? svg + '\n</svg>' : svg.slice(0, end + 6);
+        return '\n```svg\n' + svg + '\n```\n';
+      }
+      return part.replace(/<svg[\s\S]*?<\/svg>/gi, (m) => '\n```svg\n' + m + '\n```\n');
+    }).join('');
+  }
+
+  function ensureSvgViewBox(code) {
+    return code.replace(/<svg([^>]*)>/i, (m, attrs) => {
+      if (/viewBox=/i.test(attrs)) return m;
+      const w = attrs.match(/\bwidth=["']?(\d+)/i), h = attrs.match(/\bheight=["']?(\d+)/i);
+      const vb = (w && h) ? `0 0 ${w[1]} ${h[1]}` : '0 0 600 400';
+      return `<svg${attrs} viewBox="${vb}">`;
+    });
+  }
+
   function formatBotText(raw) {
     // 1. Pull out math segments first so Markdown parsing can't mangle
     // underscores/asterisks inside LaTeX. Restored after Markdown+sanitize.
@@ -350,13 +380,19 @@
     function stashMath(latex, display) {
       const idx = mathStore.length;
       mathStore.push({ latex, display });
-      return `\u0000MATH${idx}\u0000`;
+      return `\uE000MATH${idx}\uE001`;
     }
-    let s = raw;
+    const fenceStore = [];
+    const svgStore = [];
+    let s = normalizeSvgBlocks(raw).replace(/```[\s\S]*?(```|$)/g, (m) => {
+      fenceStore.push(m);
+      return `\uE002FENCE${fenceStore.length - 1}\uE003`;
+    });
     s = s.replace(/\$\$([\s\S]+?)\$\$/g, (_, g1) => stashMath(g1, true));
     s = s.replace(/\\\[([\s\S]+?)\\\]/g, (_, g1) => stashMath(g1, true));
     s = s.replace(/\\\(([\s\S]+?)\\\)/g, (_, g1) => stashMath(g1, false));
     s = s.replace(/\$([^\$\n]+?)\$/g, (_, g1) => stashMath(g1, false));
+    s = s.replace(/\uE002FENCE(\d+)\uE003/g, (_, i) => fenceStore[i]);
 
     // 2. Markdown -> HTML, with fenced ```mermaid blocks turned into
     // <pre class="mermaid"> for diagram rendering after insertion.
@@ -366,6 +402,11 @@
       renderer.code = function (code, infostring) {
         const lang = (infostring || '').trim().toLowerCase();
         if (lang === 'mermaid') return `<pre class="mermaid">${escapeHtml(code)}</pre>`;
+        if (lang === 'svg' && window.DOMPurify && /<svg[\s>]/i.test(code)) {
+          const clean = DOMPurify.sanitize(ensureSvgViewBox(code), { USE_PROFILES: { svg: true, svgFilters: true } });
+          svgStore.push(clean);
+          return `<div class="svg-diagram">\uE004SVG${svgStore.length - 1}\uE005</div>`;
+        }
         return `<pre><code>${escapeHtml(code)}</code></pre>`;
       };
       marked.setOptions({ breaks: true, gfm: true });
@@ -379,9 +420,11 @@
     // 3. Sanitize before it ever touches innerHTML.
     if (window.DOMPurify) html = DOMPurify.sanitize(html);
 
+    html = html.replace(/\uE004SVG(\d+)\uE005/g, (_, i) => svgStore[i]);
+
     // 4. Restore math, rendered by KaTeX (mhchem extension handles \ce{...}
     // chemistry equations).
-    html = html.replace(/\u0000MATH(\d+)\u0000/g, (_, i) => {
+    html = html.replace(/\uE000MATH(\d+)\uE001/g, (_, i) => {
       const { latex, display } = mathStore[i];
       if (!window.katex) return escapeHtml(display ? `$$${latex}$$` : `$${latex}$`);
       try {
@@ -405,7 +448,21 @@
     messages.appendChild(div);
     // Render any Mermaid diagrams that just got inserted.
     if (sender === 'bot' && window.mermaid && div.querySelector('.mermaid')) {
-      try { mermaid.run({ nodes: div.querySelectorAll('.mermaid') }); } catch (e) { /* leave as code text on failure */ }
+      div.querySelectorAll('.mermaid').forEach(async (node) => {
+        const src = node.textContent;
+        try {
+          await mermaid.parse(src);
+          await mermaid.run({ nodes: [node] });
+        } catch (e) {
+          // Invalid diagram code: show it as plain code instead of an error graphic.
+          const pre = document.createElement('pre');
+          const code = document.createElement('code');
+          code.textContent = src;
+          pre.appendChild(code);
+          node.replaceWith(pre);
+        }
+        messages.scrollTop = messages.scrollHeight;
+      });
     }
     messages.scrollTop = messages.scrollHeight;
     return div;
@@ -538,11 +595,7 @@
         messageText = `[Attached file: ${textFileToSend.name}]\n${textFileToSend.content}\n\n${question || 'Please read the attached file and help with it.'}`;
       }
       const requestBody = {
-        prompt: `You are a helpful tutor for Rwandan Senior 4-6 students, following the REB Competency-Based Curriculum.
-
-If the message is just a casual greeting, reply with one short warm sentence and ask what they'd like help with.
-
-Otherwise: skip greetings and filler, start straight with the content. Answer every part of a multi-part question, in order. Use Markdown for structure: headers, **bold**, numbered/bulleted lists, tables where useful. Write equations and chemistry reactions in LaTeX between $ $ (inline) or $$ $$ (display) — e.g. $\\ce{2H2 + O2 -> 2H2O}$ or $E=mc^2$. Use a \`\`\`mermaid code block for a flowchart or diagram only when a visual genuinely helps.
+        prompt: `Tutor for Rwandan S4-S6 students (REB curriculum). Reply to a bare greeting with one short line. Otherwise start directly with the content: no greeting or filler; answer every part. Use Markdown and LaTeX in $ $ or $$ $$ (chemistry: $\\ce{H2 + O2 -> H2O}$). When a figure/diagram/drawing is wanted (apparatus, columns, structures, graphs, cycles), you CAN and MUST draw it: output one complete \`\`\`svg block (viewBox, clear labels, arrows, light colors), never say you cannot draw. Use \`\`\`mermaid only for simple flowcharts.
 
 Message: ${messageText}`
       };
