@@ -1312,7 +1312,12 @@ async function callAI(prompt){
     throw new Error('Cannot reach server. Check your internet connection.');
   }
   const res=await r.json();
-  if(!r.ok)throw new Error(res.error||'Error generating content. Please try again.');
+  if(!r.ok){
+    if(res.error==='quota')throw new Error('AI is busy (quota reached). Please wait a minute and try again.');
+    if(res.error==='auth'){try{localStorage.removeItem('teacher_token');}catch{}throw new Error(res.message||'Please log in again.');}
+    if(res.error==='limit')throw new Error(res.message||'Your generation limit has been reached.');
+    throw new Error(res.message||res.error||'Error generating content. Please try again.');
+  }
   let raw=res.text||'';
   raw=raw.replace(/```json/gi,'').replace(/```/g,'').trim();
 
@@ -1349,7 +1354,12 @@ async function callAI(prompt){
     throw new Error('Cannot reach server. Check your internet connection.');
   }
   const res=await r.json();
-  if(!r.ok)throw new Error(res.error||'Error generating content. Please try again.');
+  if(!r.ok){
+    if(res.error==='quota')throw new Error('AI is busy (quota reached). Please wait a minute and try again.');
+    if(res.error==='auth'){try{localStorage.removeItem('teacher_token');}catch{}throw new Error(res.message||'Please log in again.');}
+    if(res.error==='limit')throw new Error(res.message||'Your generation limit has been reached.');
+    throw new Error(res.message||res.error||'Error generating content. Please try again.');
+  }
   let raw=res.text||'';
   raw=raw.replace(/```json/gi,'').replace(/```/g,'').trim();
 
