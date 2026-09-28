@@ -37,7 +37,7 @@
   #new-chat-btn:hover,#history-btn:hover{border-color:var(--accent);color:var(--accent);}
   .history-wrap{position:relative;}
   #history-panel{
-    display:none;position:absolute;right:0;top:calc(100% + 6px);width:280px;max-height:340px;overflow-y:auto;
+    display:none;position:absolute;right:0;top:calc(100% + 6px);width:min(340px,88vw);max-height:65vh;overflow-y:auto;
     background:var(--surface);border:1px solid var(--border);border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:50;
   }
   #history-panel.open{display:block;}
@@ -52,6 +52,11 @@
   .history-item-del{background:none;border:none;color:var(--muted);cursor:pointer;font-size:.85rem;flex-shrink:0;}
   .history-item-del:hover{color:var(--red);}
   .history-empty{padding:16px;text-align:center;color:var(--muted);font-size:.8rem;}
+  .history-top{position:sticky;top:0;background:var(--surface);padding:8px;border-bottom:1px solid var(--border);z-index:2;display:flex;gap:6px;align-items:center;}
+  .history-search{flex:1;min-width:0;background:var(--bg);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:6px 9px;font-size:.8rem;}
+  .history-clear{background:none;border:1px solid var(--border);color:var(--muted);border-radius:8px;padding:5px 8px;font-size:.7rem;cursor:pointer;white-space:nowrap;}
+  .history-clear:hover{color:var(--red);border-color:var(--red);}
+  .history-group{padding:6px 12px 3px;font-size:.66rem;letter-spacing:.06em;text-transform:uppercase;color:var(--gold);background:var(--surface2);}
   .chat-hero h1{font-family:'Playfair Display',serif;font-size:2rem;color:#fff;margin-bottom:6px;}
   .chat-hero p{color:var(--muted);font-size:.92rem;}
 
@@ -139,7 +144,7 @@
 
   <div id="chat-box">
     <div id="chat-messages">
-      <div class="chat-msg bot" id="initial-greeting">Hi! I'm Jackson AI. Ask me anything — chemistry, biology, physics, math, or any other subject. What would you like to know?</div>
+      <div class="chat-msg bot" id="initial-greeting">Hi! 👋 What would you like to ask?</div>
     </div>
     <div id="image-preview-row" style="display:none;"></div>
     <div id="chat-input-row">
@@ -169,9 +174,7 @@
 
   let pendingImage = null; // { data: base64 (no prefix), mimeType, kind: 'image'|'pdf' }
   let pendingTextFile = null; // { name, content } for .txt attachments
-  let visitorName = localStorage.getItem('jai_name') || null;
-  let awaitingName = !visitorName;
-  let pendingAfterName = null; // a question typed/linked-in before we knew their name
+  try { localStorage.removeItem('jai_name'); } catch (e) {} // names are no longer used
 
   const SESSIONS_KEY = 'jai_sessions';
   let currentSessionId = 'sess_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8);
@@ -182,39 +185,97 @@
     catch (e) { return []; }
   }
   function saveSessions(arr) {
-    try { localStorage.setItem(SESSIONS_KEY, JSON.stringify(arr)); }
-    catch (e) { /* storage full or unavailable — history just won't persist */ }
+    try { localStorage.setItem(SESSIONS_KEY, JSON.stringify(arr)); return true; }
+    catch (e) { return false; /* storage full or unavailable */ }
   }
   function persistCurrentSession() {
     if (!currentMessages.some(m => m.sender === 'user')) return; // nothing real to save yet
     const sessions = getSessions();
     const firstUserMsg = currentMessages.find(m => m.sender === 'user');
-    const title = (firstUserMsg?.text || 'New chat').slice(0, 60);
+    const title = (firstUserMsg?.text || 'New chat').replace(/\s+/g, ' ').slice(0, 70);
     const idx = sessions.findIndex(s => s.id === currentSessionId);
     const record = { id: currentSessionId, title, updatedAt: Date.now(), messages: currentMessages };
     if (idx >= 0) sessions[idx] = record; else sessions.unshift(record);
-    saveSessions(sessions);
+    if (!saveSessions(sessions)) {
+      // Browser storage is full: shrink the very long messages (e.g. pasted
+      // files) instead of ever deleting old chats.
+      const compact = sessions.map(sess => ({
+        ...sess,
+        messages: (sess.messages || []).map(m =>
+          m.text && m.text.length > 4000 ? { ...m, text: m.text.slice(0, 4000) + ' …' } : m)
+      }));
+      saveSessions(compact);
+    }
   }
   function relativeDate(ts) {
-    const diff = Date.now() - ts;
-    const mins = Math.floor(diff / 60000);
-    if (mins < 1) return 'just now';
-    if (mins < 60) return mins + 'm ago';
-    const hrs = Math.floor(mins / 60);
-    if (hrs < 24) return hrs + 'h ago';
-    const days = Math.floor(hrs / 24);
-    if (days < 7) return days + 'd ago';
-    return new Date(ts).toLocaleDateString();
+    const d = new Date(ts);
+    const time = d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    return d.toLocaleDateString([], { day: 'numeric', month: 'short', year: 'numeric' }) + ' · ' + time;
   }
-  function renderHistoryPanel() {
+  function historyGroupLabel(ts) {
+    const startOfToday = new Date(); startOfToday.setHours(0, 0, 0, 0);
+    const dayMs = 86400000;
+    const diffDays = Math.floor((startOfToday.getTime() - ts) / dayMs) + 1; // 0 = today
+    if (ts >= startOfToday.getTime()) return 'Today';
+    if (diffDays <= 1) return 'Yesterday';
+    if (diffDays <= 7) return 'Previous 7 days';
+    if (diffDays <= 30) return 'Previous 30 days';
+    return new Date(ts).toLocaleDateString([], { month: 'long', year: 'numeric' });
+  }
+  function renderHistoryPanel(filter) {
     const panel = document.getElementById('history-panel');
-    const sessions = getSessions().sort((a, b) => b.updatedAt - a.updatedAt);
+    const keepSearch = document.getElementById('history-search');
+    const q = (filter !== undefined ? filter : (keepSearch ? keepSearch.value : '')).trim().toLowerCase();
+    const all = getSessions().sort((a, b) => b.updatedAt - a.updatedAt);
+    panel.innerHTML = '';
+
+    const top = document.createElement('div');
+    top.className = 'history-top';
+    const search = document.createElement('input');
+    search.id = 'history-search';
+    search.className = 'history-search';
+    search.type = 'search';
+    search.placeholder = 'Search your chats (' + all.length + ')';
+    search.value = q;
+    search.addEventListener('input', () => {
+      renderHistoryPanel(search.value);
+      const again = document.getElementById('history-search');
+      again.focus(); again.setSelectionRange(again.value.length, again.value.length);
+    });
+    top.appendChild(search);
+    if (all.length) {
+      const clr = document.createElement('button');
+      clr.type = 'button'; clr.className = 'history-clear'; clr.textContent = 'Clear all';
+      clr.addEventListener('click', () => {
+        if (confirm('Delete ALL your saved chats on this device? This cannot be undone.')) {
+          saveSessions([]); renderHistoryPanel('');
+        }
+      });
+      top.appendChild(clr);
+    }
+    panel.appendChild(top);
+
+    const sessions = q
+      ? all.filter(s => (s.title || '').toLowerCase().includes(q) ||
+          (s.messages || []).some(m => (m.text || '').toLowerCase().includes(q)))
+      : all;
     if (!sessions.length) {
-      panel.innerHTML = '<div class="history-empty">No past chats yet</div>';
+      const empty = document.createElement('div');
+      empty.className = 'history-empty';
+      empty.textContent = all.length ? 'No chats match your search' : 'No past chats yet';
+      panel.appendChild(empty);
       return;
     }
-    panel.innerHTML = '';
+    let lastLabel = null;
     sessions.forEach(s => {
+      const label = historyGroupLabel(s.updatedAt);
+      if (label !== lastLabel) {
+        const g = document.createElement('div');
+        g.className = 'history-group';
+        g.textContent = label;
+        panel.appendChild(g);
+        lastLabel = label;
+      }
       const item = document.createElement('div');
       item.className = 'history-item';
       const textSpan = document.createElement('span');
@@ -229,8 +290,7 @@
       delBtn.textContent = '✕';
       delBtn.addEventListener('click', (e) => {
         e.stopPropagation();
-        const remaining = getSessions().filter(x => x.id !== s.id);
-        saveSessions(remaining);
+        saveSessions(getSessions().filter(x => x.id !== s.id));
         renderHistoryPanel();
       });
       item.appendChild(textSpan);
@@ -265,9 +325,7 @@
     messagesDiv.innerHTML = '';
     const greetDiv = document.createElement('div');
     greetDiv.className = 'chat-msg bot';
-    greetDiv.textContent = visitorName
-      ? `Hi ${visitorName}! 👋 What would you like to work on?`
-      : "Hi! I'm Jackson AI. Ask me anything — chemistry, biology, physics, math, or any other subject.";
+    greetDiv.textContent = "Hi! 👋 What would you like to ask?";
     messagesDiv.appendChild(greetDiv);
     clearPendingImage();
     document.getElementById('history-panel').classList.remove('open');
@@ -275,13 +333,7 @@
     input.focus();
   }
 
-  if (awaitingName) {
-    const greetingDiv = document.getElementById('initial-greeting');
-    greetingDiv.textContent = "Hi! I'm Jackson AI 👋 What's your name?";
-  } else {
-    const greetingDiv = document.getElementById('initial-greeting');
-    greetingDiv.textContent = `Hi ${visitorName}! 👋 Ask me anything — any subject or concept, S4 to S6.`;
-  }
+  document.getElementById('initial-greeting').textContent = "Hi! 👋 What would you like to ask?";
 
   // Render the AI's answer as rich content: Markdown (headers, bold, lists,
   // tables, code), LaTeX math and chemistry equations via KaTeX (including
@@ -465,28 +517,6 @@
     const question = (qOverride !== undefined ? qOverride : input.value).trim();
     if (!question && !pendingImage && !pendingTextFile) return;
 
-    // First message on a new device/browser: capture the visitor's name
-    // instead of sending it to the AI as a question.
-    if (awaitingName) {
-      addMessage(question, 'user');
-      input.value = '';
-      const name = question.replace(/[^a-zA-Z\s'-]/g, '').trim().split(/\s+/)[0] || question;
-      const cleanName = name.charAt(0).toUpperCase() + name.slice(1);
-      visitorName = cleanName;
-      localStorage.setItem('jai_name', cleanName);
-      awaitingName = false;
-      if (pendingAfterName) {
-        const held = pendingAfterName;
-        pendingAfterName = null;
-        addMessage(`Nice to meet you, ${cleanName}! 👋`, 'bot');
-        sendQuestion(held);
-      } else {
-        addMessage(`Nice to meet you, ${cleanName}! 👋 What would you like to work on today?`, 'bot');
-      }
-      input.focus();
-      return;
-    }
-
     if (pendingImage && pendingImage.kind === 'image') {
       addImageMessage('data:' + pendingImage.mimeType + ';base64,' + pendingImage.data);
     } else if (pendingImage && pendingImage.kind === 'pdf') {
@@ -503,13 +533,12 @@
     sendBtn.disabled = true;
     const loadingMsg = addMessage('Thinking...', 'bot loading');
     try {
-      const nameNote = visitorName ? ` The student's name is ${visitorName} — you can address them by name occasionally, but don't force it into every sentence.` : '';
       let messageText = question;
       if (textFileToSend) {
         messageText = `[Attached file: ${textFileToSend.name}]\n${textFileToSend.content}\n\n${question || 'Please read the attached file and help with it.'}`;
       }
       const requestBody = {
-        prompt: `You are a helpful tutor for Rwandan Senior 4-6 students, following the REB Competency-Based Curriculum.${nameNote}
+        prompt: `You are a helpful tutor for Rwandan Senior 4-6 students, following the REB Competency-Based Curriculum.
 
 If the message is just a casual greeting, reply with one short warm sentence and ask what they'd like help with.
 
@@ -640,16 +669,10 @@ Message: ${messageText}`
   sendBtn.addEventListener('click', () => sendQuestion());
   input.addEventListener('keydown', (e) => { if (e.key === 'Enter') sendQuestion(); });
 
-  // Auto-send a question passed in via ?q= from the homepage nav box —
-  // but if we don't know the visitor's name yet, ask for that first and
-  // hold the question until they answer it.
+  // Auto-send a question passed in via ?q= from the homepage nav box.
   const params = new URLSearchParams(window.location.search);
   const incomingQ = params.get('q');
-  if (incomingQ && awaitingName) {
-    pendingAfterName = incomingQ;
-    input.placeholder = "Type your name to get started...";
-    input.focus();
-  } else if (incomingQ) {
+  if (incomingQ) {
     sendQuestion(incomingQ);
   } else {
     input.focus();
