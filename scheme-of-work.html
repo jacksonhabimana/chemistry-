@@ -1639,7 +1639,7 @@ async function doGen(){
 
       document.getElementById('out-body').innerHTML=`<div class="lbox"><div class="sp2"></div><p>Jackson AI is building your scheme of work&hellip;</p><p class="sub">${termInfo.label}: Unit ${ui+1} of ${termUnitIdx.length} &mdash; ${unitName}</p></div>`;
 
-      const lessonsTemplate=lessonList.slice(0,8).map((l,li)=>`Lesson ${li+1}: ${l}`).join(' ');
+      const lessonsTemplate=lessonList.map((l,li)=>`Lesson ${li+1}: ${l}`).join(' ');
 
       const templateJSON=`{"unit_title":"${unitName.replace(/"/g,'')}","week_range":"[e.g. WEEK 1-2]","lessons_and_evaluation":["[Lesson X: short title]","[Lesson Y: short title]"],"assessment_criteria":"[one short paragraph: what learners should be able to do by the end of this unit, following the format 'The learners can ...']","knowledge_understanding":["[bullet point using action verbs: Explain, Describe, Define, Outline, State]","[another point]"],"skills":["[bullet point using action verbs: Apply, Compare, Perform, Relate, Classify]"],"attitudes_values":["[bullet point: Appreciate, Respect, Develop...]"],"key_unit_competence":"${(unitCompetence||'[the single official REB key unit competence statement for this unit]').replace(/"/g,'\\"')}","teaching_methods":"Group work, Pair work, Questioning, Making a presentation, Practical activities and making a report of the findings, Video clips","evaluation_procedures":"Oral, written, practical","resources_references":"[realistic REB ${subj} ${lv} textbook and teacher's guide references]"}`;
 
@@ -1664,20 +1664,27 @@ Return ONLY the completed JSON, no markdown, no backticks, no explanation.
 
 ${templateJSON}`;
 
+      const fullLessons=lessonList.map((l,li)=>`Lesson ${li+1}: ${l}`);
+      const ensureLessons=o=>{
+        if(o&&lessonList.length&&(!Array.isArray(o.lessons_and_evaluation)||o.lessons_and_evaluation.length<lessonList.length))o.lessons_and_evaluation=fullLessons;
+        return o;
+      };
       let unitDone=false;
       for(let attempt=0;attempt<2&&!unitDone;attempt++){
         try{
           const {parsed,raw}=await callAI(prompt);
           if(parsed&&parsed.unit_title){
             if(unitCompetence)parsed.key_unit_competence=unitCompetence;
+            ensureLessons(parsed);
             allUnits.push(parsed);
           } else {
             const salvaged=salvageUnits(raw);
             if(salvaged.length){
               if(unitCompetence)salvaged.forEach(s=>{s.key_unit_competence=unitCompetence;});
+              salvaged.forEach(ensureLessons);
               allUnits=allUnits.concat(salvaged);
             }
-            else allUnits.push({unit_title:unitName,week_range:'',lessons_and_evaluation:lessonList.slice(0,8).map((l,li)=>`Lesson ${li+1}: ${l}`),assessment_criteria:'',knowledge_understanding:[],skills:[],attitudes_values:[],key_unit_competence:unitCompetence||'',teaching_methods:'Group work, Pair work, Questioning, Practical activities, Video clips',evaluation_procedures:'Oral, written, practical',resources_references:''});
+            else allUnits.push({unit_title:unitName,week_range:'',lessons_and_evaluation:lessonList.map((l,li)=>`Lesson ${li+1}: ${l}`),assessment_criteria:'',knowledge_understanding:[],skills:[],attitudes_values:[],key_unit_competence:unitCompetence||'',teaching_methods:'Group work, Pair work, Questioning, Practical activities, Video clips',evaluation_procedures:'Oral, written, practical',resources_references:''});
           }
           unitDone=true;
         }catch(e){
