@@ -6,6 +6,13 @@
 <title>Chat with Jackson AI | Chemistry Education Portal</title>
 <meta name="description" content="Ask Jackson AI any question, on any subject, and get an instant answer — built for Rwandan Senior 4-6 students.">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Serif+4:wght@300;400;600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<!-- Rich answer rendering: Markdown, LaTeX + chemistry equations (KaTeX/mhchem), diagrams (Mermaid) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/mhchem.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.2.6/purify.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.9.4/mermaid.min.js"></script>
 <style>
   :root{--bg:#0d1117;--surface:#161b22;--surface2:#1c2333;--border:#30363d;--accent:#38bdf8;--gold:#e8c547;--green:#34d399;--red:#f87171;--text:#e6edf3;--muted:#8b949e;}
   *{box-sizing:border-box;margin:0;padding:0;}
@@ -57,8 +64,27 @@
   }
   .chat-msg{padding:10px 14px;border-radius:10px;max-width:80%;line-height:1.55;font-size:.95rem;}
   .chat-msg.user{align-self:flex-end;background:var(--accent);color:#0d1117;font-weight:500;}
-  .chat-msg.bot{align-self:flex-start;background:var(--surface2);color:var(--text);border:1px solid var(--border);}
+  .chat-msg.bot{align-self:flex-start;background:var(--surface2);color:var(--text);border:1px solid var(--border);max-width:92%;}
   .chat-msg.bot.loading{color:var(--muted);font-style:italic;}
+  .chat-msg.bot h1,.chat-msg.bot h2,.chat-msg.bot h3{font-family:'Playfair Display',serif;line-height:1.3;margin:.6em 0 .3em;}
+  .chat-msg.bot h1{font-size:1.25rem;}
+  .chat-msg.bot h2{font-size:1.12rem;}
+  .chat-msg.bot h3{font-size:1.02rem;}
+  .chat-msg.bot p{margin:.4em 0;}
+  .chat-msg.bot ul,.chat-msg.bot ol{margin:.4em 0 .4em 1.3em;padding:0;}
+  .chat-msg.bot li{margin:.2em 0;}
+  .chat-msg.bot strong{color:var(--gold);}
+  .chat-msg.bot code{background:var(--bg);border:1px solid var(--border);border-radius:4px;padding:1px 5px;font-family:'JetBrains Mono',monospace;font-size:.85em;}
+  .chat-msg.bot pre{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:10px;overflow-x:auto;margin:.5em 0;}
+  .chat-msg.bot pre code{background:none;border:none;padding:0;}
+  .chat-msg.bot table{border-collapse:collapse;margin:.5em 0;width:100%;font-size:.88rem;}
+  .chat-msg.bot th,.chat-msg.bot td{border:1px solid var(--border);padding:5px 9px;text-align:left;}
+  .chat-msg.bot th{background:var(--bg);color:var(--gold);}
+  .chat-msg.bot blockquote{border-left:3px solid var(--accent);margin:.5em 0;padding:.2em .8em;color:var(--muted);}
+  .chat-msg.bot a{color:var(--accent);}
+  .chat-msg.bot .katex{font-size:1.02em;}
+  .chat-msg.bot .katex-display{overflow-x:auto;overflow-y:hidden;margin:.5em 0;}
+  .chat-msg.bot .mermaid{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:10px;margin:.5em 0;overflow-x:auto;display:flex;justify-content:center;}
 
   #chat-input-row{display:flex;align-items:center;border-top:1px solid var(--border);padding:10px;gap:8px;}
   .chat-plus{
@@ -101,7 +127,6 @@
 <main>
   <div class="chat-hero">
     <h1>💬 Chat with Jackson AI</h1>
-    <p>Ask anything — any subject or concept, S4 to S6.</p>
   </div>
 
   <div class="chat-toolbar">
@@ -132,6 +157,9 @@
 
 <script>
   const WORKER_URL = "https://chem-payment.hajackson2020.workers.dev/chat";
+  if (window.mermaid) {
+    mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'strict' });
+  }
   const messages = document.getElementById('chat-messages');
   const input = document.getElementById('chat-input');
   const sendBtn = document.getElementById('chat-send');
@@ -255,56 +283,63 @@
     greetingDiv.textContent = `Hi ${visitorName}! 👋 Ask me anything — any subject or concept, S4 to S6.`;
   }
 
-  // Safety net: if the AI still slips in an ASCII-art style diagram
-  // (lines of just |, -, letters used for spacing/alignment) despite the
-  // prompt telling it not to, render that whole message as a monospace
-  // block instead of letting a proportional font mangle the alignment.
-  function looksLikeAsciiArt(raw) {
-    const lines = raw.split('\n');
-    let symbolLines = 0;
-    for (const line of lines) {
-      const trimmed = line.trim();
-      if (!trimmed) continue;
-      const isSymbolHeavy = /^[|\-\sA-Za-z0-9=+]+$/.test(trimmed) && /[|\-]/.test(trimmed);
-      const letterCount = (trimmed.match(/[A-Za-z]/g) || []).length;
-      if (isSymbolHeavy && letterCount <= trimmed.length * 0.6) symbolLines++;
-    }
-    return symbolLines >= 2;
+  // Render the AI's answer as rich content: Markdown (headers, bold, lists,
+  // tables, code), LaTeX math and chemistry equations via KaTeX (including
+  // the mhchem extension for reaction schemes, e.g. $\ce{2H2 + O2 -> 2H2O}$),
+  // and diagrams/flowcharts via Mermaid (```mermaid code fences).
+  function escapeHtml(s) {
+    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   }
 
-  // Convert the AI's markdown-ish output (**bold**, "* " bullets, numbered
-  // sections all run together) into readable HTML with real line breaks.
   function formatBotText(raw) {
-    if (looksLikeAsciiArt(raw)) {
-      const escaped = raw
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;');
-      return `<pre style="white-space:pre;overflow-x:auto;font-family:'JetBrains Mono',monospace;font-size:.82rem;background:var(--bg);padding:10px;border-radius:6px;border:1px solid var(--border);margin:0;">${escaped}</pre>`;
+    // 1. Pull out math segments first so Markdown parsing can't mangle
+    // underscores/asterisks inside LaTeX. Restored after Markdown+sanitize.
+    const mathStore = [];
+    function stashMath(latex, display) {
+      const idx = mathStore.length;
+      mathStore.push({ latex, display });
+      return `\u0000MATH${idx}\u0000`;
+    }
+    let s = raw;
+    s = s.replace(/\$\$([\s\S]+?)\$\$/g, (_, g1) => stashMath(g1, true));
+    s = s.replace(/\\\[([\s\S]+?)\\\]/g, (_, g1) => stashMath(g1, true));
+    s = s.replace(/\\\(([\s\S]+?)\\\)/g, (_, g1) => stashMath(g1, false));
+    s = s.replace(/\$([^\$\n]+?)\$/g, (_, g1) => stashMath(g1, false));
+
+    // 2. Markdown -> HTML, with fenced ```mermaid blocks turned into
+    // <pre class="mermaid"> for diagram rendering after insertion.
+    let html;
+    if (window.marked) {
+      const renderer = new marked.Renderer();
+      renderer.code = function (code, infostring) {
+        const lang = (infostring || '').trim().toLowerCase();
+        if (lang === 'mermaid') return `<pre class="mermaid">${escapeHtml(code)}</pre>`;
+        return `<pre><code>${escapeHtml(code)}</code></pre>`;
+      };
+      marked.setOptions({ breaks: true, gfm: true });
+      html = marked.parse(s, { renderer });
+    } else {
+      // Library failed to load (offline CDN) — fall back to the old plain
+      // line-break handling so the chat still works.
+      html = escapeHtml(s).replace(/\n/g, '<br>');
     }
 
-    let s = raw
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;');
+    // 3. Sanitize before it ever touches innerHTML.
+    if (window.DOMPurify) html = DOMPurify.sanitize(html);
 
-    // **bold** -> <strong>bold</strong>
-    s = s.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+    // 4. Restore math, rendered by KaTeX (mhchem extension handles \ce{...}
+    // chemistry equations).
+    html = html.replace(/\u0000MATH(\d+)\u0000/g, (_, i) => {
+      const { latex, display } = mathStore[i];
+      if (!window.katex) return escapeHtml(display ? `$$${latex}$$` : `$${latex}$`);
+      try {
+        return katex.renderToString(latex, { throwOnError: false, displayMode: display });
+      } catch (e) {
+        return escapeHtml(display ? `$$${latex}$$` : `$${latex}$`);
+      }
+    });
 
-    // Break before numbered section headers like "1." "2." when bolded
-    s = s.replace(/(<strong>)(\d+)\.\s/g, '<br><br>$1$2. ');
-
-    // Turn " * " bullet markers (single asterisk used as a list bullet)
-    // into a new line with a bullet point
-    s = s.replace(/\s\*\s/g, '<br>&bull; ');
-
-    // Respect any real newlines too
-    s = s.replace(/\n/g, '<br>');
-
-    // Clean up a leading <br> if the text now starts with one
-    s = s.replace(/^(<br>\s*)+/, '');
-
-    return s;
+    return html;
   }
 
   function renderMessage(text, sender) {
@@ -316,6 +351,10 @@
       div.textContent = text;
     }
     messages.appendChild(div);
+    // Render any Mermaid diagrams that just got inserted.
+    if (sender === 'bot' && window.mermaid && div.querySelector('.mermaid')) {
+      try { mermaid.run({ nodes: div.querySelectorAll('.mermaid') }); } catch (e) { /* leave as code text on failure */ }
+    }
     messages.scrollTop = messages.scrollHeight;
     return div;
   }
@@ -472,9 +511,9 @@
       const requestBody = {
         prompt: `You are a helpful tutor for Rwandan Senior 4-6 students, following the REB Competency-Based Curriculum.${nameNote}
 
-If the message is JUST a casual greeting (hi, hello, hey) with no real question, reply with ONE short, warm sentence greeting them back and asking what they'd like help with — nothing more.
+If the message is just a casual greeting, reply with one short warm sentence and ask what they'd like help with.
 
-Otherwise: never start your reply with "Muraho", "Hello", "Hi", or any greeting word, and never open with "That's a great question" or similar filler — start straight with the actual content. If the message has more than one question or part, answer EVERY part completely, in order — do not skip or shorten any part to save space. Structure longer answers with short paragraphs and a clear line break between each step or point (each numbered step or bullet on its own line). Do not use markdown formatting like ** for bold or # for headings — write in plain text only. Never draw ASCII-art diagrams, grids, or multi-line structures using spaces, dashes or "|" characters to represent chemical structures, molecules, or anything visual — this chat cannot align them and they will look broken. Instead describe structures in words or standard condensed notation on a single line (for example: CH3-CH2-CH3, or "propane: three carbons in a chain, each carbon bonded to hydrogens to complete four bonds").
+Otherwise: skip greetings and filler, start straight with the content. Answer every part of a multi-part question, in order. Use Markdown for structure: headers, **bold**, numbered/bulleted lists, tables where useful. Write equations and chemistry reactions in LaTeX between $ $ (inline) or $$ $$ (display) — e.g. $\\ce{2H2 + O2 -> 2H2O}$ or $E=mc^2$. Use a \`\`\`mermaid code block for a flowchart or diagram only when a visual genuinely helps.
 
 Message: ${messageText}`
       };
