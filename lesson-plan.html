@@ -1570,9 +1570,11 @@ function openEdit(){
     dev_timing:'Development - Timing',
     dev_teacher:"Development - Teacher's Activities",
     dev_learner:"Development - Learner's Activities",
+    dev_competences:'Development - Generic Competences',
     conc_timing:'Conclusion - Timing',
     conc_teacher:"Conclusion - Teacher's Activities",
-    conc_learner:"Conclusion - Learner's Activities"
+    conc_learner:"Conclusion - Learner's Activities",
+    conc_competences:'Conclusion - Generic Competences'
   };
   const flds=document.getElementById('edit-fields');
   flds.innerHTML='';
@@ -1594,8 +1596,8 @@ function saveEdit(){
   const keys=['unit_no','lesson_no','unit_title','key_unit_competence','lesson_title',
     'instructional_objectives','learning_materials','references',
     'intro_timing','intro_teacher','intro_learner','intro_competences',
-    'dev_timing','dev_teacher','dev_learner',
-    'conc_timing','conc_teacher','conc_learner'];
+    'dev_timing','dev_teacher','dev_learner','dev_competences',
+    'conc_timing','conc_teacher','conc_learner','conc_competences'];
   keys.forEach(k=>{
     const el=document.getElementById('ef_'+k);
     if(el)_currentPlan[k]=el.value;
@@ -1740,13 +1742,13 @@ function dlWord(){
   <td><b>Lesson Development (${devMin} min)</b></td>
   <td>${nl(p.dev_teacher)}</td>
   <td>${nl(p.dev_learner)}</td>
-  <td></td>
+  <td>${nl(p.dev_competences)}</td>
 </tr>
 <tr>
   <td><b>Conclusion (${concMin} min)</b></td>
   <td>${nl(p.conc_teacher)}</td>
   <td>${nl(p.conc_learner)}</td>
-  <td></td>
+  <td>${nl(p.conc_competences)}</td>
 </tr>
 <tr><td colspan="4" style="background:#f5f0e0;font-weight:bold">Teacher's self-evaluation</td></tr>
 <tr><td colspan="4" style="height:60pt"></td></tr>
