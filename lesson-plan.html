@@ -1414,6 +1414,10 @@ Return EXACTLY this JSON:
         throw new Error('Could not parse AI response. Please try again.');
     }
     if(unitCompetence)plan.key_unit_competence=unitCompetence;
+    // Force exact lesson/unit numbers from the user's selection (never trust the AI's guess)
+    if(allLessons.length&&!isNaN(lesIdx))plan.lesson_no=(lesIdx+1)+' of '+allLessons.length;
+    const _um=String(unitName).match(/Unit\s*(\d+)/i);
+    if(_um)plan.unit_no=_um[1];
     if(!plan.dev_competences||!plan.dev_competences.trim())
       plan.dev_competences='Critical thinking: learners analyze and discuss the activity on '+lesName+'.\nCooperation: learners work together in groups to complete the task.\nCommunication: learners present findings to the class and respond to questions.\nResearch: learners investigate and gather information on '+lesName+'.';
     if(!plan.conc_competences||!plan.conc_competences.trim())
