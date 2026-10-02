@@ -13,6 +13,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.2.6/purify.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.9.4/mermaid.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" defer></script>
 <style>
   :root{--bg:#0d1117;--surface:#161b22;--surface2:#1c2333;--border:#30363d;--accent:#38bdf8;--gold:#e8c547;--green:#34d399;--red:#f87171;--text:#e6edf3;--muted:#8b949e;}
   *{box-sizing:border-box;margin:0;padding:0;}
@@ -92,6 +93,24 @@
   .chat-msg.bot .katex{font-size:1.02em;}
   .chat-msg.bot .katex-display{overflow-x:auto;overflow-y:hidden;margin:.5em 0;}
 
+
+  .doc-msg{max-width:92%;}
+  .doc-intro{margin:0 0 10px;}
+  .doc-card{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:12px 14px;}
+  .doc-icon{font-size:1.8rem;line-height:1;}
+  .doc-info{flex:1;min-width:150px;}
+  .doc-title{font-weight:600;color:var(--text);word-break:break-word;}
+  .doc-sub{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--muted);margin-top:2px;}
+  .doc-btns{display:flex;gap:6px;flex-wrap:wrap;}
+  .doc-btns button{background:var(--bg);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:7px 13px;font-family:'JetBrains Mono',monospace;font-size:.75rem;cursor:pointer;}
+  .doc-btns button.primary{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:700;}
+  .doc-btns button:hover{opacity:.85;}
+  .doc-preview{display:none;margin-top:12px;max-height:480px;overflow:auto;background:#e9edf2;border-radius:8px;padding:14px;}
+  .doc-preview.open{display:block;}
+  .doc-page{background:#fff;color:#000;font-family:Arial,sans-serif;font-size:11pt;line-height:1.5;padding:22px 26px;box-shadow:0 1px 6px rgba(0,0,0,.25);}
+  .doc-page h1{font-size:1.3em;margin:0 0 .6em;} .doc-page h2{font-size:1.1em;margin:1em 0 .4em;}
+  .doc-page table{border-collapse:collapse;} .doc-page td,.doc-page th{border:1px solid #444;padding:3px 7px;}
+  .doc-page ol,.doc-page ul{padding-left:1.4em;}
   .msg-actions{display:flex;gap:6px;margin-top:10px;padding-top:8px;border-top:1px solid var(--border);flex-wrap:wrap;}
   .msg-actions button{background:var(--bg);border:1px solid var(--border);color:var(--muted);border-radius:16px;padding:4px 11px;font-family:'JetBrains Mono',monospace;font-size:.7rem;cursor:pointer;}
   .msg-actions button:hover{border-color:var(--accent);color:var(--accent);}
@@ -320,6 +339,8 @@
     session.messages.forEach(m => {
       if (m.kind === 'bot-image') {
         renderBotImage(m.imageUrl, m.caption);
+      } else if (m.kind === 'doc') {
+        renderDocCard({ title: m.title, html: m.html, fmt: m.fmt });
       } else {
         renderMessage(m.text, m.sender);
       }
@@ -465,7 +486,7 @@
     try { document.execCommand('copy'); done(); } catch (e) {}
     t.remove();
   }
-  function downloadWord(div) {
+  function downloadWord(div, name) {
     const clone = cleanAnswerClone(div);
     // Word can't draw KaTeX, so use the plain formula text instead
     clone.querySelectorAll('.katex').forEach(k => {
@@ -477,15 +498,33 @@
       clone.innerHTML + '</body></html>';
     const blob = new Blob(['\ufeff', html], { type: 'application/msword' });
     const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob); a.download = answerFileName() + '.doc';
+    a.href = URL.createObjectURL(blob); a.download = (name || answerFileName()) + '.doc';
     document.body.appendChild(a); a.click(); a.remove();
     setTimeout(() => URL.revokeObjectURL(a.href), 2000);
   }
-  function downloadPdf(div) {
+  function downloadPdf(div, name) {
+    const fname = (name || answerFileName()) + '.pdf';
+    if (window.html2pdf) {
+      const holder = document.createElement('div');
+      holder.style.cssText = 'position:fixed;left:-10000px;top:0;width:794px;background:#fff;color:#000;';
+      holder.innerHTML = '<style>.pdfdoc{font-family:Arial,sans-serif;font-size:12pt;line-height:1.5;color:#000;background:#fff;padding:8px}.pdfdoc table{border-collapse:collapse}.pdfdoc td,.pdfdoc th{border:1px solid #444;padding:4px 8px}.pdfdoc pre{background:#f2f2f2;padding:6px;white-space:pre-wrap}</style><div class="pdfdoc">' + cleanAnswerClone(div).innerHTML + '</div>';
+      document.body.appendChild(holder);
+      window.html2pdf().set({
+        margin: [12, 12, 12, 12], filename: fname,
+        image: { type: 'jpeg', quality: 0.95 },
+        html2canvas: { scale: 2, useCORS: true },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+        pagebreak: { mode: ['css', 'legacy'] }
+      }).from(holder).save().then(() => holder.remove()).catch(() => { holder.remove(); printPdf(div, name); });
+      return;
+    }
+    printPdf(div, name);
+  }
+  function printPdf(div, name) {
     const clone = cleanAnswerClone(div);
     const w = window.open('', '_blank');
     if (!w) { alert('Please allow pop-ups for this site, then press PDF again.'); return; }
-    w.document.write('<!doctype html><html><head><meta charset="utf-8"><title>' + answerFileName() + '</title>' +
+    w.document.write('<!doctype html><html><head><meta charset="utf-8"><title>' + (name || answerFileName()) + '</title>' +
       '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">' +
       '<style>body{font-family:Arial,sans-serif;font-size:12pt;line-height:1.5;color:#000;padding:24px;max-width:800px;margin:auto}' +
       'table{border-collapse:collapse;width:100%}td,th{border:1px solid #444;padding:5px 8px;text-align:left}pre{background:#f2f2f2;padding:8px;white-space:pre-wrap}' +
@@ -493,13 +532,78 @@
     w.document.close();
     setTimeout(() => { w.focus(); w.print(); }, 900);
   }
+
+  // ── "Type it in Word / make a PDF" → document card with Download button ──
+  function detectDocRequest(q) {
+    let t = (q || '').toLowerCase();
+    if (!t) return null;
+    if (t.length > 600) t = t.slice(0, 300) + ' ' + t.slice(-300);
+    t = t.replace(/word\s+(equations?|problems?|bank|count)/g, '');
+    const word = /\b(docx|ms word|microsoft word|word\s+(document|file|doc))\b/.test(t) ||
+                 /\b(in|into|to|as|on|using)\s+(a\s+)?word\b/.test(t) ||
+                 /\b(make|create|generate)\s+(a|an|the)?\s*(document|doc)\b/.test(t);
+    const pdf = /\bpdf\b/.test(t) && /\b(make|create|generate|type|put|convert|save|give|download|as|into|to|in)\b/.test(t);
+    if (word) return 'word';
+    if (pdf) return 'pdf';
+    return null;
+  }
+  function parseDocHtml(raw) {
+    let h = String(raw || '').trim().replace(/^```(?:html)?\s*/i, '').replace(/```\s*$/, '').trim();
+    if (!/<\w+[^>]*>/.test(h)) return null;
+    const d = new DOMParser().parseFromString('<div id="r">' + h + '</div>', 'text/html');
+    const root = d.getElementById('r');
+    root.querySelectorAll('script,style,iframe,object,embed,link,meta,form,input,button,img,svg,video,audio').forEach(n => n.remove());
+    const keep = ['border', 'colspan', 'rowspan', 'align', 'cellpadding'];
+    root.querySelectorAll('*').forEach(n => {
+      Array.from(n.attributes).forEach(a => { if (!keep.includes(a.name.toLowerCase())) n.removeAttribute(a.name); });
+    });
+    const head = root.querySelector('h1,h2');
+    const title = (head ? head.textContent : 'Document').trim().slice(0, 80) || 'Document';
+    return { title, html: root.innerHTML };
+  }
+  function safeFileName(t) { return (t || 'document').replace(/[^\w\- ]+/g, '').trim().replace(/\s+/g, '-').slice(0, 60) || 'document'; }
+  function renderDocCard(doc) {
+    const div = document.createElement('div');
+    div.className = 'chat-msg bot doc-msg';
+    const intro = document.createElement('p');
+    intro.className = 'doc-intro';
+    intro.textContent = doc.fmt === 'pdf' ? 'I made your PDF. Download it or preview it first.' : 'I made your Word document. Download it or preview it first.';
+    const card = document.createElement('div'); card.className = 'doc-card';
+    const icon = document.createElement('div'); icon.className = 'doc-icon'; icon.textContent = doc.fmt === 'pdf' ? '📕' : '📄';
+    const info = document.createElement('div'); info.className = 'doc-info';
+    const ti = document.createElement('div'); ti.className = 'doc-title'; ti.textContent = doc.title;
+    const sub = document.createElement('div'); sub.className = 'doc-sub'; sub.textContent = 'Document · ' + (doc.fmt === 'pdf' ? 'PDF' : 'Word');
+    info.appendChild(ti); info.appendChild(sub);
+    const btns = document.createElement('div'); btns.className = 'doc-btns';
+    const page = document.createElement('div'); page.className = 'doc-page'; page.innerHTML = doc.html;
+    const preview = document.createElement('div'); preview.className = 'doc-preview'; preview.appendChild(page);
+    const name = safeFileName(doc.title);
+    const mk = (label, cls, fn) => { const b = document.createElement('button'); b.type = 'button'; b.textContent = label; if (cls) b.className = cls; b.addEventListener('click', () => fn(b)); btns.appendChild(b); return b; };
+    const dlWord = () => downloadWord(page, name);
+    const dlPdf = () => downloadPdf(page, name);
+    if (doc.fmt === 'pdf') { mk('⬇ Download PDF', 'primary', dlPdf); mk('Word', '', dlWord); }
+    else { mk('⬇ Download Word', 'primary', dlWord); mk('PDF', '', dlPdf); }
+    mk('👁 Preview', '', (b) => { preview.classList.toggle('open'); b.textContent = preview.classList.contains('open') ? 'Hide' : '👁 Preview'; });
+    card.appendChild(icon); card.appendChild(info); card.appendChild(btns);
+    div.appendChild(intro); div.appendChild(card); div.appendChild(preview);
+    messages.appendChild(div);
+    messages.scrollTop = messages.scrollHeight;
+    return div;
+  }
+  function addDocCard(doc) {
+    renderDocCard(doc);
+    currentMessages.push({ sender: 'bot', kind: 'doc', title: doc.title, html: doc.html, fmt: doc.fmt });
+  }
+
   function buildChatCopy() {
     const wrap = document.createElement('div');
     const h = document.createElement('h2'); h.textContent = 'Jackson AI chat — ' + new Date().toLocaleDateString();
     wrap.appendChild(h);
     document.querySelectorAll('#chat-messages .chat-msg').forEach(m => {
       if (m.classList.contains('loading') || m.id === 'initial-greeting') return;
-      const c = cleanAnswerClone(m);
+      let c;
+      if (m.classList.contains('doc-msg')) { c = document.createElement('div'); c.innerHTML = m.querySelector('.doc-page').innerHTML; }
+      else c = cleanAnswerClone(m);
       const who = document.createElement('p');
       who.innerHTML = '<b>' + (m.classList.contains('user') ? 'Student:' : 'Jackson AI:') + '</b>';
       wrap.appendChild(who); wrap.appendChild(c);
@@ -678,7 +782,18 @@
       if (textFileToSend) {
         messageText = `[Attached file: ${textFileToSend.name}]\n${textFileToSend.content}\n\n${question || 'Please read the attached file and help with it.'}`;
       }
-      const requestBody = {
+      const docFmt = detectDocRequest(question);
+      let lastBotText = '';
+      for (let k = currentMessages.length - 1; k >= 0; k--) { const cm = currentMessages[k]; if (cm.sender === 'bot' && cm.kind === 'text' && cm.text && !cm.text.startsWith('Debug info')) { lastBotText = cm.text; break; } }
+      let requestBody;
+      if (docFmt) {
+        const needsSource = !imageToSend && !textFileToSend && question.length < 200 && lastBotText;
+        const sourceBlock = needsSource ? `\n\nContent to put in the document (from the previous answer):\n${lastBotText.slice(0, 8000)}` : '';
+        requestBody = {
+          docMode: true,
+          prompt: `You are making a ${docFmt === 'pdf' ? 'PDF' : 'Word'} document for a Rwandan secondary-school teacher or student. Output ONLY the document body as clean HTML: no <html>, <head> or <body> tags, no Markdown, no code fences, no text before or after. Start with <h1>a short document title</h1>. Use <h2> for sections, <p>, <ol>/<ul>/<li>, and <table border="1"> for tables. Write superscripts and subscripts with <sup> and <sub> (examples: 1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>6</sup>, H<sub>2</sub>O, Fe<sup>3+</sup>, SO<sub>4</sub><sup>2-</sup>) and italics with <i>. Do not use LaTeX. Keep the original question numbers and put options (a), (b), (c), (d) on separate lines using <br>. Copy any attached picture or text faithfully and ignore watermarks. Do NOT add answers, explanations or extra questions unless the request asks for them.\n\nRequest: ${messageText || 'Put the attached content in a document.'}${sourceBlock}`
+        };
+      } else requestBody = {
         prompt: `Tutor for Rwandan S4-S6 students (REB curriculum). Reply to a bare greeting with one short line. Otherwise start directly with the content: no greeting or filler; answer every part. Use Markdown and LaTeX in $ $ or $$ $$ (chemistry: $\\ce{H2 + O2 -> H2O}$). When a figure/diagram/drawing is wanted (apparatus, columns, structures, graphs, cycles), you CAN and MUST draw it: output one complete \`\`\`svg block (viewBox, clear labels, arrows, light colors), never say you cannot draw. Use \`\`\`mermaid only for simple flowcharts.
 
 Message: ${messageText}`
@@ -698,6 +813,10 @@ Message: ${messageText}`
       }
       const answer = data.text || data.answer || data.response || "Sorry, I couldn't get an answer right now.";
       loadingMsg.remove();
+      if (docFmt) {
+        const doc = parseDocHtml(answer);
+        if (doc) { doc.fmt = docFmt; addDocCard(doc); return; }
+      }
       addMessage(answer, 'bot');
       if (Array.isArray(data.images) && data.images.length) {
         data.images.forEach(im => { if (im && im.url) addBotImage(im.url, im.caption); });
