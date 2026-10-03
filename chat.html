@@ -181,7 +181,7 @@
     <div id="image-preview-row" style="display:none;"></div>
     <div id="chat-input-row">
       <button class="chat-plus" id="chat-plus-btn" aria-label="Attach a photo or file" type="button">+</button>
-      <input type="file" id="chat-file-input" accept="image/*,.pdf,.txt,application/pdf,text/plain" style="display:none;">
+      <input type="file" id="chat-file-input" accept="image/*,.pdf,.txt,.md,.csv,.tsv,.json,.xml,.html,.docx,application/pdf,text/plain" style="display:none;">
       <input id="chat-input" type="text" placeholder="Write a message..." autocomplete="off">
       <button id="chat-send">Send</button>
     </div>
@@ -205,7 +205,8 @@
   const previewRow = document.getElementById('image-preview-row');
 
   let pendingImage = null; // { data: base64 (no prefix), mimeType, kind: 'image'|'pdf' }
-  let pendingTextFile = null; // { name, content } for .txt attachments
+  let pendingTextFile = null; // { name, content } for text attachments
+  let pendingImages = null;   // [{ data, mimeType }] pages of a big scanned PDF, plus pendingNote
   try { localStorage.removeItem('jai_name'); } catch (e) {} // names are no longer used
 
   const SESSIONS_KEY = 'jai_sessions';
@@ -738,6 +739,20 @@
     const load = (u) => new Promise(res => { const sc = document.createElement('script'); sc.src = u; sc.onload = () => res(!!window.html2pdf); sc.onerror = () => res(false); document.head.appendChild(sc); });
     return urls.reduce((p, u) => p.then(ok => ok || window.html2pdf ? true : load(u)), Promise.resolve(false));
   }
+  // True when the captured page is completely white (the capture library sometimes fails silently)
+  function pdfCanvasBlank(cv) {
+    try {
+      const w = cv.width, h = cv.height;
+      if (!w || !h) return true;
+      const g = cv.getContext('2d');
+      const step = Math.max(2, Math.floor(h / 600));
+      for (let y = 0; y < h; y += step) {
+        const d = g.getImageData(0, y, w, 1).data;
+        for (let x = 0; x < d.length; x += 16) { if (d[x + 3] > 0 && (d[x] < 245 || d[x + 1] < 245 || d[x + 2] < 245)) return false; }
+      }
+      return true;
+    } catch (e) { return false; } // cannot inspect: assume it is fine
+  }
   function downloadPdf(div, name) {
     const fname = (name || answerFileName()) + '.pdf';
     ensureHtml2Pdf().then(ok => {
@@ -758,6 +773,11 @@
         sv.setAttribute('width', w); sv.setAttribute('height', h);
         sv.style.width = w + 'px'; sv.style.height = h + 'px';
       });
+      // The capture library measures from the current scroll position: if the page is scrolled down,
+      // the pages come out blank. Scroll to the top while capturing, then put the view back.
+      const savedX = window.scrollX, savedY = window.scrollY;
+      window.scrollTo(0, 0);
+      const restoreView = () => window.scrollTo(savedX, savedY);
       wrap.appendChild(holder); document.body.appendChild(wrap);
       // Photos: embed them as data URLs with fixed sizes, otherwise the PDF captures them half-drawn
       const waitImgs = Promise.all(Array.from(holder.querySelectorAll('img')).map(async (im) => {
@@ -772,13 +792,21 @@
           await im.decode();
         } catch (e) { im.remove(); }
       }));
-      waitImgs.then(() => window.html2pdf().set({
-        margin: [12, 12, 12, 12], filename: fname,
-        image: { type: 'jpeg', quality: 0.95 },
-        html2canvas: { scale: 2, useCORS: true },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-        pagebreak: { mode: ['css', 'legacy'], avoid: ['.svg-diagram', '.fig-msg', 'img', 'tr', 'h1', 'h2'] }
-      }).from(holder.querySelector('.pdfdoc')).save()).then(() => wrap.remove()).catch((e) => { console.error('PDF failed', e); wrap.remove(); printPdf(div, name); });
+      waitImgs.then(() => {
+        const el = holder.querySelector('.pdfdoc');
+        // keep the capture under ~8 million pixels so phones do not return a blank canvas
+        const area = Math.max(1, el.scrollWidth * el.scrollHeight);
+        const sc = Math.min(2, Math.sqrt(8e6 / area));
+        if (sc < 0.8) { throw new Error('too long for a canvas capture'); }
+        return window.html2pdf().set({
+          margin: [12, 12, 12, 12], filename: fname,
+          image: { type: 'jpeg', quality: 0.95 },
+          html2canvas: { scale: sc, useCORS: true, scrollX: 0, scrollY: 0 },
+          jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+          pagebreak: { mode: ['css', 'legacy'], avoid: ['.svg-diagram', '.fig-msg', 'img', 'tr', 'h1', 'h2'] }
+        }).from(el).toCanvas().get('canvas').then(cv => { if (pdfCanvasBlank(cv)) throw new Error('blank capture'); }).toPdf().save();
+      }).then(() => { wrap.remove(); restoreView(); })
+        .catch((e) => { console.error('PDF failed, using the print window instead', e); wrap.remove(); restoreView(); printPdf(div, name); });
     });
   }
   function printPdf(div, name) {
@@ -906,7 +934,7 @@
     if (acc.trim()) { // final render: diagrams, formulas, buttons, then any real figures
       const sp = splitImageMarkers(acc);
       addMessage(sp.clean || acc, 'bot');
-      await addFiguresFor(sp.queries);
+      await figuresOrDiagram(sp.queries, sp.clean);
       return;
     }
     if (failed) console.error('Stream error:', failed);
@@ -939,14 +967,35 @@
     return { clean, queries: queries.slice(0, 2) };
   }
   async function addFiguresFor(queries) {
-    if (!queries || !queries.length) return;
+    if (!queries || !queries.length) return 0;
+    let added = 0;
     try {
       const r = await fetch(WORKER_URL.replace(/\/chat$/, '/images'), {
         method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ queries })
       });
       const d = await r.json().catch(() => ({}));
-      (d.images || []).slice(0, 3).forEach(im => { if (im && im.url) addBotImage(im.url, im.caption); });
+      (d.images || []).slice(0, 3).forEach(im => { if (im && im.url) { addBotImage(im.url, im.caption); added++; } });
     } catch (e) { /* figures are optional */ }
+    return added;
+  }
+  // No real picture found: ask the AI to draw a clean labelled diagram instead
+  async function drawFallbackDiagram(topic) {
+    const wait = addMessage('Drawing a diagram...', 'bot loading');
+    try {
+      const r = await fetch(WORKER_URL, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ mode: 'tutor', history: [], prompt: 'Draw one clear, correctly labelled SVG diagram of: ' + topic + '. Reply with the diagram in a single svg block and one short caption line. Do not use any [[IMAGE]] marker.' })
+      });
+      const d = await r.json().catch(() => ({}));
+      wait.remove(); currentMessages = currentMessages.filter(m => m.sender !== 'bot loading');
+      const t = d.text ? splitImageMarkers(d.text).clean : '';
+      if (t && /```svg|<svg/i.test(t)) addMessage(t, 'bot');
+    } catch (e) { wait.remove(); currentMessages = currentMessages.filter(m => m.sender !== 'bot loading'); }
+  }
+  async function figuresOrDiagram(queries, answerText) {
+    if (!queries || !queries.length) return;
+    const n = await addFiguresFor(queries);
+    if (!n && !/```svg|<svg/i.test(answerText || '')) await drawFallbackDiagram(queries[0]);
   }
   function loadPngBlob(url) { // image URL -> PNG blob (needs a CORS-enabled image, which Wikimedia is)
     return new Promise((resolve, reject) => {
@@ -1104,30 +1153,28 @@
   // Resize/compress an image file client-side before sending, to keep
   // the request small and fast (max 1024px on the longest side).
   function fileToCompressedImage(file) {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = () => {
-        const img = new Image();
-        img.onload = () => {
-          const maxDim = 1024;
-          let { width, height } = img;
-          if (width > maxDim || height > maxDim) {
-            const scale = maxDim / Math.max(width, height);
-            width = Math.round(width * scale);
-            height = Math.round(height * scale);
-          }
-          const canvas = document.createElement('canvas');
-          canvas.width = width;
-          canvas.height = height;
-          canvas.getContext('2d').drawImage(img, 0, 0, width, height);
-          const dataUrl = canvas.toDataURL('image/jpeg', 0.82);
-          resolve(dataUrl);
-        };
-        img.onerror = reject;
-        img.src = reader.result;
-      };
-      reader.onerror = reject;
-      reader.readAsDataURL(file);
+    // Works for any original size: the picture is shrunk before it is sent
+    return new Promise(async (resolve, reject) => {
+      try {
+        let source, width, height, cleanup = () => {};
+        if (window.createImageBitmap) {
+          try { source = await createImageBitmap(file); width = source.width; height = source.height; cleanup = () => source.close && source.close(); } catch (e) { source = null; }
+        }
+        if (!source) {
+          const url = URL.createObjectURL(file);
+          source = await new Promise((res, rej) => { const im = new Image(); im.onload = () => res(im); im.onerror = rej; im.src = url; });
+          width = source.naturalWidth; height = source.naturalHeight; cleanup = () => URL.revokeObjectURL(url);
+        }
+        const maxDim = 1600; // big enough to read small exam text
+        const scale = Math.min(1, maxDim / Math.max(width, height));
+        const w = Math.max(1, Math.round(width * scale)), h = Math.max(1, Math.round(height * scale));
+        const canvas = document.createElement('canvas'); canvas.width = w; canvas.height = h;
+        const g = canvas.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0, 0, w, h); g.drawImage(source, 0, 0, w, h);
+        cleanup();
+        let q = 0.85, out = canvas.toDataURL('image/jpeg', q);
+        while (out.length > 4_000_000 && q > 0.4) { q -= 0.1; out = canvas.toDataURL('image/jpeg', q); } // keep each picture under ~3MB
+        resolve(out);
+      } catch (e) { reject(e); }
     });
   }
 
@@ -1153,20 +1200,21 @@
 
   async function sendQuestion(qOverride, isRetry) {
     const question = (qOverride !== undefined ? qOverride : input.value).trim();
-    if (!question && !pendingImage && !pendingTextFile) return;
+    if (!question && !pendingImage && !pendingTextFile && !pendingImages) return;
 
     if (pendingImage && pendingImage.kind === 'image') {
       addImageMessage('data:' + pendingImage.mimeType + ';base64,' + pendingImage.data);
     } else if (pendingImage && pendingImage.kind === 'pdf') {
       addMessage('📄 Attached a PDF', 'user');
     } else if (pendingTextFile) {
-      addMessage('📄 Attached ' + pendingTextFile.name, 'user');
+      addMessage('📄 Attached ' + pendingTextFile.name + (pendingTextFile.note ? ' (' + pendingTextFile.note + ')' : ''), 'user');
     }
     if (question && !isRetry) addMessage(question, 'user');
 
     if (!isRetry) input.value = '';
     const imageToSend = pendingImage;
     const textFileToSend = pendingTextFile;
+    const pagesToSend = pendingImages;
     clearPendingImage();
     sendBtn.disabled = true;
     const loadingMsg = addMessage('Thinking...', 'bot loading');
@@ -1180,7 +1228,7 @@
       for (let k = currentMessages.length - 1; k >= 0; k--) { const cm = currentMessages[k]; if (cm.sender === 'bot' && cm.kind === 'text' && cm.text && !cm.text.startsWith('Debug info')) { lastBotText = cm.text; break; } }
       let requestBody;
       if (docFmt) {
-        const needsSource = !imageToSend && !textFileToSend && question.length < 200 && lastBotText;
+        const needsSource = !imageToSend && !textFileToSend && !pagesToSend && question.length < 200 && lastBotText;
         const sourceBlock = needsSource ? `\n\nContent to put in the document (from the previous answer):\n${lastBotText.slice(0, 8000)}` : '';
         requestBody = {
           docMode: true,
@@ -1204,6 +1252,7 @@
         requestBody = { mode: 'tutor', prompt: messageText, history: hist.slice(-12), stream: true };
       }
       if (imageToSend) requestBody.image = imageToSend;
+      if (pagesToSend) requestBody.images = pagesToSend;
 
       const response = await fetch(WORKER_URL, {
         method: 'POST',
@@ -1228,7 +1277,7 @@
         const doc = parseDocHtml(answer);
         if (doc) { doc.fmt = docFmt; addDocCard(doc); return; }
       }
-      { const sp = splitImageMarkers(answer); addMessage(sp.clean || answer, 'bot'); if (!data.image && !(data.images && data.images.length)) await addFiguresFor(sp.queries); }
+      { const sp = splitImageMarkers(answer); addMessage(sp.clean || answer, 'bot'); if (!data.image && !(data.images && data.images.length)) await figuresOrDiagram(sp.queries, sp.clean); }
       if (Array.isArray(data.images) && data.images.length) {
         data.images.forEach(im => { if (im && im.url) addBotImage(im.url, im.caption); });
       } else if (data.image && data.image.url) {
@@ -1247,6 +1296,7 @@
   function clearPendingImage() {
     pendingImage = null;
     pendingTextFile = null;
+    pendingImages = null;
     previewRow.style.display = 'none';
     previewRow.innerHTML = '';
     fileInput.value = '';
@@ -1281,44 +1331,109 @@
     previewRow.style.display = 'flex';
   }
 
+  // ── Big files: read them in the browser so the size of the upload does not matter ──
+  const MAX_TEXT_CHARS = 300000; // about 75,000 words
+  function loadScriptOnce(src) {
+    return new Promise(res => { const sc = document.createElement('script'); sc.src = src; sc.onload = () => res(true); sc.onerror = () => res(false); document.head.appendChild(sc); });
+  }
+  async function ensurePdfJs() {
+    if (window.pdfjsLib) return true;
+    const ok = await loadScriptOnce('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js');
+    if (!ok || !window.pdfjsLib) return false;
+    window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    return true;
+  }
+  async function readBigPdf(file, progress) {
+    if (!(await ensurePdfJs())) throw new Error('PDF reader could not load');
+    const pdf = await window.pdfjsLib.getDocument({ data: new Uint8Array(await file.arrayBuffer()) }).promise;
+    let text = '', truncated = false;
+    for (let p = 1; p <= pdf.numPages; p++) {
+      progress('Reading ' + file.name + ' — page ' + p + ' of ' + pdf.numPages + '…');
+      const page = await pdf.getPage(p);
+      const tc = await page.getTextContent();
+      let line = '';
+      tc.items.forEach(it => { line += it.str + (it.hasEOL ? '\n' : ' '); });
+      text += '\n--- Page ' + p + ' ---\n' + line.trim() + '\n';
+      page.cleanup();
+      if (text.length >= MAX_TEXT_CHARS) { truncated = p < pdf.numPages; text = text.slice(0, MAX_TEXT_CHARS); break; }
+    }
+    const readable = text.replace(/--- Page \d+ ---/g, '').replace(/\s+/g, '').length;
+    if (readable > Math.min(pdf.numPages, 10) * 80) { // has real text
+      return { text, note: truncated ? 'first ' + MAX_TEXT_CHARS.toLocaleString() + ' characters of ' + pdf.numPages + ' pages' : pdf.numPages + ' pages' };
+    }
+    // Scanned PDF (pictures of pages): send the first pages as pictures
+    const maxPages = Math.min(pdf.numPages, 10), images = [];
+    for (let p = 1; p <= maxPages; p++) {
+      progress('Scanning ' + file.name + ' — page ' + p + ' of ' + maxPages + '…');
+      const page = await pdf.getPage(p);
+      const vp = page.getViewport({ scale: 1.4 });
+      const cv = document.createElement('canvas'); cv.width = Math.round(vp.width); cv.height = Math.round(vp.height);
+      const g = cv.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0, 0, cv.width, cv.height);
+      await page.render({ canvasContext: g, viewport: vp }).promise;
+      const used = images.reduce((n, im) => n + im.data.length, 0);
+      images.push({ data: cv.toDataURL('image/jpeg', used > 9e6 ? 0.45 : 0.72).split(',')[1], mimeType: 'image/jpeg' }); // lower quality if the pages are very heavy
+      page.cleanup();
+    }
+    return { images, note: 'scanned PDF: first ' + maxPages + (pdf.numPages > maxPages ? ' of ' + pdf.numPages : '') + ' pages' };
+  }
+  async function readDocx(file) {
+    if (!window.mammoth) { const ok = await loadScriptOnce('https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js'); if (!ok || !window.mammoth) throw new Error('Word reader could not load'); }
+    const r = await window.mammoth.extractRawText({ arrayBuffer: await file.arrayBuffer() });
+    return r.value || '';
+  }
+  function clipText(t) { return t.length > MAX_TEXT_CHARS ? { text: t.slice(0, MAX_TEXT_CHARS), note: 'first ' + MAX_TEXT_CHARS.toLocaleString() + ' characters' } : { text: t, note: '' }; }
+
   plusBtn.addEventListener('click', () => fileInput.click());
 
   fileInput.addEventListener('change', async () => {
     const file = fileInput.files[0];
     if (!file) return;
-
-    if (file.size > 10 * 1024 * 1024) {
-      alert('That file is too large. Please choose one under 10MB.');
-      clearPendingImage();
-      return;
-    }
-
+    const lower = file.name.toLowerCase();
+    clearPendingImage(); // a new file replaces the previous one (this also resets the input)
+    sendBtn.disabled = true;
     try {
       if (file.type.startsWith('image/')) {
+        showPendingFileChip('Preparing ' + file.name + '…');
         const dataUrl = await fileToCompressedImage(file);
         const [prefix, base64] = dataUrl.split(',');
         const mimeType = prefix.match(/data:(.*?);/)[1];
         pendingImage = { data: base64, mimeType, kind: 'image' };
         showPendingImagePreview(dataUrl);
-      } else if (file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf')) {
-        const dataUrl = await fileToDataUrl(file);
-        const [prefix, base64] = dataUrl.split(',');
-        pendingImage = { data: base64, mimeType: 'application/pdf', kind: 'pdf' };
-        showPendingFileChip(file.name);
-      } else if (file.type === 'text/plain' || file.name.toLowerCase().endsWith('.txt')) {
-        const text = await fileToText(file);
-        pendingTextFile = { name: file.name, content: text.slice(0, 15000) };
-        showPendingFileChip(file.name);
+      } else if (file.type === 'application/pdf' || lower.endsWith('.pdf')) {
+        if (file.size <= 8 * 1024 * 1024) {
+          // small PDF: the AI reads the original file (best for diagrams and scans)
+          const dataUrl = await fileToDataUrl(file);
+          pendingImage = { data: dataUrl.split(',')[1], mimeType: 'application/pdf', kind: 'pdf' };
+          showPendingFileChip(file.name);
+        } else {
+          // big PDF: read it here in the browser, whatever its size
+          const r = await readBigPdf(file, (m) => showPendingFileChip(m));
+          if (r.text) { pendingTextFile = { name: file.name, content: r.text, note: r.note }; }
+          else { pendingImages = r.images; pendingTextFile = { name: file.name, content: '[The attached PDF is a scan. Its pages are the attached pictures, in order.]', note: r.note }; }
+          showPendingFileChip(file.name + ' (' + r.note + ')');
+        }
+      } else if (lower.endsWith('.docx')) {
+        showPendingFileChip('Reading ' + file.name + '…');
+        const c = clipText(await readDocx(file));
+        if (!c.text.trim()) throw new Error('empty document');
+        pendingTextFile = { name: file.name, content: c.text, note: c.note };
+        showPendingFileChip(file.name + (c.note ? ' (' + c.note + ')' : ''));
+      } else if (/\.(txt|md|csv|tsv|json|xml|html?)$/.test(lower) || file.type.startsWith('text/')) {
+        showPendingFileChip('Reading ' + file.name + '…');
+        const c = clipText(await fileToText(file));
+        pendingTextFile = { name: file.name, content: c.text, note: c.note };
+        showPendingFileChip(file.name + (c.note ? ' (' + c.note + ')' : ''));
       } else {
-        alert('Please choose an image, a PDF, or a .txt file.');
+        alert('Please choose an image, a PDF, a Word (.docx) file, or a text file (.txt, .csv, .md…).');
         clearPendingImage();
         return;
       }
       input.focus();
     } catch (err) {
-      alert('Could not process that file. Please try another.');
+      console.error('Upload failed', err);
+      alert('Could not read that file. Please try another, or paste the text.');
       clearPendingImage();
-    }
+    } finally { sendBtn.disabled = false; }
   });
 
   document.getElementById('new-chat-btn').addEventListener('click', startNewChat);
