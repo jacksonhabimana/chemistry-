@@ -13,7 +13,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.2.6/purify.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.9.4/mermaid.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" defer></script>
 <style>
   :root{--bg:#0d1117;--surface:#161b22;--surface2:#1c2333;--border:#30363d;--accent:#38bdf8;--gold:#e8c547;--green:#34d399;--red:#f87171;--text:#e6edf3;--muted:#8b949e;}
   *{box-sizing:border-box;margin:0;padding:0;}
@@ -486,39 +485,274 @@
     try { document.execCommand('copy'); done(); } catch (e) {}
     t.remove();
   }
-  function downloadWord(div, name) {
+  // ── Real .docx writer (no library): HTML → WordprocessingML → stored ZIP ──
+  const DOCX_CRC = (() => { const t = []; for (let n = 0; n < 256; n++) { let c = n; for (let k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1; t[n] = c >>> 0; } return t; })();
+  function docxCrc32(b) { let c = 0xFFFFFFFF; for (let i = 0; i < b.length; i++) c = DOCX_CRC[(c ^ b[i]) & 255] ^ (c >>> 8); return (c ^ 0xFFFFFFFF) >>> 0; }
+  function docxZip(files) {
+    const enc = new TextEncoder(); const chunks = []; const central = []; let offset = 0;
+    const u16 = n => [n & 255, (n >>> 8) & 255]; const u32 = n => [n & 255, (n >>> 8) & 255, (n >>> 16) & 255, (n >>> 24) & 255];
+    for (const f of files) {
+      const name = enc.encode(f.name); const data = (f.data instanceof Uint8Array) ? f.data : enc.encode(f.data); const crc = docxCrc32(data);
+      const local = new Uint8Array([0x50,0x4b,3,4, ...u16(20), ...u16(0x0800), ...u16(0), ...u16(0), ...u16(0x21), ...u32(crc), ...u32(data.length), ...u32(data.length), ...u16(name.length), ...u16(0)]);
+      chunks.push(local, name, data);
+      central.push({ name, crc, size: data.length, offset });
+      offset += local.length + name.length + data.length;
+    }
+    let cdSize = 0;
+    for (const c of central) {
+      const h = new Uint8Array([0x50,0x4b,1,2, ...u16(20), ...u16(20), ...u16(0x0800), ...u16(0), ...u16(0), ...u16(0x21), ...u32(c.crc), ...u32(c.size), ...u32(c.size), ...u16(c.name.length), ...u16(0), ...u16(0), ...u16(0), ...u16(0), ...u32(0), ...u32(c.offset)]);
+      chunks.push(h, c.name); cdSize += h.length + c.name.length;
+    }
+    chunks.push(new Uint8Array([0x50,0x4b,5,6, ...u16(0), ...u16(0), ...u16(central.length), ...u16(central.length), ...u32(cdSize), ...u32(offset), ...u16(0)]));
+    return new Blob(chunks, { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
+  }
+  function docxEsc(t) { return String(t).replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g, '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+  function docxRuns(node, fmt, out) {
+    node.childNodes.forEach(ch => {
+      if (ch.nodeType === 3) {
+        const text = ch.textContent.replace(/\s+/g, ' ');
+        if (!text) return;
+        const rpr = (fmt.b ? '<w:b/>' : '') + (fmt.i ? '<w:i/>' : '') + (fmt.u ? '<w:u w:val="single"/>' : '') +
+          (fmt.mono ? '<w:rFonts w:ascii="Consolas" w:hAnsi="Consolas"/>' : '') +
+          (fmt.sz ? '<w:sz w:val="' + fmt.sz + '"/>' : '') + (fmt.va ? '<w:vertAlign w:val="' + fmt.va + '"/>' : '');
+        out.push('<w:r>' + (rpr ? '<w:rPr>' + rpr + '</w:rPr>' : '') + '<w:t xml:space="preserve">' + docxEsc(text) + '</w:t></w:r>');
+      } else if (ch.nodeType === 1) {
+        const tag = ch.tagName.toLowerCase();
+        if (tag === 'br') { out.push('<w:r><w:br/></w:r>'); return; }
+        if (['script', 'style', 'svg', 'img', 'button', 'canvas'].includes(tag)) return;
+        const f = Object.assign({}, fmt);
+        if (tag === 'b' || tag === 'strong' || /^h[1-6]$/.test(tag)) f.b = true;
+        if (tag === 'i' || tag === 'em') f.i = true;
+        if (tag === 'u') f.u = true;
+        if (tag === 'sup') f.va = 'superscript';
+        if (tag === 'sub') f.va = 'subscript';
+        if (tag === 'code') f.mono = true;
+        docxRuns(ch, f, out);
+      }
+    });
+  }
+  function docxPara(node, fmt, opts) {
+    const runs = []; docxRuns(node, fmt, runs);
+    opts = opts || {};
+    let ppr = '';
+    if (opts.ind) ppr += '<w:ind w:left="' + opts.ind + '"' + (opts.hang ? ' w:hanging="' + opts.hang + '"' : '') + '/>';
+    if (opts.keep) ppr = '<w:keepNext/>' + ppr;
+    if (opts.spaceBefore !== undefined) ppr += '<w:spacing w:before="' + opts.spaceBefore + '" w:after="' + (opts.spaceAfter || 80) + '"/>';
+    return '<w:p>' + (ppr ? '<w:pPr>' + ppr + '</w:pPr>' : '') + (opts.prefix ? '<w:r><w:t xml:space="preserve">' + docxEsc(opts.prefix) + '</w:t></w:r>' : '') + runs.join('') + '</w:p>';
+  }
+  let DOCX_IMAGES = []; // [{bytes, w, h}] set by buildDocxBlob
+  function docxDrawing(i) {
+    const im = DOCX_IMAGES[i]; if (!im) return '';
+    const maxW = 5760000; // 16 cm
+    let cx = Math.round(im.w * 9525), cy = Math.round(im.h * 9525);
+    if (cx > maxW) { cy = Math.round(cy * maxW / cx); cx = maxW; }
+    const id = i + 1;
+    return '<w:p><w:pPr><w:jc w:val="center"/></w:pPr><w:r><w:drawing><wp:inline distT="0" distB="0" distL="0" distR="0"><wp:extent cx="' + cx + '" cy="' + cy + '"/><wp:docPr id="' + id + '" name="Diagram ' + id + '"/>' +
+      '<a:graphic xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"><a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/picture"><pic:pic xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture">' +
+      '<pic:nvPicPr><pic:cNvPr id="' + id + '" name="diagram' + id + '.png"/><pic:cNvPicPr/></pic:nvPicPr><pic:blipFill><a:blip r:embed="rIdImg' + id + '"/><a:stretch><a:fillRect/></a:stretch></pic:blipFill>' +
+      '<pic:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="' + cx + '" cy="' + cy + '"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></pic:spPr></pic:pic></a:graphicData></a:graphic></wp:inline></w:drawing></w:r></w:p>';
+  }
+  function docxBlocks(root, out, ctx) {
+    ctx = ctx || { depth: 0 };
+    const INLINE = ['b', 'strong', 'i', 'em', 'u', 'sup', 'sub', 'span', 'a', 'code', 'small', 'font'];
+    let loose = null; // collects stray inline content into one paragraph
+    const flushLoose = () => { if (loose && loose.textContent.trim()) out.push(docxPara(loose, {})); loose = null; };
+    root.childNodes.forEach(ch => {
+      if (ch.nodeType === 3 || (ch.nodeType === 1 && (INLINE.includes(ch.tagName.toLowerCase()) || ch.tagName.toLowerCase() === 'br'))) {
+        if (!loose) loose = document.createElement('div');
+        loose.appendChild(ch.cloneNode(true)); return;
+      }
+      if (ch.nodeType !== 1) return;
+      flushLoose();
+      const tag = ch.tagName.toLowerCase();
+      if (tag === 'img' && ch.hasAttribute('data-docx')) { out.push(docxDrawing(parseInt(ch.getAttribute('data-docx'), 10))); return; }
+      if (['script', 'style', 'svg', 'img', 'button', 'canvas', 'hr'].includes(tag)) return;
+      if (/^h[1-6]$/.test(tag)) {
+        const sz = { h1: 34, h2: 28, h3: 25 }[tag] || 23;
+        out.push(docxPara(ch, { b: true, sz }, { keep: true, spaceBefore: 200, spaceAfter: 100 }));
+      } else if (tag === 'p') out.push(docxPara(ch, {}, { spaceBefore: 0, spaceAfter: 100 }));
+      else if (tag === 'pre') {
+        const lines = ch.textContent.replace(/\n$/, '').split('\n');
+        lines.forEach(l => { const d = document.createElement('div'); d.textContent = l || ' '; out.push(docxPara(d, { mono: true })); });
+      } else if (tag === 'ol' || tag === 'ul') {
+        let n = 1;
+        Array.from(ch.children).forEach(li => {
+          if (li.tagName.toLowerCase() !== 'li') return;
+          const inner = li.cloneNode(true);
+          const nested = Array.from(inner.querySelectorAll(':scope > ol, :scope > ul'));
+          nested.forEach(x => x.remove());
+          out.push(docxPara(inner, {}, { ind: 360 + ctx.depth * 360, hang: 360, prefix: (tag === 'ol' ? (n++) + '.\u00A0' : '•\u00A0') }));
+          nested.forEach(x => { const w = document.createElement('div'); w.appendChild(x); docxBlocks(w, out, { depth: ctx.depth + 1 }); });
+        });
+      } else if (tag === 'table') {
+        const rows = Array.from(ch.querySelectorAll('tr'));
+        const bd = ['top', 'left', 'bottom', 'right', 'insideH', 'insideV'].map(s => '<w:' + s + ' w:val="single" w:sz="4" w:space="0" w:color="444444"/>').join('');
+        const ncols = Math.max(1, ...rows.map(tr => tr.children.length));
+        const cw = Math.floor(9638 / ncols);
+        let x = '<w:tbl><w:tblPr><w:tblW w:w="' + (cw * ncols) + '" w:type="dxa"/><w:tblBorders>' + bd + '</w:tblBorders><w:tblLayout w:type="fixed"/></w:tblPr><w:tblGrid>' + ('<w:gridCol w:w="' + cw + '"/>').repeat(ncols) + '</w:tblGrid>';
+        rows.forEach(tr => {
+          x += '<w:tr>';
+          Array.from(tr.children).forEach(td => {
+            const head = td.tagName.toLowerCase() === 'th';
+            x += '<w:tc><w:tcPr><w:tcW w:w="' + cw + '" w:type="dxa"/></w:tcPr>' + docxPara(td, { b: head }) + '</w:tc>';
+          });
+          x += '</w:tr>';
+        });
+        x += '</w:tbl>'; out.push(x); out.push('<w:p/>');
+      } else if (tag === 'blockquote') {
+        out.push(docxPara(ch, { i: true }, { ind: 540 }));
+      } else docxBlocks(ch, out, ctx); // div, section, etc.
+    });
+    flushLoose();
+  }
+  function buildDocxBlob(html, images) {
+    DOCX_IMAGES = images || [];
+    const doc = new DOMParser().parseFromString('<div id="r">' + html + '</div>', 'text/html');
+    const body = []; docxBlocks(doc.getElementById('r'), body);
+    if (!body.length) body.push('<w:p/>');
+    const ns = 'xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" xmlns:wp="http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing"';
+    const documentXml = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:document ' + ns + '><w:body>' + body.join('') +
+      '<w:sectPr><w:pgSz w:w="11906" w:h="16838"/><w:pgMar w:top="1134" w:right="1134" w:bottom="1134" w:left="1134" w:header="708" w:footer="708" w:gutter="0"/></w:sectPr></w:body></w:document>';
+    const stylesXml = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:styles xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:docDefaults><w:rPrDefault><w:rPr><w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:eastAsia="Calibri" w:cs="Calibri"/><w:sz w:val="22"/><w:szCs w:val="22"/></w:rPr></w:rPrDefault><w:pPrDefault><w:pPr><w:spacing w:after="80" w:line="264" w:lineRule="auto"/></w:pPr></w:pPrDefault></w:docDefaults><w:style w:type="paragraph" w:default="1" w:styleId="Normal"><w:name w:val="Normal"/></w:style></w:styles>';
+    const imgRels = DOCX_IMAGES.map((im, k) => '<Relationship Id="rIdImg' + (k + 1) + '" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" Target="media/diagram' + (k + 1) + '.png"/>').join('');
+    const files = [
+      { name: '[Content_Types].xml', data: '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Default Extension="png" ContentType="image/png"/><Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/><Override PartName="/word/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml"/></Types>' },
+      { name: '_rels/.rels', data: '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/></Relationships>' },
+      { name: 'word/_rels/document.xml.rels', data: '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/>' + imgRels + '</Relationships>' },
+      { name: 'word/document.xml', data: documentXml },
+      { name: 'word/styles.xml', data: stylesXml },
+    ];
+    DOCX_IMAGES.forEach((im, k) => files.push({ name: 'word/media/diagram' + (k + 1) + '.png', data: im.bytes }));
+    return docxZip(files);
+  }
+  // Turn an inline <svg> (AI diagram or Mermaid) into PNG bytes so Word can show it
+  function svgToPng(svgEl) {
+    return new Promise((resolve, reject) => {
+      try {
+        const vb = (svgEl.getAttribute('viewBox') || '').trim().split(/[\s,]+/).map(Number);
+        let w = vb.length === 4 && vb[2] > 0 ? vb[2] : parseFloat(svgEl.getAttribute('width')) || 680;
+        let h = vb.length === 4 && vb[3] > 0 ? vb[3] : parseFloat(svgEl.getAttribute('height')) || 400;
+        const c = svgEl.cloneNode(true);
+        c.setAttribute('xmlns', 'http://www.w3.org/2000/svg'); c.setAttribute('xmlns:xlink', 'http://www.w3.org/1999/xlink');
+        c.setAttribute('width', w); c.setAttribute('height', h);
+        if (!c.getAttribute('viewBox')) c.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
+        c.removeAttribute('style');
+        const xml = new XMLSerializer().serializeToString(c);
+        const img = new Image();
+        img.onload = () => {
+          try {
+            const sc = 2, cv = document.createElement('canvas');
+            cv.width = Math.round(w * sc); cv.height = Math.round(h * sc);
+            const g = cv.getContext('2d'); g.fillStyle = '#ffffff'; g.fillRect(0, 0, cv.width, cv.height);
+            g.drawImage(img, 0, 0, cv.width, cv.height);
+            const b64 = cv.toDataURL('image/png').split(',')[1];
+            const bin = atob(b64), bytes = new Uint8Array(bin.length);
+            for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+            resolve({ bytes, w, h });
+          } catch (e) { reject(e); }
+        };
+        img.onerror = () => reject(new Error('svg render failed'));
+        img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(xml);
+      } catch (e) { reject(e); }
+    });
+  }
+  function texToHtml(tex) {
+    let t = String(tex).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    // \ce{...} (chemistry): find the matching brace, then format the inside
+    let out = '', k = 0;
+    while (k < t.length) {
+      const at = t.indexOf('\\ce{', k);
+      if (at < 0) { out += t.slice(k); break; }
+      out += t.slice(k, at);
+      let depth = 1, e = at + 4;
+      while (e < t.length && depth > 0) { if (t[e] === '{') depth++; else if (t[e] === '}') depth--; e++; }
+      const inner = t.slice(at + 4, depth === 0 ? e - 1 : e);
+      out += inner.replace(/\^\{?([0-9]*[+-])\}?/g, '\u0001$1\u0002').replace(/([A-Za-z\)\]])(\d+)/g, '$1<sub>$2</sub>').replace(/\u0001/g, '<sup>').replace(/\u0002/g, '</sup>').replace(/&lt;=&gt;/g, '⇌').replace(/-&gt;/g, '→');
+      k = e;
+    }
+    t = out;
+    t = t.replace(/\\text\{([^{}]*)\}/g, '$1').replace(/\\(?:rightarrow|to)\b/g, '→').replace(/\\times/g, '×').replace(/\\cdot/g, '·').replace(/\\Delta/g, 'Δ')
+      .replace(/\\frac\{([^{}]*)\}\{([^{}]*)\}/g, '($1)/($2)').replace(/\\[,;! ]/g, ' ')
+      .replace(/_\{([^{}]*)\}/g, '<sub>$1</sub>').replace(/_(\w)/g, '<sub>$1</sub>').replace(/\^\{([^{}]*)\}/g, '<sup>$1</sup>').replace(/\^(\w)/g, '<sup>$1</sup>').replace(/[{}]/g, '');
+    return t;
+  }
+  async function downloadWord(div, name) {
     const clone = cleanAnswerClone(div);
-    // Word can't draw KaTeX, so use the plain formula text instead
+    // Word can't draw KaTeX, so turn formulas into plain text with real sub/superscripts
     clone.querySelectorAll('.katex').forEach(k => {
       const a = k.querySelector('annotation');
-      k.replaceWith(document.createTextNode(a ? a.textContent : k.textContent));
+      const span = document.createElement('span');
+      if (a) span.innerHTML = texToHtml(a.textContent); else span.textContent = k.textContent;
+      k.replaceWith(span);
     });
-    const html = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word"><head><meta charset="utf-8"><title>Answer</title>' +
-      '<style>body{font-family:Calibri,Arial,sans-serif;font-size:12pt;line-height:1.4}table{border-collapse:collapse}td,th{border:1px solid #444;padding:4px 8px}pre{background:#f2f2f2;padding:6px}</style></head><body>' +
-      clone.innerHTML + '</body></html>';
-    const blob = new Blob(['\ufeff', html], { type: 'application/msword' });
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob); a.download = (name || answerFileName()) + '.doc';
-    document.body.appendChild(a); a.click(); a.remove();
-    setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+    // Diagrams: draw each SVG into a PNG and place it in the document
+    const images = [];
+    for (const svg of Array.from(clone.querySelectorAll('svg'))) {
+      if (svg.closest('.katex')) { svg.remove(); continue; }
+      try {
+        const im = await svgToPng(svg);
+        images.push(im);
+        const ph = document.createElement('img'); ph.setAttribute('data-docx', String(images.length - 1));
+        (svg.closest('.svg-diagram, .mermaid') || svg).replaceWith(ph);
+      } catch (e) {
+        console.warn('Diagram skipped in Word file:', e);
+        const note = document.createElement('p'); note.textContent = '[Diagram: see the chat]';
+        (svg.closest('.svg-diagram, .mermaid') || svg).replaceWith(note);
+      }
+    }
+    const fname = name || answerFileName();
+    const save = (blob, ext) => {
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob); a.download = fname + ext;
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+    };
+    try {
+      save(buildDocxBlob(clone.innerHTML, images), '.docx'); // real Word file
+    } catch (e) {
+      console.error('docx build failed, using .doc fallback', e);
+      const html = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word"><head><meta charset="utf-8"><title>Answer</title>' +
+        '<style>body{font-family:Calibri,Arial,sans-serif;font-size:12pt;line-height:1.4}table{border-collapse:collapse}td,th{border:1px solid #444;padding:4px 8px}pre{background:#f2f2f2;padding:6px}</style></head><body>' +
+        clone.innerHTML + '</body></html>';
+      save(new Blob(['\ufeff', html], { type: 'application/msword' }), '.doc');
+    }
+  }
+  // Load the PDF library on demand (two sources), so one blocked CDN doesn't break PDFs
+  function ensureHtml2Pdf() {
+    if (window.html2pdf) return Promise.resolve(true);
+    const urls = ['https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js', 'https://cdn.jsdelivr.net/npm/html2pdf.js@0.10.1/dist/html2pdf.bundle.min.js'];
+    const load = (u) => new Promise(res => { const sc = document.createElement('script'); sc.src = u; sc.onload = () => res(!!window.html2pdf); sc.onerror = () => res(false); document.head.appendChild(sc); });
+    return urls.reduce((p, u) => p.then(ok => ok || window.html2pdf ? true : load(u)), Promise.resolve(false));
   }
   function downloadPdf(div, name) {
     const fname = (name || answerFileName()) + '.pdf';
-    if (window.html2pdf) {
+    ensureHtml2Pdf().then(ok => {
+      if (!ok) { printPdf(div, name); return; }
+      // The off-screen offset lives on an outer wrapper; the inner element has no offset,
+      // because html2pdf clones the inner element and an off-screen clone renders blank.
+      const wrap = document.createElement('div');
+      wrap.style.cssText = 'position:fixed;left:-10000px;top:0;';
       const holder = document.createElement('div');
-      holder.style.cssText = 'position:fixed;left:-10000px;top:0;width:794px;background:#fff;color:#000;';
-      holder.innerHTML = '<style>.pdfdoc{font-family:Arial,sans-serif;font-size:12pt;line-height:1.5;color:#000;background:#fff;padding:8px}.pdfdoc table{border-collapse:collapse}.pdfdoc td,.pdfdoc th{border:1px solid #444;padding:4px 8px}.pdfdoc pre{background:#f2f2f2;padding:6px;white-space:pre-wrap}</style><div class="pdfdoc">' + cleanAnswerClone(div).innerHTML + '</div>';
-      document.body.appendChild(holder);
+      holder.style.cssText = 'background:#fff;color:#000;';
+      holder.innerHTML = '<style>.pdfdoc{box-sizing:border-box;font-family:Arial,sans-serif;font-size:12pt;line-height:1.5;color:#000;background:#fff;padding:8px}.pdfdoc table{border-collapse:collapse}.pdfdoc td,.pdfdoc th{border:1px solid #444;padding:4px 8px}.pdfdoc pre{background:#f2f2f2;padding:6px;white-space:pre-wrap}.pdfdoc, .pdfdoc *{color:#000 !important;text-shadow:none !important}.pdfdoc .chat-msg{display:block !important;background:#fff !important;border:none !important;box-shadow:none !important;max-width:100% !important;width:auto !important;padding:0 !important;margin:0 0 10px !important;border-radius:0 !important}.pdfdoc table,.pdfdoc td,.pdfdoc th{background:#fff !important}.pdfdoc th{background:#eee !important}.pdfdoc .svg-diagram{background:#fff !important;border:1px solid #ccc !important;padding:6px !important;margin:8px 0 !important;overflow:visible !important;text-align:center}.pdfdoc svg{max-width:100% !important}.pdfdoc img{max-width:100% !important}</style><div class="pdfdoc">' + cleanAnswerClone(div).innerHTML + '</div>';
+      // html2canvas needs real pixel sizes on SVGs (a bare viewBox gets drawn zoomed in)
+      holder.querySelectorAll('svg').forEach(sv => {
+        const vb = (sv.getAttribute('viewBox') || '').trim().split(/[\s,]+/).map(Number);
+        let w = vb.length === 4 && vb[2] > 0 ? vb[2] : parseFloat(sv.getAttribute('width')) || 600;
+        let h = vb.length === 4 && vb[3] > 0 ? vb[3] : parseFloat(sv.getAttribute('height')) || 360;
+        const tw = Math.min(w, 600); h = h * tw / w; w = tw;
+        sv.setAttribute('width', w); sv.setAttribute('height', h);
+        sv.style.width = w + 'px'; sv.style.height = h + 'px';
+      });
+      wrap.appendChild(holder); document.body.appendChild(wrap);
       window.html2pdf().set({
         margin: [12, 12, 12, 12], filename: fname,
         image: { type: 'jpeg', quality: 0.95 },
         html2canvas: { scale: 2, useCORS: true },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-        pagebreak: { mode: ['css', 'legacy'] }
-      }).from(holder).save().then(() => holder.remove()).catch(() => { holder.remove(); printPdf(div, name); });
-      return;
-    }
-    printPdf(div, name);
+        pagebreak: { mode: ['css', 'legacy'], avoid: ['.svg-diagram', 'tr', 'h1', 'h2'] }
+      }).from(holder.querySelector('.pdfdoc')).save().then(() => wrap.remove()).catch((e) => { console.error('PDF failed', e); wrap.remove(); printPdf(div, name); });
+    });
   }
   function printPdf(div, name) {
     const clone = cleanAnswerClone(div);
@@ -572,7 +806,7 @@
     const icon = document.createElement('div'); icon.className = 'doc-icon'; icon.textContent = doc.fmt === 'pdf' ? '📕' : '📄';
     const info = document.createElement('div'); info.className = 'doc-info';
     const ti = document.createElement('div'); ti.className = 'doc-title'; ti.textContent = doc.title;
-    const sub = document.createElement('div'); sub.className = 'doc-sub'; sub.textContent = 'Document · ' + (doc.fmt === 'pdf' ? 'PDF' : 'Word');
+    const sub = document.createElement('div'); sub.className = 'doc-sub'; sub.textContent = 'Document · ' + (doc.fmt === 'pdf' ? 'PDF' : 'DOCX');
     info.appendChild(ti); info.appendChild(sub);
     const btns = document.createElement('div'); btns.className = 'doc-btns';
     const page = document.createElement('div'); page.className = 'doc-page'; page.innerHTML = doc.html;
@@ -613,6 +847,58 @@
   function chatHasMessages() {
     return Array.from(document.querySelectorAll('#chat-messages .chat-msg')).some(m => !m.classList.contains('loading') && m.id !== 'initial-greeting');
   }
+  // ── Streaming: show the answer while it is being written ──
+  async function readAnswerStream(response, loadingMsg) {
+    const reader = response.body.getReader();
+    const dec = new TextDecoder();
+    let buf = '', acc = '', live = null, lastPaint = 0, failed = null;
+    const paint = (force) => {
+      const now = Date.now();
+      if (!force && now - lastPaint < 120) return;
+      lastPaint = now;
+      if (!live) { loadingMsg.remove(); live = document.createElement('div'); live.className = 'chat-msg bot'; messages.appendChild(live); }
+      live.innerHTML = formatBotText(acc);
+      messages.scrollTop = messages.scrollHeight;
+    };
+    try {
+      for (;;) {
+        const { value, done } = await reader.read();
+        if (done) break;
+        buf += dec.decode(value, { stream: true });
+        let nl;
+        while ((nl = buf.indexOf('\n')) >= 0) {
+          const line = buf.slice(0, nl).trim(); buf = buf.slice(nl + 1);
+          if (!line.startsWith('data:')) continue;
+          let o; try { o = JSON.parse(line.slice(5).trim()); } catch (e) { continue; }
+          if (o.t) { acc += o.t; paint(false); }
+          if (o.error) failed = o.error;
+        }
+      }
+    } catch (e) { failed = e.message; }
+    if (live) live.remove(); else loadingMsg.remove();
+    if (acc.trim()) { addMessage(acc, 'bot'); return; } // final render: diagrams, formulas, buttons
+    if (failed) console.error('Stream error:', failed);
+    addMessage("Sorry, I couldn't get an answer right now. Please try again in a moment.", 'bot');
+  }
+
+  // ── Retry: write the last answer again ──
+  function regenerateLast() {
+    if (sendBtn.disabled) return;
+    let k = currentMessages.length - 1;
+    while (k >= 0 && !(currentMessages[k].sender === 'user' && currentMessages[k].kind === 'text' && !/^(📷|📄 Attached)/.test(currentMessages[k].text || ''))) k--;
+    if (k < 0) return;
+    const prev = currentMessages[k - 1];
+    if (prev && prev.sender === 'user' && /^(📷|📄 Attached)/.test(prev.text || '')) { alert('That question had an attachment. Please attach it again and resend.'); return; }
+    const q = currentMessages[k].text;
+    currentMessages.length = k + 1;
+    const nodes = Array.from(messages.children);
+    for (let i = nodes.length - 1; i >= 0; i--) {
+      if (nodes[i].classList.contains('user') && nodes[i].textContent === q) { nodes.slice(i + 1).forEach(n => n.remove()); break; }
+    }
+    persistCurrentSession();
+    sendQuestion(q, true);
+  }
+
   function addActionBar(div, text) {
     const bar = document.createElement('div');
     bar.className = 'msg-actions';
@@ -620,6 +906,9 @@
     mk('📋 Copy', (b) => copyAnswer(text, b));
     mk('📄 Word', () => downloadWord(div));
     mk('📕 PDF', () => downloadPdf(div));
+    document.querySelectorAll('.retry-btn').forEach(b => b.remove()); // only the newest answer offers Retry
+    const rb = document.createElement('button'); rb.type = 'button'; rb.className = 'retry-btn'; rb.textContent = '🔄 Retry';
+    rb.addEventListener('click', regenerateLast); bar.appendChild(rb);
     div.appendChild(bar);
   }
 
@@ -758,7 +1047,7 @@
     });
   }
 
-  async function sendQuestion(qOverride) {
+  async function sendQuestion(qOverride, isRetry) {
     const question = (qOverride !== undefined ? qOverride : input.value).trim();
     if (!question && !pendingImage && !pendingTextFile) return;
 
@@ -769,9 +1058,9 @@
     } else if (pendingTextFile) {
       addMessage('📄 Attached ' + pendingTextFile.name, 'user');
     }
-    if (question) addMessage(question, 'user');
+    if (question && !isRetry) addMessage(question, 'user');
 
-    input.value = '';
+    if (!isRetry) input.value = '';
     const imageToSend = pendingImage;
     const textFileToSend = pendingTextFile;
     clearPendingImage();
@@ -793,11 +1082,23 @@
           docMode: true,
           prompt: `You are making a ${docFmt === 'pdf' ? 'PDF' : 'Word'} document for a Rwandan secondary-school teacher or student. Output ONLY the document body as clean HTML: no <html>, <head> or <body> tags, no Markdown, no code fences, no text before or after. Start with <h1>a short document title</h1>. Use <h2> for sections, <p>, <ol>/<ul>/<li>, and <table border="1"> for tables. Write superscripts and subscripts with <sup> and <sub> (examples: 1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>6</sup>, H<sub>2</sub>O, Fe<sup>3+</sup>, SO<sub>4</sub><sup>2-</sup>) and italics with <i>. Do not use LaTeX. Keep the original question numbers and put options (a), (b), (c), (d) on separate lines using <br>. Copy any attached picture or text faithfully and ignore watermarks. Do NOT add answers, explanations or extra questions unless the request asks for them.\n\nRequest: ${messageText || 'Put the attached content in a document.'}${sourceBlock}`
         };
-      } else requestBody = {
-        prompt: `Tutor for Rwandan S4-S6 students (REB curriculum). Reply to a bare greeting with one short line. Otherwise start directly with the content: no greeting or filler; answer every part. Use Markdown and LaTeX in $ $ or $$ $$ (chemistry: $\\ce{H2 + O2 -> H2O}$). When a figure/diagram/drawing is wanted (apparatus, columns, structures, graphs, cycles), you CAN and MUST draw it: output one complete \`\`\`svg block (viewBox, clear labels, arrows, light colors), never say you cannot draw. Use \`\`\`mermaid only for simple flowcharts.
-
-Message: ${messageText}`
-      };
+      } else {
+        // Conversation memory: send the recent turns (not the one just typed) so
+        // follow-ups like "explain more" or "put that in Word" make sense.
+        const hist = [];
+        // drop "Thinking..." placeholders and the question we are sending right now
+        let prior = currentMessages.filter(cm => cm.sender !== 'bot loading');
+        const lastPrior = prior[prior.length - 1];
+        if (lastPrior && lastPrior.sender === 'user' && lastPrior.text === question) prior = prior.slice(0, -1);
+        for (const cm of prior) {
+          if (cm.kind === 'doc') { hist.push({ role: 'model', text: '[I created a document: ' + cm.title + ']' }); continue; }
+          if (cm.kind && cm.kind !== 'text') continue;
+          if (!cm.text || cm.text.startsWith('Debug info') || cm.text.startsWith('Sorry,') || cm.text.startsWith('📷') || cm.text.startsWith('📄 Attached')) continue;
+          const t = cm.text.replace(/```svg[\s\S]*?```/g, '[diagram]').replace(/```mermaid[\s\S]*?```/g, '[diagram]').slice(0, 3000);
+          hist.push({ role: cm.sender === 'user' ? 'user' : 'model', text: t });
+        }
+        requestBody = { mode: 'tutor', prompt: messageText, history: hist.slice(-12), stream: true };
+      }
       if (imageToSend) requestBody.image = imageToSend;
 
       const response = await fetch(WORKER_URL, {
@@ -805,10 +1106,16 @@ Message: ${messageText}`
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(requestBody)
       });
+      if (response.ok && (response.headers.get('content-type') || '').includes('text/event-stream')) {
+        await readAnswerStream(response, loadingMsg);
+        return;
+      }
       const data = await response.json().catch(() => ({}));
       if (!response.ok) {
         loadingMsg.remove();
-        addMessage(data.message || (data.error ? `Debug info: ${data.error}` : "Sorry, I couldn't get an answer right now. Please try again."), 'bot');
+        if (data.error) console.error('Chat error:', data.error);
+        const showDebug = new URLSearchParams(location.search).has('debug');
+        addMessage(data.message || (showDebug && data.error ? `Debug info: ${data.error}` : "Sorry, I couldn't get an answer right now. Please try again in a moment."), 'bot');
         return;
       }
       const answer = data.text || data.answer || data.response || "Sorry, I couldn't get an answer right now.";
