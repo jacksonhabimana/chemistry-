@@ -110,6 +110,10 @@
   .doc-page h1{font-size:1.3em;margin:0 0 .6em;} .doc-page h2{font-size:1.1em;margin:1em 0 .4em;}
   .doc-page table{border-collapse:collapse;} .doc-page td,.doc-page th{border:1px solid #444;padding:3px 7px;}
   .doc-page ol,.doc-page ul{padding-left:1.4em;}
+
+  .fig-actions{display:flex;gap:6px;margin-top:6px;}
+  .fig-actions button{background:var(--bg);border:1px solid var(--border);color:var(--muted);border-radius:14px;padding:3px 10px;font-family:'JetBrains Mono',monospace;font-size:.68rem;cursor:pointer;}
+  .fig-actions button:hover{border-color:var(--accent);color:var(--accent);}
   .msg-actions{display:flex;gap:6px;margin-top:10px;padding-top:8px;border-top:1px solid var(--border);flex-wrap:wrap;}
   .msg-actions button{background:var(--bg);border:1px solid var(--border);color:var(--muted);border-radius:16px;padding:4px 11px;font-family:'JetBrains Mono',monospace;font-size:.7rem;cursor:pointer;}
   .msg-actions button:hover{border-color:var(--accent);color:var(--accent);}
@@ -469,7 +473,7 @@
   // ── Copy / Word / PDF buttons under each bot answer ──
   function cleanAnswerClone(div) {
     const clone = div.cloneNode(true);
-    clone.querySelectorAll('.msg-actions').forEach(b => b.remove());
+    clone.querySelectorAll('.msg-actions,.fig-actions').forEach(b => b.remove());
     clone.querySelectorAll('.loading').forEach(b => b.remove());
     return clone;
   }
@@ -677,7 +681,7 @@
     return t;
   }
   async function downloadWord(div, name) {
-    const clone = cleanAnswerClone(div);
+    const clone = cleanAnswerClone(withFigures(div));
     // Word can't draw KaTeX, so turn formulas into plain text with real sub/superscripts
     clone.querySelectorAll('.katex').forEach(k => {
       const a = k.querySelector('annotation');
@@ -699,6 +703,16 @@
         const note = document.createElement('p'); note.textContent = '[Diagram: see the chat]';
         (svg.closest('.svg-diagram, .mermaid') || svg).replaceWith(note);
       }
+    }
+    // Photos (e.g. from Wikipedia): put them in the Word file as pictures
+    for (const im of Array.from(clone.querySelectorAll('img:not([data-docx])'))) {
+      const src = im.getAttribute('src') || '';
+      try {
+        const blob = await loadPngBlob(src);
+        const bmp = await createImageBitmap(blob);
+        images.push({ bytes: new Uint8Array(await blob.arrayBuffer()), w: Math.min(bmp.width, 640), h: Math.round(bmp.height * Math.min(bmp.width, 640) / bmp.width) });
+        const ph = document.createElement('img'); ph.setAttribute('data-docx', String(images.length - 1)); im.replaceWith(ph);
+      } catch (e) { im.remove(); }
     }
     const fname = name || answerFileName();
     const save = (blob, ext) => {
@@ -734,7 +748,7 @@
       wrap.style.cssText = 'position:fixed;left:-10000px;top:0;';
       const holder = document.createElement('div');
       holder.style.cssText = 'background:#fff;color:#000;';
-      holder.innerHTML = '<style>.pdfdoc{box-sizing:border-box;font-family:Arial,sans-serif;font-size:12pt;line-height:1.5;color:#000;background:#fff;padding:8px}.pdfdoc table{border-collapse:collapse}.pdfdoc td,.pdfdoc th{border:1px solid #444;padding:4px 8px}.pdfdoc pre{background:#f2f2f2;padding:6px;white-space:pre-wrap}.pdfdoc, .pdfdoc *{color:#000 !important;text-shadow:none !important}.pdfdoc .chat-msg{display:block !important;background:#fff !important;border:none !important;box-shadow:none !important;max-width:100% !important;width:auto !important;padding:0 !important;margin:0 0 10px !important;border-radius:0 !important}.pdfdoc table,.pdfdoc td,.pdfdoc th{background:#fff !important}.pdfdoc th{background:#eee !important}.pdfdoc .svg-diagram{background:#fff !important;border:1px solid #ccc !important;padding:6px !important;margin:8px 0 !important;overflow:visible !important;text-align:center}.pdfdoc svg{max-width:100% !important}.pdfdoc img{max-width:100% !important}</style><div class="pdfdoc">' + cleanAnswerClone(div).innerHTML + '</div>';
+      holder.innerHTML = '<style>.pdfdoc{box-sizing:border-box;font-family:Arial,sans-serif;font-size:12pt;line-height:1.5;color:#000;background:#fff;padding:8px}.pdfdoc table{border-collapse:collapse}.pdfdoc td,.pdfdoc th{border:1px solid #444;padding:4px 8px}.pdfdoc pre{background:#f2f2f2;padding:6px;white-space:pre-wrap}.pdfdoc, .pdfdoc *{color:#000 !important;text-shadow:none !important}.pdfdoc .chat-msg{display:block !important;background:#fff !important;border:none !important;box-shadow:none !important;max-width:100% !important;width:auto !important;padding:0 !important;margin:0 0 10px !important;border-radius:0 !important}.pdfdoc table,.pdfdoc td,.pdfdoc th{background:#fff !important}.pdfdoc th{background:#eee !important}.pdfdoc .svg-diagram{background:#fff !important;border:1px solid #ccc !important;padding:6px !important;margin:8px 0 !important;overflow:visible !important;text-align:center}.pdfdoc svg{max-width:100% !important}.pdfdoc img{display:block;margin:6px auto}</style><div class="pdfdoc">' + cleanAnswerClone(withFigures(div)).innerHTML + '</div>';
       // html2canvas needs real pixel sizes on SVGs (a bare viewBox gets drawn zoomed in)
       holder.querySelectorAll('svg').forEach(sv => {
         const vb = (sv.getAttribute('viewBox') || '').trim().split(/[\s,]+/).map(Number);
@@ -745,13 +759,26 @@
         sv.style.width = w + 'px'; sv.style.height = h + 'px';
       });
       wrap.appendChild(holder); document.body.appendChild(wrap);
-      window.html2pdf().set({
+      // Photos: embed them as data URLs with fixed sizes, otherwise the PDF captures them half-drawn
+      const waitImgs = Promise.all(Array.from(holder.querySelectorAll('img')).map(async (im) => {
+        try {
+          const blob = await loadPngBlob(im.getAttribute('src'));
+          const dataUrl = await new Promise((res, rej) => { const fr = new FileReader(); fr.onload = () => res(fr.result); fr.onerror = rej; fr.readAsDataURL(blob); });
+          const bmp = await createImageBitmap(blob);
+          const sc = Math.min(1, 600 / bmp.width, 340 / bmp.height);
+          im.removeAttribute('crossorigin'); im.src = dataUrl;
+          im.setAttribute('width', Math.round(bmp.width * sc)); im.setAttribute('height', Math.round(bmp.height * sc));
+          im.style.width = Math.round(bmp.width * sc) + 'px'; im.style.height = Math.round(bmp.height * sc) + 'px';
+          await im.decode();
+        } catch (e) { im.remove(); }
+      }));
+      waitImgs.then(() => window.html2pdf().set({
         margin: [12, 12, 12, 12], filename: fname,
         image: { type: 'jpeg', quality: 0.95 },
         html2canvas: { scale: 2, useCORS: true },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-        pagebreak: { mode: ['css', 'legacy'], avoid: ['.svg-diagram', 'tr', 'h1', 'h2'] }
-      }).from(holder.querySelector('.pdfdoc')).save().then(() => wrap.remove()).catch((e) => { console.error('PDF failed', e); wrap.remove(); printPdf(div, name); });
+        pagebreak: { mode: ['css', 'legacy'], avoid: ['.svg-diagram', '.fig-msg', 'img', 'tr', 'h1', 'h2'] }
+      }).from(holder.querySelector('.pdfdoc')).save()).then(() => wrap.remove()).catch((e) => { console.error('PDF failed', e); wrap.remove(); printPdf(div, name); });
     });
   }
   function printPdf(div, name) {
@@ -857,7 +884,7 @@
       if (!force && now - lastPaint < 120) return;
       lastPaint = now;
       if (!live) { loadingMsg.remove(); live = document.createElement('div'); live.className = 'chat-msg bot'; messages.appendChild(live); }
-      live.innerHTML = formatBotText(acc);
+      live.innerHTML = formatBotText(splitImageMarkers(acc).clean);
       messages.scrollTop = messages.scrollHeight;
     };
     try {
@@ -876,7 +903,12 @@
       }
     } catch (e) { failed = e.message; }
     if (live) live.remove(); else loadingMsg.remove();
-    if (acc.trim()) { addMessage(acc, 'bot'); return; } // final render: diagrams, formulas, buttons
+    if (acc.trim()) { // final render: diagrams, formulas, buttons, then any real figures
+      const sp = splitImageMarkers(acc);
+      addMessage(sp.clean || acc, 'bot');
+      await addFiguresFor(sp.queries);
+      return;
+    }
     if (failed) console.error('Stream error:', failed);
     addMessage("Sorry, I couldn't get an answer right now. Please try again in a moment.", 'bot');
   }
@@ -897,6 +929,74 @@
     }
     persistCurrentSession();
     sendQuestion(q, true);
+  }
+
+  // ── Figures: real photos the AI asks for, plus copy / download for every figure ──
+  function splitImageMarkers(text) {
+    const queries = [];
+    const clean = String(text || '').replace(/\[\[\s*IMAGE\s*:\s*([^\]\n]{2,90}?)\s*\]\]/gi, (m, q) => { queries.push(q.trim()); return ''; })
+      .replace(/\[\[[^\]]*$/, '').replace(/\n{3,}/g, '\n\n').trimEnd();
+    return { clean, queries: queries.slice(0, 2) };
+  }
+  async function addFiguresFor(queries) {
+    if (!queries || !queries.length) return;
+    try {
+      const r = await fetch(WORKER_URL.replace(/\/chat$/, '/images'), {
+        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ queries })
+      });
+      const d = await r.json().catch(() => ({}));
+      (d.images || []).slice(0, 3).forEach(im => { if (im && im.url) addBotImage(im.url, im.caption); });
+    } catch (e) { /* figures are optional */ }
+  }
+  function loadPngBlob(url) { // image URL -> PNG blob (needs a CORS-enabled image, which Wikimedia is)
+    return new Promise((resolve, reject) => {
+      const im = new Image(); im.crossOrigin = 'anonymous';
+      im.onload = () => {
+        try {
+          const cv = document.createElement('canvas'); cv.width = im.naturalWidth; cv.height = im.naturalHeight;
+          const g = cv.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0, 0, cv.width, cv.height); g.drawImage(im, 0, 0);
+          cv.toBlob(b => b ? resolve(b) : reject(new Error('no blob')), 'image/png');
+        } catch (e) { reject(e); }
+      };
+      im.onerror = () => reject(new Error('image load failed'));
+      im.src = url;
+    });
+  }
+  function saveBlob(blob, filename) {
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = filename;
+    document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+  }
+  function addFigActions(container, getBlob, fallbackUrl, label) {
+    const bar = document.createElement('div'); bar.className = 'fig-actions';
+    const name = safeFileName(label || 'figure') + '.png';
+    const mk = (text, fn) => { const b = document.createElement('button'); b.type = 'button'; b.textContent = text; b.addEventListener('click', () => fn(b)); bar.appendChild(b); };
+    const flash = (b, t) => { const o = b.textContent; b.textContent = t; setTimeout(() => b.textContent = o, 1600); };
+    mk('⬇ Download', async (b) => {
+      try { saveBlob(await getBlob(), name); }
+      catch (e) { if (fallbackUrl) window.open(fallbackUrl, '_blank'); else flash(b, 'Failed'); }
+    });
+    mk('📋 Copy', async (b) => {
+      try {
+        const blob = await getBlob();
+        await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+        flash(b, '✓ Copied');
+      } catch (e) { flash(b, 'Use Download'); }
+    });
+    container.appendChild(bar);
+  }
+  function decorateDiagrams(div) {
+    div.querySelectorAll('.svg-diagram').forEach(d => {
+      if (d.querySelector('.fig-actions')) return;
+      addFigActions(d, async () => { const im = await svgToPng(d.querySelector('svg')); return new Blob([im.bytes], { type: 'image/png' }); }, null, 'diagram');
+    });
+  }
+  // keep a figure bubble together with the answer it belongs to when exporting that answer
+  function withFigures(div) {
+    if (!div.classList || !div.classList.contains('chat-msg') || div.classList.contains('fig-msg')) return div;
+    const wrap = document.createElement('div'); wrap.appendChild(div.cloneNode(true));
+    let n = div.nextElementSibling;
+    while (n && n.classList.contains('fig-msg')) { wrap.appendChild(n.cloneNode(true)); n = n.nextElementSibling; }
+    return wrap;
   }
 
   function addActionBar(div, text) {
@@ -928,6 +1028,8 @@
         try {
           await mermaid.parse(src);
           await mermaid.run({ nodes: [node] });
+          const msv = node.querySelector('svg');
+          if (msv && !node.parentElement.querySelector('.fig-actions')) addFigActions(node.parentElement, async () => { const im = await svgToPng(msv); return new Blob([im.bytes], { type: 'image/png' }); }, null, 'diagram');
         } catch (e) {
           // Invalid diagram code: show it as plain code instead of an error graphic.
           const pre = document.createElement('pre');
@@ -939,7 +1041,7 @@
         messages.scrollTop = messages.scrollHeight;
       });
     }
-    if (sender === 'bot') addActionBar(div, text);
+    if (sender === 'bot') { decorateDiagrams(div); addActionBar(div, text); }
     messages.scrollTop = messages.scrollHeight;
     return div;
   }
@@ -970,11 +1072,13 @@
 
   function renderBotImage(url, caption) {
     const div = document.createElement('div');
-    div.className = 'chat-msg bot';
+    div.className = 'chat-msg bot fig-msg';
     const img = document.createElement('img');
+    img.crossOrigin = 'anonymous'; // lets us copy / download / put it in Word and PDF
+    let retried = false;
+    img.onerror = () => { if (!retried) { retried = true; img.removeAttribute('crossorigin'); img.src = url; } else div.style.display = 'none'; };
     img.src = url;
     img.alt = caption || '';
-    img.onerror = () => { div.style.display = 'none'; };
     img.style.maxWidth = '100%';
     img.style.borderRadius = '8px';
     img.style.display = 'block';
@@ -987,10 +1091,10 @@
       cap.textContent = caption;
       div.appendChild(cap);
     }
+    addFigActions(div, () => loadPngBlob(url), url, caption || 'photo');
     messages.appendChild(div);
     messages.scrollTop = messages.scrollHeight;
   }
-
   function addBotImage(url, caption) {
     renderBotImage(url, caption);
     currentMessages.push({ sender: 'bot', kind: 'bot-image', imageUrl: url, caption });
@@ -1124,7 +1228,7 @@
         const doc = parseDocHtml(answer);
         if (doc) { doc.fmt = docFmt; addDocCard(doc); return; }
       }
-      addMessage(answer, 'bot');
+      { const sp = splitImageMarkers(answer); addMessage(sp.clean || answer, 'bot'); if (!data.image && !(data.images && data.images.length)) await addFiguresFor(sp.queries); }
       if (Array.isArray(data.images) && data.images.length) {
         data.images.forEach(im => { if (im && im.url) addBotImage(im.url, im.caption); });
       } else if (data.image && data.image.url) {
