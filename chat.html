@@ -110,6 +110,7 @@
   .doc-page h1{font-size:1.3em;margin:0 0 .6em;} .doc-page h2{font-size:1.1em;margin:1em 0 .4em;}
   .doc-page table{border-collapse:collapse;} .doc-page td,.doc-page th{border:1px solid #444;padding:3px 7px;}
   .doc-page ol,.doc-page ul{padding-left:1.4em;}
+  .doc-page svg{max-width:100%;height:auto;} .doc-page img{max-width:100%;height:auto;display:block;margin:6px 0;}
 
   .fig-actions{display:flex;gap:6px;margin-top:6px;}
   .fig-actions button{background:var(--bg);border:1px solid var(--border);color:var(--muted);border-radius:14px;padding:3px 10px;font-family:'JetBrains Mono',monospace;font-size:.68rem;cursor:pointer;}
@@ -205,7 +206,9 @@
   const previewRow = document.getElementById('image-preview-row');
 
   let pendingImage = null; // { data: base64 (no prefix), mimeType, kind: 'image'|'pdf' }
-  let pendingTextFile = null; // { name, content } for text attachments
+  let pendingDoc = null;   // searchable document waiting to be sent: { name, pages[], kind }
+  let pendingScan = null;  // { name, note } for a big scanned PDF that is sent as page pictures
+  let activeDoc = null;    // the document this chat is about; kept so follow-up questions still see it
   let pendingImages = null;   // [{ data, mimeType }] pages of a big scanned PDF, plus pendingNote
   try { localStorage.removeItem('jai_name'); } catch (e) {} // names are no longer used
 
@@ -362,6 +365,7 @@
     greetDiv.className = 'chat-msg bot';
     greetDiv.textContent = "Hi! 👋 What would you like to ask?";
     messagesDiv.appendChild(greetDiv);
+    activeDoc = null; docClear();
     clearPendingImage();
     document.getElementById('history-panel').classList.remove('open');
     input.value = '';
@@ -823,6 +827,100 @@
   }
 
   // ── "Type it in Word / make a PDF" → document card with Download button ──
+  // ── Whole-document tasks: summarise, remove something, rewrite, translate, marking scheme… ──
+  const DOC_REF = /\b(document|doc|file|pdf|book|notes|paper|worksheet|attached|above|textbook|handout|all (the )?(questions|pages))\b/i;
+  const DOC_SUMMARY = /\b(summari[sz]e|summary|shorten|condense|outline|key points|main points|overview)\b/i;
+  const DOC_STRONG = /\b(marking scheme|mark scheme|answer key|all (the )?questions|every question|extract|list all|list every)\b/i;
+  const DOC_WEAK = /\b(remove|delete|strip|redact|exclude|rewrite|reword|rephrase|edit|proofread|translate|reformat|retype|clean up)\b/i;
+  const DOC_PROCESS = new RegExp(DOC_STRONG.source + '|' + DOC_WEAK.source, 'i');
+  const DOC_LOCATOR = /\b(unit|chapter|section|topic|lesson|exercise|test|exam|part|module|activity|question)\s*\d+|\b(end[ -]of[ -]unit|assessment|revision questions?)\b/i;
+  // 'summary' | 'process' when the whole document is meant, otherwise null (a named unit, chapter or page range is a targeted task)
+  function wholeDocTask(q) {
+    if (!activeDoc || !q || DOC_LOCATOR.test(q)) return null;
+    const ref = DOC_REF.test(q) || /^(please\s+)?(summari[sz]e|translate|shorten)( (it|this|that|the document|the file))?( (to|into|in) [a-z]+)?[.!\s]*$/i.test(q);
+    if (DOC_STRONG.test(q)) return 'process';
+    if (DOC_SUMMARY.test(q) && ref) return 'summary';
+    if (DOC_WEAK.test(q) && ref) return 'process';
+    return null;
+  }
+  async function callWorkerOnce(body) {
+    for (let attempt = 0; attempt < 2; attempt++) {
+      try {
+        const r = await fetch(WORKER_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+        const d = await r.json().catch(() => ({}));
+        if (r.ok && d.text) return d.text;
+      } catch (e) { /* retry */ }
+      await new Promise(res => setTimeout(res, 1500));
+    }
+    return null;
+  }
+  const stripFence = (t) => String(t || '').trim().replace(/^```(?:html|markdown|md)?\s*/i, '').replace(/```\s*$/, '').trim();
+  function docParts(doc, nums, size) {
+    const label = docLabel(doc), parts = []; let cur = { nums: [], chars: 0 };
+    nums.forEach(i => { const len = doc.pages[i].length; if (cur.nums.length && cur.chars + len > size) { parts.push(cur); cur = { nums: [], chars: 0 }; } cur.nums.push(i); cur.chars += len; });
+    if (cur.nums.length) parts.push(cur);
+    parts.forEach(pt => { pt.text = pt.nums.map(i => '--- ' + label + ' ' + (i + 1) + ' ---\n' + doc.pages[i]).join('\n\n'); pt.range = describeNums(pt.nums.map(i => i + 1)); });
+    return parts;
+  }
+  // Returns true when it has answered, an { attachment } for the normal single call, or null to carry on normally
+  async function runDocTask(kind, question, loadingMsg) {
+    const doc = activeDoc, label = docLabel(doc), n = doc.pages.length;
+    let nums = doc.pages.map((_, i) => i);
+    const pr = question.toLowerCase().match(/pages?\s*(\d+)(?:\s*(?:-|–|to|and)\s*(\d+))?/);
+    if (pr) { const a = Math.max(1, parseInt(pr[1], 10)), b = Math.min(n, pr[2] ? parseInt(pr[2], 10) : a); if (b >= a) nums = nums.filter(i => i + 1 >= a && i + 1 <= b); }
+    const scopeChars = nums.reduce((t, i) => t + doc.pages[i].length, 0);
+    const docFmt = detectDocRequest(question);
+    if (kind === 'summary' && scopeChars <= 150000) { // fits in one call: send the whole text
+      return { attachment: { name: doc.name, content: nums.map(i => '--- ' + label + ' ' + (i + 1) + ' ---\n' + doc.pages[i]).join('\n\n'), note: 'whole document, ' + nums.length + ' ' + label.toLowerCase() + 's' } };
+    }
+    const partSize = kind === 'summary' ? 60000 : 12000, limit = kind === 'summary' ? 720000 : 200000;
+    if (scopeChars > limit) {
+      const cap = Math.max(1, Math.floor(limit * nums.length / scopeChars));
+      loadingMsg.remove(); currentMessages = currentMessages.filter(m => m.sender !== 'bot loading');
+      addMessage('This file has ' + nums.length + ' ' + label.toLowerCase() + 's (about ' + Math.round(scopeChars / 1000) + 'k characters). For this task I can work through about ' + cap + ' ' + label.toLowerCase() + 's at a time. Please tell me which ones, for example "' + label.toLowerCase() + 's 40 to ' + Math.min(n, 40 + cap - 1) + '" or name the unit, and I will do it.', 'bot');
+      return true;
+    }
+    const parts = docParts(doc, nums, partSize), outs = []; let failed = [];
+    const asDoc = kind === 'process';
+    let finished = 0;
+    const runPart = async (k) => {
+      const intro = 'This is part ' + (k + 1) + ' of ' + parts.length + ' of the file "' + doc.name + '" (' + label.toLowerCase() + 's ' + parts[k].range + '). ';
+      let prompt;
+      if (kind === 'summary') prompt = intro + 'Summarise ONLY this part in at most 10 short bullet points (Markdown), keeping key terms, definitions, equations and numbers. No introduction.';
+      else prompt = intro + 'Apply this instruction to the attached part ONLY: "' + question + '". Return the resulting content ' + (parts.length > 1 ? 'for this part only, ' : '') + 'following these rules: ' + DOC_HTML_RULES + (k === 0 ? ' Start with <h1>a short document title</h1>.' : ' Do NOT add a title or any introduction or conclusion.') + ' If the instruction is to remove or change something, return the rest of the part unchanged and complete.';
+      const text = await callWorkerOnce({ docMode: true, prompt, history: [], attachment: { name: doc.name, content: parts[k].text, note: label.toLowerCase() + 's ' + parts[k].range } });
+      if (text) outs[k] = stripFence(splitImageMarkers(text).clean); else { failed.push(parts[k].range); outs[k] = ''; }
+      finished++;
+      loadingMsg.textContent = (kind === 'summary' ? 'Summarising' : 'Working on the file') + ': ' + finished + ' of ' + parts.length + ' parts done…';
+    };
+    loadingMsg.textContent = (kind === 'summary' ? 'Summarising' : 'Working on the file') + ': 0 of ' + parts.length + ' parts done…';
+    let nextPart = 0;
+    await Promise.all(Array.from({ length: Math.min(3, parts.length) }, async () => { while (nextPart < parts.length) { const k = nextPart++; await runPart(k); } }));
+    loadingMsg.remove(); currentMessages = currentMessages.filter(m => m.sender !== 'bot loading');
+    const done = outs.filter(Boolean);
+    if (!done.length) { addMessage('Sorry, I could not process that file right now. Please try again in a moment.', 'bot'); return true; }
+    if (kind === 'summary') { // combine the part summaries into the final answer
+      const wait = addMessage('Putting the summary together…', 'bot loading');
+      const joined = done.map((t, k) => '## ' + label + 's ' + parts[k].range + '\n' + t).join('\n\n');
+      const fmtNote = docFmt ? 'Return it as clean HTML. ' + DOC_HTML_RULES : 'Use Markdown.';
+      const finalText = await callWorkerOnce({ docMode: true, history: [], prompt: 'Below are summaries of consecutive parts of "' + doc.name + '". Write the final answer to the user\'s request: "' + question + '". Merge them in order and remove repetition. ' + fmtNote, attachment: { name: doc.name, content: joined, note: 'part summaries' } });
+      wait.remove(); currentMessages = currentMessages.filter(m => m.sender !== 'bot loading');
+      const body = stripFence(finalText || joined);
+      if (docFmt) { const d = parseDocHtml(body); if (d) { d.fmt = docFmt; addDocCard(d); return true; } }
+      addMessage(body, 'bot'); return true;
+    }
+    const d = parseDocHtml(done.join('\n'));
+    if (!d) { addMessage(done.join('\n\n'), 'bot'); return true; }
+    if (d.title === 'Document') d.title = doc.name.replace(/\.[^.]+$/, '').slice(0, 80);
+    d.fmt = docFmt || 'word';
+    addDocCard(d);
+    if (failed.length) addMessage('Note: ' + label.toLowerCase() + 's ' + failed.join(', ') + ' could not be processed and are missing from this document. Ask me again for those ' + label.toLowerCase() + 's.', 'bot');
+    return true;
+  }
+
+  const DOC_HTML_RULES = 'Output ONLY the document body as clean HTML: no <html>, <head> or <body> tags, no Markdown, no code fences, no text before or after. Use <h1> for the title, <h2> for sections, <p>, <ol>/<ul>/<li>, and <table border="1"> for tables. Write superscripts and subscripts with <sup> and <sub> (examples: 1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>6</sup>, H<sub>2</sub>O, Fe<sup>3+</sup>, SO<sub>4</sub><sup>2-</sup>) and italics with <i>. Do not use LaTeX. Keep the original question numbers and put options (a), (b), (c), (d) on separate lines using <br>. Ignore watermarks. ' +
+    'FIGURES: never replace a diagram, chart, graph, table, structural formula or reaction scheme by a sentence; reproduce it. Diagrams, displayed or structural formulas, reaction schemes, graphs and apparatus become one inline <svg viewBox="0 0 700 H" width="600"> per figure, placed right after the question it belongs to: white background rect, Arial 13-15px text, bonds as lines (a double bond as two parallel lines), atoms as centred text, reagents and conditions above and below the arrows, nothing overlapping, all labels fully inside the viewBox. If a picture is attached and a figure is too complex to redraw exactly, use <img data-crop="ymin,xmin,ymax,xmax" alt="figure"> with a box on a 0 to 1000 scale measured from the top-left corner of the picture (add data-page="N" when several pictures are attached, counting from 1). ' +
+    'COMPLETENESS: include EVERY question and every part, in order, to the very end. Never skip, shorten or write "and so on".';
   function detectDocRequest(q) {
     let t = (q || '').toLowerCase();
     if (!t) return null;
@@ -839,16 +937,40 @@
   function parseDocHtml(raw) {
     let h = String(raw || '').trim().replace(/^```(?:html)?\s*/i, '').replace(/```\s*$/, '').trim();
     if (!/<\w+[^>]*>/.test(h)) return null;
-    const d = new DOMParser().parseFromString('<div id="r">' + h + '</div>', 'text/html');
+    let clean;
+    if (window.DOMPurify) {
+      // keeps tables, formatting and drawn diagrams (SVG); removes anything that could run code
+      clean = window.DOMPurify.sanitize(h, { USE_PROFILES: { html: true, svg: true }, FORBID_TAGS: ['style', 'script', 'form', 'input', 'button', 'iframe', 'object', 'embed', 'foreignObject', 'video', 'audio', 'link', 'meta'], FORBID_ATTR: ['onerror', 'onload', 'onclick'] });
+    } else {
+      const d0 = new DOMParser().parseFromString('<div id="r">' + h + '</div>', 'text/html');
+      const r0 = d0.getElementById('r');
+      r0.querySelectorAll('script,style,iframe,object,embed,link,meta,form,input,button,img,svg,video,audio').forEach(n => n.remove());
+      const keep0 = ['border', 'colspan', 'rowspan', 'align', 'cellpadding'];
+      r0.querySelectorAll('*').forEach(n => { Array.from(n.attributes).forEach(a => { if (!keep0.includes(a.name.toLowerCase())) n.removeAttribute(a.name); }); });
+      clean = r0.innerHTML;
+    }
+    const d = new DOMParser().parseFromString('<div id="r">' + clean + '</div>', 'text/html');
     const root = d.getElementById('r');
-    root.querySelectorAll('script,style,iframe,object,embed,link,meta,form,input,button,img,svg,video,audio').forEach(n => n.remove());
-    const keep = ['border', 'colspan', 'rowspan', 'align', 'cellpadding'];
-    root.querySelectorAll('*').forEach(n => {
-      Array.from(n.attributes).forEach(a => { if (!keep.includes(a.name.toLowerCase())) n.removeAttribute(a.name); });
-    });
+    root.querySelectorAll('img:not([data-crop])').forEach(n => n.remove()); // only our own cropped figures are allowed
     const head = root.querySelector('h1,h2');
     const title = (head ? head.textContent : 'Document').trim().slice(0, 80) || 'Document';
     return { title, html: root.innerHTML };
+  }
+  // replace <img data-crop="..."> placeholders by the real figure cut from the user's picture
+  async function resolveDocCrops(doc, sources) {
+    if (!/data-crop/.test(doc.html)) return;
+    const d = new DOMParser().parseFromString('<div id="r">' + doc.html + '</div>', 'text/html');
+    const root = d.getElementById('r');
+    for (const im of Array.from(root.querySelectorAll('img[data-crop]'))) {
+      const spec = parseCropSpec(im.getAttribute('data-crop') + (im.getAttribute('data-page') ? ',page=' + im.getAttribute('data-page') : ''));
+      const src = spec && (sources || [])[(spec.page || 1) - 1];
+      try {
+        if (!src) throw new Error('no source');
+        im.setAttribute('src', await cropToDataUrl(src, spec.box));
+        im.removeAttribute('data-crop'); im.removeAttribute('data-page'); im.setAttribute('alt', im.getAttribute('alt') || 'figure');
+      } catch (e) { im.remove(); }
+    }
+    doc.html = root.innerHTML;
   }
   function safeFileName(t) { return (t || 'document').replace(/[^\w\- ]+/g, '').trim().replace(/\s+/g, '-').slice(0, 60) || 'document'; }
   function renderDocCard(doc) {
@@ -903,7 +1025,7 @@
     return Array.from(document.querySelectorAll('#chat-messages .chat-msg')).some(m => !m.classList.contains('loading') && m.id !== 'initial-greeting');
   }
   // ── Streaming: show the answer while it is being written ──
-  async function readAnswerStream(response, loadingMsg) {
+  async function readAnswerStream(response, loadingMsg, cropSources) {
     const reader = response.body.getReader();
     const dec = new TextDecoder();
     let buf = '', acc = '', live = null, lastPaint = 0, failed = null;
@@ -934,6 +1056,7 @@
     if (acc.trim()) { // final render: diagrams, formulas, buttons, then any real figures
       const sp = splitImageMarkers(acc);
       addMessage(sp.clean || acc, 'bot');
+      await addCropFigures(sp.crops, cropSources);
       await figuresOrDiagram(sp.queries, sp.clean);
       return;
     }
@@ -961,10 +1084,49 @@
 
   // ── Figures: real photos the AI asks for, plus copy / download for every figure ──
   function splitImageMarkers(text) {
-    const queries = [];
-    const clean = String(text || '').replace(/\[\[\s*IMAGE\s*:\s*([^\]\n]{2,90}?)\s*\]\]/gi, (m, q) => { queries.push(q.trim()); return ''; })
+    const queries = [], crops = [];
+    const clean = String(text || '')
+      .replace(/\[\[\s*IMAGE\s*:\s*([^\]\n]{2,90}?)\s*\]\]/gi, (m, q) => { queries.push(q.trim()); return ''; })
+      .replace(/\[\[\s*CROP\s*:\s*([^\]\n]{5,80}?)\s*\]\]/gi, (m, spec) => { const c = parseCropSpec(spec); if (c) crops.push(c); return ''; })
       .replace(/\[\[[^\]]*$/, '').replace(/\n{3,}/g, '\n\n').trimEnd();
-    return { clean, queries: queries.slice(0, 2) };
+    return { clean, queries: queries.slice(0, 2), crops: crops.slice(0, 6) };
+  }
+  // "520,60,900,940" or "520,60,900,940,page=2" -> { box:[ymin,xmin,ymax,xmax] on a 0-1000 scale, page }
+  function parseCropSpec(spec) {
+    const pg = (String(spec).match(/page\s*=\s*(\d+)/i) || [])[1];
+    const nums = String(spec).replace(/page\s*=\s*\d+/i, '').match(/\d+(?:\.\d+)?/g);
+    if (!nums || nums.length < 4) return null;
+    let [y1, x1, y2, x2] = nums.slice(0, 4).map(Number).map(v => Math.max(0, Math.min(1000, v)));
+    if (y2 < y1) [y1, y2] = [y2, y1]; if (x2 < x1) [x1, x2] = [x2, x1];
+    if (y2 - y1 < 20 || x2 - x1 < 20) return null;
+    return { box: [y1, x1, y2, x2], page: pg ? parseInt(pg, 10) : 1 };
+  }
+  // cut the figure out of the user's own picture
+  function cropToDataUrl(srcDataUrl, box) {
+    return new Promise((resolve, reject) => {
+      const im = new Image();
+      im.onload = () => {
+        try {
+          const W = im.naturalWidth, H = im.naturalHeight, pad = 0.012;
+          const x1 = Math.max(0, (box[1] / 1000 - pad) * W), y1 = Math.max(0, (box[0] / 1000 - pad) * H);
+          const x2 = Math.min(W, (box[3] / 1000 + pad) * W), y2 = Math.min(H, (box[2] / 1000 + pad) * H);
+          const w = Math.max(1, x2 - x1), h = Math.max(1, y2 - y1), sc = Math.min(1, 1100 / w);
+          const cv = document.createElement('canvas'); cv.width = Math.round(w * sc); cv.height = Math.round(h * sc);
+          const g = cv.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0, 0, cv.width, cv.height);
+          g.drawImage(im, x1, y1, w, h, 0, 0, cv.width, cv.height);
+          resolve(cv.toDataURL('image/jpeg', 0.88));
+        } catch (e) { reject(e); }
+      };
+      im.onerror = () => reject(new Error('crop source failed'));
+      im.src = srcDataUrl;
+    });
+  }
+  async function addCropFigures(crops, sources) {
+    for (const c of (crops || [])) {
+      const src = (sources || [])[(c.page || 1) - 1];
+      if (!src) continue;
+      try { const url = await cropToDataUrl(src, c.box); if (url) addBotImage(url, 'Figure from your file'); } catch (e) { /* optional */ }
+    }
   }
   async function addFiguresFor(queries) {
     if (!queries || !queries.length) return 0;
@@ -1200,39 +1362,67 @@
 
   async function sendQuestion(qOverride, isRetry) {
     const question = (qOverride !== undefined ? qOverride : input.value).trim();
-    if (!question && !pendingImage && !pendingTextFile && !pendingImages) return;
+    if (!question && !pendingImage && !pendingDoc && !pendingImages) return;
+    // The file is gone after a reload (only the saved text survives): do not answer about it blindly
+    if (!activeDoc && !pendingImage && !pendingDoc && !pendingImages && /\b(document|pdf|above|attached|the file|the book|this file)\b/i.test(question) &&
+        currentMessages.some(m => m.sender === 'user' && /^📄 Attached/.test(m.text || ''))) {
+      if (!isRetry) addMessage(question, 'user');
+      input.value = '';
+      addMessage('I no longer have that file in memory. Please attach it again with the + button and ask your question once more.', 'bot');
+      return;
+    }
 
     if (pendingImage && pendingImage.kind === 'image') {
       addImageMessage('data:' + pendingImage.mimeType + ';base64,' + pendingImage.data);
     } else if (pendingImage && pendingImage.kind === 'pdf') {
       addMessage('📄 Attached a PDF', 'user');
-    } else if (pendingTextFile) {
-      addMessage('📄 Attached ' + pendingTextFile.name + (pendingTextFile.note ? ' (' + pendingTextFile.note + ')' : ''), 'user');
+    } else if (pendingDoc) {
+      addMessage('📄 Attached ' + pendingDoc.name + ' (' + pendingDoc.pages.length + ' ' + docLabel(pendingDoc).toLowerCase() + 's)', 'user');
+    } else if (pendingScan) {
+      addMessage('📄 Attached ' + pendingScan.name + ' (' + pendingScan.note + ')', 'user');
     }
     if (question && !isRetry) addMessage(question, 'user');
 
     if (!isRetry) input.value = '';
     const imageToSend = pendingImage;
-    const textFileToSend = pendingTextFile;
     const pagesToSend = pendingImages;
+    const scanToSend = pendingScan;
+    if (pendingDoc) { activeDoc = pendingDoc; docSave(activeDoc); } // keep it for the follow-up questions
     clearPendingImage();
     sendBtn.disabled = true;
     const loadingMsg = addMessage('Thinking...', 'bot loading');
     try {
-      let messageText = question;
-      if (textFileToSend) {
-        messageText = `[Attached file: ${textFileToSend.name}]\n${textFileToSend.content}\n\n${question || 'Please read the attached file and help with it.'}`;
+      // pictures the AI may cut figures out of (the user's own photo or the pages of a scanned PDF)
+      const cropSources = [];
+      if (imageToSend && imageToSend.kind === 'image') cropSources.push('data:' + imageToSend.mimeType + ';base64,' + imageToSend.data);
+      (pagesToSend || []).forEach(pg => cropSources.push('data:' + pg.mimeType + ';base64,' + pg.data));
+      // The document goes in its own field (never mixed into the question): only the pages that match this question are sent
+      let attachment = null;
+      if (pagesToSend && scanToSend) {
+        attachment = { name: scanToSend.name, content: '[The attached PDF is a scan. Its pages are the attached pictures, in order.]', note: scanToSend.note };
+      } else if (activeDoc && !imageToSend && !/^(hi|hello|hey|thanks|thank you|ok|okay)\b[\s!.]*$/i.test(question)) {
+        const wt = wholeDocTask(question);
+        if (wt) {
+          const res = await runDocTask(wt, question, loadingMsg);
+          if (res === true) return;
+          if (res && res.attachment) attachment = res.attachment;
+        }
+        if (!attachment) {
+        const sel = selectDocText(activeDoc, question || 'summary', DOC_PROCESS.test(question) ? 100000 : DOC_BUDGET);
+        if (sel) { activeDoc.lastSel = sel.nums; attachment = { name: activeDoc.name, content: sel.text, note: sel.note }; loadingMsg.textContent = 'Reading ' + sel.note + '…'; }
+        }
       }
+      const messageText = question || (attachment ? 'Please read the attached file and help with it.' : '');
       const docFmt = detectDocRequest(question);
       let lastBotText = '';
       for (let k = currentMessages.length - 1; k >= 0; k--) { const cm = currentMessages[k]; if (cm.sender === 'bot' && cm.kind === 'text' && cm.text && !cm.text.startsWith('Debug info')) { lastBotText = cm.text; break; } }
       let requestBody;
       if (docFmt) {
-        const needsSource = !imageToSend && !textFileToSend && !pagesToSend && question.length < 200 && lastBotText;
+        const needsSource = !imageToSend && !attachment && !pagesToSend && question.length < 200 && lastBotText;
         const sourceBlock = needsSource ? `\n\nContent to put in the document (from the previous answer):\n${lastBotText.slice(0, 8000)}` : '';
         requestBody = {
           docMode: true,
-          prompt: `You are making a ${docFmt === 'pdf' ? 'PDF' : 'Word'} document for a Rwandan secondary-school teacher or student. Output ONLY the document body as clean HTML: no <html>, <head> or <body> tags, no Markdown, no code fences, no text before or after. Start with <h1>a short document title</h1>. Use <h2> for sections, <p>, <ol>/<ul>/<li>, and <table border="1"> for tables. Write superscripts and subscripts with <sup> and <sub> (examples: 1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>6</sup>, H<sub>2</sub>O, Fe<sup>3+</sup>, SO<sub>4</sub><sup>2-</sup>) and italics with <i>. Do not use LaTeX. Keep the original question numbers and put options (a), (b), (c), (d) on separate lines using <br>. Copy any attached picture or text faithfully and ignore watermarks. Do NOT add answers, explanations or extra questions unless the request asks for them.\n\nRequest: ${messageText || 'Put the attached content in a document.'}${sourceBlock}`
+          prompt: `You are making a ${docFmt === 'pdf' ? 'PDF' : 'Word'} document for a Rwandan secondary-school teacher or student. ${DOC_HTML_RULES} Start with <h1>a short document title</h1>. Do NOT add answers, explanations or extra questions unless the request asks for them.\n\nRequest: ${messageText || 'Put the attached content in a document.'}${sourceBlock}`
         };
       } else {
         // Conversation memory: send the recent turns (not the one just typed) so
@@ -1253,6 +1443,7 @@
       }
       if (imageToSend) requestBody.image = imageToSend;
       if (pagesToSend) requestBody.images = pagesToSend;
+      if (attachment) requestBody.attachment = attachment;
 
       const response = await fetch(WORKER_URL, {
         method: 'POST',
@@ -1260,7 +1451,7 @@
         body: JSON.stringify(requestBody)
       });
       if (response.ok && (response.headers.get('content-type') || '').includes('text/event-stream')) {
-        await readAnswerStream(response, loadingMsg);
+        await readAnswerStream(response, loadingMsg, cropSources);
         return;
       }
       const data = await response.json().catch(() => ({}));
@@ -1275,9 +1466,9 @@
       loadingMsg.remove();
       if (docFmt) {
         const doc = parseDocHtml(answer);
-        if (doc) { doc.fmt = docFmt; addDocCard(doc); return; }
+        if (doc) { doc.fmt = docFmt; await resolveDocCrops(doc, cropSources); addDocCard(doc); return; }
       }
-      { const sp = splitImageMarkers(answer); addMessage(sp.clean || answer, 'bot'); if (!data.image && !(data.images && data.images.length)) await figuresOrDiagram(sp.queries, sp.clean); }
+      { const sp = splitImageMarkers(answer); addMessage(sp.clean || answer, 'bot'); await addCropFigures(sp.crops, cropSources); if (!data.image && !(data.images && data.images.length)) await figuresOrDiagram(sp.queries, sp.clean); }
       if (Array.isArray(data.images) && data.images.length) {
         data.images.forEach(im => { if (im && im.url) addBotImage(im.url, im.caption); });
       } else if (data.image && data.image.url) {
@@ -1295,11 +1486,13 @@
 
   function clearPendingImage() {
     pendingImage = null;
-    pendingTextFile = null;
+    pendingDoc = null;
+    pendingScan = null;
     pendingImages = null;
     previewRow.style.display = 'none';
     previewRow.innerHTML = '';
     fileInput.value = '';
+    showActiveDocChip();
   }
 
   function showPendingImagePreview(dataUrl) {
@@ -1331,6 +1524,99 @@
     previewRow.style.display = 'flex';
   }
 
+  // ── Document memory: keep the whole document, send only the pages that matter for each question ──
+  const DOC_BUDGET = 60000; // characters of document sent with each question (about 15,000 tokens)
+  const DOC_STOP = new Set('a an and are as at be by do does did for from how i if in is it me my of on or please the this that these those to was were what when where which who why with you your can could would should give show write tell about above below attached document file pdf book'.split(' '));
+  const docTokens = (t) => (String(t).toLowerCase().match(/[a-z0-9]+/g) || []);
+  function makeDoc(name, pages, kind) {
+    const doc = { name, pages, kind: kind || 'pdf', lastSel: null };
+    doc.chars = pages.reduce((n, p) => n + p.length, 0);
+    return doc;
+  }
+  function chunkText(text, size) {
+    size = size || 3000;
+    const out = []; let cur = '';
+    text.split(/\n+/).forEach(line => {
+      while (line.length > size) { if (cur) { out.push(cur); cur = ''; } out.push(line.slice(0, size)); line = line.slice(size); }
+      if ((cur + '\n' + line).length > size && cur) { out.push(cur); cur = line; } else cur = cur ? cur + '\n' + line : line;
+    });
+    if (cur) out.push(cur);
+    return out.length ? out : [''];
+  }
+  function docLabel(doc) { return doc.kind === 'pdf' ? 'Page' : 'Section'; }
+  function describeNums(nums) { // [3,4,5,9] -> "3-5, 9"
+    const parts = []; let a = nums[0], b = a;
+    for (let i = 1; i <= nums.length; i++) { if (nums[i] === b + 1) { b = nums[i]; continue; } parts.push(a === b ? String(a) : a + '-' + b); a = nums[i]; b = a; }
+    return parts.join(', ');
+  }
+  function selectDocText(doc, question, budget) {
+    budget = budget || DOC_BUDGET;
+    const n = doc.pages.length, label = docLabel(doc);
+    const render = (nums) => nums.map(i => '--- ' + label + ' ' + (i + 1) + ' ---\n' + doc.pages[i]).join('\n\n');
+    if (doc.chars <= budget) { const all = doc.pages.map((_, i) => i); return { text: render(all), note: 'all ' + n + ' ' + label.toLowerCase() + 's', nums: all }; }
+    if (!doc.norm) doc.norm = doc.pages.map(p => ' ' + docTokens(p).join(' ') + ' ');
+    const raw = docTokens(question);
+    const terms = Array.from(new Set(raw.filter(w => !DOC_STOP.has(w))));
+    const forced = new Set();
+    const pr = String(question).toLowerCase().match(/pages?\s*(\d+)(?:\s*(?:-|–|to|and)\s*(\d+))?/);
+    if (pr) { const a = parseInt(pr[1], 10), b = pr[2] ? parseInt(pr[2], 10) : a; for (let k = a; k <= Math.min(b, a + 30); k++) if (k >= 1 && k <= n) forced.add(k - 1); }
+    const df = {};
+    terms.forEach(w => { df[w] = 0; const needle = ' ' + w + ' '; doc.norm.forEach(t => { if (t.includes(needle)) df[w]++; }); });
+    const phrases = [];
+    for (let len = 2; len <= 4; len++) for (let i = 0; i + len <= raw.length; i++) {
+      const win = raw.slice(i, i + len); const content = win.filter(w => !DOC_STOP.has(w)).length;
+      if (content >= 2 || (content >= 1 && len >= 3)) phrases.push({ text: ' ' + win.join(' ') + ' ', weight: content * len });
+    }
+    const score = doc.pages.map((_, i) => {
+      const t = doc.norm[i]; let sc = 0;
+      terms.forEach(w => {
+        if (!df[w]) return;
+        const needle = ' ' + w + ' '; let tf = 0, at = t.indexOf(needle);
+        while (at >= 0 && tf < 50) { tf++; at = t.indexOf(needle, at + w.length + 1); }
+        if (!tf) return;
+        const idf = Math.log((n + 1) / (df[w] + 0.5));
+        sc += idf * (1 + Math.log(tf)) * (/^\d+$/.test(w) ? 0.3 : 1);
+      });
+      phrases.forEach(ph => { if (t.includes(ph.text)) sc += ph.weight * 3; });
+      return sc;
+    });
+    const ranked = score.map((sc, i) => ({ i, sc })).filter(x => x.sc > 0).sort((a, b) => b.sc - a.sc);
+    let chosen = new Set(forced);
+    if (!ranked.length && !forced.size) {
+      if (!doc.lastSel) return null; // nothing in the document relates to this question
+      chosen = new Set(doc.lastSel); // a follow-up such as "continue" or "explain number 3"
+    } else {
+      let used = 0; const add = (i) => { if (!chosen.has(i) && used + doc.pages[i].length <= budget) { chosen.add(i); used += doc.pages[i].length; } };
+      forced.forEach(i => { used += doc.pages[i].length; });
+      const top = ranked[0].sc;
+      ranked.slice(0, 3).forEach(x => { // an assessment or exercise runs over several pages: take its neighbours too
+        add(x.i);
+        for (let k = 1; k <= 6 && x.i + k < n && score[x.i + k] >= 0.2 * top; k++) add(x.i + k);
+        for (let k = 1; k <= 6 && x.i - k >= 0 && score[x.i - k] >= 0.2 * top; k++) add(x.i - k);
+        add(x.i + 1 < n ? x.i + 1 : x.i); add(x.i - 1 >= 0 ? x.i - 1 : x.i);
+      });
+      ranked.slice(3, 12).forEach(x => add(x.i));
+    }
+    const nums = Array.from(chosen).sort((a, b) => a - b);
+    return { text: render(nums), note: label.toLowerCase() + 's ' + describeNums(nums.map(i => i + 1)) + ' of ' + n, nums };
+  }
+  // keep the document across page reloads (IndexedDB can hold large documents; localStorage cannot)
+  function docDb() { return new Promise((res, rej) => { const r = indexedDB.open('jackson-ai-doc', 1); r.onupgradeneeded = () => r.result.createObjectStore('kv'); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); }); }
+  async function docSave(d) { try { const db = await docDb(); await new Promise((res, rej) => { const tx = db.transaction('kv', 'readwrite'); tx.objectStore('kv').put({ name: d.name, pages: d.pages, kind: d.kind }, 'active'); tx.oncomplete = res; tx.onerror = () => rej(tx.error); }); } catch (e) { /* optional */ } }
+  async function docLoad() { try { const db = await docDb(); return await new Promise((res, rej) => { const rq = db.transaction('kv').objectStore('kv').get('active'); rq.onsuccess = () => res(rq.result || null); rq.onerror = () => rej(rq.error); }); } catch (e) { return null; } }
+  async function docClear() { try { const db = await docDb(); await new Promise((res, rej) => { const tx = db.transaction('kv', 'readwrite'); tx.objectStore('kv').delete('active'); tx.oncomplete = res; tx.onerror = () => rej(tx.error); }); } catch (e) { /* optional */ } }
+  function forgetActiveDoc() { activeDoc = null; docClear(); showActiveDocChip(); }
+  function showActiveDocChip() {
+    if (!activeDoc || pendingImage || pendingDoc || pendingImages) return;
+    previewRow.innerHTML = '';
+    const chip = document.createElement('div');
+    chip.style.cssText = 'display:flex;align-items:center;gap:6px;background:var(--surface2);border:1px solid var(--accent);border-radius:8px;padding:6px 10px;font-size:.78rem;color:var(--text);';
+    chip.textContent = '📄 ' + activeDoc.name + ' (' + activeDoc.pages.length + ' ' + docLabel(activeDoc).toLowerCase() + 's) · ask me about it';
+    const x = document.createElement('button'); x.type = 'button'; x.id = 'doc-forget'; x.textContent = '✕'; x.title = 'Stop using this document';
+    x.addEventListener('click', forgetActiveDoc);
+    chip.appendChild(x); previewRow.appendChild(chip); previewRow.style.display = 'flex';
+  }
+
   // ── Big files: read them in the browser so the size of the upload does not matter ──
   const MAX_TEXT_CHARS = 300000; // about 75,000 words
   function loadScriptOnce(src) {
@@ -1343,28 +1629,28 @@
     window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
     return true;
   }
-  async function readBigPdf(file, progress) {
+  // Read every page's text (no page limit). Returns { pdf, pages, hasText }.
+  async function readPdfPages(file, progress) {
     if (!(await ensurePdfJs())) throw new Error('PDF reader could not load');
     const pdf = await window.pdfjsLib.getDocument({ data: new Uint8Array(await file.arrayBuffer()) }).promise;
-    let text = '', truncated = false;
+    const pages = [];
     for (let p = 1; p <= pdf.numPages; p++) {
-      progress('Reading ' + file.name + ' — page ' + p + ' of ' + pdf.numPages + '…');
+      if (p % 5 === 1 || p === pdf.numPages) progress('Reading ' + file.name + ' — page ' + p + ' of ' + pdf.numPages + '…');
       const page = await pdf.getPage(p);
       const tc = await page.getTextContent();
       let line = '';
       tc.items.forEach(it => { line += it.str + (it.hasEOL ? '\n' : ' '); });
-      text += '\n--- Page ' + p + ' ---\n' + line.trim() + '\n';
+      pages.push(line.trim());
       page.cleanup();
-      if (text.length >= MAX_TEXT_CHARS) { truncated = p < pdf.numPages; text = text.slice(0, MAX_TEXT_CHARS); break; }
     }
-    const readable = text.replace(/--- Page \d+ ---/g, '').replace(/\s+/g, '').length;
-    if (readable > Math.min(pdf.numPages, 10) * 80) { // has real text
-      return { text, note: truncated ? 'first ' + MAX_TEXT_CHARS.toLocaleString() + ' characters of ' + pdf.numPages + ' pages' : pdf.numPages + ' pages' };
-    }
-    // Scanned PDF (pictures of pages): send the first pages as pictures
+    const readable = pages.join('').replace(/\s+/g, '').length;
+    return { pdf, pages, hasText: readable > Math.min(pdf.numPages, 10) * 80 };
+  }
+  // Scanned PDF (pictures of pages): turn the first pages into pictures
+  async function renderScanPages(pdf, name, progress) {
     const maxPages = Math.min(pdf.numPages, 10), images = [];
     for (let p = 1; p <= maxPages; p++) {
-      progress('Scanning ' + file.name + ' — page ' + p + ' of ' + maxPages + '…');
+      progress('Scanning ' + name + ' — page ' + p + ' of ' + maxPages + '…');
       const page = await pdf.getPage(p);
       const vp = page.getViewport({ scale: 1.4 });
       const cv = document.createElement('canvas'); cv.width = Math.round(vp.width); cv.height = Math.round(vp.height);
@@ -1400,29 +1686,37 @@
         pendingImage = { data: base64, mimeType, kind: 'image' };
         showPendingImagePreview(dataUrl);
       } else if (file.type === 'application/pdf' || lower.endsWith('.pdf')) {
-        if (file.size <= 8 * 1024 * 1024) {
-          // small PDF: the AI reads the original file (best for diagrams and scans)
+        const small = file.size <= 8 * 1024 * 1024;
+        let read = null;
+        try { read = await readPdfPages(file, (m) => showPendingFileChip(m)); }
+        catch (e) { console.warn('PDF text reader unavailable', e); if (!small) throw e; }
+        if (read && read.hasText) {
+          pendingDoc = makeDoc(file.name, read.pages, 'pdf');
+          if (small) { // first question: the AI reads the original file; follow-ups use the saved text
+            const dataUrl = await fileToDataUrl(file);
+            pendingImage = { data: dataUrl.split(',')[1], mimeType: 'application/pdf', kind: 'pdf' };
+          }
+          showPendingFileChip(file.name + ' (' + read.pages.length + ' pages)');
+        } else if (small) {
           const dataUrl = await fileToDataUrl(file);
           pendingImage = { data: dataUrl.split(',')[1], mimeType: 'application/pdf', kind: 'pdf' };
           showPendingFileChip(file.name);
         } else {
-          // big PDF: read it here in the browser, whatever its size
-          const r = await readBigPdf(file, (m) => showPendingFileChip(m));
-          if (r.text) { pendingTextFile = { name: file.name, content: r.text, note: r.note }; }
-          else { pendingImages = r.images; pendingTextFile = { name: file.name, content: '[The attached PDF is a scan. Its pages are the attached pictures, in order.]', note: r.note }; }
+          const r = await renderScanPages(read.pdf, file.name, (m) => showPendingFileChip(m));
+          pendingImages = r.images; pendingScan = { name: file.name, note: r.note };
           showPendingFileChip(file.name + ' (' + r.note + ')');
         }
       } else if (lower.endsWith('.docx')) {
         showPendingFileChip('Reading ' + file.name + '…');
-        const c = clipText(await readDocx(file));
-        if (!c.text.trim()) throw new Error('empty document');
-        pendingTextFile = { name: file.name, content: c.text, note: c.note };
-        showPendingFileChip(file.name + (c.note ? ' (' + c.note + ')' : ''));
+        const text = await readDocx(file);
+        if (!text.trim()) throw new Error('empty document');
+        pendingDoc = makeDoc(file.name, chunkText(text), 'text');
+        showPendingFileChip(file.name + ' (' + pendingDoc.pages.length + ' sections)');
       } else if (/\.(txt|md|csv|tsv|json|xml|html?)$/.test(lower) || file.type.startsWith('text/')) {
         showPendingFileChip('Reading ' + file.name + '…');
-        const c = clipText(await fileToText(file));
-        pendingTextFile = { name: file.name, content: c.text, note: c.note };
-        showPendingFileChip(file.name + (c.note ? ' (' + c.note + ')' : ''));
+        const text = await fileToText(file);
+        pendingDoc = makeDoc(file.name, chunkText(text), 'text');
+        showPendingFileChip(file.name + ' (' + pendingDoc.pages.length + ' sections)');
       } else {
         alert('Please choose an image, a PDF, a Word (.docx) file, or a text file (.txt, .csv, .md…).');
         clearPendingImage();
@@ -1436,6 +1730,7 @@
     } finally { sendBtn.disabled = false; }
   });
 
+  docLoad().then(d => { if (d && d.pages && d.pages.length) { activeDoc = makeDoc(d.name, d.pages, d.kind); showActiveDocChip(); } });
   document.getElementById('new-chat-btn').addEventListener('click', startNewChat);
   document.getElementById('history-btn').addEventListener('click', () => {
     const panel = document.getElementById('history-panel');
