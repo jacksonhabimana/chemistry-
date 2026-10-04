@@ -115,6 +115,18 @@
   .fig-actions{display:flex;gap:6px;margin-top:6px;}
   .fig-actions button{background:var(--bg);border:1px solid var(--border);color:var(--muted);border-radius:14px;padding:3px 10px;font-family:'JetBrains Mono',monospace;font-size:.68rem;cursor:pointer;}
   .fig-actions button:hover{border-color:var(--accent);color:var(--accent);}
+
+  #drop-overlay{position:fixed;inset:0;z-index:9999;display:none;align-items:center;justify-content:center;background:rgba(10,14,22,.82);backdrop-filter:blur(2px);}
+  #drop-overlay.show{display:flex;}
+  #drop-overlay>div{border:3px dashed var(--accent);border-radius:20px;padding:46px 64px;text-align:center;color:var(--text);font-size:1.25rem;background:rgba(20,26,40,.9);}
+  #drop-overlay small{display:block;margin-top:8px;color:var(--muted);font-size:.8rem;}
+
+  #suggestions{display:flex;flex-wrap:wrap;gap:8px;margin:2px 0 6px;}
+  #suggestions button{background:var(--surface2,var(--bg));border:1px solid var(--border);color:var(--text);border-radius:18px;padding:7px 13px;font-family:inherit;font-size:.82rem;cursor:pointer;text-align:left;}
+  #suggestions button:hover{border-color:var(--accent);color:var(--accent);}
+  .code-wrap{position:relative;}
+  .code-copy{position:absolute;top:6px;right:6px;background:var(--bg);border:1px solid var(--border);color:var(--muted);border-radius:10px;padding:2px 9px;font-family:'JetBrains Mono',monospace;font-size:.66rem;cursor:pointer;opacity:.85;}
+  .code-copy:hover{border-color:var(--accent);color:var(--accent);opacity:1;}
   .msg-actions{display:flex;gap:6px;margin-top:10px;padding-top:8px;border-top:1px solid var(--border);flex-wrap:wrap;}
   .msg-actions button{background:var(--bg);border:1px solid var(--border);color:var(--muted);border-radius:16px;padding:4px 11px;font-family:'JetBrains Mono',monospace;font-size:.7rem;cursor:pointer;}
   .msg-actions button:hover{border-color:var(--accent);color:var(--accent);}
@@ -163,6 +175,7 @@
 <main>
   <div class="chat-hero">
     <h1>💬 Chat with Jackson AI</h1>
+    <p>Ask me anything: school subjects, writing, coding, translation, news, advice and more.</p>
   </div>
 
   <div class="chat-toolbar">
@@ -365,6 +378,7 @@
     greetDiv.className = 'chat-msg bot';
     greetDiv.textContent = "Hi! 👋 What would you like to ask?";
     messagesDiv.appendChild(greetDiv);
+    showSuggestions();
     activeDoc = null; docClear();
     clearPendingImage();
     document.getElementById('history-panel').classList.remove('open');
@@ -478,7 +492,7 @@
   // ── Copy / Word / PDF buttons under each bot answer ──
   function cleanAnswerClone(div) {
     const clone = div.cloneNode(true);
-    clone.querySelectorAll('.msg-actions,.fig-actions').forEach(b => b.remove());
+    clone.querySelectorAll('.msg-actions,.fig-actions,.code-copy,#suggestions').forEach(b => b.remove());
     clone.querySelectorAll('.loading').forEach(b => b.remove());
     return clone;
   }
@@ -1195,6 +1209,39 @@
     });
     container.appendChild(bar);
   }
+  // ── Starter ideas on an empty chat, and a Copy button on code blocks ──
+  const STARTERS = [
+    'Explain how a blast furnace extracts iron',
+    'Write a polite email asking my headteacher for a meeting',
+    'Write a Python program that checks if a number is prime',
+    'Plan a 3-day trip to Kigali',
+    'Translate "Good morning, how are you?" into Kinyarwanda',
+    'What are the latest news in Rwanda today?',
+    'Summarise the causes of World War I',
+    'Help me prepare for a job interview'
+  ];
+  function showSuggestions() {
+    const box = document.getElementById('chat-messages');
+    if (!box || document.getElementById('suggestions')) return;
+    const wrap = document.createElement('div'); wrap.id = 'suggestions';
+    STARTERS.forEach(t => {
+      const b = document.createElement('button'); b.type = 'button'; b.textContent = t;
+      b.addEventListener('click', () => sendQuestion(t));
+      wrap.appendChild(b);
+    });
+    box.appendChild(wrap);
+  }
+  function hideSuggestions() { const e = document.getElementById('suggestions'); if (e) e.remove(); }
+  function decorateCode(div) {
+    div.querySelectorAll('pre').forEach(pre => {
+      if (pre.classList.contains('mermaid') || pre.closest('.svg-diagram') || pre.parentElement.classList.contains('code-wrap') || !pre.querySelector('code')) return;
+      const wrap = document.createElement('div'); wrap.className = 'code-wrap';
+      pre.parentNode.insertBefore(wrap, pre); wrap.appendChild(pre);
+      const b = document.createElement('button'); b.type = 'button'; b.className = 'code-copy'; b.textContent = 'Copy';
+      b.addEventListener('click', () => copyAnswer(pre.innerText, b));
+      wrap.appendChild(b);
+    });
+  }
   function decorateDiagrams(div) {
     div.querySelectorAll('.svg-diagram').forEach(d => {
       if (d.querySelector('.fig-actions')) return;
@@ -1252,7 +1299,7 @@
         messages.scrollTop = messages.scrollHeight;
       });
     }
-    if (sender === 'bot') { decorateDiagrams(div); addActionBar(div, text); }
+    if (sender === 'bot') { decorateDiagrams(div); decorateCode(div); addActionBar(div, text); }
     messages.scrollTop = messages.scrollHeight;
     return div;
   }
@@ -1363,6 +1410,7 @@
   async function sendQuestion(qOverride, isRetry) {
     const question = (qOverride !== undefined ? qOverride : input.value).trim();
     if (!question && !pendingImage && !pendingDoc && !pendingImages) return;
+    hideSuggestions();
     // The file is gone after a reload (only the saved text survives): do not answer about it blindly
     if (!activeDoc && !pendingImage && !pendingDoc && !pendingImages && /\b(document|pdf|above|attached|the file|the book|this file)\b/i.test(question) &&
         currentMessages.some(m => m.sender === 'user' && /^📄 Attached/.test(m.text || ''))) {
@@ -1671,10 +1719,11 @@
 
   plusBtn.addEventListener('click', () => fileInput.click());
 
-  fileInput.addEventListener('change', async () => {
-    const file = fileInput.files[0];
+  fileInput.addEventListener('change', () => { const f = fileInput.files[0]; if (f) attachFile(f); });
+  async function attachFile(file) {
     if (!file) return;
-    const lower = file.name.toLowerCase();
+    if (sendBtn.disabled) { alert('Please wait until the current answer or file has finished, then try again.'); fileInput.value = ''; return; }
+    const lower = (file.name || 'pasted-image.png').toLowerCase();
     clearPendingImage(); // a new file replaces the previous one (this also resets the input)
     sendBtn.disabled = true;
     try {
@@ -1728,9 +1777,36 @@
       alert('Could not read that file. Please try another, or paste the text.');
       clearPendingImage();
     } finally { sendBtn.disabled = false; }
-  });
+  }
 
+  showSuggestions(); // starter ideas (defined above, so it is safe to call here)
   docLoad().then(d => { if (d && d.pages && d.pages.length) { activeDoc = makeDoc(d.name, d.pages, d.kind); showActiveDocChip(); } });
+  // ── Drag & drop a file anywhere on the page, or paste a picture (Ctrl+V) ──
+  (function setupDropAndPaste() {
+    const overlay = document.createElement('div');
+    overlay.id = 'drop-overlay';
+    overlay.innerHTML = '<div><div style="font-size:2.4rem">📎</div><div>Drop your file here</div><small>Photo, PDF, Word or text file</small></div>';
+    document.body.appendChild(overlay);
+    let depth = 0;
+    const hasFiles = (e) => e.dataTransfer && Array.from(e.dataTransfer.types || []).includes('Files');
+    window.addEventListener('dragenter', (e) => { if (!hasFiles(e)) return; e.preventDefault(); depth++; overlay.classList.add('show'); });
+    window.addEventListener('dragover', (e) => { if (!hasFiles(e)) return; e.preventDefault(); e.dataTransfer.dropEffect = 'copy'; }); // also stops the browser opening the file
+    window.addEventListener('dragleave', (e) => { if (!hasFiles(e)) return; depth = Math.max(0, depth - 1); if (!depth) overlay.classList.remove('show'); });
+    window.addEventListener('drop', (e) => {
+      if (!hasFiles(e)) return;
+      e.preventDefault(); depth = 0; overlay.classList.remove('show');
+      const files = Array.from(e.dataTransfer.files || []);
+      if (!files.length) return;
+      if (files.length > 1) alert('I can read one file at a time, so I will use "' + files[0].name + '". Send the others afterwards, one by one.');
+      attachFile(files[0]);
+    });
+    document.addEventListener('paste', (e) => {
+      const files = Array.from((e.clipboardData && e.clipboardData.files) || []);
+      const img = files.find(f => f.type.startsWith('image/'));
+      if (img) { e.preventDefault(); attachFile(img); }
+    });
+  })();
+
   document.getElementById('new-chat-btn').addEventListener('click', startNewChat);
   document.getElementById('history-btn').addEventListener('click', () => {
     const panel = document.getElementById('history-panel');
