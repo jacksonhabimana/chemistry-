@@ -2061,7 +2061,7 @@ ${examText}
 Return ONLY valid JSON with this structure:
 {"title":"Marking Scheme - ${_currentInfo.examType} - ${_currentInfo.subj} ${_currentInfo.lv}","sections":[{"title":"SECTION A: MULTIPLE CHOICE QUESTIONS","answers":[{"number":1,"answer":"B","explanation":"Brief explanation of why B is correct"},{"number":2,"answer":"A","explanation":"Brief explanation"}]},{"title":"SECTION B: SHORT ANSWER QUESTIONS","answers":[{"number":1,"answer":"Full model answer with key points","marks_breakdown":"Point 1 (1 mark), Point 2 (1 mark), Point 3 (1 mark)"}]}]}
 
-Provide correct answers for ALL questions. For MCQ give the correct letter. For short/essay give model answers with mark allocation.`;
+Provide correct answers for ALL questions. Label sub-parts exactly as (a), (b), (c) and number steps 1., 2., 3. In marks_breakdown also label each part (a), (b), (c). For MCQ give the correct letter. For short/essay give model answers with mark allocation.`;
 
   try{
     const res=await fetchWithRetry(prompt,(attempt)=>{
@@ -2089,7 +2089,14 @@ Provide correct answers for ALL questions. For MCQ give the correct letter. For 
 
 function formatMarkdown(text){
   if(!text)return '';
-  let t=String(text).trim();
+  let t=String(text).replace(/\s+/g,' ').trim();
+  // Put each lettered part (a), (b), (c)... on its own line.
+  // Only when preceded by a space/start, so state symbols like CH4(g), Na2CO3(s) are untouched.
+  t=t.replace(/(^|\s)\(([a-h])\)\s/g,'<br><br><b>($2)</b> ');
+  // Roman-numeral sub-parts (i), (ii), (iii), (iv), (v) become indented lines
+  t=t.replace(/\s\((i{1,3}|iv|v)\)\s/g,'<br>&nbsp;&nbsp;&nbsp;<b>($1)</b> ');
+  // Plain numbered steps like "1. Initiation:", "2. Propagation:" become indented lines
+  t=t.replace(/\s(\d)\.\s(?=[A-Z])/g,'<br>&nbsp;&nbsp;&nbsp;<b>$1.</b> ');
   // Break a new line before each top-level numbered point like "1. **Title:**"
   t=t.replace(/\s*(\d+)\.\s+\*\*/g,'<br><br><b>$1.</b> **');
   // Break a new indented bullet line before each "* **Label:**" sub-point
@@ -2101,6 +2108,12 @@ function formatMarkdown(text){
   // Trim any leading line breaks left over from the first replacement
   t=t.replace(/^(<br>\s*)+/,'');
   return t;
+}
+
+function formatMarks(text){
+  if(!text)return '';
+  let t=String(text).replace(/\s*\|\s*(?=\([a-h]\))/g,' ').replace(/\s*\|\s*/g,'; ');
+  return formatMarkdown(t);
 }
 
 function renderMS(ms){
@@ -2122,7 +2135,7 @@ function renderMS(ms){
       html+=`<div style="margin-bottom:10px;padding:8px;background:#0d1117;border-radius:6px;border-left:3px solid #3fb950">
         <div style="font-weight:700;margin-bottom:4px;line-height:1.6">Q${a.number}: <span style="color:#3fb950">${formatMarkdown(a.answer)}</span></div>`;
       if(a.explanation){html+=`<div style="font-size:.78rem;color:#8b949e;margin-bottom:3px;line-height:1.6">${formatMarkdown(a.explanation)}</div>`;}
-      if(a.marks_breakdown){html+=`<div style="font-size:.75rem;color:#58a6ff"><em>Marks: ${formatMarkdown(a.marks_breakdown)}</em></div>`;}
+      if(a.marks_breakdown){html+=`<div style="font-size:.75rem;color:#58a6ff"><em><b>Marks:</b> ${formatMarks(a.marks_breakdown)}</em></div>`;}
       html+=`</div>`;
     });
     html+=`</div>`;
@@ -2150,7 +2163,7 @@ function dlMsWord(){
     (sec.answers||[]).forEach(a=>{
       body+=`<div class="ans"><div class="q">Q${a.number}: ${formatMarkdown(a.answer)}</div>`;
       if(a.explanation)body+=`<div class="exp">${formatMarkdown(a.explanation)}</div>`;
-      if(a.marks_breakdown)body+=`<div class="mk">Marks: ${formatMarkdown(a.marks_breakdown)}</div>`;
+      if(a.marks_breakdown)body+=`<div class="mk"><b>Marks:</b> ${formatMarks(a.marks_breakdown)}</div>`;
       body+=`</div>`;
     });
   });
@@ -2181,7 +2194,7 @@ h2{font-size:10.5pt;color:green;border-bottom:1px solid green;margin:10pt 0 4pt}
     (sec.answers||[]).forEach(a=>{
       body+=`<div class="ans"><div class="q">Q${a.number}: ${formatMarkdown(a.answer)}</div>`;
       if(a.explanation)body+=`<div class="exp">${formatMarkdown(a.explanation)}</div>`;
-      if(a.marks_breakdown)body+=`<div class="mk">Marks: ${formatMarkdown(a.marks_breakdown)}</div>`;
+      if(a.marks_breakdown)body+=`<div class="mk"><b>Marks:</b> ${formatMarks(a.marks_breakdown)}</div>`;
       body+=`</div>`;
     });
   });
