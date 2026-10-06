@@ -608,6 +608,7 @@
       } else if (ch.nodeType === 1) {
         const tag = ch.tagName.toLowerCase();
         if (tag === 'br') { out.push('<w:r><w:br/></w:r>'); return; }
+        if (ch.hasAttribute && ch.hasAttribute('data-omml')) { const x = DOCX_OMML[parseInt(ch.getAttribute('data-omml'), 10)]; if (x) out.push('<m:oMath>' + x + '</m:oMath>'); return; }
         if (['script', 'style', 'svg', 'img', 'button', 'canvas'].includes(tag)) return;
         const f = Object.assign({}, fmt);
         if (tag === 'b' || tag === 'strong' || /^h[1-6]$/.test(tag)) f.b = true;
@@ -634,6 +635,7 @@
     if (opts.shd) ppr += '<w:shd w:val="clear" w:color="auto" w:fill="' + opts.shd + '"/>';
     if (opts.spaceBefore !== undefined) ppr += '<w:spacing w:before="' + opts.spaceBefore + '" w:after="' + (opts.spaceAfter || 80) + '"/>';
     if (opts.ind) ppr += '<w:ind w:left="' + opts.ind + '"' + (opts.hang ? ' w:hanging="' + opts.hang + '"' : '') + '/>';
+    if (opts.jc) ppr += '<w:jc w:val="' + opts.jc + '"/>';
     return '<w:p>' + (ppr ? '<w:pPr>' + ppr + '</w:pPr>' : '') + (opts.prefix ? '<w:r><w:t xml:space="preserve">' + docxEsc(opts.prefix) + '</w:t></w:r>' : '') + runs.join('') + '</w:p>';
   }
   let DOCX_IMAGES = []; // [{bytes, w, h}] set by buildDocxBlob
@@ -655,6 +657,13 @@
     let loose = null; // collects stray inline content into one paragraph
     const flushLoose = () => { if (loose && loose.textContent.trim()) out.push(docxPara(loose, {})); loose = null; };
     root.childNodes.forEach(ch => {
+      if (ch.nodeType === 1 && ch.hasAttribute('data-center')) { flushLoose(); out.push(docxPara(ch, {}, { jc: 'center', spaceBefore: 60, spaceAfter: 100 })); return; } // a chemical equation on its own line
+      if (ch.nodeType === 1 && ch.hasAttribute('data-omml') && ch.getAttribute('data-display')) { // an equation on its own line
+        flushLoose();
+        const x = DOCX_OMML[parseInt(ch.getAttribute('data-omml'), 10)];
+        if (x) out.push('<w:p><m:oMathPara><m:oMath>' + x + '</m:oMath></m:oMathPara></w:p>');
+        return;
+      }
       if (ch.nodeType === 3 || (ch.nodeType === 1 && (INLINE.includes(ch.tagName.toLowerCase()) || ch.tagName.toLowerCase() === 'br'))) {
         if (!loose) loose = document.createElement('div');
         loose.appendChild(ch.cloneNode(true)); return;
@@ -711,7 +720,7 @@
     const doc = new DOMParser().parseFromString('<div id="r">' + html + '</div>', 'text/html');
     const body = []; docxBlocks(doc.getElementById('r'), body);
     if (!body.length) body.push('<w:p/>');
-    const ns = 'xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" xmlns:wp="http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing"';
+    const ns = 'xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" xmlns:wp="http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing" xmlns:m="http://schemas.openxmlformats.org/officeDocument/2006/math"';
     const documentXml = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:document ' + ns + '><w:body>' + body.join('') +
       '<w:sectPr><w:pgSz w:w="11906" w:h="16838"/><w:pgMar w:top="1134" w:right="1134" w:bottom="1134" w:left="1134" w:header="708" w:footer="708" w:gutter="0"/></w:sectPr></w:body></w:document>';
     const stylesXml = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:styles xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:docDefaults><w:rPrDefault><w:rPr><w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:eastAsia="Calibri" w:cs="Calibri"/><w:sz w:val="22"/><w:szCs w:val="22"/></w:rPr></w:rPrDefault><w:pPrDefault><w:pPr><w:spacing w:after="80" w:line="264" w:lineRule="auto"/></w:pPr></w:pPrDefault></w:docDefaults><w:style w:type="paragraph" w:default="1" w:styleId="Normal"><w:name w:val="Normal"/></w:style></w:styles>';
@@ -757,35 +766,98 @@
       } catch (e) { reject(e); }
     });
   }
+  const TEX_GREEK = { alpha: 'α', beta: 'β', gamma: 'γ', delta: 'δ', epsilon: 'ε', varepsilon: 'ε', zeta: 'ζ', eta: 'η', theta: 'θ', iota: 'ι', kappa: 'κ', lambda: 'λ', mu: 'μ', nu: 'ν', xi: 'ξ', pi: 'π', rho: 'ρ', sigma: 'σ', tau: 'τ', upsilon: 'υ', phi: 'φ', varphi: 'φ', chi: 'χ', psi: 'ψ', omega: 'ω', Gamma: 'Γ', Delta: 'Δ', Theta: 'Θ', Lambda: 'Λ', Xi: 'Ξ', Pi: 'Π', Sigma: 'Σ', Phi: 'Φ', Psi: 'Ψ', Omega: 'Ω' };
+  const TEX_SYM = { times: '×', cdot: '·', pm: '±', mp: '∓', approx: '≈', neq: '≠', ne: '≠', leq: '≤', le: '≤', geq: '≥', ge: '≥', infty: '∞', rightarrow: '→', to: '→', longrightarrow: '⟶', leftarrow: '←', leftrightarrow: '↔', Rightarrow: '⇒', rightleftharpoons: '⇌', circ: '°', degree: '°', propto: '∝', sum: 'Σ', int: '∫', partial: '∂', nabla: '∇', ldots: '…', dots: '…', cdots: '⋯', quad: ' ', qquad: '  ', uparrow: '↑', downarrow: '↓', equiv: '≡', sim: '∼', angle: '∠' };
   function texToHtml(tex) {
-    let t = String(tex).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-    // \ce{...} (chemistry): find the matching brace, then format the inside
-    let out = '', k = 0;
-    while (k < t.length) {
-      const at = t.indexOf('\\ce{', k);
-      if (at < 0) { out += t.slice(k); break; }
-      out += t.slice(k, at);
-      let depth = 1, e = at + 4;
-      while (e < t.length && depth > 0) { if (t[e] === '{') depth++; else if (t[e] === '}') depth--; e++; }
-      const inner = t.slice(at + 4, depth === 0 ? e - 1 : e);
-      out += inner.replace(/\^\{?([0-9]*[+-])\}?/g, '\u0001$1\u0002').replace(/([A-Za-z\)\]])(\d+)/g, '$1<sub>$2</sub>').replace(/\u0001/g, '<sup>').replace(/\u0002/g, '</sup>').replace(/&lt;=&gt;/g, '⇌').replace(/-&gt;/g, '→');
-      k = e;
+    const t = String(tex); let i = 0;
+    const esc = (c) => c === '&' ? '&amp;' : c === '<' ? '&lt;' : c === '>' ? '&gt;' : c;
+    const group = () => { // one {...} group (with nesting) or a single character
+      while (t[i] === ' ') i++;
+      if (t[i] === '{') { let d = 1, a = ++i; while (i < t.length && d > 0) { if (t[i] === '{') d++; else if (t[i] === '}') d--; i++; } return t.slice(a, i - 1); }
+      if (t[i] === '\\') { const m = t.slice(i).match(/^\\([A-Za-z]+|.)/); i += m[0].length; return m[0]; }
+      return t[i++] || '';
+    };
+    const chem = (c) => esc2(c).replace(/\^\{?([0-9]*[+-])\}?/g, '\u0001$1\u0002').replace(/([A-Za-z\)\]])(\d+)/g, '$1<sub>$2</sub>').replace(/\u0001/g, '<sup>').replace(/\u0002/g, '</sup>').replace(/&lt;=&gt;/g, '⇌').replace(/-&gt;/g, '→');
+    const esc2 = (c) => c.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    function run(stopAt) {
+      let out = '';
+      while (i < t.length) {
+        const c = t[i];
+        if (c === '\\') {
+          const m = t.slice(i).match(/^\\([A-Za-z]+|.)/); const name = m[1]; i += m[0].length;
+          if (name === 'frac' || name === 'dfrac' || name === 'tfrac') { const a = group(), b = group(); out += '(' + texToHtml(a) + ')/(' + texToHtml(b) + ')'; }
+          else if (name === 'sqrt') { let n = ''; if (t[i] === '[') { const e = t.indexOf(']', i); n = t.slice(i + 1, e); i = e + 1; } const a = group(); out += (n ? '<sup>' + n + '</sup>' : '') + '√(' + texToHtml(a) + ')'; }
+          else if (name === 'left' || name === 'right') { let d = t[i] || ''; if (d === '\\') { const mm = t.slice(i).match(/^\\([A-Za-z]+|.)/); i += mm[0].length; d = mm[1] === '{' ? '{' : mm[1] === '}' ? '}' : mm[1] === 'langle' ? '⟨' : mm[1] === 'rangle' ? '⟩' : ''; } else i++; out += d === '.' ? '' : esc(d); }
+          else if (name === 'ce') out += chem(group());
+          else if (['text', 'mathrm', 'mathbf', 'mathit', 'operatorname', 'textbf', 'textit', 'boldsymbol', 'mathbb', 'bar', 'overline', 'vec', 'hat'].includes(name)) out += texToHtml(group());
+          else if (TEX_GREEK[name]) out += TEX_GREEK[name];
+          else if (TEX_SYM[name] !== undefined) out += TEX_SYM[name];
+          else if (name === ',' || name === ';' || name === ':' || name === ' ') out += ' ';
+          else if (name === '!') out += '';
+          else if (name === '{' || name === '}' || name === '%' || name === '&' || name === '#' || name === '_') out += name === '&' ? '&amp;' : name;
+          else if (/^[A-Za-z]+$/.test(name)) out += name; // functions such as log, sin, ln keep their name
+        } else if (c === '^' || c === '_') { i++; const g = group(); const inner = texToHtml(g); out += c === '^' ? '<sup>' + inner + '</sup>' : '<sub>' + inner + '</sub>'; }
+        else if (c === '{') { const g = group(); out += texToHtml(g); }
+        else if (c === '}') i++;
+        else { out += esc(c); i++; }
+      }
+      return out;
     }
-    t = out;
-    t = t.replace(/\\text\{([^{}]*)\}/g, '$1').replace(/\\(?:rightarrow|to)\b/g, '→').replace(/\\times/g, '×').replace(/\\cdot/g, '·').replace(/\\Delta/g, 'Δ')
-      .replace(/\\frac\{([^{}]*)\}\{([^{}]*)\}/g, '($1)/($2)').replace(/\\[,;! ]/g, ' ')
-      .replace(/_\{([^{}]*)\}/g, '<sub>$1</sub>').replace(/_(\w)/g, '<sub>$1</sub>').replace(/\^\{([^{}]*)\}/g, '<sup>$1</sup>').replace(/\^(\w)/g, '<sup>$1</sup>').replace(/[{}]/g, '');
-    return t;
+    return run();
+  }
+
+  // ── Real Word equations: MathML (made by KaTeX) -> Word's own equation format (OMML) ──
+  let DOCX_OMML = []; // equation XML pieces, referenced by data-omml="index"
+  function mmlToOmml(root) {
+    const run = (text, o) => { o = o || {}; if (!text) return ''; const rpr = (o.plain ? '<m:sty m:val="p"/>' : '') + (o.nor ? '<m:nor/>' : ''); return '<m:r>' + (rpr ? '<m:rPr>' + rpr + '</m:rPr>' : '') + '<m:t xml:space="preserve">' + docxEsc(text) + '</m:t></m:r>'; };
+    const kids = (n) => Array.from(n.children);
+    const seq = (n) => kids(n).map(conv).join('');
+    const one = (n) => n ? conv(n) : '';
+    function conv(n) {
+      switch (n.localName) {
+        case 'math': case 'mrow': case 'mstyle': case 'mpadded': case 'menclose': return seq(n);
+        case 'mphantom': return '';
+        case 'semantics': return kids(n).length ? conv(kids(n)[0]) : '';
+        case 'annotation': case 'annotation-xml': case 'mspace': return '';
+        case 'mi': { const tx = n.textContent; return run(tx, { plain: n.getAttribute('mathvariant') === 'normal' || tx.length > 1 }); }
+        case 'mn': return run(n.textContent, {});
+        case 'mo': return run(n.textContent, { plain: true });
+        case 'mtext': return run(n.textContent, { nor: true });
+        case 'mfrac': { const [a, b] = kids(n); return '<m:f><m:num>' + one(a) + '</m:num><m:den>' + one(b) + '</m:den></m:f>'; }
+        case 'msup': { const [a, b] = kids(n); return '<m:sSup><m:e>' + one(a) + '</m:e><m:sup>' + one(b) + '</m:sup></m:sSup>'; }
+        case 'msub': { const [a, b] = kids(n); return '<m:sSub><m:e>' + one(a) + '</m:e><m:sub>' + one(b) + '</m:sub></m:sSub>'; }
+        case 'msubsup': { const [a, b, c] = kids(n); return '<m:sSubSup><m:e>' + one(a) + '</m:e><m:sub>' + one(b) + '</m:sub><m:sup>' + one(c) + '</m:sup></m:sSubSup>'; }
+        case 'msqrt': return '<m:rad><m:radPr><m:degHide m:val="1"/></m:radPr><m:deg/><m:e>' + seq(n) + '</m:e></m:rad>';
+        case 'mroot': { const [a, b] = kids(n); return '<m:rad><m:deg>' + one(b) + '</m:deg><m:e>' + one(a) + '</m:e></m:rad>'; }
+        case 'munder': { const [a, b] = kids(n); if (!one(b)) return one(a); return '<m:limLow><m:e>' + one(a) + '</m:e><m:lim>' + one(b) + '</m:lim></m:limLow>'; }
+        case 'mover': { const [a, b] = kids(n); if (!one(b)) return one(a); return '<m:limUpp><m:e>' + one(a) + '</m:e><m:lim>' + one(b) + '</m:lim></m:limUpp>'; }
+        case 'munderover': { const [a, b, c] = kids(n); return '<m:limUpp><m:e><m:limLow><m:e>' + one(a) + '</m:e><m:lim>' + one(b) + '</m:lim></m:limLow></m:e><m:lim>' + one(c) + '</m:lim></m:limUpp>'; }
+        case 'mtable': case 'mtr': case 'mtd': throw new Error('unsupported matrix');
+        default: return seq(n) || run(n.textContent, {});
+      }
+    }
+    return conv(root);
+  }
+  // swap every KaTeX formula in the copy for a placeholder that carries its Word equation
+  function formulasForWord(clone) {
+    DOCX_OMML = [];
+    const make = (k) => {
+      const math = k.querySelector('.katex-mathml math');
+      const holder = document.createElement(k.closest('.katex-display') === k.parentElement || k.classList.contains('katex-display') ? 'div' : 'span');
+      let ok = false;
+      const src = (k.querySelector('annotation') || {}).textContent || '';
+      const isChem = /\\ce\{/.test(src);
+      if (math && !isChem) { try { const x = mmlToOmml(math); if (x) { holder.setAttribute('data-omml', String(DOCX_OMML.push(x) - 1)); ok = true; } } catch (e) { ok = false; } }
+      if (!ok) { const a = k.querySelector('annotation'); if (a) holder.innerHTML = texToHtml(a.textContent); else holder.textContent = k.textContent; }
+      return holder;
+    };
+    clone.querySelectorAll('.katex-display').forEach(d => { const k = d.querySelector('.katex'); if (!k) return; const h = make(k); if (h.hasAttribute('data-omml')) h.setAttribute('data-display', '1'); else h.setAttribute('data-center', '1'); d.replaceWith(h); });
+    clone.querySelectorAll('.katex').forEach(k => k.replaceWith(make(k)));
   }
   async function downloadWord(div, name) {
     const clone = cleanAnswerClone(withFigures(div));
     // Word can't draw KaTeX, so turn formulas into plain text with real sub/superscripts
-    clone.querySelectorAll('.katex').forEach(k => {
-      const a = k.querySelector('annotation');
-      const span = document.createElement('span');
-      if (a) span.innerHTML = texToHtml(a.textContent); else span.textContent = k.textContent;
-      k.replaceWith(span);
-    });
+    formulasForWord(clone);
     // Diagrams: draw each SVG into a PNG and place it in the document
     const images = [];
     for (const svg of Array.from(clone.querySelectorAll('svg'))) {
@@ -899,7 +971,7 @@
           image: { type: 'jpeg', quality: 0.95 },
           html2canvas: { scale: sc, useCORS: true, scrollX: 0, scrollY: 0 },
           jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-          pagebreak: { mode: ['css', 'legacy'], avoid: ['.svg-diagram', '.fig-msg', 'img', 'tr', 'h1', 'h2'] }
+          pagebreak: { mode: ['css', 'legacy'], avoid: ['p', 'li', 'h1', 'h2', 'h3', 'h4', 'blockquote', 'pre', 'tr', '.katex-display', '.svg-diagram', '.fig-msg', 'img'] } // never cut a line or an equation in two
         }).from(el).toCanvas().get('canvas').then(cv => { if (pdfCanvasBlank(cv)) throw new Error('blank capture'); }).toPdf().save();
       }).then(() => { wrap.remove(); restoreView(); })
         .catch((e) => { console.error('PDF failed, using the print window instead', e); wrap.remove(); restoreView(); printPdf(div, name); });
@@ -1881,10 +1953,10 @@
 
   // Version check: shows whether the page and the Cloudflare Worker are from the same release
   (function versionCheck() {
-    const PAGE_VERSION = '2026-10-05.3', line = document.getElementById('version-line');
+    const PAGE_VERSION = '2026-10-05.4', NEEDS_WORKER = '2026-10-05.3', line = document.getElementById('version-line');
     if (!line) return;
     fetch(WORKER_URL.replace(/\/chat$/, '/version')).then(r => r.ok ? r.json() : Promise.reject()).then(d => {
-      line.textContent = d.worker === PAGE_VERSION ? 'Version ' + PAGE_VERSION + ' · page and worker match ✓' : '⚠ Page ' + PAGE_VERSION + ' but worker ' + d.worker + ': please upload the newest worker.js to Cloudflare';
+      line.textContent = String(d.worker) >= NEEDS_WORKER ? 'Page ' + PAGE_VERSION + ' · worker ' + d.worker + ' · up to date ✓' : '⚠ Page ' + PAGE_VERSION + ' but worker ' + d.worker + ': please upload the newest worker.js to Cloudflare';
     }).catch(() => { line.textContent = '⚠ Page ' + PAGE_VERSION + ': the worker is an older version. Please upload the newest worker.js to Cloudflare'; });
   })();
   showSuggestions(); // starter ideas (defined above, so it is safe to call here)
