@@ -78,7 +78,8 @@ small{color:var(--mute)}
     <h2 style="margin-top:0">Create exam</h2>
     <div class="row">
       <div><label for="eTitle">Exam title</label><input id="eTitle" placeholder="S5 Chemistry - Unit 3 test"></div>
-      <div><label for="eClass">Class</label><input id="eClass" placeholder="S5 PCB"></div>
+      <div><label for="eSubj">Subject</label><input id="eSubj" list="subjList" placeholder="Choose or type a subject">
+        <datalist id="subjList"><option>Chemistry</option><option>Physics</option><option>Biology</option><option>Mathematics</option><option>English</option><option>Kinyarwanda</option><option>French</option><option>Kiswahili</option><option>Geography</option><option>History</option><option>Economics</option><option>Entrepreneurship</option><option>General Studies</option><option>ICT</option></datalist></div>
     </div>
     <label for="eFile">Upload a Word file (.docx) or .txt</label><input id="eFile" type="file" accept=".docx,.txt">
     <label for="eText">Or paste exam text</label>
@@ -91,6 +92,7 @@ small{color:var(--mute)}
 
     <hr style="margin:28px 0;border:0;border-top:1px solid var(--line)">
     <h2>Mark sheets</h2>
+    <label for="mSub">Subject</label><select id="mSub"></select>
     <label for="mSel">Exam</label><select id="mSel"></select>
     <button class="btn alt" id="mRef">Refresh</button> <button class="btn" id="mXls">Download Excel</button>
     <small id="mNote"> Updates automatically every 15 seconds.</small>
@@ -176,12 +178,12 @@ $("tIn").onclick = async () => {
   await refreshSel(); setInterval(()=>{ if(!$("teacher").classList.contains("hide")) renderMarks(); }, 15000);
 };
 $("ePub").onclick = async () => {
-  const title = $("eTitle").value.trim(), cls = $("eClass").value.trim();
-  if(!title) return show($("eOut"), "Enter an exam title first.");
+  const title = $("eTitle").value.trim(), subject = $("eSubj").value.trim();
+  if(!title || !subject) return show($("eOut"), "Enter the exam title and subject first.");
   try{
     const d = await load(); let code;
     do { code = String(Math.floor(10000 + Math.random()*90000)); } while(d.exams[code]);
-    d.exams[code] = {title, cls, questions:draft, created:new Date().toISOString()};
+    d.exams[code] = {title, subject, questions:draft, created:new Date().toISOString()};
     await save(d);
     $("eOut").innerHTML = `<p>Exam published. Give students this code:</p><div class="code">${code}</div>`;
     await refreshSel(code);
@@ -190,12 +192,21 @@ $("ePub").onclick = async () => {
 async function refreshSel(pick){
   try{
     const d = await load();
-    const codes = Object.keys(d.exams).sort((a,b)=>d.exams[b].created.localeCompare(d.exams[a].created));
-    $("mSel").innerHTML = codes.map(c=>`<option value="${c}">${esc(d.exams[c].title)} (${c})</option>`).join("");
-    if(pick) $("mSel").value = pick;
+    window._d = d;
+    const subs = [...new Set(Object.values(d.exams).map(e=>e.subject||"Other"))].sort();
+    const keepS = pick ? (d.exams[pick].subject||"Other") : $("mSub").value;
+    $("mSub").innerHTML = subs.map(x=>`<option ${x===keepS?"selected":""}>${esc(x)}</option>`).join("");
+    fillExams(d, pick);
     renderMarks(d);
   }catch(e){ show($("mTable"), e.message); }
 }
+function fillExams(d, pick){
+  const sub = $("mSub").value;
+  const codes = Object.keys(d.exams).filter(c=>(d.exams[c].subject||"Other")===sub).sort((a,b)=>d.exams[b].created.localeCompare(d.exams[a].created));
+  $("mSel").innerHTML = codes.map(c=>`<option value="${c}">${esc(d.exams[c].title)} (${c})</option>`).join("");
+  if(pick) $("mSel").value = pick;
+}
+$("mSub").onchange = () => { fillExams(window._d); renderMarks(); };
 async function renderMarks(d){
   const code = $("mSel").value; if(!code){ $("mTable").innerHTML = "<p>No exams yet.</p>"; return; }
   try{ d = d || await load(); }catch(e){ return; }
@@ -225,7 +236,7 @@ $("mXls").onclick = async () => {
     XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(data), k.replace(/[\\\/?*\[\]:]/g,"").slice(0,31) || "Sheet");
   });
   if(!rows.length) XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet([{Note:"No submissions yet"}]), "Results");
-  XLSX.writeFile(wb, ex.title.replace(/[^\w\- ]/g,"") + " marks.xlsx");
+  XLSX.writeFile(wb, ((ex.subject||"")+" "+ex.title).replace(/[^\w\- ]/g,"").trim() + " marks.xlsx");
 };
 
 /* ---------- student ---------- */
@@ -242,7 +253,7 @@ $("sGo").onclick = async () => {
     if(!ex){ $("sGo").disabled = false; return show($("sErr"), "No exam with that code. Check it and try again."); }
     current = {code, name, cls, ex};
     $("sStart").classList.add("hide"); $("sExam").classList.remove("hide");
-    $("sExam").innerHTML = `<h2 style="margin-top:0">${esc(ex.title)}</h2><small>${esc(name)} - ${esc(cls)}</small>` +
+    $("sExam").innerHTML = `<h2 style="margin-top:0">${esc(ex.title)}</h2><small>${esc(ex.subject||"")} - ${esc(name)} - ${esc(cls)}</small>` +
       ex.questions.map((q,i)=>`<div class="q"><b>${i+1}. ${esc(q.text)} <small>(${q.marks} mark${q.marks>1?"s":""})</small></b>` +
         (q.options.length ? q.options.map((o,j)=>`<label class="opt"><input type="radio" name="q${i}" value="${"ABCD"[j]}"><span>${"ABCD"[j]}. ${esc(o)}</span></label>`).join("")
                           : `<input id="q${i}" placeholder="Type your answer" autocomplete="off">`) + `</div>`).join("") +
