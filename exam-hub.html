@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Exam Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<style>
+:root{--bg:#f3f6f7;--card:#fff;--ink:#14272e;--mute:#5d7078;--line:#d5dfe2;--main:#0b6e6e;--main-d:#084f4f;--ok:#1b7f3b;--bad:#b3261e;--r:10px}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Source Sans 3",system-ui,sans-serif}
+header{background:var(--main-d);color:#fff;padding:18px 20px}
+header h1{margin:0;font-size:1.4rem}
+header p{margin:2px 0 0;opacity:.8;font-size:.95rem}
+nav{display:flex;gap:6px;padding:12px 20px 0;max-width:900px;margin:auto}
+nav button{border:1px solid var(--line);border-bottom:none;background:#e6edef;padding:9px 18px;border-radius:var(--r) var(--r) 0 0;font:inherit;font-weight:600;cursor:pointer;color:var(--mute)}
+nav button.on{background:var(--card);color:var(--main-d)}
+main{max-width:900px;margin:auto;padding:0 20px 60px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:0 var(--r) var(--r) var(--r);padding:22px}
+label{display:block;font-weight:600;margin:12px 0 4px}
+input,select,textarea{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:8px;font:inherit;background:#fff}
+textarea{min-height:200px;font-family:ui-monospace,Consolas,monospace;font-size:.9rem}
+button.btn{background:var(--main);color:#fff;border:0;padding:11px 20px;border-radius:8px;font:inherit;font-weight:600;cursor:pointer;margin-top:14px}
+button.btn:hover{background:var(--main-d)}
+button.alt{background:#fff;color:var(--main-d);border:1px solid var(--main)}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #7fc4c4;outline-offset:1px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:600px){.row{grid-template-columns:1fr}}
+.q{border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;margin:14px 0}
+.q b{display:block;margin-bottom:8px}
+.opt{display:flex;gap:10px;align-items:flex-start;padding:6px 8px;border-radius:6px;cursor:pointer}
+.opt:hover{background:#eef5f5}
+.opt input{width:auto;margin-top:5px}
+.msg{padding:10px 14px;border-radius:8px;margin-top:12px;background:#fdecea;color:var(--bad)}
+.msg.good{background:#e6f4ea;color:var(--ok)}
+.score{font-size:3rem;font-weight:700;color:var(--main-d);margin:0}
+.code{font-size:2.4rem;font-weight:700;letter-spacing:.2em;color:var(--main-d)}
+table{width:100%;border-collapse:collapse;margin-top:12px;font-size:.95rem}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left}
+th{background:#e9f1f2}
+.right{color:var(--ok);font-weight:600}.wrong{color:var(--bad);font-weight:600}
+.hide{display:none}
+small{color:var(--mute)}
+</style>
+</head>
+<body>
+<header><h1>Exam Hub</h1><p>Upload an exam, students attempt it, marks appear immediately.</p></header>
+<nav><button id="tS" class="on">Student</button><button id="tT">Teacher</button></nav>
+<main>
+
+<!-- STUDENT -->
+<section id="student" class="card">
+  <div id="sStart">
+    <label for="sCode">Exam code</label><input id="sCode" inputmode="numeric" maxlength="5" placeholder="5-digit code from your teacher">
+    <div class="row">
+      <div><label for="sName">Full name</label><input id="sName"></div>
+      <div><label for="sClass">Class</label><select id="sClass"><option value="">Choose your class</option>
+      <option>S4 MCB</option><option>S4 PCB</option><option>S4 PCM</option><option>S4 ANP</option>
+      <option>S5 MCB</option><option>S5 PCB</option><option>S5 PCM</option><option>S5 ANP</option>
+      <option>S6 MCB</option><option>S6 PCB</option><option>S6 PCM</option><option>S6 ANP</option></select></div>
+    </div>
+    <button class="btn" id="sGo">Start exam</button>
+    <div id="sErr"></div>
+  </div>
+  <div id="sExam" class="hide"></div>
+  <div id="sDone" class="hide"></div>
+</section>
+
+<!-- TEACHER -->
+<section id="teacher" class="card hide">
+  <div id="tLogin">
+    <label for="tPass">Teacher code</label><input id="tPass" type="password">
+    <button class="btn" id="tIn">Sign in</button><div id="tErr"></div>
+  </div>
+  <div id="tApp" class="hide">
+    <h2 style="margin-top:0">Create exam</h2>
+    <div class="row">
+      <div><label for="eTitle">Exam title</label><input id="eTitle" placeholder="S5 Chemistry - Unit 3 test"></div>
+      <div><label for="eClass">Class</label><input id="eClass" placeholder="S5 PCB"></div>
+    </div>
+    <label for="eFile">Upload a Word file (.docx) or .txt</label><input id="eFile" type="file" accept=".docx,.txt">
+    <label for="eText">Or paste exam text</label>
+    <textarea id="eText" placeholder="1. What is the atomic number of carbon? [1 mark]&#10;A. 6&#10;B. 12&#10;C. 14&#10;D. 8&#10;Answer: A&#10;&#10;2. Name the gas produced when zinc reacts with HCl. [2 marks]&#10;Answer: hydrogen | H2"></textarea>
+    <small>Each question: number, options A-D (skip for short answer), then a line starting with Answer:. Marks are optional, default 1. Short answers accept alternatives separated by |.</small><br>
+    <button class="btn alt" id="ePrev">Preview questions</button>
+    <div id="ePreview"></div>
+    <button class="btn hide" id="ePub">Publish exam</button>
+    <div id="eOut"></div>
+
+    <hr style="margin:28px 0;border:0;border-top:1px solid var(--line)">
+    <h2>Mark sheets</h2>
+    <label for="mSel">Exam</label><select id="mSel"></select>
+    <button class="btn alt" id="mRef">Refresh</button> <button class="btn" id="mXls">Download Excel</button>
+    <small id="mNote"> Updates automatically every 15 seconds.</small>
+    <div id="mTable"></div>
+  </div>
+</section>
+</main>
+
+<script>
+/* ===== SETUP: fill these two values ===== */
+const JSONBIN_KEY = "PASTE_YOUR_JSONBIN_MASTER_KEY";
+const BIN_ID      = "PASTE_AN_EMPTY_BIN_ID";   // create a bin containing {"exams":{},"results":[]}
+const TEACHER_CODE = "CHANGE_ME";
+/* ======================================== */
+
+const $ = id => document.getElementById(id);
+const API = "https://api.jsonbin.io/v3/b/" + BIN_ID;
+const H = {"Content-Type":"application/json","X-Master-Key":JSONBIN_KEY};
+let draft = [], current = null;
+
+async function load(){
+  const r = await fetch(API + "/latest", {headers:H});
+  if(!r.ok) throw new Error("Cannot reach the database. Check JSONBIN_KEY and BIN_ID.");
+  const d = (await r.json()).record || {};
+  d.exams = d.exams || {}; d.results = d.results || [];
+  return d;
+}
+async function save(d){
+  const r = await fetch(API, {method:"PUT", headers:H, body:JSON.stringify(d)});
+  if(!r.ok) throw new Error("Could not save. Try again.");
+}
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const show = (el, msg, good) => el.innerHTML = msg ? `<div class="msg ${good?'good':''}">${esc(msg)}</div>` : "";
+
+/* tabs */
+function tab(t){
+  $("student").classList.toggle("hide", t!=="S"); $("teacher").classList.toggle("hide", t!=="T");
+  $("tS").classList.toggle("on", t==="S"); $("tT").classList.toggle("on", t==="T");
+}
+$("tS").onclick = () => tab("S"); $("tT").onclick = () => tab("T");
+
+/* ---------- parsing ---------- */
+function parseExam(text){
+  const qs = []; let q = null;
+  for(const raw of text.replace(/\r/g,"").split("\n")){
+    const line = raw.trim(); if(!line) continue;
+    let m;
+    if((m = line.match(/^(?:answer|ans)\s*[:\-]\s*(.+)$/i)) && q){ q.answer = m[1].trim(); continue; }
+    if((m = line.match(/^(\d+)\s*[.)]\s*(.+)$/))){
+      q = {text:m[2], options:[], answer:"", marks:1}; qs.push(q);
+      const mk = q.text.match(/\[(\d+)\s*marks?\]/i);
+      if(mk){ q.marks = +mk[1]; q.text = q.text.replace(mk[0],"").trim(); }
+      continue;
+    }
+    if(q && (m = line.match(/^([A-Da-d])\s*[.)]\s*(.+)$/))){ q.options.push(m[2]); continue; }
+    if(q && !q.options.length && !q.answer) q.text += " " + line;
+  }
+  return qs.filter(x => x.answer);
+}
+async function readFile(f){
+  if(!f) return "";
+  if(f.name.toLowerCase().endsWith(".docx")){
+    const r = await mammoth.extractRawText({arrayBuffer: await f.arrayBuffer()});
+    return r.value;
+  }
+  return await f.text();
+}
+$("eFile").onchange = async e => { $("eText").value = await readFile(e.target.files[0]); };
+
+$("ePrev").onclick = () => {
+  draft = parseExam($("eText").value);
+  if(!draft.length){ $("ePreview").innerHTML = '<div class="msg">No complete questions found. Each question needs an Answer: line.</div>'; $("ePub").classList.add("hide"); return; }
+  const total = draft.reduce((a,q)=>a+q.marks,0);
+  $("ePreview").innerHTML = `<p><b>${draft.length} questions, ${total} marks.</b> Check the answers below.</p>` +
+    draft.map((q,i)=>`<div class="q"><b>${i+1}. ${esc(q.text)} (${q.marks})</b>${q.options.map((o,j)=>`<div>${"ABCD"[j]}. ${esc(o)}</div>`).join("")}<small>Answer: ${esc(q.answer)}</small></div>`).join("");
+  $("ePub").classList.remove("hide");
+};
+
+/* ---------- teacher ---------- */
+$("tIn").onclick = async () => {
+  if($("tPass").value !== TEACHER_CODE) return show($("tErr"), "Wrong teacher code.");
+  $("tLogin").classList.add("hide"); $("tApp").classList.remove("hide");
+  await refreshSel(); setInterval(()=>{ if(!$("teacher").classList.contains("hide")) renderMarks(); }, 15000);
+};
+$("ePub").onclick = async () => {
+  const title = $("eTitle").value.trim(), cls = $("eClass").value.trim();
+  if(!title) return show($("eOut"), "Enter an exam title first.");
+  try{
+    const d = await load(); let code;
+    do { code = String(Math.floor(10000 + Math.random()*90000)); } while(d.exams[code]);
+    d.exams[code] = {title, cls, questions:draft, created:new Date().toISOString()};
+    await save(d);
+    $("eOut").innerHTML = `<p>Exam published. Give students this code:</p><div class="code">${code}</div>`;
+    await refreshSel(code);
+  }catch(e){ show($("eOut"), e.message); }
+};
+async function refreshSel(pick){
+  try{
+    const d = await load();
+    const codes = Object.keys(d.exams).sort((a,b)=>d.exams[b].created.localeCompare(d.exams[a].created));
+    $("mSel").innerHTML = codes.map(c=>`<option value="${c}">${esc(d.exams[c].title)} (${c})</option>`).join("");
+    if(pick) $("mSel").value = pick;
+    renderMarks(d);
+  }catch(e){ show($("mTable"), e.message); }
+}
+async function renderMarks(d){
+  const code = $("mSel").value; if(!code){ $("mTable").innerHTML = "<p>No exams yet.</p>"; return; }
+  try{ d = d || await load(); }catch(e){ return; }
+  const all = d.results.filter(r=>r.code===code);
+  const classes = [...new Set(all.map(r=>r.cls||"No class"))].sort();
+  const keep = $("mCls") ? $("mCls").value : "";
+  const filter = `<label for="mCls">Show class</label><select id="mCls"><option value="">All classes (separate tables)</option>${classes.map(c=>`<option ${c===keep?"selected":""}>${esc(c)}</option>`).join("")}</select>`;
+  const shown = classes.filter(c => !keep || c===keep);
+  const tables = shown.map(c=>{
+    const rows = all.filter(r=>(r.cls||"No class")===c).sort((a,b)=>b.pct-a.pct);
+    const avg = Math.round(rows.reduce((a,r)=>a+r.pct,0)/rows.length*10)/10;
+    return `<h3 style="margin:22px 0 0">${esc(c)} <small>${rows.length} student${rows.length>1?"s":""}, average ${avg}%</small></h3>` +
+      `<table><tr><th>#</th><th>Name</th><th>Score</th><th>%</th><th>Submitted</th></tr>` +
+      rows.map((r,i)=>`<tr><td>${i+1}</td><td>${esc(r.name)}</td><td>${r.score}/${r.total}</td><td>${r.pct}%</td><td>${new Date(r.at).toLocaleString()}</td></tr>`).join("") + "</table>";
+  }).join("");
+  $("mTable").innerHTML = all.length ? filter + tables : "<p>No submissions yet.</p>";
+  if(all.length) $("mCls").onchange = () => renderMarks(d);
+}
+$("mSel").onchange = () => renderMarks(); $("mRef").onclick = () => renderMarks();
+$("mXls").onclick = async () => {
+  const d = await load(), code = $("mSel").value, ex = d.exams[code]; if(!ex) return;
+  const rows = d.results.filter(r=>r.code===code);
+  const wb = XLSX.utils.book_new(), groups = {};
+  rows.forEach(r => (groups[r.cls||"No class"] = groups[r.cls||"No class"] || []).push(r));
+  Object.keys(groups).forEach(k => {
+    const data = groups[k].sort((a,b)=>b.pct-a.pct).map((r,i)=>({Rank:i+1, Name:r.name, Class:r.cls, Score:r.score, Total:r.total, Percent:r.pct, Submitted:new Date(r.at).toLocaleString()}));
+    XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(data), k.replace(/[\\\/?*\[\]:]/g,"").slice(0,31) || "Sheet");
+  });
+  if(!rows.length) XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet([{Note:"No submissions yet"}]), "Results");
+  XLSX.writeFile(wb, ex.title.replace(/[^\w\- ]/g,"") + " marks.xlsx");
+};
+
+/* ---------- student ---------- */
+$("sGo").onclick = async () => {
+  const code = $("sCode").value.trim(), name = $("sName").value.trim(), cls = $("sClass").value.trim();
+  if(!/^\d{5}$/.test(code) || !name || !cls) return show($("sErr"), "Enter the 5-digit code, your full name and your class.");
+  $("sGo").disabled = true; show($("sErr"), "");
+  try{
+    const d = await load();
+    if(d.results.some(r=>r.code===code && r.name.toLowerCase()===name.toLowerCase() && r.cls===cls)){
+      $("sGo").disabled = false; return show($("sErr"), "This name has already submitted this exam.");
+    }
+    const ex = d.exams[code];
+    if(!ex){ $("sGo").disabled = false; return show($("sErr"), "No exam with that code. Check it and try again."); }
+    current = {code, name, cls, ex};
+    $("sStart").classList.add("hide"); $("sExam").classList.remove("hide");
+    $("sExam").innerHTML = `<h2 style="margin-top:0">${esc(ex.title)}</h2><small>${esc(name)} - ${esc(cls)}</small>` +
+      ex.questions.map((q,i)=>`<div class="q"><b>${i+1}. ${esc(q.text)} <small>(${q.marks} mark${q.marks>1?"s":""})</small></b>` +
+        (q.options.length ? q.options.map((o,j)=>`<label class="opt"><input type="radio" name="q${i}" value="${"ABCD"[j]}"><span>${"ABCD"[j]}. ${esc(o)}</span></label>`).join("")
+                          : `<input id="q${i}" placeholder="Type your answer" autocomplete="off">`) + `</div>`).join("") +
+      `<button class="btn" id="sSub">Submit exam</button><div id="sSubErr"></div>`;
+    $("sSub").onclick = submit;
+  }catch(e){ $("sGo").disabled = false; show($("sErr"), e.message); }
+};
+async function submit(){
+  const {code,name,cls,ex} = current; let score = 0, total = 0, review = [];
+  ex.questions.forEach((q,i)=>{
+    total += q.marks; let given = "", ok = false;
+    if(q.options.length){ const c = document.querySelector(`input[name=q${i}]:checked`); given = c ? c.value : ""; ok = given.toUpperCase() === q.answer.trim().charAt(0).toUpperCase(); }
+    else { given = $("q"+i).value.trim(); ok = q.answer.split("|").some(a => a.trim().toLowerCase() === given.toLowerCase()); }
+    if(ok) score += q.marks; review.push({q:q.text, given, answer:q.answer, ok});
+  });
+  const pct = Math.round(score/total*1000)/10;
+  $("sSub").disabled = true;
+  try{
+    const d = await load();   // re-read right before saving so other students' results are kept
+    d.results.push({code, name, cls, score, total, pct, at:new Date().toISOString()});
+    await save(d);
+  }catch(e){ $("sSub").disabled = false; return show($("sSubErr"), e.message + " Your answers are still on screen - press Submit again."); }
+  $("sExam").classList.add("hide"); $("sDone").classList.remove("hide");
+  $("sDone").innerHTML = `<h2 style="margin-top:0">Exam submitted</h2><p class="score">${score}/${total}</p><p>${pct}%</p>` +
+    review.map((r,i)=>`<div class="q"><b>${i+1}. ${esc(r.q)}</b><span class="${r.ok?'right':'wrong'}">${r.ok?"Correct":"Wrong"}</span> - your answer: ${esc(r.given||"(blank)")}${r.ok?"":` <small>Correct: ${esc(r.answer)}</small>`}</div>`).join("");
+}
+</script>
+</body>
+</html>
