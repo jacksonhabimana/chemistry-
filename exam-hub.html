@@ -47,7 +47,7 @@ small{color:var(--mute)}
 </head>
 <body>
 <header><h1>Exam Hub</h1><p>Upload an exam, students attempt it, marks appear immediately.</p></header>
-<nav><button id="tS" class="on">Student</button><button id="tT">Teacher</button></nav>
+<nav><button id="tS" class="on">Student</button><button id="tT" class="hide">Teacher</button></nav>
 <main>
 
 <!-- STUDENT -->
@@ -105,7 +105,7 @@ small{color:var(--mute)}
 /* ===== SETUP: fill these two values ===== */
 const JSONBIN_KEY = "PASTE_YOUR_JSONBIN_MASTER_KEY";
 const BIN_ID      = "PASTE_AN_EMPTY_BIN_ID";   // create a bin containing {"exams":{},"results":[]}
-const TEACHER_CODE = "Jackson2026";
+const TEACHER_CODE = "CHANGE_ME";
 /* ======================================== */
 
 const $ = id => document.getElementById(id);
@@ -133,6 +133,8 @@ function tab(t){
   $("tS").classList.toggle("on", t==="S"); $("tT").classList.toggle("on", t==="T");
 }
 $("tS").onclick = () => tab("S"); $("tT").onclick = () => tab("T");
+/* Teacher tab is only shown when opened from the teacher admin page (?teacher=1) */
+if(new URLSearchParams(location.search).get("teacher")==="1"){ $("tT").classList.remove("hide"); tab("T"); }
 
 /* ---------- parsing ---------- */
 function parseExam(text){
