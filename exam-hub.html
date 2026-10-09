@@ -174,8 +174,10 @@ $("ePrev").onclick = () => {
 };
 
 /* ---------- teacher ---------- */
+$("tPass").addEventListener("keydown", e => { if(e.key==="Enter") $("tIn").click(); });
 $("tIn").onclick = async () => {
-  if($("tPass").value !== TEACHER_CODE) return show($("tErr"), "Wrong teacher code.");
+  if(TEACHER_CODE === "CHANGE_ME") return show($("tErr"), "TEACHER_CODE is not set yet. Open exam-hub.html on GitHub, replace CHANGE_ME near the top with your own code, and commit.");
+  if($("tPass").value.trim() !== TEACHER_CODE.trim()) return show($("tErr"), "Wrong teacher code. It must match TEACHER_CODE at the top of exam-hub.html exactly (capital letters count).");
   $("tLogin").classList.add("hide"); $("tApp").classList.remove("hide");
   await refreshSel(); setInterval(()=>{ if(!$("teacher").classList.contains("hide")) renderMarks(); }, 15000);
 };
