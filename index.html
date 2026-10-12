@@ -157,6 +157,14 @@
   }
   .ask-send:hover{opacity:.9;}
   @media(max-width:480px){#nav-ask-input{font-size:.88rem;}}
+
+.home-menu{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:12px;max-width:1150px;margin:8px auto 22px;text-align:left}
+.hm-card{min-width:0;background:rgba(22,27,34,.85);border:1px solid #30363d;border-radius:14px;padding:16px 18px}
+.hm-card h3{font-size:1rem;color:#fff;margin:0 0 10px;display:flex;align-items:center;gap:10px}
+.hm-card h3 .n{width:26px;height:26px;border-radius:50%;background:var(--accent,#38bdf8);color:#000;font-size:.8rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.hm-card a{display:block;padding:7px 10px;margin:2px 0;border-radius:8px;color:#c9d1d9;text-decoration:none;font-size:.92rem}
+.hm-card a:hover{background:rgba(56,189,248,.12);color:#fff}
+.hm-card a.solo{font-weight:600}
 </style></head>
 <body>
 
@@ -207,8 +215,24 @@
 <header class="hero">
   <div style="font-family:'Playfair Display',serif;font-size:clamp(3rem,9vw,6.5rem);font-weight:700;color:#fff;line-height:1.05;margin-bottom:14px;letter-spacing:.01em;text-shadow:0 0 40px rgba(232,197,71,.35),0 4px 24px rgba(0,0,0,.4);">Jackson <em style="color:var(--accent);font-style:italic;">Habimana</em></div>
   <div class="hero-eyebrow">&#9883; Chemistry Education Portal</div>
-  <h1>Learn Chemistry<br><em>Beautifully</em></h1>
-  <p class="sub">Complete interactive chemistry courses for Senior 4, 5, and 6 &mdash; with full notes, worked examples, quizzes, and exam-style tests.</p>
+  <div class="home-menu">
+    <div class="hm-card"><h3><span class="n">1</span>About Chemistry</h3>
+      <a href="s4-chemistry.html">S4 Chemistry</a>
+      <a href="s5-chemistry.html">S5 Chemistry</a>
+      <a href="s6-chemistry.html">S6 Chemistry</a>
+      <a href="quiz-hub.html">Assessment</a>
+    </div>
+    <div class="hm-card"><h3><span class="n">2</span>Jackson AI Tools</h3>
+      <a href="lesson-plan.html">Lesson Plan</a>
+      <a href="exam-generator.html">Exam Generator</a>
+      <a href="notes-generator.html">Notes Generator</a>
+      <a href="scheme-of-work.html">Scheme of Work Generator</a>
+      <a href="chat.html">Chat</a>
+    </div>
+    <div class="hm-card"><h3><span class="n">3</span>Student Hub</h3><a class="solo" href="student-hub.html">Open Student Hub &rarr;</a></div>
+    <div class="hm-card"><h3><span class="n">4</span>Teacher Admin</h3><a class="solo" href="teacher-admin.html">Open Teacher Admin &rarr;</a></div>
+    <div class="hm-card"><h3><span class="n">5</span>Contact</h3><a class="solo" href="contact.html">Contact me &rarr;</a></div>
+  </div>
   <div class="hero-cta">
     <a href="student-hub.html" class="btn btn-primary" style="background:var(--green);color:#000;font-size:.95rem;padding:12px 28px;">🎓 Student Hub &rarr;</a>
     <a href="s6-chemistry.html" class="btn btn-secondary">S6 Course</a>
