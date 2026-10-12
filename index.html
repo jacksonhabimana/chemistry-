@@ -55,6 +55,13 @@
   /* HERO */
   .hero{position:relative;min-height:520px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:110px 40px 90px;overflow:hidden;
     background:radial-gradient(ellipse 100% 70% at 50% 0%,#001528 0%,var(--bg) 72%);}
+  /* HERO PHOTO BEHIND NAME */
+  .hero-name{position:relative;display:inline-block;isolation:isolate;}
+  .hero-name::before{content:'';position:absolute;z-index:-1;left:50%;top:50%;
+    width:clamp(220px,34vw,340px);aspect-ratio:520/655;transform:translate(-50%,-50%);
+    background:url('hero-face.jpg') center/cover no-repeat;opacity:.85;pointer-events:none;
+    -webkit-mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 25%,transparent 72%);
+            mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 25%,transparent 72%);}
   .hero::before{content:'';position:absolute;inset:0;pointer-events:none;
     background:repeating-linear-gradient(90deg,transparent,transparent 59px,rgba(56,189,248,.04) 60px),
                repeating-linear-gradient(0deg,transparent,transparent 59px,rgba(56,189,248,.04) 60px);}
@@ -213,7 +220,7 @@
 </nav>
 
 <header class="hero">
-  <div style="font-family:'Playfair Display',serif;font-size:clamp(3rem,9vw,6.5rem);font-weight:700;color:#fff;line-height:1.05;margin-bottom:14px;letter-spacing:.01em;text-shadow:0 0 40px rgba(232,197,71,.35),0 4px 24px rgba(0,0,0,.4);">Jackson <em style="color:var(--accent);font-style:italic;">Habimana</em></div>
+  <div class="hero-name" style="font-family:'Playfair Display',serif;font-size:clamp(3rem,9vw,6.5rem);font-weight:700;color:#fff;line-height:1.05;margin-bottom:14px;letter-spacing:.01em;text-shadow:0 0 40px rgba(232,197,71,.35),0 4px 24px rgba(0,0,0,.4);">Jackson <em style="color:var(--accent);font-style:italic;">Habimana</em></div>
   <div class="hero-eyebrow">&#9883; Chemistry Education Portal</div>
   <div class="home-menu">
     <div class="hm-card"><h3><span class="n">1</span>About Chemistry</h3>
