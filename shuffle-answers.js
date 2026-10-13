@@ -1,7 +1,7 @@
 /* ===========================================================================
    shuffle-answers.js  (v3)
    Universal MCQ option shuffler for Jackson's chemistry portal
-   (jacksonhabimana.github.io/chemistry-)
+   (jacksonhabimana.github.io/jackson-Ai)
 
    On every page load, this script randomly re-orders the four options of
    every multiple-choice question so the correct answer is NOT always in

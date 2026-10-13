@@ -3,7 +3,7 @@
 //  Jackson Habimana · jacksonhabimana.github.io
 // ============================================================
 
-const CACHE_NAME = 'chem-portal-v1';
+const CACHE_NAME = 'chem-portal-v2';
 
 // Core pages/assets to cache immediately on install
 const PRECACHE_URLS = [
