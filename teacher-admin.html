@@ -998,9 +998,16 @@ async function loadTeacherList(){
     listDiv.innerHTML = '<label>Current Teachers</label>' + d.teachers.map(t=>`
       <div style="display:flex;justify-content:space-between;align-items:center;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:10px 14px;margin-bottom:8px;flex-wrap:wrap;gap:8px;">
         <span style="color:#fff;">${t.name} <span style="color:var(--muted);font-size:.8rem;">(${t.username})</span>
-          ${t.unlimited ? '<span style="color:var(--green);font-size:.75rem;margin-left:6px;">● Unlimited</span>' : '<span style="color:var(--muted);font-size:.75rem;margin-left:6px;">● Limited</span>'}
+          ${t.unlimited ? '<span style="color:var(--green);font-size:.75rem;margin-left:6px;">● Unlimited</span>' : '<span style="color:var(--muted);font-size:.75rem;margin-left:6px;">● Limited' + (t.limits ? ' ('+(t.limits.monthly||'default')+'/month · '+(t.limits.term||'default')+'/term · '+(t.limits.yearly||'default')+'/year)' : ' (default limits)') + ' · used '+(t.used?t.used.month:0)+' this month</span>'}
         </span>
-        <span style="display:flex;gap:8px;">
+        <span style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+          ${t.unlimited ? '' : `
+          <span style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
+            <input type="number" min="1" id="limM-${t.username}" value="${t.limits&&t.limits.monthly?t.limits.monthly:''}" placeholder="Month" title="Monthly limit (used: ${t.used?t.used.month:0})" style="width:70px;background:var(--surface);color:#fff;border:1px solid var(--border);border-radius:4px;padding:4px 6px;font-size:.8rem;"/>
+            <input type="number" min="1" id="limT-${t.username}" value="${t.limits&&t.limits.term?t.limits.term:''}" placeholder="Term" title="Term limit (used: ${t.used?t.used.term:0})" style="width:70px;background:var(--surface);color:#fff;border:1px solid var(--border);border-radius:4px;padding:4px 6px;font-size:.8rem;"/>
+            <input type="number" min="1" id="limY-${t.username}" value="${t.limits&&t.limits.yearly?t.limits.yearly:''}" placeholder="Year" title="Yearly limit (used: ${t.used?t.used.year:0})" style="width:70px;background:var(--surface);color:#fff;border:1px solid var(--border);border-radius:4px;padding:4px 6px;font-size:.8rem;"/>
+            <button onclick="setTeacherLimit('${t.username}')" style="background:var(--surface2);color:#fff;border:1px solid var(--border);border-radius:4px;padding:4px 10px;cursor:pointer;font-size:.8rem;">Save</button>
+          </span>`}
           <button onclick="toggleUnlimited('${t.username}', ${!t.unlimited})" style="background:${t.unlimited ? 'var(--surface2)' : 'var(--green)'};color:${t.unlimited ? 'var(--muted)' : '#fff'};border:1px solid var(--border);border-radius:4px;padding:4px 10px;cursor:pointer;font-size:.8rem;">${t.unlimited ? 'Set Limited' : 'Set Unlimited'}</button>
           <button onclick="deleteTeacher('${t.username}')" style="background:var(--red);color:#fff;border:none;border-radius:4px;padding:4px 10px;cursor:pointer;font-size:.8rem;">Remove</button>
         </span>
@@ -1021,6 +1028,25 @@ async function toggleUnlimited(username, newValue){
     });
     loadTeacherList();
   }catch(e){}
+}
+
+const MT_LIMIT_URL = 'https://chem-payment.hajackson2020.workers.dev/teachers/set-limits';
+async function setTeacherLimit(username){
+  const key = mtAdminKey();
+  const m = document.getElementById('limM-'+username).value;
+  const t = document.getElementById('limT-'+username).value;
+  const y = document.getElementById('limY-'+username).value;
+  // Leave a box empty to use the portal default for that period
+  const body = (!m && !t && !y) ? {username, reset:true} : {username, monthly:m, term:t, yearly:y};
+  try{
+    const r = await fetch(MT_LIMIT_URL, {
+      method:'POST',
+      headers:{'Content-Type':'application/json','X-Admin-Key':key},
+      body: JSON.stringify(body)
+    });
+    if(!r.ok){ alert('Could not save the limit.'); return; }
+    loadTeacherList();
+  }catch(e){ alert('Network error.'); }
 }
 
 async function deleteTeacher(username){
